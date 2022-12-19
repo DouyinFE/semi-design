@@ -769,8 +769,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
         const tagList: Array<React.ReactNode> = [];
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        renderKeys.forEach((key: TreeNodeData['key']) => {
-            const item = keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
+        renderKeys.forEach((key: TreeNodeData['key'], index) => {
+            const item = (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
                 if (e && typeof e.preventDefault === 'function') {
                     // make sure that tag will not hidden immediately in controlled mode
@@ -779,7 +779,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 this.removeTag(key);
             };
             const { content, isRenderInTag } = (item && treeNodeLabelProp in item) ?
-                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: key, onClose }) :
+                (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index, onClose }) :
                 null;
             if (isNull(content) || isUndefined(content)) {
                 return;
@@ -790,7 +790,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 color: 'white',
                 visible: true,
                 onClose,
-                key,
+                key: `tag-${key}-${index}`,
                 size: size === 'small' ? 'small' : 'large'
             };
             if (isRenderInTag) {
@@ -1060,7 +1060,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             treeNodeLabelProp
         } = this.props;
         const keyList = normalizeKeyList([key], keyEntities, leafOnly, true);
-        const nodes = keyList.map(i => keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
+        const nodes = keyList.map(i => (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         const value = getValueOrKey(nodes);
         const tagCls = cls(`${prefixcls}-selection-tag`, {
             [`${prefixcls}-selection-tag-disabled`]: disabled,

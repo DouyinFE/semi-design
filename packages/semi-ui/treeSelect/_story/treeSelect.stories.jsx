@@ -1982,3 +1982,63 @@ export const valueNotInTreeDataIssue = () => {
     </>
   );
 };
+
+class ValueTypeIsNumber extends React.Component {
+  constructor() {
+      super();
+      this.state = {
+          value: 1
+      };
+  }
+  onChange(value) {
+      console.log('onChange', value);
+      this.setState({ value });
+  }
+  render() {
+      const treeData = [
+           {
+              label: '北美洲',
+              value: 'North America',
+              key: '1',
+          },
+          {
+              label: '亚洲',
+              value: 'Asia',
+              key: '0',
+              children: [
+                  {
+                      label: '中国',
+                      value: 'China',
+                      key: '0-0',
+                      children: [
+                          {
+                              label: '北京',
+                              value: 'Beijing',
+                              key: '0-0-0',
+                          },
+                          {
+                              label: '上海',
+                              value: 'Shanghai',
+                              key: '0-0-1',
+                          },
+                      ],
+                  },
+              ],
+          },
+         
+      ];
+      return (
+          <TreeSelect
+              style={{ width: 300 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData}
+              value={this.state.value}
+              placeholder="请选择"
+              multiple
+              onChange={e => this.onChange(e)}
+          />
+      );
+  }
+}
+
+export const valueIsNumber = () => <ValueTypeIsNumber />

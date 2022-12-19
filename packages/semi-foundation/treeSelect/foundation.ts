@@ -400,7 +400,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }
-        const nodes = keyList.map(key => keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
+        const nodes = keyList.map(key => (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         if (this.getProp('onChangeWithObject')) {
             this._adapter.notifyChangeWithObject(nodes, e);
         } else {
@@ -528,7 +528,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     removeTag(eventKey: BasicTreeNodeData['key']) {
         const { disableStrictly, checkRelation } = this.getProps();
         const { keyEntities, disabledKeys, realCheckedKeys } = this.getStates();
-        const item = keyEntities[eventKey] ? keyEntities[eventKey].data : this.getDataForKeyNotInKeyEntities(eventKey);
+        const item = (keyEntities[eventKey] && keyEntities[eventKey].data.key === eventKey) ? keyEntities[eventKey].data : this.getDataForKeyNotInKeyEntities(eventKey);
         if (item.disabled || (disableStrictly && disabledKeys.has(eventKey))) {
             return;
         }
@@ -822,7 +822,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         let item;
         if (selectedKeys.length) {
             const key = selectedKeys[0];
-            item = keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
+            item = (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
         }
         const renderText = item && treeNodeLabelProp in item ? renderSelectedItem(item) : null;
         return renderText;
