@@ -22,6 +22,8 @@ import Paragraph from '../typography/paragraph';
 import { IconClear, IconHandle } from '@douyinfe/semi-icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
+const prefixCls = cssClasses.PREFIX;
+
 export type Size = ArrayElement<typeof strings.SIZE_SET>;
 export type RestTagsPopoverProps = PopoverProps;
 type ValidateStatus = "default" | "error" | "warning";
@@ -31,7 +33,7 @@ const SortableItem = SortableElement(props => props.item);
 const SortableList = SortableContainer(
     ({ items }) => {
         return (
-            <div style={{ display: 'flex', flexFlow: 'row wrap', }}>
+            <div className={`${prefixCls}-sortable-list`}>
                 {items.map((item, index) => (
                     // @ts-ignore skip SortableItem type check
                     <SortableItem key={item.key} index={index} item={item.item}></SortableItem>
@@ -89,8 +91,6 @@ export interface TagInputState {
     hovering?: boolean;
     active?: boolean
 }
-
-const prefixCls = cssClasses.PREFIX;
 
 class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     static propTypes = {
@@ -439,13 +439,16 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
-                        {showIconHandler && <DragHandle />}
-                        <Paragraph
-                            className={typoCls}
-                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                        >
-                            {value}
-                        </Paragraph>
+                        {/* Wrap a layer of div outside IconHandler and Value to ensure that the two are aligned */}
+                        <div className={`${prefixCls}-tag-content-wrapper`}>
+                            {showIconHandler && <DragHandle />}
+                            <Paragraph
+                                className={typoCls}
+                                ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
+                            >
+                                {value}
+                            </Paragraph>
+                        </div>
                     </Tag>
                 );
             }
