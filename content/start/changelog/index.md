@@ -15,10 +15,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.26.0-beta.0 (2022-12-19)
+- 【Fix】
+    - 修复空字符串但没有达到最大宽度时，却展示了"展开/折叠"按钮及省略号 [@weeqe](https://github.com/weeqe) [#621](https://github.com/DouyinFE/semi-design/issues/621)
+    - 修复 TreeSelect 中当checkRelation 为 unRelated, 且 value 不存在于 TreeData时的TypeError问题  [#1206](https://github.com/DouyinFE/semi-design/issues/1206) 
+    - 修复Grid组件span设置为0，在响应式模式下异常显示的问题 [@edc-hui](https://github.com/edc-hui) [#1314](https://github.com/DouyinFE/semi-design/issues/1314)
+- 【Feat】
+    - Table 筛选器功能支持不传 filters，筛选功能通过受控使用  [#1201](https://github.com/DouyinFE/semi-design/issues/1201)
+
 #### 🎉 2.25.2 (2022-12-19)
 - 【Fix】
-    - 修复 Tooltip position 为 topLeft 时，自动调整位置不正确问题。
-    - 修复 TagInput 可拖动时样式错误问题
+    - 修复 Tooltip position 为 topLeft 时，自动调整位置不正确问题 [#1344](https://github.com/DouyinFE/semi-design/pull/1344)
+    - 修复 TagInput 可拖动时样式错误问题 [#1339](https://github.com/DouyinFE/semi-design/pull/1339)
+    - 修复 semi-icons 以及 semi-illustration 中不同 svg 中的元素 id 相同导致同时使用时显示有误问题 [#1337](https://github.com/DouyinFE/semi-design/pull/1337)
+    - 修复当 Select 中选项为空，并且 emptyContent=null 时候仍然有下拉框的问题 [#1340](https://github.com/DouyinFE/semi-design/pull/1340)
+
 
 #### 🎉 2.25.0 (2022-12-09)
 - 【Fix】

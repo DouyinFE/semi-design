@@ -15,10 +15,22 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.26.0-beta.0 (2022-12-19)
+- 【Fix】
+    - An empty string that has not reached its maximum width shows an "expand/collapse" button and an ellipsis [@weeqe](https://github.com/weeqe) [#621](https://github.com/DouyinFE/semi-design/issues/621)
+    - Fix TypeError in TreeSelect when checkRelation = unRelated, value is not in treeData  [#1206](https://github.com/DouyinFE/semi-design/issues/1206)
+    - fix the problem that the Grid component span is set to 0 and displays abnormally in response mode [@edc-hui](https://github.com/edc-hui) [#1314](https://github.com/DouyinFE/semi-design/issues/1314)
+- 【Feat】
+    - Table filter function supports not passing filters, and the filtering function is controlled by filteredValue  [#1201](https://github.com/DouyinFE/semi-design/issues/1201)
+
 #### 🎉 2.25.2 (2022-12-19)
 - 【Fix】
-    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft
-    - fix the wrong style of TagInput when it is draggable
+    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft [#1344](https://github.com/DouyinFE/semi-design/pull/1344)
+    - fix the wrong style of TagInput when it is draggable [#1339](https://github.com/DouyinFE/semi-design/pull/1339)
+    - fix the problem that the same element id in different svgs in semi-icons and semi-illustration display incorrectly when used at the same time [#1337](https://github.com/DouyinFE/semi-design/pull/1337)
+    - fix the problem that there is still a drop-down box when the option in Select is empty and emptyContent=null [#1340](https://github.com/DouyinFE/semi-design/pull/1340)
+
 
 #### 🎉 2.25.0 (2022-12-09)
 - 【Fix】
