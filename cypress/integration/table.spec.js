@@ -117,4 +117,15 @@ describe('table', () => {
         cy.get('.semi-table-tbody .semi-table-row').eq(0).should('contain', 'Semi Design 设计稿0.fig');
         cy.get('.semi-table-tbody .semi-table-row').eq(1).should('contain', 'Semi Pro 设计稿1.fig');
     });
+
+    it('empty filters', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--empty-filters&args=&viewMode=story');
+        // filter title with `Semi Pro`
+        cy.get('.semi-input').type('Semi Pro');
+        // expect title contains `Semi Pro`
+        cy.get('.semi-table-body .semi-table-row').eq(0).contains('Semi Pro');
+        cy.get('.semi-table-body .semi-table-row').eq(1).contains('Semi Pro');
+        cy.get('.semi-table-body .semi-table-row').eq(2).contains('Semi Pro');
+        cy.contains('显示第 1 条-第 10 条，共 23 条');
+    });
 });
