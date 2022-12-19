@@ -1837,7 +1837,7 @@ export const valueNotInTreeDataIssue = () => {
       <p>checkRelation='related'</p>
         <TreeSelect
           defaultExpandAll
-          defaultValue={["test_2", "fish"]}
+          defaultValue={["test_2", 0]}
           treeData={treeData}
           {...commonProps}
         />

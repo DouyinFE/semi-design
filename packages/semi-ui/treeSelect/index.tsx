@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { isEqual, isString, isEmpty, noop, get, isFunction } from 'lodash';
+import { isEqual, isString, isEmpty, noop, get, isFunction, isUndefined, isNull } from 'lodash';
 import TreeSelectFoundation, {
     Size,
     BasicTriggerRenderProps,
@@ -781,7 +781,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             const { content, isRenderInTag } = (item && treeNodeLabelProp in item) ?
                 (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: key, onClose }) :
                 null;
-            if (!content) {
+            if (isNull(content) || isUndefined(content)) {
                 return;
             }
             const isDisabled = disabled || item.disabled || (disableStrictly && disabledKeys.has(item.key));
