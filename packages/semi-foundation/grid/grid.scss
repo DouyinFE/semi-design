@@ -19,7 +19,7 @@ $module: #{$prefix};
     }
 }
 
-.#{$module}-col-0 {
+.#{$module}-col-0, .#{$module}-col-xs-0, .#{$module}-col-sm-0, .#{$module}-col-md-0, .#{$module}-col-lg-0, .#{$module}-col-xl-0, .#{$module}-col-xxl-0 {
     display: none;
 }
 
