@@ -3026,3 +3026,10 @@ export const NPlusTruncationStrategy = () => {
 NPlusTruncationStrategy.story = {
   name: 'NPlusTruncationStrategy',
 };
+
+export const emptyContent = () => {
+  const list = null;
+  return (
+    <Select placeholder='请选择业务线' emptyContent={null} style={{ width: 180 }} optionList={list} defaultOpen={true}/>
+  )
+}

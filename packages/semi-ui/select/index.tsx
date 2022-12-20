@@ -871,6 +871,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             loading,
             virtualize,
             multiple,
+            emptyContent
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
@@ -893,7 +894,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 id={`${prefixcls}-${this.selectOptionListID}`}
-                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)}
+                className={cls({
+                    // When emptyContent is null and the option is empty, there is no need for the drop-down option for the user,
+                    // so there is no need to set padding through this className
+                    [`${prefixcls}-option-list-wrapper`]: !(isEmpty && emptyContent === null),
+                }, dropdownClassName)}
                 style={style}
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}

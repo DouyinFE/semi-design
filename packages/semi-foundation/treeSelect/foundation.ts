@@ -262,6 +262,36 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return Boolean(inputValue) && showFilteredOnly;
     }
 
+    findDataForValue(findValue: string) {
+        const { value, defaultValue } = this.getProps();
+        let valueArr = [];
+        if (value) {
+            valueArr = Array.isArray(value) ? value : [value];
+        } else if (defaultValue) {
+            valueArr = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+        }
+        return valueArr.find(item => {
+            return item.value === findValue || item.key === findValue;
+        });
+    }
+
+    constructDataForValue(value: string) {
+        const { treeNodeLabelProp } = this.getProps();
+        return {
+            key: value,
+            [treeNodeLabelProp]: value
+        };    
+    }
+
+    getDataForKeyNotInKeyEntities(value: string) {
+        const { onChangeWithObject } = this.getProps();
+        if (onChangeWithObject) {
+            return this.findDataForValue(value);
+        } else {
+            return this.constructDataForValue(value);
+        }
+    }
+
     getCopyFromState(items: string | string[]) {
         const res = {};
         normalizedArr(items).forEach(key => {
@@ -366,11 +396,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { leafOnly, checkRelation } = this.getProps();
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly);
+            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }
-        const nodes = keyList.map(i => keyEntities[i].data);
+        const nodes = keyList.map(key => (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         if (this.getProp('onChangeWithObject')) {
             this._adapter.notifyChangeWithObject(nodes, e);
         } else {
@@ -498,7 +528,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     removeTag(eventKey: BasicTreeNodeData['key']) {
         const { disableStrictly, checkRelation } = this.getProps();
         const { keyEntities, disabledKeys, realCheckedKeys } = this.getStates();
-        const item = keyEntities[eventKey].data;
+        const item = (keyEntities[eventKey] && keyEntities[eventKey].data.key === eventKey) ? keyEntities[eventKey].data : this.getDataForKeyNotInKeyEntities(eventKey);
         if (item.disabled || (disableStrictly && disabledKeys.has(eventKey))) {
             return;
         }
@@ -789,9 +819,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const renderSelectedItem = isFunction(propRenderSelectedItem) ?
             propRenderSelectedItem :
             (item: BasicTreeNodeData) => get(item, treeNodeLabelProp, null);
-        const item = selectedKeys.length && keyEntities[selectedKeys[0]] ?
-            keyEntities[selectedKeys[0]].data :
-            undefined;
+        let item;
+        if (selectedKeys.length) {
+            const key = selectedKeys[0];
+            item = (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
+        }
         const renderText = item && treeNodeLabelProp in item ? renderSelectedItem(item) : null;
         return renderText;
     }

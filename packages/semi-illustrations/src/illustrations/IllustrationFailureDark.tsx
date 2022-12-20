@@ -163,7 +163,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 d="M43.4007 78.8694C43.461 78.1075 44.1276 77.5387 44.8895 77.5991C45.1407 77.619 45.3966 77.6366 45.6572 77.652C45.9083 77.6668 46.1551 77.6799 46.3977 77.6913C47.1612 77.7271 47.7511 78.375 47.7153 79.1384C47.6795 79.9019 47.0316 80.4918 46.2681 80.456C46.014 80.4441 45.756 80.4304 45.4941 80.4149C45.2155 80.3985 44.9411 80.3795 44.671 80.3582C43.9091 80.2978 43.3404 79.6313 43.4007 78.8694Z"
                 fill="var(--semi-color-primary)"
             />
-            <g clipPath="url(#clip0)">
+            <g clipPath="url(#clip_failure_dark_46_27)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -186,13 +186,13 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 fill="#C6CACD"
                 stroke="#1C1F23"
             />
-            <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x={101} y={47} width={30} height={22}>
+            <mask id="mask_failure_dark_130_527" mask-type="alpha" maskUnits="userSpaceOnUse" x={101} y={47} width={30} height={22}>
                 <path
                     d="M130.527 62.1043C130.034 58.7995 121.014 47.3532 114.449 47.0733L101.773 51.5945L108.238 65.7512L125.493 68.8184C127.335 67.682 130.921 64.7481 130.527 62.1043Z"
                     fill="#C4C4C4"
                 />
             </mask>
-            <g mask="url(#mask0)">
+            <g mask="url(#mask_failure_dark_130_527)">
                 <path
                     d="M127.206 63.6176C123.49 67.5601 117.328 67.7735 113.443 64.1122C109.559 60.4509 109.408 54.2873 113.124 50.3447C116.84 46.4022 123.002 46.1888 126.887 49.8501C130.771 53.5113 130.922 59.675 127.206 63.6176Z"
                     fill="#C6CACD"
@@ -297,7 +297,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 fill="#C6CACD"
             />
             <defs>
-                <clipPath id="clip0">
+                <clipPath id="clip_failure_dark_46_27">
                     <rect
                         width={44.4004}
                         height={44.4627}

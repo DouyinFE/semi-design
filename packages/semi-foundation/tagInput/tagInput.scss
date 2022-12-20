@@ -259,6 +259,17 @@ $module: #{$prefix}-tagInput;
             color: $color-tagInput_suffix-default;
         }
     }
+
+    &-tag-content-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    &-sortable-list {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
+    }
 }
 
 @import "./rtl.scss";
