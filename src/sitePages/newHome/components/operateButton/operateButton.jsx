@@ -15,7 +15,7 @@ function OperateButton() {
     };
     return (<div className={styles.group2835}>
         <a href={`/${getLocale()}/start/getting-started`}>
-            <Button tabindex={-1} onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
+            <Button tabIndex={-1} onClick={goStart} size="large" theme="solid" className={styles.extraLarge}>{_t("start_using", { }, "开始使用")}</Button>
         </a>
         <Button
             onClick={goGithub} 
