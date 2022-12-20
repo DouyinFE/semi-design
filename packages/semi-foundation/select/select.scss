@@ -198,6 +198,23 @@ $multiple: #{$module}-multiple;
         display: flex;
         align-items: center;
         height: 100%;
+
+        &-collapse {
+            display: inline-flex;
+            flex-shrink: 0;
+            max-width: 100%;
+
+            &>&-tag {
+                background-color: transparent;
+            }
+
+            &>&-N {
+                background-color: transparent;
+                padding: 4px;
+                color: var(--semi-color-text-0);
+                font-size: 12px;
+            }
+        }
     }
 
     &-multiple {

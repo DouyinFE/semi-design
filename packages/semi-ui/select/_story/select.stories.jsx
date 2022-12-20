@@ -2994,3 +2994,35 @@ export const RenderSelectedItemCallCount = () => {
 RenderSelectedItemCallCount.story = {
   name: 'RenderSelectedItemCallCount',
 };
+
+export const NPlusTruncationStrategy = () => {
+    const [val, setVal] = useState(['semi1']);
+    const optionList = [
+        { label: 'semi1semi1', value: 'semi1' },
+        { label: 'semi2semi2semi2', value: 'semi2' },
+        { label: 'semi3semi3semi3semi3', value: 'semi3' },
+        { label: 'semi4semi4semi4semi4semi4', value: 'semi4' },
+        { label: 'semi5semi5semi5semi5semi5semi5', value: 'semi5' },
+        { label: 'semi6semi6semi6semi6semi6semi6semi6semi6semi6semi6semi6semi6semi6se', value: 'semi6' },
+    ];
+    let [options, setOptions] = useState(optionList);
+
+    function add() {
+        let length = 200;
+        let newOptions = Array.from({ length }, (v, i) => i + 1);
+        setOptions(newOptions);
+    }
+
+    return (
+        <>
+            <h4>截断最后一个tag</h4>
+            <Select style={{ width: 400 }} maxTagCount={2} multiple filter optionList={options} value={val} onChange={value => setVal(value)} autoClearSearchValue={false}></Select>
+            <br />
+            <br />
+        </>
+    )
+}
+
+NPlusTruncationStrategy.story = {
+  name: 'NPlusTruncationStrategy',
+};

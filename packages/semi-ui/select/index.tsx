@@ -8,9 +8,12 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import SelectFoundation, { SelectAdapter } from '@douyinfe/semi-foundation/select/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/select/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
-import { isEqual, isString, noop, get, isNumber } from 'lodash';
+import { isEqual, isString, noop, get, isNumber, isFunction } from 'lodash';
 import Tag from '../tag/index';
 import TagGroup from '../tag/group';
+import OverflowList from '../overflowList/index';
+import Space from '../space/index';
+import Text from '../typography/text';
 import LocaleConsumer from '../locale/localeConsumer';
 import Popover, { PopoverProps } from '../popover/index';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -183,7 +186,9 @@ export interface SelectState {
     optionGroups: Array<any>;
     isHovering: boolean;
     isFocusInContainer: boolean;
-    isFullTags: boolean
+    isFullTags: boolean;
+    // The number of really-hidden items when maxTagCount is set
+    overflowItemCount: number
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -282,8 +287,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onListScroll: PropTypes.func,
         arrowIcon: PropTypes.node,
         preventScroll: PropTypes.bool,
-    // open: PropTypes.bool,
-    // tagClosable: PropTypes.bool,
+        // open: PropTypes.bool,
+        // tagClosable: PropTypes.bool,
     };
 
     static defaultProps: Partial<SelectProps> = {
@@ -357,6 +362,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             isHovering: false,
             isFocusInContainer: false,
             isFullTags: false,
+            overflowItemCount: 0
         };
         /* Generate random string */
         this.selectOptionListID = '';
@@ -405,7 +411,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 this.setState({ focusIndex });
             },
             // eslint-disable-next-line @typescript-eslint/no-empty-function
-            scrollToFocusOption: () => {},
+            scrollToFocusOption: () => { },
         };
 
         const filterAdapter = {
@@ -436,7 +442,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     // let isInPanel = optionsDom && optionsDom.contains(e.target);
                     // let isInTrigger = triggerDom && triggerDom.contains(e.target);
                     if (optionsDom && !optionsDom.contains(e.target as Node) &&
-                      triggerDom && !triggerDom.contains(e.target as Node)) {
+                        triggerDom && !triggerDom.contains(e.target as Node)) {
                         cb(e);
                     }
                 };
@@ -551,6 +557,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             updateFocusState: (isFocus: boolean) => {
                 this.setState({ isFocus });
             },
+            updateOverflowItemCount: (overflowItemCount: number) => {
+                this.setState({ overflowItemCount });
+            },
             focusTrigger: () => {
                 try {
                     const { preventScroll } = this.props;
@@ -663,11 +672,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Input
                 ref={this.inputRef as any}
                 size={size}
-                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}` : ''}
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                     // if multiple and filter, when use tab key to let select get focus
                     // need to manual update state isFocus to let the focus style take effect
-                    if (multiple && Boolean(filter)){
+                    if (multiple && Boolean(filter)) {
                         this.setState({ isFocus: true });
                     }
                     // prevent event bubbling which will fire trigger onFocus event
@@ -882,11 +891,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const isEmpty = !options.length || !options.some(item => item._show);
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-            <div 
-                id={`${prefixcls}-${this.selectOptionListID}`} 
-                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)} 
+            <div
+                id={`${prefixcls}-${this.selectOptionListID}`}
+                className={cls(`${prefixcls}-option-list-wrapper`, dropdownClassName)}
                 style={style}
-                ref={this.setOptionContainerEl} 
+                ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
                 {outerTopSlot}
@@ -956,6 +965,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             }
             this.foundation.removeTag({ label, value });
         };
+
         const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
         const basic = {
             disabled,
@@ -973,11 +983,125 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         }
     }
 
+    renderTag(item: [React.ReactNode, any], i: number, isCollapseItem?: boolean) {
+        const { size, disabled: selectDisabled } = this.props;
+        let { renderSelectedItem } = this.props;
+        const label = item[0];
+        const { value } = item[1];
+        const disabled = item[1].disabled || selectDisabled;
+        const onClose = (tagContent: React.ReactNode, e: MouseEvent) => {
+            if (e && typeof e.preventDefault === 'function') {
+                e.preventDefault(); // make sure that tag will not hidden immediately in controlled mode
+            }
+            this.foundation.removeTag({ label, value });
+        };
+
+        if (typeof renderSelectedItem === 'undefined') {
+            renderSelectedItem = (optionNode: OptionProps) => ({
+                isRenderInTag: true,
+                content: optionNode.label,
+            });
+        }
+        const { content, isRenderInTag } = (renderSelectedItem as RenderMultipleSelectedItemFn)(item[1], { index: i, disabled, onClose });
+        const basic = {
+            disabled,
+            closable: !disabled,
+            onClose,
+        };
+        const realContent = isCollapseItem && !isFunction(this.props.renderSelectedItem)
+            ? (
+                <Text size='small' ellipsis={{ rows: 1, showTooltip: { type: 'popover', opts: { style: { width: 'auto' } } } }} >
+                    {content}
+                </Text>
+            )
+            : content;
+        if (isRenderInTag) {
+            return (
+                <Tag {...basic} color="white" size={size || 'large'} key={value}>
+                    {realContent}
+                </Tag>
+            );
+        } else {
+            return <Fragment key={value}>{realContent}</Fragment>;
+        }
+    }
+
+    renderNTag(n: number, restTags: [React.ReactNode, any][]) {
+        const { size } = this.props;
+        return (
+            <Popover
+                showArrow
+                content={
+                    <Space spacing={2} wrap>
+                        {restTags.map((tag, index) => (this.renderTag(tag, index)))}
+                    </Space>
+                }
+                trigger='hover'
+                position='top'
+                autoAdjustOverflow
+                key={`_+${n}_Popover`}
+            >
+                <Tag
+                    closable={false}
+                    size={size || 'large'}
+                    color='grey'
+                    className={`${prefixcls}-content-wrapper-collapse-tag`}
+                    key={`_+${n}`}
+                    style={{ minWidth: 40 }}
+                >
+                    +{n}
+                </Tag>
+                {/* <div key={`_+${n}`} className={`${prefixcls}-content-wrapper-collapse-N`}>+2222</div> */}
+            </Popover>
+        );
+    }
+
+    renderOverflow(items: [React.ReactNode, any][], index: number) {
+        const isCollapse = true;
+        console.log('ddd', items.length && items[0], isCollapse);
+        return items.length && items[0]
+            ? this.renderTag(items[0], index, isCollapse)
+            // ? <div style={{ padding: '4px 8px' }}>{index}</div>
+            : null;
+    }
+
+    handleOverflow(items: [React.ReactNode, any][]) {
+        const { overflowItemCount, selections } = this.state;
+        const { maxTagCount } = this.props;
+        const maxVisibleCount = selections.size - maxTagCount;
+        const newOverFlowItemCount = maxVisibleCount > 0 ? maxVisibleCount + items.length - 1 : items.length - 1;
+        if (items.length > 1 && overflowItemCount !== newOverFlowItemCount) {
+            this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
+        }
+    }
+
+
+    renderCollapsedTags(selections: [React.ReactNode, any][], length: number | undefined): React.ReactElement {
+        const { overflowItemCount } = this.state;
+        const normalTags = typeof length === 'number' ? selections.slice(0, length) : selections;
+        return (
+            <div className={`${prefixcls}-content-wrapper-collapse`}>
+                <div style={{ width: '100%' }}>
+                    <OverflowList
+                        items={normalTags}
+                        overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
+                        onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
+                        visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
+                    />
+                </div>
+                {overflowItemCount > 0 && this.renderNTag(overflowItemCount, selections.slice(selections.length - overflowItemCount))}
+            </div>
+        );
+    }
+
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
-        const { showRestTagsPopover, restTagsPopoverProps, placeholder, maxTagCount } = this.props;
-        const { inputValue, isFullTags } = this.state;
+        // const { showRestTagsPopover, restTagsPopoverProps, placeholder, maxTagCount } = this.props;
+        // const { inputValue, isFullTags } = this.state;
         const renderTags = [];
+
+        const { placeholder, maxTagCount, filter } = this.props;
+        const { inputValue, isOpen } = this.state;
 
         const selectedItems = [...selections];
 
@@ -988,81 +1112,106 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
         }
 
-        let mapItems = [];
-        let tags = [];
-        let tagContent: ReactNode;
+        // let mapItems = [];
+        // let tags = [];
+        // let tagContent: ReactNode;
 
-        if (!isNumber(maxTagCount)) {
-            // maxTagCount is not set, all tags are displayed
-            mapItems = selectedItems;
-            tags = mapItems.map((item, i) => {
-                return this.getTagItem(item, i, renderSelectedItem);
-            });
-            tagContent = tags;
-        } else {
-            // maxTagCount is set
-            if (showRestTagsPopover) {
-                // showRestTagsPopover = true，
-                mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
-                tags = mapItems.map((item, i) => {
-                    return this.getTagItem(item, i, renderSelectedItem);
-                });
-                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+        // if (!isNumber(maxTagCount)) {
+        //     // maxTagCount is not set, all tags are displayed
+        //     mapItems = selectedItems;
+        //     tags = mapItems.map((item, i) => {
+        //         return this.getTagItem(item, i, renderSelectedItem);
+        //     });
+        //     tagContent = tags;
+        // } else {
+        //     // overflowList
+        //     const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+        //     tagContent = this.renderCollapsedTags(selectedItems, n);
 
-                tagContent = (
-                    <TagGroup<"custom"> 
-                        tagList={tags} 
-                        maxTagCount={n} 
-                        restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
-                        size="large" 
-                        mode="custom"
-                        showPopover={showRestTagsPopover}
-                        popoverProps={restTagsPopoverProps}
-                        onPlusNMouseEnter={() => { 
-                            this.foundation.updateIsFullTags();
-                        }}
-                    />
-                );
-            } else {
-                // If maxTagCount is set, showRestTagsPopover is false/undefined, 
-                // then there is no popover when hovering, no extra Tags are displayed, 
-                // only the tags and restCount displayed in the trigger need to be passed in
-                mapItems = selectedItems.slice(0, maxTagCount);
-                const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-                tags = mapItems.map((item, i) => {
-                    return this.getTagItem(item, i, renderSelectedItem);
-                });
+        //     // maxTagCount is set
+        //     if (showRestTagsPopover) {
+        //         // showRestTagsPopover = true，
+        //         mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
+        //         tags = mapItems.map((item, i) => {
+        //             return this.getTagItem(item, i, renderSelectedItem);
+        //         });
+        //         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
 
-                tagContent = (
-                    <TagGroup<"custom"> 
-                        tagList={tags} 
-                        maxTagCount={n} 
-                        restCount={selectedItems.length - maxTagCount} 
-                        size="large" 
-                        mode="custom"
-                    />
-                );
-            }
-        }
+        //         tagContent = (
+        //             <TagGroup<"custom">
+        //                 tagList={tags}
+        //                 maxTagCount={n}
+        //                 restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
+        //                 size="large"
+        //                 mode="custom"
+        //                 showPopover={showRestTagsPopover}
+        //                 popoverProps={restTagsPopoverProps}
+        //                 onPlusNMouseEnter={() => {
+        //                     this.foundation.updateIsFullTags();
+        //                 }}
+        //             />
+        //         );
+        //     } else {
+        //         // If maxTagCount is set, showRestTagsPopover is false/undefined,
+        //         // then there is no popover when hovering, no extra Tags are displayed,
+        //         // only the tags and restCount displayed in the trigger need to be passed in
+        //         mapItems = selectedItems.slice(0, maxTagCount);
+        //         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+        //         tags = mapItems.map((item, i) => {
+        //             return this.getTagItem(item, i, renderSelectedItem);
+        //         });
+
+        //         tagContent = (
+        //             <TagGroup<"custom">
+        //                 tagList={tags}
+        //                 maxTagCount={n}
+        //                 restCount={selectedItems.length - maxTagCount}
+        //                 size="large"
+        //                 mode="custom"
+        //             />
+        //         );
+        //     }
+        // }
+
+        // const contentWrapperCls = cls({
+        //     [`${prefixcls}-content-wrapper`]: true,
+        //     [`${prefixcls}-content-wrapper-one-line`]: maxTagCount,
+        //     [`${prefixcls}-content-wrapper-empty`]: !tags.length,
+        // });
+
+        // const spanCls = cls({
+        //     [`${prefixcls}-selection-text`]: true,
+        //     [`${prefixcls}-selection-placeholder`]: !tags.length,
+        //     [`${prefixcls}-selection-text-hide`]: tags && tags.length,
+        //     // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
+        // });
+
 
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
-            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount,
-            [`${prefixcls}-content-wrapper-empty`]: !tags.length,
+            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount && !(filter && isOpen),
+            [`${prefixcls}-content-wrapper-empty`]: !selectedItems.length,
         });
 
         const spanCls = cls({
             [`${prefixcls}-selection-text`]: true,
-            [`${prefixcls}-selection-placeholder`]: !tags.length,
-            [`${prefixcls}-selection-text-hide`]: tags && tags.length,
+            [`${prefixcls}-selection-placeholder`]: !selectedItems.length,
+            [`${prefixcls}-selection-text-hide`]: selectedItems && selectedItems.length,
             // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
+        const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
+        const NotOneLine = !maxTagCount;
+
+        const tagContent = NotOneLine || (filter && isOpen)
+            ? selectedItems.map((item, i) => this.renderTag(item, i))
+            : this.renderCollapsedTags(selectedItems, n);
 
         return (
             <>
                 <div className={contentWrapperCls}>
-                    {tags && tags.length ? tagContent : placeholderText}
+                    {/* {tags && tags.length ? tagContent : placeholderText} */}
+                    {selectedItems && selectedItems.length ? tagContent : placeholderText}
                     {!filterable ? null : this.renderInput()}
                 </div>
             </>
@@ -1179,7 +1328,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
 
         const showClear = this.props.showClear &&
-      (selections.size || inputValue) && !disabled && (isHovering || isOpen);
+            (selections.size || inputValue) && !disabled && (isHovering || isOpen);
 
         const arrowContent = showArrow ? (
             <div className={`${prefixcls}-arrow`} x-semi-prop="arrowIcon">
@@ -1250,7 +1399,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 style={style}
                 id={this.selectID}
                 tabIndex={tabIndex}
-                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}`: ''}
+                aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}` : ''}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
                 onFocus={e => this.foundation.handleTriggerFocus(e)}
