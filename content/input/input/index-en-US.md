@@ -403,7 +403,6 @@ Answers to some questions:
 | disabled          | Toggle whether to disable input                                                               | boolean                         | false     |
 | getValueLength    | Custom calculated character string length                                                     | (value: string) => number       |           |
 | hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side | boolean                         | false     |
-| mode              | The mode of the input box. The optional value is `password`                                   | string                          |           |
 | mode              | mode of input，optional: `password` **>= v1.3.0**                                              | string                          |           |
 | prefix            | Prefix                                                                                        | ReactNode                       |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
