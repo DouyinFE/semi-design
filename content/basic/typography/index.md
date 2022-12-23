@@ -169,7 +169,7 @@ function Demo() {
             <p>
                 播放量:
                 <Numeral rule="numbers" precision={1}>
-                    ���2.4444e2
+                    2.4444e2
                 </Numeral>
                 K
             </p>
