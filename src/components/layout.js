@@ -59,19 +59,46 @@ const AppLayout = ({ type, location, children }) => {
         Promise.resolve()
             .then(() => {
                 // eslint-disable-next-line
-                insertScript(`(function(i,s,o,g,r,a,m){i["SlardarMonitorObject"]=r;(i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)}),(i[r].l=1*new Date());(a=s.createElement(o)),(m=s.getElementsByTagName(o)[0]);a.async=1;a.src=g;a.crossOrigin="anonymous";m.parentNode.insertBefore(a,m);i[r].globalPreCollectError=function(){i[r]("precollect","error",arguments)};if(typeof i.addEventListener==="function"){i.addEventListener("error",i[r].globalPreCollectError,true)}if('PerformanceLongTaskTiming'in i){var g=i[r].lt={e:[]};g.o=new PerformanceObserver(function(l){g.e=g.e.concat(l.getEntries())});g.o.observe({entryTypes:['longtask']})}})(window,document,"script","https://i.snssdk.com/slardar/sdk.js?bid=patrol_445","Slardar");`);
+                insertScript(`;(function (w, d, u, b, n, pc, ga, ae, po, s, p, e, t, pp) {pc = 'precollect';ga
+                = 'getAttribute';ae = 'addEventListener';po = 'PerformanceObserver';s = function
+                (m) {p = [].slice.call(arguments);p.push(Date.now(), location.href);(m == pc ?
+                s.p.a : s.q).push(p)};s.q = [];s.p = { a: [] };w[n] = s;e =
+                document.createElement('script');e.src = u + '?bid=' + b + '&globalName=' +
+                n;e.crossOrigin = u.indexOf('sdk-web') > 0 ? 'anonymous' :
+                'use-credentials';d.getElementsByTagName('head')[0].appendChild(e);if (ae in w)
+                {s.pcErr = function (e) {e = e || w.event;t = e.target || e.srcElement;if (t
+                instanceof Element || t instanceof HTMLElement) {if (t[ga]('integrity'))
+                {w[n](pc, 'sri', t[ga]('href') || t[ga]('src'))} else {w[n](pc, 'st', { tagName:
+                t.tagName, url: t[ga]('href') || t[ga]('src') })}} else {w[n](pc, 'err', e.error
+                || e.message)}};s.pcRej = function (e) {e = e || w.event;w[n](pc, 'err',
+                e.reason || (e.detail && e.detail.reason))};w[ae]('error', s.pcErr,
+                true);w[ae]('unhandledrejection', s.pcRej,
+                true);};if('PerformanceLongTaskTiming' in w) {pp = s.pp = { entries: []
+                };pp.observer = new PerformanceObserver(function (l) {pp.entries =
+                pp.entries.concat(l.getEntries())});pp.observer.observe({ entryTypes:
+                ['longtask', 'largest-contentful-paint','layout-shift']
+                })}})(window,document,'https://lf3-short.ibytedapm.com/slardar/fe/sdk-web/browser.cn.js','patrol_445','Slardar')`);
                 insertScript(`
-                    window.Slardar && window.Slardar("config",{
+                window.Slardar && window.Slardar('init', { 
                         bid: 'patrol_445',
-                        sampleRate: 1,
-                        ignoreAjax: [/.*/],
-                        ignoreStatic: [/.*/],
-                        ignoreErrors: [/.*/],
-                        enableCatchJSError: false,
-                        enableFPSJankTimesMonitor: false,
-                        enableCrash: false,
-                        performanceAuto: true
-                    });`);
+                        sample: {
+                            sample_rate: 1,
+                        },
+                        plugins: {
+                            ajax: {
+                                ignoreUrls: [/.*/],
+                            },
+                            fetch: {
+                                ignoreUrls: [/.*/],
+                            },
+                            resourceError: {
+                                ignoreUrls: [/.*/],
+                            },
+                            jsError: false,
+                        },
+                    })
+                    window.Slardar && window.Slardar('start')`
+                );
 
             })
             .then(() => {
