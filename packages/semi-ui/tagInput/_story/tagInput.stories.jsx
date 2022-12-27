@@ -527,3 +527,31 @@ export const TagInputInPopover = () => {
   );
 }
 
+export const testMaxLength = () => (
+  <>
+    <p>maxLength=5</p>
+    <TagInput 
+      maxLength={5} 
+      placeholder='单个标签长度不超过5...'  
+      style={{ marginTop: 12, width: 400 }}
+      onChange={v => console.log(v)}
+      onInputExceed={v => {
+          Toast.warning('超过 maxLength');
+          console.log(v);
+      }} 
+    />
+    <p>maxLength=5, separator='/'</p>
+    <TagInput 
+      maxLength={5} 
+      separator={'/'}
+      placeholder='单个标签长度不超过5...'  
+      style={{ marginTop: 12, width: 400 }}
+      onChange={v => console.log(v)}
+      onInputExceed={v => {
+          Toast.warning('超过 maxLength');
+          console.log(v);
+      }} 
+    />
+  </>
+);
+
