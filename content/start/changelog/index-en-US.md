@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.26.0 (2022-12-27)
+- 【Fix】
+    - fix the problem that when TagInput is input in Chinese, the length of pinyin will be used to judge whether it exceeds maxLength  [#1347 ](https://github.com/DouyinFE/semi-design/issues/1347)
 
 #### 🎉 2.26.0-beta.0 (2022-12-19)
 - 【Fix】
@@ -30,6 +33,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - fix the wrong style of TagInput when it is draggable [#1339](https://github.com/DouyinFE/semi-design/pull/1339)
     - fix the problem that the same element id in different svgs in semi-icons and semi-illustration display incorrectly when used at the same time [#1337](https://github.com/DouyinFE/semi-design/pull/1337)
     - fix the problem that there is still a drop-down box when the option in Select is empty and emptyContent=null [#1340](https://github.com/DouyinFE/semi-design/pull/1340)
+    -fix the problem that react exceeds the maximum update depth when the number of items in OverflowList collapse mode is greater than 50
 
 
 #### 🎉 2.25.0 (2022-12-09)
@@ -116,6 +120,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the issue that the Transfer/ TagInput in the pop-up layer disappeared when the dragged item was dragged  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
     - Correct the translation error of the Table pager when it is displayed in Vietnamese (vi_VN) [@MrFatMeow](https://github.com/MrFatMeow) [#1252](https://github.com/DouyinFE/semi-design/pull/1252)
     - fix the case that the Select and Tooltip components did not process the incoming NaN [@edc-hui](https://github.com/edc-hui)[#763](https://github.com/DouyinFE/semi-design/issues/763) 
+    - fixed the issue that Dropdown would trigger the screen to scroll to the top when the trigger is click
 - 【Style】
     - Updated Form component Design Token, `$spacing-form_label_small-paddingTop` is corrected to `$spacing-form_switch_rating_marginY`, and the useless `$spacing-form_label-paddingRight` is removed; Correct the more accurate description [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - Updated Tabs component Design Token, adding the Token related to the collapsed arrow button, allowing to customize the style of the arrow buttons in Tabs separately [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
