@@ -1374,6 +1374,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | dropdownStyle | 弹出层的样式 | object |  |
 | dropdownMargin | 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin | object\|number |  | 2.25.0 |
 | emptyContent | 无结果时展示的内容。设为 null 时，下拉列表将不展示 | string\|ReactNode |  |
+| expandRestTagsOnClick | 当maxTagCount存在且为多选时，select 在面板打开状态下是否展开多余的 Tag        | boolean   | true       | 2.27.0 | 
 | filter | 是否可搜索，默认为 false。传入 true 时，代表开启搜索并采用默认过滤策略（label 是否与 sugInput 匹配），传入值为函数时，会接收 sugInput, option 两个参数，当 option 符合筛选条件应返回 true，否则返回 false | boolean \|function(sugInput, option) | false |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |
 | inputProps | filter 为 true 时, input 输入框的额外配置参数，具体可配置属性请参考 Input 组件（注意：请不要传入 value、ref、onChange、onFocus，否则会覆盖 Select 相关回调，影响组件行为） | object |  | 2.2.0 |

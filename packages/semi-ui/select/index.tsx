@@ -114,6 +114,7 @@ export type SelectProps = {
     size?: SelectSize;
     disabled?: boolean;
     emptyContent?: React.ReactNode;
+    expandRestTagsOnClick?: boolean;
     onDropdownVisibleChange?: (visible: boolean) => void;
     zIndex?: number;
     position?: Position;
@@ -227,6 +228,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         size: PropTypes.oneOf<SelectProps['size']>(strings.SIZE_SET),
         disabled: PropTypes.bool,
         emptyContent: PropTypes.node,
+        expandRestTagsOnClick: PropTypes.bool,
         onDropdownVisibleChange: PropTypes.func,
         zIndex: PropTypes.number,
         position: PropTypes.oneOf(strings.POSITION_SET),
@@ -327,6 +329,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         arrowIcon: <IconChevronDown aria-label='' />,
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
+        expandRestTagsOnClick: true,
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -1015,14 +1018,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         };
         const realContent = isCollapseItem && !isFunction(this.props.renderSelectedItem)
             ? (
-                <Text size='small' ellipsis={{ rows: 1, showTooltip: { type: 'popover', opts: { style: { width: 'auto' } } } }} >
+                <Text size='small' ellipsis={{ rows: 1, showTooltip: { type: 'popover', opts: { style: { width: 'auto', fontSize: 12 } } } }} >
                     {content}
                 </Text>
             )
             : content;
         if (isRenderInTag) {
             return (
-                <Tag {...basic} color="white" size={size || 'large'} key={value}>
+                <Tag {...basic} color="white" size={size || 'large'} key={value} style={{ maxWidth: '100%' }}>
                     {realContent}
                 </Tag>
             );
@@ -1037,7 +1040,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <Popover
                 showArrow
                 content={
-                    <Space spacing={2} wrap>
+                    <Space spacing={2} wrap style={{ maxWidth: '400px' }}>
                         {restTags.map((tag, index) => (this.renderTag(tag, index)))}
                     </Space>
                 }
@@ -1052,21 +1055,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     color='grey'
                     className={`${prefixcls}-content-wrapper-collapse-tag`}
                     key={`_+${n}`}
-                    style={{ minWidth: 40 }}
+                    style={{ marginRight: 0, flexShrink: 0 }}
                 >
                     +{n}
                 </Tag>
-                {/* <div key={`_+${n}`} className={`${prefixcls}-content-wrapper-collapse-N`}>+2222</div> */}
             </Popover>
         );
     }
 
     renderOverflow(items: [React.ReactNode, any][], index: number) {
         const isCollapse = true;
-        console.log('ddd', items.length && items[0], isCollapse);
         return items.length && items[0]
             ? this.renderTag(items[0], index, isCollapse)
-            // ? <div style={{ padding: '4px 8px' }}>{index}</div>
             : null;
     }
 
@@ -1086,14 +1086,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const normalTags = typeof length === 'number' ? selections.slice(0, length) : selections;
         return (
             <div className={`${prefixcls}-content-wrapper-collapse`}>
-                <div style={{ width: '100%' }}>
-                    <OverflowList
-                        items={normalTags}
-                        overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
-                        onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
-                        visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
-                    />
-                </div>
+                <OverflowList
+                    items={normalTags}
+                    overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
+                    onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
+                    visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
+                />
                 {overflowItemCount > 0 && this.renderNTag(overflowItemCount, selections.slice(selections.length - overflowItemCount))}
             </div>
         );
@@ -1101,11 +1099,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
-        // const { showRestTagsPopover, restTagsPopoverProps, placeholder, maxTagCount } = this.props;
-        // const { inputValue, isFullTags } = this.state;
-        const renderTags = [];
-
-        const { placeholder, maxTagCount, filter } = this.props;
+        const { placeholder, maxTagCount, expandRestTagsOnClick } = this.props;
         const { inputValue, isOpen } = this.state;
 
         const selectedItems = [...selections];
@@ -1117,84 +1111,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             });
         }
 
-        // let mapItems = [];
-        // let tags = [];
-        // let tagContent: ReactNode;
-
-        // if (!isNumber(maxTagCount)) {
-        //     // maxTagCount is not set, all tags are displayed
-        //     mapItems = selectedItems;
-        //     tags = mapItems.map((item, i) => {
-        //         return this.getTagItem(item, i, renderSelectedItem);
-        //     });
-        //     tagContent = tags;
-        // } else {
-        //     // overflowList
-        //     const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-        //     tagContent = this.renderCollapsedTags(selectedItems, n);
-
-        //     // maxTagCount is set
-        //     if (showRestTagsPopover) {
-        //         // showRestTagsPopover = true，
-        //         mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
-        //         tags = mapItems.map((item, i) => {
-        //             return this.getTagItem(item, i, renderSelectedItem);
-        //         });
-        //         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-
-        //         tagContent = (
-        //             <TagGroup<"custom">
-        //                 tagList={tags}
-        //                 maxTagCount={n}
-        //                 restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
-        //                 size="large"
-        //                 mode="custom"
-        //                 showPopover={showRestTagsPopover}
-        //                 popoverProps={restTagsPopoverProps}
-        //                 onPlusNMouseEnter={() => {
-        //                     this.foundation.updateIsFullTags();
-        //                 }}
-        //             />
-        //         );
-        //     } else {
-        //         // If maxTagCount is set, showRestTagsPopover is false/undefined,
-        //         // then there is no popover when hovering, no extra Tags are displayed,
-        //         // only the tags and restCount displayed in the trigger need to be passed in
-        //         mapItems = selectedItems.slice(0, maxTagCount);
-        //         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
-        //         tags = mapItems.map((item, i) => {
-        //             return this.getTagItem(item, i, renderSelectedItem);
-        //         });
-
-        //         tagContent = (
-        //             <TagGroup<"custom">
-        //                 tagList={tags}
-        //                 maxTagCount={n}
-        //                 restCount={selectedItems.length - maxTagCount}
-        //                 size="large"
-        //                 mode="custom"
-        //             />
-        //         );
-        //     }
-        // }
-
-        // const contentWrapperCls = cls({
-        //     [`${prefixcls}-content-wrapper`]: true,
-        //     [`${prefixcls}-content-wrapper-one-line`]: maxTagCount,
-        //     [`${prefixcls}-content-wrapper-empty`]: !tags.length,
-        // });
-
-        // const spanCls = cls({
-        //     [`${prefixcls}-selection-text`]: true,
-        //     [`${prefixcls}-selection-placeholder`]: !tags.length,
-        //     [`${prefixcls}-selection-text-hide`]: tags && tags.length,
-        //     // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
-        // });
-
-
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
-            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount && !(filter && isOpen),
+            [`${prefixcls}-content-wrapper-one-line`]: maxTagCount && !isOpen,
             [`${prefixcls}-content-wrapper-empty`]: !selectedItems.length,
         });
 
@@ -1202,20 +1121,18 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             [`${prefixcls}-selection-text`]: true,
             [`${prefixcls}-selection-placeholder`]: !selectedItems.length,
             [`${prefixcls}-selection-text-hide`]: selectedItems && selectedItems.length,
-            // [prefixcls + '-selection-text-inactive']: !inputValue && !tags.length,
         });
         const placeholderText = placeholder && !inputValue ? <span className={spanCls}>{placeholder}</span> : null;
         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
         const NotOneLine = !maxTagCount;
 
-        const tagContent = NotOneLine || (filter && isOpen)
+        const tagContent = NotOneLine || (expandRestTagsOnClick && isOpen)
             ? selectedItems.map((item, i) => this.renderTag(item, i))
             : this.renderCollapsedTags(selectedItems, n);
 
         return (
             <>
                 <div className={contentWrapperCls}>
-                    {/* {tags && tags.length ? tagContent : placeholderText} */}
                     {selectedItems && selectedItems.length ? tagContent : placeholderText}
                     {!filterable ? null : this.renderInput()}
                 </div>

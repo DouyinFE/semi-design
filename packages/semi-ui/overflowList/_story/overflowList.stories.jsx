@@ -439,5 +439,93 @@ OverflowListWithSlide.story = {
   name: 'overflowList with slide',
 };
 
-// TODO large data will cause memory heap
-// stories.add('large amount of data', () => <LargeData />);
+export const FixDisplayFlexDemo = () =>{
+    const [width, setWidth] = useState(100);
+    const renderOverflow = items => {
+          return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+      };
+    const renderItem = (item, ind) => {
+        return (
+            <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
+                {item.icon}
+                {item.key}
+            </Tag>
+        );
+    };
+
+    const items = [
+        { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'alarm' },
+        { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
+        { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
+        { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
+        { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
+        { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
+    ];
+
+    return (
+        <div>
+            <Slider step={1} value={width} onChange={value => setWidth(value)} />
+            <br />
+            <br />
+            <div style={{ width: `${width}%`, display: 'flex' }}>
+                <OverflowList
+                    items={items}
+                    minVisibleItems={3}
+                    overflowRenderer={renderOverflow}
+                    visibleItemRenderer={renderItem}
+                />
+            </div>
+        </div>
+    );
+}
+
+FixDisplayFlexDemo.story = {
+  name: 'overflowList with display flex',
+};
+
+export const FixFirstLongTagDemo = () =>{
+    const [width, setWidth] = useState(20);
+    const renderOverflow = items => {
+          return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+      };
+    const renderItem = (item, ind) => {
+        return (
+            <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
+                {item.icon}
+                {item.key}
+            </Tag>
+        );
+    };
+
+    const items = [
+        { icon: <IconAlarm style={{ marginRight: 4, width: 400 }} />, key: 'alarm' },
+        { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
+        { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
+        { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
+        { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
+        { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
+    ];
+
+    return (
+        <div>
+            <div>修复第一个item就溢出, 不触发 onOverflow 问题</div>
+            <Slider step={1} value={width} onChange={value => setWidth(value)} />
+            <br />
+            <br />
+            <div style={{ width: `${width}%`, display: 'flex' }}>
+                <OverflowList
+                    items={items}
+                    onOverflow={(items)=>{
+                      console.log('触发了onOverflow', items);
+                    }}
+                    overflowRenderer={renderOverflow}
+                    visibleItemRenderer={renderItem}
+                />
+            </div>
+        </div>
+    );
+}
+
+FixFirstLongTagDemo.story = {
+  name: 'overflowList with first long tag',
+};

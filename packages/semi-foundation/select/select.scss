@@ -8,6 +8,7 @@ $module: #{$prefix}-select;
 $single: #{$module}-single;
 $filterable: #{$module}-filterable;
 $multiple: #{$module}-multiple;
+$overflowList: #{$prefix}-overflow-list;
 
 .#{$module} {
     box-sizing: border-box;
@@ -24,6 +25,10 @@ $multiple: #{$module}-multiple;
     cursor: pointer;
     transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg, border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
     transform: scale($transform_scale-select);
+
+    max-height: 400px;
+    overflow-x: scroll;
+
     &:hover {
         background-color: $color-select-bg-hover;
         border: $width-select-border-hover solid $color-select-border-hover;
@@ -202,7 +207,12 @@ $multiple: #{$module}-multiple;
         &-collapse {
             display: inline-flex;
             flex-shrink: 0;
-            max-width: 100%;
+            width: 100%;
+
+            .#{$overflowList}-overflow {
+                max-width: 100%; // when one tag exceed the max width
+                min-width: 50px;
+            }
 
             &>&-tag {
                 background-color: transparent;

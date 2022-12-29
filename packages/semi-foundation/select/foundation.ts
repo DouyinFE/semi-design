@@ -1112,14 +1112,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const { maxTagCount } = this.getProps();
         if (overFlowCount) {
             this._adapter.updateOverflowItemCount(overFlowCount);
-            console.log('updateOverflowItemCount', overFlowCount);
         } else if (typeof maxTagCount === 'number') {
             if (selectionLength - maxTagCount > 0) {
                 this._adapter.updateOverflowItemCount(selectionLength - maxTagCount);
-                console.log('updateOverflowItemCount', selectionLength - maxTagCount);
             } else {
                 this._adapter.updateOverflowItemCount(0);
-                console.log('updateOverflowItemCount', 0);
             }
         }
     }
