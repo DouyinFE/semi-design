@@ -14,7 +14,8 @@ import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
-    startInd: number
+    startInd: number;
+    uuid: string
 }
 
 export interface OverflowItem extends PlainTab {
@@ -38,16 +39,20 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         deleteTabItem: PropTypes.func
     };
 
-    uuid: string;
-
     constructor(props: TabBarProps) {
         super(props);
         this.state = {
             endInd: props.list.length,
             rePosKey: 0,
             startInd: 0,
+            uuid: '',
         };
-        this.uuid = getUuidv4();
+    }
+
+    componentDidMount() {
+        this.setState({
+            uuid: getUuidv4(),
+        });
     }
 
     renderIcon(icon: ReactNode): ReactNode {
@@ -83,7 +88,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (this.props.collapsible) {
             const key = this._getItemKey(itemKey);
             // eslint-disable-next-line max-len
-            const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
             tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
         }
     };
@@ -140,7 +145,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         }
         const key = this._getItemKey(lastItem.itemKey);
         // eslint-disable-next-line max-len
-        const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
         tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     };
 
@@ -248,7 +253,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const contents = collapsible ? this.renderCollapsedTab() : this.renderTabComponents(list);
 
         return (
-            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.uuid}>
+            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
                 {contents}
                 {extra}
             </div>
