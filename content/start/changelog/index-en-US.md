@@ -15,6 +15,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.27.0-beta.0 (2023-01-03)
+- 【Feat】
+  - Added a top margin token in the label section of Form, added a trigger border-related token in datePicker range mode, and modified some token descriptions in steps.
+
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】
     - fix the problem that when TagInput is input in Chinese, the length of pinyin will be used to judge whether it exceeds maxLength  [#1347 ](https://github.com/DouyinFE/semi-design/issues/1347)

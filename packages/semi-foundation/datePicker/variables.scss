@@ -34,6 +34,7 @@ $width-datepicker_insetInput_month_type_wrapper: 204px; // 月份类型内嵌输
 $height-datepicker_insetInput_separator: 32px;
 $height-datepicker_month_grid_yearType_insetInput: 317px;
 $height-datepicker_month_grid_timeType_insetInput: 317px;
+$width-datepicker_range_trigger-border: 0px; //  触发器边框宽度
 
 // Spacing
 $spacing-datepicker_day-marginX: ($width-datepicker_day - $width-datepicker_day_main) * 0.5; // 日期格子水平外边距
@@ -142,6 +143,11 @@ $color-datepicker_range_input_inputWrapper-bg-focus: var(--semi-color-fill-1);
 $color-datepicker_range_input_separator-text-active: var(--semi-color-text-0);
 $color-datepicker_day_main-border: var(--semi-color-primary-active);
 $color-datepicker_insetInput_separator: var(--semi-color-text-3);
+$color-datepicker_range_trigger-border: transparent; // 触发器边框颜色
+$color-datepicker_range_trigger-border-hover: transparent; // 触发器边框颜色 - 悬浮
+$color-datepicker_range_trigger-border-active: transparent; // 触发器边框颜色 - 激活
+
+
 
 // Font
 $font-datepicker_range_input_prefix_suffix_clearbtn-fontWeight: 600;
