@@ -17,7 +17,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 #### 🎉 2.27.0-beta.0 (2023-01-03)
 - 【Feat】
-  - Added a top margin token in the label section of Form, added a trigger border-related token in datePicker range mode, and modified some token descriptions in steps.
+    - Add top margin token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop` in the label section of Form, add trigger border related token in datePicker range mode (width `$width -datepicker_range_trigger-border`, colors in various states `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`), steps modify `$color-steps_item_left_number_icon- bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` Description.
 
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】

@@ -17,7 +17,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 ---
 #### 🎉 2.27.0-beta.0 (2023-01-03)
 - 【Feat】
-  - Form 的 label section 新增上边距 token，datePicker range 模式下新增 trigger 边框相关 token，steps 修改部分 token 描述。
+    - Form 的 label section 新增上边距 token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop`，datePicker range 模式下新增 trigger 边框相关 token (宽度 `$width-datepicker_range_trigger-border`，各种状态下的颜色 `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`)，steps 修改 `$color-steps_item_left_number_icon-bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` 描述。
 
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】
