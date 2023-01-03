@@ -22,6 +22,8 @@ import Paragraph from '../typography/paragraph';
 import { IconClear, IconHandle } from '@douyinfe/semi-icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
+const prefixCls = cssClasses.PREFIX;
+
 export type Size = ArrayElement<typeof strings.SIZE_SET>;
 export type RestTagsPopoverProps = PopoverProps;
 type ValidateStatus = "default" | "error" | "warning";
@@ -31,7 +33,7 @@ const SortableItem = SortableElement(props => props.item);
 const SortableList = SortableContainer(
     ({ items }) => {
         return (
-            <div style={{ display: 'flex', flexFlow: 'row wrap', }}>
+            <div className={`${prefixCls}-sortable-list`}>
                 {items.map((item, index) => (
                     // @ts-ignore skip SortableItem type check
                     <SortableItem key={item.key} index={index} item={item.item}></SortableItem>
@@ -87,10 +89,10 @@ export interface TagInputState {
     inputValue?: string;
     focusing?: boolean;
     hovering?: boolean;
-    active?: boolean
+    active?: boolean;
+    // entering: Used to identify whether the user is in a new composition session（eg，Input Chinese）
+    entering?: boolean
 }
-
-const prefixCls = cssClasses.PREFIX;
 
 class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     static propTypes = {
@@ -171,6 +173,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             focusing: false,
             hovering: false,
             active: false,
+            entering: false,
         };
         this.inputRef = React.createRef();
         this.tagInputRef = React.createRef();
@@ -221,6 +224,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             },
             setActive: (active: boolean) => {
                 this.setState({ active });
+            },
+            setEntering: (entering: boolean) => {
+                this.setState({ entering });
             },
             getClickOutsideHandler: () => {
                 return this.clickOutsideHandler;
@@ -439,13 +445,16 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
-                        {showIconHandler && <DragHandle />}
-                        <Paragraph
-                            className={typoCls}
-                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                        >
-                            {value}
-                        </Paragraph>
+                        {/* Wrap a layer of div outside IconHandler and Value to ensure that the two are aligned */}
+                        <div className={`${prefixCls}-tag-content-wrapper`}>
+                            {showIconHandler && <DragHandle />}
+                            <Paragraph
+                                className={typoCls}
+                                ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
+                            >
+                                {value}
+                            </Paragraph>
+                        </div>
                     </Tag>
                 );
             }
@@ -531,6 +540,14 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }
     }
 
+    handleInputCompositionStart = (e) => {
+        this.foundation.handleInputCompositionStart(e);
+    }
+
+    handleInputCompositionEnd = (e) => {
+        this.foundation.handleInputCompositionEnd(e);
+    }
+
     render() {
         const {
             size,
@@ -605,6 +622,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                             this.handleInputFocus(e as any);
                         }}
+                        onCompositionStart={this.handleInputCompositionStart}
+                        onCompositionEnd={this.handleInputCompositionEnd}
                     />
                 </div>
                 {this.renderClearBtn()}

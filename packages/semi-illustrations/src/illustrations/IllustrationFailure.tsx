@@ -163,7 +163,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 d="M43.4007 78.8699C43.461 78.108 44.1276 77.5392 44.8895 77.5995C45.1407 77.6194 45.3966 77.6371 45.6572 77.6525C45.9083 77.6673 46.1551 77.6804 46.3977 77.6918C47.1612 77.7276 47.7511 78.3755 47.7153 79.1389C47.6795 79.9024 47.0316 80.4923 46.2681 80.4565C46.014 80.4446 45.756 80.4309 45.4941 80.4154C45.2155 80.399 44.9411 80.38 44.671 80.3586C43.9091 80.2983 43.3404 79.6318 43.4007 78.8699Z"
                 fill="var(--semi-color-primary)"
             />
-            <g clipPath="url(#clip0)">
+            <g clipPath="url(#clip_failure_96_39_65)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -186,13 +186,13 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 fill="white"
                 stroke="#515151"
             />
-            <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x={98} y={44} width={36} height={27}>
+            <mask id="mask_failure_130_526" mask-type="alpha" maskUnits="userSpaceOnUse" x={98} y={44} width={36} height={27}>
                 <path
                     d="M130.526 62.1048C130.034 58.8 121.013 47.3537 114.448 47.0738L101.772 51.595L108.238 65.7517L125.493 68.8189C127.335 67.6825 130.92 64.7486 130.526 62.1048Z"
                     fill="#C4C4C4"
                 />
             </mask>
-            <g mask="url(#mask0)">
+            <g mask="url(#mask_failure_130_526)">
                 <path
                     d="M127.206 63.618C123.49 67.5606 117.328 67.774 113.443 64.1127C109.559 60.4514 109.408 54.2878 113.124 50.3452C116.84 46.4026 123.002 46.1893 126.886 49.8505C130.771 53.5118 130.922 59.6755 127.206 63.618Z"
                     fill="white"
@@ -297,7 +297,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 fill="white"
             />
             <defs>
-                <clipPath id="clip0">
+                <clipPath id="clip_failure_96_39_65">
                     <rect
                         width={44.4004}
                         height={44.4627}

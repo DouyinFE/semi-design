@@ -35,8 +35,11 @@ const getRenderText = (
     ellipsisStr: string,
     suffix: string,
     ellipsisPos: string
-// eslint-disable-next-line max-params
+    // eslint-disable-next-line max-params
 ) => {
+    if (content.length === 0) {
+        return '';
+    }
     if (!ellipsisContainer) {
         ellipsisContainer = document.createElement('div');
         ellipsisContainer.setAttribute('aria-hidden', 'true');

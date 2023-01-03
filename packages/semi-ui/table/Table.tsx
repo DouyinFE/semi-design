@@ -602,6 +602,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 ) {
                     this.foundation.initExpandedRowKeys(handledProps);
                 }
+                states.pagination = handledProps.pagination;
             }
 
             // Centrally update paging related state

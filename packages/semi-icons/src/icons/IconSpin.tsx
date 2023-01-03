@@ -13,7 +13,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
-            <g clipPath="url(#clip0)">
+            <g clipPath="url(#clip_spin)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -34,7 +34,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                     <stop offset={0.301257} stopOpacity={0} stopColor="currentColor" />
                     <stop offset={0.466753} stopOpacity={1} stopColor="currentColor" />
                 </radialGradient>
-                <clipPath id="clip0">
+                <clipPath id="clip_spin">
                     <rect width={24} height={24} fill="currentColor" />
                 </clipPath>
             </defs>

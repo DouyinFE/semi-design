@@ -156,8 +156,8 @@ export default class Tag extends Component<TagProps, TagState> {
         ) : null;
         return (
             <div aria-label={this.props['aria-label'] || isString(children) ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
+                {avatarSrc ? this.renderAvatar() : null}
                 <div className={`${prefixCls}-content`}>
-                    {avatarSrc ? this.renderAvatar() : null}
                     {children}
                 </div>
                 {closeIcon}
