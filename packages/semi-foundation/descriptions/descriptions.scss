@@ -110,12 +110,12 @@ $module: #{$prefix}-descriptions;
             .#{$module}-key {
                 @include font-size-small;
                 padding-bottom: 0;
-                font-size: $font-descriptions_key_small-text-size;
+                font-size: $font-descriptions_key_small-fontSize;
             }
 
             .#{$module}-value {
                 @include font-size-header-6;
-                font-size: $font-descriptions_value_small-text-size;
+                font-size: $font-descriptions_value_small-fontSize;
             }
         }
 
@@ -126,12 +126,12 @@ $module: #{$prefix}-descriptions;
 
             & .#{$module}-key {
                 padding-bottom: $spacing-descriptions_key_medium-paddingBottom;
-                font-size: $font-descriptions_key_medium-text-size;
+                font-size: $font-descriptions_key_medium-fontSize;
             }
 
             & .#{$module}-value {
                 @include font-size-header-4;
-                font-size: $font-descriptions_value_medium-text-size;
+                font-size: $font-descriptions_value_medium-fontSize;
             }
         }
 
@@ -142,12 +142,12 @@ $module: #{$prefix}-descriptions;
 
             & .#{$module}-key {
                 padding-bottom: $spacing-descriptions_key_large-paddingBottom;
-                font-size: $font-descriptions_key_large-text-size;
+                font-size: $font-descriptions_key_large-fontSize;
             }
 
             & .#{$module}-value {
                 @include font-size-header-2;
-                font-size: $font-descriptions_value_large-text-size;
+                font-size: $font-descriptions_value_large-fontSize;
             }
         }
     }
