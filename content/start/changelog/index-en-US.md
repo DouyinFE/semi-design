@@ -18,6 +18,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.27.0-beta.0 (2023-01-03)
 - 【Feat】
     - Add top margin token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop` in the label section of Form, add trigger border related token in datePicker range mode (width `$width -datepicker_range_trigger-border`, colors in various states `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`), steps modify `$color-steps_item_left_number_icon- bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` Description.
+    - breadcrumb add `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize` Descriptions add `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`，SideSheet add `$font-sideSheet_title-fontSize` tokens.
+- 【Fix】
+    - Fix uuid mismatch warning in TabBar under SSR scenario [#1351 ](https://github.com/DouyinFE/semi-design/issues/1351) 
 
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】
