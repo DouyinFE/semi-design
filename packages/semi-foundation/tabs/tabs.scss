@@ -652,9 +652,6 @@ $module: #{$prefix}-tabs;
 
     &-tab-line {
         &.#{$module}-tab-top {
-            border-bottom: $width-tabs_bar_line-border solid $color-tabs_tab_line_default-border-default;
-            transition: color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的 color的transition
-            transform: scale($transform_scale-tabs_tab_line-item);
 
             &.#{$module}-tab {
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
@@ -703,7 +700,6 @@ $module: #{$prefix}-tabs;
         }
 
         &.#{$module}-tab-left {
-            border-right: $width-tabs_bar_line-border solid $color-tabs_tab_line_default-border-default;
 
             &.#{$module}-tab {
                 padding: $spacing-tabs_bar_line_tab_left-padding;
@@ -750,8 +746,6 @@ $module: #{$prefix}-tabs;
     &-tab-card {
         &.#{$module}-tab-top {
 
-            // border-bottom: $border-thickness-control solid $color-tabs_tab_line_default-border-default;
-
             &.#{$module}-tab {
                 border: $width-tabs_bar_card-border solid transparent;
                 border-bottom: none;
@@ -761,9 +755,6 @@ $module: #{$prefix}-tabs;
                     border-bottom: none;
                 }
 
-                // &:not(:last-of-type) {
-                //     margin-right: $spacing-tabs_bar_card_tab-marginRight;
-                // }
             }
 
             &.#{$module}-tab-active {
@@ -780,7 +771,6 @@ $module: #{$prefix}-tabs;
         }
 
         &.#{$module}-tab-left {
-            border-right: $width-tabs_bar_card-border solid $color-tabs_tab_line_default-border-default;
 
             &.#{$module}-tab {
                 border: $width-tabs_bar_card-border solid transparent;
@@ -791,9 +781,6 @@ $module: #{$prefix}-tabs;
                     border-right: none;
                 }
 
-                // &:not(:last-of-type) {
-                //     margin-bottom: $spacing-tabs_bar_card_tab_left-marginBottom;
-                // }
             }
 
             &.#{$module}-tab-active {
@@ -843,24 +830,6 @@ $module: #{$prefix}-tabs;
 
     &-tab-button {
         border: none;
-
-        // &.#{$module}-tab-left {
-        //     .#{$module}-tab {
-
-        //         &:not(:last-of-type) {
-        //             margin-bottom: $spacing-tabs_bar_button_tab_left-marginBottom;
-        //         }
-        //     }
-        // }
-
-        // &.#{$module}-tab-top {
-        //     .#{$module}-tab {
-
-        //         &:not(:last-of-type) {
-        //             margin-right: $spacing-tabs_bar_button_tab-marginRight;
-        //         }
-        //     }
-        // }
 
         &.#{$module}-tab {
             padding: $spacing-tabs_bar_button_tab-paddingY $spacing-tabs_bar_button_tab-paddingX;
