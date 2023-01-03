@@ -10,6 +10,7 @@ import { TabBarProps, PlainTab } from './interface';
 import { isEmpty } from 'lodash';
 import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
+import TabItem from './TabItem';
 
 export interface TabBarState {
     endInd: number;
@@ -98,41 +99,21 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     }
 
     renderTabItem = (panel: PlainTab): ReactNode => {
-        const { size, type, deleteTabItem } = this.props;
-        const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type === 'card' && panel.closable) ? <IconClose aria-label="Close" role="button" className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
-        let events = {};
-        const key = panel.itemKey;
-        if (!panel.disabled) {
-            events = {
-                onClick: (e: MouseEvent<HTMLDivElement>): void => this.handleItemClick(key, e),
-            };
-        }
-        const isSelected = this._isActive(key);
-        const className = cls(cssClasses.TABS_TAB, {
-            [cssClasses.TABS_TAB_ACTIVE]: isSelected,
-            [cssClasses.TABS_TAB_DISABLED]: panel.disabled,
-            [`${cssClasses.TABS_TAB}-small`]: size === 'small',
-            [`${cssClasses.TABS_TAB}-medium`]: size === 'medium',
-        });
+        const { size, type, deleteTabItem, handleKeyDown, tabPosition } = this.props;
+        const isSelected = this._isActive(panel.itemKey);
+        
         return (
-            <div
-                role="tab"
-                id={`semiTab${key}`}
-                data-tabkey={`semiTab${key}`}
-                aria-controls={`semiTabPanel${key}`}
-                aria-disabled={panel.disabled ? 'true' : 'false'}
-                aria-selected={isSelected ? 'true' : 'false'}
-                tabIndex={isSelected ? 0 : -1}
-                onKeyDown={e => this.handleKeyDown(e, key, panel.closable)}
-                {...events}
-                className={className}
-                key={this._getItemKey(key)}
-            >
-                {panelIcon}
-                {panel.tab}
-                {closableIcon}
-            </div>
+            <TabItem
+                {...panel}
+                key={this._getItemKey(panel.itemKey)} 
+                selected={isSelected}
+                size={size}
+                type={type}
+                tabPosition={tabPosition}
+                handleKeyDown={handleKeyDown}
+                deleteTabItem={deleteTabItem}
+                onClick={this.handleItemClick}
+            />
         );
     };
 
