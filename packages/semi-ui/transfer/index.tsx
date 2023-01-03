@@ -150,7 +150,7 @@ export interface TransferProps {
     renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode
 }
 
-const prefixcls = cssClasses.PREFIX;
+const prefixCls = cssClasses.PREFIX;
 
 // SortableItem & SortableList should not be assigned inside of the render function
 const SortableItem = SortableElement((
@@ -158,7 +158,7 @@ const SortableItem = SortableElement((
 ));
 
 const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
-    <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
+    <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
         {items.map((item, index: number) => (
             // @ts-ignore skip SortableItem type check
             <SortableItem key={item.label} index={index} item={item} />
@@ -321,7 +321,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return null;
         }
         return (
-            <div role="search" aria-label="Transfer filter" className={`${prefixcls}-filter`}>
+            <div role="search" aria-label="Transfer filter" className={`${prefixCls}-filter`}>
                 <Input
                     prefix={<IconSearch />}
                     placeholder={locale.placeholder}
@@ -339,20 +339,20 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const { disabled } = this.props;
         const { totalContent, allContent, onAllClick, type, showButton } = headerConfig;
         const headerCls = cls({
-            [`${prefixcls}-header`]: true,
-            [`${prefixcls}-right-header`]: type === 'right',
-            [`${prefixcls}-left-header`]: type === 'left',
+            [`${prefixCls}-header`]: true,
+            [`${prefixCls}-right-header`]: type === 'right',
+            [`${prefixCls}-left-header`]: type === 'left',
         });
         return (
             <div className={headerCls}>
-                <span className={`${prefixcls}-header-total`}>{totalContent}</span>
+                <span className={`${prefixCls}-header-total`}>{totalContent}</span>
                 {showButton ? (
                     <Button
                         theme="borderless"
                         disabled={disabled}
                         type="tertiary"
                         size="small"
-                        className={`${prefixcls}-header-all`}
+                        className={`${prefixCls}-header-all`}
                         onClick={onAllClick}
                     >
                         {allContent}
@@ -370,8 +370,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             return renderSourceItem({ ...item, checked, onChange: () => this.onSelectOrRemove(item) });
         }
         const leftItemCls = cls({
-            [`${prefixcls}-item`]: true,
-            [`${prefixcls}-item-disabled`]: item.disabled,
+            [`${prefixCls}-item`]: true,
+            [`${prefixCls}-item-disabled`]: item.disabled,
         });
         return (
             <Checkbox
@@ -476,7 +476,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
 
         return (
-            <section className={`${prefixcls}-left`}>
+            <section className={`${prefixCls}-left`}>
                 {inputCom}
                 {content}
             </section>
@@ -484,7 +484,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderGroupTitle(group: GroupItem, index: number) {
-        const groupCls = cls(`${prefixcls }-group-title`);
+        const groupCls = cls(`${prefixCls }-group-title`);
         return (
             <div className={groupCls} key={`title-${index}`}>
                 {group.title}
@@ -539,16 +539,16 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 content.push(optionContent);
             }
         });
-        return <div className={`${prefixcls}-left-list`} role="list" aria-label="Option list">{content}</div>;
+        return <div className={`${prefixCls}-left-list`} role="list" aria-label="Option list">{content}</div>;
     }
 
     renderRightItem(item: ResolvedDataItem): React.ReactNode {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
         const onRemove = () => this.foundation.handleSelectOrRemove(item);
         const rightItemCls = cls({
-            [`${prefixcls}-item`]: true,
-            [`${prefixcls}-right-item`]: true,
-            [`${prefixcls}-right-item-draggable`]: draggable
+            [`${prefixCls}-item`]: true,
+            [`${prefixCls}-right-item`]: true,
+            [`${prefixCls}-right-item-draggable`]: draggable
         });
         const shouldShowPath = type === strings.TYPE_TREE_TO_LIST && showPath === true;
 
@@ -559,19 +559,19 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         }
 
         const DragHandle = SortableHandle(() => (
-            <IconHandle role="button" aria-label="Drag and sort" className={`${prefixcls}-right-item-drag-handler`} />
+            <IconHandle role="button" aria-label="Drag and sort" className={`${prefixCls}-right-item-drag-handler`} />
         ));
 
         return (
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
             <div role="listitem" className={rightItemCls} key={item.key}>
                 {draggable ? <DragHandle /> : null}
-                <div className={`${prefixcls}-right-item-text`}>{label}</div>
+                <div className={`${prefixCls}-right-item-text`}>{label}</div>
                 <IconClose
                     onClick={onRemove}
                     aria-disabled={item.disabled}
-                    className={cls(`${prefixcls}-item-close-icon`, {
-                        [`${prefixcls}-item-close-icon-disabled`]: item.disabled
+                    className={cls(`${prefixCls}-item-close-icon`, {
+                        [`${prefixCls}-item-close-icon-disabled`]: item.disabled
                     })}
                 />
             </div>
@@ -580,9 +580,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     renderEmpty(type: string, emptyText: React.ReactNode) {
         const emptyCls = cls({
-            [`${prefixcls}-empty`]: true,
-            [`${prefixcls}-right-empty`]: type === 'right',
-            [`${prefixcls}-left-empty`]: type === 'left',
+            [`${prefixCls}-empty`]: true,
+            [`${prefixCls}-right-empty`]: type === 'right',
+            [`${prefixCls}-left-empty`]: type === 'left',
         });
         return <div aria-label="empty" className={emptyCls}>{emptyText}</div>;
     }
@@ -595,7 +595,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
         // @ts-ignore skip SortableItem type check
-        const sortList = <SortableList useDragHandle helperClass={`${prefixcls}-right-item-drag-item-move`} onSortEnd={this.onSortEnd} items={sortableListItems} />;
+        const sortList = <SortableList useDragHandle helperClass={`${prefixCls}-right-item-drag-item-move`} onSortEnd={this.onSortEnd} items={sortableListItems} />;
         return sortList;
     }
 
@@ -626,7 +626,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         };
         const headerCom = this.renderHeader(headerConfig);
         const emptyCom = this.renderEmpty('right', emptyContent.right ? emptyContent.right : locale.emptyRight);
-        const panelCls = `${prefixcls}-right`;
+        const panelCls = `${prefixCls}-right`;
 
         let content = null;
 
@@ -637,7 +637,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
                 break;
             case selectedData.length && !draggable:
                 const list = (
-                    <div className={`${prefixcls}-right-list`} role="list" aria-label="Selected list">
+                    <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
                         {selectedData.map(item => this.renderRightItem({ ...item }))}
                     </div>
                 );
@@ -660,9 +660,9 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
     render() {
         const { className, style, disabled, renderSelectedPanel, renderSourcePanel } = this.props;
-        const transferCls = cls(prefixcls, className, {
-            [`${prefixcls}-disabled`]: disabled,
-            [`${prefixcls}-custom-panel`]: renderSelectedPanel && renderSourcePanel,
+        const transferCls = cls(prefixCls, className, {
+            [`${prefixCls}-disabled`]: disabled,
+            [`${prefixCls}-custom-panel`]: renderSelectedPanel && renderSourcePanel,
         });
 
         return (
