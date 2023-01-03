@@ -76,7 +76,7 @@ $module: #{$prefix}-sidesheet;
         margin: $spacing-sideSheet_title-margin;
         @include font-size-header-5;
         font-weight: $font-sideSheet_title-fontWeight;
-        font-size: $font-sideSheet_title-text-size;
+        font-size: $font-sideSheet_title-fontSize;
         color: $color-sideSheet_main-text;
         text-align: left;
     }
