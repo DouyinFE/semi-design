@@ -40,7 +40,7 @@
     "gulp-babel": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "merge2": "^1.4.1",
-    "prop-types": "15.7.2",
+    "prop-types": "^15.7.2",
     "react-storybook-addon-props-combinations": "^1.1.0"
   },
   "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
