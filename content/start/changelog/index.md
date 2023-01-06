@@ -15,24 +15,35 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
-#### 🎉 2.27.0-beta.0 (2023-01-03)
-- 【Feat】
-    - Form 的 label section 新增上边距 token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop`，datePicker range 模式下新增 trigger 边框相关 token (宽度 `$width-datepicker_range_trigger-border`，各种状态下的颜色 `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`)，steps 修改 `$color-steps_item_left_number_icon-bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` 描述。
-    - breadcrumb 新增 `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize` Descriptions 新增 `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`，SideSheet 新增 `$font-sideSheet_title-fontSize` 
+
+#### 🎉 2.27.0 (2023-01-06)
 - 【Fix】
-    - 修复 SSR 场景下 TabBar 中的 uuid 不匹配警告  [#1351 ](https://github.com/DouyinFE/semi-design/issues/1351)
+    - 修复 Select 在配置了 outerBottomSlot、outTopSlot、innerBottomSlot、innerTopSlot 后，hover到 Slot 中，Option 仍保持 focus 样式，易使用户产生疑惑的问题 [#1370](https://github.com/DouyinFE/semi-design/pull/1370)
+    - 修复 Tabs 滚动折叠有概率失效问题 [#693](https://github.com/DouyinFE/semi-design/issues/693)
+    - 修复 Transfer 内部变量 prefixcls 未使用小驼峰，与其他组件有差异的问题 （对使用侧无影响）[@MarchYuanx](https://github.com/MarchYuanx) [#1365](https://github.com/DouyinFE/semi-design/pull/1365)
+
+#### 🎉 2.27.0-beta.0 (2023-01-03)
+- 【Fix】
+    - 修复 SSR 场景下 TabBar 中的 uuid 不匹配警告  [#1351](https://github.com/DouyinFE/semi-design/issues/1351)
+- 【Design Token】
+    - Form 的 label section 新增上边距 token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop`
+    - DatePicker range 模式下新增 trigger 边框相关 token (宽度 `$width-datepicker_range_trigger-border`，各种状态下的颜色 `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`)
+    - breadcrumb 新增 `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize` 
+    - Descriptions 新增 `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`
+    - SideSheet 新增 `$font-sideSheet_title-fontSize` 
+    - Steps 修正部分Token 描述
 
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】
-    - 修复 TagInput 在中文输入时，会将拼音的长度用于判断是否超出 maxLength 的问题  [#1347 ](https://github.com/DouyinFE/semi-design/issues/1347)
+    - 修复 TagInput 在中文输入时，会将拼音的长度用于判断是否超出 maxLength 的问题  [#1347](https://github.com/DouyinFE/semi-design/issues/1347)
 
 #### 🎉 2.26.0-beta.0 (2022-12-19)
+- 【Feat】
+    - Table 筛选器功能支持不传 filters，筛选功能通过受控使用  [#1201](https://github.com/DouyinFE/semi-design/issues/1201)
 - 【Fix】
     - 修复空字符串但没有达到最大宽度时，却展示了"展开/折叠"按钮及省略号 [@weeqe](https://github.com/weeqe) [#621](https://github.com/DouyinFE/semi-design/issues/621)
     - 修复 TreeSelect 中当checkRelation 为 unRelated, 且 value 不存在于 TreeData时的TypeError问题  [#1206](https://github.com/DouyinFE/semi-design/issues/1206) 
     - 修复Grid组件span设置为0，在响应式模式下异常显示的问题 [@edc-hui](https://github.com/edc-hui) [#1314](https://github.com/DouyinFE/semi-design/issues/1314)
-- 【Feat】
-    - Table 筛选器功能支持不传 filters，筛选功能通过受控使用  [#1201](https://github.com/DouyinFE/semi-design/issues/1201)
 
 #### 🎉 2.25.2 (2022-12-19)
 - 【Fix】
@@ -41,7 +52,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 semi-icons 以及 semi-illustration 中不同 svg 中的元素 id 相同导致同时使用时显示有误问题 [#1337](https://github.com/DouyinFE/semi-design/pull/1337)
     - 修复当 Select 中选项为空，并且 emptyContent=null 时候仍然有下拉框的问题 [#1340](https://github.com/DouyinFE/semi-design/pull/1340)
     - 修复 OverflowList collapse 模式下 item 数量大于50时会造成 react 超出最大更新深度问题
-
 
 #### 🎉 2.25.0 (2022-12-09)
 - 【Fix】
@@ -90,6 +100,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.24.0-beta.1 (2022-11-22)
 - 【Style】
     - 调整 Highlight 样式, 默认背景高亮
+- 【Design Token】
     - Design Token 调整，@douyinfe/semi-theme-default 新增全局Token `--semi-color-highlight-bg`、`--semi-color-highlight`
 
 #### 🎉 2.24.0-beta.0 (2022-11-21)
@@ -129,7 +140,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 Select和Tooltip组件未处理props.value / props.rePosKey 传入NaN的情况 [#763](https://github.com/DouyinFE/semi-design/issues/763)  [@edc-hui](https://github.com/edc-hui)
     - 修复 SideSheet 中挂载 children 时机延迟的问题（影响版本 v2.22.beta.0 - v2.23.beta.0） [#1255](https://github.com/DouyinFE/semi-design/pull/1255)
     - 修复 Dropdown 在 trigger 为 click 时，会触发屏幕滚动到顶部问题
-- 【Style】
+- 【Design Token】
     - Form 组件 Design Token更新，`$spacing-form_label_small-paddingTop` 修正为 `$spacing-form_switch_rating_marginY`，去掉无实际作用的 `$spacing-form_label-paddingRight`；更正更准确的中文描述 [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - Tabs 组件 Design Token更新，增加折叠箭头按钮相关的 Token，允许单独对 Tabs中的箭头按钮定制样式 [#1251](https://github.com/DouyinFE/semi-design/pull/1251)
 
@@ -233,6 +244,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Select 虚拟化时，第一个 Option 选项位置偏移的问题  [#1178](https://github.com/DouyinFE/semi-design/pull/1178)
 - 【Style】
   - Select 的 maxHeight 默认值 （Option 浮层最大高度）、虚拟化默认高度由 300px -> 270px
+- 【Design Token】
   - Select Design Token 变更，废弃 `$spacing-select_option_first-marginTop`、`$spacing-select_option_last-marginBottom` 两个 Token ；
 修改 以下 Token 默认值：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_list-paddingBottom` ， 由 0 变更为 `$spacing-extra-tight` (4px)
 - 【Chore】

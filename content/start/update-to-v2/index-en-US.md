@@ -184,6 +184,7 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
   - Users who use Semi CSS Variable to implement features such as dark mode need to update the variables in custom CSS uniformly
   - Users who do not use Semi CSS Variable in custom components or pages need not pay attention and are not affected
 - In 2.x, the unified set the width and height of the illustration to `200 * 200px`. If you want to simulate the width and height of 1.x, you can set style = {{width: 300, height: 150}} to the illustration.
+- The common className of the Icon component is changed from `semi-icons` to `semi-icon`, aligning component names
 ### Plugin adjustment
 If you use Semi plug-ins, such as `@ies/semi-ui-plugin-webpack` or `@ies/semi-ui-plugin-eden` etc. to achieve some advanced configuration, you need to understand the following changes:
 

@@ -15,16 +15,27 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-#### 🎉 2.27.0-beta.0 (2023-01-03)
-- 【Feat】
-    - Add top margin token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop` in the label section of Form, add trigger border related token in datePicker range mode (width `$width -datepicker_range_trigger-border`, colors in various states `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`), steps modify `$color-steps_item_left_number_icon- bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` Description.
-    - breadcrumb add `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize` Descriptions add `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`，SideSheet add `$font-sideSheet_title-fontSize` tokens.
+
+#### 🎉 2.27.0 (2023-01-06)
 - 【Fix】
-    - Fix uuid mismatch warning in TabBar under SSR scenario [#1351 ](https://github.com/DouyinFE/semi-design/issues/1351) 
+    - Fix the problem that after Select is configured with outerBottomSlot, outTopSlot, innerBottomSlot, and innerTopSlot, when hovering to the slot, the Option still maintains the focus style, which easily confuses users [#1370](https://github.com/DouyinFE/semi-design/pull/1370)
+    - Fix Tabs collapsible  has a probability of failure problem [#693](https://github.com/DouyinFE/semi-design/issues/693)
+    - Fix the problem that the internal variable prefixcls of Transfer does not use a small camel, which is different from other components (no impact on the usage side)[@MarchYuanx](https://github.com/MarchYuanx) [#1365](https://github.com/DouyinFE/semi-design/pull/1365)
+
+
+#### 🎉 2.27.0-beta.0 (2023-01-03)
+- 【Design Token】
+    - Form Add top margin token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop` in the label section of Form,
+    - DatePicker add trigger border related token in range mode (width `$width -datepicker_range_trigger-border`, colors in various states `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`)
+    - Steps modify `$color-steps_item_left_number_icon- bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` Description.
+    - Breadcrumb add `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize`
+    - Descriptions add `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`，SideSheet add `$font-sideSheet_title-fontSize` tokens.
+- 【Fix】
+    - Fix uuid mismatch warning in TabBar under SSR scenario [#1351](https://github.com/DouyinFE/semi-design/issues/1351) 
 
 #### 🎉 2.26.0 (2022-12-27)
 - 【Fix】
-    - fix the problem that when TagInput is input in Chinese, the length of pinyin will be used to judge whether it exceeds maxLength  [#1347 ](https://github.com/DouyinFE/semi-design/issues/1347)
+    - fix the problem that when TagInput is input in Chinese, the length of pinyin will be used to judge whether it exceeds maxLength  [#1347](https://github.com/DouyinFE/semi-design/issues/1347)
 
 #### 🎉 2.26.0-beta.0 (2022-12-19)
 - 【Fix】
@@ -89,6 +100,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.24.0-beta.1 (2022-11-22)
 - 【Style】
     - Adjust Highlight style, default highlight background
+- 【Design Token】
     - Design Token : `@douyinfe/semi-theme-default` add global design Token `--semi-color-highlight-bg`、`--semi-color-highlight`
 
 #### 🎉 2.24.0-beta.0 (2022-11-21)
