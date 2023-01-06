@@ -904,7 +904,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 >
                     {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
                 </div>
                 {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
             </div>
