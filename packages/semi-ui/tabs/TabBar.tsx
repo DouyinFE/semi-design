@@ -7,7 +7,7 @@ import OverflowList from '../overflowList';
 import Dropdown from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
-import { isEmpty } from 'lodash';
+import { isEmpty, pick } from 'lodash';
 import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import TabItem from './TabItem';
@@ -104,7 +104,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         
         return (
             <TabItem
-                {...panel}
+                {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
                 key={this._getItemKey(panel.itemKey)} 
                 selected={isSelected}
                 size={size}

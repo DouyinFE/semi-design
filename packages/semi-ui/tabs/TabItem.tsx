@@ -110,6 +110,6 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
 const ForwardTabItem = forwardRef<HTMLDivElement, TabItemProps>(TabItem);
 
 // @ts-ignore 
-ForwardTabItem.elementType = 'TabItem';
+ForwardTabItem.elementType = 'Tabs.TabItem';
 
 export default ForwardTabItem;

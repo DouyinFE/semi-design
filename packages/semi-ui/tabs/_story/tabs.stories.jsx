@@ -708,7 +708,7 @@ export const CollapseTabs = () => (
       collapsible
     >
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={`${i}`}>
           Content of card tab {i}
         </TabPane>
       ))}
@@ -717,7 +717,7 @@ export const CollapseTabs = () => (
     <br />
     <Tabs style={style} type="button" collapsible>
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`${i}`} key={`${i}`}>
           Content of button tab {i}
         </TabPane>
       ))}
@@ -726,7 +726,7 @@ export const CollapseTabs = () => (
     <br />
     <Tabs style={style} type="line" collapsible>
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`${i}`} key={`${i}`}>
           Content of line tab {i}
         </TabPane>
       ))}

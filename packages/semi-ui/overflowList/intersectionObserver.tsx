@@ -80,7 +80,7 @@ export default class ReactIntersectionObserver extends React.PureComponent<React
         // observer callback is invoked immediately when observing new elements
         Object.keys(items).forEach(key => {
             const node = items[key];
-            if (!node) {
+            if (!node || 'props' in node) {
                 return;
             }
             this.observer.observe(node);
