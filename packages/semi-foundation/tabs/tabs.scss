@@ -163,6 +163,15 @@ $module: #{$prefix}-tabs;
                 }
             }
 
+            & > .#{$prefix}-button-disabled {
+                color: $color-tabs_tab-pane_arrow_disabled-text-default;
+                background-color: $color-tabs_tab-pane_arrow_disabled-bg-default;
+                &:hover{
+                    color: $color-tabs_tab-pane_arrow_disabled-text-hover;
+                    background-color: $color-tabs_tab-pane_arrow_disabled-bg-hover;
+                }
+            }
+
         }
 
         .#{$module}-bar-arrow-end {
@@ -181,6 +190,15 @@ $module: #{$prefix}-tabs;
                     background-color: var(--semi-color-fill-1);
                     color: $color-tabs_tab-pane_arrow-text-active;
                     border-color: $color-tabs_tab-pane_arrow-border-active;
+                }
+            }
+
+            & > .#{$prefix}-button-disabled {
+                color: $color-tabs_tab-pane_arrow_disabled-text-default;
+                background-color: $color-tabs_tab-pane_arrow_disabled-bg-default;
+                &:hover{
+                    color: $color-tabs_tab-pane_arrow_disabled-text-hover;
+                    background-color: $color-tabs_tab-pane_arrow_disabled-bg-hover;
                 }
             }
         }

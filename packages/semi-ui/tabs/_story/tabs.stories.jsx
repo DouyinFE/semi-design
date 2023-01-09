@@ -697,8 +697,11 @@ VerticalTabsButton.story = {
   name: '垂直的tabs - 按钮',
 };
 
-export const CollapseTabs = () => (
-  <div>
+export const CollapseTabs = () => {
+  const [activeKey, setActiveKey] = useState('Tab-18')
+
+  return (
+  <div style={{ scrollBehavior: 'smooth' }}>
     <Tabs
       style={{
         width: '60%',
@@ -706,6 +709,7 @@ export const CollapseTabs = () => (
       }}
       type="card"
       collapsible
+      activeKey={activeKey}
     >
       {[...Array(30).keys()].map(i => (
         <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`}>
@@ -713,6 +717,9 @@ export const CollapseTabs = () => (
         </TabPane>
       ))}
     </Tabs>
+    <Button onClick={()=>{
+      setActiveKey('Tab-19')
+    }}>change 19</Button>
     <br />
     <br />
     <Tabs style={style} type="button" collapsible>
@@ -732,7 +739,8 @@ export const CollapseTabs = () => (
       ))}
     </Tabs>
   </div>
-);
+)
+};
 CollapseTabs.story = {
   name: '折叠的tabs'
 }

@@ -55,6 +55,17 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         });
     }
 
+    componentDidUpdate() {
+        if (this.props.collapsible && this.props.activeKey) {
+            const key = this._getItemKey(this.props.activeKey);
+            // eslint-disable-next-line max-len
+            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+            console.log('tabItem', tabItem);
+            tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            // tabItem?.scrollIntoView();
+        }
+    }
+
     renderIcon(icon: ReactNode): ReactNode {
         return (
             <span>
@@ -85,12 +96,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     handleItemClick = (itemKey: string, e: MouseEvent<Element>): void => {
         this.props.onTabClick(itemKey, e);
-        if (this.props.collapsible) {
-            const key = this._getItemKey(itemKey);
-            // eslint-disable-next-line max-len
-            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-            tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-        }
     };
 
     handleKeyDown = (event: React.KeyboardEvent, itemKey: string, closable: boolean) => {
@@ -150,13 +155,20 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
+        const disabledArrowCls = cls({
+            [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
+        });
+
         if (isEmpty(items)) {
+            // 
             return (
-                <Button
-                    disabled={true}
-                    icon={icon}
-                    theme="borderless"
-                />
+                <div role="presentation" className={disabledArrowCls}>
+                    <Button
+                        disabled={true}
+                        icon={icon}
+                        theme="borderless"
+                    />
+                </div>
             );
         }
         const { dropdownClassName, dropdownStyle } = this.props;
