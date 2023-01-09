@@ -5,13 +5,21 @@ $color-toast_warning-icon: var(--semi-color-warning); // 警告提示图标颜�
 $color-toast_success-icon: var(--semi-color-success); // 成功提示图标颜色
 $color-toast_info-icon: var(--semi-color-info); // 通知提示图标颜色
 $color-toast_danger-icon: var(--semi-color-danger); // 错误提示图标颜色
+
 $color-toast_warning_light-bg: var(--semi-color-warning-light-default); // 多色样式 警告提示背景颜色
+$color-toast_warning_light-icon: $color-toast_warning-icon; // 多色样式 警告提示图标颜色
 $color-toast_warning_light-border: var(--semi-color-warning); // 多色样式 警告提示描边颜色
+
 $color-toast_success_light-bg: var(--semi-color-success-light-default); // 多色样式 成功提示背景颜色
+$color-toast_success_light-icon: $color-toast_success-icon; // 多色样式 成功提示图标颜色
 $color-toast_success_light-border: var(--semi-color-success); // 多色样式 成功提示描边颜色
+
 $color-toast_info_light-bg: var(--semi-color-info-light-default); // 多色样式 通知提示背景颜色
+$color-toast_info_light-icon: $color-toast_info-icon; // 多色样式 通知提示图标颜色
 $color-toast_info_light-border: var(--semi-color-info); // 多色样式 通知提示描边颜色
+
 $color-toast_danger_light-bg: var(--semi-color-danger-light-default); // 多色样式 错误提示背景颜色
+$color-toast_danger_light-icon: $color-toast_danger-icon; // 多色样式 错误提示图标颜色
 $color-toast_danger_light-border: var(--semi-color-danger); // 多色样式 错误提示描边颜色
 
 // Spacing
