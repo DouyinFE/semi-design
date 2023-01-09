@@ -6,8 +6,8 @@ export type Size = 'small' | 'medium' | 'large' | 'full-width';
 export interface ModalAdapter extends DefaultAdapter<ModalProps, ModalState> {
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
-    notifyCancel: (e: any) => void;
-    notifyOk: (e: any) => void;
+    notifyCancel: (e: any) => void | Promise<any>;
+    notifyOk: (e: any) => void | Promise<any>;
     notifyClose: () => void;
     toggleDisplayNone: (displayNone: boolean, callback?: (displayNone: boolean) => void) => void;
     notifyFullScreen: (isFullScreen: boolean) => void;
@@ -58,7 +58,9 @@ export interface ModalProps {
 
 export interface ModalState {
     displayNone: boolean;
-    isFullScreen: boolean
+    isFullScreen: boolean;
+    onOKReturnPromiseStatus?:"pending"|"fulfilled"|"rejected";
+    onCancelReturnPromiseStatus?:"pending"|"fulfilled"|"rejected"
 }
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
@@ -74,11 +76,29 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     }
 
     handleCancel(e: any) {
-        this._adapter.notifyCancel(e);
+        const result = this._adapter.notifyCancel(e);
+        if (result && result instanceof Promise){
+            this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
+            result.then(()=>{
+                this._adapter.setState({ onCancelReturnPromiseStatus: "fulfilled" });
+            }).catch(e=>{
+                this._adapter.setState({ onCancelReturnPromiseStatus: "rejected" });
+                throw e;
+            });
+        }
     }
 
     handleOk(e: any) {
-        this._adapter.notifyOk(e);
+        const result = this._adapter.notifyOk(e);
+        if (result && result instanceof Promise){
+            this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
+            result.then(()=>{
+                this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
+            }).catch(e=>{
+                this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
+                throw e;
+            });
+        }
     }
 
     beforeShow() {
