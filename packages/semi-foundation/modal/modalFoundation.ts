@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import isPromise from "../utils/isPromise";
 
 export type OKType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 export type Size = 'small' | 'medium' | 'large' | 'full-width';
@@ -77,11 +78,11 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     handleCancel(e: any) {
         const result = this._adapter.notifyCancel(e);
-        if (result && result instanceof Promise){
+        if (isPromise(result)) {
             this._adapter.setState({ onCancelReturnPromiseStatus: "pending" });
-            result.then(()=>{
+            (result as Promise<any>)?.then(()=>{
                 this._adapter.setState({ onCancelReturnPromiseStatus: "fulfilled" });
-            }).catch(e=>{
+            })?.catch(e=>{
                 this._adapter.setState({ onCancelReturnPromiseStatus: "rejected" });
                 throw e;
             });
@@ -90,9 +91,9 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     handleOk(e: any) {
         const result = this._adapter.notifyOk(e);
-        if (result && result instanceof Promise){
+        if (isPromise(result)){
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
-            result.then(()=>{
+            (result as Promise<any>).then(()=>{
                 this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
             }).catch(e=>{
                 this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
