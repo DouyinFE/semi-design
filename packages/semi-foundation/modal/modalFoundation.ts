@@ -93,9 +93,9 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         const result = this._adapter.notifyOk(e);
         if (isPromise(result)){
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
-            (result as Promise<any>).then(()=>{
+            (result as Promise<any>)?.then(()=>{
                 this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
-            }).catch(e=>{
+            })?.catch(e=>{
                 this._adapter.setState({ onOKReturnPromiseStatus: "rejected" });
                 throw e;
             });
