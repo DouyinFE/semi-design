@@ -33,7 +33,7 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
         tabPosition, 
         handleKeyDown,
         onClick,
-        ...resetProps
+        ...restProps
     } = props;
 
     const closableIcon = useMemo(() => {
@@ -94,7 +94,7 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
             onKeyDown={handleKeyDownInItem}
             onClick={handleItemClick}
             className={className}
-            {...resetProps}
+            {...restProps}
             ref={ref}
         >
             {panelIcon}
