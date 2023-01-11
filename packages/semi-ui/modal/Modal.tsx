@@ -92,8 +92,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         centered: false,
         closable: true,
         visible: false,
-        confirmLoading: false,
-        cancelLoading: false,
         okType: 'primary',
         maskClosable: true,
         hasCancel: true,
@@ -150,10 +148,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 }
             },
             notifyCancel: (e: React.MouseEvent) => {
-                this.props.onCancel(e);
+                return this.props.onCancel(e);
             },
             notifyOk: (e: React.MouseEvent) => {
-                this.props.onOk(e);
+                return this.props.onOk(e);
             },
             notifyClose: () => {
                 this.props.afterClose();
@@ -286,7 +284,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     <Button
                         aria-label="cancel"
                         onClick={this.handleCancel}
-                        loading={cancelLoading}
+                        loading={cancelLoading === undefined ? this.state.onCancelReturnPromiseStatus === "pending" : cancelLoading}
                         type="tertiary"
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
@@ -307,7 +305,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             aria-label="confirm"
                             type={okType}
                             theme="solid"
-                            loading={confirmLoading}
+                            loading={confirmLoading === undefined ? this.state.onOKReturnPromiseStatus === "pending" : confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
                             x-semi-children-alias="okText"
