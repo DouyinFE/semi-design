@@ -130,8 +130,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * init filteredValue of filtering column, use defaultFilteredValue or [] when it is undefined
      */
     static initFilteredValue(column: BaseColumnProps<unknown>) {
-        const { defaultFilteredValue, filteredValue, filters } = column;
-        const hasFilter = Array.isArray(filters) && filters.length;
+        const { defaultFilteredValue, filteredValue, onFilter } = column;
+        const hasFilter = isFunction(onFilter);
         if (hasFilter && isUndefined(filteredValue)) {
             if (Array.isArray(defaultFilteredValue) && defaultFilteredValue.length) {
                 column.filteredValue = defaultFilteredValue;
@@ -253,8 +253,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                 const currentFilteredValue = query.filteredValue ? query.filteredValue : query.defaultFilteredValue;
                 return (
                     isFunction(query.onFilter) &&
-                    Array.isArray(query.filters) &&
-                    query.filters.length &&
                     Array.isArray(currentFilteredValue) &&
                     currentFilteredValue.length
                 );

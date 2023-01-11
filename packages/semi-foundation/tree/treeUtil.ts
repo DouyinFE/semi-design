@@ -187,6 +187,9 @@ export function findKeysForValues(valueList: any, valueEntities: any, isMultiple
     valueList.forEach((val: string) => {
         if (val in valueEntities) {
             res.push(valueEntities[val]);
+        } else {
+            // if val not in valueEntities, then value push to keys array
+            val && res.push(val);
         }
     });
 
@@ -427,12 +430,17 @@ export function normalizedArr(val: any) {
     }
 }
 
-export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false) {
+// flag is used to determine whether to return when the key does not belong to the keys in keyEntities
+// export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false) {
+export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false, flag?: boolean) {
     const res: string[] = [];
     const keyListSet = new Set(keyList);
     if (!leafOnly) {
         keyList.forEach((key: string) => {
             if (!keyEntities[key]) {
+                if (flag) {
+                    res.push(key);
+                }
                 return;
             }
             const { parent } = keyEntities[key];
@@ -444,6 +452,10 @@ export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnl
     } else {
         keyList.forEach(key => {
             if (keyEntities[key] && !isValid(keyEntities[key].children)) {
+                res.push(key);
+            }
+            // when key is not in keyEntities, if flag is true, key should be push in res
+            if (!keyEntities[key] && flag) {
                 res.push(key);
             }
         });
@@ -546,7 +558,7 @@ export function calcCheckedKeysForUnchecked(key: string, keyEntities: KeyEntitie
             calcCurrLevel(par);
         }
     };
-    calcCurrLevel(nodeItem);
+    nodeItem && calcCurrLevel(nodeItem);
     return {
         checkedKeys,
         halfCheckedKeys,

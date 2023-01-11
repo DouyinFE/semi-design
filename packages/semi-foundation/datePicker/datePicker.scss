@@ -859,6 +859,17 @@ $module-list: #{$prefix}-scrolllist;
             height: $height-datepicker_range_input-default;
             color: $color-datepicker_range_input-text-default;
             background-color: $color-datepicker_range_input-bg-default;
+            border: $width-datepicker_range_trigger-border solid $color-datepicker_range_trigger-border;
+
+            &:hover{
+                border-color: $color-datepicker_range_trigger-border-hover
+            }
+
+            &:active{
+                border-color: $color-datepicker_range_trigger-border-active ;
+            }
+
+
 
             &-wrapper {
                 box-sizing: border-box;
