@@ -581,7 +581,7 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
 ```typescript
 interface Entity {
     children?: Entity[];         // children list
-    data: treeNode;              // treedata
+    data: CascaderData;              // treedata
     ind: number;                 // index
     key: string;                 // key
     level: number;               // node level
@@ -1516,7 +1516,7 @@ function Demo() {
 | className | 选择框的 className 属性 | string | - | - |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | - | 2.25.0  |
 | defaultOpen | 设置是否默认打开下拉菜单  | boolean | false | - |
-| defaultValue | 指定默认选中的条目  | string\|number\|TreeNode\|(string\|number\|TreeNode)[]| - | - |
+| defaultValue | 指定默认选中的条目  | string\|number\|CascaderData\|(string\|number\|CascaderData)[]| - | - |
 | disabled | 是否禁用 | boolean | false | -  |
 | displayProp | 设置回填选项显示的属性值 | string  | `label` | - |
 | displayRender | 设置回填格式 | (selected: string[] \| Entity, idx?: number) => ReactNode | selected => selected.join('/') | - |
@@ -1525,11 +1525,11 @@ function Demo() {
 | dropdownStyle | 下拉菜单的样式 | object | - | - |
 | emptyContent | 当搜索无结果时展示的内容 | ReactNode | `暂无数据` | - |
 | filterLeafOnly |  搜索结果是否只展示叶子结点路径 | boolean  | true | 1.26.0 |
-| filterTreeNode | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值 | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false | - |
+| filterTreeNode | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 CascaderData 的属性值 | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false | - |
 | getPopupContainer | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative |() => HTMLElement|() => document.body | - |
 | insetLabel | 前缀标签别名，主要用于 Form | ReactNode | - | 0.28.0 |
 | leafOnly | 多选时设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的 value 参数只包含叶子节点。不支持动态切换 | boolean | false | 2.2.0 |
-| loadData | 异步加载数据，需要返回一个Promise | (selectOptions: TreeNode[]) => Promise< void > |- | 1.8.0 |
+| loadData | 异步加载数据，需要返回一个Promise | (selectOptions: CascaderData[]) => Promise< void > |- | 1.8.0 |
 | max| 多选时，限制多选选中的数量，超出 max 后将触发 onExceed 回调 | number | - | 1.28.0  |
 | maxTagCount| 多选时，标签的最大展示数量，超出后将以 +N 形式展示| number | - | 1.28.0 |
 | motion | 设置下拉框弹出的动画 |boolean| true |-|
@@ -1552,30 +1552,30 @@ function Demo() {
 | style | 选择框的样式 | CSSProperties | -  | - |
 | suffix | 后缀标签 | ReactNode  | -   | 0.28.0 |
 | topSlot | 顶部插槽 | ReactNode | - | 1.27.0  |
-| treeData | 展示数据，具体属性参考 [TreeNode](#TreeNode) | TreeNode[] | [] | - |
-| treeNodeFilterProp | 搜索时输入项过滤对应的 treeNode 属性 | string | `label` | - |
+| treeData | 展示数据，具体属性参考 [CascaderData](#CascaderData) | CascaderData[] | [] | - |
+| treeNodeFilterProp | 搜索时输入项过滤对应的 CascaderData 属性 | string | `label` | - |
 | triggerRender | 自定义触发器渲染方法  | (triggerRenderData: object) => ReactNode | - | 0.34.0 |
 | validateStatus | trigger 的校验状态，仅影响展示样式。可选: default、error、warning | string | `default` | - |
-| value |（受控）选中的条目 | string\|number\|TreeNode\|(string\|number\|TreeNode)[] | - | - |
+| value |（受控）选中的条目 | string\|number\|CascaderData\|(string\|number\|CascaderData)[] | - | - |
 | zIndex | 下拉菜单的 zIndex | number | 1030 | - |
 | enableLeafClick | 多选时，是否启动点击叶子节点选项触发勾选 | boolean | false | 2.2.0 |
 | onBlur | 失焦 Cascader 的回调 | (e: MouseEvent) => void | - | - |
-| onChange | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组 | (value: string\|number\| TreeNode |(string\|number\|TreeNode)[]) => void | - | - |
-| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 TreeNode 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | 1.16.0 |
+| onChange | 选中树节点时调用此函数，默认返回选中项 path 的 value 数组 | (value: string\|number\| CascaderData |(string\|number\|CascaderData)[]) => void | - | - |
+| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string/number 变为 TreeNode。此时如果是受控，也需要把 value 设置成 CascaderData 类型，且必须含有 value 的键值，defaultValue 同理 | boolean | false | 1.16.0 |
 | onClear| showClear 为 true 时，点击清空按钮触发的回调 | () => void | - | 1.29.0 |
 | onDropdownVisibleChange       | 下拉框切换时的回调   | (visible: boolean) => void | - | 0.35.0 |
 | onExceed| 多选时，超出 max 后触发的回调 | (checkedItem: Entity[]) => void | - | 1.28.0 |
 | onFocus| 聚焦 Cascader 的回调 | (e: MouseEvent) => void | - | - |
-| onListScroll | 下拉面板滚动的回调 | (e: React.Event, panel: { panelIndex: number; activeNode: TreeNode; } ) => void | - | 1.15.0 |
-| onLoad | 节点加载完毕时触发的回调 | (newLoadedKeys: Set< string >, data: TreeNode) => void |- | 1.8.0 |
+| onListScroll | 下拉面板滚动的回调 | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | 1.15.0 |
+| onLoad | 节点加载完毕时触发的回调 | (newLoadedKeys: Set< string >, data: CascaderData) => void |- | 1.8.0 |
 | onSearch | 文本框值变化时回调 | (value: string) => void | - | - |
 | onSelect | 被选中时调用，返回选中项的 value | (value: string \| number \| (string \| number)[]) => void| - | - |
 
-### TreeNode
+### CascaderData
 
 | 属性      | 说明                  | 类型            | 默认值 |
 | -------- | --------------------- | -------------- | ----- |
-| children | 子节点                 | TreeNode[]     | -     |
+| children | 子节点                 | CascaderData[]     | -     |
 | disabled | 不可选状态 **>=0.35.0** | boolean        | -     |
 | isLeaf   | 叶子节点                | boolean        | -     |
 | label    | 展示的文本（必填）       | ReactNode       | -     |
