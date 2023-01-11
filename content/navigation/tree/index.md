@@ -417,7 +417,7 @@ import { Tree, Input } from '@douyinfe/semi-ui';
 ```
 
 ### 简单 JSON 格式的数据
-可以通过 `treeDataSimpleJson` 传入 JSON 形式的 `treeNodes` 数据。此时 key-value 键值对中的 key 值将作为 `treeNode` 的 `key` 和 `label`，`value` 值将作为 `treeNode` 的 `value`。返回值为包含选中节点的 JSON 数据。
+可以通过 `treeDataSimpleJson` 传入 JSON 形式的 `treeNodes` 数据。此时 key-value 键值对中的 key 值将作为 `TreeNodeData` 的 `key` 和 `label`，`value` 值将作为 `TreeNodeData` 的 `value`。返回值为包含选中节点的 JSON 数据。
 
 ```jsx live=true hideInDSM
 import React from 'react';
@@ -533,7 +533,7 @@ import { Tree } from '@douyinfe/semi-ui';
 ```
 
 ### 自定义节点内容
-`treeNode` 的 label 属性支持传入 ReactNode 来自定义显示的节点内容。注意如果设置 `filterTreeNode` 开启搜索，默认是对 label 的值进行搜索，当 label 为节点时，需要自定义 `filterTreeNode` 的函数来满足搜索需求。
+`TreeNodeData` 的 label 属性支持传入 ReactNode 来自定义显示的节点内容。注意如果设置 `filterTreeNode` 开启搜索，默认是对 label 的值进行搜索，当 label 为节点时，需要自定义 `filterTreeNode` 的函数来满足搜索需求。
 
 在**v>=1.6.0**的版本中，你也可以使用 `renderLabel` 来传入自定义的渲染方法，此时搜索值仍为treeData中的相应的label属性。
 ```jsx live=true
@@ -1420,17 +1420,17 @@ import { Tree } from '@douyinfe/semi-ui';
 
 拖拽事件的回调入参如下：
 ```
-- onDragEnd: function({ event, node: treeNode })
-- onDragEnter:function({ event, node: treeNode, expandedKeys: string[] })
-- onDragLeave:function({ event, node: treeNode })
-- onDragOver:function({ event, node :treeNode })
-- onDragStart: function({ event, node })
-- onDrop:function({ event, node, dragNode:treeNode, dragNodesKeys:string[], dropPosition:number, dropToGap:Boolean })
+- onDragEnd: function({ event, node: DragTreeNode })
+- onDragEnter:function({ event, node: DragTreeNode, expandedKeys: string[] })
+- onDragLeave:function({ event, node: DragTreeNode })
+- onDragOver:function({ event, node: DragTreeNode })
+- onDragStart: function({ event, node: DragTreeNode })
+- onDrop:function({ event, node: DragTreeNode, dragNode: DragTreeNode, dragNodesKeys: string[], dropPosition: number, dropToGap: Boolean })
 ```
 
-其中node，除了原有数据originalData外，还包含:
+数据类型 DragTreeNode，除了包含 TreeNodeData 所有属性外，还包含 expanded 和 pos 属性，
 ```
-treeNode {
+DragTreeNode {
     expanded: Boolean,
     pos: string
     value?: string | number;
@@ -2111,7 +2111,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | className | 类名 | string | - | - |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`/`treeDataSimpleJson`)发生改变，这个 api 是无法影响节点的默认展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | - |
 | defaultExpandedKeys | 默认展开的节点，显示其直接子级 | string\[] | - | - |
-| defaultValue | 指定默认选中的条目 | string \| number \| TreeNode \| (string \| number \| TreeNode)[] | - | - |
+| defaultValue | 指定默认选中的条目 | string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[] | - | - |
 | directory | 目录树模式 | boolean | false | - |
 | disableStrictly | 当节点的disabled状态确定时，不可通过子级或者父级的关系选中 | boolean | false | 1.4.0 | 
 | disabled | 禁用整个树，不可选择 | boolean | false | 0.32.0 |
@@ -2120,19 +2120,19 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | expandAction             | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开  | boolean \| string   | false | 0.35.0       |
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`/`treeDataSimpleJson`)发生改变，默认展开情况也是会受到这个 api 影响的 | boolean | false | 1.30.0 |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级 | string[] | - | - |
-| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNode` 的属性值 | boolean \| ((inputValue: string, treeNodeString: string) => boolean) | false | - |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值 | boolean \| ((inputValue: string, treeNodeString: string) => boolean) | false | - |
 | hideDraggingNode | 是否隐藏正在拖拽的节点的 dragImg | boolean | false | 1.8.0 | 
 | icon | 自定义图标 | ReactNode | - | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态开启，如果有其他省略需求可以设置关闭 | boolean | false\|true(virtualized) | 1.8.0 |
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点 | boolean | false | 1.18.0 |  
-| loadData | 异步加载数据，需要返回一个Promise | (treeNode?: TreeNode) => Promise< void > |- |  1.0.0|
+| loadData | 异步加载数据，需要返回一个Promise | (treeNode?: TreeNodeData) => Promise< void > |- |  1.0.0|
 | loadedKeys | （受控）已经加载的节点，配合 loadData 使用 | string[] | - | 1.0.0|
 | motion | 是否开启动画 | boolean | true | - |
 | multiple | 是否支持多选 | boolean | false | - |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-| renderDraggingNode | 自定义正在拖拽节点的 dragImg 的 Html 元素 | (nodeInstance: HTMLElement, node: TreeNode) => HTMLElement | - | 1.8.0 | 
+| renderDraggingNode | 自定义正在拖拽节点的 dragImg 的 Html 元素 | (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | 完全自定义label的渲染函数 | (data: object) => ReactNode | - | 1.7.0 | 
-| renderLabel | 自定义label的渲染函数 | (label: ReactNode, data: TreeNode) => ReactNode |- |  1.6.0 | 
+| renderLabel | 自定义label的渲染函数 | (label: ReactNode, data: TreeNodeData) => ReactNode |- |  1.6.0 | 
 | searchClassName | 搜索框的 `className` 属性 | string | - | - |
 | searchPlaceholder | 搜索框默认文字 | string | - | - |
 | searchRender | 自定义搜索框的渲染方法，为 false 时可以隐藏组件的搜索框(**V>=1.0.0**) | ((searchRenderProps: object) => ReactNode) \| false | - | 0.35.0 |
@@ -2140,29 +2140,29 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | showClear | 支持清除搜索框 | boolean | true | 0.35.0 |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果 | boolean | false | 0.32.0 |
 | style | 样式  | CSSProperties | - | - |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 `TreeNode` 节点（key值在整个树范围内唯一） | TreeNode[] | \[] | - |
-| treeDataSimpleJson | 简单 JSON 形式的 `treeNodes` 数据，如果设置则不需要手动构造 TreeNode 节点，返回值为包含选中节点的Json数据 | TreeDataSimpleJson | \{} | - |
-| treeNodeFilterProp | 搜索时输入项过滤对应的 `treeNode` 属性 | string | `label` | - |
-| value | 当前选中的节点的value值，传入该值时将作为受控组件 | string \| number \| TreeNode \| (string \| number \| TreeNode)[] | - | - |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 `TreeNode` 节点（key值在整个树范围内唯一） | TreeNodeData[] | \[] | - |
+| treeDataSimpleJson | 简单 JSON 形式的 `TreeNodeData` 数据，如果设置则不需要手动构造 TreeNodeData 节点，返回值为包含选中节点的Json数据 | TreeDataSimpleJson | \{} | - |
+| treeNodeFilterProp | 搜索时输入项过滤对应的 `TreeNodeData` 属性 | string | `label` | - |
+| value | 当前选中的节点的value值，传入该值时将作为受控组件 | string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[] | - | - |
 | virtualize | 列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成，参考 Virtualize Object。开启后将关闭动画效果。 | VirtualizeObj | - | 0.32.0 |
-| onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值 | (value?: string \| number \| TreeNode \| (string \| number \| TreeNode)[]) => void | - | - |
+| onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值 | (value?: string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]) => void | - | - |
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest }。此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。 | boolean | false | - |
-| onDoubleClick | 双击事件的回调 | (e: MouseEvent, node: TreeNode) => void | - | 0.35.0 |
+| onDoubleClick | 双击事件的回调 | (e: MouseEvent, node: TreeNodeData) => void | - | 0.35.0 |
 | onDragEnd | onDragEnd 事件回调 | (dragProps: object) => void | - | 1.8.0 | 
 | onDragEnter | onDragEnter 事件回调 | (dragEnterProps: object) => void | - | 1.8.0 | 
 | onDragLeave | onDragLeave 事件回调 | (dragProps: object) => void | - | 1.8.0 | 
 | onDragOver | onDragOver 事件回调 | (dragProps: object) => void | - | 1.8.0 | 
 | onDragStart | onDragStart 事件回调 | (dragProps: object) => void | - | 1.8.0 | 
 | onDrop | onDrop 事件回调 | (onDragProps: object) => void | - | 1.8.0 | 
-| onExpand | 展示节点时调用 | (expandedKeys: string[], {expanded: boolean, node: TreeNode}) => void | - | - |
-| onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set<string/>, treeNode: TreeNode) => void |- |  1.0.0|
-| onContextMenu | 右键点击的回调 | (e: MouseEvent, node: TreeNode) => void | - | 0.35.0 |
+| onExpand | 展示节点时调用 | (expandedKeys: string[], {expanded: boolean, node: TreeNodeData}) => void | - | - |
+| onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set<string/>, treeNode: TreeNodeData) => void |- |  1.0.0|
+| onContextMenu | 右键点击的回调 | (e: MouseEvent, node: TreeNodeData) => void | - | 0.35.0 |
 | onSearch | 文本框值变化时回调 | (sunInput: string) => void | - | - |
-| onSelect | 被选中时调用，返回值为当前事件选项的key值 | (selectedKey:string, selected: bool, selectedNode: TreeNode) => void | - | - |
+| onSelect | 被选中时调用，返回值为当前事件选项的key值 | (selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void | - | - |
 
-### TreeNode
+### TreeNodeData
 
-> __不同 `TreeNode` 的 key 值要求必填且唯一。__`label` 允许重复。**v>=1.7.0** 之前 value 值要求必须必填且唯一。
+> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。**v>=1.7.0** 之前 value 值要求必须必填且唯一。
 > **v>=1.7.0** 之后 value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
 > 为了保证行为的符合预期，treeData 中的 value 值或者全部不填写，或者全部填写且唯一，不建议混写。
 

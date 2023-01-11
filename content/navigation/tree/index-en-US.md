@@ -548,7 +548,7 @@ import { Tree } from '@douyinfe/semi-ui';
 
 ### Custom TreeNode Label
 
-You could pass in ReactNode for `label` in `treeNode` to customize label. Pay attention that by default `filterTreeNode` searches data by label. When label is a ReactNode, it is advised to pass in customized search function for a searchable tree.
+You could pass in ReactNode for `label` in `TreeNodeData` to customize label. Pay attention that by default `filterTreeNode` searches data by label. When label is a ReactNode, it is advised to pass in customized search function for a searchable tree.
 
 ```jsx live=true
 import React from 'react';
@@ -1390,18 +1390,19 @@ You could use `draggable` along with `onDrop` to achieve a draggable Tree.
 </Notice>
 
 The callback input parameters of the drag event are as follows:
+
 ```
-- onDragEnd: function({ event, node:treeNode })
-- onDragEnter:function({ event, node:treeNode, expandedKeys:string[] })
-- onDragLeave:function({ event, node:treeNode })
-- onDragOver:function({ event, node:treeNode })
-- onDragStart: function({ event, node })
-- onDrop:function({ event, node, dragNode:treeNode, dragNodesKeys:string[], dropPosition:number, dropToGap:Boolean })
+- onDragEnd: function({ event, node: DragTreeNode })
+- onDragEnter:function({ event, node: DragTreeNode, expandedKeys: string[] })
+- onDragLeave:function({ event, node: DragTreeNode })
+- onDragOver:function({ event, node: DragTreeNode })
+- onDragStart: function({ event, node: DragTreeNode })
+- onDrop:function({ event, node: DragTreeNode, dragNode: DragTreeNode, dragNodesKeys: string[], dropPosition: number, dropToGap: Boolean })
 ```
 
-The node, in addition to the original data originalData, also contains:
+The data type DragTreeNode, in addition to all the attributes of TreeNodeData, also includes expanded and pos attributes,
 ```
-treeNode {
+DragTreeNode {
     expanded: Boolean,
     pos: string
     value?: string | number;
@@ -2118,7 +2119,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | className           | Class name| string                      | -       | - |
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the subsequent data (`treeData`/`treeDataSimpleJson`) changes, this api cannot affect the default expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | - |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed.     | string\[]                   | -       | - |
-| defaultValue        | Default value                      | string \| number \| TreeNode \| (string \| number \| TreeNode)[]            | -       | - |
+| defaultValue        | Default value                      | string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]            | -       | - |
 | directory           | Toggle whether to display tree in directory mode | boolean                     | false   | - |
 | disableStrictly | When a node is disabled, its status could not be changed by its parent or child nodes | boolean | false | 1.4.0 | 
 | disabled | Toggle whether to disable the entire tree to be unselectable | boolean | false | 0.32.0 |
@@ -2132,14 +2133,14 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | icon       | Icon | ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | 1.18.0 |
-| loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNode) => Promise< void > |-| 1.0.0|
+| loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNodeData) => Promise< void > |-| 1.0.0|
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | string[] | - | 1.0.0|
 | motion              | Toggle whether to turn on animation| boolean                     | true    | - |
 | multiple            | Toggle whether in multi-choice mode| boolean                     | false   | - |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| renderDraggingNode | Custom render function to render html element of dragImg for dragging node | (nodeInstance: HTMLElement, node: TreeNode) => HTMLElement | - | 1.8.0 | 
+| renderDraggingNode | Custom render function to render html element of dragImg for dragging node | (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | Custom option render function | (data: object) => ReactNode | - | 1.7.0 | 
-| renderLabel | Custom label render function | (label: ReactNode, data: TreeNode) => ReactNode | - | 1.6.0 | 
+| renderLabel | Custom label render function | (label: ReactNode, data: TreeNodeData) => ReactNode | - | 1.6.0 | 
 | searchClassName     | Classname property for search box  | string                      | -       | - |
 | searchPlaceholder   | Placeholder for search box         | string                      | -       | - |
 | searchRender | Custom method to render search input; hide search box if set to false(**V>=1.0.0**) | ((searchRenderProps: object) => ReactNode) \| false | - | 0.35.0 |
@@ -2147,29 +2148,29 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | showClear   | Toggle whether to support clear input box | boolean                     | true   | 0.35.0|
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
 | style               | Inline style                       | CSSProperties                      | -       | - |
-| treeData            | Data for treeNodes                 | TreeNode[]            | \[]     | - |
+| treeData            | Data for treeNodes                 | TreeNodeData[]            | \[]     | - |
 | treeDataSimpleJson  | Data for treeNodes in JSON format, return value in JSON format as well    | TreeDataSimpleJson                      | \{}     | - |
 | treeNodeFilterProp  | Property in a `treeNode` used to search   | string                      | `label` | - |
-| value               | Current value, used when tree is a controlled component                   | string \| number \| TreeNode \| (string \| number \| TreeNode)[]           | -       | - |
+| value               | Current value, used when tree is a controlled component                   | string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]           | -       | - |
 | virtualize | Efficiently rendering large lists, refer to VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | VirtualizeObj | - | 0.32.0 |
-| onChange            | Callback function when the tree node is selected, return the value property of data                   | (string \| number \| TreeNode \| (string \| number \| TreeNode)[]) => void   | -       | - |
+| onChange            | Callback function when the tree node is selected, return the value property of data                   | (string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]) => void   | -       | - |
 | onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like: { value, label, ...rest }. For controlled mode, you need to pass an object with { value: value } to value correspondingly. DefaultValue similarly.  | boolean                     | false   | - |
-| onDoubleClick | (e: MouseEvent, node: TreeNode) => void | - | 0.35.0 |
+| onDoubleClick | (e: MouseEvent, node: TreeNodeData) => void | - | 0.35.0 |
 | onDragEnd | Callback function for onDragEnd  | (dragProps: object) => void | - | 1.8.0 | 
 | onDragEnter | Callback function for onDragEnter  | (dragEnterProps: object) => void | - | 1.8.0 | 
 | onDragLeave | Callback function for onDragLeave  | (dragProps: object) => void | - | 1.8.0 | 
 | onDragOver | Callback function for onDragOver  | (dragProps: object) => void | - | 1.8.0 | 
 | onDragStart | Callback function for onDragStart  | (dragProps: object) => void | - | 1.8.0 | 
 | onDrop | Callback function for onDrop  | (onDragProps: object) => void | - | 1.8.0 | 
-| onExpand            | Callback function when expand or collapse a node | (expandedKeys: string[], {expanded: boolean, node: TreeNode}) => void               | -       | - |
-| onLoad | Callback function when a node is loaded | (loadedKeys: Set< string >, treeNode: TreeNode) => void | - | 1.0.0|
-| onContextMenu | Callback function when right click on an item | (e: MouseEvent, node: TreeNode) => void | - | 0.35.0 |
+| onExpand            | Callback function when expand or collapse a node | (expandedKeys: string[], {expanded: boolean, node: TreeNodeData}) => void               | -       | - |
+| onLoad | Callback function when a node is loaded | (loadedKeys: Set< string >, treeNode: TreeNodeData) => void | - | 1.0.0|
+| onContextMenu | Callback function when right click on an item | (e: MouseEvent, node: TreeNodeData) => void | - | 0.35.0 |
 | onSearch            | Callback function when the values for search input changes                | (sunInput: string) => void  | -       | - |
-| onSelect            | Callback function when selected, return the key property of data          | (selectedKey:string, selected: bool, selectedNode: TreeNode) => void | -       | - |
+| onSelect            | Callback function when selected, return the key property of data          | (selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void | -       | - |
 
-### TreeNode
+### TreeNodeData
 
-> **Key for `TreeNode` is required and must be unique**, `label` can be duplicated. Before **v>=1.7.0** value is also required and must be unique.
+> **Key for `TreeNodeData` is required and must be unique**, `label` can be duplicated. Before **v>=1.7.0** value is also required and must be unique.
 > After **v>=1.7.0**, value is not required. In this case, the value property in `onChange`, `value`, `defaultValue` and `onChangeWithObject` will point to key property.
 > To ensure everything behave as expected, keep a consistency of whether to have value or not to have value.
 
