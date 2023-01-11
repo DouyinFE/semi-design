@@ -234,8 +234,9 @@ function withField<
         };
 
         // execute custom validate function
-        const _validate = (val: any, values: any, callOpts: CallOpts) =>
-            new Promise(resolve => {
+        const _validate = (val: any, values: any, callOpts: CallOpts) => {
+
+            const rootPromise = new Promise(resolve => {
                 let maybePromisedErrors;
                 // let errorThrowSync;
                 try {
@@ -249,6 +250,11 @@ function withField<
                     updateError(undefined, callOpts);
                 } else if (isPromise(maybePromisedErrors)) {
                     maybePromisedErrors.then((result: any) => {
+                        // If the async validate is outdated (a newer validate occurs), the result should be discarded
+                        if (validatePromise.current !== rootPromise) {
+                            return;
+                        }
+
                         if (isValid(result)) {
                             // validate success，no need to do anything with result
                             updateError(undefined, callOpts);
@@ -269,6 +275,11 @@ function withField<
                     }
                 }
             });
+            
+            validatePromise.current = rootPromise;
+
+            return rootPromise;
+        };
 
         const fieldValidate = (val: any, callOpts?: CallOpts) => {
             let finalVal = val;
