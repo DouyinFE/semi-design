@@ -418,4 +418,74 @@ class RulesExample extends React.Component {
         );
     }
 }
-export { ValidateFieldsDemo, CustomValidateDemo, PartValidAndResetDemo, RulesValidateDemo, SetBugDemo, UnmountedLeafDemo, RulesExample };
+
+
+
+class RaceAsyncDemo extends React.Component {
+    constructor() {
+        super();
+        this.asyncValidate = this.asyncValidate.bind(this);
+    }
+
+    asyncValidate(val, values) {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+        let time = 1000; 
+        if (val === 'semi') {
+            time = 4000;
+        } 
+        return sleep(time).then(() => {
+            if (!val) {
+                return 'can\'t be empty';
+            } else if (val === 'semi') {
+                return 'sleep 4000';
+            } else if (val === 'sem') {
+                return 'sleep 1000';
+            } else {
+                return '';
+            }
+        });
+    }
+
+    render() {
+        return (
+            <Form>
+                <Form.Input
+                    field='name'
+                    label='props.rules ract async validate'
+                    // validate={this.asyncValidate}
+                    trigger='blur'
+                    rules={[
+                        {
+                            type: 'string',
+                            asyncValidator: (rule, value) => {
+                                const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+                                let time = 1000; 
+                                if (value === 'semi') {
+                                    time = 4000;
+                                }
+                                return sleep(time).then(() => {
+                                    if (value === 'semi') {
+                                        throw Error('sleep 4000');
+                                    } else if (value === 'sem') {
+                                        throw Error('sleep 1000');
+                                    } else {
+                                        return;
+                                    }
+                                });
+                            }
+                        }
+                    ]}
+                />
+                <Form.Input
+                    field='nick'
+                    label='props.validate ract async validate'
+                    validate={this.asyncValidate}
+                    trigger='blur'
+                />
+                <Button htmlType="reset">reset</Button>
+            </Form>
+        );
+    }
+}
+
+export { ValidateFieldsDemo, CustomValidateDemo, PartValidAndResetDemo, RulesValidateDemo, SetBugDemo, UnmountedLeafDemo, RulesExample, RaceAsyncDemo };

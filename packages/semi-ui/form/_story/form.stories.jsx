@@ -62,6 +62,7 @@ import {
   SetBugDemo,
   UnmountedLeafDemo,
   RulesExample,
+  RaceAsyncDemo,
 } from './Validate/validateDemo';
 
 // field props
@@ -247,6 +248,11 @@ export const ValidateUseRules = () => <RulesValidateDemo />;
 ValidateUseRules.story = {
   name: 'Validate-use rules',
 };
+
+RaceAsyncDemo.story = {
+  name: 'Validate - race async'
+}
+export const RaceAsync = () => <RaceAsyncDemo />;
 
 export const HooksUseFormApi = () => <UseFormApiDemo />;
 
