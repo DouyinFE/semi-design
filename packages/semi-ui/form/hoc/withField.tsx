@@ -128,6 +128,7 @@ function withField<
 
         const rulesRef = useRef(rules);
         const validateRef = useRef(validate);
+        const validatePromise = useRef<Promise<any> | null>(null);
 
         // notNotify is true means that the onChange of the Form does not need to be triggered
         // notUpdate is true means that this operation does not need to trigger the forceUpdate
@@ -182,7 +183,7 @@ function withField<
                 [field]: val,
             };
 
-            return new Promise((resolve, reject) => {
+            const rootPromise = new Promise((resolve, reject) => {
                 validator
                     .validate(
                         model,
@@ -193,12 +194,18 @@ function withField<
                         (errors, fields) => {}
                     )
                     .then(res => {
+                        if (validatePromise.current !== rootPromise) {
+                            return;
+                        }
                         // validation passed
                         setStatus('success');
                         updateError(undefined, callOpts);
                         resolve({});
                     })
                     .catch(err => {
+                        if (validatePromise.current !== rootPromise) {
+                            return;
+                        }
                         let { errors, fields } = err;
                         if (errors && fields) {
                             let messages = errors.map((e: any) => e.message);
@@ -220,11 +227,16 @@ function withField<
                         }
                     });
             });
+
+            validatePromise.current = rootPromise;
+
+            return rootPromise;
         };
 
         // execute custom validate function
-        const _validate = (val: any, values: any, callOpts: CallOpts) =>
-            new Promise(resolve => {
+        const _validate = (val: any, values: any, callOpts: CallOpts) => {
+
+            const rootPromise = new Promise(resolve => {
                 let maybePromisedErrors;
                 // let errorThrowSync;
                 try {
@@ -238,6 +250,11 @@ function withField<
                     updateError(undefined, callOpts);
                 } else if (isPromise(maybePromisedErrors)) {
                     maybePromisedErrors.then((result: any) => {
+                        // If the async validate is outdated (a newer validate occurs), the result should be discarded
+                        if (validatePromise.current !== rootPromise) {
+                            return;
+                        }
+
                         if (isValid(result)) {
                             // validate success，no need to do anything with result
                             updateError(undefined, callOpts);
@@ -258,6 +275,11 @@ function withField<
                     }
                 }
             });
+            
+            validatePromise.current = rootPromise;
+
+            return rootPromise;
+        };
 
         const fieldValidate = (val: any, callOpts?: CallOpts) => {
             let finalVal = val;
