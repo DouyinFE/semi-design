@@ -24,6 +24,9 @@ export interface DropdownItemProps extends BaseProps {
     active?: boolean;
     icon?: React.ReactNode;
     onKeyDown?: (e: React.KeyboardEvent) => void;
+    showTick?: boolean;
+    /** internal prop, please do not use  */
+    hover?: boolean
 }
 
 const prefixCls = css.PREFIX;
@@ -48,6 +51,8 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
     };
 
     static contextType = DropdownContext;
+    static elementType: string;
+
     context: DropdownContextType;
 
     static defaultProps = {
@@ -61,12 +66,13 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
 
 
     render() {
-        const { children, disabled, className, forwardRef, style, type, active, icon, onKeyDown } = this.props;
-        const { showTick } = this.context;
+        const { children, disabled, className, forwardRef, style, type, active, icon, onKeyDown, showTick, hover } = this.props;
+        const { showTick: contextShowTick } = this.context;
         const itemclass = cls(className, {
             [`${prefixCls}-item`]: true,
             [`${prefixCls}-item-disabled`]: disabled,
-            [`${prefixCls}-item-withTick`]: showTick,
+            [`${prefixCls}-item-hover`]: hover,
+            [`${prefixCls}-item-withTick`]: contextShowTick ?? showTick,
             [`${prefixCls}-item-${type}`]: type,
             [`${prefixCls}-item-active`]: active,
         });
@@ -106,5 +112,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         );
     }
 }
+
+DropdownItem.elementType = 'Dropdown.Item';
 
 export default DropdownItem;

@@ -16,6 +16,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.27.1 (2023-01-12)
+- 【Fix】
+    - 修复Form Field 级别校验，使用 props.rules 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题,  [#1375](https://github.com/DouyinFE/semi-design/issues/1375) [@SyMind](https://github.com/SyMind)
+    - 修复Form Field 级别校验，使用 props.validate 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题,  [#1375 ](https://github.com/DouyinFE/semi-design/issues/1375)
+- 【Docs】
+    - 修改 Cascader / TreeSelect / Tree 文档中 treeData API 类型名， 使其和代码一致
+
 #### 🎉 2.27.0 (2023-01-06)
 - 【Fix】
     - 修复 Select 在配置了 outerBottomSlot、outTopSlot、innerBottomSlot、innerTopSlot 后，hover到 Slot 中，Option 仍保持 focus 样式，易使用户产生疑惑的问题 [#1370](https://github.com/DouyinFE/semi-design/pull/1370)
