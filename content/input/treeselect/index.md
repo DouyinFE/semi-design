@@ -1383,7 +1383,7 @@ function Demo() {
 | expandAction             | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开  | boolean \| string   | false | 1.4.0      |
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`)发生改变，默认的展开情况也是会受到这个 api 影响的 | boolean | false | 1.30.0 |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级 | string[] | - | 0.32.0 |
-| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNode` 的属性值 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false | - |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false | - |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`     | function():HTMLElement | - | - |
 | insetLabel | 前缀标签别名，主要用于 Form | ReactNode | - |0.28.0 |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启 | boolean | false\|true | 1.8.0 | 

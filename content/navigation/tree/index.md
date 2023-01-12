@@ -2120,7 +2120,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | expandAction             | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开  | boolean \| string   | false | 0.35.0       |
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`/`treeDataSimpleJson`)发生改变，默认展开情况也是会受到这个 api 影响的 | boolean | false | 1.30.0 |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级 | string[] | - | - |
-| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNode` 的属性值 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean) | false | - |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean) | false | - |
 | hideDraggingNode | 是否隐藏正在拖拽的节点的 dragImg | boolean | false | 1.8.0 | 
 | icon | 自定义图标 | ReactNode | - | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态开启，如果有其他省略需求可以设置关闭 | boolean | false\|true(virtualized) | 1.8.0 |
