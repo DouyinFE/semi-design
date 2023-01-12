@@ -221,10 +221,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             selections = this._updateSingle(propValue, originalOptions);
         } else {
             selections = this._updateMultiple(propValue as (PropValue)[], originalOptions);
+            this.updateOverflowItemCount(selections.size);
         }
         // Update the text in the selection box
         this._adapter.updateSelection(selections);
-        this.updateOverflowItemCount(selections.size);
         // Update the selected item in the drop-down box
         this.updateOptionsActiveStatus(selections, originalOptions);
     }
@@ -430,7 +430,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             });
         } else {
             this._adapter.updateSelection(selections);
-            this.updateOverflowItemCount(selections.size);
             // notify user
             this._notifyChange(selections);
 
@@ -494,7 +493,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._adapter.notifyClear();
         } else {
             this._adapter.updateSelection(selections);
-            this.updateOverflowItemCount(selections.size);
             this.updateOptionsActiveStatus(selections);
             this._notifyChange(selections);
             this._adapter.notifyClear();

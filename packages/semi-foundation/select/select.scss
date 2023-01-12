@@ -26,8 +26,8 @@ $overflowList: #{$prefix}-overflow-list;
     transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg, border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
     transform: scale($transform_scale-select);
 
-    max-height: 400px;
-    overflow-x: scroll;
+    max-height: 300px;
+    overflow-y: auto;
 
     &:hover {
         background-color: $color-select-bg-hover;

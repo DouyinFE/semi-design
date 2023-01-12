@@ -469,6 +469,7 @@ export const FixDisplayFlexDemo = () =>{
             <br />
             <div style={{ width: `${width}%`, display: 'flex' }}>
                 <OverflowList
+                    style={{ width: '100%' }}
                     items={items}
                     minVisibleItems={3}
                     overflowRenderer={renderOverflow}
@@ -512,7 +513,7 @@ export const FixFirstLongTagDemo = () =>{
             <Slider step={1} value={width} onChange={value => setWidth(value)} />
             <br />
             <br />
-            <div style={{ width: `${width}%`, display: 'flex' }}>
+            <div style={{ width: `${width}%` }}>
                 <OverflowList
                     items={items}
                     onOverflow={(items)=>{

@@ -3144,27 +3144,27 @@ export const NPlusTruncationStrategy = () => {
             <h4>定宽</h4>
             maxTagCount = 2 + defaultValue.length = 2
             <br /><br />
-            <Select style={{ width: '350px' }} maxTagCount={2} multiple optionList={options} defaultValue={shortVal} ></Select>
+            <Select style={{ width: '350px' }} maxTagCount={2} multiple optionList={options} defaultValue={shortVal} showClear></Select>
             <br /><br />
             maxTagCount = 5 + defaultValue.length = 5
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={5} multiple  optionList={options} defaultValue={val}></Select>
+            <Select style={{ width: '550px' }} maxTagCount={5} multiple  optionList={options} defaultValue={val} showClear></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect}></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} showClear></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11 + filter
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} filter></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} filter showClear></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11 + expandRestTagsOnClick=false
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} expandRestTagsOnClick={false}></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} expandRestTagsOnClick={false} showClear></Select>
             <br /><br /><br />
 
             <h4>能保证正常渲染的最小宽度至少是120px</h4>
-            <Select style={{ width: '120px' }} maxTagCount={10} multiple  optionList={options} defaultValue={val}></Select>
+            <Select style={{ width: '120px' }} maxTagCount={10} multiple  optionList={options} defaultValue={val} showClear></Select>
             <br /><br /><br />
 
             <h4>前缀/后缀/insetLabel</h4>
