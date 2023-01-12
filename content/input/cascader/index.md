@@ -287,6 +287,202 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+可以使用 `filterSorter` 对筛选后的数据进行排序
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Product',
+            value: 'Product',
+            children: [
+                {
+                    label: 'Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi',
+                    value: 'Semi',
+                    
+                },
+                {
+                    label: 'Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="输入 s 查看排序效果"
+                filterTreeNode
+                filterSorter={(first, second, inputValue) => {
+                    const firstData = first[first.length - 1];
+                    const lastData = second[second.length - 1];
+                    if (firstData.label === inputValue) {
+                        return -1;
+                    } else if (lastData.label === inputValue) {
+                        return 1;
+                    } else {
+                        return firstData.label < lastData.label ? -1 : 1;
+                    }
+                }}
+            />
+        </div>
+    );
+};
+```
+
+如果想要自定义渲染搜索后的选项，可以使用 `filterRender` 实现整行的自定义渲染, `filterRender` 函数参数如下：
+
+``` tsx
+interface FilterRenderProps {
+    className: string;
+    inputValue: string;     // 搜索栏搜索内容
+    disabled: boolean;      // 是否禁用
+    data: CascaderData[];   // 搜索结果数据
+    checkStatus:  {         // 多选时的选中状态
+        checked: boolean;
+        halfChecked: boolean;
+    };  
+    selected: boolean;      // 单选时的选中状态       
+    onClick: (e: React.MouseEvent) => void;  // 点击选中回调
+    onKeyPress: (e: React.KeyboardEvent) => void // 键盘按下相关回调
+ }
+```
+
+使用实例如下
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Semi',
+            value: 'Semi',
+            children: [
+                {
+                    label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi Design Semi Design Semi Design Semi Design',
+                    value: 'Semi',
+                    
+                },
+                {
+                    label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C Semi-D2C Semi-D2C Semi-D2C Semi-D2C ',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    const { Text } = Typography;
+
+    const renderSearchOptionSingle = (props) => {
+        const { className, data, onClick, onKeyPress, selected } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+                key={data.value}
+            > 
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
+                >
+                    {data.map(item => item.label ).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+
+    const renderSearchOptionMultiple = (props) => {
+        const { className, data, checkStatus, onClick, onKeyPress } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+                key={data.value}
+            > 
+                <Checkbox
+                    onClick={onClick}
+                    indeterminate={checkStatus.halfChecked}
+                    checked={checkStatus.checked}
+                    style={{ marginRight: 8 }}
+                />
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 250 }}
+                >
+                    {data.map(item => item.label).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+    
+    return (
+        <div>
+            <p>鼠标 hover 到选项可查看被省略文本完整内容</p>
+            <br />
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="单选，输入 s 自定义搜索选项渲染结果"
+                filterTreeNode
+                filterOptionFullRender={renderSearchOptionSingle}
+            />
+            <br />
+            <Cascader
+                multiple
+                style={{ width: 300, marginTop: 20 }}
+                treeData={treeData}
+                placeholder="多选，输入 s 自定义搜索选项渲染结果"
+                filterTreeNode
+                filterOptionFullRender={renderSearchOptionMultiple}
+            />
+        </div>
+    );
+};
+
+```
+
 ### 限制标签展示数量
 
 version: >= 1.28.0
@@ -1525,7 +1721,9 @@ function Demo() {
 | dropdownStyle | 下拉菜单的样式 | object | - | - |
 | emptyContent | 当搜索无结果时展示的内容 | ReactNode | `暂无数据` | - |
 | filterLeafOnly |  搜索结果是否只展示叶子结点路径 | boolean  | true | 1.26.0 |
-| filterTreeNode | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 CascaderData 的属性值 | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false | - |
+| filterTreeNode | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值， data 参数提供于 v2.28.0 | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
+| filterRender | 自定义渲染筛选后的选项 | (props: FilterRenderProps) => ReactNode; | - | 2.28.0 |
+| filterSorter | 对筛选后的选项进行排序 | (first: CascaderData, second: CascaderData, inputValue: string) => number | - | 2.28.0 |
 | getPopupContainer | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative |() => HTMLElement|() => document.body | - |
 | insetLabel | 前缀标签别名，主要用于 Form | ReactNode | - | 0.28.0 |
 | leafOnly | 多选时设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的 value 参数只包含叶子节点。不支持动态切换 | boolean | false | 2.2.0 |

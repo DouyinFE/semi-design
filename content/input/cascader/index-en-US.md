@@ -282,6 +282,202 @@ class Demo extends React.Component {
 }
 ```
 
+Filtered data can be sorted using `filterSorter`
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Product',
+            value: 'Product',
+            children: [
+                {
+                    label: 'Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi',
+                    value: 'Semi',
+                    
+                },
+                {
+                    label: 'Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="Enter s to view the sorting effect"
+                filterTreeNode
+                filterSorter={(first, second, inputValue) => {
+                    const firstData = first[first.length - 1];
+                    const lastData = second[second.length - 1];
+                    if (firstData.label === inputValue) {
+                        return -1;
+                    } else if (lastData.label === inputValue) {
+                        return 1;
+                    } else {
+                        return firstData.label < lastData.label ? -1 : 1;
+                    }
+                }}
+            />
+        </div>
+    );
+};
+```
+
+If you want to customize the rendering options after the search, you can use `filterRender` to achieve custom rendering of the entire line. The `filterRender` function parameters are as follows:
+
+``` tsx
+interface filterRenderProps {
+    className: string;
+    inputValue: string;     // Search bar search content
+    disabled: boolean;      // Whether to disable
+    data: CascaderData[];   // Search result data
+    checkStatus:  {         // Checked state when multiple selection
+        checked: boolean;
+        halfChecked: boolean;
+    };  
+    selected: boolean;      // Selected state when single selection
+    onClick: (e: React.MouseEvent) => void;      // Callback when clicked
+    onKeyPress: (e: React.MouseEvent) => void;   // KeyBoard press related callback
+ }
+```
+
+The example is as follows
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Semi',
+            value: 'Semi',
+            children: [
+                {
+                    label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi Design Semi Design Semi Design Semi Design',
+                    value: 'Semi Design',
+                    
+                },
+                {
+                    label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C Semi-D2C Semi-D2C Semi-D2C Semi-D2C ',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    const { Text } = Typography;
+
+    const renderSearchOptionSingle = (props) => {
+        const { className, data, onClick, onKeyPress, selected } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+                key={data.value}
+            > 
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
+                >
+                    {data.map(item => item.label ).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+
+    const renderSearchOptionMultiple = (props) => {
+        const { className, data, checkStatus, onClick, onKeyPress } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+                key={data.value}
+            > 
+                <Checkbox
+                    onClick={onClick}
+                    indeterminate={checkStatus.halfChecked}
+                    checked={checkStatus.checked}
+                    style={{ marginRight: 8 }}
+                />
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 250 }}
+                >
+                    {data.map(item => item.label).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+    
+    return (
+        <div>
+            <p>Mouse over the option to view the complete content of the omitted text</p>
+            <br />
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="Single selection, enter s"
+                filterTreeNode
+                filterOptionFullRender={renderSearchOptionSingle}
+            />
+            <br />
+            <Cascader
+                multiple
+                style={{ width: 300, marginTop: 20 }}
+                treeData={treeData}
+                placeholder="Single selection, enter s"
+                filterTreeNode
+                filterOptionFullRender={renderSearchOptionMultiple}
+            />
+        </div>
+    );
+};
+
+```
+
 ### Limit Tags Displayed
 
 version: >= 1.28.0
@@ -1538,7 +1734,9 @@ function Demo() {
 | dropdownStyle | Inline style of drop-down menu  | object  | - | -  |
 | emptyContent | Content displayed when the search has no result | ReactNode | `No result`  | - |
 | filterLeafOnly |  Whether the search results only show the path of leaf nodes   | boolean  | true | 1.26.0  |
-| filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false | - |
+| filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
+| filterRender | Used to render filtered options | (props: FilterRenderProps) => ReactNode; | - | 2.28.0 |
+| filterSorter | Sort the filtered options | (first: CascaderData, second: CascaderData, inputValue: string) => number | - | 2.28.0 |
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative |() => HTMLElement|() => document.body|-|
 | insetLabel | Prefix alias, used mainly in Form | ReactNode | - | 0.28.0 |
 | leafOnly | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching | boolean | false | 2.2.0  |

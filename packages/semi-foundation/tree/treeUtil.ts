@@ -399,14 +399,15 @@ export function calcMotionKeys(oldKeySet: Set<string>, newKeySet: Set<string>, k
 }
 /**
  * @returns whether option includes sugInput.
- * When filterTreeNode is a function,returns the result of filterTreeNode which called with (sugInput, option).
+ * When filterTreeNode is a function,returns the result of filterTreeNode which called with (sugInput, target, option).
+ * The filteredPath parameter will only be passed in when the Cascader calls the filter function
  */
-export function filter(sugInput: string, option: any, filterTreeNode: any, filterProps: any) {
+export function filter(sugInput: string, option: any, filterTreeNode: any, filterProps: any, filteredPath?: string) {
     if (!filterTreeNode) {
         return true;
     }
     let filterFn = filterTreeNode;
-    let target = option;
+    let target = filteredPath ?? option;
     if (typeof filterTreeNode === 'boolean') {
         filterFn = (targetVal: string, val: any) => {
             const input = targetVal.toLowerCase();
@@ -419,7 +420,7 @@ export function filter(sugInput: string, option: any, filterTreeNode: any, filte
     if (filterProps) {
         target = option[filterProps];
     }
-    return filterFn(sugInput, target);
+    return filterFn(sugInput, target, option);
 }
 
 export function normalizedArr(val: any) {
