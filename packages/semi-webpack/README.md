@@ -159,5 +159,11 @@ Type: `Object`
 
 The options of webpack loader that extract css.
 
+#### options.extractCssOptions.overrideLoaderList
+
+Type: `(loaderList:any[])=>any[]`
+
+You can customize how webpack process semi related styles by override the loader with this option. The function will receive the loader list of default loaders(and options.extractCssOptions.loader) and you should return your new loader list. The best practice is just only add your loader to the list rather than delete or change the default loaders since some core logic is in there.
+
 
 In webpack@5, some hooks need to be obtained through api `NormalModule.getCompilationHooks`. But in some scenarios, webpack will not be installed, such as Next.js. Therefore, the user is required to pass in NormalModule as a parameter.

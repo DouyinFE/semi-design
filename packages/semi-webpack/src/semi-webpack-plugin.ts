@@ -8,7 +8,8 @@ export interface WebpackContext {
 
 export interface ExtractCssOptions {
     loader: string;
-    loaderOptions?: any
+    loaderOptions?: any;
+    overrideLoaderList?:(loaders:any[])=>any[]
 }
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
@@ -18,6 +19,7 @@ export interface SemiWebpackPluginOptions {
     omitCss?: boolean;
     webpackContext?: WebpackContext;
     extractCssOptions?: ExtractCssOptions
+
 }
 
 export interface SemiThemeOptions {
@@ -94,7 +96,7 @@ export default class SemiWebpackPlugin {
                 } : {
                     loader: styleLoader
                 };
-                module.loaders = [
+                const loaderList = [
                     lastLoader,
                     {
                         loader: cssLoader,
@@ -113,6 +115,7 @@ export default class SemiWebpackPlugin {
                             include: this.options.include
                         }
                     }];
+                module.loaders = this.options.extractCssOptions.overrideLoaderList?.(loaderList) ?? loaderList;
             }
         }
     }
