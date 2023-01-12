@@ -8,8 +8,7 @@ export interface WebpackContext {
 
 export interface ExtractCssOptions {
     loader: string;
-    loaderOptions?: any;
-    overrideLoaderList?:(loaders:any[])=>any[]
+    loaderOptions?: any
 }
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
@@ -18,7 +17,8 @@ export interface SemiWebpackPluginOptions {
     include?: string;
     omitCss?: boolean;
     webpackContext?: WebpackContext;
-    extractCssOptions?: ExtractCssOptions
+    extractCssOptions?: ExtractCssOptions;
+    overrideStylesheetLoaders?:(loaders:any[])=>any[]
 
 }
 
@@ -115,7 +115,7 @@ export default class SemiWebpackPlugin {
                             include: this.options.include
                         }
                     }];
-                module.loaders = this.options.extractCssOptions.overrideLoaderList?.(loaderList) ?? loaderList;
+                module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
             }
         }
     }
