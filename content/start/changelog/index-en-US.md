@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.27.1 (2023-01-12)
+- 【Fix】
+    - Fix Form Field level validation. When using props.rules, there is a race condition asynchronous, and the validation performed later will be overwritten by the validation performed before  [#1375](https://github.com/DouyinFE/semi-design/issues/1375) [@SyMind](https://github.com/SyMind)
+    - Fix Form Field level validation. When using props.validate, there is a race condition asynchronous, and the validation performed later will be overwritten by the validation performed before,  [#1375 ](https://github.com/DouyinFE/semi-design/issues/1375)
+- 【Docs】
+    - Modify the treeData API type name in the Cascader / TreeSelect / Tree documentation to make it consistent with the code
+
 #### 🎉 2.27.0 (2023-01-06)
 - 【Fix】
     - Fix the problem that after Select is configured with outerBottomSlot, outTopSlot, innerBottomSlot, and innerTopSlot, when hovering to the slot, the Option still maintains the focus style, which easily confuses users [#1370](https://github.com/DouyinFE/semi-design/pull/1370)

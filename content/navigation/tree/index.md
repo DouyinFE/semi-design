@@ -2140,8 +2140,8 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | showClear | 支持清除搜索框 | boolean | true | 0.35.0 |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果 | boolean | false | 0.32.0 |
 | style | 样式  | CSSProperties | - | - |
-| treeData | treeNodes 数据，如果设置则不需要手动构造 `TreeNode` 节点（key值在整个树范围内唯一） | TreeNodeData[] | \[] | - |
-| treeDataSimpleJson | 简单 JSON 形式的 `TreeNodeData` 数据，如果设置则不需要手动构造 TreeNodeData 节点，返回值为包含选中节点的Json数据 | TreeDataSimpleJson | \{} | - |
+| treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（key值在整个树范围内唯一） | TreeNodeData[] | \[] | - |
+| treeDataSimpleJson | 简单 JSON 形式的 `TreeNodeData` 数据，如果设置则不需要手动构造 TreeNode 节点，返回值为包含选中节点的Json数据 | TreeDataSimpleJson | \{} | - |
 | treeNodeFilterProp | 搜索时输入项过滤对应的 `TreeNodeData` 属性 | string | `label` | - |
 | value | 当前选中的节点的value值，传入该值时将作为受控组件 | string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[] | - | - |
 | virtualize | 列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成，参考 Virtualize Object。开启后将关闭动画效果。 | VirtualizeObj | - | 0.32.0 |
