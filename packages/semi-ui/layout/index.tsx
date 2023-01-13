@@ -111,7 +111,9 @@ class Layout extends React.Component<BasicLayoutProps, BasicLayoutState> {
         const { prefixCls, className, children, hasSider, tagName, ...others } = this.props;
         const { siders } = this.state;
         const classString = cls(className, prefixCls, {
-            [`${prefixCls}-has-sider`]: typeof hasSider === 'boolean' ? hasSider : siders.length > 0,
+            [`${prefixCls}-has-sider`]: typeof hasSider === 'boolean' && hasSider || siders.length > 0 || React.Children.toArray(children).some((child: React.ReactNode) => {
+                return React.isValidElement(child) && child.type && (child.type as any).type==="Sider";
+            }),
         });
         const Tag: any = tagName;
         return (
