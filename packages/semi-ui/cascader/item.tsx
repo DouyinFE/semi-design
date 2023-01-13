@@ -50,7 +50,7 @@ export interface FilterRenderProps {
     };  
     selected: boolean; 
     onClick: (e: React.MouseEvent) => void;
-    onKeyPress: (e: React.KeyboardEvent) => void
+    onCheck: (e: React.MouseEvent) => void
 }
 
 export interface CascaderItemProps {
@@ -213,6 +213,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                         this.onClick(e, item);
                     };
                     const onKeyPress = e => this.handleItemEnterPress(e, item);
+                    const onCheck = (e: CheckboxEvent) => this.onCheckboxChange(e, item);
                     if (filterRender) {
                         const props = {
                             className,
@@ -225,9 +226,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
                             },
                             selected,
                             onClick,
-                            onKeyPress
+                            onCheck
                         };
-                        return filterRender(props);
+                        return React.cloneElement(filterRender(props) as any, { key });
                     }
                     return (
                         <li
@@ -241,7 +242,7 @@ export default class Item extends PureComponent<CascaderItemProps> {
                                 {!multiple && this.renderIcon('empty')}
                                 {multiple && (
                                     <Checkbox
-                                        onChange={(e: CheckboxEvent) => this.onCheckboxChange(e, item)}
+                                        onChange={onCheck}
                                         disabled={disabled}
                                         indeterminate={halfCheckedKeys.has(item.key)}
                                         checked={checkedKeys.has(item.key)}

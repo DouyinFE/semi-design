@@ -357,13 +357,13 @@ interface FilterRenderProps {
     inputValue: string;     // 搜索栏搜索内容
     disabled: boolean;      // 是否禁用
     data: CascaderData[];   // 搜索结果数据
+    selected: boolean;      // 单选时的选中状态  
     checkStatus:  {         // 多选时的选中状态
         checked: boolean;
         halfChecked: boolean;
-    };  
-    selected: boolean;      // 单选时的选中状态       
-    onClick: (e: React.MouseEvent) => void;  // 点击选中回调
-    onKeyPress: (e: React.KeyboardEvent) => void // 键盘按下相关回调
+    };
+    onClick: (e: React.MouseEvent) => void;  // 单选点击选中回调
+    onCheck: (e: React.MouseEvent) => void; // 多选点击选中回调
  }
 ```
 
@@ -408,16 +408,15 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
     const { Text } = Typography;
 
     const renderSearchOptionSingle = (props) => {
-        const { className, data, onClick, onKeyPress, selected } = props;
+        const { className, data, selected, onClick } = props;
 
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
                 className={className}
                 style={{ justifyContent: 'flex-start' }}
                 role="treeitem"
                 onClick={onClick}
-                onKeyPress={onKeyPress}
-                key={data.value}
             > 
                 <Text 
                     ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
@@ -430,19 +429,18 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const renderSearchOptionMultiple = (props) => {
-        const { className, data, checkStatus, onClick, onKeyPress } = props;
+        const { className, data, checkStatus, onCheck } = props;
 
         return (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <li
                 className={className}
                 style={{ justifyContent: 'flex-start' }}
                 role="treeitem"
-                onClick={onClick}
-                onKeyPress={onKeyPress}
-                key={data.value}
+                onClick={onCheck}
             > 
                 <Checkbox
-                    onClick={onClick}
+                    onClick={onCheck}
                     indeterminate={checkStatus.halfChecked}
                     checked={checkStatus.checked}
                     style={{ marginRight: 8 }}
@@ -466,7 +464,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 treeData={treeData}
                 placeholder="单选，输入 s 自定义搜索选项渲染结果"
                 filterTreeNode
-                filterOptionFullRender={renderSearchOptionSingle}
+                filterRender={renderSearchOptionSingle}
             />
             <br />
             <Cascader
@@ -475,7 +473,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 treeData={treeData}
                 placeholder="多选，输入 s 自定义搜索选项渲染结果"
                 filterTreeNode
-                filterOptionFullRender={renderSearchOptionMultiple}
+                filterRender={renderSearchOptionMultiple}
             />
         </div>
     );

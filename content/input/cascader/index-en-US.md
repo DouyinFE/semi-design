@@ -352,13 +352,13 @@ interface filterRenderProps {
     inputValue: string;     // Search bar search content
     disabled: boolean;      // Whether to disable
     data: CascaderData[];   // Search result data
+    selected: boolean;      // Selected state when single selection
     checkStatus:  {         // Checked state when multiple selection
         checked: boolean;
         halfChecked: boolean;
-    };  
-    selected: boolean;      // Selected state when single selection
-    onClick: (e: React.MouseEvent) => void;      // Callback when clicked
-    onKeyPress: (e: React.MouseEvent) => void;   // KeyBoard press related callback
+    };
+    onClick: (e: React.MouseEvent) => void;      // Callback when clicked option in single selection 
+    onCheck: (e: React.MouseEvent) => void;      // Callback when clicked option in multiple selection
  }
 ```
 
@@ -412,7 +412,6 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 role="treeitem"
                 onClick={onClick}
                 onKeyPress={onKeyPress}
-                key={data.value}
             > 
                 <Text 
                     ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
@@ -434,7 +433,6 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 role="treeitem"
                 onClick={onClick}
                 onKeyPress={onKeyPress}
-                key={data.value}
             > 
                 <Checkbox
                     onClick={onClick}
@@ -461,7 +459,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 treeData={treeData}
                 placeholder="Single selection, enter s"
                 filterTreeNode
-                filterOptionFullRender={renderSearchOptionSingle}
+                filterRender={renderSearchOptionSingle}
             />
             <br />
             <Cascader
@@ -470,7 +468,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 treeData={treeData}
                 placeholder="Multiple selection, enter s"
                 filterTreeNode
-                filterOptionFullRender={renderSearchOptionMultiple}
+                filterRender={renderSearchOptionMultiple}
             />
         </div>
     );

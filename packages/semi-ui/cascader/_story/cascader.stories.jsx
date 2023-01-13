@@ -1754,7 +1754,6 @@ export const filterRender = () => {
       className,
       data,
       onClick,
-      onKeyPress,
       selected,
     } = props;
 
@@ -1764,8 +1763,6 @@ export const filterRender = () => {
           style={{justifyContent: 'flex-start'}}
           role="treeitem"
           onClick={onClick}
-          onKeyPress={onKeyPress}
-          key={data.value}
       > 
         <Text 
           ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}} 
@@ -1782,8 +1779,7 @@ export const filterRender = () => {
       className,
       data,
       checkStatus,
-      onClick,
-      onKeyPress
+      onCheck,
     } = props;
 
     return (
@@ -1791,12 +1787,10 @@ export const filterRender = () => {
           className={className}
           style={{justifyContent: 'flex-start'}}
           role="treeitem"
-          onClick={onClick}
-          onKeyPress={onKeyPress}
-          key={data.value}
+          onClick={onCheck}
       > 
         <Checkbox
-            onClick={onClick}
+            onClick={onCheck}
             indeterminate={checkStatus.halfChecked}
             checked={checkStatus.checked}
             style={{ marginRight: 8 }}
