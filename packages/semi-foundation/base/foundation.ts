@@ -16,7 +16,7 @@ export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>
     getProps(): P;
     getState(key: string): any;
     getStates(): S;
-    setState(s: Partial<S>, callback?: any): void;
+    setState<K extends keyof S>(s: Pick<S, K>, callback?: any): void;
     getCache(c: string): any;
     getCaches(): any;
     setCache(key: any, value: any): void;
@@ -88,7 +88,7 @@ class BaseFoundation<T extends Partial<DefaultAdapter<P, S>>, P = Record<string,
         return this._adapter.getStates();
     }
 
-    setState(states: Partial<S>, cb?: (...args: any) => void) {
+    setState<K extends keyof S>(states: Pick<S, K>, cb?: (...args: any) => void) {
         return this._adapter.setState({ ...states }, cb);
     }
 
