@@ -209,9 +209,7 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Searchable Multiple Selection 
 
-version: >= 1.28.0
-
-When multiple selection and search are supported at the same time, in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
+When multiple selection and search are supported at the same time (version: >= 1.28.0), in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
 
 ```jsx live=true
 import React from 'react';
@@ -282,7 +280,7 @@ class Demo extends React.Component {
 }
 ```
 
-Filtered data can be sorted using `filterSorter`
+Filtered data can be sorted using `filterSorter`, `filterSorter` is available since v2.28.0.
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -344,7 +342,7 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
-If you want to customize the rendering options after the search, you can use `filterRender` to achieve custom rendering of the entire line. The `filterRender` function parameters are as follows:
+If you want to customize the rendering options after the search, you can use `filterRender` to achieve custom rendering of the entire line. The `filterRender` is available since v2.28.0, parameters are as follows:
 
 ``` tsx
 interface filterRenderProps {
@@ -1732,9 +1730,9 @@ function Demo() {
 | dropdownStyle | Inline style of drop-down menu  | object  | - | -  |
 | emptyContent | Content displayed when the search has no result | ReactNode | `No result`  | - |
 | filterLeafOnly |  Whether the search results only show the path of leaf nodes   | boolean  | true | 1.26.0  |
-| filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
 | filterRender | Used to render filtered options | (props: FilterRenderProps) => ReactNode; | - | 2.28.0 |
 | filterSorter | Sort the filtered options | (first: CascaderData, second: CascaderData, inputValue: string) => number | - | 2.28.0 |
+| filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching, data parameter provided since v2.28.0 | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative |() => HTMLElement|() => document.body|-|
 | insetLabel | Prefix alias, used mainly in Form | ReactNode | - | 0.28.0 |
 | leafOnly | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching | boolean | false | 2.2.0  |

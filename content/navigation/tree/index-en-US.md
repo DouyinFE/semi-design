@@ -2128,7 +2128,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | 0.35.0       |
 | expandAll | Set whether to expand all nodes by default. If the subsequent data (`treeData`/`treeDataSimpleJson`) changes, the default expansion will also be affected by this api | boolean | false | 1.30.0 |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | - |
-| filterTreeNode      | Toggle whether searchable or pass in a function to customize search behavior.| boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean)  | false   | - |
+| filterTreeNode      | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean)  | false   | - |
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 
 | icon       | Icon | ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
