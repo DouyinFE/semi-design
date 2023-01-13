@@ -1400,7 +1400,7 @@ function Demo() {
 | expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | 1.4.0        |
 | expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false | 1.30.0 |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | 0.32.0 |
-| filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior.       | boolean\|(inputValue: string, treeNodeString: TreeNodeString) => boolean | false       | -       |
+| filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\|(inputValue: string, treeNodeString: TreeNodeString, data?: TreeNodeData) => boolean | false       | -       |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`                                                    | function():HTMLElement                                            | -           | -       |
 | insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  

@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     filter,
@@ -24,7 +24,8 @@ export interface BasicData {
     data: BasicCascaderData;
     disabled: boolean;
     key: string;
-    searchText: any[]
+    searchText: any[];
+    pathData?: BasicCascaderData[]
 }
 
 export interface BasicEntities {
@@ -115,7 +116,9 @@ export interface BasicCascaderProps {
     emptyContent?: any;
     filterLeafOnly?: boolean;
     motion?: boolean;
-    filterTreeNode?: ((inputValue: string, treeNodeString: string) => boolean) | boolean;
+    filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: BasicCascaderData) => boolean) | boolean;
+    filterSorter?: (first: BasicCascaderData, second: BasicCascaderData, inputValue: string) => number;
+    filterRender?: (props: any) => any;
     placeholder?: string;
     searchPlaceholder?: string;
     size?: CascaderType;
@@ -863,12 +866,12 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (sugInput) {
             filteredKeys = (Object.values(keyEntities) as BasicEntity[])
                 .filter(item => {
-                    const { key, _notExist } = item;
+                    const { key, _notExist, data } = item;
                     if (_notExist) {
                         return false;
                     }
                     const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join();
-                    return filter(sugInput, filteredPath, filterTreeNode, false);
+                    return filter(sugInput, data, filterTreeNode, false, filteredPath);
                 })
                 .filter(
                     item => (filterTreeNode && !filterLeafOnly) ||
@@ -950,8 +953,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     getFilteredData() {
-        const { treeNodeFilterProp } = this.getProps();
-        const { filteredKeys, keyEntities } = this.getStates();
+        const { treeNodeFilterProp, filterSorter } = this.getProps();
+        const { filteredKeys, keyEntities, inputValue } = this.getStates();
         const filteredList: BasicData[] = [];
         const filteredKeyArr = [...filteredKeys];
         filteredKeyArr.forEach(key => {
@@ -959,15 +962,23 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             if (!item) {
                 return;
             }
-            const itemSearchPath = this.getItemPropPath(key, treeNodeFilterProp);
+            const pathData = this.getItemPropPath(key, []);
+            const itemSearchPath = pathData.map(item => item[treeNodeFilterProp]);
             const isDisabled = this._isOptionDisabled(key, keyEntities);
             filteredList.push({
                 data: item.data,
+                pathData,
                 key,
                 disabled: isDisabled,
                 searchText: itemSearchPath
             });
         });
+
+        if (isFunction(filterSorter)) {
+            filteredList.sort((a, b) => {
+                return filterSorter(a.pathData, b.pathData, inputValue);
+            });
+        }
         return filteredList;
     }
 

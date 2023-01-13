@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
@@ -39,6 +39,20 @@ export interface Data extends BasicData {
     searchText: React.ReactNode[]
 }
 
+export interface FilterRenderProps {
+    className: string;
+    inputValue: string;    
+    disabled: boolean;     
+    data: CascaderData[];   
+    checkStatus: {      
+        checked: boolean;
+        halfChecked: boolean
+    };  
+    selected: boolean; 
+    onClick: (e: React.MouseEvent) => void;
+    onCheck: (e: React.MouseEvent) => void
+}
+
 export interface CascaderItemProps {
     activeKeys: Set<string>;
     selectedKeys: Set<string>;
@@ -58,7 +72,8 @@ export interface CascaderItemProps {
     separator: string;
     multiple: boolean;
     checkedKeys: Set<string>;
-    halfCheckedKeys: Set<string>
+    halfCheckedKeys: Set<string>;
+    filterRender?: (props: FilterRenderProps) => ReactNode
 }
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -183,30 +198,51 @@ export default class Item extends PureComponent<CascaderItemProps> {
     };
 
     renderFlattenOption = (data: Data[]) => {
-        const { multiple, checkedKeys, halfCheckedKeys } = this.props;
+        const { multiple, selectedKeys, checkedKeys, halfCheckedKeys, keyword, filterRender } = this.props;
         const content = (
             <ul className={`${prefixcls}-list`} key={'flatten-list'}>
                 {data.map(item => {
-                    const { searchText, key, disabled } = item;
+                    const { searchText, key, disabled, pathData } = item;
+                    const selected = selectedKeys.has(key);
                     const className = cls(prefixcls, {
-                        [`${prefixcls}-flatten`]: true,
-                        [`${prefixcls}-disabled`]: disabled
+                        [`${prefixcls}-flatten`]: true && !filterRender,
+                        [`${prefixcls}-disabled`]: disabled,
+                        [`${prefixcls}-select`]: selected && !multiple,
                     });
+                    const onClick = e => {
+                        this.onClick(e, item);
+                    };
+                    const onKeyPress = e => this.handleItemEnterPress(e, item);
+                    const onCheck = (e: CheckboxEvent) => this.onCheckboxChange(e, item);
+                    if (filterRender) {
+                        const props = {
+                            className,
+                            inputValue: keyword,
+                            disabled,
+                            data: pathData,
+                            checkStatus: {
+                                checked: checkedKeys.has(item.key),
+                                halfChecked: halfCheckedKeys.has(item.key),
+                            },
+                            selected,
+                            onClick,
+                            onCheck
+                        };
+                        return React.cloneElement(filterRender(props) as any, { key });
+                    }
                     return (
                         <li
                             role='menuitem'
                             className={className}
                             key={key}
-                            onClick={e => {
-                                this.onClick(e, item);
-                            }}
-                            onKeyPress={e => this.handleItemEnterPress(e, item)}
+                            onClick={onClick}
+                            onKeyPress={onKeyPress}
                         >
                             <span className={`${prefixcls}-label`}>
                                 {!multiple && this.renderIcon('empty')}
                                 {multiple && (
                                     <Checkbox
-                                        onChange={(e: CheckboxEvent) => this.onCheckboxChange(e, item)}
+                                        onChange={onCheck}
                                         disabled={disabled}
                                         indeterminate={halfCheckedKeys.has(item.key)}
                                         checked={checkedKeys.has(item.key)}

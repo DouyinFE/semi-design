@@ -60,6 +60,7 @@ export interface TreeProps extends BasicTreeProps {
     children?: ReactNode;
     defaultValue?: Value;
     emptyContent?: ReactNode;
+    filterTreeNode?: boolean | ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean);
     searchRender?: ((searchRenderProps: SearchRenderProps) => ReactNode) | false;
     searchStyle?: React.CSSProperties;
     style?: React.CSSProperties;
