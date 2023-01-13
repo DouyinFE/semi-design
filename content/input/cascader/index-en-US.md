@@ -468,7 +468,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 multiple
                 style={{ width: 300, marginTop: 20 }}
                 treeData={treeData}
-                placeholder="Single selection, enter s"
+                placeholder="Multiple selection, enter s"
                 filterTreeNode
                 filterOptionFullRender={renderSearchOptionMultiple}
             />
