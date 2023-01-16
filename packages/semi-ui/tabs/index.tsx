@@ -11,6 +11,7 @@ import '@douyinfe/semi-foundation/tabs/tabs.scss';
 
 import TabBar from './TabBar';
 import TabPane from './TabPane';
+import TabItem from './TabItem';
 import TabsContext from './tabs-context';
 import { PlainTab, TabBarProps, TabsProps } from './interface';
 
@@ -27,6 +28,7 @@ export interface TabsState {
 
 class Tabs extends BaseComponent<TabsProps, TabsState> {
     static TabPane = TabPane;
+    static TabItem = TabItem;
 
     static propTypes = {
         activeKey: PropTypes.string,

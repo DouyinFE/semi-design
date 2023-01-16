@@ -15,10 +15,51 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.27.1 (2023-01-12)
+- 【Fix】
+    - Fix Form Field level validation. When using props.rules, there is a race condition asynchronous, and the validation performed later will be overwritten by the validation performed before  [#1375](https://github.com/DouyinFE/semi-design/issues/1375) [@SyMind](https://github.com/SyMind)
+    - Fix Form Field level validation. When using props.validate, there is a race condition asynchronous, and the validation performed later will be overwritten by the validation performed before,  [#1375 ](https://github.com/DouyinFE/semi-design/issues/1375)
+- 【Docs】
+    - Modify the treeData API type name in the Cascader / TreeSelect / Tree documentation to make it consistent with the code
+
+#### 🎉 2.27.0 (2023-01-06)
+- 【Fix】
+    - Fix the problem that after Select is configured with outerBottomSlot, outTopSlot, innerBottomSlot, and innerTopSlot, when hovering to the slot, the Option still maintains the focus style, which easily confuses users [#1370](https://github.com/DouyinFE/semi-design/pull/1370)
+    - Fix Tabs collapsible  has a probability of failure problem [#693](https://github.com/DouyinFE/semi-design/issues/693)
+    - Fix the problem that the internal variable prefixcls of Transfer does not use a small camel, which is different from other components (no impact on the usage side)[@MarchYuanx](https://github.com/MarchYuanx) [#1365](https://github.com/DouyinFE/semi-design/pull/1365)
+
+
+#### 🎉 2.27.0-beta.0 (2023-01-03)
+- 【Design Token】
+    - Form Add top margin token `$spacing-form_label-marginTop` `$spacing-form_section_text-paddingTop` `$spacing-form_section_text-marginTop` in the label section of Form,
+    - DatePicker add trigger border related token in range mode (width `$width -datepicker_range_trigger-border`, colors in various states `$color-datepicker_range_trigger-border` `$color-datepicker_range_trigger-border-hover` `$color-datepicker_range_trigger-border-active`)
+    - Steps modify `$color-steps_item_left_number_icon- bg` `$color-steps_item_left_number_icon-icon` `$color-steps_item_process_left_number-icon` Description.
+    - Breadcrumb add `$font-breadcrumb_loose-fontSize` `$font-breadcrumb_compact-fontSize`
+    - Descriptions add `$font-descriptions_key_small-fontSize` `$font-descriptions_value_small-fontSize` `$font-descriptions_key_medium-fontSize` `$font-descriptions_value_medium-fontSize` `$font-descriptions_key_large-fontSize` `$font-descriptions_value_large-fontSize`，SideSheet add `$font-sideSheet_title-fontSize` tokens.
+- 【Fix】
+    - Fix uuid mismatch warning in TabBar under SSR scenario [#1351](https://github.com/DouyinFE/semi-design/issues/1351) 
+
+#### 🎉 2.26.0 (2022-12-27)
+- 【Fix】
+    - fix the problem that when TagInput is input in Chinese, the length of pinyin will be used to judge whether it exceeds maxLength  [#1347](https://github.com/DouyinFE/semi-design/issues/1347)
+
+#### 🎉 2.26.0-beta.0 (2022-12-19)
+- 【Fix】
+    - An empty string that has not reached its maximum width shows an "expand/collapse" button and an ellipsis [@weeqe](https://github.com/weeqe) [#621](https://github.com/DouyinFE/semi-design/issues/621)
+    - Fix TypeError in TreeSelect when checkRelation = unRelated, value is not in treeData  [#1206](https://github.com/DouyinFE/semi-design/issues/1206)
+    - fix the problem that the Grid component span is set to 0 and displays abnormally in response mode [@edc-hui](https://github.com/edc-hui) [#1314](https://github.com/DouyinFE/semi-design/issues/1314)
+- 【Feat】
+    - Table filter function supports not passing filters, and the filtering function is controlled by filteredValue  [#1201](https://github.com/DouyinFE/semi-design/issues/1201)
+
 #### 🎉 2.25.2 (2022-12-19)
 - 【Fix】
-    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft
-    - fix the wrong style of TagInput when it is draggable
+    - fix the problem that the automatic adjustment position is incorrect when the Tooltip position is topLeft [#1344](https://github.com/DouyinFE/semi-design/pull/1344)
+    - fix the wrong style of TagInput when it is draggable [#1339](https://github.com/DouyinFE/semi-design/pull/1339)
+    - fix the problem that the same element id in different svgs in semi-icons and semi-illustration display incorrectly when used at the same time [#1337](https://github.com/DouyinFE/semi-design/pull/1337)
+    - fix the problem that there is still a drop-down box when the option in Select is empty and emptyContent=null [#1340](https://github.com/DouyinFE/semi-design/pull/1340)
+    -fix the problem that react exceeds the maximum update depth when the number of items in OverflowList collapse mode is greater than 50
+
 
 #### 🎉 2.25.0 (2022-12-09)
 - 【Fix】
@@ -66,6 +107,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.24.0-beta.1 (2022-11-22)
 - 【Style】
     - Adjust Highlight style, default highlight background
+- 【Design Token】
     - Design Token : `@douyinfe/semi-theme-default` add global design Token `--semi-color-highlight-bg`、`--semi-color-highlight`
 
 #### 🎉 2.24.0-beta.0 (2022-11-21)
@@ -104,6 +146,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the issue that the Transfer/ TagInput in the pop-up layer disappeared when the dragged item was dragged  [#1149](https://github.com/DouyinFE/semi-design/issues/1149)
     - Correct the translation error of the Table pager when it is displayed in Vietnamese (vi_VN) [@MrFatMeow](https://github.com/MrFatMeow) [#1252](https://github.com/DouyinFE/semi-design/pull/1252)
     - fix the case that the Select and Tooltip components did not process the incoming NaN [@edc-hui](https://github.com/edc-hui)[#763](https://github.com/DouyinFE/semi-design/issues/763) 
+    - fixed the issue that Dropdown would trigger the screen to scroll to the top when the trigger is click
 - 【Style】
     - Updated Form component Design Token, `$spacing-form_label_small-paddingTop` is corrected to `$spacing-form_switch_rating_marginY`, and the useless `$spacing-form_label-paddingRight` is removed; Correct the more accurate description [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - Updated Tabs component Design Token, adding the Token related to the collapsed arrow button, allowing to customize the style of the arrow buttons in Tabs separately [#1251](https://github.com/DouyinFE/semi-design/pull/1251)

@@ -340,7 +340,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     popupEl = ReactDOM.findDOMNode(popupEl as React.ReactInstance) as HTMLDivElement;
                     if (
                         (el && !(el as any).contains(e.target) && popupEl && !(popupEl as any).contains(e.target)) ||
-                        this.props.clickTriggerToHide
+                        (this.props.clickTriggerToHide && el && (el as any).contains(e.target))
                     ) {
                         this.props.onClickOutSide(e);
                         cb();

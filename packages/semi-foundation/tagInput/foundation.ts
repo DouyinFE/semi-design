@@ -27,6 +27,7 @@ export interface TagInputAdapter extends DefaultAdapter {
     toggleFocusing(focused: boolean): void;
     setHovering: (hovering: boolean) => void;
     setActive: (active: boolean) => void;
+    setEntering: (entering: boolean) => void;
     getClickOutsideHandler: () => any;
     registerClickOutsideHandler: (cb: any) => void;
     unregisterClickOutsideHandler: () => void;
@@ -49,8 +50,54 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
      */
     handleInputChange = (e: TagInputChangeEvent) => {
         const { value } = e.target;
-        this._checkInputChangeValid(value) && this._onInputChange(value, e);
+        const { entering } = this.getStates();
+        if (entering) {
+            // 如果处于输入法输入中，则先不检查输入是否有效，直接更新到inputValue，
+            // 因为对于输入法输入中而言，此时更新到 inputValue 的不是最后的结果，比如对于中文，此时 inputValue 中的内容是拼音
+            // 当输入法输入结束后，将在 handleInputCompositionEnd 中判断输入是否有效，处理结果
+            // If it is composition session, it does not check whether the input is valid, and directly updates to inputValue,
+            // Because for composition input, what is updated to inputValue at this time is not the final result.
+            // For example, for Chinese, the content in inputValue is pinyin at this time
+            // When the composition input is finished, it will be judged whether the input is valid in handleInputCompositionEnd and the result will be processed
+            this._onInputChange(value, e);
+        } else {
+            this._checkInputChangeValid(value) && this._onInputChange(value, e);
+        }
     };
+
+    handleInputCompositionStart = (e: any) => {
+        this._adapter.setEntering(true);
+    }
+
+    handleInputCompositionEnd = (e: any) => {
+        this._adapter.setEntering(false);
+        const { value } = e.target;
+        const {
+            maxLength, 
+            onInputExceed,
+            separator
+        } = this.getProps();
+        let allowChange = true;
+        const { inputValue } = this.getStates();
+        if (isNumber(maxLength)) {
+            const inputArr = getSplitedArray(inputValue, separator);
+            let index = 0;
+            for (; index < inputArr.length; index++) {
+                if (inputArr[index].length > maxLength) {
+                    allowChange = false;
+                    isFunction(onInputExceed) && onInputExceed(value);
+                    break;
+                }
+            }
+            if (!allowChange) {
+                const newInputArr = inputArr.slice(0, index);
+                if (index < inputArr.length) {
+                    newInputArr.push(inputArr[index].slice(0, maxLength));
+                }
+                this._adapter.setInputValue(newInputArr.join(separator));
+            }
+        }
+    }
 
     /**
      * check whether the input change is legal

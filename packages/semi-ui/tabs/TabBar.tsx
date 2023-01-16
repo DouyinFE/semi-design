@@ -7,14 +7,16 @@ import OverflowList from '../overflowList';
 import Dropdown from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
-import { isEmpty } from 'lodash';
+import { isEmpty, pick } from 'lodash';
 import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
+import TabItem from './TabItem';
 
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
-    startInd: number
+    startInd: number;
+    uuid: string
 }
 
 export interface OverflowItem extends PlainTab {
@@ -38,16 +40,20 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         deleteTabItem: PropTypes.func
     };
 
-    uuid: string;
-
     constructor(props: TabBarProps) {
         super(props);
         this.state = {
             endInd: props.list.length,
             rePosKey: 0,
             startInd: 0,
+            uuid: '',
         };
-        this.uuid = getUuidv4();
+    }
+
+    componentDidMount() {
+        this.setState({
+            uuid: getUuidv4(),
+        });
     }
 
     renderIcon(icon: ReactNode): ReactNode {
@@ -83,7 +89,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (this.props.collapsible) {
             const key = this._getItemKey(itemKey);
             // eslint-disable-next-line max-len
-            const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
             tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
         }
     };
@@ -93,41 +99,21 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     }
 
     renderTabItem = (panel: PlainTab): ReactNode => {
-        const { size, type, deleteTabItem } = this.props;
-        const panelIcon = panel.icon ? this.renderIcon(panel.icon) : null;
-        const closableIcon = (type === 'card' && panel.closable) ? <IconClose aria-label="Close" role="button" className={`${cssClasses.TABS_TAB}-icon-close`} onClick={(e: React.MouseEvent<HTMLSpanElement>) => deleteTabItem(panel.itemKey, e)} /> : null;
-        let events = {};
-        const key = panel.itemKey;
-        if (!panel.disabled) {
-            events = {
-                onClick: (e: MouseEvent<HTMLDivElement>): void => this.handleItemClick(key, e),
-            };
-        }
-        const isSelected = this._isActive(key);
-        const className = cls(cssClasses.TABS_TAB, {
-            [cssClasses.TABS_TAB_ACTIVE]: isSelected,
-            [cssClasses.TABS_TAB_DISABLED]: panel.disabled,
-            [`${cssClasses.TABS_TAB}-small`]: size === 'small',
-            [`${cssClasses.TABS_TAB}-medium`]: size === 'medium',
-        });
+        const { size, type, deleteTabItem, handleKeyDown, tabPosition } = this.props;
+        const isSelected = this._isActive(panel.itemKey);
+        
         return (
-            <div
-                role="tab"
-                id={`semiTab${key}`}
-                data-tabkey={`semiTab${key}`}
-                aria-controls={`semiTabPanel${key}`}
-                aria-disabled={panel.disabled ? 'true' : 'false'}
-                aria-selected={isSelected ? 'true' : 'false'}
-                tabIndex={isSelected ? 0 : -1}
-                onKeyDown={e => this.handleKeyDown(e, key, panel.closable)}
-                {...events}
-                className={className}
-                key={this._getItemKey(key)}
-            >
-                {panelIcon}
-                {panel.tab}
-                {closableIcon}
-            </div>
+            <TabItem
+                {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
+                key={this._getItemKey(panel.itemKey)} 
+                selected={isSelected}
+                size={size}
+                type={type}
+                tabPosition={tabPosition}
+                handleKeyDown={handleKeyDown}
+                deleteTabItem={deleteTabItem}
+                onClick={this.handleItemClick}
+            />
         );
     };
 
@@ -140,7 +126,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         }
         const key = this._getItemKey(lastItem.itemKey);
         // eslint-disable-next-line max-len
-        const tabItem = document.querySelector(`[data-uuid="${this.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
         tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     };
 
@@ -196,6 +182,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 showTick
                 style={dropdownStyle}
                 trigger={'hover'}
+                disableFocusListener // prevent the panel from popping up again after clicking
             >
                 <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
                     <Button
@@ -248,7 +235,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const contents = collapsible ? this.renderCollapsedTab() : this.renderTabComponents(list);
 
         return (
-            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.uuid}>
+            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
                 {contents}
                 {extra}
             </div>

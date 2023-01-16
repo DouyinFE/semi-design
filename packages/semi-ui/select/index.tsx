@@ -909,7 +909,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
-                {outerTopSlot}
+                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null }
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -917,11 +917,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
-                    {innerTopSlot}
+                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot}
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
                 </div>
-                {outerBottomSlot}
+                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
             </div>
         );
     }

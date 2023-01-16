@@ -179,7 +179,7 @@ function Demo() {
             <p>
                 Views:
                 <Numeral rule="numbers" precision={1}>
-                    ���2.4444e2
+                    2.4444e2
                 </Numeral>
                 K
             </p>

@@ -209,9 +209,7 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### Searchable Multiple Selection 
 
-version: >= 1.28.0
-
-When multiple selection and search are supported at the same time, in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
+When multiple selection and search are supported at the same time (version: >= 1.28.0), in this scenario, you can delete the corresponding selected item by pressing the BackSpace key.
 
 ```jsx live=true
 import React from 'react';
@@ -280,6 +278,200 @@ class Demo extends React.Component {
         );
     }
 }
+```
+
+Filtered data can be sorted using `filterSorter`, `filterSorter` is available since v2.28.0.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Product',
+            value: 'Product',
+            children: [
+                {
+                    label: 'Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi',
+                    value: 'Semi',
+                    
+                },
+                {
+                    label: 'Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    return (
+        <div>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="Enter s to view the sorting effect"
+                filterTreeNode
+                filterSorter={(first, second, inputValue) => {
+                    const firstData = first[first.length - 1];
+                    const lastData = second[second.length - 1];
+                    if (firstData.label === inputValue) {
+                        return -1;
+                    } else if (lastData.label === inputValue) {
+                        return 1;
+                    } else {
+                        return firstData.label < lastData.label ? -1 : 1;
+                    }
+                }}
+            />
+        </div>
+    );
+};
+```
+
+If you want to customize the rendering options after the search, you can use `filterRender` to achieve custom rendering of the entire line. The `filterRender` is available since v2.28.0, parameters are as follows:
+
+``` tsx
+interface filterRenderProps {
+    className: string;
+    inputValue: string;     // Search bar search content
+    disabled: boolean;      // Whether to disable
+    data: CascaderData[];   // Search result data
+    selected: boolean;      // Selected state when single selection
+    checkStatus:  {         // Checked state when multiple selection
+        checked: boolean;
+        halfChecked: boolean;
+    };
+    onClick: (e: React.MouseEvent) => void;      // Callback when clicked option in single selection 
+    onCheck: (e: React.MouseEvent) => void;      // Callback when clicked option in multiple selection
+ }
+```
+
+The example is as follows
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = [
+        {
+            label: 'Semi',
+            value: 'Semi',
+            children: [
+                {
+                    label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
+                    value: 'Semi-Material',
+                    
+                },
+                {
+                    label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
+                    value: 'Semi-DSM',
+                    
+                },
+                {
+                    label: 'Semi Design Semi Design Semi Design Semi Design',
+                    value: 'Semi Design',
+                    
+                },
+                {
+                    label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
+                    value: 'Semi-C2D',
+                },
+                {
+                    label: 'Semi-D2C Semi-D2C Semi-D2C Semi-D2C Semi-D2C ',
+                    value: 'Semi-D2C',
+                },
+            ],
+        }
+    ];
+    const { Text } = Typography;
+
+    const renderSearchOptionSingle = (props) => {
+        const { className, data, onClick, onKeyPress, selected } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+            > 
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
+                >
+                    {data.map(item => item.label ).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+
+    const renderSearchOptionMultiple = (props) => {
+        const { className, data, checkStatus, onClick, onKeyPress } = props;
+
+        return (
+            <li
+                className={className}
+                style={{ justifyContent: 'flex-start' }}
+                role="treeitem"
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+            > 
+                <Checkbox
+                    onClick={onClick}
+                    indeterminate={checkStatus.halfChecked}
+                    checked={checkStatus.checked}
+                    style={{ marginRight: 8 }}
+                />
+                <Text 
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }} 
+                    style={{ width: 250 }}
+                >
+                    {data.map(item => item.label).join(' / ')}
+                </Text>
+            </li>
+        );
+    };
+    
+    return (
+        <div>
+            <p>Mouse over the option to view the complete content of the omitted text</p>
+            <br />
+            <Cascader
+                style={{ width: 300 }}
+                treeData={treeData}
+                placeholder="Single selection, enter s"
+                filterTreeNode
+                filterRender={renderSearchOptionSingle}
+            />
+            <br />
+            <Cascader
+                multiple
+                style={{ width: 300, marginTop: 20 }}
+                treeData={treeData}
+                placeholder="Multiple selection, enter s"
+                filterTreeNode
+                filterRender={renderSearchOptionMultiple}
+            />
+        </div>
+    );
+};
+
 ```
 
 ### Limit Tags Displayed
@@ -576,7 +768,7 @@ When multiple selection (`multiple=true`), `displayRender((item: Entity, index: 
 ```typescript
 interface Entity {
     children?: Entity[];         // children list
-    data: treeNode;              // treedata
+    data: CascaderData;              // treedata
     ind: number;                 // index
     key: string;                 // key
     level: number;               // node level
@@ -1519,75 +1711,77 @@ function Demo() {
 
 ### Cascader
 
-| Properties         | Instructions                                                                                                                 | type                                                               | Default                         | version |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------- | ------- |
-| arrowIcon     | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                                   | ReactNode                                                            |                            | 1.15.0       |
+| Properties | Instructions | type | Default | version |
+| ---------- | ------------ | ---- | ------- | ------- |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon  | ReactNode | - | 1.15.0 |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the dropdown for automatic adjustment of the expansion direction during edge occlusion | boolean | true | - |
 | autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node. Does not support dynamic switching | boolean | true |  1.28.0 |
 | bottomSlot | bottom slot | ReactNode | - |  1.27.0 |
-| changeOnSelect     | Toggle whether non-leaf nodes are selectable                                                                                   | boolean                                                            | false                           | -       |
-| className          | ClassName                                                                                                                    | string                                                             | -                               | -       |
-| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode | 2.25.0 |
-| defaultOpen       | Set whether to open the dropDown by default              | boolean | false                                | -      |
-| defaultValue       | Default selected value      | string\|number\|TreeNode\|(string\|number\|TreeNode)[]                                                   | -                               | -       |
-| disabled           | Makes the element disabled                                                                                                   | boolean                                                            | false                           | -       |
-| displayProp        | Set the attribute value displayed by the backfill option displayed                                                                                             | string                                                             | `label`                         | -       |
-| displayRender      | Set the backfill format value                                                                                 | (selected: string[] \| Entity, idx?: number) => ReactNode                                            | selected => selected.join ('/') | -       |
-| dropdownClassName  | ClassName property for the drop-down menu                                                                                    | string                                                             | -                               | -       |
-| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
-| dropdownStyle      | Inline style of drop-down menu                                                                                               | object                                                             | -                               | -       |
-| emptyContent       | Content displayed when the search has no result                                                                              | ReactNode                                                          | `No result`                     | -       |
-| filterLeafOnly       |  Whether the search results only show the path of leaf nodes   | boolean  | true    | 1.26.0    |
-| filterTreeNode     | Set filter, the value of treeNodeFilterProp is used for searching                | ((inputValue: string, treeNodeString: string) => boolean) \| boolean | false                           | -       |
+| changeOnSelect | Toggle whether non-leaf nodes are selectable | boolean | false | - |
+| className | ClassName | string | - | - |
+| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode | - | 2.25.0 |
+| defaultOpen | Set whether to open the dropDown by default | boolean | false | - |
+| defaultValue | Default selected value | string\|number\|CascaderData\|(string\|number\|CascaderData)[] | - | -  |
+| disabled | Makes the element disabled | boolean | false | - |
+| displayProp | Set the attribute value displayed by the backfill option displayed | string | `label` | - |
+| displayRender | Set the backfill format value | (selected: string[] \| Entity, idx?: number) => ReactNode | selected => selected.join ('/') | -  |
+| dropdownClassName  | ClassName property for the drop-down menu  | string | - | - |
+| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number | - | 2.25.0 |
+| dropdownStyle | Inline style of drop-down menu  | object  | - | -  |
+| emptyContent | Content displayed when the search has no result | ReactNode | `No result`  | - |
+| filterLeafOnly |  Whether the search results only show the path of leaf nodes   | boolean  | true | 1.26.0  |
+| filterRender | Used to render filtered options | (props: FilterRenderProps) => ReactNode; | - | 2.28.0 |
+| filterSorter | Sort the filtered options | (first: CascaderData, second: CascaderData, inputValue: string) => number | - | 2.28.0 |
+| filterTreeNode | Set filter, the value of treeNodeFilterProp is used for searching, data parameter provided since v2.28.0 | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false | - |
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative |() => HTMLElement|() => document.body|-|
-| insetLabel         | Prefix alias, used mainly in Form                                                                                            | ReactNode                                                          | -                               | 0.28.0  |
-| leafOnly         | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching                             | boolean                                                          | false                               | 2.2.0  |
-| loadData | Load data asynchronously and the return value should be a promise | (selectOptions: TreeNode[]) => Promise< void > |-| 1.8.0|
+| insetLabel | Prefix alias, used mainly in Form | ReactNode | - | 0.28.0 |
+| leafOnly | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching | boolean | false | 2.2.0  |
+| loadData | Load data asynchronously and the return value should be a promise | (selectOptions: CascaderData[]) => Promise< void > |-| 1.8.0|
 | max| In the case of multiple selections, the number of multiple selections is limited, and the onExceed callback will be triggered when max is exceeded | number |-|1.28.0|
 | maxTagCount| When multiple selections, the maximum number of labels to be displayed will be displayed in the form of +N after exceeding| number |-|1.28.0|
 | motion | Set the pop-up animation of the dropdown box |boolean|true|-|
 | mouseEnterDelay | After the mouse is moved in, the time to delay the display of the dropdown box, in milliseconds | number | 50 | - |
 | mouseLeaveDelay | After the mouse is moved out, the time to hide the display of the dropdown box, in milliseconds | number | 50 | - |
 | multiple | Set multiple | boolean | false |  1.28.0 |
-| placeholder        | Placeholder                                                                                                                  | string                                                             | -                               | -       |
-| prefix             | Prefix label                                                                                                                 | ReactNode                                                          | -                               | 0.28.0  |
-| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-|restTagsPopoverProps |The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     |PopoverProps   | {}        |1.28.0|
-| searchPlaceholder  | Placeholder for search input                                                                                                 | string                                                             | -                               | -       |
-| separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection        | string                                                             | ' / '                               | 2.2.0       |
-| showClear       |  Toggle whether to show clear button   | boolean  | false    | 0.35.0    |
+| placeholder | Placeholder | string | - | - |
+| prefix | Prefix label | ReactNode | - | 0.28.0  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean | - | 2.15.0 |
+|restTagsPopoverProps |The configuration properties of the [Popover](/en-US/show/popover#API%20Reference) |PopoverProps   | {}  |1.28.0|
+| searchPlaceholder  | Placeholder for search input | string | - | -  |
+| separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection | string| ` / ` | 2.2.0 |
+| showClear |  Toggle whether to show clear button   | boolean  | false | 0.35.0 |
 | showNext| Set the way to expand the Dropdown submenu, one of: `click`、`hover` | string |`click`|1.29.0|
 | showRestTagsPopover| When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover| boolean |false|1.28.0|
-| size               | Selectbox size, one of `large`, `small`, `default`                                                                           | string                                                             | `default`                       | -       |
+| size | Selectbox size, one of `large`, `small`, `default`  | string | `default`  | - |
 | stopPropagation | Whether to prevent the click event on the dropdown box from bubbling | boolean | true | - |
 | disableStrictly | Set whether to enable strict prohibition. After opening, when the node is disabled, the selected state cannot be changed through the relationship between the child or the parent | boolean | false | 1.32.0|
-| style              | Inline style                                                                                                                 | CSSProperties                                                             | -                               | -       |
-| suffix             | Suffix label                                                                                                                 | ReactNode                                                          | -                               | 0.28.0  |
+| style | Inline style | CSSProperties | - | - |
+| suffix | Suffix label | ReactNode | -  | 0.28.0  |
 | topSlot | top slot | ReactNode | - |  1.27.0 |
-| treeData           | Render data. Refer to [TreeNode](#TreeNode)  for detailed formatting. | TreeNode[]                                                    | \ []                            | -       |
-| treeNodeFilterProp | When searching, the input item filters the corresponding treeNode property.                                                  | string                                                             | `label`                         | -       |
+| treeData | Render data. Refer to [CascaderData](#CascaderData)  for detailed formatting. | CascaderData[] |  []  | - |
+| treeNodeFilterProp | When searching, the input item filters the corresponding CascaderData property. | string | `label`   | - |
 | triggerRender | Method to create a custom trigger  | (triggerRenderData: object) => ReactNode | - | 0.34.0 |
-| value       | Selected value (controlled mode)    | string\|number\|TreeNode\|(string\|number\|TreeNode)[][]                                                   | -                               | -       |
+| value | Selected value (controlled mode) | string\|number\|CascaderData\|(string\|number\|CascaderData)[][]  | - | -  |
 | validateStatus |The validation status of the trigger only affects the display style. Optional: default、error、warning | string | `default` | - |
 | zIndex | zIndex for dropdown menu | number | 1030 | - |
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback | (e: MouseEvent) => void | - | - |
-| onChange           | Callback function when the tree node is selected                                                                             | (value: string\|number\|TreeNode\|(string\|number\|TreeNode)[]) => void                                | -                               | -       |
+| onChange | Callback function when the tree node is selected | (value: string\|number\|CascaderData\|(string\|number\|CascaderData)[]) => void | - | - |
 | onClear| When showClear is true, click the clear button to trigger the callback | () => void |-|1.29.0|
-| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like TreeNode. For controlled mode, you need to pass TreeNode to value correspondingly. DefaultValue similarly. | boolean | false | 1.16.0 |
-| onDropdownVisibleChange       | Callback function when dropdown menu visibility changes   | (visible: boolean) => void      | -                                | 0.35.0    |
+| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like CascaderData. For controlled mode, you need to pass CascaderData to value correspondingly. DefaultValue similarly. | boolean | false | 1.16.0 |
+| onDropdownVisibleChange | Callback function when dropdown menu visibility changes   | (visible: boolean) => void | - | 0.35.0 |
 | onExceed| When multiple selections are made, the callback triggered after max is exceeded | (checkedItem: Entity[]) => void |-|1.28.0|
 | onFocus| Focus on Cascader's callback | (e: MouseEvent) => void | - | - |
-| onListScroll | Callback function when panel list scroll | (e: React.Event, panel: { panelIndex: number; activeNode: TreeNode; } ) => void | - | 1.15.0 |
-| onLoad | Callback function when a node is loaded | (newLoadedKeys: Set< string >, data: TreeNode) => void | - | 1.8.0|
-| onSearch           | Callback function when the values for search input changes                                                                   | (value: string) => void                                                           | -                               | -       |
-| onSelect           | Callback function when selected                                                                                              | function(selected: string)                                         | -                               | -       |
+| onListScroll | Callback function when panel list scroll | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | 1.15.0 |
+| onLoad | Callback function when a node is loaded | (newLoadedKeys: Set< string >, data: CascaderData) => void | - | 1.8.0|
+| onSearch | Callback function when the values for search input changes | (value: string) => void | - | - |
+| onSelect | Callback function when selected | (value: string \| number \| (string \| number)[]) => void | - | - |
 
-### TreeNode
+### CascaderData
 
 | Properties | Instructions                   | type           | Default |
 | ---------- | -------------------------------| -------------- | ------- |
-| children   | children node                  | TreeNode[]     | -       |
+| children   | children node                  | CascaderData[]     | -       |
 | disabled   | Disabled status **>=0.35.0**   | boolean        | -       |
 | isLeaf     | leaf node                      | boolean        | -       |
 | label      | Text to be displayed (required)| ReactNode      | -       |

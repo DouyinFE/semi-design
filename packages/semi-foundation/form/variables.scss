@@ -10,6 +10,7 @@ $spacing-form_field_group_vertical-paddingBottom: $spacing-base-tight; // 垂直
 $spacing-form_label-paddingRight: $spacing-base; // 表单项标签右侧边距（水平布局）
 $spacing-form_label-paddingTop: ($height-control-default - 20px) * 0.5; // 表单项标签顶部内边距（水平布局）
 $spacing-form_label-marginBottom: $spacing-extra-tight; // 表单项标签底部外边距
+$spacing-form_label-marginTop: 0px; // 表单项标签顶部外边距
 $spacing-form_label_extra-marginLeft: $spacing-extra-tight; // 表单项标签额外信息左侧边距
 $spacing-form_label_required-marginLeft: $spacing-extra-tight; // 表单项标签必填标志左侧边距
 $spacing-form_label_posLeft-marginRight: 0; // 表单项左侧标签右侧外边距
@@ -47,4 +48,6 @@ $width-form_section-border: $border-thickness-control; // 表单分组标题底�
 $spacing-form_section-marginTop: $spacing-super-loose - $spacing-base-tight; // 表单分组顶部内边距
 $spacing-form_section_text-paddingBottom: $spacing-tight; // 表单分组标题底部内边距
 $spacing-form_section_text-marginBottom: $spacing-extra-tight; // 表单分组标题底部外边距
+$spacing-form_section_text-paddingTop: 0px; // 表单分组标题顶部内边距
+$spacing-form_section_text-marginTop: 0px; // 表单分组标题顶部外边距
 

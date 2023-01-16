@@ -389,20 +389,20 @@ import { IconPlus } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
         },
         {
             uid: '2',
-            name: 'abc.jpeg',
+            name: 'dyBag2.jpeg',
             status: 'success',
             size: '222KB',
             preview: true,
             fileInstance: new File([new ArrayBuffer(2048)], 'abc.jpeg', { type: 'image/png' }),
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
         },
     ];
     return (
@@ -464,10 +464,10 @@ import { IconUpload, IconFile } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
         },
     ];
     return (
@@ -494,16 +494,16 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
         }
     ];
     const renderFileOperation = (fileItem) => (
@@ -536,11 +536,11 @@ import { IconUpload } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
             preview: true,
-            url: 'https://sf6-cdn-tos.douyinstatic.com/img/ee-finolhu/c2a65140483e4a20802d64af5fec1b39~noop.image',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
         },
         {
             uid: '2',
@@ -578,7 +578,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
     const initList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
             preview: true,
@@ -700,7 +700,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -743,7 +743,7 @@ import { Upload, Select } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -795,7 +795,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
     const defaultFileList = [
         {
             uid: '1',
-            name: 'vigo.png',
+            name: 'dyBag.jpeg',
             status: 'success',
             size: '130KB',
             preview: true,

@@ -17,3 +17,7 @@ $color-breadcrumb-restItem-text-default: var(--semi-color-text-2); // 面包屑 
 
 $font-breadcrumb_default-fontWeight: $font-weight-regular; // 面包屑文字字重 - 未选中
 $font-breadcrumb_active-fontWeight: $font-weight-bold; // 面包屑文字字重 - 选中
+
+
+$font-breadcrumb_compact-fontSize:$font-size-small; // 面包屑文字大小 - 紧凑
+$font-breadcrumb_loose-fontSize:$font-size-regular; // 面包屑文字大小 - 宽松

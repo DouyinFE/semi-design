@@ -89,7 +89,9 @@ export interface TagInputState {
     inputValue?: string;
     focusing?: boolean;
     hovering?: boolean;
-    active?: boolean
+    active?: boolean;
+    // entering: Used to identify whether the user is in a new composition session（eg，Input Chinese）
+    entering?: boolean
 }
 
 class TagInput extends BaseComponent<TagInputProps, TagInputState> {
@@ -171,6 +173,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             focusing: false,
             hovering: false,
             active: false,
+            entering: false,
         };
         this.inputRef = React.createRef();
         this.tagInputRef = React.createRef();
@@ -221,6 +224,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             },
             setActive: (active: boolean) => {
                 this.setState({ active });
+            },
+            setEntering: (entering: boolean) => {
+                this.setState({ entering });
             },
             getClickOutsideHandler: () => {
                 return this.clickOutsideHandler;
@@ -534,6 +540,14 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }
     }
 
+    handleInputCompositionStart = (e) => {
+        this.foundation.handleInputCompositionStart(e);
+    }
+
+    handleInputCompositionEnd = (e) => {
+        this.foundation.handleInputCompositionEnd(e);
+    }
+
     render() {
         const {
             size,
@@ -608,6 +622,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
                             this.handleInputFocus(e as any);
                         }}
+                        onCompositionStart={this.handleInputCompositionStart}
+                        onCompositionEnd={this.handleInputCompositionEnd}
                     />
                 </div>
                 {this.renderClearBtn()}

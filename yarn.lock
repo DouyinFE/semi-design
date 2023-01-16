@@ -1551,10 +1551,10 @@
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
   integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
 
-"@douyinfe/semi-site-header@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.18.tgz#f4fe1b9ab02768a99eaa752ea3eb4b56a8085e5e"
-  integrity sha512-ttBMbiQQrkZvhBTz8ZQM4cFosR9IAMR9neRXTmteeaEDyw+xrvGUvnIjf6cDiXTKzQYinfzN13XmH3Ei9inuZw==
+"@douyinfe/semi-site-header@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.19.tgz#eae92958fe121856138aaefbc4e0aa30c2495b18"
+  integrity sha512-95NvP7a78gM+7n6L1y3k8U220smgQkkgsxGA06v+P2+sCKfHxp9ZJGj5DcNvF9f9npUfwM9mMI26NTfZ8XslPQ==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -7678,9 +7678,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001332:
-  version "1.0.30001334"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001334.tgz#892e9965b35285033fc2b8a8eff499fe02f13d8b"
-  integrity sha512-kbaCEBRRVSoeNs74sCuq92MJyGrMtjWVfhltoHUCW4t4pXFvGjUBrfo47weBRViHkiV3eBYyIsfl956NtHGazw==
+  version "1.0.30001443"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001443.tgz"
+  integrity sha512-jUo8svymO8+Mkj3qbUbVjR8zv8LUGpGkUM/jKvc9SO2BvjCI980dp9fQbf/dyLs6RascPzgR4nhAKFA4OHeSaA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -20132,15 +20132,6 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@15.7.2:
-  version "15.7.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
-  integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
-  dependencies:
-    loose-envify "^1.4.0"
-    object-assign "^4.1.1"
-    react-is "^16.8.1"
-
 prop-types@15.x, prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
@@ -20685,7 +20676,7 @@ react-intl@^3.12.1:
     intl-messageformat-parser "^3.6.4"
     shallow-equal "^1.2.1"
 
-react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
+react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==

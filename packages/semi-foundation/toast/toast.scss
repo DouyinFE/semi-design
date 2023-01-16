@@ -48,12 +48,18 @@ $icon: #{$prefix}-toast-icon;
                 background-color: $color-toast_warning_light-bg;
                 border: $width-toast_light-border solid $color-toast_warning_light-border;
             }
+            .#{$icon}-warning {
+                color: $color-toast_warning_light-icon;
+            }
         }
 
         &.#{$module}-success {
             .#{$module}-content {
                 background-color: $color-toast_success_light-bg;
                 border: $width-toast_light-border solid $color-toast_success_light-border;
+            }
+            .#{$icon}-success {
+                color: $color-toast_success_light-icon;
             }
         }
 
@@ -62,12 +68,18 @@ $icon: #{$prefix}-toast-icon;
                 background-color: $color-toast_info_light-bg;
                 border: $width-toast_light-border solid $color-toast_info_light-border;
             }
+            .#{$icon}-info {
+                color: $color-toast_info_light-icon;
+            }
         }
 
         &.#{$module}-error {
             .#{$module}-content {
                 background-color: $color-toast_danger_light-bg;
                 border: $width-toast_light-border solid $color-toast_danger_light-border;
+            }
+            .#{$icon}-error {
+                color: $color-toast_danger_light-icon;
             }
         }
     }

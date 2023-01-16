@@ -1134,4 +1134,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     handlePopoverClose() {
         this._adapter.emit('popoverClose');
     }
+
+    // need to remove focus style of option when user hover slot
+    handleSlotMouseEnter() {
+        this._adapter.updateFocusIndex(-1);
+    }
 }

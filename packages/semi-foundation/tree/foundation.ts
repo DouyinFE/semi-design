@@ -197,7 +197,7 @@ export interface BasicTreeProps {
     emptyContent?: any;
     expandAction?: ExpandAction;
     expandedKeys?: string[];
-    filterTreeNode?: boolean | ((inputValue: string, treeNodeString: string) => boolean);
+    filterTreeNode?: boolean | ((inputValue: string, treeNodeString: string, data?: BasicTreeNodeData) => boolean);
     hideDraggingNode?: boolean;
     labelEllipsis?: boolean;
     leafOnly?: boolean;
