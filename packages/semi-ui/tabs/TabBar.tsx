@@ -201,6 +201,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 showTick
                 style={dropdownStyle}
                 trigger={'hover'}
+                disableFocusListener // prevent the panel from popping up again after clicking
             >
                 <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
                     <Button

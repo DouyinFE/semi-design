@@ -335,7 +335,9 @@ function Demo(props = {}) {
 | onFocus             | 获得焦点时的回调                                       | (e: domEvent) => void                                                             | () => {}                                                          | **1.0.0**          |
 | onOpenChange        | 面板打开/关闭时的回调                                  | Function(isOpen: boolean): void                                                   | 无                                                                |                    |
 
-## 方法
+## Methods
+
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
 | 名称    | 描述     |
 | ------- | -------- |

@@ -1213,7 +1213,7 @@ The triggerRender input is as follows:
 interface triggerRenderProps {
     componentProps: TreeSelectProps;// TreeSelect props
     disabled: boolean;              // disabled status
-    value: TreeNode[];              // data of the selected node
+    value: TreeNodeData[];              // data of the selected node
     inputValue: string;             // value of the input box
     onClear: e => void;             // onClear function
     placeholder: string;            // placeholder
@@ -1292,8 +1292,8 @@ function Demo() {
 
 You can use renderSelectedItem to customize the rendering structure of the selected item in the selection box.
 
-- In not multiple mode: `renderSelectedItem(treeNode:TreeNode) => content:ReactNode`
-- In multiple mode: `renderSelectedItem(treeNode:TreeNode, { index:number, onClose:function }) => { isRenderInTag:bool, content:ReactNode }`
+- In not multiple mode: `renderSelectedItem(treeNode: TreeNodeData) => content: ReactNode`
+- In multiple mode: `renderSelectedItem(treeNode: TreeNodeData, { index:number, onClose:function }) => { isRenderInTag: bool, content: ReactNode }`
     - When isRenderInTag is true, content wraps are automatically rendered in the Tag (with background color and close button)
     - When isRenderInTag is false, the returned content will be rendered directly
 
@@ -1389,7 +1389,7 @@ function Demo() {
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | 0.32.0 |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | 0.32.0 |
 | defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | 0.32.0 |
-| defaultValue             | Default value         | <ApiType detail='string \| number \| TreeNode \| (string \| number \| TreeNode)[]'>ValueType</ApiType>   | -   | -     |
+| defaultValue             | Default value         | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>   | -   | -     |
 | disabled                 | Disabled                                                                            | boolean                                                           | false       | -       |
 | disableStrictly | Disable Strictly | boolean | false | 1.30.0 |
 | dropdownClassName        | `className` property for dropDown                                                   | string                                                            | -           | -       |
@@ -1405,7 +1405,7 @@ function Demo() {
 | insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false |0.32.0 |
-| loadData | Load data asynchronously and the return value should be a promise | (treeNode: TreeNode) => Promise |-| 1.32.0|
+| loadData | Load data asynchronously and the return value should be a promise | (treeNode: TreeNodeData) => Promise |-| 1.32.0|
 | loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | Set< string > | - | 1.32.0|
 | maxTagCount              | Maximum number of tags displayed                                                    | number                                                            | -           | -       |
 | motionExpand             | Toggle whether to turn on animation for expansion                                   | boolean                                                           | true        | -       |
@@ -1418,7 +1418,7 @@ function Demo() {
 | prefix                   | Prefix                                                                              | ReactNode                                                         | -           | 0.28.0  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
-| renderLabel | Custom label render function | <ApiType detail='(label:ReactNode, data:TreeNode) => ReactNode'>(label, data) => ReactNode</ApiType> | 1.6.0 | 
+| renderLabel | Custom label render function | <ApiType detail='(label: ReactNode, data: TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | 1.6.0 | 
 | renderSelectedItem | render selected item | Function | - | 1.26.0 | 
 | restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           | 1.27.0       |
@@ -1431,12 +1431,12 @@ function Demo() {
 | size                     | Size for input box，one of `large`，`small`，`default`                              | string                                                            | `default`   | -       |
 | style                    | Inline style                                                            | CSSProperties             | -           | -       |
 | suffix                   | Suffix                                                                              | ReactNode                                                         | -           | 0.28.0  |
-| treeData                 | Data for treeNodes                                                                  | TreeNode[]                                                  | \[]         | -       |
-| treeNodeFilterProp       | Property in a `treeNode` used to search                                             | string                                                            | `label`     | -       |
-| treeNodeLabelProp        | Property in a `treeNode` used to display                                            | string                                                            | `label`     | -       |
+| treeData                 | Data for treeNodes                                                                  | TreeNodeData[]                                                  | \[]         | -       |
+| treeNodeFilterProp       | Property in a `TreeNodeData` used to search                                             | string                                                            | `label`     | -       |
+| treeNodeLabelProp        | Property in a `TreeNodeData` used to display                                            | string                                                            | `label`     | -       |
 | triggerRender | Method to create a custom trigger  | (TriggerProps) => ReactNode | - | 0.34.0 |
 | validateStatus | Validate status，one of `warning`、`error`、 `default`, only affects the background color of the component | string | - | 0.32.0 |
-| value                    | Value data of current item, used when TreeSelect is a controlled component     | <ApiType detail='string \| number \| TreeNode \| (string \| number \| TreeNode)[]'>ValueType</ApiType>    | -           | -       |
+| value                    | Value data of current item, used when TreeSelect is a controlled component     | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>    | -           | -       |
 | virtualize | Efficiently rendering large lists, refer to Tree - VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | object | - | 0.32.0 |
 | zIndex | zIndex for treeSelect dropDown menu | number | 1030 | 0.30.0 |
 | onBlur                 | Callback function when treeSelect blur | function(event)                            | -           | -       |
@@ -1444,14 +1444,14 @@ function Demo() {
 | onChange                 | Callback function when the tree node is selected, return the value property of data | Function                           | -           | -       |
 | onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, onChange turn to Function(node, e)   | boolean                     | false   | 1.0.0 |
 | onExpand                 | Callback function when expand or collapse a node                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType>             | -           | -       |
-| onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNode) => void'>(loadedKeys, treeNode) => void</ApiType> | - | 1.32.0|
+| onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - | 1.32.0|
 | onSearch                 | Callback function when search value changes. `filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**      | function(input: string, filteredExpandedKeys: string[])                                        | -           |     |
-| onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNode)                      | -           | -       |
+| onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNodeData)                      | -           | -       |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 
-### TreeNode
+### TreeNodeData
 
-> **Key for `TreeNode` is required and must be unique**, `label` can be duplicated. Before **v>=1.7.0** value is also required and must be unique.
+> **Key for `TreeNodeData` is required and must be unique**, `label` can be duplicated. Before **v>=1.7.0** value is also required and must be unique.
 > After **v>=1.7.0**, value is not required. In this case, the value property in `onChange`, `value`, `defaultValue` and `onChangeWithObject` will point to key property.
 > To ensure everything behave as expected, keep a consistency of whether to have value or not to have value.
 
@@ -1464,9 +1464,12 @@ function Demo() {
 | key        | Required and must be unique                 | string            | -       |
 | isLeaf     | Whether it is a leaf node | boolean |-|
 
-### Method
-- search(sugInput: string)
-For custom rendering of input box.
+## Methods
+Some internal methods provided by TreeSelect can be accessed through ref:
+
+| Name    | Description  |
+|---------|--------------|
+| search(sugInput: string)  | If you need to customize the search box externally, you can actively call this method when the value of the custom search box changes to change the filtering results |
 
 ## Accessibility
 

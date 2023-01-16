@@ -576,7 +576,7 @@ When multiple selection (`multiple=true`), `displayRender((item: Entity, index: 
 ```typescript
 interface Entity {
     children?: Entity[];         // children list
-    data: treeNode;              // treedata
+    data: CascaderData;              // treedata
     ind: number;                 // index
     key: string;                 // key
     level: number;               // node level
@@ -1529,7 +1529,7 @@ function Demo() {
 | className | ClassName | string | - | - |
 | clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode | - | 2.25.0 |
 | defaultOpen | Set whether to open the dropDown by default | boolean | false | - |
-| defaultValue | Default selected value | string\|number\|TreeNode\|(string\|number\|TreeNode)[] | - | -  |
+| defaultValue | Default selected value | string\|number\|CascaderData\|(string\|number\|CascaderData)[] | - | -  |
 | disabled | Makes the element disabled | boolean | false | - |
 | displayProp | Set the attribute value displayed by the backfill option displayed | string | `label` | - |
 | displayRender | Set the backfill format value | (selected: string[] \| Entity, idx?: number) => ReactNode | selected => selected.join ('/') | -  |
@@ -1542,7 +1542,7 @@ function Demo() {
 | getPopupContainer | Specify the parent DOM, the drop-down box will be rendered into the DOM, the customization needs to set position: relative |() => HTMLElement|() => document.body|-|
 | insetLabel | Prefix alias, used mainly in Form | ReactNode | - | 0.28.0 |
 | leafOnly | When multiple selections, the set value only includes leaf nodes, that is, the displayed Tag and onChange value parameters only include leaf nodes. Does not support dynamic switching | boolean | false | 2.2.0  |
-| loadData | Load data asynchronously and the return value should be a promise | (selectOptions: TreeNode[]) => Promise< void > |-| 1.8.0|
+| loadData | Load data asynchronously and the return value should be a promise | (selectOptions: CascaderData[]) => Promise< void > |-| 1.8.0|
 | max| In the case of multiple selections, the number of multiple selections is limited, and the onExceed callback will be triggered when max is exceeded | number |-|1.28.0|
 | maxTagCount| When multiple selections, the maximum number of labels to be displayed will be displayed in the form of +N after exceeding| number |-|1.28.0|
 | motion | Set the pop-up animation of the dropdown box |boolean|true|-|
@@ -1564,30 +1564,30 @@ function Demo() {
 | style | Inline style | CSSProperties | - | - |
 | suffix | Suffix label | ReactNode | -  | 0.28.0  |
 | topSlot | top slot | ReactNode | - |  1.27.0 |
-| treeData | Render data. Refer to [TreeNode](#TreeNode)  for detailed formatting. | TreeNode[] |  []  | - |
-| treeNodeFilterProp | When searching, the input item filters the corresponding treeNode property. | string | `label`   | - |
+| treeData | Render data. Refer to [CascaderData](#CascaderData)  for detailed formatting. | CascaderData[] |  []  | - |
+| treeNodeFilterProp | When searching, the input item filters the corresponding CascaderData property. | string | `label`   | - |
 | triggerRender | Method to create a custom trigger  | (triggerRenderData: object) => ReactNode | - | 0.34.0 |
-| value | Selected value (controlled mode) | string\|number\|TreeNode\|(string\|number\|TreeNode)[][]  | - | -  |
+| value | Selected value (controlled mode) | string\|number\|CascaderData\|(string\|number\|CascaderData)[][]  | - | -  |
 | validateStatus |The validation status of the trigger only affects the display style. Optional: default、error、warning | string | `default` | - |
 | zIndex | zIndex for dropdown menu | number | 1030 | - |
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback | (e: MouseEvent) => void | - | - |
-| onChange | Callback function when the tree node is selected | (value: string\|number\|TreeNode\|(string\|number\|TreeNode)[]) => void | - | - |
+| onChange | Callback function when the tree node is selected | (value: string\|number\|CascaderData\|(string\|number\|CascaderData)[]) => void | - | - |
 | onClear| When showClear is true, click the clear button to trigger the callback | () => void |-|1.29.0|
-| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like TreeNode. For controlled mode, you need to pass TreeNode to value correspondingly. DefaultValue similarly. | boolean | false | 1.16.0 |
+| onChangeWithObject | Toggle whether to return all properties in an option as a return value. When set to true, return value looks like CascaderData. For controlled mode, you need to pass CascaderData to value correspondingly. DefaultValue similarly. | boolean | false | 1.16.0 |
 | onDropdownVisibleChange | Callback function when dropdown menu visibility changes   | (visible: boolean) => void | - | 0.35.0 |
 | onExceed| When multiple selections are made, the callback triggered after max is exceeded | (checkedItem: Entity[]) => void |-|1.28.0|
 | onFocus| Focus on Cascader's callback | (e: MouseEvent) => void | - | - |
-| onListScroll | Callback function when panel list scroll | (e: React.Event, panel: { panelIndex: number; activeNode: TreeNode; } ) => void | - | 1.15.0 |
-| onLoad | Callback function when a node is loaded | (newLoadedKeys: Set< string >, data: TreeNode) => void | - | 1.8.0|
+| onListScroll | Callback function when panel list scroll | (e: React.Event, panel: { panelIndex: number; activeNode: CascaderData; } ) => void | - | 1.15.0 |
+| onLoad | Callback function when a node is loaded | (newLoadedKeys: Set< string >, data: CascaderData) => void | - | 1.8.0|
 | onSearch | Callback function when the values for search input changes | (value: string) => void | - | - |
 | onSelect | Callback function when selected | (value: string \| number \| (string \| number)[]) => void | - | - |
 
-### TreeNode
+### CascaderData
 
 | Properties | Instructions                   | type           | Default |
 | ---------- | -------------------------------| -------------- | ------- |
-| children   | children node                  | TreeNode[]     | -       |
+| children   | children node                  | CascaderData[]     | -       |
 | disabled   | Disabled status **>=0.35.0**   | boolean        | -       |
 | isLeaf     | leaf node                      | boolean        | -       |
 | label      | Text to be displayed (required)| ReactNode      | -       |

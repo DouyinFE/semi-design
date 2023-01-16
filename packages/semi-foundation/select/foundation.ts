@@ -11,7 +11,6 @@ import { handlePrevent } from '../utils/a11y';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
-    setOptionsWidth?(): any;
     updateFocusState(focus: boolean): void;
     focusTrigger(): void;
     unregisterClickOutsideHandler(): void;
@@ -196,7 +195,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     // call when props.value change
     handleValueChange(value: PropValue) {
-        const { allowCreate } = this.getProps();
+        const { allowCreate, autoClearSearchValue } = this.getProps();
+        const { inputValue } = this.getStates();
         let originalOptions;
         // AllowCreate and controlled mode, no need to re-collect optionList
         if (allowCreate && this._isControlledComponent()) {
@@ -204,11 +204,17 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             originalOptions.forEach(item => (item._show = true));
         } else {
             // originalOptions = this.getState('options');
-            // The options in state cannot be used directly here, because it is possible to update the optionList and props.value at the same time, and the options in state are still old at this time
+            // The options in state cannot be used directly here,
+            // because it is possible to update the optionList and props.value at the same time, and the options in state are still old at this time
             originalOptions = this._adapter.getOptionsFromChildren();
         }
         // Multi-selection, controlled mode, you need to reposition the drop-down menu after updating
         this._adapter.rePositionDropdown();
+
+        if (this._isFilterable() && !autoClearSearchValue && inputValue) {
+            originalOptions = this._filterOption(originalOptions, inputValue);
+        }
+
         this._update(value, originalOptions);
     }
 
@@ -224,6 +230,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         // Update the text in the selection box
         this._adapter.updateSelection(selections);
         // Update the selected item in the drop-down box
+
+
         this.updateOptionsActiveStatus(selections, originalOptions);
     }
 
@@ -1113,5 +1121,10 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     handlePopoverClose() {
         this._adapter.emit('popoverClose');
+    }
+
+    // need to remove focus style of option when user hover slot
+    handleSlotMouseEnter() {
+        this._adapter.updateFocusIndex(-1);
     }
 }

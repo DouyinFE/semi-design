@@ -969,9 +969,12 @@ TreeItem inherits all the properties of Item
 | -------- | -------------- | ---------------- | ------- |
 | children | Children Items | array<TreeItem\> |         |
 
-### Method
+## Methods
+Some internal methods provided by Transfer can be accessed through ref:
 
-- search(value: string): You can call this method through ref to search, and the search value will be set to Input.
+| Name    | Description   |
+| ------- | ------------- |
+| search(value: string)  |  You can call this method through ref to search, and the search value will be set to Input.  |
 
 ## Design Tokens
 <DesignToken/>

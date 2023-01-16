@@ -471,6 +471,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |onRemove      |Callback invoked when tags are removed           |(removedValue: string, idx: number) => void                                 | -        |1.19.0|
 
 ## Methods
+Some internal methods provided by TagInput can be accessed through ref:
 
 |Name   |Description |Version |
 |-------|------------|--------|
