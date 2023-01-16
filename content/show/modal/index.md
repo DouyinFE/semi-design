@@ -589,7 +589,7 @@ function Demo(props = {}) {
 | header | 对话框头部                                                                                                     | ReactNode | 无 |
 | height | 高度                                                                                                        | number | 无 |
 | icon | 自定义 icon <br/>**v1.1.0 后提供**                                                                              | ReactNode | - |
-| keepDOM | 关闭对话框时是否销毁 <br/>**v1.0.0 后提供**                                                                            | boolean | false |
+| keepDOM | 关闭对话框时是否保留内部组件不销毁 <br/>**v1.0.0 后提供**                                                                            | boolean | false |
 | lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染对话框组件 <br/>**v1.0.0 后提供**                                                    | boolean | true |
 | mask | 是否显示遮罩                                                                                                    | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
