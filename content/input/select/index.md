@@ -79,10 +79,15 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### 多选
+自 v2.28后，select 的选择器会自带 maxHeight 300，内容超出后可以通过垂直滚动查看。
 
 配置`multiple`属性，可以支持多选
 
 配置 `maxTagCount` 可以限制已选项展示的数量，超出部分将以+N 的方式展示
+
+配置 `ellipsisTrigger` 对溢出部分的 tag 做自适应处理，当宽度不足时，最后一个tag内容作截断处理。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用
+
+配置 `expandRestTagsOnClick` 可以在设置 `maxTagCount` 情况下通过点击展示全剩余的tag
 
 使用 `showRestTagsPopover` (>= v2.22.0) 可以设置在超出 `maxTagCount` 后，hover +N 是否显示 Popover，默认为 `false`。并且，还可以在 `restTagsPopoverProps` 属性中配置 Popover。
 
@@ -115,7 +120,7 @@ import { Select } from '@douyinfe/semi-ui';
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
         </Select>
-
+        
         <br />
         <br />
         <Select
@@ -124,6 +129,23 @@ import { Select } from '@douyinfe/semi-ui';
             defaultValue={['abc']}
             max={2}
             onExceed={() => Toast.warning('最多只允许选择两项')}
+        >
+            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="ulikecam">轻颜相机</Select.Option>
+            <Select.Option value="jianying">剪映</Select.Option>
+            <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            multiple
+            maxTagCount={2}
+            showRestTagsPopover={true}
+            restTagsPopoverProps={{ position: 'top' }}
+            style={{ width: '220px' }}
+            defaultValue={['xigua', 'ulikecam', 'jianying', 'abc']}
+            ellipsisTrigger
+            expandRestTagsOnClick
         >
             <Select.Option value="abc">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
@@ -1374,7 +1396,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | dropdownStyle | 弹出层的样式 | object |  |
 | dropdownMargin | 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin | object\|number |  | 2.25.0 |
 | emptyContent | 无结果时展示的内容。设为 null 时，下拉列表将不展示 | string\|ReactNode |  |
-| expandRestTagsOnClick | 当maxTagCount存在且为多选时，select 在面板打开状态下是否展开多余的 Tag        | boolean   | true       | 2.27.0 | 
+| ellipsisTrigger | 当 maxTagCount 存在且为多选时，是否对溢出部分的 tag 做自适应处理(当宽度不足时，最后一个tag内容作截断处理)。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用       | boolean   | false       | 2.28.0 | 
+| expandRestTagsOnClick | 当maxTagCount存在且为多选时，select 在面板打开状态下是否展开多余的 Tag        | boolean   | false       | 2.28.0 | 
 | filter | 是否可搜索，默认为 false。传入 true 时，代表开启搜索并采用默认过滤策略（label 是否与 sugInput 匹配），传入值为函数时，会接收 sugInput, option 两个参数，当 option 符合筛选条件应返回 true，否则返回 false | boolean \|function(sugInput, option) | false |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |
 | inputProps | filter 为 true 时, input 输入框的额外配置参数，具体可配置属性请参考 Input 组件（注意：请不要传入 value、ref、onChange、onFocus，否则会覆盖 Select 相关回调，影响组件行为） | object |  | 2.2.0 |

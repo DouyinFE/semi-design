@@ -122,6 +122,7 @@ export type SelectProps = {
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
     dropdownMargin?: PopoverProps['margin'];
+    ellipsisTrigger?: boolean;
     outerTopSlot?: React.ReactNode;
     innerTopSlot?: React.ReactNode;
     outerBottomSlot?: React.ReactNode;
@@ -212,6 +213,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         children: PropTypes.node,
         clearIcon: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
+        ellipsisTrigger: PropTypes.bool,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
         placeholder: PropTypes.node,
         onChange: PropTypes.func,
@@ -329,7 +331,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         arrowIcon: <IconChevronDown aria-label='' />,
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
-        expandRestTagsOnClick: true,
+        expandRestTagsOnClick: false,
+        ellipsisTrigger: false,
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -1035,32 +1038,40 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderNTag(n: number, restTags: [React.ReactNode, any][]) {
-        const { size } = this.props;
-        return (
-            <Popover
-                showArrow
-                content={
-                    <Space spacing={2} wrap style={{ maxWidth: '400px' }}>
-                        {restTags.map((tag, index) => (this.renderTag(tag, index)))}
-                    </Space>
-                }
-                trigger='hover'
-                position='top'
-                autoAdjustOverflow
-                key={`_+${n}_Popover`}
+        const { size, showRestTagsPopover, restTagsPopoverProps } = this.props;
+        let nTag = (
+            <Tag
+                closable={false}
+                size={size || 'large'}
+                color='grey'
+                className={`${prefixcls}-content-wrapper-collapse-tag`}
+                key={`_+${n}`}
+                style={{ marginRight: 0, flexShrink: 0 }}
             >
-                <Tag
-                    closable={false}
-                    size={size || 'large'}
-                    color='grey'
-                    className={`${prefixcls}-content-wrapper-collapse-tag`}
-                    key={`_+${n}`}
-                    style={{ marginRight: 0, flexShrink: 0 }}
-                >
-                    +{n}
-                </Tag>
-            </Popover>
+                +{n}
+            </Tag>
         );
+
+        if (showRestTagsPopover) {
+            nTag = (
+                <Popover
+                    showArrow
+                    content={
+                        <Space spacing={2} wrap style={{ maxWidth: '400px' }}>
+                            {restTags.map((tag, index) => (this.renderTag(tag, index)))}
+                        </Space>
+                    }
+                    trigger="hover"
+                    position="top"
+                    autoAdjustOverflow
+                    {...restTagsPopoverProps}
+                    key={`_+${n}_Popover`}
+                >
+                    {nTag}
+                </Popover>
+            );
+        }
+        return nTag;
     }
 
     renderOverflow(items: [React.ReactNode, any][], index: number) {
@@ -1097,9 +1108,64 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         );
     }
 
+    renderOneLineTags(selectedItems: [React.ReactNode, any][], n: number | undefined): React.ReactElement {
+        let { renderSelectedItem } = this.props;
+        const { showRestTagsPopover, restTagsPopoverProps, maxTagCount } = this.props;
+        const { isFullTags } = this.state;
+        let tagContent: ReactNode;
+
+        if (typeof renderSelectedItem === 'undefined') {
+            renderSelectedItem = (optionNode: OptionProps) => ({
+                isRenderInTag: true,
+                content: optionNode.label,
+            });
+        }
+        if (showRestTagsPopover) {
+            // showRestTagsPopover = true，
+            const mapItems = isFullTags ? selectedItems : selectedItems.slice(0, maxTagCount);
+            const tags = mapItems.map((item, i) => {
+                return this.getTagItem(item, i, renderSelectedItem);
+            });
+
+            tagContent = (
+                <TagGroup<"custom">
+                    tagList={tags}
+                    maxTagCount={n}
+                    restCount={isFullTags ? undefined : (selectedItems.length - maxTagCount)}
+                    size="large"
+                    mode="custom"
+                    showPopover={showRestTagsPopover}
+                    popoverProps={restTagsPopoverProps}
+                    onPlusNMouseEnter={() => {
+                        this.foundation.updateIsFullTags();
+                    }}
+                />
+            );
+        } else {
+            // If maxTagCount is set, showRestTagsPopover is false/undefined, 
+            // then there is no popover when hovering, no extra Tags are displayed, 
+            // only the tags and restCount displayed in the trigger need to be passed in
+            const mapItems = selectedItems.slice(0, maxTagCount);
+            const tags = mapItems.map((item, i) => {
+                return this.getTagItem(item, i, renderSelectedItem);
+            });
+            tagContent = (
+                <TagGroup<"custom">
+                    tagList={tags}
+                    maxTagCount={n}
+                    restCount={selectedItems.length - maxTagCount}
+                    size="large"
+                    mode="custom"
+                />
+            );
+        }
+        return tagContent;
+    }
+
+
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
-        const { placeholder, maxTagCount, expandRestTagsOnClick } = this.props;
+        const { placeholder, maxTagCount, expandRestTagsOnClick, ellipsisTrigger } = this.props;
         const { inputValue, isOpen } = this.state;
 
         const selectedItems = [...selections];
@@ -1126,9 +1192,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const n = selectedItems.length > maxTagCount ? maxTagCount : undefined;
         const NotOneLine = !maxTagCount;
 
+        const oneLineTags = ellipsisTrigger ? this.renderCollapsedTags(selectedItems, n) : this.renderOneLineTags(selectedItems, n);
+
         const tagContent = NotOneLine || (expandRestTagsOnClick && isOpen)
             ? selectedItems.map((item, i) => this.renderTag(item, i))
-            : this.renderCollapsedTags(selectedItems, n);
+            : oneLineTags;
 
         return (
             <>

@@ -3071,6 +3071,9 @@ const RenderSelectedItemWithMaxTagCount = () => {
             defaultValue={['夏可漫', '申悦']}
             multiple
             renderSelectedItem={renderMultipleWithCustomTag}
+            ellipsisTrigger
+            showRestTagsPopover
+            expandRestTagsOnClick
         >
             {list.map((item, index) => renderCustomOption(item, index))}
         </Select>
@@ -3087,6 +3090,9 @@ const RenderSelectedItemWithMaxTagCount = () => {
             defaultValue={['夏可漫', '申悦']}
             multiple
             renderSelectedItem={renderMultipleWithCustomTag2}
+            ellipsisTrigger
+            showRestTagsPopover
+            expandRestTagsOnClick
         >
             {list.map((item, index) => renderCustomOption(item, index))}
         </Select>
@@ -3120,65 +3126,65 @@ export const NPlusTruncationStrategy = () => {
             <h4>未设置宽度 和 maxTagCount </h4>
             defaultValue.length = 5
             <br /><br />
-            <Select multiple optionList={options} defaultValue={val}></Select>
+            <Select multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br /><br />
             
             <h4>未设置宽度</h4>
             maxTagCount = 2 + defaultValue.length = 5
             <br /><br />
-            <Select maxTagCount={2} multiple optionList={options} defaultValue={val}></Select> 
+            <Select maxTagCount={2} multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select> 
             <br /><br />
             maxTagCount = 2 + defaultValue.length = 5 + expandRestTagsOnClick=false
             <br /><br />
-            <Select maxTagCount={2} multiple optionList={options} defaultValue={val} expandRestTagsOnClick={false}></Select>
+            <Select maxTagCount={2} multiple optionList={options} defaultValue={val} expandRestTagsOnClick={false} ellipsisTrigger showRestTagsPopover></Select>
             <br /><br />
             maxTagCount = 6 + defaultValue.length = 5
             <br /><br />
-            <Select maxTagCount={6} multiple optionList={options} defaultValue={val}></Select>
+            <Select maxTagCount={6} multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 6 + defaultValue.length = 5 + filter
             <br /><br />
-            <Select maxTagCount={6} multiple optionList={options} defaultValue={val} filter></Select>
+            <Select maxTagCount={6} multiple optionList={options} defaultValue={val} filter ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br /><br />
 
             <h4>定宽</h4>
             maxTagCount = 2 + defaultValue.length = 2
             <br /><br />
-            <Select style={{ width: '350px' }} maxTagCount={2} multiple optionList={options} defaultValue={shortVal} showClear></Select>
+            <Select style={{ width: '350px' }} maxTagCount={2} multiple optionList={options} defaultValue={shortVal} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 5 + defaultValue.length = 5
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={5} multiple  optionList={options} defaultValue={val} showClear></Select>
+            <Select style={{ width: '550px' }} maxTagCount={5} multiple  optionList={options} defaultValue={val} showClear ellipsisTrigger showRestTagsPopove expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} showClear></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11 + filter
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} filter showClear></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} filter showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 10 + defaultValue.length = 11 + expandRestTagsOnClick=false
             <br /><br />
-            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} expandRestTagsOnClick={false} showClear></Select>
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} expandRestTagsOnClick={false} showClear ellipsisTrigger showRestTagsPopover></Select>
             <br /><br /><br />
 
             <h4>能保证正常渲染的最小宽度至少是120px</h4>
-            <Select style={{ width: '120px' }} maxTagCount={10} multiple  optionList={options} defaultValue={val} showClear></Select>
+            <Select style={{ width: '120px' }} maxTagCount={10} multiple  optionList={options} defaultValue={val} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br /><br />
 
             <h4>前缀/后缀/insetLabel</h4>
             maxTagCount = 2 + defaultValue.length = 2 + prefix
             <br /><br />
-            <Select style={{ width: '500px' }} maxTagCount={2} prefix={<IconSearch />} multiple  optionList={options} defaultValue={shortVal}></Select>
+            <Select style={{ width: '500px' }} maxTagCount={2} prefix={<IconSearch />} multiple  optionList={options} defaultValue={shortVal} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 6 + defaultValue.length = 5 + suffix
             <br /><br />
-            <Select style={{ width: '500px' }} maxTagCount={6} suffix={<IconSearch />} multiple  optionList={options} defaultValue={val}></Select>
+            <Select style={{ width: '500px' }} maxTagCount={6} suffix={<IconSearch />} multiple  optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br />
             maxTagCount = 6 + defaultValue.length = 11 + insetLabel
             <br /><br />
-            <Select style={{ width: '500px' }} maxTagCount={6} insetLabel={<IconSearch />} multiple  optionList={options} defaultValue={allSelect}></Select>
+            <Select style={{ width: '500px' }} maxTagCount={6} insetLabel={<IconSearch />} multiple  optionList={options} defaultValue={allSelect} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
             <br /><br /><br />
 
             <h4>renderSelectedItem</h4>

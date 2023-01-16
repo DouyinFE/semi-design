@@ -68,10 +68,15 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### Multi-choice
+Since v2.28, the selector will have its own maxHeight 300, and the content can be viewed by scrolling vertically after it exceeds.
 
 Configuration `multiple` properties that can support multi-selection
 
 Configuration `maxTagCount`. You can limit the number of options displayed, and the excess will be displayed in the form of + N
+
+Configure `ellipsisTrigger` to do adaptive processing on the overflow part of the tag. When the width is insufficient, the last tag content will be truncated. After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios
+
+Configure `expandRestTagsOnClick` to display all remaining tags by clicking when `maxTagCount` is set
 
 Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property
 
@@ -113,6 +118,23 @@ import { Select } from '@douyinfe/semi-ui';
             defaultValue={['abc']}
             max={2}
             onExceed={() => Toast.warning('Only two options are allowed')}
+        >
+            <Select.Option value="abc">Semi</Select.Option>
+            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="xigua">BuzzVideo</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            multiple
+            maxTagCount={2}
+            showRestTagsPopover={true}
+            restTagsPopoverProps={{ position: 'top' }}
+            style={{ width: '220px' }}
+            defaultValue={['xigua', 'hotsoon', 'pipixia', 'abc']}
+            ellipsisTrigger
+            expandRestTagsOnClick
         >
             <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
@@ -1311,7 +1333,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | dropdownStyle | The inline style of the pop-up layer | object |  |
 | emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed | string | ReactNode |  |
-| expandRestTagsOnClick | When maxTagCount exists and is multi-selected, select whether to expand redundant Tags when the panel is open       | boolean                          | true       | 2.27.0 | 
+| ellipsisTrigger | When maxTagCount exists and is multi-select, whether to perform adaptive processing on the overflow part of the tag(When the width is insufficient, the last tag content is truncated). After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios  | boolean   | false       | 2.28.0 | 
+| expandRestTagsOnClick | When maxTagCount exists and is multi-selected, select whether to expand redundant Tags when the panel is open       | boolean                          | false       | 2.28.0 | 
 | filter | Whether searchable or not, the default is false. When `true` is passed, it means turn on search ability, default filtering policy is whether the label matches search input<br/>When the input type is function, the function arguments are searchInput, option. It should return true when the option meets the filtering conditions, otherwise it returns false. | false | boolean\|function |  |
 | getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`| function(): HTMLElement | () => document.body |
 | inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior)  | object | | 2.2.0|

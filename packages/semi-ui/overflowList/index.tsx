@@ -3,7 +3,7 @@ import React, { CSSProperties, ReactNode, MutableRefObject, RefCallback, Key, Re
 import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
-import { isEqual, isFunction, get, cloneDeep } from 'lodash';
+import { isEqual, isFunction, get } from 'lodash';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/overflowList/constants';
 import ResizeObserver, { ResizeEntry } from '../resizeObserver';
 import IntersectionObserver from './intersectionObserver';
@@ -11,6 +11,7 @@ import IntersectionObserver from './intersectionObserver';
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
+import { cloneDeep } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
