@@ -15,6 +15,24 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.28.0-beta.0 (2023-01-16)
+- 【Feat】
+    - Select 新增 expandRestTagsOnClick API，默认值为 true，在多选且maxTagCount存在情况下，打开面板状态下可以展示剩余 tag。[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - 新增 TabItem 组件，用于 C2D 中TabItem 变体生成 [#1374](https://github.com/DouyinFE/semi-design/pull/1374)
+    - Cascader 新增 filterSorter API 支持对搜索后结果进行排序  [#1355](https://github.com/DouyinFE/semi-design/issues/1355)
+    - Cascader 新增 filterRender  API 对搜索后结果进行自定义渲染  [#1350](https://github.com/DouyinFE/semi-design/issues/1350)
+    - Cascader / TreeSelect / Tree 的 filterTreeNode API 函数形式增加 data 参数  [#1104](https://github.com/DouyinFE/semi-design/issues/1104)
+    - webpack 插件新增 overrideLoaderList 选项，支持更细粒度自定义 semi 相关样式所用 loaders [#1382](https://github.com/DouyinFE/semi-design/pull/1382)
+    - 声明式使用 Modal 时，可通过 onOK onCancel 返回 promise 来自动控制对应按钮的 loading 态 [#1369](https://github.com/DouyinFE/semi-design/issues/1369)
+- 【Fix】
+    - 优化 Select 在设置 maxTagCount 后标签的展示样式和交互，当剩余空间不够展示剩余 Tag 时，将溢出 Tag 收入+N Tag 展示 [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - 修复 OverflowList 在 display flex 布局下不展示问题 [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - 修复 OverflowList 在第一个 item 就溢出情况下不触发 onOverflow 回调问题 [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - 修复  OverflowList items 改变后靠近顶部溢出部分 items 数量不符合预期问题  [#1362](https://github.com/DouyinFE/semi-design/issues/1362)
+    - 修复 Select 受控模式下 autoClearSearchValue 为false 时未生效的问题,  [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+    - 修复 Layout 挂载 has-sider className 慢一个任务周期的问题,  [#1361](https://github.com/DouyinFE/semi-design/issues/1361)
+- 【Design token】
+    - Toast 新增 token 用于定制多色样式下不同背景色 `$color-toast_warning_light-icon` `$color-toast_success_light-icon` `$color-toast_info_light-icon` `$color-toast_danger_light-icon` [#1371](https://github.com/DouyinFE/semi-design/pull/1371)
 
 #### 🎉 2.27.1 (2023-01-12)
 - 【Fix】
