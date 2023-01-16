@@ -11,7 +11,6 @@ import { handlePrevent } from '../utils/a11y';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
-    setOptionsWidth(): void;
     updateFocusState(focus: boolean): void;
     focusTrigger(): void;
     unregisterClickOutsideHandler(): void;
