@@ -473,6 +473,8 @@ Common attributes will be set to the child elements of InputGroup, such as disab
 
 ## Methods
 
+Some internal methods provided by Input can be accessed through ref:
+
 | Name    | Description  |
 |---------|--------------|
 | blur()  | Remove focus |

@@ -425,9 +425,10 @@ import { CheckboxGroup, Checkbox, Row, Col } from '@douyinfe/semi-ui';
 | value        | Specify selected options                                                | any\[]              | \[]        |
 | onChange     | Callback function when selected options change                          | function(checkedValue) | -          |
 
-### Method
+## Methods
 
-#### Checkbox
+Some internal methods provided by Checkbox can be accessed through ref:
+### Checkbox
 
 | Name    | Description  |
 | ------- | ------------ |

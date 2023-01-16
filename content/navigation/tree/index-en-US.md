@@ -2193,7 +2193,9 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | Height for each line of treeNode, required | number | - |
 | width | Width | number\|string | '100%' |
 
-### Methods
+## Methods
+Some internal methods provided by Tree can be accessed through ref:
+
 |Name | Description | Type | Version |
 |----|----|----|----|
 | search | Trigger search manually | (value: string) => void |-|

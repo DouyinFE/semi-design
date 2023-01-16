@@ -1309,6 +1309,9 @@ interface FileItem {
 ```
 
 ## Methods
+
+Some internal methods provided by Upload can be accessed through ref:
+
 |Name | Description | Type | Version|
 |----|----|----|----|
 | insert | Upload file, when index is passed, it will be inserted at the specified position, if not passed, it will be inserted at the end | (files: Array<File\>, index?: number) => void | 2.2.0 |

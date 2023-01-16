@@ -1448,9 +1448,9 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | label     | 展示的文本 | ReactNode | v0.31.0 |
 | style     | 样式       | object    | v0.31.0 |
 
-### Method()
+## Methods
 
-绑定在 ref 上的方法，可以通过 ref 调用实现某些特殊交互
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
 | 方法        | 说明                                | 版本    |
 | ----------- | ----------------------------------- | ------- |

@@ -471,7 +471,9 @@ import { TagInput } from '@douyinfe/semi-ui';
 |onKeyDown    |keydown 回调                             |(e: React.KeyboardEvent) => void          | -        |2.1.0|
 |onRemove     |移除标签时的回调                                     |(removedValue: string, idx: number) => void     | -        |1.19.0|
 
-## 方法
+## Methods
+
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
 |名称    |描述   |版本     |
 |-------|------|---------|

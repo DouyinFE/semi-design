@@ -681,7 +681,8 @@ class CarouselDemo extends React.Component {
 |props           |Parameters on the arrow div, including style, onClick events, etc                                      |DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>         |-     |2.10.0|
 |children         |Arrow custom icon                                              |React.ReactNode      |-     |2.10.0|
 
-**Method()**
+## Methods
+Some internal methods provided by Carousel can be accessed through ref:
 
 | Method             | Instructions                    | Version |
 | ------------------ | ------------------------------- | ------- |

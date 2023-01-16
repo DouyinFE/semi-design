@@ -1448,9 +1448,14 @@ function Demo() {
 | isLeaf| 是否为叶子节点 | boolean |-|
 
 
-### Method
-- search(sugInput: string)
-如果需要自定义搜索框可以使用该方法。
+### Methods
+
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+
+| Name    | Description  |
+|---------|--------------|
+| search(sugInput: string)  | 如果需要在外部自定义搜索框，可以在自定义搜索框值变更时主动调用该方法，改变筛选结果 |
+
 
 ## Accessibility
 

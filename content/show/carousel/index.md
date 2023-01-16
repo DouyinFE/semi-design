@@ -679,8 +679,9 @@ class CarouselDemo extends React.Component {
 |------------------|---------------------------------------------------------------|------------------|------|------|
 |props             |箭头div上的可传参数，包括style, onClick事件等                                                  | React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement\>, HTMLDivElement\>       |-     |2.10.0|
 |children          |箭头自定义Icon                                                   |React.ReactNode      |-     |2.10.0|
+## Methods
 
-**Method()**
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
 | 方法               | 说明                        | 版本    |
 | ----------------- | --------------------------  | ------ |

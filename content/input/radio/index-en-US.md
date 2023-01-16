@@ -412,7 +412,7 @@ class App extends React.Component {
 | value | Used to set the currently selected value | string \| number | - |
 | type | Set the type of radio, one of `default`, `button`, `card`, `pureCard` <br/>**This api is provided after v1.26.0, and card and pureCard are in v1.30.0 Provided after ** | string | `default` |
 | onChange | Callback function when the selected option changes | Function (e: Event) | - |
-## Method
+## Methods
 
 ### Radio
 

@@ -2187,6 +2187,8 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 
 ### Methods
 
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+
 |名称 | 描述 | 类型 | 版本  |
 |----|----|----|----|
 | search | 手动触发搜索 | (value: string) => void |-|
