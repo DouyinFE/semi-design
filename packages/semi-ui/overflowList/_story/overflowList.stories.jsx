@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Tag, Table, Slider } from '../../index';
+import { Icon, Tag, Table, Slider, Button } from '../../index';
 import OverflowList from '..';
 import {
   IconAlarm,
@@ -439,5 +439,60 @@ OverflowListWithSlide.story = {
   name: 'overflowList with slide',
 };
 
-// TODO large data will cause memory heap
-// stories.add('large amount of data', () => <LargeData />);
+
+
+export const Fix1362 = () =>{
+  const items1 = [
+        { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'alarm' },
+        { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
+        { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
+        { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
+        { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
+        { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
+    ];
+
+  const items2 = [
+      { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'newAlarm' },
+      { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'newBookmark' },
+      { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'newCamera' },
+      { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'newDuration' },
+  ];
+
+  const [items, setItem] = useState(items1);
+  const [flag, setFlag] = useState(false);
+
+  const renderOverflow = items => {
+    return items.map(item => <Tag>{item.length}</Tag>);
+  };
+  const renderItem = (item, ind) => {
+    return (
+      <div key={item.key} style={{ marginRight: 8 }}>
+        {item.key}
+      </div>
+    );
+  };
+
+  const change = () =>{
+    setItem(flag ? items1: items2)
+    setFlag(!flag)
+  }
+
+  return (
+      <div style={{ marginTop: 100, height: 1000 }}>
+          <Button onClick={change}>change</Button>
+          <br />
+          <br />
+          <div style={{ width: 500 }}>
+              <OverflowList
+                  renderMode='scroll'
+                  items={items}
+                  overflowRenderer={renderOverflow}
+                  visibleItemRenderer={renderItem}
+              />
+          </div>
+      </div>
+  );
+}
+Fix1362.story = {
+  name: 'fix #1362',
+};
