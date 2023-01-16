@@ -2185,7 +2185,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | itemSize | 每行的treeNode的高度，必传 | number | - |
 | width | 宽度值 | number\|string | '100%' |
 
-### Methods
+## Methods
 
 绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
