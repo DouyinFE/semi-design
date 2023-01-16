@@ -74,9 +74,9 @@ Configuration `multiple` properties that can support multi-selection
 
 Configuration `maxTagCount`. You can limit the number of options displayed, and the excess will be displayed in the form of + N
 
-Configure `ellipsisTrigger` to do adaptive processing on the overflow part of the tag. When the width is insufficient, the last tag content will be truncated. After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios
+Configure `ellipsisTrigger` (>= v2.28.0) to do adaptive processing on the overflow part of the tag. When the width is insufficient, the last tag content will be truncated. After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios
 
-Configure `expandRestTagsOnClick` to display all remaining tags by clicking when `maxTagCount` is set
+Configure `expandRestTagsOnClick` (>= v2.28.0) to display all remaining tags by clicking when `maxTagCount` is set
 
 Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property
 

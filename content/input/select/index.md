@@ -85,9 +85,9 @@ import { Select } from '@douyinfe/semi-ui';
 
 配置 `maxTagCount` 可以限制已选项展示的数量，超出部分将以+N 的方式展示
 
-配置 `ellipsisTrigger` 对溢出部分的 tag 做自适应处理，当宽度不足时，最后一个tag内容作截断处理。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用
+配置 `ellipsisTrigger` (>= v2.28.0) 对溢出部分的 tag 做自适应处理，当宽度不足时，最后一个tag内容作截断处理。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用
 
-配置 `expandRestTagsOnClick` 可以在设置 `maxTagCount` 情况下通过点击展示全剩余的tag
+配置 `expandRestTagsOnClick` (>= v2.28.0) 可以在设置 `maxTagCount` 情况下通过点击展示全剩余的tag
 
 使用 `showRestTagsPopover` (>= v2.22.0) 可以设置在超出 `maxTagCount` 后，hover +N 是否显示 Popover，默认为 `false`。并且，还可以在 `restTagsPopoverProps` 属性中配置 Popover。
 
