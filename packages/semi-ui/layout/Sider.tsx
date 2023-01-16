@@ -61,6 +61,7 @@ class Sider extends React.PureComponent<SiderProps> {
     };
 
     static contextType = LayoutContext;
+    static elementType = "Layout.Sider"
 
     unRegisters: Array<() => void> = [];
     context: ContextType;
