@@ -173,6 +173,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
 
         if (!isEqual(prevProps.items, this.props.items)) {
             this.itemRefs = {};
+            this.setState({ visibleState: new Map() });
         }
 
         const { overflow, containerWidth, visible, overflowStatus } = this.state;

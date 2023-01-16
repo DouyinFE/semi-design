@@ -1309,6 +1309,9 @@ interface FileItem {
 ```
 
 ## Methods
+
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+
 |名称 | 描述 | 类型 | 版本 |
 |----|----|----|----|
 | insert | 上传文件，当index传入时，会插入到指定位置，不传则插入到最后 | (files: Array<File\>, index?: number) => void | 2.2.0 |

@@ -1403,7 +1403,8 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | label      | Text displayed.    | ReactNode | v0.31.0 |
 | style      | Inline Style       | object    | v0.31.0 |
 
-### Method()
+## Methods
+Some internal methods provided by Select can be accessed through ref:
 
 | Method      | Instructions                    | Version |
 | ----------- | ------------------------------- | ------- |

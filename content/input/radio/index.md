@@ -361,7 +361,7 @@ class App extends React.Component {
 |type|设置所有radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v1.26.0 后提供，其中 card 和 pureCard 在 v1.30.0 后提供**    |string|`default`|
 | onChange     | 选项变化时的回调函数                                                                        | function(e:Event)                                                         | -            |
 
-## 方法
+## Methods
 
 ### Radio
 

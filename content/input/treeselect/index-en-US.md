@@ -1464,9 +1464,12 @@ function Demo() {
 | key        | Required and must be unique                 | string            | -       |
 | isLeaf     | Whether it is a leaf node | boolean |-|
 
-### Method
-- search(sugInput: string)
-For custom rendering of input box.
+## Methods
+Some internal methods provided by TreeSelect can be accessed through ref:
+
+| Name    | Description  |
+|---------|--------------|
+| search(sugInput: string)  | If you need to customize the search box externally, you can actively call this method when the value of the custom search box changes to change the filtering results |
 
 ## Accessibility
 

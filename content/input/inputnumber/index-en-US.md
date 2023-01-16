@@ -233,6 +233,8 @@ function Demo () {
 
 ## Methods
 
+Some internal methods provided by InputNumber can be accessed through ref:
+
 | Name    | Description     |
 | ------- | --------------- |
 | blur()  | Move the focus. |

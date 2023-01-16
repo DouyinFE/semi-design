@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Tag, Table, Slider } from '../../index';
+import { Icon, Tag, Table, Slider, Button } from '../../index';
 import OverflowList from '..';
 import {
   IconAlarm,
@@ -438,22 +438,8 @@ export const OverflowListWithSlide = () =>{
 OverflowListWithSlide.story = {
   name: 'overflowList with slide',
 };
-
-export const FixDisplayFlexDemo = () =>{
-    const [width, setWidth] = useState(100);
-    const renderOverflow = items => {
-          return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
-      };
-    const renderItem = (item, ind) => {
-        return (
-            <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
-                {item.icon}
-                {item.key}
-            </Tag>
-        );
-    };
-
-    const items = [
+export const Fix1362 = () =>{
+  const items1 = [
         { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'alarm' },
         { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
         { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
@@ -462,22 +448,91 @@ export const FixDisplayFlexDemo = () =>{
         { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
     ];
 
+  const items2 = [
+      { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'newAlarm' },
+      { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'newBookmark' },
+      { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'newCamera' },
+      { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'newDuration' },
+  ];
+
+  const [items, setItem] = useState(items1);
+  const [flag, setFlag] = useState(false);
+
+  const renderOverflow = items => {
+    return items.map(item => <Tag>{item.length}</Tag>);
+  };
+  const renderItem = (item, ind) => {
     return (
-        <div>
-            <Slider step={1} value={width} onChange={value => setWidth(value)} />
-            <br />
-            <br />
-            <div style={{ width: `${width}%`, display: 'flex' }}>
-                <OverflowList
-                    style={{ width: '100%' }}
-                    items={items}
-                    minVisibleItems={3}
-                    overflowRenderer={renderOverflow}
-                    visibleItemRenderer={renderItem}
-                />
-            </div>
-        </div>
+      <div key={item.key} style={{ marginRight: 8 }}>
+        {item.key}
+      </div>
     );
+  };
+
+  const change = () =>{
+    setItem(flag ? items1: items2)
+    setFlag(!flag)
+  }
+
+  return (
+      <div style={{ marginTop: 100, height: 1000 }}>
+          <Button onClick={change}>change</Button>
+          <br />
+          <br />
+          <div style={{ width: 500 }}>
+              <OverflowList
+                  renderMode='scroll'
+                  items={items}
+                  overflowRenderer={renderOverflow}
+                  visibleItemRenderer={renderItem}
+              />
+          </div>
+      </div>
+  );
+}
+Fix1362.story = {
+  name: 'fix #1362',
+};
+
+export const FixDisplayFlexDemo = () =>{
+  const [width, setWidth] = useState(100);
+  const renderOverflow = items => {
+        return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+    };
+  const renderItem = (item, ind) => {
+      return (
+          <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
+              {item.icon}
+              {item.key}
+          </Tag>
+      );
+  };
+
+  const items = [
+      { icon: <IconAlarm style={{ marginRight: 4 }} />, key: 'alarm' },
+      { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
+      { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
+      { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
+      { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
+      { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
+  ];
+
+  return (
+      <div>
+          <Slider step={1} value={width} onChange={value => setWidth(value)} />
+          <br />
+          <br />
+          <div style={{ width: `${width}%`, display: 'flex' }}>
+              <OverflowList
+                  style={{ width: '100%' }}
+                  items={items}
+                  minVisibleItems={3}
+                  overflowRenderer={renderOverflow}
+                  visibleItemRenderer={renderItem}
+              />
+          </div>
+      </div>
+  );
 }
 
 FixDisplayFlexDemo.story = {
@@ -485,46 +540,46 @@ FixDisplayFlexDemo.story = {
 };
 
 export const FixFirstLongTagDemo = () =>{
-    const [width, setWidth] = useState(20);
-    const renderOverflow = items => {
-          return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
-      };
-    const renderItem = (item, ind) => {
-        return (
-            <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
-                {item.icon}
-                {item.key}
-            </Tag>
-        );
+  const [width, setWidth] = useState(20);
+  const renderOverflow = items => {
+        return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
     };
+  const renderItem = (item, ind) => {
+      return (
+          <Tag color="blue" key={item.key} style={{ marginRight: 8, flex: '0 0 auto' }}>
+              {item.icon}
+              {item.key}
+          </Tag>
+      );
+  };
 
-    const items = [
-        { icon: <IconAlarm style={{ marginRight: 4, width: 400 }} />, key: 'alarm' },
-        { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
-        { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
-        { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
-        { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
-        { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
-    ];
+  const items = [
+      { icon: <IconAlarm style={{ marginRight: 4, width: 400 }} />, key: 'alarm' },
+      { icon: <IconBookmark style={{ marginRight: 4 }} />, key: 'bookmark' },
+      { icon: <IconCamera style={{ marginRight: 4 }} />, key: 'camera' },
+      { icon: <IconDuration style={{ marginRight: 4 }} />, key: 'duration' },
+      { icon: <IconEdit style={{ marginRight: 4 }} />, key: 'edit' },
+      { icon: <IconFolder style={{ marginRight: 4 }} />, key: 'folder' },
+  ];
 
-    return (
-        <div>
-            <div>修复第一个item就溢出, 不触发 onOverflow 问题</div>
-            <Slider step={1} value={width} onChange={value => setWidth(value)} />
-            <br />
-            <br />
-            <div style={{ width: `${width}%` }}>
-                <OverflowList
-                    items={items}
-                    onOverflow={(items)=>{
-                      console.log('触发了onOverflow', items);
-                    }}
-                    overflowRenderer={renderOverflow}
-                    visibleItemRenderer={renderItem}
-                />
-            </div>
-        </div>
-    );
+  return (
+      <div>
+          <div>修复第一个item就溢出, 不触发 onOverflow 问题</div>
+          <Slider step={1} value={width} onChange={value => setWidth(value)} />
+          <br />
+          <br />
+          <div style={{ width: `${width}%` }}>
+              <OverflowList
+                  items={items}
+                  onOverflow={(items)=>{
+                    console.log('触发了onOverflow', items);
+                  }}
+                  overflowRenderer={renderOverflow}
+                  visibleItemRenderer={renderItem}
+              />
+          </div>
+      </div>
+  );
 }
 
 FixFirstLongTagDemo.story = {

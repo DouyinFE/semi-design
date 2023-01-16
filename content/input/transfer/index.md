@@ -971,9 +971,12 @@ TreeItem 继承 Item 的所有属性
 | -------- | ------ | ---------------- | ------ |
 | children | 子元素 | Array<TreeItem\> |        |
 
-### Method
+## Methods
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
 
-- search(value: string)：可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input。
+| Name    | Description   |
+| ------- | ------------- |
+| search(value: string)  |  可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input。  |
 
 ## 设计变量
 <DesignToken/>

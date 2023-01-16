@@ -344,7 +344,8 @@ function Demo(props = {}) {
 | onFocus | Callback when focus is obtained | (e: domEvent) => void | () => {} | **1.0.0** |
 | onOpenChange | A callback when the panel is on / off | (isOpen: boolean) => void |  |
 
-## Method
+## Methods
+Some internal methods provided by TimePicker can be accessed through ref:
 
 | Name    | Description   |
 | ------- | ------------- |
