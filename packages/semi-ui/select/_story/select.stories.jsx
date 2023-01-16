@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -2897,6 +2897,7 @@ SelectInputPropsDemo.story = {
 
 export const AutoClearSearchValue = () => {
     const [val, setVal] = useState(['semi1']);
+    const [clear, setClear] = useState(false);
     const optionList = [
         { label: 'semi1', value: 'semi1' },
         { label: 'semi2', value: 'semi2' },
@@ -2907,20 +2908,23 @@ export const AutoClearSearchValue = () => {
     ];
 
     return (
-        <>
+        <>  
+            <h4>autoClearSearchValue</h4>
+            <Switch checked={clear} onChange={checked => setClear(checked)}></Switch>
+
             <h4>Controlled mode + multiple</h4>
-            <Select style={{ width: 400 }} multiple optionList={optionList} filter value={val} onChange={value => setVal(value)} autoClearSearchValue={false}></Select>
+            <Select style={{ width: 400 }} multiple optionList={optionList} filter value={val} onChange={value => setVal(value)} autoClearSearchValue={clear}></Select>
             <br />
             <br />
             <h4>Uncontrolled mode + multiple</h4>
-            <Select style={{ width: 400 }} multiple optionList={optionList} filter autoClearSearchValue={false}></Select>
+            <Select style={{ width: 400 }} multiple optionList={optionList} filter autoClearSearchValue={clear}></Select>
             <h4>Uncontrolled mode + multiple + defaultValue</h4>
-            <Select style={{ width: 400 }}  multiple optionList={optionList} filter defaultValue={['semi2']} autoClearSearchValue={false}></Select>
+            <Select style={{ width: 400 }} multiple optionList={optionList} filter defaultValue={['semi2']} autoClearSearchValue={clear}></Select>
         </>
     )
 }
 
-SelectInputPropsDemo.story = {
+AutoClearSearchValue.story = {
   name: 'AutoClearSearchValue',
 };
 
@@ -3002,3 +3006,4 @@ export const emptyContent = () => {
     <Select placeholder='请选择业务线' emptyContent={null} style={{ width: 180 }} optionList={list} defaultOpen={true}/>
   )
 }
+
