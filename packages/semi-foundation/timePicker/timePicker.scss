@@ -6,13 +6,9 @@ $module-list: #{$prefix}-scrolllist;
     display: inline-block;
 
     &-panel {
-        .#{$module-list}-header {
-            padding: $spacing-timePicker_range_panel_scrolllist_header_body-padding;
-        }
 
         .#{$module-list}-body {
             height: $height-timePicker_panel_body;
-            padding: $spacing-timePicker_range_panel_scrolllist_header_body-padding;
 
             .#{$module-list}-item-wheel .#{$module-list}-list-outer-nocycle,
             .#{$module-list}-item {
