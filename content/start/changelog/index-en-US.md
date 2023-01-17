@@ -17,7 +17,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 #### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
-    - Select adds expandRestTagsOnClick API, the default value is true, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened.[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - Select adds expandRestTagsOnClick API, the default value is false, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened.[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - Added TabItem component for generating TabItem variants in C2D [#1374](https://github.com/DouyinFE/semi-design/pull/1374)
     - Cascader adds filterSorter API to support sorting search results  [#1355](https://github.com/DouyinFE/semi-design/issues/1355)
     - Cascader adds filterRender API for custom rendering of search results [#1350](https://github.com/DouyinFE/semi-design/issues/1350)
