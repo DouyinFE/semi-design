@@ -17,21 +17,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 #### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
-    - Select adds expandRestTagsOnClick API, the default value is false, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened.[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
+    - Select adds expandRestTagsOnClick API, the default value is false, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - Added TabItem component for generating TabItem variants in C2D [#1374](https://github.com/DouyinFE/semi-design/pull/1374)
-    - Cascader adds filterSorter API to support sorting search results  [#1355](https://github.com/DouyinFE/semi-design/issues/1355)
+    - Cascader adds filterSorter API to support sorting search results [#1355](https://github.com/DouyinFE/semi-design/issues/1355)
     - Cascader adds filterRender API for custom rendering of search results [#1350](https://github.com/DouyinFE/semi-design/issues/1350)
     - Cascader / TreeSelect / Tree's filterTreeNode API adds data parameter [#1104](https://github.com/DouyinFE/semi-design/issues/1104)
     - The webpack plugin adds an overrideLoaderList option to support finer-grained customization of the loaders used in semi-related styles [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - When using Modal declaratively, you can automatically control the loading state of the corresponding button by returning a promise through onOK and onCancel [#1369](https://github.com/DouyinFE/semi-design/issues/1369)
+    - Select adds the ellipsisTrigger API, the default value is false, and the overflow tag can be adaptively processed when maxTagCount is set. When the width is insufficient, the last tag content will be truncated. After enabling this function, there will be a certain performance loss, and it is not recommended to use it in a large form scenario [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
 - 【Fix】
-    - Optimize the display style and interaction of Select after setting maxTagCount. When the remaining space is not enough to display the remaining Tags, it will overflow Tag income + N Tag display [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - Fix the problem that OverflowList does not display under the display flex layout [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - Fix the problem that the onOverflow callback is not triggered when the first item of OverflowList overflows [#1353](https://github.com/DouyinFE/semi-design/pull/1353)
-    - fix the problem that the number of items in the overflow part near the top after the OverflowList items are changed is not as expected  [#1362 ](https://github.com/DouyinFE/semi-design/issues/1362)
-    - fix the problem that select autoClearSearchValue=false not work under control mode [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+    - Fix the problem that the number of items in the overflow part near the top after the OverflowList items are changed is not as expected  [#1362 ](https://github.com/DouyinFE/semi-design/issues/1362)
+    - Fix the problem that select autoClearSearchValue=false not work under control mode [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
     - Fix the problem that Layout mount has-sider className is slow by one task cycle [#1361](https://github.com/DouyinFE/semi-design/issues/1361)
-- 【Design token】
+- 【Design Token】
     - Toast adds a new token for customizing different background colors in multi-color styles `$color-toast_warning_light-icon` `$color-toast_success_light-icon` `$color-toast_info_light-icon` `$color-toast_danger_light-icon` [#1371](https://github.com/DouyinFE/semi-design/pull/1371)
 
 #### 🎉 2.27.1 (2023-01-12)
