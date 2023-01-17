@@ -57,7 +57,7 @@ $module: #{$prefix}-slider;
         border-radius: 50%;
         cursor: pointer;
         transition: background-color $transition_duration_slider_handle-bg $transition_function-slider-handle-bg $transition_delay-slider_handle-bg;
-        transform: scale($transform_scale-slider_handle);
+        transform: $transform_scale-slider_handle translateX(-50%) translateY($spacing-slider_handle-translateY);
         &:focus-visible {
             outline: $width-slider_handle-focus solid $color-slider_handle-focus;
         }
@@ -101,6 +101,7 @@ $module: #{$prefix}-slider;
         //border: 1px solid $color-control-bg-default;
         border-radius: 50%;
         cursor: pointer;
+        transform: translateX($spacing-slider_dot-translateX);
     }
 
     &-dot-active {
@@ -196,6 +197,10 @@ $module: #{$prefix}-slider;
     .#{$module}-handle {
         margin-top: $spacing-slider_vertical_handle-marginTop;
         margin-left: $spacing-slider_vertical_handle-marginLeft;
+        transform: $transform_scale-slider_handle translateY(-50%) translateX($spacing-slider_vertical_handle-translateX);
+    }
+    .#{$module}-dot{
+        transform: translateY($spacing-slider_vertical_dot-translateY);
     }
 }
 
