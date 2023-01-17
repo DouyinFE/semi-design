@@ -17,7 +17,7 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
-    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines'].some(item => slug.includes(item));
+    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
