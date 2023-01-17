@@ -15,7 +15,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-#### 🎉 2.28.0-beta.0 (2023-01-16)
+#### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
     - Select adds expandRestTagsOnClick API, the default value is true, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened.[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - Added TabItem component for generating TabItem variants in C2D [#1374](https://github.com/DouyinFE/semi-design/pull/1374)

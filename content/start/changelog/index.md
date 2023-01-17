@@ -15,7 +15,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
-#### 🎉 2.28.0-beta.0 (2023-01-16)
+#### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
     - Select 新增 expandRestTagsOnClick API，默认值为 true，在多选且maxTagCount存在情况下，打开面板状态下可以展示剩余 tag。[#1353](https://github.com/DouyinFE/semi-design/pull/1353)
     - 新增 TabItem 组件，用于 C2D 中TabItem 变体生成 [#1374](https://github.com/DouyinFE/semi-design/pull/1374)
