@@ -6,7 +6,6 @@ $module-list: #{$prefix}-scrolllist;
     display: inline-block;
 
     &-panel {
-
         .#{$module-list}-body {
             height: $height-timePicker_panel_body;
 
