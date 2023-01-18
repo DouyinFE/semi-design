@@ -17,7 +17,9 @@ export interface SemiWebpackPluginOptions {
     include?: string;
     omitCss?: boolean;
     webpackContext?: WebpackContext;
-    extractCssOptions?: ExtractCssOptions
+    extractCssOptions?: ExtractCssOptions;
+    overrideStylesheetLoaders?:(loaders:any[])=>any[]
+
 }
 
 export interface SemiThemeOptions {
@@ -94,7 +96,7 @@ export default class SemiWebpackPlugin {
                 } : {
                     loader: styleLoader
                 };
-                module.loaders = [
+                const loaderList = [
                     lastLoader,
                     {
                         loader: cssLoader,
@@ -113,6 +115,7 @@ export default class SemiWebpackPlugin {
                             include: this.options.include
                         }
                     }];
+                module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
             }
         }
     }

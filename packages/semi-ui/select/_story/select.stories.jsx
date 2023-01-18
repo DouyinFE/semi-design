@@ -2999,6 +2999,208 @@ RenderSelectedItemCallCount.story = {
   name: 'RenderSelectedItemCallCount',
 };
 
+const RenderSelectedItemWithMaxTagCount = () => {
+  const list = [
+      { "name": "夏可漫", "email": "xiakeman@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/avatarDemo.jpeg" },
+      { "name": "申悦", "email": "shenyue@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bf8647bffab13c38772c9ff94bf91a9d.jpg" },
+      { "name": "曲晨一", "email": "quchenyi@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/8bd8224511db085ed74fea37205aede5.jpg" },
+      { "name": "文嘉茂", "email": "wenjiamao@example.com", "avatar": "https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/6fbafc2d-e3e6-4cff-a1e2-17709c680624.png" },
+  ];
+
+  const renderMultipleWithCustomTag = (optionNode, { onClose }) => {
+      const content = (
+          <Tag
+              avatarSrc={optionNode.avatar}
+              avatarShape='circle'
+              closable={true}
+              onClose={onClose}
+              size='large'
+              style={{ maxWidth: '100%'}}
+          >
+              {optionNode.email}
+          </Tag>
+      );
+      return {
+          isRenderInTag: false,
+          content
+      };
+  };
+
+  const renderMultipleWithCustomTag2 = (optionNode, { onClose }) => {
+      const content = (
+          <Tag
+              avatarSrc={optionNode.avatar}
+              avatarShape='square'
+              closable={true}
+              onClose={onClose}
+              size='large'
+              style={{ maxWidth: '100%'}}
+          >
+              {optionNode.name}
+          </Tag>
+      );
+      return {
+          isRenderInTag: false,
+          content
+      };
+  };
+
+  const renderCustomOption = (item, index) => {
+      const optionStyle = {
+          display: 'flex',
+          paddingLeft: 24,
+          paddingTop: 10,
+          paddingBottom: 10
+      };
+      return (
+          <Select.Option value={item.name} style={optionStyle} showTick={true}  {...item} key={item.email}>
+              <Avatar size="small" src={item.avatar} />
+              <div style={{ marginLeft: 8 }}>
+                  <div style={{ fontSize: 14 }}>{item.email}</div>
+                  <div style={{ color: 'var(--color-text-2)', fontSize: 12, lineHeight: '16px', fontWeight: 'normal' }}>{item.email}</div>
+              </div>
+          </Select.Option>
+      );
+  };
+
+  return (
+      <>
+        renderSelectedItem + maxTagCount=10 + defaultValue.length=2
+        <br />
+        <Select
+            placeholder='请选择'
+            maxTagCount={10}
+            style={{ width: 350, marginTop: 20 }}
+            onChange={v => console.log(v)}
+            defaultValue={['夏可漫', '申悦']}
+            multiple
+            renderSelectedItem={renderMultipleWithCustomTag}
+            ellipsisTrigger
+            showRestTagsPopover
+            expandRestTagsOnClick
+        >
+            {list.map((item, index) => renderCustomOption(item, index))}
+        </Select>
+        <br />
+        <br />
+        renderSelectedItem + maxTagCount=1 + defaultValue.length=2 + filter
+        <br />
+        <Select
+            placeholder='请选择'
+            maxTagCount={1}
+            filter
+            style={{ width: 350, marginTop: 20 }}
+            onChange={v => console.log(v)}
+            defaultValue={['夏可漫', '申悦']}
+            multiple
+            renderSelectedItem={renderMultipleWithCustomTag2}
+            ellipsisTrigger
+            showRestTagsPopover
+            expandRestTagsOnClick
+        >
+            {list.map((item, index) => renderCustomOption(item, index))}
+        </Select>
+      </>
+  );
+};
+
+
+export const NPlusTruncationStrategy = () => {
+    const shortVal = ['semi11', 'semi1']
+    const val = ['semi11', 'semi1', 'semi3', 'semi4', 'semi10']
+    const allSelect = ['semi11', 'semi1', 'semi2', 'semi3', 'semi4', 'semi5', 'semi6', 'semi7', 'semi8', 'semi9', 'semi10']
+
+    const options = [
+        { label: 'semi1semi1', value: 'semi1' },
+        { label: 'semi2semi2semi2', value: 'semi2' },
+        { label: 'semi3semi3semi3semi3', value: 'semi3' },
+        { label: 'semi4semi4semi4semi4semi4', value: 'semi4' },
+        { label: 'semi5semi5semi5semi5semi5semi5', value: 'semi5' },
+        { label: 'semi6semi6semi6semi6semi6semi6semi6', value: 'semi6' },
+        { label: 'semi7semi7semi7semi7semi7semi7semi7', value: 'semi7' },
+        { label: 'semi8semi8semi8semi8semi8semi8semi8', value: 'semi8' },
+        { label: 'semi9semi9semi9semi9semi9semi9semi9', value: 'semi9' },
+        { label: 'semi10semi10semi10semi10semi10semi10', value: 'semi10' },
+        { label: '我是中文超长选项我真的真的真的真的真的真的超级长', value: 'semi11' },
+    ];
+    // expandRestTagsOnClick
+
+    return (
+        <>
+            <h4>未设置宽度 和 maxTagCount </h4>
+            defaultValue.length = 5
+            <br /><br />
+            <Select multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br /><br />
+            
+            <h4>未设置宽度</h4>
+            maxTagCount = 2 + defaultValue.length = 5
+            <br /><br />
+            <Select maxTagCount={2} multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select> 
+            <br /><br />
+            maxTagCount = 2 + defaultValue.length = 5 + expandRestTagsOnClick=false
+            <br /><br />
+            <Select maxTagCount={2} multiple optionList={options} defaultValue={val} expandRestTagsOnClick={false} ellipsisTrigger showRestTagsPopover></Select>
+            <br /><br />
+            maxTagCount = 6 + defaultValue.length = 5
+            <br /><br />
+            <Select maxTagCount={6} multiple optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 6 + defaultValue.length = 5 + filter
+            <br /><br />
+            <Select maxTagCount={6} multiple optionList={options} defaultValue={val} filter ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br /><br />
+
+            <h4>定宽</h4>
+            maxTagCount = 2 + defaultValue.length = 2
+            <br /><br />
+            <Select style={{ width: '350px' }} maxTagCount={2} multiple optionList={options} defaultValue={shortVal} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 5 + defaultValue.length = 5
+            <br /><br />
+            <Select style={{ width: '550px' }} maxTagCount={5} multiple  optionList={options} defaultValue={val} showClear ellipsisTrigger showRestTagsPopove expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 10 + defaultValue.length = 11
+            <br /><br />
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 10 + defaultValue.length = 11 + filter
+            <br /><br />
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} filter showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 10 + defaultValue.length = 11 + expandRestTagsOnClick=false
+            <br /><br />
+            <Select style={{ width: '550px' }} maxTagCount={10} multiple  optionList={options} defaultValue={allSelect} expandRestTagsOnClick={false} showClear ellipsisTrigger showRestTagsPopover></Select>
+            <br /><br /><br />
+
+            <h4>能保证正常渲染的最小宽度至少是120px</h4>
+            <Select style={{ width: '120px' }} maxTagCount={10} multiple  optionList={options} defaultValue={val} showClear ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br /><br />
+
+            <h4>前缀/后缀/insetLabel</h4>
+            maxTagCount = 2 + defaultValue.length = 2 + prefix
+            <br /><br />
+            <Select style={{ width: '500px' }} maxTagCount={2} prefix={<IconSearch />} multiple  optionList={options} defaultValue={shortVal} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 6 + defaultValue.length = 5 + suffix
+            <br /><br />
+            <Select style={{ width: '500px' }} maxTagCount={6} suffix={<IconSearch />} multiple  optionList={options} defaultValue={val} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br />
+            maxTagCount = 6 + defaultValue.length = 11 + insetLabel
+            <br /><br />
+            <Select style={{ width: '500px' }} maxTagCount={6} insetLabel={<IconSearch />} multiple  optionList={options} defaultValue={allSelect} ellipsisTrigger showRestTagsPopover expandRestTagsOnClick></Select>
+            <br /><br /><br />
+
+            <h4>renderSelectedItem</h4>
+            <RenderSelectedItemWithMaxTagCount />
+            <br />
+        </>
+    )
+}
+
+NPlusTruncationStrategy.story = {
+  name: 'NPlusTruncationStrategy',
+};
 
 export const emptyContent = () => {
   const list = null;

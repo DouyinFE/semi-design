@@ -55,7 +55,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
             getProps: () => this.props, // eslint-disable-line
             getState: key => this.state[key], // eslint-disable-line
             getStates: () => this.state, // eslint-disable-line
-            setState: (states, cb) => this.setState({ ...states }, cb), // eslint-disable-line
+            setState: (states, cb) => this.setState({ ...states } as S, cb), // eslint-disable-line
             getCache: key => key && this.cache[key], // eslint-disable-line
             getCaches: () => this.cache, // eslint-disable-line
             setCache: (key, value) => key && (this.cache[key] = value), // eslint-disable-line

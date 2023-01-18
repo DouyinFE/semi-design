@@ -494,7 +494,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     const defaultFileList = [
         {
@@ -700,7 +700,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -743,7 +743,7 @@ import { Upload, Select } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',

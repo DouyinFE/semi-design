@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { Button, Typography, Toast, Cascader } from '../../index';
+import { Button, Typography, Toast, Cascader, Checkbox } from '../../index';
 
 const { Text } = Typography;
 
@@ -1660,3 +1660,171 @@ export const size = () => {
     <Cascader {...props} size={'large'}/>
   </>);
 }
+
+export const filterSorter = () => {
+  const treeData = [
+      {
+          label: 'Product',
+          value: 'Product',
+          children: [
+              {
+                  label: 'Semi-Material',
+                  value: 'Semi-Material',
+                  
+              },
+              {
+                  label: 'Semi-DSM',
+                  value: 'Semi-DSM',
+                  
+              },
+              {
+                  label: 'Semi',
+                  value: 'Semi',
+                  
+              },
+              {
+                  label: 'Semi-C2D',
+                  value: 'Semi-C2D',
+              },
+              {
+                  label: 'Semi-D2C',
+                  value: 'Semi-D2C',
+              },
+          ],
+      }
+  ];
+  return (
+      <div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="输入 s 查看排序效果"
+              filterTreeNode
+              filterSorter={(first, second, inputValue) => {
+                  const firstData = first[first.length - 1];
+                  const lastData = second[second.length - 1];
+                  if (firstData.label === inputValue) {
+                      return -1;
+                  } else if (lastData.label === inputValue) {
+                      return 1;
+                  } else {
+                      return firstData.label < lastData.label ? -1 : 1;
+                  }
+              }}
+          />
+      </div>
+  );
+};
+
+export const filterRender = () => {
+  const treeData = [
+    {
+        label: 'Semi',
+        value: 'Semi',
+        children: [
+            {
+                label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
+                value: 'Semi-Material',
+                
+            },
+            {
+                label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
+                value: 'Semi-DSM',
+                
+            },
+            {
+                label: 'Semi Design Semi Design Semi Design Semi Design',
+                value: 'Semi',
+                
+            },
+            {
+                label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
+                value: 'Semi-C2D',
+            },
+            {
+                label: 'Semi-D2C Semi-D2C Semi-D2C Semi-D2C Semi-D2C ',
+                value: 'Semi-D2C',
+            },
+        ],
+    }
+  ];
+
+  const renderSearchOptionSingle = (props) => {
+    const {
+      className,
+      data,
+      onClick,
+      selected,
+    } = props;
+
+    return (
+      <li
+          className={className}
+          style={{justifyContent: 'flex-start'}}
+          role="treeitem"
+          onClick={onClick}
+      > 
+        <Text 
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}} 
+          style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
+        >
+            {data.map(item => item.label ).join(' / ')}
+        </Text>
+      </li>
+    )
+  }
+
+  const renderSearchOptionMultiple = (props) => {
+    const {
+      className,
+      data,
+      checkStatus,
+      onCheck,
+    } = props;
+
+    return (
+      <li
+          className={className}
+          style={{justifyContent: 'flex-start'}}
+          role="treeitem"
+          onClick={onCheck}
+      > 
+        <Checkbox
+            onClick={onCheck}
+            indeterminate={checkStatus.halfChecked}
+            checked={checkStatus.checked}
+            style={{ marginRight: 8 }}
+        />
+        <Text 
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}} 
+          style={{ width: 270 }}
+        >
+            {data.map(item => item.label).join(' / ')}
+        </Text>
+      </li>
+    )
+  }
+  
+  return (
+      <div>
+          <p>鼠标 hover 到选项可查看被省略文本完整内容</p>
+          <br />
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="单选，自定义搜索选项渲染"
+              filterTreeNode
+              filterRender={renderSearchOptionSingle}
+          />
+          <br />
+          <Cascader
+            multiple
+            style={{ width: 300, marginTop: 20 }}
+            treeData={treeData}
+            placeholder="多选，自定义搜索选项渲染"
+            filterTreeNode
+            filterRender={renderSearchOptionMultiple}
+          />
+      </div>
+  );
+};

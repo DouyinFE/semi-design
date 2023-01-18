@@ -45,6 +45,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyMouseEnter(event: any): void;
     updateHovering(isHover: boolean): void;
     updateScrollTop(index?: number): void;
+    updateOverflowItemCount(count: number): void;
     getContainer(): any;
     getFocusableElements(node: any): any[];
     getActiveElement(): any;
@@ -226,6 +227,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             selections = this._updateSingle(propValue, originalOptions);
         } else {
             selections = this._updateMultiple(propValue as (PropValue)[], originalOptions);
+            this.updateOverflowItemCount(selections.size);
         }
         // Update the text in the selection box
         this._adapter.updateSelection(selections);
@@ -472,6 +474,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else {
             // Uncontrolled components, update ui
             this._adapter.updateSelection(selections);
+            this.updateOverflowItemCount(selections.size);
             // In multi-select mode, the drop-down pop-up layer is repositioned every time the value is changed, because the height selection of the selection box may have changed
             this._adapter.rePositionDropdown();
             let { options } = this.getStates();
@@ -539,6 +542,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else {
             this._notifyDeselect(item.value, item);
             this._adapter.updateSelection(selections);
+            this.updateOverflowItemCount(selections.size);
             this.updateOptionsActiveStatus(selections);
             // Repostion drop-down layer, because the selection may have changed the number of rows, resulting in a height change
             this._adapter.rePositionDropdown();
@@ -1108,6 +1112,22 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     updateScrollTop() {
         this._adapter.updateScrollTop();
+    }
+
+    updateOverflowItemCount(selectionLength: number, overFlowCount?: number) {
+        const { maxTagCount, ellipsisTrigger } = this.getProps();
+        if (!ellipsisTrigger) {
+            return ;
+        }
+        if (overFlowCount) {
+            this._adapter.updateOverflowItemCount(overFlowCount);
+        } else if (typeof maxTagCount === 'number') {
+            if (selectionLength - maxTagCount > 0) {
+                this._adapter.updateOverflowItemCount(selectionLength - maxTagCount);
+            } else {
+                this._adapter.updateOverflowItemCount(0);
+            }
+        }
     }
 
     updateIsFullTags() {

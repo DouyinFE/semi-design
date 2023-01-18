@@ -23,7 +23,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import Input from '../input/index';
 import Popover, { PopoverProps } from '../popover/index';
-import Item, { CascaderData, Entities, Entity, Data } from './item';
+import Item, { CascaderData, Entities, Entity, Data, FilterRenderProps } from './item';
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
@@ -31,7 +31,7 @@ import { isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
 export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
-export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
+export type { CascaderData, Entity, Data, CascaderItemProps, FilterRenderProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
     activeNode: CascaderData
@@ -62,6 +62,9 @@ export interface CascaderProps extends BasicCascaderProps {
     dropdownMargin?: PopoverProps['margin'];
     emptyContent?: ReactNode;
     motion?: boolean;
+    filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) | boolean;
+    filterSorter?: (first: CascaderData, second: CascaderData, inputValue: string) => number;
+    filterRender?: (props: FilterRenderProps) => ReactNode;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
     children?: React.ReactNode;
@@ -632,6 +635,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             bottomSlot,
             showNext,
             multiple,
+            filterRender
         } = this.props;
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
@@ -658,6 +662,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     multiple={multiple}
                     checkedKeys={checkedKeys}
                     halfCheckedKeys={halfCheckedKeys}
+                    filterRender={filterRender}
                 />
                 {bottomSlot}
             </div>
