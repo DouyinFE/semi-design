@@ -21,6 +21,7 @@ import Popover, { PopoverProps } from '../popover';
 import Paragraph from '../typography/paragraph';
 import { IconClear, IconHandle } from '@douyinfe/semi-icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { ShowTooltip } from '../typography';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -53,7 +54,7 @@ export interface TagInputProps {
     maxTagCount?: number;
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: RestTagsPopoverProps;
-    showContentTooltip?: boolean;
+    showContentTooltip?: boolean | ShowTooltip;
     allowDuplicates?: boolean;
     addOnBlur?: boolean;
     draggable?: boolean;
@@ -107,7 +108,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         maxLength: PropTypes.number,
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
-        showContentTooltip: PropTypes.bool,
+        showContentTooltip: PropTypes.oneOfType([
+            PropTypes.shape({
+                type: PropTypes.string,
+                opts: PropTypes.object,
+            }),
+            PropTypes.bool,
+        ]),
         defaultValue: PropTypes.array,
         value: PropTypes.array,
         inputValue: PropTypes.string,
