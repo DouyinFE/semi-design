@@ -446,7 +446,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |maxTagCount   |The maximum number of tags to be displayed, if exceeded, they will be displayed in the form of +N |number        | -        |1.21.0|
 |showRestTagsPopover |When maxTagCount is exceeded and hover reaches +N, whether to display the remaining content through Popover  |boolean     | true     |1.21.0|
 |restTagsPopoverProps |The configuration properties of the popover     |PopoverProps     | {}        |1.21.0|
-|showContentTooltip |When the tag is too long and truncated, when hovering the tag, whether to display all contents through Tooltip.If passed in as object: type，type of component to show tooltip, one of Tooltip, Popover; opts, properties that will be passed directly to the component     |boolean|{type: 'tooltip'|'popover', opts: object}    | true        |1.21.0|
+|showContentTooltip |When the tag is too long and truncated, when hovering the tag, whether to display all contents through Tooltip.If passed in as object: type，type of component to show tooltip, one of Tooltip, Popover; opts, properties that will be passed directly to the component     |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |1.21.0|
 |placeholder   |Content to be appear by default                  |string                                                           | -         |1.19.0|
 |prefix        |Prefix                                           |ReactNode                                                        |-          |1.19.0|
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
