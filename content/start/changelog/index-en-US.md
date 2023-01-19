@@ -19,6 +19,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - fix the incomplete type of TagInput showContentTooltip
     - fix the problem that the scroll bar behaves inconsistently when the TimePicker selection mode is normal and wheel [@frowhy](https://github.com/frowhy)
+-  【Docs】
+    - Update NextJs Project getting started
+    - Update Remix Project getting started
+
 #### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
     - Select adds expandRestTagsOnClick API, the default value is false, in the case of multiple selection and maxTagCount exists, the remaining tags can be displayed when the panel is opened [#1353](https://github.com/DouyinFE/semi-design/pull/1353)

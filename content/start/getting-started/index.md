@@ -79,7 +79,58 @@ module.exports = semi({
 @import '~@semi-bot/semi-theme-doucreator/semi.min.css';
 ```
 
-## 4、UMD 方式使用组件
+## 4、在 Remix 中使用
+- @remix相关包版本要求 > 1.11.0，并安装 `@remix-run/css-bundle`
+
+- 配置 `remix.config.js`，参考 [Remix Css Side-Effect Imports](https://remix.run/docs/en/v1/guides/styling#css-side-effect-imports)。打开 `unstable_cssSideEffectImports` 开关，并将 Semi 相关包配置在 `serverDependenciesToBundle` 中。
+```diff
+// remix.config.js
+module.exports = {
+  future: {
++    unstable_cssSideEffectImports: true,
+  },
+  serverDependenciesToBundle: [
++    /^@douyinfe\/semi-ui/,
++    /^@douyinfe\/semi-icons/,
++    /^@douyinfe\/semi-illustrations/,
+  ],
+};
+
+```
+
+- 在 `root.tsx` 中进行配置，参考[Remix CSS Bundling](https://remix.run/docs/en/v1/guides/styling#css-bundling)。引入 `cssBundleHref`，并配置 `links`
+
+```diff
+// root.tsx
++ import { cssBundleHref } from "@remix-run/css-bundle";
+
+ export const links = () => {
+   return [
++     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+   ];
+ };
+```
+
+- 完成配置，可以正常使用 Semi 相关组件 
+
+**如何在 Remix 中使用主题包**  
+可以直接将 cssBundleHref 这一步替换为引入主题包中已构建好的全量css 产物，代替默认主题css），例如当希望应用抖音创作服务平台的主题包 `@semi-bot/semi-theme-doucreator` 时
+
+```diff
+// root.tsx
++ import ThemeStyle from "@semi-bot/semi-theme-doucreator/semi.min.css";
+
+ export const links = () => {
+   return [
+-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),     
++    { rel: "stylesheet", href: ThemeStyle },
+   ];
+ };
+```
+
+
+
+## 5、UMD 方式使用组件
 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
 

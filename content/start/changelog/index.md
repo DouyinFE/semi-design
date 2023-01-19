@@ -19,6 +19,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
     - 修复 TagInput showContentTooltip 类型不完整问题
     - 修复 TimePicker 选择模式为 normal 和 wheel 时， 滚动条表现不一致问题 [@frowhy](https://github.com/frowhy)
+-  【Docs】
+    - 快速开始：更新 NextJs 项目接入指引
+    - 快速开始：更新 Remix 项目接入指引  
 
 #### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
