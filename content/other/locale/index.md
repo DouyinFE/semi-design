@@ -194,7 +194,7 @@ import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
-import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography } from '@douyinfe/semi-ui';
+import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form } from '@douyinfe/semi-ui';
 
 class I18nDemo extends React.Component {
     constructor(props) {
@@ -286,6 +286,22 @@ class I18nDemo extends React.Component {
                 }
                 return data;
             });
+            const transferData = useMemo(() => {
+                return Array.from({ length: 100 }, (v, i) => {
+                    return {
+                        label: `选项名称 ${i}`,
+                        value: i,
+                        disabled: false,
+                        key: i,
+                    };
+                });
+            })
+            const srcList = useMemo(() => ([
+                "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+                "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+                "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+                "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
+            ]), []);
             const style = { margin: 10 };
             return (
                 <>
@@ -346,6 +362,29 @@ class I18nDemo extends React.Component {
                     <Calendar mode='month' />
                     <h5>Typography - Copayble</h5>
                     <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
+                    <h5>Transfer</h5>
+                    <Transfer
+                        style={{ width: 568, height: 416 }}
+                        dataSource={transferData}
+                    />
+                    <h5>Image</h5>
+                    <ImagePreview showTooltip>
+                        {srcList.map((src, index) => {
+                            return (
+                                <Image 
+                                    key={index} 
+                                    src={src} 
+                                    width={200} 
+                                    alt={`lamp${index + 1}`} 
+                                    style={{ marginRight: 5 }}
+                                />
+                            );
+                        })}
+                    </ImagePreview>
+                    <h5>Form</h5>
+                    <Form layout='horizontal' onValueChange={values=>console.log(values)}>
+                        <Form.Input field='UserName' label={{ text: '角色', optional: true }} style={{ width: 200 }} />
+                    </Form>
                 </>
             );
         };
