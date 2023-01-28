@@ -360,7 +360,7 @@ class I18nDemo extends React.Component {
                     <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
                     <h5>Typography - Collapsible</h5>
                     <Typography.Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true}} style={{ width: 300 }}>
-                        支持展开和折叠：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
+                        {`Expandable and collapsible: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
                     </Typography.Paragraph>
                     <h5>Transfer</h5>
                     <Transfer
