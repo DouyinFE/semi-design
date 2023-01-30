@@ -15,6 +15,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.28.0 (2023-01-18)
+- 【Fix】
+    - 修复 TagInput showContentTooltip 类型不完整问题
+    - 修复 TimePicker 选择模式为 normal 和 wheel 时， 滚动条表现不一致问题 [@frowhy](https://github.com/frowhy)
+-  【Docs】
+    - 快速开始：更新 NextJs 项目接入指引
+    - 快速开始：更新 Remix 项目接入指引  
+
 #### 🎉 2.28.0-beta.1 (2023-01-17)
 - 【Feat】
     - Select 新增 expandRestTagsOnClick API，默认值为 false，在多选且 maxTagCount 存在情况下，打开面板状态下可以展示剩余 tag [#1353](https://github.com/DouyinFE/semi-design/pull/1353)

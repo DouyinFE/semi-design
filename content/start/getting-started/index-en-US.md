@@ -42,7 +42,7 @@ class Demo extends React.Component {
 
 > It is recommended to import [reset.css](https://www.npmjs.com/package/reset-css) into the project, which can avoid introducing the default style of the browser.
 
-## 3、Use in Next.js
+## 3. Use in Next.js
 - If you only use the default theme, you can add Semi-related packages to `transpilePackages` (Next.js version requires >= v13.1) . 
 ```diff
 // next.config.js
@@ -80,7 +80,58 @@ For example, when you want to use the theme package of the Douyin creation servi
 @import '~@semi-bot/semi-theme-doucreator/semi.min.css';
 ```
 
-## 4. Use UMD import in browser
+## 4. Use in Remix
+- @remix related package version requirements > 1.11.0, and install `@remix-run/css-bundle`
+
+- Configure `remix.config.js`, refer to [Remix Css Side-Effect Imports](https://remix.run/docs/en/v1/guides/styling#css-side-effect-imports). Turn on `unstable_cssSideEffectImports`, and configure Semi related packages in `serverDependenciesToBundle`.
+```diff
+// remix.config.js
+module.exports = {
+  future: {
++    unstable_cssSideEffectImports: true,
+  },
+  serverDependenciesToBundle: [
++    /^@douyinfe\/semi-ui/,
++    /^@douyinfe\/semi-icons/,
++    /^@douyinfe\/semi-illustrations/,
+  ],
+};
+
+```
+
+- Configure in `root.tsx`，refer to [Remix CSS Bundling](https://remix.run/docs/en/v1/guides/styling#css-bundling). Import `cssBundleHref` and configure `links`
+
+```diff
+// root.tsx
++ import { cssBundleHref } from "@remix-run/css-bundle";
+
+ export const links = () => {
+   return [
++     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+   ];
+ };
+```
+
+- After completing the configuration, you can use Semi components normally
+
+**How to use theme packages with Remix**  
+You can directly replace the `cssBundleHref` step with importing the built full css product in the theme package to replace the default theme css).  
+For example, when you want to apply the theme package `@semi-bot/semi-theme-doucreator` of the Douyin creation service platform Time
+
+```diff
+// root.tsx
++ import ThemeStyle from "@semi-bot/semi-theme-doucreator/semi.min.css";
+
+ export const links = () => {
+   return [
+-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),     
++    { rel: "stylesheet", href: ThemeStyle },
+   ];
+ };
+```
+
+
+## 5. Use UMD import in browser
 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
 
