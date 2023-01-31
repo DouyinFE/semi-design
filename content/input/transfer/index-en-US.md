@@ -118,7 +118,7 @@ import { IconClose } from '@douyinfe/semi-icons';
                     }}
                     key={item.label}
                     checked={item.checked}
-                    style={{ height: 52 }}
+                    style={{ height: 52, alignItems: 'center' }}
                 >
                     <Avatar color={item.color} size="small">
                         {item.abbr}
@@ -289,7 +289,7 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
                     }}
                     key={item.label}
                     checked={item.checked}
-                    style={{ height: 52 }}
+                    style={{ height: 52, alignItems: 'center' }}
                 >
                     <Avatar color={item.color} size="small">
                         {item.abbr}
