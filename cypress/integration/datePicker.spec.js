@@ -604,4 +604,34 @@ describe('DatePicker', () => {
         cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) .semi-scrolllist-item-sel').should('contain.text', '1月');
         cy.get('.semi-input').eq(0).should('have.value', '2022-01');
     });
+
+    it('fix dateRange type ui shift', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-range-panel-shift&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-navigation-month').contains('2019年 7月');
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-navigation-month').contains('2019年 8月');
+    });
+
+    it('fix dateTimeRange type ui shift', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-range-panel-shift&viewMode=story');
+        cy.get('.semi-input').eq(2).click();
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-navigation-month').contains('2019年 7月');
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-navigation-month').contains('2019年 8月');
+    });
+
+    it('test dateRange with defaultValue', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-range-panel-shift&viewMode=story');
+        cy.get('.semi-input').eq(4).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day-selected-start');
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day-selected-end');
+    });
+
+    it('test dateTimeRange with defaultValue', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-range-panel-shift&viewMode=story');
+        cy.get('.semi-input').eq(6).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day-selected-start');
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day-selected-end');
+    });
 });
