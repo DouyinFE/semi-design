@@ -195,6 +195,7 @@ import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav } from '@douyinfe/semi-ui';
+import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
 class I18nDemo extends React.Component {
     constructor(props) {
@@ -279,9 +280,9 @@ class I18nDemo extends React.Component {
                 for (let i = 0; i < 46; i++) {
                     data.push({
                         key: '' + i,
-                        name: `Edward King ${i}`,
+                        name: `Bytedance ${i}`,
                         age: 32,
-                        address: `London, Park Lane no. ${i}`,
+                        address: `Beijing, Haidian. Zhichun Road ${i}`,
                     });
                 }
                 return data;
@@ -295,7 +296,7 @@ class I18nDemo extends React.Component {
                         key: i,
                     };
                 });
-            })
+            });
             const srcList = useMemo(() => ([
                 "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
                 "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
@@ -363,7 +364,7 @@ class I18nDemo extends React.Component {
                     <h5>Typography - Copyable</h5>
                     <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
                     <h5>Typography - Collapsible</h5>
-                    <Typography.Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true}} style={{ width: 300 }}>
+                    <Typography.Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true }} style={{ width: 300 }}>
                         支持展开和折叠：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
                     </Typography.Paragraph>
                     <h5>Transfer</h5>
@@ -392,8 +393,14 @@ class I18nDemo extends React.Component {
                     <h5>Navigation</h5>
                     <Nav
                         bodyStyle={{ height: 320 }}
-                        items={[]}
-                        onSelect={key => console.log(key)}
+                        items={[
+                            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+                            { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                        ]}
+                        header={{
+                            logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
+                            text: 'Semi 数据后台'
+                        }}
                         footer={{
                             collapseButton: true,
                         }}

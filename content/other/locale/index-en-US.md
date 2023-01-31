@@ -193,6 +193,7 @@ import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
 import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
 import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
 import { LocaleProvider, ConfigProvider, Pagination, Modal, Button, Select, Cascader, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav } from '@douyinfe/semi-ui';
+import { IconUser, IconSemiLogo, IconStar } from '@douyinfe/semi-icons';
 
 class I18nDemo extends React.Component {
     constructor(props) {
@@ -275,9 +276,9 @@ class I18nDemo extends React.Component {
                 for (let i = 0; i < 46; i++) {
                     data.push({
                         key: '' + i,
-                        name: `Edward King ${i}`,
+                        name: `Bytedance ${i}`,
                         age: 32,
-                        address: `London, Park Lane no. ${i}`,
+                        address: `Beijing, Haidian. Zhichun Road ${i}`,
                     });
                 }
                 return data;
@@ -285,7 +286,7 @@ class I18nDemo extends React.Component {
             const transferData = useMemo(() => {
                 return Array.from({ length: 100 }, (v, i) => {
                     return {
-                        label: `选项名称 ${i}`,
+                        label: `Option Name ${i}`,
                         value: i,
                         disabled: false,
                         key: i,
@@ -383,13 +384,19 @@ class I18nDemo extends React.Component {
                     </ImagePreview>
                     <h5>Form</h5>
                     <Form layout='horizontal' onValueChange={values=>console.log(values)}>
-                        <Form.Input field='UserName' label={{ text: '角色', optional: true }} style={{ width: 200 }} />
+                        <Form.Input field='UserName' label={{ text: 'Role', optional: true }} style={{ width: 200 }} />
                     </Form>
                     <h5>Navigation</h5>
                     <Nav
                         bodyStyle={{ height: 320 }}
-                        items={[]}
-                        onSelect={key => console.log(key)}
+                        items={[
+                            { itemKey: 'user', text: 'Users', icon: <IconUser /> },
+                            { itemKey: 'union', text: 'Activity', icon: <IconStar /> },
+                        ]}
+                        header={{
+                            logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
+                            text: 'Semi Platform'
+                        }}
                         footer={{
                             collapseButton: true,
                         }}
