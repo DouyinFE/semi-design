@@ -463,6 +463,8 @@ $overflowList: #{$prefix}-overflow-list;
     padding-top: $spacing-select_loading_wrapper-paddingTop;
     padding-bottom: $spacing-select_loading_wrapper-paddingBottom;
     cursor: not-allowed;
+    // make sure that spin align vertical, no need to make 20px as a spacing token here
+    height: 20px;
 }
 
 @import './rtl.scss';

@@ -38,7 +38,7 @@ export type MonthsGridState = MonthsGridFoundationState;
 export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGridState> {
     static propTypes = {
         type: PropTypes.oneOf(strings.TYPE_SET),
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object, PropTypes.array]),
+        defaultValue: PropTypes.array,
         defaultPickerValue: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,

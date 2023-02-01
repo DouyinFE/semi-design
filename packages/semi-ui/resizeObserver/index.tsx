@@ -47,6 +47,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;
+            this.element = null;
         }
     }
 
@@ -65,6 +66,9 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     observeElement(force = false) {
         const element = this.getElement();
+        if (!this.observer) {
+            this.observer = new ResizeObserver(this.props.onResize);
+        }
         if (!(element && element instanceof Element)) {
             // stop everything if not defined
             this.observer.disconnect();

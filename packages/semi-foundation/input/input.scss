@@ -623,6 +623,10 @@ $module: #{$prefix}-input;
             }
         }
 
+        .#{$prefix}-select{
+            overflow-y: visible;
+        }
+        
         .#{$prefix}-input-number,
         .#{$prefix}-datepicker,
         .#{$prefix}-timepicker,
