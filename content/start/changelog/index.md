@@ -15,6 +15,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.28.1 (2023-01-31)
+- 【Fix】
+    - 修复 DatePicker 选择时间范围时面板移动问题 [#1221](https://github.com/DouyinFE/semi-design/issues/1221)
+    - 修复 React18 严格模式下 overflowList 没有正常显示问题 [#1393](https://github.com/DouyinFE/semi-design/issues/1393)
+    - 修复 Inputgroup 下 Select出现 不符合预期的滚动条的问题 [#1395](https://github.com/DouyinFE/semi-design/issues/1395)
+    - 修复 Select loading spin 垂直方向未居中的问题 
+-  【Docs】
+    - Locale Demo 更新，增加 Form、Image、Transfer 示例 [@jacob-lcs](https://github.com/jacob-lcs)
+
 #### 🎉 2.28.0 (2023-01-18)
 - 【Fix】
     - 修复 TagInput showContentTooltip 类型不完整问题
