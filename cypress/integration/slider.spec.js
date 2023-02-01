@@ -38,7 +38,7 @@ describe('slider', () => {
         // test knob slide
         cy.get(sliderHandleSelector)
             .trigger('mousedown')
-            .trigger('mousemove', { pageX: 600, pageY:0 })
+            .trigger('mousemove', { pageX: 600, pageY: 0 })
             .trigger('mouseup', { force: true });
         
         cy.get(sliderHandleSelector).should(($button) => {
@@ -59,7 +59,7 @@ describe('slider', () => {
         // test knob slide (pageX 300 = 32%)
         cy.get(sliderHandleSelector)
             .trigger('mousedown')
-            .trigger('mousemove', { pageX: 300, pageY:0 })
+            .trigger('mousemove', { pageX: 300, pageY: 0 })
             .trigger('mouseup', { force: true });
         
         // left 32% = 247.68px;
@@ -98,13 +98,13 @@ describe('slider', () => {
         // test left knob slide
         cy.get(sliderHandleSelector).eq(0)
             .trigger('mousedown')
-            .trigger('mousemove', { pageX: 100, pageY:0 })
+            .trigger('mousemove', { pageX: 100, pageY: 0 })
             .trigger('mouseup', { force: true });
 
         // test right knob slide
         cy.get(sliderHandleSelector).eq(1)
             .trigger('mousedown')
-            .trigger('mousemove', { pageX: 600, pageY:0 })
+            .trigger('mousemove', { pageX: 600, pageY: 0 })
             .trigger('mouseup', { force: true });
 
         cy.get(sliderHandleSelector).should((handles) => {
@@ -134,7 +134,7 @@ describe('slider', () => {
         // test knob slide
         cy.get(sliderHandleSelector)
             .trigger('mousedown')
-            .trigger('mousemove', { pageX: 0, pageY:600 })
+            .trigger('mousemove', { pageX: 0, pageY: 600 })
             .trigger('mouseup', { force: true });
         
         cy.get(sliderHandleSelector).should(($button) => {
@@ -206,4 +206,10 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(2).type('{Home}');
         cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '0');
     });  
+
+    it('should show tooltip when hovering slider handler', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
+        cy.get('.semi-slider-handle').eq(0).trigger('mouseover');
+        cy.get('.semi-slider-handle-tooltip').eq(0).should('have.text', '0');
+    });
 });

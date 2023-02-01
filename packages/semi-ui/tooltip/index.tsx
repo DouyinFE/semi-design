@@ -496,7 +496,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             "[Semi Tooltip] 'mouseLeaveDelay' cannot be less than 'mouseEnterDelay', which may cause the dropdown layer to not be hidden."
         );
         if (prevProps.visible !== this.props.visible) {
-            if (["hover", "focus"].includes(this.props.trigger)) {
+            if (['hover', 'focus'].includes(this.props.trigger)) {
                 this.props.visible ? this.foundation.delayShow() : this.foundation.delayHide();
             } else {
                 this.props.visible ? this.foundation.show() : this.foundation.hide();
