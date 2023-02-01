@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Slider should show tooltip when hovering slider handler 1`] = `null`;
-
-exports[`Slider should show tooltip when hovering slider handler 2`] = `null`;

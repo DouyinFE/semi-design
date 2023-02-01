@@ -58,6 +58,7 @@ describe(`DatePicker`, () => {
 
         const elem = mount(<DatePicker motion={motion} defaultOpen={open} defaultValue={defaultValue} />);
 
+        await sleep();
         expect(document.querySelectorAll(popupSelector).length).toBe(1);
 
         // document.body.click();
