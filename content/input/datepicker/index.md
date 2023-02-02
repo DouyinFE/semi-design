@@ -835,7 +835,7 @@ function Demo() {
 | autoSwitchDate     | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean   | true    | **1.13.0** |
 | bottomSlot         | 渲染底部额外区域                                                          | ReactNode |         | **1.22.0** |
 | className          | 类名                                                                      | string    | -       |            |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |   | **2.25.0**|
+| clearIcon          | 可用于自定义清除按钮, showClear为true时有效                               | ReactNode |         | **2.25.0** |
 | defaultOpen        | 面板默认显示或隐藏                                                        | boolean   | false   |            |
 | defaultPickerValue | 默认面板日期                                                              | ValueType |         |            |
 | defaultValue       | 默认值                                                                    | ValueType |         |            |
@@ -851,7 +851,7 @@ function Demo() {
 | format | 在输入框内展现的日期串格式 | string | 与 type 对应：详见[日期时间格式](#日期时间格式) |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
 | hideDisabledOptions | 隐藏禁止选择的时间 | boolean | false |  |
-| insetInput | 面板中是否嵌入输入框 | boolean | false |  | **2.7.0**
+| insetInput | 面板中是否嵌入输入框，InsetInputProps 类型 v2.29 支持  | boolean \| <ApiType detail='{ placeholder?: { dateStart?: string; dateEnd?: string; timeStart?: string; timeEnd?: string } }'>InsetInputProps</ApiType>  | false | **2.7.0** |
 | inputReadOnly | 文本框是否 readonly | boolean | false |  |
 | inputStyle | 输入框样式 | object |  |  |
 | insetLabel | 前缀标签，优先级低于 `prefix` | string\|ReactNode |  |  |
