@@ -38,9 +38,19 @@ export interface DateInputElementProps {
     prefix?: any
 }
 
+export interface InsetInputProps {
+    placeholder?: {
+        dateStart?: string;
+        dateEnd?: string;
+        timeStart?: string;
+        timeEnd?: string
+    }
+    // showClear?: boolean
+}
+
 export interface DateInputFoundationProps extends DateInputElementProps, DateInputEventHandlerProps {
     [x: string]: any;
-    value?: BaseValueType[];
+    value?: Date[];
     disabled?: boolean;
     type?: Type;
     showClear?: boolean;
@@ -51,7 +61,7 @@ export interface DateInputFoundationProps extends DateInputElementProps, DateInp
     prefixCls?: string;
     rangeSeparator?: string;
     panelType?: PanelType;
-    insetInput?: boolean;
+    insetInput?: boolean | InsetInputProps;
     insetInputValue?: InsetInputValue;
     density?: typeof strings.DENSITY_SET[number];
     defaultPickerValue?: ValueType
@@ -81,7 +91,7 @@ export interface InsetInputChangeProps {
     insetInputValue: InsetInputValue
 }
 
-export interface DateInputAdapter extends DefaultAdapter {
+export interface DateInputAdapter extends DefaultAdapter<DateInputFoundationProps, Record<string, any>> {
     updateIsFocusing: (isFocusing: boolean) => void;
     notifyClick: DateInputFoundationProps['onClick'];
     notifyChange: DateInputFoundationProps['onChange'];
