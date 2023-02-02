@@ -20,7 +20,7 @@ import { includes, isSet, isEqual, isFunction } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
-import { BaseValueType, PresetPosition, ValueType } from './foundation';
+import { BaseValueType, DateInputFoundationProps, PresetPosition, ValueType } from './foundation';
 import { MonthDayInfo } from './monthFoundation';
 import { ArrayElement } from '../utils/type';
 
@@ -90,7 +90,7 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     isAnotherPanelHasOpened?: (currentRangeInput: 'rangeStart' | 'rangeEnd') => boolean;
     focusRecordsRef?: any;
     triggerRender?: (props: Record<string, any>) => any;
-    insetInput: boolean;
+    insetInput: DateInputFoundationProps['insetInput'];
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
     renderDateInput?: any

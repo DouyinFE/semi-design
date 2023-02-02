@@ -7,6 +7,7 @@ import Button from '../button/index';
 import Typography from '../typography/index';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { PresetsType, PresetType } from '@douyinfe/semi-foundation/datePicker/foundation';
+import { DateInputFoundationProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 
 const prefixCls = cssClasses.PREFIX;
 const { Text } = Typography;
@@ -16,7 +17,7 @@ export interface QuickControlProps {
     presetPosition: typeof strings.PRESET_POSITION_SET[number];
     onPresetClick: (preset: PresetType, e: React.MouseEvent) => void;
     type: string;
-    insetInput: boolean
+    insetInput: DateInputFoundationProps['insetInput']
 }
 
 class QuickControl extends PureComponent<QuickControlProps> {
@@ -25,7 +26,7 @@ class QuickControl extends PureComponent<QuickControlProps> {
         presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
         onPresetClick: PropTypes.func,
         type: PropTypes.string,
-        insetInput: PropTypes.bool
+        insetInput: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     };
 
     static defaultProps = {
@@ -74,15 +75,15 @@ class QuickControl extends PureComponent<QuickControlProps> {
         }
         return (
             <div className={wrapperCls} x-insetinput={insetInput ? "true" : "false"}>
-                { !isPanelTopAndBottom && <div className={headerCls}>快捷选择</div>}
+                {!isPanelTopAndBottom && <div className={headerCls}>快捷选择</div>}
                 <div className={contentWrapperCls}>
                     <div className={contentCls}>
                         {presets.map((item, index) => {
                             const _item: PresetType = typeof item === 'function' ? item() : item;
                             return (
-                                <Button size="small" type="primary" onClick={e => onPresetClick(_item, e)} key={index}>         
+                                <Button size="small" type="primary" onClick={e => onPresetClick(_item, e)} key={index}>
                                     <div className={itemCls}>
-                                        <Text 
+                                        <Text
                                             ellipsis={{ showTooltip: true }}
                                             className={ellipsisCls}
                                         >

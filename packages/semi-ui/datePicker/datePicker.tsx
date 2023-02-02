@@ -603,7 +603,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             format,
             multiple,
             validateStatus,
-            inputReadOnly: inputReadOnly || insetInput,
+            inputReadOnly: inputReadOnly || Boolean(insetInput),
             // onClick: this.handleOpenPanel,
             onBlur: this.handleInputBlur,
             onFocus: this.handleInputFocus,
