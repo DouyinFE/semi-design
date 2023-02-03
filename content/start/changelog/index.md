@@ -16,6 +16,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.29.0-beta.0 (2023-2-3)
+- 【Feat】
+    - Form.InputGroup 支持配置 extraText, extraTextPosition，对齐 Field Component [#1313](https://github.com/DouyinFE/semi-design/issues/1313)
+    - DatePicker insetInput 输入框支持传入 placeholder [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
+- 【Fix】
+    - 修复 DatePicker 输入日期后面板未更新问题 [#1398](https://github.com/DouyinFE/semi-design/issues/1398)
+    - 修复 visible 属性变化时，trigger 不为 hover 和 focus 的 tooltip 也延迟了展示/隐藏的问题 [@marshcat0](https://github.com/marshcat0)
+- 【Docs】
+    - 优化 Form 组件英文文档描述 及 Demo 
+  
 #### 🎉 2.28.1 (2023-01-31)
 - 【Fix】
     - 修复 DatePicker 选择时间范围时面板移动问题 [#1221](https://github.com/DouyinFE/semi-design/issues/1221)

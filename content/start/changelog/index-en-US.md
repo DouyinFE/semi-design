@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.29.0-beta.0 (2023-2-3)
+- 【feat】
+    - Form.InputGroup support extraText, extraTextPosition,  [#1313 ](https://github.com/DouyinFE/semi-design/issues/1313)
+    - DatePicker insetInput supports passing placeholder  [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
+- 【fix】
+    - Fix the problem that the DatePicker panel is not updated after entering the date  [#1398](https://github.com/DouyinFE/semi-design/issues/1398)
+    - fix when the visible prop changes, tooltips whose trigger is not hover/focus also delay showing/hiding [@marshcat0](https://github.com/marshcat0)
+- 【docs】
+    - Improve Form english document 
+
 #### 🎉 2.28.1 (2023-01-31)
 - 【Fix】
     - Fix DatePicker panel shifting bug when selecting date range [#1221](https://github.com/DouyinFE/semi-design/issues/1221)
