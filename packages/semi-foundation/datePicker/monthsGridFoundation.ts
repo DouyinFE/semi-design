@@ -266,10 +266,10 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             const selectedDate = values.find(item => item) as Date;
             // 如果日期不完整且输入日期不在面板范围内，则更新面板
             if (selectedDate) {                
-                const notLeftMonth = selectedDate?.getMonth() !== monthLeft.pickerDate.getMonth();
-                const notRightMonth = selectedDate?.getMonth() !== monthRight.pickerDate.getMonth();
+                const notLeftPanelDate = Math.abs(differenceInCalendarMonths(selectedDate, monthLeft.pickerDate)) > 0;
+                const notRightPanelDate = Math.abs(differenceInCalendarMonths(selectedDate, monthRight.pickerDate)) > 0;
     
-                if (notLeftMonth && notRightMonth) {
+                if (notLeftPanelDate && notRightPanelDate) {
                     this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, adjustResult.monthLeft.pickerDate);
                     this.handleShowDateAndTime(strings.PANEL_TYPE_RIGHT, adjustResult.monthRight.pickerDate);
                 }
