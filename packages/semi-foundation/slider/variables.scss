@@ -18,26 +18,30 @@ $color-slider_handle-focus: var(--semi-color-primary-light-active); // 圆形按
 
 // Spacing
 $spacing-slider-paddingX: 13px; // 滑动条整体水平内边距
-$spacing-slider-paddingY: 0; // 滑动条整体垂直内边距
-$spacing-slider-margin: 0; // 滑动条整体外边距
-$spacing-slider_rail-margin: 0; // 滑动条轨道外边距
-$spacing-slider_rail-padding: 0; // 滑动条轨道内边距
+$spacing-slider-paddingY: 0px; // 滑动条整体垂直内边距
+$spacing-slider-margin: 0px; // 滑动条整体外边距
+$spacing-slider_rail-margin: 0px; // 滑动条轨道外边距
+$spacing-slider_rail-padding: 0px; // 滑动条轨道内边距
 $spacing-slider_rail-top: 14px; // 滑动条未填充轨道顶部距离
 $spacing-slider_handle-marginTop: 4px; // 滑动条圆形按钮顶部外边距
 $spacing-slider_track-top: 14px; // 滑动条已填充轨道顶部距离
 $spacing-slider_tooltip-top: -40px; // 滑动条工具提示顶部距离
 $spacing-slider_dot-top: 14px; // 滑动条圆形刻度点顶部距离
 $spacing-slider_marks-top: 23px; // 滑动条刻度标签顶部距离
-$spacing-slider_marks-left: 0; // 滑动条刻度标签左侧距离
+$spacing-slider_marks-left: 0px; // 滑动条刻度标签左侧距离
 $spacing-slider_boundary-top: 30px;
-$spacing-slider_boundary_min-left: 0;
-$spacing-slider_boundary_max-right: 0;
+$spacing-slider_boundary_min-left: 0px;
+$spacing-slider_boundary_max-right: 0px;
 $spacing-slider_vertical_marks-marginTop: -30px; // 垂直滑动条刻度标签顶部外边距
 $spacing-slider_vertical_marks-marginLeft: 29px; // 垂直滑动条刻度标签左侧外边距
 $spacing-slider_vertical_marks-reverse-marginLeft: -26px; // 垂直滑动条刻度标签左侧外边距（标签在左侧时）
-$spacing-slider_vertical_rail-top: 0; // 垂直滑动条轨道顶部距离
-$spacing-slider_vertical_handle-marginTop: 0; // 垂直滑动条原型按钮顶部外边距
+$spacing-slider_vertical_rail-top: 0px; // 垂直滑动条轨道顶部距离
+$spacing-slider_vertical_handle-marginTop: 0px; // 垂直滑动条原型按钮顶部外边距
 $spacing-slider_vertical_handle-marginLeft: -10px; // 垂直滑动条原型按钮左侧外边距
+$spacing-slider_handle-translateY: 0px; //  水平滑动条原型按钮垂直偏移量
+$spacing-slider_vertical_handle-translateX: 0px; // 垂直滑动条原型按钮水平偏移量
+$spacing-slider_dot-translateX: 0px; //  水平滑动条圆形刻度点水平偏移量
+$spacing-slider_vertical_dot-translateY: 0px; // 垂直滑动条圆形刻度点垂直偏移量
 
 // Radius
 $radius-slider_rail: var(--semi-border-radius-small); // 滚动条未填充轨道圆角
