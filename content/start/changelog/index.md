@@ -16,7 +16,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
-#### 🎉 2.29.0-beta.0 (2023-2-3)
+#### 🎉 2.29.0-beta.0 (2023-02-06)
 - 【Feat】
     - Form.InputGroup 支持配置 extraText, extraTextPosition，对齐 Field Component [#1313](https://github.com/DouyinFE/semi-design/issues/1313)
     - DatePicker insetInput 输入框支持传入 placeholder [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
@@ -25,6 +25,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 visible 属性变化时，trigger 不为 hover 和 focus 的 tooltip 也延迟了展示/隐藏的问题 [@marshcat0](https://github.com/marshcat0)
 - 【Docs】
     - 优化 Form 组件英文文档描述 及 Demo 
+- 【Design Token】
+    - Slider 新增` $spacing-slider_handle-translateY`、`$spacing-slider_vertical_handle-translateX`、`$spacing-slider_dot-translateX`、`$spacing-slider_vertical_dot-translateY` Token，用于控制水平和垂直状态 把手和数值刻度线的水平和垂直偏移 [#1391](https://github.com/DouyinFE/semi-design/pull/1391)
   
 #### 🎉 2.28.1 (2023-01-31)
 - 【Fix】

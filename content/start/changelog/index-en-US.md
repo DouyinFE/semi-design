@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.29.0-beta.0 (2023-2-3)
+#### 🎉 2.29.0-beta.0 (2023-02-06)
 - 【feat】
     - Form.InputGroup support extraText, extraTextPosition,  [#1313 ](https://github.com/DouyinFE/semi-design/issues/1313)
     - DatePicker insetInput supports passing placeholder  [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
@@ -25,7 +25,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - fix when the visible prop changes, tooltips whose trigger is not hover/focus also delay showing/hiding [@marshcat0](https://github.com/marshcat0)
 - 【docs】
     - Improve Form english document 
-
+- 【Design Token】
+    - Slider add ` $spacing-slider_handle-translateY`、`$spacing-slider_vertical_handle-translateX`、`$spacing-slider_dot-translateX`、`$spacing-slider_vertical_dot-translateY` Token，which is used to control the horizontal and vertical state handles and value scale lines horizontal and vertical offset [#1391](https://github.com/DouyinFE/semi-design/pull/1391)
 #### 🎉 2.28.1 (2023-01-31)
 - 【Fix】
     - Fix DatePicker panel shifting bug when selecting date range [#1221](https://github.com/DouyinFE/semi-design/issues/1221)
