@@ -21,7 +21,9 @@ interface GroupErrorProps {
 }
 export interface InputGroupProps extends BacisInputGroupProps {
     label?: LabelProps;
-    labelPosition?: 'left' | 'top'
+    labelPosition?: 'left' | 'top';
+    extraText?: React.ReactNode;
+    extraTextPosition?: 'bottom' | 'middle'
 }
 
 const prefix = cssClasses.PREFIX;
@@ -58,7 +60,7 @@ class FormInputGroup extends Component<InputGroupProps> {
     }
 
     render() {
-        const { children, label, ...rest } = this.props;
+        const { children, label, extraText, extraTextPosition, ...rest } = this.props;
         const updater = this.context;
         const formProps = updater.getFormProps(['labelPosition', 'labelWidth', 'labelAlign', 'showValidateIcon', 'wrapperCol', 'labelCol']);
         const labelPosition = this.props.labelPosition || formProps.labelPosition;
@@ -94,6 +96,14 @@ class FormInputGroup extends Component<InputGroupProps> {
         );
         const groupErrorContent = (<GroupError fieldSet={groupFieldSet} showValidateIcon={formProps.showValidateIcon} isInInputGroup />);
 
+        const extraCls = classNames(`${prefix}-field-extra`, {
+            [`${prefix}-field-extra-string`]: typeof extraText === 'string',
+            [`${prefix}-field-extra-middle`]: extraTextPosition === 'middle',
+            [`${prefix}-field-extra-bottom`]: extraTextPosition === 'bottom',
+        });
+
+        const extraContent = extraText ? <div className={extraCls} x-semi-prop="extraText">{extraText}</div> : null;
+
         let content: any;
 
         switch (true) {
@@ -102,7 +112,9 @@ class FormInputGroup extends Component<InputGroupProps> {
                     <>
                         {labelContent}
                         <div>
+                            {extraTextPosition === 'middle' ? extraContent : null}
                             {inputGroupContent}
+                            {extraTextPosition === 'bottom' ? extraContent : null}
                             {groupErrorContent}
                         </div>
                     </>
@@ -118,7 +130,9 @@ class FormInputGroup extends Component<InputGroupProps> {
                             </Col>
                         </div>
                         <Col {...wrapperCol}>
+                            {extraTextPosition === 'middle' ? extraContent : null}
                             {inputGroupContent}
+                            {extraTextPosition === 'bottom' ? extraContent : null}
                             {groupErrorContent}
                         </Col>
                     </>
@@ -131,7 +145,9 @@ class FormInputGroup extends Component<InputGroupProps> {
                             {labelContent}
                         </Col>
                         <Col {...wrapperCol}>
+                            {extraTextPosition === 'middle' ? extraContent : null}
                             {inputGroupContent}
+                            {extraTextPosition === 'bottom' ? extraContent : null}
                             {groupErrorContent}
                         </Col>
                     </>
@@ -140,8 +156,6 @@ class FormInputGroup extends Component<InputGroupProps> {
             default:
                 break;
         }
-
-
 
         return (
             <div x-label-pos={labelPosition} className={groupCls}>

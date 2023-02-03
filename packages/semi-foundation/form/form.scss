@@ -257,11 +257,11 @@ $rating: #{$prefix}-rating;
         margin-bottom: 0;
         padding-top: $spacing-form_field_group_vertical-paddingTop;
         padding-bottom: $spacing-form_field_group_vertical-paddingBottom;
+        overflow: hidden;
     }
 }
 
 .#{$form}-field-group {
-
     &[x-label-pos="top"] {
     }
 

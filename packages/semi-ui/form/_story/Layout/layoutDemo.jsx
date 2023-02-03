@@ -165,61 +165,6 @@ class InsetLabelDemo extends React.Component {
     }
 }
 
-
-
-class GroupFormDemo extends React.Component {
-
-    constructor() {
-        super();
-        this.saveFormApi = this.saveFormApi.bind(this);
-        this.manualSubmit = this.manualSubmit.bind(this);
-    }
-    saveFormApi(formApi) {
-        this.formApi = formApi;
-    }
-
-    manualSubmit() {
-        this.formApi.submitForm();
-    }
-
-    render() {
-        const selectProps = {
-            style: { width: '100px' },
-            placeholder: '国家',
-            field: 'country',
-            rules: [
-                { required: true }
-            ]
-        };
-        return (
-            <>
-                <Form onSubmit={values => console.log(values)} labelPosition="left" getFormApi={this.saveFormApi}>
-                    <InputGroup label={{ text: 'Movie', required: true }} labelPosition="left">
-                        <Select {...selectProps}>
-                            <Select.Option value="crime">+86</Select.Option>
-                            <Select.Option value="comedy">+1</Select.Option>
-                            <Select.Option value="tragedy">+83</Select.Option>
-                        </Select>
-                        <Input placeholder="手机号码" style={{ width: 100 }} field="phone" noLabel rules={[{ required: true }]} />
-                        <InputNumber placeholder="评分" style={{ width: 140 }} field="MovieScore" noLabel />
-                    </InputGroup>
-                    <Input field="name" trigger="blur" rules={[{ required: true }]} />
-                    <Input field="familyName[0].before" trigger="blur" />
-                    <Input field="familyName[0].after" trigger="blur" />
-                    <Select field="Sex">
-                        <Option value="female">female</Option>
-                        <Option value="male">male</Option>
-                    </Select>
-
-                    <Button htmlType="submit">提交</Button>
-                    <Button onClick={this.manualSubmit}>手动提交</Button>
-                </Form>
-            </>
-        );
-    }
-}
-
-
 class LayoutForm extends React.Component {
     constructor() {
         super();
@@ -349,4 +294,4 @@ class LayoutForm extends React.Component {
     }
 }
 
-export { LayoutDemo, InsetLabelDemo, GroupFormDemo };
+export { LayoutDemo, InsetLabelDemo };
