@@ -489,7 +489,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const { insetInput, dateFnsLocale, density, type, format, rangeSeparator, defaultPickerValue } = this.props;
         const { insetInputValue, value } = this.state;
 
-        const insetInputProps = {
+        const props = {
             dateFnsLocale,
             format,
             insetInputValue,
@@ -505,7 +505,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...insetInputProps} insetInput={true} /> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -603,7 +603,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             format,
             multiple,
             validateStatus,
-            inputReadOnly: inputReadOnly || insetInput,
+            inputReadOnly: inputReadOnly || Boolean(insetInput),
             // onClick: this.handleOpenPanel,
             onBlur: this.handleInputBlur,
             onFocus: this.handleInputFocus,

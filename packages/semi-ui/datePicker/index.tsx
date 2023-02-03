@@ -27,6 +27,7 @@ export type { MonthProps } from './month';
 export type { MonthsGridProps } from './monthsGrid';
 export type { QuickControlProps } from './quickControl';
 export type { YearAndMonthProps } from './yearAndMonth';
+export type { InsetInputProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 
 export default forwardStatics(
     React.forwardRef<DatePicker, DatePickerProps>((props, ref) => {
