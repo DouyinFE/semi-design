@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Transfer, Button, Popover, SideSheet, Avatar, Checkbox, Tree, Input } from '../../index';
+import { Transfer, Button, Popover, SideSheet, Avatar, Checkbox, Tree, Input, Tag } from '../../index';
 import { omit, values } from 'lodash';
 import './transfer.scss';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
@@ -828,3 +828,31 @@ export const TransferInPopover = () => {
     </div>
   );
 }
+
+export const RenderHeader = () => {
+ 
+  const renderSourceHeader = (props) => {
+    const { num, showButton, onAllClick } = props;
+    return <div style={{ margin: '10px' }}>
+      <span style={{ marginRight: 10 }} >共 {num} 项</span>
+      {showButton && <Tag onClick={onAllClick}>全选</Tag>}
+    </div>;
+  }
+
+  const renderSelectedHeader = (props) => {
+    const { num, showButton, onAllClick } = props;
+    return <div style={{ margin: '10px' }}>
+    <span style={{ marginRight: 10 }}>{num} 项已选</span>
+    {showButton && <Tag onClick={onAllClick}>清空</Tag>}
+  </div>;
+  }
+
+  return (
+    <Transfer
+      style={{ width: 568, height: 416 }}
+      dataSource={data}
+      renderSourceHeader={renderSourceHeader}
+      renderSelectedHeader={renderSelectedHeader}
+    />
+  );
+};

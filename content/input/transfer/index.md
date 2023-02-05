@@ -352,6 +352,64 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
 };
 ```
 
+### 自定义渲染面板头部信息
+
+Semi 自 2.29.0 版本提供 `renderSourceHeader`, `renderSelectedHeader` 参数允许用户自定义渲染左右两个面板的头部信息。   
+`renderSourceHeader: (props: HeaderRenderProps) => ReactNode`   
+`renderSelectedHeader: (props: HeaderRenderProps) => ReactNode`   
+`HeaderRenderProps` 包含以下参数：
+
+```ts
+interface HeaderRenderProps {
+    num: number;    // 总数据或者已被选择数据
+    showButton: boolean:    // 是否展示全选/取消按钮
+    onAllClick: () => void; // 点击全选/取消按钮后的回调
+}
+```
+
+使用示例如下
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Transfer, Tag } from '@douyinfe/semi-ui';
+
+() => {
+    const data = Array.from({ length: 30 }, (v, i) => {
+        return {
+            label: `选项名称 ${i}`,
+            value: i,
+            disabled: false,
+            key: i,
+        };
+    });
+
+    const renderSourceHeader = (props) => {
+        const { num, showButton, onAllClick } = props;
+        return <div style={{ margin: '10px' }}>
+            <span style={{ marginRight: 10 }} >共 {num} 项</span>
+            {showButton && <Tag onClick={onAllClick}>全选</Tag>}
+        </div>;
+    };
+
+    const renderSelectedHeader = (props) => {
+        const { num, showButton, onAllClick } = props;
+        return <div style={{ margin: '10px' }}>
+            <span style={{ marginRight: 10 }}>{num} 项已选</span>
+            {showButton && <Tag onClick={onAllClick}>清空</Tag>}
+        </div>;
+    };
+
+    return (
+        <Transfer 
+            style={{ width: 568, height: 416 }}
+            dataSource={data}
+            renderSourceHeader={renderSourceHeader}
+            renderSelectedHeader={renderSelectedHeader}
+        />
+    );
+};
+```
+
 ### 完全自定义渲染
 
 Semi 提供了 `renderSourcePanel`、`renderSelectedPanel` 入参，允许你完全自定义左右侧两个面板的渲染结构  
@@ -933,8 +991,10 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onDeselect | 取消勾选时的回调 | (item: Item) => void | |  |
 | onSearch | 搜索框输入内容变化时调用 | (inputValue: string) => void | |  |
 | onSelect | 勾选时的回调 | (item: Item) => void | |  |
+| renderSelectedHeader | 自定义右侧面板头部信息的渲染 | (props: HeaderRenderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | 自定义右侧单个已选项的渲染 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
 | renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | 1.11.0 |
+| renderSourceHeader | 自定义左侧面板头部信息的渲染 | (props: HeaderRenderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | 自定义左侧单个候选项的渲染 | (item: { onChange, checked } & Item) => ReactNode |  |  |
 | renderSourcePanel | 自定义左侧候选面板的渲染 | (sourcePanelProps) => ReactNode |  | 1.11.0 |
 | showPath | 当 type 为`treeList`时，控制右侧选中项是否显示选择路径 | boolean | false | 1.20.0 |

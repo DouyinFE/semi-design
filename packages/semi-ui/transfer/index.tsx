@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
-import { isEqual, noop, omit, isEmpty, isArray } from 'lodash';
+import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
@@ -115,8 +115,11 @@ interface HeaderConfig {
     allContent: string;
     onAllClick: () => void;
     type: string;
-    showButton: boolean
+    showButton: boolean;
+    num: number
 }
+
+type HeaderRenderProps = Pick<HeaderConfig, 'num' | 'showButton' | 'onAllClick'>;
 
 export interface TransferState {
     data: Array<ResolvedDataItem>;
@@ -147,7 +150,9 @@ export interface TransferProps {
     renderSourceItem?: (item: RenderSourceItemProps) => React.ReactNode;
     renderSelectedItem?: (item: RenderSelectedItemProps) => React.ReactNode;
     renderSourcePanel?: (sourcePanelProps: SourcePanelProps) => React.ReactNode;
-    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode
+    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode;
+    renderSourceHeader?: (headProps: HeaderRenderProps) => React.ReactNode;
+    renderSelectedHeader?: (headProps: HeaderRenderProps) => React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -336,13 +341,22 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderHeader(headerConfig: HeaderConfig) {
-        const { disabled } = this.props;
+        const { disabled, renderSourceHeader, renderSelectedHeader } = this.props;
         const { totalContent, allContent, onAllClick, type, showButton } = headerConfig;
         const headerCls = cls({
             [`${prefixCls}-header`]: true,
             [`${prefixCls}-right-header`]: type === 'right',
             [`${prefixCls}-left-header`]: type === 'left',
         });
+
+        if (type === 'left' && typeof renderSourceHeader === 'function') {
+            return renderSourceHeader(pick(headerConfig, ['num', 'showButton', 'onAllClick']));
+        }
+        
+        if (type === 'right' && typeof renderSelectedHeader === 'function') {
+            return renderSelectedHeader(pick(headerConfig, ['num', 'showButton', 'onAllClick']));                 
+        }
+
         return (
             <div className={headerCls}>
                 <span className={`${prefixCls}-header-total`}>{totalContent}</span>
@@ -409,6 +423,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             onAllClick: () => this.foundation.handleAll(leftContainesNotInSelected),
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST,
+            num: showNumber
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);
@@ -623,6 +638,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             onAllClick: () => this.foundation.handleClear(),
             type: 'right',
             showButton: Boolean(selectedData.length),
+            num: selectedData.length,
         };
         const headerCom = this.renderHeader(headerConfig);
         const emptyCom = this.renderEmpty('right', emptyContent.right ? emptyContent.right : locale.emptyRight);
