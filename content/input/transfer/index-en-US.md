@@ -353,15 +353,22 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
 ### Custom rendering header information in panel
 
 Semi has provided `renderSourceHeader` and `renderSelectedHeader` parameter allows users to customize the header information of the left and right panels since version 2.29.0.   
-`renderSourceHeader: (props: HeaderRenderProps) => ReactNode`   
-`renderSelectedHeader: (props: HeaderRenderProps) => ReactNode`   
-`HeaderRenderProps` contains the following parameters:
+`renderSourceHeader: (props: SourceHeaderProps) => ReactNode`   
+`renderSelectedHeader: (props: SelectedHeaderProps) => ReactNode`   
+The parameter types are as follows:
 
 ```ts
-interface HeaderRenderProps {
-    num: number;    // total data or selected data
-    showButton: boolean:    // Whether to show the select all/cancel button
-    onAllClick: () => void; // Callback after clicking the Select All/Cancel button
+type SourceHeaderProps = {
+    num: number; // The total number of data or the number of filtered results
+    showButton: boolean; // Whether to show select all/unselect all buttons
+    allChecked: boolean; // Whether the current data has been selected
+    onAllClick: () => void // Function that should be called after clicking the select/unselect all button
+}
+
+type SelectedHeaderProps = {
+    num: number; // The total number of selected data
+    showButton: boolean; // Whether to show the clear button
+    onClear: () => void // Function that should be called after clicking the clear button
 }
 ```
 
@@ -369,7 +376,7 @@ The example is as follows:
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Transfer, Tag } from '@douyinfe/semi-ui';
+import { Transfer, Button } from '@douyinfe/semi-ui';
 
 () => {
     const data = Array.from({ length: 30 }, (v, i) => {
@@ -382,18 +389,26 @@ import { Transfer, Tag } from '@douyinfe/semi-ui';
     });
 
     const renderSourceHeader = (props) => {
-        const { num, showButton, onAllClick } = props;
-        return <div style={{ margin: '10px' }}>
-            <span style={{ marginRight: 10 }} >Total {num} items</span>
-            {showButton && <Tag onClick={onAllClick}>Select all</Tag>}
+        const { num, showButton, allChecked, onAllClick } = props;
+        return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
+            <span>Total {num} items</span>
+            {showButton && <Button
+                theme="borderless"
+                type="tertiary"
+                size="small" 
+                onClick={onAllClick}>{ allChecked ? 'Unselect all' : 'Select all' }</Button>}
         </div>;
     };
 
     const renderSelectedHeader = (props) => {
-        const { num, showButton, onAllClick } = props;
-        return <div style={{ margin: '10px' }}>
-            <span style={{ marginRight: 10 }}>{num} items selected</span>
-            {showButton && <Tag onClick={onAllClick}>Clear</Tag>}
+        const { num, showButton, onClear } = props;
+        return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
+            <span>{num} items selected</span>
+            {showButton && <Button
+                theme="borderless"
+                type="tertiary"
+                size="small"
+                onClick={onClear}>Clear</Button>}
         </div>;
     };
 
@@ -989,10 +1004,10 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onDeselect | Callback when unchecking | (item: Item) => void | | |
 | onSearch | Called when the input content of the search box changes | (inputValue: string) => void | | |
 | onSelect | Callback when checked | (item: Item) => void | | |
-| renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: HeaderRenderProps) => ReactNode |  | 2.29.0 |
+| renderSelectedHeader | Customize the rendering of the header information on the right panel | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | Customize the rendering of a single selected item on the right | (item: {onRemove, sortableHandle} & Item) => ReactNode | | |
 | renderSelectedPanel | Customize the rendering of the selected panel on the right | (selectedPanelProps) => ReactNode | | 1.11.0 |
-| renderSourceHeader | Customize the rendering of the header information on the left panel | (props: HeaderRenderProps) => ReactNode |  | 2.29.0 |
+| renderSourceHeader | Customize the rendering of the header information on the left panel | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | Customize the rendering of a single candidate item on the left | (item: {onChange, checked} & Item) => ReactNode | | |
 | renderSourcePanel | Customize the rendering of the left candidate panel | (sourcePanelProps) => ReactNode | | 1.11.0 |
 | showPath | When the type is `treeList`, control whether the selected item on the right shows the selection path | boolean | false | 1.20.0 |

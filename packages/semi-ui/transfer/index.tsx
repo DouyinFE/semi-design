@@ -116,10 +116,22 @@ interface HeaderConfig {
     onAllClick: () => void;
     type: string;
     showButton: boolean;
-    num: number
+    num: number;
+    allChecked?: boolean
 }
 
-type HeaderRenderProps = Pick<HeaderConfig, 'num' | 'showButton' | 'onAllClick'>;
+type SourceHeaderProps = {
+    num: number;
+    showButton: boolean;
+    allChecked: boolean;
+    onAllClick: () => void
+}
+
+type SelectedHeaderProps = {
+    num: number;
+    showButton: boolean;
+    onClear: () => void
+}
 
 export interface TransferState {
     data: Array<ResolvedDataItem>;
@@ -151,8 +163,8 @@ export interface TransferProps {
     renderSelectedItem?: (item: RenderSelectedItemProps) => React.ReactNode;
     renderSourcePanel?: (sourcePanelProps: SourcePanelProps) => React.ReactNode;
     renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode;
-    renderSourceHeader?: (headProps: HeaderRenderProps) => React.ReactNode;
-    renderSelectedHeader?: (headProps: HeaderRenderProps) => React.ReactNode
+    renderSourceHeader?: (headProps: SourceHeaderProps) => React.ReactNode;
+    renderSelectedHeader?: (headProps: SelectedHeaderProps) => React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -350,11 +362,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         });
 
         if (type === 'left' && typeof renderSourceHeader === 'function') {
-            return renderSourceHeader(pick(headerConfig, ['num', 'showButton', 'onAllClick']));
+            const { num, showButton, allChecked, onAllClick } = headerConfig;
+            return renderSourceHeader({ num, showButton, allChecked, onAllClick });
         }
         
         if (type === 'right' && typeof renderSelectedHeader === 'function') {
-            return renderSelectedHeader(pick(headerConfig, ['num', 'showButton', 'onAllClick']));                 
+            const { num, showButton, onAllClick: onClear } = headerConfig;
+            return renderSelectedHeader({ num, showButton, onClear });                 
         }
 
         return (
@@ -423,7 +437,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             onAllClick: () => this.foundation.handleAll(leftContainesNotInSelected),
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST,
-            num: showNumber
+            num: showNumber,
+            allChecked: !leftContainesNotInSelected
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);

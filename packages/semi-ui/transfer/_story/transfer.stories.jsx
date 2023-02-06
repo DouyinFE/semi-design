@@ -832,20 +832,28 @@ export const TransferInPopover = () => {
 export const RenderHeader = () => {
  
   const renderSourceHeader = (props) => {
-    const { num, showButton, onAllClick } = props;
-    return <div style={{ margin: '10px' }}>
+    const { num, showButton, allChecked, onAllClick } = props;
+    return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
       <span style={{ marginRight: 10 }} >共 {num} 项</span>
-      {showButton && <Tag onClick={onAllClick}>全选</Tag>}
+      {showButton && <Button
+        theme="borderless"
+        type="tertiary"
+        size="small" 
+        onClick={onAllClick}>{ allChecked ? '取消全选' : '全选' }</Button>}
     </div>;
-  }
+  };
 
   const renderSelectedHeader = (props) => {
-    const { num, showButton, onAllClick } = props;
-    return <div style={{ margin: '10px' }}>
-    <span style={{ marginRight: 10 }}>{num} 项已选</span>
-    {showButton && <Tag onClick={onAllClick}>清空</Tag>}
-  </div>;
-  }
+    const { num, showButton, onClear } = props;
+    return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
+      <span style={{ marginRight: 10 }}>{num} 项已选</span>
+      {showButton && <Button
+        theme="borderless"
+        type="tertiary"
+        size="small"
+        onClick={onClear}>清空</Button>}
+    </div>;
+  };
 
   return (
     <Transfer
