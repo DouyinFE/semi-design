@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ko-KR',
     dateFnsLocale: ko,
     Pagination: {
-        item: '기사',
+        pageSize: '${pageSize} 기사 / 페이지',
+        total: '${total} 페이지',
+        jumpTo: '이동',
         page: '페이지',
-        pageSize: '기사 / 페이지',
-        total: '',
-        jumpTo: '이동'
     },
     Modal: {
         confirm: '확인',

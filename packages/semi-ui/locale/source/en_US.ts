@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'en-US',
     dateFnsLocale: enUS,
     Pagination: {
-        item: 'item',
-        pageSize: ' items / page',
-        page: ' pages',
-        total: '',
-        jumpTo: 'Jump to'
+        pageSize: '${pageSize} items / page',
+        total: '${total} pages',
+        jumpTo: 'Jump to',
+        page: ' page',
     },
     Modal: {
         confirm: 'Confirm',

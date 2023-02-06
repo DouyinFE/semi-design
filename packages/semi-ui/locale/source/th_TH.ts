@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'th-TH',
     dateFnsLocale: th,
     Pagination: {
-        item: 'บทความ',
+        pageSize: '${pageSize} บทความ / หน้า',
+        total: 'หน้าทั้งหมด ${total}',
+        jumpTo: 'ข้ามไปที่',
         page: 'หน้า',
-        pageSize: 'บทความ / หน้า',
-        total: 'ธรรมดา',
-        jumpTo: 'ข้ามไปที่'
     },
     Modal: {
         confirm: 'ตกลง',

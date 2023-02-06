@@ -7,11 +7,10 @@ export default {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
-        item: 'articol',
-        pageSize: 'articole/pagină',
-        page: ' pagini',
-        total: '',
+        pageSize: 'Articole pe pagină: ${pageSize}',
+        total: 'Total pagini: ${total}',
         jumpTo: 'Treci la',
+        page: 'pagini',
     },
     Modal: {
         confirm: 'Confirmă',
@@ -118,7 +117,7 @@ export default {
         AM: '${time} AM',
         PM: '${time} PM',
         datestring: '',
-        remaining: '${remained} plus',
+        remaining: 'Cantitate ramasa: ${remained}',
     },
     Upload: {
         mainText: 'Dă clic pentru a descărca fișierul sau trage fișierul aici',
@@ -148,8 +147,8 @@ export default {
         clear: 'Șterge',
         selectAll: 'Selectează toate',
         clearSelectAll: 'Deselectează toate',
-        total: 'Total ${total} articole',
-        selected: '${total} articole selectate',
+        total: 'Total articole: ${total} ',
+        selected: 'articole selectate: ${total}',
     },
     Form: {
         optional: '(opțional)',

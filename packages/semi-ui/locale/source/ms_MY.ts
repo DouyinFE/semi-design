@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ms-MY',
     dateFnsLocale: ms,
     Pagination: {
-        item: 'item',
-        pageSize: ' items / halaman',
+        pageSize: ' ${pageSize} items / halaman',
+        total: '${total} halaman',
+        jumpTo: 'Lompat ke',
         page: ' halaman',
-        total: '',
-        jumpTo: 'Lompat ke'
     },
     Modal: {
         confirm: 'Sahkan',

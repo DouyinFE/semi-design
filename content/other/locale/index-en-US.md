@@ -23,6 +23,8 @@ brief: Internationalized components to provide multilingual support for Semi com
 | v2.2.0     | Spanish: es       |
 | v2.15.0     | Italian: it、French：fr、German：de   |
 | v2.21.0     | Romanian: ro   |
+| v2.29.0     | Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL |
+
 
 ## Components supported
 
@@ -48,6 +50,9 @@ import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/lib/es/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/lib/es/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/lib/es/locale/source/nl_NL';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
@@ -186,6 +191,9 @@ import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/lib/es/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/lib/es/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/lib/es/locale/source/nl_NL';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
@@ -218,6 +226,9 @@ class I18nDemo extends React.Component {
             'ms_MY': ms_MY,
             'th_TH': th_TH,
             'tr_TR': tr_TR,
+            'sv_SE': sv_SE,
+            'pl_PL': pl_PL,
+            'nl_NL': nl_NL,
             es,
             de,
             it,
@@ -303,7 +314,7 @@ class I18nDemo extends React.Component {
             return (
                 <>
                     <h5>Pagination</h5>
-                    <Pagination total={100} showTotal showSizeChanger style={style} />
+                    <Pagination total={100} showTotal showSizeChanger style={style} showQuickJumper/>
                     <h5>Modal</h5>
 
                     <div style={style}>

@@ -26,6 +26,9 @@ import th_TH from '@douyinfe/semi-ui/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/locale/source/nl_NL';
 import es from '@douyinfe/semi-ui/locale/source/es';
 import de from '@douyinfe/semi-ui/locale/source/de';
 import it from '@douyinfe/semi-ui/locale/source/it';
@@ -122,4 +125,4 @@ export {
 
 export { debounce, throttle, range, get, filter, map, some };
 
-export { zh_CN, en_GB, en_US, ko_KR, ja_JP, ar, vi_VN, ru_RU, id_ID, ms_MY, th_TH, tr_TR, pt_BR, zh_TW, es, de, it, fr, ro };
+export { zh_CN, en_GB, en_US, ko_KR, ja_JP, ar, vi_VN, ru_RU, id_ID, ms_MY, th_TH, tr_TR, pt_BR, zh_TW, nl_NL, pl_PL, sv_SE, es, de, it, fr, ro };
