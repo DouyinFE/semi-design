@@ -65,6 +65,7 @@ import {
   ArrayFieldDemo,
   ArrayFieldWithFormInitValues,
   ArrayFieldWithInitValue,
+  ArrayFieldSetValues,
 } from './DynamicField/arrayFieldDemo';
 import { NestArrayField } from './DynamicField/nestArrayField';
 import { ArrayDemo } from './FormApi/arrayDemo';
@@ -192,6 +193,11 @@ export const ArrayFieldWithArrayFieldInitValue = () => <ArrayFieldWithInitValue 
 ArrayFieldWithArrayFieldInitValue.story = {
   name: 'ArrayField-with arrayField initValue',
 };
+
+export const ArrayFieldSetValuesDemo = () => <ArrayFieldSetValues />;
+ArrayFieldSetValuesDemo.story ={
+  name: 'ArrayField-setValues didMount'
+}
 
 export const ArrayFieldNestUsage = () => <NestArrayField />;
 
