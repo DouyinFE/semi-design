@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
     Pagination: {
-        pageSize: '${pageSize} элементов / страницы',
-        total: 'общее ${total} Прыгать в',
+        pageSize: 'Элементов на странице: ${pageSize}',
+        total: 'Всего страниц: ${total}',
         jumpTo: 'Прыгать в',
         page: ' страницы'
     },

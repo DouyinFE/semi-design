@@ -317,7 +317,7 @@ class I18nDemo extends React.Component {
             return (
                 <>
                     <h5>Pagination</h5>
-                    <Pagination total={100} showTotal showSizeChanger style={style} />
+                    <Pagination total={100} showTotal showSizeChanger style={style} showQuickJumper />
                     <h5>Modal</h5>
 
                     <div style={style}>

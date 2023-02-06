@@ -8,7 +8,7 @@ export default {
     dateFnsLocale: ro,
     Pagination: {
         pageSize: 'Articole pe pagină: ${pageSize}',
-        total: 'Total ${total} de pagini',
+        total: 'Total pagini: ${total}',
         jumpTo: 'Treci la',
         page: 'pagini',
     },

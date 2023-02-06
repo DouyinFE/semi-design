@@ -8,7 +8,7 @@ const local: Locale = {
         pageSize: '${pageSize} items / page',
         total: '${total} pages',
         jumpTo: 'Jump to',
-        page: ' pages',
+        page: ' page',
     },
     Modal: {
         confirm: 'Confirm',

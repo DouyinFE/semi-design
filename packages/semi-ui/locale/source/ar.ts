@@ -5,10 +5,10 @@ const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
     Pagination: {
-        pageSize: '${pageSize} العناصر / الصفحة', // TODO
+        pageSize: 'عدد العناصر في كل صفحة : ${pageSize} ',
+        total: 'مجموع الصفحات: ${total}',
+        jumpTo: 'اقفز إلى',
         page: ' الصفحات',
-        total: '', // TODO
-        jumpTo: 'اقفز إلى'
     },
     Modal: {
         confirm: 'تؤكد',
