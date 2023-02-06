@@ -119,7 +119,7 @@ const local: Locale = {
         AM: '${time} утро',
         PM: '${time} после',
         datestring: '',
-        remaining: '${remained} еще',
+        remaining: 'ставшееся количество: ${remained} ',
     },
     Upload: {
         mainText: 'Нажмите, чтобы загрузить файл или перетащите файл сюда',
@@ -149,8 +149,8 @@ const local: Locale = {
         clear: 'Очистить',
         selectAll: 'Выбрать все',
         clearSelectAll: 'Снять выделение',
-        total: 'Всего ${total} элементов',
-        selected: 'Выбрано ${total} элементов',
+        total: 'Всего элементов: ${total} ',
+        selected: 'Выбрано элементов: ${total} ',
     },
     Form: {
         optional: '(по желанию)',

@@ -151,8 +151,8 @@ const local: Locale = {
         clear: 'Rensa',
         selectAll: 'Markera alla',
         clearSelectAll: 'Avmarkera alla',
-        total: '共 ${total} 项', // TODO
-        selected: '已选 ${total} 项', //TODO
+        total: '${total} artiklar totalt',
+        selected: 'Valde ${total} objekt',
     },
     Form: {
         optional: '(Frivilligt)',

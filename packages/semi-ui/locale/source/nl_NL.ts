@@ -153,8 +153,8 @@ const local: Locale = {
         clear: 'Wissen',
         selectAll: 'Alles selecteren',
         clearSelectAll: 'Alle selecties opheffen',
-        total: '${total} ', // TODO
-        selected: '已选 ${total} 项', // TODO
+        total: '${total} stuks in totaal',
+        selected: '${total} artikelen geselecteerd',
     },
     Form: {
         optional: 'Optioneel',
