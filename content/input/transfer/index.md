@@ -352,6 +352,79 @@ import { IconHandle, IconClose } from '@douyinfe/semi-icons';
 };
 ```
 
+### 自定义渲染面板头部信息
+
+Semi 自 2.29.0 版本提供 `renderSourceHeader`, `renderSelectedHeader` 参数允许用户自定义渲染左右两个面板的头部信息。   
+`renderSourceHeader: (props: SourceHeaderProps) => ReactNode`   
+`renderSelectedHeader: (props: SelectedHeaderProps) => ReactNode`   
+参数类型如下：
+
+```ts
+type SourceHeaderProps = {
+    num: number; // 数据总数或筛选结果数目
+    showButton: boolean; // 是否展示全选/取消全选按钮
+    allChecked: boolean; // 当前数据是否已全选
+    onAllClick: () => void // 点击全选/取消全选按钮后应调用的函数
+}
+
+type SelectedHeaderProps = {
+    num: number; // 已选中数据总数
+    showButton: boolean; // 是否展示清空按钮
+    onClear: () => void // 点击清空按钮后应调用的函数
+}
+```
+
+使用示例如下
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Transfer, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const data = Array.from({ length: 30 }, (v, i) => {
+        return {
+            label: `选项名称 ${i}`,
+            value: i,
+            disabled: false,
+            key: i,
+        };
+    });
+
+    const renderSourceHeader = (props) => {
+        const { num, showButton, allChecked, onAllClick } = props;
+        return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
+            <span>共 {num} 项</span>
+            {showButton && <Button
+                theme="borderless"
+                type="tertiary"
+                size="small" 
+                onClick={onAllClick}>{ allChecked ? '取消全选' : '全选' }</Button>}
+        </div>;
+    };
+
+    const renderSelectedHeader = (props) => {
+        const { num, showButton, onClear } = props;
+        return <div style={{ margin: '10px 0 0 10px', height: 24, display: 'flex', alignItems: 'center' }}>
+            <span>{num} 项已选</span>
+            {showButton && <Button
+                theme="borderless"
+                type="tertiary"
+                size="small"
+                onClick={onClear}>清空</Button>}
+        </div>;
+    };
+
+    return (
+        <Transfer
+            style={{ width: 568, height: 416 }}
+            dataSource={data}
+            renderSourceHeader={renderSourceHeader}
+            renderSelectedHeader={renderSelectedHeader}
+        />
+    );
+};
+```
+
 ### 完全自定义渲染
 
 Semi 提供了 `renderSourcePanel`、`renderSelectedPanel` 入参，允许你完全自定义左右侧两个面板的渲染结构  
@@ -933,8 +1006,10 @@ import { Transfer } from '@douyinfe/semi-ui';
 | onDeselect | 取消勾选时的回调 | (item: Item) => void | |  |
 | onSearch | 搜索框输入内容变化时调用 | (inputValue: string) => void | |  |
 | onSelect | 勾选时的回调 | (item: Item) => void | |  |
+| renderSelectedHeader | 自定义右侧面板头部信息的渲染 | (props: SelectedHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSelectedItem | 自定义右侧单个已选项的渲染 | (item: { onRemove, sortableHandle } & Item) => ReactNode |  |  |
 | renderSelectedPanel | 自定义右侧已选面板的渲染 | (selectedPanelProps) => ReactNode |  | 1.11.0 |
+| renderSourceHeader | 自定义左侧面板头部信息的渲染 | (props: SourceHeaderProps) => ReactNode |  | 2.29.0 |
 | renderSourceItem | 自定义左侧单个候选项的渲染 | (item: { onChange, checked } & Item) => ReactNode |  |  |
 | renderSourcePanel | 自定义左侧候选面板的渲染 | (sourcePanelProps) => ReactNode |  | 1.11.0 |
 | showPath | 当 type 为`treeList`时，控制右侧选中项是否显示选择路径 | boolean | false | 1.20.0 |
