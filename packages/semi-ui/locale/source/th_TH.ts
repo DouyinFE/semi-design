@@ -6,7 +6,7 @@ const local: Locale = {
     dateFnsLocale: th,
     Pagination: {
         pageSize: '${pageSize} บทความ / หน้า',
-        total: 'ธรรมดา ${total} ข้ามไปที่',
+        total: 'หน้าทั้งหมด ${total}',
         jumpTo: 'ข้ามไปที่',
         page: 'หน้า',
     },
