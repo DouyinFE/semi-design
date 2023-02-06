@@ -440,6 +440,9 @@ class I18nDemo extends React.Component {
                         <Select.Option value='it'>意大利语</Select.Option>
                         <Select.Option value='fr'>法语</Select.Option>
                         <Select.Option value='ro'>罗马尼亚语</Select.Option>
+                        <Select.Option value='sv_SE'>瑞典语</Select.Option>
+                        <Select.Option value='pl_PL'>波兰语</Select.Option>
+                        <Select.Option value='nl_NL'>荷兰语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>
