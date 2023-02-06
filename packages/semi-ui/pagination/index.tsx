@@ -261,13 +261,15 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         if (!showSizeChanger) {
             return null;
         }
-        const pageSizeText = locale.pageSize;
+
         const newPageSizeOpts = this.foundation.pageSizeInOpts();
+
+        const pageSizeToken = locale.pageSize;
+        // Display pageSize in a specific language format order
         const options = newPageSizeOpts.map((size: number) => (
             <Option value={size} key={size}>
                 <span>
-                    {`${size} `}
-                    {pageSizeText}
+                    {pageSizeToken.replace('${pageSize}', size.toString())}
                 </span>
             </Option>
         ));
@@ -277,7 +279,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     aria-label="Page size selector"
                     onChange={newPageSize => this.foundation.changePageSize(newPageSize)}
                     value={pageSize}
-                    key={pageSizeText}
+                    key={pageSize}
                     position={popoverPosition || 'bottomRight'}
                     clickToHide
                     dropdownClassName={`${prefixCls}-select-dropdown`}
@@ -443,13 +445,15 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         if (totalPageNum < 2 && hideOnSinglePage && !showSizeChanger) {
             return null;
         }
+
+        const totalNum = Math.ceil(total / pageSize);
+        const totalToken = locale.total.replace('${total}', totalNum.toString());
+
         return (
             <ul className={paginationCls} style={style}>
                 {showTotal ? (
                     <span className={showTotalCls}>
-                        {locale.total}
-                        {` ${Math.ceil(total / pageSize)} `}
-                        {locale.page}
+                        {totalToken}
                     </span>
                 ) : null}
                 {this.renderPrevBtn()}

@@ -13,11 +13,10 @@ const local: Locale = {
     code: 'pl_PL',
     dateFnsLocale: pl, // locale code to dateFns locale
     Pagination: {
-        item: 'przedmiot',
-        page: '页', // TODO
-        pageSize: '条/页', // TODO
-        total: 'Łącznie',
-        jumpTo: 'Przejdź do'
+        pageSize: 'Pozycje na stronie: ${pageSize}',
+        total: 'Łącznie ${total} stron',
+        jumpTo: 'Przejdź do',
+        page: 'stron',
     },
     Modal: {
         confirm: 'Potwierdź',

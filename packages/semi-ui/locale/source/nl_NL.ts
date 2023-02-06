@@ -12,10 +12,9 @@ const local: Locale = {
     code: 'pl_PL',
     dateFnsLocale: nl, // locale code to dateFns locale
     Pagination: {
-        item: 'item',
-        page: '页', // TODO
-        pageSize: '条/页', // TODO
-        total: 'Totaal',
+        page: 'pagina',
+        pageSize: 'Artikelen per pagina: ${pageSize}',
+        total: "Totaal ${total} pagina's",
         jumpTo: 'Ga naar'
     },
     Modal: {

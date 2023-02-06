@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
     Pagination: {
-        item: 'элемент',
-        pageSize: 'элементов / страницы',
-        page: ' страницы',
-        total: 'общее',
-        jumpTo: 'Прыгать в'
+        pageSize: '${pageSize} элементов / страницы',
+        total: 'общее ${total} Прыгать в',
+        jumpTo: 'Прыгать в',
+        page: ' страницы'
     },
     Modal: {
         confirm: 'подтвердить',

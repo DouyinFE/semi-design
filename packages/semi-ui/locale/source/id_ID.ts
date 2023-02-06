@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'id-ID',
     dateFnsLocale: id,
     Pagination: {
-        item: 'item',
-        pageSize: ' item / halaman',
+        pageSize: '${pageSize} item / halaman',
+        total: '${total} halaman',
+        jumpTo: 'Langsung ke',
         page: ' halaman',
-        total: '',
-        jumpTo: 'Langsung ke'
     },
     Modal: {
         confirm: 'Konfirmasi',

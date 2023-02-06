@@ -10,11 +10,10 @@ const locale: Locale = {
     code: 'es',
     dateFnsLocale: es,
     Pagination: {
-        item: 'objeto',
-        pageSize: ' objetos / página',
-        page: ' páginas',
-        total: '',
+        pageSize: '${pageSize} objetos / página',
+        total: '${total} páginas',
         jumpTo: 'Ir a',
+        page: ' páginas',
     },
     Modal: {
         confirm: 'Aceptar',

@@ -10,11 +10,10 @@ const local: Locale = {
     code: 'sv_SE',
     dateFnsLocale: sv, 
     Pagination: {
-        item: 'objekt',
-        page: '页', // TODO
-        pageSize: '条/页', // TODO
-        total: 'Totalt',
-        jumpTo: 'Gå till'
+        pageSize: '${pageSize} artiklar/sida',
+        total: 'Totalt ${total} sidor',
+        jumpTo: 'Gå till',
+        page: 'sida',
     },
     Modal: {
         confirm: 'Bekräfta',

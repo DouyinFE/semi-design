@@ -7,11 +7,10 @@ export default {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
-        item: 'articol',
-        pageSize: 'articole/pagină',
-        page: ' pagini',
-        total: '',
+        pageSize: 'Articole pe pagină: ${pageSize}',
+        total: 'Total ${total} de pagini',
         jumpTo: 'Treci la',
+        page: 'pagini',
     },
     Modal: {
         confirm: 'Confirmă',
