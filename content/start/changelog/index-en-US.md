@@ -20,9 +20,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【feat】
     - Form.InputGroup support extraText, extraTextPosition,  [#1313 ](https://github.com/DouyinFE/semi-design/issues/1313)
     - DatePicker insetInput supports passing placeholder  [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
+    - Transfer added renderSourceHeader and renderSelectedHeader APIs to allow users to customize the header information of the left and right panels [#1403](https://github.com/DouyinFE/semi-design/issues/1403)
+    - Locale add Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
 - 【fix】
     - Fix the problem that the DatePicker panel is not updated after entering the date  [#1398](https://github.com/DouyinFE/semi-design/issues/1398)
     - fix when the visible prop changes, tooltips whose trigger is not hover/focus also delay showing/hiding [@marshcat0](https://github.com/marshcat0)
+    - Optimize the problem of displaying singular and plural text in Russian, Arabic, and Romanian, involving components Pagination, Transfer, and Calendar [#1411](https://github.com/DouyinFE/semi-design/pull/1411)
 - 【docs】
     - Improve Form english document 
 - 【Design Token】
