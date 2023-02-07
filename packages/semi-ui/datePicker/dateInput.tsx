@@ -202,7 +202,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 aria-label="Clear range input value"
                 className={`${prefixCls}-range-input-clearbtn`}
                 onMouseDown={e => !disabled && this.handleRangeInputClear(e)}>
-                {clearIcon ? clearIcon :<IconClear aria-hidden />}
+                {clearIcon ? clearIcon : <IconClear aria-hidden />}
             </div>
         ) : null;
     }
