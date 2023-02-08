@@ -238,6 +238,7 @@ $module: #{$prefix}-table;
                 box-sizing: border-box;
                 position: relative;
                 vertical-align: middle;
+                background-color: $color-table_body-bg-default;
 
                 &.resizing {
                     border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
