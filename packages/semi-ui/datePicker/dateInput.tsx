@@ -5,6 +5,7 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 import DateInputFoundation, {
     DateInputAdapter,
@@ -12,6 +13,7 @@ import DateInputFoundation, {
     RangeType,
     InsetInputChangeProps,
     InsetInputChangeFoundationProps,
+    InsetInputProps
 } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/datePicker/constants';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
@@ -62,7 +64,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         rangeInputStartRef: PropTypes.object,
         rangeInputEndRef: PropTypes.object,
         rangeSeparator: PropTypes.string,
-        insetInput: PropTypes.bool,
+        insetInput: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         insetInputValue: PropTypes.object,
         defaultPickerValue: PropTypes.oneOfType([
             PropTypes.string,
@@ -313,10 +315,12 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             rangeInputStartRef,
             rangeInputEndRef,
             density,
+            insetInput,
         } = this.props;
 
         const _isRangeType = type.includes('Range');
         const newInsetInputValue = this.foundation.getInsetInputValue({ value, insetInputValue });
+        const { dateStart, dateEnd, timeStart, timeEnd } = get(insetInput, 'placeholder', {}) as InsetInputProps['placeholder'];
         const { datePlaceholder, timePlaceholder } = this.foundation.getInsetInputPlaceholder();
 
         const insetInputWrapperCls = `${prefixCls}-inset-input-wrapper`;
@@ -327,7 +331,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 <InsetDateInput
                     forwardRef={rangeInputStartRef}
                     insetInputValue={newInsetInputValue}
-                    placeholder={datePlaceholder}
+                    placeholder={dateStart ?? datePlaceholder}
                     valuePath={'monthLeft.dateInput'}
                     onChange={this.handleInsetInputChange}
                     onFocus={e => handleInsetDateFocus(e, 'rangeStart')}
@@ -335,7 +339,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 <InsetTimeInput
                     disabled={!newInsetInputValue.monthLeft.dateInput}
                     insetInputValue={newInsetInputValue}
-                    placeholder={timePlaceholder}
+                    placeholder={timeStart ?? timePlaceholder}
                     type={type}
                     valuePath={'monthLeft.timeInput'}
                     onChange={this.handleInsetInputChange}
@@ -347,7 +351,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                         <InsetDateInput
                             forwardRef={rangeInputEndRef}
                             insetInputValue={newInsetInputValue}
-                            placeholder={datePlaceholder}
+                            placeholder={dateEnd ?? datePlaceholder}
                             valuePath={'monthRight.dateInput'}
                             onChange={this.handleInsetInputChange}
                             onFocus={e => handleInsetDateFocus(e, 'rangeEnd')}
@@ -355,7 +359,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                         <InsetTimeInput
                             disabled={!newInsetInputValue.monthRight.dateInput}
                             insetInputValue={newInsetInputValue}
-                            placeholder={timePlaceholder}
+                            placeholder={timeEnd ?? timePlaceholder}
                             type={type}
                             valuePath={'monthRight.timeInput'}
                             onChange={this.handleInsetInputChange}

@@ -16,6 +16,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.29.0-beta.0 (2023-02-06)
+- 【Feat】
+    - Form.InputGroup 支持配置 extraText, extraTextPosition，对齐 Field Component [#1313](https://github.com/DouyinFE/semi-design/issues/1313)
+    - DatePicker insetInput 输入框支持传入 placeholder [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
+    - Transfer 新增 renderSourceHeader，renderSelectedHeader 支持用户能够自定义左右面板头部信息 [#1403](https://github.com/DouyinFE/semi-design/issues/1403)
+    - Locale 增加瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL支持 [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
+- 【Fix】
+    - 修复 DatePicker 输入日期后面板未更新问题 [#1398](https://github.com/DouyinFE/semi-design/issues/1398)
+    - 修复 visible 属性变化时，trigger 不为 hover 和 focus 的 tooltip 也延迟了展示/隐藏的问题 [@marshcat0](https://github.com/marshcat0)
+    - 优化 俄语、阿拉伯语、罗马尼亚语种下单复数文本显示问题，涉及组件 Pagination、Transfer、Calendar [#1411](https://github.com/DouyinFE/semi-design/pull/1411)
+- 【Docs】
+    - 优化 Form 组件英文文档描述 及 Demo 
+- 【Design Token】
+    - Slider 新增` $spacing-slider_handle-translateY`、`$spacing-slider_vertical_handle-translateX`、`$spacing-slider_dot-translateX`、`$spacing-slider_vertical_dot-translateY` Token，用于控制水平和垂直状态 把手和数值刻度线的水平和垂直偏移 [#1391](https://github.com/DouyinFE/semi-design/pull/1391)
+  
 #### 🎉 2.28.1 (2023-01-31)
 - 【Fix】
     - 修复 DatePicker 选择时间范围时面板移动问题 [#1221](https://github.com/DouyinFE/semi-design/issues/1221)

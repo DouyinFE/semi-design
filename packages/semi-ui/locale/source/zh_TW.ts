@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'zh-TW',
     dateFnsLocale: zhTW, // locale code to dateFns locale
     Pagination: {
-        item: '條',
+        pageSize: '${pageSize} 條/頁',
+        total: '共 ${total} 頁',
+        jumpTo: '跳至',
         page: '頁',
-        pageSize: '條/頁',
-        total: '共',
-        jumpTo: '跳至'
     },
     Modal: {
         confirm: '確定',

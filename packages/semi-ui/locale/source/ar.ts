@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
     Pagination: {
-        item: 'بند',
-        pageSize: ' العناصر / الصفحة',
+        pageSize: 'عدد العناصر في كل صفحة : ${pageSize} ',
+        total: 'مجموع الصفحات: ${total}',
+        jumpTo: 'اقفز إلى',
         page: ' الصفحات',
-        total: '',
-        jumpTo: 'اقفز إلى'
     },
     Modal: {
         confirm: 'تؤكد',
@@ -117,7 +116,7 @@ const local: Locale = {
         AM: '${time} صباح',
         PM: '${time} في الظهيرة',
         datestring: '',
-        remaining: '${remained} أكثر',
+        remaining: 'الكمية المتبقية: ${remained}',
     },
     Upload: {
         mainText: 'انقر لتحميل الملف أو اسحب الملف إلى هنا',
@@ -147,8 +146,8 @@ const local: Locale = {
         clear: 'واضح',
         selectAll: 'اختر الكل',
         clearSelectAll: 'إلغاء تحديد الكل',
-        total: 'مجموع ${total} العناصر',
-        selected: '${total} العناصر المحدد',
+        total: "الكمية الإجمالية: ${total}",
+        selected: "الكمية المحددة: ${total}"
     },
     Form: {
         optional: '(اختياري)',

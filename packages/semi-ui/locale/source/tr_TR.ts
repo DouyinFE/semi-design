@@ -5,10 +5,9 @@ const local: Locale = {
     code: 'tr-TR',
     dateFnsLocale: tr,
     Pagination: {
-        item: 'Makale',
         page: 'Sayfa',
-        pageSize: 'Makale / sayfa',
-        total: 'Toplam',
+        pageSize: '${pageSize} Makale / sayfa',
+        total: 'Toplam ${total} Sayfa',
         jumpTo: 'Atlamak'
     },
     Modal: {

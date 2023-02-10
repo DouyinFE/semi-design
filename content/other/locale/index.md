@@ -22,6 +22,7 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 | v2.2.0     | 西班牙语: es       |
 | v2.15.0     | 意大利语: it、法语：fr、德语：de   |
 | v2.21.0     | 罗马尼亚语: ro   |
+| v2.29.0     | 瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL |
 ## 已支持组件
 
 > DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload、Form、Navigation、Image
@@ -46,6 +47,9 @@ import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/lib/es/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/lib/es/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/lib/es/locale/source/nl_NL';
 import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
@@ -189,6 +193,9 @@ import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
 import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
 import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
 import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/lib/es/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/lib/es/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/lib/es/locale/source/nl_NL';
 import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
 import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
 import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
@@ -223,6 +230,9 @@ class I18nDemo extends React.Component {
             'pt_BR': pt_BR,
             'zh_TW': zh_TW,
             'es': es,
+            'sv_SE': sv_SE,
+            'pl_PL': pl_PL,
+            'nl_NL': nl_NL,
             de,
             it,
             fr,
@@ -307,7 +317,7 @@ class I18nDemo extends React.Component {
             return (
                 <>
                     <h5>Pagination</h5>
-                    <Pagination total={100} showTotal showSizeChanger style={style} />
+                    <Pagination total={100} showTotal showSizeChanger style={style} showQuickJumper />
                     <h5>Modal</h5>
 
                     <div style={style}>
@@ -430,6 +440,9 @@ class I18nDemo extends React.Component {
                         <Select.Option value='it'>意大利语</Select.Option>
                         <Select.Option value='fr'>法语</Select.Option>
                         <Select.Option value='ro'>罗马尼亚语</Select.Option>
+                        <Select.Option value='sv_SE'>瑞典语</Select.Option>
+                        <Select.Option value='pl_PL'>波兰语</Select.Option>
+                        <Select.Option value='nl_NL'>荷兰语</Select.Option>
                     </Select>
                 </div>
                 <LocaleProvider locale={locale}>

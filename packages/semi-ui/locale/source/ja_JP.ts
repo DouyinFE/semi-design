@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ja-JP',
     dateFnsLocale: ja,
     Pagination: {
-        item: '個数',
+        pageSize: '${pageSize} 個数 / ページ',
+        total: '合計 ${total} ページ',
+        jumpTo: 'ページへ',
         page: 'ページ',
-        pageSize: '個数 / ページ',
-        total: '合計',
-        jumpTo: 'ページへ'
     },
     Modal: {
         confirm: '確認する',

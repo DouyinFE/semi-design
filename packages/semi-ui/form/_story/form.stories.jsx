@@ -1,27 +1,9 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
 import {
   Button,
-  Modal,
-  TreeSelect,
-  Row,
-  Col,
-  Avatar,
-  Tabs,
-  TabPane,
-  Badge,
-  Notification,
 } from '../../index';
 import {
   Form,
-  useFormState,
-  useFormApi,
-  useFieldApi,
-  useFieldState,
-  withFormState,
-  withFormApi,
-  withField,
-  ArrayField,
-  Icon,
 } from '../../index';
 import { BasicDemoWithInit, LinkFieldForm, DifferentDeclareUsage } from './demo';
 const {
@@ -49,7 +31,7 @@ import {
 } from './Hook/hookDemo';
 
 // layout
-import { LayoutDemo, InsetLabelDemo, GroupFormDemo } from './Layout/layoutDemo';
+import { LayoutDemo, InsetLabelDemo } from './Layout/layoutDemo';
 import { AssistComponent } from './Layout/slotDemo';
 import { ModalFormDemo } from './Layout/modalFormDemo';
 
@@ -74,12 +56,16 @@ import { UpdateDemo, RuleupdateDemo } from './FieldProps/rulesUpdateDemo';
 import { FieldRefDemo } from './FieldProps/fieldRef';
 import { LableOptionalDemo } from './FieldProps/labelOptional';
 
+// form inputGroup
+import { InputGroupDemo } from './InputGroup/groupProps';
+
 // arrayField
 import {
   ArrayFieldCollapseDemo,
   ArrayFieldDemo,
   ArrayFieldWithFormInitValues,
   ArrayFieldWithInitValue,
+  ArrayFieldSetValues,
 } from './DynamicField/arrayFieldDemo';
 import { NestArrayField } from './DynamicField/nestArrayField';
 import { ArrayDemo } from './FormApi/arrayDemo';
@@ -95,6 +81,7 @@ import { SetValueUsingParentPath } from './FormApi/formApiDemo';
 import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
 export { default as FormSubmit } from './FormSubmit';
+
 
 export default {
   title: 'Form'
@@ -112,12 +99,6 @@ export const BasicDemo = () => <BasicDemoWithInit />;
 
 BasicDemo.story = {
   name: 'BasicDemo',
-};
-
-export const LayoutFormInputGroup = () => <GroupFormDemo />;
-
-LayoutFormInputGroup.story = {
-  name: 'Layout-Form.InputGroup',
 };
 
 export const LayoutFormWrapperColLabelCol = () => <LayoutDemo />;
@@ -213,6 +194,11 @@ ArrayFieldWithArrayFieldInitValue.story = {
   name: 'ArrayField-with arrayField initValue',
 };
 
+export const ArrayFieldSetValuesDemo = () => <ArrayFieldSetValues />;
+ArrayFieldSetValuesDemo.story ={
+  name: 'ArrayField-setValues didMount'
+}
+
 export const ArrayFieldNestUsage = () => <NestArrayField />;
 
 ArrayFieldNestUsage.story = {
@@ -249,10 +235,11 @@ ValidateUseRules.story = {
   name: 'Validate-use rules',
 };
 
+
+export const RaceAsync = () => <RaceAsyncDemo />;
 RaceAsyncDemo.story = {
   name: 'Validate - race async'
 }
-export const RaceAsync = () => <RaceAsyncDemo />;
 
 export const HooksUseFormApi = () => <UseFormApiDemo />;
 
@@ -340,7 +327,6 @@ export const FiledPropHelpTextExtraTextExtraTextPosition = () => (
   <>
     <HelpAndExtra />
     <ExtraPositionDemo />
-    <GroupFormDemo />
   </>
 );
 
@@ -387,6 +373,14 @@ export const FieldPropRef = () => <FieldRefDemo />;
 FieldPropRef.story = {
   name: 'Field Prop-ref',
 };
+
+
+export const GroupProp = () => <InputGroupDemo />
+
+GroupProp.story = {
+  name: 'InputGroup Prop - basic'
+};
+
 
 const InitEmptyStringDemo = () => {
   return (

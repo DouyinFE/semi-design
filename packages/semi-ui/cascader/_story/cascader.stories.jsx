@@ -1095,7 +1095,7 @@ export const CascaderWithSlot = () => {
         topSlot={<Text style={slotStyle}>选择地区</Text>}
         bottomSlot={
           <div style={slotStyle}>
-            <Text>找不大相关选项？</Text>
+            <Text>找不到相关选项？</Text>
             <Text link>去新建</Text>
           </div>
         }

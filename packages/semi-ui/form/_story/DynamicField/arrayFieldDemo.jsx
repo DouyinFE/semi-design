@@ -168,6 +168,16 @@ class ArrayFieldWithInitValue extends React.Component {
         this.change = this.change.bind(this);
     }
 
+    componentDidMount() {
+        this.formApi.setValues({
+            effects: [
+                { name: "脸部贴纸", type: "2D" },
+                { name: "前景贴纸", type: "3D" },
+            ],
+            test: 'fff'
+        })
+    }
+
     change = () => {
         let number = this.formApi.getValue('number');
         let newData = Array.from({ length: 2 }, (v, i) => ({
@@ -193,7 +203,7 @@ class ArrayFieldWithInitValue extends React.Component {
                 {/* <Button onClick={this.setValues}>setValues</Button> */}
                 <Row>
                     <Col span={12}>
-                        <ArrayField field="effects" initValue={effects}>
+                        <ArrayField field="effects">
                             {({ add, arrayFields }) => (
                                 <React.Fragment>
                                     <Button onClick={add} type="primary">Add</Button>
@@ -317,4 +327,75 @@ class ArrayFieldDemo extends React.Component {
     }
 }
 
-export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue };
+
+class ArrayFieldSetValues extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            data: {
+            },
+        };
+        this.getFormApi = this.getFormApi.bind(this);
+    }
+
+    componentDidMount() {
+        debugger
+        this.formApi.setValues({
+            effects: [
+                { name: "脸部贴纸", type: "2D" },
+                { name: "前景贴纸", type: "3D" },
+            ],
+            test: 'fff'
+        })
+    }
+
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    render() {
+        return (
+            <Form
+                // onChange={(...v) => console.log(v)}
+                onValueChange={(...v) => console.log(v)}
+                getFormApi={this.getFormApi}>
+                <Row>
+                    <Col span={12}>
+                        <ArrayField field="effects">
+                            {({ add, arrayFields }) => (
+                                <React.Fragment>
+                                    <Button onClick={add} type="primary">Add</Button>
+                                    {
+                                        arrayFields.map(({ field, key, remove }, i) => (
+                                            <div key={key}>
+                                                <Input
+                                                    field={`${field}[name]`}
+                                                    label={`${field}.name`}
+                                                    // initValue='test'
+                                                />
+                                                <Input
+                                                    field={`${field}[time]`}
+                                                    label={`${field}.time`}
+                                                />
+                                                <Button type="danger" onClick={remove}>remove</Button>
+                                            </div>
+                                        ))
+                                    }
+                                </React.Fragment>
+                            )}
+                        </ArrayField>
+                        <Form.Input field="test" label="Test" />
+                        <Space>
+                            <Button htmlType='reset'>Reset</Button>
+                        </Space>
+                    </Col>
+                    <Col span={12}>
+                        <ComponentUsingFormState />
+                    </Col>
+                </Row>
+            </Form>
+        );
+    }
+}
+
+export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue, ArrayFieldSetValues };

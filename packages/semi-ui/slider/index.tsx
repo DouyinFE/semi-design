@@ -296,7 +296,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             tipFormatter,
             range
         );
-        const transform = { top: 'translateY(-50%)', left: 'translateX(-50%)' };
         const minClass = cls(cssClasses.HANDLE, {
             [`${cssClasses.HANDLE}-clicked`]: chooseMovePos === 'min' && isDrag,
         });
@@ -328,7 +327,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     style={{
                         [stylePos]: `${minPercent * 100}%`,
                         zIndex: chooseMovePos === 'min' && isDrag ? 2 : 1,
-                        transform: transform[stylePos],
                     }}
                     onMouseDown={e => {
                         this.foundation.onHandleDown(e, 'min');
@@ -385,7 +383,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         style={{
                             [stylePos]: `${minPercent * 100}%`,
                             zIndex: chooseMovePos === 'min' ? 2 : 1,
-                            transform: transform[stylePos],
                         }}
                         onMouseDown={e => {
                             this.foundation.onHandleDown(e, 'min');
@@ -440,7 +437,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         style={{
                             [stylePos]: `${maxPercent * 100}%`,
                             zIndex: chooseMovePos === 'max' ? 2 : 1,
-                            transform: transform[stylePos],
                         }}
                         onMouseDown={e => {
                             this.foundation.onHandleDown(e, 'max');
