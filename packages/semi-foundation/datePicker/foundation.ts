@@ -175,12 +175,14 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
 export interface DatePickerFoundationState {
     panelShow: boolean;
     isRange: boolean;
+    /** value of trigger input */
     inputValue: string;
     value: Date[];
     cachedSelectedValue: Date[];
     prevTimeZone: string | number;
     rangeInputFocus: RangeType;
     autofocus: boolean;
+    /** value of inset input */
     insetInputValue: InsetInputValue;
     triggerDisabled: boolean
 }
@@ -248,7 +250,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
         const result = this.parseWithTimezone(_value, timeZone, prevTimeZone);
         this._adapter.updatePrevTimezone(prevTimeZone);
+        // reset input value when value update
         this._adapter.updateInputValue(null);
+        this._adapter.updateInsetInputValue(null);
         this._adapter.updateValue(result);
         this.resetCachedSelectedValue(result);
         this.initRangeInputFocus(result);

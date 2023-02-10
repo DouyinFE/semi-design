@@ -634,4 +634,15 @@ describe('DatePicker', () => {
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day-selected-start');
         cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day-selected-end');
     });
+
+    it('test controlled insetInput dateTimeRange ', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-controlled&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(0).should("have.value", "2022-02-20");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(1).should("have.value", "00:00:00");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(2).should("have.value", "2023-02-20");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(3).should("have.value", "00:00:00");
+    });
 });

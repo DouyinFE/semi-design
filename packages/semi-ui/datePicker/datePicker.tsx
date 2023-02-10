@@ -665,8 +665,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, insetInput, type, format, rangeSeparator, defaultPickerValue, presetPosition } = this.props;
-        const { insetInputValue, value } = this.state;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, presetPosition } = this.props;
         const wrapCls = classnames(
             cssClasses.PREFIX,
             {
@@ -676,22 +675,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             dropdownClassName
         );
 
-        const insetInputProps = {
-            dateFnsLocale,
-            format,
-            insetInputValue,
-            rangeSeparator,
-            type,
-            value: value as Date[],
-            handleInsetDateFocus: this.handleInsetDateFocus,
-            handleInsetTimeFocus: this.handleInsetTimeFocus,
-            onInsetInputChange: this.handleInsetInputChange,
-            rangeInputStartRef: this.rangeInputStartRef,
-            rangeInputEndRef: this.rangeInputEndRef,
-            density,
-            defaultPickerValue
-        };
-
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} >
                 {topSlot && (
@@ -700,7 +683,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     </div>
                 )}
                 {presetPosition === "top" && this.renderQuickControls()}
-                {/* {insetInput && <DateInput {...insetInputProps} insetInput={true} />} */}
                 {this.adapter.typeIsYearOrMonth()
                     ? this.renderYearMonthPanel(locale, localeCode)
                     : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
