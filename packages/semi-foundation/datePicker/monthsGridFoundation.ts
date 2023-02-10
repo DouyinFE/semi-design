@@ -228,12 +228,13 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
     }
 
     _initDatePickerFromValue(values: Date[], refreshPicker = true) {
-        const monthLeft = this.getState('monthLeft');
+        const { monthLeft } = this._adapter.getStates();
         const newMonthLeft = { ...monthLeft };
         // REMOVE:
         this._adapter.updateMonthOnLeft(newMonthLeft);
         const newSelected = new Set<string>();
-        if (!this._isMultiple()) {
+        const isMultiple = this._isMultiple();
+        if (!isMultiple) {
             values[0] && newSelected.add(format(values[0] as Date, strings.FORMAT_FULL_DATE));
         } else {
             values.forEach(date => {
@@ -241,7 +242,12 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             });
         }
         if (refreshPicker) {
-            this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            if (isMultiple) {
+                const leftPickerDateInSelected = values?.some(item => item && differenceInCalendarMonths(item, monthLeft.pickerDate) === 0);
+                !leftPickerDateInSelected && this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            } else {
+                this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            }
         } else {
             // FIXME:
             this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, newMonthLeft.pickerDate);
