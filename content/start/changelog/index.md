@@ -16,6 +16,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 ---
 
+#### 🎉 2.29.0 (2023-02-10)
+- 【Feat】
+    - Locale 增加瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL支持 [i18n] 增加瑞典语、波兰语、荷兰语的支持 [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
+- 【Fix】
+    - 优化俄语、阿拉伯语、罗马尼亚语种单复数文本显示问题
+    - 修复 DatePicker 内嵌输入框受控模式下 dateTimeRange 回显错误问题 [#1413](https://github.com/DouyinFE/semi-design/issues/1413)
+- 【Design Token】
+    - Table Design Token 变更，修改以下 Token 默认值：$color-table_body-bg-default 、$color-table-bg-default ， 由 var(--semi-color-bg-2) 变更为 var(--semi-color-bg-1)，$color-table_th-bg-default 值从 transparent 改为 var(--semi-color-bg-1) [#1418](https://github.com/DouyinFE/semi-design/pull/1418)
+
 #### 🎉 2.29.0-beta.0 (2023-02-06)
 - 【Feat】
     - Form.InputGroup 支持配置 extraText, extraTextPosition，对齐 Field Component [#1313](https://github.com/DouyinFE/semi-design/issues/1313)
