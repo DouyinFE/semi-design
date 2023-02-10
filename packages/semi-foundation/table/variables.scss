@@ -47,18 +47,18 @@ $height-table_pagination_outer_min: 60px; // 表格分页器高度
 // Color no need to change
 $color-table_panel-bg-default: var(--semi-color-primary); // 操作区域样式默认背景颜色
 $color-table_panel-text-default: var(--semi-color-primary-light-active); // 操作区域样式默认文字颜色
-$color-table-bg-default: var(--semi-color-bg-2); // 单元格默认背景颜色
+$color-table-bg-default: var(--semi-color-bg-1); // 单元格默认背景颜色
 $color-table-text-default: var(--semi-color-text-0); // 单元格默认文字颜色
 
 $color-table-border-default: var(--semi-color-border); // 表格描边颜色
 $color-table_shadow-bg-default: var(--semi-color-shadow); // 表格滚动后阴影颜色
 $color-table_shadow-border-default: var(--semi-color-border); // 表格拟阴影 描边颜色
-$color-table_th-bg-default: transparent; // 表头背景色
+$color-table_th-bg-default: var(--semi-color-bg-1); // 表头背景色
 $color-table_th-border-default: var(--semi-color-border); // 表头底部分割线颜色
 $color-table_th-text-default: var(--semi-color-text-2); // 表头文字颜色
 
 $color-table_pl-bg-default: transparent;
-$color-table_body-bg-default: var(--semi-color-bg-2); // 表格背景颜色 - 默认
+$color-table_body-bg-default: var(--semi-color-bg-1); // 表格背景颜色 - 默认
 $color-table_body-bg-hover: var(--semi-color-fill-0); // 表格背景颜色 - 悬浮
 $color-table_footer-bg-default: var(--semi-color-fill-0); // 表格 footer 背景颜色 - 默认
 $color-table_row_expanded-bg-default: var(--semi-color-fill-0); // 表格展开行背景颜色 - 默认
