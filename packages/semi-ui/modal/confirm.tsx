@@ -36,7 +36,11 @@ export default function confirm<T>(props: ConfirmProps) {
 
 
     function render(renderProps: ConfirmProps) {
-        ReactDOM.render(<ConfirmModal {...renderProps} motion={props.motion}/>, div);
+        const {afterClose} = renderProps;
+        ReactDOM.render(<ConfirmModal {...renderProps} afterClose={(...args:any)=>{
+            afterClose && afterClose(...args);
+            destroy();
+        }} motion={props.motion}/>, div);
     }
 
     function close() {
