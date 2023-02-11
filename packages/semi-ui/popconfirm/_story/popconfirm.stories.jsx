@@ -5,6 +5,7 @@ import Button from '../../button';
 import Input from '../../input';
 import Table from '../../table';
 import Toast from '../../toast';
+import { Space } from '../../index';
 
 import TypesConfrimDemo from './TypesConfirm';
 import DynamicDisableDemo from './DynamicDisable';
@@ -204,3 +205,78 @@ PromiseCallback.story = {
   name: 'PromiseCallbackDemo',
 };
 
+export const KeyboardAndFocus = () => {
+  return (
+    <div style={{ height: '150vh', marginTop: 200 }}>
+      <Space>
+        <div data-cy="initial-focus-confirm">
+          <Popconfirm
+              title="确定是否要保存此修改？"
+              content="此修改将不可逆"
+              okButtonProps={{
+                autoFocus: true,
+                type: 'danger',
+                className: 'test-ok',
+              }}
+          >
+              <Button>确认聚焦</Button>
+          </Popconfirm>
+        </div>
+        <div data-cy="initial-focus-cancel">
+          <Popconfirm
+              title="确定是否要保存此修改？"
+              content="此修改将不可逆"
+              cancelButtonProps={{
+                autoFocus: true,
+                className: 'test-cancel',
+              }}
+          >
+              <Button>取消聚焦</Button>
+          </Popconfirm>
+        </div>
+        <div data-cy="initial-focus-content">
+          <Popconfirm
+              title="确定是否要保存此修改？"
+              content={({ initialFocusRef }) => {
+                return <input ref={initialFocusRef} placeholder="focus here" />;
+              }}
+          >
+              <Button>内容聚焦</Button>
+          </Popconfirm>
+        </div>
+      </Space>
+    </div>
+  );
+};
+KeyboardAndFocus.storyName = "a11y focus";
+
+export const ESCKeyDown = () => {
+  return (
+    <div style={{ height: '150vh', marginTop: 200 }}>
+      <Space>
+        <div data-cy="content">
+          <Popconfirm
+              title="确定是否要保存此修改？"
+              content="此修改将不可逆"
+              okButtonProps={{
+                autoFocus: true,
+                className: 'test-ok',
+              }}
+          >
+              <Button>content</Button>
+          </Popconfirm>
+        </div>
+        <div data-cy="trigger">
+          <Popconfirm
+                title="确定是否要保存此修改？"
+                content={<div onClick={() => console.log('clicked')} className='test-text'>此修改将不可逆</div>}
+                okButtonProps={{ autoFocus: true }}
+            >
+              <Button>trigger</Button>
+          </Popconfirm>
+        </div>
+      </Space>
+    </div>
+  );
+};
+ESCKeyDown.storyName = "a11y esc keydown";
