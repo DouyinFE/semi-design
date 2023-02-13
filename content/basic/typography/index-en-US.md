@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 17
+order: 18
 category: Basic
 title:  Typography
 subTitle: Typography

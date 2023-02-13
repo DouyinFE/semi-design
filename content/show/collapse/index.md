@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 49
+order: 50
 category: 展示类
 title: Collapse 折叠面板
 icon: doc-accordion
