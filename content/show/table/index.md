@@ -4772,8 +4772,8 @@ import { Table } from '@douyinfe/semi-ui';
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
 | sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
-| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
-| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染) | boolean | false | **0.34.0** |
+| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
+| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
 | onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any[], record: RecordType) => boolean |  |
