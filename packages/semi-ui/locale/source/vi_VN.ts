@@ -85,7 +85,7 @@ const local: Locale = {
             Sun: 'chủ nhật',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
+            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
         },
     },
     Popconfirm: {
