@@ -218,7 +218,6 @@ class I18nDemo extends React.Component {
         let language = {
             'zh_CN': zh_CN,
             'en_GB': en_GB,
-            'en_US': en_US,
             'ko_KR': ko_KR,
             'ja_JP': ja_JP,
             'ar': ar,
@@ -424,7 +423,6 @@ class I18nDemo extends React.Component {
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
                     <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
                         <Select.Option value='zh_CN'>简体中文</Select.Option>
-                        <Select.Option value='en_US'>英语（美）</Select.Option>
                         <Select.Option value='en_GB'>英语（英）</Select.Option>
                         <Select.Option value='ja_JP'>日语</Select.Option>
                         <Select.Option value='ko_KR'>韩语</Select.Option>
