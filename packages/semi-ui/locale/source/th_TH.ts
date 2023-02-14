@@ -86,7 +86,7 @@ const local: Locale = {
             Sun: 'อา',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd/M/yyyy',
+            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
         },
     },
     Navigation: {
