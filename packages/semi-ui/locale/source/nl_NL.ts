@@ -3,13 +3,13 @@ import { nl } from 'date-fns/locale';
 import { Locale } from '../interface';
 
 /**
- * [i18n-Dutch (pl_PL)]
+ * [i18n-Dutch (nl_NL)]
  * 荷兰语
  *
  */
 
 const local: Locale = {
-    code: 'pl_PL',
+    code: 'nl_NL',
     dateFnsLocale: nl, // locale code to dateFns locale
     Pagination: {
         page: 'pagina',

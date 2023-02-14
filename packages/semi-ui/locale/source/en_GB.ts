@@ -82,7 +82,7 @@ const local: Locale = {
             Sun: 'Sun',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'MM/dd/yyyy',
         },
     },
     Popconfirm: {
