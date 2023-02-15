@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'de',
     dateFnsLocale: de,
     Pagination: {
-        pageSize: '${pageSize} Artikel / Seite',
-        total: '${total} Seiten',
+        pageSize: 'Elemente pro Seite: ${pageSize}',
+        total: 'Seiten gesamt: ${total}',
         jumpTo: 'Springen zu',
         page: ' Seiten',
     },
@@ -146,8 +146,8 @@ const local: Locale = {
         clear: 'Löschen',
         selectAll: 'Alles auswählen',
         clearSelectAll: 'Alles abwählen',
-        total: 'Gesamt ${total} Artikel',
-        selected: '${total} ausgewählte Artikel',
+        total: 'Elemente gesamt: ${total}',
+        selected: 'Elemente ausgewählt: ${total}',
     },
     Form: {
         optional: '(Optional)',

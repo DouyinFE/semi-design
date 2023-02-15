@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'vi-VN',
     dateFnsLocale: vi,
     Pagination: {
-        pageSize: '${pageSize} Số / trang',
-        total: 'Tổng cộng ${total} Số trang',
+        pageSize: 'Số mục mỗi trang: ${pageSize}',
+        total: 'Tổng số trang: ${total}',
         jumpTo: 'Chuyển đến',
         page: ' Số trang',
     },
@@ -149,8 +149,8 @@ const local: Locale = {
         clear: 'Clear',
         selectAll: 'Thông thoáng',
         clearSelectAll: 'Bỏ chọn tất cả',
-        total: 'Tổng số ${total} mặt hàng',
-        selected: '${total} mục được chọn',
+        total: 'Tổng số mục: ${total}',
+        selected: 'Số mục đã chọn: ${total}',
     },
     Form: {
         optional: '(không bắt buộc)',
