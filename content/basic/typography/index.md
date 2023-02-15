@@ -179,7 +179,7 @@ function Demo() {
             </Numeral>
 
             <Numeral rule="percentages" style={{ marginBottom: 12 }}>
-                这场比赛我的胜率是60，输的概率是40
+                这场比赛我的胜率是0.6，输的概率是0.4
             </Numeral>
 
             <Numeral rule="bytes-decimal" precision={2} truncate="floor">

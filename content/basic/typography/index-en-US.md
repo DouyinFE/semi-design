@@ -189,7 +189,7 @@ function Demo() {
             </Numeral>
 
             <Numeral rule="percentages" style={{ marginBottom: 12 }}>
-                My odds of winning this game are 60 and my odds of losing are 40.
+                My odds of winning this game are 0.6 and my odds of losing are 0.4.
             </Numeral>
 
             <Numeral rule="bytes-decimal" precision={2} truncate="floor">
