@@ -13,8 +13,8 @@ const local: Locale = {
     dateFnsLocale: nl, // locale code to dateFns locale
     Pagination: {
         page: 'pagina',
-        pageSize: 'Artikelen per pagina: ${pageSize}',
-        total: "Totaal ${total} pagina's",
+        pageSize: 'Items per pagina: ${pageSize}',
+        total: "Totaal aantal pagina's: ${total}",
         jumpTo: 'Ga naar'
     },
     Modal: {
@@ -153,8 +153,8 @@ const local: Locale = {
         clear: 'Wissen',
         selectAll: 'Alles selecteren',
         clearSelectAll: 'Alle selecties opheffen',
-        total: '${total} stuks in totaal',
-        selected: '${total} artikelen geselecteerd',
+        total: 'Totaal aantal items: ${total}',
+        selected: 'Wybrane pozycje: ${total}',
     },
     Form: {
         optional: 'Optioneel',
