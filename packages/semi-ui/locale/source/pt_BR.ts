@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'pt-BR',
     dateFnsLocale: ptBR,
     Pagination: {
-        pageSize: '${pageSize} artigo /página',
-        total: 'Total ${total} página',
+        pageSize: 'Itens por página: ${pageSize}',
+        total: 'Total de páginas: ${total}',
         jumpTo: 'Pule para',
         page: 'página',
     },
@@ -90,7 +90,7 @@ const local: Locale = {
             Sun: 'Sun',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd-MM-yyyy',
         },
     },
     Navigation: {
@@ -154,8 +154,8 @@ const local: Locale = {
         clear: 'Vazio',
         selectAll: 'selecionar tudo',
         clearSelectAll: 'Cancelar selecionar tudo',
-        total: 'Total de ${total} itens',
-        selected: '${total} itens selecionados',
+        total: 'Total de itens: ${total}',
+        selected: 'Itens selecionados: ${total}',
     },
     Form: {
         optional: '(opcional)',

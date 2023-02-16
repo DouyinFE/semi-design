@@ -7,7 +7,7 @@ export default {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
-        pageSize: 'Articole pe pagină: ${pageSize}',
+        pageSize: 'Elemente per pagină: ${pageSize}',
         total: 'Total pagini: ${total}',
         jumpTo: 'Treci la',
         page: 'pagini',
@@ -84,7 +84,7 @@ export default {
             Sun: 'dum',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Popconfirm: {
@@ -147,10 +147,23 @@ export default {
         clear: 'Șterge',
         selectAll: 'Selectează toate',
         clearSelectAll: 'Deselectează toate',
-        total: 'Total articole: ${total} ',
-        selected: 'articole selectate: ${total}',
+        total: 'Total elemente: ${total}',
+        selected: 'Elemente selectate: ${total}',
     },
     Form: {
         optional: '(opțional)',
+    },
+    Image: {
+        preview: 'Previzualizează',
+        loading: 'Se încarcă',
+        loadError: 'Nu s-a putut încărca',
+        prevTip: 'Anterior',
+        nextTip: 'Înainte',
+        zoomInTip: 'Mărire',
+        zoomOutTip: 'Micșorare',
+        rotateTip: 'Rotește',
+        downloadTip: 'Descarcă',
+        adaptiveTip: 'Afișaj adaptabil',
+        originTip: 'Afișaj implicit',
     },
 };

@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'it',
     dateFnsLocale: it,
     Pagination: {
-        pageSize: '${pageSize} elementi / pagine',
-        total: '${total} pagine',
+        pageSize: 'Elementi per pagina: ${pageSize}',
+        total: 'Pagine totali: ${total}',
         jumpTo: 'Vai a',
         page: ' pagine',
     },
@@ -82,7 +82,7 @@ const local: Locale = {
             Sun: 'Dom',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
         },
     },
     Popconfirm: {
@@ -146,8 +146,8 @@ const local: Locale = {
         clear: 'Cancella',
         selectAll: 'Seleziona tutto',
         clearSelectAll: 'Deseleziona tutto',
-        total: 'Totale ${total} elementi',
-        selected: '${total} elementi selezionati',
+        total: 'Elementi totali: ${total}',
+        selected: 'Elementi selezionati: ${total}',
     },
     Form: {
         optional: '(opzionale)',
