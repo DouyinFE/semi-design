@@ -7,12 +7,19 @@ localeCode: en-US
 order: 4
 ---
 
+## Introduction
+
+Design to code (D2C) is a design draft conversion code tool provided by `Semi Design`, which supports one-click recognition of layer layout + Semi components in Figma pages, restores design drafts at the pixel level, translates them into JSX and CSS codes, and quickly previews them.
+No need to start from 0.
+
+From now, you can let the tool take care of UI restoration, focus more on your business logic.
+
 ## Abilities
 
 <div>
-     <Row gutter={[20, 20]}>
+     <Row gutter={[20, 80]}>
          <Col span={8}>
-             <FeatureCard title='Support basic UI transcode'>
+             <FeatureCard title='Support basic UI layout transcode'>
                  Support flex layout, absolute layout
              </FeatureCard>
          </Col>
@@ -23,7 +30,7 @@ order: 4
          </Col>
          <Col span={8}>
              <FeatureCard title='Support exporting different stack codes' >
-                 Supports React + Scss, React + Tailwind and JSON Schema
+                 Multiple code style output：React + Scss, React + Tailwind and JSON Schema
              </FeatureCard>
          </Col>
      </Row>
@@ -40,27 +47,21 @@ order: 4
                  Recognize what the designer has modified to identify it as a ReactNode
              </FeatureCard>
          </Col>
-         <Col span={8}>
-             <FeatureCard title='Support refreshing component rounded corners and spacing'>
-                 Even if Figma does not support these tokens, borders, rounded corners, inner and outer margins, width and height, and spacing support refreshing
-             </FeatureCard>
-         </Col>
      </Row>
 </div>
 
-## Instructions for use
-
-Please move directly to <a href="https://semi.design/code" target="_blank">semi.design/code</a>
+## How to use
 
 ![](https://lf3-files.qingfuwucdn.net/obj/inspirecloud-file/baas/tt38q7/1aaf72252f553443_1676606724044.png)
 
+Please move directly to <a href="https://semi.design/code" target="_blank">semi.design/code</a>
 ## Application scenario
 
 <div>
      <Row gutter={[20, 20]}>
          <Col span={8}>
              <FeatureCard title='Basic page transcode' >
-                Restore the layout of the basic page, suitable for landing page development
+                Restore the layout of the basic page, suitable for landing page rapid development
              </FeatureCard>
          </Col>
          <Col span={8}>
@@ -81,7 +82,7 @@ Please move directly to <a href="https://semi.design/code" target="_blank">semi.
              </FeatureCard>
          </Col>
          <Col span={8}>
-             <FeatureCard title='Use JSON Schema'>
+             <FeatureCard title='Access to custom build platform'>
                 Customize consumption JSON Schema and create template code suitable for your project
              </FeatureCard>
          </Col>
