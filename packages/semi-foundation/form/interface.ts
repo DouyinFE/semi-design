@@ -113,8 +113,10 @@ export interface FieldStaff {
 
 export interface ArrayFieldStaff {
     field: string;
-    updateKey?: string;
-    initValue?: any
+    // updateKey?: string;
+    updateValue?: any;
+    initValue?: any;
+    forceUpdate?: (value: any) => void
 }
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;

@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { useState, useLayoutEffect, Component } from 'react';
-import { storiesOf } from '@storybook/react';
 import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,
     Form,
     useFormState,
@@ -14,8 +13,9 @@ import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,
     AutoComplete,
     Collapse,
     Space,
+    TextArea,
     Icon } from '../../../index';
-
+import { IconPlusCircle, IconMinusCircle, } from '@douyinfe/semi-icons';
 
 import { ComponentUsingFormState } from '../Hook/hookDemo';
 const { Input, Select, DatePicker, Switch, Slider, CheckboxGroup, Checkbox, RadioGroup, Radio, TimePicker, InputNumber, InputGroup } = Form;
@@ -328,6 +328,7 @@ class ArrayFieldDemo extends React.Component {
 }
 
 
+// Fix 1409
 class ArrayFieldSetValues extends React.Component {
     constructor() {
         super();
@@ -339,11 +340,10 @@ class ArrayFieldSetValues extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         this.formApi.setValues({
             effects: [
-                { name: "脸部贴纸", type: "2D" },
-                { name: "前景贴纸", type: "3D" },
+                { name: "Semi D2C", role: "Engineer" },
+                { name: "Semi DSM", role: "Designer" },
             ],
             test: 'fff'
         })
@@ -374,8 +374,8 @@ class ArrayFieldSetValues extends React.Component {
                                                     // initValue='test'
                                                 />
                                                 <Input
-                                                    field={`${field}[time]`}
-                                                    label={`${field}.time`}
+                                                    field={`${field}[role]`}
+                                                    label={`${field}.role`}
                                                 />
                                                 <Button type="danger" onClick={remove}>remove</Button>
                                             </div>
@@ -398,4 +398,87 @@ class ArrayFieldSetValues extends React.Component {
     }
 }
 
-export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue, ArrayFieldSetValues };
+
+
+class AsyncSetArrayField extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            data: [
+                { name: 'Semi D2C', role: 'Engineer' },
+                { name: 'Semi C2D', role: 'Designer' },
+            ]
+        };
+    }
+
+    getFormApi = (formApi) => {
+        this.formApi = formApi;
+    }
+
+    change = () => {
+        let rules = this.formApi.getValue('rules');
+        if (!rules) {
+            efferulests = [];
+        }
+        rules.push({ name: `Semi ${new Date().valueOf()}`, role: 'Designer', key: rules.length + 1  });
+        setTimeout(() => {
+            this.formApi.setValue('rules', rules);
+        }, 300);
+   }
+
+    render() {
+        let { data } = this.state;
+        const ComponentUsingFormState = () => {
+            const formState = useFormState();
+            return (
+                <TextArea style={{ marginTop: 10 }} value={JSON.stringify(formState)} />
+            );
+        };
+        return (
+            <Form style={{ width: 800 }} labelPosition='left' labelWidth='100px' allowEmpty getFormApi={this.getFormApi}>
+                <ArrayField field='rules' initValue={data}>
+                    {({ add, arrayFields, addWithInitValue }) => (
+                        <React.Fragment>
+                            <Button onClick={this.change} theme='light'>change</Button>
+                            <Button onClick={add} icon={<IconPlusCircle />} theme='light'>Add new line</Button>
+                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: `Semi DSM ${arrayFields.length + 1}`, role: 'Designer' });}} style={{ marginLeft: 8 }}>Add new line with init value</Button>
+                            {
+                                arrayFields.map(({ field, key, remove }, i) => (
+                                    <div key={key} style={{ width: 1000, display: 'flex' }}>
+                                        <Form.Input
+                                            field={`${field}[name]`}
+                                            label={`${field}.name`}
+                                            style={{ width: 200, marginRight: 16 }}
+                                        >
+                                        </Form.Input>
+                                        <Form.Select
+                                            field={`${field}[role]`}
+                                            label={`${field}.role`}
+                                            style={{ width: 120 }}
+                                            optionList={[
+                                                { label: 'Engineer', value: 'Engineer' },
+                                                { label: 'Designer', value: 'Designer' },
+                                            ]}
+                                        >
+                                        </Form.Select>
+                                        <Button
+                                            type='danger'
+                                            theme='borderless'
+                                            icon={<IconMinusCircle />}
+                                            onClick={remove}
+                                            style={{ margin: 12 }}
+                                        />
+                                    </div>
+                                ))
+                            }
+                        </React.Fragment>
+                    )}
+                </ArrayField>
+                <ComponentUsingFormState />
+            </Form>
+        );
+    }
+}
+
+
+export { ArrayFieldCollapseDemo, ArrayFieldDemo, ArrayFieldWithFormInitValues, ArrayFieldWithInitValue, ArrayFieldSetValues, AsyncSetArrayField };

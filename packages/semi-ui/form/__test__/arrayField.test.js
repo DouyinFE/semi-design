@@ -194,11 +194,12 @@ describe('Form.ArrayField', () => {
         //     expect(line3Type).toEqual(newLine.type);
         //     done();
         // }, 1000);
-    }); // it('ArrayField-form allowEmpty', () => {
+    }); 
+
+    // it('ArrayField-form allowEmpty', () => {
     // });
     // it('formApi setValues rewrite ArrayField', () => {
     // });
     // it('Nested ArrayField', () => {
     // });
-
 });

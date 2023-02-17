@@ -1,9 +1,7 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
 import {
   Button,
-} from '../../index';
-import {
-  Form,
+  Form
 } from '../../index';
 import { BasicDemoWithInit, LinkFieldForm, DifferentDeclareUsage } from './demo';
 const {
@@ -66,6 +64,7 @@ import {
   ArrayFieldWithFormInitValues,
   ArrayFieldWithInitValue,
   ArrayFieldSetValues,
+  AsyncSetArrayField,
 } from './DynamicField/arrayFieldDemo';
 import { NestArrayField } from './DynamicField/nestArrayField';
 import { ArrayDemo } from './FormApi/arrayDemo';
@@ -82,6 +81,7 @@ import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
 export { default as FormSubmit } from './FormSubmit';
 
+export * from './ArrayField';
 
 export default {
   title: 'Form'
@@ -128,8 +128,16 @@ LayoutSlotErrorMessageLabel.story = {
 export const LayoutModalDemo = () => <ModalFormDemo />;
 
 LayoutModalDemo.story = {
-  name: 'Layout- ModalDemo',
+  name: 'Layout-ModalDemo',
 };
+
+
+export const GroupProp = () => <InputGroupDemo />
+
+GroupProp.story = {
+  name: 'Layout-InputGroup Prop - basic'
+};
+
 
 export const FormApiSetValuesOverride = () => <SetValuesDemo />;
 
@@ -199,6 +207,11 @@ ArrayFieldSetValuesDemo.story ={
   name: 'ArrayField-setValues didMount'
 }
 
+export const AsyncSetArrayFieldDemo  = () => <AsyncSetArrayField></AsyncSetArrayField>;
+AsyncSetArrayFieldDemo.story = {
+  name: 'ArrayField-update async'
+}
+
 export const ArrayFieldNestUsage = () => <NestArrayField />;
 
 ArrayFieldNestUsage.story = {
@@ -237,8 +250,8 @@ ValidateUseRules.story = {
 
 
 export const RaceAsync = () => <RaceAsyncDemo />;
-RaceAsyncDemo.story = {
-  name: 'Validate - race async'
+RaceAsync.story = {
+  name: 'Validate-race async'
 }
 
 export const HooksUseFormApi = () => <UseFormApiDemo />;
@@ -374,14 +387,6 @@ FieldPropRef.story = {
   name: 'Field Prop-ref',
 };
 
-
-export const GroupProp = () => <InputGroupDemo />
-
-GroupProp.story = {
-  name: 'InputGroup Prop - basic'
-};
-
-
 const InitEmptyStringDemo = () => {
   return (
     <Form allowEmpty>
@@ -445,3 +450,4 @@ export const _ChildDidMount = () => <ChildDidMount />;
 _ChildDidMount.story = {
   name: 'child did mount',
 };
+

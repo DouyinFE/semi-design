@@ -11,7 +11,7 @@
             "runtimeArgs": [
                 "--inspect-brk",
                 "${workspaceRoot}/node_modules/.bin/jest",
-                "${workspaceRoot}/packages/semi-ui/select/", // 需要调试哪个组件，替换文件夹路径即可
+                "${workspaceRoot}/packages/semi-ui/form/", // 需要调试哪个组件，替换文件夹路径即可
                 "--runInBand",
                 // "--coverage",
                 "--silent" // ignore warning such as componentWillReceiveProps will be abondon...

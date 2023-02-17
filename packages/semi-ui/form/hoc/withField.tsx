@@ -28,6 +28,8 @@ const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : us
  * 1. Takes over the value and onChange of the component and synchronizes them to Form Foundation
  * 2. Insert <Label>
  * 3. Insert <ErrorMessage>
+ * 4. Insert extraText
+ * 5. Add A11y Aria Support
  */
 
 function withField<

@@ -2,11 +2,23 @@ import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Form, useFormState, useFormApi, withField, Input, Button, Upload, withFormApi, withFormState } from '../../index';
 import { values } from 'lodash';
+import { Modal } from '../../modal';
 const stories = storiesOf('Form', module);
 import { FormApiContext } from '../context';
 
 
 import type { FormApi, FormFCChild, FormState } from '../interface';
+
+
+
+const ModalForm = <Values extends Record<string, any> = any> (props) => {
+    return <div>
+        <Form<Values>>
+
+        </Form>
+    </div>
+};
+
 
 const treeData = [
     {
