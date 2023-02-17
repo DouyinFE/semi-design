@@ -502,7 +502,7 @@ function SplitButtonDemo(){
 | size                | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                      | string                           | "default" |
 | style               | Custom style                                                                                                                                      | CSSProperties                           |           |
 | theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color)         | string                           | "light"   |
-| type                | Type, optional values: `"primary"`,`"secondary"`, `"late"`, `"warning"`, `"danger"`                                                               | string                           | "primary" |
+| type                | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                               | string                           | "primary" |
 | onClick             | Click event                                                                                                                                       | Function(MouseEvent)                         |           |
 | onMouseDown             | Mouse down                                                                                                   | Function(MouseEvent)                        |           |
 | onMouseEnter             | Mouse Enter                                                                                                   | Function(MouseEvent)                        |           |
