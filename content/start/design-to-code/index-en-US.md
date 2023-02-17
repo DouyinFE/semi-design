@@ -103,7 +103,7 @@ Here is a link to the Figma example mockup and its corresponding Codesandbox tra
 | <a href='https://www.figma.com/file/TlLeWouyImYUexTmhdLiIn/D2C-Getting-Start-Demo%EF%BC%88Figma-Community%EF%BC%89?node-id=419%3A128959&t=PMnGQ3VQIoGQZZPl-4' target="_blank"><img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/semi-linker/semi-code-site/Simple Table.png' style={{ width:  400 }} /></a> | Module with Semi Table Components                                                                 | Can be used to quickly identify table columns, create Table                                         | <a href='https://codesandbox.io/s/happy-browser-dt34sr' target="_blank">Link</a>             |
 | <a href='https://www.figma.com/file/TlLeWouyImYUexTmhdLiIn/D2C-Getting-Start-Demo?node-id=1%3A276' target="_blank" rel="noreferrer noopener"><img src='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/semi-linker/d2c-landing-example.png' style={{ width:  400 }} /></a>                                          | Full landing page                                                                                 | Can be used to quickly restore layout and content                                                   | <a href='https://codesandbox.io/s/cvhhqt' target="_blank" rel="noreferrer noopener">Link</a> |
 
-## Differences from other solutions
+## Comparisons
 
 ### More in line with the designer's usage habits
 

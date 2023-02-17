@@ -38,6 +38,13 @@ const PageAnchor = props => {
                     > 
                         {makeAnchor(anchorItem.items)}
                     </Anchor.Link>);
+                } else if (['与其他方案的差异', 'Comparisons'].includes(anchorItem.title)) {
+                    anchorList.push(<Anchor.Link
+                        href={`#${makeAnchorId(anchorItem.title)}`}
+                        title={anchorItem.title}
+                        key={anchorItem.title}
+                    > 
+                    </Anchor.Link>);
                 } else if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
                     anchorList.push(makeAnchor(anchorItem.items));
                 } else {
