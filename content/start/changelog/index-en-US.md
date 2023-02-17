@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 7
+order: 8
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 

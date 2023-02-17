@@ -3,7 +3,7 @@ category: 开始
 title: Accessibility  无障碍
 icon: doc-a11y
 localeCode: zh-CN
-order: 5
+order: 6
 brief: 无障碍设计是让所有人都可以轻松地与产品互动，包括那些残障人群，为每个人提供更好的体验。Semi 设计系统旨在消除障碍并创造适合所有人的包容性产品体验。
 ---
 

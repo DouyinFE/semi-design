@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 28
 category: 输入类
 title:  Rating 评分
 icon: doc-rating
