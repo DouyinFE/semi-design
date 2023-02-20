@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.30.0-beta.0 (2023-02-20)
+- 【Breaking Change】
+    - **Modify the calculation rules when the rule in the Numeral component is percentages**
+- 【Feat】
+    - Popconfirm supports A11y keyboard and focus  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Cascader supports calling the open/close method through ref
+    - Optimize the display format of the date at the bottom of the DatePicker panel, and configure it according to different locale language habits [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Style】
+    - Solid Tag close button adds hover state color var(--semi-color-white) and active state color var(--semi-color-white)(opacity 0.9), default color from var(--semi-color-white) Change to var(--semi-color-white)(opacity 0.8).
+- 【Fix】
+    - Fix DatePicker panel moving in multiple mode  [#1422](https://github.com/DouyinFE/semi-design/issues/1422)
+    - Fix the wrong localeCode of nl-NL language pack, the scope of influence (v2.29.0-beta.0) [@jacob-lcs](https://github.com/jacob-lcs)
+
 #### 🎉 2.29.0 (2023-02-10)
 - 【Feat】
     - Locale add Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
