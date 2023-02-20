@@ -143,7 +143,7 @@ Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, 
 <Notice title='注意'>
     Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级；
     <br />
-    对于 rule 为 percentage 的 Numeral 组件，数据处理规则有变化。在 v2.22.0-v2.29.0 中，对于绝对值大于等于 1 的 num，结果为 num%； 对于绝对值小于等于 1 的 num，结果为（num*100)%。在 v2.30.0版本及之后统一为 （num*100)%。
+    对于 rule 为 percentage 的 Numeral 组件，数据处理规则有变化。在 <strong>v2.22.0-v2.29.0</strong> 中，对于绝对值大于等于 1 的 num，结果为 num%； 对于绝对值小于等于 1 的 num，结果为 (num*100)%。在 <strong>v2.30.0</strong> 版本及之后统一为 (num*100)%。
 </Notice>
 
 `precision` 可以设置小数点后保留位数, 用于设置精度  
