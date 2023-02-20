@@ -95,6 +95,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
 | 'disableStrictly'
 | 'aria-label'
 | 'checkRelation'
+| 'preventScroll'
 > {
     motion?: Motion;
     mouseEnterDelay?: number;

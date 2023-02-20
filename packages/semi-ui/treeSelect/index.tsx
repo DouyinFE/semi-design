@@ -262,6 +262,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-label': PropTypes.string,
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -641,7 +642,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             updateInputFocus: bool => { 
                 if (bool) {
                     if (this.inputRef && this.inputRef.current) {
-                        (this.inputRef.current as any).focus();
+                        const { preventScroll } = this.props;
+                        (this.inputRef.current as any).focus({ preventScroll });
                     }
                     if (this.tagInputRef && this.tagInputRef.current) {
                         this.tagInputRef.current.focus();
@@ -1127,7 +1129,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             showRestTagsPopover, 
             restTagsPopoverProps,
             searchPosition,
-            filterTreeNode
+            filterTreeNode,
+            preventScroll
         } = this.props;
         const {
             keyEntities,
@@ -1166,6 +1169,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
                 expandRestTagsOnClick={false}
+                preventScroll={preventScroll}
             />
         );
     };
