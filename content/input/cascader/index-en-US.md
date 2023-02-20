@@ -1794,7 +1794,7 @@ Some internal methods provided by Select can be accessed through ref:
 | Method      | Instructions                    | Version |
 | ----------- | ------------------------------- | ------- |
 | close       | Manually close dropdown list    | v2.30.0 |
-| clearInput  | Manually clear value of input   | v2.30.0 |
+| open        | Manually open dropdown list     | v2.30.0 |
 
 ## Accessibility
 
