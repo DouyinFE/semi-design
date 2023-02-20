@@ -151,7 +151,8 @@ function Demo() {
 
 Based on Text component, added properties: `rule`, `precision`, `truncate`, `parser`, to provide the ability to handle Numeral in text separately.
 <Notice title='Note'>
-    The Numeral component recursively traverses Children to detect all numeric text within it for conversion and display, taking care to control the rendering structure hierarchy.
+    The Numeral component recursively traverses Children to detect all numeric text within it for conversion and display, taking care to control the rendering structure hierarchy.<br />
+    For Numeral components with a rule of percentage, the data processing rules have changed. In <strong>v2.22.0-v2.29.0</strong>, for num whose absolute value is greater than or equal to 1, the result is num%; for num whose absolute value is less than or equal to 1, the result is (num*100)%. After the <strong>v2.30.0</strong> version, it is unified to (num*100)%.
 </Notice>
 
 `precision` allows you to set the number of decimal places to be retained, used to set precision  
@@ -189,7 +190,7 @@ function Demo() {
             </Numeral>
 
             <Numeral rule="percentages" style={{ marginBottom: 12 }}>
-                My odds of winning this game are 60 and my odds of losing are 40.
+                My odds of winning this game are 0.6 and my odds of losing are 0.4.
             </Numeral>
 
             <Numeral rule="bytes-decimal" precision={2} truncate="floor">

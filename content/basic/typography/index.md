@@ -141,7 +141,9 @@ function Demo() {
 
 Numeral 组件在Text组件的基础上，添加了属性: `rule`, `precision`, `truncate`, `parser`, 以提供需要单独处理文本中数值的能力。
 <Notice title='注意'>
-    Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级。
+    Numeral 组件会递归遍历 Children 检测其中所有的数字文本进行转换展示，请注意控制渲染结构层级；
+    <br />
+    对于 rule 为 percentage 的 Numeral 组件，数据处理规则有变化。在 <strong>v2.22.0-v2.29.0</strong> 中，对于绝对值大于等于 1 的 num，结果为 num%； 对于绝对值小于等于 1 的 num，结果为 (num*100)%。在 <strong>v2.30.0</strong> 版本及之后统一为 (num*100)%。
 </Notice>
 
 `precision` 可以设置小数点后保留位数, 用于设置精度  
@@ -179,7 +181,7 @@ function Demo() {
             </Numeral>
 
             <Numeral rule="percentages" style={{ marginBottom: 12 }}>
-                这场比赛我的胜率是60，输的概率是40
+                这场比赛我的胜率是0.6，输的概率是0.4
             </Numeral>
 
             <Numeral rule="bytes-decimal" precision={2} truncate="floor">
