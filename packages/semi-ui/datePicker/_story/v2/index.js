@@ -14,3 +14,4 @@ export { default as FixDisabledMonth } from './FixDisabledMonth';
 export { default as FixRangePanelShift } from './FixRangePanelShift';
 export { default as InsetInputControlled } from './InsetInputControlled';
 export { default as FeatInsetInputProps } from './FeatInsetInputProps';
+export { default as FixMultiplePanelShift } from './FixMultiplePanelShift';

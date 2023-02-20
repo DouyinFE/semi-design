@@ -3,7 +3,7 @@ category: 开始
 title: Content Guidelines 文案规范
 icon: doc-contentguidelines
 localeCode: zh-CN
-order: 6
+order: 7
 brief: 我们都热衷于使用 Semi 创造用户喜欢的产品，而文案是产品与用户最直接的沟通方式，输出正确、一致的文案，是产品设计中不可或缺的一部分。
 ---
 

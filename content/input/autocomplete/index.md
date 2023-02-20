@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 18
+order: 19
 category: 输入类
 title: AutoComplete 自动完成
 icon: doc-autocomplete
