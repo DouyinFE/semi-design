@@ -61,4 +61,27 @@ describe('treeSelect', () => {
         cy.get('.semi-tagInput-wrapper .semi-tag').should('not.exist');
     });
 
+    it('onblur / onfocus', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--on-blur-on-focus&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+        // 单选，点击 trigger 触发 onFocus， 点击选项触发 onBlur，
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('@consoleLog').should('be.calledWith', 'focus');
+        cy.get('.semi-tree-option').eq(0).click();
+        cy.get('@consoleLog').should('be.calledWith', 'blur');
+        // 单选，点击 trigger 触发 onFocus，再次点击 trigger 收起面板，但不会触发 onBlur， 点击外部触发 onBlur，
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('@consoleLog').should('be.calledWith', 'focus');
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('.semi-tree-select').eq(1).click();
+        cy.get('@consoleLog').should('be.calledWith', 'blur');
+        // 多选， 点击 trigger 触发 onFocus，在此点击再次点击收起面板，但不会触发 onBlur， 点击外部触发 onBlur，
+        cy.get('@consoleLog').should('be.calledWith', 'focus');
+        cy.get('.semi-tree-select').eq(1).click();
+        cy.get('.semi-tree-select').eq(2).click();
+        cy.get('@consoleLog').should('be.calledWith', 'blur');
+    });
 });

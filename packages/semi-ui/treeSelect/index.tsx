@@ -159,11 +159,12 @@ export type OverrideCommonState =
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;
-    isInput: boolean;
+    // isInput: boolean;
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: TreeSelectProps
+    prevProps: TreeSelectProps;
+    isFocus: boolean
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -310,7 +311,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.state = {
             inputTriggerFocus: false,
             isOpen: false,
-            isInput: false,
+            isFocus: false,
+            // isInput: false,
             rePosKey: key,
             dropdownMinWidth: null,
             inputValue: '',
@@ -652,7 +654,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.tagInputRef.current.blur();
                     }
                 }
-            } // eslint-disable-line
+            },
+            updateIsFocus: bool => {
+                this.setState({ isFocus: bool });
+            } 
         };
     }
 
@@ -960,7 +965,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
         } = this.props;
-        const { isOpen, isInput, inputValue, selectedKeys, checkedKeys, keyEntities } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -977,7 +982,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cls(
                 prefixcls,
                 {
-                    [`${prefixcls}-focus`]: isOpen && !isInput,
+                    [`${prefixcls}-focus`]: isFocus,
                     [`${prefixcls}-disabled`]: disabled,
                     [`${prefixcls}-single`]: !multiple,
                     [`${prefixcls}-multiple`]: multiple,
