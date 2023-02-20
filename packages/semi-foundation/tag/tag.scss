@@ -64,12 +64,12 @@ $types: "ghost", "solid", "light";
         padding-left: $spacing-tag_close-paddingLeft;
         cursor: pointer;
 
-        :hover {
-            color: $color-tag_close-icon-hover
+        &:hover {
+            color: $color-tag_close-icon-hover;
         }
 
-        :active {
-            color: $color-tag_close-icon-active
+        &:active {
+            color: $color-tag_close-icon-active;
         }
     }
 
@@ -208,6 +208,15 @@ $types: "ghost", "solid", "light";
 .#{$module}-solid {
     .#{$module}-close {
         color: $color-tag_close-icon_deep-default;
+        opacity: .8;
+
+        &:hover {
+            opacity: 1.0;
+        }
+
+        &:active {
+            opacity: .9;
+        }
     }
 }
 
