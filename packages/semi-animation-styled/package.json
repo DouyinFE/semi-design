@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "build:lib": "node scripts/compileLib",
+    "build:lib": "export NODE_OPTIONS=--no-experimental-fetch && node scripts/compileLib -tag node",
     "prepublishOnly": "npm run build:lib"
   },
   "devDependencies": {
