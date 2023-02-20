@@ -446,7 +446,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.updateIsFocus(true);
         this._notifyFocus(e);
         this._registerClickOutsideHandler(e);
-        return;
     }
 
     // Scenes that may trigger blur
