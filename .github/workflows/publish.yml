@@ -30,8 +30,6 @@ jobs:
                   RELEASE_TYPE: ${{ github.event.inputs.release_type }}
 
             - name: publish
-              with:
-                node-version: '16'
               run: |
                   git config --global user.name 'semi-bot'
                   git config --global user.email 'semi-bot@users.noreply.github.com'
