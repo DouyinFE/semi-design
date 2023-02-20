@@ -7,7 +7,7 @@
     "typings": "lib/es/index.d.ts",
     "scripts": {
         "clean": "rimraf dist lib",
-        "build:lib": "node ./scripts/compileLib.js",
+        "build:lib": "export NODE_OPTIONS=--no-experimental-fetch && node ./scripts/compileLib.js",
         "build:js": "node scripts/compileDist.js",
         "build:css": "node scripts/compileScss.js",
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
