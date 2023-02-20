@@ -12,12 +12,19 @@ import { Locale } from '../locale/interface';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 const prefixCls = cssClasses.PREFIX;
+
+export interface CopyNodeProps {
+    onClick: (e: React.MouseEvent) => void;
+    onEnterKeyPress: (e: React.KeyboardEvent) => void
+}
+
 export interface CopyableProps extends BaseProps {
     content?: string;
     copyTip?: React.ReactNode;
     duration?: number;
     forwardRef?: React.RefObject<any>;
     successTip?: React.ReactNode;
+    renderCopyNode?: (props: CopyNodeProps) => React.ReactNode;
     onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void
 }
 interface CopyableState {
@@ -33,6 +40,7 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         duration: PropTypes.number,
         style: PropTypes.object,
         className: PropTypes.string,
+        renderCopyNode: PropTypes.func
     };
 
     static defaultProps = {
@@ -106,12 +114,17 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
     };
 
     render() {
-        const { style, className, forwardRef, copyTip } = this.props;
+        const { style, className, forwardRef, copyTip, renderCopyNode } = this.props;
         const { copied } = this.state;
         const finalCls = cls(className, {
             [`${prefixCls}-action-copy`]: !copied,
             [`${prefixCls}-action-copied`]: copied,
         });
+
+        const copyNodeProps = {
+            onClick: this.copy,
+            onEnterKeyPress: e => isEnterPress(e) && this.copy(e as any)
+        };
 
         return (
             <LocaleConsumer componentName="Typography">
@@ -120,19 +133,20 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
                         {copied ? (
                             this.renderSuccessTip()
                         ) : (
-                            <Tooltip content={typeof copyTip !== 'undefined' ? copyTip : locale.copy}>
-                                {/* TODO: replace `a` tag with `span` in next major version
-                                NOTE: may have effect on style */}
-                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a className={`${prefixCls}-action-copy-icon`}>
-                                    <IconCopy
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={this.copy}
-                                        onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
-                                    />
-                                </a>
-                            </Tooltip>
+                            renderCopyNode ? renderCopyNode(copyNodeProps) :
+                                (<Tooltip content={typeof copyTip !== 'undefined' ? copyTip : locale.copy}>
+                                    {/* TODO: replace `a` tag with `span` in next major version
+                                    NOTE: may have effect on style */}
+                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                    <a className={`${prefixCls}-action-copy-icon`}>
+                                        <IconCopy
+                                            role="button"
+                                            tabIndex={0}
+                                            onClick={this.copy}
+                                            onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
+                                        />
+                                    </a>
+                                </Tooltip>)
                         )}
                     </span>
                 )}

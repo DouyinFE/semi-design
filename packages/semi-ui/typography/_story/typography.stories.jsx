@@ -633,5 +633,35 @@ export const Copyable = () => (
         Web 应用。 ➡️
       </span>
     </Paragraph>
+    <Paragraph 
+      spacing="extended" 
+      copyable={{
+        successTip: 'success'
+      }}
+    >
+      <span>
+        测试 renderCopyNode 属性
+      </span>
+    </Paragraph>
+    <Paragraph 
+      spacing="extended" 
+      copyable={{
+        renderCopyNode: (props) => {
+          const { onClick, onEnterKeyPress} = props;
+          return (
+            <span
+              tabIndex={0}
+              onClick={onClick} 
+              onKeyPress={onEnterKeyPress} 
+              style={{fontSize: 14, lineHeight: '17px', color: 'var(--semi-color-link)', cursor: 'pointer'}}
+            >复制</span>
+          );
+        },
+      }}
+    >
+      <span>
+        测试 renderCopyNode 属性
+      </span>
+    </Paragraph>
   </div>
 );
