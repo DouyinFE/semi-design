@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import CustomTrigger from './CustomTrigger';
 import { Button, Typography, Toast, Cascader, Checkbox } from '../../index';
 
@@ -1824,6 +1824,58 @@ export const filterRender = () => {
             placeholder="多选，自定义搜索选项渲染"
             filterTreeNode
             filterRender={renderSearchOptionMultiple}
+          />
+      </div>
+  );
+};
+
+export const RefMethods = () => {
+  const cRef = useRef(null);
+
+  const onClickOpen = useCallback(() => {
+    cRef.current.open();
+  }, [cRef]);
+
+  const onClickClose = useCallback(() => {
+    cRef.current.close();
+  }, [cRef]);
+
+  const treeData = [
+    {
+        label: '浙江省',
+        value: 'zhejiang',
+        children: [
+            {
+                label: '杭州市',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: '西湖区',
+                        value: 'xihu',
+                    },
+                    {
+                        label: '萧山区',
+                        value: 'xiaoshan',
+                    },
+                    {
+                        label: <div onClick={onClickClose}> click to hide</div>,
+                        value: 'linan',
+                    },
+                ],
+            },
+        ],
+    }
+  ];
+  return (
+      <div>
+          <Button onClick={onClickOpen}> cascader visible</Button>
+          <br />
+          <Cascader
+              multiple
+              ref={cRef}
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="单选"
           />
       </div>
   );

@@ -613,6 +613,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleListScroll(e, ind);
     };
 
+    close() {
+        this.foundation.close();
+    }
+
+    open() {
+        this.foundation.open();
+    }
+
     renderContent = () => {
         const {
             inputValue,

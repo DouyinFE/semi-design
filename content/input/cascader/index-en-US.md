@@ -1788,6 +1788,14 @@ function Demo() {
 | loading    | loading                        | boolean        | -       |
 | value      | Value property (required)      | string\|number | -       |
 
+## Methods
+Some internal methods provided by Select can be accessed through ref:
+
+| Method      | Instructions                    | Version |
+| ----------- | ------------------------------- | ------- |
+| close       | Manually close dropdown list    | v2.30.0 |
+| open        | Manually open dropdown list     | v2.30.0 |
+
 ## Accessibility
 
 ### ARIA
