@@ -224,7 +224,7 @@ function Demo() {
 
     function Infos() {
         const data = [
-            { type: 'Stars', min: '6200' },
+            { type: 'Stars', min: '6700' },
             { type: 'Fork', min: '400' },
             { type: 'Downloads', min: '3000000' },
             { type: 'Contributors', min: '60' }
