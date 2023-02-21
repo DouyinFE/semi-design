@@ -215,7 +215,7 @@ function Demo() {
 
     function Infos() {
         const data = [
-            { type: 'Stars', min: '6200' },
+            { type: 'Stars', min: '6700' },
             { type: 'Fork', min: '400' },
             { type: '下载', min: '3000000' },
             { type: '贡献者', min: '60' }
