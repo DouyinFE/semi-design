@@ -2,13 +2,13 @@
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, get } from 'lodash';
+import { noop, get, isFunction, omit } from 'lodash';
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/popconfirm/constants';
 import PopconfirmFoundation, { PopconfirmAdapter } from '@douyinfe/semi-foundation/popconfirm/popconfirmFoundation';
 import { IconClose, IconAlertTriangle } from '@douyinfe/semi-icons';
 import BaseComponent from '../_base/baseComponent';
 import Popover, { PopoverProps } from '../popover';
-import { Position, Trigger } from '../tooltip';
+import { Position, Trigger, RenderContentProps } from '../tooltip';
 import Button, { ButtonProps } from '../button';
 import { Type as ButtonType } from '../button/Button';
 import ConfigContext, { ContextValue } from '../configProvider/context';
@@ -20,7 +20,6 @@ export interface PopconfirmProps extends PopoverProps {
     cancelText?: string;
     cancelButtonProps?: ButtonProps;
     cancelType?: ButtonType;
-    content?: React.ReactNode;
     defaultVisible?: boolean;
     disabled?: boolean;
     icon?: React.ReactNode;
@@ -55,7 +54,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
     static propTypes = {
         motion: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.object]),
         disabled: PropTypes.bool,
-        content: PropTypes.any,
+        content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
         title: PropTypes.any,
         prefixCls: PropTypes.string,
         className: PropTypes.string,
@@ -96,6 +95,9 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         onClickOutSide: noop,
     };
 
+    footerRef: React.RefObject<HTMLDivElement | null>;
+    popoverRef: React.RefObject<Popover | null>;
+    foundation: PopconfirmFoundation;
     constructor(props: PopconfirmProps) {
         super(props);
 
@@ -106,6 +108,8 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         };
 
         this.foundation = new PopconfirmFoundation(this.adapter);
+        this.footerRef = React.createRef();
+        this.popoverRef = React.createRef();
     }
 
     context: ContextValue;
@@ -131,6 +135,17 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             notifyCancel: (e: React.MouseEvent): Promise<any> | void => this.props.onCancel(e),
             notifyVisibleChange: (visible: boolean): void => this.props.onVisibleChange(visible),
             notifyClickOutSide: (e: React.MouseEvent) => this.props.onClickOutSide(e),
+            focusCancelButton: () => {
+                const buttonNode = this.footerRef?.current?.querySelector('[data-type=cancel]') as HTMLElement;
+                buttonNode?.focus({ preventScroll: true });
+            },
+            focusOkButton: () => {
+                const buttonNode = this.footerRef?.current?.querySelector('[data-type=ok]') as HTMLElement;
+                buttonNode?.focus({ preventScroll: true });
+            },
+            focusPrevFocusElement: () => {
+                this.popoverRef.current?.focusTrigger();
+            }
         };
     }
 
@@ -151,10 +166,23 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             <LocaleConsumer componentName="Popconfirm">
                 {(locale: LocaleObject['Popconfirm'], localeCode: string) => (
                     <>
-                        <Button type={cancelType} onClick={this.handleCancel} loading={cancelLoading} {...cancelButtonProps}>
+                        <Button
+                            data-type="cancel"
+                            type={cancelType}
+                            onClick={this.handleCancel}
+                            loading={cancelLoading}
+                            {...omit(cancelButtonProps, 'autoFocus')}
+                        >
                             {cancelText || get(locale, 'cancel')}
                         </Button>
-                        <Button type={okType} theme="solid" onClick={this.handleConfirm} loading={confirmLoading} {...okButtonProps}>
+                        <Button
+                            data-type="ok"
+                            type={okType}
+                            theme="solid"
+                            onClick={this.handleConfirm}
+                            loading={confirmLoading}
+                            {...omit(okButtonProps, 'autoFocus')}
+                        >
                             {okText || get(locale, 'confirm')}
                         </Button>
                     </>
@@ -163,7 +191,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         );
     }
 
-    renderConfirmPopCard() {
+    renderConfirmPopCard = ({ initialFocusRef }: { initialFocusRef?: RenderContentProps<any>['initialFocusRef'] }) => {
         const { content, title, className, style, cancelType, icon, prefixCls } = this.props;
         const { direction } = this.context;
         const popCardCls = cls(
@@ -177,7 +205,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         const showContent = !(content === null || typeof content === 'undefined');
 
         return (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+            /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>
@@ -202,10 +230,10 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                     </div>
                     {showContent ? (
                         <div className={`${prefixCls}-body`} x-semi-prop="content">
-                            {content}
+                            {isFunction(content) ? content({ initialFocusRef }) : content}
                         </div>
-                    ) : null} 
-                    <div className={`${prefixCls}-footer`}>{this.renderControls()}</div>
+                    ) : null}
+                    <div className={`${prefixCls}-footer`} ref={this.footerRef}>{this.renderControls()}</div>
                 </div>
             </div>
         );
@@ -230,7 +258,6 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         }
 
         const { visible } = this.state;
-        const popContent = this.renderConfirmPopCard();
         const popProps: PopProps = {
             onVisibleChange: this.handleVisibleChange,
             className: cssClasses.POPOVER,
@@ -243,8 +270,9 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
         return (
             <Popover
+                ref={this.popoverRef}
                 {...attrs}
-                content={popContent}
+                content={this.renderConfirmPopCard}
                 visible={visible}
                 position={position}
                 {...popProps}

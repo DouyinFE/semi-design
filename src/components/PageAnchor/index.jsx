@@ -17,7 +17,7 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
-    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started'].some(item => slug.includes(item));
+    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started', 'design-to-code'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
@@ -37,6 +37,13 @@ const PageAnchor = props => {
                         key={anchorItem.title}
                     > 
                         {makeAnchor(anchorItem.items)}
+                    </Anchor.Link>);
+                } else if (['与其他方案的差异', 'Comparisons'].includes(anchorItem.title)) {
+                    anchorList.push(<Anchor.Link
+                        href={`#${makeAnchorId(anchorItem.title)}`}
+                        title={anchorItem.title}
+                        key={anchorItem.title}
+                    > 
                     </Anchor.Link>);
                 } else if (anchorItem.title === '代码演示' || anchorItem.title === 'Demos' || skipCondition) {
                     anchorList.push(makeAnchor(anchorItem.items));

@@ -6,7 +6,7 @@ $color-treeSelect_default-icon-hover: var(--semi-color-primary-hover); // 树选
 $color-treeSelect_default-icon-active: var(--semi-color-primary-active); // 树选择器选择框清空按钮颜色 - 按下
 $color-treeSelect_default-bg-hover: var(--semi-color-fill-1); // 树选择器选择框背景颜色 - 悬停
 
-$color-treeSelect_default-border-hover: inherit; // 树选择器选择框描边颜色 - 悬浮
+$color-treeSelect_default-border-hover: transparent; // 树选择器选择框描边颜色 - 悬浮
 $color-treeSelect_default-border-focus: var(--semi-color-focus-border);// 树选择器选择框描边颜色 - 选中
 
 $color-treeSelect_search-border-default: var(--semi-color-fill-0); // 树选择器菜单搜索框描边颜色 - 默认

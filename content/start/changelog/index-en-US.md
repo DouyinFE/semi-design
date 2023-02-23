@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 7
+order: 8
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
@@ -16,17 +16,39 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.30.0-beta.0 (2023-02-20)
+- 【Breaking Change】
+    - **Modify the calculation rules when the rule in the Numeral component is percentages**
+- 【Feat】
+    - Popconfirm supports A11y keyboard and focus  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Cascader supports calling the open/close method through ref
+    - Optimize the display format of the date at the bottom of the DatePicker panel, and configure it according to different locale language habits [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Style】
+    - Solid Tag close button adds hover state color var(--semi-color-white) and active state color var(--semi-color-white)(opacity 0.9), default color from var(--semi-color-white) Change to var(--semi-color-white)(opacity 0.8).
+- 【Fix】
+    - Fix DatePicker panel moving in multiple mode  [#1422](https://github.com/DouyinFE/semi-design/issues/1422)
+    - Fix the wrong localeCode of nl-NL language pack, the scope of influence (v2.29.0-beta.0) [@jacob-lcs](https://github.com/jacob-lcs)
+
+#### 🎉 2.29.0 (2023-02-10)
+- 【Feat】
+    - Locale add Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
+- 【Fix】
+    - Optimize the display of singular and plural texts in Russian, Arabic, and Romanian
+    - Fix the dateTimeRange input display error of DatePicker component in insetInput controlled mode [#1413](https://github.com/DouyinFE/semi-design/issues/1413)
+- 【Design Token】
+    - Table Design Token changes before modification, modify the following Token default values: $color-table_body-bg-default, $color-table-bg-default, from var(--semi-color-bg-2) to var(-- semi-color-bg-1), $color-table_th-bg-default value changed from transparent to var(--semi-color-bg-1) [#1418](https://github.com/DouyinFE/semi-design/pull/1418)
+
 #### 🎉 2.29.0-beta.0 (2023-02-06)
-- 【feat】
+- 【Feat】
     - Form.InputGroup support extraText, extraTextPosition,  [#1313 ](https://github.com/DouyinFE/semi-design/issues/1313)
     - DatePicker insetInput supports passing placeholder  [#1343](https://github.com/DouyinFE/semi-design/issues/1343)
     - Transfer added renderSourceHeader and renderSelectedHeader APIs to allow users to customize the header information of the left and right panels [#1403](https://github.com/DouyinFE/semi-design/issues/1403)
     - Locale add Swedish: sv_SE、 Polish: pl_PL、Dutch: nl_NL [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
-- 【fix】
+- 【Fix】
     - Fix the problem that the DatePicker panel is not updated after entering the date  [#1398](https://github.com/DouyinFE/semi-design/issues/1398)
     - fix when the visible prop changes, tooltips whose trigger is not hover/focus also delay showing/hiding [@marshcat0](https://github.com/marshcat0)
     - Optimize the problem of displaying singular and plural text in Russian, Arabic, and Romanian, involving components Pagination, Transfer, and Calendar [#1411](https://github.com/DouyinFE/semi-design/pull/1411)
-- 【docs】
+- 【Docs】
     - Improve Form english document 
 - 【Design Token】
     - Slider add ` $spacing-slider_handle-translateY`、`$spacing-slider_vertical_handle-translateX`、`$spacing-slider_dot-translateX`、`$spacing-slider_vertical_dot-translateY` Token，which is used to control the horizontal and vertical state handles and value scale lines horizontal and vertical offset [#1391](https://github.com/DouyinFE/semi-design/pull/1391)

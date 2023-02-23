@@ -26,6 +26,12 @@ $module: #{$prefix}-tree-select;
         outline: 0;
     }
 
+    &-focus:hover {
+        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+        outline: 0;
+    }
+
+
     &-warning {
         background-color: $color-treeSelect_warning-bg-default;
         border-color: $color-treeSelect_warning-border-default;

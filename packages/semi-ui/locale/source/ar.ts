@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
     Pagination: {
-        pageSize: 'عدد العناصر في كل صفحة : ${pageSize} ',
-        total: 'مجموع الصفحات: ${total}',
+        pageSize: 'العناصر في كل صفحة: ${pageSize}',
+        total: 'إجمالي الصفحات: ${total}',
         jumpTo: 'اقفز إلى',
         page: ' الصفحات',
     },
@@ -82,7 +82,7 @@ const local: Locale = {
             Sun: 'الأحد‬',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd-MM-yyyy',
+            FORMAT_SWITCH_DATE: 'yyyy/MM/dd',
         },
     },
     Popconfirm: {
@@ -146,8 +146,8 @@ const local: Locale = {
         clear: 'واضح',
         selectAll: 'اختر الكل',
         clearSelectAll: 'إلغاء تحديد الكل',
-        total: "الكمية الإجمالية: ${total}",
-        selected: "الكمية المحددة: ${total}"
+        total: "إجمالي العناصر: ${total}",
+        selected: "العناصر المحددة: ${total}"
     },
     Form: {
         optional: '(اختياري)',

@@ -634,4 +634,35 @@ describe('DatePicker', () => {
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day-selected-start');
         cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day-selected-end');
     });
+
+    it('test controlled insetInput dateTimeRange ', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-controlled&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(0).should("have.value", "2022-02-20");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(1).should("have.value", "00:00:00");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(2).should("have.value", "2023-02-20");
+        cy.get('.semi-datepicker-inset-input-wrapper .semi-input').eq(3).should("have.value", "00:00:00");
+    });
+
+    it('test multiple selected panel shift', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-multiple-panel-shift&viewMode=story');
+        // 非受控
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-navigation .semi-button').eq(3).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-navigation-month').contains("2019年 8月");
+    });
+
+    it('test multiple selected panel shift + controlled', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-multiple-panel-shift&viewMode=story');
+        // 受控
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-navigation .semi-button').eq(3).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
+        cy.get('.semi-datepicker-navigation-month').contains("2019年 8月");
+    });
 });

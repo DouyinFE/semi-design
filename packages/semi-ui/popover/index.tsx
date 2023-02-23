@@ -109,6 +109,18 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
     };
 
     context: ContextValue;
+    tooltipRef: React.RefObject<Tooltip | null>;
+    constructor(props: PopoverProps) {
+        super(props);
+        this.tooltipRef = React.createRef();
+    }
+
+    /**
+     * focus on tooltip trigger
+     */
+    public focusTrigger = () => {
+        this.tooltipRef.current?.focusTrigger();
+    }
 
     renderPopCard = ({ initialFocusRef }: { initialFocusRef: RenderContentProps['initialFocusRef'] }) => {
         const { content, contentClassName, prefixCls } = this.props;
@@ -166,6 +178,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         return (
             <Tooltip
                 guardFocus
+                ref={this.tooltipRef}
                 {...(attr as any)}
                 trigger={trigger}
                 position={position}

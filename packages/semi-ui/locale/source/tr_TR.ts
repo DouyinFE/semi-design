@@ -6,8 +6,8 @@ const local: Locale = {
     dateFnsLocale: tr,
     Pagination: {
         page: 'Sayfa',
-        pageSize: '${pageSize} Makale / sayfa',
-        total: 'Toplam ${total} Sayfa',
+        pageSize: 'Sayfa başı öğe: ${pageSize}',
+        total: 'Toplam sayfa: ${total}',
         jumpTo: 'Atlamak'
     },
     Modal: {
@@ -86,7 +86,7 @@ const local: Locale = {
             Sun: 'Paz'
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Navigation:
@@ -146,8 +146,8 @@ const local: Locale = {
         clear: 'Boş',
         selectAll: 'Tümünü seç',
         clearSelectAll: 'Tümünün seçimini kaldır',
-        total: 'Toplam ${total} öğe',
-        selected: '${total} öğe seçildi'
+        total: 'Toplam öğe: ${total}',
+        selected: 'Seçilen öğeler: ${total}'
     },
     Form: {
         optional: '(isteğe bağlı)',

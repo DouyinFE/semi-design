@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'en-GB',
     dateFnsLocale: enGB,
     Pagination: {
-        pageSize: '${pageSize} items / page',
-        total: '${total} pages',
+        pageSize: 'Items per page: ${pageSize}',
+        total: 'Total pages: ${total}',
         jumpTo: 'Jump to',
         page: ' page',
     },
@@ -82,7 +82,7 @@ const local: Locale = {
             Sun: 'Sun',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'MM/dd/yyyy',
         },
     },
     Popconfirm: {
@@ -146,8 +146,8 @@ const local: Locale = {
         clear: 'Clear',
         selectAll: 'Select all',
         clearSelectAll: 'Unselect all',
-        total: 'Total ${total} items',
-        selected: '${total} items selected',
+        total: 'Total items: ${total}',
+        selected: 'Items selected: ${total}',
     },
     Form: {
         optional: '(optional)',

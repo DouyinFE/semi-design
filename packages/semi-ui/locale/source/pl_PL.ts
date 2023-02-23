@@ -13,8 +13,8 @@ const local: Locale = {
     code: 'pl_PL',
     dateFnsLocale: pl, // locale code to dateFns locale
     Pagination: {
-        pageSize: 'Pozycje na stronie: ${pageSize}',
-        total: 'Razem stron: ${total}',
+        pageSize: 'Liczba pozycji na stronie: ${pageSize}',
+        total: 'Strony ogółem: ${total}',
         jumpTo: 'Przejdź do',
         page: 'stron',
     },
@@ -154,8 +154,8 @@ const local: Locale = {
         clear: 'Wyczyść',
         selectAll: 'Zaznacz wszystkie',
         clearSelectAll: 'Usuń zaznaczenie wszystkich',
-        total: 'Całkowita ilość: ${total}',
-        selected: 'Wybrana ilość: ${total}', 
+        total: 'Pozycje ogółem: ${total}',
+        selected: 'Wybrane pozycje: ${total}', 
     },
     Form: {
         optional: '（Opcjonalnie）',

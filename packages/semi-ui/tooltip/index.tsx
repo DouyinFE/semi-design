@@ -34,11 +34,11 @@ export interface ArrowBounding {
     height?: number
 }
 
-export interface RenderContentProps {
-    initialFocusRef?: React.RefObject<HTMLElement>
+export interface RenderContentProps<T = HTMLElement> {
+    initialFocusRef?: React.RefObject<T>
 }
 
-export type RenderContent = (props: RenderContentProps) => React.ReactNode;
+export type RenderContent<T = HTMLElement> = (props: RenderContentProps<T>) => React.ReactNode;
 
 export interface TooltipProps extends BaseProps {
     children?: React.ReactNode;
@@ -449,6 +449,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = false;
         this.foundation.destroy();
     }
+    
+    /**
+     * focus on tooltip trigger
+     */
+    public focusTrigger() {
+        this.foundation.focusTrigger();
+    }
 
     isSpecial = (elem: React.ReactNode | HTMLElement | any) => {
         if (isHTMLElement(elem)) {
@@ -612,6 +619,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
+                    // listen keyboard event, don't move tabIndex -1
+                    tabIndex={-1}
                     className={`${BASE_CLASS_PREFIX}-portal-inner`}
                     style={portalInnerStyle}
                     ref={this.setContainerEl}

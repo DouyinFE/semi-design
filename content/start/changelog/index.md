@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 7
+order: 8
 brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
@@ -15,6 +15,27 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.30.0-beta.0 (2023-02-20)
+- 【Breaking Change】
+    - **修改 Numeral 组件中 rule 为 percentages 时候的计算规则**
+- 【Feat】
+    - Popconfirm 支持 A11y 键盘和焦点  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Cascader 支持通过ref调用open/close方法 
+    - 优化 DatePicker 面板底部日期的展示格式，根据不同 locale 语言习惯配置 [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Style】
+    - solid Tag 关闭按钮增加 hover 态颜色 var(--semi-color-white）和 active 态颜色 var(--semi-color-white)(opacity 0.9)，default 颜色从 var(--semi-color-white）改为 var(--semi-color-white)(opacity 0.8)。
+- 【Fix】
+    - 修复 DatePicker 多选面板移动问题  [#1422](https://github.com/DouyinFE/semi-design/issues/1422)
+    - 修复 nl-NL 语言包 localeCode 错误的问题，影响范围 (v2.29.0-beta.0) [@jacob-lcs](https://github.com/jacob-lcs)
+
+#### 🎉 2.29.0 (2023-02-10)
+- 【Feat】
+    - Locale 增加瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL支持 [i18n] 增加瑞典语、波兰语、荷兰语的支持 [#1410](https://github.com/DouyinFE/semi-design/issues/1410)
+- 【Fix】
+    - 优化俄语、阿拉伯语、罗马尼亚语种单复数文本显示问题
+    - 修复 DatePicker 内嵌输入框受控模式下 dateTimeRange 回显错误问题 [#1413](https://github.com/DouyinFE/semi-design/issues/1413)
+- 【Design Token】
+    - Table Design Token 变更，修改以下 Token 默认值：$color-table_body-bg-default 、$color-table-bg-default ， 由 var(--semi-color-bg-2) 变更为 var(--semi-color-bg-1)，$color-table_th-bg-default 值从 transparent 改为 var(--semi-color-bg-1) [#1418](https://github.com/DouyinFE/semi-design/pull/1418)
 
 #### 🎉 2.29.0-beta.0 (2023-02-06)
 - 【Feat】

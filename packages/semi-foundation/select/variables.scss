@@ -2,6 +2,7 @@
 $color-select-bg-default: var(--semi-color-fill-0); // 选择器输入框背景色 - 默认态
 $color-select-bg-hover: var(--semi-color-fill-1); // 选择器输入框背景色 - 悬停态
 $color-select-bg-active: var(--semi-color-fill-2); // 选择器输入框背景色 - 按下态
+$color-select-bg-focus: var(--semi-color-fill-0); // 选择器输入框背景色 - 聚焦态
 $color-select-border-default: transparent; // 选择器输入框描边颜色
 $color-select-border-hover: $color-select-border-default;  // 选择器输入框描边颜色 - 悬浮
 $color-select-border-active: var(--semi-color-focus-border); // 选择器输入框描边颜色 - 按下态

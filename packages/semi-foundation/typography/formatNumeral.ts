@@ -42,11 +42,8 @@ export default class FormatNumeral {
             return `${this.truncatePrecision(value)} ${units[i]}`;
         },
         percentages: (value: number) => {
-            const cArr = value.toString().split('.');
-            if (Number(cArr[0]) === 0) {
-                return `${this.truncatePrecision(value * 100)}%`;
-            }
-            return `${this.truncatePrecision(value)}%`;
+            // The rules here have been modified in version v2.30.0
+            return `${this.truncatePrecision(value * 100)}%`;
         },
         exponential: (value: number) => {
             const vExponential = value.toExponential(this.precision + 2);
