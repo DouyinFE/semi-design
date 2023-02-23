@@ -15,6 +15,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+
+#### 🎉 2.30.0 (2023-02-23)
+- 【Fix】
+  - 修复 Modal 在命令式调用关闭后，未删除多余 div 的问题  [#1415 ](https://github.com/DouyinFE/semi-design/issues/1415)
+  - treeSelect 修复部分场景下，hover 时 border 颜色异常的问题
+- 【Design Token】
+  - select 新增 `$color-select-bg-focus`
+
 #### 🎉 2.30.0-beta.0 (2023-02-20)
 - 【Breaking Change】
     - **修改 Numeral 组件中 rule 为 percentages 时候的计算规则**

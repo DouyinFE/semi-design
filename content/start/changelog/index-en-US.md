@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.30.0 (2023-02-23)
+- 【Fix】
+  - Fix the problem that Modal did not delete the redundant div after the imperative call was closed  [#1415 ](https://github.com/DouyinFE/semi-design/issues/1415)
+  - treeSelect fixes the problem that the border color is abnormal when hovering in some scenes
+- 【Design Token】
+  - select Add `$color-select-bg-focus`
+
 #### 🎉 2.30.0-beta.0 (2023-02-20)
 - 【Breaking Change】
     - **Modify the calculation rules when the rule in the Numeral component is percentages**
