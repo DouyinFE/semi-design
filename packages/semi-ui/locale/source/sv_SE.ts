@@ -10,8 +10,8 @@ const local: Locale = {
     code: 'sv_SE',
     dateFnsLocale: sv, 
     Pagination: {
-        pageSize: '${pageSize} artiklar/sida',
-        total: 'Totalt ${total} sidor',
+        pageSize: 'Artiklar per sida: ${pageSize}',
+        total: 'Totalt antal sidor: ${total}',
         jumpTo: 'Gå till',
         page: 'sida',
     },
@@ -151,8 +151,8 @@ const local: Locale = {
         clear: 'Rensa',
         selectAll: 'Markera alla',
         clearSelectAll: 'Avmarkera alla',
-        total: '${total} artiklar totalt',
-        selected: 'Valde ${total} objekt',
+        total: 'Totalt antal artiklar: ${total}',
+        selected: 'Valda artiklar: ${total}',
     },
     Form: {
         optional: '(Frivilligt)',

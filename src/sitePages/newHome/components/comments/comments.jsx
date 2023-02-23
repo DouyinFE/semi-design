@@ -40,7 +40,7 @@ function numberAnimation(number, s, dom) {
     requestAnimationFrame(fn);
 }
 
-const realNumber = [6200, 400, 3000000, 60];
+const realNumber = [6700, 500, 3000000, 90];
 
 function Comments(props) {
     useEffect(()=> {

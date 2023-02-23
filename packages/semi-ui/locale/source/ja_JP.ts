@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'ja-JP',
     dateFnsLocale: ja,
     Pagination: {
-        pageSize: '${pageSize} 個数 / ページ',
-        total: '合計 ${total} ページ',
+        pageSize: '1ページあたりのアイテム数：${pageSize}',
+        total: '合計ページ数：${total}',
         jumpTo: 'ページへ',
         page: 'ページ',
     },
@@ -83,7 +83,7 @@ const local: Locale = {
             Sun: '日',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'yyyy/MM/dd',
         },
     },
     Popconfirm: {
@@ -147,8 +147,8 @@ const local: Locale = {
         clear: '空っぽ',
         selectAll: 'すべて選択',
         clearSelectAll: 'すべてを選択解除',
-        total: '合計 ${total} アイテム',
-        selected: '選択済み ${total} アイテム',
+        total: '合計アイテム数：${total}',
+        selected: '選択されているアイテム数：${total}',
     },
     Form: {
         optional: '(オプション)',

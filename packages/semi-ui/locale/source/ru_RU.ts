@@ -5,7 +5,7 @@ const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
     Pagination: {
-        pageSize: 'Элементов на странице: ${pageSize}',
+        pageSize: 'Позиции на странице: ${pageSize}',
         total: 'Всего страниц: ${total}',
         jumpTo: 'Прыгать в',
         page: ' страницы'
@@ -85,7 +85,7 @@ const local: Locale = {
             Sun: 'Солнце',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Popconfirm: {
@@ -149,8 +149,8 @@ const local: Locale = {
         clear: 'Очистить',
         selectAll: 'Выбрать все',
         clearSelectAll: 'Снять выделение',
-        total: 'Всего элементов: ${total} ',
-        selected: 'Выбрано элементов: ${total} ',
+        total: 'Всего позиций: ${total}',
+        selected: 'Выбранные позиции: ${total}',
     },
     Form: {
         optional: '(по желанию)',

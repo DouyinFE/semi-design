@@ -1,9 +1,9 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.29.0",
+    "version": "2.30.0-beta.0",
     "description": "",
     "scripts": {
-        "build:lib": "node ./scripts/compileLib.js",
+        "build:lib": "export NODE_OPTIONS=--no-experimental-fetch && node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {

@@ -5,8 +5,8 @@ const local: Locale = {
     code: 'th-TH',
     dateFnsLocale: th,
     Pagination: {
-        pageSize: '${pageSize} บทความ / หน้า',
-        total: 'หน้าทั้งหมด ${total}',
+        pageSize: 'รายการต่อหน้า: ${pageSize}',
+        total: 'หน้าทั้งหมด: ${total}',
         jumpTo: 'ข้ามไปที่',
         page: 'หน้า',
     },
@@ -86,7 +86,7 @@ const local: Locale = {
             Sun: 'อา',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
         },
     },
     Navigation: {
@@ -150,8 +150,8 @@ const local: Locale = {
         clear: 'ว่าง',
         selectAll: 'เลือกทั้งหมด',
         clearSelectAll: 'ยกเลิกการเลือกทั้งหมด',
-        total: 'รวม ${total} รายการ',
-        selected: 'เลือก ${total} รายการ',
+        total: 'รายการทั้งหมด: ${total}',
+        selected: 'รายการที่เลือก: ${total}',
     },
     Form: {
         optional: '(ไม่จำเป็น)',

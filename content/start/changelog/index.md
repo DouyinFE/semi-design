@@ -15,6 +15,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 ---
+#### 🎉 2.30.0-beta.0 (2023-02-20)
+- 【Breaking Change】
+    - **修改 Numeral 组件中 rule 为 percentages 时候的计算规则**
+- 【Feat】
+    - Popconfirm 支持 A11y 键盘和焦点  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Cascader 支持通过ref调用open/close方法 
+    - 优化 DatePicker 面板底部日期的展示格式，根据不同 locale 语言习惯配置 [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Style】
+    - solid Tag 关闭按钮增加 hover 态颜色 var(--semi-color-white）和 active 态颜色 var(--semi-color-white)(opacity 0.9)，default 颜色从 var(--semi-color-white）改为 var(--semi-color-white)(opacity 0.8)。
+- 【Fix】
+    - 修复 DatePicker 多选面板移动问题  [#1422](https://github.com/DouyinFE/semi-design/issues/1422)
+    - 修复 nl-NL 语言包 localeCode 错误的问题，影响范围 (v2.29.0-beta.0) [@jacob-lcs](https://github.com/jacob-lcs)
 
 #### 🎉 2.29.0 (2023-02-10)
 - 【Feat】

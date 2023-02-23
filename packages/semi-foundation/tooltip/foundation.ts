@@ -1129,7 +1129,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * 如果 trigger 是 focus 或者 hover，则它绑定了 onFocus，这里我们如果重新 focus 的话，popup 会再次打开
      * 因此 returnFocusOnClose 只支持 click trigger
      */
-    _focusTrigger() {
+    focusTrigger() {
         const { trigger, returnFocusOnClose, preventScroll } = this.getProps();
         if (returnFocusOnClose && trigger !== 'custom') {
             const triggerNode = this._adapter.getTriggerNode();
@@ -1144,7 +1144,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         if (trigger !== 'custom') {
             // Move the focus into the trigger first and then close the pop-up layer 
             // to avoid the problem of opening the pop-up layer again when the focus returns to the trigger in the case of hover and focus
-            this._focusTrigger();
+            this.focusTrigger();
             this.hide();
         }
         this._adapter.notifyEscKeydown(event);

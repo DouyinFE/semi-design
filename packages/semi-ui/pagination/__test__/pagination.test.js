@@ -99,7 +99,7 @@ describe('Pagination', () => {
         };
         const pag = getPagination(props);
         expect(pag.exists('.semi-page-total')).toEqual(true);
-        expect(pag.find('.semi-page-total').text()).toEqual('共 20 页')
+        expect(pag.find('.semi-page-total').text()).toEqual('总页数：20')
         expect(pag.exists('.semi-page-switch')).toEqual(true);
     })
 
@@ -120,19 +120,19 @@ describe('Pagination', () => {
         pag.setProps({ pageSize: 40 });
         pag.update();
         expect(pag.state().pageSize).toEqual(40);
-        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('40 条/页');
+        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('每页条数：40');
         expect(pag.find('.semi-page-item').children().length).toEqual((200/40) + 2);
         // pageSize 40 -> 100
         pag.setProps({ pageSize: 100 });
         pag.update();
         expect(pag.state().pageSize).toEqual(100);
-        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('100 条/页');
+        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('每页条数：100');
         expect(pag.find('.semi-page-item').children().length).toEqual((200/100) + 2);
         // pageSize 100 -> 20
         pag.setProps({ pageSize: 20 });
         pag.update();
         expect(pag.state().pageSize).toEqual(20);
-        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('20 条/页');
+        expect(pag.find('.semi-select-selection-text').children(0).text()).toEqual('每页条数：20');
         // show ..., always 9
         expect(pag.find('.semi-page-item').children().length).toEqual(9);
     });
