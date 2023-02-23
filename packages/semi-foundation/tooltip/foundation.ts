@@ -387,6 +387,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     calcPosStyle(props: {triggerRect: DOMRect; wrapperRect: DOMRect; containerRect: PopupContainerDOMRect; position?: Position; spacing?: number; isOverFlow?: [boolean, boolean]}) {
         const { spacing, isOverFlow } = props;
+        const { innerWidth } = window;
+        
         const triggerRect = (isEmpty(props.triggerRect) ? props.triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
         const containerRect = (isEmpty(props.containerRect) ? props.containerRect : this._adapter.getPopupContainerRect()) || {
             ...defaultRect,
@@ -427,7 +429,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         const isTriggerNearLeft = middleX - containerRect.left < containerRect.right - middleX;
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
-
+        
+        const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
 
         switch (position) {
             case 'top':
@@ -441,7 +444,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'topLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
@@ -487,7 +490,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
-                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':

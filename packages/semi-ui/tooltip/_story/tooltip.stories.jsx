@@ -1403,6 +1403,41 @@ export const OcclusionDemo = () => {
   );
 }
 
+export const Fix1449 = () =>{
+  return <div style={{ width: "100%", overflow: "hidden" }}>
+      <div style={{ position: "relative", height: 200 }}>
+        <Select
+          placeholder=""
+          style={{ width: 400, left: 500, position: "absolute" }}
+          filter
+          position='bottomLeft'
+          autoAdjustOverflow
+        >
+          <Select.Option value="abc">抖音</Select.Option>
+          <Select.Option value="ulikecam">轻颜相机</Select.Option>
+          <Select.Option value="jianying" disabled>
+            剪映
+          </Select.Option>
+          <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+      </div>
+      <div style={{ position: "relative", height: 100 }}>
+      <Tooltip 
+        visible
+        position='topLeft'
+        content={
+          <div >
+            贴右显示
+          </div>
+        }>
+        <Button style={{ width: 200, left: 700, top: 50, position: "absolute" }}>
+          缩小视口以遮挡我的右侧
+        </Button>
+      </Tooltip>
+    </div>
+    </div>
+}
+
 // right -> other
 export const AutoRight2LeftDemo = () => <Right2Left />;
 AutoRight2LeftDemo.storyName = `✅ auto : right -> left`;
