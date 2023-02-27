@@ -5,6 +5,8 @@ import ConfirmModal from './ConfirmModal';
 
 import '@douyinfe/semi-foundation/modal/modal.scss';
 import { IconAlertCircle, IconAlertTriangle, IconHelpCircle, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
+import { omit } from "lodash";
+import { type ButtonProps } from "../button";
 
 export interface ConfirmProps extends ModalReactProps {
     type: 'success' | 'info' | 'warning' | 'error' | 'confirm'
@@ -38,7 +40,7 @@ export default function confirm<T>(props: ConfirmProps) {
     function render(renderProps: ConfirmProps) {
         const { afterClose } = renderProps;
         //@ts-ignore
-        ReactDOM.render(<ConfirmModal {...renderProps} afterClose={(...args:any)=>{
+        ReactDOM.render(<ConfirmModal {...renderProps} afterClose={(...args: any) => {
             //@ts-ignore
             afterClose?.(...args);
             destroy();
@@ -98,9 +100,10 @@ export function withError(props: ModalReactProps) {
     return {
         type: 'error' as const,
         icon: <IconAlertCircle/>,
-        ...props
+        okButtonProps: { type: 'danger' as ButtonProps['type'], ...props.okButtonProps },
+        ...(omit(props, ['okButtonProps']))
     };
-}
+} 
 
 export function withConfirm(props: ModalReactProps) {
     return {
