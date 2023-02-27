@@ -18,10 +18,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.30.0 (2023-02-23)
 - 【Fix】
-  - Fix the problem that Modal did not delete the redundant div after the imperative call was closed  [#1415 ](https://github.com/DouyinFE/semi-design/issues/1415)
-  - treeSelect fixes the problem that the border color is abnormal when hovering in some scenes
+  - Fix the problem that Modal did not delete the redundant div after the imperative call was closed  [#1415](https://github.com/DouyinFE/semi-design/issues/1415)
+  - TreeSelect fixes the problem that the border color is abnormal when hovering in some scenes [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
+  - Fix the wrong timing of onBlur/onFocus calls in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
+  - Fix the problem that preventScroll is not declared and not transparently transmitted in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
 - 【Design Token】
-  - select Add `$color-select-bg-focus`
+  - Select Add `$color-select-bg-focus` [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
 
 #### 🎉 2.30.0-beta.0 (2023-02-20)
 - 【Breaking Change】
