@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.30.0",
+    "version": "2.30.1",
     "description": "",
     "scripts": {
         "build:lib": "export NODE_OPTIONS=--no-experimental-fetch && node ./scripts/compileLib.js",
