@@ -68,11 +68,12 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
     render() {
         const { children, disabled, className, forwardRef, style, type, active, icon, onKeyDown, showTick, hover } = this.props;
         const { showTick: contextShowTick } = this.context;
+        const realShowTick = contextShowTick ?? showTick;
         const itemclass = cls(className, {
             [`${prefixCls}-item`]: true,
             [`${prefixCls}-item-disabled`]: disabled,
             [`${prefixCls}-item-hover`]: hover,
-            [`${prefixCls}-item-withTick`]: contextShowTick ?? showTick,
+            [`${prefixCls}-item-withTick`]: realShowTick,
             [`${prefixCls}-item-${type}`]: type,
             [`${prefixCls}-item-active`]: active,
         });
@@ -85,10 +86,10 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         }
         let tick = null;
         switch (true) {
-            case showTick && active:
+            case realShowTick && active:
                 tick = <IconTick />;
                 break;
-            case showTick && !active:
+            case realShowTick && !active:
                 tick = <IconTick style={{ color: 'transparent' }} />;
                 break;
             default:
