@@ -22,6 +22,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - TreeSelect 修复部分场景下，hover 时 border 颜色异常的问题 [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
   - 修复 TreeSelect 中 onBlur/onFocus 调用时机错误问题 [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
   - 修复 TreeSelect 中 preventScroll 未声明及未透传问题 [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
+  - 修复 Tooltip 在右侧被遮挡时浮层漂移到视口左侧 [#1449](https://github.com/DouyinFE/semi-design/pull/1449)
 - 【Design Token】
   - Select 新增 `$color-select-bg-focus` [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
 

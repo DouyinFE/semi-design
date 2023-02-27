@@ -22,6 +22,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - TreeSelect fixes the problem that the border color is abnormal when hovering in some scenes [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
   - Fix the wrong timing of onBlur/onFocus calls in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
   - Fix the problem that preventScroll is not declared and not transparently transmitted in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
+  - Fix when the Tooltip is blocked on the right side, the floating layer drifts to the left side of the viewport [#1449](https://github.com/DouyinFE/semi-design/pull/1449)
 - 【Design Token】
   - Select Add `$color-select-bg-focus` [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
 
