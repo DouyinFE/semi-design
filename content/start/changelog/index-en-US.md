@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.30.1 (2023-02-27)
+- 【Fix】
+  - fixed showTick bug in Dropdown(the bug affects 2.27.1 ~ 2.30.0) [#1457](https://github.com/DouyinFE/semi-design/issues/1457)
+
 #### 🎉 2.30.0 (2023-02-23)
 - 【Fix】
   - Fix the problem that Modal did not delete the redundant div after the imperative call was closed  [#1415](https://github.com/DouyinFE/semi-design/issues/1415)
