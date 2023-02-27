@@ -9,6 +9,7 @@ import DisabledItem from './DisabledItem';
 import InHoverElements from './InHoverElements';
 import WrapAvatar from './WrapAvatar';
 import { IconChevronDown, IconBox, IconSimilarity } from '@douyinfe/semi-icons';
+import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
 
 export * from '../_story/C2D';
 
@@ -329,5 +330,51 @@ export function DropdownItemPropsDemo() {
         </Button>
       </Dropdown>
     </div>
+  );
+}
+
+ShowTick.storyName = 'showTick';
+export function ShowTick() {
+  return (
+      <div>
+          <Dropdown
+              trigger="custom"
+              position="bottomLeft"
+              showTick
+              visible
+              motion={false}
+              render={
+                  <Dropdown.Menu>
+                      <Dropdown.Item icon={<IconBox />} active>
+                          Menu Item 1
+                      </Dropdown.Item>
+                      <Dropdown.Item icon={<IconSetting />}>Menu Item 2</Dropdown.Item>
+                      <Dropdown.Item disabled icon={<IconForward />}>
+                          Menu Item 3
+                      </Dropdown.Item>
+                      <Dropdown.Item icon={<IconBranch />} type="primary">
+                          primary
+                      </Dropdown.Item>
+                      <Dropdown.Item icon={<IconColorPalette />} type="secondary">
+                          secondary
+                      </Dropdown.Item>
+                      <Dropdown.Item icon={<IconRefresh />} type="tertiary">
+                          tertiary
+                      </Dropdown.Item>
+                      <Dropdown.Item icon={<IconSearch />} type="warning">
+                          warning
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                          icon={<IconSimilarity style={{ color: 'var(--semi-color-tertiary)' }} />}
+                          type="danger"
+                      >
+                          danger
+                      </Dropdown.Item>
+                  </Dropdown.Menu>
+              }
+          >
+              <Button style={{ marginLeft: 90 }}>ShowTick+始终展示</Button>
+          </Dropdown>
+      </div>
   );
 }
