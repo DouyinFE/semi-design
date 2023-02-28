@@ -3,7 +3,7 @@ category: 开始
 title:  Dark Mode 暗色模式
 icon: doc-darkmode
 localeCode: zh-CN
-order: 4
+order: 5
 ---
 
 

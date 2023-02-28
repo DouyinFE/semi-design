@@ -36,6 +36,7 @@ $overflowList: #{$prefix}-overflow-list;
 
     &:focus {
         border: $width-select-border-focus solid $color-select-border-focus;
+        background-color: $color-select-bg-focus;
         outline: 0;
     }
 

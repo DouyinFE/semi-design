@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 20
+order: 21
 category: Input
 title:  Cascader
 subTitle: Cascade
@@ -1787,6 +1787,14 @@ function Demo() {
 | label      | Text to be displayed (required)| ReactNode      | -       |
 | loading    | loading                        | boolean        | -       |
 | value      | Value property (required)      | string\|number | -       |
+
+## Methods
+Some internal methods provided by Select can be accessed through ref:
+
+| Method      | Instructions                    | Version |
+| ----------- | ------------------------------- | ------- |
+| close       | Manually close dropdown list    | v2.30.0 |
+| open        | Manually open dropdown list     | v2.30.0 |
 
 ## Accessibility
 

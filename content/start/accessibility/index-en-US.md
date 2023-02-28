@@ -3,7 +3,7 @@ category: Getting Started
 title:  Accessibility
 icon: doc-a11y
 localeCode: en-US
-order: 5
+order: 6
 brief: Accessible design is about making it easy for everyone to interact with products, including those with disabilities, to provide a better experience for everyone. The Semi design system is designed to remove barriers and create inclusive product experiences that work for all.
 ---
 

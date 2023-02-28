@@ -2,6 +2,7 @@ const order = [
     'introduction',
     'getting-started',
     'customize-theme',
+    'design-to-code',
     'dark-mode',
     'accessibility',
     'content-guidelines',

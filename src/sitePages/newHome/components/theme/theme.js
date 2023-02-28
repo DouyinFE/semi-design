@@ -5793,6 +5793,7 @@ export const capCutTheme = `/* shadow */
   box-sizing: border-box;
   position: relative;
   vertical-align: middle;
+  background-color: transparent;
 }
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row > .semi-table-row-cell.resizing {

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 74
+order: 75
 category: 其他
 title:  LocaleProvider 多语言
 icon: doc-i18n

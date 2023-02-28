@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 7
+order: 8
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
@@ -15,6 +15,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.30.0-beta.0 (2023-02-20)
+- 【Breaking Change】
+    - **Modify the calculation rules when the rule in the Numeral component is percentages**
+- 【Feat】
+    - Popconfirm supports A11y keyboard and focus  [#205](https://github.com/DouyinFE/semi-design/issues/205)
+    - Cascader supports calling the open/close method through ref
+    - Optimize the display format of the date at the bottom of the DatePicker panel, and configure it according to different locale language habits [@jacob-lcs](https://github.com/jacob-lcs)
+- 【Style】
+    - Solid Tag close button adds hover state color var(--semi-color-white) and active state color var(--semi-color-white)(opacity 0.9), default color from var(--semi-color-white) Change to var(--semi-color-white)(opacity 0.8).
+- 【Fix】
+    - Fix DatePicker panel moving in multiple mode  [#1422](https://github.com/DouyinFE/semi-design/issues/1422)
+    - Fix the wrong localeCode of nl-NL language pack, the scope of influence (v2.29.0-beta.0) [@jacob-lcs](https://github.com/jacob-lcs)
 
 #### 🎉 2.29.0 (2023-02-10)
 - 【Feat】
