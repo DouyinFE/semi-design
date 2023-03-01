@@ -229,42 +229,49 @@ const components = {
                 duration: 3,
             });
         }
+        const hideMaterialTitle = (children === '相关物料' || children === 'Related Material') && !MATERIAL_LIST_URL; // The external network does not display related materials
         return (
-            <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
-                {children}
+            <>
                 {
-                    children === '设计变量' ?
-                        <Tooltip content={
-                            <span>
-                                如何使用可查阅：
-                                <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
-                            </span>}
-                        >
-                            <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
-                        </Tooltip>
-                        : null
+                    hideMaterialTitle ? 
+                        null : 
+                        <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
+                            {children}
+                            {
+                                children === '设计变量' ?
+                                    <Tooltip content={
+                                        <span>
+                                            如何使用可查阅：
+                                            <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
+                                        </span>}
+                                    >
+                                        <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
+                                    </Tooltip>
+                                    : null
+                            }
+                            {
+                                children === 'Design Tokens' ? <Tooltip content={
+                                    <span>
+                                        How to use: Refer to
+                                        <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">DSM Playbook</a>
+                                    </span>}>
+                                    <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
+                                </Tooltip> : null
+                            }
+                            <IconLink
+                                className={'anchor-link-button-icon'}
+                                tabIndex={0}
+                                role="button"
+                                onClick={onIconLinkClick}
+                                onKeyPress={(e) => {
+                                    if (['Enter', ' '].includes(e?.key)) {
+                                        onIconLinkClick(e);
+                                    }
+                                }}
+                            />
+                        </h2>
                 }
-                {
-                    children === 'Design Tokens' ? <Tooltip content={
-                        <span>
-                            How to use: Refer to
-                            <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">DSM Playbook</a>
-                        </span>}>
-                        <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
-                    </Tooltip> : null
-                }
-                <IconLink
-                    className={'anchor-link-button-icon'}
-                    tabIndex={0}
-                    role="button"
-                    onClick={onIconLinkClick}
-                    onKeyPress={(e) => {
-                        if (['Enter', ' '].includes(e?.key)) {
-                            onIconLinkClick(e);
-                    }
-                    }}
-                />
-            </h2>
+            </>
         );
     },
     blockquote: ({ children }) => <blockquote className={'gatsby-blockquote'}>{children}</blockquote>,
@@ -678,7 +685,8 @@ export default function Template(args) {
             <SEO lang="zh-CN" title={`${current.frontmatter.title} - Semi Design`} />
             <div className={'pageAnchor'}>
                 {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
-                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
+                    //  The external network does not display related materials
+                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents.items.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
                 )}
                 {
                     iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />

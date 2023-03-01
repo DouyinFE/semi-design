@@ -162,6 +162,9 @@ export default function HTML(props) {
                 {
                     SEMI_SEARCH_URL?<script src={SEMI_SEARCH_URL} defer={true}/>:<script src={"https://unpkg.byted-static.com/latest/ies/semi-search-opensource/dist/semi-search.js"} defer={true}/>
                 }
+                {
+                    MATERIAL_LIST_URL ? <script src={MATERIAL_LIST_URL} defer={true} /> : null
+                }
                 <link rel="icon" href="https://lf9-static.semi.design/obj/semi-tos/images/favicon.ico" />
                 <script dangerouslySetInnerHTML={{ __html: `(${darkmodeProcesser.toString()})()` }} />
                 {props.headComponents}
