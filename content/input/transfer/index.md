@@ -1056,6 +1056,8 @@ TreeItem 继承 Item 的所有属性
 ## 设计变量
 <DesignToken/>
 
-## 相关物料
-<semi-material-list code="52"></semi-material-list>
+<!-- ## 相关物料
 
+```material
+52
+``` -->
