@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.30.1 (2023-02-27)
+- 【Fix】
+  - fixed showTick bug in Dropdown(the bug affects 2.27.1 ~ 2.30.0) [#1457](https://github.com/DouyinFE/semi-design/issues/1457)
+
+#### 🎉 2.30.0 (2023-02-23)
+- 【Fix】
+  - Fix the problem that Modal did not delete the redundant div after the imperative call was closed  [#1415](https://github.com/DouyinFE/semi-design/issues/1415)
+  - TreeSelect fixes the problem that the border color is abnormal when hovering in some scenes [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
+  - Fix the wrong timing of onBlur/onFocus calls in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
+  - Fix the problem that preventScroll is not declared and not transparently transmitted in TreeSelect [#1414](https://github.com/DouyinFE/semi-design/pull/1444)
+  - Fix when the Tooltip is blocked on the right side, the floating layer drifts to the left side of the viewport [#1449](https://github.com/DouyinFE/semi-design/pull/1449)
+- 【Design Token】
+  - Select Add `$color-select-bg-focus` [#1416](https://github.com/DouyinFE/semi-design/pull/1446)
+
 #### 🎉 2.30.0-beta.0 (2023-02-20)
 - 【Breaking Change】
     - **Modify the calculation rules when the rule in the Numeral component is percentages**

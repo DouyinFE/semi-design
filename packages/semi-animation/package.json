@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-animation",
-    "version": "2.30.0-beta.0",
+    "version": "2.30.1",
     "description": "animation base library for semi-ui",
     "keywords": [
         "animation",
@@ -26,7 +26,7 @@
     },
     "scripts": {
         "test": "echo \"Error: run tests from root\" && exit 1",
-        "build:lib": "export NODE_OPTIONS=--no-experimental-fetch && node scripts/compileLib",
+        "build:lib": "node scripts/compileLib",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {

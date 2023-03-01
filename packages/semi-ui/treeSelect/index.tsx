@@ -159,11 +159,12 @@ export type OverrideCommonState =
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;
-    isInput: boolean;
+    // isInput: boolean;
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: TreeSelectProps
+    prevProps: TreeSelectProps;
+    isFocus: boolean
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -261,6 +262,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-label': PropTypes.string,
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
+        preventScroll: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -310,7 +312,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.state = {
             inputTriggerFocus: false,
             isOpen: false,
-            isInput: false,
+            isFocus: false,
+            // isInput: false,
             rePosKey: key,
             dropdownMinWidth: null,
             inputValue: '',
@@ -639,7 +642,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             updateInputFocus: bool => { 
                 if (bool) {
                     if (this.inputRef && this.inputRef.current) {
-                        (this.inputRef.current as any).focus();
+                        const { preventScroll } = this.props;
+                        (this.inputRef.current as any).focus({ preventScroll });
                     }
                     if (this.tagInputRef && this.tagInputRef.current) {
                         this.tagInputRef.current.focus();
@@ -652,7 +656,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.tagInputRef.current.blur();
                     }
                 }
-            } // eslint-disable-line
+            },
+            updateIsFocus: bool => {
+                this.setState({ isFocus: bool });
+            } 
         };
     }
 
@@ -960,7 +967,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
         } = this.props;
-        const { isOpen, isInput, inputValue, selectedKeys, checkedKeys, keyEntities } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -977,7 +984,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cls(
                 prefixcls,
                 {
-                    [`${prefixcls}-focus`]: isOpen && !isInput,
+                    [`${prefixcls}-focus`]: isFocus,
                     [`${prefixcls}-disabled`]: disabled,
                     [`${prefixcls}-single`]: !multiple,
                     [`${prefixcls}-multiple`]: multiple,
@@ -1122,7 +1129,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             showRestTagsPopover, 
             restTagsPopoverProps,
             searchPosition,
-            filterTreeNode
+            filterTreeNode,
+            preventScroll
         } = this.props;
         const {
             keyEntities,
@@ -1161,6 +1169,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
                 expandRestTagsOnClick={false}
+                preventScroll={preventScroll}
             />
         );
     };
