@@ -3,7 +3,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
 import Typography from '../index';
-import { IconLink, IconTick } from '@douyinfe/semi-icons';
+import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
 
 export default {
   title: 'Typography'
@@ -638,30 +638,12 @@ export const Copyable = () => (
       copyable={{
         successTip: 'success'
       }}
-    >
-      <span>
-        测试 renderCopyNode 属性
-      </span>
-    </Paragraph>
+    >测试 renderCopyNode 属性</Paragraph>
     <Paragraph 
       spacing="extended" 
       copyable={{
-        renderCopyNode: (props) => {
-          const { onClick, onEnterKeyPress} = props;
-          return (
-            <span
-              tabIndex={0}
-              onClick={onClick} 
-              onKeyPress={onEnterKeyPress} 
-              style={{fontSize: 14, lineHeight: '17px', color: 'var(--semi-color-link)', cursor: 'pointer'}}
-            >复制</span>
-          );
-        },
+        icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/>
       }}
-    >
-      <span>
-        测试 renderCopyNode 属性
-      </span>
-    </Paragraph>
+    >测试 renderCopyNode 属性</Paragraph>
   </div>
 );

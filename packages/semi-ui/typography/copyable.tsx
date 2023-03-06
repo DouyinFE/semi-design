@@ -13,18 +13,13 @@ import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 const prefixCls = cssClasses.PREFIX;
 
-export interface CopyNodeProps {
-    onClick: (e: React.MouseEvent) => void;
-    onEnterKeyPress: (e: React.KeyboardEvent) => void
-}
-
 export interface CopyableProps extends BaseProps {
     content?: string;
     copyTip?: React.ReactNode;
     duration?: number;
     forwardRef?: React.RefObject<any>;
     successTip?: React.ReactNode;
-    renderCopyNode?: (props: CopyNodeProps) => React.ReactNode;
+    icon?: React.ReactNode;
     onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void
 }
 interface CopyableState {
@@ -113,18 +108,36 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         );
     };
 
+    renderCopyIcon = () => {
+        const { icon } = this.props;
+        const copyProps = {
+            onClick: this.copy
+        };
+
+        {/* TODO: replace `a` tag with `span` in next major version
+            NOTE: may have effect on style */}
+        const defaultIcon = (
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            <a className={`${prefixCls}-action-copy-icon`}>
+                <IconCopy
+                    role="button"
+                    tabIndex={0}
+                    onClick={this.copy}
+                    onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
+                />
+            </a>
+        );
+
+        return React.isValidElement(icon) ? React.cloneElement(icon, copyProps) : defaultIcon;
+    }
+
     render() {
-        const { style, className, forwardRef, copyTip, renderCopyNode } = this.props;
+        const { style, className, forwardRef, copyTip } = this.props;
         const { copied } = this.state;
         const finalCls = cls(className, {
             [`${prefixCls}-action-copy`]: !copied,
             [`${prefixCls}-action-copied`]: copied,
         });
-
-        const copyNodeProps = {
-            onClick: this.copy,
-            onEnterKeyPress: e => isEnterPress(e) && this.copy(e as any)
-        };
 
         return (
             <LocaleConsumer componentName="Typography">
@@ -133,20 +146,9 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
                         {copied ? (
                             this.renderSuccessTip()
                         ) : (
-                            renderCopyNode ? renderCopyNode(copyNodeProps) :
-                                (<Tooltip content={typeof copyTip !== 'undefined' ? copyTip : locale.copy}>
-                                    {/* TODO: replace `a` tag with `span` in next major version
-                                    NOTE: may have effect on style */}
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a className={`${prefixCls}-action-copy-icon`}>
-                                        <IconCopy
-                                            role="button"
-                                            tabIndex={0}
-                                            onClick={this.copy}
-                                            onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
-                                        />
-                                    </a>
-                                </Tooltip>)
+                            <Tooltip content={typeof copyTip !== 'undefined' ? copyTip : locale.copy}>
+                                {this.renderCopyIcon()}
+                            </Tooltip>
                         )}
                     </span>
                 )}

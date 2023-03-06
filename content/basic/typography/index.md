@@ -274,6 +274,7 @@ function Demo() {
 ```jsx live=true
 import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
     const { Paragraph, Text, Numeral } = Typography;
@@ -284,22 +285,7 @@ function Demo() {
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>点击复制文本。</Paragraph>
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功' }) }}>点击右边的图标复制文本。</Paragraph>
             时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
-            <Paragraph 
-                copyable={{ 
-                    renderCopyNode: (props) => {
-                        const { onClick, onEnterKeyPress } = props;
-                        return (
-                            <span 
-                                role="button" 
-                                tabIndex={0}
-                                onClick={onClick} 
-                                onKeyPress={onEnterKeyPress} 
-                                style={{ fontSize: 14, lineHeight: '17px', color: 'var(--semi-color-link)', cursor: 'pointer' }}
-                            >复制</span>
-                        );
-                    }
-                }}
-            >自定义复制节点</Paragraph>
+            <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>自定义复制节点</Paragraph>
             <br/>
             <br/>
             <Text type="secondary">粘贴区域：</Text>
@@ -520,7 +506,7 @@ function Demo() {
 | content    | 复制出的文本                | string                                         | -      | 0.27.0 |
 | copyTip    | 复制图标的 tooltip 展示内容 | React.node                                     | -      | 1.0.0  |
 | onCopy     | 复制回调                    | Function(e:Event, content:string, res:boolean) | -      | 0.27.0 |
-| renderCopyNode | 自定义渲染复制节点       | <ApiType detail='(props: { onCopy: (e: React.MouseEvent) => void, onEnterKeyPress: (e: React.KeyboardEvent) => void}) => ReactNode'>(props: CopyNodeProps) => ReactNode</ApiType> | -      | 2.30.0 |
+| icon       | 自定义渲染复制节点       | React.node                                     | -      | 2.31.0 |
 | successTip | 复制成功的展示内容          | React.node                                     | -      | 0.33.0 |
 
 
