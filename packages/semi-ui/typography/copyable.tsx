@@ -111,7 +111,10 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
     renderCopyIcon = () => {
         const { icon } = this.props;
         const copyProps = {
-            onClick: this.copy
+            role: "button",
+            tabIndex: 0,
+            onClick: this.copy,
+            onKeyPress: e => isEnterPress(e) && this.copy(e as any),
         };
 
         {/* TODO: replace `a` tag with `span` in next major version
@@ -120,10 +123,8 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a className={`${prefixCls}-action-copy-icon`}>
                 <IconCopy
-                    role="button"
-                    tabIndex={0}
                     onClick={this.copy}
-                    onKeyPress={e => isEnterPress(e) && this.copy(e as any)}
+                    {...copyProps}
                 />
             </a>
         );
