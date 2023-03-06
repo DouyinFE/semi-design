@@ -505,8 +505,8 @@ function Demo() {
 | ---------- | --------------------------- | ---------------------------------------------- | ------ | ------ |
 | content    | 复制出的文本                | string                                         | -      | 0.27.0 |
 | copyTip    | 复制图标的 tooltip 展示内容 | React.node                                     | -      | 1.0.0  |
+| icon       | 自定义渲染复制节点       | React.node                                       | -      | 2.31.0 |
 | onCopy     | 复制回调                    | Function(e:Event, content:string, res:boolean) | -      | 0.27.0 |
-| icon       | 自定义渲染复制节点       | React.node                                     | -      | 2.31.0 |
 | successTip | 复制成功的展示内容          | React.node                                     | -      | 0.33.0 |
 
 

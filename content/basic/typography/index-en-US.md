@@ -517,8 +517,8 @@ function Demo() {
 | ---------- | --------------------------------------- | ---------------------------------------------- | ------- | ------- |
 | content    | Copied content                          | string                                         | -       | 0.27.0  |
 | copyTip    | Tooltip content when hovering over icon | React.node                                     | -       | 1.0.0   |
+| icon       | Custom Render Duplicate Node            | React.node                                     | -       | 2.31.0  |
 | onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       | 0.27.0  |
-| icon       | Custom Render Duplicate Node            | React.node                                     | -      | 2.31.0 |
 | successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
 
 ## Content Guidelines
