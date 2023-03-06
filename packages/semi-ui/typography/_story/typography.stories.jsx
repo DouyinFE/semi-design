@@ -3,7 +3,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
 import Typography from '../index';
-import { IconLink, IconTick } from '@douyinfe/semi-icons';
+import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
 
 export default {
   title: 'Typography'
@@ -633,5 +633,17 @@ export const Copyable = () => (
         Web 应用。 ➡️
       </span>
     </Paragraph>
+    <Paragraph 
+      spacing="extended" 
+      copyable={{
+        successTip: 'success'
+      }}
+    >测试 renderCopyNode 属性</Paragraph>
+    <Paragraph 
+      spacing="extended" 
+      copyable={{
+        icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/>
+      }}
+    >测试 renderCopyNode 属性</Paragraph>
   </div>
 );

@@ -287,6 +287,7 @@ Copyable text.
 ```jsx live=true
 import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
     const { Paragraph, Text, Numeral } = Typography;
@@ -295,8 +296,9 @@ function Demo() {
         <div>
             <Paragraph copyable>Click the right icon to copy text.</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
-            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
             Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>Custom Copy Node</Paragraph>
             <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>
@@ -515,8 +517,9 @@ function Demo() {
 | ---------- | --------------------------------------- | ---------------------------------------------- | ------- | ------- |
 | content    | Copied content                          | string                                         | -       | 0.27.0  |
 | copyTip    | Tooltip content when hovering over icon | React.node                                     | -       | 1.0.0   |
-| successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
+| icon       | Custom Render Duplicate Node            | React.node                                     | -       | 2.31.0  |
 | onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       | 0.27.0  |
+| successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
 
 ## Content Guidelines
 
