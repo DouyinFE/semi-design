@@ -35,7 +35,7 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
         duration: PropTypes.number,
         style: PropTypes.object,
         className: PropTypes.string,
-        renderCopyNode: PropTypes.func
+        icon: PropTypes.node,
     };
 
     static defaultProps = {
