@@ -58,6 +58,12 @@ $types: "ghost", "solid", "light";
         text-overflow: ellipsis;
     }
 
+    &-content-center {
+        display: flex;
+        @include all-center;
+        height: 100%;
+    }
+
     &-close {
         @include all-center;
         color: $color-tag_close-icon-default;
