@@ -70,7 +70,7 @@ export { default as VirtualizedDynamicData } from './VirtualizedDynamicData';
 export { default as MassiveColumns } from './MassiveColumns';
 export { default as ControlledPagination } from './ControlledPagination';
 export { default as FulldRenderDemo } from './FullRender';
-export { RTLAlignScrollBar } from './RTL';
+export { RTLAlignScrollBar, ColumnAlign } from './RTL';
 export { default as JSXAsyncData } from './JSXAsyncData';
 export { default as ScrollBar } from './ScrollBar';
 export { default as TableSpan } from './TableSpan';

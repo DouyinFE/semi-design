@@ -18,7 +18,8 @@ function resolve(...dirs) {
  */
 function getAddons() {
     let addons = [
-        '@storybook/addon-a11y',
+        // for performance reason, only open `@storybook/addon-a11y` when dev a11y
+        // '@storybook/addon-a11y',
         '@storybook/addon-toolbars',
     ];
     

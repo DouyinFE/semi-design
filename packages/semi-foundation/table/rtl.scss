@@ -148,6 +148,34 @@ $module: #{$prefix}-table;
                 }
             }
         }
+
+        &-scroll {
+            &-position {
+                &-left {
+                    .#{$module}-tbody,
+                    .#{$module}-thead {
+                        & > .#{$module}-row > .#{$module}-cell-fixed-left-last {
+                            box-shadow: $shadow-table_right;
+                        }
+                        & > .#{$module}-row > .#{$module}-cell-fixed-right-first {
+                            box-shadow: none;
+                        }
+                    }
+                }
+    
+                &-right {
+                    .#{$module}-tbody,
+                    .#{$module}-thead {
+                        & > .#{$module}-row > .#{$module}-cell-fixed-left-last {
+                            box-shadow: none;
+                        }
+                        & > .#{$module}-row > .#{$module}-cell-fixed-right-first {
+                            box-shadow: $shadow-table_left;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .#{$module}-expand-icon {

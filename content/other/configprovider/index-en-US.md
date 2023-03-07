@@ -71,7 +71,7 @@ Global configuration `direction` can change the text direction of components。`
 Special components:
 - Command call of Modal, Notification and Toast needs to be passed to 'direction' through prop.
 - If you want to internationalize the directional icon, you need to handle it on your own. We think RTL for icon will make it difficult to understand and maintain. Semi has adapted the icons in other components.
-- Table fixed columns or headers, tree data, and virtualized tables do not support RTL at the moment, Slider does not support RTL at the moment.
+- The tree data of Table does not support RTL ([Chrome, Safari have different behave with Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)), and fixed column supports RTL in v2.32 version, Slider does not support RTL yet.
 
 ```jsx live=true dir="column" hideInDSM
 import React, { useState } from 'react';
@@ -379,9 +379,9 @@ function Demo(props = {}) {
 
 ## API Reference
 
-| Properties | Instructions                                                                                                          | type           | Default |
-| ---------- | --------------------------------------------------------------------------------------------------------------------- | -------------- | ------- |
-| direction | Sets the direction of the text | `ltr`\| `rtl` | `ltr` | 
+| Properties | Instructions                   | type          | Default |
+|------------|--------------------------------|---------------|---------|
+| direction  | Sets the direction of the text | `ltr`\| `rtl` | `ltr`   |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body    |
 | locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider` | object         |         |
 | timeZone   | [Time zone identifier](#Time_Zone_Identifier)                                                                         | string\|number |         |
