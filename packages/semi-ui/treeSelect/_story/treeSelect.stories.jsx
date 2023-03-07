@@ -754,6 +754,50 @@ export const OnBlurOnFocus = () => (
       onFocus={(...args) => console.log('focus', args)}
       placeholder="Please select"
     />
+     <div>single, filterTreeNode, searchPosition=dropdown</div>
+    <TreeSelect
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>multiple, filterTreeNode, searchPosition=dropdown</div>
+    <TreeSelect
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      multiple
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>single, filterTreeNode, searchPosition=trigger</div>
+    <TreeSelect
+      searchPosition="trigger"
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>multiple, filterTreeNode, searchPosition=trigger</div>
+    <TreeSelect
+      searchPosition="trigger"
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      multiple
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
   </>
 );
 

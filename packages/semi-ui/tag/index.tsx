@@ -126,10 +126,11 @@ export default class Tag extends Component<TagProps, TagState> {
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
-        const a11yProps = { role: 'button', tabIndex: tabIndex | 0, onKeyDown: this.handleKeyDown };
+        const a11yProps = { role: 'button', tabIndex: tabIndex || 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,
+            tabIndex: tabIndex,
             className: classNames(
                 prefixCls,
                 {

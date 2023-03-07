@@ -52,7 +52,7 @@ Design to code（简称D2C） 是 Semi Design 提供的设计稿转代码功能�
 
 ![](https://lf3-files.qingfuwucdn.net/obj/inspirecloud-file/baas/tt38q7/82069cd816533f91_1676604095341.png)
 
-更详细的使用说明，可访问 <a href="https://semi.design/code" target="_blank">https://semi.design/code</a> 查阅
+更详细的使用说明，可访问 <a href="/code" target="_blank">https://semi.design/code</a> 查阅
 
 
 ## 使用场景

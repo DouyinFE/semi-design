@@ -832,6 +832,8 @@ function NavApp (props = {}) {
 ```material
 2, 43, 312
 ``` -->
+## Related Material
+<semi-material-list code="2, 312"></semi-material-list>
 
 ## FAQ
 - **Lost animation in navigation bar?**

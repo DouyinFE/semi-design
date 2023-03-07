@@ -400,3 +400,6 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 ## 设计变量
 <DesignToken/>
+
+## 相关物料
+<semi-material-list code="123"></semi-material-list>
