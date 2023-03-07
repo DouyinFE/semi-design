@@ -1001,3 +1001,11 @@ Multiple dates or times are used by default `","` (English comma) separated.
 - **Date time selection, range date selection, after inputting some dates, the panel does not echo the date?**
 
      The input box needs to be entered completely before it is showed to the panel. For example, for `dateTime` type, the full requested date and time have been entered. For `dateRange` type, full requires start and end dates to be entered.
+
+- **What is the displayed time at the bottom of the date time selection panel?**
+
+    When no time is selected, it is the value of the time in `defaultPickerValue`, if not set it is the time when the panel was opened. After selecting a time, it is the selected time.
+
+    Since it has two hidden meanings in design, which may lead to ambiguity, it is recommended to use inline styles and open them through `insetInput`. It is recommended to read the relevant <a href="#input-in-panel">Documentation</a> before use.
+    
+    <Image src="https://lf9-static.semi.design/obj/semi-tos/images/a0d68960-bccf-11ed-84ab-fbdf4dc2eb57.png" width={600} />
