@@ -4796,7 +4796,6 @@ type Filter = {
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
-| title | Custom List Selection Box Title | string | ReactNode |  |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
