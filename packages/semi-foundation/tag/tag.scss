@@ -53,15 +53,19 @@ $types: "ghost", "solid", "light";
 
     &-content {
         flex: 1;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
 
-    &-content-center {
-        display: flex;
-        @include all-center;
-        height: 100%;
+        &-ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &-center {
+            display: flex;
+            @include all-center;
+            height: 100%;
+            min-width: 0;
+        }
     }
 
     &-close {
