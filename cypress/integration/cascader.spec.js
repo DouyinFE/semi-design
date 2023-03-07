@@ -103,4 +103,13 @@ describe('cascader', () => {
         cy.get('.semi-checkbox').eq(0).click();
         cy.get('.semi-tag-content').contains('亚洲');
     });
+
+    it('value change in search', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--set-value-in-search&args=&viewMode=story');
+        cy.get('.semi-cascader-selection').click();
+        // mouse over change value
+        cy.get('#mouseIn').trigger('mouseover');
+        // value change should not effect input value
+        cy.get('input').should('have.value', '');
+    });
 });

@@ -441,7 +441,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 if (filterable && !multiple) {
                     const displayText = this.renderDisplayText(selectedKey, keyEntities);
                     updateStates.inputPlaceHolder = displayText;
-                    updateStates.inputValue = displayText;
+                    /* 
+                     *  displayText should not be assign to inputValue,
+                     *  cause inputValue should only change by user enter
+                     */
+                    // updateStates.inputValue = displayText;
                 }
             /**
              * If selectedKeys does not meet the update conditions,
@@ -472,7 +476,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             if (filterable && !multiple) {
                 const displayText = this._defaultRenderText(valuePath);
                 updateStates.inputPlaceHolder = displayText;
-                updateStates.inputValue = displayText;
+                /* 
+                 *  displayText should not be assign to inputValue,
+                 *  cause inputValue should only change by user enter
+                 */
+                // updateStates.inputValue = displayText;
             }
             keyEntities[key] = optionNotExist as BasicEntity;
             // Fix: 1155, if the data is loaded asynchronously to update treeData, the emptying operation should not be done when entering the updateSelectedKey method
