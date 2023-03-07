@@ -40,10 +40,21 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     renderDate?: (dayNumber?: number, fullDate?: string) => React.ReactNode;
     renderFullDate?: (dayNumber?: number, fullDate?: string, dayStatus?: DayStatusType) => React.ReactNode;
     triggerRender?: (props: DatePickerProps) => React.ReactNode;
+    /**
+     * There are multiple input boxes when selecting a range, and the input boxes will be out of focus multiple times. 
+     * 
+     * Use `onOpenChange` or `onClickOutSide` instead
+     */
     onBlur?: React.MouseEventHandler<HTMLInputElement>;
     onClear?: React.MouseEventHandler<HTMLDivElement>;
+    /**
+     * There are multiple input boxes when selecting a range, and the input boxes will be focused multiple times.
+     * 
+     * Use `onOpenChange` or `triggerRender` instead
+     */
     onFocus?: (e: React.MouseEvent, rangeType: RangeType) => void;
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
+    onClickOutSide?: () => void;
     locale?: Locale['DatePicker'];
     dateFnsLocale?: Locale['dateFnsLocale'];
     yearAndMonthOpts?: ScrollItemProps<any>;
@@ -133,7 +144,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
         preventScroll: PropTypes.bool,
-        yearAndMonthOpts: PropTypes.object
+        yearAndMonthOpts: PropTypes.object,
+        onClickOutSide: PropTypes.func,
     };
 
     static defaultProps = {
@@ -172,6 +184,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         syncSwitchMonth: false,
         rangeSeparator: strings.DEFAULT_SEPARATOR_RANGE,
         insetInput: false,
+        onClickOutSide: noop,
     };
 
     triggerElRef: React.MutableRefObject<HTMLElement>;
@@ -220,8 +233,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     get adapter(): DatePickerAdapter {
         return {
             ...super.adapter,
-            togglePanel: panelShow => {
-                this.setState({ panelShow });
+            togglePanel: (panelShow, cb) => {
+                this.setState({ panelShow }, cb);
                 if (!panelShow) {
                     this.focusRecordsRef.current.rangeEnd = false;
                     this.focusRecordsRef.current.rangeStart = false;
@@ -233,15 +246,19 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     this.clickOutSideHandler = null;
                 }
                 this.clickOutSideHandler = e => {
-                    if (this.adapter.needConfirm()) {
-                        return;
-                    }
                     const triggerEl = this.triggerElRef && this.triggerElRef.current;
                     const panelEl = this.panelRef && this.panelRef.current;
                     const isInTrigger = triggerEl && triggerEl.contains(e.target as Node);
                     const isInPanel = panelEl && panelEl.contains(e.target as Node);
-                    if (!isInTrigger && !isInPanel && this._mounted) {
-                        this.foundation.closePanel(e);
+                    const clickOutSide = !isInTrigger && !isInPanel && this._mounted;
+                    if (this.adapter.needConfirm()) {
+                        clickOutSide && this.props.onClickOutSide();
+                        return;
+                    } else {
+                        if (clickOutSide) {
+                            this.props.onClickOutSide();
+                            this.foundation.closePanel(e);
+                        }
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
@@ -388,6 +405,14 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     componentWillUnmount() {
         this._mounted = false;
         super.componentWillUnmount();
+    }
+
+    open() {
+        this.foundation.open();
+    }
+
+    close() {
+        this.foundation.close();
     }
 
     setTriggerRef = (node: HTMLDivElement) => (this.triggerElRef.current = node);

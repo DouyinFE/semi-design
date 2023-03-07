@@ -665,4 +665,40 @@ describe('DatePicker', () => {
         cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('20').click();
         cy.get('.semi-datepicker-navigation-month').contains("2019年 8月");
     });
+
+    it('test clickOutSide', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-footer').click();
+        cy.get('body').click();
+        cy.get('@consoleLog').should('be.calledOnce');
+    });
+
+    it('test open & close', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+        cy.get('button').contains('open').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker');
+        cy.get('button').contains('close').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker').should('not.exist');
+    });
+
+    it('test needConfirm + close', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker');
+        cy.get('.semi-tabs-tab').contains('快速起步').click();
+        cy.get('.semi-popover .semi-datepicker').should('not.exist');
+    });
 });

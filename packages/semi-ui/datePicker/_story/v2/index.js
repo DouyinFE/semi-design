@@ -15,3 +15,5 @@ export { default as FixRangePanelShift } from './FixRangePanelShift';
 export { default as InsetInputControlled } from './InsetInputControlled';
 export { default as FeatInsetInputProps } from './FeatInsetInputProps';
 export { default as FixMultiplePanelShift } from './FixMultiplePanelShift';
+export { default as FeatRef } from './FeatRef';
+export { default as FeatRefClass } from './FeatRefClass';
