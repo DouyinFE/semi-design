@@ -96,7 +96,9 @@ $height-cascader_option_list: 180px; // 级联选择菜单高度
 $height-cascader_selection_tagInput_wrapper_small: 22px;  //级联选择多选搜索时搜索框最小高度 - 小尺寸
 $height-cascader_selection_tagInput_wrapper_default: 30px;  //级联选择多选搜索时搜索框最小高度 - 默认尺寸
 $height-cascader_selection_tagInput_wrapper_large: 38px;  //级联选择多选搜索时搜索框最小高度 - 大尺寸
-$height-cascader_selection_wrapper: 30px;
+$height-cascader_selection_wrapper_small: 22px;  //级联选择单选搜索时搜索框高度 - 小尺寸
+$height-cascader_selection_wrapper: 30px; // 级联选择单选搜索时搜索框高度 - 默认尺寸
+$height-cascader_selection_wrapper_large: 38px;  //级联选择单选搜索时搜索框高度 - 大尺寸
 
 $spacing-cascader_text-marginX: $spacing-base-tight; // 级联选择 prefix/suffix 文字水平内间距
 $spacing-cascader_icon-marginX: $spacing-tight; // 级联选择 prefix/suffix 图标水平内间距
