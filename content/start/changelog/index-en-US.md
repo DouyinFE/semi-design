@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.30.2 (2023-03-09)
+- 【Fix】
+    - When a Form has an id passed in, x-form-id will use the passed id first
+    - fix the problem that Tags cannot be gathered through the keyboard under Tooltip
+    - Fix the problem that the color of the button at the bottom of the danger type is incorrect when Modal is called imperatively
 
 #### 🎉 2.30.1 (2023-02-27)
 - 【Fix】
