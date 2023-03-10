@@ -109,13 +109,11 @@ export interface EventHandlerProps {
     onPanelChange?: OnPanelChangeType;
     onConfirm?: OnConfirmType;
     // properties below need overwrite
-    // onBlur?: React.MouseEventHandler<HTMLInputElement>;
     onBlur?: (e: any) => void;
-    // onClear?: React.MouseEventHandler<HTMLDivElement>;
     onClear?: (e: any) => void;
-    // onFocus?: React.MouseEventHandler<HTMLInputElement>;
     onFocus?: (e: any, rangType: RangeType) => void;
-    onPresetClick?: OnPresetClickType
+    onPresetClick?: OnPresetClickType;
+    onClickOutSide?: () => void
 }
 
 export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps {
@@ -190,7 +188,7 @@ export interface DatePickerFoundationState {
 export { Type, DateInputFoundationProps };
 
 export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationProps, DatePickerFoundationState> {
-    togglePanel: (panelShow: boolean) => void;
+    togglePanel: (panelShow: boolean, cb?: () => void) => void;
     registerClickOutSide: () => void;
     unregisterClickOutSide: () => void;
     notifyBlur: DatePickerFoundationProps['onBlur'];
@@ -212,7 +210,10 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     isEventTarget: (e: any) => boolean;
     updateInsetInputValue: (insetInputValue: InsetInputValue) => void;
     setInsetInputFocus: () => void;
-    setTriggerDisabled: (disabled: boolean) => void
+    setTriggerDisabled: (disabled: boolean) => void;
+    setInputFocus: () => void;
+    setInputBlur: () => void;
+    setRangeInputBlur: () => void
 }
  
 
@@ -223,6 +224,7 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
  */
 export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapter> {
 
+    clickConfirmButton: boolean;
     constructor(adapter: DatePickerAdapter) {
         super({ ...adapter });
     }
@@ -251,8 +253,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const result = this.parseWithTimezone(_value, timeZone, prevTimeZone);
         this._adapter.updatePrevTimezone(prevTimeZone);
         // reset input value when value update
-        this._adapter.updateInputValue(null);
-        this._adapter.updateInsetInputValue(null);
+        this.clearInputValue();
         this._adapter.updateValue(result);
         this.resetCachedSelectedValue(result);
         this.initRangeInputFocus(result);
@@ -327,7 +328,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     destroy() {
         // Ensure that event listeners will be uninstalled and users may not trigger closePanel
-        // this._adapter.togglePanel(false);
+        this._adapter.togglePanel(false);
         this._adapter.unregisterClickOutSide();
     }
 
@@ -344,14 +345,14 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     openPanel() {
         if (!this.getProp('disabled')) {
             if (!this._isControlledComponent('open')) {
-                this._adapter.togglePanel(true);
-                this._adapter.registerClickOutSide();
+                this.open();
             }
             this._adapter.notifyOpenChange(true);
         }
     }
 
     /**
+     * @deprecated
      * do these side effects when type is dateRange or dateTimeRange
      *   1. trigger input blur, if input value is invalid, set input value and state value to previous status
      *   2. set cachedSelectedValue using given dates(in needConfirm mode)
@@ -371,6 +372,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     /**
+     * @deprecated
      * clear input value when selected date is not confirmed
      */
     needConfirmSideEffectsWhenClosePanel(willUpdateDates: Date[] | null | undefined) {
@@ -421,16 +423,91 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const { value } = this._adapter.getStates();
         const willUpdateDates = isNullOrUndefined(dates) ? value : dates;
         if (!this._isControlledComponent('open')) {
-            this._adapter.togglePanel(false);
-            this._adapter.unregisterClickOutSide();
+            this.close();
+        } else {
+            this.resetInnerSelectedStates(willUpdateDates);
         }
-        // range type picker, closing panel requires the following side effects
-        this.rangeTypeSideEffectsWhenClosePanel(inputValue, willUpdateDates as Date[]);
-        this.needConfirmSideEffectsWhenClosePanel(willUpdateDates as Date[]);
-        this.clearInsetInputValue();
         this._adapter.notifyOpenChange(false);
+    }
+
+    open() {
+        this._adapter.togglePanel(true);
+        this._adapter.registerClickOutSide();
+    }
+
+    close() {
+        this._adapter.togglePanel(false, () => this.resetInnerSelectedStates());
+        this._adapter.unregisterClickOutSide();
+    }
+
+    focus(focusType?: Exclude<RangeType, false>) {
+        if (this._isRangeType()) {
+            const rangeInputFocus = focusType ?? 'rangeStart';
+            this._adapter.setRangeInputFocus(rangeInputFocus);
+        } else {
+            this._adapter.setInputFocus();
+        }
+    }
+
+    blur() {
+        if (this._isRangeType()) {
+            this._adapter.setRangeInputBlur();
+        } else {
+            this._adapter.setInputBlur();
+        }
+    }
+
+    /**
+     * reset cachedSelectedValue, inputValue when close panel
+     */
+    resetInnerSelectedStates(willUpdateDates?: Date[]) {
+        const { value } = this._adapter.getStates();
+        const needResetCachedSelectedValue = !this.isCachedSelectedValueValid(willUpdateDates) || this._adapter.needConfirm() && !this.clickConfirmButton;
+        if (needResetCachedSelectedValue) {
+            this.resetCachedSelectedValue(value);
+        }
+        this.resetFocus();
+        this.clearInputValue();
+        this.clickConfirmButton = false;
+    }
+
+    resetFocus(e?: any) {
+        this._adapter.setRangeInputFocus(false);
         this._adapter.notifyBlur(e);
     }
+
+    /**
+     * cachedSelectedValue can be `(Date|null)[]` or `null`
+     */
+    isCachedSelectedValueValid(dates: Date[]) {
+        const cachedSelectedValue = dates || this._adapter.getState('cachedSelectedValue');
+        const { type } = this._adapter.getProps();
+        let isValid = true;
+        switch (true) {
+            case type === 'dateRange':
+            case type === 'dateTimeRange':
+                if (!this._isRangeValueComplete(cachedSelectedValue)) {
+                    isValid = false;
+                }
+                break;
+            default:
+                const value = cachedSelectedValue?.filter(item => item);
+                if (!(Array.isArray(value) && value.length)) {
+                    isValid = false;
+                }
+                break;
+        }
+        return isValid;
+    }
+
+    /**
+     * 将输入框内容置空
+     */
+    clearInputValue() {
+        this._adapter.updateInputValue(null);
+        this._adapter.updateInsetInputValue(null);
+    }
+
 
     /**
      * clear range input focus when open is controlled
@@ -519,38 +596,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {String} input
      * @param {Event} e
      */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleInputBlur(input = '', e?: any) {
-        const parsedResult = input ?
-            this._isMultiple() ?
-                this.parseMultipleInput(input, ',', true) :
-                this.parseInput(input) :
-            [];
-
-        const stateValue = this.getState('value');
-
-        // console.log(input, parsedResult);
-
-        if (parsedResult && parsedResult.length) {
-            this._updateValueAndInput(parsedResult, input === '');
-        } else if (input === '') {
-            // if clear input, set input to `''`
-            this._updateValueAndInput('' as any, true, '');
-        } else {
-            this._updateValueAndInput(stateValue);
-        }
-
-        /**
-         * 当不是范围类型且不需要确认时，使用 stateValue 重置 cachedSelectedValue
-         * 这样做的目的是，在输入非法值时，使用上次选中的值作为已选值
-         * needConfirm 或者 range type 时，我们在 close panel 时调用 resetCachedSelectedValue，这里不用重复调用
-         * 
-         * Use stateValue to reset cachedSelectedValue when it is not a range type and does not require confirmation
-         * The purpose of this is to use the last selected value as the selected value when an invalid value is entered
-         * When needConfirm or range type, we call resetCachedSelectedValue when close panel, no need to call repeatedly here
-         */
-        if (!this._adapter.needConfirm() && !this._isRangeType()) {
-            this.resetCachedSelectedValue(stateValue);
-        }
     }
 
     /**
@@ -1023,6 +1070,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     handleConfirm() {
+        this.clickConfirmButton = true;
         const { cachedSelectedValue, value } = this._adapter.getStates();
         const isRangeValueComplete = this._isRangeValueComplete(cachedSelectedValue);
         const newValue = isRangeValueComplete ? cachedSelectedValue : value;

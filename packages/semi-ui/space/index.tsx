@@ -5,6 +5,7 @@ import { strings, cssClasses } from '@douyinfe/semi-foundation/space/constants';
 import '@douyinfe/semi-foundation/space/space.scss';
 import { isString, isArray, isNumber } from 'lodash';
 import { flatten } from './utils';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -84,8 +85,9 @@ class Space extends PureComponent<SpaceProps> {
             [`${prefixCls}-loose-vertical`]: spacingVerticalType === strings.SPACING_LOOSE,
         });
         const childrenNodes = flatten(children);
+        const dataAttributes = getDataAttr(this.props);
         return (
-            <div className={classNames} style={realStyle} x-semi-prop="children">
+            <div {...dataAttributes} className={classNames} style={realStyle} x-semi-prop="children">
                 {childrenNodes}
             </div>
         );

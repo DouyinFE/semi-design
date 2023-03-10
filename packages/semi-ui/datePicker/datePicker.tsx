@@ -40,10 +40,21 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     renderDate?: (dayNumber?: number, fullDate?: string) => React.ReactNode;
     renderFullDate?: (dayNumber?: number, fullDate?: string, dayStatus?: DayStatusType) => React.ReactNode;
     triggerRender?: (props: DatePickerProps) => React.ReactNode;
+    /**
+     * There are multiple input boxes when selecting a range, and the input boxes will be out of focus multiple times. 
+     * 
+     * Use `onOpenChange` or `onClickOutSide` instead
+     */
     onBlur?: React.MouseEventHandler<HTMLInputElement>;
     onClear?: React.MouseEventHandler<HTMLDivElement>;
+    /**
+     * There are multiple input boxes when selecting a range, and the input boxes will be focused multiple times.
+     * 
+     * Use `onOpenChange` or `triggerRender` instead
+     */
     onFocus?: (e: React.MouseEvent, rangeType: RangeType) => void;
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
+    onClickOutSide?: () => void;
     locale?: Locale['DatePicker'];
     dateFnsLocale?: Locale['dateFnsLocale'];
     yearAndMonthOpts?: ScrollItemProps<any>;
@@ -133,7 +144,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         onPanelChange: PropTypes.func,
         rangeSeparator: PropTypes.string,
         preventScroll: PropTypes.bool,
-        yearAndMonthOpts: PropTypes.object
+        yearAndMonthOpts: PropTypes.object,
+        onClickOutSide: PropTypes.func,
     };
 
     static defaultProps = {
@@ -172,13 +184,15 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         syncSwitchMonth: false,
         rangeSeparator: strings.DEFAULT_SEPARATOR_RANGE,
         insetInput: false,
+        onClickOutSide: noop,
     };
 
     triggerElRef: React.MutableRefObject<HTMLElement>;
     panelRef: React.RefObject<HTMLDivElement>;
     monthGrid: React.RefObject<MonthsGrid>;
-    rangeInputStartRef: React.RefObject<HTMLElement>;
-    rangeInputEndRef: React.RefObject<HTMLElement>;
+    inputRef: DateInputProps['inputRef'];
+    rangeInputStartRef: DateInputProps['rangeInputStartRef'];
+    rangeInputEndRef: DateInputProps['rangeInputEndRef'];
     focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
     clickOutSideHandler: (e: MouseEvent) => void;
     _mounted: boolean;
@@ -205,6 +219,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         this.triggerElRef = React.createRef();
         this.panelRef = React.createRef();
         this.monthGrid = React.createRef();
+        this.inputRef = React.createRef();
         this.rangeInputStartRef = React.createRef();
         this.rangeInputEndRef = React.createRef();
         this.focusRecordsRef = React.createRef();
@@ -220,8 +235,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     get adapter(): DatePickerAdapter {
         return {
             ...super.adapter,
-            togglePanel: panelShow => {
-                this.setState({ panelShow });
+            togglePanel: (panelShow, cb) => {
+                this.setState({ panelShow }, cb);
                 if (!panelShow) {
                     this.focusRecordsRef.current.rangeEnd = false;
                     this.focusRecordsRef.current.rangeStart = false;
@@ -233,15 +248,19 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     this.clickOutSideHandler = null;
                 }
                 this.clickOutSideHandler = e => {
-                    if (this.adapter.needConfirm()) {
-                        return;
-                    }
                     const triggerEl = this.triggerElRef && this.triggerElRef.current;
                     const panelEl = this.panelRef && this.panelRef.current;
                     const isInTrigger = triggerEl && triggerEl.contains(e.target as Node);
                     const isInPanel = panelEl && panelEl.contains(e.target as Node);
-                    if (!isInTrigger && !isInPanel && this._mounted) {
-                        this.foundation.closePanel(e);
+                    const clickOutSide = !isInTrigger && !isInPanel && this._mounted;
+                    if (this.adapter.needConfirm()) {
+                        clickOutSide && this.props.onClickOutSide();
+                        return;
+                    } else {
+                        if (clickOutSide) {
+                            this.props.onClickOutSide();
+                            this.foundation.closePanel(e);
+                        }
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
@@ -349,6 +368,26 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         break;
                 }
             },
+            setInputFocus: () => {
+                const { preventScroll } = this.props;
+                const inputNode = get(this, 'inputRef.current');
+                inputNode && inputNode.focus({ preventScroll });
+            },
+            setInputBlur: () => {
+                const inputNode = get(this, 'inputRef.current');
+                inputNode && inputNode.blur();
+            },
+            setRangeInputBlur: () => {
+                const { rangeInputFocus } = this.state;
+                if (rangeInputFocus === 'rangeStart') {
+                    const inputStartNode = get(this, 'rangeInputStartRef.current');
+                    inputStartNode && inputStartNode.blur();
+                } else if (rangeInputFocus === 'rangeEnd') {
+                    const inputEndNode = get(this, 'rangeInputEndRef.current');
+                    inputEndNode && inputEndNode.blur();
+                }
+                this.adapter.setRangeInputFocus(false);
+            },
             setTriggerDisabled: (disabled: boolean) => {
                 this.setState({ triggerDisabled: disabled });
             }
@@ -388,6 +427,32 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     componentWillUnmount() {
         this._mounted = false;
         super.componentWillUnmount();
+    }
+
+    open() {
+        this.foundation.open();
+    }
+
+    close() {
+        this.foundation.close();
+    }
+
+    /**
+     *
+     * When selecting a range, the default focus is on the start input box, passing in `rangeEnd` can focus on the end input box
+     *
+     * When `insetInput` is `true`, due to trigger disabled, the cursor will focus on the input box of the popup layer panel
+     *
+     * 范围选择时，默认聚焦在开始输入框，传入 `rangeEnd` 可以聚焦在结束输入框
+     *
+     * `insetInput` 打开时，由于 trigger 禁用，会把焦点放在弹出面板的输入框上
+     */
+    focus(focusType?: Exclude<RangeType, false>) {
+        this.foundation.focus(focusType);
+    }
+
+    blur() {
+        this.foundation.blur();
     }
 
     setTriggerRef = (node: HTMLDivElement) => (this.triggerElRef.current = node);
@@ -547,7 +612,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         this.foundation.handlePanelVisibleChange(visible);
     }
 
-    renderInner(extraProps?: Partial<DatePickerProps>) {
+    renderInner() {
         const {
             clearIcon,
             type,
@@ -584,7 +649,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const phText = placeholder || locale.placeholder[type]; // i18n
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
-            ...extraProps,
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,
@@ -619,6 +683,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             onRangeEndTabPress: this.handleRangeEndTabPress,
             rangeInputStartRef: insetInput ? null : this.rangeInputStartRef,
             rangeInputEndRef: insetInput ? null : this.rangeInputEndRef,
+            inputRef: this.inputRef,
         };
 
         return (

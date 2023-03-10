@@ -915,16 +915,55 @@ function Demo() {
 | type               | Type, optional value: "date", "dateRange", "dateTime", "dateTimeRange", "month"                                                                                                           | string                                                                                                                                                                                                    | 'date'                                                                                |  |
 | value              | Controlled value                                                                                                                                                                          | ValueType                                                                                                                                                     |                                                                                       |                           |
 | weekStartsOn       | Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on.                                                                                             | number                                                                                                                                                                                                    | 0                                                                                     |                           |
-| onBlur             | Callback when focus is lost                                                                                                                                                               | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
 | onCancel           | Cancel the callback when selected, enter the reference as the value of the last confirmed selection, only `type` equals "dateTime"or "dateTimeRange" and `needConfirm` equals true        | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>                                                              |                                                                                       | **0.18.0**                |
 | onChange           | A callback when the value changes |   <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType>       |                                                                                       |                           |
 | onClear            | A callback when click the clear button                                                                                                                                                    | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.16.0**           |
+| onClickOutSide    | When the pop-up layer is in a display state, click the non-popup layer and trigger callback | () => void | () => {} | **2.31.0** |
 | onConfirm          | Confirm the callback at the time of selection, enter the reference as the value of the current selection, only `type` equals "dateTime" or "dateTimeRange" and `needConfirm` equals true  |  <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|                                                                                       | **0.18.0**                |
-| onFocus            | Callback when focus is obtained                                                                                                                                                           | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.0.0**                 |
 | onOpenChange       | Callback when popup open or close                                                                                                                                 | (isOpen) => void                                                                                                                                                                                 |                                                                                       |                           |
 | onPanelChange      | Callback when the year or date of the panel is switched|  <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType>  |  |**1.28.0**|
 | onPresetClick      | Callback when click preset button                                                                          | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType>       |   **1.24.0**                           |
 | yearAndMonthOpts | Other parameters that can be transparently passed to the year-month selector, see details in [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)|  | object | **2.22.0** |
+
+## Methods
+
+| Methods | Description                                       | Version |
+|---------|---------------------------------------------------|---------|
+| open    | The dropdown can be manually opened when calling  | 2.31.0  |
+| close   | The dropdown can be manually closed when calling  | 2.31.0  |
+| focus   | The input box can be manually focused when called | 2.31.0  |
+| blur    | The input box can be manually blurred when called | 2.31.0  |
+
+```jsx live=true
+import React, { useRef } from 'react';
+import { DatePicker, Space, Button } from '@douyinfe/semi-ui';
+import BaseDatePicker from '@douyinfe/semi-ui/lib/es/datePicker/datePicker';
+
+function Demo() {
+    const ref = useRef();
+    // Typescript
+    // const ref = useRef<BaseDatePicker>();
+    // Why not import the DatePicker exported by the entry? -> The entry component is a forwardRef component, and the ref is transparently passed to this component
+
+    const handleClickOutside = () => {
+        console.log('click outside');
+    };
+
+    return (
+        <Space vertical align={'start'}>
+            <Space>
+                <Button onClick={() => ref.current.open()}>open</Button>
+                <Button onClick={() => ref.current.close()}>close</Button>
+                <Button onClick={() => ref.current.focus()}>focus</Button>
+                <Button onClick={() => ref.current.blur()}>blur</Button>
+            </Space>
+            <div>
+                <DatePicker type="dateTime" ref={ref} onClickOutSide={handleClickOutside} />
+            </div>
+        </Space>
+    );
+}
+```
 
 
 ## Interface Define

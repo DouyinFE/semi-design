@@ -35,7 +35,10 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>, rangeType?: RangeType) => void;
     onClear?: (e: React.MouseEvent<HTMLDivElement>) => void;
     onInsetInputChange?: (options: InsetInputChangeProps) => void;
-    value?: Date[]
+    value?: Date[];
+    inputRef?: React.RefObject<HTMLInputElement>;
+    rangeInputStartRef?: React.RefObject<HTMLInputElement>;
+    rangeInputEndRef?: React.RefObject<HTMLInputElement>
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -393,6 +396,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             prefix,
             autofocus,
             size,
+            inputRef,
             // range input support props, no need passing to not range type
             rangeInputStartRef,
             rangeInputEndRef,
@@ -429,6 +433,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         ) : (
             <Input
                 {...rest}
+                ref={inputRef}
                 insetLabel={insetLabel}
                 disabled={disabled}
                 readonly={inputReadOnly}
