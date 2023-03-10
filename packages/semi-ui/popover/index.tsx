@@ -47,7 +47,9 @@ export interface PopoverProps extends BaseProps {
     onEscKeyDown?: TooltipProps['onEscKeyDown'];
     clickToHide?:TooltipProps['clickToHide'];
     disableFocusListener?: boolean;
-    afterClose?:()=>void
+    afterClose?:()=>void;
+
+    keepDOM?:boolean
 }
 
 export interface PopoverState {

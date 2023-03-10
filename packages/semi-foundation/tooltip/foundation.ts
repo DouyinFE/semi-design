@@ -38,6 +38,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     unregisterScrollHandler(): void;
     insertPortal(...args: any[]): void;
     removePortal(...args: any[]): void;
+    setDisplayNone:(displayNone:boolean, cb?:()=>void)=>void;
     getEventName(): {
         mouseEnter: string;
         mouseLeave: string;
@@ -136,6 +137,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
   
     removePortal = () => {
         this._adapter.removePortal();
+    }
+
+    setDisplayNone:(displayNone:boolean, cb?:()=>void)=>void = (displayNone, cb) => {
+        this._adapter.setDisplayNone(displayNone, cb);
     }
 
     _adjustPos(position = '', isVertical = false, adjustType = 'reverse', concatPos?: any) {
@@ -294,7 +299,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
-        const { visible } = this.getStates();
+        const { visible, displayNone } = this.getStates();
+        if (displayNone){
+            this.setDisplayNone(false);
+        }
         if (visible) {
             return ;
         }

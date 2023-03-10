@@ -359,6 +359,7 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 | zIndex              | Bullet levels.           | number                      | 1060                |            |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                                               | (isVisible: boolean) => void |                     |            |
 | onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                             | (e:event) => void           |                     | **2.1.0** |
+| keepDOM | Whether to keep internal components from being destroyed when closing                                          | boolean | false | **2.31.0** |
 
 
 ## Accessibility

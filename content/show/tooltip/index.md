@@ -390,6 +390,7 @@ function Demo() {
 | zIndex | 弹层层级 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调 | function(isVisible:boolean) |  |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
+| keepDOM | 关闭时是否保留内部组件不销毁 | boolean | false | **2.31.0** |
 
 ## Accessibility
 

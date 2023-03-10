@@ -78,7 +78,8 @@ export interface TooltipProps extends BaseProps {
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
-    afterClose?: () => void
+    afterClose?: () => void;
+    keepDOM?: boolean
 }
 interface TooltipState {
     visible: boolean;
@@ -94,7 +95,8 @@ interface TooltipState {
     placement: Position;
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
-    id: string
+    id: string;
+    displayNone:boolean
 }
 
 const prefix = cssClasses.PREFIX;
@@ -141,6 +143,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: PropTypes.bool,
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
+        keepDOM: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -168,6 +171,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
+        keepDOM: false
     };
 
     eventManager: Event;
@@ -202,7 +206,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
-            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
+            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y,
+            displayNone: false
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -313,6 +318,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         this.eventManager.emit('positionUpdated');
                     }
                 );
+            },
+            setDisplayNone: (displayNone:boolean, cb:()=>void)=>{
+                this.setState({ displayNone }, cb);
             },
             updatePlacementAttr: (placement: Position) => {
                 this.setState({ placement });
@@ -488,7 +496,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        this.foundation.removePortal();
+        if (this.props.keepDOM){
+            this.foundation.setDisplayNone(true);
+        } else {
+            this.foundation.removePortal();
+        }
         this.foundation.unBindEvent();
     };
     /** for transition - end */
@@ -562,7 +574,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, id, isPositionUpdated } = this.state;
+        const { containerStyle = {}, visible, portalEventSet, placement, displayNone, transitionState, id, isPositionUpdated } = this.state;
         const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
@@ -578,7 +590,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const transformOrigin = get(containerStyle, 'transformOrigin');
         const userOpacity = get(style, 'opacity');
         const opacity = userOpacity ? userOpacity : 1;
-
         const inner =
             <CSSAnimation
                 fillMode="forwards"
@@ -597,10 +608,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             className={classNames(className, animationClassName)}
                             style={{
                                 ...animationStyle,
+                                display: displayNone ? 'none' : 'block',
                                 transformOrigin,
                                 ...style,
                                 opacity: isPositionUpdated ? opacity : "0",
-                            }}
+                            }} 
                             {...portalEventSet}
                             {...animationEventsNeedBind}
                             role={role}

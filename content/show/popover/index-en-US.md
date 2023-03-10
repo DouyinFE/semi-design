@@ -531,31 +531,32 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 
 ## API Reference
 
-| Properties | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | Whether to automatically adjust the expansion direction of the floating layer for automatic adjustment of the expansion direction during edge occlusion | boolean | true |
-| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time | boolean | true | **0.34.0** |
-| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.8.0** |
-| content | Content displayed | string \| ReactNode |  |
-| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
-| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | () => HTMLElement | () => document.body |
-| guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer | boolean | true | **2.8.0** |
+| Properties | Instructions                                                                                                                                                                                                                                  | Type | Default | Version |
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| autoAdjustOverflow | Whether to automatically adjust the expansion direction of the floating layer for automatic adjustment of the expansion direction during edge occlusion                                                                                       | boolean | true |
+| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                                     | boolean | true | **0.34.0** |
+| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled                                                                                                    | boolean | true | **2.8.0** |
+| content | Content displayed                                                                                                                                                                                                                             | string \| ReactNode |  |
+| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                                   | boolean | false | **0.24.0** |
+| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                                   | boolean | true | **2.17.0** |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`                                                                                                                              | () => HTMLElement | () => document.body |
+| guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer                                                                                                                                          | boolean | true | **2.8.0** |
 | margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
-| mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string\|number |  |  |
-| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to hover, focus, click, etc | boolean | true | **2.8.0** |
-| visible | Display popup or not | boolean |  |
-| position | Directions, optional values: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | "bottom" |
-| spacing | The distance between the out layer and the children element, in px | number | 4(while showArrow=false) 10(while showArrow=true) |  |
-| showArrow | Display little arrow or not | boolean |  |
-| trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom` | string | 'hover' |
-| stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | false | **0.34.0** |
-| zIndex | Floating layer z-index value | number | 1030 |
-| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void | | **2.1.0** |
-| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.8.0** |
-| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden | (isVisible: boolean) => void |  |
+| mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus)                                                                                                                         | number | 50 |  |
+| mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus)                                                                                                            | number | 50 |  |
+| rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer                                                                                                                                               | string\|number |  |  |
+| returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to hover, focus, click, etc                                                                                                | boolean | true | **2.8.0** |
+| visible | Display popup or not                                                                                                                                                                                                                          | boolean |  |
+| position | Directions, optional values: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight`                                                                         | string | "bottom" |
+| spacing | The distance between the out layer and the children element, in px                                                                                                                                                                            | number | 4(while showArrow=false) 10(while showArrow=true) |  |
+| showArrow | Display little arrow or not                                                                                                                                                                                                                   | boolean |  |
+| trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom`                                                                                                                                                                             | string | 'hover' |
+| stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                                               | boolean | false | **0.34.0** |
+| zIndex | Floating layer z-index value                                                                                                                                                                                                                  | number | 1030 |
+| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                              | (e:event) => void | | **2.1.0** |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer                                                                                                                                                                                      | function(e:event) | | **2.8.0** |
+| onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden                                                                                                                                                                              | (isVisible: boolean) => void |  |
+| keepDOM | Whether to keep internal components from being destroyed when closing                                          | boolean | false | **2.31.0** |
 
 ## Accessibility
 
