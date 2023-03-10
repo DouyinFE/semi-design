@@ -1880,3 +1880,32 @@ export const RefMethods = () => {
       </div>
   );
 };
+
+
+export const FixCursorPositionError = () => {
+  // https://github.com/DouyinFE/semi-design/issues/1468
+  const props = {
+    style: { width: 300 },
+    treeData: treeData5,
+    filterTreeNode: true,
+    leafOnly: true,
+  };
+
+  const multipleProps =  { ...props, multiple: true };
+
+  return (<>
+    <p>多选</p>
+    <Cascader {...multipleProps} size={'small'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'default'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'large'}/>
+
+    <p>单选</p>
+    <Cascader {...props} size={'small'} />
+    <br/><br/>
+    <Cascader {...props} size={'default'} />
+    <br/><br/>
+    <Cascader {...props} size={'large'}/>
+  </>);
+}
