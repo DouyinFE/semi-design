@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import BaseDatePicker from '../../datePicker';
-import { DatePicker, Tabs } from '../../../index';
+import { DatePicker, Tabs, Space, Button } from '../../../index';
 
-FeatRef.storyName = 'ref methods';
-export default function FeatRef() {
+/**
+ * test in cypress
+ */
+export default function Demo() {
     const ref = useRef<BaseDatePicker>();
     const ref2 = useRef<BaseDatePicker>();
     const TabPane = Tabs.TabPane;
@@ -22,9 +24,10 @@ export default function FeatRef() {
     };
 
     return (
-        <>
-            <button onClick={() => ref.current.open()}>open</button>
-            <button onClick={() => ref.current.close()}>close</button>
+        <Space vertical align="start">
+            <Space>
+                <Button onClick={() => ref.current.close()}>close</Button>
+            </Space>
             <Tabs type="line" onChange={handleTabChange}>
                 <TabPane tab="文档" itemKey="1">
                     <DatePicker motion={false} type="dateTime" needConfirm ref={ref} onClickOutSide={handleClickOutside} />
@@ -33,6 +36,11 @@ export default function FeatRef() {
                     <DatePicker motion={false} type="dateTimeRange" needConfirm ref={ref2} onClickOutSide={handleClickOutside} />
                 </TabPane>
             </Tabs>
-        </>
+        </Space>
     );
 }
+
+Demo.storyName = 'fix needConfirm in Tabs';
+Demo.parameters = {
+    chromatic: { disableSnapshot: false },
+};

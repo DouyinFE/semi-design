@@ -927,30 +927,40 @@ function Demo() {
 
 ## Methods
 
-| Methods | Description                                      | Version |
-|---------|--------------------------------------------------|---------|
-| close   | The dropdown can be manually closed when calling | 2.31.0  |
-| open    | The dropdown can be manually opened when calling | 2.31.0  |
+| Methods | Description                                       | Version |
+|---------|---------------------------------------------------|---------|
+| open    | The dropdown can be manually opened when calling  | 2.31.0  |
+| close   | The dropdown can be manually closed when calling  | 2.31.0  |
+| focus   | The input box can be manually focused when called | 2.31.0  |
+| blur    | The input box can be manually blurred when called | 2.31.0  |
 
-```typescript
-// typescript
+```jsx live=true
 import React, { useRef } from 'react';
-import { DatePicker } from '@douyinfe/semi-ui';
+import { DatePicker, Space, Button } from '@douyinfe/semi-ui';
 import BaseDatePicker from '@douyinfe/semi-ui/lib/es/datePicker/datePicker';
 
 function Demo() {
-    const ref = useRef<BaseDatePicker>();
+    const ref = useRef();
+    // Typescript
+    // const ref = useRef<BaseDatePicker>();
+    // Why not import the DatePicker exported by the entry? -> The entry component is a forwardRef component, and the ref is transparently passed to this component
 
     const handleClickOutside = () => {
         console.log('click outside');
     };
 
     return (
-        <>
-            <button onClick={() => ref.current.open()}>open</button>
-            <button onClick={() => ref.current.close()}>close</button>
-            <DatePicker type="dateTime"ref={ref} onClickOutSide={handleClickOutside} />
-        </>
+        <Space vertical align={'start'}>
+            <Space>
+                <Button onClick={() => ref.current.open()}>open</Button>
+                <Button onClick={() => ref.current.close()}>close</Button>
+                <Button onClick={() => ref.current.focus()}>focus</Button>
+                <Button onClick={() => ref.current.blur()}>blur</Button>
+            </Space>
+            <div>
+                <DatePicker type="dateTime" ref={ref} onClickOutSide={handleClickOutside} />
+            </div>
+        </Space>
     );
 }
 ```

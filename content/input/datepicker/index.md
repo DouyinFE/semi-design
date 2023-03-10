@@ -897,30 +897,41 @@ function Demo() {
 
 ## Methods
 
-| 方法  | 说明                       | 版本   |
-|-------|--------------------------|--------|
-| close | 调用时可以手动关闭下拉列表 | 2.31.0 |
-| open  | 调用时可以手动展开下拉列表 | 2.31.0 |
+| 方法  | 说明                       | 类型                                             | 版本   |
+|-------|--------------------------|--------------------------------------------------|--------|
+| open  | 调用时可以手动展开下拉列表 | () => void                                       | 2.31.0 |
+| close | 调用时可以手动关闭下拉列表 | () => void                                       | 2.31.0 |
+| focus | 调用时可以手动聚焦输入框   | (focusType?: 'rangeStart' \| 'rangeEnd') => void | 2.31.0 |
+| blur  | 调用时可以手动失焦输入框   | () => void                                       | 2.31.0 |
 
-```typescript
-// typescript
+```jsx live=true
 import React, { useRef } from 'react';
-import { DatePicker } from '@douyinfe/semi-ui';
+import { DatePicker, Space, Button } from '@douyinfe/semi-ui';
 import BaseDatePicker from '@douyinfe/semi-ui/lib/es/datePicker/datePicker';
 
 function Demo() {
-    const ref = useRef<BaseDatePicker>();
+    const ref = useRef();
+    // Typescript 写法
+    // const ref = useRef<BaseDatePicker>();
+    // 为什么不引用入口导出的 DatePicker？-> 入口组件是个 forwardRef 组件，ref 透传到了这个组件上
+
 
     const handleClickOutside = () => {
         console.log('click outside');
     };
 
     return (
-        <>
-            <button onClick={() => ref.current.open()}>open</button>
-            <button onClick={() => ref.current.close()}>close</button>
-            <DatePicker type="dateTime"ref={ref} onClickOutSide={handleClickOutside} />
-        </>
+        <Space vertical align={'start'}>
+            <Space>
+                <Button onClick={() => ref.current.open()}>open</Button>
+                <Button onClick={() => ref.current.close()}>close</Button>
+                <Button onClick={() => ref.current.focus()}>focus</Button>
+                <Button onClick={() => ref.current.blur()}>blur</Button>
+            </Space>
+            <div>
+                <DatePicker type="dateTime" ref={ref} onClickOutSide={handleClickOutside} />
+            </div>
+        </Space>
     );
 }
 ```

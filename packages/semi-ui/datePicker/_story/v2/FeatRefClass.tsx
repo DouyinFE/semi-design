@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseDatePicker from '../../datePicker';
-import { DatePicker } from '../../../index';
+import { DatePicker, Space, Button } from '../../../index';
 
 class FeatRefClass extends React.Component {
     ref: React.RefObject<BaseDatePicker>;
@@ -15,16 +15,23 @@ class FeatRefClass extends React.Component {
 
     render() {
         return (
-            <>
-                <button onClick={() => this.ref.current.open()}>open</button>
-                <button onClick={() => this.ref.current.close()}>close</button>
-                <DatePicker onFocus={this.handleFocus} motion={false} type="dateTime" ref={this.ref} />
-            </>
+            <Space vertical align={'start'}>
+                <Space>
+                    <Button onClick={() => this.ref.current.open()}>open</Button>
+                    <Button onClick={() => this.ref.current.close()}>close</Button>
+                </Space>
+                <div>
+                    <DatePicker motion={false} type="dateTime" needConfirm ref={this.ref} />
+                </div>
+            </Space>
         );
     }
 }
 
-Demo.storyName = 'ref methods class 写法';
+Demo.storyName = 'ref class 写法';
+Demo.parameters = {
+    chromatic: { disableSnapshot: false },
+};
 export default function Demo() {
     return (
         <FeatRefClass />

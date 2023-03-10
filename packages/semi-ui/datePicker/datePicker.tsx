@@ -190,8 +190,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     triggerElRef: React.MutableRefObject<HTMLElement>;
     panelRef: React.RefObject<HTMLDivElement>;
     monthGrid: React.RefObject<MonthsGrid>;
-    rangeInputStartRef: React.RefObject<HTMLElement>;
-    rangeInputEndRef: React.RefObject<HTMLElement>;
+    inputRef: DateInputProps['inputRef'];
+    rangeInputStartRef: DateInputProps['rangeInputStartRef'];
+    rangeInputEndRef: DateInputProps['rangeInputEndRef'];
     focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
     clickOutSideHandler: (e: MouseEvent) => void;
     _mounted: boolean;
@@ -218,6 +219,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         this.triggerElRef = React.createRef();
         this.panelRef = React.createRef();
         this.monthGrid = React.createRef();
+        this.inputRef = React.createRef();
         this.rangeInputStartRef = React.createRef();
         this.rangeInputEndRef = React.createRef();
         this.focusRecordsRef = React.createRef();
@@ -366,6 +368,26 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         break;
                 }
             },
+            setInputFocus: () => {
+                const { preventScroll } = this.props;
+                const inputNode = get(this, 'inputRef.current');
+                inputNode && inputNode.focus({ preventScroll });
+            },
+            setInputBlur: () => {
+                const inputNode = get(this, 'inputRef.current');
+                inputNode && inputNode.blur();
+            },
+            setRangeInputBlur: () => {
+                const { rangeInputFocus } = this.state;
+                if (rangeInputFocus === 'rangeStart') {
+                    const inputStartNode = get(this, 'rangeInputStartRef.current');
+                    inputStartNode && inputStartNode.blur();
+                } else if (rangeInputFocus === 'rangeEnd') {
+                    const inputEndNode = get(this, 'rangeInputEndRef.current');
+                    inputEndNode && inputEndNode.blur();
+                }
+                this.adapter.setRangeInputFocus(false);
+            },
             setTriggerDisabled: (disabled: boolean) => {
                 this.setState({ triggerDisabled: disabled });
             }
@@ -413,6 +435,24 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
     close() {
         this.foundation.close();
+    }
+
+    /**
+     *
+     * When selecting a range, the default focus is on the start input box, passing in `rangeEnd` can focus on the end input box
+     *
+     * When `insetInput` is `true`, due to trigger disabled, the cursor will focus on the input box of the popup layer panel
+     *
+     * 范围选择时，默认聚焦在开始输入框，传入 `rangeEnd` 可以聚焦在结束输入框
+     *
+     * `insetInput` 打开时，由于 trigger 禁用，会把焦点放在弹出面板的输入框上
+     */
+    focus(focusType?: Exclude<RangeType, false>) {
+        this.foundation.focus(focusType);
+    }
+
+    blur() {
+        this.foundation.blur();
     }
 
     setTriggerRef = (node: HTMLDivElement) => (this.triggerElRef.current = node);
@@ -572,7 +612,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         this.foundation.handlePanelVisibleChange(visible);
     }
 
-    renderInner(extraProps?: Partial<DatePickerProps>) {
+    renderInner() {
         const {
             clearIcon,
             type,
@@ -609,7 +649,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const phText = placeholder || locale.placeholder[type]; // i18n
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
-            ...extraProps,
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,
@@ -644,6 +683,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             onRangeEndTabPress: this.handleRangeEndTabPress,
             rangeInputStartRef: insetInput ? null : this.rangeInputStartRef,
             rangeInputEndRef: insetInput ? null : this.rangeInputEndRef,
+            inputRef: this.inputRef,
         };
 
         return (

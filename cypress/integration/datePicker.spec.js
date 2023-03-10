@@ -667,7 +667,7 @@ describe('DatePicker', () => {
     });
 
     it('test clickOutSide', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-on-click-outside&args=&viewMode=story', {
             onBeforeLoad(win) {
                 cy.stub(win.console, 'log').as('consoleLog');
             },
@@ -679,11 +679,7 @@ describe('DatePicker', () => {
     });
 
     it('test open & close', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
-            onBeforeLoad(win) {
-                cy.stub(win.console, 'log').as('consoleLog');
-            },
-        });
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref-open&args=&viewMode=story');
         cy.get('button').contains('open').eq(0).click();
         cy.get('.semi-popover .semi-datepicker');
         cy.get('button').contains('close').eq(0).click();
@@ -691,14 +687,45 @@ describe('DatePicker', () => {
     });
 
     it('test needConfirm + close', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref&args=&viewMode=story', {
-            onBeforeLoad(win) {
-                cy.stub(win.console, 'log').as('consoleLog');
-            },
-        });
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm-in-tabs&args=&viewMode=story');
         cy.get('.semi-input').eq(0).click();
         cy.get('.semi-popover .semi-datepicker');
         cy.get('.semi-tabs-tab').contains('快速起步').click();
         cy.get('.semi-popover .semi-datepicker').should('not.exist');
+    });
+
+    it('test focus + blur + date type', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref-focus&args=&viewMode=story');
+        cy.get('[data-cy=single] .semi-button').contains('focus').eq(0).click();
+        cy.get('[data-cy=single] .semi-input-wrapper-focus');
+        cy.get('[data-cy=single] input').should('be.focused');
+        cy.get('[data-cy=single] .semi-button').contains('blur').eq(0).click();
+        cy.get('[data-cy=single] .semi-input-wrapper-focus').should('not.exist');
+        cy.get('[data-cy=single] input').should('not.be.focused');
+    });
+
+    it('test focus + blur + dateRange type', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref-focus&args=&viewMode=story');
+        cy.get('[data-cy=range] .semi-button').contains('focus default').click();
+        cy.get('[data-cy=range] .semi-datepicker-range-input-wrapper-start .semi-input-wrapper-focus');
+        cy.get('[data-cy=range] .semi-datepicker-range-input-wrapper-start input').should('be.focused');
+        cy.get('[data-cy=range] .semi-button').contains('focus end').click();
+        cy.get('[data-cy=range] .semi-datepicker-range-input-wrapper-end .semi-input-wrapper-focus');
+        cy.get('[data-cy=range] .semi-datepicker-range-input-wrapper-end input').should('be.focused');
+        cy.get('[data-cy=range] .semi-button').contains('blur').eq(0).click();
+        cy.get('[data-cy=range] .semi-input-wrapper-focus').should('not.exist');
+        cy.get('[data-cy=range] input').eq(0).should('not.be.focused');
+        cy.get('[data-cy=range] input').eq(1).should('not.be.focused');
+    });
+
+    it('test focus + blur + inset type', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--feat-ref-focus&args=&viewMode=story');
+        cy.get('[data-cy=inset] .semi-button').contains('focus start + open').click();
+        cy.get('.semi-datepicker-inset-input-wrapper input').eq(0).should('be.focused');
+        cy.get('[data-cy=inset] .semi-button').contains('focus end + open').click({ force: true });
+        cy.get('.semi-datepicker-inset-input-wrapper input').eq(1).should('be.focused');
+        cy.get('[data-cy=inset] .semi-button').contains('blur + close').eq(0).click({ force: true });
+        cy.get('[data-cy=inset] input').eq(0).should('not.be.focused');
+        cy.get('[data-cy=inset] input').eq(1).should('not.be.focused');
     });
 });

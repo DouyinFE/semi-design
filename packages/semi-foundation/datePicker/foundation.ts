@@ -210,7 +210,10 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     isEventTarget: (e: any) => boolean;
     updateInsetInputValue: (insetInputValue: InsetInputValue) => void;
     setInsetInputFocus: () => void;
-    setTriggerDisabled: (disabled: boolean) => void
+    setTriggerDisabled: (disabled: boolean) => void;
+    setInputFocus: () => void;
+    setInputBlur: () => void;
+    setRangeInputBlur: () => void
 }
  
 
@@ -422,10 +425,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         if (!this._isControlledComponent('open')) {
             this.close();
         } else {
-            this.reset(willUpdateDates);
+            this.resetInnerSelectedStates(willUpdateDates);
         }
         this._adapter.notifyOpenChange(false);
-        this._adapter.notifyBlur(e);
     }
 
     open() {
@@ -434,22 +436,44 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     close() {
-        this._adapter.togglePanel(false, () => this.reset());
+        this._adapter.togglePanel(false, () => this.resetInnerSelectedStates());
         this._adapter.unregisterClickOutSide();
     }
 
+    focus(focusType?: Exclude<RangeType, false>) {
+        if (this._isRangeType()) {
+            const rangeInputFocus = focusType ?? 'rangeStart';
+            this._adapter.setRangeInputFocus(rangeInputFocus);
+        } else {
+            this._adapter.setInputFocus();
+        }
+    }
+
+    blur() {
+        if (this._isRangeType()) {
+            this._adapter.setRangeInputBlur();
+        } else {
+            this._adapter.setInputBlur();
+        }
+    }
+
     /**
-     * reset cachedSelectedValue, inputValue, focus when close panel
+     * reset cachedSelectedValue, inputValue when close panel
      */
-    reset(willUpdateDates?: Date[]) {
+    resetInnerSelectedStates(willUpdateDates?: Date[]) {
         const { value } = this._adapter.getStates();
         const needResetCachedSelectedValue = !this.isCachedSelectedValueValid(willUpdateDates) || this._adapter.needConfirm() && !this.clickConfirmButton;
         if (needResetCachedSelectedValue) {
             this.resetCachedSelectedValue(value);
         }
-        this._adapter.setRangeInputFocus(false);
+        this.resetFocus();
         this.clearInputValue();
         this.clickConfirmButton = false;
+    }
+
+    resetFocus(e?: any) {
+        this._adapter.setRangeInputFocus(false);
+        this._adapter.notifyBlur(e);
     }
 
     /**
