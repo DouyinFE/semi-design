@@ -70,7 +70,8 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     onGroupedRow?: OnGroupedRow<RecordType>;
     onHeaderRow?: OnHeaderRow<RecordType>;
     onRow?: OnRow<RecordType>;
-    sticky?: Sticky
+    sticky?: Sticky;
+    direction?: Direction
 }
 
 export interface ColumnProps<RecordType extends Record<string, any> = any> {
