@@ -452,16 +452,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
-                        {/* Wrap a layer of div outside IconHandler and Value to ensure that the two are aligned */}
-                        <div className={`${prefixCls}-tag-content-wrapper`}>
-                            {showIconHandler && <DragHandle />}
-                            <Paragraph
-                                className={typoCls}
-                                ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                            >
-                                {value}
-                            </Paragraph>
-                        </div>
+                        {showIconHandler && <DragHandle />}
+                        <Paragraph
+                            className={typoCls}
+                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
+                        >
+                            {value}
+                        </Paragraph>
                     </Tag>
                 );
             }

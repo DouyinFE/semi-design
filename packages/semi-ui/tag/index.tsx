@@ -9,6 +9,7 @@ import { TagProps, TagSize, TagColor, TagType } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import '@douyinfe/semi-foundation/tag/tag.scss';
 import { isString } from 'lodash';
+import cls from 'classnames';
 
 export * from './interface';
 
@@ -155,10 +156,13 @@ export default class Tag extends Component<TagProps, TagState> {
                 <IconClose size="small" />
             </div>
         ) : null;
+        const stringChild = isString(children);
+        const contentCls = cls(`${prefixCls}-content`, `${prefixCls}-content-${stringChild ? 'ellipsis' : 'center' }`);
+
         return (
-            <div aria-label={this.props['aria-label'] || isString(children) ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
+            <div aria-label={this.props['aria-label'] || stringChild ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
                 {avatarSrc ? this.renderAvatar() : null}
-                <div className={`${prefixCls}-content`}>
+                <div className={contentCls}>
                     {children}
                 </div>
                 {closeIcon}
