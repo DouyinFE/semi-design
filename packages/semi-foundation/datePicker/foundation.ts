@@ -359,32 +359,32 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *      - directly closePanel without click confirm will set cachedSelectedValue to state value
      *      - select one date(which means that the selection value is incomplete) and click confirm also set cachedSelectedValue to state value
      */
-    rangeTypeSideEffectsWhenClosePanel(inputValue: string, willUpdateDates: Date[]) {
-        if (this._isRangeType()) {
-            this._adapter.setRangeInputFocus(false);
-            /**
-             * inputValue is string when it is not disabled or can't parsed
-             * when inputValue is null, picker value will back to last selected value
-             */
-            this.handleInputBlur(inputValue);
-            this.resetCachedSelectedValue(willUpdateDates);
-        }
-    }
+    // rangeTypeSideEffectsWhenClosePanel(inputValue: string, willUpdateDates: Date[]) {
+    //     if (this._isRangeType()) {
+    //         this._adapter.setRangeInputFocus(false);
+    //         /**
+    //          * inputValue is string when it is not disabled or can't parsed
+    //          * when inputValue is null, picker value will back to last selected value
+    //          */
+    //         this.handleInputBlur(inputValue);
+    //         this.resetCachedSelectedValue(willUpdateDates);
+    //     }
+    // }
 
     /**
      * @deprecated
      * clear input value when selected date is not confirmed
      */
-    needConfirmSideEffectsWhenClosePanel(willUpdateDates: Date[] | null | undefined) {
-        if (this._adapter.needConfirm() && !this._isRangeType()) {
-            /**
-             * if `null` input element will show `cachedSelectedValue` formatted value（format in DateInput render）
-             * if `` input element will show `` directly
-             */
-            this._adapter.updateInputValue(null);
-            this.resetCachedSelectedValue(willUpdateDates);
-        }
-    }
+    // needConfirmSideEffectsWhenClosePanel(willUpdateDates: Date[] | null | undefined) {
+    //     if (this._adapter.needConfirm() && !this._isRangeType()) {
+    //         /**
+    //          * if `null` input element will show `cachedSelectedValue` formatted value（format in DateInput render）
+    //          * if `` input element will show `` directly
+    //          */
+    //         this._adapter.updateInputValue(null);
+    //         this.resetCachedSelectedValue(willUpdateDates);
+    //     }
+    // }
 
     /**
      * clear inset input value when close panel

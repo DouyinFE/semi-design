@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import BaseDatePicker from '../../datePicker';
+import type { BaseDatePicker } from '../../index';
 import { DatePicker, Space, Button } from '../../../index';
 
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
-import BaseDatePicker from '../../datePicker';
 import { DatePicker, Space, Button } from '../../../index';
+import type { BaseDatePicker } from '../../index';
 
 class FeatRefClass extends React.Component {
     ref: React.RefObject<BaseDatePicker>;
