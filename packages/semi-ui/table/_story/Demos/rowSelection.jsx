@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 
+/**
+ * test in cypress
+ */
 function App() {
     const columns = [
         {
@@ -127,4 +130,6 @@ function App() {
     return <Table columns={columns} dataSource={data} rowSelection={rowSelection} pagination={pagination} />;
 }
 
-render(App);
+App.storyName = 'fixed rowSelection #325';
+
+export default App;

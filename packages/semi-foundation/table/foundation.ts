@@ -82,6 +82,9 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getCachedFilteredSortedDataSource: () => RecordType[];
     getCachedFilteredSortedRowKeys: () => BaseRowKeyType[];
     getCachedFilteredSortedRowKeysSet: () => Set<BaseRowKeyType>;
+    setAllDisabledRowKeys: (allDisabledRowKeys: BaseRowKeyType[]) => void;
+    getAllDisabledRowKeys: () => BaseRowKeyType[];
+    getAllDisabledRowKeysSet: () => Set<BaseRowKeyType>;
     notifyFilterDropdownVisibleChange: (visible: boolean, dataIndex: string) => void;
     notifyChange: (changeInfo: { pagination: BasePagination; filters: BaseChangeInfoFilter<RecordType>[]; sorter: BaseChangeInfoSorter<RecordType>; extra: any }) => void;
     notifyExpand: (expanded?: boolean, record?: BaseIncludeGroupRecord<RecordType>, mouseEvent?: any) => void;
@@ -174,12 +177,14 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const dataSource = [...this.getProp('dataSource')];
         const { queries } = this._adapter.getStates();
         const filteredSortedDataSource = this.getFilteredSortedDataSource(dataSource, queries);
+        const allDataDisabledRowKeys = this.getAllDisabledRowKeys(filteredSortedDataSource);
         const pageData = this.getCurrentPageData(filteredSortedDataSource);
         this.setAdapterPageData(pageData);
         this.initExpandedRowKeys(pageData);
         this.initSelectedRowKeys(pageData);
         // cache dataSource after mount, and then calculate it on demand
         this.setCachedFilteredSortedDataSource(filteredSortedDataSource);
+        this.setAllDisabledRowKeys(allDataDisabledRowKeys);
     }
 
     initExpandedRowKeys({ groups }: { groups?: Map<string, RecordType[]> } = {}) {
@@ -553,6 +558,10 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
 
     destroy() { }
 
+    setAllDisabledRowKeys(disabledRowKeys) {
+        this._adapter.setAllDisabledRowKeys(disabledRowKeys);
+    }
+
     handleClick(e: any) { }
 
     handleMouseEnter(e: any) { }
@@ -784,8 +793,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             let selectedRowKeys = [...curSelectedRowKeys];
             const selectedRowKeysSet = this._getSelectedRowKeysSet();
             let allRowKeys = [...this._adapter.getCachedFilteredSortedRowKeys()];
-            const disabledRowKeys = this.getAllDisabledRowKeys();
-            const disabledRowKeysSet = new Set(disabledRowKeys);
+            const disabledRowKeys = this._adapter.getAllDisabledRowKeys();
+            const disabledRowKeysSet = this._adapter.getAllDisabledRowKeysSet();
             let changedRowKeys;
 
             // Select all, if not disabled && not in selectedRowKeys
@@ -1130,7 +1139,9 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleClickFilterOrSorter(queries: BaseColumnProps<RecordType>[]) {
         const dataSource = [...this.getProp('dataSource')];
         const sortedDataSource = this.getFilteredSortedDataSource(dataSource, queries);
+        const allDataDisabledRowKeys = this.getAllDisabledRowKeys(sortedDataSource);
         this.setCachedFilteredSortedDataSource(sortedDataSource);
+        this.setAllDisabledRowKeys(allDataDisabledRowKeys);
         const pageData = this.getCurrentPageData(sortedDataSource);
         this.setAdapterPageData(pageData);
     }

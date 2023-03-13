@@ -14,7 +14,7 @@ export interface TableSelectionCellProps {
     columnTitle?: string; // TODO: future api
     getCheckboxProps?: () => CheckboxProps;
     type?: string; // TODO: future api
-    onChange?: (value: any, e: TableSelectionCellEvent) => void;
+    onChange?: (checked: boolean, e: TableSelectionCellEvent) => void;
     selected?: boolean;
     disabled?: boolean;
     indeterminate?: boolean; // Intermediate state, shown as a solid horizontal line
@@ -53,6 +53,7 @@ export default class TableSelectionCell extends BaseComponent<TableSelectionCell
         };
     }
 
+    foundation: TableSelectionCellFoundation;
     constructor(props: TableSelectionCellProps) {
         super(props);
         this.foundation = new TableSelectionCellFoundation(this.adapter);
