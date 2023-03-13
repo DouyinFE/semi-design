@@ -79,7 +79,7 @@ export interface TagInputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     validateStatus?: ValidateStatus;
-    value?: string[] | undefined;
+    value?: string[];
     autoFocus?: boolean;
     'aria-label'?: string;
     preventScroll?: boolean

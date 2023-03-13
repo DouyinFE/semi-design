@@ -19,7 +19,7 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     id?: string;
     block?: boolean;
     circle?: boolean;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     disabled?: boolean;
     className?: string;
     icon?: React.ReactNode;
