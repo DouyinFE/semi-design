@@ -28,6 +28,14 @@ $module: #{$prefix}-table;
         &[data-column-fixed='true'] {
             z-index: 1;
         }
+
+        &-ltr {
+            direction: ltr;
+
+            .#{$prefix}-spin {
+                direction: ltr;
+            }
+        }
     }
 
     &-middle {

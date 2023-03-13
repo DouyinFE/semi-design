@@ -4602,6 +4602,7 @@ render(App);
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效 | boolean | false |
 | defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效 | boolean | false | **1.30.0** |
 | defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效 | Array<\*> | [] |
+| direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **1.31.0** |
 | empty | 无数据时展示的内容 | ReactNode | '暂无数据' |
 | expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同 | boolean\|string | false |
 | expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染 | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
@@ -4750,7 +4751,7 @@ import { Table } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| align | 设置列的对齐方式 | 'left' \| 'right' \| 'center' | 'left' |
+| align | 设置列的对齐方式，在 RTL 时会自动切换 | 'left' \| 'right' \| 'center' | 'left' |
 | className | 列样式名 | string |  |
 | children | 表头合并时用于子列的设置 | Column[] |  |
 | colSpan | 表头列合并,设置为 0 时，不渲染 | number |  |
@@ -4765,7 +4766,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filterMultiple | 是否多选 | boolean | true |
 | filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | any[] |  |
 | filters | 表头的筛选菜单项 | Filter[] |  |
-| fixed | 列是否固定，可选 true(等效于 left) 'left' 'right' | boolean\|string | false |
+| fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
@@ -4896,6 +4897,12 @@ function Demo() {
 -   单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
 -   列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
 
+## RTL/LTR
+
+- Table 的 RTL 默认值为 [ConfigProvider](/zh-CN/other/configprovider) direction，可以通过 Table direction 覆盖
+- Table 列的 align 与 fixed 属性会在 RTL 时会自动切换，left <-> right，固定列的 RTL 功能于 v2.31 版本支持
+- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)）
+
 ## 文案规范
 
 -   表格标题
@@ -4909,7 +4916,6 @@ function Demo() {
     -   列标题使用句子大小写；
 -   表格操作
     -   可以遵循 [Button 的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83)
-
 ## 设计变量
 
 <DesignToken/>

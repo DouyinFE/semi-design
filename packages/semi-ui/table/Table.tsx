@@ -1411,29 +1411,29 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         return (
             <div
                 ref={this.rootWrapRef}
-                className={classnames(className, `${prefixCls}-wrapper`)}
+                className={classnames(className, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${props.direction}`)}
                 data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
             >
-                <ConfigContext.Consumer>
-                    {({ direction }) => (
-                        <TableContextProvider {...tableContextValue} direction={direction}>
-                            <Spin spinning={loading} size="large">
-                                <div ref={this.wrapRef} className={wrapCls}>
-                                    <React.Fragment key={'pagination-top'}>
-                                        {['top', 'both'].includes(paginationPosition) ? tablePagination : null}
-                                    </React.Fragment>
-                                    {this.renderTitle({ title: (props as any).title, dataSource: props.dataSource, prefixCls: props.prefixCls })}
-                                    <div className={`${prefixCls}-container`}>{this.renderMainTable({ ...props })}</div>
-                                    <React.Fragment key={'pagination-bottom'}>
-                                        {['bottom', 'both'].includes(paginationPosition) ? tablePagination : null}
-                                    </React.Fragment>
-                                </div>
-                            </Spin>
-                        </TableContextProvider>
-                    )}
-                </ConfigContext.Consumer>
+                <TableContextProvider {...tableContextValue} direction={props.direction}>
+                    <Spin spinning={loading} size="large">
+                        <div ref={this.wrapRef} className={wrapCls}>
+                            <React.Fragment key={'pagination-top'}>
+                                {['top', 'both'].includes(paginationPosition) ? tablePagination : null}
+                            </React.Fragment>
+                            {this.renderTitle({
+                                title: (props as any).title,
+                                dataSource: props.dataSource,
+                                prefixCls: props.prefixCls,
+                            })}
+                            <div className={`${prefixCls}-container`}>{this.renderMainTable({ ...props })}</div>
+                            <React.Fragment key={'pagination-bottom'}>
+                                {['bottom', 'both'].includes(paginationPosition) ? tablePagination : null}
+                            </React.Fragment>
+                        </div>
+                    </Spin>
+                </TableContextProvider>
             </div>
         );
     }

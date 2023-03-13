@@ -1,7 +1,6 @@
 $module: #{$prefix}-table;
 
-.#{$prefix}-rtl,
-.#{$prefix}-portal-rtl {
+.#{$module}-wrapper-rtl {
     .#{$module} {
         direction: rtl;
         text-align: right;
@@ -182,5 +181,9 @@ $module: #{$prefix}-table;
         margin-right: auto;
         margin-left: $spacing-table_expand_icon-marginRight;
         transform: scaleX(-1) translateY(2px);
+    }
+
+    .#{$prefix}-spin {
+        direction: rtl;
     }
 }

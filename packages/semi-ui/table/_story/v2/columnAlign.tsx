@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table, Avatar, Space } from '../../../index';
-import { ColumnProps } from '../../../table/interface';
+import { ColumnProps, Direction } from '../../../table/interface';
 
-export default function App() {
+export default function App(props: { direction?: Direction }) {
+    const { direction } = props;
     const columns: ColumnProps[] = [
         {
             title: '标题 align left + fixed left',
@@ -81,5 +82,5 @@ export default function App() {
         },
     ];
 
-    return <Table bordered columns={columns} dataSource={data} scroll={{ y: 300, x: 1200 }} pagination={false} />;
+    return <Table direction={direction} bordered columns={columns} dataSource={data} scroll={{ y: 300, x: 1200 }} pagination={false} />;
 }
