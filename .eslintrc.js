@@ -41,6 +41,7 @@ module.exports = {
                 'jsx-a11y/html-has-lang': ['warn'],
                 'jsx-a11y/mouse-events-have-key-events': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
+                'space-before-blocks': ['error', 'always'],
             },
             globals: {
                 "sinon": "readonly",
@@ -91,6 +92,8 @@ module.exports = {
                 'jsx-a11y/html-has-lang': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
                 'semi-design/no-import': 'error',
+                'space-before-blocks': ['error', 'always'],
+                "@typescript-eslint/type-annotation-spacing": ['error', {"after": true}],
                 "@typescript-eslint/member-delimiter-style": [
                     "error",
                     {

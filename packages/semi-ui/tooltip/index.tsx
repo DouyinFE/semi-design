@@ -10,7 +10,11 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import Event from '@douyinfe/semi-foundation/utils/Event';
 import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
-import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
+import TooltipFoundation, {
+    TooltipAdapter,
+    Position,
+    PopupContainerDOMRect
+} from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
@@ -27,6 +31,7 @@ import CSSAnimation from "../_cssAnimation";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
+
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -78,8 +83,10 @@ export interface TooltipProps extends BaseProps {
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
-    afterClose?: () => void
+    afterClose?: () => void;
+    keepDOM?: boolean
 }
+
 interface TooltipState {
     visible: boolean;
     transitionState: string;
@@ -94,7 +101,8 @@ interface TooltipState {
     placement: Position;
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
-    id: string
+    id: string;
+    displayNone: boolean
 }
 
 const prefix = cssClasses.PREFIX;
@@ -141,6 +149,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: PropTypes.bool,
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
+        keepDOM: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -168,6 +177,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
+        keepDOM: false
     };
 
     eventManager: Event;
@@ -202,7 +212,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
-            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
+            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y,
+            displayNone: false
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -313,6 +324,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         this.eventManager.emit('positionUpdated');
                     }
                 );
+            },
+            setDisplayNone: (displayNone: boolean, cb: () => void) => {
+                this.setState({ displayNone }, cb);
             },
             updatePlacementAttr: (placement: Position) => {
                 this.setState({ placement });
@@ -449,7 +463,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = false;
         this.foundation.destroy();
     }
-    
+
     /**
      * focus on tooltip trigger
      */
@@ -488,9 +502,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        this.foundation.removePortal();
+        if (this.props.keepDOM) {
+            this.foundation.setDisplayNone(true);
+        } else {
+            this.foundation.removePortal();
+        }
         this.foundation.unBindEvent();
     };
+
     /** for transition - end */
 
     rePosition() {
@@ -522,13 +541,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const bgColor = get(style, 'backgroundColor');
 
         const iconComponent = placement.includes('left') || placement.includes('right') ?
-            <TriangleArrowVertical /> :
-            <TriangleArrow />;
+            <TriangleArrowVertical/> :
+            <TriangleArrow/>;
         if (showArrow) {
             if (isValidElement(showArrow)) {
                 icon = showArrow;
             } else {
-                icon = React.cloneElement(iconComponent, { className: triangleCls, style: { color: bgColor, fill: 'currentColor' } });
+                icon = React.cloneElement(iconComponent, {
+                    className: triangleCls,
+                    style: { color: bgColor, fill: 'currentColor' }
+                });
             }
         }
 
@@ -562,7 +584,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, id, isPositionUpdated } = this.state;
+        const {
+            containerStyle = {},
+            visible,
+            portalEventSet,
+            placement,
+            displayNone,
+            transitionState,
+            id,
+            isPositionUpdated
+        } = this.state;
         const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
@@ -578,7 +609,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const transformOrigin = get(containerStyle, 'transformOrigin');
         const userOpacity = get(style, 'opacity');
         const opacity = userOpacity ? userOpacity : 1;
-
         const inner =
             <CSSAnimation
                 fillMode="forwards"
@@ -597,7 +627,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             className={classNames(className, animationClassName)}
                             style={{
                                 ...animationStyle,
-                                transformOrigin,
+                                ...(displayNone ? { display: "none" } : {}),
+                                transformOrigin, 
                                 ...style,
                                 opacity: isPositionUpdated ? opacity : "0",
                             }}

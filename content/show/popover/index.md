@@ -528,21 +528,22 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 
 ## API 参考
 
-| 属性               | 说明                      | 类型                       | 默认值                                      | 版本       |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------- | ---------- |
+| 属性               | 说明                      | 类型                       | 默认值                                      | 版本         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------- |------------|
 | autoAdjustOverflow | 是否自动调整弹出层展开方向，用于边缘遮挡时自动调整展开方向                                                                                  | boolean                    | true                                        |            |
 | arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                      | boolean                    | true                                        | **0.34.0** |
-| closeOnEsc         | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true | **2.8.0** |
-| content            | 显示的内容（函数类型，2.8.0 版本支持）                                                                                                                                  | ReactNode \| ({ initialFocusRef }) => ReactNode          |                                             |            |
+| closeOnEsc         | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true | **2.8.0**  |
+| content            | 显示的内容（函数类型，2.8.0 版本支持）                                                                                                                                  | ReactNode \| ({ initialFocusRef }) => ReactNode          |            |            |
 | clickToHide        | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                  | boolean                    | false                                       | **0.24.0** |
 | disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                                                  | function():HTMLElement     | () => document.body                         |            |
-| guardFocus         | 当焦点处于弹出层内时，切换 Tab 是否让焦点在弹出层内循环 | boolean | true | **2.8.0** |
-| margin     |  弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                        | number\|object                     |                                          |  **2.25.0**   |
+| guardFocus         | 当焦点处于弹出层内时，切换 Tab 是否让焦点在弹出层内循环 | boolean | true | **2.8.0**  |
+| keepDOM | 关闭时是否保留内部组件不销毁 | boolean | false | **2.31.0** |
+| margin     |  弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                        | number\|object                     |            |  **2.25.0**   |
 | mouseEnterDelay    | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
 | mouseLeaveDelay    | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
-| rePosKey           | 可以更新该项值手动触发弹出层的重新定位                                                                                                         | string\|number             |                                            |             |
-| returnFocusOnClose | 按下 Esc 键后，焦点是否回到 trigger 上，设置 trigger 为 hover, focus, click 时生效 | boolean | true  | **2.8.0** |
+| rePosKey           | 可以更新该项值手动触发弹出层的重新定位                                                                                                         | string\|number             |            |             |
+| returnFocusOnClose | 按下 Esc 键后，焦点是否回到 trigger 上，设置 trigger 为 hover, focus, click 时生效 | boolean | true  | **2.8.0**  |
 | position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                     | "bottom"                                    |            |
 | spacing            | 弹出层与 children 元素的距离，单位 px                                                                                                       | number                     | 4(showArrow=false 时) 10(showArrow=true 时) |            |
 | showArrow          | 是否显示“小三角”                                                                                                                            | boolean                    |                                             |            |
@@ -550,8 +551,8 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | trigger            | 触发方式，可选值：`hover`, `focus`, `click`, `custom`                                                                                       | string                     | 'hover'                                     |            |
 | visible            | 是否显示，配合trigger='custom'可实现完全受控                                                                                                                                    | boolean                    |                                             |            |
 | zIndex             | 弹出层 z-index 值                                                                                                                             | number                     | 1030                                        |            |
-| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
-| onEscKeyDown       | 在 trigger 或 弹出层按 Esc 键时调用        | function(e:event) | | **2.8.0** |
+| onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0**  |
+| onEscKeyDown       | 在 trigger 或 弹出层按 Esc 键时调用        | function(e:event) | | **2.8.0**  |
 | onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisble:boolean) |                                             |            |
 
 ## Accessibility
