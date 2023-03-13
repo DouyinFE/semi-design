@@ -4602,7 +4602,7 @@ render(App);
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效 | boolean | false |
 | defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效 | boolean | false | **1.30.0** |
 | defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效 | Array<\*> | [] |
-| direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **1.31.0** |
+| direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **2.31.0** |
 | empty | 无数据时展示的内容 | ReactNode | '暂无数据' |
 | expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同 | boolean\|string | false |
 | expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染 | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |

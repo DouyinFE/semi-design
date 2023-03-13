@@ -4751,7 +4751,7 @@ import { Table } from '@douyinfe/semi-ui';
 | dataIndex | The key corresponding to the column data in the data item. It is required when using sorter or filter. | string |  |
 | defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
 | defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
-| direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **1.31.0** |
+| direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **2.31.0** |
 | filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
 | filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
 | filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
