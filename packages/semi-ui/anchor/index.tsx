@@ -19,7 +19,7 @@ export type { LinkProps } from './link';
 export interface AnchorProps {
     autoCollapse?: boolean;
     className?: string;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     defaultAnchor?: string;
     getContainer?: () => HTMLElement | Window;
     maxHeight?: string | number;

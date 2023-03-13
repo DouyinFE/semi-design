@@ -823,11 +823,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     render() {
         const { virtualized } = this.props;
-        return (
-            <ConfigContext.Consumer>
-                {({ direction }: { direction?: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
-            </ConfigContext.Consumer>
-        );
+        const { direction } = this.context;
+        return virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction);
     }
 }
 

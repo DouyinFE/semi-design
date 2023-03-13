@@ -56,7 +56,7 @@ import ColumnSorter from './ColumnSorter';
 import ExpandedIcon from './CustomExpandIcon';
 import HeadTable, { HeadTableProps } from './HeadTable';
 import BodyTable, { BodyProps } from './Body';
-import { measureScrollbar, logger, cloneDeep, mergeComponents } from './utils';
+import { logger, cloneDeep, mergeComponents } from './utils';
 import {
     ColumnProps,
     TablePaginationProps,
@@ -73,6 +73,7 @@ import {
     Data
 } from './interface';
 import { ArrayElement } from '../_base/base';
+import ConfigContext from '../configProvider/context';
 
 export type NormalTableProps<RecordType extends Record<string, any> = Data> = Omit<TableProps<RecordType>, 'resizable'>;
 
@@ -790,8 +791,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const node = this.bodyWrapRef.current;
         if (node && node.children && node.children.length) {
             const scrollToLeft = node.scrollLeft === 0;
+            // why use Math.abs? @see https://bugzilla.mozilla.org/show_bug.cgi?id=1447743
             const scrollToRight =
-                node.scrollLeft + 1 >=
+                Math.abs(node.scrollLeft) + 1 >=
                 node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
             if (scrollToLeft && scrollToRight) {
                 this.setScrollPosition('both');
@@ -1409,18 +1411,22 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         return (
             <div
                 ref={this.rootWrapRef}
-                className={classnames(className, `${prefixCls}-wrapper`)}
+                className={classnames(className, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${props.direction}`)}
                 data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
             >
-                <TableContextProvider {...tableContextValue}>
+                <TableContextProvider {...tableContextValue} direction={props.direction}>
                     <Spin spinning={loading} size="large">
                         <div ref={this.wrapRef} className={wrapCls}>
                             <React.Fragment key={'pagination-top'}>
                                 {['top', 'both'].includes(paginationPosition) ? tablePagination : null}
                             </React.Fragment>
-                            {this.renderTitle({ title: (props as any).title, dataSource: props.dataSource, prefixCls: props.prefixCls })}
+                            {this.renderTitle({
+                                title: (props as any).title,
+                                dataSource: props.dataSource,
+                                prefixCls: props.prefixCls,
+                            })}
                             <div className={`${prefixCls}-container`}>{this.renderMainTable({ ...props })}</div>
                             <React.Fragment key={'pagination-bottom'}>
                                 {['bottom', 'both'].includes(paginationPosition) ? tablePagination : null}

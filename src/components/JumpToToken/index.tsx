@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const JumpToToken = (): React.ReactElement => {
+const JumpToToken = (): React.ReactNode => {
     useEffect(() => {
         const job = (): void => {
             const token = (new URLSearchParams(window.location.search)).get('token');
@@ -9,7 +9,7 @@ const JumpToToken = (): React.ReactElement => {
             }
             const timer = setInterval(() => {
                 try {
-                    const targetDom: HTMLElement = document.querySelector(`[data-token=${token}]`);
+                    const targetDom: HTMLElement | null = document.querySelector(`[data-token=${token}]`);
                     if (targetDom) {
                         targetDom.scrollIntoView({
                             block: 'center'

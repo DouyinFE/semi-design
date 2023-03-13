@@ -324,6 +324,14 @@ $module: #{$prefix}-cascader;
             align-items: center;
             position: relative;
 
+            &-small {
+                height: $height-cascader_selection_wrapper_small;
+            }
+
+            &-large {
+                height: $height-cascader_selection_wrapper_large;
+            }
+
             .#{$prefix}-input-wrapper {
                 position: absolute;
                 top: 0;

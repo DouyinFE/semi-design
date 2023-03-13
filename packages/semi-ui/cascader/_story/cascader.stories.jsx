@@ -1880,3 +1880,104 @@ export const RefMethods = () => {
       </div>
   );
 };
+
+
+export const FixCursorPositionError = () => {
+  // https://github.com/DouyinFE/semi-design/issues/1468
+  const props = {
+    style: { width: 300 },
+    treeData: treeData5,
+    filterTreeNode: true,
+    leafOnly: true,
+  };
+
+  const multipleProps =  { ...props, multiple: true };
+
+  return (<>
+    <p>多选</p>
+    <Cascader {...multipleProps} size={'small'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'default'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'large'}/>
+
+    <p>单选</p>
+    <Cascader {...props} size={'small'} />
+    <br/><br/>
+    <Cascader {...props} size={'default'} />
+    <br/><br/>
+    <Cascader {...props} size={'large'}/>
+  </>);
+}
+
+export const setValueInSearch = () => {
+  const treeData = [
+    {
+        label: '浙江省',
+        text: '杭州市',
+        value: 'zhejiang',
+        children: [
+            {
+                label: <div>杭州市</div>,
+                text: '杭州市',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: <div>西湖区</div>,
+                        text: '西湖区',
+                        value: 'xihu',
+                    },
+                    {
+                        label: <div>萧山区</div>,
+                        text: '萧山区',
+                        value: 'xiaoshan',
+                    },
+                    {
+                        label: <div>临安区</div>,
+                        text: '临安区',
+                        value: 'linan',
+                    },
+                ],
+            },
+            {
+                label: '宁波市',
+                text: '宁波市',
+                value: 'ningbo',
+                children: [
+                    {
+                        label: '海曙区',
+                        text: '海曙区',
+                        value: 'haishu',
+                    },
+                    {
+                        label: '江北区',
+                        text: '江北区',
+                        value: 'jiangbei',
+                    }
+                ]
+            },
+        ],
+      }
+  ];
+  const [value, setValue] = useState(['zhejiang', 'hangzhou', 'xiaoshan']);
+  const handleMouseIn = () => setValue(['zhejiang', 'hangzhou', 'xihu']);
+  return (
+      <div>
+        {/* 关联issue，https://github.com/DouyinFE/semi-design/issues/1472 */}
+          <span id={"mouseIn"} onMouseEnter={handleMouseIn}>changeValueWhenMouseIn</span>
+          <Cascader
+              value={value}
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="默认对label值进行搜索"
+              filterTreeNode
+              treeNodeFilterProp='text'
+              displayProp='text'
+              displayRender={(names) => {
+                console.log('names', names)
+                return names.join("--");
+              }}
+          />
+      </div>
+  );
+}

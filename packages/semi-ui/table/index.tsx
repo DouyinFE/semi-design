@@ -5,6 +5,7 @@ import ResizableTable from './ResizableTable';
 import Column from './Column';
 import { strings } from '@douyinfe/semi-foundation/table/constants';
 import { TableProps, Data } from './interface';
+import ConfigContext, { ContextValue } from '../configProvider/context';
 
 class Table<RecordType extends Record<string, any> = Data> extends React.PureComponent<TableProps<RecordType>> {
     static Column = Column;
@@ -20,7 +21,10 @@ class Table<RecordType extends Record<string, any> = Data> extends React.PureCom
         hideExpandedColumn: true,
     };
 
+    static contextType = ConfigContext;
+
     tableRef: React.RefObject<NormalTable<RecordType>>;
+    context: ContextValue;
     constructor(props: TableProps) {
         super(props);
         this.tableRef = React.createRef();
@@ -31,10 +35,11 @@ class Table<RecordType extends Record<string, any> = Data> extends React.PureCom
     render() {
         // eslint-disable-next-line prefer-destructuring
         const props = this.props;
+        const direction = this.props.direction ?? this.context.direction;
         if (props.resizable) {
-            return <ResizableTable {...props} ref={this.tableRef} />;
+            return <ResizableTable {...props} ref={this.tableRef} direction={direction} />;
         } else {
-            return <NormalTable<RecordType> {...props} ref={this.tableRef} />;
+            return <NormalTable<RecordType> {...props} ref={this.tableRef} direction={direction} />;
         }
     }
 }

@@ -10,9 +10,9 @@ import { generateColor, StrokeArr } from '@douyinfe/semi-foundation/progress/gen
 const prefixCls = cssClasses.PREFIX;
 
 export interface ProgressProps {
-    'aria-label'?: string | undefined;
-    'aria-labelledby'?: string | undefined;
-    'aria-valuetext'?: string | undefined;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-valuetext'?: string;
     className?: string;
     direction?: 'horizontal' | 'vertical';
     format?: (percent: number) => React.ReactNode;

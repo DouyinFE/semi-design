@@ -580,6 +580,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         };
         const wrappercls = cls({
             [`${prefixcls}-search-wrapper`]: true,
+            [`${prefixcls}-search-wrapper-${size}`]: size !== 'default',
         });
 
         const displayText = this.renderDisplayText();

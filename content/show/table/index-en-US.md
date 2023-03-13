@@ -4751,6 +4751,7 @@ import { Table } from '@douyinfe/semi-ui';
 | dataIndex | The key corresponding to the column data in the data item. It is required when using sorter or filter. | string |  |
 | defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
 | defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **2.31.0** |
 | filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
 | filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
 | filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
@@ -4796,7 +4797,6 @@ type Filter = {
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
-| title | Custom List Selection Box Title | string | ReactNode |  |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
@@ -4886,6 +4886,12 @@ function Demo() {
 -   Expandable table rows have the aria-expanded attribute, indicating whether the current row is expanded
 -   The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
 -   Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
+
+## RTL/LTR
+
+- RTL default value of Table is controlled by [ConfigProvider](/zh-CN/other/configprovider)
+- The align and fixed properties of the Table column will be automatically switched in RTL, left <-> right. The RTL function of fixed columns is supported in v2.31
+- Table tree data does not support RTL ([Chrome and Safari browsers behave differently from Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx ))
 
 ## Content Guidelines
 
