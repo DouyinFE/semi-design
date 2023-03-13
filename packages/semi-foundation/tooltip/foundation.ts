@@ -38,7 +38,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     unregisterScrollHandler(): void;
     insertPortal(...args: any[]): void;
     removePortal(...args: any[]): void;
-    setDisplayNone:(displayNone:boolean, cb?:()=>void)=>void;
+    setDisplayNone: (displayNone: boolean, cb?: () => void) => void;
     getEventName(): {
         mouseEnter: string;
         mouseLeave: string;
@@ -139,7 +139,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.removePortal();
     }
 
-    setDisplayNone:(displayNone:boolean, cb?:()=>void)=>void = (displayNone, cb) => {
+    setDisplayNone: (displayNone: boolean, cb?: () => void) => void = (displayNone, cb) => {
         this._adapter.setDisplayNone(displayNone, cb);
     }
 
@@ -271,7 +271,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this.calcPosition();
     };
 
-    _shouldShow() {
+    _shouldShow() { 
         const visible = this.getProp('visible');
         if (visible) {
             this.show();
@@ -300,9 +300,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const trigger = this.getProp('trigger');
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
         const { visible, displayNone } = this.getStates();
-        if (displayNone){
+        if (displayNone) {
             this.setDisplayNone(false);
-        }
+        } 
         if (visible) {
             return ;
         }
@@ -687,19 +687,19 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return rowSpace < size && reverseSpace > size;
     }
 
-    isOverFlow(rowSpace: number, reverseSpace: number, size: number){
+    isOverFlow(rowSpace: number, reverseSpace: number, size: number) {
         // 原空间且反向空间都不足
         // The original space and the reverse space are not enough
         return rowSpace < size && reverseSpace < size;
     }
 
-    isHalfOverFlow(posSpace: number, negSpace: number, size: number){
+    isHalfOverFlow(posSpace: number, negSpace: number, size: number) {
         // 正半空间或者负半空间不足，即表示有遮挡，需要偏移
         // Insufficient positive half space or negative half space means that there is occlusion and needs to be offset
         return posSpace < size || negSpace < size;
     }
 
-    isHalfAllEnough(posSpace: number, negSpace: number, size: number){
+    isHalfAllEnough(posSpace: number, negSpace: number, size: number) {
         // 正半空间和负半空间都足够，即表示可以从 topLeft/topRight 变成 top
         // Both positive and negative half-spaces are sufficient, which means you can change from topLeft/topRight to top
         return posSpace >= size || negSpace >= size;
@@ -1011,7 +1011,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             // 判断溢出 Judgment overflow
             // 上下方向 top and bottom
-            if (this.isTB(position)){
+            if (this.isTB(position)) {
                 isHeightOverFlow = isViewYOverFlow && isContainerYOverFlow;
                 // Related PR: https://github.com/DouyinFE/semi-design/pull/1297
                 // If clientRight or restClientRight less than 0, means that the left and right parts of the trigger are blocked
@@ -1023,7 +1023,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 }
             }
             // 左右方向 left and right
-            if (this.isLR(position)){
+            if (this.isLR(position)) {
                 isWidthOverFlow = isViewXOverFlow && isContainerXOverFlow;
                 // If clientTop or restClientTop less than 0, means that the top and bottom parts of the trigger are blocked
                 // Then the display of the wrapper will also be affected, make height overflow to offset the wrapper

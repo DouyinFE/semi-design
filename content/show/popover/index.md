@@ -538,6 +538,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | true | **2.17.0** |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`                                                                  | function():HTMLElement     | () => document.body                         |            |
 | guardFocus         | 当焦点处于弹出层内时，切换 Tab 是否让焦点在弹出层内循环 | boolean | true | **2.8.0**  |
+| keepDOM | 关闭时是否保留内部组件不销毁 | boolean | false | **2.31.0** |
 | margin     |  弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                        | number\|object                     |            |  **2.25.0**   |
 | mouseEnterDelay    | 鼠标移入后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
 | mouseLeaveDelay    | 鼠标移出后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                  | number                     | 50                                          |            |
@@ -553,7 +554,6 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0**  |
 | onEscKeyDown       | 在 trigger 或 弹出层按 Esc 键时调用        | function(e:event) | | **2.8.0**  |
 | onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisble:boolean) |                                             |            |
-| keepDOM | 关闭时是否保留内部组件不销毁 | boolean | false | **2.31.0** |
 
 ## Accessibility
 

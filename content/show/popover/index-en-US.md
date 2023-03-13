@@ -541,6 +541,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                                   | boolean | true | **2.17.0** |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`                                                                                                                              | () => HTMLElement | () => document.body |
 | guardFocus | When the focus is in the popup layer, toggle whether the Tab makes the focus loop in the popup layer                                                                                                                                          | boolean | true | **2.8.0** |
+| keepDOM | Whether to keep internal components from being destroyed when closing                                          | boolean | false | **2.31.0** |
 | margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus)                                                                                                                         | number | 50 |  |
 | mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus)                                                                                                            | number | 50 |  |
@@ -556,7 +557,6 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                              | (e:event) => void | | **2.1.0** |
 | onEscKeyDown | Called when Esc key is pressed in trigger or popup layer                                                                                                                                                                                      | function(e:event) | | **2.8.0** |
 | onVisibleChange | A callback triggered when the pop-up layer is displayed / hidden                                                                                                                                                                              | (isVisible: boolean) => void |  |
-| keepDOM | Whether to keep internal components from being destroyed when closing                                          | boolean | false | **2.31.0** |
 
 ## Accessibility
 
