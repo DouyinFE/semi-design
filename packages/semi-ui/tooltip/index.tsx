@@ -10,7 +10,11 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import Event from '@douyinfe/semi-foundation/utils/Event';
 import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
-import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
+import TooltipFoundation, {
+    TooltipAdapter,
+    Position,
+    PopupContainerDOMRect
+} from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
@@ -27,6 +31,7 @@ import CSSAnimation from "../_cssAnimation";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
+
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -81,6 +86,7 @@ export interface TooltipProps extends BaseProps {
     afterClose?: () => void;
     keepDOM?: boolean
 }
+
 interface TooltipState {
     visible: boolean;
     transitionState: string;
@@ -96,7 +102,7 @@ interface TooltipState {
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
     id: string;
-    displayNone:boolean
+    displayNone: boolean
 }
 
 const prefix = cssClasses.PREFIX;
@@ -319,7 +325,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     }
                 );
             },
-            setDisplayNone: (displayNone:boolean, cb:()=>void)=>{
+            setDisplayNone: (displayNone: boolean, cb: () => void) => {
                 this.setState({ displayNone }, cb);
             },
             updatePlacementAttr: (placement: Position) => {
@@ -457,7 +463,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = false;
         this.foundation.destroy();
     }
-    
+
     /**
      * focus on tooltip trigger
      */
@@ -496,13 +502,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        if (this.props.keepDOM){
+        if (this.props.keepDOM) {
             this.foundation.setDisplayNone(true);
         } else {
             this.foundation.removePortal();
         }
         this.foundation.unBindEvent();
     };
+
     /** for transition - end */
 
     rePosition() {
@@ -534,13 +541,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const bgColor = get(style, 'backgroundColor');
 
         const iconComponent = placement.includes('left') || placement.includes('right') ?
-            <TriangleArrowVertical /> :
-            <TriangleArrow />;
+            <TriangleArrowVertical/> :
+            <TriangleArrow/>;
         if (showArrow) {
             if (isValidElement(showArrow)) {
                 icon = showArrow;
             } else {
-                icon = React.cloneElement(iconComponent, { className: triangleCls, style: { color: bgColor, fill: 'currentColor' } });
+                icon = React.cloneElement(iconComponent, {
+                    className: triangleCls,
+                    style: { color: bgColor, fill: 'currentColor' }
+                });
             }
         }
 
@@ -574,7 +584,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, displayNone, transitionState, id, isPositionUpdated } = this.state;
+        const {
+            containerStyle = {},
+            visible,
+            portalEventSet,
+            placement,
+            displayNone,
+            transitionState,
+            id,
+            isPositionUpdated
+        } = this.state;
         const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
@@ -608,11 +627,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             className={classNames(className, animationClassName)}
                             style={{
                                 ...animationStyle,
-                                display: displayNone ? 'none' : 'block',
-                                transformOrigin,
+                                ...(displayNone ? { display: "none" } : {}),
+                                transformOrigin, 
                                 ...style,
                                 opacity: isPositionUpdated ? opacity : "0",
-                            }} 
+                            }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
                             role={role}
