@@ -15,15 +15,30 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.31.0-beta.0 (2023-03-13)
+
+- 【Feat】
+    - Table fixed columns support RTL and Table support direction prop  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
+    - Copy nodes in Typograpy support customization  [#1420](https://github.com/DouyinFE/semi-design/issues/1420)
+- 【Fix】
+    - Fix the problem that Table column align does not automatically switch when RTL  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
+    - Fix the problem that  for the single-select, searchable, and Value-controlled Cascader in the search state, the value change causes the search value to change  [#1472](https://github.com/DouyinFE/semi-design/issues/1472)
+    - Popover Tooltip and other pop-up components support keepDOM, and support setting whether to keep internal components from being destroyed when they are closed [#1481](https://github.com/DouyinFE/semi-design/pull/1481)
+    - Replace redundant type definitions with the optional operator [@thinkasany](https://github.com/thinkasany) [#1464](https://github.com/DouyinFE/semi-design/pull/1464)
+- 【Style】
+    - Process the content style in the Tag component according to the type of children, if the children are String, they can be omitted automatically, otherwise the styles will be aligned [#1475](https://github.com/DouyinFE/semi-design/pull/1475)
+    - Fix the problem that the cursor position of the input box is incorrect when the size is small or large in the single-choice, searchable Cascader  [#1468](https://github.com/DouyinFE/semi-design/issues/1468)
+
 #### 🎉 2.30.2 (2023-03-09)
 - 【Fix】
     - When a Form has an id passed in, x-form-id will use the passed id first
-    - fix the problem that Tags cannot be gathered through the keyboard under Tooltip
+    - Fix the problem that Tags cannot be gathered through the keyboard under Tooltip
     - Fix the problem that the color of the button at the bottom of the danger type is incorrect when Modal is called imperatively
 
 #### 🎉 2.30.1 (2023-02-27)
 - 【Fix】
-  - fixed showTick bug in Dropdown(the bug affects 2.27.1 ~ 2.30.0) [#1457](https://github.com/DouyinFE/semi-design/issues/1457)
+  - Fixed showTick bug in Dropdown(the bug affects 2.27.1 ~ 2.30.0) [#1457](https://github.com/DouyinFE/semi-design/issues/1457)
 
 #### 🎉 2.30.0 (2023-02-23)
 - 【Fix】

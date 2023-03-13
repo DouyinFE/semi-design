@@ -14,6 +14,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.31.0-beta.0 (2023-03-13)
+- 【Feat】
+    - Table 固定列支持 RTL，Table 支持 direction prop  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
+    - Typography 的复制节点支持自定义  [#1420](https://github.com/DouyinFE/semi-design/issues/1420)
+- 【Fix】
+    - 修复 Table column align 在 RTL 时未自动切换问题  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
+    - 修复对于单选，可搜索， 受控的 Cascader 在搜索状态下，value 改变导致搜索值发生变化问题  [#1472](https://github.com/DouyinFE/semi-design/issues/1472)
+    - Popover Tooltip 等带弹层组件支持 keepDOM，支持设置关闭时是否保留内部组件不销毁 [#1481](https://github.com/DouyinFE/semi-design/pull/1481)
+    - 使用可选操作符替换冗余的类型定义 [@thinkasany](https://github.com/thinkasany) [#1464](https://github.com/DouyinFE/semi-design/pull/1464)
+- 【Style】
+    - 根据 children 类型处理 Tag 组件中内容样式，children 是 String 则能够自定文本省略，否则样式对齐 [#1475](https://github.com/DouyinFE/semi-design/pull/1475)
+    - 修复单选，可搜索的 Cascader，size 为 small 或 large 时，其输入框光标位置不正确问题  [#1468](https://github.com/DouyinFE/semi-design/issues/1468)
+
 ---
 #### 🎉 2.30.2 (2023-03-09)
 - 【Fix】
