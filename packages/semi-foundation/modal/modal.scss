@@ -76,6 +76,7 @@ $module: #{$prefix}-modal;
     &-content-fullScreen {
         border-radius: $radius-modal_content_fullscreen;
         border: none;
+        top: $spacing-modal_content_fullscreen-top;
     }
 
     // &-close {
