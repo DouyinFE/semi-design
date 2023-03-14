@@ -118,7 +118,7 @@ export type SelectProps = {
     onDropdownVisibleChange?: (visible: boolean) => void;
     zIndex?: number;
     position?: Position;
-    onSearch?: (value: string) => void;
+    onSearch?: (value: string, event: React.KeyboardEvent | React.MouseEvent) => void;
     dropdownClassName?: string;
     dropdownStyle?: React.CSSProperties;
     dropdownMargin?: PopoverProps['margin'];
@@ -388,16 +388,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.eventManager = new Event();
 
         this.foundation = new SelectFoundation(this.adapter);
-
-        warning(
-            'optionLabelProp' in this.props,
-            '[Semi Select] \'optionLabelProp\' has already been deprecated, please use \'renderSelectedItem\' instead.'
-        );
-
-        warning(
-            'labelInValue' in this.props,
-            '[Semi Select] \'labelInValue\' has already been deprecated, please use \'onChangeWithObject\' instead.'
-        );
     }
 
     setOptionContainerEl = (node: HTMLDivElement) => (this.optionContainerEl = { current: node });
@@ -533,8 +523,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             notifyDropdownVisibleChange: (visible: boolean) => {
                 this.props.onDropdownVisibleChange(visible);
             },
-            notifySearch: (input: string) => {
-                this.props.onSearch(input);
+            notifySearch: (input: string, event: React.MouseEvent | React.KeyboardEvent) => {
+                this.props.onSearch(input, event);
             },
             notifyCreate: (input: OptionProps) => {
                 this.props.onCreate(input);
@@ -647,7 +637,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         }
     }
 
-    handleInputChange = (value: string) => this.foundation.handleInputChange(value);
+    handleInputChange = (value: string, event: React.KeyboardEvent) => this.foundation.handleInputChange(value, event);
 
     renderInput() {
         const { size, multiple, disabled, inputProps, filter } = this.props;
