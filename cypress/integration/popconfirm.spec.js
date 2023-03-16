@@ -55,4 +55,21 @@ describe('popConfirm', () => {
         cy.get('.test-text').type('{esc}');
         cy.get('.test-ok').should('not.exist');
     });
+
+    it('onConfirm promise', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=popconfirm--promise-callback&viewMode=story');
+        cy.get('.semi-button').click();
+        cy.get('.semi-button').contains('确定').click();
+        cy.get('.semi-button-loading').contains('确定');
+        cy.wait(2000);
+        cy.get('.semi-button-loading').should('not.exist');
+    });
+
+    it('onCancel promise', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=popconfirm--promise-callback&viewMode=story');
+        cy.get('.semi-button').click();
+        cy.get('.semi-button').contains('取消').click();
+        cy.wait(2000);
+        cy.get('.semi-button-loading').should('not.exist');;
+    });
 });
