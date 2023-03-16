@@ -551,7 +551,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | spacing | The distance between the out layer and the children element, in px | number | 4(while showArrow=false) 10(while showArrow=true) |  |
 | showArrow | Display little arrow or not | boolean |  |
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom` | string | 'hover' |
-| stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | false | **0.34.0** |
+| stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | true | **0.34.0** |
 | zIndex | Floating layer z-index value | number | 1030 |
 | onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click) | (e:event) => void | | **2.1.0** |
 | onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.8.0** |

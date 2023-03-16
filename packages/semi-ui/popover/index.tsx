@@ -105,7 +105,8 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         closeOnEsc: true,
         returnFocusOnClose: true,
         guardFocus: true,
-        disableFocusListener: true
+        disableFocusListener: true,
+        stopPropagation: true
     };
 
     context: ContextValue;
