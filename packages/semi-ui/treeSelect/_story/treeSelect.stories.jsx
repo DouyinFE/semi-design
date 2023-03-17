@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Icon, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
+import React, { useState, useMemo, useRef } from 'react';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
@@ -2086,3 +2086,24 @@ class ValueTypeIsNumber extends React.Component {
 }
 
 export const valueIsNumber = () => <ValueTypeIsNumber />
+
+export const searchPositionInTriggerAndVirtualize = () => {
+  return (
+      <>
+          <TreeSelect  
+              searchPosition="trigger"
+              style={{ width: 300 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData2}
+              filterTreeNode
+              placeholder="单选"
+              virtualize={{
+                  itemSize: 28,
+                  // dropDown height 300 minus search box height minus padding 8 * 2
+                  // or if you set dropdown height, it will fill 100% of rest space
+                  height: 236                
+              }}
+          />
+      </>
+  );
+};

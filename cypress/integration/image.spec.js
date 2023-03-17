@@ -498,4 +498,21 @@ describe('image', () => {
         cy.get('.semi-tooltip-wrapper').contains('Download');
         cy.get('.semi-image-preview-footer').children('.semi-icon-download').trigger('mouseout');
     });
+
+    // 测试在预览状态下，图片改变 ratio 状态后，切换图片，ratio 状态是否正确
+    //（在未受控 ratio ，无默认 ratio 情况下，切换后的图片ratio 应该为适应页面）
+    it.only('ratio status after change pic', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--basic-preview&args=&viewMode=story');
+        cy.wait(2000);
+        // 进入预览状态
+        cy.get('.semi-image-img-preview').eq(0).click();
+        cy.get('.semi-image-preview').should('exist');
+        // 图片默认 ratio 为适应页面，调整为 1:1
+        cy.get('.semi-image-preview-footer').children('.semi-icon-real_size_stroked').click();
+        // 切换图片到下一张
+        cy.get('.semi-image-preview-footer').children('.semi-icon-chevron_right').click();
+        cy.wait(1000);
+        // 当前 ratio 状态应该为适应页面
+        cy.get('.semi-icon-real_size_stroked').should('exist');
+    });
 });

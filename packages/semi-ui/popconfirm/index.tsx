@@ -272,7 +272,9 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
             <Popover
                 ref={this.popoverRef}
                 {...attrs}
-                content={this.renderConfirmPopCard}
+                // A arrow function needs to be passed here, otherwise the content will not be updated after the Popconfirm state is updated
+                // Popover is a PureComponent, same props will not trigger update
+                content={({ initialFocusRef }) => this.renderConfirmPopCard({ initialFocusRef })}
                 visible={visible}
                 position={position}
                 {...popProps}

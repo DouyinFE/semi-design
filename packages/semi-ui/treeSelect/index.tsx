@@ -50,6 +50,7 @@ import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeP
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
 import Popover, { PopoverProps } from '../popover/index';
+import VirtualRow from '../select/virtualRow';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
@@ -1308,9 +1309,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return <TreeNode {...treeNodeProps} {...data} key={key} data={data} style={style} />;
     };
 
-    itemKey = (index: number, data: TreeNodeData) => {
+    itemKey = (index: number, data: Record<string, any>) => {
+        const { visibleOptions } = data;
         // Find the item at the specified index.
-        const item = data[index];
+        const item = visibleOptions[index];
         // Return a value that uniquely identifies this item.
         return item.key;
     };
@@ -1340,7 +1342,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             );
         }
 
-        const option = ({ index, style, data }: OptionProps) => this.renderTreeNode(data[index], index, style);
+        const data = {
+            visibleOptions: flattenNodes,
+            renderOption: this.renderTreeNode
+        };
 
         return (
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
@@ -1351,12 +1356,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         height={height}
                         width={width}
                         // @ts-ignore avoid strict check of itemKey
-                        itemKey={this.itemKey as ListItemKeySelector<TreeNodeData>}
-                        itemData={flattenNodes as any}
+                        itemKey={this.itemKey}
+                        itemData={data}
                         className={`${prefixTree}-virtual-list`}
                         style={{ direction }}
                     >
-                        {option}
+                        {VirtualRow}
                     </VirtualList>
                 )}
             </AutoSizer>

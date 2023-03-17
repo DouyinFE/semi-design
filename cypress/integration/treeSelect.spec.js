@@ -84,4 +84,13 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select').eq(2).click();
         cy.get('@consoleLog').should('be.calledWith', 'blur');
     });
+
+    it('filterTreeNode & virtualize', () => {
+        // 该例子为测试当 filterTreeNode 和 virtualize 功能同时使用时, 点击选中是否符合预期
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--search-position-in-trigger-and-virtualize');
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('.semi-tree-option').eq(0).click();
+        cy.get('.semi-tree-select-selection-TriggerSearchItem').eq(0).should('contain.text', '亚洲');
+    });
 });
+

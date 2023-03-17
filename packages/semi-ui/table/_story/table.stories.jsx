@@ -77,6 +77,7 @@ export { default as TableSpan } from './TableSpan';
 export { default as FixRenderReturnProps } from './FixRenderReturnProps';
 export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIndex';
 export * from './v2';
+export { default as FixSelectAll325 } from './Demos/rowSelection';
 
 // empty table
 

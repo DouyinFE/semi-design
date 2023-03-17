@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { ReactNode, Children, ReactChild, ReactFragment, ReactPortal } from 'react';
+import React, { ReactNode, Children, ReactChild, ReactFragment, ReactPortal, isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import BaseComponent from "../_base/baseComponent";
@@ -9,7 +9,7 @@ import CarouselFoundation, { CarouselAdapter } from '@douyinfe/semi-foundation/c
 import CarouselIndicator from './CarouselIndicator';
 import CarouselArrow from './CarouselArrow';
 import '@douyinfe/semi-foundation/carousel/carousel.scss';
-import { debounce } from 'lodash';
+import { debounce, isEqual, pick } from 'lodash';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 
 export interface CarouselState {
@@ -110,15 +110,30 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
         this.handleAutoPlay();
     }
 
+    componentDidUpdate(prevProps: Readonly<CarouselProps>, prevState: Readonly<CarouselState>, snapshot?: any): void {
+        const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child) =>
+            isValidElement(child) ? child.key : null
+        );
+        const nowChildrenKeys = React.Children.toArray(this.props.children).map((child) =>
+            isValidElement(child) ? child.key : null
+        );
+
+        if (!isEqual(prevChildrenKeys, nowChildrenKeys)) {
+            this.setState({ children: this.getChildren() });
+        }
+    }
+
     componentWillUnmount(): void {
         this.foundation.destroy();
     }
 
     play = (): void => {
+        this.foundation.setForcePlay(true);
         return this.foundation.handleAutoPlay();
     }
 
     stop = (): void => {
+        this.foundation.setForcePlay(false);
         return this.foundation.stop();
     };
 
@@ -142,7 +157,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
 
     handleMouseEnter = (): void => {
         const { autoPlay } = this.props;
-        if (typeof autoPlay !== 'object' || autoPlay.hoverToPause){
+        if ((autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)){
             this.foundation.stop();
         }
     }
