@@ -474,6 +474,42 @@ slideDirection.story = {
   name: 'slide direction',
 };
 
+export const fix1482 = () => {
+  const [children, setChildren] = useState([1, 2]);
+  const carouselRef = React.useRef();
+
+  React.useEffect(() => {
+    setChildren([3, 4, 5]);
+  },[])
+
+  return (
+    <div 
+      onMouseEnter={() => {
+        console.log('onMouseEnter play');
+        carouselRef.current.play();
+      }}
+      onMouseLeave={() => {
+        console.log('onMouseLeave stop');
+        carouselRef.current.stop();
+      }}
+    >
+      <Carousel style={style} autoPlay={false} ref={carouselRef}>
+        {children.map((item, index)=>{
+          return (
+            <div style={contentPinkStyle} key={index}>
+              <h3>index{index}</h3>
+            </div>
+          )
+        })}
+      </Carousel>
+    </div>
+);
+}
+
+fix1482.story = {
+  name: 'fix-1482',
+};
+
 
 
 
