@@ -1411,18 +1411,6 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | multiple | 是否多选 | boolean | false |
 | outerTopSlot | 渲染在弹出层顶部，与 optionList 平级的自定义 slot | ReactNode |  |
 | outerBottomSlot | 渲染在弹出层底部，与 optionList 平级的自定义 slot | ReactNode |  |
-| onBlur | 失去焦点时的回调 | function(event) |  |
-| onChange | 变化时回调函数 | function(value:string\|number\|array) |  |
-| onCreate | allowCreate 为 true，创建备选项时的回调 | function(option) |  |
-| onClear | 清除按钮的回调 | function |  |
-| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest } | boolean | false |
-| onDropdownVisibleChange | 下拉菜单展开/收起时的回调 | function(visible:boolean) |  |
-| onListScroll | 候选项列表滚动时的回调 | function(e) |  |
-| onSearch | input 输入框内容发生改变时回调函数 | function(sugInput:string) |  |
-| onSelect | 被选中时的回调 | function(value, option) |  |
-| onDeselect | 取消选中时的回调，仅在多选时有效 | function(value, option) |  |
-| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供 | function(option) |  |
-| onFocus | 获得焦点时的回调 | function(event) |  |
 | optionList | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性 | array(\[{value, label}\]) |  |
 | placeholder | 选择框默认文字 | ReactNode |  |
 | position | 菜单展开的位置，可选项同 Tooltip position | string | 'bottomLeft' |
@@ -1446,6 +1434,18 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | validateStatus | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色） | string | 'default' |
 | virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成 | object |  |
 | zIndex | 弹层的 zIndex | number | 1030 |
+| onBlur | 失去焦点时的回调 | function(event) |  |
+| onChange | 变化时回调函数 | function(value:string\|number\|array) |  |
+| onCreate | allowCreate 为 true，创建备选项时的回调 | function(option) |  |
+| onClear | 清除按钮的回调 | function |  |
+| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest } | boolean | false |
+| onDropdownVisibleChange | 下拉菜单展开/收起时的回调 | function(visible:boolean) |  |
+| onListScroll | 候选项列表滚动时的回调 | function(e) |  |
+| onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.31 后提供 | function(sugInput:string, e: ReactEvent) |  |
+| onSelect | 被选中时的回调 | function(value, option) |  |
+| onDeselect | 取消选中时的回调，仅在多选时有效 | function(value, option) |  |
+| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供 | function(option) |  |
+| onFocus | 获得焦点时的回调 | function(event) |  |
 
 ### Option Props
 
