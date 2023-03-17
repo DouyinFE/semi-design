@@ -77,8 +77,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleWindowResize = (): void => {
-        const { setRatio } = this.getProps();
-        const { ratio } = this.getProps();
+        const { ratio, setRatio } = this.getProps();
         const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
         if (originImageWidth && originImageHeight) {
             if (ratio !== "adaptation") {
