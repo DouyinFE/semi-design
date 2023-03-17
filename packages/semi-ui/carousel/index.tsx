@@ -111,14 +111,14 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     }
 
     componentDidUpdate(prevProps: Readonly<CarouselProps>, prevState: Readonly<CarouselState>, snapshot?: any): void {
-        const prevChildrenProps = React.Children.toArray(prevProps.children).map((child) =>
-            pick(isValidElement(child) ? child : null, 'key')
+        const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child) =>
+            isValidElement(child) ? child.key : null
         );
-        const nowChildrenProps = React.Children.toArray(this.props.children).map((child) =>
-            pick(isValidElement(child) ? child : null, 'key')
+        const nowChildrenKeys = React.Children.toArray(this.props.children).map((child) =>
+            isValidElement(child) ? child.key : null
         );
 
-        if (!isEqual(prevChildrenProps, nowChildrenProps)) {
+        if (!isEqual(prevChildrenKeys, nowChildrenKeys)) {
             this.setState({ children: this.getChildren() });
         }
     }
@@ -157,7 +157,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
 
     handleMouseEnter = (): void => {
         const { autoPlay } = this.props;
-        if ((typeof autoPlay === 'boolean' && autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)){
+        if ((autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)){
             this.foundation.stop();
         }
     }
