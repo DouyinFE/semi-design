@@ -1379,7 +1379,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | onDropdownVisibleChange | A callback when the drop-down menu expands / collapsed | function(visible: boolean) |  |
 | onExceed | Callback invoked when the number of attempts to select exceeds the max limit, effective only at multi-selection | function |  |
 | onFocus | Callback when focus select | function(event) |  |
-| onSearch | The callback function when the content of the input box changes. The second parameter is available after v2.32 | function(sugInput: string, e: ReactEvent) |  |
+| onSearch | The callback function when the content of the input box changes. The second parameter is available after v2.31 | function(sugInput: string, e: ReactEvent) |  |
 | onSelect | Callback when selected | function (value, option) |  |
 
 ### Option Props
