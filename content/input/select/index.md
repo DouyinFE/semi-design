@@ -1441,7 +1441,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest } | boolean | false |
 | onDropdownVisibleChange | 下拉菜单展开/收起时的回调 | function(visible:boolean) |  |
 | onListScroll | 候选项列表滚动时的回调 | function(e) |  |
-| onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.32 后提供 | function(sugInput:string, e: ReactEvent) |  |
+| onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.31 后提供 | function(sugInput:string, e: ReactEvent) |  |
 | onSelect | 被选中时的回调 | function(value, option) |  |
 | onDeselect | 取消选中时的回调，仅在多选时有效 | function(value, option) |  |
 | onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供 | function(option) |  |
