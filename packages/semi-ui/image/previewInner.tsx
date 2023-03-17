@@ -211,6 +211,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         }
         if ("currentIndex" in props && props.currentIndex !== state.currentIndex) {
             willUpdateStates.currentIndex = props.currentIndex;
+            // ratio will set to adaptation when change picture, 
+            // attention: If the ratio is controlled, the ratio should not change as the index changes
+            willUpdateStates.ratio = 'adaptation';
         }
         return willUpdateStates;
     }
@@ -223,7 +226,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentDidMount() {
-
         this.scrollBarWidth = PreviewInner.getScrollbarWidth();
         this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
@@ -311,10 +313,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleMouseDown(e);
     }
 
-    handleRatio = (type: RatioType): void => {
-        this.foundation.handleRatio(type);
-    }
-
     render() {
         const {
             getPopupContainer,
@@ -385,7 +383,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         src={imgSrc[currentIndex]}
                         onZoom={this.handleZoomImage}
                         disableDownload={disableDownload}
-                        setRatio={this.handleRatio}
+                        setRatio={this.handleAdjustRatio}
                         zoom={zoom}
                         ratio={ratio}
                         zoomStep={zoomStep}
