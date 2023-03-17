@@ -145,6 +145,14 @@ $types: "ghost", "solid", "light";
             height: $width-tag_avatar_circle_large;
         }
     }
+
+    &-disabled.#{$module} {
+        color: $color-tag_disabled-default;
+
+        .#{$module}-close {
+            color: $color-tag_disabled-default;
+        }
+    }
 }
 
 .#{$module}-group {

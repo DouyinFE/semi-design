@@ -39,6 +39,7 @@ export default class Tag extends Component<TagProps, TagState> {
         className: '',
         shape: 'square',
         avatarShape: 'square',
+        disabled: false,
     };
 
     static propTypes = {
@@ -56,6 +57,7 @@ export default class Tag extends Component<TagProps, TagState> {
         avatarSrc: PropTypes.string,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
         'aria-label': PropTypes.string,
+        disabled: PropTypes.bool,
     };
 
     constructor(props: TagProps) {
@@ -123,7 +125,24 @@ export default class Tag extends Component<TagProps, TagState> {
     }
 
     render() {
-        const { tagKey, children, size, color, closable, visible, onClose, onClick, className, type, shape, avatarSrc, avatarShape, tabIndex, ...attr } = this.props;
+        const {
+            tagKey,
+            children,
+            size,
+            color,
+            closable,
+            visible,
+            onClose,
+            onClick,
+            className,
+            type,
+            shape,
+            avatarSrc,
+            avatarShape,
+            tabIndex,
+            disabled,
+            ...attr
+        } = this.props;
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
@@ -140,6 +159,7 @@ export default class Tag extends Component<TagProps, TagState> {
                     [`${prefixCls}-large`]: size === 'large',
                     [`${prefixCls}-square`]: shape === 'square',
                     [`${prefixCls}-circle`]: shape === 'circle',
+                    [`${prefixCls}-disabled`]: disabled,
                     [`${prefixCls}-${type}`]: type,
                     [`${prefixCls}-${color}-${type}`]: color && type,
                     [`${prefixCls}-closable`]: closable,
@@ -157,10 +177,10 @@ export default class Tag extends Component<TagProps, TagState> {
             </div>
         ) : null;
         const stringChild = isString(children);
-        const contentCls = cls(`${prefixCls}-content`, `${prefixCls}-content-${stringChild ? 'ellipsis' : 'center' }`);
+        const contentCls = cls(`${prefixCls}-content`, `${prefixCls}-content-${stringChild ? 'ellipsis' : 'center'}`);
 
         return (
-            <div aria-label={this.props['aria-label'] || stringChild ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
+            <div aria-label={this.props['aria-label'] || stringChild ? `${closable ? 'Closable ' : ''}Tag: ${children}` : ''} {...wrapProps}>
                 {avatarSrc ? this.renderAvatar() : null}
                 <div className={contentCls}>
                     {children}

@@ -4,7 +4,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
 import { Tag, TagGroup } from '../../index';
-import { Space } from '@douyinfe/semi-ui';
+import { Space, Select, TreeSelect, TagInput, Cascader } from '@douyinfe/semi-ui';
 
 export default {
   title: 'Tag'
@@ -384,3 +384,164 @@ export const maxWidth = () => {
     </Tag>
   </>
 )}
+
+DisabledTag.storyName = 'disabled';
+export function DisabledTag() {
+    const colors = [
+        'amber',
+        'blue',
+        'cyan',
+        'green',
+        'grey',
+        'indigo',
+        'light-blue',
+        'light-green',
+        'lime',
+        'orange',
+        'pink',
+        'purple',
+        'red',
+        'teal',
+        'violet',
+        'yellow',
+        'white',
+    ];
+    const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
+    const tagList = [
+        { color: 'white', children: '抖音' },
+        { color: 'white', children: '火山' },
+        { color: 'white', children: '剪映' },
+        { color: 'white', children: '醒图' },
+    ];
+    const tagList2 = [
+        { color: 'white', children: 'Douyin', avatarSrc: src },
+        { color: 'white', children: 'Hotsoon', avatarSrc: src },
+        { color: 'white', children: 'Capcut', avatarSrc: src },
+        { color: 'white', children: 'Xingtu', avatarSrc: src },
+    ];
+    const tagGroupStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        width: 350,
+    };
+    const divStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: 35,
+        width: 300,
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 10px',
+    };
+    const treeData = [
+        {
+            label: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: '江北区',
+                            value: 'jiangbei',
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    return (
+        <Space align="start">
+            <Space vertical align="start">
+                {
+                    <>
+                        <Tag disabled closable>
+                            small circle tag
+                        </Tag>
+                        <Tag disabled closable shape="circle">
+                            small circle tag
+                        </Tag>
+                        <Tag disabled avatarSrc={src} closable={true}>
+                            焦锐志
+                        </Tag>
+                        <Tag disabled avatarSrc={src} avatarShape="circle" closable={true}>
+                            焦锐志
+                        </Tag>
+                    </>
+                }
+                {colors.map(item => (
+                    <Tag disabled closable color={item} key={item}>
+                        {item} tag
+                    </Tag>
+                ))}
+            </Space>
+            <Space vertical align="start">
+                <div style={divStyle}>
+                    <TagGroup disabled maxTagCount={3} style={tagGroupStyle} tagList={tagList} size="large" />
+                </div>
+                <div style={divStyle}>
+                    <TagGroup
+                        disabled
+                        maxTagCount={2}
+                        style={tagGroupStyle}
+                        tagList={tagList2}
+                        size="large"
+                        avatarShape="circle"
+                        showPopover
+                    />
+                </div>
+            </Space>
+            <Space vertical align="start">
+                <Select disabled multiple style={{ width: 300 }} defaultValue={['abc', 'ulikecam']}>
+                    <Select.Option value="abc">抖音</Select.Option>
+                    <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                    <Select.Option value="jianying">剪映</Select.Option>
+                    <Select.Option value="xigua">西瓜视频</Select.Option>
+                </Select>
+                <TreeSelect
+                    multiple
+                    disabled
+                    value={['shanghai', 'beijing']}
+                    style={{ width: 300 }}
+                    defaultValue={[]}
+                    treeData={[]}
+                />
+                <Cascader
+                    defaultValue={['zhejiang', 'ningbo', 'jiangbei']}
+                    style={{ width: 300 }}
+                    treeData={treeData}
+                    disabled
+                    multiple
+                />
+                <TagInput
+                    disabled
+                    style={{ width: 300 }}
+                    defaultValue={['抖音', '火山', '西瓜视频']}
+                />
+            </Space>
+        </Space>
+    );
+}

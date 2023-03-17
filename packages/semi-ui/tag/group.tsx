@@ -18,6 +18,7 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         avatarShape: 'square',
         onTagClose: () => undefined,
         onPlusNMouseEnter: () => undefined,
+        disabled: false,
     };
 
     static propTypes = {
@@ -33,12 +34,14 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
         showPopover: PropTypes.bool,
         popoverProps: PropTypes.object,
         avatarShape: PropTypes.oneOf(avatarShapeSet),
+        disabled: PropTypes.bool,
     };
 
     renderNTag(n: number, restTags: React.ReactNode) {
-        const { size, showPopover, popoverProps, onPlusNMouseEnter } = this.props;
+        const { size, showPopover, popoverProps, onPlusNMouseEnter, disabled } = this.props;
         let nTag = (
             <Tag
+                disabled={disabled}
                 closable={false}
                 size={size}
                 color="grey"
@@ -86,16 +89,16 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
     }
 
     renderAllTags() {
-        const { tagList, size, mode, avatarShape, onTagClose } = this.props;
+        const { tagList, size, mode, avatarShape, onTagClose, disabled } = this.props;
         const renderTags = tagList.map((tag): (Tag | React.ReactNode) => {
             if (mode === 'custom') {
                 return tag as React.ReactNode;
             }
-            const newTag = { ...(tag as TagProps) }; 
+            const newTag = { ...(tag as TagProps) };
             if (!(newTag as TagProps).size) {
                 (newTag as TagProps).size = size;
             }
-            
+
             if (!(newTag as TagProps).avatarShape) {
                 (newTag as TagProps).avatarShape = avatarShape;
             }
@@ -107,12 +110,19 @@ export default class TagGroup<T> extends PureComponent<TagGroupProps<T>> {
                     (newTag as TagProps).tagKey = Math.random();
                 }
             }
-            return <Tag {...(newTag as TagProps)} key={(newTag as TagProps).tagKey} onClose={(tagChildren, e, tagKey) => {
-                if ((newTag as TagProps).onClose) {
-                    (newTag as TagProps).onClose(tagChildren, e, tagKey);
-                }
-                onTagClose && onTagClose(tagChildren, e, tagKey);
-            }} />;
+            return (
+                <Tag
+                    disabled={disabled}
+                    {...(newTag as TagProps)}
+                    key={(newTag as TagProps).tagKey}
+                    onClose={(tagChildren, e, tagKey) => {
+                        if ((newTag as TagProps).onClose) {
+                            (newTag as TagProps).onClose(tagChildren, e, tagKey);
+                        }
+                        onTagClose && onTagClose(tagChildren, e, tagKey);
+                    }}
+                />
+            );
         });
         return renderTags;
     }

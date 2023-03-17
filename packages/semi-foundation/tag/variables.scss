@@ -6,6 +6,7 @@ $color-tag_white-bg-default: var(--semi-color-bg-4); // 白色标签背景颜色
 $color-tag_white-border-default: rgba(var(--semi-grey-2), 0.7); // 白色标签描边颜色 - 默认
 $color-tag_white-text-default: var(--semi-color-text-0); // 白色标签文字颜色 - 默认
 $color-tag_white-icon-default: var(--semi-color-text-2); // 白色标签图标颜色 - 默认
+$color-tag_disabled-default: var(--semi-color-disabled-text); // 标签禁用颜色 - 默认
 
 $color-tag-outline-focus: var(--semi-color-primary-light-active); // 标签轮廓 - 聚焦
 
