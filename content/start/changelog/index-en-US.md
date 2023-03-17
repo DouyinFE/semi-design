@@ -15,7 +15,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.31.0 (2023-03-17)
+- 【Fix】
+    - Fix the problem that the ratio of the new picture is incorrect after switching the ratio state of the preview picture and switching the picture in ImagePreview  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)
+    - fix the problem that the component is not re-updated after Carousel props.children is updated  [#1482 ](https://github.com/DouyinFE/semi-design/issues/1482)
+    - fix the conflict between the Carousel ref method play and the mouseEnter event of autoPlay.hoverToPause, which does not have the highest priority
+    - Fix the wrong state of the selection box in the header of the second page after selecting all the Table  [#325](https://github.com/DouyinFE/semi-design/issues/325)
+    - Select onSearch provides a second input parameter to solve the problem of indistinguishable 1. Automatically clear the input after selection to trigger onSearch, 2. Actively use backspace to clear the input to trigger onSearch 3. Click the clear icon to trigger onSearch and other different scenarios  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - Fixed confirmation button and cancel button not displaying the loading icon when returning promise (2.30 ~ 2.31 versions are affected)  [#1489](https://github.com/DouyinFE/semi-design/issues/1489)
+    - Fix the problem that the user needs to click the option twice to select it for single selection, searchable and search box in Trigger, virtualized TreeSelect  [#1487 ](https://github.com/DouyinFE/semi-design/issues/1487)
+    
 #### 🎉 2.31.0-beta.0 (2023-03-13)
 
 - 【Feat】
