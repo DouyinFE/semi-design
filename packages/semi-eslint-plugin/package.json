@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-semi-design",
-    "version": "2.30.1",
+    "version": "2.31.0-beta.0",
     "description": "semi ui eslint plugin",
     "keywords": [
         "semi",
@@ -27,11 +27,12 @@
         "url": "git+https://github.com/DouyinFE/semi-design.git"
     },
     "scripts": {
-        "build:lib": "rm -rf lib && tsc",
+        "build:lib": "rimraf lib && tsc",
         "prepublishOnly": "npm run build:lib",
         "test": "node __tests__/index.js"
     },
     "devDependencies": {
+        "rimraf": "^4.4.0",
         "typescript": "^4"
     },
     "peerDependencies": {

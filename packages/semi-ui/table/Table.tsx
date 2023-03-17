@@ -56,7 +56,7 @@ import ColumnSorter from './ColumnSorter';
 import ExpandedIcon from './CustomExpandIcon';
 import HeadTable, { HeadTableProps } from './HeadTable';
 import BodyTable, { BodyProps } from './Body';
-import { measureScrollbar, logger, cloneDeep, mergeComponents } from './utils';
+import { logger, cloneDeep, mergeComponents } from './utils';
 import {
     ColumnProps,
     TablePaginationProps,
@@ -73,6 +73,7 @@ import {
     Data
 } from './interface';
 import { ArrayElement } from '../_base/base';
+import ConfigContext from '../configProvider/context';
 
 export type NormalTableProps<RecordType extends Record<string, any> = Data> = Omit<TableProps<RecordType>, 'resizable'>;
 
@@ -95,7 +96,15 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
-    prePagination?: Pagination
+    prePagination?: Pagination;
+    /**
+    * Disabled row keys in sorted and filtered data
+    */
+    allDisabledRowKeys?: BaseRowKeyType[];
+    /**
+     * Disabled row keys set in sorted and filtered data
+     */
+    allDisabledRowKeysSet?: Set<BaseRowKeyType>
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -243,11 +252,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 this.cachedFilteredSortedRowKeys = filteredSortedRowKeys;
                 this.cachedFilteredSortedRowKeysSet = new Set(filteredSortedRowKeys);
             },
+            setAllDisabledRowKeys: allDisabledRowKeys => {
+                const allDisabledRowKeysSet = new Set(allDisabledRowKeys);
+                this.setState({ allDisabledRowKeys, allDisabledRowKeysSet });
+            },
             getCurrentPage: () => get(this.state, 'pagination.currentPage', 1),
             getCurrentPageSize: () => get(this.state, 'pagination.pageSize', numbers.DEFAULT_PAGE_SIZE),
             getCachedFilteredSortedDataSource: () => this.cachedFilteredSortedDataSource,
             getCachedFilteredSortedRowKeys: () => this.cachedFilteredSortedRowKeys,
             getCachedFilteredSortedRowKeysSet: () => this.cachedFilteredSortedRowKeysSet,
+            getAllDisabledRowKeys: () => this.state.allDisabledRowKeys,
+            getAllDisabledRowKeysSet: () => this.state.allDisabledRowKeysSet,
             notifyFilterDropdownVisibleChange: (visible, dataIndex) =>
                 this._invokeColumnFn(dataIndex, 'onFilterDropdownVisibleChange', visible),
             notifyChange: (...args) => this.props.onChange(...args),
@@ -409,6 +424,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             allRowKeys: [], // row keys after paging
             disabledRowKeys: [], // disabled row keys after paging
             disabledRowKeysSet: new Set(),
+            allDisabledRowKeys: [],
+            allDisabledRowKeysSet: new Set(),
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
@@ -470,8 +487,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // The return value of getCheckboxProps affects the disabled rows
             if (isFunction(getCheckboxProps)) {
                 const disabledRowKeys = getAllDisabledRowKeys({ dataSource, getCheckboxProps, childrenRecordName, rowKey });
+                const disabledRowKeysSet = new Set(disabledRowKeys);
                 willUpdateStates.disabledRowKeys = disabledRowKeys;
-                willUpdateStates.disabledRowKeysSet = new Set(disabledRowKeys);
+                willUpdateStates.disabledRowKeysSet = disabledRowKeysSet;
+                willUpdateStates.allDisabledRowKeys = disabledRowKeys;
+                willUpdateStates.allDisabledRowKeysSet = disabledRowKeysSet;
             }
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
@@ -566,7 +586,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // Temporarily use _dataSource=[...dataSource] for processing
             const _dataSource = [...dataSource];
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
+            const allDataDisabledRowKeys = this.foundation.getAllDisabledRowKeys(filteredSortedDataSource);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
+            this.foundation.setAllDisabledRowKeys(allDataDisabledRowKeys);
             states.dataSource = filteredSortedDataSource;
 
             if (this.props.groupBy) {
@@ -790,8 +812,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const node = this.bodyWrapRef.current;
         if (node && node.children && node.children.length) {
             const scrollToLeft = node.scrollLeft === 0;
+            // why use Math.abs? @see https://bugzilla.mozilla.org/show_bug.cgi?id=1447743
             const scrollToRight =
-                node.scrollLeft + 1 >=
+                Math.abs(node.scrollLeft) + 1 >=
                 node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
             if (scrollToLeft && scrollToRight) {
                 this.setScrollPosition('both');
@@ -812,7 +835,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
-        const { rowSelection, disabledRowKeysSet } = this.state;
+        const { rowSelection, allDisabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
             const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled } = rowSelection;
@@ -821,7 +844,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const columnKey = get(rowSelection, 'key', strings.DEFAULT_KEY_COLUMN_SELECTION);
                 const allRowKeys = this.cachedFilteredSortedRowKeys;
                 const allRowKeysSet = this.cachedFilteredSortedRowKeysSet;
-                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, disabledRowKeysSet, allRowKeys);
+                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, allDisabledRowKeysSet, allRowKeys);
                 const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
                 return (
                     <ColumnSelection
@@ -830,8 +853,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         key={columnKey}
                         selected={allIsSelected}
                         indeterminate={hasRowSelected && !allIsSelected}
-                        onChange={(status, e) => {
-                            this.toggleSelectAllRow(status, e);
+                        onChange={(selected, e) => {
+                            this.toggleSelectAllRow(selected, e);
                         }}
                     />
                 );
@@ -1003,8 +1026,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.foundation.handleSelectRow(realKey, selected, e);
     };
 
-    toggleSelectAllRow = (status: boolean, e: TableSelectionCellEvent) => {
-        this.foundation.handleSelectAllRow(status, e);
+    toggleSelectAllRow = (selected: boolean, e: TableSelectionCellEvent) => {
+        this.foundation.handleSelectAllRow(selected, e);
     };
 
     /**
@@ -1409,18 +1432,22 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         return (
             <div
                 ref={this.rootWrapRef}
-                className={classnames(className, `${prefixCls}-wrapper`)}
+                className={classnames(className, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${props.direction}`)}
                 data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
             >
-                <TableContextProvider {...tableContextValue}>
+                <TableContextProvider {...tableContextValue} direction={props.direction}>
                     <Spin spinning={loading} size="large">
                         <div ref={this.wrapRef} className={wrapCls}>
                             <React.Fragment key={'pagination-top'}>
                                 {['top', 'both'].includes(paginationPosition) ? tablePagination : null}
                             </React.Fragment>
-                            {this.renderTitle({ title: (props as any).title, dataSource: props.dataSource, prefixCls: props.prefixCls })}
+                            {this.renderTitle({
+                                title: (props as any).title,
+                                dataSource: props.dataSource,
+                                prefixCls: props.prefixCls,
+                            })}
                             <div className={`${prefixCls}-container`}>{this.renderMainTable({ ...props })}</div>
                             <React.Fragment key={'pagination-bottom'}>
                                 {['bottom', 'both'].includes(paginationPosition) ? tablePagination : null}

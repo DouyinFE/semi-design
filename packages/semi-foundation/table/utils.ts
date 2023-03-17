@@ -503,3 +503,17 @@ export function isTreeTable({ dataSource, childrenRecordName = 'children' }: { d
     }
     return flag;
 }
+
+export function getRTLAlign(align: typeof strings.ALIGNS[number], direction?: 'ltr' | 'rtl'): typeof strings.ALIGNS[number] {
+    if (direction === 'rtl') {
+        switch (align) {
+            case 'left':
+                return 'right';
+            case 'right':
+                return 'left';
+            default:
+                return align;
+        }
+    }
+    return align;
+}

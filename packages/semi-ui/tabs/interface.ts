@@ -60,7 +60,7 @@ export interface TabBarProps {
 
 export interface TabPaneProps {
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     disabled?: boolean;
     icon?: ReactNode;
     itemKey?: string;

@@ -26,7 +26,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     onChange?: (e: CheckboxEvent) => any;
     // TODO, docs
     style?: React.CSSProperties;

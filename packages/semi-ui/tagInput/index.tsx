@@ -79,7 +79,7 @@ export interface TagInputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     validateStatus?: ValidateStatus;
-    value?: string[] | undefined;
+    value?: string[];
     autoFocus?: boolean;
     'aria-label'?: string;
     preventScroll?: boolean
@@ -452,16 +452,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
-                        {/* Wrap a layer of div outside IconHandler and Value to ensure that the two are aligned */}
-                        <div className={`${prefixCls}-tag-content-wrapper`}>
-                            {showIconHandler && <DragHandle />}
-                            <Paragraph
-                                className={typoCls}
-                                ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                            >
-                                {value}
-                            </Paragraph>
-                        </div>
+                        {showIconHandler && <DragHandle />}
+                        <Paragraph
+                            className={typoCls}
+                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
+                        >
+                            {value}
+                        </Paragraph>
                     </Tag>
                 );
             }
@@ -488,7 +485,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const allTags = this.getAllTags();
         let restTags: Array<React.ReactNode> = [];
         let tags: Array<React.ReactNode> = [...allTags];
-        if (( !active || !expandRestTagsOnClick) && maxTagCount && maxTagCount < allTags.length){
+        if (( !active || !expandRestTagsOnClick) && maxTagCount && maxTagCount < allTags.length) {
             tags = allTags.slice(0, maxTagCount);
             restTags = allTags.slice(maxTagCount);
         }

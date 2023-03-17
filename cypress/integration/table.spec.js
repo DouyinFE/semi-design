@@ -128,4 +128,19 @@ describe('table', () => {
         cy.get('.semi-table-body .semi-table-row').eq(2).contains('Semi Pro');
         cy.contains('显示第 1 条-第 10 条，共 23 条');
     });
+
+    it('fixed row selection header state', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fix-select-all-325&args=&viewMode=story');
+        cy.get('.semi-table-row-head .semi-checkbox-inner-display').click();
+        cy.get('.semi-checkbox-checked').should('have.length', 3);
+        cy.get('.semi-page-item').contains('2').click();
+        cy.get('.semi-table-row-head .semi-checkbox-checked');
+        cy.get('.semi-table-row-head .semi-checkbox-indeterminate').should('not.exist');
+        cy.get('.semi-checkbox-checked').should('have.length', 4);
+        cy.get('.semi-table-tbody .semi-checkbox-inner-display').eq(0).click();
+        cy.get('.semi-table-row-head .semi-checkbox-indeterminate');
+        cy.get('.semi-table-row-head .semi-checkbox-inner-display').click();
+        cy.get('.semi-table-row-head .semi-checkbox-checked');
+        cy.get('.semi-checkbox-checked').should('have.length', 4);
+    });
 });

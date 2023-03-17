@@ -20,7 +20,7 @@ export interface DescriptionsProps {
     size?: DescriptionsSize;
     style?: React.CSSProperties;
     className?: string;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     data?: Data[]
 }
 

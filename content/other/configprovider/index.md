@@ -74,7 +74,7 @@ function Demo(props = {}) {
 特殊组件：
 - Modal，Notification，Toast 的命令式调用需要通过 prop 传 `direction`。
 - 如果你想对有方向性的 Icon 做 RTL 国际化，需要自己单独进行处理。我们认为对 Icon 进行 RTL 会让它变得难以理解和维护。其他组件内的 icon Semi 已经做了 RTL 适配。
-- Table 的固定列或表头，树形数据，虚拟化表格暂不支持 RTL，Slider 暂不支持 RTL
+- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)），固定列在 v2.32 版本支持 RTL，Slider 暂不支持 RTL。
 
 
 ```jsx live=true dir="column" hideInDSM
@@ -381,12 +381,12 @@ function Demo(props = {}) {
 
 ## API 参考
 
-| 属性     | 说明                                                                                | 类型           | 默认值 |
-| -------- | ----------------------------------------------------------------------------------- | -------------- | ------ |
-| direction | 设置文本的方向 | `ltr`\| `rtl` | `ltr` | 
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body  | 
-| locale   | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用) | object         |        |
-| timeZone | [时区标识](#时区标识)                                                               | string\|number |        |
+| 属性              | 说明                                                                          | 类型                   | 默认值              |
+|-------------------|-----------------------------------------------------------------------------|------------------------|---------------------|
+| direction         | 设置文本的方向                                                                | `ltr`\| `rtl`          | `ltr`               |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`      | function():HTMLElement | () => document.body |
+| locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用) | object                 |                     |
+| timeZone          | [时区标识](#时区标识)                                                         | string\|number         |                     |
 
 
 ### 时区标识

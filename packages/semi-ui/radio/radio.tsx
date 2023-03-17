@@ -24,7 +24,7 @@ export type RadioType =
 export type RadioProps = {
     autoFocus?: boolean;
     checked?: boolean;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     defaultChecked?: boolean;
     value?: string | number;
     disabled?: boolean;

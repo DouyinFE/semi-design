@@ -29,8 +29,8 @@ export interface MotionChildrenProps {
         animationFillMode?: string
     };
     animateEvents?: {
-        onAnimationIteration?: React.AnimationEventHandler<any> | undefined;
-        onAnimationStart?: React.AnimationEventHandler<any> | undefined;
-        onAnimationEnd?: React.AnimationEventHandler<any> | undefined
+        onAnimationIteration?: React.AnimationEventHandler<any>;
+        onAnimationStart?: React.AnimationEventHandler<any>;
+        onAnimationEnd?: React.AnimationEventHandler<any>
     }
 }

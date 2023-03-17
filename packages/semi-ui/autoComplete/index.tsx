@@ -48,7 +48,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoFocus?: boolean;
     className?: string;
     clearIcon?: ReactNode;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     data?: T[];
     disabled?: boolean;
     defaultOpen?: boolean;
