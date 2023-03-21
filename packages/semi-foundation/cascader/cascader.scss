@@ -25,6 +25,17 @@ $module: #{$prefix}-cascader;
         border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
     }
 
+    &:focus {
+        border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        background-color: $color-cascader_default-bg-default;
+        outline: 0;
+    }
+
+
+    &:active {
+        background-color: $color-cascader_default-bg-active;
+    }
+
     &-small {
         min-height: $height-cascader_small;
         line-height: $height-cascader_small;
@@ -41,10 +52,12 @@ $module: #{$prefix}-cascader;
     &-focus {
         border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
         outline: 0;
-        &:hover,
-        &:active {
+        &:hover{
             background-color: $color-cascader_default-bg-default;
             border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        }
+        &:active {
+            background-color: $color-cascader_default-bg-active;
         }
     }
 
@@ -493,6 +506,79 @@ $module: #{$prefix}-cascader;
             padding-right: $spacing-cascader_flatten_list-paddingRight;
         }
     }
+}
+
+.#{$module}-noBorder{
+    background-color: transparent;
+    border-color: transparent;
+
+    .#{$module}:hover {
+        background-color: $color-cascader_default-bg-hover;
+        border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
+    }
+
+    &.#{$module}:focus {
+        background-color: transparent;
+        outline: 0;
+    }
+
+    &.#{$module}:active {
+        background-color: $color-cascader_default-bg-active;
+    }
+    &.#{$module}-focus{
+        &:hover {
+            background-color: transparent;
+            border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        }
+        &:active {
+            background-color: $color-cascader_default-bg-active;
+            //border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        }
+    }
+
+    &.#{$module}-warning {
+        background-color: transparent;
+        border-color: $color-cascader_warning-border-focus;
+
+        &:hover {
+            background-color: $color-cascader_warning-bg-hover;
+            border-color: $color-cascader_warning-border-focus;
+        }
+
+        &:focus{
+            background-color: transparent;
+            border-color: $color-cascader_warning-border-focus;
+        }
+
+        &:active{
+            background-color: $color-cascader_warning-bg-active;
+            border-color: $color-cascader_warning-border-focus;
+        }
+
+    }
+
+    &.#{$module}-error {
+        background-color: transparent;
+        border-color: $color-cascader_danger-border-focus;
+
+        &:hover {
+            background-color: $color-cascader_danger-bg-hover;
+            border-color: $color-cascader_danger-border-focus;
+        }
+
+        &:focus{
+            background-color: transparent;
+            border-color: $color-cascader_danger-border-focus;
+        }
+
+        &:active{
+            background-color: $color-cascader_danger-bg-active;
+            border-color: $color-cascader_danger-border-focus;
+        }
+
+    }
+
+
 }
 
 @import './rtl.scss';

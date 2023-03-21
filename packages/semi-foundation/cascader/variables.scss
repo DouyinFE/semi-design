@@ -5,6 +5,7 @@ $color-cascader_default-border-hover: transparent; // 级联选择描边颜色 -
 $color-cascader_default-border-focus: var(--semi-color-focus-border); // 级联选择描边颜色 - 选中
 $color-cascader_default-bg-default: var(--semi-color-fill-0); // 级联选择菜单项背景颜色 - 默认
 $color-cascader_default-bg-hover: var(--semi-color-fill-1); // 级联选择菜单项背景颜色 - 悬浮
+$color-cascader_default-bg-active: var(--semi-color-fill-2); // 级联选择菜单项背景颜色 - 按下
 $color-cascader_option_list-border-default: var(--semi-color-fill-0); // 级联选择各级菜单分割线颜色
 $color-cascader_option_main-text-default: var(--semi-color-text-0); // 级联选择菜单项文字颜色
 $color-cascader_option-bg-hover: var(--semi-color-fill-0); // 级联选择菜单项背景颜色 - 悬浮
