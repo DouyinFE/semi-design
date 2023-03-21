@@ -482,9 +482,15 @@ $overflowList: #{$prefix}-overflow-list;
         border: $width-select-border-hover solid $color-select-border-hover;
     }
 
+
     &.#{$module}:focus {
         background-color: transparent;
         outline: 0;
+    }
+
+    &.#{$module}:active {
+        background-color: $color-select-bg-active;
+        border: $width-select-border-active solid $color-select-border-active;
     }
 
     &.#{$module}-focus{

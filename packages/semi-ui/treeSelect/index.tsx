@@ -182,6 +182,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-invalid': PropTypes.bool,
         'aria-labelledby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        borderless: PropTypes.bool,
         loadedKeys: PropTypes.arrayOf(PropTypes.string),
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
@@ -268,6 +269,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
+        borderless: false,
         searchPosition: strings.SEARCH_POSITION_DROPDOWN,
         arrowIcon: <IconChevronDown />,
         autoExpandParent: false,
@@ -969,6 +971,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             leafOnly,
             searchPosition,
             triggerRender,
+            borderless
         } = this.props;
         const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -987,6 +990,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cls(
                 prefixcls,
                 {
+                    [`${prefixcls}-noBorder`]: borderless,
                     [`${prefixcls}-focus`]: isFocus,
                     [`${prefixcls}-disabled`]: disabled,
                     [`${prefixcls}-single`]: !multiple,

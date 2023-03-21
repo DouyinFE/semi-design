@@ -22,9 +22,16 @@ $module: #{$prefix}-tree-select;
         border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
     }
 
+    &:focus {
+        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+        background-color: $color-treeSelect_default-bg-focus;
+        outline: 0;
+    }
+
     &:active{
         background-color: $color-treeSelect_default-bg-active;
     }
+
 
     &-focus {
         background-color: $color-treeSelect_default-bg-focus;
@@ -363,6 +370,74 @@ $module: #{$prefix}-tree-select;
             border-bottom: $width-treeSelect_search_wrapper-border $color-treeSelect_search-border-default solid;
         }
     }
+}
+
+.#{$module}-noBorder{
+    background-color: transparent;
+    border-color: transparent;
+
+    .#{$module}:hover {
+        background-color: $color-treeSelect_default-bg-hover;
+        border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
+    }
+
+    &.#{$module}:focus{
+        background-color: transparent;
+        outline: 0;
+    }
+
+    &.#{$module}:active{
+        background-color: $color-treeSelect_default-bg-active;
+        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+    }
+
+    &.#{$module}-focus{
+        &:hover{
+            background-color: transparent;
+            border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+            outline: 0;
+        }
+        &:active{
+            background-color: $color-treeSelect_default-bg-active;
+        }
+    }
+
+    &.#{$module}-warning {
+        background-color: transparent;
+        border-color: $color-treeSelect_warning-border-focus;
+        &:hover {
+            background-color: $color-treeSelect_warning-bg-hover;
+            border-color: $color-treeSelect_warning-border-focus;
+        }
+        &.#{$module}-focus {
+            background-color: transparent;
+            border-color: $color-treeSelect_warning-border-focus;
+        }
+
+        &:active {
+            background-color: $color-treeSelect_warning-border-focus;
+            border-color: $color-treeSelect_warning-border-active;
+        }
+    }
+
+    &.#{$module}-error {
+        background-color: transparent;
+        border-color: $color-treeSelect_danger-border-focus;
+        &:hover {
+            background-color: $color-treeSelect_danger-bg-hover;
+            border-color: $color-treeSelect_danger-border-focus;
+        }
+        &.#{$module}-focus {
+            background-color: transparent;
+            border-color: $color-treeSelect_danger-border-focus;
+        }
+
+        &:active {
+            background-color: $color-treeSelect_danger-border-focus;
+            border-color: $color-treeSelect_danger-border-active;
+        }
+    }
+
 }
 
 @import './rtl.scss';
