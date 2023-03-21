@@ -16,19 +16,31 @@ $module: #{$prefix}-tree-select;
     position: relative;
     cursor: pointer;
 
+
     &:hover {
         background-color: $color-treeSelect_default-bg-hover;
         border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
     }
 
-    &-focus {
-        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
-        outline: 0;
+    &:active{
+        background-color: $color-treeSelect_default-bg-active;
     }
 
-    &-focus:hover {
+    &-focus {
+        background-color: $color-treeSelect_default-bg-focus;
         border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
         outline: 0;
+
+        &:hover {
+            background-color: $color-treeSelect_default-bg-focus;
+            border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+            outline: 0;
+        }
+
+
+        &:active{
+            background-color: $color-treeSelect_default-bg-active;
+        }
     }
 
 

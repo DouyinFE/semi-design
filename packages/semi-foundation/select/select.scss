@@ -40,6 +40,10 @@ $overflowList: #{$prefix}-overflow-list;
         outline: 0;
     }
 
+    &:active{
+        background-color: $color-select-bg-active;
+    }
+
     &-small {
         height: $height-select_small;
         line-height: $height-select_small;
