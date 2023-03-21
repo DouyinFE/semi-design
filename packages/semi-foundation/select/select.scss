@@ -468,4 +468,77 @@ $overflowList: #{$prefix}-overflow-list;
     height: 20px;
 }
 
-@import './rtl.scss';
+
+.#{$module}-noBorder {
+    background-color: transparent;
+    border-color: transparent;
+
+    .#{$module}:hover {
+        background-color: $color-select-bg-hover;
+        border: $width-select-border-hover solid $color-select-border-hover;
+    }
+
+    &.#{$module}:focus {
+        background-color: transparent;
+        outline: 0;
+    }
+
+    &.#{$module}-focus{
+
+        &:hover {
+            background-color: transparent;
+            border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        }
+        &:active {
+            background-color: $color-select-bg-active;
+            border: $width-select-border-active solid $color-select-border-active;
+        }
+    }
+
+
+
+    &.#{$module}-warning {
+        background-color: transparent;
+        border-color: $color-select_warning-border-focus;
+
+        &:hover {
+            background-color: $color-select_warning-bg-hover;
+            border-color: $color-select_warning-border-focus;
+        }
+
+        &:focus {
+            background-color: transparent;
+            border-color: $color-select_warning-border-focus;
+        }
+
+        &:active {
+            background-color: $color-select_warning-bg-active;
+            border-color: $color-select_warning-border-focus;
+        }
+    }
+
+    &.#{$module}-error {
+        background-color: transparent;
+        border-color: $color-select_danger-border-focus;
+
+        &:hover {
+            background-color: $color-select_danger-bg-hover;
+            border-color: $color-select_danger-border-focus;
+        }
+
+        &:focus {
+            background-color: transparent;
+            border-color: $color-select_danger-border-focus;
+        }
+
+        &:active {
+            background-color: $color-select_danger-bg-active;
+            border-color: $color-select_danger-border-focus;
+        }
+    }
+
+
+}
+
+
+    @import './rtl.scss';
