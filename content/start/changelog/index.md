@@ -13,15 +13,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.31.1 (2023-03-22)
+- 【Chore】
+    - Semi Webpack Plugin 增加直接从 Compiler Instance 中获取NormalModule的逻辑 [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
+
 #### 🎉 2.31.0 (2023-03-17)
 - 【Fix】
-    - 修复 ImagePreview 组件中预览图片改变 ratio 状态并切换图片后，新图片 ratio 不正确问题  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)
-    - 修复 Carousel props.children 更新后组件未重新更新问题  [#1482 ](https://github.com/DouyinFE/semi-design/issues/1482)
+    - 修复 ImagePreview 组件中预览图片改变 ratio 状态并切换图片后，新图片 ratio 不正确问题 [#1494](https://github.com/DouyinFE/semi-design/issues/1494)
+    - 修复 Carousel props.children 更新后组件未重新更新问题  [#1482](https://github.com/DouyinFE/semi-design/issues/1482)
     - 修复 Carousel ref method play 与 autoPlay.hoverToPause 的mouseEnter事件冲突，未拥有最高优先级问题
     - 修复 Table 全选后翻页表头选择框状态错误问题  [#325](https://github.com/DouyinFE/semi-design/issues/325)
     - Select onSearch 提供第二个入参，解决无法区分 1选择后自动清空input 触发onSearch 、2 主动使用 backspace清空input触发 onSearch 3 点击 clear icon触发onSearch 等不同场景的问题   [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - 修复 Popconfirm 确认按钮与取消按钮在返回 promise 时没有展示 loading 问题（影响 2.30 ~ 2.31 版本）  [#1489](https://github.com/DouyinFE/semi-design/issues/1489)
-    - 修复对于单选，可搜索且搜索框在 Trigger中，虚拟化的 TreeSelect ，用户需要点击两次选项才能选中问题  [#1487 ](https://github.com/DouyinFE/semi-design/issues/1487)
+    - 修复对于单选，可搜索且搜索框在 Trigger中，虚拟化的 TreeSelect ，用户需要点击两次选项才能选中问题  [#1487](https://github.com/DouyinFE/semi-design/issues/1487)
 
 #### 🎉 2.31.0-beta.0 (2023-03-13)
 - 【Feat】

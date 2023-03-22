@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.31.1 (2023-03-22)
+- 【Chore】
+    - Semi Webpack Plugin adds logic to directly retrieve NormalModule from the Compiler Instance [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
+
 #### 🎉 2.31.0 (2023-03-17)
 - 【Fix】
     - Fix the problem that the ratio of the new picture is incorrect after switching the ratio state of the preview picture and switching the picture in ImagePreview  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)
