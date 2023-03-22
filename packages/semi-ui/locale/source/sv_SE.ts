@@ -38,6 +38,7 @@ const local: Locale = {
             dateTime: 'Välj datum och tid',
             dateRange: ['Startdatum', 'Slutdatum'],
             dateTimeRange: ['Startdatum', 'Slutdatum'],
+            monthRange: ['Startmånad', 'Slutmånad'],
         },
         footer: {
             confirm: 'Bekräfta',

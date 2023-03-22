@@ -318,7 +318,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             insetInput,
         } = this.props;
 
-        const _isRangeType = type.includes('Range');
+        const _isRangeType = type.includes('Range') && type !== 'monthRange';
         const newInsetInputValue = this.foundation.getInsetInputValue({ value, insetInputValue });
         const { dateStart, dateEnd, timeStart, timeEnd } = get(insetInput, 'placeholder', {}) as InsetInputProps['placeholder'];
         const { datePlaceholder, timePlaceholder } = this.foundation.getInsetInputPlaceholder();
@@ -421,7 +421,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             [`${prefixCls}-input-readonly`]: inputReadOnly,
         });
 
-        const isRangeType = /range/i.test(type);
+        const isRangeType = /range/i.test(type) && type !== 'monthRange';
         const rangeProps = { ...this.props, text, suffix, inputCls };
 
         return isRangeType ? (
@@ -435,7 +435,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 className={inputCls}
                 style={inputStyle}
                 hideSuffix={showClear}
-                placeholder={placeholder}
+                placeholder={type === 'monthRange' && Array.isArray(placeholder) ? placeholder[0] + rangeSeparator + placeholder[1] : placeholder}
                 onEnterPress={this.handleEnterPress}
                 onChange={this.handleChange}
                 onClear={this.handleInputClear}

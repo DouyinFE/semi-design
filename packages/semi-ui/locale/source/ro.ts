@@ -35,6 +35,7 @@ export default {
             dateTime: 'Selectează data și ora',
             dateRange: ['Data de început', 'Data de sfârșit'],
             dateTimeRange: ['Data de început', 'Data de sfârșit'],
+            monthRange: ['Luna de început', 'Luna de sfârșit'],
         },
         footer: {
             confirm: 'Confirmă',

@@ -145,6 +145,17 @@ describe('DatePicker', () => {
         cy.get('[data-cy=month] .semi-input').should("have.value", "2021-11");
     });
 
+    it.only('insetInput + monthRange', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--month-range-picker&args=&viewMode=story');
+        cy.get('[data-cy=monthRange] .semi-input').click();
+        cy.get('.semi-popover .semi-input-wrapper-focus');
+        cy.get('.semi-popover .semi-input').should("have.value", "2023年03月 到 2023年04月");
+        cy.get('.semi-popover .semi-input-wrapper-focus').clear();
+        cy.get('.semi-scrolllist').eq(1).contains('2025').click();
+        cy.get('.semi-scrolllist .semi-scrolllist-item').eq(3).contains(6).click();
+        cy.get('[data-cy=monthRange] .semi-input').should("have.value", "2023年03月 到 2025年06月");
+    });
+
     it('insetInput + dateTime', () => {
         cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
         cy.get('[data-cy=dateTime] .semi-input').click();

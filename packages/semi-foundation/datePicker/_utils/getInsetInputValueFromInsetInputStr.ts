@@ -34,6 +34,7 @@ export default function getInsetInputValueFromInsetInputStr(options: { inputValu
     switch (type) {
         case 'date':
         case 'month':
+        case 'monthRange':
             insetInputValue.monthLeft.dateInput = inputValue;
             break;
         case 'dateRange':

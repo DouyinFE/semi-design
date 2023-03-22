@@ -666,6 +666,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                     break;
                 case 'dateRange':
                 case 'dateTimeRange':
+                case 'monthRange':
                     const separator = rangeSeparator;
                     const values = input.split(separator);
                     parsedResult =
@@ -859,6 +860,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
                 case 'dateRange':
                 case 'dateTimeRange':
+                case 'monthRange':
                     const startIsTruthy = !isNullOrUndefined(dates[0]);
                     const endIsTruthy = !isNullOrUndefined(dates[1]);
                     if (startIsTruthy && endIsTruthy) {
@@ -898,6 +900,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                     break;
                 case 'dateRange':
                 case 'dateTimeRange':
+                case 'monthRange':
                     for (let i = 0; i < dates.length; i += 2) {
                         strs.push(this.formatDates(dates.slice(i, i + 2), customFormat));
                     }
@@ -1007,18 +1010,24 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     /**
-     * when changing the year and month through the panel when the type is year or month
+     * when changing the year and month through the panel when the type is year or month or monthRange
      * @param {*} item
      */
-    handleYMSelectedChange(item: { currentMonth?: number; currentYear?: number } = {}) {
+    handleYMSelectedChange(item: { currentMonth?: { left: number; right: number }; currentYear?: { left: number; right: number } } = {}) {
         // console.log(item);
         const { currentMonth, currentYear } = item;
+        const { type } = this.getProps();
 
-        if (typeof currentMonth === 'number' && typeof currentYear === 'number') {
-            // Strings with only dates (e.g. "1970-01-01") will be treated as UTC instead of local time #1460
-            const date = new Date(currentYear, currentMonth - 1);
+        if (type === 'month') {
+            const date = new Date(currentYear['left'], currentMonth['left'] - 1);
 
             this.handleSelectedChange([date]);
+        } else {
+            const dateLeft = new Date(currentYear['left'], currentMonth['left'] - 1);
+            const dateRight = new Date(currentYear['right'], currentMonth['right'] - 1);
+
+            this.handleSelectedChange([dateLeft, dateRight]);
+
         }
     }
 
@@ -1122,6 +1131,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                 break;
             case 'dateRange':
             case 'dateTimeRange':
+            case 'monthRange':
                 notifyValue = _value.map(v => v && this.localeFormat(v, formatToken));
                 notifyDate = [..._value];
                 break;

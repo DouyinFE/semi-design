@@ -172,6 +172,9 @@ function Demo() {
             <DatePicker type="month" placeholder="请选择年月" insetInput style={{ width: 140 }} />
             <br />
             <br />
+            <DatePicker type="monthRange" placeholder="请选择年月范围" insetInput style={{ width: 200 }} />
+            <br />
+            <br />
             <DatePicker type="date" position="bottomLeft" insetInput />
             <br />
             <br />
@@ -286,6 +289,19 @@ import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
 () => <DatePicker defaultValue={new Date()} type="month" style={{ width: 140 }} />;
+```
+
+### 年月范围选择
+
+**版本：** >= 2.32.0
+
+将 `type` 设定为 `monthRage`，可以进行年月范围选择。
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+() => <DatePicker type="monthRange" style={{ width: 200 }} />;
 ```
 
 ### 确认日期时间选择
@@ -860,7 +876,7 @@ function Demo() {
 | multiple | 是否可以选择多个，仅支持 type="date" | boolean | false |  |
 | needConfirm | 是否需要“确认选择”，仅 type="dateTime"\|"dateTimeRange" 时有效 | boolean |  | **0.18.0** |
 | open | 面板显示或隐藏的受控属性 | boolean |  |  |
-| placeholder | 输入框提示文字 | string | 'Select date' |  |
+| placeholder | 输入框提示文字 | string\|string[] | 'Select date' |  |
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考) | string | 'bottomLeft' |  |
 | prefix | 前缀内容 | string\|ReactNode |  |  |
 | presets | 日期时间快捷方式 |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType> | [] |  |
@@ -879,7 +895,7 @@ function Demo() {
 | timePickerOpts | 其他可以透传给时间选择器的参数，详见 [TimePicker·API 参考](/zh-CN/input/timepicker#API_参考) |  | object | **1.1.0** |
 | topSlot | 渲染顶部额外区域 | ReactNode |  | **1.22.0** |
 | triggerRender | 自定义触发器渲染方法，第一个参数是个 Object，详情看下方类型定义 | (props) => ReactNode| | **0.34.0** |
-| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month" | string | 'date' |  |
+| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month", "monthRange" | string | 'date' |  |
 | validateStatus | 校验状态，可选值 default、error、warning，默认 default。仅影响展示样式 | string |  |  |
 | value | 受控的值 | ValueType |  |  |
 | weekStartsOn | 以周几作为每周第一天，0 代表周日，1 代表周一，以此类推 | number | 0 |  |

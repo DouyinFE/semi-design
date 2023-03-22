@@ -31,6 +31,7 @@ export default function getInsetInputFormatToken(options: { format: string; type
             break;
         case 'date':
         case 'month':
+        case 'monthRange':
         case 'dateRange':
         default:
             const dateResult = dateReg.exec(format);

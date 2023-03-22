@@ -9,6 +9,7 @@ $height-datepicker_timeType_tpk: calc(100% - 54px); // 时间面板高度
 $height-datepicker_panel_yam_scrolllist:  266px; // 时间滚动内容高度
 
 $width-datepicker_monthPanel_max: 284px; // 年月选择器最大宽度
+$width-datepicker_monthRangePanel_max: 384px; // 年月选择器最大宽度
 $height-datepicker_timepicker_header_min: 24px; // 年月选择 header 最小高度
 $width-datepicker_navigation_button_min: 32px; // header 按钮最小宽度
 $height-datepicker_yamShowing_min: 378px; // 日期时间选择器菜单最小高度
@@ -31,6 +32,7 @@ $height-datepicker_timeType_insetInput_tpk: 100%; // 时间面板高度 - 内嵌
 $width-datepicker_insetInput_date_type_wrapper: 284px; // 日期类型内嵌输入框宽度
 $width-datepicker_insetInput_date_range_type_wrapper: $width-datepicker_insetInput_date_type_wrapper * 2; // 范围选择内嵌输入框宽度
 $width-datepicker_insetInput_month_type_wrapper: 204px; // 月份类型内嵌输入框宽度
+$width-datepicker_insetInput_month_range_type_wrapper: 331px; // 年月范围类型内嵌输入框宽度
 $height-datepicker_insetInput_separator: 32px;
 $height-datepicker_month_grid_yearType_insetInput: 317px;
 $height-datepicker_month_grid_timeType_insetInput: 317px;
