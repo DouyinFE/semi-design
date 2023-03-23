@@ -295,7 +295,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 **版本：** >= 2.32.0
 
-将 `type` 设定为 `monthRage`，可以进行年月范围选择。
+将 `type` 设定为 `monthRange`，可以进行年月范围选择。暂不支持小尺寸与快捷面板。
 
 ```jsx live=true
 import React from 'react';

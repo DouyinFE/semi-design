@@ -306,7 +306,7 @@ class App extends React.Component {
 
 **version：** >= 2.32.0
 
-Set `type` to `monthRage` to select the year and month range.
+Set `type` to `monthRange` to select the year and month range, small size and quick panel are not supported yet.
 
 ```jsx live=true
 import React from 'react';

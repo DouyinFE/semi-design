@@ -1127,7 +1127,7 @@ $module-list: #{$prefix}-scrolllist;
             display: flex;
 
             .#{$prefix}-scrolllist:nth-child(2){
-                border: 1px solid var(semi-color-border);
+                border: 1px solid var(--semi-color-border);
 
             }
         }
