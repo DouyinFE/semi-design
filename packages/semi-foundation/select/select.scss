@@ -477,15 +477,25 @@ $overflowList: #{$prefix}-overflow-list;
     background-color: transparent;
     border-color: transparent;
 
-    .#{$module}:hover {
+    .#{$module}-arrow {
+        opacity: 0;
+    }
+
+    &.#{$module}:hover {
         background-color: $color-select-bg-hover;
-        border: $width-select-border-hover solid $color-select-border-hover;
+        
+        .#{$module}-arrow {
+            opacity: 1;
+        }
     }
 
 
     &.#{$module}:focus {
         background-color: transparent;
         outline: 0;
+        .#{$module}-arrow {
+            opacity: 1;
+        }
     }
 
     &.#{$module}:active {

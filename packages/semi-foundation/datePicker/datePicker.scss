@@ -1588,25 +1588,51 @@ $module-list: #{$prefix}-scrolllist;
 
 .#{$module}-noBorder{
     background-color: transparent;
-    &.#{$module}-input{
-        //&:hover{
-        //    background-color: $color-datepicker_range_input-bg-default;
-        //}
-        //&:active{
-        //    background-color: $color-datepicker_range_input-bg-default;
-        //}
+
+    .#{$prefix}-input-suffix{
+        opacity: 0;
+    }
+
+    &:focus-within{
+        .#{$prefix}-input-suffix{
+            opacity: 1;
+        }
 
     }
+
+    &:hover{
+        .#{$prefix}-input-suffix{
+            opacity: 1;
+        }
+    }
+
+    .#{$module}-range-input-suffix{
+            opacity: 0;
+
+    }
+
+    &:focus-within{
+
+        .#{$module}-range-input-suffix{
+            opacity: 1;
+
+        }
+    }
+
+    &:hover{
+        .#{$module}-range-input-suffix{
+            opacity: 1;
+
+        }
+    }
+
     &.#{$module}-range{
-       &-input-wrapper{
-           background-color: transparent;
-           &:hover{
-               background-color: $color-datepicker_range_input-bg-hover;
-           }
-           &:active{
-               background-color: $color-datepicker_range_input-bg-hover;
-           }
-       }
+
+        &-input-suffix{
+            opacity: 0;
+        }
+
+
         &-input-error{
             border-width: $width-datepicker_range_input-border;
             border-color: $color-datepicker_range_input_error-border-active;

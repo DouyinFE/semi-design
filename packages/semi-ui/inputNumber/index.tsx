@@ -22,6 +22,7 @@ import { ArrayElement } from '../_base/base';
 
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
+    borderless?: boolean;
     className?: string;
     clearIcon?: React.ReactNode;
     defaultValue?: number | string;
