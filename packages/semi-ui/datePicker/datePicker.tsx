@@ -847,7 +847,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     render() {
-        const { style, className, prefixCls } = this.props;
+        const { style, className, prefixCls, type } = this.props;
         const outerProps = {
             style,
             className: classnames(className, { [prefixCls]: true }),
@@ -859,7 +859,11 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             'aria-required': this.props['aria-required'],
         };
 
-        const inner = this.renderInner(pick(this.props, []));
+        const innerPropKeys: string[] = [];
+        if (!type.toLowerCase().includes("range")) {
+            innerPropKeys.push("borderless");
+        }
+        const inner = this.renderInner(pick(this.props, innerPropKeys));
         const wrappedInner = this.wrapPopover(inner);
 
         return <div {...outerProps}>{wrappedInner}</div>;

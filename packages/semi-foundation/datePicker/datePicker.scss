@@ -1607,6 +1607,37 @@ $module-list: #{$prefix}-scrolllist;
                background-color: $color-datepicker_range_input-bg-hover;
            }
        }
+        &-input-error{
+            border-width: $width-datepicker_range_input-border;
+            border-color: $color-datepicker_range_input_error-border-active;
+            .#{$module}-range-input-wrapper{
+                &-active {
+                    border-color: transparent;
+                }
+            }
+            &:hover{
+                background-color: $color-datepicker_range_input_error-border-default;
+            }
+            &:focus-within{
+                background-color: $color-datepicker_range_input_error-border-default;
+            }
+        }
+
+        &-input-warning{
+            border-width: $width-datepicker_range_input-border;
+            border-color: $color-datepicker_range_input_warning-border-active;
+            .#{$module}-range-input-wrapper{
+                &-active {
+                    border-color: transparent;
+                }
+            }
+            &:hover{
+                background-color: $color-datepicker_range_input_warning-border-default;
+            }
+            &:focus-within{
+                background-color: $color-datepicker_range_input_warning-border-default;
+            }
+        }
     }
 }
 
