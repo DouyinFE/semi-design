@@ -65,6 +65,11 @@ export function mergeColumns(oldColumns: any[] = [], newColumns: any[] = [], key
     const finalColumns: any[] = [];
     const clone = deep ? cloneDeep : lodashClone;
 
+    if (deep) {
+        const logger = new Logger('[@douyinfe/semi-ui Table]');
+        logger.warn('Should not deep merge columns from foundation since columns may have react elements. Merge columns deep from semi-ui');
+    }
+
     map(newColumns, newColumn => {
         newColumn = { ...newColumn };
         const key = getColumnKey(newColumn, keyPropNames);
