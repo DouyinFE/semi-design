@@ -878,11 +878,12 @@ $module-list: #{$prefix}-scrolllist;
             border: $width-datepicker_range_trigger-border solid $color-datepicker_range_trigger-border;
 
             &:hover{
-                border-color: $color-datepicker_range_trigger-border-hover
+                border-color: $color-datepicker_range_trigger-border-hover;
             }
 
             &:active{
-                border-color: $color-datepicker_range_trigger-border-active ;
+                border-color: $color-datepicker_range_trigger-border-active;
+
             }
 
             .#{$module}-monthRange-input {
@@ -1584,5 +1585,30 @@ $module-list: #{$prefix}-scrolllist;
         }
     }
 }
+
+.#{$module}-noBorder{
+    background-color: transparent;
+    &.#{$module}-input{
+        //&:hover{
+        //    background-color: $color-datepicker_range_input-bg-default;
+        //}
+        //&:active{
+        //    background-color: $color-datepicker_range_input-bg-default;
+        //}
+
+    }
+    &.#{$module}-range{
+       &-input-wrapper{
+           background-color: transparent;
+           &:hover{
+               background-color: $color-datepicker_range_input-bg-hover;
+           }
+           &:active{
+               background-color: $color-datepicker_range_input-bg-hover;
+           }
+       }
+    }
+}
+
 
 @import "./rtl.scss";

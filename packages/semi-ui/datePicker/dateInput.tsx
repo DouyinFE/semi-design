@@ -44,6 +44,7 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
 // eslint-disable-next-line @typescript-eslint/ban-types
 export default class DateInput extends BaseComponent<DateInputProps, {}> {
     static propTypes = {
+        borderless: PropTypes.bool,
         onClick: PropTypes.func,
         onChange: PropTypes.func,
         onEnterPress: PropTypes.func,
@@ -78,6 +79,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     };
 
     static defaultProps = {
+        borderless: false,
         showClear: true,
         onClick: noop,
         onChange: noop,
@@ -244,6 +246,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             rangeInputFocus,
             prefixCls,
             rangeSeparator,
+            borderless
         } = rangeProps;
 
         const [rangeStart, rangeEnd = ''] = text.split(rangeSeparator) || [];
@@ -253,9 +256,11 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         const inputLeftWrapperCls = cls(`${prefixCls}-range-input-wrapper-start`, `${prefixCls}-range-input-wrapper`, {
             [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeStart' && !disabled,
             [`${prefixCls}-range-input-wrapper-start-with-prefix`]: this.props.prefix || this.props.insetLabel,
+            [`${prefixCls}-noBorder`]: borderless
         });
         const inputRightWrapperCls = cls(`${prefixCls}-range-input-wrapper-end`, `${prefixCls}-range-input-wrapper`, {
             [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeEnd' && !disabled,
+            [`${prefixCls}-noBorder`]: borderless
         });
         return (
             <>
@@ -265,6 +270,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                     className={`${inputCls} ${inputLeftWrapperCls}`}
                 >
                     <Input
+                        borderless={borderless}
                         size={rangeSize}
                         style={inputStyle}
                         disabled={disabled}
@@ -286,6 +292,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                     onClick={e => !disabled && this.handleRangeInputFocus(e, 'rangeEnd')}
                 >
                     <Input
+                        borderless={borderless}
                         size={rangeSize}
                         style={inputStyle}
                         disabled={disabled}

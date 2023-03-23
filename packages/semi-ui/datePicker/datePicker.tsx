@@ -5,7 +5,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { noop, stubFalse, isDate, get, isFunction, isEqual } from 'lodash';
+import { noop, stubFalse, isDate, get, isFunction, isEqual, pick } from 'lodash';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type, RangeType } from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
@@ -71,6 +71,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         'aria-invalid': PropTypes.bool,
         'aria-labelledby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        borderless: PropTypes.bool,
         type: PropTypes.oneOf(strings.TYPE_SET),
         size: PropTypes.oneOf(strings.SIZE_SET),
         clearIcon: PropTypes.node,
@@ -150,6 +151,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
     static defaultProps = {
         onChangeWithDateFirst: true,
+        borderless: false,
         autoAdjustOverflow: true,
         stopPropagation: true,
         motion: true,
@@ -633,7 +635,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             inputReadOnly,
             rangeSeparator,
             insetInput,
-            defaultPickerValue
+            defaultPickerValue,
+            borderless
         } = this.props;
         const { value, inputValue, rangeInputFocus, triggerDisabled } = this.state;
         // This class is not needed when triggerRender is function
@@ -645,6 +648,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             [`${cssClasses.PREFIX}-range-input-active`]: isRangeType && rangeInputFocus && !inputDisabled,
             [`${cssClasses.PREFIX}-range-input-disabled`]: isRangeType && inputDisabled,
             [`${cssClasses.PREFIX}-range-input-${validateStatus}`]: isRangeType && validateStatus,
+            [`${cssClasses.PREFIX}-noBorder`]: borderless
         });
         const phText = placeholder || locale.placeholder[type]; // i18n
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
@@ -855,7 +859,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             'aria-required': this.props['aria-required'],
         };
 
-        const inner = this.renderInner();
+        const inner = this.renderInner(pick(this.props, []));
         const wrappedInner = this.wrapPopover(inner);
 
         return <div {...outerProps}>{wrappedInner}</div>;

@@ -34,6 +34,7 @@ export interface DateInputEventHandlerProps {
 }
 
 export interface DateInputElementProps {
+    borderless?: boolean;
     insetLabel?: any;
     prefix?: any
 }

@@ -121,6 +121,7 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     autoSwitchDate?: boolean;
+    borderless?: boolean;
     className?: string;
     defaultOpen?: boolean;
     defaultPickerValue?: ValueType;
