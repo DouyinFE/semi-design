@@ -22,7 +22,9 @@ export interface NavContextType {
     subNavOpenDelay?: NavProps['subNavOpenDelay'];
     canUpdateOpenKeys?: boolean;
     renderWrapper?: NavProps['renderWrapper'];
-    getPopupContainer?: DropdownProps['getPopupContainer']
+    getPopupContainer?: DropdownProps['getPopupContainer'];
+    tooltipShowDelay?: number;
+    tooltipHideDelay?: number
 }
 
 const NavContext = React.createContext<NavContextType>({
