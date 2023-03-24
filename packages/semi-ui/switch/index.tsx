@@ -73,7 +73,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
     constructor(props: SwitchProps) {
         super(props);
         this.state = {
-            nativeControlChecked: false,
+            nativeControlChecked: props.defaultChecked || props.checked,
             nativeControlDisabled: false,
             focusVisible: false
         };
