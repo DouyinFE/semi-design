@@ -509,73 +509,32 @@ $module: #{$prefix}-cascader;
 }
 
 .#{$module}-noBorder{
-    background-color: transparent;
-    border-color: transparent;
-
-    .#{$module}:hover {
-        background-color: $color-cascader_default-bg-hover;
-        border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
-    }
-
-    &.#{$module}:focus {
-        background-color: transparent;
-        outline: 0;
-    }
-
-    &.#{$module}:active {
-        background-color: $color-cascader_default-bg-active;
-    }
-    &.#{$module}-focus{
-        &:hover {
-            background-color: transparent;
-            border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
-        }
-        &:active {
-            background-color: $color-cascader_default-bg-active;
-            //border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        .#{$module}-arrow {
+            opacity: 0;
         }
     }
 
-    &.#{$module}-warning {
-        background-color: transparent;
-        border-color: $color-cascader_warning-border-focus;
-
-        &:hover {
-            background-color: $color-cascader_warning-bg-hover;
-            border-color: $color-cascader_warning-border-focus;
-        }
-
-        &:focus{
-            background-color: transparent;
-            border-color: $color-cascader_warning-border-focus;
-        }
-
-        &:active{
-            background-color: $color-cascader_warning-bg-active;
-            border-color: $color-cascader_warning-border-focus;
-        }
-
+    &:focus-within:not(:active){
+        background-color:transparent;
     }
 
-    &.#{$module}-error {
-        background-color: transparent;
+    &.#{$module}-error:not(:focus-within){
         border-color: $color-cascader_danger-border-focus;
+    }
 
-        &:hover {
-            background-color: $color-cascader_danger-bg-hover;
-            border-color: $color-cascader_danger-border-focus;
-        }
+    &.#{$module}-warning:not(:focus-within){
+        border-color: $color-cascader_warning-border-focus;
+    }
 
-        &:focus{
-            background-color: transparent;
-            border-color: $color-cascader_danger-border-focus;
-        }
+    &.#{$module}-error:focus-within{
+        border-color: $color-cascader_danger-border-focus;
+    }
 
-        &:active{
-            background-color: $color-cascader_danger-bg-active;
-            border-color: $color-cascader_danger-border-focus;
-        }
-
+    &.#{$module}-warning:focus-within{
+        border-color: $color-cascader_warning-border-focus;
     }
 
 

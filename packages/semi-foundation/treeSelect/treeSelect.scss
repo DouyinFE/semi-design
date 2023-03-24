@@ -373,69 +373,34 @@ $module: #{$prefix}-tree-select;
 }
 
 .#{$module}-noBorder{
-    background-color: transparent;
-    border-color: transparent;
 
-    .#{$module}:hover {
-        background-color: $color-treeSelect_default-bg-hover;
-        border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
-    }
-
-    &.#{$module}:focus{
-        background-color: transparent;
-        outline: 0;
-    }
-
-    &.#{$module}:active{
-        background-color: $color-treeSelect_default-bg-active;
-        border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
-    }
-
-    &.#{$module}-focus{
-        &:hover{
-            background-color: transparent;
-            border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
-            outline: 0;
-        }
-        &:active{
-            background-color: $color-treeSelect_default-bg-active;
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        .#{$module}-arrow {
+            opacity: 0;
         }
     }
 
-    &.#{$module}-warning {
-        background-color: transparent;
-        border-color: $color-treeSelect_warning-border-focus;
-        &:hover {
-            background-color: $color-treeSelect_warning-bg-hover;
-            border-color: $color-treeSelect_warning-border-focus;
-        }
-        &.#{$module}-focus {
-            background-color: transparent;
-            border-color: $color-treeSelect_warning-border-focus;
-        }
-
-        &:active {
-            background-color: $color-treeSelect_warning-border-focus;
-            border-color: $color-treeSelect_warning-border-active;
-        }
+    &:focus-within:not(:active){
+        background-color:transparent;
     }
 
-    &.#{$module}-error {
-        background-color: transparent;
+    // split style into not and normal to avoid style override
+    &.#{$module}-error:not(:focus-within){
         border-color: $color-treeSelect_danger-border-focus;
-        &:hover {
-            background-color: $color-treeSelect_danger-bg-hover;
-            border-color: $color-treeSelect_danger-border-focus;
-        }
-        &.#{$module}-focus {
-            background-color: transparent;
-            border-color: $color-treeSelect_danger-border-focus;
-        }
+    }
 
-        &:active {
-            background-color: $color-treeSelect_danger-border-focus;
-            border-color: $color-treeSelect_danger-border-active;
-        }
+    &.#{$module}-warning:not(:focus-within){
+        border-color: $color-treeSelect_warning-border-focus;
+    }
+
+    &.#{$module}-error:focus-within{
+        border-color: $color-treeSelect_danger-border-focus;
+    }
+
+    &.#{$module}-warning:focus-within{
+        border-color: $color-treeSelect_warning-border-focus;
     }
 
 }

@@ -196,75 +196,36 @@ $module: #{$prefix}-input;
 }
 
 .#{$module}-textarea-noBorder{
-    background-color: transparent;
-    border-color: transparent;
-
-    &.#{$module}-textarea-wrapper:hover{
-        background-color: $color-input_default-bg-hover;
-        border-color: $color-input_default-border-hover;
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
     }
 
-    &.#{$module}-textarea-wrapper-focus{
-        background-color: $color-input_default-bg-focus;
-        border-color: $color-input_default-border-focus;
-        &:hover {
-            border-color:  $color-input_default-border-focus
-        }
-        &:active {
-            background-color: $color-input_default-bg-focus;
-            border-color:  $color-input_default-border-focus
-        }
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    &.#{$module}-textarea-wrapper-error:not(:focus-within){
+        border-color: $color-input_danger-border-focus;
+    }
+
+
+
+    &.#{$module}-textarea-wrapper-warning:not(:focus-within){
+        border-color: $color-input_warning-border-focus;
     }
 
     &.#{$module}-textarea-wrapper-error{
-        background-color:transparent;
-        border-color: $color-input_danger-border-focus;
-
-        &:hover {
-            background-color: $color-input_danger-bg-hover;
-            border-color: $color-input_danger-border-focus;
-        }
-
-        &.#{$module}-textarea-wrapper-focus {
-            border-color: $color-input_danger-border-focus;
-            background-color: transparent;
-        }
-
-        &:active {
-            background-color: $color-input_danger-bg-active;
-            border-color: $color-input_danger-border-focus;
-        }
-        .#{$module}-textarea-counter{
-            color: $color-input_danger-border-focus;
-        }
-
+            .#{$module}-textarea-counter{
+                color: $color-input_danger-border-focus;
+            }
     }
 
     &.#{$module}-textarea-wrapper-warning{
-        background-color:transparent;
-        border-color: $color-input_warning-border-focus;
-
-        &:hover {
-            background-color: $color-input_warning-bg-hover;
-            border-color: $color-input_warning-border-focus;
-        }
-
-        &.#{$module}-textarea-wrapper-focus {
-            border-color: $color-input_warning-border-focus;
-            background-color: transparent;
-        }
-
-        &:active {
-            background-color: $color-input_warning-bg-active;
-            border-color: $color-input_warning-border-focus;
-        }
-
         .#{$module}-textarea-counter{
             color: $color-input_warning-border-focus;
         }
-
     }
-
 
 }
 

@@ -77,6 +77,7 @@ $module-list: #{$prefix}-scrolllist;
                 &[x-open-type=year] {
                     min-height: $height-datepicker_month_grid_yearType_insetInput;
                 }
+
                 &[x-open-type=time] {
                     min-height: $height-datepicker_month_grid_timeType_insetInput;
                 }
@@ -101,7 +102,7 @@ $module-list: #{$prefix}-scrolllist;
 
         // when preset postion is left or right, and insetinput is false, let the month panel get the fixed height
         &[x-preset-position=left][x-insetinput=false],
-        &[x-preset-position=right][x-insetinput=false] { 
+        &[x-preset-position=right][x-insetinput=false] {
             .#{$module}-month {
                 height: $height-datepicker_month_max;
             }
@@ -234,6 +235,7 @@ $module-list: #{$prefix}-scrolllist;
             &:first-of-type {
                 margin-right: $spacing-datepicker_footer_cancel_button-marginRight;
             }
+
             // confirm button
             &:nth-of-type(2) {
                 margin-right: $spacing-datepicker_footer_confirm_button-marginRight;
@@ -564,6 +566,7 @@ $module-list: #{$prefix}-scrolllist;
                 }
             }
         }
+
         // 以上是天状态
     }
 
@@ -662,11 +665,12 @@ $module-list: #{$prefix}-scrolllist;
             display: grid;
             align-content: flex-start;
             grid-gap: $spacing-datepicker_quick_control_item-margin;
-            grid-template-columns: repeat(2, minmax($width-datepicker_presetPanel_left_and_right_two_col_button - $width-datepicker_presetPanel_scroll_bar * 0.5 , $width-datepicker_presetPanel_left_and_right_two_col_button));
+            grid-template-columns: repeat(2, minmax($width-datepicker_presetPanel_left_and_right_two_col_button - $width-datepicker_presetPanel_scroll_bar * 0.5, $width-datepicker_presetPanel_left_and_right_two_col_button));
             padding: 0 $spacing-datepicker_quick_control_content-paddingX $spacing-datepicker_quick_control_content-paddingX;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_left_and_right_two_col_button;
+
                 &-ellipsis {
                     // ellipsis text content, $spacing-datepicker_quick_control_item-margin（default 8px）space left and right
                     width: $width-datepicker_presetPanel_left_and_right_two_col_button - ($spacing-datepicker_quick_control_item-margin * 2);
@@ -686,6 +690,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_three_col_button;
+
                 &-ellipsis {
                     width: $width-datepicker_presetPanel_top_and_bottom_three_col_button - ($spacing-datepicker_quick_control_item-margin * 2);
                     color: $color-datepicker_quick_button-text-default;
@@ -705,6 +710,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_five_col_button;
+
                 &-ellipsis {
                     width: $width-datepicker_presetPanel_top_and_bottom_five_col_button - ($spacing-datepicker_quick_control_item-margin * 2);
                     color: $color-datepicker_quick_button-text-default;
@@ -723,6 +729,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_two_col_button;
+
                 &-ellipsis {
                     max-width: $width-datepicker_presetPanel_top_and_bottom_two_col_button - ($spacing-datepicker_quick_control_item-margin * 2);
                     color: $color-datepicker_quick_button-text-default;
@@ -733,6 +740,7 @@ $module-list: #{$prefix}-scrolllist;
 
         &-month {
             max-width: $width-datepicker_monthPanel_max;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
@@ -748,12 +756,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-date {
             max-width: $width-datepicker_monthPanel_max;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input - $height-datepicker_presetPanel_left_and_right_except_content;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_panel - $height-datepicker_presetPanel_left_and_right_except_content;
@@ -762,12 +772,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateTime {
             max-width: $width-datepicker_monthPanel_max;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input - $height-datepicker_presetPanel_left_and_right_except_content;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_time_panel - $height-datepicker_presetPanel_left_and_right_except_content;
@@ -776,12 +788,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateRange {
             max-width: $width-datepicker_monthPanel_max * 2;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input - $height-datepicker_presetPanel_left_and_right_except_content;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_panel - $height-datepicker_presetPanel_left_and_right_except_content;
@@ -790,12 +804,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateTimeRange {
             max-width: $width-datepicker_monthPanel_max * 2;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input - $height-datepicker_presetPanel_left_and_right_except_content;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_time_panel - $height-datepicker_presetPanel_left_and_right_except_content;
@@ -838,10 +854,12 @@ $module-list: #{$prefix}-scrolllist;
             padding-bottom: $spacing-datepicker_insetInput_wrapper-paddingBottom;
 
             width: $width-datepicker_insetInput_date_type_wrapper;
+
             &[x-type=dateRange],
             &[x-type=dateTimeRange] {
                 width: $width-datepicker_insetInput_date_range_type_wrapper;
             }
+
             &[x-type=month] {
                 width: $width-datepicker_insetInput_month_type_wrapper;
             }
@@ -877,11 +895,11 @@ $module-list: #{$prefix}-scrolllist;
             background-color: $color-datepicker_range_input-bg-default;
             border: $width-datepicker_range_trigger-border solid $color-datepicker_range_trigger-border;
 
-            &:hover{
+            &:hover {
                 border-color: $color-datepicker_range_trigger-border-hover;
             }
 
-            &:active{
+            &:active {
                 border-color: $color-datepicker_range_trigger-border-active;
 
             }
@@ -915,7 +933,7 @@ $module-list: #{$prefix}-scrolllist;
                     & ~ .#{$module}-range-input-clearbtn {
                         display: flex;
                     }
-    
+
                     & ~ .#{$module}-range-input-clearbtn ~ .#{$module}-range-input-suffix {
                         display: none;
                     }
@@ -940,7 +958,7 @@ $module-list: #{$prefix}-scrolllist;
 
                 &-start-with-prefix {
                     border-radius: 0;
-                }                
+                }
 
                 &-end {
                     border-radius: 0;
@@ -995,7 +1013,7 @@ $module-list: #{$prefix}-scrolllist;
                         background-color: $color-datepicker_range_input_inputWrapper-bg-default;
                     }
                 }
-                
+
                 &:hover {
                     background-color: $color-datepicker_range_input_disabled-bg-hover;
                 }
@@ -1013,8 +1031,8 @@ $module-list: #{$prefix}-scrolllist;
                 .#{$module}-range-input-wrapper {
                     &:hover {
                         background-color: $color-datepicker_range_input_warning-bg-hover;
-                    } 
-                    
+                    }
+
                     &-active {
                         border-color: $color-datepicker_range_input_warning-border-active;
                         background-color: $color-datepicker_range_input_warning-bg-active;
@@ -1029,8 +1047,8 @@ $module-list: #{$prefix}-scrolllist;
                 .#{$module}-range-input-wrapper {
                     &:hover {
                         background-color: $color-datepicker_range_input_error-bg-hover;
-                    } 
-                    
+                    }
+
                     &-active {
                         border-color: $color-datepicker_range_input_error-border-active;
                         background-color: $color-datepicker_range_input_error-bg-active;
@@ -1064,7 +1082,7 @@ $module-list: #{$prefix}-scrolllist;
             &-suffix {
                 padding-left: $spacing-datepicker_range_input_suffix-paddingLeft;
                 padding-right: $spacing-datepicker_range_input_suffix-paddingRight;
-                
+
                 &-hidden {
                     display: none;
                 }
@@ -1084,7 +1102,7 @@ $module-list: #{$prefix}-scrolllist;
 .#{$module}-compact {
     @include font-size-small;
     line-height: $lineHeight-datepicker_compact;
-  
+
     .#{$module}-month-grid {
 
         &[x-type="dateTime"],
@@ -1094,7 +1112,7 @@ $module-list: #{$prefix}-scrolllist;
                 height: calc(100% - #{$height-datepicker_switch_compact});
             }
         }
-    
+
         &[x-type="dateRange"],
         &[x-type="dateTimeRange"] {
             .#{$module}-month-grid-left {
@@ -1114,7 +1132,7 @@ $module-list: #{$prefix}-scrolllist;
 
         // when preset postion is left or right, and insetinput is false, let the month panel get the fixed height
         &[x-preset-position=left][x-insetinput=false],
-        &[x-preset-position=right][x-insetinput=false] { 
+        &[x-preset-position=right][x-insetinput=false] {
 
             .#{$module}-month {
                 height: $height-datepicker_month_max_compact;
@@ -1185,6 +1203,7 @@ $module-list: #{$prefix}-scrolllist;
                 &[x-open-type=year] {
                     min-height: $height-datepicker_tpk_compact;
                 }
+
                 &[x-open-type=time] {
                     min-height: $height-datepicker_tpk_compact;
                 }
@@ -1273,7 +1292,7 @@ $module-list: #{$prefix}-scrolllist;
     .#{$module}-day {
         width: $width-datepicker_day_compact;
         height: $width-datepicker_day_compact;
-  
+
         &-main {
             width: $width-datepicker_day_main_compact;
             height: $width-datepicker_day_main_compact;
@@ -1385,6 +1404,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_left_and_right_two_col_button;
+
                 &-ellipsis {
                     width: $width-datepicker_presetPanel_left_and_right_two_col_button - ($spacing-datepicker_quick_control_item-margin * 2);
                     font-size: $fontSize-datepicker_insetInput_compact-fontSize;
@@ -1404,6 +1424,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_three_col_button_compact;
+
                 &-ellipsis {
                     width: $width-datepicker_presetPanel_top_and_bottom_three_col_button_compact - ($spacing-datepicker_quick_control_item-margin * 2);
                     font-size: $fontSize-datepicker_insetInput_compact-fontSize;
@@ -1422,6 +1443,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_five_col_button_compact;
+
                 &-ellipsis {
                     width: $width-datepicker_presetPanel_top_and_bottom_five_col_button_compact - ($spacing-datepicker_quick_control_item-margin * 2);
                     font-size: $fontSize-datepicker_insetInput_compact-fontSize;
@@ -1440,6 +1462,7 @@ $module-list: #{$prefix}-scrolllist;
 
             &-item {
                 max-width: $width-datepicker_presetPanel_top_and_bottom_two_col_button_compact;
+
                 &-ellipsis {
                     max-width: $width-datepicker_presetPanel_top_and_bottom_two_col_button_compact - ($spacing-datepicker_quick_control_item-margin * 2);
                     font-size: $fontSize-datepicker_insetInput_compact-fontSize;
@@ -1450,12 +1473,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-month {
             max-width: $width-datepicker_panel_compact;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_panel_yam_scrolllist - $height-datepicker_presetPanel_left_and_right_except_content_compact + $height-datepicker_inset_input_compact;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_panel_yam_scrolllist - $height-datepicker_presetPanel_left_and_right_except_content_compact;
@@ -1464,12 +1489,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-date {
             max-width: $width-datepicker_panel_compact;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_panel_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
@@ -1478,12 +1505,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateTime {
             max-width: $width-datepicker_panel_compact;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_time_panel_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
@@ -1492,12 +1521,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateRange {
             max-width: $width-datepicker_panel_compact * 2;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_panel_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
@@ -1506,12 +1537,14 @@ $module-list: #{$prefix}-scrolllist;
 
         &-dateTimeRange {
             max-width: $width-datepicker_panel_compact * 2;
+
             &[x-insetinput=true] {
                 .#{$module}-quick-control-right-content-wrapper,
                 .#{$module}-quick-control-left-content-wrapper {
                     max-height: $height-datepicker_preset_panel_inset_input_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
                 }
             }
+
             .#{$module}-quick-control-right-content-wrapper,
             .#{$module}-quick-control-left-content-wrapper {
                 max-height: $height-datepicker_date_time_panel_compact - $height-datepicker_presetPanel_left_and_right_except_content_compact;
@@ -1532,6 +1565,7 @@ $module-list: #{$prefix}-scrolllist;
             padding-bottom: $spacing-datepicker_insetInput_wrapper_compact-paddingBottom;
 
             width: $width-datepicker_insetInput_date_type_wrapper_compact;
+
             &[x-type=dateRange],
             &[x-type=dateTimeRange] {
                 width: $width-datepicker_insetInput_date_range_type_wrapper_compact;
@@ -1541,6 +1575,7 @@ $module-list: #{$prefix}-scrolllist;
                     margin-top: $spacing-datepicker_insetInput_wrapper_compact-paddingY;
                 }
             }
+
             &[x-type=month] {
                 width: $width-datepicker_insetInput_month_type_wrapper_compact;
             }
@@ -1586,85 +1621,72 @@ $module-list: #{$prefix}-scrolllist;
     }
 }
 
-.#{$module}-noBorder{
-    background-color: transparent;
+.#{$module}-noBorder {
 
-    .#{$prefix}-input-suffix{
-        opacity: 0;
-    }
+    &:not(:focus-within):not(:hover){
+        background-color: transparent;
+        border-color: transparent;
 
-    &:focus-within{
-        .#{$prefix}-input-suffix{
-            opacity: 1;
-        }
-
-    }
-
-    &:hover{
-        .#{$prefix}-input-suffix{
-            opacity: 1;
-        }
-    }
-
-    .#{$module}-range-input-suffix{
-            opacity: 0;
-
-    }
-
-    &:focus-within{
-
-        .#{$module}-range-input-suffix{
-            opacity: 1;
-
-        }
-    }
-
-    &:hover{
-        .#{$module}-range-input-suffix{
-            opacity: 1;
-
-        }
-    }
-
-    &.#{$module}-range{
-
-        &-input-suffix{
+        .#{$prefix}-input-suffix, .#{$module}-range-input-suffix {
             opacity: 0;
         }
+    }
+
+    &:focus-within:not(:active) {
+        background-color: transparent;
+    }
 
 
-        &-input-error{
-            border-width: $width-datepicker_range_input-border;
-            border-color: $color-datepicker_range_input_error-border-active;
-            .#{$module}-range-input-wrapper{
-                &-active {
-                    border-color: transparent;
-                }
-            }
-            &:hover{
-                background-color: $color-datepicker_range_input_error-border-default;
-            }
-            &:focus-within{
-                background-color: $color-datepicker_range_input_error-border-default;
+    &.#{$module}-range-input-error {
+
+        .#{$module}-range-input-wrapper {
+            &-active {
+                border-color: transparent;
             }
         }
+        &:hover {
+            background-color: $color-datepicker_range_input_error-border-default;
+        }
 
-        &-input-warning{
-            border-width: $width-datepicker_range_input-border;
-            border-color: $color-datepicker_range_input_warning-border-active;
-            .#{$module}-range-input-wrapper{
-                &-active {
-                    border-color: transparent;
-                }
-            }
-            &:hover{
-                background-color: $color-datepicker_range_input_warning-border-default;
-            }
-            &:focus-within{
-                background-color: $color-datepicker_range_input_warning-border-default;
-            }
+        &:focus-within {
+            background-color: $color-datepicker_range_input_error-border-default;
         }
     }
+    &.#{$module}-range-input-error:not(:focus-within){
+        border-width: $width-datepicker_range_input-border;
+        border-color: $color-datepicker_range_input_error-border-active;
+    }
+    &.#{$module}-range-input-error:focus-within {
+        border-width: $width-datepicker_range_input-border;
+        border-color: $color-datepicker_range_input_error-border-active;
+    }
+
+    // split style into not and normal to avoid style override
+    &.#{$module}-range-input-warning {
+
+        .#{$module}-range-input-wrapper {
+            &-active {
+                border-color: transparent;
+            }
+        }
+        &:hover {
+            background-color: $color-datepicker_range_input_warning-border-default;
+        }
+
+        &:focus-within {
+            background-color: $color-datepicker_range_input_warning-border-default;
+        }
+    }
+
+    &.#{$module}-range-input-warning:not(:focus-within){
+        border-width: $width-datepicker_range_input-border;
+        border-color: $color-datepicker_range_input_warning-border-active;
+    }
+    &.#{$module}-range-input-warning:focus-within {
+        border-width: $width-datepicker_range_input-border;
+        border-color: $color-datepicker_range_input_warning-border-active;
+    }
+
 }
 
 
