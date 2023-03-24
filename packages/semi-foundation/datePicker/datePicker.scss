@@ -208,7 +208,8 @@ $module-list: #{$prefix}-scrolllist;
                 padding: 0;
                 overflow: hidden;
 
-                .#{$prefix}-scrolllist-item-wheel {
+                .#{$prefix}-scrolllist-item-wheel:not(#neverExistElement) {
+                    // equal to #{$prefix}-scrolllist-item-wheel, add [:not] selector only to increase selector priority
                     border: none;
                 }
 

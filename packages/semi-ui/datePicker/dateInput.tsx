@@ -304,6 +304,12 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         );
     }
 
+    isRenderMultipleInputs() {
+        const { type } = this.props;
+        // isRange and not monthRange render multiple inputs
+        return type.includes('Range') && type !== 'monthRange';
+    }
+
     renderInputInset() {
         const {
             type,
@@ -318,7 +324,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             insetInput,
         } = this.props;
 
-        const _isRangeType = type.includes('Range') && type !== 'monthRange';
         const newInsetInputValue = this.foundation.getInsetInputValue({ value, insetInputValue });
         const { dateStart, dateEnd, timeStart, timeEnd } = get(insetInput, 'placeholder', {}) as InsetInputProps['placeholder'];
         const { datePlaceholder, timePlaceholder } = this.foundation.getInsetInputPlaceholder();
@@ -345,7 +350,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                     onChange={this.handleInsetInputChange}
                     onFocus={handleInsetTimeFocus}
                 />
-                {_isRangeType && (
+                { this.isRenderMultipleInputs() && (
                     <>
                         <div className={separatorCls}>{density === 'compact' ? null : '-'}</div>
                         <InsetDateInput
@@ -421,10 +426,9 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             [`${prefixCls}-input-readonly`]: inputReadOnly,
         });
 
-        const isRangeType = /range/i.test(type) && type !== 'monthRange';
         const rangeProps = { ...this.props, text, suffix, inputCls };
 
-        return isRangeType ? (
+        return this.isRenderMultipleInputs() ? (
             this.renderRangeInput(rangeProps)
         ) : (
             <Input

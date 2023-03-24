@@ -6,7 +6,6 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import ScrollList from '../scrollList/index';
 import ScrollItem from '../scrollList/scrollItem';
 import { getYears } from '@douyinfe/semi-foundation/datePicker/_utils/index';
-import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 
 import IconButton from '../iconButton';
 import { IconChevronLeft } from '@douyinfe/semi-icons';
@@ -66,7 +65,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         const currentLeftYear = currentYear.left || now.getFullYear();
         const currentLeftMonth = currentMonth.left || now.getMonth() + 1;
 
-        currentYear = { left: currentLeftYear, right: currentYear.right || currentLeftYear + 1 };
+        currentYear = { left: currentLeftYear, right: currentLeftYear };
         currentMonth = { left: currentLeftMonth, right: currentMonth.right || currentLeftMonth + 1 };
 
         this.state = {
