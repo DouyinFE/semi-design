@@ -2107,3 +2107,23 @@ export const searchPositionInTriggerAndVirtualize = () => {
       </>
   );
 };
+
+export const clickTriggerToHide = () => (
+  <>
+      <p>clickTriggerToHide 未设置，默认为 true</p>
+      <TreeSelect
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          placeholder="单选"
+      />
+      <p>clickTriggerToHide 设置为 false</p>
+      <TreeSelect
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          placeholder="单选"
+          clickTriggerToHide={false}
+      />
+  </>
+);

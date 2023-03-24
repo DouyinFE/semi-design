@@ -1386,6 +1386,7 @@ function Demo() {
 | className                | Class name                                                                          | string                                                            | -           | -       |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                |       | 2.25.0    |
 | clickToHide  | Whether to close the drop-down layer automatically when selecting, only works in single-selection mode  | boolean    | true | 1.5.0      |
+| clickTriggerToHide  | When the panel is open, whether to close the panel after clicking the Trigger  | boolean    | true | 2.32.0      |
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | 0.32.0 |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | 0.32.0 |
 | defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | 0.32.0 |
