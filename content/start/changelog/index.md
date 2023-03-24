@@ -14,6 +14,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.31.2 (2023-03-24)
+- 【Fix】
+    - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - 修复 Nav tooltip 相关延迟 props 不生效的问题  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
+    - 修复 Select remote 且 autoClearSearchValue 为 false时，更新 optionList 后未正确显示的问题（影响范围：v2.28 - 2.31）[#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+
 #### 🎉 2.31.1 (2023-03-22)
 - 【Chore】
     - Semi Webpack Plugin 增加直接从 Compiler Instance 中获取NormalModule的逻辑 [#1503](https://github.com/DouyinFE/semi-design/pull/1503)

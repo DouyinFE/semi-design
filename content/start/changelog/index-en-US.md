@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.31.2 (2023-03-24)
+- 【Fix】
+    - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - Fix the problem that the delay props related to Nav tooltip does not take effect  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
+    - Fix: When selecting remote and autoClearSearchValue is false, the optionList is not displayed correctly after updating, (range of impact: v2.28 - 2.31) [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+
 #### 🎉 2.31.1 (2023-03-22)
 - 【Chore】
     - Semi Webpack Plugin adds logic to directly retrieve NormalModule from the Compiler Instance [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
