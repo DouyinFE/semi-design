@@ -22,11 +22,9 @@ export function stopPropagation(e: React.MouseEvent, noImmediate?: boolean) {
 }
 
 /**
- *
- * @param {any} value
- * @param {Function} customizer
- * @returns {any}
  * use in Table, Form, Navigation
+ * 
+ * skip clone function and react element
  */
 export function cloneDeep(value: any, customizer?: (value: any) => void) {
     return cloneDeepWith(value, v => {
@@ -39,6 +37,8 @@ export function cloneDeep(value: any, customizer?: (value: any) => void) {
         if (Object.prototype.toString.call(v) === '[object Error]') {
             return v;
         }
+        // it is tricky
+        // when array length beyond max length, array.length will be 0
         if (Array.isArray(v) && v.length === 0) {
             const keys: string[] = Object.keys(v);
             if (keys.length) {
@@ -54,7 +54,7 @@ export function cloneDeep(value: any, customizer?: (value: any) => void) {
                     The maximum length of an array is 4294967295.
                     Please check whether the array subscript in your data exceeds the maximum value of the JS array subscript`
                     );
-                } catch (e){
+                } catch (e) {
 
                 }
                 return newArray;
