@@ -175,6 +175,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | accordion | 手风琴模式 | boolean | `false` | - |
 | activeKey | 受控属性, 当前展开的面板的 key | string \| string[] | 无 | - |
 | className | 样式类名 | string | '' | - |
+| clickHeaderToExpand | 点击 Header 展开收起，否则只响应点击箭头 | boolean | true | 2.32.0 |
 | collapseIcon | 自定义折叠图标 | ReactNode | `<IconChevronDown />` | - |
 | defaultActiveKey | 初始化选中面板的 key | string \| string[] | 无 | - |
 | expandIcon | 自定义展开图标 | ReactNode | `<IconChevronUp />` | - |

@@ -21,7 +21,7 @@ export interface CollapsePanelProps {
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
     static contextType: React.Context<CollapseContextType> = CollapseContext;
-
+    headerExpandIconTriggerRef = React.createRef<HTMLElement>()
     static propTypes = {
         itemKey: PropTypes.string,
         extra: PropTypes.node,
@@ -65,7 +65,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             collapseIcon = (<IconChevronUp/>);
         }
         const icon = (
-            <span aria-hidden='true' className={cls([`${cssClasses.PREFIX}-header-icon`,
+            <span ref={this.headerExpandIconTriggerRef} aria-hidden='true' className={cls([`${cssClasses.PREFIX}-header-icon`,
                 { [`${cssClasses.PREFIX}-header-iconDisabled`]: !expandIconEnable }])}>
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {expandIconEnable ? (active ? collapseIcon : expandIcon) : expandIcon}
@@ -93,6 +93,12 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         );
     }
 
+    handleClick = (itemKey: string, e: React.MouseEvent)=>{
+        if (this.context.clickHeaderToExpand || this.headerExpandIconTriggerRef.current?.contains(e.target as HTMLElement)) {
+            this.context.onClick(itemKey, e);
+        }
+    }
+
     render() {
         const {
             className,
@@ -109,7 +115,6 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             keepDOM,
             expandIconPosition,
             activeSet,
-            onClick,
             motion,
         } = this.context;
         const active = activeSet.has(itemKey);
@@ -136,7 +141,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     aria-disabled={disabled}
                     aria-expanded={active ? 'true' : 'false'}
                     aria-owns={this.ariaID}
-                    onClick={e => !disabled && onClick(itemKey, e)}
+                    onClick={e => !disabled && this.handleClick(itemKey, e)}
                 >
                     {this.renderHeader(active, children !== undefined && !disabled)}
                 </div>
