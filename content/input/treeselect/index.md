@@ -1369,6 +1369,7 @@ function Demo() {
 | className | 选择框的 `className` 属性 | string | - | - |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | |2.25.0  |
 | clickToHide  | 选择后是否自动关闭下拉弹层，仅单选模式有效  | boolean    | true | 1.5.0      |
+| clickTriggerToHide  | 面板打开状态下，点击 Trigger 后是否关闭面板  | boolean    | true | 2.32.0      |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`)发生改变，这个 api 是无法影响节点的展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | 0.32.0 |
 | defaultExpandedKeys | 默认展开的节点，显示其直接子级 | string\[] | - | 0.32.0 |
 | defaultOpen | 默认展开下拉菜单 | boolean | false | 0.32.0 |
