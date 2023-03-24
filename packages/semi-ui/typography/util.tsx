@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { omit } from 'lodash';
 
 /**
  * The logic of JS for text truncation is referenced from antd typography
@@ -31,7 +32,10 @@ const getRenderText = (
     originEle: HTMLElement,
     rows: number,
     content = '',
-    fixedContent: any[],
+    fixedContent: {
+        expand: Node;
+        copy: Node
+    },
     ellipsisStr: string,
     suffix: string,
     ellipsisPos: string
@@ -86,10 +90,19 @@ const getRenderText = (
     const ellipsisTextNode = document.createTextNode(suffix);
     ellipsisContentHolder.appendChild(ellipsisTextNode);
     ellipsisContainer.appendChild(ellipsisContentHolder);
-    fixedContent.map((node: Node) => node && ellipsisContainer.appendChild(node.cloneNode(true)));
+    let needTruncated = false;
+    // Expand node needs to be added only when text needTruncated
+    Object.values(omit(fixedContent, 'expand')).map(
+        node => node && ellipsisContainer.appendChild(node.cloneNode(true))
+    );
     // Append before fixed nodes
     function appendChildNode(node: ChildNode) {
         ellipsisContentHolder.insertBefore(node, ellipsisTextNode);
+    }
+    function appendExpandNode() {
+        ellipsisContainer.innerHTML = '';
+        ellipsisContainer.appendChild(ellipsisContentHolder);
+        Object.values(fixedContent).map(node => node && ellipsisContainer.appendChild(node.cloneNode(true)));
     }
 
     function getCurrentText(text: string, pos: number) {
@@ -111,6 +124,11 @@ const getRenderText = (
         endLoc = fullText.length,
         lastSuccessLoc = 0
     ): string {
+        // must truncate text, add expand wrapper if present
+        if (endLoc < fullText.length && !needTruncated) {
+            needTruncated = true;
+            appendExpandNode();
+        }
         const midLoc = Math.floor((startLoc + endLoc) / 2);
         const currentText = getCurrentText(fullText, midLoc);
         textNode.textContent = currentText;

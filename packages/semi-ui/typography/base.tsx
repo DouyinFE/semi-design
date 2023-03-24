@@ -297,7 +297,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return undefined;
         }
 
-        const extraNode = [this.expandRef.current, this.copyRef && this.copyRef.current];
+        const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
         warning(
             'children' in this.props && typeof children !== 'string',
             "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
