@@ -62,10 +62,12 @@ const rule: Rule.RuleModule = {
                                 }
                             });
                         } else if (isImportSelf({ path: importName, fileName })) {
-                            context.report({
-                                node,
-                                messageId: "unexpectedImportSelf",
-                            });
+                            if (!fileName.includes('story')) {
+                                context.report({
+                                    node,
+                                    messageId: "unexpectedImportSelf",
+                                });
+                            }
                         }
                     }
                 }
