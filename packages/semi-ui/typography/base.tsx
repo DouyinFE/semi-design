@@ -240,9 +240,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return false;
         }
         const updateOverflow =
-            rows <= 1
-                ? this.wrapperRef.current.scrollWidth > this.wrapperRef.current.clientWidth
-                : this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
+            rows <= 1 ?
+                this.wrapperRef.current.scrollWidth > this.wrapperRef.current.offsetWidth :
+                this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
         return updateOverflow;
     };
 
@@ -284,19 +284,20 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             this.onResize();
             return false;
         }
-        const { ellipsisContent, isOverflowed, isTruncated, expanded } = this.state;
+        const { ellipsisContent, isOverflowed, expanded } = this.state;
         const updateOverflow = this.shouldTruncated(rows);
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
-        const needUpdate = updateOverflow !== isOverflowed;
 
         if (!rows || rows < 0 || expanded) {
             return undefined;
         }
 
         if (canUseCSSEllipsis) {
-            if (needUpdate) {
-                this.setState({ expanded: !updateOverflow });
-            }
+            // isOverflowed needs to be updated to show tooltip when using css ellipsis
+            this.setState({
+                isOverflowed: updateOverflow
+            });
+
             return undefined;
         }
 
@@ -440,7 +441,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             };
         }
         const { rows } = this.getEllipsisOpt();
-        const { isOverflowed, expanded, isTruncated } = this.state;
+        const { expanded } = this.state;
         const useCSS = !expanded && this.canUseCSSEllipsis();
         const ellipsisCls = cls({
             [`${prefixCls}-ellipsis`]: true,
@@ -451,14 +452,14 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const ellipsisStyle = useCSS && rows > 1 ? { WebkitLineClamp: rows } : {};
         return {
             ellipsisCls,
-            ellipsisStyle: isOverflowed ? ellipsisStyle : {},
+            ellipsisStyle,
         };
     };
 
     renderEllipsisText = (opt: Ellipsis) => {
         const { suffix } = opt;
         const { children } = this.props;
-        const { isTruncated, expanded, isOverflowed, ellipsisContent } = this.state;
+        const { isTruncated, expanded, ellipsisContent } = this.state;
         if (expanded || !isTruncated) {
             return (
                 <>
@@ -527,7 +528,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const iconSize: Size = size === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
-                {isSemiIcon(icon) ? React.cloneElement(icon as React.ReactElement, { size: iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
             </span>
         );
     }
