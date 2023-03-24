@@ -44,10 +44,9 @@ interface BaseTypographyState {
     editable: boolean;
     copied: boolean;
     isOverflowed: boolean;
-    ellipsisContent: string;
+    ellipsisContent: React.ReactNode;
     expanded: boolean;
     isTruncated: boolean;
-    first: boolean;
     prevChildren: React.ReactNode
 }
 const prefixCls = cssClasses.PREFIX;
@@ -158,12 +157,10 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             // ellipsis
             // if text is overflow in container
             isOverflowed: true,
-            ellipsisContent: null,
+            ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
-            isTruncated: false,
-            // record if has click expanded
-            first: true,
+            isTruncated: true,
             prevChildren: null,
         };
         this.wrapperRef = React.createRef();
@@ -186,10 +183,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (props.ellipsis && prevChildren !== props.children) {
             // reset ellipsis state if children update
             newState.isOverflowed = true;
-            newState.ellipsisContent = null;
+            newState.ellipsisContent = props.children;
             newState.expanded = false;
-            newState.isTruncated = false;
-            newState.first = true;
+            newState.isTruncated = true;
         }
         return newState;
     }
@@ -315,9 +311,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             suffix,
             pos
         );
-        if (children === content) {
-            this.setState({ expanded: true });
-        } else if (ellipsisContent !== content || isOverflowed !== updateOverflow) {
+        if (ellipsisContent !== content || isOverflowed !== updateOverflow) {
             this.setState({
                 ellipsisContent: content,
                 isOverflowed: updateOverflow,
@@ -336,7 +330,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const { expanded } = this.state;
         onExpand && onExpand(!expanded, e);
         if ((expandable && !expanded) || (collapsible && expanded)) {
-            this.setState({ expanded: !expanded, first: false });
+            this.setState({ expanded: !expanded });
         }
     };
 
@@ -360,16 +354,17 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     };
 
     renderExpandable = () => {
+        const { expanded, isTruncated } = this.state;
+        if (!isTruncated) return null;
+
         const { expandText, expandable, collapseText, collapsible } = this.getEllipsisOpt();
-        const { expanded, first } = this.state;
         const noExpandText = !expandable && isUndefined(expandText);
         const noCollapseText = !collapsible && isUndefined(collapseText);
         let text;
 
         if (!expanded && !noExpandText) {
             text = expandText;
-        } else if (expanded && !first && !noCollapseText) {
-            // if expanded is true but the text is initally mounted, we dont show collapseText
+        } else if (expanded && !noCollapseText) {
             text = collapseText;
         }
         if (!noExpandText || !noCollapseText) {
@@ -458,22 +453,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     renderEllipsisText = (opt: Ellipsis) => {
         const { suffix } = opt;
-        const { children } = this.props;
-        const { isTruncated, expanded, ellipsisContent } = this.state;
-        if (expanded || !isTruncated) {
-            return (
-                <>
-                    {children}
-                    {suffix && suffix.length ? suffix : null}
-                </>
-            );
-        }
+        const { ellipsisContent } = this.state;
+
         return (
-            <span>
+            <>
                 {ellipsisContent}
-                {/* {ELLIPSIS_STR} */}
-                {suffix}
-            </span>
+                {suffix && suffix.length ? suffix : null}
+            </>
         );
     };
 
