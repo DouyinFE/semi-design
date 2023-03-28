@@ -1178,24 +1178,32 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 triggerRender 入参如下:
 
 ```typescript
-interface triggerRenderProps {
+interface TriggerRenderProps {
     componentProps: TreeSelectProps;// 所有用户传给 TreeSelect 的 props
     disabled: boolean;              // 是否禁用 TreeSelect
     value: TreeNodeData[];              // 已选中的 node 的数据
     inputValue: string;             // 当前 input 框的输入值
     onClear: e => void;             // 用于清空值的函数
     placeholder: string;            // placeholder
+    /* 删除单个 item 时调用的函数，以 item 的 key 作为入参， 
+     * 从 v2.32.0 版本开始支持 
+    */
+    onRemove: key => void;          
+    /**
+     * 用于在 Input 框值更新时候启动搜索，当你在 triggerRender 自定义的
+     * Input 组件值更新时，你应该调用该函数，用于向 TreeSelect 内部
+     * 同步状态, 使用同时需要设置 filterTreeNode 参数非 false, 
+     * 从 v2.32.0 版本开始支持
+    */
+    onSearch: inputValue => void;   
 }
 ```
 
-
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
-import { TreeSelect, Button } from '@douyinfe/semi-ui';
-import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+import { TreeSelect, Button, Tag, TagInput } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
         {
             label: '亚洲',
@@ -1227,31 +1235,40 @@ function Demo() {
             key: '1',
         }
     ], []);
-    const onChange = useCallback((val) => {
-        setValue(val);
-    }, []);
-    const onClear = useCallback(e => {
-        e && e.stopPropagation();
-        setValue([]);
-    }, []);
 
-    const closeIcon = useMemo(() => {
-        return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
-    }, [value]);
+    const onValueChange = useCallback((value) => {
+        console.log('onChange', value);
+    });
+
+    const renderTrigger = useCallback((props) => {
+        const { value, onSearch, onRemove } = props;
+        const tagInputValue = value.map(item => item.key);
+        const renderTagInMultiple = (key) => {
+            const label = value.find(item => item.key === key).label;
+            const onCloseTag = (value, e, tagKey) => {
+                onRemove(tagKey);
+            };
+            return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>;
+        };
+        return (
+            <TagInput
+                style={{ width: 250 }}
+                value={tagInputValue}
+                onInputChange={onSearch}
+                renderTagItem={renderTagInMultiple}
+            />
+        );
+    }, []);
 
     return (
         <TreeSelect
-            onChange={onChange}
-            style={{ width: 300 }}
-            value={value}
+            triggerRender={renderTrigger}
+            filterTreeNode
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
-            triggerRender={({ placeholder }) => (
-                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
-                    {value && value.length ? value.join('，') : placeholder}
-                </Button>
-            )}
+            onChange={onValueChange}
+            style={{ width: 300 }}
         />
     );
 }
@@ -1418,7 +1435,7 @@ function Demo() {
 | treeData | `treeNodes` 数据，如果设置则不需要手动构造 `TreeNode` 节点（`key` 值在整个树范围内唯一） | TreeNodeData[] | \[] | - |
 | treeNodeFilterProp | 搜索时输入项过滤对应的 `TreeNodeData` 属性 | string | `label` | - |
 | treeNodeLabelProp | 作为显示的 `prop` 设置 | string | `label` | - |
-| triggerRender | 自定义触发器渲染方法  | ({ placeholder: string }) => ReactNode | - | 0.34.0 |
+| triggerRender | 自定义触发器渲染方法  | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
 | validateStatus | 校验结果，可选 `warning`、`error`、 `default`（只影响样式背景色） | string | - | 0.32.0 |
 | value | 当前选中的节点的value值，传入该值时将作为受控组件 | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>| - | - |
 | virtualize | 列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成，参考 Tree - Virtualize Object。开启后将关闭动画效果。 | object | - | 0.32.0 |

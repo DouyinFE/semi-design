@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useRef } from 'react';
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
-import { IconCreditCard } from '@douyinfe/semi-icons';
+import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
 import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
 const TreeNode = TreeSelect.TreeNode;
 const { Title } = Typography;
@@ -2127,3 +2127,125 @@ export const clickTriggerToHide = () => (
       />
   </>
 );
+export const triggerRenderAddMethod = () => {
+  const treeData = useMemo(() => [
+      {
+          label: '亚洲',
+          value: '亚洲',
+          key: '0',
+          children: [
+              {
+                  label: '中国',
+                  value: '中国',
+                  key: '0-0',
+                  children: [
+                      {
+                          label: '北京',
+                          value: '北京',
+                          key: '0-0-0',
+                      },
+                      {
+                          label: '上海',
+                          value: '上海',
+                          key: '0-0-1',
+                      },
+                  ],
+              },
+          ],
+      },
+      {
+          label: '北美洲',
+          value: '北美洲',
+          key: '1',
+      }
+  ], []);
+
+  const onValueChange = useCallback((value) => {
+      console.log('onChange', value);
+  });
+
+  const closeIcon = useCallback((value, onClear) => {
+      return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+  }, []);
+
+  const renderTagItem = useCallback((item, onRemove) => (
+      <Tag closable key={item.key} onClose={() => { onRemove(item.key); }}>{item.label}</Tag>
+  ), []);
+
+  const renderTrigger1 = useCallback((props) => {
+    const { value, placeholder, onClear } = props;
+    return (
+      <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+          {value && value.length ? value.map(item => item.label).join('，') : placeholder}
+      </Button>
+    );
+  }, []);
+
+  const renderTrigger2 = useCallback((props) => {
+      const { value, onSearch, onRemove, onClear } = props;
+      return (
+          <div style={{ border: '1px solid grey', width: 'fit-content', padding: 5, borderRadius: 5 }}>
+              {value && value.length > 0 && 
+              <div style={{ width: 'fit-content', minWidth: 10, padding: 5 }}>
+                  {value.map(item => renderTagItem(item, onRemove))}
+              </div>
+              }
+              <Input style={{ width: 200 }} onChange={onSearch} />
+              {closeIcon(value, onClear)}
+          </div>
+      );
+  }, []);
+
+  const renderTrigger3 = useCallback((props) => {
+    const { value, onSearch, onRemove } = props;
+    const tagInputValue = value.map(item => item.key);
+    const renderTagInMultiple = (key) => {
+      const label = value.find(item => item.key === key).label;
+      const onCloseTag = (value, e, tagKey) => {
+        onRemove(tagKey);
+      }
+      return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>
+    }
+    return (
+      <TagInput
+        style={{ width: 250 }}
+        value={tagInputValue}
+        onInputChange={onSearch}
+        renderTagItem={renderTagInMultiple}
+      />
+    )
+  }, []);
+
+  return (
+    <>
+      <TreeSelect
+          triggerRender={renderTrigger1}
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger2}
+          filterTreeNode
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger3}
+          filterTreeNode
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+    </>
+  );
+}

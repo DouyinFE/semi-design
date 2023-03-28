@@ -1062,11 +1062,12 @@ If the default layout style of the selection box does not meet your needs, you c
 The parameters of triggerRender are as follows
 
 ```typescript
-interface triggerRenderProps {
+interface TriggerRenderProps {
   value: array<object> // All currently selected options
   inputValue: string; // The input value of the current input box
-  onChange: (inputValue: string) => void; // The function used to update the value of the input box. You should call this function when the value of the Input component you customize in triggerRender is updated to synchronize the state to the Select internal
+  onSearch: (inputValue: string) => void; // The function used to update the value of the input box. You should call this function when the value of the Input component you customize in triggerRender is updated to synchronize the state to the Select internal. props.filter needs to be true, support after v2.32
   onClear: () => void; // Function to clear the value
+  onRemove: (option: object) => void; // support after v2.32
   disabled: boolean; // Whether to disable Select
   placeholder: string; // Select placeholder
   componentProps: //All props passed to Select by users
