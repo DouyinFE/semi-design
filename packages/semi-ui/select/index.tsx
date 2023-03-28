@@ -37,7 +37,6 @@ import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
 import type { Subtract } from 'utility-types';
 
-
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';
 export type { VirtualRowProps } from './virtualRow';
@@ -66,6 +65,25 @@ export interface optionRenderProps {
     onMouseEnter?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
     [x: string]: any
+}
+
+export interface SelectedItemProps {
+    value: OptionProps['value'];
+    label: OptionProps['label'];
+    _show?: boolean;
+    _selected: boolean;
+    _scrollIndex?: number
+}
+
+export interface TriggerRenderProps {
+    value: SelectedItemProps[];
+    inputValue: string;
+    onSearch: (inputValue: string) => void;
+    onClear: () => void;
+    onRemove: (option: OptionProps) => void;
+    disabled: boolean;
+    placeholder: string;
+    componentProps: Record<string, any>
 }
 
 export interface selectMethod {
@@ -153,7 +171,7 @@ export type SelectProps = {
     onDeselect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     onSelect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     allowCreate?: boolean;
-    triggerRender?: (props?: any) => React.ReactNode;
+    triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
     onClear?: () => void;
     virtualize?: virtualListProps;
     onFocus?: (e: React.FocusEvent) => void;
@@ -1320,11 +1338,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const clear = clearIcon ? clearIcon : <IconClear />;
 
+        // semantics of onSearch are more in line with behavior, onChange is alias of onSearch, will be deprecate next major version
         const inner = useCustomTrigger ? (
             <Trigger
                 value={Array.from(selections.values())}
                 inputValue={inputValue}
                 onChange={this.handleInputChange}
+                onSearch={this.handleInputChange}
+                onRemove={(item) => this.foundation.removeTag(item)}
                 onClear={this.onClear}
                 disabled={disabled}
                 triggerRender={triggerRender}
