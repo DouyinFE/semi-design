@@ -1233,8 +1233,7 @@ interface triggerRenderProps {
 
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
-import { TreeSelect, Button } from '@douyinfe/semi-ui';
-import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+import { TreeSelect, Button, Tag, TagInput } from '@douyinfe/semi-ui';
 
 function Demo() {
     const [value, setValue] = useState([]);
@@ -1270,7 +1269,7 @@ function Demo() {
         }
     ], []);
     
-     const onValueChange = useCallback((value) => {
+    const onValueChange = useCallback((value) => {
         console.log('onChange', value);
     });
 
@@ -1282,7 +1281,7 @@ function Demo() {
             const onCloseTag = (value, e, tagKey) => {
                 onRemove(tagKey);
             };
-            return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>
+            return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>;
         };
         return (
             <TagInput

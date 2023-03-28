@@ -1691,7 +1691,7 @@ function Demo() {
 
         const renderTagItem = (value) => {
             const label = getLabelFromValue(value);
-            return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>
+            return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>;
         };
         
         return (
@@ -1714,6 +1714,7 @@ function Demo() {
             <Cascader
                 triggerRender={triggerRenderMultiple}
                 multiple
+                filterTreeNode
                 treeData={treeData}
                 style={{ width: 300 }}
                 placeholder='Custom Trigger'
