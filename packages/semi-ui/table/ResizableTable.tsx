@@ -8,10 +8,10 @@ import { merge, get, find, noop } from 'lodash';
 
 import { addClass, removeClass } from '@douyinfe/semi-foundation/utils/classnames';
 import { strings, numbers } from '@douyinfe/semi-foundation/table/constants';
-import { mergeColumns, assignColumnKeys, findColumn, withResizeWidth } from '@douyinfe/semi-foundation/table/utils';
+import { assignColumnKeys, findColumn, withResizeWidth } from '@douyinfe/semi-foundation/table/utils';
 
 import Table from './Table';
-import { cloneDeep } from './utils';
+import { cloneDeep, mergeColumns } from './utils';
 import getColumns from './getColumns';
 import ResizableHeaderCell from './ResizableHeaderCell';
 import { TableProps, ColumnProps } from './interface';

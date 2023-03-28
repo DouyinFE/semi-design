@@ -158,14 +158,16 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
 
     wrapTooltip = (node: React.ReactNode) => {
         const { text, tooltipHideDelay, tooltipShowDelay } = this.props;
+        const hideDelay = tooltipHideDelay ?? this.context.tooltipHideDelay;
+        const showDelay = tooltipShowDelay ?? this.context.tooltipShowDelay;
 
         return (
             <Tooltip
                 content={text}
                 position="right"
                 trigger={'hover'}
-                mouseEnterDelay={tooltipShowDelay}
-                mouseLeaveDelay={tooltipHideDelay}
+                mouseEnterDelay={showDelay}
+                mouseLeaveDelay={hideDelay}
             >
                 {node}
             </Tooltip>

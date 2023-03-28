@@ -16,6 +16,26 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.31.2 (2023-03-24)
+- 【Fix】
+    - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - Fix the problem that the delay props related to Nav tooltip does not take effect  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
+    - Fix: When selecting remote and autoClearSearchValue is false, the optionList is not displayed correctly after updating, (range of impact: v2.28 - 2.31) [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+
+#### 🎉 2.31.1 (2023-03-22)
+- 【Chore】
+    - Semi Webpack Plugin adds logic to directly retrieve NormalModule from the Compiler Instance [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
+
+#### 🎉 2.31.0 (2023-03-17)
+- 【Fix】
+    - Fix the problem that the ratio of the new picture is incorrect after switching the ratio state of the preview picture and switching the picture in ImagePreview  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)
+    - fix the problem that the component is not re-updated after Carousel props.children is updated  [#1482 ](https://github.com/DouyinFE/semi-design/issues/1482)
+    - fix the conflict between the Carousel ref method play and the mouseEnter event of autoPlay.hoverToPause, which does not have the highest priority
+    - Fix the wrong state of the selection box in the header of the second page after selecting all the Table  [#325](https://github.com/DouyinFE/semi-design/issues/325)
+    - Select onSearch provides a second input parameter to solve the problem of indistinguishable 1. Automatically clear the input after selection to trigger onSearch, 2. Actively use backspace to clear the input to trigger onSearch 3. Click the clear icon to trigger onSearch and other different scenarios  [#867](https://github.com/DouyinFE/semi-design/issues/867)
+    - Fixed confirmation button and cancel button not displaying the loading icon when returning promise (2.30 ~ 2.31 versions are affected)  [#1489](https://github.com/DouyinFE/semi-design/issues/1489)
+    - Fix the problem that the user needs to click the option twice to select it for single selection, searchable and search box in Trigger, virtualized TreeSelect  [#1487 ](https://github.com/DouyinFE/semi-design/issues/1487)
+    
 #### 🎉 2.31.0-beta.0 (2023-03-13)
 
 - 【Feat】

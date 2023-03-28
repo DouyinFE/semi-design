@@ -9,7 +9,11 @@ ruleTester.run('no-import', rule['no-import'], {
     valid: [
         {
             code: 'var invalidVariable = true',
-        }
+        },
+        {
+            code: "import { Input } from '@douyinfe/semi-ui'",
+            filename: 'packages/semi-ui/table/_story/v2/fixedResizableWithForm.tsx',
+        },
     ],
     invalid: [
         {
