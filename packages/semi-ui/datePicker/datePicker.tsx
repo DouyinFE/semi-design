@@ -296,7 +296,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             },
             needConfirm: () =>
                 ['dateTime', 'dateTimeRange'].includes(this.props.type) && this.props.needConfirm === true,
-            typeIsYearOrMonth: () => ['month', 'year'].includes(this.props.type),
+            typeIsYearOrMonth: () => ['month', 'year', 'monthRange'].includes(this.props.type),
             setRangeInputFocus: rangeInputFocus => {
                 const { preventScroll } = this.props;
                 if (rangeInputFocus !== this.state.rangeInputFocus) {
@@ -730,7 +730,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, presetPosition } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, presetPosition, type } = this.props;
         const wrapCls = classnames(
             cssClasses.PREFIX,
             {
@@ -741,17 +741,18 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         );
 
         return (
-            <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} >
+            <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} x-type={type}>
                 {topSlot && (
                     <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
                         {topSlot}
                     </div>
                 )}
-                {presetPosition === "top" && this.renderQuickControls()}
+                {/* todo: monthRange does not support presetPosition temporarily */}
+                {presetPosition === "top" && type !== 'monthRange' && this.renderQuickControls()}
                 {this.adapter.typeIsYearOrMonth()
                     ? this.renderYearMonthPanel(locale, localeCode)
                     : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
-                {presetPosition === "bottom" && this.renderQuickControls()}
+                {presetPosition === "bottom" && type !== 'monthRange' && this.renderQuickControls()}
                 {bottomSlot && (
                     <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
                         {bottomSlot}
@@ -763,15 +764,23 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderYearMonthPanel = (locale: Locale['DatePicker'], localeCode: string) => {
-        const { density, presetPosition, yearAndMonthOpts } = this.props;
+        const { density, presetPosition, yearAndMonthOpts, type } = this.props;
 
         const date = this.state.value[0];
-        let year = 0;
-        let month = 0;
+        const year = { left: 0, right: 0 };
+        const month = { left: 0, right: 0 };
 
         if (isDate(date)) {
-            year = date.getFullYear();
-            month = date.getMonth() + 1;
+            year.left = date.getFullYear();
+            month.left = date.getMonth() + 1;
+        }
+
+        if (type === 'monthRange') {
+            const dateRight = this.state.value[1];
+            if (isDate(dateRight)) {
+                year.right = dateRight.getFullYear();
+                month.right = dateRight.getMonth() + 1;
+            }
         }
 
         return (
@@ -788,6 +797,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 presetPosition={presetPosition}
                 renderQuickControls={this.renderQuickControls()}
                 renderDateInput={this.renderDateInput()}
+                type={type}
                 yearAndMonthOpts={yearAndMonthOpts}
             />
         );

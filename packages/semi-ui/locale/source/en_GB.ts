@@ -33,6 +33,7 @@ const local: Locale = {
             dateTime: 'Select date and time',
             dateRange: ['Start date', 'End date'],
             dateTimeRange: ['Start date', 'End date'],
+            monthRange: ['Start month', 'End month'],
         },
         footer: {
             confirm: 'Confirm',

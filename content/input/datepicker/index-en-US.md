@@ -175,6 +175,9 @@ function Demo() {
             <DatePicker type="month" placeholder="please input month" insetInput style={{ width: 140 }} />
             <br />
             <br />
+            <DatePicker type="monthRange" placeholder="please input month Range" insetInput style={{ width: 200 }} />
+            <br />
+            <br />
             <DatePicker type="dateTime" format="yyyy-MM-dd HH:mm" insetInput />
         </div>
     );
@@ -297,6 +300,19 @@ class App extends React.Component {
         return <DatePicker defaultValue={new Date()} type="month" style={{ width: 140 }} />;
     }
 }
+```
+
+### Year and Month Range Selection
+
+**version：** >= 2.32.0
+
+Set `type` to `monthRange` to select the year and month range, small size and quick panel are not supported yet.
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+() => <DatePicker type="monthRange" style={{ width: 200 }} />;
 ```
 
 ### Confirm Date and Time Selection
@@ -895,7 +911,7 @@ function Demo() {
 | multiple           | Whether you can choose multiple, only type = "date" is supported                                                                                                                          | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
 | needConfirm        | Do you need to "confirm selection", only `type= "dateTime"\| "dateTimeRange"` works.       | boolean                                                                                                                                                                                                   |                                                                                       | **0.18.0**                |
 | open               | Controlled properties displayed or hidden by panels                                                                                                                                       | boolean                                                                                                                                                                                                   |                                                                                       |                           |
-| placeholder        | Input box prompts text                                                                                                                                                                    | string                                                                                                                                                                                                    | 'Select date'                                                                         |                           |
+| placeholder        | Input box prompts text                                                                                                                                                                    | string\|string[]                                                                                                                                                                                                    | 'Select date'                                                                         |                           |
 | position           | Floating layer position, optional value with [Popover #API Reference · position](/en-US/show/popover#API%20Reference)                                                                 | string                                                                                                                                                                                                    | 'bottomLeft'                                                                          |                           |
 | prefix             | Prefix content                                                                                                                                                                            | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | presets            | Date Time Shortcut     |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType>                                  | []                                                                                    |                           |
@@ -912,7 +928,7 @@ function Demo() {
 | timePickerOpts     | For other parameters that can be transparently passed to the time selector, see [TimePicker·API Reference](/en-US/input/timepicker#API%20Reference)                                    |                                                                                                                                                                                                           | object                                                                                | **1.1.0**                 |
 | topSlot            | Render the top extra area                                                                                 | ReactNode                                                                                                                                                                                                 |                                                | **1.22.0**                   |
 | triggerRender      | Custom trigger rendering method                                                                                                                                                           | (TriggerRenderProps) => ReactNode                                                                                                                                                                    |                                                                                       | **0.34.0**                |
-| type               | Type, optional value: "date", "dateRange", "dateTime", "dateTimeRange", "month"                                                                                                           | string                                                                                                                                                                                                    | 'date'                                                                                |  |
+| type               | Type, optional value: "date", "dateRange", "dateTime", "dateTimeRange", "month", "monthRange"                                                                                                           | string                                                                                                                                                                                                    | 'date'                                                                                |  |
 | value              | Controlled value                                                                                                                                                                          | ValueType                                                                                                                                                     |                                                                                       |                           |
 | weekStartsOn       | Take the day of the week as the first day of the week, 0 for Sunday, 1 for Monday, and so on.                                                                                             | number                                                                                                                                                                                                    | 0                                                                                     |                           |
 | onBlur | Callback when focus is lost. It is not recommended to use this API in range selection | (event) => void | () => {} | **1.0.0** |

@@ -33,6 +33,7 @@ const local: Locale = {
             dateTime: '請選擇日期及時間',
             dateRange: ['開始日期', '結束日期'],
             dateTimeRange: ['開始日期', '結束日期'],
+            monthRange: ['開始月份', '結束月份'],
         },
         footer: {
             confirm: '確定',

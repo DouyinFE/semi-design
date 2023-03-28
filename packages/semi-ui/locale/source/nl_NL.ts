@@ -40,6 +40,7 @@ const local: Locale = {
             dateTime: 'Datum en tijd selecteren',
             dateRange: ['Begindatum', 'Einddatum'],
             dateTimeRange: ['Begindatum', 'Einddatum'],
+            monthRange: ['Begindatum', 'Einddatum'],
         },
         footer: {
             confirm: 'Bevestigen',
