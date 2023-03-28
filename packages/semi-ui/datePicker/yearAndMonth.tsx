@@ -95,6 +95,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             // updateMonths: months => this.setState({ months }),
             setCurrentYear: (currentYear, cb) => this.setState({ currentYear }, cb),
             setCurrentMonth: currentMonth => this.setState({ currentMonth }),
+            setCurrentYearAndMonth: (currentYear, currentMonth) => this.setState({ currentYear, currentMonth }),
             notifySelectYear: (year) =>
                 this.props.onSelect({
                     currentMonth: this.state.currentMonth,
@@ -103,6 +104,11 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             notifySelectMonth: (month) =>
                 this.props.onSelect({
                     currentYear: this.state.currentYear,
+                    currentMonth: month,
+                }),
+            notifySelectYearAndMonth: (year, month) =>
+                this.props.onSelect({
+                    currentYear: year,
                     currentMonth: month,
                 }),
             notifyBackToMain: () => this.props.onBackToMain(),

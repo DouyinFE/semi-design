@@ -36,8 +36,10 @@ export interface YearAndMonthFoundationState {
 export interface YearAndMonthAdapter extends DefaultAdapter<YearAndMonthFoundationProps, YearAndMonthFoundationState> {
     setCurrentYear: (currentYear: { left: number; right: number }, cb?: () => void) => void;
     setCurrentMonth: (currentMonth: { left: number; right: number }) => void;
+    setCurrentYearAndMonth: (currentYear: { left: number; right: number }, currentMonth: { left: number; right: number }) => void;
     notifySelectYear: (year: { left: number; right: number }) => void;
     notifySelectMonth: (month: { left: number; right: number }) => void;
+    notifySelectYearAndMonth: (year: { left: number; right: number }, month: { left: number; right: number }) => void;
     notifyBackToMain: () => void
 }
 
@@ -90,7 +92,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
             }
         }
 
-        this._adapter.setCurrentYear(year, () => this.autoSelectMonth(item, panelType));
+        this._adapter.setCurrentYear(year, () => this.autoSelectMonth(item, panelType, year));
         this._adapter.notifySelectYear(year);
     }
 
@@ -115,7 +117,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
     /**
      * After selecting a year, if the currentMonth is disabled, automatically select a non-disabled month
      */
-    autoSelectMonth(item: YearScrollItem, panelType: PanelType) {
+    autoSelectMonth(item: YearScrollItem, panelType: PanelType, year: { left: number; right: number }) {
         const { disabledDate, locale } = this._adapter.getProps();
         const { months, currentMonth } = this._adapter.getStates();
 
@@ -130,7 +132,12 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
                 validMonth = months.slice(0, currentIndex).find(({ month }) => !disabledDate(setMonth(currentDate, month - 1)));
             }
             if (validMonth) {
-                this.selectMonth({ month: validMonth.month, value: locale.fullMonths[validMonth.month], disabled: false });
+                const month = cloneDeep(currentMonth);
+                month[panelType] = validMonth.month;
+
+                // change year and month same time
+                this._adapter.setCurrentYearAndMonth(year, month);
+                this._adapter.notifySelectYearAndMonth(year, month);
             }
         }
     }
