@@ -11,7 +11,7 @@ import IconButton from '../iconButton';
 import { IconChevronLeft } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
-import { noop, stubFalse } from 'lodash';
+import { noop, stubFalse, isEqual } from 'lodash';
 import { setYear, setMonth, set } from 'date-fns';
 import { Locale } from '../locale/interface';
 import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
@@ -118,11 +118,11 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     static getDerivedStateFromProps(props: YearAndMonthProps, state: YearAndMonthState) {
         const willUpdateStates: Partial<YearAndMonthState> = {};
 
-        if (props.currentYear !== state.currentYear && props.currentYear.left !== 0) {
+        if (!isEqual(props.currentYear, state.currentYear) && props.currentYear.left !== 0) {
             willUpdateStates.currentYear = props.currentYear;
         }
 
-        if (props.currentMonth !== state.currentMonth && props.currentMonth.left !== 0) {
+        if (!isEqual(props.currentMonth, state.currentMonth) && props.currentMonth.left !== 0) {
             willUpdateStates.currentMonth = props.currentMonth;
         }
 
