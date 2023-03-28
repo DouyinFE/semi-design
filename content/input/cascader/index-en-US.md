@@ -1620,7 +1620,8 @@ interface TriggerRenderProps {
      * The function used to update the value of the input box. You
      *  should call this function when the value of the Input component
      *  customized by triggerRender is updated to synchronize the
-     *  state with Cascader, support since v2.32.0
+     *  state with Cascader, you need to set the filterTreeNode parameter
+     *  to non-false when use it， support since v2.32.0
      */
     onSearch: (inputValue: string) => void;
     /* Function to clear the value */

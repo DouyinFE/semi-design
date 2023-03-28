@@ -1603,7 +1603,7 @@ interface TriggerRenderProps {
     /**
      * 用于更新 input 框值的函数，当你在 triggerRender 自定义的
      * Input 组件值更新时，你应该调用该函数，用于向 Cascader 内部
-     * 同步状态
+     * 同步状态, 使用时需要设置 filterTreeNode 参数非 false
      */
     onSearch: (inputValue: string) => void;
     /* 用于清空值的函数 */

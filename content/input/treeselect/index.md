@@ -1192,7 +1192,8 @@ interface TriggerRenderProps {
     /**
      * 用于在 Input 框值更新时候启动搜索，当你在 triggerRender 自定义的
      * Input 组件值更新时，你应该调用该函数，用于向 TreeSelect 内部
-     * 同步状态, 从 v2.32.0 版本开始支持
+     * 同步状态, 使用同时需要设置 filterTreeNode 参数非 false, 
+     * 从 v2.32.0 版本开始支持
     */
     onSearch: inputValue => void;   
 }
@@ -1262,6 +1263,7 @@ function Demo() {
     return (
         <TreeSelect
             triggerRender={renderTrigger}
+            filterTreeNode
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'

@@ -2229,6 +2229,7 @@ export const triggerRenderAddMethod = () => {
       <br />
       <TreeSelect
           triggerRender={renderTrigger2}
+          filterTreeNode
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'
@@ -2238,6 +2239,7 @@ export const triggerRenderAddMethod = () => {
       <br />
       <TreeSelect
           triggerRender={renderTrigger3}
+          filterTreeNode
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'

@@ -1225,7 +1225,8 @@ interface triggerRenderProps {
     /* It is used to start the search when the value of the Input box is updated. 
      * When you update the value of the Input component customized by triggerRender, 
      * you should call this function to synchronize the state with the TreeSelect 
-     * internally. It is supported from v2.32.0
+     * internally. you need to set the filterTreeNode parameter to non-false when use it
+     * It is supported from v2.32.0
      */
     onSearch: inputValue => void;   
 }
@@ -1296,6 +1297,7 @@ function Demo() {
     return (
         <TreeSelect
             triggerRender={renderTrigger}
+            filterTreeNode
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
