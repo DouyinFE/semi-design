@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.32.0-beta.0 (2023-03-28)
+- 【Design Token】
+  - Modal provides `$spacing-modal_content_fullscreen-top` to control the top height of the full screen, Sidesheet adds `$color-sideSheet_header-borderBottom` and `$width-sideSheet_header-borderBottom` to add a dividing line under the header, `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` controls the default expanded width
+- 【Feat】
+  - DatePicker added type monthRange
+  - The TriggerRender API parameters of TreeSelect、 Cascader and Select support onSearch and onRemove respectively to support custom triggers to start searching and delete a single selected item
+  - TreeSelect has added a clickTriggerToHide parameter to support setting whether to click the Trigger part to trigger the panel to close when the panel is open
+  - DatePicker support open, close, focus, blur methods and onClickOutside callback  [#566](https://github.com/DouyinFE/semi-design/issues/566)
+- 【Fix】
+  - fix the problem that the style of the shortcut selection panel for DatePicker type month is not as expected
+  - Change the initial setting of the state in the constructor in Switch to avoid unexpected animations when used in other components
+
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
     - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)

@@ -13,6 +13,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.32.0-beta.0 (2023-03-28)
+- 【Design Token】
+  - Modal 提供 `$spacing-modal_content_fullscreen-top` 用于控制全屏时顶部高度, Sidesheet 新增 `$color-sideSheet_header-borderBottom` `$width-sideSheet_header-borderBottom` 用于在 header 下添加分割线， `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` 控制默认展开宽度
+- 【Feat】
+  - DatePicker 新增 type monthRange
+  - TreeSelect 、 Cascader、Select 的 TriggerRender API 参数支持 onSearch 和 onRemove 分别用于支持自定义 trigger 启动搜索，删除单个已选项
+  - TreeSelect 新增 clickTriggerToHide 参数支持设置在面板打开状态下，点击 Trigger 部分是否触发面板关闭
+  - DatePicker 支持 open、close、focus、blur 方法和 onClickOutside 回调  [#566](https://github.com/DouyinFE/semi-design/issues/566)
+- 【Fix】
+  - 修复 DatePicker type month 开启上下方位快捷选择面板样式不符合预期问题
+  - 更改 Switch 中 state 在 constructor 中的初始设置，避免在其他组件中使用时候出现不符合预期的动画
+
 
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
