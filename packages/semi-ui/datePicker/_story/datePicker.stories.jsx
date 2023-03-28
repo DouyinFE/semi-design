@@ -550,13 +550,17 @@ export const MonthRangePicker = () => {
     };
 
     const disabledDate = date => {
-        const deadDate = new Date('2023-02-28');
+        const deadDate = new Date('2023/3/1 00:00:00');
         return date.getTime() < deadDate.getTime(); 
     };
 
     return (
       <>
         <div>
+          <div>default</div>
+          <DatePicker type="monthRange" />
+          <br />
+          <br />
           <div>rangeSeparator 与 placeholder</div>
           <DatePicker type="monthRange" rangeSeparator={'➡️'} placeholder={['开始', '结束']} insetLabel='月份范围'/>
           <br />
@@ -583,8 +587,14 @@ export const MonthRangePicker = () => {
           />
           <br />
           <br />
-          <div>年月禁用：禁用这个月前的所有年月</div>
+          <div>年月禁用：禁用2023年3月前的所有年月</div>
           <DatePicker type="monthRange" disabledDate={disabledDate}/>
+          <br />
+          <br />
+          <div>validateStatus</div>
+          <DatePicker type="monthRange" validateStatus='warning' />
+          <br />
+          <DatePicker type="monthRange" validateStatus='error' />
         </div>
       </>
     );

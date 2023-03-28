@@ -885,7 +885,9 @@ $module-list: #{$prefix}-scrolllist;
                 border-color: $color-datepicker_range_trigger-border-active ;
             }
 
-
+            .#{$module}-monthRange-input {
+                background-color: transparent;
+            }
 
             &-wrapper {
                 box-sizing: border-box;

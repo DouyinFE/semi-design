@@ -424,6 +424,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
 
         const inputCls = cls({
             [`${prefixCls}-input-readonly`]: inputReadOnly,
+            [`${prefixCls}-monthRange-input`]: type === 'monthRange',
         });
 
         const rangeProps = { ...this.props, text, suffix, inputCls };
