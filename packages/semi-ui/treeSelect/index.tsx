@@ -1016,6 +1016,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentName={'TreeSelect'}
                 triggerRender={triggerRender}
                 componentProps={{ ...this.props }}
+                onSearch={this.search}
+                onRemove={this.removeTag}
             />
         ) : (
             [

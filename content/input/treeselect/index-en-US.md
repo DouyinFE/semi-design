@@ -1217,6 +1217,17 @@ interface triggerRenderProps {
     inputValue: string;             // value of the input box
     onClear: e => void;             // onClear function
     placeholder: string;            // placeholder
+    /* The function called when deleting a single item, 
+     *   with the key of the item as an input parameter, 
+     *  supported from version v2.32.0
+     */
+    onRemove: key => void;
+    /* It is used to start the search when the value of the Input box is updated. 
+     * When you update the value of the Input component customized by triggerRender, 
+     * you should call this function to synchronize the state with the TreeSelect 
+     * internally. It is supported from v2.32.0
+     */
+    onSearch: inputValue => void;   
 }
 ```
 
@@ -1258,31 +1269,39 @@ function Demo() {
             key: '1',
         }
     ], []);
-    const onChange = useCallback((val) => {
-        setValue(val);
-    }, []);
-    const onClear = useCallback(e => {
-        e && e.stopPropagation();
-        setValue([]);
-    }, []);
+    
+     const onValueChange = useCallback((value) => {
+        console.log('onChange', value);
+    });
 
-    const closeIcon = useMemo(() => {
-        return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
-    }, [value]);
+    const renderTrigger = useCallback((props) => {
+        const { value, onSearch, onRemove } = props;
+        const tagInputValue = value.map(item => item.key);
+        const renderTagInMultiple = (key) => {
+            const label = value.find(item => item.key === key).label;
+            const onCloseTag = (value, e, tagKey) => {
+                onRemove(tagKey);
+            };
+            return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>
+        };
+        return (
+            <TagInput
+                style={{ width: 250 }}
+                value={tagInputValue}
+                onInputChange={onSearch}
+                renderTagItem={renderTagInMultiple}
+            />
+        );
+    }, []);
 
     return (
         <TreeSelect
-            onChange={onChange}
-            style={{ width: 300 }}
-            value={value}
+            triggerRender={renderTrigger}
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
-            triggerRender={({ placeholder }) => (
-                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
-                    {value && value.length ? value.join(', ') : placeholder}
-                </Button>
-            )}
+            onChange={onValueChange}
+            style={{ width: 300 }}
         />
     );
 }
@@ -1435,7 +1454,7 @@ function Demo() {
 | treeData                 | Data for treeNodes                                                                  | TreeNodeData[]                                                  | \[]         | -       |
 | treeNodeFilterProp       | Property in a `TreeNodeData` used to search                                             | string                                                            | `label`     | -       |
 | treeNodeLabelProp        | Property in a `TreeNodeData` used to display                                            | string                                                            | `label`     | -       |
-| triggerRender | Method to create a custom trigger  | (TriggerProps) => ReactNode | - | 0.34.0 |
+| triggerRender | Method to create a custom trigger  | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
 | validateStatus | Validate status，one of `warning`、`error`、 `default`, only affects the background color of the component | string | - | 0.32.0 |
 | value                    | Value data of current item, used when TreeSelect is a controlled component     | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>    | -           | -       |
 | virtualize | Efficiently rendering large lists, refer to Tree - VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | object | - | 0.32.0 |

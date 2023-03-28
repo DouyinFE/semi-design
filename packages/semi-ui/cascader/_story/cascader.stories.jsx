@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { Button, Typography, Toast, Cascader, Checkbox } from '../../index';
+import { IconChevronDown, IconClose } from '@douyinfe/semi-icons';
+import { Button, Typography, Toast, Cascader, Checkbox, Input, Tag, TagInput } from '../../index';
 
 const { Text } = Typography;
 
@@ -1979,5 +1980,108 @@ export const setValueInSearch = () => {
               }}
           />
       </div>
+  );
+}
+
+export const TriggerAddMethods = () => {
+  const treeData = useMemo(() => [
+      {
+          label: '浙江省',
+          value: 'zhejiang',
+          children: [
+              {
+                  label: '杭州市',
+                  value: 'hangzhou',
+                  children: [
+                      {
+                          label: '西湖区',
+                          value: 'xihu',
+                      },
+                      {
+                          label: '萧山区',
+                          value: 'xiaoshan',
+                      },
+                      {
+                          label: '临安区',
+                          value: 'linan',
+                      },
+                  ],
+              },
+              {
+                  label: '宁波市',
+                  value: 'ningbo',
+                  children: [
+                      {
+                          label: '海曙区',
+                          value: 'haishu',
+                      },
+                      {
+                          label: '江北区',
+                          value: 'jiangbei',
+                      }
+                  ]
+              },
+          ],
+      }
+  ], []);
+
+  const closeIcon = useCallback((value, onClear) => {
+      return value ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+  }, []);
+
+  const triggerRenderSingle = ({ value, placeholder, onClear, ...rest }) => {
+      return (
+          <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+              {value && value.length > 0 ? getLabelFromValue(value) : placeholder}
+          </Button>
+      );
+  };
+
+  const getLabelFromValue = useCallback((value) => {
+      const valueArr = value.split('-').map(item => Number(item));
+      let resultData = treeData;
+      valueArr.forEach((item, index) => {
+          resultData = index === 0 ? resultData[item] : resultData.children[item];
+      });
+      return resultData.label;
+  }, [treeData]);
+
+  const triggerRenderMultiple = useCallback((props) => {
+      const { value, onSearch, onRemove } = props;
+      const onCloseTag = (value, e, tagKey) => {
+          onRemove(tagKey);
+      };
+
+      const renderTagItem = (value) => {
+          const label = getLabelFromValue(value);
+          return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>
+      };
+      
+      return (
+          <TagInput
+              value={Array.from(value)}
+              onInputChange={onSearch}
+              renderTagItem={renderTagItem}
+          />
+      );
+  }, []);
+
+  return (
+      <>
+          <Cascader
+              treeData={treeData}
+              placeholder='Custom Trigger'
+              triggerRender={triggerRenderSingle}
+          />
+          <br />
+          <Cascader
+              triggerRender={triggerRenderMultiple}
+              multiple
+              filterTreeNode
+              treeData={treeData}
+              style={{ width: 300 }}
+              placeholder='Custom Trigger'
+          />
+      </>
   );
 }
