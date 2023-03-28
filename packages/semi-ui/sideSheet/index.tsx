@@ -206,7 +206,6 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         const { direction } = this.context;
         const isVertical = placement === 'left' || placement === 'right';
         const isHorizontal = placement === 'top' || placement === 'bottom';
-        const sheetWidth = isVertical ? (width ? width : defaultWidthList[size]) : '100%';
         const sheetHeight = isHorizontal ? (height ? height : defaultHeight) : '100%';
         const classList = cls(prefixCls, className, {
             [`${prefixCls}-${placement}`]: placement,
@@ -216,11 +215,12 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             [`${prefixCls}-hidden`]: keepDOM && this.state.displayNone,
         });
         const contentProps = {
+            ...( isVertical ? (width ? { width } : {}) : { width: "100%" }),
             ...props,
             visible,
             motion: false,
+            size,
             className: classList,
-            width: sheetWidth,
             height: sheetHeight,
             onClose: this.handleCancel,
         };
