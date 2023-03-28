@@ -145,7 +145,7 @@ describe('DatePicker', () => {
         cy.get('[data-cy=month] .semi-input').should("have.value", "2021-11");
     });
 
-    it.only('insetInput + monthRange', () => {
+    it('insetInput + monthRange', () => {
         cy.visit('http://localhost:6006/iframe.html?id=datepicker--month-range-picker&args=&viewMode=story');
         cy.get('[data-cy=monthRange] .semi-input').click();
         cy.get('.semi-popover .semi-input-wrapper-focus');
