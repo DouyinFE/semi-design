@@ -23,6 +23,7 @@ import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BaseValueType, DateInputFoundationProps, PresetPosition, ValueType } from './foundation';
 import { MonthDayInfo } from './monthFoundation';
 import { ArrayElement } from '../utils/type';
+import isValidTimeZone from './_utils/isValidTimeZone';
 
 const dateDiffFns = {
     month: differenceInCalendarMonths,
@@ -448,13 +449,6 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         return format(date, token, { locale: dateFnsLocale });
     }
 
-    isValidTimeZone(timeZone?: string | number) {
-        const propTimeZone = this.getProp('timeZone');
-        const _timeZone = isNullOrUndefined(timeZone) ? propTimeZone : timeZone;
-
-        return ['string', 'number'].includes(typeof _timeZone) && _timeZone !== '';
-    }
-
     /**
      * 根据 type 处理 onChange 返回的参数
      *
@@ -484,9 +478,9 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
      */
     disposeCallbackArgs(value: Date | Date[]) {
         let _value = Array.isArray(value) ? value : (value && [value]) || [];
+        const timeZone = this.getProp('timeZone');
 
-        if (this.isValidTimeZone()) {
-            const timeZone = this.getProp('timeZone');
+        if (isValidTimeZone(timeZone)) {
             _value = _value.map(date => zonedTimeToUtc(date, timeZone));
         }
         const type = this.getProp('type');
