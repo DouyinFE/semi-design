@@ -30,7 +30,6 @@ import {
 import {
     mergeQueries,
     equalWith,
-    mergeColumns,
     isAnyFixedRight,
     assignColumnKeys,
     flattenColumns,
@@ -56,7 +55,7 @@ import ColumnSorter from './ColumnSorter';
 import ExpandedIcon from './CustomExpandIcon';
 import HeadTable, { HeadTableProps } from './HeadTable';
 import BodyTable, { BodyProps } from './Body';
-import { measureScrollbar, logger, cloneDeep, mergeComponents } from './utils';
+import { logger, cloneDeep, mergeComponents, mergeColumns } from './utils';
 import {
     ColumnProps,
     TablePaginationProps,

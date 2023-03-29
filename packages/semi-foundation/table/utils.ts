@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable eqeqeq */
 import {
-    cloneDeepWith,
     isEqualWith,
     get,
     filter,
@@ -20,17 +19,6 @@ import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import Logger from '../utils/Logger';
 
-
-export function cloneDeep(value: any, customizer?: (v: any) => any) {
-    return cloneDeepWith(value, v => {
-        if (typeof v === 'function') {
-            return v;
-        } else if (typeof customizer === 'function') {
-            return customizer(v);
-        }
-        return undefined;
-    });
-}
 
 export function equalWith(value: any, other: any, customizer?: (...args: any[]) => boolean) {
     return isEqualWith(value, other, (objVal, othVal, ...rest) => {
@@ -59,31 +47,6 @@ export function getColumnKey(column: any, keyPropNames: any[]): any {
     });
 
     return key;
-}
-
-export function mergeColumns(oldColumns: any[] = [], newColumns: any[] = [], keyPropNames: any[] = null, deep = true) {
-    const finalColumns: any[] = [];
-    const clone = deep ? cloneDeep : lodashClone;
-
-    map(newColumns, newColumn => {
-        newColumn = { ...newColumn };
-        const key = getColumnKey(newColumn, keyPropNames);
-
-        const oldColumn = key != null && find(oldColumns, item => getColumnKey(item, keyPropNames) === key);
-
-        if (oldColumn) {
-            finalColumns.push(
-                clone({
-                    ...oldColumn,
-                    ...newColumn,
-                })
-            );
-        } else {
-            finalColumns.push(clone(newColumn));
-        }
-    });
-
-    return finalColumns;
 }
 
 /**
@@ -432,7 +395,7 @@ export function mergeQueries(query: Record<string, any>, queries: Record<string,
  * @param {Object[]} newColumns
  */
 export function withResizeWidth(columns: Record<string, any>[], newColumns: Record<string, any>[]) {
-    const _newColumns = cloneDeep(newColumns);
+    const _newColumns = { ...newColumns };
     for (const column of columns) {
         if (!isNullOrUndefined(column.width)) {
             const currentColumn = column.key;

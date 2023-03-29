@@ -1,8 +1,9 @@
-import { merge } from 'lodash';
+import { merge, clone as lodashClone, find, map } from 'lodash';
 import Logger from '@douyinfe/semi-foundation/utils/Logger';
 import { numbers } from '@douyinfe/semi-foundation/table/constants';
 import { cloneDeep } from '../_utils';
 import { TableComponents, Virtualized } from './interface';
+import { getColumnKey } from '@douyinfe/semi-foundation/table/utils';
 
 
 let scrollbarVerticalSize: number,
@@ -117,6 +118,31 @@ export function mergeComponents(components: TableComponents, virtualized: Virtua
         },
         components
     );
+}
+
+export function mergeColumns(oldColumns: any[] = [], newColumns: any[] = [], keyPropNames: any[] = null, deep = true) {
+    const finalColumns: any[] = [];
+    const clone = deep ? cloneDeep : lodashClone;
+
+    map(newColumns, newColumn => {
+        newColumn = { ...newColumn };
+        const key = getColumnKey(newColumn, keyPropNames);
+
+        const oldColumn = key != null && find(oldColumns, item => getColumnKey(item, keyPropNames) === key);
+
+        if (oldColumn) {
+            finalColumns.push(
+                clone({
+                    ...oldColumn,
+                    ...newColumn,
+                })
+            );
+        } else {
+            finalColumns.push(clone(newColumn));
+        }
+    });
+
+    return finalColumns;
 }
 
 export const logger = new Logger('[@douyinfe/semi-ui Table]');
