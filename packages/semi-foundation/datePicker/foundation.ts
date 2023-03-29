@@ -19,6 +19,7 @@ import type { ArrayElement, Motion } from '../utils/type';
 import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFoundation';
 import type { MonthsGridFoundationProps } from './monthsGridFoundation';
 import type { WeekStartNumber } from './_utils/getMonthTable';
+import isValidTimeZone from './_utils/isValidTimeZone';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
@@ -238,13 +239,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         this.initPanelOpenStatus(this.getProp('defaultOpen'));
     }
 
-    isValidTimeZone(timeZone?: string | number) {
-        const propTimeZone = this.getProp('timeZone');
-        const _timeZone = isNullOrUndefined(timeZone) ? propTimeZone : timeZone;
-
-        return ['string', 'number'].includes(typeof _timeZone) && _timeZone !== '';
-    }
-
     initFromProps({ value, timeZone, prevTimeZone }: Pick<DatePickerFoundationProps, 'value' | 'timeZone'> & { prevTimeZone?: string | number }) {
         const _value = (Array.isArray(value) ? [...value] : (value || value === 0) && [value]) || [];
 
@@ -280,11 +274,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             for (const v of value) {
                 let parsedV = (v || v === 0) && this._parseValue(v);
                 if (parsedV) {
-                    if (this.isValidTimeZone(prevTimeZone)) {
-                        parsedV = zonedTimeToUtc(parsedV, prevTimeZone as string);
+                    if (isValidTimeZone(prevTimeZone)) {
+                        parsedV = zonedTimeToUtc(parsedV, prevTimeZone);
                     }
-
-                    result.push(this.isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone as string) : parsedV);
+                    result.push(isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone) : parsedV);
                 }
             }
         }
@@ -1098,9 +1091,9 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     disposeCallbackArgs(value: Date | Date[]) {
         let _value = Array.isArray(value) ? value : (value && [value]) || [];
+        const timeZone = this.getProp('timeZone');
 
-        if (this.isValidTimeZone()) {
-            const timeZone = this.getProp('timeZone');
+        if (isValidTimeZone(timeZone)) {
             _value = _value.map(date => zonedTimeToUtc(date, timeZone));
         }
         const type = this.getProp('type');
