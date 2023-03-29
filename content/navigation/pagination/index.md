@@ -38,7 +38,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 通过 `showTotal` 属性控制是否展示总页数
 
-```jsx live=true width=60%
+```jsx live=true width=55%
 import React from 'react';
 import { Pagination } from '@douyinfe/semi-ui';
 
@@ -54,7 +54,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 可以通过 `defaultCurrentPage` 指定当前激活的页码
 
-```jsx live=true width=60%
+```jsx live=true width=55%
 import React from 'react';
 import { Pagination } from '@douyinfe/semi-ui';
 
