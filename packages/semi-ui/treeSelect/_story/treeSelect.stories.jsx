@@ -2197,7 +2197,7 @@ export const triggerRenderAddMethod = () => {
   }, []);
 
   const renderTrigger3 = useCallback((props) => {
-    const { value, onSearch, onRemove } = props;
+    const { value, onSearch, onRemove, inputValue } = props;
     const tagInputValue = value.map(item => item.key);
     const renderTagInMultiple = (key) => {
       const label = value.find(item => item.key === key).label;
@@ -2208,7 +2208,7 @@ export const triggerRenderAddMethod = () => {
     }
     return (
       <TagInput
-        style={{ width: 250 }}
+        inputValue={inputValue}
         value={tagInputValue}
         onInputChange={onSearch}
         renderTagItem={renderTagInMultiple}
@@ -2230,6 +2230,7 @@ export const triggerRenderAddMethod = () => {
       <TreeSelect
           triggerRender={renderTrigger2}
           filterTreeNode
+          searchPosition="trigger"
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'
@@ -2240,6 +2241,7 @@ export const triggerRenderAddMethod = () => {
       <TreeSelect
           triggerRender={renderTrigger3}
           filterTreeNode
+          searchPosition="trigger"
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'

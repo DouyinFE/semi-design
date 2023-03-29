@@ -1193,6 +1193,7 @@ interface TriggerRenderProps {
      * 用于在 Input 框值更新时候启动搜索，当你在 triggerRender 自定义的
      * Input 组件值更新时，你应该调用该函数，用于向 TreeSelect 内部
      * 同步状态, 使用同时需要设置 filterTreeNode 参数非 false, 
+     * searchPosition 为 'trigger'
      * 从 v2.32.0 版本开始支持
     */
     onSearch: inputValue => void;   
@@ -1241,7 +1242,7 @@ function Demo() {
     });
 
     const renderTrigger = useCallback((props) => {
-        const { value, onSearch, onRemove } = props;
+        const { value, onSearch, onRemove, inputValue } = props;
         const tagInputValue = value.map(item => item.key);
         const renderTagInMultiple = (key) => {
             const label = value.find(item => item.key === key).label;
@@ -1252,7 +1253,7 @@ function Demo() {
         };
         return (
             <TagInput
-                style={{ width: 250 }}
+                inputValue={inputValue}
                 value={tagInputValue}
                 onInputChange={onSearch}
                 renderTagItem={renderTagInMultiple}
@@ -1264,6 +1265,7 @@ function Demo() {
         <TreeSelect
             triggerRender={renderTrigger}
             filterTreeNode
+            searchPosition="trigger"
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
