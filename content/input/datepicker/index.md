@@ -925,7 +925,7 @@ function Demo() {
 ```jsx live=true
 import React, { useRef } from 'react';
 import { DatePicker, Space, Button } from '@douyinfe/semi-ui';
-// import type { BaseDatePicker } from '@douyinfe/semi-ui/lib/es/datePicker';
+import { BaseDatePicker } from '@douyinfe/semi-ui/lib/es/datePicker';
 
 function Demo() {
     const ref = useRef();
