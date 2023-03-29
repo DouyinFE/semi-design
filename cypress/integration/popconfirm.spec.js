@@ -32,7 +32,7 @@ describe('popConfirm', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popconfirm--keyboard-and-focus&args=&viewMode=story');
         cy.get('[data-cy=initial-focus-content]').click();
         cy.get('.semi-popconfirm-body input').eq(0).should('be.focused');
-        cy.get('.semi-popconfirm-header .semi-popconfirm-btn-close').eq(0).click();
+        cy.get('.semi-popconfirm-header .semi-button').eq(0).click();
         cy.get('[data-cy=initial-focus-content] .semi-button').should('be.focused');
     });
 
