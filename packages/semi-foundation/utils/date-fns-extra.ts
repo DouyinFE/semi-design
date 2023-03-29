@@ -100,15 +100,8 @@ const parse = (date: string | number | Date, formatToken: string, options?: any)
     return toDate(date, options);
 };
 
-/**
- *
- * @param {string | number | Date} date
- * @param {string} formatToken
- * @param {object} [options]
- * @param {string} [options.timeZone]
- */
 /* istanbul ignore next */
-const format = (date: string | number | Date, formatToken: string, options?: any) => {
+const format = (date: number | Date, formatToken: string, options?: any) => {
     if (options && options.timeZone != null && options.timeZone !== '') {
         const timeZone = toIANA(options.timeZone);
         options = { ...options, timeZone };
