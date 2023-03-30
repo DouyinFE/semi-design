@@ -113,7 +113,7 @@ const format = (date: number | Date, formatToken: string, options?: any) => {
 };
 
 /**
- * Given a date and any time zone, returns a Date with the equivalent UTC time
+ * Returns a Date which will format as the local time of any time zone from a specific UTC time
  * 
  * @example
  * ```javascript
@@ -124,12 +124,12 @@ const format = (date: number | Date, formatToken: string, options?: any) => {
  * renderTimeZoneSelect(timeZone) // America/New_York
  * ```
  * 
- * @see https://github.com/marnusw/date-fns-tz#zonedtimetoutc
+ * @see https://github.com/marnusw/date-fns-tz#utctozonedtime
  */
 const utcToZonedTime = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsUtcToZonedTime(date, toIANA(timeZone), options);
 
 /**
- * Get a date/time representing local time in a given time zone from the UTC date
+ * Given a date and any time zone, returns a Date with the equivalent UTC time
  * 
  * @example
  * ```
@@ -140,7 +140,7 @@ const utcToZonedTime = (date: string | number | Date, timeZone: string | number,
  * postToServer(utcDate.toISOString(), timeZone) // post 2014-06-25T17:00:00.000Z, America/Los_Angeles
  * ```
  * 
- * @see https://github.com/marnusw/date-fns-tz#utctozonedtime
+ * @see https://github.com/marnusw/date-fns-tz#zonedtimetoutc
  */
 const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsZonedTimeToUtc(date, toIANA(timeZone), options);
 

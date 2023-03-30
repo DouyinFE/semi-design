@@ -268,6 +268,18 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         }
     }
 
+    /**
+     * value 可能是 UTC value 也可能是 zoned value
+     * 
+     * UTC value -> 受控传入的 value
+     * 
+     * zoned value -> statue.value，保存的是当前计算机时区下选择的日期
+     * 
+     * 如果是时区变化，则需要将旧 zoned value 转为新时区下的 zoned value
+     * 
+     * 如果是 value 变化，则不需要传入之前的时区，将 UTC value 转为 zoned value 即可
+     * 
+     */
     parseWithTimezone(value: ValueType, timeZone: string | number, prevTimeZone: string | number) {
         const result: Date[] = [];
         if (Array.isArray(value) && value.length) {
