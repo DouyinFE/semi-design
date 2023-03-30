@@ -528,6 +528,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.props.visible ? this.foundation.show() : this.foundation.hide();
             }
         }
+        if (prevProps.trigger !== this.props.trigger) {
+            this.foundation.destroy();
+            this.foundation = new TooltipFoundation(this.adapter);
+            this.foundation.init();
+        }
         if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
         }
