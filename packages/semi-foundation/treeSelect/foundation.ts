@@ -49,7 +49,7 @@ export interface BasicTriggerRenderProps {
     value: BasicTreeNodeData[];
     onClear: (e: any) => void;
     onSearch: (inputValue: string) => void;
-    onRemove: (value: string) => void
+    onRemove: (key: string) => void
 }
 
 export type BasicOnChangeWithObject = (node: BasicTreeNodeData[] | BasicTreeNodeData, e: any) => void;

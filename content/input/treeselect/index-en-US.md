@@ -1225,8 +1225,8 @@ interface triggerRenderProps {
     /* It is used to start the search when the value of the Input box is updated. 
      * When you update the value of the Input component customized by triggerRender, 
      * you should call this function to synchronize the state with the TreeSelect 
-     * internally. you need to set the filterTreeNode parameter to non-false when use it
-     * It is supported from v2.32.0
+     * internally. you need to set the filterTreeNode parameter to non-false when use it,
+     * and set searchPosition to 'trigger'. It is supported from v2.32.0
      */
     onSearch: inputValue => void;   
 }
@@ -1275,7 +1275,7 @@ function Demo() {
     });
 
     const renderTrigger = useCallback((props) => {
-        const { value, onSearch, onRemove } = props;
+        const { value, onSearch, onRemove, inputValue } = props;
         const tagInputValue = value.map(item => item.key);
         const renderTagInMultiple = (key) => {
             const label = value.find(item => item.key === key).label;
@@ -1286,7 +1286,7 @@ function Demo() {
         };
         return (
             <TagInput
-                style={{ width: 250 }}
+                inputValue={inputValue}
                 value={tagInputValue}
                 onInputChange={onSearch}
                 renderTagItem={renderTagInMultiple}
@@ -1298,6 +1298,7 @@ function Demo() {
         <TreeSelect
             triggerRender={renderTrigger}
             filterTreeNode
+            searchPosition="trigger"
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
