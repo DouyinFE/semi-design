@@ -302,6 +302,7 @@ $module: #{$prefix}-tree;
 
         &-spin-icon {
             display: flex;
+            line-height: 0; // make the spin icon in the center
             & svg {
                 width: $width-tree_spinIcon;
                 height: $width-tree_spinIcon;
