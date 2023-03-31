@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.31.3 (2023-03-31)
+- 【Fix】
+    - Fix DatePicker timeZone conversion problem when date-fns-tz version >= 1.3.8  [#1522](https://github.com/DouyinFE/semi-design/issues/1522)
+
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
     - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)

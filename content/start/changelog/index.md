@@ -14,6 +14,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.31.3 (2023-03-31)
+- 【Fix】
+    - 修复 DatePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题  [#1522](https://github.com/DouyinFE/semi-design/issues/1522)
+
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
     - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
