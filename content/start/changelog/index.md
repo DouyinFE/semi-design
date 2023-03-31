@@ -13,6 +13,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+
+#### 🎉 2.32.0 (2023-03-31)
+- 【Fix】
+    - 修复 Spin 因为 .semi-spin-wrapper div 高度不正确导致位置上移问题
+    - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题 [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - 修复 Table 设置斑马纹无效问题（影响范围：v2.29 - 2.32）
+    - 修复 Modal getPopupContainer 执行时机不正确的问题，预期为 Modal 打开时执行
+
 #### 🎉 2.32.0-beta.0 (2023-03-28)
 - 【Design Token】
   - Modal 提供 `$spacing-modal_content_fullscreen-top` 用于控制全屏时顶部高度, Sidesheet 新增 `$color-sideSheet_header-borderBottom` `$width-sideSheet_header-borderBottom` 用于在 header 下添加分割线， `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` 控制默认展开宽度
@@ -32,7 +41,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
-    - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
     - 修复 Nav tooltip 相关延迟 props 不生效的问题  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
     - 修复 Select remote 且 autoClearSearchValue 为 false时，更新 optionList 后未正确显示的问题（影响范围：v2.28 - 2.31）[#1386](https://github.com/DouyinFE/semi-design/issues/1386)
 

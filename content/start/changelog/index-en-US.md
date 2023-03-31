@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.32.0 (2023-03-31)
+- 【Fix】
+    - Fix Spin because the height of the .semi-spin-wrapper div is incorrect, causing the position to move up
+    - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - Fix the problem that the Table setting zebra pattern is invalid(Range of influence: v2.29 - 2.32)
+    - Fix the problem that the execution timing of Modal getPopupContainer is incorrect, it is expected to be executed when Modal is opened
+
 #### 🎉 2.32.0-beta.0 (2023-03-28)
 - 【Design Token】
   - Modal provides `$spacing-modal_content_fullscreen-top` to control the top height of the full screen, Sidesheet adds `$color-sideSheet_header-borderBottom` and `$width-sideSheet_header-borderBottom` to add a dividing line under the header, `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` controls the default expanded width
@@ -33,7 +40,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fix DatePicker timeZone conversion problem when date-fns-tz version >= 1.3.8  [#1522](https://github.com/DouyinFE/semi-design/issues/1522)
 #### 🎉 2.31.2 (2023-03-24)
 - 【Fix】
-    - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error  [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
     - Fix the problem that the delay props related to Nav tooltip does not take effect  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
     - Fix: When selecting remote and autoClearSearchValue is false, the optionList is not displayed correctly after updating, (range of impact: v2.28 - 2.31) [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
 
