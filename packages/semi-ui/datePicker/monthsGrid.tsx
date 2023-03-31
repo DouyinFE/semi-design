@@ -507,10 +507,12 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 ref={current => this.cacheRefCurrent(`yam-${panelType}`, current)}
                 locale={locale}
                 localeCode={localeCode}
-                currentYear={y}
-                currentMonth={m}
+                // currentYear={y}
+                // currentMonth={m}
+                currentYear={{ left: y, right: 0 }}
+                currentMonth={{ left: m, right: 0 }}
                 onSelect={item =>
-                    this.foundation.toYearMonth(panelType, new Date(item.currentYear, item.currentMonth - 1))
+                    this.foundation.toYearMonth(panelType, new Date(item.currentYear.left, item.currentMonth.left - 1))
                 }
                 onBackToMain={() => {
                     this.foundation.showDatePanel(panelType);

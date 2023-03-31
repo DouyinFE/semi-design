@@ -16,3 +16,8 @@ export { default as InsetInputControlled } from './InsetInputControlled';
 export { default as FeatInsetInputProps } from './FeatInsetInputProps';
 export { default as FixMultiplePanelShift } from './FixMultiplePanelShift';
 export { default as FixTimeZone } from './FixTimeZone';
+export { default as FeatRefOpen } from './FeatRefOpen';
+export { default as FeatRefFocus } from './FeatRefFocus';
+export { default as FeatOnClickOutside } from './FeatOnClickOutside';
+export { default as FeatRefClass } from './FeatRefClass';
+export { default as FixNeedConfirmInTabs } from './FixNeedConfirmInTabs';

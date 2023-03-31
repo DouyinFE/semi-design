@@ -1217,13 +1217,24 @@ interface triggerRenderProps {
     inputValue: string;             // value of the input box
     onClear: e => void;             // onClear function
     placeholder: string;            // placeholder
+    /* The function called when deleting a single item, 
+     *   with the key of the item as an input parameter, 
+     *  supported from version v2.32.0
+     */
+    onRemove: key => void;
+    /* It is used to start the search when the value of the Input box is updated. 
+     * When you update the value of the Input component customized by triggerRender, 
+     * you should call this function to synchronize the state with the TreeSelect 
+     * internally. you need to set the filterTreeNode parameter to non-false when use it,
+     * and set searchPosition to 'trigger'. It is supported from v2.32.0
+     */
+    onSearch: inputValue => void;   
 }
 ```
 
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
-import { TreeSelect, Button } from '@douyinfe/semi-ui';
-import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
+import { TreeSelect, Button, Tag, TagInput } from '@douyinfe/semi-ui';
 
 function Demo() {
     const [value, setValue] = useState([]);
@@ -1258,31 +1269,41 @@ function Demo() {
             key: '1',
         }
     ], []);
-    const onChange = useCallback((val) => {
-        setValue(val);
-    }, []);
-    const onClear = useCallback(e => {
-        e && e.stopPropagation();
-        setValue([]);
-    }, []);
+    
+    const onValueChange = useCallback((value) => {
+        console.log('onChange', value);
+    });
 
-    const closeIcon = useMemo(() => {
-        return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
-    }, [value]);
+    const renderTrigger = useCallback((props) => {
+        const { value, onSearch, onRemove, inputValue } = props;
+        const tagInputValue = value.map(item => item.key);
+        const renderTagInMultiple = (key) => {
+            const label = value.find(item => item.key === key).label;
+            const onCloseTag = (value, e, tagKey) => {
+                onRemove(tagKey);
+            };
+            return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>;
+        };
+        return (
+            <TagInput
+                inputValue={inputValue}
+                value={tagInputValue}
+                onInputChange={onSearch}
+                renderTagItem={renderTagInMultiple}
+            />
+        );
+    }, []);
 
     return (
         <TreeSelect
-            onChange={onChange}
-            style={{ width: 300 }}
-            value={value}
+            triggerRender={renderTrigger}
+            filterTreeNode
+            searchPosition="trigger"
             multiple
             treeData={treeData}
             placeholder='Custom Trigger'
-            triggerRender={({ placeholder }) => (
-                <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
-                    {value && value.length ? value.join(', ') : placeholder}
-                </Button>
-            )}
+            onChange={onValueChange}
+            style={{ width: 300 }}
         />
     );
 }
@@ -1386,6 +1407,7 @@ function Demo() {
 | className                | Class name                                                                          | string                                                            | -           | -       |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                |       | 2.25.0    |
 | clickToHide  | Whether to close the drop-down layer automatically when selecting, only works in single-selection mode  | boolean    | true | 1.5.0      |
+| clickTriggerToHide  | When the panel is open, whether to close the panel after clicking the Trigger  | boolean    | true | 2.32.0      |
 | defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | 0.32.0 |
 | defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | 0.32.0 |
 | defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | 0.32.0 |
@@ -1434,7 +1456,7 @@ function Demo() {
 | treeData                 | Data for treeNodes                                                                  | TreeNodeData[]                                                  | \[]         | -       |
 | treeNodeFilterProp       | Property in a `TreeNodeData` used to search                                             | string                                                            | `label`     | -       |
 | treeNodeLabelProp        | Property in a `TreeNodeData` used to display                                            | string                                                            | `label`     | -       |
-| triggerRender | Method to create a custom trigger  | (TriggerProps) => ReactNode | - | 0.34.0 |
+| triggerRender | Method to create a custom trigger  | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
 | validateStatus | Validate status，one of `warning`、`error`、 `default`, only affects the background color of the component | string | - | 0.32.0 |
 | value                    | Value data of current item, used when TreeSelect is a controlled component     | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>    | -           | -       |
 | virtualize | Efficiently rendering large lists, refer to Tree - VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | object | - | 0.32.0 |

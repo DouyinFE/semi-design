@@ -91,9 +91,16 @@ export interface BasicTriggerRenderProps {
      * should call this function when the value of the Input component
      * customized by triggerRender is updated to synchronize the state
      * with Cascader. */
+    onSearch: (inputValue: string) => void;
+    /* This function is the same as onSearch (supported since v2.32.0), 
+     * because this function was used before, and to align with TreeSelect, 
+     * use onSearch instead of onChange is more suitable, 
+     * onChange needs to be deleted in the next Major
+    */
     onChange: (inputValue: string) => void;
     /* Function to clear the value */
-    onClear: (e: any) => void
+    onClear: (e: any) => void;
+    onRemove: (key: string) => void
 }
 
 export interface BasicScrollPanelProps {

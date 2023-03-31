@@ -499,6 +499,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleTagRemove(e, tagValuePath);
     };
 
+    handleRemoveByKey = (key) => {
+        const { keyEntities } = this.state;
+        this.handleTagRemove(null, keyEntities[key].valuePath);
+    }
+
     renderTagItem = (value: string | Array<string>, idx: number, type: string) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
@@ -829,6 +834,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 triggerRender={triggerRender}
                 componentName={'Cascader'}
                 componentProps={{ ...this.props }}
+                onSearch={this.handleInputChange}
+                onRemove={this.handleRemoveByKey}
             />
         );
     };

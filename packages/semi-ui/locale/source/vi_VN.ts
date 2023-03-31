@@ -36,6 +36,7 @@ const local: Locale = {
             dateTime: 'Chọn ngày và giờ',
             dateRange: ['Ngày bắt đầu', 'Ngày kết thúc'],
             dateTimeRange: ['Ngày bắt đầu', 'Ngày kết thúc'],
+            monthRange: ['Tháng bắt đầu', 'Tháng kết thúc'],
         },
         footer: {
             confirm: 'Xác nhận',

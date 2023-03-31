@@ -47,7 +47,9 @@ export interface BasicTriggerRenderProps {
     inputValue: string;
     placeholder: string;
     value: BasicTreeNodeData[];
-    onClear: (e: any) => void
+    onClear: (e: any) => void;
+    onSearch: (inputValue: string) => void;
+    onRemove: (key: string) => void
 }
 
 export type BasicOnChangeWithObject = (node: BasicTreeNodeData[] | BasicTreeNodeData, e: any) => void;
@@ -128,6 +130,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     loadedKeys?: string[];
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: any;
+    clickTriggerToHide?: boolean;
     loadData?: (data: BasicTreeNodeData) => Promise<void>;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     searchRender?: (inputProps: any) => any;
@@ -481,7 +484,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     handleClick(e: any) {
         const isDisabled = this._isDisabled();
         const { isOpen, inputValue, isFocus } = this.getStates();
-        const { searchPosition } = this.getProps();
+        const { searchPosition, clickTriggerToHide } = this.getProps();
         if (isDisabled) {
             return;
         } else {
@@ -492,7 +495,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 if (searchPosition === 'trigger' && inputValue) {
                     return;
                 }
-                this.close(e);
+                clickTriggerToHide && this.close(e);
             } else {
                 this.open();
             }

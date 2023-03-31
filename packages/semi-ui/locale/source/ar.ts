@@ -33,6 +33,7 @@ const local: Locale = {
             dateTime: 'حدد التاريخ والوقت',
             dateRange: ['تاريخ البدء', 'تاريخ النهاية'],
             dateTimeRange: ['تاريخ البدء', 'تاريخ النهاية'],
+            monthRange: ['الشهر الأول', 'الشهر الأخير'],
         },
         footer: {
             confirm: 'تؤكد',

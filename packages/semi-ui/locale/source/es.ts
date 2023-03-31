@@ -38,6 +38,7 @@ const locale: Locale = {
             dateTime: 'Seleccionar hora y fecha',
             dateRange: ['Fecha inicial', 'Fecha final'],
             dateTimeRange: ['Fecha inicial', 'Fecha final'],
+            monthRange: ['Mes inicial', 'Mes final'],
         },
         footer: {
             confirm: 'Aceptar',

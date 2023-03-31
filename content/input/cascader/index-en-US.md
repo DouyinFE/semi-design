@@ -1620,24 +1620,28 @@ interface TriggerRenderProps {
      * The function used to update the value of the input box. You
      *  should call this function when the value of the Input component
      *  customized by triggerRender is updated to synchronize the
-     *  state with Cascader
+     *  state with Cascader, you need to set the filterTreeNode parameter
+     *  to non-false when use it， support since v2.32.0
      */
-    onChange: (inputValue: string) => void;
+    onSearch: (inputValue: string) => void;
     /* Function to clear the value */
     onClear: () => void;
     /* Placeholder of Cascader */
     placeholder?: string;
+    /* Used to delete a single item, the input parameter is value , 
+     * support since v2.32.0
+     */
+    onRemove: (value) => void
 }
 ```
 
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
-import { Cascader, Button } from '@douyinfe/semi-ui';
+import { Cascader, Button, Tag, TagInput } from '@douyinfe/semi-ui';
 import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 
 
 function Demo() {
-    const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
         {
             label: 'Asia',
@@ -1674,34 +1678,65 @@ function Demo() {
             ],
         }
     ], []);
-    const onChange = useCallback((val) => {
-        setValue(val);
-    }, []);
-    const onClear = useCallback(e => {
-        e && e.stopPropagation();
-        setValue([]);
+
+    const closeIcon = useCallback((value, onClear) => {
+        return value ? <IconClose onClick={onClear} /> : <IconChevronDown />;
     }, []);
 
-    const closeIcon = useMemo(() => {
-        return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
-    }, [value]);
-
-    const triggerRender = ({ value: innerStateValue, placeholder, ...rest }) => {
+    const triggerRenderSingle = ({ value, placeholder, onClear, ...rest }) => {
         return (
-            <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
-                {value && value.length ? value.join('/') : placeholder}
+            <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+                {value && value.length > 0 ? getLabelFromValue(value) : placeholder}
             </Button>
         );
     };
 
+    const getLabelFromValue = useCallback((value) => {
+        const valueArr = value.split('-').map(item => Number(item));
+        let resultData = treeData;
+        valueArr.forEach((item, index) => {
+            resultData = index === 0 ? resultData[item] : resultData.children[item];
+        });
+        return resultData.label;
+    }, [treeData]);
+
+    const triggerRenderMultiple = useCallback((props) => {
+        const { value, onSearch, onRemove } = props;
+        const onCloseTag = (value, e, tagKey) => {
+            onRemove(tagKey);
+        };
+
+        const renderTagItem = (value) => {
+            const label = getLabelFromValue(value);
+            return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>;
+        };
+        
+        return (
+            <TagInput
+                value={Array.from(value)}
+                onInputChange={onSearch}
+                renderTagItem={renderTagItem}
+            />
+        );
+    }, []);
+
     return (
-        <Cascader
-            onChange={onChange}
-            value={value}
-            treeData={treeData}
-            placeholder='Custom Trigger'
-            triggerRender={triggerRender}
-        />
+        <>
+            <Cascader
+                treeData={treeData}
+                placeholder='Custom Trigger'
+                triggerRender={triggerRenderSingle}
+            />
+            <br />
+            <Cascader
+                triggerRender={triggerRenderMultiple}
+                multiple
+                filterTreeNode
+                treeData={treeData}
+                style={{ width: 300 }}
+                placeholder='Custom Trigger'
+            />
+        </>
     );
 }
 ```
@@ -1760,7 +1795,7 @@ function Demo() {
 | topSlot | top slot | ReactNode | - |  1.27.0 |
 | treeData | Render data. Refer to [CascaderData](#CascaderData)  for detailed formatting. | CascaderData[] |  []  | - |
 | treeNodeFilterProp | When searching, the input item filters the corresponding CascaderData property. | string | `label`   | - |
-| triggerRender | Method to create a custom trigger  | (triggerRenderData: object) => ReactNode | - | 0.34.0 |
+| triggerRender | Method to create a custom trigger  | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
 | value | Selected value (controlled mode) | string\|number\|CascaderData\|(string\|number\|CascaderData)[][]  | - | -  |
 | validateStatus |The validation status of the trigger only affects the display style. Optional: default、error、warning | string | `default` | - |
 | zIndex | zIndex for dropdown menu | number | 1030 | - |

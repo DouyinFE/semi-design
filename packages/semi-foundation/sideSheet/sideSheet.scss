@@ -95,6 +95,7 @@ $module: #{$prefix}-sidesheet;
         align-items: flex-start;
         padding: $spacing-sideSheet_header-padding;
         padding-bottom: $spacing-sideSheet_header-paddingBottom;
+        border-bottom: $width-sideSheet_header-borderBottom solid $color-sideSheet_header-borderBottom;
     }
 
     &-body {
@@ -102,6 +103,20 @@ $module: #{$prefix}-sidesheet;
         flex: 1;
         overflow: auto;
     }
+
+    &-size-small {
+        width: $width-sideSheet_size-small;
+    }
+
+    &-size-medium {
+        width: $width-sideSheet_size-medium;
+    }
+
+    &-size-large {
+        width: $width-sideSheet_size-large;
+    }
+
+
 
     &-content {
         height: 100%;
