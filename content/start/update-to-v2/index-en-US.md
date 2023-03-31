@@ -164,8 +164,11 @@ import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB'
   - Custom svg no longer supports plug-in configuration srcSvgPaths
   - The Button `icon` and `iconType` property no longer supports passing built-in icon names through strings
   - Dropdown deletes the iconType attribute and unifies it into the icon attribute
-  - Navigation icons no longer support incoming by string, ReactNode needs to be passed in
-  - Notification icons are no longer passed in by string, please use ReactNode uniformly
+  - Navigation `icon` no longer support incoming by string, ReactNode needs to be passed in
+  - Notification `icon` are no longer passed in by string, please use ReactNode uniformly
+  - Banner `icon`、`closeIcon` are no longer passed in by string, please use ReactNode uniformly
+  - Typography.Text `icon` are no longer passed in by string, please use ReactNode uniformly
+  - Breadcrumb.Item `icon` are no longer passed in by string, please use ReactNode uniformly
 - AutoComplete officially discards the onChangeWithObject property
 - Remove onInputChange from Cascader triggerRender
 - Form no longer exports Label components from `semi-ui/index.js`
