@@ -32,7 +32,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - TreeSelect has added a clickTriggerToHide parameter to support setting whether to click the Trigger part to trigger the panel to close when the panel is open
   - DatePicker support open, close, focus, blur methods and onClickOutside callback  [#566](https://github.com/DouyinFE/semi-design/issues/566)
 - 【Fix】
-  - fix the problem that the style of the shortcut selection panel for DatePicker type month is not as expected
+  - fix the problem that the style of the shortcut selection panel for DatePicker type month is not as expected, fix the problem that inconsistent panel width before and after enabling insetInput
   - Change the initial setting of the state in the constructor in Switch to avoid unexpected animations when used in other components
 
 #### 🎉 2.31.3 (2023-03-31)
