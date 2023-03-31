@@ -258,6 +258,7 @@ $module: #{$prefix}-upload;
             }
 
             &-loading {
+                line-height: 0; // make the spin icon in the center
                 .#{$prefix}-spin-wrapper svg {
                     height: $width-upload_file_card-icon;
                     width: $width-upload_file_card-icon;
