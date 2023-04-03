@@ -1499,7 +1499,7 @@
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
 
-"@douyinfe/semi-icons@2.30.2", "@douyinfe/semi-icons@^2.0.0":
+"@douyinfe/semi-icons@2.30.2":
   version "2.30.2"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.30.2.tgz#03bf9a5ef99bf3b77557379d631908889767b8aa"
   integrity sha512-Km8SEwDHIF/sZlvFEPW5vItlnSlWSme/N8Kd3pgsHXPIaslyhHcTaOq7LnHFahf4weTWcq6i6RTdDJKhzn6YGg==
@@ -1592,7 +1592,7 @@
   dependencies:
     glob "^7.1.6"
 
-"@douyinfe/semi-ui@^2.0.0", "@douyinfe/semi-ui@latest":
+"@douyinfe/semi-ui@latest":
   version "2.30.2"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.30.2.tgz#75c2ad58ead2f96845381d8af94d32a58dec3d45"
   integrity sha512-T6aOn2Uqkm5FAjUA06NJbhfsoTYAsC5IM6wz47mE1FQ5wO/YYBKdhMzVVAOlRZ55/io29YYpAi5XriCVJS7kdg==
