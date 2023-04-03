@@ -1,4 +1,7 @@
-export { default, SemiWebpackPluginOptions, SemiThemeOptions, WebpackContext } from './semi-webpack-plugin';
-export { default as semiThemeLoader } from './semi-theme-loader';
-export { default as semiPrefixLoader } from './semi-prefix-loader';
-export { default as semiSourceSuffixLoader } from './semi-source-suffix-loader';
+export * from './types';
+export * from './semi-webpack-plugin';
+export * from './rule';
+export { default as semiThemeLoader } from './loaders/semi-theme-loader';
+export { default as semiPrefixLoader } from './loaders/semi-prefix-loader';
+export { default as semiSourceSuffixLoader } from './loaders/semi-source-suffix-loader';
+export { default as semiOmitCssLoader } from './loaders/semi-omit-css-loader';
