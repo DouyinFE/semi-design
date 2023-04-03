@@ -1,7 +1,9 @@
-export const SOURCE_SUFFIX_LOADER = '@douyinfe/semi-webpack-plugin/lib/loaders/semi-source-suffix-loader';
+import path from 'path';
 
-export const THEME_LOADER = '@douyinfe/semi-webpack-plugin/lib/loaders/semi-theme-loader';
+export const SOURCE_SUFFIX_LOADER = path.resolve(__dirname, './loaders/semi-source-suffix-loader');
 
-export const OMIT_CSS_LOADER = '@douyinfe/semi-webpack-plugin/lib/loaders/semi-omit-css-loader';
+export const THEME_LOADER = path.resolve(__dirname, './loaders/semi-theme-loader');
 
-export const PREFIX_LOADER = '@douyinfe/semi-webpack-plugin/lib/loaders/semi-prefix-loader';
+export const OMIT_CSS_LOADER = path.resolve(__dirname, './loaders/semi-omit-css-loader');
+
+export const PREFIX_LOADER = path.resolve(__dirname, './loaders/semi-prefix-loader');

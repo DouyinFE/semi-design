@@ -1,15 +1,19 @@
-import loaderUtils from 'loader-utils';
+import { LoaderContext } from 'webpack';
 import { transformSync, PluginItem } from '@babel/core';
 import assert from 'assert';
 
-export default function semiPrefixLoader(source: string) {
-    const query = loaderUtils.getOptions(this);
+export interface SemiPrefixLoaderOptions {
+    replacers?: Record<string, string>
+}
+
+export default function semiPrefixLoader(this: LoaderContext<SemiPrefixLoaderOptions>, source: string) {
+    const query = this.getOptions();
 
     const transformer: PluginItem = {
         visitor: {
             VariableDeclarator(path) {
                 const { node } = path;
-                const replacerKeys = Object.keys(query.replacers);
+                const replacerKeys = Object.keys(query.replacers || {});
                 if (replacerKeys.includes((node.id as any).name)) {
                     (node.init as any).value = query.replacers[(node.id as any).name];
                 }

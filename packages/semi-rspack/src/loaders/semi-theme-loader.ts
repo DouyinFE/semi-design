@@ -1,8 +1,15 @@
-import loaderUtils from 'loader-utils';
+import { LoaderContext } from 'webpack';
 import resolve from 'enhanced-resolve';
 
-export default function SemiThemeLoader(source: string) {
-    const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
+export interface SemiThemeLoaderOptions {
+    prefixCls: string;
+    variables: string;
+    include: string;
+    name?: string
+}
+
+export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptions>, source: string) {
+    const query = this.getOptions();
     const theme = query.name || '@douyinfe/semi-theme-default';
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
@@ -13,9 +20,8 @@ export default function SemiThemeLoader(source: string) {
     try {
         require.resolve(`${theme}/scss/animation.scss`);
     } catch (e) {
-        animationStr = ""; // fallback to empty string
+        animationStr = ''; // fallback to empty string
     }
-
 
     const shouldInject = source.includes('semi-base');
 
@@ -24,8 +30,7 @@ export default function SemiThemeLoader(source: string) {
     let componentVariables: string | boolean;
     try {
         componentVariables = resolve.sync(this.context, `${theme}/scss/local.scss`);
-    } catch (e) {
-    }
+    } catch (e) {}
 
     if (query.include || query.variables || componentVariables) {
         let localImport = '';
@@ -45,8 +50,7 @@ export default function SemiThemeLoader(source: string) {
                 fileSplit.splice(fileSplit.length - 1, 0, localImport);
                 fileStr = fileSplit.join('');
             }
-        } catch (error) {
-        }
+        } catch (error) {}
     }
 
     // inject prefix
@@ -60,4 +64,3 @@ export default function SemiThemeLoader(source: string) {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
 }
-

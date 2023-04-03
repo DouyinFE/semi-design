@@ -48,13 +48,13 @@ export function createPrefixLoaderRule(opts?: SemiWebpackPluginOptions) {
 
 export function applySemiRules(opts?: SemiWebpackPluginOptions) {
     const rules: RuleSetRule[] = [];
-    if (this.opts.omitCss) {
+    if (opts.omitCss) {
         rules.push(createOmitCssLoaderRule(opts));
         return rules;
     }
     rules.push(createSourceSuffixLoaderRule(opts));
     rules.push(createThemeLoaderRule(opts));
-    if (this.opts.prefixCls) {
+    if (opts.prefixCls) {
         rules.push(createPrefixLoaderRule(opts));
     }
     return rules;
