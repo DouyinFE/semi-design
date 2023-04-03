@@ -1,4 +1,4 @@
-import { SemiWebpackPluginOptions } from './semi-webpack-plugin';
+import { SemiWebpackPluginOptions } from './types';
 
 export function stringifyVariableRecord(map: SemiWebpackPluginOptions['variables'] = {}) {
     let ret = '';
