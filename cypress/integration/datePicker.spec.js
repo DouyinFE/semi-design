@@ -739,4 +739,30 @@ describe('DatePicker', () => {
         cy.get('[data-cy=inset] input').eq(0).should('not.be.focused');
         cy.get('[data-cy=inset] input').eq(1).should('not.be.focused');
     });
+
+    it('test dynamic disabledDate select', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--dynamic-disabled-date&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('5').click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('10').click();
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day').contains('6').click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day').contains('11').click();
+        cy.get('.semi-input').eq(0).should('have.value', '2023-05-06');
+        cy.get('.semi-input').eq(1).should('have.value', '2023-05-11');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('6');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('11');
+    });
+
+    it('test dynamic disabled', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--dynamic-disabled-date&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('5').click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('10').click();
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day').contains('6').click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day-disabled').contains('27');
+        cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day-disabled').contains('26').should('not.exist');
+    });
 });
