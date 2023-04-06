@@ -15,6 +15,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 
+#### 🎉 2.32.1 (2023-04-06)
+- 【Fix】
+    - 修复 Tooltip 配合 loading button 使用在生产环境可能会报错的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Navigation 使用 JSX 写法配置 Footer、Header ，在生产环境下可能未能正确识别的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Table 使用 JSX Children写法配置 Columns 时，在生产环境下可能未能正确识别 Column的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Tab Pane类名存在多余空格的问题 [#1536](https://github.com/DouyinFE/semi-design/pull/1536)
+-  【Docs】
+    - 更正 Table 的 onFilter 中 filteredValue 参数错误的类型定义 [#1538](https://github.com/DouyinFE/semi-design/pull/1538)
+
 #### 🎉 2.32.0 (2023-03-31)
 - 【Fix】
     - 修复 Spin 因为 .semi-spin-wrapper div 高度不正确导致位置上移问题
