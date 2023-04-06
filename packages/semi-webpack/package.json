@@ -35,7 +35,8 @@
     "devDependencies": {
         "@types/loader-utils": "^2.0.3",
         "rimraf": "^3.0.2",
-        "typescript": "^4"
+        "typescript": "^4",
+        "webpack": "^5.77.0"
     },
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a"
 }
