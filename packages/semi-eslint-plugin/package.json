@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-semi-design",
-    "version": "2.32.1",
+    "version": "2.32.2-alpha.0",
     "description": "semi ui eslint plugin",
     "keywords": [
         "semi",
