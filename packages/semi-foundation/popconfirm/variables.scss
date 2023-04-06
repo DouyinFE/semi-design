@@ -13,9 +13,6 @@ $spacing-popconfirm-top: 24px; // 顶部内边距
 $spacing-popconfirm-bottom: 20px; // 底部内边距
 $spacing-popconfirm_btn_close-margin: 24px; // 关闭按钮顶部 & 右侧外边距
 $spacing-popconfirm_with_arrow-padding: 12px; // 顶部内边距
-$spacing-popconfirm_inner_close_btn-top: 0; // 关闭按钮距顶部距离
-$spacing-popconfirm_inner_close_btn-right: 0; // 关闭按钮距右侧距离
-$spacing-popconfirm_header-marginRight: $spacing-popconfirm_btn_close-margin + $width-popconfirm_close_btn + 20px; // header 右侧外边距
 $spacing-popconfirm_header_title-marginBottom: 8px; // header 标题底部外边距
 $spacing-popconfirm_header_content_p-padding: 0; // header 正文内边距
 $spacing-popconfirm_header_content_p-margin: 0; // header 正文外边距
@@ -26,7 +23,6 @@ $spacing-popconfirm_footer_btn-marginRight: 8px; // footer 按钮右侧外边距
 $spacing-popconfirm_popover_with_arrow_inner-padding: ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-bottom - $spacing-popconfirm_with_arrow-padding); // 带三角形箭头时的内边距
 $spacing-popconfirm_popover_with_arrow_inner_rtl-padding: ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-bottom - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding) ($spacing-popconfirm-top - $spacing-popconfirm_with_arrow-padding); // 带三角形箭头时的内边距(rtl)
 $spacing-popconfirm_popover_with_arrow_inner_btn_close-marginTop: $spacing-popconfirm_btn_close-margin - $spacing-popconfirm_with_arrow-padding; // 带三角形箭头时关闭按钮的顶部外边距
-$spacing-popconfirm_popover_with_arrow_inner_btn_close-marginRight: $spacing-popconfirm_btn_close-margin - $spacing-popconfirm_with_arrow-padding; // 带三角形箭头时关闭按钮的右侧外边距
 $spacing-popconfirm_header_icon-marginRight: 12px; // header 图标的右侧外边距
 
 // Font

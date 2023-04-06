@@ -220,6 +220,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                             ) : null}
                         </div>
                         <Button
+                            className={`${prefixCls}-btn-close`}
                             icon={<IconClose />}
                             size="small"
                             theme={'borderless'}
