@@ -36,6 +36,7 @@ const local: Locale = {
             dateTime: 'Выбрать дату и время',
             dateRange: ['Дата начала', 'Дата окончания'],
             dateTimeRange: ['Дата начала', 'Дата окончания'],
+            monthRange: ['Начальный месяц', 'Конечный месяц'],
         },
         footer: {
             confirm: 'подтвердить',

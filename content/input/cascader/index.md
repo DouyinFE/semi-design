@@ -1603,23 +1603,24 @@ interface TriggerRenderProps {
     /**
      * 用于更新 input 框值的函数，当你在 triggerRender 自定义的
      * Input 组件值更新时，你应该调用该函数，用于向 Cascader 内部
-     * 同步状态
+     * 同步状态, 使用时需要设置 filterTreeNode 参数非 false
      */
-    onChange: (inputValue: string) => void;
+    onSearch: (inputValue: string) => void;
     /* 用于清空值的函数 */
     onClear: () => void;
     /* Placeholder */
     placeholder?: string;
+    /* 用于删除单个 item ， 入参为 value */
+    onRemove: (value) => void
 }
 ```
 
 ```jsx live=true
 import React, { useState, useCallback, useMemo } from 'react';
-import { Cascader, Button } from '@douyinfe/semi-ui';
+import { Cascader, Button, Tag, TagInput } from '@douyinfe/semi-ui';
 import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 
 function Demo() {
-    const [value, setValue] = useState([]);
     const treeData = useMemo(() => [
         {
             label: '浙江省',
@@ -1660,36 +1661,65 @@ function Demo() {
             ],
         }
     ], []);
-    const onChange = useCallback((val) => {
-        setValue(val);
-    }, []);
-    const onClear = useCallback(e => {
-        e && e.stopPropagation();
-        setValue([]);
+
+    const closeIcon = useCallback((value, onClear) => {
+        return value ? <IconClose onClick={onClear} /> : <IconChevronDown />;
     }, []);
 
-    const closeIcon = useMemo(() => {
-        return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
-    }, [value]);
-
-    const triggerRender = ({ value: innerStateValue, placeholder, ...rest }) => {
-        console.log(value);
-        console.log(rest);
+    const triggerRenderSingle = ({ value, placeholder, onClear, ...rest }) => {
         return (
-            <Button theme={'light'} icon={closeIcon} iconPosition={'right'}>
-                {value && value.length ? value.join('/') : placeholder}
+            <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+                {value && value.length > 0 ? getLabelFromValue(value) : placeholder}
             </Button>
         );
     };
 
+    const getLabelFromValue = useCallback((value) => {
+        const valueArr = value.split('-').map(item => Number(item));
+        let resultData = treeData;
+        valueArr.forEach((item, index) => {
+            resultData = index === 0 ? resultData[item] : resultData.children[item];
+        });
+        return resultData.label;
+    }, [treeData]);
+
+    const triggerRenderMultiple = useCallback((props) => {
+        const { value, onSearch, onRemove } = props;
+        const onCloseTag = (value, e, tagKey) => {
+            onRemove(tagKey);
+        };
+
+        const renderTagItem = (value) => {
+            const label = getLabelFromValue(value);
+            return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>;
+        };
+        
+        return (
+            <TagInput
+                value={Array.from(value)}
+                onInputChange={onSearch}
+                renderTagItem={renderTagItem}
+            />
+        );
+    }, []);
+
     return (
-        <Cascader
-            onChange={onChange}
-            value={value}
-            treeData={treeData}
-            placeholder='Custom Trigger'
-            triggerRender={triggerRender}
-        />
+        <>
+            <Cascader
+                treeData={treeData}
+                placeholder='Custom Trigger'
+                triggerRender={triggerRenderSingle}
+            />
+            <br />
+            <Cascader
+                triggerRender={triggerRenderMultiple}
+                multiple
+                filterTreeNode
+                treeData={treeData}
+                style={{ width: 300 }}
+                placeholder='Custom Trigger'
+            />
+        </>
     );
 }
 ```
@@ -1748,7 +1778,7 @@ function Demo() {
 | topSlot              | 顶部插槽                                                                                                                                  | ReactNode                                                                                 | -                              | 1.27.0 |
 | treeData             | 展示数据，具体属性参考 [CascaderData](#CascaderData)                                                                                       | CascaderData[]                                                                            | []                             | -      |
 | treeNodeFilterProp   | 搜索时输入项过滤对应的 CascaderData 属性                                                                                                  | string                                                                                    | `label`                        | -      |
-| triggerRender        | 自定义触发器渲染方法                                                                                                                      | (triggerRenderData: object) => ReactNode                                                  | -                              | 0.34.0 |
+| triggerRender        | 自定义触发器渲染方法                                                                                                                      | (props: TriggerRenderProps) => ReactNode                                                  | -                              | 0.34.0 |
 | validateStatus       | trigger 的校验状态，仅影响展示样式。可选: default、error、warning                                                                             | string                                                                                    | `default`                      | -      |
 | value                | （受控）选中的条目                                                                                                                          | string\|number\|CascaderData\|(string\|number\|CascaderData)[]                            | -                              | -      |
 | zIndex               | 下拉菜单的 zIndex                                                                                                                         | number                                                                                    | 1030                           | -      |

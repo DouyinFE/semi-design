@@ -1126,14 +1126,15 @@ class VirtualizeDemo extends React.Component {
 triggerRender 入参如下
 
 ```typescript
-interface triggerRenderProps {
+interface TriggerRenderProps {
   value: array<object> // 当前所有已选中的options
   inputValue: string; // 当前input框的输入值
-  onChange: (inputValue: string) => void; // 用于更新 input框值的函数，当你在triggerRender自定义的Input组件值更新时你应该调用该函数，用于向Select内部同步状态
+  onSearch: (inputValue: string) => void; // 用于更新 input框值的函数，当你在triggerRender自定义的Input组件值更新时你应该调用该函数，用于向Select内部同步状态。注意 filter 需同时设为true, v2.32 提供
+  onRemove: (option: object) => void; // 用于移除单个已选项，option至少需带有 label、value 两项，v2.32提供
   onClear: () => void; // 用于清空值的函数
   disabled: boolean; // 是否禁用Select
   placeholder: string; // Select的placeholder
-  componentProps: // 所有用户传给Select的props
+  componentProps: object // 所有用户传给Select的props
 }
 ```
 

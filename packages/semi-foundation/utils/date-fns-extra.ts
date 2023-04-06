@@ -100,15 +100,8 @@ const parse = (date: string | number | Date, formatToken: string, options?: any)
     return toDate(date, options);
 };
 
-/**
- *
- * @param {string | number | Date} date
- * @param {string} formatToken
- * @param {object} [options]
- * @param {string} [options.timeZone]
- */
 /* istanbul ignore next */
-const format = (date: string | number | Date, formatToken: string, options?: any) => {
+const format = (date: number | Date, formatToken: string, options?: any) => {
     if (options && options.timeZone != null && options.timeZone !== '') {
         const timeZone = toIANA(options.timeZone);
         options = { ...options, timeZone };
@@ -120,22 +113,36 @@ const format = (date: string | number | Date, formatToken: string, options?: any
 };
 
 /**
- *
- * @param {string | number | Date} date
- * @param {string} timeZone
- * @param {object} options
- * @returns {Date}
+ * Returns a Date which will format as the local time of any time zone from a specific UTC time
+ * 
+ * @example
+ * ```javascript
+ * import { utcToZonedTime } from 'date-fns-tz'
+ * const { isoDate, timeZone } = fetchInitialValues() // 2014-06-25T10:00:00.000Z, America/New_York
+ * const date = utcToZonedTime(isoDate, timeZone) // In June 10am UTC is 6am in New York (-04:00)
+ * renderDatePicker(date) // 2014-06-25 06:00:00 (in the system time zone)
+ * renderTimeZoneSelect(timeZone) // America/New_York
+ * ```
+ * 
+ * @see https://github.com/marnusw/date-fns-tz#utctozonedtime
  */
-const utcToZonedTime = (date: string | number | Date, timeZone: string, options?: OptionsWithTZ) => dateFnsUtcToZonedTime(date, toIANA(timeZone), options);
+const utcToZonedTime = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsUtcToZonedTime(date, toIANA(timeZone), options);
 
 /**
- *
- * @param {string | number | Date} date
- * @param {string} timeZone
- * @param {object} options
- * @returns {Date}
+ * Given a date and any time zone, returns a Date with the equivalent UTC time
+ * 
+ * @example
+ * ```
+ * import { zonedTimeToUtc } from 'date-fns-tz'
+ * const date = getDatePickerValue() // e.g. 2014-06-25 10:00:00 (picked in any time zone)
+ * const timeZone = getTimeZoneValue() // e.g. America/Los_Angeles
+ * const utcDate = zonedTimeToUtc(date, timeZone) // In June 10am in Los Angeles is 5pm UTC
+ * postToServer(utcDate.toISOString(), timeZone) // post 2014-06-25T17:00:00.000Z, America/Los_Angeles
+ * ```
+ * 
+ * @see https://github.com/marnusw/date-fns-tz#zonedtimetoutc
  */
-const zonedTimeToUtc = (date: string | number | Date, timeZone: string, options?: OptionsWithTZ) => dateFnsZonedTimeToUtc(date, toIANA(timeZone), options);
+const zonedTimeToUtc = (date: string | number | Date, timeZone: string | number, options?: OptionsWithTZ) => dateFnsZonedTimeToUtc(date, toIANA(timeZone), options);
 
 /**
  * return current system hour offset based on utc:

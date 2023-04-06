@@ -2907,6 +2907,32 @@ export const AutoClearSearchValue = () => {
         { label: 'semi6', value: 'semi6' },
     ];
 
+    const [loading, setLoading] = useState(false);
+    const [list, setList] = useState(optionList);
+    const [value, setValue] = useState('');
+
+    const handleChange = newValue => { setValue(newValue); };
+
+    const data2 = [
+        {
+            label: "Design",
+            value: '123456',
+        }
+    ]
+
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        if (inputValue) {
+            setTimeout(() => {
+                setLoading(false);
+                setList(data2);
+            }, 1000);
+        } else {
+            setList(optionList)
+            setLoading(false);
+        }
+    };
+
     return (
         <>  
             <h4>autoClearSearchValue</h4>
@@ -2920,6 +2946,22 @@ export const AutoClearSearchValue = () => {
             <Select style={{ width: 400 }} multiple optionList={optionList} filter autoClearSearchValue={clear}></Select>
             <h4>Uncontrolled mode + multiple + defaultValue</h4>
             <Select style={{ width: 400 }} multiple optionList={optionList} filter defaultValue={['semi2']} autoClearSearchValue={clear}></Select>
+
+            <h4>controlled mode + update optionList + remote + autoClearSearchValue = false</h4>
+            <Select
+              style={{ width: 400 }}
+              multiple
+              optionList={list}
+              filter
+              remote
+              className='remote-select'
+              loading={loading}
+              value={value}
+              onChange={handleChange}
+              autoClearSearchValue={clear}
+              onSearch={handleSearch}
+            >
+            </Select>
         </>
     )
 }
@@ -3208,4 +3250,5 @@ export const emptyContent = () => {
     <Select placeholder='请选择业务线' emptyContent={null} style={{ width: 180 }} optionList={list} defaultOpen={true}/>
   )
 }
+
 

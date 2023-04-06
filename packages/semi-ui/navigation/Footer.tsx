@@ -31,6 +31,8 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
 
     context: NavContextType;
 
+    static elementType = "NavFooter";
+
     renderCollapseButton = () => {
         const { collapseButton, collapseText } = this.props;
 

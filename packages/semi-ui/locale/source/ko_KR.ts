@@ -34,6 +34,7 @@ const local: Locale = {
             dateTime: '날짜 및 시간 선택',
             dateRange: ['시작 날짜', '종료일'],
             dateTimeRange: ['시작 날짜', '종료일'],
+            monthRange: ['시작 월', '종료 월'],
         },
         footer: {
             confirm: '확인',

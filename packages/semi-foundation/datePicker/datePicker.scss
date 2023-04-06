@@ -169,10 +169,22 @@ $module-list: #{$prefix}-scrolllist;
     }
 
     // 年月选择器
-
     &-panel-yam {
         // add left or right preset panel to panel yam, max-width will be bigger
         max-width: $width-datepicker_monthPanel_max + $width-datepicker_presetPanel_left_and_right;
+
+        &[x-type="monthRange"] {
+            max-width: $width-datepicker_monthRangePanel_max + $width-datepicker_presetPanel_left_and_right;
+        }
+
+        .#{$module}-yearmonth-body {
+            display: flex;
+
+            .#{$prefix}-scrolllist:nth-child(2) {
+                border-left: 1px solid var(--semi-color-border);
+
+            }
+        }
 
         .#{$prefix}-scrolllist {
             box-shadow: none;
@@ -196,13 +208,14 @@ $module-list: #{$prefix}-scrolllist;
                 padding: 0;
                 overflow: hidden;
 
-                .#{$prefix}-scrolllist-item-wheel {
+                .#{$prefix}-scrolllist-item-wheel:not(#neverExistElement) {
+                    // equal to #{$prefix}-scrolllist-item-wheel, add [:not] selector only to increase selector priority
                     border: none;
                 }
 
-                .#{$prefix}-scrolllist-item {
-                    border: none;
-                }
+                // .#{$prefix}-scrolllist-item {
+                //     border: none;
+                // }
             }
         }
     }
@@ -832,6 +845,9 @@ $module-list: #{$prefix}-scrolllist;
             &[x-type=month] {
                 width: $width-datepicker_insetInput_month_type_wrapper;
             }
+            &[x-type=monthRange] {
+                width: $width-datepicker_insetInput_month_range_type_wrapper;
+            }
 
             .#{$prefix}-input-wrapper {
                 flex: 1;
@@ -869,7 +885,9 @@ $module-list: #{$prefix}-scrolllist;
                 border-color: $color-datepicker_range_trigger-border-active ;
             }
 
-
+            .#{$module}-monthRange-input {
+                background-color: transparent;
+            }
 
             &-wrapper {
                 box-sizing: border-box;
@@ -1106,6 +1124,15 @@ $module-list: #{$prefix}-scrolllist;
             box-sizing: border-box;
             height: $height-datepicker_yam_panel_header_compact;
             padding: $spacing-datepicker_yam_panel_header_compact-padding;
+        }
+
+        .#{$module}-yearmonth-body {
+            display: flex;
+
+            .#{$prefix}-scrolllist:nth-child(2){
+                border: 1px solid var(--semi-color-border);
+
+            }
         }
 
         .#{$prefix}-scrolllist {

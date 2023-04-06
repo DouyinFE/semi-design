@@ -36,6 +36,7 @@ const local: Locale = {
             dateTime: 'Lütfen bir tarih ve saat seçin',
             dateRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
             dateTimeRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
+            monthRange: ['Başlangıç ​​ayı', 'Bitiş ayı']
         },
         footer: {
             confirm: 'Tamam',

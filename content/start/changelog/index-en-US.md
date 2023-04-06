@@ -15,6 +15,48 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.32.1 (2023-04-06)
+- 【Fix】
+    - Fix the problem that an error may be reported when Tooltip is used in conjunction with the loading button in the production environment [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that Navigation uses JSX to configure Footer and Header, which may not be correctly recognized in the production environment [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that the Column may not be recognized correctly in the production environment when the Table uses the JSX Children notation to configure Columns
+ [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that there are extra spaces in the Tab Pane classname [#1536](https://github.com/DouyinFE/semi-design/pull/1536)
+-  【Docs】
+    - Modify the wrong type definition of the filteredValue parameter in the onFilter API of Table [#1538](https://github.com/DouyinFE/semi-design/pull/1538)
+
+#### 🎉 2.32.0 (2023-03-31)
+- 【Fix】
+    - Fix Spin because the height of the .semi-spin-wrapper div is incorrect, causing the position to move up
+    - Fix the problem of using resizable Table and form at the same time in the dev environment to report an error [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - Fix the problem that the Table setting zebra pattern is invalid(Range of influence: v2.29 - 2.32)
+    - Fix the problem that the execution timing of Modal getPopupContainer is incorrect, it is expected to be executed when Modal is opened
+
+#### 🎉 2.32.0-beta.0 (2023-03-28)
+- 【Design Token】
+  - Modal provides `$spacing-modal_content_fullscreen-top` to control the top height of the full screen, Sidesheet adds `$color-sideSheet_header-borderBottom` and `$width-sideSheet_header-borderBottom` to add a dividing line under the header, `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` controls the default expanded width
+- 【Feat】
+  - DatePicker added type monthRange
+  - The TriggerRender API parameters of TreeSelect、 Cascader and Select support onSearch and onRemove respectively to support custom triggers to start searching and delete a single selected item
+  - TreeSelect has added a clickTriggerToHide parameter to support setting whether to click the Trigger part to trigger the panel to close when the panel is open
+  - DatePicker support open, close, focus, blur methods and onClickOutside callback  [#566](https://github.com/DouyinFE/semi-design/issues/566)
+- 【Fix】
+  - fix the problem that the style of the shortcut selection panel for DatePicker type month is not as expected, fix the problem that inconsistent panel width before and after enabling insetInput
+  - Change the initial setting of the state in the constructor in Switch to avoid unexpected animations when used in other components
+
+#### 🎉 2.31.3 (2023-03-31)
+- 【Fix】
+    - Fix DatePicker timeZone conversion problem when date-fns-tz version >= 1.3.8  [#1522](https://github.com/DouyinFE/semi-design/issues/1522)
+#### 🎉 2.31.2 (2023-03-24)
+- 【Fix】
+    - Fix the problem that the delay props related to Nav tooltip does not take effect  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
+    - Fix: When selecting remote and autoClearSearchValue is false, the optionList is not displayed correctly after updating, (range of impact: v2.28 - 2.31) [#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+
+#### 🎉 2.31.1 (2023-03-22)
+- 【Chore】
+    - Semi Webpack Plugin adds logic to directly retrieve NormalModule from the Compiler Instance [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
+
 #### 🎉 2.31.0 (2023-03-17)
 - 【Fix】
     - Fix the problem that the ratio of the new picture is incorrect after switching the ratio state of the preview picture and switching the picture in ImagePreview  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)

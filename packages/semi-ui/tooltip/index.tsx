@@ -486,8 +486,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             /* Only judge the loading state of the Button, and no longer judge other components */
             const isButton = !isEmpty(elem)
                 && !isEmpty(elem.type)
-                && (elem.type as any).name === 'Button'
-                || (elem.type as any).name === 'IconButton';
+                && (get(elem, 'type.elementType') === 'Button' || get(elem, 'type.elementType') === 'IconButton');
             if (loading && isButton) {
                 return strings.STATUS_LOADING;
             }

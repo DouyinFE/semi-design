@@ -13,3 +13,5 @@ export { default as FixedSorter } from './FixedSorter';
 export { default as stickyHeaderTable } from './stickyHeader';
 export { default as Fixed1188 } from './Fixed1188';
 export { default as EmptyFilters } from './emptyFilters';
+export { default as fixedResizableWithForm } from './fixedResizableWithForm';
+export { default as zebra } from './zebra';

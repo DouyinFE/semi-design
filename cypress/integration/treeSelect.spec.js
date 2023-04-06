@@ -92,5 +92,21 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option').eq(0).click();
         cy.get('.semi-tree-select-selection-TriggerSearchItem').eq(0).should('contain.text', '亚洲');
     });
+
+    it('treeSelect clickTriggerToHide', () => {
+        // 测试 clickTriggerToHide API 是否符合预期
+        // 未设置 clickTriggerToHide， 默认为 true， 面板打开状态下再次点击会关闭
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--click-trigger-to-hide');
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('.semi-tree-select-popover').should('exist');
+        cy.get('.semi-tree-select').eq(0).click();
+        cy.get('.semi-tree-select-popover').should('not.exist');
+
+        // clickTriggerToHide 设置为 false， 面板打开的状态下再次点击不会关闭
+        cy.get('.semi-tree-select').eq(1).click();
+        cy.get('.semi-tree-select-popover').should('exist');
+        cy.get('.semi-tree-select').eq(1).click();
+        cy.get('.semi-tree-select-popover').should('exist');
+    });
 });
 

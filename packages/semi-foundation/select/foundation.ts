@@ -94,7 +94,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (isFilterable && isMultiple) {
             // when filter and multiple, only focus input
             this.focusInput();
-        } else if (isFilterable && !isMultiple){
+        } else if (isFilterable && !isMultiple) {
             // when filter and not multiple, only show input and focus input
             this.toggle2SearchInput(true);
         } else {
@@ -196,7 +196,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     // call when props.value change
     handleValueChange(value: PropValue) {
-        const { allowCreate, autoClearSearchValue } = this.getProps();
+        const { allowCreate, autoClearSearchValue, remote } = this.getProps();
         const { inputValue } = this.getStates();
         let originalOptions;
         // AllowCreate and controlled mode, no need to re-collect optionList
@@ -212,7 +212,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         // Multi-selection, controlled mode, you need to reposition the drop-down menu after updating
         this._adapter.rePositionDropdown();
 
-        if (this._isFilterable() && !autoClearSearchValue && inputValue) {
+        if (this._isFilterable() && !autoClearSearchValue && inputValue && !remote) {
             originalOptions = this._filterOption(originalOptions, inputValue);
         }
 
@@ -555,7 +555,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     clearInput(event?: any) {
         const { inputValue } = this.getStates();
         // only when input is not null, select should notifySearch and updateOptions
-        if (inputValue !== ''){
+        if (inputValue !== '') {
             this._adapter.updateInputValue('');
             this._adapter.notifySearch('', event);
             // reset options filter
@@ -793,16 +793,16 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         isOpen ? this._getEnableFocusIndex(offset) : this.open();
     }
 
-    _handleTabKeyDown(event: any){
+    _handleTabKeyDown(event: any) {
         const { isOpen } = this.getStates();
         this._adapter.updateFocusState(false);
 
-        if (isOpen){
+        if (isOpen) {
             const container = this._adapter.getContainer();
             const focusableElements = this._adapter.getFocusableElements(container);
             const focusableNum = focusableElements.length;
 
-            if (focusableNum > 0){
+            if (focusableNum > 0) {
                 // Shift + Tab will move focus backward
                 if (event.shiftKey) {
                     this._handlePanelOpenShiftTabKeyDown(focusableElements, event);
@@ -823,7 +823,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     _handlePanelOpenTabKeyDown(focusableElements: any[], event: any) {
         const activeElement = this._adapter.getActiveElement();
         const isFocusInContainer = this._adapter.getIsFocusInContainer();
-        if (!isFocusInContainer){
+        if (!isFocusInContainer) {
             // focus in trigger, set next focus to the first element in container
             focusableElements[0].focus();
             this._adapter.setIsFocusInContainer(true);
@@ -854,7 +854,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     _handleEnterKeyDown(event: KeyboardEvent) {
         const { isOpen, options, focusIndex } = this.getStates();
-        if (!isOpen){
+        if (!isOpen) {
             this.open();
         } else {
             if (focusIndex !== -1) {

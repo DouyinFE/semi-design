@@ -33,6 +33,7 @@ const local: Locale = {
             dateTime: '日時を選択してください',
             dateRange: ['開始日', '終了日'],
             dateTimeRange: ['開始日', '終了日'],
+            monthRange: ['開始月', '終了月'],
         },
         footer: {
             confirm: '確認する',

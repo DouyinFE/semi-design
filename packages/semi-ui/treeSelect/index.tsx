@@ -264,6 +264,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
         preventScroll: PropTypes.bool,
+        clickTriggerToHide: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -295,6 +296,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-label': 'TreeSelect',
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
+        clickTriggerToHide: true,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -1014,6 +1016,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentName={'TreeSelect'}
                 triggerRender={triggerRender}
                 componentProps={{ ...this.props }}
+                onSearch={this.search}
+                onRemove={this.removeTag}
             />
         ) : (
             [

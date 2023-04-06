@@ -209,15 +209,19 @@ $module: #{$prefix}-table;
         display: table-row-group;
         & > .#{$module}-row {
             display: table-row;
+            background-color: $color-table_body-bg-default;
 
             &:hover {
                 & > .#{$module}-row-cell {
-                    background-color: $color-table_body-bg-hover;
+                    // $color-table_body-bg-hover has transparency，will reveal the background color $color-table_body-bg-default\
+                    // combine background-image and background-color to make the non-fixed column color does not show through the bottom color
+                    background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
+                    background-color: $color-table_cell-bg-hover;
 
                     &.#{$module}-cell-fixed {
                         &-left,
                         &-right {
-                            background-color: $color-table_body-bg-default;
+                            background-image: linear-gradient(0deg, $color-table_body-bg-default, $color-table_body-bg-default);
 
                             &::before {
                                 background-color: $color-table_body-bg-hover;
@@ -246,7 +250,6 @@ $module: #{$prefix}-table;
                 box-sizing: border-box;
                 position: relative;
                 vertical-align: middle;
-                background-color: $color-table_body-bg-default;
 
                 &.resizing {
                     border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;

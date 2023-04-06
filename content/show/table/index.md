@@ -4777,7 +4777,7 @@ import { Table } from '@douyinfe/semi-ui';
 | useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时回调 | (visible: boolean) => void |  |
 | onHeaderCell | 设置头部单元格属性 | (column: RecordType, columnIndex: number) => object |  |
 
@@ -4922,6 +4922,7 @@ function Demo() {
 ## FAQ
 
 -   **表格数据为何没有更新？**  
+
      Table 组件目前所有参数都为浅层对比，也就是说如果该参数值类型为一个 Array 或者 Object，你需要手动改变其引用才能触发更新。同理，如果你不想触发额外更新，尽量不要直接在传参的时候使用字面量或是在 render 过程中定义引用型参数值：
 
     ```text

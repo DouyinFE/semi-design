@@ -172,6 +172,9 @@ function Demo() {
             <DatePicker type="month" placeholder="请选择年月" insetInput style={{ width: 140 }} />
             <br />
             <br />
+            <DatePicker type="monthRange" placeholder="请选择年月范围" insetInput style={{ width: 200 }} />
+            <br />
+            <br />
             <DatePicker type="date" position="bottomLeft" insetInput />
             <br />
             <br />
@@ -286,6 +289,19 @@ import React from 'react';
 import { DatePicker } from '@douyinfe/semi-ui';
 
 () => <DatePicker defaultValue={new Date()} type="month" style={{ width: 140 }} />;
+```
+
+### 年月范围选择
+
+**版本：** >= 2.32.0
+
+将 `type` 设定为 `monthRange`，可以进行年月范围选择。暂不支持小尺寸与快捷面板。
+
+```jsx live=true
+import React from 'react';
+import { DatePicker } from '@douyinfe/semi-ui';
+
+() => <DatePicker type="monthRange" style={{ width: 200 }} />;
 ```
 
 ### 确认日期时间选择
@@ -860,7 +876,7 @@ function Demo() {
 | multiple | 是否可以选择多个，仅支持 type="date" | boolean | false |  |
 | needConfirm | 是否需要“确认选择”，仅 type="dateTime"\|"dateTimeRange" 时有效 | boolean |  | **0.18.0** |
 | open | 面板显示或隐藏的受控属性 | boolean |  |  |
-| placeholder | 输入框提示文字 | string | 'Select date' |  |
+| placeholder | 输入框提示文字 | string\|string[] | 'Select date' |  |
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考) | string | 'bottomLeft' |  |
 | prefix | 前缀内容 | string\|ReactNode |  |  |
 | presets | 日期时间快捷方式 |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType> | [] |  |
@@ -879,22 +895,64 @@ function Demo() {
 | timePickerOpts | 其他可以透传给时间选择器的参数，详见 [TimePicker·API 参考](/zh-CN/input/timepicker#API_参考) |  | object | **1.1.0** |
 | topSlot | 渲染顶部额外区域 | ReactNode |  | **1.22.0** |
 | triggerRender | 自定义触发器渲染方法，第一个参数是个 Object，详情看下方类型定义 | (props) => ReactNode| | **0.34.0** |
-| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month" | string | 'date' |  |
+| type | 类型，可选值："date", "dateRange", "dateTime", "dateTimeRange", "month", "monthRange" | string | 'date' |  |
 | validateStatus | 校验状态，可选值 default、error、warning，默认 default。仅影响展示样式 | string |  |  |
 | value | 受控的值 | ValueType |  |  |
 | weekStartsOn | 以周几作为每周第一天，0 代表周日，1 代表周一，以此类推 | number | 0 |  |
 | zIndex | 弹出面板的 zIndex | number | 1030 |  |
-| onBlur | 失去焦点时的回调 | (e: event) => void | () => {} | **1.0.0** |
+| onBlur | 失去焦点时的回调，范围选择时不推荐使用 | (e: event) => void | () => {} | **1.0.0** |
 | onCancel | 取消选择时的回调，入参为上次确认选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType> |  | **0.18.0** |
 | onChange | 值变化时的回调。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType> |  |  |
 | onChangeWithDateFirst | 0.x 中 onChange(string, Date), 1.0 后(Date, string)。此开关设为 false 时，入参顺序将与 0.x 版本保持一致 | boolean | true | **1.0.0** |
 | onClear | 点击 clear 按钮时触发 | (e: event) => void | () => {} | **1.16.0** |
+| onClickOutSide | 当弹出层处于展示状态，点击非弹出层、触发器的回调 | () => void | () => {} | **2.31.0** |
 | onConfirm | 确认选择时的回调，入参为当前选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。<br/>0.x版本入参顺序与新版有所不同 | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|  | **0.18.0** |
-| onFocus | 获得焦点时的回调 | (e: event) => void | () => {} | **1.0.0** |
+| onFocus | 获得焦点时的回调，范围选择时不推荐使用 | (e: event) => void | () => {} | **1.0.0** |
 | onOpenChange | 面板显示或隐藏状态切换的回调 | <ApiType detail='(isOpen: boolean) => void'>(isOpen) => void</ApiType> |  |  |
 | onPanelChange | 切换面板的年份或者日期时的回调 | <ApiType detail='(date: DateType \| DateType[], dateStr: StringType \| StringType[])=>void'>(date, dateStr) => void</ApiType> | function | **1.28.0** |
 | onPresetClick | 点击快捷选择按钮的回调 | <ApiType detail='(item: Object, e: Event) => void'>(item, e) => void</ApiType> | () => {}  | **1.24.0** |
 | yearAndMonthOpts | 其他可以透传给年月选择器的参数，详见 [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)|  | object | **2.20.0** |
+
+## Methods
+
+| 方法  | 说明                       | 类型                                             | 版本   |
+|-------|--------------------------|--------------------------------------------------|--------|
+| open  | 调用时可以手动展开下拉列表 | () => void                                       | 2.31.0 |
+| close | 调用时可以手动关闭下拉列表 | () => void                                       | 2.31.0 |
+| focus | 调用时可以手动聚焦输入框   | (focusType?: 'rangeStart' \| 'rangeEnd') => void | 2.31.0 |
+| blur  | 调用时可以手动失焦输入框   | () => void                                       | 2.31.0 |
+
+```jsx live=true
+import React, { useRef } from 'react';
+import { DatePicker, Space, Button } from '@douyinfe/semi-ui';
+import { BaseDatePicker } from '@douyinfe/semi-ui/lib/es/datePicker';
+
+function Demo() {
+    const ref = useRef();
+    // Typescript 写法
+    // const ref = useRef<BaseDatePicker>();
+    // 为什么不引用入口导出的 DatePicker？-> 入口组件是个 forwardRef 组件，ref 透传到了这个组件上
+
+
+    const handleClickOutside = () => {
+        console.log('click outside');
+    };
+
+    return (
+        <Space vertical align={'start'}>
+            <Space>
+                <Button onClick={() => ref.current.open()}>open</Button>
+                <Button onClick={() => ref.current.close()}>close</Button>
+                <Button onClick={() => ref.current.focus()}>focus</Button>
+                <Button onClick={() => ref.current.blur()}>blur</Button>
+            </Space>
+            <div>
+                <DatePicker type="dateTime" ref={ref} onClickOutSide={handleClickOutside} />
+            </div>
+        </Space>
+    );
+}
+```
 
 ## 类型定义
 

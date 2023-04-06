@@ -13,15 +13,59 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+
+#### 🎉 2.32.1 (2023-04-06)
+- 【Fix】
+    - 修复 Tooltip 配合 loading button 使用在生产环境可能会报错的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Navigation 使用 JSX 写法配置 Footer、Header ，在生产环境下可能未能正确识别的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Table 使用 JSX Children写法配置 Columns 时，在生产环境下可能未能正确识别 Column的问题 [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - 修复 Tab Pane类名存在多余空格的问题 [#1536](https://github.com/DouyinFE/semi-design/pull/1536)
+-  【Docs】
+    - 更正 Table 的 onFilter 中 filteredValue 参数错误的类型定义 [#1538](https://github.com/DouyinFE/semi-design/pull/1538)
+
+#### 🎉 2.32.0 (2023-03-31)
+- 【Fix】
+    - 修复 Spin 因为 .semi-spin-wrapper div 高度不正确导致位置上移问题
+    - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题 [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
+    - 修复 Table 设置斑马纹无效问题（影响范围：v2.29 - 2.32）
+    - 修复 Modal getPopupContainer 执行时机不正确的问题，预期为 Modal 打开时执行
+
+#### 🎉 2.32.0-beta.0 (2023-03-28)
+- 【Design Token】
+  - Modal 提供 `$spacing-modal_content_fullscreen-top` 用于控制全屏时顶部高度, Sidesheet 新增 `$color-sideSheet_header-borderBottom` `$width-sideSheet_header-borderBottom` 用于在 header 下添加分割线， `$width-sideSheet_size-small` `$width-sideSheet_size-medium` `$width-sideSheet_size-large` 控制默认展开宽度
+- 【Feat】
+  - DatePicker 新增 type monthRange
+  - TreeSelect 、 Cascader、Select 的 TriggerRender API 参数支持 onSearch 和 onRemove 分别用于支持自定义 trigger 启动搜索，删除单个已选项
+  - TreeSelect 新增 clickTriggerToHide 参数支持设置在面板打开状态下，点击 Trigger 部分是否触发面板关闭
+  - DatePicker 支持 open、close、focus、blur 方法和 onClickOutside 回调  [#566](https://github.com/DouyinFE/semi-design/issues/566)
+- 【Fix】
+  - 修复 DatePicker type month 开启上下方位快捷选择面板样式不符合预期问题, 开启 insetInput 前后面板宽度不一致问题
+  - 更改 Switch 中 state 在 constructor 中的初始设置，避免在其他组件中使用时候出现不符合预期的动画
+
+
+#### 🎉 2.31.3 (2023-03-31)
+- 【Fix】
+    - 修复 DatePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题  [#1522](https://github.com/DouyinFE/semi-design/issues/1522)
+
+#### 🎉 2.31.2 (2023-03-24)
+- 【Fix】
+    - 修复 Nav tooltip 相关延迟 props 不生效的问题  [#1454](https://github.com/DouyinFE/semi-design/issues/1454)
+    - 修复 Select remote 且 autoClearSearchValue 为 false时，更新 optionList 后未正确显示的问题（影响范围：v2.28 - 2.31）[#1386](https://github.com/DouyinFE/semi-design/issues/1386)
+
+#### 🎉 2.31.1 (2023-03-22)
+- 【Chore】
+    - Semi Webpack Plugin 增加直接从 Compiler Instance 中获取NormalModule的逻辑 [#1503](https://github.com/DouyinFE/semi-design/pull/1503)
+
 #### 🎉 2.31.0 (2023-03-17)
 - 【Fix】
-    - 修复 ImagePreview 组件中预览图片改变 ratio 状态并切换图片后，新图片 ratio 不正确问题  [#1494 ](https://github.com/DouyinFE/semi-design/issues/1494)
-    - 修复 Carousel props.children 更新后组件未重新更新问题  [#1482 ](https://github.com/DouyinFE/semi-design/issues/1482)
+    - 修复 ImagePreview 组件中预览图片改变 ratio 状态并切换图片后，新图片 ratio 不正确问题 [#1494](https://github.com/DouyinFE/semi-design/issues/1494)
+    - 修复 Carousel props.children 更新后组件未重新更新问题  [#1482](https://github.com/DouyinFE/semi-design/issues/1482)
     - 修复 Carousel ref method play 与 autoPlay.hoverToPause 的mouseEnter事件冲突，未拥有最高优先级问题
     - 修复 Table 全选后翻页表头选择框状态错误问题  [#325](https://github.com/DouyinFE/semi-design/issues/325)
     - Select onSearch 提供第二个入参，解决无法区分 1选择后自动清空input 触发onSearch 、2 主动使用 backspace清空input触发 onSearch 3 点击 clear icon触发onSearch 等不同场景的问题   [#867](https://github.com/DouyinFE/semi-design/issues/867)
     - 修复 Popconfirm 确认按钮与取消按钮在返回 promise 时没有展示 loading 问题（影响 2.30 ~ 2.31 版本）  [#1489](https://github.com/DouyinFE/semi-design/issues/1489)
-    - 修复对于单选，可搜索且搜索框在 Trigger中，虚拟化的 TreeSelect ，用户需要点击两次选项才能选中问题  [#1487 ](https://github.com/DouyinFE/semi-design/issues/1487)
+    - 修复对于单选，可搜索且搜索框在 Trigger中，虚拟化的 TreeSelect ，用户需要点击两次选项才能选中问题  [#1487](https://github.com/DouyinFE/semi-design/issues/1487)
 
 #### 🎉 2.31.0-beta.0 (2023-03-13)
 - 【Feat】

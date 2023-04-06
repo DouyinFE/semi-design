@@ -164,17 +164,22 @@ const code = ({ ...props }) => {
     newProps.lineNumber = false;
 
     const Placeholder = () => (
-        <Skeleton
-            active
-            placeholder={
-                <Skeleton.Image
-                    style={{
-                        width: '100%',
-                        height: 518,
-                    }}
-                />
-            }
-        />
+        <>
+            <Skeleton
+                active
+                placeholder={
+                    <Skeleton.Image
+                        style={{
+                            width: '100%',
+                            height: 518,
+                        }}
+                    />
+                }
+            />
+        <div className={"markdown-code-ssr"} style={{display:"none"}}>
+            {props.children}
+        </div>
+        </>
     );
 
     const [Component, _setComponent] = useState(() => Placeholder);

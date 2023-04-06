@@ -75,6 +75,8 @@ $color-table_resizer-bg-default: var(--semi-color-primary); // 表格拉伸标�
 $color-table_selection-bg-default: rgba(var(--semi-grey-0), 1); // 表格分组背景色
 $color-table_placeholder-text-default: var(--semi-color-text-2); // 表格空数据文本颜色
 
+$color-table_cell-bg-hover: var(--semi-color-bg-0); // 让表格在 hover 时正确显示 $color-table_body-bg-hover 颜色，如无必要不要修改
+
 // Other
 $font-table_base-fontSize: 14px; // 表格默认文本字号
 $border-table_base-borderStyle: solid; // 表格描边样式

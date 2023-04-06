@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
 import {
   addDays,
   addWeeks,
@@ -37,7 +37,11 @@ import DatePickerTimeZone from './DatePickerTimeZone';
 import BetterRangePicker from './BetterRangePicker';
 import SyncSwitchMonth from './SyncSwitchMonth';
 import { Checkbox } from '../../checkbox';
+import Typography from '../../typography/typography';
+import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
 export * from './v2';
+import * as dateFns from 'date-fns';
+
 
 export default {
   title: 'DatePicker',
@@ -311,6 +315,20 @@ export const DatePickerWithPresets = () => {
         onPresetClick={onPresetClick}
         onChange={(...args) => console.log(...args)}
       />
+      {/* <br/>
+      <br/>
+      <div>type="monthRange"</div>
+      <DatePicker
+        type="monthRange"
+        insetInput={insetInput}
+        presetPosition={presetPosition}
+        presets={presetArr.map(preset => ({
+          text: preset.text,
+          start: preset.start,
+        }))}
+        onPresetClick={onPresetClick}
+        onChange={(...args) => console.log(...args)}
+      /> */}
       <br/>
       <br/>
       <div>type="date" density="compact"</div>
@@ -477,6 +495,109 @@ export const MonthPicker = () => {
   };
 
   return <Demo />;
+};
+
+export const MonthRangePicker = () => {
+    const { Text } = Typography;
+    const formatToken = 'yyyy-MM';
+    const [controlledValue, setControlledValue] = useState(['2023-03', '2023-04']);
+    const [triggerValue, setTriggerValue] = useState();
+
+    const _setControlledValue = value => setControlledValue(value);
+
+    const onChange = useCallback(date => {
+      setTriggerValue(date);
+    }, []);
+
+    const onClear = useCallback(e => {
+        e && e.stopPropagation();
+        setTriggerValue(null);
+    }, []);
+
+    const closeIcon = useMemo(() => {
+        return triggerValue ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+    }, [triggerValue]);
+
+    const triggerContent = (placeholder) => {
+        if (Array.isArray(triggerValue) && triggerValue.length) {
+            return `${dateFns.format(triggerValue[0], formatToken)} ~ ${dateFns.format(triggerValue[1], formatToken)}`;
+        } else {
+            return '请选择年月时间范围';
+        }
+    };
+
+    const TopSlot = function(props) {
+      const { style } = props;
+      return (
+          <Space style={{ padding: '12px 20px', ...style }}>
+              <Text strong style={{ color: 'var(--semi-color-text-2)' }}>
+                  请选择月份范围
+              </Text>
+          </Space>
+      );
+    };
+
+    const BottomSlot = function(props) {
+      const { style } = props;
+      return (
+          <Space style={{ padding: '12px 20px', ...style }}>
+              <Text strong style={{ color: 'var(--semi-color-text-2)' }}>
+                  定版前请阅读
+              </Text>
+              <Text link={{ href: 'https://semi.design/', target: '_blank' }}>发版须知</Text>
+          </Space>
+      );
+    };
+
+    const disabledDate = date => {
+        const deadDate = new Date('2023/3/1 00:00:00');
+        return date.getTime() < deadDate.getTime(); 
+    };
+
+    return (
+      <>
+        <div>
+          <div>default</div>
+          <DatePicker type="monthRange" />
+          <br />
+          <br />
+          <div>rangeSeparator 与 placeholder</div>
+          <DatePicker type="monthRange" rangeSeparator={'➡️'} placeholder={['开始', '结束']} insetLabel='月份范围'/>
+          <br />
+          <br />
+          <div>受控</div>
+          <DatePicker type="monthRange" bottomSlot={<BottomSlot />} topSlot={<TopSlot />} value={controlledValue} onChange={_setControlledValue}/>
+          <br />
+          <br />
+          <div>insetInput ➕ format</div>
+          <div data-cy="monthRange">
+            <DatePicker type="monthRange" insetInput format={'yyyy年MM月'} rangeSeparator={'到'} defaultValue={['2023-03', '2023-04']} style={{ width: 400 }}/>
+          </div>
+          <br />
+          <div>triggerRender</div>
+          <DatePicker 
+            type="monthRange" 
+            value={triggerValue} 
+            onChange={onChange}
+            triggerRender={({ placeholder }) => (
+                <Button theme={'light'} icon={closeIcon} iconPosition='right'>
+                    {triggerContent(placeholder)}
+                </Button>
+            )}
+          />
+          <br />
+          <br />
+          <div>年月禁用：禁用2023年3月前的所有年月</div>
+          <DatePicker type="monthRange" disabledDate={disabledDate}/>
+          <br />
+          <br />
+          <div>validateStatus</div>
+          <DatePicker type="monthRange" validateStatus='warning' />
+          <br />
+          <DatePicker type="monthRange" validateStatus='error' />
+        </div>
+      </>
+    );
 };
 
 export const PropTypesAndDefaultProps = () => (

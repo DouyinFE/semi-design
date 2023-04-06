@@ -31,7 +31,8 @@ export interface Locale {
             date: string;
             dateTime: string;
             dateRange: [string, string];
-            dateTimeRange: [string, string]
+            dateTimeRange: [string, string];
+            monthRange: [string, string]
         };
         footer: {
             confirm: string;

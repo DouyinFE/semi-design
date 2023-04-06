@@ -122,13 +122,13 @@ describe('SideSheet', () => {
         let com = getSideSheet({ size: 'small', visible: true })
         let sideSheet = mount(com, { attachTo: document.getElementById('container') });
         // test small size
-        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveStyle({ width: 448 });
+        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveClassName("semi-sidesheet-size-small");
         // test medium size
         sideSheet.setProps({ size: 'medium' });
-        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveStyle({ width: 684 });
+        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveClassName("semi-sidesheet-size-medium");
         // test large size
         sideSheet.setProps({ size: 'large' });
-        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveStyle({ width: 920 });
+        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-sidesheet-inner`)).toHaveClassName("semi-sidesheet-size-large");
         sideSheet.unmount();
     });
 

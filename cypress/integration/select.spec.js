@@ -54,6 +54,14 @@ describe('Select', () => {
         cy.get('.semi-popover-wrapper').eq(0).should('have.css', 'height', '0px');
     });
 
+    it('autoClearSearchValue false + remote + optionList update async', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--auto-clear-search-value');
+        cy.get('.remote-select').eq(0).click();
+        cy.get('.semi-select-option').eq(0).click();
+        cy.get('.remote-select .semi-input').eq(0).type('123');
+        cy.wait(500);
+        cy.get('.semi-select-option').should('have.text', 'Design');
+    });
     // it('should trigger onSearch when click x icon', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-filter-single');
     //     cy.get('.semi-select').eq(0).click();
