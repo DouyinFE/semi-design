@@ -54,8 +54,8 @@ let commonProps = {
 
 export const BasicUsage = () => (
   <>
-    <Upload {...commonProps}>
-      <Button icon={<IconUpload />} theme="light">
+    <Upload {...commonProps} renderThumbnail={() => <div>ttt</div>}>
+      <Button icon={<IconUpload />} theme="light" >
         点击上传
       </Button>
     </Upload>

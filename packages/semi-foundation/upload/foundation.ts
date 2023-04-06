@@ -261,6 +261,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
     buildFileItem(fileInstance: CustomFile, uploadTrigger: string): BaseFileItem {
         const { _sizeInvalid, status } = fileInstance;
+        const { renderThumbnail } = this.getProps();
         try {
             // can't use ... to get rest property on File Object
             delete fileInstance._sizeInvalid;
@@ -274,7 +275,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             uid: fileInstance.uid,
             percent: 0,
             fileInstance,
-            url: this._createURL(fileInstance),
+            url: renderThumbnail ? '' : this._createURL(fileInstance),
         };
 
         if (_sizeInvalid) {
@@ -322,7 +323,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
     // 插入多个文件到指定位置
     // Insert files to the specified location
-    insertFileToList(files: Array<CustomFile>, index:number): void {
+    insertFileToList(files: Array<CustomFile>, index: number): void {
         const { limit, transformFile, accept, uploadTrigger } = this.getProps();
         const { fileList } = this.getStates();
 
