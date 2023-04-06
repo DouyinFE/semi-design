@@ -1,7 +1,7 @@
 {
     "[typescript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[javascript]": {
         "editor.formatOnSave": false,
