@@ -69,7 +69,7 @@ export interface NavProps extends BaseProps {
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey?: (string | number); openKeys?: (string | number)[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
-    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav:boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
@@ -343,12 +343,12 @@ class Nav extends BaseComponent<NavProps, NavState> {
             for (let i = 0; i < childrenLength; i++) {
                 const child = children[i];
 
-                if ((child as any).type === Footer || get(child, 'type.name') === 'NavFooter') {
+                if ((child as any).type === Footer || get(child, 'type.elementType') === 'NavFooter') {
                     footers.push(child);
                     children.splice(i, 1);
                     i--;
                     childrenLength--;
-                } else if ((child as any).type === Header || get(child, 'type.name') === 'NavHeader') {
+                } else if ((child as any).type === Header || get(child, 'type.elementType') === 'NavHeader') {
                     headers.push(child);
                     children.splice(i, 1);
                     i--;

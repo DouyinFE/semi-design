@@ -37,6 +37,8 @@ export default class NavHeader extends PureComponent<NavHeaderProps> {
         prefixCls: cssClasses.PREFIX,
     };
 
+    static elementType = "NavHeader";
+
     context: NavContextType;
 
     renderLogo(logo: React.ReactNode) {
