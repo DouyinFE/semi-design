@@ -7,7 +7,7 @@ import { get, noop, set, omit, isEqual, merge } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation/table/cellFoundation';
-import { isSelectionColumn, isExpandedColumn, getRTLAlign } from '@douyinfe/semi-foundation/table/utils';
+import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Context, { TableContextProps } from './table-context';
@@ -325,7 +325,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         } = this.props;
         const { direction } = this.context;
         const isRTL = direction === 'rtl';
-        const { className } = column;
+        const { className, ellipsis } = column;
         const fixedLeftFlag = fixedLeft || typeof fixedLeft === 'number';
         const fixedRightFlag = fixedRight || typeof fixedRight === 'number';
         const { tdProps, customCellProps } = this.getTdProps();
@@ -333,6 +333,15 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         const renderTextResult = this.renderText(tdProps);
         let { text } = renderTextResult;
         const { indentText, rowSpan, colSpan, realExpandIcon, tdProps: newTdProps } = renderTextResult;
+
+        let title: string;
+
+        const shouldShowTitle = shouldShowEllipsisTitle(ellipsis);
+        if (shouldShowTitle) {
+            if (typeof text === 'string') {
+                title = text;
+            }
+        }
 
         if (rowSpan === 0 || colSpan === 0) {
             return null;
@@ -367,6 +376,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
                 [`${prefixCls}-cell-fixed-left-last`]: isFixedLeftLast,
                 [`${prefixCls}-cell-fixed-right`]: isFixedRight,
                 [`${prefixCls}-cell-fixed-right-first`]: isFixedRightFirst,
+                [`${prefixCls}-row-cell-ellipsis`]: ellipsis,
             }
         );
 
@@ -376,6 +386,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
                 aria-colindex={colIndex + 1}
                 className={columnCls}
                 onClick={this.handleClick}
+                title={title}
                 {...newTdProps}
                 ref={this.setRef}
             >

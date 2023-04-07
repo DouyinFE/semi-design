@@ -33,7 +33,8 @@ import {
     isAnyFixedRight,
     assignColumnKeys,
     flattenColumns,
-    getAllDisabledRowKeys
+    getAllDisabledRowKeys,
+    shouldShowEllipsisTitle
 } from '@douyinfe/semi-foundation/table/utils';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth } from '@douyinfe/semi-foundation/table/foundation';
@@ -285,6 +286,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 }
 
                 return false;
+            },
+            getTableLayout: () => {
+                let isFixed = false;
+                const { flattenColumns } = this.state;
+
+                if (Array.isArray(flattenColumns)) {
+                    isFixed = flattenColumns.some(column => (Boolean(column.ellipsis) || Boolean(column.fixed)));
+                }
+
+                return isFixed ? 'fixed' : 'auto';
             },
             setHeadWidths: (headWidths: Array<BaseHeadWidth>, index = 0) => {
                 if (!equalWith(this.state.headWidths[index], headWidths)) {
@@ -962,7 +973,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       * @param {*} column
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
+        const { prefixCls } = this.props;
         if (column && (column.sorter || column.filters || column.useFullRender)) {
+            let hasSorterOrFilter = false;
             const { dataIndex, title: rawTitle, useFullRender } = column;
             const curQuery = this.foundation.getQuery(dataIndex);
             const titleMap: ColumnTitleProps = {};
@@ -976,7 +989,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateSortOrder = get(curQuery, 'sortOrder');
             const defaultSortOrder = get(curQuery, 'defaultSortOrder', false);
             const sortOrder = this.foundation.isSortOrderValid(stateSortOrder) ? stateSortOrder : defaultSortOrder;
-            const TitleNode = typeof rawTitle !== 'function' && <React.Fragment key={strings.DEFAULT_KEY_COLUMN_TITLE}>{rawTitle as React.ReactNode}</React.Fragment>;
+            const showEllipsisTitle = shouldShowEllipsisTitle(column.ellipsis);
+            const TitleNode = typeof rawTitle !== 'function' && (
+                <span
+                    className={`${prefixCls}-row-head-title`}
+                    key={strings.DEFAULT_KEY_COLUMN_TITLE}
+                    title={showEllipsisTitle && typeof rawTitle === 'string' ? rawTitle : undefined}
+                >
+                    {rawTitle as React.ReactNode}
+                </span>
+            );
             if (typeof column.sorter === 'function' || column.sorter === true) {
                 // In order to increase the click hot area of ​​sorting, when sorting is required & useFullRender is false,
                 // both the title and sorting areas are used as the click hot area for sorting。
@@ -989,6 +1011,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     />
                 );
                 useFullRender && (titleMap.sorter = sorter);
+                hasSorterOrFilter = true;
                 titleArr.push(sorter);
             } else {
                 titleArr.push(TitleNode);
@@ -1003,17 +1026,25 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         key={strings.DEFAULT_KEY_COLUMN_FILTER}
                         {...curQuery}
                         filteredValue={filteredValue}
-                        onFilterDropdownVisibleChange={(visible: boolean) => this.foundation.toggleShowFilter(dataIndex, visible)}
+                        onFilterDropdownVisibleChange={(visible: boolean) =>
+                            this.foundation.toggleShowFilter(dataIndex, visible)
+                        }
                         onSelect={(data: OnSelectData) => this.foundation.handleFilterSelect(dataIndex, data)}
                     />
                 );
                 useFullRender && (titleMap.filter = filter);
+                hasSorterOrFilter = true;
                 titleArr.push(filter);
             }
 
             const newTitle =
-                typeof rawTitle === 'function' ?
-                    () => rawTitle(titleMap) : titleArr;
+                typeof rawTitle === 'function' ? (
+                    () => rawTitle(titleMap)
+                ) : hasSorterOrFilter ? (
+                    <div className={`${prefixCls}-operate-wrapper`}>{titleArr}</div>
+                ) : (
+                    titleArr
+                );
 
             column = { ...column, title: newTitle };
         }
@@ -1145,12 +1176,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             sticky,
         } = props;
         const selectedRowKeysSet = get(rowSelection, 'selectedRowKeysSet', new Set());
+        const tableLayout = this.adapter.getTableLayout();
 
         const headTable =
             fixed || useFixedHeader ? (
                 <HeadTable
                     key="head"
-                    anyColumnFixed={anyColumnFixed}
+                    tableLayout={tableLayout}
                     ref={headerRef}
                     columns={filteredColumns}
                     prefixCls={prefixCls}
@@ -1178,6 +1210,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 handleWheel={this.handleWheel}
                 handleBodyScroll={this.handleBodyScroll}
                 anyColumnFixed={anyColumnFixed}
+                tableLayout={tableLayout}
                 includeHeader={includeHeader}
                 showHeader={showHeader}
                 scroll={scroll}

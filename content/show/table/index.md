@@ -2579,6 +2579,238 @@ function App() {
 render(App);
 ```
 
+### 单元格缩略
+
+使用 `ellipsis` 可以让单元格自动实现缩略效果。v2.34.0 支持。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            width: 200,
+            ellipsis: true,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
+设置 `ellipsis.showTitle` 为 false 可以隐藏默认原生的 HTML title。 配合 `column.render` 可以自定义内容提示。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table, Typography } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            width: 200,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            size: '34KB',
+            owner: 'Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: '郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
 ### 可伸缩列
 
 版本 >= 0.15.0
@@ -4758,6 +4990,7 @@ import { Table } from '@douyinfe/semi-ui';
 | dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传 | string |  |
 | defaultFilteredValue | 筛选的默认值，值为已筛选的 value 数组 | any[] |  | **2.5.0** |
 | defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| ellipsis | 文本缩略，开启后 table-layout 会自动切换为 fixed | boolean\| { showTitle: boolean } | false | **2.34.0** |
 | filterChildrenRecord | 是否需要对子级数据进行本地过滤，开启该功能后如果子级符合过滤标准，父级即使不符合仍然会保留 | boolean |  | **0.29.0** |
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode |  |
 | filterDropdownProps | 透传给 Dropdown 的属性，详情点击[Dropdown API](/zh-CN/show/dropdown#Dropdown) | object |  |

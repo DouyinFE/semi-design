@@ -2581,6 +2581,238 @@ function App() {
 render(App);
 ```
 
+### Column Ellipsis
+
+Use `ellipsis` to make cells automatically clipped. v2.34.0 support.
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            width: 200,
+            ellipsis: true,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Update time',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
+Set `ellipsis.showTitle` to false to hide the default native HTML title. With `column.render` you can customize the content prompt.
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table, Typography } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            width: 200,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Update time',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
 ### Resizable Column
 
 Version > = 0.15.0
@@ -4752,6 +4984,7 @@ import { Table } from '@douyinfe/semi-ui';
 | defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
 | defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
 | direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **2.31.0** |
+| ellipsis | Ellipsis Text, table-layout will automatically switch to fixed after it is turned on | boolean\| { showTitle: boolean } | false | **2.34.0** |
 | filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
 | filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
 | filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
