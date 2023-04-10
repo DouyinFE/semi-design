@@ -14,6 +14,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.33.0-beta.0 (2023-04-10)
+- 【Fix】
+    - 将 Typography 中的 copy/copied icon 垂直对齐方式从 text-bottom 改为 middle [#1533](https://github.com/DouyinFE/semi-design/pull/1533)
+    - 对齐表单输入类组件 Input TextArea Select Cascader TimePicker DatePicker TreeSelect 的 hover 和 active 态 [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
+    - 修复 Typography 的 copyable 类型错误 [@baranwang](https://github.com/baranwang) [#1546](https://github.com/DouyinFE/semi-design/pull/1546)
+- 【Feat】
+    - 表单输入类组件 Input TextArea Select Cascader TimePicker DatePicker TreeSelect 新增 borderless api 用于显示无边框组件 [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
+    - Collapse 新增 clickHeaderToExpand 用于设置点击响应热区 [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
 
 #### 🎉 2.32.1 (2023-04-06)
 - 【Fix】
