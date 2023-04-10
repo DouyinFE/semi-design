@@ -178,7 +178,7 @@ const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataIt
     <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
         {items.map((item, index: number) => (
             // @ts-ignore skip SortableItem type check
-            <SortableItem key={item.label} index={index} item={item} />
+            <SortableItem key={item.key} index={index} item={item} />
         ))}
     </div>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
