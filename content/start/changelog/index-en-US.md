@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.32.1 (2023-04-06)
+- 【Fix】
+    - Fix the problem that an error may be reported when Tooltip is used in conjunction with the loading button in the production environment [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that Navigation uses JSX to configure Footer and Header, which may not be correctly recognized in the production environment [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that the Column may not be recognized correctly in the production environment when the Table uses the JSX Children notation to configure Columns
+ [#1540](https://github.com/DouyinFE/semi-design/pull/1540)
+    - Fix the problem that there are extra spaces in the Tab Pane classname [#1536](https://github.com/DouyinFE/semi-design/pull/1536)
+-  【Docs】
+    - Modify the wrong type definition of the filteredValue parameter in the onFilter API of Table [#1538](https://github.com/DouyinFE/semi-design/pull/1538)
+
 #### 🎉 2.32.0 (2023-03-31)
 - 【Fix】
     - Fix Spin because the height of the .semi-spin-wrapper div is incorrect, causing the position to move up

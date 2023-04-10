@@ -4771,7 +4771,7 @@ import { Table } from '@douyinfe/semi-ui';
 | useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |
 | onCell | Set cell properties | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | Determine the running function of the filter in local mode | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilter | Determine the running function of the filter in local mode | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | A callback when a custom filter menu is visible | (visible: boolean) => void |  |
 | onHeaderCell | Set the head cell property | (column: RecordType, columnIndex: number) => object |  |
 

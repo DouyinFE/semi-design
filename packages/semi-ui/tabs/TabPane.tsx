@@ -103,10 +103,10 @@ class TabPane extends PureComponent<TabPaneProps> {
                     {
                         ({ animationClassName, animationEventsNeedBind }) => {
                             return <div
-                                className={`${cssClasses.TABS_PANE_MOTION_OVERLAY} ${animationClassName}`}
+                                className={cls(cssClasses.TABS_PANE_MOTION_OVERLAY, animationClassName)}
                                 x-semi-prop="children"
                                 {...animationEventsNeedBind}
-                            >
+                            > 
                                 {shouldRender ? children : null}
                             </div>;
                         }

@@ -4777,7 +4777,7 @@ import { Table } from '@douyinfe/semi-ui';
 | useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时回调 | (visible: boolean) => void |  |
 | onHeaderCell | 设置头部单元格属性 | (column: RecordType, columnIndex: number) => object |  |
 
