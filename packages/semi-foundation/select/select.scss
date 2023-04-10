@@ -473,7 +473,7 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 
-.#{$module}-noBorder {
+.#{$module}-borderless {
 
     &:not(:focus-within):not(:hover){
         background-color:transparent;

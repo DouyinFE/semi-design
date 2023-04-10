@@ -7,7 +7,15 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { noop, stubFalse, isDate, get, isFunction, isEqual, pick } from 'lodash';
 import ConfigContext, { ContextValue } from '../configProvider/context';
-import DatePickerFoundation, { DatePickerAdapter, DatePickerFoundationProps, DatePickerFoundationState, DayStatusType, PresetType, Type, RangeType } from '@douyinfe/semi-foundation/datePicker/foundation';
+import DatePickerFoundation, {
+    DatePickerAdapter,
+    DatePickerFoundationProps,
+    DatePickerFoundationState,
+    DayStatusType,
+    PresetType,
+    Type,
+    RangeType
+} from '@douyinfe/semi-foundation/datePicker/foundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -41,15 +49,15 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     renderFullDate?: (dayNumber?: number, fullDate?: string, dayStatus?: DayStatusType) => React.ReactNode;
     triggerRender?: (props: DatePickerProps) => React.ReactNode;
     /**
-     * There are multiple input boxes when selecting a range, and the input boxes will be out of focus multiple times. 
-     * 
+     * There are multiple input boxes when selecting a range, and the input boxes will be out of focus multiple times.
+     *
      * Use `onOpenChange` or `onClickOutSide` instead
      */
     onBlur?: React.MouseEventHandler<HTMLInputElement>;
     onClear?: React.MouseEventHandler<HTMLDivElement>;
     /**
      * There are multiple input boxes when selecting a range, and the input boxes will be focused multiple times.
-     * 
+     *
      * Use `onOpenChange` or `triggerRender` instead
      */
     onFocus?: (e: React.MouseEvent, rangeType: RangeType) => void;
@@ -572,7 +580,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -614,7 +622,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         this.foundation.handlePanelVisibleChange(visible);
     }
 
-    renderInner() {
+    renderInner(extraProps?: Partial<DatePickerProps>) {
         const {
             clearIcon,
             type,
@@ -648,11 +656,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             [`${cssClasses.PREFIX}-range-input-active`]: isRangeType && rangeInputFocus && !inputDisabled,
             [`${cssClasses.PREFIX}-range-input-disabled`]: isRangeType && inputDisabled,
             [`${cssClasses.PREFIX}-range-input-${validateStatus}`]: isRangeType && validateStatus,
-            [`${cssClasses.PREFIX}-noBorder`]: borderless
+            [`${cssClasses.PREFIX}-borderless`]: borderless
         });
         const phText = placeholder || locale.placeholder[type]; // i18n
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
+            ...extraProps,
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,

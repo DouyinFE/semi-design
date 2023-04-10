@@ -129,7 +129,7 @@ $module-list: #{$prefix}-scrolllist;
 }
 
 .#{$module} {
-    .#{$prefix}-input-noBorder:not(:focus-within):not(:hover){
+    .#{$prefix}-input-borderless:not(:focus-within):not(:hover){
         .#{$prefix}-input {
             &-suffix {
                 opacity: 0;

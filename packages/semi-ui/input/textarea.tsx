@@ -287,7 +287,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             className,
             `${prefixCls}-textarea-wrapper`,
             {
-                [`${prefixCls}-textarea-noBorder`]: borderless,
+                [`${prefixCls}-textarea-borderless`]: borderless,
                 [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
                 [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
                 [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),

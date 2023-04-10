@@ -121,7 +121,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
         preventScroll: PropTypes.bool,
-        noBg: PropTypes.bool,
+        borderless: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -471,7 +471,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${wrapperPrefix}-modebtn`]: mode === 'password',
             [`${wrapperPrefix}-hidden`]: type === 'hidden',
             [`${wrapperPrefix}-${size}`]: size,
-            [`${prefixCls}-noBorder`]: borderless
+            [`${prefixCls}-borderless`]: borderless
         });
         const inputCls = cls(prefixCls, {
             [`${prefixCls}-${size}`]: size,

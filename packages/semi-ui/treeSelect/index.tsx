@@ -990,7 +990,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cls(
                 prefixcls,
                 {
-                    [`${prefixcls}-noBorder`]: borderless,
+                    [`${prefixcls}-borderless`]: borderless,
                     [`${prefixcls}-focus`]: isFocus,
                     [`${prefixcls}-disabled`]: disabled,
                     [`${prefixcls}-single`]: !multiple,

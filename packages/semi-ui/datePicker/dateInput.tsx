@@ -256,11 +256,11 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         const inputLeftWrapperCls = cls(`${prefixCls}-range-input-wrapper-start`, `${prefixCls}-range-input-wrapper`, {
             [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeStart' && !disabled,
             [`${prefixCls}-range-input-wrapper-start-with-prefix`]: this.props.prefix || this.props.insetLabel,
-            [`${prefixCls}-noBorder`]: borderless
+            [`${prefixCls}-borderless`]: borderless
         });
         const inputRightWrapperCls = cls(`${prefixCls}-range-input-wrapper-end`, `${prefixCls}-range-input-wrapper`, {
             [`${prefixCls}-range-input-wrapper-active`]: rangeInputFocus === 'rangeEnd' && !disabled,
-            [`${prefixCls}-noBorder`]: borderless
+            [`${prefixCls}-borderless`]: borderless
         });
         return (
             <>

@@ -690,7 +690,7 @@ $module: #{$prefix}-input;
 
 
 
-.#{$module}-noBorder{
+.#{$module}-borderless{
 
     &:not(:focus-within):not(:hover){
         background-color:transparent;

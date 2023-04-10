@@ -1314,7 +1314,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const selectionCls = useCustomTrigger ?
             cls(className) :
             cls(prefixcls, className, {
-                [`${prefixcls}-noBorder`]: borderless,
+                [`${prefixcls}-borderless`]: borderless,
                 [`${prefixcls}-open`]: isOpen,
                 [`${prefixcls}-focus`]: isFocus,
                 [`${prefixcls}-disabled`]: disabled,

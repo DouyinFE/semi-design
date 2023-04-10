@@ -195,7 +195,7 @@ $module: #{$prefix}-input;
     }
 }
 
-.#{$module}-textarea-noBorder{
+.#{$module}-textarea-borderless{
     &:not(:focus-within):not(:hover){
         background-color:transparent;
         border-color: transparent;

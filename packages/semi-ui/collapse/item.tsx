@@ -94,6 +94,8 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
     }
 
     handleClick = (itemKey: string, e: React.MouseEvent)=>{
+        // Judge user click Icon or Header
+        // Don't mount this func into icon span wrapper, or get triggered twice because of event propagation
         if (this.context.clickHeaderToExpand || this.headerExpandIconTriggerRef.current?.contains(e.target as HTMLElement)) {
             this.context.onClick(itemKey, e);
         }

@@ -508,7 +508,7 @@ $module: #{$prefix}-cascader;
     }
 }
 
-.#{$module}-noBorder{
+.#{$module}-borderless{
     &:not(:focus-within):not(:hover){
         background-color:transparent;
         border-color: transparent;

@@ -930,7 +930,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const classNames = useCustomTrigger ?
             cls(className) :
             cls(prefixcls, className, {
-                [`${prefixcls}-noBorder`]: borderless,
+                [`${prefixcls}-borderless`]: borderless,
                 [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
                 [`${prefixcls}-disabled`]: disabled,
                 [`${prefixcls}-single`]: true,
