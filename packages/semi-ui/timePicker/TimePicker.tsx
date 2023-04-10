@@ -42,6 +42,7 @@ export type TimePickerProps = {
     'aria-required'?: React.AriaAttributes['aria-required'];
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean; // TODO: autoFocus did not take effect
+    borderless?: boolean;
     className?: string;
     clearText?: string;
     clearIcon?: React.ReactNode;
@@ -118,6 +119,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         'aria-describedby': PropTypes.string,
         'aria-required': PropTypes.bool,
         prefixCls: PropTypes.string,
+        borderless: PropTypes.bool,
         clearText: PropTypes.string,
         clearIcon: PropTypes.node,
         value: TimeShape,
@@ -173,6 +175,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
     static defaultProps = {
         autoAdjustOverflow: true,
+        borderless: false,
         getPopupContainer: () => document.body,
         showClear: true,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,

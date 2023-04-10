@@ -30,6 +30,7 @@ $module: #{$prefix}-input;
     transform: scale($transform_scale-input);
 }
 
+
 .#{$module}-wrapper {
     display: inline-block;
     position: relative;
@@ -685,6 +686,33 @@ $module: #{$prefix}-input;
             }
         }
     }
+}
+
+
+
+.#{$module}-borderless{
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+
+    &.#{$module}-wrapper-error:not(:focus-within){
+        border-color: $color-input_danger-border-focus;
+    }
+
+    &.#{$module}-wrapper-warning:not(:focus-within){
+        border-color: $color-input_warning-border-focus;
+    }
+
+
+
+
 }
 
 @import "./rtl.scss";

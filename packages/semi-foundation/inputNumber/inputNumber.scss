@@ -108,4 +108,13 @@ $module: #{$prefix}-input-number;
     }
 }
 
+
+.#{$module}:not(:focus-within):not(:hover){
+    .#{$prefix}-input-borderless{
+        & + .#{$module}-suffix-btns{
+            opacity: 0;
+        }
+    }
+}
+
 @import "./rtl.scss";

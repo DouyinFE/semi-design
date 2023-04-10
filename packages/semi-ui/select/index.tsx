@@ -117,6 +117,7 @@ export type SelectProps = {
     autoFocus?: boolean;
     autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
+    borderless?: boolean;
     clearIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
@@ -228,6 +229,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         'aria-required': PropTypes.bool,
         autoFocus: PropTypes.bool,
         autoClearSearchValue: PropTypes.bool,
+        borderless: PropTypes.bool,
         children: PropTypes.node,
         clearIcon: PropTypes.node,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -316,6 +318,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     static defaultProps: Partial<SelectProps> = {
         stopPropagation: true,
         motion: true,
+        borderless: false,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
         // position: 'bottomLeft',
         filter: false,
@@ -1301,7 +1304,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             placeholder,
             triggerRender,
             arrowIcon,
-            clearIcon
+            clearIcon,
+            borderless
         } = this.props;
 
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
@@ -1310,6 +1314,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const selectionCls = useCustomTrigger ?
             cls(className) :
             cls(prefixcls, className, {
+                [`${prefixcls}-borderless`]: borderless,
                 [`${prefixcls}-open`]: isOpen,
                 [`${prefixcls}-focus`]: isFocus,
                 [`${prefixcls}-disabled`]: disabled,

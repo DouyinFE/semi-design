@@ -16,19 +16,38 @@ $module: #{$prefix}-tree-select;
     position: relative;
     cursor: pointer;
 
+
     &:hover {
         background-color: $color-treeSelect_default-bg-hover;
         border: $width-treeSelect_hover-border solid $color-treeSelect_default-border-hover;
     }
 
-    &-focus {
+    &:focus {
         border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+        background-color: $color-treeSelect_default-bg-focus;
         outline: 0;
     }
 
-    &-focus:hover {
+    &:active{
+        background-color: $color-treeSelect_default-bg-active;
+    }
+
+
+    &-focus {
+        background-color: $color-treeSelect_default-bg-focus;
         border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
         outline: 0;
+
+        &:hover {
+            background-color: $color-treeSelect_default-bg-focus;
+            border: $width-treeSelect_focus-border solid $color-treeSelect_default-border-focus;
+            outline: 0;
+        }
+
+
+        &:active{
+            background-color: $color-treeSelect_default-bg-active;
+        }
     }
 
 
@@ -351,6 +370,39 @@ $module: #{$prefix}-tree-select;
             border-bottom: $width-treeSelect_search_wrapper-border $color-treeSelect_search-border-default solid;
         }
     }
+}
+
+.#{$module}-borderless{
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        .#{$module}-arrow {
+            opacity: 0;
+        }
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    // split style into not and normal to avoid style override
+    &.#{$module}-error:not(:focus-within){
+        border-color: $color-treeSelect_danger-border-focus;
+    }
+
+    &.#{$module}-warning:not(:focus-within){
+        border-color: $color-treeSelect_warning-border-focus;
+    }
+
+    &.#{$module}-error:focus-within{
+        border-color: $color-treeSelect_danger-border-focus;
+    }
+
+    &.#{$module}-warning:focus-within{
+        border-color: $color-treeSelect_warning-border-focus;
+    }
+
 }
 
 @import './rtl.scss';

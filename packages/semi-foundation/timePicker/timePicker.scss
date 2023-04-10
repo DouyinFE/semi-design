@@ -128,4 +128,16 @@ $module-list: #{$prefix}-scrolllist;
     }
 }
 
+.#{$module} {
+    .#{$prefix}-input-borderless:not(:focus-within):not(:hover){
+        .#{$prefix}-input {
+            &-suffix {
+                opacity: 0;
+            }
+        }
+    }
+
+}
+
+
 @import "./rtl.scss";

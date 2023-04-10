@@ -195,4 +195,38 @@ $module: #{$prefix}-input;
     }
 }
 
+.#{$module}-textarea-borderless{
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    &.#{$module}-textarea-wrapper-error:not(:focus-within){
+        border-color: $color-input_danger-border-focus;
+    }
+
+
+
+    &.#{$module}-textarea-wrapper-warning:not(:focus-within){
+        border-color: $color-input_warning-border-focus;
+    }
+
+    &.#{$module}-textarea-wrapper-error{
+            .#{$module}-textarea-counter{
+                color: $color-input_danger-border-focus;
+            }
+    }
+
+    &.#{$module}-textarea-wrapper-warning{
+        .#{$module}-textarea-counter{
+            color: $color-input_warning-border-focus;
+        }
+    }
+
+}
+
 @import "./rtl.scss";
