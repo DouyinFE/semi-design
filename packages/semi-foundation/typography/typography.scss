@@ -140,7 +140,7 @@ $module: #{$prefix}-typography;
 
     &-action-copy {
         display: inline-flex;
-        vertical-align: text-bottom;
+        vertical-align: middle;
         padding: $spacing-typography_copyIcon-padding;
         margin-left: $spacing-typography_copyIcon-marginLeft;
     }
@@ -156,7 +156,7 @@ $module: #{$prefix}-typography;
         color: $color-typography_copied-text-success;
 
         .#{$prefix}-icon {
-            vertical-align: text-bottom;
+            vertical-align: middle;
             color: $color-typography_copied-icon-success;
         }
     }
