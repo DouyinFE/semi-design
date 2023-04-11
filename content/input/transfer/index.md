@@ -989,7 +989,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 
 ## API 参考
 
-### Trasnfer Props
+### Transfer Props
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |

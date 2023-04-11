@@ -987,7 +987,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 
 ## API Reference
 
-### Trasnfer Props
+### Transfer Props
 
 | props | description | data type | default | version |
 | --- | --- | --- | --- | --- |
