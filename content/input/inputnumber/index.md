@@ -189,7 +189,7 @@ function Demo () {
 | min          | 限定最小值                                                     | number                            | -Infinity |           |
 | parser       | 指定从 `formatter` 里转换回数字串的方式，和 `formatter` 搭配使用 | (str: string) => string           | -         |           |
 | precision    | 数值精度                                                       | number                            | -         |           |
-| prefixCls    | 前缀内容                                                       | string\|ReactNode                 |           |           |
+| prefix    | 前缀内容                                                       | string\|ReactNode                 |           |           |
 | pressInterval| 长按按钮时，多久触发一次点击事件，单位毫秒                                   | number                 |   250        |           |
 | pressTimeout | 长按按钮时，延迟多久后触发点击事件，单位毫秒                                                      | number                 |     250      |           |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
