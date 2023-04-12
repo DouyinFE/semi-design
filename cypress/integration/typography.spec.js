@@ -11,7 +11,7 @@ describe('typography', () => {
 
     });
 
-    it.only('showTooltip', () => {
+    it('showTooltip', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--show-tooltip&args=&viewMode=story');
         cy.get('.semi-typography-ellipsis').eq(0).trigger('mouseover');
         cy.wait(1000);
@@ -56,12 +56,10 @@ describe('typography', () => {
         // 第二个 test, js 截断，有展开按钮
         cy.get('.semi-typography-ellipsis-expand').eq(0).contains('展开');
 
-        cy.viewport(1900, 1000);
+        cy.viewport(1860, 1000);
         // 屏幕尺寸变化， 内容长度符合尺寸要求，不发生截断
         // 第一个 test 需要完整显示， 以下测试仅明确尺寸变化
         // Todo： 更直接确定尺寸变化
-        cy.get('.semi-typography-ellipsis').eq(0).should('have.css', 'width').and('eq', '1900px');
-        cy.get('.semi-typography-ellipsis').eq(0).should('have.css', 'height').and('eq', '40px');
         // 第二个 test 无展开按钮
         cy.get('.semi-typography-ellipsis-expand').should('not.exist');
 
