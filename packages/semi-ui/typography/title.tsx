@@ -11,6 +11,7 @@ export interface CopyableConfig {
     content?: string;
     copyTip?: React.ReactNode;
     successTip?: React.ReactNode;
+    icon?: React.ReactNode;
     onCopy?(e: React.MouseEvent, content: string, res: boolean): void
 }
 

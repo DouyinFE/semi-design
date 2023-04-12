@@ -9,20 +9,12 @@ $module: #{$prefix}-popconfirm;
     &-inner {
         .#{$module}-rtl & {
             padding: $spacing-popconfirm-top $spacing-popconfirm-bottom $spacing-popconfirm-top $spacing-popconfirm-top;
-    
-            .#{$module}-btn-close {
-                right: auto;
-                left: 0;
-                margin-right: 0;
-                margin-left: $spacing-popconfirm_btn_close-margin;
-            }
         }
     }
 
     &-header {
         .#{$module}-rtl & {
             margin-right: 0;
-            margin-left: $spacing-popconfirm_header-marginRight;
     
             &-icon {
                 margin-right: 0;
@@ -49,11 +41,6 @@ $module: #{$prefix}-popconfirm;
         
         .#{$module}-inner {
             padding: $spacing-popconfirm_popover_with_arrow_inner_rtl-padding;
-    
-            .#{$module}-btn-close {
-                margin-right: 0;
-                margin-left: $spacing-popconfirm_popover_with_arrow_inner_btn_close-marginRight;
-            }
         }
     }
 

@@ -21,3 +21,4 @@ export { default as FeatRefFocus } from './FeatRefFocus';
 export { default as FeatOnClickOutside } from './FeatOnClickOutside';
 export { default as FeatRefClass } from './FeatRefClass';
 export { default as FixNeedConfirmInTabs } from './FixNeedConfirmInTabs';
+export { default as DynamicDisabledDate } from './dynamicDisabledDate';

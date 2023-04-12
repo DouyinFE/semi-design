@@ -116,6 +116,18 @@ $module: #{$prefix}-sidesheet;
         width: $width-sideSheet_size-large;
     }
 
+    &-size-small.#{$module} {
+        width: $width-sideSheet_size-small;
+    }
+
+    &-size-medium.#{$module} {
+        width: $width-sideSheet_size-medium;
+    }
+
+    &-size-large.#{$module} {
+        width: $width-sideSheet_size-large;
+    }
+
 
 
     &-content {

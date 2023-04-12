@@ -546,7 +546,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             this._updateValueAndInput(result, input === '', input);
             // Updates the selected value when entering a valid date
             const changedDates = this._getChangedDates(result);
-            if (!this._someDateDisabled(changedDates)) {
+            if (!this._someDateDisabled(changedDates, result)) {
                 if (!isEqual(result, stateValue)) {
                     this._notifyChange(result);
                 }
@@ -571,7 +571,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
         if ((result && result.length)) {
             const changedDates = this._getChangedDates(result);
-            if (!this._someDateDisabled(changedDates)) {
+            if (!this._someDateDisabled(changedDates, result)) {
                 if (!isEqual(result, stateValue)) {
                     if (!this._isControlledComponent() && !this._adapter.needConfirm()) {
                         this._adapter.updateValue(result);
@@ -591,7 +591,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     _updateCachedSelectedValueFromInput(input: string) {
         const looseResult = this.getLooseDateFromInput(input);
         const changedLooseResult = this._getChangedDates(looseResult);
-        if (!this._someDateDisabled(changedLooseResult)) {
+        if (!this._someDateDisabled(changedLooseResult, looseResult)) {
             this.resetCachedSelectedValue(looseResult);
         }
     }
@@ -683,7 +683,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         this._updateValueAndInput(parsedResult);
         const { value: stateValue } = this.getStates();
         const changedDates = this._getChangedDates(parsedResult);
-        if (!this._someDateDisabled(changedDates) && !isEqual(parsedResult, stateValue)) {
+        if (!this._someDateDisabled(changedDates, parsedResult) && !isEqual(parsedResult, stateValue)) {
             this._notifyChange(parsedResult);
         }
     }
@@ -983,7 +983,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
             const changedDates = this._getChangedDates(_value);
             // You cannot update the value directly when needConfirm, you can only change the value through handleConfirm
-            if (!this._isControlledComponent() && !this._someDateDisabled(changedDates) && !this._adapter.needConfirm()) {
+            if (!this._isControlledComponent() && !this._someDateDisabled(changedDates, _value) && !this._adapter.needConfirm()) {
                 this._adapter.updateValue(_value);
             }
         }
@@ -1012,7 +1012,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const changedDates = this._getChangedDates(dates);
 
         let inputValue, insetInputValue;
-        if (!this._someDateDisabled(changedDates)) {
+        if (!this._someDateDisabled(changedDates, dates)) {
             this.resetCachedSelectedValue(dates);
             inputValue = this._isMultiple() ? this.formatMultipleDates(dates) : this.formatDates(dates);
             if (insetInput) {
@@ -1252,22 +1252,22 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * Whether a date is disabled
-     * @param {Array} value
+     * @param value The date that needs to be judged whether to disable
+     * @param selectedValue Selected date, when selecting a range, pass this date to the second parameter of `disabledDate`
      */
-    _someDateDisabled(value: Date[]) {
-        const stateValue = this.getState('value');
+    _someDateDisabled(value: Date[], selectedValue: Date[]) {
         const { rangeInputFocus } = this.getStates();
         const disabledOptions = { rangeStart: '', rangeEnd: '', rangeInputFocus };
 
         // DisabledDate needs to pass the second parameter
-        if (this._isRangeType() && Array.isArray(stateValue)) {
-            if (isValid(stateValue[0])) {
-                const rangeStart = format(stateValue[0], 'yyyy-MM-dd');
+        if (this._isRangeType() && Array.isArray(selectedValue)) {
+            if (isValid(selectedValue[0])) {
+                const rangeStart = format(selectedValue[0], 'yyyy-MM-dd');
                 disabledOptions.rangeStart = rangeStart;
             }
 
-            if (isValid(stateValue[1])) {
-                const rangeEnd = format(stateValue[1], 'yyyy-MM-dd');
+            if (isValid(selectedValue[1])) {
+                const rangeEnd = format(selectedValue[1], 'yyyy-MM-dd');
                 disabledOptions.rangeEnd = rangeEnd;
             }
         }
