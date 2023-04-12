@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -18,6 +18,7 @@ import { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseT
 import { CopyableConfig, LinkType } from './title';
 import { BaseProps } from '../_base/baseComponent';
 import { isSemiIcon } from '../_utils';
+import ResizeObserver from '../resizeObserver';
 
 export interface BaseTypographyProps extends BaseProps {
     copyable?: CopyableConfig | boolean;
@@ -170,8 +171,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     componentDidMount() {
         if (this.props.ellipsis) {
-            this.getEllipsisState();
-            window.addEventListener('resize', this.onResize);
+            this.onResize();
         }
     }
 
@@ -195,15 +195,12 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (this.props.children !== prevProps.children) {
             this.forceUpdate();
             if (this.props.ellipsis) {
-                this.getEllipsisState();
+                this.onResize();
             }
         }
     }
 
     componentWillUnmount() {
-        if (this.props.ellipsis) {
-            window.removeEventListener('resize', this.onResize);
-        }
         if (this.rafId) {
             window.cancelAnimationFrame(this.rafId);
         }
@@ -281,14 +278,21 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return false;
         }
         const { expanded } = this.state;
-        const updateOverflow = this.shouldTruncated(rows);
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
+
+        // Currently only text truncation is supported, if there is non-text, 
+        // both css truncation and js truncation should throw a warning
+        warning(
+            'children' in this.props && typeof children !== 'string',
+            "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
+        );
 
         if (!rows || rows < 0 || expanded) {
             return undefined;
         }
 
         if (canUseCSSEllipsis) {
+            const updateOverflow = this.shouldTruncated(rows);
             // isOverflowed needs to be updated to show tooltip when using css ellipsis
             this.setState({
                 isOverflowed: updateOverflow,
@@ -299,14 +303,20 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
 
         const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
-        warning(
-            'children' in this.props && typeof children !== 'string',
-            "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
-        );
+
+        // If children is null, js truncated flag isTruncate is false
+        if (isNull(children)) {
+            this.setState({
+                isTruncated: false,
+            });
+            return undefined;
+        }
+
         const content = getRenderText(
             ReactDOM.findDOMNode(this.wrapperRef.current) as HTMLElement,
             rows,
-            children as string,
+            // Perform type conversion on children to prevent component crash due to non-string type of children
+            String(children),
             extraNode,
             ELLIPSIS_STR,
             suffix,
@@ -314,7 +324,6 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         );
         this.setState({
             ellipsisContent: content,
-            isOverflowed: updateOverflow,
             isTruncated: children !== content,
         });
         return undefined;
@@ -425,8 +434,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
      * @returns {Object}
      */
     getEllipsisStyle = () => {
-        const { ellipsis } = this.props;
-        const { expandable } = this.getEllipsisOpt();
+        const { ellipsis, component } = this.props;
         if (!ellipsis) {
             return {
                 ellipsisCls: '',
@@ -441,7 +449,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             [`${prefixCls}-ellipsis`]: true,
             [`${prefixCls}-ellipsis-single-line`]: rows === 1,
             [`${prefixCls}-ellipsis-multiple-line`]: rows > 1,
+            // component === 'span', Text component, It should be externally displayed inline
+            [`${prefixCls}-ellipsis-multiple-line-text`]: rows > 1 && component === 'span',
             [`${prefixCls}-ellipsis-overflow-ellipsis`]: rows === 1 && useCSS,
+            // component === 'span', Text component, It should be externally displayed inline
+            [`${prefixCls}-ellipsis-overflow-ellipsis-text`]: rows === 1 && useCSS && component === 'span',
         });
         const ellipsisStyle = useCSS && rows > 1 ? { WebkitLineClamp: rows } : {};
         return {
@@ -485,26 +497,28 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (!copyable) {
             return null;
         }
+        // If it is configured in the content of copyable, the copied content will be the content in copyable
+        const willCopyContent = (copyable as CopyableConfig)?.content ?? children;
         let copyContent: string;
         let hasObject = false;
-        if (Array.isArray(children)) {
+        if (Array.isArray(willCopyContent)) {
             copyContent = '';
-            children.forEach(value => {
+            willCopyContent.forEach(value => {
                 if (typeof value === 'object') {
                     hasObject = true;
                 }
                 copyContent += String(value);
             });
-        } else if (typeof children !== 'object') {
-            copyContent = String(children);
+        } else if (typeof willCopyContent !== 'object') {
+            copyContent = String(willCopyContent);
         } else {
             hasObject = true;
-            copyContent = String(children);
+            copyContent = String(willCopyContent);
         }
 
         warning(
             hasObject,
-            'Children in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
+            'content to be copied in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
         );
         const copyConfig = {
             content: copyContent,
@@ -617,13 +631,15 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     render() {
         return (
-            <LocaleConsumer componentName="Typography">
-                {(locale: Locale['Typography']) => {
-                    this.expandStr = locale.expand;
-                    this.collapseStr = locale.collapse;
-                    return this.renderTipWrapper();
-                }}
-            </LocaleConsumer>
+            <ResizeObserver onResize={this.onResize}>
+                <LocaleConsumer componentName="Typography">     
+                    {(locale: Locale['Typography']) => {
+                        this.expandStr = locale.expand;
+                        this.collapseStr = locale.collapse;
+                        return this.renderTipWrapper();
+                    }}
+                </LocaleConsumer>
+            </ResizeObserver>
         );
     }
 }
