@@ -973,6 +973,10 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 You can create and select entries that do not exist in the options by setting `allowCreate=true` You can customize the content display when creating the label through renderCreateItem (by returning ReactNode, note that you need to customize the style) In addition, can be used with the `defaultActiveFirstOption` property to automatically select the first item. When you enter directly and press Enter, you can immediately create an Option
 
+<Notice title='Notice'>
+  When allowCreate is enabled, it will no longer respond to updates to Children or optionList
+</Notice>
+
 ```jsx live=true
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -1317,7 +1321,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 | Properties | Instructions | Type | Default | version |
 | --- | --- | --- | --- | --- |
-| allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
+| allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter`. When allowCreate is enabled, it will no longer respond to updates to children or optionList | boolean | false |
 | arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon  | ReactNode |  | 1.15.0|
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
 | autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled | boolean | true | 2.3.0|
