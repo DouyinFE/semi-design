@@ -1380,7 +1380,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| allowCreate | 是否允许用户创建新条目，需配合 filter 使用 | boolean | false |
+| allowCreate | 是否允许用户创建新条目，需配合 filter 使用。该项为true时不再响应 optionList的变更 | boolean | false |
 | arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon | ReactNode |  | 1.15.0 |
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body） | boolean | true |
 | autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效 | boolean | true | 2.3.0 |

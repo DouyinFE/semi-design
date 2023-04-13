@@ -327,7 +327,7 @@ function Demo(props = {}) {
 | popupClassName | Pop-up class name | string | '' |
 | popupStyle | Pop-up layer style object | object | - |
 | position | Floating position | string | type="timeRange" => "bottom"<br/>type="time" => "bottomLeft" |
-| prefixCls | Prefix content | string\|ReactNode |  |  |
+| prefix | Prefix content | string\|ReactNode |  |  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | rangeSeparator | time range delimiter | string | "~" |
 | scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem) | object |  | **0.31.0** |
