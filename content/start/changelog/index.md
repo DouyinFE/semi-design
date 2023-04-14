@@ -16,6 +16,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
+    - 修复 Transfer 中可拖拽 item 使用 label 作 SortableItem 的 key 导致相同 label 的 item 无法拖动问题
     - 修复使用 cjs 产物时，Webpack plugin 配置的 prefixCls 不生效的问题 [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
     - 修复 Sidesheet 在 mask=false 时，mask 背景内容无法点击的问题，影响范围 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
     - 修复 DatePicker disabledDate 回调中的 rangeStart 和 rangeEnd 使用缓存值问题 [#777](https://github.com/DouyinFE/semi-design/issues/777)
