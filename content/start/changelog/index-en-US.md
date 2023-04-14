@@ -16,6 +16,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.33.0 (2023-04-14)
+-【Fix】
+     - Fix the problem that the prefixCls configured by Webpack plugin does not take effect when using cjs lib [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
+     - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
+     - Fix rangeStart and rangeEnd in DatePicker disabledDate callback using cached values [#777](https://github.com/DouyinFE/semi-design/issues/777)
+
+#### 🎉 2.33.0-beta.0 (2023-04-10)
+- 【Fix】
+    - Change the vertical-align of copy/copied icon in Typography from text-bottom to middle [#1533](https://github.com/DouyinFE/semi-design/pull/1533)
+    - Align hover and active states of form input components Input TextArea Select Cascader TimePicker DatePicker TreeSelect [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
+    - Fix Typography copyable type [@baranwang](https://github.com/baranwang) [#1546](https://github.com/DouyinFE/semi-design/pull/1546)
+- 【Feat】
+    - Form input class components Input TextArea Select Cascader TimePicker DatePicker TreeSelect Added borderless api for displaying borderless components [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
+    - Collapse Added clickHeaderToExpand for setting click response hotspots [#1537](https://github.com/DouyinFE/semi-design/pull/1537)
+
 #### 🎉 2.32.1 (2023-04-06)
 - 【Fix】
     - Fix the problem that an error may be reported when Tooltip is used in conjunction with the loading button in the production environment [#1540](https://github.com/DouyinFE/semi-design/pull/1540)

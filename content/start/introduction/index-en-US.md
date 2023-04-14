@@ -73,27 +73,31 @@ At the same time, with the expansion of business, developers in all regions of t
 
 ## Roadmap
 
-In the next year, the Semi Design team will continue to improve and optimize the quality, and open more internally implemented tool chains and resources to community users, including but not limited to:
+In the future, Semi Design team will continue to improve and optimize the quality, and open more internal tool chains and resources to community users, including but not limited to:
 
-### Material market
-
-In the past year, users of Bytedance's internal business line teams have independently designed and developed a wide variety of UI materials including forms, multimedia, user guidance, message notifications, charts, etc., around the basic components of Semi, and released them in the material market. Semi users can search for materials and reuse them based on product requirements, greatly saving development costs; at the same time, high-quality UI resources can also be accumulated and disseminated.  
-The material community will meet with you soon. At that time, we will open source the high-quality materials together, open the material release process to community users, and provide development guidelines.
-
-![Semi 物料市场（内部）](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/SemiMaterial.gif)
 
 ### Design to Code
 
 For a long time, the Semi team has been trying to optimize daily work processes through various automated means, help team designers and R&D to improve efficiency, and even redefine traditional working methods. Among them, the "front-end page restoration" link has various inefficiencies such as time-consuming and high communication costs, which has always been the focus of our attention.  
-At present, we have implemented a simple translation of static page design drafts, and have been effectively verified in scenarios such as landing pages. In fact, the official website of https://semi.design is developed and restored with the help of this solution.  
-In the future, the Design to Code program will complete component-level identification and translation through code scanning. At the same time, combined with the page templates deposited by the team from a large number of business scenarios, users will be able to quickly complete the cloning and structural restoration of the front-end page at a very low cost.
+
+At present, we have implemented translation of static page design drafts, and have been effectively verified in scenarios such as landing pages, Form Page and Table page.In fact, homepage of our [official website](https://semi.design/en-US/) is developed with the help of this solution.  
+
+
+For the identification and translation of the component level in the design, we have implemented support through Code2Design + Design2Code. At present, we have covered 80% basic components. You can use [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81---%E7%A4%BE%E5%8C%BA%E7%89%88) for experience. Detailed tutorial can be found at https://semi.design/code/en-US/
+
+In the future, combined with D2C tools, we can convert the page design templates accumulated by the team from massive business scenarios into code templates at low cost, and users will be able to quickly complete the cloning and structure restoration of front-end pages at a very low cost.
 
 ![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
 ### A11y
 
-Semi always pays attention to Web accessibility. At present, we have achieved some accessibility support in terms of semantic labeling, color wheel algorithm contrast, text perception, etc., but we believe that there is still a lot of room for improvement. We will continue to pay attention to and improve the operability and perceptibility of components in the future, provide more convenient keyboard interaction for mouse-based operations, and provide more complete WAI-ARIA support.
+Semi attaches great importance to Web accessibility. Currently, we have implemented accessibility support for components in terms of semantic tags, theme color wheel algorithm contrast, and text perception.
 
+The Accessibility chapter in each component document gives a detailed description of WAI-ARIA support and best practice recommendations. At the same time, we also provide keyboard event support and focus accessibility support for frequently used components.
+
+However, since the improvement of barrier-free is a project with a large workload, we have not yet provided complete keyboard and focus barrier-free functions on all components. For more progress, please refer to [A11y Issue](https://github.com/DouyinFE/semi-design/issues/205)
+
+The Semi team will continue to pay attention to and improve the operability and perceptibility of components, and provide more convenient keyboard interaction and more complete barrier-free functions in addition to mouse-based operations in continuous iterations.
 ### Cross WebFramework
 
 High scalability, as Semi's core design principle, runs through Semi's code architecture design, API design, style layer abstraction and other aspects. Thanks to the Foundation/Adapter architecture design and the principle of layering style files, Semi is very easy to migrate to other front-end frameworks. In version 2.0, we rewrite Semi based on Typescript, hoping to still have a good development experience and quality assurance in the process of multi-frame migration and adaptation.  

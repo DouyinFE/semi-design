@@ -7,6 +7,7 @@ export interface CollapseProps{
     activeKey?: string | string[];
     defaultActiveKey?: string | string[];
     accordion?: boolean;
+    clickHeaderToExpand?: boolean;
     onChange?: (activeKey: CollapseProps['activeKey'], e: any) => void;
     expandIcon?: any;
     collapseIcon?: any;

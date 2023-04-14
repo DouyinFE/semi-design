@@ -39,7 +39,7 @@ Property like `defaultValue`, `defaultXXX` will only be consumed once when the c
 Or force React to remount the component by passing in a different `key`.
 
 #### Does Semi support i18n?
-As of 2022-07, Semi supports 17 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
+As of 2023-04, Semi supports 21 languages. See [Semi·LocaleProvider](/en-US/other/locale) for details.
 
 #### Who should I look for if there is a new component requirement, or an existing component Feature does not meet my business needs?
 

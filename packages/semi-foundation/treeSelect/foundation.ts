@@ -99,6 +99,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
 | 'checkRelation'
 | 'preventScroll'
 > {
+    borderless?: boolean;
     motion?: Motion;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;

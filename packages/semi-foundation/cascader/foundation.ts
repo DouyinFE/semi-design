@@ -109,6 +109,7 @@ export interface BasicScrollPanelProps {
 }
 
 export interface BasicCascaderProps {
+    borderless?: boolean;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
     separator?: string;

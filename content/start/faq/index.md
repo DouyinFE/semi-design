@@ -47,7 +47,7 @@ Semi 组件中，所有的 defaultValue、defaultXXX 传参只会在组件被 mo
 
 #### Semi 支持 i18n 吗？
 
-Semi 目前支持 17 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
+Semi 目前支持 21 种语言，具体使用可以查阅 [Semi·LocaleProvider](/zh-CN/other/locale)
 
 #### Semi 的样式是基于 Scss 还是 Less ？为什么不用 CSS Module？
 

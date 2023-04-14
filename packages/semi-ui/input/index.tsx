@@ -34,6 +34,7 @@ export interface InputProps extends
     'aria-required'?: React.AriaAttributes['aria-required'];
     addonBefore?: React.ReactNode;
     addonAfter?: React.ReactNode;
+    borderless?: boolean;
     prefix?: React.ReactNode;
     suffix?: React.ReactNode;
     mode?: InputMode;
@@ -120,6 +121,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         inputStyle: PropTypes.object,
         getValueLength: PropTypes.func,
         preventScroll: PropTypes.bool,
+        borderless: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -144,6 +146,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyPress: noop,
         onEnterPress: noop,
         validateStatus: 'default',
+        noBg: false,
     };
 
     inputRef!: React.RefObject<HTMLInputElement>;
@@ -442,6 +445,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             maxLength,
             getValueLength,
             preventScroll,
+            borderless,
             ...rest
         } = this.props;
         const { value, isFocus, minLength: stateMinLength } = this.state;
@@ -467,6 +471,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${wrapperPrefix}-modebtn`]: mode === 'password',
             [`${wrapperPrefix}-hidden`]: type === 'hidden',
             [`${wrapperPrefix}-${size}`]: size,
+            [`${prefixCls}-borderless`]: borderless
         });
         const inputCls = cls(prefixCls, {
             [`${prefixCls}-${size}`]: size,

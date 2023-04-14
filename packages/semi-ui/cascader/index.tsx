@@ -109,6 +109,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         'aria-required': PropTypes.bool,
         'aria-label': PropTypes.string,
         arrowIcon: PropTypes.node,
+        borderless: PropTypes.bool,
         clearIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -181,6 +182,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     static defaultProps = {
+        borderless: false,
         leafOnly: false,
         arrowIcon: <IconChevronDown />,
         stopPropagation: true,
@@ -920,6 +922,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             triggerRender,
             showClear,
             id,
+            borderless,
         } = this.props;
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -927,6 +930,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const classNames = useCustomTrigger ?
             cls(className) :
             cls(prefixcls, className, {
+                [`${prefixcls}-borderless`]: borderless,
                 [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
                 [`${prefixcls}-disabled`]: disabled,
                 [`${prefixcls}-single`]: true,

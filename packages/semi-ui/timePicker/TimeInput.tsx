@@ -34,6 +34,7 @@ export type TimeInputProps = Pick<TimePickerProps,
 'localeCode' |
 'insetLabel' |
 'validateStatus' |
+'borderless'|
 'preventScroll'> & BaseProps & {
     onChange?: (value: string) => void;
     onEsc?: () => void;
@@ -46,6 +47,7 @@ export type TimeInputProps = Pick<TimePickerProps,
 
 class TimeInput extends BaseComponent<TimeInputProps, any> {
     static propTypes = {
+        borderless: PropTypes.bool,
         format: PropTypes.string,
         prefixCls: PropTypes.string,
         placeholder: PropTypes.string,
@@ -74,6 +76,7 @@ class TimeInput extends BaseComponent<TimeInputProps, any> {
     };
 
     static defaultProps = {
+        borderless: false,
         inputReadOnly: false,
         onChange: noop,
         onBlur: noop,

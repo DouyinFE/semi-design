@@ -1,10 +1,12 @@
 $color-treeSelect_default-bg-default: var(--semi-color-fill-0); // 树选择器选择框背景颜色 - 默认
+$color-treeSelect_default-bg-hover: var(--semi-color-fill-1); // 树选择器选择框背景颜色 - 悬停
+$color-treeSelect_default-bg-active: var(--semi-color-fill-2); // 树选择器选择框背景颜色 - 按下
+$color-treeSelect_default-bg-focus: var(--semi-color-fill-0); // 树选择器选择框背景颜色 - 选中
 $color-treeSelect_default-border-default: transparent; // 树选择器选择框描边颜色 - 默认
 $color-treeSelect_selection-text-default: var(--semi-color-text-0); // 树选择器选择框回填内容文本颜色 - 默认
 $color-treeSelect_default-icon-default: var(--semi-color-text-2); // 树选择器选择框图标颜色 - 默认
 $color-treeSelect_default-icon-hover: var(--semi-color-primary-hover); // 树选择器选择框清空按钮颜色 - 悬停
 $color-treeSelect_default-icon-active: var(--semi-color-primary-active); // 树选择器选择框清空按钮颜色 - 按下
-$color-treeSelect_default-bg-hover: var(--semi-color-fill-1); // 树选择器选择框背景颜色 - 悬停
 
 $color-treeSelect_default-border-hover: transparent; // 树选择器选择框描边颜色 - 悬浮
 $color-treeSelect_default-border-focus: var(--semi-color-focus-border);// 树选择器选择框描边颜色 - 选中
