@@ -19,7 +19,7 @@ class Button extends React.PureComponent<ButtonProps> {
         ...IconButton.propTypes,
     };
     static elementType: string;
-    constructor(props = {}) {
+    constructor(props: ButtonProps = {}) {
         super(props);
     }
     render() {
