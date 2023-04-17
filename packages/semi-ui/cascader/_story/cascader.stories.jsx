@@ -334,7 +334,7 @@ export const issue703 = () => {
         },
     ];
     const [data, setData] = useState(initialData);
-    
+
     const updateTreeData = (list, value, children) => {
         return list.map(node => {
             if (node.value === value) {
@@ -380,7 +380,7 @@ export const issue703 = () => {
     useEffect(()=>{
       console.log('data change');
         setTimeout(()=>setV([['0-0'], ['0-1', 'Node2-2', 'Node2-2-2']]),0);
-    },[data]) 
+    },[data])
 
     return (
       <>
@@ -391,7 +391,7 @@ export const issue703 = () => {
             value={v}
             style={{ width: 300 }}
             treeData={data}
-            loadData={onLoadData} 
+            loadData={onLoadData}
             placeholder="Please select"
         />
         <div>非受控，动态更新treeData</div>
@@ -400,7 +400,7 @@ export const issue703 = () => {
             onChange={(a)=>console.log(a)}
             style={{ width: 300 }}
             treeData={data}
-            loadData={onLoadData} 
+            loadData={onLoadData}
             placeholder="Please select"
         />
       </>
@@ -1444,7 +1444,7 @@ export const OnChangeWithObject = () => (
 
 export const undefinedValueWhileMutipleAndOnChangeWithObject = () => {
   const [value, setValue] = useState(undefined);
-  
+
   return (
     <>
       <div>多选 + onChangeWithObject + value 为 undefined</div>
@@ -1565,7 +1565,7 @@ export const DynamicTreeData = () => {
           <Cascader
             style={{ width: 300 }}
             treeData={treeDataDemo1}
-            multiple 
+            multiple
             placeholder="请选择所在地区"
           />
           <Button onClick={()=>{setTreeData1(treeData3)}}>改变treeData</Button>
@@ -1671,17 +1671,17 @@ export const filterSorter = () => {
               {
                   label: 'Semi-Material',
                   value: 'Semi-Material',
-                  
+
               },
               {
                   label: 'Semi-DSM',
                   value: 'Semi-DSM',
-                  
+
               },
               {
                   label: 'Semi',
                   value: 'Semi',
-                  
+
               },
               {
                   label: 'Semi-C2D',
@@ -1726,17 +1726,17 @@ export const filterRender = () => {
             {
                 label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
                 value: 'Semi-Material',
-                
+
             },
             {
                 label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
                 value: 'Semi-DSM',
-                
+
             },
             {
                 label: 'Semi Design Semi Design Semi Design Semi Design',
                 value: 'Semi',
-                
+
             },
             {
                 label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
@@ -1764,9 +1764,9 @@ export const filterRender = () => {
           style={{justifyContent: 'flex-start'}}
           role="treeitem"
           onClick={onClick}
-      > 
-        <Text 
-          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}} 
+      >
+        <Text
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}}
           style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
         >
             {data.map(item => item.label ).join(' / ')}
@@ -1789,15 +1789,15 @@ export const filterRender = () => {
           style={{justifyContent: 'flex-start'}}
           role="treeitem"
           onClick={onCheck}
-      > 
+      >
         <Checkbox
             onClick={onCheck}
             indeterminate={checkStatus.halfChecked}
             checked={checkStatus.checked}
             style={{ marginRight: 8 }}
         />
-        <Text 
-          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}} 
+        <Text
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}}
           style={{ width: 270 }}
         >
             {data.map(item => item.label).join(' / ')}
@@ -1805,7 +1805,7 @@ export const filterRender = () => {
       </li>
     )
   }
-  
+
   return (
       <div>
           <p>鼠标 hover 到选项可查看被省略文本完整内容</p>
@@ -1841,6 +1841,14 @@ export const RefMethods = () => {
     cRef.current.close();
   }, [cRef]);
 
+  const onClickFocus = useCallback(() => {
+    cRef.current.focus();
+  }, [cRef]);
+
+  const onClickBlur = useCallback(() => {
+    cRef.current.blur();
+  }, [cRef]);
+
   const treeData = [
     {
         label: '浙江省',
@@ -1870,7 +1878,13 @@ export const RefMethods = () => {
   return (
       <div>
           <Button onClick={onClickOpen}> cascader visible</Button>
-          <br />
+          <br /><br />
+          <Button onClick={onClickClose}> cascader hidden</Button>
+          <br /><br />
+          <Button onClick={onClickFocus}> cascader focusable</Button>
+          <br /><br />
+          <Button onClick={onClickBlur}> cascader blur</Button>
+          <br /><br />
           <Cascader
               multiple
               ref={cRef}
@@ -2056,7 +2070,7 @@ export const TriggerAddMethods = () => {
           const label = getLabelFromValue(value);
           return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>
       };
-      
+
       return (
           <TagInput
               value={Array.from(value)}
