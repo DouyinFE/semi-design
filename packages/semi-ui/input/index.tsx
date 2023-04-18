@@ -146,7 +146,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         onKeyPress: noop,
         onEnterPress: noop,
         validateStatus: 'default',
-        noBg: false,
+        borderless: false,
     };
 
     inputRef!: React.RefObject<HTMLInputElement>;
