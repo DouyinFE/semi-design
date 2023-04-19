@@ -1,6 +1,6 @@
 import path from 'path';
 import { Compiler as LegacyCompiler } from 'webpack';
-import { Compiler } from 'webpack-5';
+import { Compiler } from 'webpack';
 import { transformPath } from './utils';
 
 export interface WebpackContext {
