@@ -1,4 +1,4 @@
-> A webpack plugin for Semi Design to custom theme、replace prefix and so on.
+> A repack plugin for Semi Design to custom theme、replace prefix and so on.
 
 ## Introduction
 The plugin is designed for Semi Design, support webpack4 and webpack5, provides two major abilities:
@@ -8,12 +8,12 @@ The plugin is designed for Semi Design, support webpack4 and webpack5, provides 
 ## Usage 
 
 ### Install 
-Install `@douyinfe/semi-webpack-plugin` as a development dependency:
+Install `@douyinfe/semi-rspack-plugin` as a development dependency:
 
 ``` shell
-npm install --save-dev @douyinfe/semi-webpack-plugin
+npm install --save-dev @douyinfe/semi-rspack-plugin
 # or
-yarn add --dev @douyinfe/semi-webpack-plugin
+yarn add --dev @douyinfe/semi-rspack-plugin
 ```
 
 ### Custom theme
@@ -30,7 +30,7 @@ In order to use the npm package, you need to customize the theme through [Semi D
 
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
     // ...
@@ -57,7 +57,7 @@ $font-size-small: 16px;
 ``` js
 // webpack.config.js
 const path = require('path');
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
     // ...
@@ -72,7 +72,7 @@ module.exports = {
 #### Through parameters
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
     // ...
@@ -91,7 +91,7 @@ The CSS selectors used by Semi Design is prefixed with semi by default(e.g, `.se
 
 ``` js
 // webpack.config.js
-const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
     // ...
@@ -143,9 +143,6 @@ Type: `Boolean`
 
 In the compilation phase, whether to exclude css references.Used to solve the problem that Next.js does not support the global introduction of css in third-party code.See this [discussion](https://github.com/vercel/next.js/discussions/27953).
 
-##### options.webpackContext.NormalModule
-
-Type: `webpack NormalModule`
 
 ##### options.extractCssOptions.loader
 

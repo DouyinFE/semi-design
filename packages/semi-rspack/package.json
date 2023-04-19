@@ -2,7 +2,6 @@
     "name": "@douyinfe/semi-rspack-plugin",
     "version": "2.31.0",
     "description": "",
-    "author": "伍浩威 <wuhaowei.whw@bytedance.com>",
     "homepage": "",
     "license": "MIT",
     "main": "lib/index.js",
