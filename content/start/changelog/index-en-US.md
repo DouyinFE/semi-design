@@ -17,10 +17,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.33.0 (2023-04-14)
--【Fix】
-     - Fix the problem that the prefixCls configured by Webpack plugin does not take effect when using cjs lib [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
-     - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
-     - Fix rangeStart and rangeEnd in DatePicker disabledDate callback using cached values [#777](https://github.com/DouyinFE/semi-design/issues/777)
+- 【Fix】
+    - Fix the problem that items with the same label cannot be dragged when the draggable item in Transfer uses the label as the key of the SortableItem
+    - Fix the problem that the prefixCls configured by Webpack plugin does not take effect when using cjs lib [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
+    - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
+    - Fix rangeStart and rangeEnd in DatePicker disabledDate callback using cached values [#777](https://github.com/DouyinFE/semi-design/issues/777)
 
 #### 🎉 2.33.0-beta.0 (2023-04-10)
 - 【Fix】
