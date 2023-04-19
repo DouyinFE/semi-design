@@ -557,12 +557,18 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     focus() {
-        this._adapter.focusInput();
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.focusInput();
+        }
         this._adapter.updateFocusState(true);
     }
 
     blur() {
-        this._adapter.blurInput();
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.blurInput();
+        }
         this._adapter.updateFocusState(false);
     }
 
