@@ -11,7 +11,7 @@ import { isHTMLElement } from '@douyinfe/semi-foundation/utils/dom';
  * @param {React.MouseEvent<HTMLElement>} e React mouse event object
  * @param {boolean} noImmediate Skip stopping immediate propagation
  */
-export function stopPropagation(e: React.MouseEvent, noImmediate?: boolean) {
+export function stopPropagation(e: React.MouseEvent | React.FocusEvent<HTMLElement>, noImmediate?: boolean) {
     if (e && typeof e.stopPropagation === 'function') {
         e.stopPropagation();
     }
