@@ -272,7 +272,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     get adapter(): CascaderAdapter {
-        const filterAdapter: Pick<CascaderAdapter, 'updateInputValue' | 'updateInputPlaceHolder' | 'focusInput'> = {
+        const filterAdapter: Pick<CascaderAdapter, 'updateInputValue' | 'updateInputPlaceHolder' | 'focusInput' | 'blurInput'> = {
             updateInputValue: value => {
                 this.setState({ inputValue: value });
             },
@@ -284,6 +284,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
                     (this.inputRef.current as any).focus({ preventScroll });
+                }
+            },
+            blurInput: () => {
+                if (this.inputRef && this.inputRef.current) {
+                    (this.inputRef.current as any).blur();
                 }
             },
         };
@@ -629,6 +634,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.open();
     }
 
+    focus() {
+        this.foundation.focus();
+    }
+
+    blur() {
+        this.foundation.blur();
+    }
+
     renderContent = () => {
         const {
             inputValue,
@@ -761,6 +774,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { placeholder, filterTreeNode, multiple } = this.props;
         const { checkedKeys } = this.state;
         const searchable = Boolean(filterTreeNode);
+
         if (!searchable) {
             if (multiple) {
                 if (isEmpty(checkedKeys)) {
