@@ -123,12 +123,24 @@ $module: #{$prefix}-typography;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
+
+        &.#{$module}-ellipsis-multiple-line-text {
+            // inline-block only works in the Text component, keeping the original external inline performance
+            display: -webkit-inline-box;
+        }
     }
 
     &-ellipsis-overflow-ellipsis {
         display: block;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        &.#{$module}-ellipsis-overflow-ellipsis-text {
+            // inline-block only works in the Text component, keeping the original external inline performance
+            display: inline-block;
+            // Ensure that Text component can be limited by the parent's width when no specific width is set
+            max-width: 100%;
+        }
     }
 
     &-ellipsis-expand {

@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { omit } from 'lodash';
 
 /**
  * The logic of JS for text truncation is referenced from antd typography
@@ -31,7 +32,10 @@ const getRenderText = (
     originEle: HTMLElement,
     rows: number,
     content = '',
-    fixedContent: any[],
+    fixedContent: {
+        expand: Node;
+        copy: Node
+    },
     ellipsisStr: string,
     suffix: string,
     ellipsisPos: string
@@ -76,20 +80,30 @@ const getRenderText = (
 
     // Check if ellipsis in measure div is height enough for content
     function inRange() {
-        // console.log('inrange?', ellipsisContainer.scrollHeight, ellipsisContainer.scrollHeight < maxHeight)
+        // console.log('inrange?', ellipsisContainer.scrollHeight, ellipsisContainer.scrollHeight < maxHeight);
         return ellipsisContainer.scrollHeight < maxHeight;
     }
 
     // ========================= Find match ellipsis content =========================
     // Create origin content holder
     const ellipsisContentHolder = document.createElement('span');
-    const ellipsisTextNode = document.createTextNode(suffix);
-    ellipsisContentHolder.appendChild(ellipsisTextNode);
+    const textNode = document.createTextNode(content);
+    ellipsisContentHolder.appendChild(textNode);
+    if (suffix.length > 0) {
+        const ellipsisTextNode = document.createTextNode(suffix);
+        ellipsisContentHolder.appendChild(ellipsisTextNode);
+    }
     ellipsisContainer.appendChild(ellipsisContentHolder);
-    fixedContent.map((node: Node) => node && ellipsisContainer.appendChild(node.cloneNode(true)));
-    // Append before fixed nodes
-    function appendChildNode(node: ChildNode) {
-        ellipsisContentHolder.insertBefore(node, ellipsisTextNode);
+
+    // Expand node needs to be added only when text needTruncated
+    Object.values(omit(fixedContent, 'expand')).map(
+        node => node && ellipsisContainer.appendChild(node.cloneNode(true))
+    );
+   
+    function appendExpandNode() {
+        ellipsisContainer.innerHTML = '';
+        ellipsisContainer.appendChild(ellipsisContentHolder);
+        Object.values(fixedContent).map(node => node && ellipsisContainer.appendChild(node.cloneNode(true)));
     }
 
     function getCurrentText(text: string, pos: number) {
@@ -97,7 +111,7 @@ const getRenderText = (
         if (!pos) {
             return ellipsisStr;
         }
-        if (ellipsisPos === 'end' || pos > end - pos) {
+        if (ellipsisPos === 'end') {
             return text.slice(0, pos) + ellipsisStr;
         }
         return text.slice(0, pos) + ellipsisStr + text.slice(end - pos, end);
@@ -119,8 +133,8 @@ const getRenderText = (
             for (let step = endLoc; step >= startLoc; step -= 1) {
                 const currentStepText = getCurrentText(fullText, step);
                 textNode.textContent = currentStepText;
-                if (inRange() || !currentStepText) {
-                    return step === fullText.length ? fullText : currentStepText;
+                if (inRange()) {
+                    return currentStepText;
                 }
             }
         } else if (endLoc === 0) {
@@ -132,10 +146,17 @@ const getRenderText = (
         }
         return measureText(textNode, fullText, startLoc, midLoc, lastSuccessLoc);
     }
-
-    const textNode = document.createTextNode(content);
-    appendChildNode(textNode);
-    const resText = measureText(textNode, content);
+    
+    let resText = content;
+    // First judge whether the total length of fullText, plus suffix (possible)
+    // and copied icon (possible) meets expectations？ 
+    // If it does not meet expectations, add an expand button to find the largest  content that meets size limit
+    // 首先判断总文本长度，加上可能有的 suffix，复制按钮长度，看结果是否符合预期
+    // 如果不符合预期，则再加上展开按钮，找最大符合尺寸的内容
+    if (!inRange()) {
+        appendExpandNode();
+        resText = measureText(textNode, content, 0, ellipsisPos === 'middle' ? Math.floor((content.length) / 2): content.length);
+    }
     ellipsisContainer.innerHTML = '';
     return resText;
 };
