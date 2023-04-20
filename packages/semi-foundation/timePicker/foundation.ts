@@ -10,7 +10,7 @@ import {
     transformToArray,
     isTimeFormatLike
 } from './utils';
-import { split } from 'lodash';
+import { split, isUndefined } from 'lodash';
 import { isValid, format, getHours } from 'date-fns';
 import { utcToZonedTime, zonedTimeToUtc } from '../utils/date-fns-extra';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
@@ -182,7 +182,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             isAM[index] = panelIsAM;
             const inputValue = this.formatValue(value);
 
-            if (this.getState('isAM')[index] !== result.isAM){
+            if (this.getState('isAM')[index] !== result.isAM) {
                 this.setState({ isAM } as any);
             }
             if (!this._isControlledComponent('value')) {
@@ -369,7 +369,16 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         }
 
         if (_dates && Array.isArray(_dates)) {
-            return _dates.map(date => formatToString(date, validFormat, dateFnsLocale)).join(rangeSeparator);
+            const result = _dates.map(date => {
+                let str;
+                if (isUndefined(date)) {
+                    str = '';
+                } else {
+                    str = formatToString(date, validFormat, dateFnsLocale);
+                }
+                return str;
+            });
+            return result.join(rangeSeparator);
         }
         return undefined;
     }
