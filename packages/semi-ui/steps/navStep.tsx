@@ -25,18 +25,14 @@ const NavStep = (props: NavStepProps) => {
     const classString = classnames(prefixCls, {
         [`${prefixCls}-active`]: active
     }, className);
-    const handleClick = (e: React.MouseEvent) => {
-        if (isFunction(onClick)) {
-            onClick(e);
-        }
-        onChange();
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        onClick?.(e);
+        onChange?.();
     };
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (isFunction(onKeyDown)) {
-                onKeyDown(e);
-            }
-            onChange();
+            onKeyDown?.(e);
+            onChange?.();
         }
     };
     return (

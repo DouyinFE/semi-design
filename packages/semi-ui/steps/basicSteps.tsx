@@ -63,11 +63,11 @@ const Steps = (props: BasicStepsProps) => {
             }
             childProps.active = stepNumber === current;
             childProps.done = stepNumber < current;
-            childProps.onChange = () => {
+            childProps.onChange = onChange ? () => {
                 if (index !== current) {
                     onChange(index + initial);
                 }
-            };
+            } : undefined;
             return cloneElement(child, { ...childProps });
         });
         return content;

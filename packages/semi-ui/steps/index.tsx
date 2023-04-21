@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import '@douyinfe/semi-foundation/steps/steps.scss';
 import Step from './step';
@@ -37,7 +36,6 @@ class Steps extends Component<StepsProps> {
     };
 
     static defaultProps = {
-        onChange: noop,
         type: 'fill',
         size: 'default'
     };

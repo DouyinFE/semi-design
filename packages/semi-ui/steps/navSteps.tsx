@@ -31,11 +31,11 @@ const Steps = (props: NavStepsProps) => {
                 ...child.props,
             };
             childProps.active = index === current;
-            childProps.onChange = () => {
+            childProps.onChange = onChange ? () => {
                 if (index !== current) {
                     onChange(index + initial);
                 }
-            };
+            } : undefined;
             return cloneElement(child, { ...childProps });
         });
         return content;
