@@ -287,6 +287,15 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
         );
 
+        // If children is null, css/js truncated flag isTruncate is false
+        if (isNull(children)) {
+            this.setState({
+                isTruncated: false,
+                isOverflowed: false
+            });
+            return undefined;
+        }
+
         if (!rows || rows < 0 || expanded) {
             return undefined;
         }
@@ -304,16 +313,8 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
 
-        // If children is null, js truncated flag isTruncate is false
-        if (isNull(children)) {
-            this.setState({
-                isTruncated: false,
-            });
-            return undefined;
-        }
-
         const content = getRenderText(
-            ReactDOM.findDOMNode(this.wrapperRef.current) as HTMLElement,
+            this.wrapperRef.current,
             rows,
             // Perform type conversion on children to prevent component crash due to non-string type of children
             String(children),
@@ -518,7 +519,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         warning(
             hasObject,
-            'content to be copied in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
+            'Content to be copied in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
         );
         const copyConfig = {
             content: copyContent,

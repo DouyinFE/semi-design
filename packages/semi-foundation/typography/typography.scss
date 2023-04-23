@@ -140,6 +140,7 @@ $module: #{$prefix}-typography;
             display: inline-block;
             // Ensure that Text component can be limited by the parent's width when no specific width is set
             max-width: 100%;
+            vertical-align: top;
         }
     }
 
