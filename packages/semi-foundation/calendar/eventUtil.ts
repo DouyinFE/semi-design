@@ -121,7 +121,8 @@ export const calcRangeData = (value: Date, start: Date, rangeLen: number, mode: 
 
 /**
  *
- * @param {value} date current date, using for month mode
+ * @param {Date} date
+ * @param {Date} monthStart current month start date, using for month mode
  * @param {string} mode
  * @param {string} locale
  * @returns {object[]} { date: Date, dayString: string, ind: number, isToday: boolean, isWeekend: boolean, weekday: string }
