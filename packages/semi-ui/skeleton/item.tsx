@@ -32,6 +32,7 @@ const generator = <T extends BasicProps>(type: string) => (BasicComponent: Compo
 ): ReactElement => <BasicComponent type={type} {...props} />;
 
 class Generic extends PureComponent<GenericProps> {
+    static elementType: string;
     static propTypes = {
         type: PropTypes.string,
         prefixCls: PropTypes.string,
@@ -67,8 +68,13 @@ export const Avatar = generator<AvatarProps>('avatar')(Generic);
 export const Image = generator<BasicProps>('image')(Generic);
 export const Title = generator<BasicProps>('title')(Generic);
 export const Button = generator<BasicProps>('button')(Generic);
+(Avatar as any).elementType = 'Skeleton.Avatar';
+(Image as any).elementType = 'Skeleton.Image';
+(Title as any).elementType = 'Skeleton.Title';
+(Button as any).elementType = 'Skeleton.Button';
 
 export class Paragraph extends PureComponent<ParagraphProps> {
+    static elementType: string;
     static propTypes = {
         rows: PropTypes.number,
         prefixCls: PropTypes.string,
@@ -93,3 +99,5 @@ export class Paragraph extends PureComponent<ParagraphProps> {
         );
     }
 }
+
+Paragraph.elementType = 'Skeleton.Paragraph';

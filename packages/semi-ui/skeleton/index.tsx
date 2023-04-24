@@ -19,6 +19,7 @@ export interface SkeletonProps {
 }
 
 class Skeleton extends PureComponent<SkeletonProps> {
+    static elementType: string;
     static Avatar = Avatar;
     static Title = Title;
     static Button = Button;
@@ -58,5 +59,7 @@ class Skeleton extends PureComponent<SkeletonProps> {
         return content;
     }
 }
+
+Skeleton.elementType = 'Skeleton';
 
 export default Skeleton;
