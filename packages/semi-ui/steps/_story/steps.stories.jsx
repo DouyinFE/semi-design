@@ -414,17 +414,11 @@ const C2DItem = () => {
       <br />
       <NavStep usedInC2D {...props} style={{ width: 56 }} active={false} size={'small'} />
       <br />
-      <NavStep usedInC2D {...props} style={{ width: 116 }} active={true} size={'small'} lastOne />
-      <br />
-      <NavStep usedInC2D {...props} style={{ width: 56 }} active={false} size={'small'} lastOne />
       <p>nav, default</p>
       <NavStep usedInC2D {...props} style={{ width: 124 }} active={true} />
       <br />
       <NavStep usedInC2D {...props} style={{ width: 64 }} active={false} />
       <br />
-      <NavStep usedInC2D {...props} style={{ width: 124 }} active={true} lastOne />
-      <br />
-      <NavStep usedInC2D {...props} style={{ width: 64 }} active={false} lastOne />
   </>
 }
 

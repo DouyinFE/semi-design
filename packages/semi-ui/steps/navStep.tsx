@@ -24,7 +24,7 @@ export interface NavStepProps {
 }
 
 const NavStep = (props: NavStepProps) => {
-    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange, lastOne, size } = props;
+    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange, size } = props;
     const classString = classnames(prefixCls, {
         [`${prefixCls}-active`]: active,
         [`${prefixCls}-nav`]: props.usedInC2D,
