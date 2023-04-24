@@ -45,6 +45,7 @@ const Steps = (props: BasicStepsProps) => {
             const childProps = {
                 stepNumber: `${stepNumber + 1}`,
                 size,
+                direction,
                 ...child.props,
             };
 

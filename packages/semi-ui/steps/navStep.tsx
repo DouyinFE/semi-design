@@ -17,13 +17,18 @@ export interface NavStepProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     "role"?: React.AriaRole;
-    "aria-label"?: React.AriaAttributes["aria-label"]
+    "aria-label"?: React.AriaAttributes["aria-label"];
+    // 以下参数用于 C2D 变体生成, 用户请勿使用
+    usedInC2D?: boolean;
+    size?: string
 }
 
 const NavStep = (props: NavStepProps) => {
-    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange } = props;
+    const { prefixCls, className, title, style, active, index, total, onClick, onKeyDown, onChange, lastOne, size } = props;
     const classString = classnames(prefixCls, {
-        [`${prefixCls}-active`]: active
+        [`${prefixCls}-active`]: active,
+        [`${prefixCls}-nav`]: props.usedInC2D,
+        [`${prefixCls}-small`]: size === 'small',
     }, className);
     const handleClick = (e: React.MouseEvent) => {
         if (isFunction(onClick)) {
@@ -70,5 +75,7 @@ NavStep.defaultProps = {
     active: false,
     className: '',
 };
+
+NavStep.elementType = 'Steps.NavStep';
 
 export default NavStep;

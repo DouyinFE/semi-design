@@ -304,3 +304,132 @@ export const StepsWithoutLine = () => <LineStep></LineStep>;
 StepsWithoutLine.story = {
   name: 'steps without line',
 };
+
+const C2DItem = () => {
+  const props = {
+    title: "步骤标题",
+    description: "辅助说明文本" 
+  }
+
+  const sizes = ['small', 'default'];
+  const types = ['fill', 'basic', 'nav'];
+  const direction = ['horizontal', 'vertical'];
+
+  const { NavStep, FillStep, BasicStep } = Steps;
+
+  return <>
+      <p>仅考虑整体的方式</p>
+      <Steps type={'fill'} direction={'horizontal'}>
+        {[1,2,3,4].map(index => (
+            <Step key={index} {...props} />
+        ))}
+      </Steps>
+      {types.map(type => (
+        <div key={`${type}`}>
+          <p>type={type}</p>
+          {sizes.map(size => {
+            if (size ==='small' && type=== 'fill') {
+              return null;
+            }
+            
+            return (
+              direction.map(dir => {
+                if (type === 'nav' && dir === 'vertical') {
+                  return null;
+                }
+                return (
+                  <div key={`${type}-${size}`}>
+                    <p>size={size}</p>
+                    <Steps type={type} size={size} direction={dir}>
+                      {[1,2,3,4].map(index => (
+                          <Step key={index} {...props} />
+                      ))}
+                    </Steps>
+                  </div>
+                );
+              })
+            );
+          })}
+        </div>
+      ))}
+      <p>Step作为一个变体考虑</p>
+      <p>horizontal, basic</p>
+      <BasicStep usedInC2D {...props} status={'finish'} direction={'horizontal'} stepNumber={3} size={'default'}/>
+      <BasicStep usedInC2D {...props} status={'error'} direction={'horizontal'} stepNumber={3} size={'default'}/>
+      <BasicStep usedInC2D {...props} status={'warning'} direction={'horizontal'} stepNumber={3} size={'default'}/>
+      <BasicStep usedInC2D {...props} status={'process'}  direction={'horizontal'} stepNumber={3} size={'default'}/>
+      <BasicStep usedInC2D {...props} status={'wait'}  direction={'horizontal'} stepNumber={3} size={'default'}/>
+      <p>vertical, basic</p>
+      <BasicStep usedInC2D {...props} status={'finish'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'error'} direction={'vertical'} stepNumber={3} size={'default'}  />
+      <br />
+      <BasicStep usedInC2D {...props} status={'warning'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'process'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'wait'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <p>horizontal, basic, small</p>
+      <BasicStep usedInC2D {...props} status={'finish'} direction={'horizontal'} stepNumber={3} size={'small'}/>
+      <BasicStep usedInC2D {...props} status={'error'} direction={'horizontal'} stepNumber={3} size={'small'}/>
+      <BasicStep usedInC2D {...props} status={'warning'} direction={'horizontal'} stepNumber={3} size={'small'}/>
+      <BasicStep usedInC2D {...props} status={'process'} direction={'horizontal'} stepNumber={3} size={'small'}/>
+      <BasicStep usedInC2D {...props} status={'wait'} direction={'horizontal'} stepNumber={3} size={'small'}/>
+      <p>vertical, basic, small</p>
+      <BasicStep usedInC2D {...props} status={'finish'} direction={'vertical'} stepNumber={3} size={'small'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'error'} direction={'vertical'} stepNumber={3} size={'small'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'warning'} direction={'vertical'} stepNumber={3} size={'small'}  />
+      <br />
+      <BasicStep usedInC2D {...props} status={'process'} direction={'vertical'} stepNumber={3} size={'small'} />
+      <br />
+      <BasicStep usedInC2D {...props} status={'wait'} direction={'vertical'} stepNumber={3} size={'small'}/>
+      <br />
+      <p>horizontal, fill</p>
+      <FillStep usedInC2D {...props} status={'finish'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'error'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'warning'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'process'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'wait'} stepNumber={3} size={'default'} />
+      <br />
+      <p>vertical, fill</p>
+      <FillStep usedInC2D {...props} status={'finish'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'error'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'warning'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br /> 
+      <FillStep usedInC2D {...props} status={'process'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <FillStep usedInC2D {...props} status={'wait'} direction={'vertical'} stepNumber={3} size={'default'} />
+      <br />
+      <p>nav, small</p>
+      <NavStep usedInC2D {...props} style={{ width: 116 }} active={true} size={'small'} />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 56 }} active={false} size={'small'} />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 116 }} active={true} size={'small'} lastOne />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 56 }} active={false} size={'small'} lastOne />
+      <p>nav, default</p>
+      <NavStep usedInC2D {...props} style={{ width: 124 }} active={true} />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 64 }} active={false} />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 124 }} active={true} lastOne />
+      <br />
+      <NavStep usedInC2D {...props} style={{ width: 64 }} active={false} lastOne />
+  </>
+}
+
+export const C2DItems = () => <C2DItem />;
+
+C2DItems.story = {
+  name: 'C2D items',
+};

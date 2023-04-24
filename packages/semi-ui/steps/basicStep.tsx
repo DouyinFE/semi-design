@@ -23,7 +23,11 @@ export interface BasicStepProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     "role"?: React.AriaRole;
-    "aria-label"?: React.AriaAttributes["aria-label"]
+    "aria-label"?: React.AriaAttributes["aria-label"];
+    // 以下参数用于 C2D, 用户请勿使用
+    // The following parameters are used for C2D, users should not use them
+    usedInC2D?: string;
+    direction?: string
 }
 export enum stepSizeMapIconSize {
     small = 'large',
@@ -46,6 +50,8 @@ const BasicStep = (props: BasicStepProps) => {
         onClick,
         onChange,
         onKeyDown,
+        usedInC2D,
+        direction: direction,
     } = props;
     const renderIcon = () => {
         let inner, progress;
@@ -87,7 +93,10 @@ const BasicStep = (props: BasicStepProps) => {
     };
     const classString = classnames(prefixCls, `${prefixCls}-${status}`, {
         [`${prefixCls}-active`]: active,
-        [`${prefixCls}-done`]: done
+        [`${prefixCls}-done`]: done,
+        [`${prefixCls}-basic`]: usedInC2D,
+        [`${prefixCls}-${direction}`]: direction,
+        [`${prefixCls}-small`]: size === 'small',
     }, className);
     const handleClick = (e: React.MouseEvent) => {
         if (isFunction(onClick)) {
@@ -137,5 +146,7 @@ BasicStep.defaultProps = {
     status: 'wait',
     className: '',
 };
+
+BasicStep.elementType = 'Steps.BasicStep';
 
 export default BasicStep;

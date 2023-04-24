@@ -20,7 +20,10 @@ export interface FillStepProps {
     onClick?: React.MouseEventHandler<HTMLDivElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
     "role"?: React.AriaRole;
-    "aria-label"?: React.AriaAttributes["aria-label"]
+    "aria-label"?: React.AriaAttributes["aria-label"];
+    // 以下参数用于 C2D, 用户请勿使用
+    // The following parameters are used for C2D, users should not use them
+    usedInC2D?: boolean
 }
 
 const FillStep = (props: FillStepProps) => {
@@ -86,6 +89,7 @@ const FillStep = (props: FillStepProps) => {
                 [prefixCls]: true,
                 [`${prefixCls}-${status}`]: Boolean(status),
                 [`${prefixCls}-clickable`]: onClick,
+                [`${prefixCls}-fill`]: props.usedInC2D,
             }, className)}
             style={style}
             onClick={e => {
@@ -124,5 +128,8 @@ FillStep.defaultProps = {
     status: 'wait',
     className: '',
 };
+
+
+FillStep.elementType = 'Steps.FillStep';
 
 export default FillStep;

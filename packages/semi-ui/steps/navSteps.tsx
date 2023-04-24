@@ -28,6 +28,7 @@ const Steps = (props: NavStepsProps) => {
             const childProps = {
                 index,
                 total,
+                size,
                 ...child.props,
             };
             childProps.active = index === current;

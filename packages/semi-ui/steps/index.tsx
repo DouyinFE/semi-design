@@ -6,6 +6,9 @@ import Step from './step';
 import FillSteps, { FillStepsProps } from './fillSteps';
 import BasicSteps, { BasicStepsProps } from './basicSteps';
 import NavSteps, { NavStepsProps } from './navSteps';
+import FillStep from './fillStep';
+import BasicStep from './basicStep';
+import NavStep from './navStep';
 import Context from './context';
 
 export type { Status, Size, BasicStepProps } from './basicStep';
@@ -29,6 +32,9 @@ export type StepsProps = FillStepsAllProps | BasicStepsAllProps | NavStepsAllPro
 
 class Steps extends Component<StepsProps> {
     static Step = Step;
+    static FillStep = FillStep;
+    static BasicStep = BasicStep;
+    static NavStep = NavStep;
 
     static propTypes = {
         onChange: PropTypes.func,

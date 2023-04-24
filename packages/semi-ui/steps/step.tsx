@@ -34,4 +34,6 @@ const Step = (props: StepProps) => {
     return renderStep();
 };
 
+Step.elementType = 'Steps.Step';
+
 export default Step;

@@ -23,7 +23,7 @@ const Steps = (props: FillStepsProps) => {
     const { current, status, children, prefixCls, initial, direction, className, style, onChange } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
-        const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length }%` };
+        // const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length }%` };
         const content = Children.map(filteredChildren, (child: ReactElement, index) => {
             if (!child) {
                 return null;
@@ -53,7 +53,9 @@ const Steps = (props: FillStepsProps) => {
                     onChange(index + initial);
                 }
             };
-            return <Col style={colStyle}>{cloneElement(child, { ...childProps })}</Col>;
+            // Whether colStyle is set has no effect
+            // return <Col style={colStyle}>{cloneElement(child, { ...childProps })}</Col>;
+            return <Col>{cloneElement(child, { ...childProps })}</Col>;
         });
         return content;
     }, [children, initial, prefixCls, direction, status, current, onChange]);
