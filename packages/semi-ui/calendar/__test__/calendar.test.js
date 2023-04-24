@@ -180,7 +180,7 @@ describe('Calendar', () => {
         expect(defaultFirstHead).toEqual('周日');
     });
 
-    it('test getMonthlyData fixture', () => {
+    it('test getMonthlyData same month fixture', () => {
         const displayValue = new Date(2023, 3, 10, 8, 32, 0);
 
         let calendar = mount(<Calendar
@@ -190,14 +190,14 @@ describe('Calendar', () => {
 
         let firstRow = calendar.find('.semi-calendar-month-weekrow').at(0);
         let lastRow = calendar.find('.semi-calendar-month-weekrow').last();
-        let sameMonthClass = 'calendar-month-same';
+        let sameMonthClass = `${BASE_CLASS_PREFIX}-calendar-month-same`;
         // 2023-03-26
-        expect(firstRow.find('.gridcell').at(0).className).toEqual(expect.not.stringContaining(sameMonthClass));
+        expect(firstRow.find('li').at(0).hasClass(sameMonthClass)).toEqual(false);
         // 2023-04-01
-        expect(firstRow.find('.gridcell').last().className).toEqual(expect.stringContaining(sameMonthClass));
+        expect(firstRow.find('li').last().hasClass(sameMonthClass)).toEqual(true);
         // 2023-04-30
-        expect(lastRow.find('.gridcell').at(0).className).toEqual(expect.stringContaining(sameMonthClass));
+        expect(lastRow.find('li').at(0).hasClass(sameMonthClass)).toEqual(true);
         // 2023-05-06
-        expect(lastRow.find('.gridcell').last().className).toEqual(expect.not.stringContaining(sameMonthClass));
+        expect(lastRow.find('li').last().hasClass(sameMonthClass)).toEqual(false);
     });
 })
