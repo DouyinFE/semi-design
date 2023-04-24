@@ -179,4 +179,25 @@ describe('Calendar', () => {
         let defaultFirstHead = defaultCalendar.find('.semi-calendar-month-header li').at(0).text();
         expect(defaultFirstHead).toEqual('周日');
     });
+
+    it('test getMonthlyData fixture', () => {
+        const displayValue = new Date(2023, 3, 10, 8, 32, 0);
+
+        let calendar = mount(<Calendar
+            mode={'month'}
+            displayValue={displayValue}
+        ></Calendar>);
+
+        let firstRow = calendar.find('.semi-calendar-month-weekrow').at(0);
+        let lastRow = calendar.find('.semi-calendar-month-weekrow').last();
+        let sameMonthClass = 'calendar-month-same';
+        // 2023-03-26
+        expect(firstRow.find('.gridcell').at(0).className).toEqual(expect.not.stringContaining(sameMonthClass));
+        // 2023-04-01
+        expect(firstRow.find('.gridcell').last().className).toEqual(expect.stringContaining(sameMonthClass));
+        // 2023-04-30
+        expect(lastRow.find('.gridcell').at(0).className).toEqual(expect.stringContaining(sameMonthClass));
+        // 2023-05-06
+        expect(lastRow.find('.gridcell').last().className).toEqual(expect.not.stringContaining(sameMonthClass));
+    });
 })

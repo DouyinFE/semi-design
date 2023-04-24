@@ -191,7 +191,7 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const data = {} as WeeklyData;
         const { weekStartsOn } = this.getProps();
         data.month = format(value, 'LLL', { locale: dateFnsLocale, weekStartsOn });
-        data.week = calcWeekData(value, 'week', dateFnsLocale, weekStartsOn);
+        data.week = calcWeekData(value, null, 'week', dateFnsLocale, weekStartsOn);
         this._adapter.setWeeklyData(data);
         return data;
     }
@@ -212,7 +212,7 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const { weekStartsOn } = this.getProps();
         const numberOfWeek = getWeeksInMonth(value, { weekStartsOn });
         [...Array(numberOfWeek).keys()].map(ind => {
-            data[ind] = calcWeekData(addDays(monthStart, ind * 7), 'month', dateFnsLocale, weekStartsOn);
+            data[ind] = calcWeekData(addDays(monthStart, ind * 7), monthStart, 'month', dateFnsLocale, weekStartsOn);
         });
         this._adapter.setMonthlyData(data);
         return data;

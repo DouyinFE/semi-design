@@ -121,15 +121,16 @@ export const calcRangeData = (value: Date, start: Date, rangeLen: number, mode: 
 
 /**
  *
- * @param {value} date
+ * @param {value} date current date, using for month mode
  * @param {string} mode
  * @param {string} locale
  * @returns {object[]} { date: Date, dayString: string, ind: number, isToday: boolean, isWeekend: boolean, weekday: string }
  * create weekly object array
  */
-export const calcWeekData = (value: Date, mode = 'week', locale: Locale, weekStartsOn: weekStartsOnEnum) => {
+export const calcWeekData = (value: Date, monthStart: Date | null, mode = 'week', locale: Locale, weekStartsOn: weekStartsOnEnum) => {
     const start = startOfWeek(value, { weekStartsOn });
-    return calcRangeData(value, start, 7, mode, locale, weekStartsOn);
+    const realValue = monthStart || value;
+    return calcRangeData(realValue, start, 7, mode, locale, weekStartsOn);
 };
 
 /**
