@@ -19,6 +19,8 @@ import NavContext, { NavContextType } from './nav-context';
 import { times, get } from 'lodash';
 import Collapsible from "../collapsible";
 import CSSAnimation from "../_cssAnimation";
+import { Mode } from 'navigation';
+import { isUndefined } from 'lodash';
 
 export interface ToggleIcon {
     open?: string;
@@ -38,7 +40,10 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    toggleIcon?: ToggleIcon
+    toggleIcon?: ToggleIcon;
+    // internal param, used for c2d NavSub variant generation
+    active?: boolean;
+    mode?: string
 }
 
 export interface SubNavState {
@@ -46,6 +51,7 @@ export interface SubNavState {
 }
 
 export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
+    static elementType: string;
     static contextType = NavContext;
 
     static propTypes = {
@@ -96,7 +102,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         onMouseLeave: PropTypes.func,
         // Is it disabled
         disabled: PropTypes.bool,
-        level: PropTypes.number
+        level: PropTypes.number,
+        active: PropTypes.bool
     };
 
     static defaultProps = {
@@ -110,6 +117,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             closed: <IconChevronDown aria-hidden={true} />,
         },
         disabled: false,
+        active: false,
     };
 
     titleRef: React.RefObject<HTMLDivElement>;
@@ -162,9 +170,11 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             notifyGlobalOpenChange: (...args) => this._invokeContextFunc('onOpenChange', ...args),
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
-            getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
+            getIsSelected: itemKey => this.props.active || Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
             getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
+                this.props.isOpen || Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
+            getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context?.isCollapsed),
+            getMode: () => this.props.mode ?? this.context?.mode
         };
     }
 
@@ -179,22 +189,23 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     handleDropdownVisible = (visible: boolean) => this.foundation.handleDropdownVisibleChange(visible);
 
     renderIcon(icon: React.ReactNode, pos: string, withTransition?: boolean, isToggleIcon = false, key: number | string = 0) {
-        const { prefixCls } = this.context;
+        const { prefixCls = cssClasses.PREFIX } = this.context;
 
         let iconSize = 'large';
         if (pos === strings.ICON_POS_RIGHT) {
             iconSize = 'default';
         }
 
-        const className = cls(`${prefixCls}-item-icon`, {
-            [`${prefixCls}-item-icon-toggle-${this.context.toggleIconPosition}`]: isToggleIcon,
-            [`${prefixCls}-item-icon-info`]: !isToggleIcon
-        });
-
         const isOpen = this.adapter.getIsOpen();
 
+        const className = cls(`${prefixCls}-item-icon`, {
+            [`${prefixCls}-item-icon-toggle-${this.context.toggleIconPosition ?? 'right'}`]: isToggleIcon,
+            [`${prefixCls}-item-icon-info`]: !isToggleIcon,
+            [`${prefixCls}-icon-rotate-${isOpen?"180":"0"}-no-transition`]: !withTransition && isToggleIcon,
+        });
+
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"180":"0"}`}>
+            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${prefixCls}-icon-rotate-${isOpen?"180":"0"}`}>
                 {({ animationClassName })=>{
                     // @ts-ignore
                     return React.cloneElement(icon, { size: iconSize, className: animationClassName });
@@ -209,13 +220,17 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     renderTitleDiv() {
         const { text, icon, itemKey, indent, disabled, level } = this.props;
 
-        const { mode, isInSubNav, isCollapsed, prefixCls, subNavMotion, limitIndent } = this.context;
-
+        const { isInSubNav, prefixCls = cssClasses.PREFIX, subNavMotion, limitIndent } = this.context;
+        const isFirstLayer = isUndefined(this.context.mode);
+        const mode = this.adapter.getMode();
         const isOpen = this.adapter.getIsOpen();
+        const isCollapsed = this.adapter.getIsCollapsed();
 
         const titleCls = cls(`${prefixCls}-sub-title`, {
             [`${prefixCls}-sub-title-selected`]: this.adapter.getIsSelected(itemKey),
             [`${prefixCls}-sub-title-disabled`]: disabled,
+            [`${prefixCls}-first-layer`]: isFirstLayer,
+            [`${prefixCls}-sub-title-horizontal`]: mode === strings.MODE_HORIZONTAL,
         });
 
         let withTransition = false;
@@ -250,6 +265,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         }
 
         const isIconChevronRightShow = (!isCollapsed && isInSubNav && mode === strings.MODE_HORIZONTAL) || (isCollapsed && isInSubNav);
+        const toggleIconPositionLeft = this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT;
 
         const titleDiv = (
             <div
@@ -264,12 +280,12 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             >
                 <div className={`${prefixCls}-item-inner`}>
                     {placeholderIcons}
-                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_LEFT && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-left')}
+                    {toggleIconPositionLeft && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-left')}
                     {icon || indent || (isInSubNav && mode !== strings.MODE_HORIZONTAL)
                         ? this.renderIcon(icon, strings.ICON_POS_LEFT, false, false, 'key-inSubNav-position-left')
                         : null}
                     <span className={`${prefixCls}-item-text`}>{text}</span>
-                    {this.context.toggleIconPosition === strings.TOGGLE_ICON_RIGHT && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-right')}
+                    {!toggleIconPositionLeft && this.renderIcon(toggleIconType, strings.ICON_POS_RIGHT, withTransition, true, 'key-toggle-position-right')}
                 </div>
             </div>
         );
@@ -280,9 +296,11 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     renderSubUl() {
         const { children, maxHeight } = this.props;
 
-        const { isCollapsed, mode, subNavMotion, prefixCls } = this.context;
+        const { subNavMotion, prefixCls = cssClasses.PREFIX } = this.context;
 
+        const isCollapsed = this.adapter.getIsCollapsed();
         const isOpen = this.adapter.getIsOpen();
+        const mode = this.adapter.getMode();
 
         const isHorizontal = mode === strings.MODE_HORIZONTAL;
 
@@ -315,8 +333,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         let _elem: React.ReactNode = elem;
         const { children, dropdownStyle, disabled } = this.props;
 
-        const { mode, isInSubNav, isCollapsed, subNavCloseDelay, subNavOpenDelay, prefixCls, getPopupContainer } = this.context;
+        const { isInSubNav, subNavCloseDelay, subNavOpenDelay, prefixCls = cssClasses.PREFIX, getPopupContainer } = this.context;
 
+        const isCollapsed = this.adapter.getIsCollapsed();
+        const mode = this.adapter.getMode();
         const isOpen = this.adapter.getIsOpen();
         const openKeysIsControlled = this.adapter.getOpenKeysIsControlled();
 
@@ -365,7 +385,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     render() {
         const { itemKey, style, onMouseEnter, onMouseLeave, disabled, text } = this.props;
 
-        const { mode, isCollapsed, prefixCls } = this.context;
+        const { prefixCls = cssClasses.PREFIX } = this.context;
+
+        const mode = this.adapter.getMode();
+        const isCollapsed = this.adapter.getIsCollapsed();
 
         let titleDiv: React.ReactNode = this.renderTitleDiv();
         const subUl = this.renderSubUl();
@@ -387,8 +410,9 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                 onMouseLeave={onMouseLeave}
                 disabled={disabled}
                 text={text}
+                mode={mode}
             >
-                <NavContext.Provider value={{ ...this.context, isInSubNav: true }}>
+                <NavContext.Provider value={{ ...this.context, mode: mode as Mode, isInSubNav: true }}>
                     {titleDiv}
                     {subUl}
                 </NavContext.Provider>
@@ -396,3 +420,5 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         );
     }
 }
+
+SubNav.elementType = 'Nav.Sub';

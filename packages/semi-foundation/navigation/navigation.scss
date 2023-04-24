@@ -76,7 +76,7 @@ $module: #{$prefix}-navigation;
         padding: $spacing-navigation_item-paddingY $spacing-navigation_item-paddingX;
         box-sizing: border-box;
         margin-top: 0;
-        margin-bottom: $spacing-navigation_item-marginBottom;
+        // margin-bottom: $spacing-navigation_item-marginBottom;
 
         @include font-size-regular;
         font-weight: $font-navigation_item_normal-fontWeight;
@@ -257,6 +257,13 @@ $module: #{$prefix}-navigation;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        row-gap: $spacing-navigation_item-marginBottom;
+
+        &.#{$module}-sub-open {
+            margin-top: $spacing-navigation_sub_item_first_child-marginTop;
+        }
 
         .#{$module}-item {
             color: $color-navigation_itemLn-text-default;
@@ -268,9 +275,9 @@ $module: #{$prefix}-navigation;
             font-weight: $font-navigation_sub_item-fontWeight;
             width: 100%;
 
-            &:first-child {
-                margin-top: $spacing-navigation_sub_item_first_child-marginTop;
-            }
+            // &:first-child {
+            //     margin-top: $spacing-navigation_sub_item_first_child-marginTop;
+            // }
 
             & > &-text:first-child {
                 margin-left: $spacing-base-tight + $width-navigation_icon_left + $width-navigation_icon_text_between;
@@ -343,6 +350,12 @@ $module: #{$prefix}-navigation;
         transform: rotate(-180deg);
     }
 
+    &-icon-rotate-0-no-transition {
+        transform: rotate(0);
+    }
+    &-icon-rotate-180-no-transition {
+        transform: rotate(-180deg);
+    }
 }
 
 /* Header、Footer-Common */
@@ -430,6 +443,12 @@ $module: #{$prefix}-navigation;
             }
         }
 
+        &-list {
+            display: flex;
+            flex-direction: column;
+            row-gap: $spacing-navigation_item-marginBottom;
+        }
+
         &-list > .#{$module}-sub-wrap {
             & > .#{$module}-sub-title {
                 color: $color-navigation_itemL1-text-default;
@@ -483,9 +502,9 @@ $module: #{$prefix}-navigation;
         }
     }
 
-    .#{$module}-item:last-of-type {
-        margin-bottom: $spacing-navigation_vertical_nav_item_last-marginBottom;
-    }
+    // .#{$module}-item:last-of-type {
+    //     margin-bottom: $spacing-navigation_vertical_nav_item_last-marginBottom;
+    // }
 
     .#{$module}-inner {
         flex-direction: column;
@@ -711,6 +730,99 @@ $module: #{$prefix}-navigation;
 .#{$prefix}-dropdown-menu {
     .#{$module}-item-sub {
         padding: $spacing-navigation_item_sub-padding;
+    }
+}
+
+// The following css is used for the variant generation of NavItem and NavSub in C2D
+.#{$module}-first-layer {
+    > .#{$module}-sub-title {
+        .#{$module}-item-text {
+            font-weight: 600;
+        }
+    }
+
+    > .#{$module}-item-text {
+        font-weight: 600;
+    }
+}
+
+.#{$module}-sub-title-selected {
+    .#{$module}-item-icon:first-child {
+        color: $color-navigation_itemL1_selected_icon-default;
+    }
+}
+
+.#{$module}-sub-wrap {
+    .#{$module}-sub-title {
+        margin-bottom: $spacing-navigation_sub_title-marginBottom;
+    }
+
+    .#{$module}-item:last-of-type {
+        margin-bottom: $spacing-navigation_vertical_nav_item_last-marginBottom;
+    } 
+}
+
+.#{$module}-sub-title {
+    &.#{$module}-sub-title-disabled {
+        .semi-navigation-item-text {
+            color: $color-navigation_itemL1_disabled-text-default;
+        }
+    }
+}
+
+.#{$module}-item-horizontal {
+    // The width of nav NavItem and NavSub in the horizontal direction both need fit-content
+    &.#{$module}-item { 
+        width: fit-content;
+        margin-bottom: $spacing-navigation_horizontal_nav_list_item-marginBottom;
+        margin-right: $spacing-navigation_horizontal_nav_list_item_not_last-marginRight;
+
+        &.#{$module}-item-disabled {
+            color: $color-navigation_horizontal_itemL1_disabled-text-default;
+        }
+    }
+
+    .#{$module}-sub-title {
+        .#{$module}-item-icon:first-child,
+        .#{$module}-item-text {
+            color: var(--semi-color-text-2);
+            background-color: transparent;
+        }
+
+        &.#{$module}-sub-title-selected {
+            .#{$module}-item-icon:first-child,
+            .#{$module}-item-text {
+                color: $color-navigation_horizontal_itemL1_selected-text-default;
+            }
+        }
+
+        &.#{$module}-sub-title-disabled {
+            .#{$module}-item-icon:first-child,
+            .#{$module}-item-text {
+                color: $color-navigation_horizontal_itemL1_disabled-text-default;
+            }
+        }
+    }
+
+    &.#{$module}-first-layer {
+        color: $color-navigation_horizontal_itemL1-text-default;
+    }
+
+    &.#{$module}-item-selected {
+        background-color: $color-navigation_horizontal_itemL1_selected-bg-default;
+
+        .#{$module}-item-icon:first-child,
+        .#{$module}-item-text {
+            color: $color-navigation_horizontal_itemL1_selected-text-default;
+        }
+    }
+
+    .semi-navigation-item-icon:first-child {
+        margin-right: $spacing-navigation_horizontal_icon_last-marginLeft;
+    }
+
+    .semi-navigation-item-icon:last-child {
+        margin-left: $spacing-navigation_horizontal_icon_first-marginRight;
     }
 }
 

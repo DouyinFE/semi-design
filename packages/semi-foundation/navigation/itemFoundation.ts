@@ -39,7 +39,9 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyMouseLeave(e: any): void;
     getIsCollapsed(): boolean;
     getSelected(): boolean;
-    getIsOpen(): boolean
+    getIsOpen(): boolean;
+    getIsInSubNav(): boolean;
+    getMode(): string
 }
 
 export default class ItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ItemAdapter<P, S>, P, S> {

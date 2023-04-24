@@ -4,7 +4,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
-import { noop, times } from 'lodash';
+import { noop, times, isUndefined } from 'lodash';
 
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { cloneDeep, isSemiIcon } from '../_utils';
@@ -38,7 +38,15 @@ export interface NavItemProps extends ItemProps, BaseProps {
     onClick?(clickItems: SelectedData): void;
 
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
+    onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
+
+    // used for c2d
+    selected?: boolean;
+    mode?: string;
+    // Why must there be isInSubNav props？
+    // Because the styles of the first level and the second level are different, the style itself is implemented through the css selector, which is related to the upper node
+    // When used alone, there is no upper node and no context, so it is impossible to distinguish whether it is at the first level or the second level
+    isInSubNav?: boolean
 }
 
 export interface SelectedData extends SelectedItemProps<NavItemProps> {
@@ -51,6 +59,7 @@ export interface NavItemState {
 
 export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
     static contextType = NavContext;
+    static elementType: string;
 
     static propTypes = {
         text: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -117,20 +126,23 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             notifyClick: (...args) => this.props.onClick(...args),
             notifyMouseEnter: (...args) => this.props.onMouseEnter(...args),
             notifyMouseLeave: (...args) => this.props.onMouseLeave(...args),
-            getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context && this.context.isCollapsed) || false,
+            getIsCollapsed: () => this.props.isCollapsed || Boolean(this.context && this.context.isCollapsed),
             getSelected: () =>
-                Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey as string)),
+                this.props.selected || Boolean(this.context && this.context.selectedKeys && this.context.selectedKeys.includes(this.props.itemKey as string)),
             getIsOpen: () =>
                 Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey as string)),
+            getIsInSubNav: () => this.props.isInSubNav || Boolean(this.context && this.context.isInSubNav),
+            getMode: () => this.props.mode ?? this.context?.mode,
         };
     }
 
     renderIcon(icon: React.ReactNode, pos: string, isToggleIcon = false, key: number | string = 0) {
+        const mode = this.adapter.getMode();
         if (this.props.isSubNav) {
             return null;
         }
 
-        if (!icon && this.context.mode === strings.MODE_HORIZONTAL) {
+        if (!icon && mode === strings.MODE_HORIZONTAL) {
             return null;
         }
 
@@ -193,14 +205,17 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
             linkOptions,
             disabled,
             level = 0,
-            tabIndex
+            tabIndex,
+            mode: modeInProps,
         } = this.props;
 
-        const { mode, isInSubNav, prefixCls, limitIndent } = this.context;
+        const { prefixCls, limitIndent } = this.context;
 
         const isCollapsed = this.adapter.getIsCollapsed();
 
         const selected = this.adapter.getSelected();
+        const isInSubNav = this.adapter.getIsInSubNav();
+        const mode = this.adapter.getMode();
 
 
         let itemChildren = null;
@@ -259,6 +274,10 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 </Dropdown.Item>
             );
         } else {
+            // isFirstLayer 用于决定 semi-navigation-first-layers（仅在 c2中使用) 是否生效
+            // 当 this.props.isInSubNav 存在是，则由 this.props.isInSubNav 决定
+            // 否则由 this.context?.mode 决定，因为第一层节点无context
+            const isFirstLayer = !isUndefined(this.props.isInSubNav) ? !this.props.isInSubNav : isUndefined(this.context?.mode);
             // Items are divided into normal and sub-wrap
             const popoverItemCls = cls(`${className || `${clsPrefix}-normal`}`, {
                 [clsPrefix]: true,
@@ -267,6 +286,8 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 [`${clsPrefix}-collapsed`]: isCollapsed,
                 [`${clsPrefix}-disabled`]: disabled,
                 [`${clsPrefix}-has-link`]: typeof link === 'string',
+                [`${cssClasses.PREFIX}-first-layer`]: isFirstLayer,
+                [`${clsPrefix}-horizontal`]: modeInProps === strings.MODE_HORIZONTAL,
             });
             const ariaProps = {
                 'aria-disabled': disabled,
@@ -311,3 +332,5 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         return itemDom;
     }
 }
+
+NavItem.elementType = 'Nav.Item';

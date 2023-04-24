@@ -30,6 +30,7 @@ import {
   IconDescend,
   IconSetting,
   IconUserGroup,
+  IconHome
 } from '@douyinfe/semi-icons';
 
 export default {
@@ -333,4 +334,258 @@ DisabledNavDemo.story = {
 export const PopupDemo = () => <GetPopupNav />;
 PopupDemo.story = {
   name: 'getPopupContainer'
+}
+
+export const NavItem = () => {
+  const level1ComProps = {
+    itemKey: 'union',
+    text: '一级导航选项',
+    icon: <IconHome />
+  };
+
+  const level1VerticalComProps = {
+    ...level1ComProps,
+    mode: 'vertical',
+    style: { width: 200 }
+  };
+
+  const level1HorizontalComProps = {
+    ...level1ComProps,
+    mode: 'horizontal'
+  };
+
+  const level2ComProps = {
+    ...level1ComProps,
+    text: '二级导航选项',
+    icon: undefined,
+  };
+
+  const level2VerticalComProps = {
+    ...level2ComProps,
+    style: { width: 200 },
+  }
+
+  const level2HorizontalComProps = {
+    ...level2ComProps,
+    mode: 'horizontal'
+  };
+
+  const collapseProps = {
+    isCollapsed: true,
+    style: { width: 43 },
+  }
+
+  const subNodeChildren = <>
+    <Nav.Item itemKey={'active'} text={'活跃用户'} />
+    <Nav.Item itemKey={'negative'} text={'非活跃用户'} />
+  </>
+
+  return (
+    <>
+      <p>本用例用于C2D</p>
+      <p>形式为vertical</p>
+      <p>Nav.Item 的变体</p>
+      <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+        <p>作为一级变体</p>
+        <Nav.Item
+          {...level1VerticalComProps}
+          isInSubNav={false}
+        />
+        <Nav.Item 
+          {...level1VerticalComProps}
+          isInSubNav={false}
+          selected={true}
+        />
+        <Nav.Item 
+          {...level1VerticalComProps}
+          isInSubNav={false}
+          disabled={true}
+        />
+        <p>isCollapsed</p>
+        <Nav.Item
+          {...level1VerticalComProps}
+          isInSubNav={false}
+          {...collapseProps}
+        />
+        <Nav.Item 
+          {...level1VerticalComProps}
+          isInSubNav={false}
+          selected={true}
+          {...collapseProps}
+
+        />
+        <Nav.Item 
+          {...level1VerticalComProps}
+          isInSubNav={false}
+          disabled={true}
+          {...collapseProps}
+        />
+      </div>
+      <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+        <p>作为二级变体</p>
+        <Nav.Item
+          {...level2VerticalComProps}
+          isInSubNav={true}
+        />
+        <Nav.Item 
+          {...level2VerticalComProps}
+          isInSubNav={true}
+          selected={true}
+        />
+        <Nav.Item 
+          {...level2VerticalComProps}
+          isInSubNav={true}
+          disabled={true}
+        />
+      </div>
+      <p>NavSub变体生成</p>
+      {/* 
+        isOpen 为 true 的状态下，需要在semi-linker中对 ul 进行样式覆盖
+          .semi-navigation-sub-wrap {
+            ul {
+                margin-block-start: 0em;
+                margin-block-end: 0em;
+            }
+          } 
+      */}
+      <div style={{ display: 'flex', alignItems: 'flex-start'}}>
+        <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+          <p>isOpen=true</p>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            isOpen={true}
+            isInSubNav={false}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            isOpen={true}
+            active={true}
+            isInSubNav={false}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            isOpen={true}
+            disabled={true}
+            isInSubNav={false}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+        </div>
+        <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+          <p>isOpen=false</p>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            active={true}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            disabled={true}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <p>collapse</p>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            {...collapseProps}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            active={true}
+            {...collapseProps}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+          <Nav.Sub 
+            {...level1VerticalComProps}
+            disabled={true}
+            {...collapseProps}
+          >
+              {subNodeChildren}
+          </Nav.Sub>
+        </div>
+      </div>
+      {/* horizontal */}
+      <p>horizontal</p>
+      <p>Nav.Item 的变体</p>
+      <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+        <Nav.Item
+          {...level1HorizontalComProps} 
+          isInSubNav={false}
+        />
+        <Nav.Item
+          {...level1HorizontalComProps} 
+          selected={true}
+        />
+        <Nav.Item
+          {...level1HorizontalComProps} 
+          disabled={true}
+        />
+      </div>
+      <p>NavSub变体生成</p>
+      {/*       
+        isOpen 为 true 的状态下，需要在semi-linker中对 ul 进行样式覆盖
+          .semi-navigation-sub-wrap {
+            ul {
+                margin-block-start: 0em;
+                margin-block-end: 0em;
+            }
+          } 
+      */}
+      <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+        <Nav.Sub 
+          {...level1HorizontalComProps} 
+          isOpen={true}
+        >
+            {subNodeChildren}
+        </Nav.Sub>
+        <Nav.Sub 
+          {...level1HorizontalComProps} 
+          active={true}
+          isOpen={true}
+        >
+            {subNodeChildren}
+        </Nav.Sub>
+        <Nav.Sub 
+          {...level1HorizontalComProps} 
+          isOpen={true}
+          disabled={true}
+        >
+            {subNodeChildren}
+        </Nav.Sub>
+      </div>
+      <div style={{ display: 'inline-block', border: '1px solid grey', width: 'fit-content' }}>
+        <Nav.Sub 
+        {...level1HorizontalComProps} 
+          active={false}
+        >
+          {subNodeChildren}
+        </Nav.Sub>
+        <Nav.Sub 
+          {...level1HorizontalComProps} 
+          active={true}
+        >
+          {subNodeChildren}
+        </Nav.Sub>
+        <Nav.Sub 
+          {...level1HorizontalComProps} 
+          disabled={true}
+        >
+          {subNodeChildren}
+        </Nav.Sub>
+     </div>
+    </>
+  )
 }

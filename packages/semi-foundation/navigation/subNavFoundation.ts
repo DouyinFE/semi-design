@@ -37,7 +37,9 @@ export interface SubNavAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyGlobalOnSelect(data: OnSelectData): void;
     notifyGlobalOnClick(data: OnClickData): void;
     getIsSelected(itemKey: string | number): boolean;
-    getIsOpen(): boolean
+    getIsOpen(): boolean;
+    getIsCollapsed(): boolean;
+    getMode(): string
 }
 
 export default class SubNavFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<SubNavAdapter<P, S>, P, S> {
