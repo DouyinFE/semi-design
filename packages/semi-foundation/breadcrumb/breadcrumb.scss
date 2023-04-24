@@ -82,14 +82,14 @@ $module: #{$prefix}-breadcrumb;
         }
     }
 
-    &-item-icon+&-item-title {
-        margin-left: $spacing-breadcrumb_item_text-marginLeft;
-    }
+    // &-item-icon+&-item-title {
+    //     margin-left: $spacing-breadcrumb_item_text-marginLeft;
+    // }
 
     &-item-link {
         display: inline-flex;
         align-items: center;
-        column-gap: 4px;
+        column-gap: $spacing-breadcrumb_item_text-marginLeft;
         text-decoration: inherit;
         transition: color $transition_duration-breadcrumb_link-text $transition-function_breadcrumb_link-text $transition_delay-breadcrumb_link-text;
         transform: scale($transform_scale-breadcrumb_link-text);
