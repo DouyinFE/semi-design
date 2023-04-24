@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.33.1",
+    "version": "2.34.0-alpha.1",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
