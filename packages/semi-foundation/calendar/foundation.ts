@@ -33,9 +33,9 @@ import {
     DateObj,
     checkWeekend,
 } from './eventUtil';
-import type { weeekStartsOnEnum } from './eventUtil';
+import type { weekStartsOnEnum } from './eventUtil';
 
-export { weeekStartsOnEnum };
+export { weekStartsOnEnum };
 export interface EventObject {
     [x: string]: any;
     key: string;
