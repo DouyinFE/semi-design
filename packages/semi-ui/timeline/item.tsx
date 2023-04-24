@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
 import '@douyinfe/semi-foundation/timeline/timeline.scss';
+import Context, { ModeType, TimelineContextValue } from './context';
 
 export interface TimelineItemProps {
     color?: string;
@@ -15,12 +16,18 @@ export interface TimelineItemProps {
     position?: 'left' | 'right';
     className?: string;
     style?: React.CSSProperties;
-    onClick?: React.MouseEventHandler<HTMLLIElement>
+    onClick?: React.MouseEventHandler<HTMLLIElement>;
+    // 以下参数用于 C2D， 用户请勿使用
+    mode?: ModeType;
+    odd?: boolean;
+    usedInC2D?: boolean
 }
 
 const prefixCls = cssClasses.ITEM;
 
 export default class Item extends PureComponent<TimelineItemProps> {
+    static contextType = Context;
+    static elementType: string;
     static propTypes = {
         color: PropTypes.string,
         time: PropTypes.node,
@@ -31,13 +38,38 @@ export default class Item extends PureComponent<TimelineItemProps> {
         className: PropTypes.string,
         style: PropTypes.object,
         onClick: PropTypes.func,
+        mode: PropTypes.string,
+        lastChild: PropTypes.bool,
     };
+
+    context: TimelineContextValue;
 
     static defaultProps = {
         type: 'default',
         time: '',
         onClick: noop,
     };
+
+    // getC2DCls is used in C2D, it does not work in non-C2D scenes
+    getC2DCls = () => {
+        let c2dCls = '';
+        const { mode, odd, usedInC2D } = this.props;
+        if (usedInC2D) {
+            switch (mode) {
+                case 'center':
+                    c2dCls = `${prefixCls}-center  ${prefixCls}-left`;
+                    break;
+                case 'alternate':
+                    c2dCls = `${prefixCls}-alternate  ${prefixCls}-${odd ? 'left' : 'right'}`;
+                    break;
+                default:
+                    c2dCls = `${prefixCls}-${mode} ${mode === 'right' ? `${prefixCls}-mode-right` : ''}`;
+                    break;
+            }
+            c2dCls += ` ${prefixCls}-not-last-child`;
+        }
+        return c2dCls;
+    }
 
     render() {
         const {
@@ -53,7 +85,8 @@ export default class Item extends PureComponent<TimelineItemProps> {
         } = this.props;
 
         const itemCls = cls(prefixCls,
-            className
+            className,
+            this.getC2DCls()
         );
 
         const dotCls = cls({
@@ -81,3 +114,5 @@ export default class Item extends PureComponent<TimelineItemProps> {
         );
     }
 }
+
+Item.elementType = 'Timeline.Item';

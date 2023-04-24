@@ -5,7 +5,7 @@ import '@douyinfe/semi-foundation/timeline/timeline.scss';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
 import ConfigContext from '../configProvider/context';
 import Item, { TimelineItemProps } from './item';
-
+import Context, { ModeType } from './context';
 export type { TimelineItemProps } from './item';
 
 export interface Data extends TimelineItemProps {
@@ -13,7 +13,7 @@ export interface Data extends TimelineItemProps {
 }
 
 export interface TimelineProps extends Pick<React.AriaAttributes, 'aria-label'> {
-    mode?: 'left' | 'right' | 'center' | 'alternate';
+    mode?: ModeType;
     className?: string;
     style?: React.CSSProperties;
     dataSource?: Data[];
@@ -85,12 +85,19 @@ class Timeline extends PureComponent<TimelineProps> {
             );
             childrenList = this.addClassName(items);
         }
+
         const items = childrenList || this.addClassName(children);
 
         return (
-            <ul aria-label={this.props['aria-label']} style={style} className={classString}>
-                {items}
-            </ul>
+            <Context.Provider
+                value={{
+                    mode,
+                }}
+            >
+                <ul aria-label={this.props['aria-label']} style={style} className={classString}>
+                    {items}
+                </ul>
+            </Context.Provider>
         );
     }
 }

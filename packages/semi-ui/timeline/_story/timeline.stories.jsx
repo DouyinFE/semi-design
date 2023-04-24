@@ -230,6 +230,101 @@ export const OnClickDemo = () => (
   </div>
 );
 
-OnClickDemo.story = {
-  name: 'onClick',
+export const TimelineItem = () => {
+  return (
+    <>
+      <p>mode change</p>
+      <p>mode left</p>
+      <Timeline.Item mode='left' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <p>mode right</p>
+      <Timeline.Item mode='right' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <p>mode alternate</p>
+      <Timeline.Item mode='alternate' odd time='2015-09-01'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} time='2015-09-01'>创建服务现场</Timeline.Item>
+      <p>mode center</p>
+      <Timeline.Item mode='center' time='2015-09-01'>创建服务现场</Timeline.Item>
+
+      <p>mode=left, type change</p>
+      <Timeline.Item mode='left' type='default' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='error' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='ongoing' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='success' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='warning' time='2015-09-01' >创建服务现场</Timeline.Item>
+
+      <p>mode=right, type change</p>
+      <Timeline.Item mode='right' type='default' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='error' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='ongoing' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='success' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='warning' time='2015-09-01' >创建服务现场</Timeline.Item>
+
+      <p>mode=center, type change</p>
+      <Timeline.Item mode='center' type='default' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='error' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='ongoing' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='success' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='warning' time='2015-09-01' >创建服务现场</Timeline.Item>
+    
+      <p>mode=alternate, type change</p>
+      <Timeline.Item mode='alternate' odd type='default' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='error' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='ongoing' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='success' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='warning' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='default' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='error' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='ongoing' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='success' time='2015-09-01' >创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='warning' time='2015-09-01' >创建服务现场</Timeline.Item>
+
+      {/* has extra */}
+      <p>has extra</p>
+      <p>mode change</p>
+      <p>mode left</p>
+      <Timeline.Item mode='left' time='2015-09-01' extra='节点辅助说明信息' style={{ width: 300 }}>创建服务现场</Timeline.Item>
+      <p>mode right</p>
+      <Timeline.Item mode='right' time='2015-09-01' extra='节点辅助说明信息' style={{ width: 300 }}>创建服务现场</Timeline.Item>
+      <p>mode alternate</p>
+      <Timeline.Item mode='alternate' odd time='2015-09-01' extra='节点辅助说明信息' style={{ width: 300 }}>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} time='2015-09-01' extra='节点辅助说明信息' style={{ width: 300 }}>创建服务现场</Timeline.Item>
+      <p>mode center</p>
+      <Timeline.Item mode='center' time='2015-09-01'  extra='节点辅助说明信息' style={{ width: 300 }}>创建服务现场</Timeline.Item>
+
+      <p>mode=left, type change</p>
+      <Timeline.Item mode='left' type='default' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='error' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='ongoing' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='success' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='left' type='warning' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+
+      <p>mode=right, type change</p>
+      <Timeline.Item mode='right' type='default' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='error' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='ongoing' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='success' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='right' type='warning' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+
+      <p>mode=center, type change</p>
+      <Timeline.Item mode='center' type='default' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='error' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='ongoing' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='success' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='center' type='warning' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+    
+      <p>mode=alternate, type change</p>
+      <Timeline.Item mode='alternate' odd type='default' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='error' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='ongoing' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='success' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd type='warning' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='default' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='error' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' odd={false} type='ongoing' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+      <Timeline.Item mode='alternate' lastChild={true} odd={false} type='success' time='2015-09-01' extra='节点辅助说明信息'>创建服务现场</Timeline.Item>
+    </>
+  );
+}
+
+TimelineItem.story = {
+  name: 'C2D timeline item',
 };

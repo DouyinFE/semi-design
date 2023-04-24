@@ -2,6 +2,68 @@
 
 $module: #{$prefix}-timeline;
 
+@mixin item-children {
+    &-tail,
+    &-head,
+    &-head-custom {
+        left: $spacing-timeline_item_head_custom-left;
+    }
+    &-head{
+        &.#{$module}-item-head-custom{
+            margin-left: 0;
+        }
+    }
+    &-head {
+        margin-left: $spacing-timeline_item_head-marginLeft;
+    }
+}
+
+@mixin item-direction {
+    &-left {
+        .#{$module}-item-content {
+            left: $spacing-timeline_item_left_item_content-left;
+            width: $width-timeline_item_left_item_content;
+            text-align: left;
+        }
+    }
+
+    &-right {
+        .#{$module}-item-content {
+            width: $width-timeline_item_right_item_content;
+            margin: $spacing-timeline_item_right_item_content;
+            text-align: right;
+        }
+    }
+}
+
+@mixin item-center {
+    &-center {
+        .#{$module}-item {
+            &-content-time {
+                position: absolute;
+                top: $spacing-timeline_time-top;
+                margin-left: $spacing-timeline_item_content_time-marginLeft;
+                width: $width-timeline_item_content_time;
+                text-align: right;
+            }
+        }
+    }
+}
+
+@mixin item-right {
+    .#{$module}-item {
+        &-tail,
+        &-head,
+        &-head-custom {
+            left: $spacing-timeline_item_right_item-left;
+        }
+
+        &-content {
+            width: $width-timeline_item_right_content;
+        }
+    }
+}
+
 .#{$module} {
     margin: $spacing-timeline-margin;
     padding: $spacing-timeline-padding;
@@ -115,65 +177,53 @@ $module: #{$prefix}-timeline;
     &-right,
     &-center {
         .#{$module}-item {
-            &-tail,
-            &-head,
-            &-head-custom {
-                left: $spacing-timeline_item_head_custom-left;
-            }
-            &-head{
-                &.#{$module}-item-head-custom{
-                    margin-left: 0;
-                }
-            }
-            &-head {
-                margin-left: $spacing-timeline_item_head-marginLeft;
-            }
-
-            &-left {
-                .#{$module}-item-content {
-                    left: $spacing-timeline_item_left_item_content-left;
-                    width: $width-timeline_item_left_item_content;
-                    text-align: left;
-                }
-            }
-
-            &-right {
-                .#{$module}-item-content {
-                    width: $width-timeline_item_right_item_content;
-                    margin: $spacing-timeline_item_right_item_content;
-                    text-align: right;
-                }
-            }
+            @include item-children;
+            @include item-direction;
         }
     }
 
-    &-center {
-        .#{$module}-item {
-            &-content-time {
-                position: absolute;
-                top: $spacing-timeline_time-top;
-                margin-left: $spacing-timeline_item_content_time-marginLeft;
-                width: $width-timeline_item_content_time;
-                text-align: right;
-            }
-        }
-    }
+   
+    @include item-center;
 
     &-right {
         .#{$module}-item-right {
-            .#{$module}-item {
-                &-tail,
-                &-head,
-                &-head-custom {
-                    left: $spacing-timeline_item_right_item-left;
-                }
-
-                &-content {
-                    width: $width-timeline_item_right_content;
-                }
-            }
+            @include item-right;
         }
     }
 }
 
+// for c2d
+.#{$module}-item {
+    &-alternate,
+    &-mode-right,
+    &-center {
+        .#{$module}-item {
+            @include item-children;
+        }
+        &.#{$module}-item {
+            @include item-direction;
+        }
+    }
+
+    &-alternate,
+    &-mode-right,
+    &-center,
+    &-left {
+        &.#{$module}-item {
+            &.#{$module}-item-not-last-child {
+                & > .#{$module}-item-tail {
+                    border-left: $width-timeline_tail-border solid $color-timeline_tail-border;
+                }
+            }
+        }
+    }
+
+    @include item-center;
+
+    &-mode-right {
+        &.#{$module}-item-right {
+            @include item-right;
+        }
+    }
+}
 @import './rtl.scss';
