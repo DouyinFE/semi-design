@@ -19,7 +19,8 @@ import {
     BaseSorter,
     BaseFilter,
     BaseChangeInfoFilter,
-    BaseIncludeGroupRecord
+    BaseIncludeGroupRecord,
+    BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
 import { ScrollDirection, CSSDirection } from 'react-window';
 
@@ -104,7 +105,8 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onCell?: OnCell<RecordType>;
     onFilter?: OnFilter<RecordType>;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
-    onHeaderCell?: OnHeaderCell<RecordType>
+    onHeaderCell?: OnHeaderCell<RecordType>;
+    ellipsis?: BaseEllipsis
 }
 
 export type Align = BaseAlign;

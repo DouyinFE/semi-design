@@ -143,4 +143,32 @@ describe('table', () => {
         cy.get('.semi-table-row-head .semi-checkbox-checked');
         cy.get('.semi-checkbox-checked').should('have.length', 4);
     });
+
+    it('normal table ellipsis title', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--ellipsis-normal-table&args=&viewMode=story');
+        cy.get('.semi-table-row-head-title').eq(0).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(1).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(2).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-ellipsis').eq(3).should('have.attr', 'title');
+    });
+
+    it('fixed table ellipsis title', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--ellipsis-fixed-table&args=&viewMode=story');
+        cy.get('.semi-table-row-head-title').eq(0).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(1).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(2).should('have.attr', 'title');
+        cy.get('.semi-table-row-head-ellipsis').eq(3).should('have.attr', 'title');
+    });
+
+    it('fixed table ellipsis showTitle false', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--show-title-table&args=&viewMode=story');
+        cy.get('.semi-table-row-head-title').eq(0).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(1).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-head-title').eq(2).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-head-ellipsis').eq(3).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-cell').eq(0).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-cell').eq(1).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-cell').eq(2).should('not.have.attr', 'title');
+        cy.get('.semi-table-row-cell').eq(3).should('not.have.attr', 'title');
+    });
 });

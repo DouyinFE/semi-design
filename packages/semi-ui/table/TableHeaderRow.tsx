@@ -148,6 +148,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
                     [`${prefixCls}-cell-fixed-left-last`]: fixedLeftLast,
                     [`${prefixCls}-cell-fixed-right`]: fixedRight,
                     [`${prefixCls}-cell-fixed-right-first`]: fixedRightFirst,
+                    [`${prefixCls}-row-head-ellipsis`]: column.ellipsis,
                 }
             );
 

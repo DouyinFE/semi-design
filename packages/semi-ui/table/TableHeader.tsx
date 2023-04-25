@@ -1,9 +1,11 @@
 /* eslint-disable max-len */
 import React, { ReactNode } from 'react';
-import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import { noop, isFunction, get } from 'lodash';
 import PropTypes from 'prop-types';
+
+import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/table/constants';
-import { noop, isFunction } from 'lodash';
+import { shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
 import TableHeaderRow from './TableHeaderRow';
 import { Fixed, TableComponents, OnHeaderRow } from './interface';
 
@@ -60,6 +62,12 @@ function parseHeaderRows(columns: any[]) {
             rows[rowIndex].push(cell);
 
             currentColIndex += colSpan;
+
+            const ellipsis = column?.ellipsis;
+            const shouldShowTitle = shouldShowEllipsisTitle(ellipsis);
+            if (shouldShowTitle && typeof cell.children === 'string') {
+                cell.title = cell.children;
+            }
 
             return colSpan;
         });
@@ -177,7 +185,8 @@ export interface TableHeaderCell {
     hasSubColumns?: boolean;
     rowSpan?: number;
     colSpan?: number;
-    colEnd?: number
+    colEnd?: number;
+    title?: string
 }
 
 export default React.forwardRef<HTMLDivElement, Omit<TableHeaderProps, 'forwardedRef'>>((props, ref) => <TableHeader {...props} forwardedRef={ref} />);

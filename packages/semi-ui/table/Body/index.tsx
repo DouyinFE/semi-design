@@ -48,6 +48,7 @@ import {
 } from '../interface';
 
 export interface BodyProps extends BaseProps {
+    tableLayout?: 'fixed' | 'auto';
     anyColumnFixed?: boolean;
     columns?: ColumnProps[];
     dataSource?: Record<string, any>[];
@@ -405,7 +406,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     };
 
     renderVirtualizedBody = (direction?: Direction) => {
-        const { scroll, prefixCls, virtualized, anyColumnFixed, columns } = this.props;
+        const { scroll, prefixCls, virtualized, columns } = this.props;
         const { virtualizedData } = this.state;
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns);
@@ -745,6 +746,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             onScroll,
             groups,
             expandedRowRender,
+            tableLayout,
         } = this.props;
 
         const x = get(scroll, 'x');
@@ -795,7 +797,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     aria-colcount={columns && columns.length}
                     style={tableStyle}
                     className={classnames(prefixCls, {
-                        [`${prefixCls}-fixed`]: anyColumnFixed,
+                        [`${prefixCls}-fixed`]: tableLayout === 'fixed',
                     })}
                 >
                     {colgroup}
