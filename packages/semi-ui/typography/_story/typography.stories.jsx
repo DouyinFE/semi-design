@@ -418,7 +418,7 @@ export const EllipsisChaos = () => (
       Web 应用。 区别于其他的设计系统而言，Semi Design
       以用户中心、内容优先、设计人性化为设计理念，具有四大优势。
     </Text>
-    <br />
+    <br /><br />
     <Title
       icon={<IconLink />}
       heading={5}
@@ -701,6 +701,12 @@ export const EdgeCases = () => (
     <p>Case 1: pos: 'middle', 无content，测试是否触发 TypeError</p>
     <Text 
       ellipsis={{  rows: 3,  pos: 'middle',  expandable: true, }} 
+      style={{ width: 300 }}
+    ></Text>
+    <br />
+    <p>Case 2: css 截断, 无 content，测试是否触发 TypeError</p>
+    <Text 
+      ellipsis={{ rows: 1 }} 
       style={{ width: 300 }}
     ></Text>
     <br />

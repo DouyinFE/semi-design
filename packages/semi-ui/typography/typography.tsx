@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/typography/constants';
 import '@douyinfe/semi-foundation/typography/typography.scss';
 import { BaseProps } from '../_base/baseComponent';
 const prefixCls = cssClasses.PREFIX;
-interface TypographyProps extends BaseProps{
+interface TypographyProps extends BaseProps {
     component?: React.ElementType;
     forwardRef?: React.RefObject<any>
 }
