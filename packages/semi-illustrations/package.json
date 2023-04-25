@@ -34,8 +34,7 @@
         "merge2": "^1.4.1",
         "rimraf": "^3.0.2",
         "terser-webpack-plugin": "^4.2.3",
-        "ts-loader": "^5.4.5",
-        "webpack": "^4.46.0"
+        "ts-loader": "^5.4.5"
     },
     "scripts": {
         "clean": "rimraf dist lib",

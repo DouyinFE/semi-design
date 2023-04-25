@@ -27,7 +27,7 @@ module.exports = function getWebpackConfig({ minimize }){
                 'process.env': { NODE_ENV: '"production"' }
             }),
             new CaseSensitivePathsPlugin(),
-            new webpack.HashedModuleIdsPlugin(),
+            new webpack.ids.HashedModuleIdsPlugin(),
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
