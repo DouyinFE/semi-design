@@ -83,7 +83,6 @@ $inner-width: $width-icon-medium;
     &-buttonRadioGroup {
         // Button needs to be positioned relative to parent
         position: relative;
-        vertical-align: bottom; // Fix 1573
         padding: $spacing-radio_buttonRadioGroup_middle-padding;
         border-radius: $radius-radio_buttonRadio;
         line-height: $font-radio_buttonRadioGroup_middle-lineHeight;
@@ -417,6 +416,7 @@ $inner-width: $width-icon-medium;
     &-horizontal {
         display: inline-flex;
         flex-wrap: wrap;
+        vertical-align: bottom; // Fix 1573
         gap: $spacing-radio_group_horizontal-marginRight;
     }
 
