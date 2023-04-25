@@ -24,7 +24,8 @@ import {
     isNull,
     difference,
     isFunction,
-    isObject
+    isObject,
+    isPlainObject
 } from 'lodash';
 
 import {
@@ -394,6 +395,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const columns = this.getColumns(props.columns, props.children);
         const cachedflattenColumns = flattenColumns(columns);
         const queries = TableFoundation.initColumnsFilteredValueAndSorterOrder(cloneDeep(cachedflattenColumns));
+        const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(this.props.dataSource, queries);
+        const newPagination = isPlainObject(this.props.pagination) ? this.props.pagination : {} as any;
+        const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(filteredSortedDataSource, newPagination, queries);
         this.state = {
             /**
              * Cached props
@@ -407,15 +411,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
              * State calculated based on prop
              */
             queries, // flatten columns, update when sorting or filtering
-            dataSource: [], // data after paging
+            dataSource: pageData.dataSource, // data after paging
             flattenData: [],
             expandedRowKeys: [...(props.expandedRowKeys || []), ...(props.defaultExpandedRowKeys || [])], // cached expandedRowKeys
             rowSelection: props.rowSelection ? isObject(props.rowSelection) ? { ...props.rowSelection } : {} : null,
-            pagination:
-                props.pagination && typeof props.pagination === 'object' ?
-                    { ...props.pagination } :
-                    props.pagination || false,
-
+            pagination: pageData.pagination,
             /**
              * Internal state
              */
@@ -1361,11 +1361,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
          * TODO: After merging issue 1007, you can place it in the constructor to complete
          * The reason is that #1007 exposes the parameters required by getCurrentPageData in the constructor
          */
-        if (isNull(dataSource)) {
-            const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(this.props.dataSource);
-            dataSource = pageData.dataSource;
-            pagination = pageData.pagination;
-        }
+        // if (isNull(dataSource)) {
+        //     const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(this.props.dataSource);
+        //     dataSource = pageData.dataSource;
+        //     pagination = pageData.pagination;
+        // }
 
         const props = {
             ...rest,
