@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-animation-react",
-    "version": "2.33.1",
+    "version": "2.33.2-alpha.0",
     "description": "motion library for semi-ui-react",
     "keywords": [
         "motion",
