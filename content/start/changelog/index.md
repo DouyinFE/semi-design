@@ -14,6 +14,23 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.34.0-beta.0 (2023-04-25)
+- 【Feat】
+  - Table 列支持通过配置 ellipsis 或 ellipsis.showTitle API 实现文本内容缩略  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+  - 级联选择框新增 focus/blur 方法  [#566 ](https://github.com/DouyinFE/semi-design/issues/566) [@meakle](https://github.com/meakle)
+  - 增加 rspack plugin，功能对齐 webpack plugin [@Asuka109](https://github.com/Asuka109)
+- 【Style】
+  - Table 文本默认换行样式从 break-all 修改为 break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+  - BreadCrumb 中 icon 和文本间距从 8px 修改为 4px（影响面 v2.0.0～v2.33.1）
+- 【Fix】
+  - 修复TimePicker range 模式先选择结束时间，会导致报错的问题  [#1563 ](https://github.com/DouyinFE/semi-design/issues/1563)
+  - Steps 更改为只在 Steps 传入 onChange 或 Steps.Step 传入 onClick 时，才会 hover 时展示 hover 态。
+  - 修复 RadioGroup 父级容器高度会跟随 RadioGroup 选项不同而变化的问题  [#1573 ](https://github.com/DouyinFE/semi-design/issues/1573)
+  - 修复Calendar组件月视图中，最后一周日期样式错误 [@sylingd](https://github.com/sylingd)
+  - Typography resize后可能会丢失省略 [@marshcat0](https://github.com/marshcat0)
+  - Typography resize后展开状态可能会被变成折叠 [@marshcat0](https://github.com/marshcat0)
+  - Typography 展开按钮可能会在不需要折叠时出现 [@marshcat0](https://github.com/marshcat0)
+
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
     - 修复 Transfer 中可拖拽 item 使用 label 作 SortableItem 的 key 导致相同 label 的 item 无法拖动问题
