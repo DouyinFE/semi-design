@@ -15,7 +15,9 @@ import {
   Popover,
   Input,
   RadioGroup,
-  SideSheet
+  SideSheet,
+  Dropdown,
+  Popconfirm
 } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
@@ -1503,3 +1505,28 @@ Bottom2BottomLeftDemo.storyName = `✅ auto : bottom -> bottomLeft`;
 
 export const Bottom2BottomRightDemo = () => <Bottom2BottomRight />;
 Bottom2BottomRightDemo.storyName = `✅ auto : bottom -> bottomRight`;
+
+
+export const Fix1557 = () =>{
+   return (
+      <Dropdown
+          trigger='hover'
+          disableFocusListener
+          render={
+              <Dropdown.Menu>
+                  <Popconfirm
+                    content={
+                        <>
+                        <Select filter/>
+                        </>
+                    }
+                  >
+                      <Button>点我后再点击select, Dropdown 面板不收起</Button>
+                  </Popconfirm>
+              </Dropdown.Menu>
+          }
+      >
+          <Tag>Hover Me</Tag>
+      </Dropdown>
+  );
+}

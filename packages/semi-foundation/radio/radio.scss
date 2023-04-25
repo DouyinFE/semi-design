@@ -416,6 +416,7 @@ $inner-width: $width-icon-medium;
     &-horizontal {
         display: inline-flex;
         flex-wrap: wrap;
+        vertical-align: bottom; // Fix 1573
         gap: $spacing-radio_group_horizontal-marginRight;
     }
 

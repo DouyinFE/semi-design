@@ -571,6 +571,18 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
     }
 
+    handlePortalFocus = (e: React.FocusEvent<HTMLElement>) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
+    }
+
+    handlePortalBlur = (e: React.FocusEvent<HTMLElement>) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
+    }
+
     handlePortalInnerKeyDown = (e: React.KeyboardEvent) => {
         this.foundation.handleContainerKeydown(e);
     }
@@ -655,6 +667,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     style={portalInnerStyle}
                     ref={this.setContainerEl}
                     onClick={this.handlePortalInnerClick}
+                    onFocus={this.handlePortalFocus}
+                    onBlur={this.handlePortalBlur}
                     onMouseDown={this.handlePortalMouseDown}
                     onKeyDown={this.handlePortalInnerKeyDown}
                 >
