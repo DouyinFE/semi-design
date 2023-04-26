@@ -62,7 +62,7 @@ class FormInputGroup extends Component<InputGroupProps> {
     render() {
         const { children, label, extraText, extraTextPosition, ...rest } = this.props;
         const updater = this.context;
-        const formProps = updater.getFormProps(['labelPosition', 'labelWidth', 'labelAlign', 'showValidateIcon', 'wrapperCol', 'labelCol']);
+        const formProps = updater.getFormProps(['labelPosition', 'labelWidth', 'labelAlign', 'showValidateIcon', 'wrapperCol', 'labelCol', 'disabled']);
         const labelPosition = this.props.labelPosition || formProps.labelPosition;
         const groupFieldSet: Array<string> = [];
         const inner = React.Children.map(children, (child: any) => {
@@ -90,7 +90,7 @@ class FormInputGroup extends Component<InputGroupProps> {
 
         const labelContent = this.renderLabel(label, formProps);
         const inputGroupContent = (
-            <InputGroup {...rest}>
+            <InputGroup disabled={formProps.disabled} {...rest}>
                 {inner}
             </InputGroup>
         );
