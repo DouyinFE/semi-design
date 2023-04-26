@@ -27,6 +27,54 @@ $font-typography_link-fontWeight: $font-weight-bold; // 链接文本字重
 $font-typography_strong-fontWeight: $font-weight-bold; // 强调文本字重
 $font-typography_paragraph_extended-lineHeight: 24px; // 宽松行距段落文本行高
 
+$font-typography_title1-fontWeight: $font-typography_title-fontWeight; // 一级标题文本字重
+$font-typography_title2-fontWeight: $font-typography_title-fontWeight; // 二级标题文本字重
+$font-typography_title3-fontWeight: $font-typography_title-fontWeight; // 三级标题文本字重
+$font-typography_title4-fontWeight: $font-typography_title-fontWeight; // 四级标题文本字重
+$font-typography_title5-fontWeight: $font-typography_title-fontWeight; // 五级标题文本字重
+$font-typography_title6-fontWeight: $font-typography_title-fontWeight; // 六级标题文本字重
+
+
+
+
+$font-typography_title1-light-fontWeight: 200; // 一级标题文本字重 - 细
+$font-typography_title2-light-fontWeight: 200; // 二级标题文本字重 - 细
+$font-typography_title3-light-fontWeight: 200; // 三级标题文本字重 - 细
+$font-typography_title4-light-fontWeight: 200; // 四级标题文本字重 - 细
+$font-typography_title5-light-fontWeight: 200; // 五级标题文本字重 - 细
+$font-typography_title6-light-fontWeight: 200; // 六级标题文本字重 - 细
+
+$font-typography_title1-regular-fontWeight: 400; // 一级标题文本字重 - 正常
+$font-typography_title2-regular-fontWeight: 400; // 二级标题文本字重 - 正常
+$font-typography_title3-regular-fontWeight: 400; // 三级标题文本字重 - 正常
+$font-typography_title4-regular-fontWeight: 400; // 四级标题文本字重 - 正常
+$font-typography_title5-regular-fontWeight: 400; // 五级标题文本字重 - 正常
+$font-typography_title6-regular-fontWeight: 400; // 六级标题文本字重 - 正常
+
+$font-typography_title1-medium-fontWeight: 500; // 一级标题文本字重 - 中等
+$font-typography_title2-medium-fontWeight: 500; // 二级标题文本字重 - 中等
+$font-typography_title3-medium-fontWeight: 500; // 三级标题文本字重 - 中等
+$font-typography_title4-medium-fontWeight: 500; // 四级标题文本字重 - 中等
+$font-typography_title5-medium-fontWeight: 500; // 五级标题文本字重 - 中等
+$font-typography_title6-medium-fontWeight: 500; // 六级标题文本字重 - 中等
+
+$font-typography_title1-semibold-fontWeight: 600; // 一级标题文本字重 - 半粗
+$font-typography_title2-semibold-fontWeight: 600; // 二级标题文本字重 - 半粗
+$font-typography_title3-semibold-fontWeight: 600; // 三级标题文本字重 - 半粗
+$font-typography_title4-semibold-fontWeight: 600; // 三级标题文本字重 - 半粗
+$font-typography_title5-semibold-fontWeight: 600; // 三级标题文本字重 - 半粗
+$font-typography_title6-semibold-fontWeight: 600; // 三级标题文本字重 - 半粗
+
+$font-typography_title1-bold-fontWeight: 700; // 一级标题文本字重 - 粗
+$font-typography_title2-bold-fontWeight: 700; // 二级标题文本字重 - 粗
+$font-typography_title3-bold-fontWeight: 700; // 三级标题文本字重 - 粗
+$font-typography_title4-bold-fontWeight: 700; // 三级标题文本字重 - 粗
+$font-typography_title5-bold-fontWeight: 700; // 三级标题文本字重 - 粗
+$font-typography_title6-bold-fontWeight: 700; // 三级标题文本字重 - 粗
+
+
+
+
 $spacing-typography_iconPrefix-marginRight: 4px; // 带前缀文本图标右侧外边距
 $spacing-typography_expandText-marginLeft: 8px; // 支持展开文本展开按钮左侧外边距
 $spacing-typography_copyIcon-marginLeft: 4px; // 可复制文本复制图标左侧外边距
