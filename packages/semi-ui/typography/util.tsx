@@ -61,6 +61,7 @@ const getRenderText = (
     );
 
     // Set shadow
+    const maxWidth = parseInt(originStyle.width);
     ellipsisContainer.setAttribute('style', originCSS);
     ellipsisContainer.style.position = 'fixed';
     ellipsisContainer.style.left = '0';
@@ -80,7 +81,9 @@ const getRenderText = (
 
     // Check if ellipsis in measure div is height enough for content
     function inRange() {
-        // console.log('inrange?', ellipsisContainer.scrollHeight, ellipsisContainer.scrollHeight < maxHeight);
+        if (originStyle.whiteSpace === 'nowrap') {
+            return ellipsisContainer.scrollWidth <= maxWidth;
+        }
         return ellipsisContainer.scrollHeight < maxHeight;
     }
 
@@ -99,7 +102,7 @@ const getRenderText = (
     Object.values(omit(fixedContent, 'expand')).map(
         node => node && ellipsisContainer.appendChild(node.cloneNode(true))
     );
-   
+
     function appendExpandNode() {
         ellipsisContainer.innerHTML = '';
         ellipsisContainer.appendChild(ellipsisContentHolder);
@@ -146,7 +149,7 @@ const getRenderText = (
         }
         return measureText(textNode, fullText, startLoc, midLoc, lastSuccessLoc);
     }
-    
+
     let resText = content;
     // First judge whether the total length of fullText, plus suffix (possible)
     // and copied icon (possible) meets expectations？ 
@@ -155,7 +158,7 @@ const getRenderText = (
     // 如果不符合预期，则再加上展开按钮，找最大符合尺寸的内容
     if (!inRange()) {
         appendExpandNode();
-        resText = measureText(textNode, content, 0, ellipsisPos === 'middle' ? Math.floor((content.length) / 2): content.length);
+        resText = measureText(textNode, content, 0, ellipsisPos === 'middle' ? Math.floor((content.length) / 2) : content.length);
     }
     ellipsisContainer.innerHTML = '';
     return resText;
