@@ -16,9 +16,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
-  - Table 列支持通过配置 ellipsis 或 ellipsis.showTitle API 实现文本内容缩略  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
-  - 级联选择框新增 focus/blur 方法  [#566 ](https://github.com/DouyinFE/semi-design/issues/566) [@meakle](https://github.com/meakle)
-  - 增加 rspack plugin，功能对齐 webpack plugin [@Asuka109](https://github.com/Asuka109)
+  - 新增 Rspack plugin，支持 Rspack 工程配置主题、prefixCls等 [@Asuka109](https://github.com/Asuka109)
+  - Cascader 级联选择框新增 focus/blur 方法  [#566](https://github.com/DouyinFE/semi-design/issues/566) [@meakle](https://github.com/meakle)
+  - Table 列支持通过配置 ellipsis 或 ellipsis.showTitle API 实现文本内容缩略 [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
 - 【Style】
   - Table 文本默认换行样式从 break-all 修改为 break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
   - BreadCrumb 中 icon 和文本间距从 8px 修改为 4px（影响面 v2.0.0～v2.33.1）
@@ -31,6 +31,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Typography resize后展开状态可能会被变成折叠 [@marshcat0](https://github.com/marshcat0)
   - Typography 展开按钮可能会在不需要折叠时出现 [@marshcat0](https://github.com/marshcat0)
 
+#### 🎉 2.33.1 (2023-04-21)
+- 【Fix】
+    - 修复 Popover StopPropagation 未对 Portal弹层内触发的 focus、blur 做阻止冒泡的问题 [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
+    - 修复 Input 关于 noBg props 报错的问题, 影响范围 2.33.0-beta.0 - 2.33.0
+    - 修复 修复 Table hideExpandedColumn 为 false 时 indent 问题 [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
+  
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
     - 修复 Transfer 中可拖拽 item 使用 label 作 SortableItem 的 key 导致相同 label 的 item 无法拖动问题
