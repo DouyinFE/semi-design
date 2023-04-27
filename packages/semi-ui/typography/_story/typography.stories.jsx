@@ -244,12 +244,12 @@ export const EllipsisMultiple = () => (
     >
       如果支持折叠但其实没有达到溢出的高度，仍旧会显示文本
     </Paragraph>
-    <br />
+     <br />
     <Paragraph ellipsis={{ rows: 9, expandable: true }} style={{ width: 300 }}>
       如果支持折叠但其实没有达到溢出的高度，仍旧会显示文本
     </Paragraph>
     <br />
-    <Paragraph ellipsis={{ rows: 3, expandable: true }} style={{ width: 280 }}>
+   <Paragraph ellipsis={{ rows: 3, expandable: true }} style={{ width: 280 }}>
       多行截断并且支持展开：Semi Design 是由互娱社区前端团队与 UED
       团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
       Web 应用。 区别于其他的设计系统而言，Semi Design
@@ -780,3 +780,17 @@ export const TextInline = () => {
     </div>
   )
 }
+
+export const whiteSpaceNoWrap = () => (
+  <div style={{ whiteSpace: 'nowrap' }}>
+    <Typography.Text
+      copyable
+      style={{ width: 100 }}
+      ellipsis={{
+        showTooltip: true,
+      }}
+    >
+      需要截断这段文字，[此处不可见]
+    </Typography.Text>
+  </div>
+)
