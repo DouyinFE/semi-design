@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.34.0 (2023-04-28)
+- 【Fix】
+  - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
+  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - Fixed the issue where Typography was truncating incorrectly when the parent or itself was set to white-space: nowrap [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
+
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
   - Table column supports text content abbreviation by configuring ellipsis or ellipsis.showTitle API  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)

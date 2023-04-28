@@ -14,6 +14,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.34.0 (2023-04-28)
+- 【Fix】
+  - 修复 Table SSR 时渲染不正确的问题  [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
+  - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - 修复 Typography 在父级或自身设置 white-space 为 nowrap 时截断出错问题 [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
+
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
   - 新增 Rspack plugin，支持 Rspack 工程配置主题、prefixCls等 [@Asuka109](https://github.com/Asuka109)
