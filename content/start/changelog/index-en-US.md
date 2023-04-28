@@ -16,6 +16,36 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.34.0 (2023-04-28)
+- 【Fix】
+  - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
+  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - Fixed the issue where Typography was truncating incorrectly when the parent or itself was set to white-space: nowrap [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
+  - Fixed the issue where Image src changes in lazy loading mode, and the image cannot be loaded normally [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
+
+#### 🎉 2.34.0-beta.0 (2023-04-25)
+- 【Feat】
+  - Table column supports text content abbreviation by configuring ellipsis or ellipsis.showTitle API  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+  - Cascader add  focus blur methods  [#566 ](https://github.com/DouyinFE/semi-design/issues/566) [@meakle](https://github.com/meakle)
+  - add rspack plugin, feature align webpack plugin [@Asuka109](https://github.com/Asuka109)
+- 【Fix】
+  - Fix the problem that if the TimePicker range mode selects the end time first, it will cause an error  [#1563 ](https://github.com/DouyinFE/semi-design/issues/1563)
+  - Steps is changed to display the hover state only when Steps is passed to onChange or Steps.Step is passed to onClick.
+  - Fix the problem that the height of the RadioGroup parent container will change with the RadioGroup option  [#1573 ](https://github.com/DouyinFE/semi-design/issues/1573)
+  - fix last week got wrong style in Calendar component with `month` mode [@sylingd](https://github.com/sylingd)
+  - Typography ellipsis disappear when resize to larger and back [@marshcat0](https://github.com/marshcat0)
+  - Typography expanded may change to true after resize [@marshcat0](https://github.com/marshcat0)
+  - Typography  expand may show when not overflow [@marshcat0](https://github.com/marshcat0)
+- 【Style】
+  - The default word wrap style of Table text is changed from break-all to break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+  - Changed the spacing between icon and text in BreadCrumb from 8px to 4px（Affects v2.0.0～v2.33.1）
+  
+#### 🎉 2.33.1 (2023-04-21)
+-【Fix】
+     - Fixed the issue that Popover StopPropagation did not stop the bubbling of the focus and blur triggered in the Portal layer [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
+     - Fix the problem of Input reporting error about noBg props, the scope of influence is 2.33.0-beta.0 - 2.33.0
+     - Fix Fix the indent problem when Table hideExpandedColumn is false [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
+
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
     - Fix the problem that items with the same label cannot be dragged when the draggable item in Transfer uses the label as the key of the SortableItem

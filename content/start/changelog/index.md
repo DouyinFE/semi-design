@@ -14,6 +14,35 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.34.0 (2023-04-28)
+- 【Fix】
+  - 修复 Table SSR 时渲染不正确的问题  [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
+  - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - 修复 Typography 在父级或自身设置 white-space 为 nowrap 时截断出错问题 [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
+  - 修复 懒加载模式下 Image 的 src 变化，图片无法正常加载问题 [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
+#### 🎉 2.34.0-beta.0 (2023-04-25)
+- 【Feat】
+  - 新增 Rspack plugin，支持 Rspack 工程配置主题、prefixCls等 [@Asuka109](https://github.com/Asuka109)
+  - Cascader 级联选择框新增 focus/blur 方法  [#566](https://github.com/DouyinFE/semi-design/issues/566) [@meakle](https://github.com/meakle)
+  - Table 列支持通过配置 ellipsis 或 ellipsis.showTitle API 实现文本内容缩略 [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+- 【Style】
+  - Table 文本默认换行样式从 break-all 修改为 break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+  - BreadCrumb 中 icon 和文本间距从 8px 修改为 4px（影响面 v2.0.0～v2.33.1）
+- 【Fix】
+  - 修复TimePicker range 模式先选择结束时间，会导致报错的问题  [#1563 ](https://github.com/DouyinFE/semi-design/issues/1563)
+  - Steps 更改为只在 Steps 传入 onChange 或 Steps.Step 传入 onClick 时，才会 hover 时展示 hover 态。
+  - 修复 RadioGroup 父级容器高度会跟随 RadioGroup 选项不同而变化的问题  [#1573 ](https://github.com/DouyinFE/semi-design/issues/1573)
+  - 修复Calendar组件月视图中，最后一周日期样式错误 [@sylingd](https://github.com/sylingd)
+  - Typography resize后可能会丢失省略 [@marshcat0](https://github.com/marshcat0)
+  - Typography resize后展开状态可能会被变成折叠 [@marshcat0](https://github.com/marshcat0)
+  - Typography 展开按钮可能会在不需要折叠时出现 [@marshcat0](https://github.com/marshcat0)
+
+#### 🎉 2.33.1 (2023-04-21)
+- 【Fix】
+    - 修复 Popover StopPropagation 未对 Portal弹层内触发的 focus、blur 做阻止冒泡的问题 [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
+    - 修复 Input 关于 noBg props 报错的问题, 影响范围 2.33.0-beta.0 - 2.33.0
+    - 修复 修复 Table hideExpandedColumn 为 false 时 indent 问题 [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
+  
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
     - 修复 Transfer 中可拖拽 item 使用 label 作 SortableItem 的 key 导致相同 label 的 item 无法拖动问题
@@ -89,7 +118,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - Popover Tooltip 等带弹层组件支持 keepDOM，支持设置关闭时是否保留内部组件不销毁 [#1481](https://github.com/DouyinFE/semi-design/pull/1481)
 - 【Fix】
     - 修复 Table column align 在 RTL 时未自动切换问题  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
-    - 修复对于单选，可搜索， 受控的 Cascader 在搜索状态下，value 改变导致搜索值发生变化问题  [#1472](https://github.com/DouyinFE/semi-design/issues/1472
+    - 修复对于单选，可搜索， 受控的 Cascader 在搜索状态下，value 改变导致搜索值发生变化问题  [#1472](https://github.com/DouyinFE/semi-design/issues/1472)
     - 使用可选操作符替换冗余的类型定义 [@thinkasany](https://github.com/thinkasany) [#1464](https://github.com/DouyinFE/semi-design/pull/1464)
 - 【Style】
     - 根据 children 类型处理 Tag 组件中内容样式，children 是 String 则能够自定文本省略，否则样式对齐 [#1475](https://github.com/DouyinFE/semi-design/pull/1475)

@@ -1,56 +1,24 @@
 import React from 'react';
-import { Table, Avatar, Space } from '../../../index';
-import { ColumnProps, Direction } from '../../../table/interface';
+import { Table } from '@douyinfe/semi-ui';
 
-export default function App(props: { direction?: Direction }) {
-    const { direction } = props;
-    const columns: ColumnProps[] = [
+export default function App() {
+    const columns = [
         {
-            title: '标题 align left + fixed left',
+            title: '标题',
             dataIndex: 'name',
-            render: (text, record, index) => {
-                return (
-                    <Space spacing={12}>
-                        <Avatar
-                            size="small"
-                            shape="square"
-                            src={record.nameIconSrc}
-                        ></Avatar>
-                        {text}
-                    </Space>
-                );
-            },
-            align: 'left',
-            fixed: 'left',
-            width: 300
         },
         {
-            title: '大小 align center',
+            title: '大小',
             dataIndex: 'size',
-            align: 'center',
-            width: 200,
         },
         {
-            title: '所有者 align right',
+            title: '所有者',
             dataIndex: 'owner',
-            render: (text, record, index) => {
-                return (
-                    <Space spacing={4}>
-                        <Avatar size="small" color={record.avatarBg}>
-                            {typeof text === 'string' && text.slice(0, 1)}
-                        </Avatar>
-                        {text}
-                    </Space>
-                );
-            },
-            align: 'right',
         },
         {
-            title: '更新日期 align default + fixed right',
+            title: '更新日期',
             dataIndex: 'updateTime',
-            width: 200,
-            fixed: 'right',
-        }
+        },
     ];
     const data = [
         {
@@ -82,5 +50,5 @@ export default function App(props: { direction?: Direction }) {
         },
     ];
 
-    return <Table direction={direction} bordered columns={columns} dataSource={data} scroll={{ y: 300, x: 1200 }} pagination={false} />;
+    return <Table columns={columns} dataSource={data} pagination={false} />;
 }

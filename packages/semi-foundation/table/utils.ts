@@ -18,6 +18,7 @@ import {
 import { strings, numbers } from './constants';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
 import Logger from '../utils/Logger';
+import type { BaseEllipsis } from './foundation';
 
 
 export function equalWith(value: any, other: any, customizer?: (...args: any[]) => boolean) {
@@ -479,4 +480,9 @@ export function getRTLAlign(align: typeof strings.ALIGNS[number], direction?: 'l
         }
     }
     return align;
+}
+
+export function shouldShowEllipsisTitle(ellipsis: BaseEllipsis) {
+    const shouldShowTitle = ellipsis === true || get(ellipsis, 'showTitle', true);
+    return shouldShowTitle;
 }

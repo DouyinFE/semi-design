@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.33.1",
+    "version": "2.34.0-beta.0",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -17,12 +17,12 @@
         "lib/*"
     ],
     "dependencies": {
-        "@douyinfe/semi-animation": "2.33.1",
-        "@douyinfe/semi-animation-react": "2.33.1",
-        "@douyinfe/semi-foundation": "2.33.1",
-        "@douyinfe/semi-icons": "2.33.1",
-        "@douyinfe/semi-illustrations": "2.33.1",
-        "@douyinfe/semi-theme-default": "2.33.1",
+        "@douyinfe/semi-animation": "2.34.0-beta.0",
+        "@douyinfe/semi-animation-react": "2.34.0-beta.0",
+        "@douyinfe/semi-foundation": "2.34.0-beta.0",
+        "@douyinfe/semi-icons": "2.34.0-beta.0",
+        "@douyinfe/semi-illustrations": "2.34.0-beta.0",
+        "@douyinfe/semi-theme-default": "2.34.0-beta.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
@@ -107,7 +107,6 @@
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",
         "ts-loader": "^5.4.5",
-        "webpack": "^4.46.0",
         "webpackbar": "^5.0.0-3"
     }
 }

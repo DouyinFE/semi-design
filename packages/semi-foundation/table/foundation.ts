@@ -58,7 +58,8 @@ export interface BaseColumnProps<RecordType> {
     sorter?: BaseSorter<RecordType>;
     title?: any;
     useFullRender?: boolean;
-    width?: string | number
+    width?: string | number;
+    ellipsis?: BaseEllipsis
 }
 
 export interface TableAdapter<RecordType> extends DefaultAdapter {
@@ -103,7 +104,8 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getNormalizeColumns: () => (columns: BaseColumnProps<RecordType>[], children: any) => BaseColumnProps<RecordType>[];
     getHandleColumns: () => (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
-    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void
+    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
+    getTableLayout: () => 'fixed' | 'auto'
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -1256,5 +1258,7 @@ export interface BaseChangeInfoSorter<RecordType> {
 }
 
 export type BaseIncludeGroupRecord<RecordType> = RecordType | { groupKey: string };
+
+export type BaseEllipsis = boolean | { showTitle: boolean };
 
 export default TableFoundation;

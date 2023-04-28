@@ -92,9 +92,9 @@ export interface BasicTriggerRenderProps {
      * customized by triggerRender is updated to synchronize the state
      * with Cascader. */
     onSearch: (inputValue: string) => void;
-    /* This function is the same as onSearch (supported since v2.32.0), 
-     * because this function was used before, and to align with TreeSelect, 
-     * use onSearch instead of onChange is more suitable, 
+    /* This function is the same as onSearch (supported since v2.32.0),
+     * because this function was used before, and to align with TreeSelect,
+     * use onSearch instead of onChange is more suitable,
      * onChange needs to be deleted in the next Major
     */
     onChange: (inputValue: string) => void;
@@ -203,6 +203,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateInputValue: (value: string) => void;
     updateInputPlaceHolder: (value: string) => void;
     focusInput: () => void;
+    blurInput: () => void;
     registerClickOutsideHandler: (cb: (e: any) => void) => void;
     unregisterClickOutsideHandler: () => void;
     rePositionDropdown: () => void;
@@ -259,7 +260,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (multiple) {
             const valuePath: BasicValue = [];
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore 
+            // @ts-ignore
             item.forEach((checkedKey: string) => {
                 const valuePathItem = this.getItemPropPath(checkedKey, valueProp);
                 valuePath.push(valuePathItem as any);
@@ -449,7 +450,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 if (filterable && !multiple) {
                     const displayText = this.renderDisplayText(selectedKey, keyEntities);
                     updateStates.inputPlaceHolder = displayText;
-                    /* 
+                    /*
                      *  displayText should not be assign to inputValue,
                      *  cause inputValue should only change by user enter
                      */
@@ -484,7 +485,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             if (filterable && !multiple) {
                 const displayText = this._defaultRenderText(valuePath);
                 updateStates.inputPlaceHolder = displayText;
-                /* 
+                /*
                  *  displayText should not be assign to inputValue,
                  *  cause inputValue should only change by user enter
                  */
@@ -555,19 +556,29 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._notifyBlur(e);
     }
 
+    focus() {
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.focusInput();
+        }
+        this._adapter.updateFocusState(true);
+    }
+
+    blur() {
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.blurInput();
+        }
+        this._adapter.updateFocusState(false);
+    }
+
     toggle2SearchInput(isShow: boolean) {
         if (isShow) {
-            this._adapter.toggleInputShow(isShow, () => this.focusInput());
+            this._adapter.toggleInputShow(isShow, () => this.focus());
         } else {
             this._adapter.toggleInputShow(isShow, () => undefined);
         }
     }
-
-    focusInput() {
-        this._adapter.focusInput();
-        this._adapter.updateFocusState(true);
-    }
-
 
     updateSearching = (isSearching: boolean)=>{
         this._adapter.updateStates({ isSearching: false });

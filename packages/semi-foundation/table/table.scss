@@ -83,6 +83,11 @@ $module: #{$prefix}-table;
         }
     }
 
+    &-operate-wrapper {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     &-body {
         overflow: auto;
         width: 100%;
@@ -115,8 +120,9 @@ $module: #{$prefix}-table;
                 padding-top: $spacing-table_row_head-paddingY;
                 padding-bottom: $spacing-table_row_head-paddingY;
                 vertical-align: middle;
-                word-break: break-all;
-                word-wrap: break-word;
+                overflow-wrap: break-word;
+                // word-break: break-all;
+                // word-wrap: break-word;
                 position: relative;
 
                 &.#{$module}-cell-fixed {
@@ -176,6 +182,14 @@ $module: #{$prefix}-table;
                 .#{$module}-header-column {
                     display: inline-flex;
                     align-items: center;
+                }
+
+                &-ellipsis {
+                    @include text-overflow-hidden;
+
+                    .#{$module}-row-head-title {
+                        @include text-overflow-hidden;
+                    }
                 }
             }
 
@@ -241,8 +255,9 @@ $module: #{$prefix}-table;
 
             & > .#{$module}-row-cell {
                 display: table-cell;
-                word-wrap: break-word;
-                word-break: break-all;
+                overflow-wrap: break-word;
+                // word-wrap: break-word;
+                // word-break: break-all;
                 border-left: none;
                 border-right: none;
                 border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
@@ -253,6 +268,10 @@ $module: #{$prefix}-table;
 
                 &.resizing {
                     border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
+                }
+
+                &-ellipsis {
+                    @include text-overflow-hidden;
                 }
             }
             &.#{$module}-row {
@@ -401,9 +420,10 @@ $module: #{$prefix}-table;
             text-align: center;
 
             &-wrapper {
-                display: inline-flex;
+                display: flex;
                 align-items: center;
                 cursor: pointer;
+                overflow: hidden;
             }
 
             &-up,

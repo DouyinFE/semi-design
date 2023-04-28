@@ -269,8 +269,11 @@ function Demo() {
 }
 ```
 
-### 可交互文本
-支持文本的复制。
+### 可复制文本
+可通过配置 copyable 属性支持文本的复制。  
+当 copyable 配置为 true时，默认复制内容为 children 本身，注意，此时 children 只支持 string类型传入    
+当 copyable 配置为 object 时，可通过 `copyable.content` 指定复制至粘贴板的内容，与 children 不再强关联， 此时 children 将不再限定类型，但 `copyable.content` 仍需要为 string    
+
 ```jsx live=true
 import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
@@ -299,7 +302,10 @@ function Demo() {
 ### 省略文本
 支持文本的省略，可以通过 `ellipsis` 配置相关参数，具体参考 [Ellipsis Config](#Ellipsis-Config)。
 
-> 目前只支持纯文本的截断
+<Notice title='注意事项'>
+    ellipsis 仅支持纯文本的截断，不支持 reactNode 等复杂类型，请确保 children 传入内容类型为 string
+</Notice>
+
 
 ```jsx live=true
 import React from 'react';
@@ -345,6 +351,18 @@ function Demo() {
             <Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true, collapseText: '折叠我吧', onExpand: (bool, e) => console.log(bool, e) }} style={{ width: 300 }}>
                 支持展开和折叠：Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
+            <br/>
+            <Text 
+                ellipsis={{ 
+                    showTooltip: {
+                        opts: { content: '全英文设置了word-break' }
+                    },
+                    pos: 'middle'
+                }}
+                style={{ width: 150, wordBreak: 'break-word' }}
+            >
+                sssssssssssssssssssssssss
+            </Text>
         </div>
     );
 }

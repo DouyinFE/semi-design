@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-icons",
-    "version": "2.33.1",
+    "version": "2.34.0-beta.0",
     "description": "semi icons",
     "keywords": [
         "semi",
@@ -35,7 +35,6 @@
     "devDependencies": {
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-react": "^7.14.5",
-        "@douyinfe/semi-webpack-plugin": "2.23.2",
         "babel-loader": "^8.2.2",
         "css-loader": "4.3.0",
         "del": "^6.0.0",
@@ -45,12 +44,11 @@
         "gulp-sass": "^5.0.0",
         "gulp-typescript": "^6.0.0-alpha.1",
         "merge2": "^1.4.1",
-        "mini-css-extract-plugin": "0.11.3",
+        "mini-css-extract-plugin": "^2.7.5",
         "rimraf": "^3.0.2",
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",
-        "ts-loader": "^5.4.5",
-        "webpack": "^4.46.0"
+        "ts-loader": "^5.4.5"
     },
     "peerDependencies": {
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0"

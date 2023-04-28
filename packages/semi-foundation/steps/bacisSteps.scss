@@ -173,7 +173,7 @@ $basicType: #{$module}-basic;
         
         transform:scale($transform_scale-step-item);
 
-        &:hover {
+        &-hover:hover {
 
             .#{$item}-title {
                 color: $color-steps_item_title-text-hover;
@@ -267,7 +267,7 @@ $basicType: #{$module}-basic;
                 }
             }
 
-            &:hover {
+            &-hover:hover {
                 .#{$item}-left {
 
                     .#{$item}-icon {

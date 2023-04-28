@@ -280,9 +280,12 @@ function Demo() {
 }
 ```
 
-### Interactive
+### Copyable text
 
-Copyable text.
+Copying of text can be supported by configuring the `copyable` property.  
+When copyable is configured as true, the default copied content is children itself. Note that at this time, children only support string type.    
+When copyable is configured as object, you can specify the content copied to the clipboard through `copyable.content`, which is no longer strongly associated with children.   
+At this time, children will no longer limit the type, but `copyable.content` still needs to be a string.  
 
 ```jsx live=true
 import React from 'react';
@@ -313,6 +316,10 @@ function Demo() {
 
 Show ellipsis if text is overflowed. Refer to [Ellipsis Config](#Ellipsis-Config) for detailed configuration.
 > At this moment, only pure text truncation is supported.
+
+<Notice title='Notice'>
+    ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string
+</Notice>
 
 ```jsx live=true
 import React from 'react';
