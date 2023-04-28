@@ -112,7 +112,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - Popover Tooltip 等带弹层组件支持 keepDOM，支持设置关闭时是否保留内部组件不销毁 [#1481](https://github.com/DouyinFE/semi-design/pull/1481)
 - 【Fix】
     - 修复 Table column align 在 RTL 时未自动切换问题  [#1471](https://github.com/DouyinFE/semi-design/issues/1471)
-    - 修复对于单选，可搜索， 受控的 Cascader 在搜索状态下，value 改变导致搜索值发生变化问题  [#1472](https://github.com/DouyinFE/semi-design/issues/1472
+    - 修复对于单选，可搜索， 受控的 Cascader 在搜索状态下，value 改变导致搜索值发生变化问题  [#1472](https://github.com/DouyinFE/semi-design/issues/1472)
     - 使用可选操作符替换冗余的类型定义 [@thinkasany](https://github.com/thinkasany) [#1464](https://github.com/DouyinFE/semi-design/pull/1464)
 - 【Style】
     - 根据 children 类型处理 Tag 组件中内容样式，children 是 String 则能够自定文本省略，否则样式对齐 [#1475](https://github.com/DouyinFE/semi-design/pull/1475)
