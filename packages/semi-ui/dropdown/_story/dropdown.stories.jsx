@@ -8,8 +8,7 @@ import MultiDropdown from './MultiDropdown';
 import DisabledItem from './DisabledItem';
 import InHoverElements from './InHoverElements';
 import WrapAvatar from './WrapAvatar';
-import { IconChevronDown, IconBox, IconSimilarity } from '@douyinfe/semi-icons';
-import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
+import { IconBox, IconChevronDown, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
 
 export * from '../_story/C2D';
 
