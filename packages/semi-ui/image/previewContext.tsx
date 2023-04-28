@@ -7,6 +7,7 @@ export interface PreviewContextProps {
     titles: ReactNode[];
     currentIndex: number;
     visible: boolean;
+    previewObserver: IntersectionObserver;
     setCurrentIndex: (current: number) => void;
     handleVisibleChange: (visible: boolean, preVisible?: boolean) => void
 }
