@@ -9,7 +9,7 @@
     "private": true,
     "scripts": {
         "install:codesandbox": "npm i lerna && npm run bootstrap",
-        "bootstrap": "lerna bootstrap",
+        "bootstrap": "lerna bootstrap -- --legacy-peer-deps",
         "docsite": "npm run develop",
         "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
         "develop": "npm run pre-develop && gatsby clean && lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && gatsby develop -H 0.0.0.0 --port=3666 --verbose",
