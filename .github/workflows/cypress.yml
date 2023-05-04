@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-latest
         container:
             # https://github.com/cypress-io/cypress-docker-images/tree/master/browsers
-            image: cypress/browsers:node14.17.6-chrome100-ff98
+            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
         if: ${{ github.repository_owner == 'DouyinFE' }}
         steps:
             - name: Checkout
@@ -50,7 +50,7 @@ jobs:
     chrome-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node14.17.6-chrome100-ff98
+            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
         needs: install
         steps:
             - name: Checkout
@@ -81,7 +81,7 @@ jobs:
     firefox-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node14.17.6-chrome100-ff98
+            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
             options: --user 1001
         needs: install
         steps:
