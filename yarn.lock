@@ -12756,10 +12756,10 @@ gatsby-plugin-remove-serviceworker@^1.0.0:
   resolved "https://registry.npmjs.org/gatsby-plugin-remove-serviceworker/-/gatsby-plugin-remove-serviceworker-1.0.0.tgz#9fb433bc8bd766e14e1d3711c4ac6f051e1dff7c"
   integrity sha512-8uQ/6PiM718BTZAgmQeEO6ULrJgLugmDVAkUGv5xxF0luBNrbboDgpsG0z1fbsotSDTzLWyULR0zzGNfWZaY7w==
 
-gatsby-plugin-svgr@^3.0.0-beta.0:
-  version "3.0.0-beta.0"
-  resolved "https://registry.npmjs.org/gatsby-plugin-svgr/-/gatsby-plugin-svgr-3.0.0-beta.0.tgz#7e5315f51dae2663a447899322ea1487cef93dd6"
-  integrity sha512-oALTh6VwO6l3khgC/vGr706aqt38EkXwdr6iXVei/auOKGxpCLEuDCQVal1a4SpYXdjHjRsEyab6bxaHL2lzsA==
+gatsby-plugin-svgr@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/gatsby-plugin-svgr/-/gatsby-plugin-svgr-2.1.0.tgz#7ba4e53cc6b61ddb4653a021be2fe7a8f0830e4c"
+  integrity sha512-OgJ+M9EWMMXsEwhxefNvxCu2jmHmUHx/PgP+7A9pn7XUt1IYiZmEKteJ1ZP5tAPuUI2S539yYgW76H3u9u19SA==
 
 gatsby-plugin-typescript@^2.12.1:
   version "2.12.1"
