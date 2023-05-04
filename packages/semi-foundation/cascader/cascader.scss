@@ -257,7 +257,7 @@ $module: #{$prefix}-cascader;
     &-inset-label {
         display: inline;
         margin-right: $spacing-cascader_label-marginRight;
-        font-weight: 600;
+        font-weight: $font-weight-bold;
         @include font-size-regular;
         color: $color-cascader_label-text-default;
         flex-shrink: 0;
