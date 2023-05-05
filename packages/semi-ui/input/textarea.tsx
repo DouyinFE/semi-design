@@ -20,7 +20,8 @@ type OmitTextareaAttr =
     | 'onBlur'
     | 'onKeyDown'
     | 'onKeyPress'
-    | 'onKeyUp';
+    | 'onKeyUp'
+    | 'onResize'
 
 export interface TextAreaProps extends
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {

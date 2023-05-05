@@ -68,7 +68,7 @@ module.exports = {
                 'react/jsx-indent-props': ['error', 4],
                 'react/no-find-dom-node': ['warn'],
                 'react/prop-types': 'off',
-                "react/no-unknown-property": ['error', { ignore: ['x-semi-prop', 'x-placement', 'x-type', 'x-label-pos', 'x-prompt-pos']}],
+                "react/no-unknown-property": ['error', { ignore: ['x-semi-prop', 'x-placement', 'x-type', 'x-label-pos', 'x-prompt-pos', 'x-field-id', 'x-extra-pos']}],
                 'react-hooks/rules-of-hooks': 'error',
                 'react-hooks/exhaustive-deps': 'warn',
                 'react/prefer-stateless-function': 'off',
