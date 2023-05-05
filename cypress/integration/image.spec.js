@@ -501,7 +501,7 @@ describe('image', () => {
 
     // 测试在预览状态下，图片改变 ratio 状态后，切换图片，ratio 状态是否正确
     //（在未受控 ratio ，无默认 ratio 情况下，切换后的图片ratio 应该为适应页面）
-    it.only('ratio status after change pic', () => {
+    it('ratio status after change pic', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=image--basic-preview&args=&viewMode=story');
         cy.wait(2000);
         // 进入预览状态
@@ -514,5 +514,14 @@ describe('image', () => {
         cy.wait(1000);
         // 当前 ratio 状态应该为适应页面
         cy.get('.semi-icon-real_size_stroked').should('exist');
+    });
+
+    // 测试懒加载状态下 src 变化时候图片是否正常加载
+    it('src change', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--issue-1526&args=&viewMode=story');
+        // 等待 5000 ms， 确保当前src 已经完全改变上
+        cy.wait(5000);
+        // 进入预览状态
+        cy.get('.semi-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lion.jpeg');
     });
 });

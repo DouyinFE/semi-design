@@ -11487,9 +11487,9 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     string.prototype.matchall "^4.0.8"
 
 eslint-plugin-semi-design@^2.33.0:
-  version "2.34.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.34.0.tgz#bb15a35851b14f83bbf4db6c30a264fc964f12a2"
-  integrity sha512-P20fwp/KHBck5ZA4ADSQv9wpy7eUCXUapU8pYpZJbQeQ1Pu4hw8rtOJqGatVujeZI4fbqywIyt4DtFvBsFVF3g==
+  version "2.33.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.33.1.tgz#fa68c62c27efbf71150bfcbf73bcc8544033c3eb"
+  integrity sha512-ZpOUV7btOuG1Y+cOftaTQUdfHjBalHtR4T9/6vdBccsKz2VH2RDlK6r7u91cHtpLAR0Sdwm3HyKcDPFEZ7xvKw==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"

@@ -21,6 +21,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
   - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
   - Fixed the issue where Typography was truncating incorrectly when the parent or itself was set to white-space: nowrap [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
+  - Fixed the issue where Image src changes in lazy loading mode, and the image cannot be loaded normally [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
 
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
