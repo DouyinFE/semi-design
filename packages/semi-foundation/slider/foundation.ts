@@ -219,12 +219,12 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      *
      * @memberof SliderFoundation
      */
-    handleMousePos = (pageX: number, pageY: number) => {
+    handleMousePos = (clientX: number, clientY: number) => {
         const parentRect = this._adapter.getParentRect();
         const scrollParent = this._adapter.getScrollParentVal();
         const parentX = parentRect ? parentRect.left : 0;
         const parentY = parentRect ? parentRect.top : 0;
-        return { x: pageX - parentX + scrollParent.scrollLeft, y: pageY - parentY + scrollParent.scrollTop };
+        return { x: clientX - parentX + scrollParent.scrollLeft, y: clientY - parentY + scrollParent.scrollTop };
     };
 
     /**
@@ -268,7 +268,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             startPos = vertical ? sliderY : sliderX;
         }
-        startPos = chooseMovePos === 'max' && isDrag ? currentPos[0] : startPos;
+        //  startPos = chooseMovePos === 'max' && isDrag ? currentPos[0] : startPos;
         // eslint-disable-next-line one-var
         let endPos;
         if (vertical && verticalReverse) {
@@ -276,7 +276,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             endPos = vertical ? sliderY + sliderHeight : sliderX + sliderWidth;
         }
-        endPos = chooseMovePos === 'min' && isDrag && range ? currentPos[1] : endPos;
+        //   endPos = chooseMovePos === 'min' && isDrag && range ? currentPos[1] : endPos;
 
 
         if (vertical && verticalReverse) {
@@ -309,7 +309,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const len = vertical ? sliderHeight : sliderWidth;
         let stepValue;
         if (vertical && verticalReverse) {
-            isMin = !isMin;
+            //isMin = !isMin;
             stepValue = ((startPos + len - pos) / len) * (max - min) + min;
         } else {
             stepValue = ((pos - startPos) / len) * (max - min) + min;
@@ -326,11 +326,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             stepValue = Math.round(stepValue / step) * step;
         }
         if (range && stepValue !== compareValue) {
-            if (vertical && verticalReverse) {
-                return (isMin ? [currentValue[0], stepValue] : [stepValue, currentValue[1]]);
-            } else {
-                return isMin ? [stepValue, currentValue[1]] : [currentValue[0], stepValue];
-            }
+            return isMin ? [stepValue, currentValue[1]] : [currentValue[0], stepValue];
 
         } else if (!range && stepValue !== compareValue) {
             return (stepValue);
@@ -351,11 +347,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         const startPos = vertical ? sliderY : sliderX;
         const len = vertical ? sliderHeight : sliderWidth;
         if (range) {
-            if (vertical && verticalReverse) {
-                return [startPos + len - ((value[0] - min) * len) / (max - min), startPos + len - ((value[1] - min) * len) / (max - min)];
-            } else {
-                return [((value[0] - min) * len) / (max - min) + startPos, ((value[1] - min) * len) / (max - min) + startPos];
-            }
+            return [((value[0] - min) * len) / (max - min) + startPos, ((value[1] - min) * len) / (max - min) + startPos];
         } else {
             return ((value as number - min) * len) / (max - min) + startPos;
         }
@@ -386,9 +378,9 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
      * @memberof SliderFoundation
      */
     outPutValue = (inputValue: SliderProps['value']) => {
-        const checkHowManyDecimals = (num:number)=>{
+        const checkHowManyDecimals = (num: number)=>{
             const reg = /^\d+(\.\d+)?$/;
-            if (reg.test(String(num))){
+            if (reg.test(String(num))) {
                 return num.toString().split('.')[1]?.length ?? 0;
             }
             return 0;
@@ -479,7 +471,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             this._adapter.setDragging([dragging[0], true]);
         }
 
-        const mousePos = this.handleMousePos(e.pageX, e.pageY);
+        const mousePos = this.handleMousePos(e.clientX, e.clientY);
         let pos = vertical ? mousePos.y : mousePos.x;
         if (!this._adapter.isEventFromHandle(e)) {
             this._dragOffset = 0;
@@ -500,7 +492,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             return false;
         }
         this.onHandleEnter(chooseMovePos);
-        const mousePos = this.handleMousePos(e.pageX, e.pageY);
+        const mousePos = this.handleMousePos(e.clientX, e.clientY);
         let pagePos = vertical ? mousePos.y : mousePos.x;
         pagePos = pagePos - this._dragOffset;
         if ((chooseMovePos === 'min' && dragging[0]) || (chooseMovePos === 'max' && dragging[1])) {
@@ -720,7 +712,7 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             return;
         }
         const { vertical } = this.getProps();
-        const mousePos = this.handleMousePos(e.pageX, e.pageY);
+        const mousePos = this.handleMousePos(e.clientX, e.clientY);
         const position = vertical ? mousePos.y : mousePos.x;
         const isMin = this.checkWhichHandle(position);
 
