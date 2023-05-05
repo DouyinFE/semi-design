@@ -9,6 +9,7 @@
         "lib": ["es7", "dom", "es2017"],
         "moduleResolution": "node",
         "noImplicitAny": false,
+        "ignoreDeprecations": "5.0",
         "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
