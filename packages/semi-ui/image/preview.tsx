@@ -70,6 +70,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     foundation: PreviewFoundation;
     previewGroupId: string;
     previewRef: React.RefObject<PreviewInner>;
+    previewObserver: IntersectionObserver;
 
     constructor(props) {
         super(props);
@@ -80,27 +81,21 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
         this.previewRef = React.createRef<PreviewInner>();
-    }
-
-    componentDidMount() {
-        const { lazyLoadMargin } = this.props;
-        const allElement = document.querySelectorAll(`.${prefixCls}-img`);
-        // use IntersectionObserver to lazy load image
-        const observer = new IntersectionObserver(entries => {
+        this.previewObserver = new IntersectionObserver(entries => {
             entries.forEach(item => {
                 const src = (item.target as any).dataset?.src;
                 if (item.isIntersecting && src) {
                     (item.target as any).src = src;
-                    observer.unobserve(item.target);
+                    (item.target as any).removeAttribute("data-src");
+                    this.previewObserver.unobserve(item.target);
                 }
             });
         },
         {
             root: document.querySelector(`#${this.previewGroupId}`),
-            rootMargin: lazyLoadMargin, 
+            rootMargin: props.lazyLoadMargin, 
         }
         );
-        allElement.forEach(item => observer.observe(item));
     }
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
@@ -114,7 +109,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         return willUpdateStates;
     }
 
-    handleVisibleChange = (newVisible : boolean) => {
+    handleVisibleChange = (newVisible: boolean) => {
         this.foundation.handleVisibleChange(newVisible);
     };
 
@@ -174,6 +169,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     currentIndex,
                     visible,
                     lazyLoad,
+                    previewObserver: this.previewObserver,
                     setCurrentIndex: this.handleCurrentIndexChange,
                     handleVisibleChange: this.handleVisibleChange,
                 }}
