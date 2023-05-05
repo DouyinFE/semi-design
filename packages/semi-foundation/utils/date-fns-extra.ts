@@ -52,6 +52,40 @@ export const IANAOffsetMap = [
     [14, ['Pacific/Kiritimati']],
 ];
 
+/**
+ * Etc/GMT* no DST
+ * @see https://data.iana.org/time-zones/tzdb/etcetera
+ */
+const IANAEtcGMTOffsetMap = {
+    '0': 'Etc/GMT',
+    '1': 'Etc/GMT-1',
+    '2': 'Etc/GMT-2',
+    '3': 'Etc/GMT-3',
+    '4': 'Etc/GMT-4',
+    '5': 'Etc/GMT-5',
+    '6': 'Etc/GMT-6',
+    '7': 'Etc/GMT-7',
+    '8': 'Etc/GMT-8',
+    '9': 'Etc/GMT-9',
+    '10': 'Etc/GMT-10',
+    '11': 'Etc/GMT-11',
+    '12': 'Etc/GMT-12',
+    '13': 'Etc/GMT-13',
+    '14': 'Etc/GMT-14',
+    '-1': 'Etc/GMT+1',
+    '-2': 'Etc/GMT+2',
+    '-3': 'Etc/GMT+3',
+    '-4': 'Etc/GMT+4',
+    '-5': 'Etc/GMT+5',
+    '-6': 'Etc/GMT+6',
+    '-7': 'Etc/GMT+7',
+    '-8': 'Etc/GMT+8',
+    '-9': 'Etc/GMT+9',
+    '-10': 'Etc/GMT+10',
+    '-11': 'Etc/GMT+11',
+    '-12': 'Etc/GMT+12',
+};
+
 const GMTStringReg = /([\-\+]{1})(\d{2})\:(\d{2})/;
 
 /**
@@ -74,10 +108,32 @@ export const toIANA = (tz: string | number) => {
     }
 
     if (typeof tz === 'number') {
+        // if tz can be transformed to a Etc/GMT* and browser supports it
+        if (tz in IANAEtcGMTOffsetMap) {
+            const etcGMTtimeZone = IANAEtcGMTOffsetMap[tz];
+            if (isValidTimezoneIANAString(etcGMTtimeZone)) {
+                return etcGMTtimeZone;
+            }
+        }
         const found = IANAOffsetMap.find(item => item[0] === tz);
         return found && found[1][0];
     }
 };
+
+const validIANATimezoneCache = {};
+/**
+ * @see https://github.com/marnusw/date-fns-tz/blob/a92e0ad017d101a0c50e39a63ef5d322b4d849f6/src/_lib/tzParseTimezone/index.js#L137
+ */
+export function isValidTimezoneIANAString(timeZoneString: string) {
+    if (validIANATimezoneCache[timeZoneString]) return true;
+    try {
+        new Intl.DateTimeFormat(undefined, { timeZone: timeZoneString });
+        validIANATimezoneCache[timeZoneString] = true;
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
 
 /**
  *
