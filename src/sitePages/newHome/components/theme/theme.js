@@ -1101,6 +1101,7 @@ export const larkTheme = `/* shadow */
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row {
   display: table-row;
+  background-color: var(--semi-color-bg-2);
 }
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
@@ -2652,6 +2653,7 @@ export const douyinTheme = `/* shadow */
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row {
   display: table-row;
+  background-color: var(--semi-color-bg-2);
 }
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
@@ -4204,6 +4206,7 @@ export const huoshanTheme = `/* shadow */
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row {
   display: table-row;
+  background-color: var(--semi-color-bg-2);
 }
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
@@ -5760,6 +5763,7 @@ export const capCutTheme = `/* shadow */
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row {
   display: table-row;
+  background-color: var(--semi-color-bg-2);
 }
 
 *[data-theme=theme] .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {

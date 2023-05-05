@@ -6,7 +6,7 @@ import * as dateFns from 'date-fns';
  * test with cypress, please do not modify
  */
 export default function App() {
-    const today = new Date();
+    const today = new Date('2023-04-01');
     const disabledDate = (date, options) => {
         const { rangeInputFocus } = options;
         const baseDate = dateFns.set(today, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
