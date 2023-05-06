@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.34.1 (2023-05-06)
+- 【Fix】
+  - Fix the problem that when BreadCrumb sets moreType to popover and MaxItem to a non-default value, the number of contents in the popup layer is incorrect [#1590](https://github.com/DouyinFE/semi-design/pull/1590)
+  - Fix the judgment logic when DatePicker timeZone is an integer value, and replace the IANA region identifier with IANA Etc/GMT [#1585](https://github.com/DouyinFE/semi-design/issues/1585)
+
 #### 🎉 2.34.0 (2023-04-28)
 - 【Fix】
   - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
