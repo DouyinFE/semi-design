@@ -37,7 +37,7 @@ jobs:
                   yarn build:lib
                   yarn build-storybook
             - name: Save build folder
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v5
               with:
                   name: storybook-static
                   if-no-files-found: error
@@ -59,7 +59,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Download the build folders
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v5
               with:
                   name: storybook-static
                   path: storybook-static
@@ -91,12 +91,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Download the build folders
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v5
               with:
                   name: storybook-static
                   path: storybook-static
             - name: 'Cypress Tests - Firefox'
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   # we have already installed all dependencies above
                   install: true
