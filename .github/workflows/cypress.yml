@@ -43,7 +43,7 @@ jobs:
                   if-no-files-found: error
                   path: storybook-static
             - name: Cypress install
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   # Disable running of tests within install job
                   runTests: false
@@ -62,7 +62,7 @@ jobs:
                   name: storybook-static
                   path: storybook-static
             - name: 'Cypress Tests - Chrome'
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   # we have already installed all dependencies above
                   install: true
