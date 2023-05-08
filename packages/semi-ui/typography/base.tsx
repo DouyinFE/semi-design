@@ -632,16 +632,22 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     render() {
-        return (
-            <ResizeObserver onResize={this.props.ellipsis ? this.onResize : undefined}>
-                <LocaleConsumer componentName="Typography">     
-                    {(locale: Locale['Typography']) => {
-                        this.expandStr = locale.expand;
-                        this.collapseStr = locale.collapse;
-                        return this.renderTipWrapper();
-                    }}
-                </LocaleConsumer>
-            </ResizeObserver>
+        const content = (
+            <LocaleConsumer componentName="Typography">
+                {(locale: Locale['Typography']) => {
+                    this.expandStr = locale.expand;
+                    this.collapseStr = locale.collapse;
+                    return this.renderTipWrapper();
+                }}
+            </LocaleConsumer>
         );
+        if (this.props.ellipsis) {
+            return (
+                <ResizeObserver onResize={this.onResize}>
+                    {content}
+                </ResizeObserver>
+            );
+        }
+        return content;
     }
 }
