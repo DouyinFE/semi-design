@@ -178,7 +178,8 @@ export interface DatePickerFoundationState {
     /** value of trigger input */
     inputValue: string;
     value: Date[];
-    cachedSelectedValue: Date[];
+    // Save last selected date, maybe include null
+    cachedSelectedValue: (Date | null)[];
     prevTimeZone: string | number;
     rangeInputFocus: RangeType;
     autofocus: boolean;
@@ -356,41 +357,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             this._adapter.notifyOpenChange(true);
         }
     }
-
-    /**
-     * @deprecated
-     * do these side effects when type is dateRange or dateTimeRange
-     *   1. trigger input blur, if input value is invalid, set input value and state value to previous status
-     *   2. set cachedSelectedValue using given dates(in needConfirm mode)
-     *      - directly closePanel without click confirm will set cachedSelectedValue to state value
-     *      - select one date(which means that the selection value is incomplete) and click confirm also set cachedSelectedValue to state value
-     */
-    // rangeTypeSideEffectsWhenClosePanel(inputValue: string, willUpdateDates: Date[]) {
-    //     if (this._isRangeType()) {
-    //         this._adapter.setRangeInputFocus(false);
-    //         /**
-    //          * inputValue is string when it is not disabled or can't parsed
-    //          * when inputValue is null, picker value will back to last selected value
-    //          */
-    //         this.handleInputBlur(inputValue);
-    //         this.resetCachedSelectedValue(willUpdateDates);
-    //     }
-    // }
-
-    /**
-     * @deprecated
-     * clear input value when selected date is not confirmed
-     */
-    // needConfirmSideEffectsWhenClosePanel(willUpdateDates: Date[] | null | undefined) {
-    //     if (this._adapter.needConfirm() && !this._isRangeType()) {
-    //         /**
-    //          * if `null` input element will show `cachedSelectedValue` formatted value（format in DateInput render）
-    //          * if `` input element will show `` directly
-    //          */
-    //         this._adapter.updateInputValue(null);
-    //         this.resetCachedSelectedValue(willUpdateDates);
-    //     }
-    // }
 
     /**
      * clear inset input value when close panel
@@ -1218,32 +1184,29 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     /**
      * Get the date changed through the date panel or enter
-     * @param {Date[]} dates
-     * @returns {Date[]}
      */
     _getChangedDates(dates: Date[]) {
         const type = this._adapter.getProp('type');
-        const stateValue: Date[] = this._adapter.getState('value');
-
+        const { cachedSelectedValue: lastDate } = this._adapter.getStates();
         const changedDates = [];
 
         switch (type) {
             case 'dateRange':
             case 'dateTimeRange':
-                const [stateStart, stateEnd] = stateValue;
+                const [lastStart, lastEnd] = lastDate;
                 const [start, end] = dates;
-                if (!isDateEqual(start, stateStart)) {
+                if (!isDateEqual(start, lastStart)) {
                     changedDates.push(start);
                 }
-                if (!isDateEqual(end, stateEnd)) {
+                if (!isDateEqual(end, lastEnd)) {
                     changedDates.push(end);
                 }
                 break;
             default:
-                const stateValueSet = new Set<number>();
-                stateValue.forEach(value => stateValueSet.add(isDate(value) && value.valueOf()));
+                const lastValueSet = new Set<number>();
+                lastDate.forEach(value => lastValueSet.add(isDate(value) && value.valueOf()));
                 for (const date of dates) {
-                    if (!stateValueSet.has(isDate(date) && date.valueOf())) {
+                    if (!lastValueSet.has(isDate(date) && date.valueOf())) {
                         changedDates.push(date);
                     }
                 }

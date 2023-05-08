@@ -122,7 +122,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + date', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=date] .semi-input').click();
         cy.get('.semi-popover .semi-input-wrapper-focus').type("2021-12-15");
         cy.get('.semi-datepicker-day-selected').contains("15");
@@ -135,7 +135,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + month', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=month] .semi-input').click();
         cy.get('.semi-popover .semi-input-wrapper-focus');
         cy.get('.semi-popover .semi-input').should("have.value", "2021-12");
@@ -157,7 +157,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + dateTime', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=dateTime] .semi-input').click();
         cy.get('.semi-datepicker-day').contains("5").click();
         cy.get('.semi-popover .semi-input').eq(0).should("have.value", "2021-12-05");
@@ -169,7 +169,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + dateRange', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         // 点击开始日期 trigger
         cy.get('[data-cy=dateRange] .semi-input').eq(0).click();
         // 查看聚焦
@@ -194,7 +194,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + dateTimeRange', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         // 滚动到视窗
         cy.get('[data-cy=dateTimeRange]').scrollIntoView();
         // 点击开始日期 trigger
@@ -224,7 +224,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + dateTimeRange + check click range start ', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=dateTimeRange]').scrollIntoView();
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).click();
         cy.get('.semi-popover .semi-datepicker-month-grid-right').contains('10').click();
@@ -237,7 +237,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + dateTimeRange + check click range end', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=dateTimeRange]').scrollIntoView();
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(1).click();
         cy.get('.semi-popover .semi-datepicker-month-grid-right').contains('10').click();
@@ -250,7 +250,7 @@ describe('DatePicker', () => {
     });
 
     it('insetInput + custom format', () => {
-        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');   
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         cy.get('[data-cy=customFormat]').scrollIntoView();
         cy.get('[data-cy=customFormat] .semi-input').eq(0).click();
         cy.get('.semi-popover .semi-datepicker-month-grid-left').contains('5').click();
@@ -265,7 +265,7 @@ describe('DatePicker', () => {
     it('insetInput + trigger input disabled', () => {
         cy.visit('http://localhost:6006/iframe.html?id=datepicker--inset-input-e-2-e&args=&viewMode=story');
         const testCases = ['date', 'dateTime', 'dateRange', 'dateTimeRange', 'month'];
-        
+
         for (let item of testCases) {
             const wrapper = `[data-cy=${item}]`;
             cy.get(wrapper).scrollIntoView();
@@ -607,7 +607,7 @@ describe('DatePicker', () => {
         cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) .semi-scrolllist-item-sel').should('contain.text', '2021年');
         cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) .semi-scrolllist-item-sel').should('contain.text', '11月');
         cy.get('.semi-input').eq(0).should('have.value', '2021-11');
-        
+
         cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(2) li').contains('12').click({ force: true });
         cy.get('.semi-scrolllist-body .semi-scrolllist-item:nth-child(1) li').contains('2022').click({ force: true });
         cy.wait(100);
@@ -765,5 +765,14 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day').contains('6').click();
         cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day-disabled').contains('27');
         cy.get('.semi-popover .semi-datepicker-month-grid-right .semi-datepicker-day-disabled').contains('26').should('not.exist');
+    });
+
+    it('test disabled date', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-disabled-date&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('3').click();
+        cy.get('.semi-popover .semi-datepicker-month-grid-left .semi-datepicker-day').contains('10').click();
+        cy.get('.semi-input').eq(0).should('have.value', '2023-05-03');
+        cy.get('.semi-input').eq(1).should('have.value', '2023-05-10');
     });
 });

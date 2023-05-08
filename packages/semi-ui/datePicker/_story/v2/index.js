@@ -23,3 +23,4 @@ export { default as FeatRefClass } from './FeatRefClass';
 export { default as FixNeedConfirmInTabs } from './FixNeedConfirmInTabs';
 export { default as DynamicDisabledDate } from './dynamicDisabledDate';
 export { default as FeatEtcGMT } from './FeatEtcGMT';
+export { default as FixDisabledDate } from './FixDisabledDate';
