@@ -109,6 +109,13 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         return willUpdateStates;
     }
 
+    componentWillUnmount(): void {
+        if (this.previewObserver) {
+            this.previewObserver.disconnect();
+            this.previewObserver = null;
+        }
+    }
+
     handleVisibleChange = (newVisible: boolean) => {
         this.foundation.handleVisibleChange(newVisible);
     };
