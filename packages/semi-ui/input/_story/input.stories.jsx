@@ -104,11 +104,12 @@ InputDisabled.story = {
 export const InputClearable = () => (
   <div className="input">
     <Input showClear defaultValue="ies" />
+    <Input showClear defaultValue="search input" type='search' />
   </div>
 );
 
 InputClearable.story = {
-  name: 'Input clearable',
+  name: 'Input showClear',
 };
 
 export const InputPrefixSuffixDemo = () => (
