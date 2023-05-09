@@ -18,7 +18,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.34.2 (2023-05-09)
 - 【Fix】
-    - When Input type=search and showClear is true, the original clear button and the Semi clear button are displayed at the same time  [#1578](https://github.com/DouyinFE/semi-design/issues/1578)
+    - When Input type=search and showClear is true, the original clear button and the Semi clear button are displayed at the same time  [#1598](https://github.com/DouyinFE/semi-design/issues/1598)
     - Fix DatePicker disabledDate cannot select disabled border dates  [#1592 ](https://github.com/DouyinFE/semi-design/issues/1592)
 
 #### 🎉 2.34.1 (2023-05-06)
