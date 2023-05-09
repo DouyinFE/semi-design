@@ -400,6 +400,7 @@ class ArrayFieldSetValues extends React.Component {
 
 
 
+// TODO 有相似作用的 e2e demo test了，这个可以删掉
 class AsyncSetArrayField extends React.Component {
     constructor() {
         super();

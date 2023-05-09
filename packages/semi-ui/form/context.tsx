@@ -12,7 +12,7 @@ const FormUpdaterContext = React.createContext<FormUpdaterContextType>({} as For
 FormUpdaterContext.displayName = 'FormUpdater';
 
 const ArrayFieldContext = React.createContext({
-    shouldUseInitValue: true,
+    // shouldUseInitValue: true,
 });
 
 export { FormStateContext, FormApiContext, FormUpdaterContext, ArrayFieldContext };

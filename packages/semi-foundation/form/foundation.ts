@@ -132,13 +132,13 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     }
 
     // in order to slove byted-issue-289
-    registerArrayField(arrayFieldPath: string, initValue: any): void {
+    registerArrayField(arrayFieldPath: string, { initValue, forceUpdate }: Pick<ArrayFieldStaff, 'initValue' | 'forceUpdate'> ): void {
         //  save initValue of arrayField, will be use when calling rest
         // this.updateArrayField(arrayFieldPath, {
         //     updateKey: new Date().valueOf(),
         //     initValue: initValue,
         // });
-        this.registeredArrayField.set(arrayFieldPath, { field: arrayFieldPath, initValue: initValue });
+        this.registeredArrayField.set(arrayFieldPath, { field: arrayFieldPath, initValue: initValue, forceUpdate });
     }
 
     unRegisterArrayField(arrayField: string): void {

@@ -58,14 +58,18 @@ const initValueAdapter = (initValue: any) => {
  *
  * @param {any[]} value
  * @param {string[]} oldKeys
+ * @param {any[]} cacheValue
  * @returns string[]
  */
-const generateKeys = (value : any[] = [], oldKeys?: string[], cacheValue: any[] = []) => {
+const generateKeys = (value: any[] = [], oldKeys?: string[], cacheValues: any[] = []) => {
     const val = initValueAdapter(value);
     const newKeys = getUuidByArray(val);
     const keys = [];
+
+    //  todo cacheValue 与 oldKeys 是对不上的
+
     value.forEach((newRow, i) => {
-        const cacheRow = get(cacheValue, i);
+        const cacheRow = get(cacheValues, i);
         if (!isEqual(newRow, cacheRow)) {
             keys[i] = newKeys[i];
         } else {
@@ -96,27 +100,26 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         this.add = this.add.bind(this);
         this.addWithInitValue = this.addWithInitValue.bind(this);
         this.remove = this.remove.bind(this);
-        this.cacheFieldValues = null;
-        // this.cacheUpdateKey = null;
+        this.cacheFieldValues = initValue;
 
-        /*
-            If updateKey exists, it means that the arrayField (usually a nested ArrayField not at the first level) is only re-mounted due to setValues,
-            and the fields it contains do not need to consume initValue
-        */
-        // whether the fields inside arrayField should use props.initValue in current render process
-        this.shouldUseInitValue = !context.getArrayField(field);
+        // /*
+        //     If updateKey exists, it means that the arrayField (usually a nested ArrayField not at the first level) is only re-mounted due to setValues,
+        //     and the fields it contains do not need to consume initValue
+        // */
+        // // whether the fields inside arrayField should use props.initValue in current render process
+        // this.shouldUseInitValue = !context.getArrayField(field);
 
         // Separate the arrays that reset and the usual add and remove modify, otherwise they will affect each other
         const initValueCopyForFormState = cloneDeep(initValue);
         const initValueCopyForReset = cloneDeep(initValue);
-        context.registerArrayField(field, initValueCopyForReset);
+        context.registerArrayField(field, { initValue: initValueCopyForReset, forceUpdate: this.forceUpdate });
         context.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
     }
 
-    componentDidMount(): void {
-        const { field } = this.props;
-        const updater = this.context;
-        updater.updateArrayField(field, { forceUpdate: this.forceUpdate });
+    componentDidMount() {
+        // const { field } = this.props;
+        // const updater = this.context;
+    //     updater.updateArrayField(field, { forceUpdate: this.forceUpdate });
     }
 
     componentWillUnmount() {
@@ -147,38 +150,22 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
     // }
 
     forceUpdate = (value?: any): void => {
-        // const updater = this.context;
-        // const { field } = this.props;
-        // const { keys } = this.state;
-        // const fieldValues = value ? value : updater.getValue(field);
-        // const updateKey = getUpdateKey(updater.getArrayField(field));
-        // if (updateKey !== this.cacheUpdateKey) {
-        //     const newKeys = generateKeys(fieldValues, keys);
-        //     // eslint-disable-next-line
-        //     this.setState({ keys: newKeys });
-        //     this.cacheUpdateKey = updateKey;
-        //     if (this.cacheUpdateKey !== null) {
-        //         this.shouldUseInitValue = false;
-        //     }
-        // } else {
-        //     // console.log('not update');
-        // }
         const updater = this.context;
         const { field } = this.props;
         const { keys } = this.state;
+        console.log(this.cacheFieldValues);
         const fieldValues = value ? value : updater.getValue(field);
         // TODO fieldValues 如果长度相同，keys目前仍会相同，需要为新的
         const newKeys = generateKeys(fieldValues, keys, this.cacheFieldValues);
         // eslint-disable-next-line
         this.setState({ keys: newKeys });
-        this.cacheFieldValues = value;
-        this.shouldUseInitValue = false;
+        this.cacheFieldValues = [...value];
     }
 
     add() {
         const { keys } = this.state;
         keys.push(getUuidv4());
-        this.shouldUseInitValue = true;
+        // this.shouldUseInitValue = true;
         // TODO allowEmpty 为 false 的情况下
         this.setState({ keys });
     }
@@ -189,7 +176,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
         newArrayFieldVal.push(lineObject);
         updater.updateStateValue(field, newArrayFieldVal, {});
-        updater.updateArrayField(field, { updateKey: new Date().valueOf() });
+        updater.updateArrayField(field, { updateValue: newArrayFieldVal });
     }
 
     remove(i: number) {
@@ -217,6 +204,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
             updater.updateStateValue(field, newArrayFieldValue);
         }
         this.setState({ keys: newKeys });
+        this.cacheFieldValues = [...newArrayFieldValue];
     }
 
     render() {
@@ -230,7 +218,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { add } = this;
         const { addWithInitValue } = this;
         const contextVal = {
-            shouldUseInitValue: this.shouldUseInitValue,
+            // shouldUseInitValue: this.shouldUseInitValue,
         };
         return (
             <ArrayFieldContext.Provider value={contextVal}>
