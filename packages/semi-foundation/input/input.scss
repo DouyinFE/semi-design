@@ -515,7 +515,7 @@ $module: #{$prefix}-input;
         &-text {
             margin: 0 $spacing-base-tight;
             color: $color-input_prefix-text-default;
-            font-weight: 600;
+            font-weight: $font-weight-bold;
             white-space: nowrap;
         }
 

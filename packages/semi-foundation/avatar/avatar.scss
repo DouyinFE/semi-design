@@ -33,7 +33,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         display: flex;
         align-items: center;
         @include font-size-regular;
-        font-weight: 600;
+        font-weight: $font-weight-bold;
     }
 
     &-content {
