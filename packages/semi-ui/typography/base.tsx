@@ -643,7 +643,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         );
         if (this.props.ellipsis) {
             return (
-                <ResizeObserver onResize={this.onResize}>
+                <ResizeObserver onResize={this.onResize} observeParent>
                     {content}
                 </ResizeObserver>
             );
