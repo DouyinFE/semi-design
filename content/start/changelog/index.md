@@ -13,6 +13,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.34.2 (2023-05-09)
+- 【Fix】
+    - 修复 Input type=search 且 showClear 为true时，原生清除按钮与 Semi 清除按钮同时显示的问题  [#1598](https://github.com/DouyinFE/semi-design/issues/1598)
+    - 修复 DatePicker disabledDate 无法选择禁用边界日期问题  [#1592 ](https://github.com/DouyinFE/semi-design/issues/1592)
+
+#### 🎉 2.34.1 (2023-05-06)
+- 【Fix】
+  - 修复 BreadCrumb 在设置 moreType 为 popover， MaxItem 为非默认值时候，弹出层中内容个数不正确问题 [#1590](https://github.com/DouyinFE/semi-design/pull/1590)
+  - 修复 DatePicker timeZone 为整数值时的判断逻辑，使用 IANA Etc/GMT 替换 IANA 地区标识 [#1585](https://github.com/DouyinFE/semi-design/issues/1585)
 
 #### 🎉 2.34.0 (2023-04-28)
 - 【Fix】

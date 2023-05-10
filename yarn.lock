@@ -1680,7 +1680,7 @@
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
 
-"@douyinfe/semi-icons@2.33.1", "@douyinfe/semi-icons@^2.0.0", "@douyinfe/semi-icons@latest":
+"@douyinfe/semi-icons@2.33.1", "@douyinfe/semi-icons@latest":
   version "2.33.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.33.1.tgz#8e2871d9bc0ab7e12df74e3c71802d53d69b7425"
   integrity sha512-OfPHihSmUPqFbHOSp9EGquX1c8HC8m9PVqjILYPYzz5WjM1uAfKeMLOQnrCc8CCWVIAx7UGpwExdufpPcNkj2Q==
@@ -1765,7 +1765,7 @@
   dependencies:
     glob "^7.1.6"
 
-"@douyinfe/semi-ui@^2.0.0", "@douyinfe/semi-ui@latest":
+"@douyinfe/semi-ui@latest":
   version "2.33.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.33.1.tgz#3234ca96eb3560b8299bc9750fbe59446522d9bb"
   integrity sha512-zHyjhLm2Q2l8l4ric+xHy22sPDSP+y/QmUEmQxhmWfgQosA3PEYV5OWsa7BGm033bQxF7GNRxpO5O4MGsHxn8Q==
@@ -11153,11 +11153,6 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     resolve "^2.0.0-next.3"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
-
-eslint-plugin-semi-design@^2.33.0:
-  version "2.33.1"
-  resolved "https://registry.npmjs.org/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.33.1.tgz#fa68c62c27efbf71150bfcbf73bcc8544033c3eb"
-  integrity sha512-ZpOUV7btOuG1Y+cOftaTQUdfHjBalHtR4T9/6vdBccsKz2VH2RDlK6r7u91cHtpLAR0Sdwm3HyKcDPFEZ7xvKw==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"

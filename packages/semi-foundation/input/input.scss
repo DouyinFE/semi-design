@@ -462,6 +462,9 @@ $module: #{$prefix}-input;
     &[type="password"]::-ms-clear {
         display: none;
     }
+    &[type="search"]::-webkit-search-cancel-button {
+        display: none;
+    }
 
     &::placeholder {
         color: $color-input_placeholder-text-default;
