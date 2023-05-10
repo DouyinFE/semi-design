@@ -1,6 +1,18 @@
 import React, { useState, useRef } from 'react';
-import { Form, Col, Row, Button, ArrayField, Space } from '@douyinfe/semi-ui';
+import { Form, Col, Row, Button, ArrayField, Space, useFormState } from '@douyinfe/semi-ui';
 import { IconMinusCircle, IconPlusCircle, IconRefresh } from '@douyinfe/semi-icons';
+import { JSONTree } from 'react-json-tree';
+
+const FormStateTree = () => {
+    const formState = useFormState();
+    return (
+        <JSONTree
+            shouldExpandNodeInitially={() => true}
+            hideRoot
+            data={formState}
+        />
+    );
+};
 
 const NestDemo = () => {
     const formRef = useRef();
@@ -28,10 +40,45 @@ const NestDemo = () => {
         ]
     };
 
-    // const change = () => {
-        
-    // };
+    const setValueChangeOutSide = () => {
+        const formApi = getFormApi();
+        formApi.setValue('data', [
+            {
+                name: 'new-0',
+                rules: [
+                    { desc: 'new-0-0-desc', type: 'new-0-0-type' },
+                    { desc: 'new-0-1-desc', type: 'new-0-1-type' },
+                ],
+            },
+            {
+                name: 'new-1',
+                rules: [
+                    { desc: 'new-1-0-desc', type: 'new-1-0-type' },
+                ],
+            },
+            {
+                name: 'new-2',
+                rules: [
+                    { desc: 'new-2-0-desc', type: 'new-2-0-type' },
+                    { desc: 'new-2-1-desc', type: 'new-2-1-type' },
+                    { desc: 'new-2-2-desc', type: 'new-2-2-type' },
+                ],
+            }
+        ]);
+    };
 
+    // ❌ something still wrong when first click outside and click inside after
+    // ❌ something still wrong when first click outside and click inside after and click outside again
+    const setValueChangeInside = () => {
+        const formApi = getFormApi();
+        formApi.setValue('data[0].rules', [{ desc: 'new-0-0-desc-in', type: 'new-0-0-type-in' }]);
+    };
+
+    const setValueChangeRow = () => {
+        const formApi = getFormApi();
+        formApi.setValue('data[0].rules[0]', { name: 'special-row-name', rules: [{ desc: 'abc', type: 'efg' }] });
+    };
+    
     return (
         <Form
             ref={formRef}
@@ -43,11 +90,13 @@ const NestDemo = () => {
                     <React.Fragment>
                         <Space>
                             <Button htmlType='reset' theme='solid' type='secondary' icon={<IconRefresh />}>Reset</Button>
+                            <Button id='changeOutSide' theme='solid' type='primary' onClick={() => setValueChangeOutSide()}>ChangeOutSide</Button>
+                            <Button id='changeInside' theme='solid' type='tertiary' onClick={() => setValueChangeInside()}>ChangeInsideSide</Button>
                         </Space>
                         {
                             arrayFields.map(({ field, key, remove }, i) => (
-                                <div key={key} style={{ width: 800, display: 'flex', flexWrap: 'wrap' }} id={`data-${i}`} className='line'>
-                                    {/* {key} */}
+                                <div key={key} style={{ width: 1000, display: 'flex', flexWrap: 'wrap' }} id={`data-${i}`} className='line'>
+                                    {key.slice(0, 10)}
                                     <Space>
                                         <Form.Input
                                             field={`${field}.name`}
@@ -82,15 +131,15 @@ const NestDemo = () => {
                                                     nestedArrayFields.map(({ field: f, key: k, remove: r }, n) => (
                                                         <section className='rules' key={k} style={{ display: 'flex', flexWrap: 'wrap', marginLeft: 36 }}>
                                                             <Space>
-                                                                {/* {k} */}
+                                                                {k.slice(0, 10)}
                                                                 <Form.Input
-                                                                    style={{ width: 280, marginRight: 12 }}
+                                                                    style={{ width: 300, marginRight: 12 }}
                                                                     field={`${f}.type`}
                                                                     label={`${f}.type`}
                                                                     id={`data-${i}-rule-${n}-type`} 
                                                                 />
                                                                 <Form.Input
-                                                                    style={{ width: 280 }}
+                                                                    style={{ width: 300 }}
                                                                     field={`${f}.desc`}
                                                                     label={`${f}.desc`}
                                                                     id={`data-${i}-rule-${n}-desc`} 
@@ -122,6 +171,7 @@ const NestDemo = () => {
                     </React.Fragment>
                 )}
             </ArrayField>
+            <FormStateTree></FormStateTree>
         </Form>
     );
 };
@@ -129,16 +179,3 @@ const NestDemo = () => {
 NestDemo.storyName = 'ArrayField-Nested Level 2';
 
 export default NestDemo;
-
-// class NestArrayField extends React.Component {
-//     change = () => {
-//         let number = this.formApi.getValue('number');
-//         let newData = {
-//             group: [
-//                 { name: Math.random().toString().slice(0, 3), items: [ { itemName: Math.random(), type: '0-1' } ] },
-//                 // { name: Math.random(), items: [ { itemName: Math.random(), type: '0-1' } ] },
-//             ]
-//         };
-//         this.formApi.setValues(newData, { isOverride: true });
-//     }
-// }

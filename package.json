@@ -82,6 +82,7 @@
         "react-infinite-scroller": "^1.2.4",
         "react-inlinesvg": "^1.2.0",
         "react-intl": "^3.12.1",
+        "react-json-tree": "^0.18.0",
         "react-lazyload": "^3.2.0",
         "react-resizable": "^1.11.1",
         "react-scroll-parallax": "^2.4.0",

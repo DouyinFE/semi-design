@@ -131,30 +131,51 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this._adapter.forceUpdate();
     }
 
-    // in order to slove byted-issue-289
     registerArrayField(arrayFieldPath: string, { initValue, forceUpdate }: Pick<ArrayFieldStaff, 'initValue' | 'forceUpdate'> ): void {
         //  save initValue of arrayField, will be use when calling rest
-        // this.updateArrayField(arrayFieldPath, {
-        //     updateKey: new Date().valueOf(),
-        //     initValue: initValue,
-        // });
         this.registeredArrayField.set(arrayFieldPath, { field: arrayFieldPath, initValue: initValue, forceUpdate });
     }
+    
 
-    unRegisterArrayField(arrayField: string): void {
-        this.registeredArrayField.delete(arrayField);
+    unRegisterArrayField(arrayFieldPath: string): void {
+        this.registeredArrayField.delete(arrayFieldPath);
+        console.log('remain', this.registeredArrayField);
     }
 
-    getArrayField(arrayField: string): ArrayFieldStaff {
-        return this.registeredArrayField.get(arrayField);
+    getArrayField(arrayFieldPath?: string): ArrayFieldStaff | Map<string, ArrayFieldStaff> {
+        if (!arrayFieldPath) {
+            return this.registeredArrayField;
+        }
+        return this.registeredArrayField.get(arrayFieldPath);
     }
 
-    updateArrayField(arrayField: string, updateStaff?: Omit<ArrayFieldStaff, 'field'>): void {
-        const arrayFieldStaff = this.getArrayField(arrayField);
-        const mergeStaff = { ...arrayFieldStaff, ...updateStaff };
-        this.registeredArrayField.set(arrayField, mergeStaff);
-        mergeStaff.forceUpdate(mergeStaff?.updateValue);
+    // updateArrayField(arrayFieldPath: string, updateStaff?: Omit<ArrayFieldStaff, 'field'>): void {
+    //     const arrayFieldStaff = this.getArrayField(arrayFieldPath);
+    //     const mergeStaff = { ...arrayFieldStaff, ...updateStaff };
+    //     this.registeredArrayField.set(arrayFieldPath, mergeStaff);
+    //     mergeStaff.forceUpdate(mergeStaff?.updateValue);
+    // }
+
+    updateArrayField(arrayFieldPath: string, { newValue, oldValue }: any): void {
+        const arrayFieldStaff = this.getArrayField(arrayFieldPath);
+        arrayFieldStaff.forceUpdate({ newValue, oldValue });
+        // // check is nested ArrayField
+        // const nested = this._getNestedField(arrayFieldPath);
+        // const hasParent;
+        // const hasChild;
+        // if (hasParent) {
+        //     // update parent cache value
+        // }
+        // if (hasChild) {
+        //     // update child cache value
+        // }
+        // mergeStaff.forceUpdate(updateDetail);
     }
+
+    // 使用formApi.setValue等手段，父改子，或者子改父时，需要更新 cache
+    // updateArrayFieldCache(arrayFieldPath: string, ): void {
+    //     const arrayFieldStaff = this.getArrayField(arrayFieldPath);
+    // }
 
     validate(fieldPaths?: Array<string>): Promise<unknown> {
         const { validateFields } = this.getProps();
@@ -341,10 +362,11 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const arrayFieldPaths = [...this.registeredArrayField.keys()];
         arrayFieldPaths.forEach(path => {
             const arrayFieldState = this.registeredArrayField.get(path);
+            const oldValue= ObjectUtil.get(this.data.values, path);
             // clone prevent dom unmounted cause initValue lost
             const arrayFieldInitValue = this._adapter.cloneDeep(arrayFieldState.initValue);
             this.updateStateValue(path, arrayFieldInitValue, { notNotify: true, notUpdate: true });
-            this.updateArrayField(path, { updateValue: arrayFieldInitValue });
+            this.updateArrayField(path, { newValue: arrayFieldInitValue, oldValue });
         });
     }
 
@@ -404,7 +426,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             arrayFieldPaths.forEach(path => {
                 this.updateArrayField(path, {
                     // updateKey: new Date().valueOf(),
-                    updateValue: ObjectUtil.get(_values, path)
+                    newValue: ObjectUtil.get(_values, path)
                 });
             });
         }
@@ -518,6 +540,9 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // At this time, first modify formState directly, then find out the subordinate fields and drive them to update
                 // Eg: peoples: [0, 2, 3]. Each value of the peoples array corresponds to an Input Field
                 // When the user directly calls formA pi.set Value ('peoples', [2,3])
+                
+                const oldValue = ObjectUtil.get(this.data.values, field);
+
                 this.updateStateValue(field, newValue, opts, () => {
                     let nestedFields = this._getNestedField(field);
                     if (nestedFields.size) {
@@ -532,7 +557,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
                 // If the reset happens to be, then update the updateKey corresponding to ArrayField to render it again
                 if (this.getArrayField(field)) {
-                    this.updateArrayField(field, { updateValue: newValue });
+                    this.updateArrayField(field, { newValue: newValue, oldValue });
                 }
             }
         };

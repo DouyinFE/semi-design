@@ -120,12 +120,21 @@ class NestArrayField extends React.Component {
 
 
 class Child extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             ts: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
     }
+
+    componentDidMount () {
+        console.log('did mount');
+    };
+
+    componentWillUnmount() {
+        console.log('will un mount');
+    }
+
     render() {
         return <div>
             {this.state.ts}
@@ -134,7 +143,7 @@ class Child extends React.Component {
 }
 
 class Parent extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.click = this.click.bind(this);
     }
@@ -142,6 +151,11 @@ class Parent extends React.Component {
     click() {
         this.forceUpdate();
     }
+
+    changeLineKey() {
+        this.forceUpdate();
+    }
+
     render() {
         return <div>
             {[1, 2, 3].map(i => (
@@ -149,7 +163,8 @@ class Parent extends React.Component {
                     <Child></Child>
                 </div>
             ))}
-            <Button onClick={this.click}>change</Button>
+            <Button onClick={this.click}>forceUpdate</Button>
+            <Button onClick={this.changeLineKey}>changeLineKey</Button>
         </div>;
     }
 }

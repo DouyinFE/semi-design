@@ -101,7 +101,7 @@ function withField<
         }
 
         // To prevent user forgetting to pass the field, use undefined as the key, and updater.getValue will get the wrong value.
-        let initValueInFormOpts = typeof field !== 'undefined' ? updater.getValue(field) : undefined; // Get the init value of form from formP rops.init Values Get the initial value set in the initValues of Form
+        let initValueInFormOpts = typeof field !== 'undefined' ? updater.getValue(field) : undefined; // Get the init value of form from formProps.init Values Get the initial value set in the initValues of Form
         let initVal = typeof initValue !== 'undefined' ? initValue : initValueInFormOpts;
 
         // use arrayFieldState to fix issue 615

@@ -111,12 +111,17 @@ export interface FieldStaff {
     allowEmpty: boolean
 }
 
+interface forceUpdateParams {
+    value?: any;
+    oldValue?: any
+}
+
 export interface ArrayFieldStaff {
     field: string;
     // updateKey?: string;
-    updateValue?: any;
+    // updateValue?: any;
     initValue?: any;
-    forceUpdate?: (value: any) => void
+    forceUpdate?: (forceUpdateParams: forceUpdateParams) => void
 }
 export interface FormUpdaterContextType {
     register: (field: string, fieldState: FieldState, fieldStuff: FieldStaff) => void;
