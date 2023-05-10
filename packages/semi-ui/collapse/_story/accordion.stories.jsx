@@ -141,3 +141,14 @@ class ControlledDemoAccordion extends React.Component {
 }
 
 export const ControlledComponentAccordion = () => <ControlledDemoAccordion />;
+
+export const C2dItem = () => (
+  <>
+  <Panel header="This is panel header" itemKey="1" style={{ width: 400}}>
+    <p>{text}</p>
+  </Panel>
+  <Panel header="This is panel header" itemKey="1" active={true} style={{ width: 400}}>
+    <p>{text}</p>
+  </Panel>
+  </>
+)

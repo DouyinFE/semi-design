@@ -16,10 +16,13 @@ export interface CollapsePanelProps {
     reCalcKey?: number | string;
     style?: CSSProperties;
     showArrow?: boolean;
-    disabled?: boolean
+    disabled?: boolean;
+    // this props is only used for c2d;
+    active?: boolean
 }
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
+    static elementType: string;
     static contextType: React.Context<CollapseContextType> = CollapseContext;
     headerExpandIconTriggerRef = React.createRef<HTMLElement>()
     static propTypes = {
@@ -119,7 +122,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             activeSet,
             motion,
         } = this.context;
-        const active = activeSet.has(itemKey);
+        const active = activeSet?.has(itemKey) || this.props.active;
         const itemCls = cls(className, {
             [`${cssClasses.PREFIX}-item`]: true,
         });
@@ -168,3 +171,5 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         );
     }
 }
+
+CollapsePanel.elementType = 'Collapse.Panel';
