@@ -10,6 +10,29 @@
  * @see https://docs.cypress.io/guides/core-concepts/variables-and-aliases#Return-Values
  */
 
+// ❌ 发现了bug
+// modify
+// it('Basic usage - modify、add blank row、add withInitValue row', () => {
+//     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-array-field-demo');
+//     cy.get('#data-0-name').type('-new');
+//     cy.get('#data-0-role').type('-new');
+//     cy.get('#data-0-name').should('have.value', 'Semi D2C-new');
+//     cy.get('#data-0-role').should('have.value', 'Engineer-new');
+
+//     // add blank row
+//     cy.get('#add').click();
+//     cy.wait(300);
+//     cy.get('#data-2-name').should('have.value', '');
+//     cy.get('#data-2-role').should('have.value', '');
+
+//     // add withInitValue row
+//     cy.get('#addWithInit').click();
+//     cy.wait(300);
+//     cy.get('#data-3-name').should('have.value', 'Semi New-3');
+//     cy.get('#data-3-role').should('have.value', 'Designer');
+// });
+
+
 const D2C = { name: 'Semi D2C', role: 'Engineer' };
 const C2D = { name: 'Semi C2D', role: 'Designer' };
 const DSM = { name: 'Semi DSM', role: 'Designer' };
@@ -27,25 +50,6 @@ describe('Form', () => {
         // cy.get('body').find('.semi-popover .semi-datepicker').should('have.length', 0);
     });
 
-    // ❌ 发现了bug
-    // modify
-    it('Basic usage - modify、add blank row、add withInitValue row', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-array-field-demo');
-        cy.get('#data-0-name').type('-new');
-        cy.get('#data-0-role').type('-new');
-        cy.get('#data-0-name').should('have.value', 'Semi D2C-new');
-        cy.get('#data-0-role').should('have.value', 'Engineer-new');
-
-        // add blank row
-        cy.get('#add').click();
-        cy.get('#data-2-name').should('have.value', '');
-        cy.get('#data-2-role').should('have.value', '');
-
-        // add withInitValue row
-        cy.get('#addWithInit').click();
-        cy.get('#data-3-name').should('have.value', 'Semi New-3');
-        cy.get('#data-3-role').should('have.value', 'Designer');
-    });
 
     it('Basic usage - add withInitValue row、add blank row', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-array-field-demo');
@@ -380,7 +384,6 @@ describe('Form', () => {
         cy.get('.line').should('have.length', 0);
     });
 
-    // TODO 
     it('2 Nested ArrayField - basic', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
         // check initValue
@@ -396,7 +399,7 @@ describe('Form', () => {
 
 
     it('2 Nested ArrayField - add / remove / reset', () => {
-        // cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
         // // add level 0 
         cy.get('#data-1-add').click();
         cy.get('#data-2-name').should('have.value', `2`);
@@ -443,12 +446,130 @@ describe('Form', () => {
         cy.get('#data-2-rule-0-desc').should('have.value', `2-0-desc`); // cause remove tail
 
         // reset
-        //❌ TODO still exist bug here
+        cy.get('button[type=reset]').click();
+        cy.get('#data-0-name').should('have.value', `0`);
+        cy.get('#data-0-rule-0-type').should('have.value', `0-0-type`);
+        cy.get('#data-0-rule-0-desc').should('have.value', `0-0-desc`);
+        cy.get('#data-0-rule-1-type').should('have.value', `0-1-type`);
+        cy.get('#data-0-rule-1-desc').should('have.value', `0-1-desc`);
+        cy.get('#data-1-name').should('have.value', `1`);
+        cy.get('#data-1-rule-0-type').should('have.value', `1-0-type`);
+        cy.get('#data-1-rule-0-desc').should('have.value', `1-0-desc`);
+
+        cy.get('#data-2-name').should('not.exist');
+        cy.get('#data-2-rule-0-type').should('not.exist');
+        cy.get('#data-2-rule-0-desc').should('not.exist');
     });
 
+    it('2 Nested ArrayField - formApi.setValue level-0', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+        cy.get('#changeOutSide').click();
+        cy.get('#data-0-name').should('have.value', `new-0`);
+        cy.get('#data-0-rule-0-type').should('have.value', `new-0-0-type`);
+        cy.get('#data-0-rule-0-desc').should('have.value', `new-0-0-desc`);
+        cy.get('#data-0-rule-1-type').should('have.value', `new-0-1-type`);
+        cy.get('#data-0-rule-1-desc').should('have.value', `new-0-1-desc`);
+
+        cy.get('#data-1-name').should('have.value', `new-1`);
+        cy.get('#data-1-rule-0-type').should('have.value', `new-1-0-type`);
+        cy.get('#data-1-rule-0-desc').should('have.value', `new-1-0-desc`);
+
+        cy.get('#data-2-name').should('have.value', `new-2`);
+        cy.get('#data-2-rule-0-type').should('have.value', `new-2-0-type`);
+        cy.get('#data-2-rule-0-desc').should('have.value', `new-2-0-desc`);
+        cy.get('#data-2-rule-1-type').should('have.value', `new-2-1-type`);
+        cy.get('#data-2-rule-1-desc').should('have.value', `new-2-1-desc`);
+        cy.get('#data-2-rule-2-type').should('have.value', `new-2-2-type`);
+        cy.get('#data-2-rule-2-desc').should('have.value', `new-2-2-desc`);
+    });
+
+    it('2 Nested ArrayField - formApi.setValue level-1', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+        cy.get('#changeInside').click();
+        cy.get('#data-0-rule-0-type').should('have.value', `new-0-0-type-in`);
+        cy.get('#data-0-rule-0-desc').should('have.value', `new-0-0-desc-in`);
+
+        cy.get('#data-0-rule-1-type').should('not.exist');
+        cy.get('#data-0-rule-1-desc').should('not.exist');
+
+        // still same
+        cy.get('#data-0-name').should('have.value', `0`);
+        cy.get('#data-1-name').should('have.value', `1`);
+        cy.get('#data-1-rule-0-type').should('have.value', `1-0-type`);
+        cy.get('#data-1-rule-0-desc').should('have.value', `1-0-desc`);
+    });
+
+    it('2 Nested ArrayField - formApi.setValue level-0 then set level-1', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+        cy.get('#changeOutSide').click();
+        cy.get('#changeInside').click();
+
+        cy.get('#data-0-name').should('have.value', `new-0`);
+        cy.get('#data-0-rule-0-type').should('have.value', `new-0-0-type-in`);  // cause rewrite by changeInside
+        cy.get('#data-0-rule-0-desc').should('have.value', `new-0-0-desc-in`);  // cause rewrite by changeInside
+
+        cy.get('#data-0-rule-1-type').should('not.exist'); // cause rewrite by changeInside
+        cy.get('#data-0-rule-1-desc').should('not.exist'); // cause rewrite by changeInside
+
+        cy.get('#data-1-name').should('have.value', `new-1`);
+        cy.get('#data-1-rule-0-type').should('have.value', `new-1-0-type`);
+        cy.get('#data-1-rule-0-desc').should('have.value', `new-1-0-desc`);
+
+        cy.get('#data-2-name').should('have.value', `new-2`);
+        cy.get('#data-2-rule-0-type').should('have.value', `new-2-0-type`);
+        cy.get('#data-2-rule-0-desc').should('have.value', `new-2-0-desc`);
+        cy.get('#data-2-rule-1-type').should('have.value', `new-2-1-type`);
+        cy.get('#data-2-rule-1-desc').should('have.value', `new-2-1-desc`);
+        cy.get('#data-2-rule-2-type').should('have.value', `new-2-2-type`);
+        cy.get('#data-2-rule-2-desc').should('have.value', `new-2-2-desc`);
+    });
+
+    // it('2 Nested ArrayField - formApi.setValue level-0 then set level-1 then level-0 again', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+    //     cy.get('#changeOutSide').click();
+    //     cy.get('#changeInside').click();
+
+    //     cy.get('#data-0-name').should('have.value', `new-0`);
+    //     cy.get('#data-0-rule-0-type').should('have.value', `new-0-0-type-in`);  // cause rewrite by changeInside
+    //     cy.get('#data-0-rule-0-desc').should('have.value', `new-0-0-desc-in`);  // cause rewrite by changeInside
+
+    //     cy.get('#data-0-rule-1-type').should('not.exist'); // cause rewrite by changeInside
+    //     cy.get('#data-0-rule-1-desc').should('not.exist'); // cause rewrite by changeInside
+
+    //     cy.get('#data-1-name').should('have.value', `new-1`);
+    //     cy.get('#data-1-rule-0-type').should('have.value', `new-1-0-type`);
+    //     cy.get('#data-1-rule-0-desc').should('have.value', `new-1-0-desc`);
+
+    //     cy.get('#data-2-name').should('have.value', `new-2`);
+    //     cy.get('#data-2-rule-0-type').should('have.value', `new-2-0-type`);
+    //     cy.get('#data-2-rule-0-desc').should('have.value', `new-2-0-desc`);
+    //     cy.get('#data-2-rule-1-type').should('have.value', `new-2-1-type`);
+    //     cy.get('#data-2-rule-1-desc').should('have.value', `new-2-1-desc`);
+    //     cy.get('#data-2-rule-2-type').should('have.value', `new-2-2-type`);
+    //     cy.get('#data-2-rule-2-desc').should('have.value', `new-2-2-desc`);
+
+    //     cy.get('#changeOutSide').click();
+    // });
+
+
+    // test cache effect when change child\parent
+    // it('2 Nested ArrayField - formApi.setValue level-1 then set level-0', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+    //     cy.get('#changeInside').click();
+    //     cy.get('#changeOutSide').click();
+    //     cy.get('#changeInside').click();
+    // });
+
+    // it('2 Nested ArrayField - formApi.setValue level-0 then reset', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-nested-demo');
+    //     cy.get('#changeInside').click();
+    //     cy.get('#changeOutSide').click();
+    //     cy.get('#changeInside').click();
+    // });
+
+    // it('2 Nested ArrayField - formApi.setValue special row', () => { });
+
     // it('2 Nested ArrayField - formApi.setValues', () => { });
-    // it('2 Nested ArrayField - formApi.setValue level-1', () => { });
-    // it('2 Nested ArrayField - formApi.setValue level-2', () => { });
 
     // it('Init - Form Props initValues、ArrayField initValue、Field initValue', () => { 
     // // 一个 Form 三个 ArrayField
@@ -456,8 +577,9 @@ describe('Form', () => {
 
     // it('Init - combine', () => {});
 
-    // it('sync setValues - modify', () => { });
-    // it('sync setValues - add', () => { });
-    // it('sync setValues - remove', () => { });
+    // it('Sync setValues - modify', () => { });
+    // it('Sync setValues - add', () => { });
+    // it('Sync setValues - remove', () => { });
     // it('Async setValues', () => { });
+
 });
