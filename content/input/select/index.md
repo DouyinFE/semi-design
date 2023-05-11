@@ -1485,6 +1485,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | clearInput  | 调用时可以手动清空 input 搜索框的值 | v1.18.0 |
 | deselectAll | 调用时可以手动清空所有已选项        | v1.18.0 |
 | selectAll   | 调用时可以选中所有 Option           | v1.18.0 |
+| search(value: string, event: event)| 可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input   | v2.35.0 |
 
 ## Accessibility
 
