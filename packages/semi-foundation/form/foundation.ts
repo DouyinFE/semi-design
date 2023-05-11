@@ -57,6 +57,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this.unRegisterArrayField = this.unRegisterArrayField.bind(this);
         this.getArrayField = this.getArrayField.bind(this);
         this.updateArrayField = this.updateArrayField.bind(this);
+        this.getParentArrayField = this.getParentArrayField.bind(this);
+        this.getChildArrayField = this.getChildArrayField.bind(this);
 
         this.getField = this.getField.bind(this);
         this.setValues = this.setValues.bind(this);
@@ -131,15 +133,23 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this._adapter.forceUpdate();
     }
 
-    registerArrayField(arrayFieldPath: string, { initValue, forceUpdate }: Pick<ArrayFieldStaff, 'initValue' | 'forceUpdate'> ): void {
+    registerArrayField(arrayFieldPath: string, staffObj: Pick<ArrayFieldStaff, 'initValue' | 'forceUpdate'> ): void {
         //  save initValue of arrayField, will be use when calling rest
-        this.registeredArrayField.set(arrayFieldPath, { field: arrayFieldPath, initValue: initValue, forceUpdate });
+        let arrayFieldState = this.registeredArrayField.get(arrayFieldPath);
+        if (arrayFieldState) {
+            this.registeredArrayField.set(arrayFieldPath, { ...arrayFieldState, ...staffObj });
+        }
+        this.registeredArrayField.set(arrayFieldPath, { field: arrayFieldPath, ...staffObj });
     }
-    
 
     unRegisterArrayField(arrayFieldPath: string): void {
+        let childArrayField = this.getChildArrayField(arrayFieldPath);
+        if (childArrayField.size) {
+            childArrayField.forEach(childArray => {
+                this.registeredArrayField.delete(childArray.field);
+            });
+        }
         this.registeredArrayField.delete(arrayFieldPath);
-        console.log('remain', this.registeredArrayField);
     }
 
     getArrayField(arrayFieldPath?: string): ArrayFieldStaff | Map<string, ArrayFieldStaff> {
@@ -149,33 +159,40 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         return this.registeredArrayField.get(arrayFieldPath);
     }
 
-    // updateArrayField(arrayFieldPath: string, updateStaff?: Omit<ArrayFieldStaff, 'field'>): void {
-    //     const arrayFieldStaff = this.getArrayField(arrayFieldPath);
-    //     const mergeStaff = { ...arrayFieldStaff, ...updateStaff };
-    //     this.registeredArrayField.set(arrayFieldPath, mergeStaff);
-    //     mergeStaff.forceUpdate(mergeStaff?.updateValue);
-    // }
-
     updateArrayField(arrayFieldPath: string, { newValue, oldValue }: any): void {
-        const arrayFieldStaff = this.getArrayField(arrayFieldPath);
+        const arrayFieldStaff = this.getArrayField(arrayFieldPath) as ArrayFieldStaff;
         arrayFieldStaff.forceUpdate({ newValue, oldValue });
-        // // check is nested ArrayField
-        // const nested = this._getNestedField(arrayFieldPath);
-        // const hasParent;
-        // const hasChild;
-        // if (hasParent) {
-        //     // update parent cache value
-        // }
-        // if (hasChild) {
-        //     // update child cache value
-        // }
-        // mergeStaff.forceUpdate(updateDetail);
     }
 
-    // 使用formApi.setValue等手段，父改子，或者子改父时，需要更新 cache
-    // updateArrayFieldCache(arrayFieldPath: string, ): void {
-    //     const arrayFieldStaff = this.getArrayField(arrayFieldPath);
-    // }
+    getChildArrayField(arrayFieldPath: string) {
+        const allArrayFieldPath = [...this.registeredArrayField.keys()];
+        let childArrayField = new Map();
+        allArrayFieldPath.forEach(item => {
+            const itemPath = toPath(item);
+            const targetPath = toPath(arrayFieldPath);
+            const itemIsTargetChild = targetPath.every((path, i) => (targetPath[i] === itemPath[i])) && (item !== arrayFieldPath);
+            if (itemIsTargetChild) {
+                const realField = this.registeredArrayField.get(item);
+                childArrayField.set(item, realField);
+            }
+        });
+        return childArrayField;
+    }
+
+    getParentArrayField(arrayFieldPath: string) {
+        const allArrayFieldPath = [...this.registeredArrayField.keys()];
+        let parentArrayField = new Map();
+        allArrayFieldPath.forEach(item => {
+            const itemPath = toPath(item);
+            const targetPath = toPath(arrayFieldPath);
+            const itemIsTargetParent = itemPath.every((path, i) => (targetPath[i] === itemPath[i])) && (item !== arrayFieldPath);
+            if (itemIsTargetParent) {
+                const realField = this.registeredArrayField.get(item);
+                parentArrayField.set(item, realField);
+            }
+        });
+        return parentArrayField;
+    }
 
     validate(fieldPaths?: Array<string>): Promise<unknown> {
         const { validateFields } = this.getProps();
@@ -633,6 +650,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             unRegisterArrayField: this.unRegisterArrayField,
             getArrayField: this.getArrayField,
             updateArrayField: this.updateArrayField,
+            getChildArrayField: this.getChildArrayField,
+            getParentArrayField: this.getParentArrayField,
         };
     }
 

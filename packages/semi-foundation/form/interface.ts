@@ -112,14 +112,12 @@ export interface FieldStaff {
 }
 
 interface forceUpdateParams {
-    value?: any;
+    newValue?: any;
     oldValue?: any
 }
 
 export interface ArrayFieldStaff {
     field: string;
-    // updateKey?: string;
-    // updateValue?: any;
     initValue?: any;
     forceUpdate?: (forceUpdateParams: forceUpdateParams) => void
 }
@@ -136,9 +134,11 @@ export interface FormUpdaterContextType {
     getInitValue: (field?: string) => any;
     getFormProps: (keys?: Array<string>) => ComponentProps;
     getField: (field: string) => FieldStaff | undefined;
-    registerArrayField: (arrayFieldPath: string, val: any) => void;
+    registerArrayField: (arrayField: string, val: any) => void;
     unRegisterArrayField: (arrayField: string) => void;
     getArrayField: (arrayField: string) => ArrayFieldStaff;
-    updateArrayField: (arrayField: string, updateValue: any) => void
+    updateArrayField: (arrayField: string, updateValue: any) => void;
+    getParentArrayField: (arrayField: string) => Map<string, ArrayFieldStaff>;
+    getChildArrayField: (arrayField: string) => Map<string, ArrayFieldStaff>
 }
 

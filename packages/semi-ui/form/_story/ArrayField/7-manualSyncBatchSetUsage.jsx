@@ -3,6 +3,18 @@ import { Form, Col, Row, Button, ArrayField, Space, useFormState } from '@douyin
 import { IconMinusCircle, IconPlusCircle, IconRefresh } from '@douyinfe/semi-icons';
 import { JSONTree } from 'react-json-tree';
 
+// TODO
+
+//  Async setValues
+//  Sync setValues
+//  Async setValues, override
+//  Sync setValues, override
+
+// 0 -> 3
+// 3 -> 0
+// 3 -> 2
+// 2 -> 3
+
 const FormStateTree = () => {
     const formState = useFormState();
     return (
@@ -14,7 +26,7 @@ const FormStateTree = () => {
     );
 };
 
-const NestDemo = () => {
+const SetValues = () => {
     const formRef = useRef();
 
     const getFormApi = () => {
@@ -69,12 +81,12 @@ const NestDemo = () => {
 
     const setValueChangeInside = () => {
         const formApi = getFormApi();
-        formApi.setValue('data[0].rules', [{ desc: 'new-0-0-desc-in', type: 'new-0-0-type-in' }]);
+        // formApi.setValue('data[0].rules', [{ desc: 'new-0-0-desc-in', type: 'new-0-0-type-in' }]);
     };
 
     const setValueChangeRow = () => {
         const formApi = getFormApi();
-        formApi.setValue('data[0].rules[0]', { type: 'special-row-type', desc: 'special-row-desc' });
+        // formApi.setValue('data[0].rules[0]', { name: 'special-row-name', rules: [{ desc: 'abc', type: 'efg' }] });
     };
     
     return (
@@ -90,7 +102,6 @@ const NestDemo = () => {
                             <Button htmlType='reset' theme='solid' type='secondary' icon={<IconRefresh />}>Reset</Button>
                             <Button id='changeOutSide' theme='solid' type='primary' onClick={() => setValueChangeOutSide()}>ChangeOutSide</Button>
                             <Button id='changeInside' theme='solid' type='tertiary' onClick={() => setValueChangeInside()}>ChangeInsideSide</Button>
-                            <Button id='changeRow' theme='solid' type='tertiary' onClick={() => setValueChangeRow()}>ChangeSpecialRow</Button>
                         </Space>
                         {
                             arrayFields.map(({ field, key, remove }, i) => (
@@ -175,6 +186,6 @@ const NestDemo = () => {
     );
 };
 
-NestDemo.storyName = 'ArrayField-Nested Level 2';
+SetValues.storyName = 'ArrayField-ManualBatchSet Sync';
 
-export default NestDemo;
+export default SetValues;

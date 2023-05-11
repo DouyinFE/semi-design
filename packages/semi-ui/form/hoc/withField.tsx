@@ -109,10 +109,11 @@ function withField<
         try {
             arrayFieldState = useArrayFieldState();
             if (arrayFieldState) {
-                initVal =
-                    arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined'
-                        ? initValue
-                        : initValueInFormOpts;
+                // initVal =
+                //     arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined'
+                //         ? initValue
+                //         : initValueInFormOpts;
+                initVal = typeof initValue !== 'undefined' ? initValue : initValueInFormOpts;
             }
         } catch (err) {}
 

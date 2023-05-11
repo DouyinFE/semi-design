@@ -50,22 +50,14 @@ const initValueAdapter = (initValue: any) => {
  * @param {any[]} cacheValue
  * @returns string[]
  * 
- * 2 -> 3，理想情况，看加的哪个，复用2个
- * 3 -> 2, 理想情况，看删的哪个，减少，
- * 2 -> 2, 看值变不变
- *   嵌套场景，外部变不变无所谓，里面尽量不变，否则会走卸载。除非判断出嵌套时候
- *   外部 setValue、setValues 变更，不易判断改的是哪行
- *    如果只有自己一层，那都变问题也不大。如果有两层以上，变就会导致里面一层卸载再挂载。
  */
 
 const generateKeys = (value: any[] = [], oldKeys?: string[], cacheValues: any[] = []) => {
     const val = initValueAdapter(value);
     const newKeys = getUuidByArray(val);
     // const keys = newKeys.map((key, i) => (oldKeys && oldKeys[i] ? oldKeys[i] : key));
-
     const keys = [];
 
-    // Keys 的复用机制需要
     value.forEach((newRow, i) => {
         const cacheRow = get(cacheValues, i);
         if (!isEqual(newRow, cacheRow)) {
@@ -106,10 +98,10 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         // // whether the fields inside arrayField should use props.initValue in current render process
 
         // Separate the arrays that reset and the usual add and remove modify, otherwise they will affect each other
-        const initValueCopyForFormState = cloneDeep(initValue);
-        const initValueCopyForReset = cloneDeep(initValue);
-        context.registerArrayField(field, { initValue: initValueCopyForReset, forceUpdate: this.forceUpdate });
-        context.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
+        // const initValueCopyForFormState = cloneDeep(initValue);
+        // const initValueCopyForReset = cloneDeep(initValue);
+        // context.registerArrayField(field, { initValue: initValueCopyForReset, forceUpdate: this.forceUpdate });
+        // context.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
     }
 
     componentDidMount() {
@@ -127,27 +119,27 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const initValueCopyForFormState = cloneDeep(initValue);
         const initValueCopyForReset = cloneDeep(initValue);
 
-        // 如果首次挂载，应该使用初始值，如果不是首次挂载，例如嵌套场景下，level 1 keys变更导致的 level 2子级重新挂载，那应该直接使用formState 中的值 , 且无需注册 initValue（否则会影响保存的 initValue）
+        // 如果首次挂载，应该使用初始值，如果不是首次挂载，例如嵌套场景下，level 1 keys变更导致的 level 2子级重新挂载，那应该直接使用formState 中的值, 且无需注册 initValue
         if (!this.hasMounted) {
             updater.registerArrayField(field, { initValue: initValueCopyForReset, forceUpdate: this.forceKeysUpdate });
             updater.updateStateValue(field, initValueCopyForFormState, { notNotify: true, notUpdate: true });
         } else {
-            if (field === 'data[0].rules') {
-                const a = updater.getArrayField();
-                console.log('data[0].rules didmount');
-            }
             updater.registerArrayField(field, { forceUpdate: this.forceKeysUpdate });
         }
-        console.log('didMount', this.props.field);
     }
 
     componentWillUnmount() {
         const updater = this.context;
         const { field } = this.props;
-        // 卸载时，不卸载 initValue？
-        // 嵌套的不做卸载？
-        updater.unRegisterArrayField(field);
-        console.log('unmount', this.props.field);
+        const hasParentArrayField = updater.getParentArrayField(field);
+        const size = updater.getParentArrayField(field).size;
+        if (Boolean(size)) {
+            // if is parant arraField, need to unregister nested arrayField here
+            // 嵌套的ArrayField在父级仍存在时，不需要走卸载, 统一在父级ArrayField做卸载
+            // console.log('嵌套的ArrayField在父级仍存在时，不需要自己走卸载, 统一在父级ArrayField做卸载', field);
+        } else {
+            updater.unRegisterArrayField(field);
+        }
     }
 
     forceKeysUpdate = ({ newValue, oldValue }): void => {
@@ -157,13 +149,9 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
 
         const fieldValues = newValue ? newValue : updater.getValue(field);
         const newKeys = generateKeys(fieldValues, keys, oldValue);
-        // const newKeys = generateKeys(fieldValues, keys, this.cacheFieldValues);
 
         // eslint-disable-next-line
-        this.setState({ keys: newKeys });
-        // A: A1、A2   ->  A: A1-new  -> A: A1、A2
-        // 如果 forecUpdate child，改变了 child 的length，但是这个无法更新父级的 cacheFieldValue。会有问题, cache不是一个好的设计，要做完善还得在 setValue时检测潜在的对父子 cacheValue的影响
-        // this.cacheFieldValues = cloneDeep(value);
+        this.setState({ keys: newKeys })
     }
 
     add() {
@@ -172,6 +160,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         // this.shouldUseInitValue = true;
         // TODO allowEmpty 为 false 的情况下
         this.setState({ keys });
+
     }
 
     addWithInitValue(lineObject: Record<string, any>) {
@@ -208,7 +197,6 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
             updater.updateStateValue(field, newArrayFieldValue);
         }
         this.setState({ keys: newKeys });
-        // this.cacheFieldValues = cloneDeep(newArrayFieldValue);
     }
 
     render() {
@@ -223,7 +211,6 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { addWithInitValue } = this;
         const contextVal = {
             isInArrayField: true,
-            // shouldUseInitValue: this.shouldUseInitValue,
         };
         return (
             <ArrayFieldContext.Provider value={contextVal}>
