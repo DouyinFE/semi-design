@@ -329,3 +329,14 @@ export const RenderMore = () => (
     </div>
   </div>
 );
+
+export const MaxItemCountAndMoreType = () => (
+  // 用于测试 moreType 为 popover, maxItemCount 自定义情况下，
+  // item 个数超出时候是否可弹出, 弹出层中内容是否正确
+  <Breadcrumb maxItemCount={2} moreType={'popover'}>
+    <Breadcrumb.Item>第一层</Breadcrumb.Item>
+    <Breadcrumb.Item>第二层</Breadcrumb.Item>
+    <Breadcrumb.Item>第二层</Breadcrumb.Item>
+    <Breadcrumb.Item>第四层</Breadcrumb.Item>
+  </Breadcrumb>
+);

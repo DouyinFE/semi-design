@@ -218,7 +218,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             isRange: false,
             inputValue: null, // Staging input values
             value: [], // The currently selected date, each date is a Date object
-            cachedSelectedValue: null, // Save last selected date, maybe include null
+            cachedSelectedValue: [], // Save last selected date, maybe include null
             prevTimeZone: null,
             rangeInputFocus: undefined, // Optional'rangeStart ',' rangeEnd ', false
             autofocus: props.autoFocus || (this.isRangeType(props.type, props.triggerRender) && (props.open || props.defaultOpen)),
@@ -226,7 +226,6 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             triggerDisabled: undefined,
         };
 
-        this.adapter.setCache('cachedSelectedValue', null);
         this.triggerElRef = React.createRef();
         this.panelRef = React.createRef();
         this.monthGrid = React.createRef();
@@ -581,7 +580,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();

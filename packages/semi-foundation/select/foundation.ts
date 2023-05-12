@@ -247,7 +247,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const selectedValue = onChangeWithObject && typeof propValue !== 'undefined' ? (propValue as BasicOptionProps).value : propValue;
         const selectedOptions = originalOptions.filter(option => option.value === selectedValue);
 
-        const noMatchOptionInList = !selectedOptions.length && typeof selectedValue !== 'undefined';
+        const noMatchOptionInList = !selectedOptions.length && typeof selectedValue !== 'undefined' && selectedValue !== null;
 
         // If the current value, there is a matching option in the optionList
         if (selectedOptions.length) {
