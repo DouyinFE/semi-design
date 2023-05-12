@@ -52,7 +52,7 @@ jobs:
     chrome-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node14.17.6-chrome100-ff98
+            image: cypress/browsers:node16.14.0-chrome99-ff97
             options: --user 1001
         needs: install
         steps:
@@ -84,7 +84,7 @@ jobs:
     firefox-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node14.17.6-chrome100-ff98
+            image: cypress/browsers:node16.14.0-chrome99-ff97
             options: --user 1001
         needs: install
         steps:
