@@ -3251,4 +3251,41 @@ export const emptyContent = () => {
   )
 }
 
+export const Fix1584 = () => {
+  return (
+    <>
+      defaultValue is null
+      <br />
+      <Select 
+        style={{ width: 180 }} 
+        defaultValue={null}
+        placeholder="带搜索功能的单选"
+        renderSelectedItem={(item) => {
+          console.log('items', item);  
+          return <div>{item.label}</div>}}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+      <br />
+      <br />
+      defaultValue is undefined
+      <br />
+      <Select 
+        style={{ width: 180 }} 
+        defaultValue={undefined}
+        placeholder="带搜索功能的单选"
+        renderSelectedItem={(item) => <div>{item.label}</div>}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    </>
+  );
+}
+
 
