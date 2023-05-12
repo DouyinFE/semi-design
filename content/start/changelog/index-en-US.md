@@ -15,6 +15,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.35.0 (2023-05-12)
+- 【Fix】
+    - fix the problem that the Dropdown item is abnormal after switching tabs in collapsible Tabs
+    - fix select is single select and renderSelectedItem, the placeholder is not displayed when the value is null
+
+#### 🎉 2.35.0-beta.0 (2023-05-10)
+- 【Fix】
+    - Avatar Cascader form input font weight use $font-weight-bold
 
 #### 🎉 2.34.2 (2023-05-09)
 - 【Fix】
