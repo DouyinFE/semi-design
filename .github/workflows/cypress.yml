@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-latest
         container:
             # https://github.com/cypress-io/cypress-docker-images/tree/master/browsers
-            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
+            image: cypress/browsers:node16.13.2-chrome100-ff98
         if: ${{ github.repository_owner == 'DouyinFE' }}
         steps:
             - name: Checkout
