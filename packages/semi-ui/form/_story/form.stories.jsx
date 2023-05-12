@@ -80,14 +80,16 @@ import { SetValuesDemo, SetValuesWithArrayField } from './FormApi/setValuesDemo'
 import { SetValueUsingParentPath } from './FormApi/formApiDemo';
 import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
-export { default as FormSubmit } from './FormSubmit';
 
+export { default as FormSubmit } from './FormSubmit';
+export { default as TabelForm } from './TableDemo';
 
 export default {
   title: 'Form'
 }
 
 const Option = Select.Option;
+
 
 export const FormDeclareUsage = () => <DifferentDeclareUsage />;
 
