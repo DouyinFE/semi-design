@@ -963,3 +963,27 @@ export const TabItem = () => {
     ))}
   </div>)
 }
+
+
+export const Fix1456 = () =>{
+  const [key, setKey] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  return (
+        <div id='wrapper' style={{ height: 300, overflowY: 'scroll' }}>
+          <div style={{ height: 500 }}>
+          <Tabs style={{ width: '300px', margin: '20px' }} type="card" collapsible>
+            {key.map(i => (
+              <TabPane tab={`tab-${i}`} itemKey={`${i}`} key={i}>
+                  Content of card tab {i}
+              </TabPane>
+            ))}
+          </Tabs>
+          <Button onClick={()=>{setKey([8, 9, 10, 11, 12, 13, 14, 15])}}>change key</Button>
+        </div>
+        </div>
+  );
+}
+
+Fix1456.story = {
+  name: 'Fix-1456',
+};
