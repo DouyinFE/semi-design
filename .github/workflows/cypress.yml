@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-latest
         container:
             # https://github.com/cypress-io/cypress-docker-images/tree/master/browsers
-            image: cypress/browsers:node16.14.0-chrome99-ff97
+            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
         if: ${{ github.repository_owner == 'DouyinFE' }}
         steps:
             - name: Checkout
@@ -52,7 +52,7 @@ jobs:
     chrome-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
+            image: cypress/browsers:node14.17.6-chrome100-ff98
             options: --user 1001
         needs: install
         steps:
@@ -84,14 +84,14 @@ jobs:
     firefox-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node16.18.0-chrome107-ff106-edge
+            image: cypress/browsers:node14.17.6-chrome100-ff98
             options: --user 1001
         needs: install
         steps:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Download the build folders
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v5
               with:
                   name: storybook-static
                   path: storybook-static
