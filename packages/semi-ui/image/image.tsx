@@ -82,22 +82,6 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         return willUpdateStates;
     }
 
-    componentDidMount() {
-        this.observeImage();
-    }
-
-    componentDidUpdate(prevProps: ImageProps, prevState: ImageStates) {
-        prevProps.src !== this.props.src && this.observeImage();
-    }
-
-    observeImage() {
-        if (!this.isLazyLoad()) {
-            return;
-        }
-        const { previewObserver } = this.context;
-        previewObserver.observe(this.imgRef.current);
-    }
-
     isInGroup() {
         return Boolean(this.context && this.context.isGroup);
     }

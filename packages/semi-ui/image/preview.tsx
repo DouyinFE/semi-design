@@ -7,7 +7,7 @@ import PreviewInner from "./previewInner";
 import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation";
 import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
-import { isObject } from "lodash";
+import { isObject, isEqual } from "lodash";
 import "@douyinfe/semi-foundation/image/image.scss";
 
 const prefixCls = cssClasses.PREFIX;
@@ -81,21 +81,44 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         this.foundation = new PreviewFoundation(this.adapter);
         this.previewGroupId = getUuidShort({ prefix: "semi-image-preview-group", length: 4 });
         this.previewRef = React.createRef<PreviewInner>();
-        this.previewObserver = new IntersectionObserver(entries => {
-            entries.forEach(item => {
-                const src = (item.target as any).dataset?.src;
-                if (item.isIntersecting && src) {
-                    (item.target as any).src = src;
-                    (item.target as any).removeAttribute("data-src");
-                    this.previewObserver.unobserve(item.target);
-                }
-            });
-        },
-        {
-            root: document.querySelector(`#${this.previewGroupId}`),
-            rootMargin: props.lazyLoadMargin, 
+    }
+
+    componentDidMount() {
+        this.observerImages();
+    }
+
+    componentDidUpdate(prevProps) {
+        const prevChildren = React.Children.toArray(prevProps.children);
+        const currChildren = React.Children.toArray(this.props.children);
+    
+        if (!isEqual(prevChildren, currChildren)) {
+            this.observerImages();
         }
-        );
+    }
+
+    observerImages = () => {
+        if (this.previewObserver) {
+            // cancel the observation of all elements of the previous observer
+            this.previewObserver.disconnect();
+        } else {
+            this.previewObserver = new IntersectionObserver(entries => {
+                entries.forEach(item => {
+                    const src = (item.target as any).dataset?.src;
+                    if (item.isIntersecting && src) {
+                        (item.target as any).src = src;
+                        (item.target as any).removeAttribute("data-src");
+                    }
+                    this.previewObserver.unobserve(item.target);
+                });
+            },
+            {
+                root: document.querySelector(`#${this.previewGroupId}`),
+                rootMargin: this.props.lazyLoadMargin, 
+            }
+            );
+        }
+        const allImgElement = document.querySelectorAll(`.${prefixCls}-img`);
+        allImgElement.forEach(item => this.previewObserver.observe(item));
     }
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
