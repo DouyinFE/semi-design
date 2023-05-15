@@ -290,7 +290,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                 ref={ref => this.cardRef.set(key, ref)}
             >
                 <li key={date as any} className={listCls} onClick={e => this.handleClick(e, [date])}>
-                    {this.formatDayString(month, dayString)}
+                    {this.formatDayString(date, month, dayString)}
                     {shouldRenderCard ? text : null}
                     {this.renderCusDateGrid(date)}
                 </li>
@@ -298,7 +298,11 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         );
     };
 
-    formatDayString = (month: string, date: string) => {
+    formatDayString = (dateObj: Date, month: string, date: string) => {
+        const { renderDateDisplay } = this.props;
+        if (renderDateDisplay) {
+            return renderDateDisplay(dateObj);
+        }
         if (date === '1') {
             return (
                 <LocaleConsumer componentName="Calendar">
@@ -343,7 +347,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                         const shouldRenderCollapsed = Boolean(day && day[ind] && day[ind].length > itemLimit);
                         const inner = (
                             <li role="gridcell" aria-label={date.toLocaleDateString()} aria-current={isToday ? "date" : false} key={`${date}-weeksk`} className={listCls} onClick={e => this.handleClick(e, [date])}>
-                                {this.formatDayString(month, dayString)}
+                                {this.formatDayString(date, month, dayString)}
                                 {this.renderCusDateGrid(date)}
                             </li>
                         );

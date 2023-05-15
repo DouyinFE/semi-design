@@ -18,7 +18,9 @@ export interface CalendarProps extends BaseProps {
     markWeekend?: boolean;
     width?: number | string;
     height?: number | string;
-    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode
+    renderDateDisplay?: (date: Date) => React.ReactNode;
+    dateGridRender?: (dateString?: string, date?: Date) => React.ReactNode;
+    allDayEventsRender?: (events: EventObject[]) => React.ReactNode
 }
 
 export type DayCalendarProps = Omit<CalendarProps, 'mode'>;

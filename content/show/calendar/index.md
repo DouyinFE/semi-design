@@ -288,6 +288,28 @@ import { Calendar } from '@douyinfe/semi-ui';
 };
 ```
 
+#### 自定义日期文案
+
+可以通过 renderDateDisplay 自定义日期文案。
+
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Avatar, Calendar } from '@douyinfe/semi-ui';
+
+() => {
+    const displayValue = new Date(2023, 4, 14);
+
+    const renderDateDisplay = date => {
+        const colors = ["amber", "blue", "cyan", "green", "grey", "indigo", "lime"];
+        return <div><Avatar color={colors[date.getDay()]} size="small">{date.getDate()}</Avatar></div>;
+    };
+
+    return <Calendar height={400} mode="week" displayValue={displayValue} renderDateDisplay={renderDateDisplay} />;
+};
+```
+
+
 ## API 参考
 
 ### Calendar
@@ -295,6 +317,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | dateGridRender | 自定义单元格/列渲染，需要绝对定位, **v>=1.0.0** | function(dateString: string, date: Date) | - |
+| allDayEventsRender | 自定义日/多日/周视图下的顶部事件渲染 | function(events: EventObject[]): ReactNode | - |
 | displayValue | 展示日期 | Date | 当前日期 |
 | events | 渲染事件，具体格式请参考 event object | EventObject[] | - |
 | header | 自定义头部内容 | ReactNode | - |
@@ -305,6 +328,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | onClose | 月视图下，展示所有 event 的卡片关闭时的回调 | function(e: Event） | - |
 | range | 多日视图模式下展示的日期范围，左闭右开 **v>=1.5.0** | Date[] | - |
 | renderTimeDisplay | 自定义日/周视图下的时间文案 | function(time: number): ReactNode | - |
+| renderDateDisplay | 自定义日期文案 | function(date: Date): ReactNode | - |
 | scrollTop | 日视图和周视图模式下，设置展示内容默认的滚动高度 | number | 400 |
 | showCurrTime | 显示当前时间 | boolean | true |
 | width | 日历宽度 | string\|number | - |

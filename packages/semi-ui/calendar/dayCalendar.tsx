@@ -37,6 +37,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         style: PropTypes.object,
         className: PropTypes.string,
         dateGridRender: PropTypes.func,
+        allDayEventsRender: PropTypes.func,
     };
 
     static defaultProps = {
@@ -109,6 +110,9 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
     checkWeekend = (val: Date) => this.foundation.checkWeekend(val);
 
     renderAllDayEvents = (events: ParsedEventsWithArray['allDay']) => {
+        if (this.props.allDayEventsRender) {
+            return this.props.allDayEventsRender(this.props.events);
+        }
         const list = events.map((event, ind) => {
             const { children, key } = event;
             return (
