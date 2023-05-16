@@ -15,27 +15,21 @@ const FormStateTree = () => {
     );
 };
 
-function InitDemo() {
+function InitCombineDemo() {
     const formRef = useRef();
-    const formInitValues = {
-        data: [
-            { name: 'Semi D2C', role: 'Engineer' },
-            { name: 'Semi C2D', role: 'Designer' },
-            // { name: 'Semi DSM', role: 'Designer' },
-        ]
-    };
-
-    const arrayFieldInitValue = [
-        { name: 'NameInArrayFieldProp', role: 'RoleInArrayFieldProp' },
-        // { name: 'Semi C2D', role: 'Designer' },
-    ];
 
     return (
-        <Form ref={formRef} initValues={formInitValues}>
+        <Form ref={formRef} initValues={{
+            data: [
+                { name: 'NameInFormProp', role: 'RoleInFormProp' },
+            ]
+        }}>
             <div>
                 <Button htmlType='reset'>Reset</Button>
             </div>
-            <ArrayField field="data">
+            {/* <ArrayField field="data"
+                initValue={[{ name: 'NameInArrayFieldProp', role: 'RoleInArrayFieldProp' }]}
+            >
                 {({ add, addWithInitValue, arrayFields }) => (
                     <React.Fragment>
                         <Space>
@@ -71,15 +65,15 @@ function InitDemo() {
                         }
                     </React.Fragment>
                 )}
-            </ArrayField>
-            <ArrayField field="dataB" initValue={arrayFieldInitValue}>
+            </ArrayField> */}
+            <ArrayField field="dataB" initValue={[{ name: 'NameInArrayFieldProp', role: 'RoleInArrayFieldProp' }]}>
                 {({ add, addWithInitValue, arrayFields }) => (
                     <React.Fragment>
                         <Space>
                             <Button id='dataBAdd' onClick={add} icon={<IconPlusCircle />} type="primary">Add</Button>
                             <Button
                                 id='dataBAddWithInit'
-                                onClick={() => addWithInitValue({ name: `DataB-${arrayFields.length + 1}`, role: 'Designer' })}
+                                onClick={() => addWithInitValue({ name: `Data-${arrayFields.length + 1}`, role: 'Designer' })}
                                 icon={<IconPlusCircle />}
                                 type="primary">
                                 Add with row initValue
@@ -94,48 +88,10 @@ function InitDemo() {
                                             field={`${field}[name]`}
                                             label={`${field}.name`}
                                             style={{ width: 200 }}
-                                        />
-                                        <Form.Input
-                                            id={`dataB-${i}-role`}
-                                            field={`${field}[role]`}
-                                            label={`${field}.role`}
-                                            style={{ width: 200 }}
-                                        />
-                                    </Space>
-                                    <Button style={{ margin: "36px 0 0 12px" }} type="danger" icon={<IconMinusCircle/>} onClick={remove}>remove this line</Button>
-                                </div>
-                            ))
-                        }
-                    </React.Fragment>
-                )}
-            </ArrayField>
-
-            <ArrayField field="dataC">
-                {({ add, addWithInitValue, arrayFields }) => (
-                    <React.Fragment>
-                        <Space>
-                            <Button id='dataCAdd' onClick={add} icon={<IconPlusCircle />} type="primary">Add</Button>
-                            <Button
-                                id='dataCAddWithInit'
-                                onClick={() => addWithInitValue({ name: `DataC-${arrayFields.length + 1}`, role: 'Designer' })}
-                                icon={<IconPlusCircle />}
-                                type="primary">
-                                Add with row initValue
-                            </Button>
-                        </Space>
-                        {
-                            arrayFields.map(({ field, key, remove }, i) => (
-                                <div key={key} style={{ display: 'flex', width: 600 }} id={`dataC-${i}`} className='line'>
-                                    <Space>
-                                        <Form.Input
-                                            id={`dataC-${i}-name`}
-                                            field={`${field}[name]`}
-                                            label={`${field}.name`}
-                                            style={{ width: 200 }}
                                             initValue={'NameInFieldProp'}
                                         />
                                         <Form.Input
-                                            id={`dataC-${i}-role`}
+                                            id={`dataB-${i}-role`}
                                             field={`${field}[role]`}
                                             label={`${field}.role`}
                                             style={{ width: 200 }}
@@ -154,6 +110,6 @@ function InitDemo() {
     );
 }
 
-InitDemo.storyName = 'ArrayField-init';
+InitCombineDemo.storyName = 'ArrayField-init combine';
 
-export default InitDemo;
+export default InitCombineDemo;

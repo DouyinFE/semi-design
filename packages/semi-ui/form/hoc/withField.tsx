@@ -28,8 +28,6 @@ const useIsomorphicEffect = typeof window !== 'undefined' ? useLayoutEffect : us
  * 1. Takes over the value and onChange of the component and synchronizes them to Form Foundation
  * 2. Insert <Label>
  * 3. Insert <ErrorMessage>
- * 4. Insert extraText
- * 5. Add A11y Aria Support
  */
 
 function withField<
@@ -101,7 +99,7 @@ function withField<
         }
 
         // To prevent user forgetting to pass the field, use undefined as the key, and updater.getValue will get the wrong value.
-        let initValueInFormOpts = typeof field !== 'undefined' ? updater.getValue(field) : undefined; // Get the init value of form from formProps.init Values Get the initial value set in the initValues of Form
+        let initValueInFormOpts = typeof field !== 'undefined' ? updater.getValue(field) : undefined; // Get the init value of form from formP rops.init Values Get the initial value set in the initValues of Form
         let initVal = typeof initValue !== 'undefined' ? initValue : initValueInFormOpts;
 
         // use arrayFieldState to fix issue 615
@@ -109,11 +107,13 @@ function withField<
         try {
             arrayFieldState = useArrayFieldState();
             if (arrayFieldState) {
-                // initVal =
-                //     arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined'
-                //         ? initValue
-                //         : initValueInFormOpts;
-                initVal = typeof initValue !== 'undefined' ? initValue : initValueInFormOpts;
+                if (arrayFieldState.shouldUseInitValue && typeof initValue !== 'undefined') {
+                    initVal = initValue;
+                    debugger;
+                } else {
+                    initVal = initValueInFormOpts;
+                    debugger;
+                }
             }
         } catch (err) {}
 

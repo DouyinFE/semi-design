@@ -7,3 +7,4 @@ export { default as BasicNestedDemo } from './6-nestedBasicUsage.jsx';
 export { default as ManualBatchSetDemo } from './7-manualSyncBatchSetUsage.jsx';
 export { default as ManualBatchSetAsyncDemo } from './8-manualAsyncBatchSetUsage.jsx';
 export { default as InitDemo } from './9-initUsage.jsx';
+export { default as InitCombineDemo } from './10-initCombineUsage.jsx';

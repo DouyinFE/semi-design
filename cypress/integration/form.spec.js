@@ -50,7 +50,6 @@ describe('Form', () => {
         // cy.get('body').find('.semi-popover .semi-datepicker').should('have.length', 0);
     });
 
-
     it('Basic usage - add withInitValue row、add blank row', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--basic-array-field-demo');
 
@@ -610,51 +609,86 @@ describe('Form', () => {
         cy.get('#data-1-rule-0-desc').should('have.value', `1-0-desc`);
     });
 
-    // it('2 Nested ArrayField - formApi.setValues', () => { });
-    // it('Sync setValues - modify', () => { });
-    // it('Sync setValues - add', () => { });
-    // it('Sync setValues - remove', () => { });
-    // it('Async setValues', () => { });
+    // // it('2 Nested ArrayField - formApi.setValues', () => { });
 
-    it('sync setValues - modify value, 2 -> 2', () => {
-    });
+    // // it('Async setValues', () => { });
 
-    it('sync setValues - add, 2 -> 3, add tail', () => {
-    });
+    // it('sync setValues - modify value, 2 -> 2', () => {
 
-    it('sync setValues - add, 2 -> 3, add first', () => {
+    // });
+
+    // it('sync setValues - add, 2 -> 3, add tail', () => {
+    // });
+
+    // it('sync setValues - add, 2 -> 3, add first', () => {
        
-    });
+    // });
 
-    it('sync setValues - add, 2 -> 3, add middle', () => {
+    // it('sync setValues - add, 2 -> 3, add middle', () => {
     
-    });
+    // });
 
-    it('sync setValues - remove, 3 -> 2, remove first', () => {
+    // it('sync setValues - remove, 3 -> 2, remove first', () => {
        
-    });
+    // });
 
-    it('sync setValues - remove, 3 -> 2, remove middle', () => {
+    // it('sync setValues - remove, 3 -> 2, remove middle', () => {
        
-    });
+    // });
 
-    it('sync setValues - remove, 3 -> 2, remove tail', () => {
+    // it('sync setValues - remove, 3 -> 2, remove tail', () => {
        
-    });
+    // });
 
-    it('sync setValues - remove, 2 -> 0, remove all', () => {
+    // it('sync setValues - remove, 2 -> 0, remove all', () => {
        
-    });
+    // });
 
 
     it('Init - Form Props initValues、ArrayField initValue、Field initValue', () => { 
         // 一个 Form 三个 ArrayField
-        
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--init-demo');
+
+        // Form Props initValues
+        cy.get('#data-0-name').should('have.value', `${D2C.name}`);
+        cy.get('#data-0-role').should('have.value', `${D2C.role}`);
+        cy.get('#data-1-name').should('have.value', `${C2D.name}`);
+        cy.get('#data-1-role').should('have.value', `${C2D.role}`);
+        cy.get('#dataAddWithInit').click();
+        cy.get('#data-2-name').should('have.value', 'Data-3');
+        cy.get('#data-2-role').should('have.value', 'Designer');
+
+
+        // ArrayField Props initValue
+        cy.get('#dataB-0-name').should('have.value', 'NameInArrayFieldProp');
+        cy.get('#dataB-0-role').should('have.value', 'RoleInArrayFieldProp');
+        cy.get('#dataB-1-name').should('not.exist');
+        cy.get('#dataB-1-role').should('not.exist');
+        cy.get('#dataBAddWithInit').click();
+        cy.get('#dataB-1-name').should('have.value', 'DataB-2');
+        cy.get('#dataB-1-role').should('have.value', 'Designer');
+
+        // Field Props initValue
+        cy.get('#dataCAddWithInit').click();
+        cy.get('#dataC-0-name').should('have.value', 'DataC-1');
+        cy.get('#dataC-0-role').should('have.value', 'Designer');
+        cy.get('#dataCAdd').click();
+        // if add empty, should use field props
+        // TODO
     });
 
-    // it('Init - combine', () => {});
+    it('Init - combine, test priority', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/form--init-combine-demo');
+        // FormProps + ArrayField Props, should use ArrayField Props first
+        cy.get('#data-0-name').should('have.value', 'NameInArrayFieldProp');
+        cy.get('#data-0-role').should('have.value', 'RoleInArrayFieldProp');
 
+        // ArrayField Props + Field Props, should use FieldProps first
+        cy.get('#dataB-0-name').should('have.value', 'NameInFieldProp');
+        cy.get('#dataB-0-role').should('have.value', 'RoleInFieldProp');
+    });
 
+    // it('Init - Nested', () => {
 
-
+    // });
 });
