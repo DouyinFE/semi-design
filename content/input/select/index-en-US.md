@@ -1419,6 +1419,7 @@ Some internal methods provided by Select can be accessed through ref:
 | focus       | Manually focus select           | v1.11.0 |
 | open        | Manually open dropdown list     | v0.34.0 |
 | selectAll   | Manually select all options     | v1.18.0 |
+| search(value: string, event: event)  | You can call this method through ref to search, and the search value will be set to Input          | v2.35.0 |
 
 ## Accessibility
 
