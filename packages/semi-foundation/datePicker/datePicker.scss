@@ -7,7 +7,6 @@ $module-list: #{$prefix}-scrolllist;
 .#{$module} {
     box-sizing: border-box;
     display: inline-block;
-    vertical-align: top;
 
     .#{$module-list}-body {
         .#{$module-list}-item {
