@@ -100,12 +100,17 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             [`${prefixCls}-link-tooltip-active`]: active,
             [`${prefixCls}-link-tooltip-disabled`]: disabled,
         });
-        const toolTipOpt = position ? { position } : {};
         if (showTooltip) {
+            const showTooltipObj = Object.prototype.toString.call(showTooltip) === '[object Object]' ? 
+                Object.assign({ opts: {} }, showTooltip) : { opts: {} };
+            // The position can be set through showTooltip, here it is compatible with the position API
+            if (position) {
+                showTooltipObj.opts['position'] = position;
+            }
             return (
                 <Typography.Text
                     size={size === 'default' ? 'normal' : 'small'}
-                    ellipsis={{ showTooltip: { opts: { ...toolTipOpt } } }}
+                    ellipsis={{ showTooltip: showTooltipObj }}
                     type={'tertiary'}
                     className={linkTitleCls}
                 >
