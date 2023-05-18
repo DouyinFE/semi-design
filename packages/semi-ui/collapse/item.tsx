@@ -79,7 +79,9 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             return (
                 <>
                     {showArrow && (iconPosLeft ? icon : null)}
-                    <span>{header}</span>
+                    {/* The *-header-content in the className of the span does not have any style, it is used in c2d, 
+                    do not delete the *-header-content style */}
+                    <span className={`${cssClasses.PREFIX}-header-content`}>{header}</span>
                     <span className={`${cssClasses.PREFIX}-header-right`}>
                         <span>{extra}</span>
                         {showArrow && (iconPosLeft ? null : icon)}
