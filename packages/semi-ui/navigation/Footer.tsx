@@ -5,13 +5,14 @@ import cls from 'classnames';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/navigation/constants';
 import CollapseButton from './CollapseButton';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
-
+import { noop } from 'lodash';
 import NavContext, { NavContextType } from './nav-context';
 import { BaseProps } from '../_base/baseComponent';
 
 export interface NavFooterProps extends BaseProps {
     collapseButton?: React.ReactNode;
-    collapseText?: (collapsed?: boolean) => React.ReactNode
+    collapseText?: (collapsed?: boolean) => React.ReactNode;
+    onClick?: (event: React.MouseEvent) => void
 }
 
 export default class NavFooter extends PureComponent<NavFooterProps> {
@@ -23,10 +24,12 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
         className: PropTypes.string,
         collapseButton: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
         collapseText: PropTypes.func,
+        onClick: PropTypes.func,
     };
 
     static defaultProps = {
         collapseButton: false,
+        onClick: noop,
     };
 
     context: NavContextType;
@@ -54,7 +57,7 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
     };
 
     render() {
-        const { style, className, collapseButton } = this.props;
+        const { style, className, collapseButton, onClick } = this.props;
         let { children } = this.props;
         const { isCollapsed, mode } = this.context;
 
@@ -67,7 +70,8 @@ export default class NavFooter extends PureComponent<NavFooterProps> {
         });
 
         return (
-            <div className={wrapCls} style={style}>
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+            <div className={wrapCls} style={style} onClick={onClick}>
                 {children}
             </div>
         );

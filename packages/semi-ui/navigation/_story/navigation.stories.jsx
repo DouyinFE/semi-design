@@ -12,6 +12,7 @@ import ItemsChange from './ItemsChange';
 import DisabledNav from './DisabledNav';
 import Button from '../../button';
 import GetPopupNav from './Popup';
+import CustomArrowIcon from './CustomIcon';
 
 import {
   IconMail,
@@ -333,4 +334,9 @@ DisabledNavDemo.story = {
 export const PopupDemo = () => <GetPopupNav />;
 PopupDemo.story = {
   name: 'getPopupContainer'
+}
+
+export const CustomArrowIconDemo = () => <CustomArrowIcon></CustomArrowIcon>
+CustomArrowIconDemo.story = {
+  name: 'CustomArrowIcon'
 }
