@@ -8,7 +8,7 @@ export type TypographyType = typeof BaseTypography & {
     Text: typeof Text;
     Title: typeof Title;
     Paragraph: typeof Paragraph;
-    Numeral: typeof Numeral;
+    Numeral: typeof Numeral
 };
 
 const Typography = BaseTypography as TypographyType;

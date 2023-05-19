@@ -5,6 +5,7 @@ const cssClasses = {
 };
 
 const strings = {
+    WEIGHT: ['light', 'regular', 'medium', 'semibold', 'bold', "default"],
     TYPE: ['primary', 'secondary', 'danger', 'warning', 'success', 'tertiary', 'quaternary'],
     SIZE: ['normal', 'small'],
     SPACING: ['normal', 'extended'],
