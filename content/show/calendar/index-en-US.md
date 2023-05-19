@@ -105,13 +105,14 @@ You could pass in an array of event objects to `events` to render items. For det
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Calendar, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import { Calendar, DatePicker, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
             mode: 'week',
+            displayValue: new Date(2019, 6, 23, 8, 32, 0),
         };
     }
 
@@ -120,8 +121,15 @@ class Demo extends React.Component {
             mode: e.target.value,
         });
     }
+
+    onChangeDate(e) {
+        this.setState({
+            displayValue: e,
+        });
+    }
+
     render() {
-        const { mode } = this.state;
+        const { mode, displayValue } = this.state;
         const isMonthView = mode === 'month';
         const dailyEventStyle = {
             borderRadius: '3px',
@@ -203,7 +211,6 @@ class Demo extends React.Component {
                 children: <div style={allDayStyle}>July 26th 10:00 ~ July 27th 16:00</div>,
             },
         ];
-        const displayValue = new Date(2019, 6, 23, 8, 32, 0);
         return (
             <>
                 <RadioGroup onChange={e => this.onSelect(e)} value={mode}>
@@ -212,6 +219,9 @@ class Demo extends React.Component {
                     <Radio value={'month'}>Month view</Radio>
                     <Radio value={'range'}>Multi-day view</Radio>
                 </RadioGroup>
+                <br />
+                <br />
+                <DatePicker value={displayValue} onChange={e => this.onChangeDate(e)} />
                 <br />
                 <br />
                 <Calendar
