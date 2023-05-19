@@ -112,7 +112,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
     componentDidUpdate(prevProps: RangeCalendarProps, prevState: RangeCalendarState) {
         const prevEventKeys = prevState.cachedKeys;
         const nowEventKeys = this.props.events.map(event => event.key);
-        if (!isEqual(prevEventKeys, nowEventKeys)) {
+        if (!isEqual(prevEventKeys, nowEventKeys) || !isEqual(prevProps.range, this.props.range)) {
             this.foundation.parseRangeEvents();
         }
     }

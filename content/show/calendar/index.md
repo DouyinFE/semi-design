@@ -97,13 +97,14 @@ import { Calendar } from '@douyinfe/semi-ui';
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Calendar, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import { Calendar, DatePicker, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
             mode: 'week',
+            displayValue: new Date(2019, 6, 23, 8, 32, 0),
         };
     }
 
@@ -112,8 +113,15 @@ class Demo extends React.Component {
             mode: e.target.value,
         });
     }
+
+    onChangeDate(e) {
+        this.setState({
+            displayValue: e,
+        });
+    }
+
     render() {
-        const { mode } = this.state;
+        const { mode, displayValue } = this.state;
         const isMonthView = mode === 'month';
         const dailyEventStyle = {
             borderRadius: '3px',
@@ -195,7 +203,6 @@ class Demo extends React.Component {
                 children: <div style={allDayStyle}>7月26日 10:00 ~ 7月27日 16:00</div>,
             },
         ];
-        const displayValue = new Date(2019, 6, 23, 8, 32, 0);
         return (
             <>
                 <RadioGroup onChange={e => this.onSelect(e)} value={mode}>
@@ -204,6 +211,9 @@ class Demo extends React.Component {
                     <Radio value={'month'}>月视图</Radio>
                     <Radio value={'range'}>多日视图</Radio>
                 </RadioGroup>
+                <br />
+                <br />
+                <DatePicker value={displayValue} onChange={e => this.onChangeDate(e)} />
                 <br />
                 <br />
                 <Calendar

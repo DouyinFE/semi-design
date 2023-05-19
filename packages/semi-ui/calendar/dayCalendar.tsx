@@ -98,7 +98,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
     componentDidUpdate(prevProps: DayCalendarProps, prevState: DayCalendarState) {
         const prevEventKeys = prevState.cachedKeys;
         const nowEventKeys = this.props.events.map(event => event.key);
-        if (!isEqual(prevEventKeys, nowEventKeys)) {
+        if (!isEqual(prevEventKeys, nowEventKeys) || !isEqual(prevProps.displayValue, this.props.displayValue)) {
             this.foundation.parseDailyEvents();
         }
     }
