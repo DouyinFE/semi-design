@@ -498,7 +498,9 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             triggerRender,
             insetInput,
             presetPosition,
-            yearAndMonthOpts
+            yearAndMonthOpts,
+            startYear,
+            endYear
         } = this.props;
         const { cachedSelectedValue, rangeInputFocus } = this.state;
 
@@ -542,6 +544,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 renderQuickControls={this.renderQuickControls()}
                 renderDateInput={this.renderDateInput()}
                 yearAndMonthOpts={yearAndMonthOpts}
+                startYear={startYear}
+                endYear={endYear}
             />
         );
     }
@@ -776,7 +780,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderYearMonthPanel = (locale: Locale['DatePicker'], localeCode: string) => {
-        const { density, presetPosition, yearAndMonthOpts, type } = this.props;
+        const { density, presetPosition, yearAndMonthOpts, type, startYear, endYear } = this.props;
 
         const date = this.state.value[0];
         const year = { left: 0, right: 0 };
@@ -811,6 +815,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 renderDateInput={this.renderDateInput()}
                 type={type}
                 yearAndMonthOpts={yearAndMonthOpts}
+                startYear={startYear}
+                endYear={endYear}
             />
         );
     };
