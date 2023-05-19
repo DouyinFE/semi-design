@@ -83,6 +83,18 @@ $module: #{$prefix}-table;
         }
     }
 
+    &-align-center {
+        .#{$module}-operate-wrapper {
+            justify-content: center;
+        }
+    }
+
+    &-align-right {
+        .#{$module}-operate-wrapper {
+            justify-content: flex-end;
+        }
+    }
+
     &-operate-wrapper {
         display: flex;
         justify-content: flex-start;
