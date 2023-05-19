@@ -52,7 +52,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
             }
 
-            .#{$prefix}-icon-close {
+            .#{$prefix}-icon.#{$prefix}-icon-close {
                 margin-right: 0;
                 font-size: 14px;
                 color: var(--semi-color-text-2);
@@ -90,12 +90,12 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                     color: $color-tabs_tab_selected-icon-default;
                 }
 
-                .#{$prefix}-icon-close {
+                .#{$prefix}-icon.#{$prefix}-icon-close {
                     color: var(--semi-color-text-2);
                 }
             }
 
-            .#{$prefix}-icon-close:hover {
+            .#{$prefix}-icon.#{$prefix}-icon-close:hover {
                 color: var(--semi-color-text-1);
             }
         }
@@ -134,7 +134,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
             }
 
-            .#{$prefix}-icon-close {
+            .#{$prefix}-icon.#{$prefix}-icon-close {
                 margin-right: 0;
                 font-size: 14px;
                 color: var(--semi-color-text-2);
@@ -172,12 +172,12 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                     color: $color-tabs_tab_selected-icon-default;
                 }
 
-                .#{$prefix}-icon-close {
+                .#{$prefix}-icon.#{$prefix}-icon-close {
                     color: var(--semi-color-text-2);
                 }
             }
 
-            .#{$prefix}-icon-close:hover {
+            .#{$prefix}-icon.#{$prefix}-icon-close:hover {
                 color: var(--semi-color-text-1);
             }
         }
