@@ -5,5 +5,8 @@
         "packages/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx",
+        "./webpack.config.ts",
+        "cypress/**/*.ts",
+        "cypress/**/*.tsx"
     ]
 }

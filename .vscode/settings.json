@@ -1,7 +1,7 @@
 {
     "[typescript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascript]": {
         "editor.formatOnSave": false,
@@ -17,7 +17,7 @@
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "typescript.updateImportsOnFileMove.enabled": "always",
     "files.autoSave": "onFocusChange",
@@ -40,8 +40,5 @@
         "public/page-data/en-US/other/locale",
         "public/page-data/zh-CN/other/locale"
     ],
-    "cSpell.words": [
-        "backtop",
-        "Splited"
-    ]
+    "cSpell.words": ["backtop", "Splited"]
 }
