@@ -3,7 +3,7 @@ import Tabs from '../index';
 import Button from '@douyinfe/semi-ui/button/index';
 import Typography from '@douyinfe/semi-ui/typography/index';
 import Switch from '@douyinfe/semi-ui/switch/index';
-import { Radio, RadioGroup } from '@douyinfe/semi-ui';
+import { Radio, RadioGroup, Checkbox } from '@douyinfe/semi-ui';
 import Icon from '../../icons';
 import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 const TabPane = Tabs.TabPane;
@@ -987,3 +987,16 @@ export const Fix1456 = () =>{
 Fix1456.story = {
   name: 'Fix-1456',
 };
+
+export const IconStyle = () => {
+  return (
+    <Tabs type="line">
+        <TabPane tab={<Radio defaultChecked>test2</Radio>} itemKey="1">
+          用于测试 tab 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+        <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="2">
+          用于测试 Checkbox 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+    </Tabs>
+  )
+}
