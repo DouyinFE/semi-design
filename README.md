@@ -9,7 +9,7 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  [![Design Token][Design Token]][Design Token] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  [![Design Token][Design Token]] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
