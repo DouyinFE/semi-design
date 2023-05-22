@@ -3,9 +3,9 @@ import Tabs from '../index';
 import Button from '@douyinfe/semi-ui/button/index';
 import Typography from '@douyinfe/semi-ui/typography/index';
 import Switch from '@douyinfe/semi-ui/switch/index';
-import { Radio, RadioGroup } from '@douyinfe/semi-ui';
+import { Radio, RadioGroup, Checkbox } from '@douyinfe/semi-ui';
 import Icon from '../../icons';
-import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconFile, IconGlobe, IconHelpCircle, IconClose } from '@douyinfe/semi-icons';
 const TabPane = Tabs.TabPane;
 const { Title } = Typography;
 
@@ -962,4 +962,44 @@ export const TabItem = () => {
       </div>
     ))}
   </div>)
+}
+
+
+export const Fix1456 = () =>{
+  const [key, setKey] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  return (
+        <div id='wrapper' style={{ height: 300, overflowY: 'scroll' }}>
+          <div style={{ height: 500 }}>
+          <Tabs style={{ width: '300px', margin: '20px' }} type="card" collapsible>
+            {key.map(i => (
+              <TabPane tab={`tab-${i}`} itemKey={`${i}`} key={i}>
+                  Content of card tab {i}
+              </TabPane>
+            ))}
+          </Tabs>
+          <Button onClick={()=>{setKey([8, 9, 10, 11, 12, 13, 14, 15])}}>change key</Button>
+        </div>
+        </div>
+  );
+}
+
+Fix1456.story = {
+  name: 'Fix-1456',
+};
+
+export const IconStyle = () => {
+  return (
+    <Tabs type="card" >
+        <TabPane tab={<span><IconClose />文档</span> } itemKey="1" closable={true}>
+          用于测试图标设置为 close icon 是否正确
+        </TabPane>
+        <TabPane tab={<Radio defaultChecked>test2</Radio>} itemKey="2">
+          用于测试 tab 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+        <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="3">
+          用于测试 Checkbox 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+    </Tabs>
+  )
 }

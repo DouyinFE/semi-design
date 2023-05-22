@@ -82,4 +82,22 @@ describe('tabs', () => {
         cy.get('[id=semiTab1]').type('{backspace}');
         cy.get('[id=semiTab1]').should('not.exist');
     });
+
+    it('collapsible', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--fix-1456&args=&viewMode=story');
+
+        // Ensure the correctness of the dropdown item after selection
+        cy.get('[id=semiTab2]').click();
+        cy.get('.semi-button').eq(1).trigger('mouseover');
+        cy.get('.semi-dropdown-content .semi-dropdown-item').contains('tab-7').should('exist');
+        cy.get('li span').contains('Tab-0').should('not.exist');
+        
+        cy.get('.semi-button').eq(1).trigger('mouseout');
+
+        // Make sure that the state of the button does not change after vertical scrolling makes the tabs obscured
+        cy.get('.semi-button').eq(2).click();
+        cy.get('[id=wrapper]').scrollTo(0, 40);
+        cy.get('.semi-button-disabled').eq(0).should('exist');
+        cy.get('.semi-tabs-bar-arrow .semi-button-primary').eq(0).should('exist');
+    });
 });

@@ -299,3 +299,16 @@ export const TimePickerWithOnChangeWithDateFirst = () => {
 TimePickerWithOnChangeWithDateFirst.story = {
   name: 'OnChangeWithDateFirst',
 };
+
+export const Fix1604 = () => {
+  const [value, setValue] = useState();
+  return (
+    <div>
+      <TimePicker value={value} onChange={(value) => {console.log('onChange', value); setValue(value);}} timeZone={0}/>
+    </div>
+  );
+};
+
+Fix1604.story = {
+  name: 'Fix Time Zone',
+};

@@ -281,13 +281,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         const { expanded } = this.state;
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
-
-        // Currently only text truncation is supported, if there is non-text, 
-        // both css truncation and js truncation should throw a warning
-        warning(
-            'children' in this.props && typeof children !== 'string',
-            "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
-        );
+        
 
         // If children is null, css/js truncated flag isTruncate is false
         if (isNull(children)) {
@@ -297,6 +291,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             });
             return undefined;
         }
+
+        // Currently only text truncation is supported, if there is non-text, 
+        // both css truncation and js truncation should throw a warning
+        warning(
+            'children' in this.props && typeof children !== 'string',
+            "[Semi Typography] Only children with pure text could be used with ellipsis at this moment."
+        );
 
         if (!rows || rows < 0 || expanded) {
             return undefined;
@@ -644,16 +645,22 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     render() {
-        return (
-            <ResizeObserver onResize={this.onResize}>
-                <LocaleConsumer componentName="Typography">     
-                    {(locale: Locale['Typography']) => {
-                        this.expandStr = locale.expand;
-                        this.collapseStr = locale.collapse;
-                        return this.renderTipWrapper();
-                    }}
-                </LocaleConsumer>
-            </ResizeObserver>
+        const content = (
+            <LocaleConsumer componentName="Typography">
+                {(locale: Locale['Typography']) => {
+                    this.expandStr = locale.expand;
+                    this.collapseStr = locale.collapse;
+                    return this.renderTipWrapper();
+                }}
+            </LocaleConsumer>
         );
+        if (this.props.ellipsis) {
+            return (
+                <ResizeObserver onResize={this.onResize} observeParent>
+                    {content}
+                </ResizeObserver>
+            );
+        }
+        return content;
     }
 }
