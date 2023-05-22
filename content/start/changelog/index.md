@@ -17,6 +17,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
     - 修复 collapsible Tabs 切换 tab 后，Dropdown item 异常问题
     - 修复 select 单选和 renderSelectedItem 情况下，defaultValue 为 null 时不显示 placeholder 问题
+    - 修复部分情境下垂直 slider 点击跳转值错误的问题
 
 #### 🎉 2.35.0-beta.0 (2023-05-10)
 - 【Fix】

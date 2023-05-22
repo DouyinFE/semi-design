@@ -638,7 +638,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
                     rules={[
                         { required: true, message: 'required error' },
                         { type: 'string', message: 'type error' },
-                        { validator: (rule, value) => value === 'semi', message: 'shoulde be semi' }
+                        { validator: (rule, value) => value === 'semi', message: 'should be semi' }
                     ]}
                 />
             </Col>

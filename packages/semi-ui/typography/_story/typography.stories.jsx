@@ -719,7 +719,7 @@ export const EdgeCases = () => (
         collapseText: '折叠我吧' 
       }} 
       style={{ width: 300 }}>
-        case 2：长度刚好符合预期，不应该省略，不应该显示展开按钮。长度刚好符合预期，不应该省略，不应该显示展开按钮。不应该显示展开的。
+        case 3：长度刚好符合预期，不应该省略，不应该显示展开按钮。长度刚好符合预期，不应该省略，不应该显示展开按钮。不应该显示展开的。
     </Paragraph>
   </>
 );
@@ -794,3 +794,18 @@ export const whiteSpaceNoWrap = () => (
     </Typography.Text>
   </div>
 )
+
+export const TextNoWarning = () => {
+  const { Text } = Typography;
+  return (
+    <div>
+      <div style={{ width: 500 }}>
+        <Text 
+          style={{ width: 300 }}
+        >
+          <div>这是一个非 string 类型的 Text 的 children, 无省略功能，控制台不应该出现和省略相关的 warning</div>
+        </Text>
+      </div>
+    </div>
+  )
+}

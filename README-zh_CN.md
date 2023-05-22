@@ -9,7 +9,7 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url] 
+[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] ![Design Token][Design Token] [![LICENSE][license-badge]][license-url] 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
 
 
@@ -17,7 +17,7 @@
 [npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
 [figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
 [figma-url]: https://www.figma.com/@semi
-
+[Design Token]: https://img.shields.io/badge/Design%20Token-2739%2B-brightgreen
 [license-badge]: https://img.shields.io/npm/l/@douyinfe/semi-ui
 [license-url]: https://github.com/DouyinFE/semi-design/blob/main/LICENSE
 [codecov-badge]: https://img.shields.io/codecov/c/gh/DouyinFE/semi-design
