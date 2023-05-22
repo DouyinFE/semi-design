@@ -6,6 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/anchor/constants';
 import LinkFoundation, { LinkAdapter } from '@douyinfe/semi-foundation/anchor/linkFoundation';
 import AnchorContext, { AnchorContextType } from './anchor-context';
 import Typography from '../typography/index';
+import { isObject } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -100,12 +101,17 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             [`${prefixCls}-link-tooltip-active`]: active,
             [`${prefixCls}-link-tooltip-disabled`]: disabled,
         });
-        const toolTipOpt = position ? { position } : {};
         if (showTooltip) {
+            const showTooltipObj = isObject(showTooltip) ? 
+                Object.assign({ opts: {} }, showTooltip) : { opts: {} };
+            // The position can be set through showTooltip, here it is compatible with the position API
+            if (position) {
+                showTooltipObj.opts['position'] = position;
+            }
             return (
                 <Typography.Text
                     size={size === 'default' ? 'normal' : 'small'}
-                    ellipsis={{ showTooltip: { opts: { ...toolTipOpt } } }}
+                    ellipsis={{ showTooltip: showTooltipObj }}
                     type={'tertiary'}
                     className={linkTitleCls}
                 >
