@@ -105,13 +105,14 @@ You could pass in an array of event objects to `events` to render items. For det
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Calendar, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import { Calendar, DatePicker, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 class Demo extends React.Component {
     constructor() {
         super();
         this.state = {
             mode: 'week',
+            displayValue: new Date(2019, 6, 23, 8, 32, 0),
         };
     }
 
@@ -120,8 +121,15 @@ class Demo extends React.Component {
             mode: e.target.value,
         });
     }
+
+    onChangeDate(e) {
+        this.setState({
+            displayValue: e,
+        });
+    }
+
     render() {
-        const { mode } = this.state;
+        const { mode, displayValue } = this.state;
         const isMonthView = mode === 'month';
         const dailyEventStyle = {
             borderRadius: '3px',
@@ -203,7 +211,6 @@ class Demo extends React.Component {
                 children: <div style={allDayStyle}>July 26th 10:00 ~ July 27th 16:00</div>,
             },
         ];
-        const displayValue = new Date(2019, 6, 23, 8, 32, 0);
         return (
             <>
                 <RadioGroup onChange={e => this.onSelect(e)} value={mode}>
@@ -212,6 +219,9 @@ class Demo extends React.Component {
                     <Radio value={'month'}>Month view</Radio>
                     <Radio value={'range'}>Multi-day view</Radio>
                 </RadioGroup>
+                <br />
+                <br />
+                <DatePicker value={displayValue} onChange={e => this.onChangeDate(e)} />
                 <br />
                 <br />
                 <Calendar
@@ -273,7 +283,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 ```
 
 #### Customized Date Cell Style
-You could alos use `dateGridRender` to customize date cell style, e.g. backgroundColor. Please notice that in Month View, the date text on the right corner has a z-index of 3. Use a larger z-index if you would like to cover the text as well.
+You could also use `dateGridRender` to customize date cell style, e.g. backgroundColor. Please notice that in Month View, the date text on the right corner has a z-index of 3. Use a larger z-index if you would like to cover the text as well.
 ```jsx live=true dir="column"
 import React from 'react';
 import { Calendar } from '@douyinfe/semi-ui';
@@ -313,6 +323,26 @@ import { Calendar } from '@douyinfe/semi-ui';
 };
 ```
 
+#### Customized Date Render
+You could use `renderDateDisplay` to customize the display of date
+
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Avatar, Calendar } from '@douyinfe/semi-ui';
+
+() => {
+    const displayValue = new Date(2023, 4, 14);
+
+    const renderDateDisplay = date => {
+        const colors = ["amber", "blue", "cyan", "green", "grey", "indigo", "lime"];
+        return <div><Avatar color={colors[date.getDay()]} size="small">{date.getDate()}</Avatar></div>;
+    };
+
+    return <Calendar height={400} mode="week" displayValue={displayValue} renderDateDisplay={renderDateDisplay} />;
+};
+```
+
 ## API Reference
 
 ### Calendar
@@ -320,6 +350,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | Properties   | Instructions                                                                                           | type                  | Default      |
 | ------------ | ------------------------------------------------------------------------------------------------------ | --------------------- | ------------ |
 | dateGridRender | Custom render for date cell or column. Use absolute positioning for elements. **v>=1.0.0** | function(dateString: string, date: Date) | - | 
+| allDayEventsRender | Custom render for events area at the top of calendar in day/range/week mode. | function(events: EventObject[]): ReactNode | - | 
 | displayValue | Display date                                                                                           | Date           | current date |
 | events       | Events for rendering, refer to event object                                                            | EventObject[]                 | -            |
 | header       | Header                                                                                                 | React.Node            | -            |
@@ -329,6 +360,7 @@ import { Calendar } from '@douyinfe/semi-ui';
 | onClick      | Callback invoked when clicking on date, basic unit for day and week mode is 0.5h, for month mode is 1d | function(e: Event, date: Date） | -            |
 | onClose | Callback invoked when event display card close in the month mode | function(e: Event） | - |
 | renderTimeDisplay | Customize the display of time in day/week mode | function(time: number): ReactNode | - |
+| renderDateDisplay | Customize the display of date | function(date: Date): ReactNode | - |
 | range | Date range to display in range mode, left-closed and right-open **v>=1.5.0** | Date[] | - |
 | scrollTop    | Scroll height for displayed content in day and week mode                                               | number                | 400          |
 | showCurrTime | Toggle whether to show red line of current time                                                        | boolean               | true         |

@@ -200,4 +200,42 @@ describe('Calendar', () => {
         // 2023-05-06
         expect(lastRow.find('li').last().hasClass(sameMonthClass)).toEqual(false);
     });
+
+    it('Custom renderDateDisplay', () => {
+        const displayValue = new Date(2023, 3, 1, 8, 32, 0);
+        const customPrefix = 'my-custom-render-';
+
+        let monthCalendar = mount(<Calendar
+            mode={'month'}
+            displayValue={displayValue}
+            renderDateDisplay={d => <span className={`${customPrefix}${d.getMonth()}-${d.getDate()}`} />}
+        ></Calendar>);
+
+        // 2023-04-01
+        expect(monthCalendar.find(`.${customPrefix}3-1`).length).toEqual(1);
+
+        let weekCalendar = mount(<Calendar
+            mode={'week'}
+            displayValue={displayValue}
+            renderDateDisplay={d => <span className={`${customPrefix}${d.getMonth()}-${d.getDate()}`} />}
+        ></Calendar>);
+
+        // 2023-04-01
+        expect(weekCalendar.find(`.${customPrefix}3-1`).length).toEqual(1);
+    });
+
+    it('Custom allDayEventsRender', () => {
+        const displayValue = new Date(2023, 3, 1, 8, 32, 0);
+        const customClassName = 'my-custom-render';
+        const defaultElementSelector = '.semi-calendar-event-allday';
+
+        let calendar = mount(<Calendar
+            mode={'week'}
+            displayValue={displayValue}
+            allDayEventsRender={events => <div className={customClassName} />}
+        ></Calendar>);
+
+        expect(calendar.find(`.${customClassName}`).length).toEqual(1);
+        expect(calendar.find(defaultElementSelector).length).toEqual(0);
+    });
 })
