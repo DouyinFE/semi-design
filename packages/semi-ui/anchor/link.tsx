@@ -6,6 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/anchor/constants';
 import LinkFoundation, { LinkAdapter } from '@douyinfe/semi-foundation/anchor/linkFoundation';
 import AnchorContext, { AnchorContextType } from './anchor-context';
 import Typography from '../typography/index';
+import { isObject } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -101,7 +102,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
             [`${prefixCls}-link-tooltip-disabled`]: disabled,
         });
         if (showTooltip) {
-            const showTooltipObj = Object.prototype.toString.call(showTooltip) === '[object Object]' ? 
+            const showTooltipObj = isObject(showTooltip) ? 
                 Object.assign({ opts: {} }, showTooltip) : { opts: {} };
             // The position can be set through showTooltip, here it is compatible with the position API
             if (position) {
