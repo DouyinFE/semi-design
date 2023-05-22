@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.35.0 (2023-05-12)
+- 【Fix】
+    - 修复 collapsible Tabs 切换 tab 后，Dropdown item 异常问题
+    - 修复 select 单选和 renderSelectedItem 情况下，defaultValue 为 null 时不显示 placeholder 问题
+    - 修复部分情境下垂直 slider 点击跳转值错误的问题
+
+#### 🎉 2.35.0-beta.0 (2023-05-10)
+- 【Fix】
+    - Avatar Cascader form input 的字重定义使用默认 $font-weight-bold
+
 #### 🎉 2.34.2 (2023-05-09)
 - 【Fix】
     - 修复 Input type=search 且 showClear 为true时，原生清除按钮与 Semi 清除按钮同时显示的问题  [#1598](https://github.com/DouyinFE/semi-design/issues/1598)

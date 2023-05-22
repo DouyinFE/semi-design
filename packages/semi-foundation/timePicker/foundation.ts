@@ -84,10 +84,8 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         return hDis || mDis || sDis;
     }
 
-    isValidTimeZone(timeZone?: string | number) {
-        const _timeZone = timeZone === undefined ? this.getProp('timeZone') : timeZone;
-
-        return ['string', 'number'].includes(typeof _timeZone) && _timeZone !== '';
+    isValidTimeZone(timeZone: string | number) {
+        return ['string', 'number'].includes(typeof timeZone) && timeZone !== '';
     }
 
     getDefaultFormatIfNeed(): string {
@@ -121,7 +119,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         (value as any[]).forEach(v => {
             const pv = parseToDate(v, formatToken, dateFnsLocale);
             if (!isNaN(pv.getTime())) {
-                parsedValues.push(this.isValidTimeZone() ? utcToZonedTime(pv, timeZone) : pv);
+                parsedValues.push(this.isValidTimeZone(timeZone) ? utcToZonedTime(pv, timeZone) : pv);
             }
         });
 
@@ -422,7 +420,7 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
             _value = Array.isArray(_value) ? _value[0] : _value;
         }
 
-        if (this.isValidTimeZone() && _value) {
+        if (this.isValidTimeZone(timeZone) && _value) {
             const formatToken = this.getValidFormat();
             if (Array.isArray(_value)) {
                 _value = _value.map(v => zonedTimeToUtc(v, timeZone));

@@ -19,12 +19,6 @@ import NavContext, { NavContextType } from './nav-context';
 import { times, get } from 'lodash';
 import Collapsible from "../collapsible";
 import CSSAnimation from "../_cssAnimation";
-
-export interface ToggleIcon {
-    open?: string;
-    closed?: string
-}
-
 export interface SubNavProps extends BaseProps {
     disabled?: boolean;
     dropdownStyle?: React.CSSProperties;
@@ -38,7 +32,7 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    toggleIcon?: ToggleIcon
+    expandIcon?: React.ReactNode
 }
 
 export interface SubNavState {
@@ -73,16 +67,6 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
          * Nested child elements
          */
         children: PropTypes.node,
-        /**
-         * The icon name of the right control switch (on and off status)
-         */
-        toggleIcon: PropTypes.oneOfType([
-            PropTypes.any,
-            PropTypes.shape({
-                open: PropTypes.string,
-                closed: PropTypes.string,
-            }),
-        ]),
         style: PropTypes.object,
         /**
          * Icon name on the left
@@ -105,10 +89,6 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         isCollapsed: false,
         isOpen: false,
         maxHeight: numbers.DEFAULT_SUBNAV_MAX_HEIGHT,
-        toggleIcon: {
-            open: <IconChevronUp aria-hidden={true} />,
-            closed: <IconChevronDown aria-hidden={true} />,
-        },
         disabled: false,
     };
 
@@ -207,7 +187,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
     }
 
     renderTitleDiv() {
-        const { text, icon, itemKey, indent, disabled, level } = this.props;
+        const { text, icon, itemKey, indent, disabled, level, expandIcon } = this.props;
 
         const { mode, isInSubNav, isCollapsed, prefixCls, subNavMotion, limitIndent } = this.context;
 
@@ -231,7 +211,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             if (isInSubNav) {
                 toggleIconType = <IconChevronRight aria-hidden={true} />;
             } else {
-                toggleIconType = <IconChevronDown aria-hidden={true} />;
+                toggleIconType = expandIcon ? expandIcon : <IconChevronDown aria-hidden={true} />;
                 // Horizontal mode does not require animation fix#1198
                 // withTransition = true;
             }
@@ -239,7 +219,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             if (subNavMotion) {
                 withTransition = true;
             }
-            toggleIconType = <IconChevronDown aria-hidden={true} />;
+            toggleIconType = expandIcon ? expandIcon : <IconChevronDown aria-hidden={true} />;
         }
 
         let placeholderIcons = null;

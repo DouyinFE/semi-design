@@ -11,6 +11,7 @@ import { noop, debounce, throttle } from 'lodash';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';
 import ConfigContext, { ContextValue } from '../configProvider/context';
+import { ShowTooltip } from '../typography/interface';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -28,7 +29,7 @@ export interface AnchorProps {
     position?: ArrayElement<typeof strings.POSITION_SET>;
     railTheme?: ArrayElement<typeof strings.SLIDE_COLOR>;
     scrollMotion?: boolean;
-    showTooltip?: boolean;
+    showTooltip?: boolean | ShowTooltip;
     size?: ArrayElement<typeof strings.SIZE>;
     style?: React.CSSProperties;
     targetOffset?: number;

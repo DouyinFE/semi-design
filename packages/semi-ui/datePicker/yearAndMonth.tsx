@@ -42,6 +42,8 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         renderQuickControls: PropTypes.node,
         renderDateInput: PropTypes.node,
         type: PropTypes.oneOf(strings.TYPE_SET),
+        startYear: PropTypes.number,
+        endYear: PropTypes.number,
     };
 
     static defaultProps = {
@@ -69,7 +71,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         currentMonth = { left: currentLeftMonth, right: currentMonth.right || currentLeftMonth + 1 };
 
         this.state = {
-            years: getYears().map(year => ({
+            years: getYears(props.startYear, props.endYear).map(year => ({
                 value: year,
                 year,
             })),
@@ -298,7 +300,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                             {presetPosition === "left" && type !== 'monthRange' && renderQuickControls}
                             <div>
                                 {renderDateInput}
-                                {content} 
+                                {content}
                             </div>
                             {/* todo: monthRange does not support presetPosition temporarily */}
                             {presetPosition === "right" && type !== 'monthRange' && renderQuickControls}
@@ -306,7 +308,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                     ) :
                         <>
                             {renderDateInput}
-                            {content} 
+                            {content}
                         </>
                 }
             </React.Fragment>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -38,7 +38,8 @@ export interface BaseTypographyProps extends BaseProps {
     children?: React.ReactNode;
     component?: React.ElementType;
     spacing?: string;
-    heading?: string
+    heading?: string;
+    weight?: string | number
 }
 
 interface BaseTypographyState {
@@ -50,6 +51,7 @@ interface BaseTypographyState {
     isTruncated: boolean;
     prevChildren: React.ReactNode
 }
+
 const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';
 
@@ -213,7 +215,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         this.rafId = window.requestAnimationFrame(this.getEllipsisState.bind(this));
     };
 
-    // if need to use js overflowed:
+    // if it needs to use js overflowed:
     // 1. text is expandable 2. expandText need to be shown  3. has extra operation 4. text need to ellipse from mid
     canUseCSSEllipsis = () => {
         const { copyable } = this.props;
@@ -279,13 +281,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         const { expanded } = this.state;
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
-
-        // Currently only text truncation is supported, if there is non-text, 
-        // both css truncation and js truncation should throw a warning
-        warning(
-            'children' in this.props && typeof children !== 'string',
-            "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
-        );
+        
 
         // If children is null, css/js truncated flag isTruncate is false
         if (isNull(children)) {
@@ -295,6 +291,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             });
             return undefined;
         }
+
+        // Currently only text truncation is supported, if there is non-text, 
+        // both css truncation and js truncation should throw a warning
+        warning(
+            'children' in this.props && typeof children !== 'string',
+            "[Semi Typography] Only children with pure text could be used with ellipsis at this moment."
+        );
 
         if (!rows || rows < 0 || expanded) {
             return undefined;
@@ -526,7 +529,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             duration: 3,
             ...(typeof copyable === 'object' ? copyable : null),
         };
-        return <Copyable {...copyConfig} forwardRef={this.copyRef} />;
+        return <Copyable {...copyConfig} forwardRef={this.copyRef}/>;
     }
 
     renderIcon() {
@@ -556,6 +559,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             size,
             link,
             heading,
+            weight,
             ...rest
         } = this.props;
         const textProps = omit(rest, [
@@ -584,6 +588,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             </>
         );
         const hTagReg = /^h[1-6]$/;
+        const isHeader = isString(heading) && hTagReg.test(heading);
         const wrapperCls = cls(className, ellipsisCls, {
             // [`${prefixCls}-primary`]: !type || type === 'primary',
             [`${prefixCls}-${type}`]: type && !link,
@@ -591,12 +596,21 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             [`${prefixCls}-link`]: link,
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-${spacing}`]: spacing,
-            [`${prefixCls}-${heading}`]: isString(heading) && hTagReg.test(heading),
+            [`${prefixCls}-${heading}`]: isHeader,
+            [`${prefixCls}-${heading}-weight-${weight}`]: isHeader && isNaN(Number(weight)),
         });
+
+        const textStyle: CSSProperties = {
+            ...(
+                isNaN(Number(weight)) ? {} : { fontWeight: weight }
+            ),
+            ...style
+        };
+
         return (
             <Typography
                 className={wrapperCls}
-                style={{ ...style, ...ellipsisStyle }}
+                style={{ ...textStyle, ...ellipsisStyle }}
                 component={component}
                 forwardRef={this.wrapperRef}
                 {...textProps}
@@ -631,16 +645,22 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     render() {
-        return (
-            <ResizeObserver onResize={this.onResize}>
-                <LocaleConsumer componentName="Typography">     
-                    {(locale: Locale['Typography']) => {
-                        this.expandStr = locale.expand;
-                        this.collapseStr = locale.collapse;
-                        return this.renderTipWrapper();
-                    }}
-                </LocaleConsumer>
-            </ResizeObserver>
+        const content = (
+            <LocaleConsumer componentName="Typography">
+                {(locale: Locale['Typography']) => {
+                    this.expandStr = locale.expand;
+                    this.collapseStr = locale.collapse;
+                    return this.renderTipWrapper();
+                }}
+            </LocaleConsumer>
         );
+        if (this.props.ellipsis) {
+            return (
+                <ResizeObserver onResize={this.onResize} observeParent>
+                    {content}
+                </ResizeObserver>
+            );
+        }
+        return content;
     }
 }

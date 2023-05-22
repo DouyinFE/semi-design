@@ -432,36 +432,39 @@ function Demo() {
 
 ### Typography.Text
 
-| 属性      | 说明                                                                                                                                      | 类型                              | 默认值    | 版本   |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ------ |
-| component | 自定义渲染元素                                                                                                                            | html element                      | span      |        |
-| code      | 是否被 `code` 元素包裹                                                                                                                            | boolean                      | -      |        |
-| copyable  | 是否可拷贝                                                                                                                                | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0 |
-| delete    | 添加删除线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
-| disabled  | 禁用文本                                                                                                                                  | boolean                           | false     | 0.27.0 |
-| ellipsis  | 设置自动溢出省略                                                                                                                          | boolean\|object:Ellipsis Config   | false     | 0.34.0 |
-| icon      | 前缀图标                                                                                                                                  | ReactNode                         | -         | 0.27.0 |
-| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                 | boolean\|object                   | false     | 0.27.0 |
-| mark      | 添加标记样式                                                                                                                              | boolean                           | false     | 0.27.0 |
-| size      | 文本大小，可选`normal`，`small`                                                                                                           | string                            | `normal`  | 0.27.0 |
-| strong    | 是否加粗                                                                                                                                  | boolean                           | false     | 0.27.0 |
+| 属性      | 说明                                                                                                                                    | 类型                              | 默认值    | 版本   |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ------ |
+| component | 自定义渲染元素                                                                                                                          | html element                      | span      |        |
+| code      | 是否被 `code` 元素包裹                                                                                                                          | boolean                      | -      |        |
+| copyable  | 是否可拷贝                                                                                                                              | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0 |
+| delete    | 添加删除线样式                                                                                                                          | boolean                           | false     | 0.27.0 |
+| disabled  | 禁用文本                                                                                                                                | boolean                           | false     | 0.27.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                        | boolean\|object:Ellipsis Config   | false     | 0.34.0 |
+| icon      | 前缀图标                                                                                                                                | ReactNode                         | -         | 0.27.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                               | boolean\|object                   | false     | 0.27.0 |
+| mark      | 添加标记样式                                                                                                                            | boolean                           | false     | 0.27.0 |
+| size      | 文本大小，可选`normal`，`small`                                                                                                         | string                            | `normal`  | 0.27.0 |
+| strong    | 是否加粗                                                                                                                                | boolean                           | false     | 0.27.0 |
 | type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                            | `primary` | 0.27.0 |
-| underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
+| underline | 添加下划线样式                                                                                                                          | boolean                           | false     | 0.27.0 |
+| weight | 设置字重  |  number                                        |  | 2.34.0 |
+
 
 ### Typography.Title
 
-| 属性      | 说明                                                                                                                                      | 类型                              | 默认值    | 版本   |
-| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------- | ------ |
-| component | 自定义渲染元素，默认由 heading 决定                                                                                                       | html element                      | h1~h6     |        |
-| copyable  | 是否可拷贝                                                                                                                                | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0 |
-| delete    | 添加删除线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
-| disabled  | 禁用文本                                                                                                                                  | boolean                           | false     | 0.27.0 |
-| ellipsis  | 设置自动溢出省略                                                                                                                          | boolean\|object:Ellipsis Config   | false     | 0.34.0 |
-| heading   | 标题级别，可选1， 2， 3，4，5，6，对应相应的标题                                                                                          | number                            | 1         | 0.27.0 |
-| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                 | boolean\|object                   | false     | 0.27.0 |
-| mark      | 添加标记样式                                                                                                                              | boolean                           | false     | 0.27.0 |
-| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                            | `primary` | 0.27.0 |
-| underline | 添加下划线样式                                                                                                                            | boolean                           | false     | 0.27.0 |
+| 属性      | 说明                                                                                                                                      | 类型                                                    | 默认值  | 版本     |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |-------------------------------------------------------| ------- |--------|
+| component | 自定义渲染元素，默认由 heading 决定                                                                                                       | html element                                          | h1~h6   |        |
+| copyable  | 是否可拷贝                                                                                                                                | boolean \| object:[Copyable Config](#Copyable-Config) | false   | 0.27.0 |
+| delete    | 添加删除线样式                                                                                                                            | boolean                                               | false   | 0.27.0 |
+| disabled  | 禁用文本                                                                                                                                  | boolean                                               | false   | 0.27.0 |
+| ellipsis  | 设置自动溢出省略                                                                                                                          | boolean\|object:Ellipsis Config                       | false   | 0.34.0 |
+| heading   | 标题级别，可选1， 2， 3，4，5，6，对应相应的标题                                                                                          | number                                                | 1       | 0.27.0 |
+| link      | 是否为链接，传object时，属性将透传给a标签                                                                                                 | boolean\|object                                       | false   | 0.27.0 |
+| mark      | 添加标记样式                                                                                                                              | boolean                                               | false   | 0.27.0 |
+| type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0 |
+| underline | 添加下划线样式                                                                                                                            | boolean                                               | false   | 0.27.0 |
+| weight | 设置字重, 可选 `light`, `regular`, `medium`, `semibold`, `bold`, `default`  | string, number                                        |  | 2.34.0 |
 
 ### Typography.Paragraph
 
