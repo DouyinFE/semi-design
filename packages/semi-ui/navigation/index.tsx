@@ -20,7 +20,7 @@ export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
 export type { NavHeaderProps } from './Header';
 export type { NavItemProps } from './Item';
-export type { ToggleIcon, SubNavProps } from './SubNav';
+export type { SubNavProps } from './SubNav';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {
@@ -47,6 +47,7 @@ export interface NavProps extends BaseProps {
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
+    expandIcon?: React.ReactNode;
     footer?: React.ReactNode | NavFooterProps;
     header?: React.ReactNode | NavHeaderProps;
     isCollapsed?: boolean;
@@ -113,11 +114,13 @@ class Nav extends BaseComponent<NavProps, NavState> {
     static Footer = Footer;
 
     static propTypes = {
+        collapseIcon: PropTypes.node,
         // Initial expanded SubNav navigation key array
         defaultOpenKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         openKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         // Initial selected navigation key array
         defaultSelectedKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+        expandIcon: PropTypes.node,
         selectedKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         // Navigation type, now supports vertical, horizontal
         mode: PropTypes.oneOf([...strings.MODE]),
@@ -261,12 +264,19 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
+        const { expandIcon, collapseIcon } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
                     if (Array.isArray(item.items) && item.items.length) {
                         return (
-                            <SubNav key={item.itemKey || String(level) + idx} {...item as SubNavPropsWithItems} level={level}>
+                            <SubNav
+                                key={item.itemKey || String(level) + idx}
+                                {...item as SubNavPropsWithItems}
+                                level={level}
+                                expandIcon={expandIcon}
+                                collapseIcon={collapseIcon}
+                            >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
                         );
