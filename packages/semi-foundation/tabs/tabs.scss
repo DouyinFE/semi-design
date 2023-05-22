@@ -4,6 +4,8 @@
 
 
 $module: #{$prefix}-tabs;
+// Prevent the Radio and Checkbox in ReactNode passed in through the tab attribute in Tabs from being affected by the icon style override
+$ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix}-icon-checkbox_indeterminate';
 
 .#{$module} {
     box-sizing: border-box;
@@ -41,7 +43,7 @@ $module: #{$prefix}-tabs;
 
             user-select: none;
 
-            .#{$prefix}-icon {
+            .#{$prefix}-icon:not(#{$ignoreIcon}) {
                 position: relative;
                 margin-right: $spacing-tabs_tab_icon-marginRight;
                 top: $spacing-tabs_tab_icon-top;
@@ -50,7 +52,7 @@ $module: #{$prefix}-tabs;
 
             }
 
-            .#{$prefix}-icon-close {
+            .#{$prefix}-icon.#{$module}-tab-icon-close {
                 margin-right: 0;
                 font-size: 14px;
                 color: var(--semi-color-text-2);
@@ -61,7 +63,7 @@ $module: #{$prefix}-tabs;
             &:hover {
                 color: $color-tabs_tab_line_default-text-hover;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-hover;
                 }
             }
@@ -69,7 +71,7 @@ $module: #{$prefix}-tabs;
             &:active {
                 color: $color-tabs_tab_line_default-text-active;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-active;
                 }
             }
@@ -84,16 +86,16 @@ $module: #{$prefix}-tabs;
                 font-weight: $font-tabs_tab_active-fontWeight;
                 color: $color-tabs_tab_line_selected-text-default;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab_selected-icon-default;
                 }
 
-                .#{$prefix}-icon-close {
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
                     color: var(--semi-color-text-2);
                 }
             }
 
-            .#{$prefix}-icon-close:hover {
+            .#{$prefix}-icon.#{$module}-tab-icon-close:hover {
                 color: var(--semi-color-text-1);
             }
         }
@@ -123,7 +125,7 @@ $module: #{$prefix}-tabs;
 
             user-select: none;
 
-            .#{$prefix}-icon {
+            .#{$prefix}-icon:not(#{$ignoreIcon}) {
                 position: relative;
                 margin-right: $spacing-tabs_tab_icon-marginRight;
                 top: $spacing-tabs_tab_icon-top;
@@ -132,7 +134,7 @@ $module: #{$prefix}-tabs;
 
             }
 
-            .#{$prefix}-icon-close {
+            .#{$prefix}-icon.#{$module}-tab-icon-close {
                 margin-right: 0;
                 font-size: 14px;
                 color: var(--semi-color-text-2);
@@ -143,7 +145,7 @@ $module: #{$prefix}-tabs;
             &:hover {
                 color: $color-tabs_tab_line_default-text-hover;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-hover;
                 }
             }
@@ -151,7 +153,7 @@ $module: #{$prefix}-tabs;
             &:active {
                 color: $color-tabs_tab_line_default-text-active;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-active;
                 }
             }
@@ -166,16 +168,16 @@ $module: #{$prefix}-tabs;
                 font-weight: $font-tabs_tab_active-fontWeight;
                 color: $color-tabs_tab_line_selected-text-default;
 
-                .#{$prefix}-icon {
+                .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab_selected-icon-default;
                 }
 
-                .#{$prefix}-icon-close {
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
                     color: var(--semi-color-text-2);
                 }
             }
 
-            .#{$prefix}-icon-close:hover {
+            .#{$prefix}-icon.#{$module}-tab-icon-close:hover {
                 color: var(--semi-color-text-1);
             }
         }
