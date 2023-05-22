@@ -5,7 +5,7 @@ import Typography from '@douyinfe/semi-ui/typography/index';
 import Switch from '@douyinfe/semi-ui/switch/index';
 import { Radio, RadioGroup, Checkbox } from '@douyinfe/semi-ui';
 import Icon from '../../icons';
-import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconFile, IconGlobe, IconHelpCircle, IconClose } from '@douyinfe/semi-icons';
 const TabPane = Tabs.TabPane;
 const { Title } = Typography;
 
@@ -990,11 +990,14 @@ Fix1456.story = {
 
 export const IconStyle = () => {
   return (
-    <Tabs type="line">
-        <TabPane tab={<Radio defaultChecked>test2</Radio>} itemKey="1">
+    <Tabs type="card" >
+        <TabPane tab={<span><IconClose />文档</span> } itemKey="1" closable={true}>
+          用于测试图标设置为 close icon 是否正确
+        </TabPane>
+        <TabPane tab={<Radio defaultChecked>test2</Radio>} itemKey="2">
           用于测试 tab 下的 Radio 中的 semi-icon 是否收到影响
         </TabPane>
-        <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="2">
+        <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="3">
           用于测试 Checkbox 下的 Radio 中的 semi-icon 是否收到影响
         </TabPane>
     </Tabs>
