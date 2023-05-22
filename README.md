@@ -15,6 +15,7 @@
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
 [contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
 [contributors-url]: https://github.com/DouyinFE/semi-design/graphs/contributors
+[Design Token]: https://img.shields.io/badge/Design%20Token-2739%2B-brightgreen
 [npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
 [figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
 [figma-url]: https://www.figma.com/@semi
