@@ -13,6 +13,27 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.36.0-beta.0 (2023-05-22)
+- 【Feat】
+  - DatePicker 支持设置滚轮的开始年和结束年  [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
+  - Calendar 支持自定义渲染顶部事件 [@sylingd](https://github.com/sylingd)
+  - Calendar 支持自定义日期文案 [@sylingd](https://github.com/sylingd)
+  - Anchor 的 showTooltip API 支持 object 类型设置
+  - Typography.Title 新增 weight API，用于控制字重。
+  - Select 新增 search 方法
+  - Nav 增加 expandIcon 自定义下拉箭头；Nav.Footer 增加 onClick 回调, [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
+- 【Fix】
+  - 修复 TimePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题
+  - 修复 Tabs 中通过 tab API 传入的 ReactNode 中的 Radio，Checkbox 样式错误问题  [#1615 ](https://github.com/DouyinFE/semi-design/issues/1615)
+  - Calendar 在改变 displayValue 时，事件渲染错误 [@sylingd](https://github.com/sylingd)
+  - 去除 Typography 中省略未开启时的 ellipsis warning
+  - 修复 Table  表头 column align 对齐 bug（v2.34 ~ 2.35 受影响）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
+  - 移除 DatePicker 最外层 vertical-align top 样式  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
+  - 修复 handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
+- 【Design Token】
+  - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重。
+
+
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】
     - 修复 collapsible Tabs 切换 tab 后，Dropdown item 异常问题
