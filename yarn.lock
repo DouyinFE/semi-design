@@ -1479,19 +1479,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@douyinfe/semi-animation-react@2.34.0":
-  version "2.34.0"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-react/-/semi-animation-react-2.34.0.tgz#5535ecbb040cb0c95901c0c1a8da42b09ee71634"
-  integrity sha512-HhqHM6ftT+zetbnP0Y7ZXynkjBUw64FK/T5nsZidSN3ZcvJFSvefyWU9gJu2Ga+hv/hJCu5M1IBWjLhZwO5Mpw==
-  dependencies:
-    "@douyinfe/semi-animation" "2.12.0"
-    "@douyinfe/semi-animation-styled" "2.23.2"
-    classnames "^2.2.6"
-
-"@douyinfe/semi-animation-react@2.34.2":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.34.2.tgz#d59f12dfe43d50c19728bef7c53a095cdf519dd5"
-  integrity sha512-Fi6RyX2yPikvbJpgbF9YtYBFjAycFNOsGG44bcEWfS1zzNzpoCEsQYfmTHQ+jcl1izXi4un7MEBmx3tM1KnPuA==
+"@douyinfe/semi-animation-react@2.33.1":
+  version "2.33.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-react/-/semi-animation-react-2.33.1.tgz#353ce23968f27d4443bb2529cfd210f84d424034"
+  integrity sha512-qy3JZehPILkEx5R1Z42jDUL3ZJe1+4hdWBoY7r45nAzioIrA+mkhNS9HwkPDKvLmJsbWr+heRLFZSZj5HnhmkA==
   dependencies:
     "@douyinfe/semi-animation" "2.12.0"
     "@douyinfe/semi-animation-styled" "2.23.2"
@@ -1510,17 +1501,10 @@
     "@babel/runtime-corejs3" "^7.15.4"
     bezier-easing "^2.1.0"
 
-"@douyinfe/semi-animation@2.34.0":
-  version "2.34.0"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.34.0.tgz#63b1039ab76985aa59284b0e9fba29e76c501a66"
-  integrity sha512-asV/RGWsREUIegZyZulVktzPNejI8b4MsIhjn4X6ihhh1LOkq5ENTQ6DKnjsb+lbewvoQ61/vId5IC3tf8Ufaw==
-  dependencies:
-    bezier-easing "^2.1.0"
-
-"@douyinfe/semi-animation@2.34.2":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation/-/semi-animation-2.34.2.tgz#c6f4de670672a78313a6c2468fca29f47ac2a91c"
-  integrity sha512-Cvs4OJq8fM072XyiU17YbI4CLTSPmcRpzCfkKRYe3ZpI9YM7Mu2KEP7OgB2Bdgr5njgjxzsR1fjIbxQV4Zjz4Q==
+"@douyinfe/semi-animation@2.33.1":
+  version "2.33.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.33.1.tgz#cb5e2d45355212f7e1994671fe4acc6be12f6d26"
+  integrity sha512-11L+NlecZ3Xdb9/sS6WJRsLpwsOv8jpxOivX0yRXdFKlP+lFYKnbM8klASFEJBce2/CywHw0ue65M/dkhoIIBw==
   dependencies:
     bezier-easing "^2.1.0"
 
@@ -1538,20 +1522,6 @@
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
 
-"@douyinfe/semi-foundation@2.34.2":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.34.2.tgz#a8a63a6762b7c1bd0a0138047956134128c31c68"
-  integrity sha512-vOwjRKm42lt5p5sNyYzHR74QWPm7khGKLMjky/vAgI0ysF3XPUXmsm5IkyRRAurXIkuSPba4hKffIa2X7JC8Xw==
-  dependencies:
-    "@douyinfe/semi-animation" "2.12.0"
-    async-validator "^3.5.0"
-    classnames "^2.2.6"
-    date-fns "^2.29.3"
-    date-fns-tz "^1.3.8"
-    lodash "^4.17.21"
-    memoize-one "^5.2.1"
-    scroll-into-view-if-needed "^2.2.24"
-
 "@douyinfe/semi-icons@2.33.1", "@douyinfe/semi-icons@latest":
   version "2.33.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.33.1.tgz#8e2871d9bc0ab7e12df74e3c71802d53d69b7425"
@@ -1559,22 +1529,10 @@
   dependencies:
     classnames "^2.2.6"
 
-"@douyinfe/semi-icons@2.34.2", "@douyinfe/semi-icons@^2.0.0":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.34.2.tgz#ce694334a621c286d7b52923b84907d4cb3f86b3"
-  integrity sha512-XiQVr14fFxveF//0qQvh7uzmXbMraRl+7P+/zYr09x7N7DnyidmQQgSUhCiU/5IXQ/yJUA+e2/SfXcZsuui0nw==
-  dependencies:
-    classnames "^2.2.6"
-
 "@douyinfe/semi-illustrations@2.33.1":
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.33.1.tgz#530ab851f4dc32a52221c4067c778c800b9b55d7"
   integrity sha512-tTTUN8QwnQiF++sk4VBNzfkG87aYZ4iUeqk2ys8/ymVUmCZQ7y46ys020GO1MfPHRR47OMFPI82FVcH1WQtE3g==
-
-"@douyinfe/semi-illustrations@2.34.2":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-illustrations/-/semi-illustrations-2.34.2.tgz#6e5fdb875a7dbd54b49036ba9154d2594feedbb1"
-  integrity sha512-NO5A9catlhxLakhUYlm0izc4VD93BHRWTl9SaUJIHVghnm3sRZPnLWI2YLGQbJVyTpA2F78cGu3qEjw3ObRrmQ==
 
 "@douyinfe/semi-scss-compile@2.23.2":
   version "2.23.2"
@@ -1642,44 +1600,12 @@
     monaco-themes "^0.3.3"
     react-live "^2.2.2"
 
-"@douyinfe/semi-theme-default@2.34.0":
-  version "2.34.0"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-theme-default/-/semi-theme-default-2.34.0.tgz#292f82c150750ee151ef71a8ff14af8a1fd4ce59"
-  integrity sha512-Rv4upgz8gyCJaqJUj9/W9JwqYUb/Eyeqpt8IZK42G5Y3ltOzBPRuF4/P8mU8qRqVfnTMLjtsbyrvCCHMUTBN8w==
+"@douyinfe/semi-theme-default@2.33.1":
+  version "2.33.1"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-theme-default/-/semi-theme-default-2.33.1.tgz#79a67a625ee3c395ec542af58e47aad533f1378f"
+  integrity sha512-YptJl5aFiV6DVU7675DNQ2seA2FsXQ+kcx9GmPwonO7vUwY0syc05KuuNnR8dSZuDBI6mOzfQm/mw80RzkZ7pg==
   dependencies:
     glob "^7.1.6"
-
-"@douyinfe/semi-theme-default@2.34.2":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.34.2.tgz#7ec1005e03de6e4d1dd399d24a2a427824c460e7"
-  integrity sha512-954ytIhtIZrttVSDhxAk27vLaioSh0ikugl2ml37mhngbU7Dz+zDv+hFd8Y6SLpSNzRYQm63WgvkHgykPrIodQ==
-  dependencies:
-    glob "^7.1.6"
-
-"@douyinfe/semi-ui@^2.0.0":
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.34.2.tgz#d5a07e3e3d9aa0ee8a5bbd3b73f41319386f27c5"
-  integrity sha512-kuco5bZhckUuWWV4myDMcza52PtimJ8RJobwl0rvxa2k2z5kF/tNT7DjH1NBtyKLMkKDNaCaAMaOTSohQ89XuQ==
-  dependencies:
-    "@douyinfe/semi-animation" "2.34.2"
-    "@douyinfe/semi-animation-react" "2.34.2"
-    "@douyinfe/semi-foundation" "2.34.2"
-    "@douyinfe/semi-icons" "2.34.2"
-    "@douyinfe/semi-illustrations" "2.34.2"
-    "@douyinfe/semi-theme-default" "2.34.2"
-    async-validator "^3.5.0"
-    classnames "^2.2.6"
-    copy-text-to-clipboard "^2.1.1"
-    date-fns "^2.29.3"
-    date-fns-tz "^1.3.8"
-    lodash "^4.17.21"
-    prop-types "^15.7.2"
-    react-resizable "^1.8.0"
-    react-sortable-hoc "^2.0.0"
-    react-window "^1.8.2"
-    resize-observer-polyfill "^1.5.1"
-    scroll-into-view-if-needed "^2.2.24"
-    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.33.1"
@@ -8922,11 +8848,6 @@ commander@^4.0.1:
   resolved "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
 
-commander@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
-  integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
-
 commander@^6.2.0, commander@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmjs.org/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
@@ -9820,10 +9741,10 @@ cypress-plugin-tab@^1.0.5:
   dependencies:
     ally.js "^1.4.1"
 
-cypress@9.5.2:
-  version "9.5.2"
-  resolved "https://registry.npmjs.org/cypress/-/cypress-9.5.2.tgz#8fb6ee4a890fbc35620800810bf6fb11995927bd"
-  integrity sha512-gYiQYvJozMzDOriUV1rCt6CeRM/pRK4nhwGJj3nJQyX2BoUdTCVwp30xDMKc771HiNVhBtgj5o5/iBdVDVXQUg==
+cypress@^12.12.0:
+  version "12.12.0"
+  resolved "https://registry.npmjs.org/cypress/-/cypress-12.12.0.tgz#0da622a34c970d8699ca6562d8e905ed7ce33c77"
+  integrity sha512-UU5wFQ7SMVCR/hyKok/KmzG6fpZgBHHfrXcHzDmPHWrT+UUetxFzQgt7cxCszlwfozckzwkd22dxMwl/vNkWRw==
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
@@ -9839,12 +9760,12 @@ cypress@9.5.2:
     check-more-types "^2.24.0"
     cli-cursor "^3.1.0"
     cli-table3 "~0.6.1"
-    commander "^5.1.0"
+    commander "^6.2.1"
     common-tags "^1.8.0"
     dayjs "^1.10.4"
-    debug "^4.3.2"
+    debug "^4.3.4"
     enquirer "^2.3.6"
-    eventemitter2 "^6.4.3"
+    eventemitter2 "6.4.7"
     execa "4.1.0"
     executable "^4.1.1"
     extract-zip "2.0.1"
@@ -9857,7 +9778,7 @@ cypress@9.5.2:
     listr2 "^3.8.3"
     lodash "^4.17.21"
     log-symbols "^4.0.0"
-    minimist "^1.2.5"
+    minimist "^1.2.8"
     ospath "^1.2.2"
     pretty-bytes "^5.6.0"
     proxy-from-env "1.0.0"
@@ -11558,12 +11479,7 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     prop-types "^15.8.1"
     resolve "^2.0.0-next.4"
     semver "^6.3.0"
-    string.prototype.matchall "^4.0.6"
-
-eslint-plugin-semi-design@^2.33.0:
-  version "2.34.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.34.2.tgz#af2fdb2dad0bb04faf26eed00ae0c911f04949f1"
-  integrity sha512-6hDrYmjTMElEKRwQT829bUkH9A7Kb6ln0BR6jEO3i+6DvHwGBQJLKP1pSRGZBXzsW+Yqz15nnQZLFcNUPN7Iaw==
+    string.prototype.matchall "^4.0.8"
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
@@ -11818,10 +11734,10 @@ event-target-shim@^5.0.0:
   resolved "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-eventemitter2@^6.4.3:
-  version "6.4.9"
-  resolved "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.9.tgz#41f2750781b4230ed58827bc119d293471ecb125"
-  integrity sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==
+eventemitter2@6.4.7:
+  version "6.4.7"
+  resolved "https://registry.npmjs.org/eventemitter2/-/eventemitter2-6.4.7.tgz#a7f6c4d7abf28a14c1ef3442f21cb306a054271d"
+  integrity sha512-tYUSVOGeQPKt/eC1ABfhHy5Xd96N3oIijJvN3O9+TsC28T5V9yX9oEfEK5faP0EFSNVOG97qtAS68GBrQB2hDg==
 
 eventemitter3@^3.1.0:
   version "3.1.2"
@@ -18507,7 +18423,7 @@ minimist-options@^3.0.1:
     arrify "^1.0.1"
     is-plain-obj "^1.1.0"
 
-minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
+minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6, minimist@^1.2.8:
   version "1.2.8"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
   integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
