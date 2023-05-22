@@ -53,9 +53,9 @@ Semi 目前支持 21 种语言，具体使用可以查阅 [Semi·LocaleProvider]
 
 我们的样式基于 Scss，与此我们还使用了 CSS Variable 作为色盘变量。色盘变量和通用变量挂载在 body 下。不使用 CSS Module 是因为我们希望有固定的 className，为业务方保留修改/覆盖 Semi 样式的能力（虽然不提倡，但有些业务场景下确实需要）
 
-#### 为什么 Tooltip、Typography 不默认配置 word-break 样式？
+#### 为什么 Tooltip content 配置很长很长的内容时，某些情况下内容会超出显示区域?
 
-不同语言内容（纯英文、中文、中英文混合）对 word-break 的需求不太一致，所以组件层没有做这个预设。可以根据需求，使用 CSS 进行设置。
+在 v2.36.0 版本以前，考虑到不同语言内容（纯英文、中文、中英文混合、其他语种混合）对换行的需求不太一致，所以组件层没有做这个预设。在接收到较多使用反馈后，自 v2.36.0 版本，Tooltip 内部通过设置 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target="_blank" rel="noopener noreferrer">word-wrap</a> 为 break-word 处理文本换行。对于任意版本，如果默认设置不符合预期，使用方都可以通过 style/className API 设置换行相关 CSS 属性进行调整。
 
 #### 有新组件需求、或者现有组件 Feature 不能满足我的业务需求，该找谁？
 

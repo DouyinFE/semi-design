@@ -371,7 +371,7 @@ function Demo() {
 ```
 
 <Notice type="primary" title="注意事项">
-    <div>当发生超长文本在弹出的 tooltip 没有换行时，请手动设置一下 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank" rel="noopener noreferrer">word-break</a>。我们没有内置的原因是不同语言内容（纯英文、中文、中英文混合）对 word-break 的需求不太一致，所以组件层没有做这个预设。</div>
+    <div>当发生超长文本在弹出的 tooltip 没有换行时，可通过手动设置一下 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank" rel="noopener noreferrer">word-break</a> 或者 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a> 等换行相关属性进行调整, 更多细节可查看 Tooltip 的 FAQ 部分</div>
 </Notice>
 
 ```jsx live=true

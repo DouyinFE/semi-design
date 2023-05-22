@@ -371,7 +371,7 @@ function Demo() {
 ```
 
 <Notice type="primary" title="Tips">
-    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a>. The reason why we did not have built-in content is that different language content (pure English, Chinese, mixed Chinese and English) have different requirements for word-break, so the component layer does not make this preset.</div>
+    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually through <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a>, more details can be found in the FAQ section of Tooltip</div>
 </Notice>
 
 ```jsx live=true
