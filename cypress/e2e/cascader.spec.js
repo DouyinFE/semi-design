@@ -23,7 +23,8 @@ describe('cascader', () => {
         cy.get(".semi-cascader-clearbtn").focus();
         cy.get('.semi-cascader-clearbtn').type('{enter}');
         cy.get('.semi-cascader-search-wrapper span').eq(0).contains('Child Node2').should('not.exist');;
-        cy.get('#root').click('right');
+        // cy.get('#root').click('right');
+        cy.root().click('right');
 
         cy.get('.semi-cascader').eq(1).click();
         cy.get('.semi-checkbox').eq(0).click();
