@@ -32,7 +32,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - remove the ellipsis warning when omitting is not enabled in Typography
   - fix Table header column align bug（v2.34 ~ 2.35 affected）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
   - remove the outermost vertical-align top style of DatePicker  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
-  - fix the problem that the parameter type of handleInputChange does not match the parameter type of Input onChange
+  - fix the problem that select the parameter type of handleInputChange does not match the parameter type of Input onChange
 - 【Design Token】
   - Typography Add  `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` tokens. Used to control the font weight of different levels of Header respectively
 

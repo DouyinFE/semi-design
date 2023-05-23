@@ -15,39 +15,39 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】
-  - DatePicker 支持设置滚轮的开始年和结束年  [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
+  - DatePicker 支持设置滚轮的开始年和结束年 [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
   - Calendar 支持自定义渲染顶部事件 [@sylingd](https://github.com/sylingd)
   - Calendar 支持自定义日期文案 [@sylingd](https://github.com/sylingd)
+  - Nav 增加 expandIcon 自定义下拉箭头；Nav.Footer 增加 onClick 回调 [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
   - Anchor 的 showTooltip API 支持 object 类型设置
-  - Typography.Title 新增 weight API，用于控制字重。
-  - Select 新增 search 方法
-  - Nav 增加 expandIcon 自定义下拉箭头；Nav.Footer 增加 onClick 回调, [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
+  - Typography.Title 新增 weight API，用于控制字重
+  - Select ref 新增 search 方法暴露
 - 【Fix】
-  - 修复 TimePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题
-  - 修复 Tabs 中通过 tab API 传入的 ReactNode 中的 Radio，Checkbox 样式错误问题  [#1615 ](https://github.com/DouyinFE/semi-design/issues/1615)
-  - Calendar 在改变 displayValue 时，事件渲染错误 [@sylingd](https://github.com/sylingd)
-  - 去除 Typography 中省略未开启时的 ellipsis warning
-  - 修复 Table  表头 column align 对齐 bug（v2.34 ~ 2.35 受影响）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
+  - 修复 TimePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题 [#1604](https://github.com/DouyinFE/semi-design/issues/1604)
+  - 修复 Tabs 中通过 tab API 传入的 ReactNode 中的 Radio，Checkbox 样式错误问题  [#1615](https://github.com/DouyinFE/semi-design/issues/1615)
+  - 修复 Calendar 在改变 displayValue 时，事件渲染错误 [@sylingd](https://github.com/sylingd)
+  - 修复 Typography 中省略未开启时仍抛出 ellipsis warning 的问题
+  - 修复 Table  表头 column align 对齐 bug（影响范围 v2.34 ~ 2.35） [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
   - 移除 DatePicker 最外层 vertical-align top 样式  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
-  - 修复 handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
+  - 修复 Select handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
 - 【Design Token】
-  - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重。
+  - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重
 
 
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】
     - 修复 collapsible Tabs 切换 tab 后，Dropdown item 异常问题
     - 修复 select 单选和 renderSelectedItem 情况下，defaultValue 为 null 时不显示 placeholder 问题
-    - 修复部分情境下垂直 slider 点击跳转值错误的问题
+    - 修复 部分场景下垂直 slider 点击跳转值错误的问题
 
 #### 🎉 2.35.0-beta.0 (2023-05-10)
 - 【Fix】
-    - Avatar Cascader form input 的字重定义使用默认 $font-weight-bold
+    - Avatar、Cascader、Form、Input 的字重定义使用默认 $font-weight-bold
 
 #### 🎉 2.34.2 (2023-05-09)
 - 【Fix】
     - 修复 Input type=search 且 showClear 为true时，原生清除按钮与 Semi 清除按钮同时显示的问题  [#1598](https://github.com/DouyinFE/semi-design/issues/1598)
-    - 修复 DatePicker disabledDate 无法选择禁用边界日期问题  [#1592 ](https://github.com/DouyinFE/semi-design/issues/1592)
+    - 修复 DatePicker disabledDate 无法选择禁用边界日期问题  [#1592](https://github.com/DouyinFE/semi-design/issues/1592)
 
 #### 🎉 2.34.1 (2023-05-06)
 - 【Fix】
@@ -60,6 +60,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
   - 修复 Typography 在父级或自身设置 white-space 为 nowrap 时截断出错问题 [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
   - 修复 懒加载模式下 Image 的 src 变化，图片无法正常加载问题 [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
+
+
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
   - 新增 Rspack plugin，支持 Rspack 工程配置主题、prefixCls等 [@Asuka109](https://github.com/Asuka109)
