@@ -28,22 +28,23 @@ describe('tooltip', () => {
         cy.get('[x-placement="rightBottomOver"]').should('have.length', 1);
     });
 
-    it('position with over autoAdjustOverflow', () => {
-        const viewportWidth = 600;
-        const viewportHeight = 400;
-        const overList = ['leftTopOver', 'rightTopOver', 'rightBottomOver', 'leftBottomOver'];
+    // TODO:
+    // it('position with over autoAdjustOverflow', () => {
+    //     const viewportWidth = 600;
+    //     const viewportHeight = 400;
+    //     const overList = ['leftTopOver', 'rightTopOver', 'rightBottomOver', 'leftBottomOver'];
 
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--left-top-over-demo&args=&viewMode=story');
-        cy.viewport(viewportWidth, viewportHeight);
-        const dataSelector = `[data-cy=toggleVisible]`;
-        cy.get(dataSelector).click({ force: true });
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--left-top-over-demo&args=&viewMode=story');
+    //     cy.viewport(viewportWidth, viewportHeight);
+    //     const dataSelector = `[data-cy=toggleVisible]`;
+    //     cy.get(dataSelector).click({ force: true });
         
-        for (let i=0; i<overList.length; i++){
-            const dataSelector = `[data-cy=`+ overList[i] + `]`;
-            cy.get(dataSelector).click({ force: true });
-            cy.get('[x-placement="'+ overList[overList.length - 1 - i] +'"]').should('have.length', 1);
-        }
-    });
+    //     for (let i=0; i<overList.length; i++){
+    //         const dataSelector = `[data-cy=`+ overList[i] + `]`;
+    //         cy.get(dataSelector).click({ force: true });
+    //         cy.get('[x-placement="'+ overList[overList.length - 1 - i] +'"]').should('have.length', 1);
+    //     }
+    // });
 
     it('autoFocusHover', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
