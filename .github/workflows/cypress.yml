@@ -75,7 +75,7 @@ jobs:
                   record: true
                   parallel: true
                   group: 'Cypress - Chrome'
-                  spec: cypress/integration/*
+                  spec: cypress/e2e/*
               env:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   # Recommended: pass the GitHub token lets this action correctly
@@ -107,7 +107,7 @@ jobs:
     #               record: true
     #               parallel: true
     #               group: 'Cypress - Firefox'
-    #               spec: cypress/integration/*
+    #               spec: cypress/e2e/*
     #           env:
     #               CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
     #               # Recommended: pass the GitHub token lets this action correctly
