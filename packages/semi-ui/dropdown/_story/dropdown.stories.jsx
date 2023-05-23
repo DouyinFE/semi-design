@@ -10,7 +10,7 @@ import InHoverElements from './InHoverElements';
 import WrapAvatar from './WrapAvatar';
 import { IconBox, IconChevronDown, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
 
-export * from '../_story/C2D';
+export { DropdownItem } from '../_story/C2D';
 
 export default {
   title: 'Dropdown',
