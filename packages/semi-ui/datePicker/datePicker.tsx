@@ -580,7 +580,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();

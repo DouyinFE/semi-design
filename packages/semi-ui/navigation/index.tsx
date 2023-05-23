@@ -44,6 +44,7 @@ export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[]
 export interface NavProps extends BaseProps {
     bodyStyle?: React.CSSProperties;
     children?: React.ReactNode;
+    
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
@@ -264,7 +265,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
-        const { expandIcon, collapseIcon } = this.props;
+        const { expandIcon } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
@@ -275,7 +276,6 @@ class Nav extends BaseComponent<NavProps, NavState> {
                                 {...item as SubNavPropsWithItems}
                                 level={level}
                                 expandIcon={expandIcon}
-                                collapseIcon={collapseIcon}
                             >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
