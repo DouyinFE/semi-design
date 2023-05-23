@@ -244,9 +244,10 @@ describe('Calendar', () => {
         const events = [
             {
                 key: '0',
+                allDay: false,
                 start: new Date(2023, 3, 1, 8, 32, 0),
                 end: new Date(2023, 3, 1, 9, 32, 0),
-                children: <div className="eventDay" />,
+                children: <div className="eventDay">eventDay</div>,
             },
         ];
         const range = [
@@ -256,12 +257,14 @@ describe('Calendar', () => {
 
         let calendar = mount(<Calendar
             mode="range"
+            height={400}
             displayValue={displayValue}
             range={range}
             events={events}
         ></Calendar>);
+        // force set scrollHeight to avoid skipped events render
+        calendar.childAt(0).setState({ scrollHeight: 400 });
 
-        // 2023-04-01
-        expect(calendar.find(".eventDay").length).toEqual(1);
+        expect(calendar.find(".eventDay").length).toBe(1);
     });
 })
