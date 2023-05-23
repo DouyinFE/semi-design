@@ -36,14 +36,14 @@ describe('popConfirm', () => {
         cy.get('[data-cy=initial-focus-content] .semi-button').should('be.focused');
     });
 
-    it('content esc keydown', () => {
+    it('content esc keydown-1', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popconfirm--esc-key-down&viewMode=story');
         cy.get('[data-cy=content]').click();
         cy.get('.test-ok').type('{esc}');
         cy.get('.test-ok').should('not.exist');
     });
 
-    it('content esc keydown', () => {
+    it('content esc keydown-2', () => {
         cy.visit('http://localhost:6006/iframe.html?id=popconfirm--esc-key-down&viewMode=story', {
             onBeforeLoad(win) {
                 cy.stub(win.console, 'log').as('consoleLog');
