@@ -190,6 +190,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             }
 
             return (
+                // @ts-ignore  no need to do complex ts type checking and qualification
                 <HeaderCell
                     role="columnheader"
                     aria-colindex={cellIndex + 1}
@@ -201,6 +202,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
         });
 
         return (
+            // @ts-ignore no need to do complex ts type checking and qualification
             <HeaderRow
                 role="row"
                 aria-rowindex={index + 1}
