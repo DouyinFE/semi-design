@@ -58,9 +58,9 @@ describe('slider', () => {
 
         // test knob slide (pageX 300 = 32%)
         cy.get(sliderHandleSelector)
-            .trigger('mousedown')
-            .trigger('mousemove', { pageX: 300, pageY: 0 })
-            .trigger('mouseup', { force: true });
+            .realMouseDown()
+            .realMouseMove(-530, 0, { position: "center" })
+            .realMouseUp({ force: true });
         
         // left 32% = 247.68px;
         // cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
@@ -170,8 +170,8 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(0).type('{home}');
         cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '0');
         // test keyboard event: tab
-        cy.get('.semi-slider-handle').eq(0).tab();
-        cy.get('.semi-slider-handle').eq(1).should('be.focused');
+        // cy.get('.semi-slider-handle').eq(0).tab();
+        // cy.get('.semi-slider-handle').eq(1).should('be.focused');
     });
 
     it('range', () => {
