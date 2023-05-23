@@ -9,11 +9,11 @@ describe('input', () => {
     it('trigger password button', () => {
         cy.visit('http://localhost:6006/iframe.html?id=input--input-a-11-y&args=&viewMode=story');
         cy.get('[data-cy=password]').click();
-        cy.get('[data-cy=password]').tab();
+        cy.get('[data-cy=password]').realPress('Tab');
         cy.get('.semi-input-modebtn').eq(0).should('be.focused');
         cy.get('.semi-input-modebtn').eq(0).type('{ }');
         cy.get('[data-cy=password]').should('have.value', 'Semi Design');
-        cy.get('[data-cy=password]').tab();
+        cy.get('[data-cy=password]').realPress('Tab');
         cy.get('.semi-input-modebtn').eq(0).should('be.focused');
         cy.get('.semi-input-modebtn').eq(0).type('{enter}');
         cy.get('[data-cy=password]').should('have.value', 'Semi Design');
@@ -64,6 +64,5 @@ describe('input', () => {
         cy.get('.semi-input-wrapper').eq(2).children('input').should('be.focused');
         cy.get('body').click();
         cy.get('.semi-input-wrapper').eq(2).children('input').should('not.be.focused');
-
-    })
+    });
 });

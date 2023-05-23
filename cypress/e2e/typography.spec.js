@@ -14,12 +14,12 @@ describe('typography', () => {
     it('showTooltip', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--show-tooltip&args=&viewMode=story');
         cy.get('.semi-typography-ellipsis').eq(0).trigger('mouseover');
-        cy.wait(1000);
+        cy.wait(2000);
         cy.get('.semi-tooltip-wrapper').contains('css 截断，本内容超出长度限制');
         cy.get('.semi-typography-ellipsis').eq(0).trigger('mouseout');
-        cy.wait(1000);
+        cy.wait(2000);
         cy.get('.semi-typography-ellipsis').eq(1).trigger('mouseover');
-        cy.wait(1000);
+        cy.wait(2000);
         cy.get('.semi-tooltip-wrapper').contains('pos 为 middle，无 expanded');
     });
 

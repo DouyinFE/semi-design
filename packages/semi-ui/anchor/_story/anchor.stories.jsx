@@ -59,37 +59,41 @@ export const Theme = () => (
 );
 
 export const autoCollapse = () => (
-  <div>
+  <>
     <div>Anchor 设置 autoCollapse 可以动态展示下一级锚点。</div>
     <br />
     <div>点击 1.Semi Design 查看效果</div>
-    <Anchor autoCollapse={true}>
-      <Link href="#Semi Design" title="1. Semi Design">
-        <Link href="#组件" title="1.1 组件">
-          <Link href="#头像" title="1.1.1 Avatar" />
-          <Link href="#按钮" title="1.1.2 Button" />
-          <Link href="#图标" title="1.1.3 Icon" />
+    <div id='collapse'>
+      <Anchor autoCollapse={true}>
+        <Link href="#Semi Design" title="1. Semi Design">
+          <Link href="#组件" title="1.1 组件">
+            <Link href="#头像" title="1.1.1 Avatar" />
+            <Link href="#按钮" title="1.1.2 Button" />
+            <Link href="#图标" title="1.1.3 Icon" />
+          </Link>
+          <Link href="#物料" title="1.2 物料" />
+          <Link href="#主题商店" title="1.3 主题商店" />
         </Link>
-        <Link href="#物料" title="1.2 物料" />
-        <Link href="#主题商店" title="1.3 主题商店" />
-      </Link>
-      <Link href="#设计语言" title="2. 设计语言" />
-    </Anchor>
+        <Link href="#设计语言" title="2. 设计语言" />
+      </Anchor>
+    </div>
     <br />
     <div>默认不进行动态折叠</div>
-    <Anchor autoCollapse={false}>
-      <Link href="#Semi Design" title="1. Semi Design">
-        <Link href="#组件" title="1.1 组件">
-          <Link href="#头像" title="1.1.1 Avatar" />
-          <Link href="#按钮" title="1.1.2 Button" />
-          <Link href="#图标" title="1.1.3 Icon" />
+    <div id='no-collapse'>
+      <Anchor autoCollapse={false}>
+        <Link href="#Semi Design" title="1. Semi Design">
+          <Link href="#组件" title="1.1 组件">
+            <Link href="#头像" title="1.1.1 Avatar" />
+            <Link href="#按钮" title="1.1.2 Button" />
+            <Link href="#图标" title="1.1.3 Icon" />
+          </Link>
+          <Link href="#物料" title="1.2 物料" />
+          <Link href="#主题商店" title="1.3 主题商店" />
         </Link>
-        <Link href="#物料" title="1.2 物料" />
-        <Link href="#主题商店" title="1.3 主题商店" />
-      </Link>
-      <Link href="#设计语言" title="2. 设计语言" />
-    </Anchor>
-  </div>
+        <Link href="#设计语言" title="2. 设计语言" />
+      </Anchor>
+    </div>
+  </>
 );
 
 export const showTooltip = () => (

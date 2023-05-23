@@ -1,16 +1,11 @@
 import React from 'react';
 import { useState, useMemo } from 'react';
 import {
-  Modal,
   Pagination,
-  DatePicker,
-  TimePicker,
-  Select,
-  Button,
   Cascader,
   LocaleProvider,
   ConfigProvider,
-  Pagination, Modal, Button, Select, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav
+  Modal, Button, Select, DatePicker, TreeSelect, Table, TimePicker, List, Calendar, Typography, Transfer, ImagePreview, Image, Form, Nav
 } from '../../index';
 
 import zh_CN from '@douyinfe/semi-ui/locale/source/zh_CN';
