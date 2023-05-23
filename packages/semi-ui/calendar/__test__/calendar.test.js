@@ -238,4 +238,30 @@ describe('Calendar', () => {
         expect(calendar.find(`.${customClassName}`).length).toEqual(1);
         expect(calendar.find(defaultElementSelector).length).toEqual(0);
     });
+
+    it('test range mode RangeData fixture', () => {
+        const displayValue = new Date(2023, 3, 1, 8, 32, 0);
+        const events = [
+            {
+                key: '0',
+                start: new Date(2023, 3, 1, 8, 32, 0),
+                end: new Date(2023, 3, 1, 9, 32, 0),
+                children: <div className="eventDay" />,
+            },
+        ];
+        const range = [
+            new Date(2023, 3, 1, 8, 32, 0),
+            new Date(2023, 3, 5, 8, 32, 0),
+        ];
+
+        let calendar = mount(<Calendar
+            mode="range"
+            displayValue={displayValue}
+            range={range}
+            events={events}
+        ></Calendar>);
+
+        // 2023-04-01
+        expect(calendar.find(".eventDay").length).toEqual(1);
+    });
 })
