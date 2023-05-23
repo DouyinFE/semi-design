@@ -8,7 +8,7 @@ describe('overflowList', () => {
         cy.get('.semi-tag').eq(0).contains('10');
     });
 
-    // TODO, need fix after v2.35 slider change
+    // TODO: need fix after v2.35 slider change
     // it('resize', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overflow-list-with-slide&args=&viewMode=story');
     //     cy.get('.semi-slider-handle')

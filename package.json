@@ -58,6 +58,7 @@
         "copy-text-to-clipboard": "^2.2.0",
         "cross-env": "^5.2.1",
         "css": "^2.2.4",
+        "cypress-real-events": "^1.8.1",
         "date-fns": "^2.23.0",
         "debug": "^4.3.2",
         "gatsby": "^2.32.13",
