@@ -16,6 +16,7 @@ import DatePickerFoundation, {
     Type,
     RangeType
 } from '@douyinfe/semi-foundation/datePicker/foundation';
+import MonthGridFoundation from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -579,7 +580,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -602,7 +603,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         }
     };
     handleInsetDateFocus = (e: React.FocusEvent, rangeType: 'rangeStart' | 'rangeEnd') => {
-        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation') as MonthGridFoundation;
         if (monthGridFoundation) {
             monthGridFoundation.showDatePanel(strings.PANEL_TYPE_LEFT);
             monthGridFoundation.showDatePanel(strings.PANEL_TYPE_RIGHT);
@@ -611,7 +612,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     handleInsetTimeFocus = () => {
-        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation') as MonthGridFoundation;
         if (monthGridFoundation) {
             monthGridFoundation.showTimePicker(strings.PANEL_TYPE_LEFT);
             monthGridFoundation.showTimePicker(strings.PANEL_TYPE_RIGHT);

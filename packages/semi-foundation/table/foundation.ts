@@ -465,6 +465,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                                             }
                                             return arr;
                                         },
+                                        // @ts-ignore
                                         [...children]
                                     ),
                                 });

@@ -78,7 +78,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             return null;
         }
 
-        const Table = get(components, 'header.outer', 'table');
+        const Table = get(components, 'header.outer', 'table') as unknown as typeof React.Component;
         const x = get(scroll, 'x');
         const headStyle: Partial<React.CSSProperties> = {};
         const tableStyle: { width?: number | string } = {};
