@@ -58,7 +58,7 @@ describe('tabs', () => {
         cy.get('[id=semiTab5]').should('be.focused');
 
         cy.get('[id=semiTab5]').type('{enter}');
-        cy.get('[id=semiTab5]').tab();
+        cy.get('[id=semiTab5]').realPress('Tab');
         cy.get("[id=semiTabPanel5]").should('be.focused');
     });
 

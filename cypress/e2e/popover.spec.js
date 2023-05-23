@@ -99,6 +99,6 @@ describe('popover', () => {
         cy.get('[data-cy=select-in-popover] .semi-select').click();
         cy.get('.semi-select-option').contains('西瓜视频').click();
         cy.get('[data-cy=select-in-popover] .semi-select').should('be.visible');
-        cy.get('.semi-select-option').contains('西瓜视频').should('be.not.exist')
-    })
+        cy.get('.semi-select-option-list ').should('be.not.exist');
+    });
 });

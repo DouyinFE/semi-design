@@ -1,23 +1,11 @@
 describe('slider', () => {
-    let cyWin;
-
-    before(() => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
-            onBeforeLoad(win) {
-                cyWin = win;
-            },
-        });
-    });
-
-    beforeEach(() => {
-        cy.stub(cyWin.console, 'log').as('consoleLog');
-    });
-
-    // afterEach(() => {
-    //     cy.reload();
-    // });
 
     it('controlled slider', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         const parentSelector = '[data-cy=horizontalNoChangeSlider]';
         const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
         const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
@@ -47,6 +35,12 @@ describe('slider', () => {
     });
 
     it('controlled slider with onChange', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
         const parentSelector = `[data-cy=horizontalOnChangeSlider]`;
         const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
         const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
@@ -58,9 +52,9 @@ describe('slider', () => {
 
         // test knob slide (pageX 300 = 32%)
         cy.get(sliderHandleSelector)
-            .trigger('mousedown')
-            .trigger('mousemove', { pageX: 300, pageY: 0 })
-            .trigger('mouseup', { force: true });
+            .realMouseDown()
+            .realMouseMove(-530, 0, { position: "center" })
+            .realMouseUp({ force: true });
         
         // left 32% = 247.68px;
         // cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
@@ -71,6 +65,11 @@ describe('slider', () => {
     });
 
     it('controlled range slider', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         const parentSelector = `[data-cy=horizontalNoChangeRangeSlider]`;
         const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
         const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
@@ -114,6 +113,11 @@ describe('slider', () => {
     });
 
     it('controlled vertical slider', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         const parentSelector = '[data-cy=horizontalNoChangeVerticalSlider]';
         const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
         const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
@@ -143,6 +147,11 @@ describe('slider', () => {
     });
 
     it('keyboard', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
         cy.get('.semi-slider-handle').eq(0).click();
         // test keyboard event: upArrow
@@ -170,11 +179,16 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(0).type('{home}');
         cy.get('.semi-slider-handle').eq(0).should('have.attr', 'aria-valuenow', '0');
         // test keyboard event: tab
-        cy.get('.semi-slider-handle').eq(0).tab();
+        cy.get('.semi-slider-handle').eq(0).realPress("Tab");
         cy.get('.semi-slider-handle').eq(1).should('be.focused');
     });
 
     it('range', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
         // click range slider right dot
         cy.get('.semi-slider-handle').eq(2).click();
@@ -188,7 +202,7 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(2).type('{End}');
         cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '60');
         // The value of the right slider cannot be lower than the value of the left slider
-        cy.get('.semi-slider-handle').eq(2).tab();
+        cy.get('.semi-slider-handle').eq(2).realPress("Tab");
         cy.get('.semi-slider-handle').eq(3).type('{pagedown}');
         cy.get('.semi-slider-handle').eq(3).should('have.attr', 'aria-valuenow', '60');
         cy.get('.semi-slider-handle').eq(3).type('{leftArrow}');
@@ -208,6 +222,11 @@ describe('slider', () => {
     });  
 
     it('should show tooltip when hovering slider handler', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
         cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--horizontal-slider&args=&viewMode=story');
         cy.get('.semi-slider-handle').eq(0).trigger('mouseover');
         cy.get('.semi-slider-handle-tooltip').eq(0).should('have.text', '0');
