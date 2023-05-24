@@ -122,7 +122,7 @@ import { Slider } from '@douyinfe/semi-ui';
         <Slider marks={{ 20: '20°C', 40: '40°C' }} defaultValue={[0, 100]} range={true} tipFormatter={v => (`${v}°C`)} getAriaValueText={(value) => `${value}°C`}></Slider>
         <br/>
         <br/>
-        <div>Inclued</div>
+        <div>Included</div>
         <Slider marks={{ 20: '20°C', 40: '40°C' }} included={false} defaultValue={[0, 100]} range={true} tipFormatter={v => (`${v}°C`)} getAriaValueText={(value) => `${value}°C`}></Slider>
     </div>
 );
