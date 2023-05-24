@@ -32,6 +32,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Select handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
 - 【Design Token】
   - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重
+- 【Docs】
+  - Tabs、Typography 增加 Notice 注意事项
+  - Slider 修正部分书写错误内容 [@inottn](https://github.com/inottn)
 
 
 #### 🎉 2.35.0 (2023-05-12)

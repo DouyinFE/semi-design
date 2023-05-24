@@ -35,7 +35,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - fix the problem that select the parameter type of handleInputChange does not match the parameter type of Input onChange
 - 【Design Token】
   - Typography Add  `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` tokens. Used to control the font weight of different levels of Header respectively
-
+- 【Docs】
+  - Tabs、Typography update notice tips
+  - Slider fix some wrong spell [@inottn](https://github.com/inottn)
 
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】
