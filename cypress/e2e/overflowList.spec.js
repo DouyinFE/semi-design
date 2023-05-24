@@ -8,18 +8,17 @@ describe('overflowList', () => {
         cy.get('.semi-tag').eq(0).contains('10');
     });
 
-    // TODO: need fix after v2.35 slider change
-    // it('resize', () => {
-    //     cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overflow-list-with-slide&args=&viewMode=story');
-    //     cy.get('.semi-slider-handle')
-    //         .trigger('mousedown', { which: 1, pageX: 600, pageY: 100 })
-    //         .trigger('mousemove', { which: 1, pageX: -600, pageY: 100 })
-    //         .trigger('mouseup');
-    //     cy.get('.semi-tag').contains('+6');
-    //     cy.get('.semi-slider-handle')
-    //         .trigger('mousedown', { which: 1, pageX: -300, pageY: 100 })
-    //         .trigger('mousemove', { which: 1, pageX: 100, pageY: 100 })
-    //         .trigger('mouseup');
-    //     cy.get('.semi-tag').contains('+2');
-    // });
+    it('resize', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overflow-list-with-slide&args=&viewMode=story');
+        cy.get('.semi-slider-handle')
+            .trigger('mousedown', { which: 1 })
+            .trigger('mousemove', { clientX: 100, clientY: 100 })
+            .trigger('mouseup', { force: true });
+        cy.get('.semi-tag').contains('+6');
+        cy.get('.semi-slider-handle')
+            .trigger('mousedown', { which: 1 })
+            .trigger('mousemove', { clientX: 450, clientY: 100 })
+            .trigger('mouseup', { force: true });
+        cy.get('.semi-tag').contains('+2');
+    });
 });
