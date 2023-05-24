@@ -322,7 +322,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
     // 插入多个文件到指定位置
     // Insert files to the specified location
-    insertFileToList(files: Array<CustomFile>, index:number): void {
+    insertFileToList(files: Array<CustomFile>, index: number): void {
         const { limit, transformFile, accept, uploadTrigger } = this.getProps();
         const { fileList } = this.getStates();
 
@@ -533,9 +533,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 data,
                 file,
                 fileInstance,
-                onProgress: (e: ProgressEvent) => this.handleProgress({ e, fileInstance }),
-                onError: (userXhr: XMLHttpRequest, e: ProgressEvent) => this.handleError({ e, xhr: userXhr, fileInstance }),
-                onSuccess: (response: any, e: ProgressEvent) => this.handleSuccess({ response, fileInstance, e, isCustomRequest: true }),
+                onProgress: (e?: ProgressEvent) => this.handleProgress({ e, fileInstance }),
+                onError: (userXhr: XMLHttpRequest, e?: ProgressEvent) => this.handleError({ e, xhr: userXhr, fileInstance }),
+                onSuccess: (response: any, e?: ProgressEvent) => this.handleSuccess({ response, fileInstance, e, isCustomRequest: true }),
                 withCredentials: option.withCredentials,
                 action: option.action,
             });
@@ -572,7 +572,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         xhr.send(formData);
     }
 
-    handleProgress({ e, fileInstance }: { e: ProgressEvent; fileInstance: File }): void {
+    handleProgress({ e, fileInstance }: { e?: ProgressEvent; fileInstance: File }): void {
         const { fileList } = this.getStates();
         const newFileList = fileList.slice();
         let percent = 0;
@@ -591,7 +591,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyChange({ fileList: newFileList, currentFile: newFileList[index] });
     }
 
-    handleOnLoad({ e, xhr, fileInstance }: { e: ProgressEvent; xhr: XMLHttpRequest; fileInstance: File }): void {
+    handleOnLoad({ e, xhr, fileInstance }: { e?: ProgressEvent; xhr: XMLHttpRequest; fileInstance: File }): void {
         const { fileList } = this.getStates();
         const index = this._getFileIndex(fileInstance, fileList);
         if (index < 0) {
@@ -604,7 +604,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         }
     }
 
-    handleSuccess({ e, fileInstance, isCustomRequest = false, xhr, response }: { e: ProgressEvent; fileInstance: CustomFile; isCustomRequest?: boolean; xhr?: XMLHttpRequest; response?: any }): void {
+    handleSuccess({ e, fileInstance, isCustomRequest = false, xhr, response }: { e?: ProgressEvent; fileInstance: CustomFile; isCustomRequest?: boolean; xhr?: XMLHttpRequest; response?: any }): void {
         const { fileList } = this.getStates();
         let body: any = null;
         const index = this._getFileIndex(fileInstance, fileList);
@@ -673,7 +673,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         });
     }
 
-    handleError({ e, xhr, fileInstance }: { e: ProgressEvent;xhr: XMLHttpRequest;fileInstance: CustomFile }): void {
+    handleError({ e, xhr, fileInstance }: { e?: ProgressEvent;xhr: XMLHttpRequest;fileInstance: CustomFile }): void {
         const { fileList } = this.getStates();
         const index = this._getFileIndex(fileInstance, fileList);
         if (index < 0) {

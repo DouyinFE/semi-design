@@ -27,11 +27,11 @@ export interface customRequestArgs {
     data: Record<string, any>; // User-set props.data
     file: FileItem;
     fileInstance: File; // Original File Object which extends to the blob, the file object actually acquired by the browser (https://developer.mozilla.org/zh-CN/docs/Web/API/File)
-    onProgress: (event: { total: number; loaded: number }) => any; // The function that should be called during the upload process, the event needs to contain the total and loaded attributes
-    onError: (userXhr: { status?: number }, e: Event) => any; // Functions to call in case of upload error
-    onSuccess: (response: any, e: Event) => any; // The function that should be called after the upload is successful, the response is the request result after the upload is successful
+    onProgress: (e?: { total: number; loaded: number }) => any; // The function that should be called during the upload process, the event needs to contain the total and loaded attributes
+    onError: (userXhr: { status?: number }, e?: Event) => any; // Functions to call in case of upload error
+    onSuccess: (response: any, e?: Event) => any; // The function that should be called after the upload is successful, the response is the request result after the upload is successful
     withCredentials: boolean; // User-set props.with Credentials
-    action: string; // User-set props.action
+    action: string // User-set props.action
 }
 
 export interface CustomError extends Error {
