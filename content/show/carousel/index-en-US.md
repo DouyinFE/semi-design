@@ -151,7 +151,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
             <br/>
             <Space> 
                 <div>theme</div>
-                <RadioGroup onChange={e => setTheme(e.target.value)} value={theme}>
+                <RadioGroup onChange={e => setTheme(e.target.value)} value={theme} type="button">
                     <Radio value='primary'>primary</Radio>
                     <Radio value='light'>light</Radio>
                     <Radio value='dark'>dark</Radio>
@@ -236,7 +236,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
             <Space vertical align='start'>
                 <Space> 
                     <div>type</div>
-                    <RadioGroup onChange={e => setType(e.target.value)} value={type}>
+                    <RadioGroup onChange={e => setType(e.target.value)} value={type} type="button">
                         <Radio value='dot'>dot</Radio>
                         <Radio value='line'>line</Radio>
                         <Radio value='columnar'>columnar</Radio>
@@ -244,7 +244,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 </Space>
                 <Space> 
                     <div>position</div>
-                    <RadioGroup onChange={e => setPosition(e.target.value)} value={position}>
+                    <RadioGroup onChange={e => setPosition(e.target.value)} value={position} type="button">
                         <Radio value='left'>left</Radio>
                         <Radio value='center'>center</Radio>
                         <Radio value='right'>right</Radio>
@@ -252,7 +252,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 </Space>
                 <Space> 
                     <div>size</div>
-                    <RadioGroup onChange={e => setSize(e.target.value)} value={size}>
+                    <RadioGroup onChange={e => setSize(e.target.value)} value={size} type="button">
                         <Radio value='small'>small</Radio>
                         <Radio value='medium'>medium</Radio>
                     </RadioGroup>
@@ -334,14 +334,14 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
             <Space vertical align='start'>
                 <Space> 
                     <div>arrow</div>
-                    <RadioGroup onChange={e => setShow(e.target.value)} value={show}>
+                    <RadioGroup onChange={e => setShow(e.target.value)} value={show} type="button">
                         <Radio value={true}>show</Radio>
                         <Radio value={false}>hide</Radio>
                     </RadioGroup>
                 </Space>
                 <Space> 
                     <div>show time</div>
-                    <RadioGroup onChange={e => setArrowTypew(e.target.value)} value={arrowType}>
+                    <RadioGroup onChange={e => setArrowTypew(e.target.value)} value={arrowType} type="button">
                         <Radio value='always'>always</Radio>
                         <Radio value='hover'>hover</Radio>
                     </RadioGroup>
