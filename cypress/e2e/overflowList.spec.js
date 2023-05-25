@@ -9,17 +9,17 @@ describe('overflowList', () => {
     });
 
     // TODO: there is no problem with the local test, but it cannot pass the online test, so skip it first.
-    it.skip('resize', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overflow-list-with-slide&args=&viewMode=story');
-        cy.get('.semi-slider-handle')
-            .trigger('mousedown', { which: 1 })
-            .trigger('mousemove', { clientX: 100, clientY: 100 })
-            .trigger('mouseup', { force: true });
-        cy.get('.semi-tag').contains('+6');
-        cy.get('.semi-slider-handle')
-            .trigger('mousedown', { which: 1 })
-            .trigger('mousemove', { clientX: 450, clientY: 100 })
-            .trigger('mouseup', { force: true });
-        cy.get('.semi-tag').contains('+2');
-    });
+    // it.skip('resize', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?id=overflowlist--overflow-list-with-slide&args=&viewMode=story');
+    //     cy.get('.semi-slider-handle')
+    //         .trigger('mousedown', { which: 1 })
+    //         .trigger('mousemove', { clientX: 100, clientY: 100 })
+    //         .trigger('mouseup', { force: true });
+    //     cy.get('.semi-tag').contains('+6');
+    //     cy.get('.semi-slider-handle')
+    //         .trigger('mousedown', { which: 1 })
+    //         .trigger('mousemove', { clientX: 450, clientY: 100 })
+    //         .trigger('mouseup', { force: true });
+    //     cy.get('.semi-tag').contains('+2');
+    // });
 });
