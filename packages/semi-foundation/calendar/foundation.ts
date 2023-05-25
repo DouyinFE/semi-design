@@ -201,7 +201,8 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         const { range, weekStartsOn } = this.getProps();
         const len = differenceInCalendarDays(range[1], range[0]);
         data.month = format(value, 'LLL', { locale: dateFnsLocale, weekStartsOn });
-        data.week = calcRangeData(value, range[0], len, 'week', dateFnsLocale, weekStartsOn);
+        const startDate = startOfDay(range[0]);
+        data.week = calcRangeData(value, startDate, len, 'week', dateFnsLocale, weekStartsOn);
         this._adapter.setRangeData(data);
         return data;
     }
