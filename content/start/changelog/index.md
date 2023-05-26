@@ -17,6 +17,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
   - 修复 Calander 日历多日模式中，range包括时间时不显示非全天日程的问题 [@sylingd](https://github.com/sylingd)
   - 修复 Upload customRequest onSuccess 中 event 参数实为可选，ts类型声明却为必填的问题 
+  - 修复 ImagePreview IntersectionObserver 在 SSR 场景报错的问题（影响范围 2.34 ~ 2.36.0-beta.0）[#1595](https://github.com/DouyinFE/semi-design/issues/1595)
 
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】

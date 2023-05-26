@@ -21,6 +21,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
   - Fix the problem that in the multi-day mode of the Calander, the non-full-day schedule is not displayed when the range includes time [@sylingd](https://github.com/sylingd)
   - Fix the problem that the event parameter in Upload customRequest onSuccess is optional, but the ts type declaration is required
+  - Fix the problem that ImagePreview IntersectionObserver throw error when using under SSR（effect version 2.34.1 ~ 2.36.0-beta.0）[#1595](https://github.com/DouyinFE/semi-design/issues/1595)
 
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】
