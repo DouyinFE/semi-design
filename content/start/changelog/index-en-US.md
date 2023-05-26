@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.36.0 (2023-05-26)
+- 【Fix】
+  - Fix the problem that in the multi-day mode of the Calander, the non-full-day schedule is not displayed when the range includes time [@sylingd](https://github.com/sylingd)
+  - Fix the problem that the event parameter in Upload customRequest onSuccess is optional, but the ts type declaration is required
+
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】
   - DatePicker support startYear and endYear  [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
