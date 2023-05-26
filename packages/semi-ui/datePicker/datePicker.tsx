@@ -856,7 +856,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     render() {
-        const { style, className, prefixCls, type } = this.props;
+        const { style, className, prefixCls, type, ...rest } = this.props;
         const outerProps = {
             style,
             className: classnames(className, { [prefixCls]: true }),
@@ -866,6 +866,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             'aria-labelledby': this.props['aria-labelledby'],
             'aria-describedby': this.props['aria-describedby'],
             'aria-required': this.props['aria-required'],
+            ...this.getDataAttr(rest)
         };
 
         const innerPropKeys: string[] = [];

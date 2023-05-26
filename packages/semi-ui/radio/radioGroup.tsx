@@ -148,6 +148,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
             type,
             buttonSize,
             id,
+            ...rest
         } = this.props;
 
         const isButtonRadio = type === strings.TYPE_BUTTON;
@@ -213,6 +214,7 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
+                {...this.getDataAttr(rest)}
             >
                 <Context.Provider
                     value={{

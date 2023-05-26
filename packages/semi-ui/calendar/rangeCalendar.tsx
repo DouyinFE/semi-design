@@ -247,7 +247,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
-                    <div className={weekCls} style={weekStyle} ref={this.dom}>
+                    <div className={weekCls} style={weekStyle} ref={this.dom} {...this.getDataAttr(this.props)}>
                         <div className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}

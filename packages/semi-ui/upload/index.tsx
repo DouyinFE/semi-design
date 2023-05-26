@@ -665,6 +665,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             validateMessage,
             validateStatus,
             directory,
+            ...rest
         } = this.props;
         const uploadCls = cls(
             prefixCls,
@@ -686,7 +687,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         const dirProps = directory ? { directory: 'directory', webkitdirectory: 'webkitdirectory' } : {};
 
         return (
-            <div className={uploadCls} style={style} x-prompt-pos={promptPosition}>
+            <div className={uploadCls} style={style} x-prompt-pos={promptPosition} {...this.getDataAttr(rest)}>
                 <input
                     key={this.state.inputKey}
                     capture={capture}

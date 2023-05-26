@@ -314,7 +314,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
             toggleIconPosition,
             limitIndent,
             renderWrapper,
-            getPopupContainer
+            getPopupContainer,
+            ...rest
         } = this.props;
 
         const { selectedKeys, openKeys, items, isCollapsed } = this.state;
@@ -417,7 +418,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             getPopupContainer
                         } as any}
                     >
-                        <div className={finalCls} style={finalStyle}>
+                        <div className={finalCls} style={finalStyle} {...this.getDataAttr(rest)}>
                             <div className={`${prefixCls}-inner`}>
                                 <div className={headerListOuterCls}>
                                     {headers}

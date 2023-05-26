@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
 import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import DescriptionsContext, { DescriptionsContextValue } from './descriptions-context';
 
 export interface DescriptionsItemProps {
@@ -29,14 +30,14 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
     context: DescriptionsContextValue;
 
     render() {
-        const { itemKey, hidden, className, style, children } = this.props;
+        const { itemKey, hidden, className, style, children, ...rest } = this.props;
         const { align } = this.context;
         if (hidden) {
             return null;
         }
         const item = align === 'plain' ?
             (
-                <tr className={className} style={style}>
+                <tr className={className} style={style} {...getDataAttr(rest)}>
                     <td className={`${prefixCls}-item`}>
                         <span className={keyCls}>
                             {itemKey}:
@@ -48,7 +49,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
                 </tr>
             ) :
             (
-                <tr className={className} style={style}>
+                <tr className={className} style={style} {...getDataAttr(rest)}>
                     <th className={`${prefixCls}-item ${prefixCls}-item-th`}>
                         <span className={keyCls}>
                             {itemKey}

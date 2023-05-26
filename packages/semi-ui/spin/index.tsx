@@ -106,7 +106,7 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
 
     render() {
         this.foundation.updateLoadingIfNeedDelay();
-        const { children, style, wrapperClassName, childStyle, size } = this.props;
+        const { children, style, wrapperClassName, childStyle, size, ...rest } = this.props;
         const { loading } = this.state;
         const spinCls = cls(
             prefixCls,
@@ -119,7 +119,7 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         );
 
         return (
-            <div className={spinCls} style={style}>
+            <div className={spinCls} style={style} {...this.getDataAttr(rest)}>
                 {this.renderSpin()}
                 <div className={`${prefixCls}-children`} style={childStyle} x-semi-prop="children">
                     {children}

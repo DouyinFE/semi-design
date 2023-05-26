@@ -10,7 +10,7 @@ import DayCol from './dayCol';
 import TimeCol from './timeCol';
 import { isEqual } from 'lodash';
 import { calcRowHeight } from '@douyinfe/semi-foundation/calendar/eventUtil';
-import { WeekCalendarProps } from './interface';
+import type { WeekCalendarProps } from './interface';
 
 import '@douyinfe/semi-foundation/calendar/calendar.scss';
 import { Locale } from '../locale/interface';
@@ -248,7 +248,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: any) => (
-                    <div className={weekCls} style={weekStyle} ref={this.dom}>
+                    <div className={weekCls} style={weekStyle} ref={this.dom} {...this.getDataAttr(this.props)}>
                         <div className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}

@@ -11,7 +11,6 @@ import { noop, debounce, throttle } from 'lodash';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';
 import ConfigContext, { ContextValue } from '../configProvider/context';
-
 const prefixCls = cssClasses.PREFIX;
 
 export type { LinkProps } from './link';
@@ -316,6 +315,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     className={wrapperCls}
                     style={wrapperStyle}
                     id={this.anchorID}
+                    {...this.getDataAttr(this.props)}
                 >
                     <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />

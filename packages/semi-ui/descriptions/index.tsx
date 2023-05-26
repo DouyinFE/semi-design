@@ -3,6 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
 import '@douyinfe/semi-foundation/descriptions/descriptions.scss';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { isPlainObject } from 'lodash';
 import DescriptionsContext, { DescriptionsAlign, DescriptionsContextValue } from './descriptions-context';
 import Item from './item';
@@ -54,7 +55,7 @@ class Descriptions extends PureComponent<DescriptionsProps> {
     };
 
     render() {
-        const { align, row, size, className, style, children, data } = this.props;
+        const { align, row, size, className, style, children, data, ...rest } = this.props;
         const classNames = cls(prefixCls, className, {
             [`${prefixCls}-${align}`]: !row,
             [`${prefixCls}-double`]: row,
@@ -66,7 +67,7 @@ class Descriptions extends PureComponent<DescriptionsProps> {
             )) :
             children;
         return (
-            <div className={classNames} style={style}>
+            <div className={classNames} style={style} {...getDataAttr(rest)}>
                 <table>
                     <tbody>
                         <DescriptionsContext.Provider value={{ align }}>

@@ -162,7 +162,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         const { parsedEvents, scrollHeight } = this.state;
         this.isWeekend = markWeekend && this.checkWeekend(displayValue);
         return (
-            <div className={dayCls} style={dayStyle} ref={this.dom}>
+            <div className={dayCls} style={dayStyle} ref={this.dom} {...this.getDataAttr(this.props)}>
                 <div className={`${prefixCls}-sticky-top`}>
                     {header}
                     {this.renderAllDay(parsedEvents.allDay)}

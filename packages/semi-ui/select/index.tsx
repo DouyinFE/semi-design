@@ -1305,7 +1305,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             triggerRender,
             arrowIcon,
             clearIcon,
-            borderless
+            borderless,
+            ...rest
         } = this.props;
 
         const { selections, isOpen, keyboardEventSet, inputValue, isHovering, isFocus, showInput, focusIndex } = this.state;
@@ -1412,6 +1413,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onBlur={e => this.foundation.handleTriggerBlur(e as any)}
                 onKeyPress={this.onKeyPress}
                 {...keyboardEventSet}
+                {...this.getDataAttr(rest)}
             >
                 {inner}
             </div>
