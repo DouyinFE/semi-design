@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, isValidElement } from "react";
 import { PreviewContext } from "./previewContext";
 import BaseComponent from "../_base/baseComponent";
 import PropTypes, { array } from "prop-types";
@@ -84,15 +84,21 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     }
 
     componentDidMount() {
-        this.observerImages();
+        this.props.lazyLoad && this.observerImages();
     }
 
     componentDidUpdate(prevProps) {
-        const prevChildren = React.Children.toArray(prevProps.children);
-        const currChildren = React.Children.toArray(this.props.children);
-    
-        if (!isEqual(prevChildren, currChildren)) {
-            this.observerImages();
+        if (this.props.lazyLoad) {
+            const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child) =>
+                isValidElement(child) ? child.key : null
+            );
+            const currChildrenKeys = React.Children.toArray(this.props.children).map((child) =>
+                isValidElement(child) ? child.key : null
+            );
+        
+            if (!isEqual(prevChildrenKeys, currChildrenKeys)) {
+                this.observerImages();
+            }
         }
     }
 
