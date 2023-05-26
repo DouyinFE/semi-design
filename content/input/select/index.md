@@ -1385,6 +1385,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body） | boolean | true |
 | autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效 | boolean | true | 2.3.0 |
 | autoFocus | 初始渲染时是否自动 focus | boolean | false |
+| borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
 | className | 类名 | string |  |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | 2.25.0  |
 | clickToHide | 已展开时，点击选择框是否自动收起下拉列表 | boolean | false |

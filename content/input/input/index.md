@@ -397,40 +397,41 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 ### Input
 > 其他属性与html input 标签保持一致
 
-| 属性           | 说明                                                            | 类型                            | 默认值    |
-|----------------|---------------------------------------------------------------|---------------------------------|-----------|
-| aria-describedby   | 设置 aria-describedby 属性           | string                         | -  |
-| aria-errormessage   | 设置 aria-errormessage 属性           | string                         | -  |
-| aria-invalid   | 设置 aria-invalid 属性           | string                         | -  |
-| aria-label   | 设置 aria-label 属性           | string                         | -  |
-| aria-labelledby   | 设置 aria-labelledby 属性           | string                         | -  |
-| aria-required   | 设置 aria-required 属性           | string                         | -  |
-| addonAfter     | 后置标签                                                        | ReactNode               |           |
-| addonBefore    | 前置标签                                                        | ReactNode               |           |
-| className      | 类名                                                            | string                          |           |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效 **>=2.25.0** | ReactNode |  |
-| defaultValue   | 输入框内容默认值                                                | ReactText                          |           |
-| disabled       | 是否禁用，默认为false                                            | boolean                         | false     |
-| getValueLength| 自定义计算字符串长度                                            | (value: string) => number        |      |
-| hideSuffix     | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列        | boolean                         | false     |
-| mode           | 输入框的模式，可选值password **>=v1.3.0**                        | string                          |           |
-| prefix         | 前缀标签                                                        | ReactNode               |           |
-| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-| showClear      | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**                                            | boolean                         | false     |
-| size           | 输入框大小，large、default、small                                  | string                          | 'default' |
-| style          | 样式                                                            | CSSProperties                          |           |
-| suffix         | 后缀标签                                                        | ReactNode               |           |
-| type           | 声明input类型，同原生input标签的type属性                         | string                         | text     |
-| validateStatus | 校验状态，可选值default、error、warning，默认default。仅影响展示样式 | string                          | 'default' |
-| value          | 输入框内容                                                      | ReactText                          |           |
-| onBlur         | 输入框失去焦点时的回调                                          | function(e:event)                        |           |
-| onChange       | 输入框内容变化时的回调                                          | function(value:string, e:event) |           |
-| onClear        | 点击清除按钮时的回调                                            | function(e:event)                        |           |
-| onEnterPress   | 按回车时回调（keypress）                                          | function(e:event)               |           |
-| onFocus        | 输入框focus时的回调                                             | function(e:event)                        |           |
-| onKeyDown      | keydown回调                                                     | function(e:event)               |           |
-| onKeyPress     | keypress回调                                                    | function(e:event)               |           |
-| onKeyUp        | keyup回调                                                       | function(e:event)               |           |
+| 属性                | 说明                                              | 类型                              | 默认值    |
+|-------------------|-------------------------------------------------|---------------------------------|-----------|
+| aria-describedby  | 设置 aria-describedby 属性                          | string                          | -  |
+| aria-errormessage | 设置 aria-errormessage 属性                         | string                          | -  |
+| aria-invalid      | 设置 aria-invalid 属性                              | string                          | -  |
+| aria-label        | 设置 aria-label 属性                                | string                          | -  |
+| aria-labelledby   | 设置 aria-labelledby 属性                           | string                          | -  |
+| aria-required     | 设置 aria-required 属性                             | string                          | -  |
+| addonAfter        | 后置标签                                            | ReactNode                       |           |
+| addonBefore       | 前置标签                                            | ReactNode                       |           |
+| borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
+| className         | 类名                                              | string                          |           |
+| clearIcon         | 可用于自定义清除按钮, showClear为true时有效 **>=2.25.0**      | ReactNode                       |  |
+| defaultValue      | 输入框内容默认值                                        | ReactText                       |           |
+| disabled          | 是否禁用，默认为false                                   | boolean                         | false     |
+| getValueLength    | 自定义计算字符串长度                                      | (value: string) => number       |      |
+| hideSuffix        | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列                 | boolean                         | false     |
+| mode              | 输入框的模式，可选值password **>=v1.3.0**                 | string                          |           |
+| prefix            | 前缀标签                                            | ReactNode                       |           |
+| preventScroll     | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法          | boolean                         |  |  |
+| showClear         | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**       | boolean                         | false     |
+| size              | 输入框大小，large、default、small                       | string                          | 'default' |
+| style             | 样式                                              | CSSProperties                   |           |
+| suffix            | 后缀标签                                            | ReactNode                       |           |
+| type              | 声明input类型，同原生input标签的type属性                     | string                          | text     |
+| validateStatus    | 校验状态，可选值default、error、warning，默认default。仅影响展示样式 | string                          | 'default' |
+| value             | 输入框内容                                           | ReactText                       |           |
+| onBlur            | 输入框失去焦点时的回调                                     | function(e:event)               |           |
+| onChange          | 输入框内容变化时的回调                                     | function(value:string, e:event) |           |
+| onClear           | 点击清除按钮时的回调                                      | function(e:event)               |           |
+| onEnterPress      | 按回车时回调（keypress）                                | function(e:event)               |           |
+| onFocus           | 输入框focus时的回调                                    | function(e:event)               |           |
+| onKeyDown         | keydown回调                                       | function(e:event)               |           |
+| onKeyPress        | keypress回调                                      | function(e:event)               |           |
+| onKeyUp           | keyup回调                                         | function(e:event)               |           |
 ### TextArea
 
 > 其他属性与 html textarea 标签保持一致
@@ -444,6 +445,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | aria-labelledby   | 设置 aria-labelledby 属性           | string                         | -  |
 | aria-required   | 设置 aria-required 属性           | string                         | -  |
 | autosize     | 是否随着自动适应内容高度           | boolean                         | false  |
+| borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
 | className    | 类名                               | string                          | -      |
 | cols         | 默认列数                           | number                          | 无     |
 | disabled     | 禁用状态                           | boolean                         | false  |

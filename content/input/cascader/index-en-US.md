@@ -1751,6 +1751,7 @@ function Demo() {
 | arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon  | ReactNode | - | 1.15.0 |
 | autoAdjustOverflow | Whether to automatically adjust the expansion direction of the dropdown for automatic adjustment of the expansion direction during edge occlusion | boolean | true | - |
 | autoMergeValue | Auto merge value. Specifically, after opening, when a parent node is selected, the value will not include the descendants of the node. Does not support dynamic switching | boolean | true |  1.28.0 |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | bottomSlot | bottom slot | ReactNode | - |  1.27.0 |
 | changeOnSelect | Toggle whether non-leaf nodes are selectable | boolean | false | - |
 | className | ClassName | string | - | - |
