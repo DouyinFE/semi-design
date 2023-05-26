@@ -499,7 +499,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderYearAndMonth(panelType: PanelType, panelDetail: MonthInfo) {
         const { pickerDate } = panelDetail;
-        const { locale, localeCode, density, yearAndMonthOpts } = this.props;
+        const { locale, localeCode, density, yearAndMonthOpts, startYear, endYear } = this.props;
         const y = pickerDate.getFullYear();
         const m = pickerDate.getMonth() + 1;
         return (
@@ -523,6 +523,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 }}
                 density={density}
                 yearAndMonthOpts={yearAndMonthOpts}
+                startYear={startYear}
+                endYear={endYear}
             />
         );
     }

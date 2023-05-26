@@ -658,7 +658,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         }
     }
 
-    handleInputChange = (value: string, event: React.KeyboardEvent) => this.foundation.handleInputChange(value, event);
+    handleInputChange = (value: string, event: React.ChangeEvent<HTMLInputElement>) => this.foundation.handleInputChange(value, event);
 
     renderInput() {
         const { size, multiple, disabled, inputProps, filter } = this.props;
@@ -739,6 +739,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.foundation.handleClearClick(e as any);
     }
 
+    search(value: string, event: React.ChangeEvent<HTMLInputElement>) {
+        this.handleInputChange(value, event);
+    }
 
     renderEmpty() {
         return <Option empty={true} emptyContent={this.props.emptyContent} />;

@@ -315,10 +315,11 @@ function Demo() {
 ### Ellipsis
 
 Show ellipsis if text is overflowed. Refer to [Ellipsis Config](#Ellipsis-Config) for detailed configuration.
-> At this moment, only pure text truncation is supported.
 
 <Notice title='Notice'>
-    ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string
+    1. ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string <br/><br/>
+    2. To achieve abbreviation, ellipsis needs to have a clear width or maxWidth limit for comparison and judgment. If the width is not set by itself (for example, purely relying on the flex property to expand), or the width is an indefinite value such as 100%, the parent needs to have a clear width or maxWidth<br/><br/>
+    3. Ellipsis needs to obtain information such as the width and height of the DOM to make basic judgments. If there is a display:none style in itself or the parent, the value will be incorrect, and the abbreviation will be invalid at this time<br/>
 </Notice>
 
 ```jsx live=true
@@ -434,7 +435,7 @@ function Demo() {
 ### Typography.Text
 
 | Properties | Instructions                                                                                                                             | type                                                  | Default   | version |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- | ------- |
+| ---------- |------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
 | copyable   | Toggle whether to be copyable                                                                                                            | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
 | code       | wrap with `code` element                                                                                                                 | boolean                                               | -         |         |
 | component  | Custom rendering html element                                                                                                            | html element                                          | span      |         |
@@ -444,25 +445,27 @@ function Demo() {
 | icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         | 0.27.0  |
 | link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     | 0.27.0  |
 | mark       | Marked style                                                                                                                             | boolean                                               | false     | 0.27.0  |
-| size       | Size, one of `normal`，`small`                                                                                                           | string                                                | `normal`  | 0.27.0  |
+| size       | Size, one of `normal`，`small`                                                                                                            | string                                                | `normal`  | 0.27.0  |
 | strong     | Bold style                                                                                                                               | boolean                                               | false     | 0.27.0  |
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                         | boolean                                               | false     | 0.27.0  |
+| weight | set font weight                                                                                                                          |  number                                        |  | 2.34.0 |
 
 ### Typography.Title
 
 | Properties | Instructions                                                                                                                            | type                                                  | Default   | version |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- | ------- |
+| ---------- |-----------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
 | copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
 | component  | Custom rendering html element. The default is determined by heading prop                                                                | html element                                          | h1~h6     |         |
 | delete     | Deleted style                                                                                                                           | boolean                                               | false     | 0.27.0  |
 | disabled   | Disabled style                                                                                                                          | boolean                                               | false     | 0.27.0  |
 | ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
-| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                | number                                                | 1         | 0.27.0  |
+| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                     | number                                                | 1         | 0.27.0  |
 | link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     | 0.27.0  |
 | mark       | Marked style                                                                                                                            | boolean                                               | false     | 0.27.0  |
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
+| weight | set font weight, one of `light`, `regular`, `medium`, `semibold`, `bold`, `default`                                                     | string, number                                        |  | 2.34.0 |
 
 ### Typography.Paragraph
 

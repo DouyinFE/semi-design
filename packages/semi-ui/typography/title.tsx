@@ -12,12 +12,13 @@ export interface CopyableConfig {
     copyTip?: React.ReactNode;
     successTip?: React.ReactNode;
     icon?: React.ReactNode;
+
     onCopy?(e: React.MouseEvent, content: string, res: boolean): void
 }
 
 export type LinkType = React.AnchorHTMLAttributes<HTMLAnchorElement> | boolean;
 
-export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, OmitTitleProps>{
+export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement>, OmitTitleProps> {
     className?: string;
     component?: React.ElementType;
     copyable?: CopyableConfig | boolean;
@@ -30,8 +31,10 @@ export interface TitleProps extends Omit<React.HTMLAttributes<HTMLHeadingElement
     strong?: boolean;
     style?: React.CSSProperties;
     type?: TypographyBaseType;
-    underline?: boolean
+    underline?: boolean;
+    weight?: ArrayElement<typeof strings.WEIGHT> | number
 }
+
 export default class Title extends PureComponent<TitleProps> {
     static propTypes = {
         copyable: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
@@ -48,6 +51,7 @@ export default class Title extends PureComponent<TitleProps> {
         style: PropTypes.object,
         className: PropTypes.string,
         component: PropTypes.string,
+        weight: PropTypes.oneOfType([PropTypes.oneOf(strings.WEIGHT), PropTypes.number]),
     };
 
     static defaultProps = {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line max-len
-import CalendarFoundation, { ParsedEvents, CalendarAdapter, RangeData, ParsedRangeEvent, ParsedEventsType } from '@douyinfe/semi-foundation/calendar/foundation';
+import CalendarFoundation, { ParsedEvents, CalendarAdapter, RangeData, ParsedRangeEvent, ParsedEventsType, EventObject } from '@douyinfe/semi-foundation/calendar/foundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
@@ -41,7 +41,9 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         markWeekend: PropTypes.bool,
         scrollTop: PropTypes.number,
         renderTimeDisplay: PropTypes.func,
+        renderDateDisplay: PropTypes.func,
         dateGridRender: PropTypes.func,
+        allDayEventsRender: PropTypes.func,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style: PropTypes.object,
@@ -110,7 +112,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
     componentDidUpdate(prevProps: RangeCalendarProps, prevState: RangeCalendarState) {
         const prevEventKeys = prevState.cachedKeys;
         const nowEventKeys = this.props.events.map(event => event.key);
-        if (!isEqual(prevEventKeys, nowEventKeys)) {
+        if (!isEqual(prevEventKeys, nowEventKeys) || !isEqual(prevProps.range, this.props.range)) {
             this.foundation.parseRangeEvents();
         }
     }
@@ -151,7 +153,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
     };
 
     renderHeader = (dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { markWeekend, range } = this.props;
+        const { markWeekend, range, renderDateDisplay } = this.props;
         const { month, week } = this.foundation.getRangeData(range[0], dateFnsLocale);
         return (
             <div className={`${prefixCls}-header`}>
@@ -166,10 +168,17 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
                                 [`${cssClasses.PREFIX}-today`]: isToday,
                                 [`${cssClasses.PREFIX}-weekend`]: markWeekend && day.isWeekend,
                             });
-                            return (
-                                <li key={`${date.toString()}-weekheader`} className={listCls}>
+                            const dateContent = renderDateDisplay ? (
+                                renderDateDisplay(date)
+                            ) : (
+                                <Fragment>
                                     <span className={`${cssClasses.PREFIX}-today-date`}>{dayString}</span>
                                     <span>{weekday}</span>
+                                </Fragment>
+                            );
+                            return (
+                                <li key={`${date.toString()}-weekheader`} className={listCls}>
+                                    {dateContent}
                                 </li>
                             );
                         })}
@@ -180,6 +189,9 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
     };
 
     renderAllDayEvents = (events: Array<ParsedRangeEvent>) => {
+        if (this.props.allDayEventsRender) {
+            return this.props.allDayEventsRender(this.props.events);
+        }
         const list = events.map((event, ind) => {
             const { leftPos, width, topInd, children } = event;
             const top = `${topInd}em`;
@@ -202,11 +214,11 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
     };
 
     renderAllDay = (locale: Locale['Calendar']) => {
+        const { allDayEventsRender } = this.props;
         const { allDay } = this.state.parsedEvents;
         const parsed = this.foundation.parseRangeAllDayEvents(allDay);
-        const maxRowHeight = calcRowHeight(parsed);
-        const style = {
-            height: `${maxRowHeight}em`
+        const style = allDayEventsRender ? null : {
+            height: `${calcRowHeight(parsed) }em`
         };
         const { markWeekend } = this.props;
         const { week } = this.RangeData;

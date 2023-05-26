@@ -117,7 +117,7 @@ export interface EventHandlerProps {
     onClickOutSide?: () => void
 }
 
-export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps {
+export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps, Pick<MonthsGridFoundationProps, 'startYear' | 'endYear'> {
     autoAdjustOverflow?: boolean;
     autoFocus?: boolean;
     autoSwitchDate?: boolean;

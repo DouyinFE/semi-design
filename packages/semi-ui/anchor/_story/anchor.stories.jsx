@@ -290,3 +290,31 @@ export const AutoCollapse = () => {
       </div>
   )
 };
+
+export const SetTooltip = () => {
+  const getContainer = () => {
+      return document.querySelector('window');
+  };
+  return (
+      <div>
+          <Anchor
+              showTooltip={{
+                type: 'popover',
+                opts: {
+                  style: { wordBreak: 'break-all' }
+                }
+              }}
+              position={'right'}
+              getContainer={getContainer}
+              targetOffset={60}
+              offsetTop={100}
+          >
+              <Anchor.Link href="#工具提示位置" title="基本示例111111111111111111111111111111111111111111111112" />
+              <Anchor.Link href="#组件" title="组件" />
+              <Anchor.Link href="#设计语言" title="设计语言" />
+              <Anchor.Link href="#物料平台" title="物料平台" />
+              <Anchor.Link href="#主题商店" title="主题商店" />
+          </Anchor>
+      </div>
+  );
+};
