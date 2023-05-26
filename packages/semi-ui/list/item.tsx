@@ -6,7 +6,6 @@ import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { noop } from 'lodash';
 import { Col } from '../grid';
 import ListContext, { ListContextValue } from './list-context';
-import { ReadStream } from 'fs';
 
 export interface ListItemProps {
     extra?: React.ReactNode;
