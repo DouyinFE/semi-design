@@ -43,9 +43,11 @@ describe('timePicker', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--custom-trigger&args=&viewMode=story');
         cy.get('.semi-button-content').click();
         cy.wait(500);
-
+        cy.get('.semi-timepicker-panel').should('exist');
         cy.get('.semi-timepicker-panel-list-hour').scrollTo('top');
-        cy.get('#root').trigger('mousedown', 'right');
+        cy.root().trigger('mousedown', 'right');
+        cy.wait(500);
+        cy.get('.semi-timepicker-panel').should('not.exist');
     });
 
     it('blur', () => {

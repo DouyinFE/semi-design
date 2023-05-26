@@ -9,7 +9,7 @@ describe('avatar', () => {
         // focus + esc + enter
         cy.get('#initial_focus_point').click();
         cy.wait(100);
-        cy.get('#initial_focus_point').tab(); // 按下tab键
+        cy.get('#initial_focus_point').realPress('Tab'); // 按下tab键
         cy.wait(100);
         cy.get('.semi-avatar').eq(0).should('have.class', 'semi-avatar-focus'); // 第一个avatar应该有focus样式
         cy.get('.semi-avatar').eq(0).type('{enter}'); // 在第一个tag上按enter

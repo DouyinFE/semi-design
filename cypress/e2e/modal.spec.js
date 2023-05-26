@@ -33,20 +33,22 @@ describe('modal', () => {
         cy.get(".semi-tag").first().contains("true");
     });
 
-    it('useModal FocusTrap',()=>{
+    it('useModal FocusTrap', ()=>{
         cy.visit("http://localhost:6006/iframe.html?id=modal--default&viewMode=story");
         cy.get(".semi-button").click();
         cy.contains('取消').should('be.focused');
         cy.get('input').click();
 
-        cy.get('input').tab();
+        cy.get('input').realPress('Tab');
         cy.contains('hide dialog').should('be.focused');
         cy.contains('确定').focus();
-        cy.contains('确定').tab();
+        cy.contains('确定').realPress('Tab');
 
         cy.get('button[aria-label=close]').should('be.focused');
-        cy.get('button[aria-label=close]').tab({ shift:true });
-        cy.contains('确定').should('be.focused');
-
+        // TODO: 
+        // we need to remove cypress-plugin-tab cause it can't work with cypress v>10, we use cyress-real-event instead, but it didn't provide combine 
+        // keyboard event in this time,
+        // cy.get('button[aria-label=close]').tab({ shift: true });
+        // cy.contains('确定').should('be.focused');
     });
 });

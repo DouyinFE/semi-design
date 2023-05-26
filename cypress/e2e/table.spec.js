@@ -59,13 +59,15 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--resizable-columns&args=&viewMode=story');
         
         cy.get('.react-resizable-handle').eq(0)
-            .trigger('mousedown', { which: 1, pageX: 0, pageY: 100 })
-            .trigger('mousemove', { which: 1, pageX: 600, pageY: 100 })
-            .trigger('mouseup');
+            .trigger('mousedown', { which: 1 })
+            .trigger('mousemove', { clientX: 400, clientY: 100 })
+            .trigger('mouseup', { force: true });
+        cy.get('.semi-table-row-cell').eq(0).should('have.css', 'width').and('eq', '364px');
         cy.get('.react-resizable-handle').eq(1)
-            .trigger('mousedown', { which: 1, pageX: 300, pageY: 100 })
-            .trigger('mousemove', { which: 1, pageX: -300, pageY: 100 })
-            .trigger('mouseup');
+            .trigger('mousedown', { which: 1 })
+            .trigger('mousemove', { clientX: 800, clientY: 100 })
+            .trigger('mouseup', { force: true });
+        cy.get('.semi-table-row-cell').eq(1).should('have.css', 'width').and('eq', '400px');
     });
 
     it('scroll table header click', () => {

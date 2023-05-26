@@ -67,7 +67,7 @@ import { RadioGroup, Calendar, Radio } from '@douyinfe/semi-ui';
     const [v, setV] = useState(0);
     return (
         <div>
-            <RadioGroup defaultValue={v} aria-label="StartOfWeek" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
+            <RadioGroup type="button" defaultValue={v} aria-label="StartOfWeek" name="demo-radio-group-vertical" onChange={e => setV(e.target.value)}>
                 <Radio value={0}>Sunday</Radio>
                 <Radio value={1}>Mon</Radio>
                 <Radio value={2}>Tue</Radio>
@@ -213,7 +213,7 @@ class Demo extends React.Component {
         ];
         return (
             <>
-                <RadioGroup onChange={e => this.onSelect(e)} value={mode}>
+                <RadioGroup onChange={e => this.onSelect(e)} value={mode} type="button">
                     <Radio value={'day'}>Day view</Radio>
                     <Radio value={'week'}>Week view</Radio>
                     <Radio value={'month'}>Month view</Radio>

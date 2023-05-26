@@ -30,15 +30,15 @@ describe('anchor', () => {
 
     it('auto collapse', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=anchor--auto-collapse&args=&viewMode=story');
-        cy.get('.semi-anchor-link').contains('组件').should('have.length', 0);
-        cy.get('.semi-anchor-link').contains('动态展示').click();
-        cy.get('.semi-anchor-link').contains('组件').should('have.length', 1);
-        cy.get('.semi-anchor-link').contains('设计语言').click();
-        cy.get('.semi-anchor-link').contains('组件').should('have.length', 0);
-    });
+        cy.get('#collapse .semi-anchor-link').contains('组件').should('not.exist');
+        cy.get('#collapse .semi-anchor-link').contains('Semi Design').click();
+        cy.get('#collapse .semi-anchor-link').contains('组件').should('have.length', 1);
+        cy.get('#collapse .semi-anchor-link').contains('物料').should('have.length', 1);
+        cy.get('#collapse .semi-anchor-link').contains('主题商店').should('have.length', 1);
 
-    it('update href', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=anchor--auto-collapse&args=&viewMode=story');
-        cy.get('#root').contains('setHref').click();
+        cy.get('#no-collapse .semi-anchor-link').contains('组件').should('have.length', 1);
+        cy.get('#no-collapse .semi-anchor-link').contains('Avatar').should('have.length', 1);
+        cy.get('#no-collapse .semi-anchor-link').contains('Button').should('have.length', 1);
+        cy.get('#no-collapse .semi-anchor-link').contains('Icon').should('have.length', 1);
     });
 });

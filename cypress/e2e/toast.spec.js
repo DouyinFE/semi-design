@@ -9,7 +9,7 @@ describe('toast', () => {
         cy.get('.semi-button').click();
         cy.get('[data-cy=context-holder] .semi-toast').contains("ReachableContext: Light");
         cy.get('[data-cy=context-holder] .semi-toast').should("have.length", 5);
-        cy.wait(100);
+        cy.wait(200);
         cy.get('[data-cy=context-holder] .semi-toast').should("have.length", 4);
         cy.get('[data-cy=context-holder] .semi-toast .semi-toast-close-button .semi-button').first().click();
         cy.get('[data-cy=context-holder] .semi-toast').should("have.length", 3);

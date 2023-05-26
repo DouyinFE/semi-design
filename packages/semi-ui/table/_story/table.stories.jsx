@@ -70,13 +70,35 @@ export { default as VirtualizedDynamicData } from './VirtualizedDynamicData';
 export { default as MassiveColumns } from './MassiveColumns';
 export { default as ControlledPagination } from './ControlledPagination';
 export { default as FulldRenderDemo } from './FullRender';
-export * from './RTL';
+export { RTLAlignScrollBar, ColumnAlign, Direction  } from './RTL';
 export { default as JSXAsyncData } from './JSXAsyncData';
 export { default as ScrollBar } from './ScrollBar';
 export { default as TableSpan } from './TableSpan';
 export { default as FixRenderReturnProps } from './FixRenderReturnProps';
 export { default as WarnColumnWithoutDataIndex } from './WarnColumnWithoutDataIndex';
-export * from './v2';
+export {
+    DefaultFilteredValue,
+    FixedColumnsChange,
+    FixedZIndex,
+    FixedHeaderMerge,
+    FixedResizable,
+    FixedExpandedRow,
+    FixedMemoryLeak,
+    FixedOnHeaderRow,
+    RadioRowSelection,
+    FixedVirtualizedEmpty,
+    FixedFilter,
+    FixedSorter,
+    StickyHeaderTable,
+    Fixed1188,
+    EmptyFilters,
+    FixedResizableWithForm,
+    Zebra,
+    WordBreakNormalTable, WordBreakFixedTable,
+    EllipsisNormalTable, EllipsisFixedTable, ShowTitleTable,
+    Fixed1556,
+    FixedColumnAlign
+} from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 
 // empty table
