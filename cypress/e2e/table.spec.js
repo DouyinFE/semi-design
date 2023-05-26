@@ -173,4 +173,16 @@ describe('table', () => {
         cy.get('.semi-table-row-cell').eq(2).should('not.have.attr', 'title');
         cy.get('.semi-table-row-cell').eq(3).should('not.have.attr', 'title');
     });
+
+    it('fixed onChange filter incorrect, when setting defaultFilteredValue & without onFilter', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fix-on-change&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog'); // 测试时用到控制台的前置步骤
+            },
+        });
+
+        cy.get('.semi-table-column-sorter').eq(1).click();
+        // filters 长度应该为 1
+        cy.get('@consoleLog').should('be.calledWith', 1);
+    });
 });
