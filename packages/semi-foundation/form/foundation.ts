@@ -383,6 +383,12 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     setValues(values: any, { isOverride = false }): void {
         const _values = this._adapter.cloneDeep(values);
         this.fields.forEach(field => {
+            // If field is not in _values, it means that the field should not be updated, so return directly
+            // 如果field不在_values中，说明该field不应该被更新，所以直接return
+            if (ObjectUtil.has(_values, field.field)) {
+                return;
+            }
+
             const value = ObjectUtil.get(_values, field.field);
             // When calling setValues to override the values, only need to trigger onValueChange and onChange once, so setNotNotify of setValue to true
             // 调用setValues进行值的覆盖时，只需要回调一次onValueChange、onChange即可，所以此处将setValue的notNotify置为true
