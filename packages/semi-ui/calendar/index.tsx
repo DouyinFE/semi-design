@@ -29,6 +29,7 @@ class Calendar extends BaseComponent<CalendarProps, {}> {
         scrollTop: PropTypes.number,
         onClick: PropTypes.func,
         renderTimeDisplay: PropTypes.func,
+        renderDateDisplay: PropTypes.func,
         markWeekend: PropTypes.bool,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

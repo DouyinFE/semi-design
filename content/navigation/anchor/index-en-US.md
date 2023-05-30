@@ -342,7 +342,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 | position     | Tooltip position，same as `position` property of Tooltip component                                                  | string                              | -         | |
 | railTheme    | Style of scroll rail，one of `primary`，`tertiary`，`muted`                                                         | string                              | `primary` | |
 | scrollMotion | Animation of scroll behavior                                                                                        | boolean                             | false     | |
-| showTooltip  | Show Tooltip                                                                                                        | boolean                             | false     | |
+| showTooltip  | Toggle whether to show tooltip, if passed in as object: type，type of component to show tooltip, support Tooltip and Popover, the default is Tooltip; opts, properties that will be passed directly to the component. The object form setting is provided since version 2.36.0   | boolean \| {type: 'tooltip'\|'popover', opts: object}                             | false     | |
 | size         | Size of Anchor，one of `small`，`default`                                                                           | string                              | `default` | |
 | style        | Style object                                                                                                        | object                              | -         | |
 | targetOffset | Anchor offset from top of target                                                                     | number                              | 0         | 1.9.0 |

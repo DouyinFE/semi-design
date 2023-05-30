@@ -24,7 +24,9 @@ export interface YearAndMonthFoundationProps {
     renderQuickControls?: any;
     renderDateInput?: any;
     type?: Type;
-    yearAndMonthOpts?: any
+    yearAndMonthOpts?: any;
+    startYear?: number;
+    endYear?: number
 }
 
 export interface YearAndMonthFoundationState {

@@ -24,6 +24,7 @@ import { BaseValueType, DateInputFoundationProps, PresetPosition, ValueType } fr
 import { MonthDayInfo } from './monthFoundation';
 import { ArrayElement } from '../utils/type';
 import isValidTimeZone from './_utils/isValidTimeZone';
+import { YearAndMonthFoundationProps } from './yearAndMonthFoundation';
 
 const dateDiffFns = {
     month: differenceInCalendarMonths,
@@ -54,7 +55,7 @@ interface MonthsGridElementProps {
 export type PanelType = 'left' | 'right';
 export type YearMonthChangeType = 'prevMonth' | 'nextMonth' | 'prevYear' | 'nextYear';
 
-export interface MonthsGridFoundationProps extends MonthsGridElementProps {
+export interface MonthsGridFoundationProps extends MonthsGridElementProps, Pick<YearAndMonthFoundationProps, 'startYear' | 'endYear'> {
     type?: Type;
     /** may be null if selection is not complete when type is dateRange or dateTimeRange */
     defaultValue?: (Date | null)[];

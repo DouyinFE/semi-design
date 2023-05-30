@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -38,7 +38,8 @@ export interface BaseTypographyProps extends BaseProps {
     children?: React.ReactNode;
     component?: React.ElementType;
     spacing?: string;
-    heading?: string
+    heading?: string;
+    weight?: string | number
 }
 
 interface BaseTypographyState {
@@ -50,6 +51,7 @@ interface BaseTypographyState {
     isTruncated: boolean;
     prevChildren: React.ReactNode
 }
+
 const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';
 
@@ -213,7 +215,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         this.rafId = window.requestAnimationFrame(this.getEllipsisState.bind(this));
     };
 
-    // if need to use js overflowed:
+    // if it needs to use js overflowed:
     // 1. text is expandable 2. expandText need to be shown  3. has extra operation 4. text need to ellipse from mid
     canUseCSSEllipsis = () => {
         const { copyable } = this.props;
@@ -527,7 +529,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             duration: 3,
             ...(typeof copyable === 'object' ? copyable : null),
         };
-        return <Copyable {...copyConfig} forwardRef={this.copyRef} />;
+        return <Copyable {...copyConfig} forwardRef={this.copyRef}/>;
     }
 
     renderIcon() {
@@ -557,6 +559,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             size,
             link,
             heading,
+            weight,
             ...rest
         } = this.props;
         const textProps = omit(rest, [
@@ -585,6 +588,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             </>
         );
         const hTagReg = /^h[1-6]$/;
+        const isHeader = isString(heading) && hTagReg.test(heading);
         const wrapperCls = cls(className, ellipsisCls, {
             // [`${prefixCls}-primary`]: !type || type === 'primary',
             [`${prefixCls}-${type}`]: type && !link,
@@ -592,12 +596,21 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             [`${prefixCls}-link`]: link,
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-${spacing}`]: spacing,
-            [`${prefixCls}-${heading}`]: isString(heading) && hTagReg.test(heading),
+            [`${prefixCls}-${heading}`]: isHeader,
+            [`${prefixCls}-${heading}-weight-${weight}`]: isHeader && weight && isNaN(Number(weight)),
         });
+
+        const textStyle: CSSProperties = {
+            ...(
+                isNaN(Number(weight)) ? {} : { fontWeight: weight }
+            ),
+            ...style
+        };
+
         return (
             <Typography
                 className={wrapperCls}
-                style={{ ...style, ...ellipsisStyle }}
+                style={{ ...textStyle, ...ellipsisStyle }}
                 component={component}
                 forwardRef={this.wrapperRef}
                 {...textProps}

@@ -387,40 +387,41 @@ Answers to some questions:
 
 > Other attributes are same with html `<input>`
 
-| Property          | Instructions                                                                                  | type                            | Default   |
-|-------------------|-----------------------------------------------------------------------------------------------|---------------------------------|-----------|
-| aria-describedby  | Set the aria-describedby property                                                             | string                          | -         |
-| aria-errormessage | Set the aria-errormessage property                                                            | string                          | -         |
-| aria-invalid      | Set aria-invalid property                                                                     | string                          | -         |
-| aria-label        | Set aria-label properties                                                                     | string                          | -         |
-| aria-labelledby   | Set aria-labelledby properties                                                                | string                          | -         |
-| aria-required     | Set aria-required properties                                                                  | string                          | -         |
-| addonAfter        | Addon after input box                                                                         | ReactNode                       |           |
-| addonBefore       | Addon before input box                                                                        | ReactNode                       |           |
-| className         | Class name                                                                                    | string                          |           |
-| clearIcon         | Can be used to customize the clear button, valid when showClear is true  **>=2.25**           | ReactNode                       |           |
-| defaultValue      | Default value                                                                                 | ReactText                       |           |
-| disabled          | Toggle whether to disable input                                                               | boolean                         | false     |
-| getValueLength    | Custom calculated character string length                                                     | (value: string) => number       |           |
-| hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side | boolean                         | false     |
-| mode              | mode of input，optional: `password` **>= v1.3.0**                                              | string                          |           |
-| prefix            | Prefix                                                                                        | ReactNode                       |           |
+| Property          | Instructions                                                                                                                                                                                  | type                            | Default   |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|-----------|
+| aria-describedby  | Set the aria-describedby property                                                                                                                                                             | string                          | -         |
+| aria-errormessage | Set the aria-errormessage property                                                                                                                                                            | string                          | -         |
+| aria-invalid      | Set aria-invalid property                                                                                                                                                                     | string                          | -         |
+| aria-label        | Set aria-label properties                                                                                                                                                                     | string                          | -         |
+| aria-labelledby   | Set aria-labelledby properties                                                                                                                                                                | string                          | -         |
+| aria-required     | Set aria-required properties                                                                                                                                                                  | string                          | -         |
+| addonAfter        | Addon after input box                                                                                                                                                                         | ReactNode                       |           |
+| addonBefore       | Addon before input box                                                                                                                                                                        | ReactNode                       |           |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
+| className         | Class name                                                                                                                                                                                    | string                          |           |
+| clearIcon         | Can be used to customize the clear button, valid when showClear is true  **>=2.25**                                                                                                           | ReactNode                       |           |
+| defaultValue      | Default value                                                                                                                                                                                 | ReactText                       |           |
+| disabled          | Toggle whether to disable input                                                                                                                                                               | boolean                         | false     |
+| getValueLength    | Custom calculated character string length                                                                                                                                                     | (value: string) => number       |           |
+| hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side                                                                                                 | boolean                         | false     |
+| mode              | mode of input，optional: `password` **>= v1.3.0**                                                                                                                                              | string                          |           |
+| prefix            | Prefix                                                                                                                                                                                        | ReactNode                       |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| showClear         | Show clear button **>=1.0.0**                                                                 | boolean                         | false     |
-| size              | Size, one of `large`, `default`, `small`                                                      | string                          | `default` |
-| style             | Inline style                                                                                  | CSSProperties                   |           |
-| suffix            | Suffix                                                                                        | ReactNode                       |           |
-| type              | Input type attribute, same with html `<input>`                                                | string                          | text      |
-| validateStatus    | Validate status for styling only, one of `default`, `error`, `warning`                        | string                          | `default` |
-| value             | Current value of input box                                                                    | ReactText                       |           |
-| onBlur            | Callback invoked when input loses focus                                                       | function(e:event)               |           |
-| onChange          | Callback invoked when input value changes                                                     | function(value:string, e:event) |           |
-| onClear           | Callback invoked when clicking clear icon                                                     | function(e:event)               |           |
-| onEnterPress      | Callback invoked when pressing enter（keypress）                                                | function(e:event)               |           |
-| onFocus           | Callback invoked when input gets focus                                                        | function(e:event)               |           |
-| onKeyDown         | Callback invoked when keydown                                                                 | function(e:event)               |           |
-| onKeyPress        | Callback invoked when keypress                                                                | function(e:event)               |           |
-| onKeyUp           | Callback invoked when keyup                                                                   | function(e:event)               |           |
+| showClear         | Show clear button **>=1.0.0**                                                                                                                                                                 | boolean                         | false     |
+| size              | Size, one of `large`, `default`, `small`                                                                                                                                                      | string                          | `default` |
+| style             | Inline style                                                                                                                                                                                  | CSSProperties                   |           |
+| suffix            | Suffix                                                                                                                                                                                        | ReactNode                       |           |
+| type              | Input type attribute, same with html `<input>`                                                                                                                                                | string                          | text      |
+| validateStatus    | Validate status for styling only, one of `default`, `error`, `warning`                                                                                                                        | string                          | `default` |
+| value             | Current value of input box                                                                                                                                                                    | ReactText                       |           |
+| onBlur            | Callback invoked when input loses focus                                                                                                                                                       | function(e:event)               |           |
+| onChange          | Callback invoked when input value changes                                                                                                                                                     | function(value:string, e:event) |           |
+| onClear           | Callback invoked when clicking clear icon                                                                                                                                                     | function(e:event)               |           |
+| onEnterPress      | Callback invoked when pressing enter（keypress）                                                                                                                                                | function(e:event)               |           |
+| onFocus           | Callback invoked when input gets focus                                                                                                                                                        | function(e:event)               |           |
+| onKeyDown         | Callback invoked when keydown                                                                                                                                                                 | function(e:event)               |           |
+| onKeyPress        | Callback invoked when keypress                                                                                                                                                                | function(e:event)               |           |
+| onKeyUp           | Callback invoked when keyup                                                                                                                                                                   | function(e:event)               |           |
 ### TextArea
 
 > Other attributes are same with html `<textarea>`
@@ -434,6 +435,7 @@ Answers to some questions:
 | aria-labelledby   | Set aria-labelledby properties                                                                                         | string                          | -       |
 | aria-required     | Set aria-required properties                                                                                           | string                          | -       |
 | autosize          | Toggle whether to allow autosize when content height changes                                                           | boolean                         | false   |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                             | string                          | -       |
 | cols              | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |
 | disabled          | Disabled                                                                                                               | boolean                         | false   |

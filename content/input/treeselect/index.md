@@ -1384,6 +1384,7 @@ function Demo() {
 | arrowIcon|自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon| ReactNode | | 1.15.0|
 | autoAdjustOverflow|浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）|boolean | true| 0.34.0|
 | autoExpandParent | 是否自动展开父节点 | boolean | false | 0.34.0 |
+| borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 选择框的 `className` 属性 | string | - | - |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | |2.25.0  |

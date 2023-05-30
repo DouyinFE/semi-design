@@ -301,6 +301,7 @@ function Demo(props = {}) {
 | --- | --- | --- | --- | --- |
 | autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked | boolean | true | **0.34.0** |
 | autoFocus | Automatic access to focus | boolean | false |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className | Outer style name | string |  |
 | clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode |  |  **2.25.0**|
 | clearText | Clear button prompt copy | string | Clear |

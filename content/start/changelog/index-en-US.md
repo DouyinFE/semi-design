@@ -15,6 +15,37 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+
+#### 🎉 2.36.0 (2023-05-26)
+- 【Fix】
+  - Fix the problem that in the multi-day mode of the Calander, the non-full-day schedule is not displayed when the range includes time [@sylingd](https://github.com/sylingd)
+  - Fix the problem that the event parameter in Upload customRequest onSuccess is optional, but the ts type declaration is required
+  - Fix the problem that ImagePreview IntersectionObserver throw error when using under SSR（effect version 2.34.1 ~ 2.36.0-beta.0）[#1595](https://github.com/DouyinFE/semi-design/issues/1595)
+
+#### 🎉 2.36.0-beta.0 (2023-05-22)
+- 【Feat】
+  - DatePicker support startYear and endYear  [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
+  - add custom top events area rendering for calendar. [@sylingd](https://github.com/sylingd)
+  - add custom date rendering or calendar. [@sylingd](https://github.com/sylingd)
+  - The showTooltip API of Anchor supports object type
+  - Typography.Title added weight API to set font weight.
+  - Select add new ref method search
+  - Nav add expandIcon to replace default arrow icon；Nav.Footer add onClick callback  [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
+- 【Fix】
+  - fix TimePicker timeZone conversion problem when date-fns-tz version >= 1.3.8
+  - Fix the wrong style of Radio and Checkbox in ReactNode passed in through the tab API in Tabs  [#1615 ](https://github.com/DouyinFE/semi-design/issues/1615)
+  - when calendar's displayValue changed, the results of events rendering is wrong. [@sylingd](https://github.com/sylingd)
+  - remove the ellipsis warning when omitting is not enabled in Typography
+  - fix Table header column align bug（v2.34 ~ 2.35 affected）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
+  - remove the outermost vertical-align top style of DatePicker  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
+  - fix the problem that select the parameter type of handleInputChange does not match the parameter type of Input onChange
+- 【Design Token】
+  - Typography Add  `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` tokens. Used to control the font weight of different levels of Header respectively
+- 【Docs】
+  - Tabs、Typography update notice tips
+  - Slider fix some wrong spell [@inottn](https://github.com/inottn)
+
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】
     - fix the problem that the Dropdown item is abnormal after switching tabs in collapsible Tabs

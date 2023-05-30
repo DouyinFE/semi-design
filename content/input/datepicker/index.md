@@ -849,6 +849,7 @@ function Demo() {
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向                                              | boolean   | true    | **0.34.0** |
 | autoFocus          | 自动获取焦点                                                              | boolean   | false   | **1.10.0** |
 | autoSwitchDate     | 通过面板上方左右按钮、下拉菜单更改年月时，自动切换日期。仅对 date type 生效。 | boolean   | true    | **1.13.0** |
+| borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
 | bottomSlot         | 渲染底部额外区域                                                          | ReactNode |         | **1.22.0** |
 | className          | 类名                                                                      | string    | -       |            |
 | clearIcon          | 可用于自定义清除按钮, showClear为true时有效                               | ReactNode |         | **2.25.0** |
@@ -889,6 +890,8 @@ function Demo() {
 | size | 尺寸，可选值："small", "default", "large" | string | 'default' |  |
 | spacing | 浮层与 trigger 的距离 | number | 4 | **1.9.0** |
 | startDateOffset | type 为 dateRange 时，设置单击选择范围的开始日期 | <ApiType detail='(selectedDate?: Date) => Date '>(selectedDate) => Date </ApiType>| - | **1.10.0** |
+| startYear | 滚轮的开始年 | number | 当前年前 100 年 | **2.36.0** |
+| endYear | 滚轮的结束年，结束年需要大于开始年 | number | 当前年后 100 年 | **2.36.0** |
 | stopPropagation | 是否阻止弹出层上的点击事件冒泡 | boolean | false |  |
 | style | 自定义样式 | CSSProperties |  |  |
 | syncSwitchMonth | 在范围选择的场景中，支持同步切换双面板的月份 | boolean | false | **1.28.0** |
