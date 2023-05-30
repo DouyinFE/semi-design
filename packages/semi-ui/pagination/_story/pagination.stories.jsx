@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import 'normalize.css';
+// import 'normalize.css';
 import { Button } from '../../index';
 import Pagination from '../index';
 
