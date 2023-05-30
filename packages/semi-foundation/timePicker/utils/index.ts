@@ -15,7 +15,7 @@ import { zhCN as defaultLocale } from 'date-fns/locale';
 export const parseToDate = (input: string | Date | number, formatToken = strings.DEFAULT_FORMAT, dateFnsLocale = defaultLocale) => {
     if (input instanceof Date) {
         return input;
-    } else if (typeof input === 'number' || !isNaN(Number(input))) {
+    } else if (typeof input === 'number' || (!isNaN(Number(input)) && input !== '')) {
         return new Date(toNumber(input));
     } else if (typeof input === 'string') {
         let curDate = new Date();
