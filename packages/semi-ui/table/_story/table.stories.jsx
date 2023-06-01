@@ -98,7 +98,8 @@ export {
     EllipsisNormalTable, EllipsisFixedTable, ShowTitleTable,
     Fixed1556,
     FixedColumnAlign,
-    FixOnChange
+    FixOnChange,
+    FixedResizablePerformance
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 
