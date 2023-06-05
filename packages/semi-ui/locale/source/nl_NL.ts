@@ -42,6 +42,7 @@ const local: Locale = {
             dateTimeRange: ['Begindatum', 'Einddatum'],
             monthRange: ['Begindatum', 'Einddatum'],
         },
+        presets: 'Snelle selectie',
         footer: {
             confirm: 'Bevestigen',
             cancel: 'Annuleren',

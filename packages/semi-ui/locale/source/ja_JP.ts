@@ -35,6 +35,7 @@ const local: Locale = {
             dateTimeRange: ['開始日', '終了日'],
             monthRange: ['開始月', '終了月'],
         },
+        presets: 'クイック選択',
         footer: {
             confirm: '確認する',
             cancel: 'キャンセル',
