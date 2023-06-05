@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.37.0-beta.0 (2023-06-05)
+- 【Feat】
+    - Pagination support disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)
+    - DatePicker insetInput input box supports clearing input box content through trigger [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - Add the function of transparently passing data-* class attributes to all components [#1597](https://github.com/DouyinFE/semi-design/issues/1597)
+- 【Fix】
+    - DatePicker preset panel title supports i18n [#1643](https://github.com/DouyinFE/semi-design/pull/1643)
+    - Fix DatePicker insetInput input box placeholder placeholder text error [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - Fix DatePicker range input clear icon color bug [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - the stopPropagation and preventDefault of the up and down arrow press events are triggered only when the Dropdown panel is visible[#1640](https://github.com/DouyinFE/semi-design/pull/1640)
+- 【Style】
+    - Set the default line break rules for content in Tooltip, Toast, and Notification [#1623](https://github.com/DouyinFE/semi-design/pull/1623)
 
 #### 🎉 2.36.0 (2023-05-26)
 - 【Fix】
