@@ -412,7 +412,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
     }
 
     renderSmallPage(locale: PaginationLocale) {
-        const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger, disabled } = this.props;
+        const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger, disabled, ...rest } = this.props;
         const paginationCls = classNames(`${prefixCls}-small`, prefixCls, className, { [`${prefixCls}-disabled`]: disabled });
         const { currentPage, total, pageSize } = this.state;
         const totalPageNum = Math.ceil(total / pageSize);
@@ -451,7 +451,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
     renderDefaultPage(locale: PaginationLocale) {
         const { total, pageSize } = this.state;
-        const { showTotal, className, style, hideOnSinglePage, showSizeChanger, disabled } = this.props;
+        const { showTotal, className, style, hideOnSinglePage, showSizeChanger, disabled, ...rest } = this.props;
         const paginationCls = classNames(className, `${prefixCls}`, { [`${prefixCls}-disabled`]: disabled });
         const showTotalCls = `${prefixCls}-total`;
         const totalPageNum = Math.ceil(total / pageSize);
