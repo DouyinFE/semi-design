@@ -597,7 +597,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-${spacing}`]: spacing,
             [`${prefixCls}-${heading}`]: isHeader,
-            [`${prefixCls}-${heading}-weight-${weight}`]: isHeader && isNaN(Number(weight)),
+            [`${prefixCls}-${heading}-weight-${weight}`]: isHeader && weight && isNaN(Number(weight)),
         });
 
         const textStyle: CSSProperties = {

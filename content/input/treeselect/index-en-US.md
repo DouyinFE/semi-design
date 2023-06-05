@@ -1403,6 +1403,7 @@ function Demo() {
 | arrowIcon|Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon| ReactNode | | 1.15.0|
 |autoAdjustOverflow|Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)|boolean | true| 0.34.0|
 | autoExpandParent | Toggle whether to expand parent nodes automatically | boolean | false | 0.34.0 |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className                | Class name                                                                          | string                                                            | -           | -       |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                |       | 2.25.0    |

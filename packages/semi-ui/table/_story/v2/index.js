@@ -19,3 +19,4 @@ export { WordBreakNormalTable, WordBreakFixedTable } from './FeatWordBreak';
 export { EllipsisNormalTable, EllipsisFixedTable, ShowTitleTable } from './FeatEllipsis';
 export { default as Fixed1556 } from './Fixed1556';
 export { default as FixedColumnAlign } from './FixedColumnAlign';
+export { default as FixOnChange } from './FixOnChange';

@@ -1326,6 +1326,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
 | autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled | boolean | true | 2.3.0|
 | autoFocus | Whether automatically focus when component mount | boolean | false |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className | The CSS class name of the wrapper element | string |  |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                       |   | 2.25.0 |
 | clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
