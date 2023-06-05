@@ -65,7 +65,7 @@ $module-icon: #{$module}-icon-arrow;
         font-size: $font-tooltip-fontSize;
         left: 0;
         top: 0;
-        word-wrap: break-word;
+        @include overflow-break-word;
 
         @include font-size-regular;
         opacity: 0;
