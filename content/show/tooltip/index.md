@@ -424,8 +424,8 @@ function Demo() {
 
 ## FAQ
 
--   **为什么 Tooltip content 配置很长很长的内容时，会超出显示 / 不默认配置 word-break 样式?**  
-    不同语言内容（纯英文、中文、中英文混合、其他语种混合）对 word-break 的需求不太一致，所以组件层没有做这个预设。使用方可以根据自己当前语言需求，使用 CSS 进行设置。
+-   **为什么 Tooltip content 配置很长很长的内容时，某些情况下内容会超出显示区域?**  
+    在 v2.36.0 版本以前，考虑到不同语言内容（纯英文、中文、中英文混合、其他语种混合）对换行的需求不太一致，所以组件层没有做这个预设。在接收到较多使用反馈后，自 v2.36.0 版本，Tooltip 内部通过设置 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target="_blank" rel="noopener noreferrer">word-wrap</a> 为 break-word 处理文本换行。对于任意版本，如果默认设置不符合预期，使用方都可以通过 style/className API 设置换行相关 CSS 属性进行调整。
 
 
 <!-- ## 相关物料

@@ -40,6 +40,7 @@ const local: Locale = {
             dateTimeRange: ['Startdatum', 'Slutdatum'],
             monthRange: ['Startmånad', 'Slutmånad'],
         },
+        presets: 'Snabbval',
         footer: {
             confirm: 'Bekräfta',
             cancel: 'Avbryt',

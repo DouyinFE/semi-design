@@ -87,6 +87,19 @@ const CascaderDemo = () => {
 const I18nComponent = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const style = { margin: 10 };
+  const presets = [
+        {
+            text: 'Today',
+            start: new Date(),
+            end: new Date(),
+        },
+        {
+            text: 'Tomorrow',
+            start: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+            end: new Date(new Date().valueOf() + 1000 * 3600 * 24),
+        },
+    ];
+
   return (
     <>
       <Pagination total={100} showTotal showSizeChanger style={style} />
@@ -113,7 +126,7 @@ const I18nComponent = () => {
         <p>More content...</p>
       </Modal>
       <DatePicker style={{ ...style, width: 200 }} />
-      <DatePicker style={{ ...style, width: 250 }} type="dateTime" />
+      <DatePicker style={{ ...style, width: 250 }} type="dateTime" presets={presets} presetPosition="left"/>
       <DatePicker style={{ ...style, width: 250 }} type="dateRange" />
       <DatePicker style={{ ...style, width: 400 }} type="dateTimeRange" />
       <TimePicker style={style} />

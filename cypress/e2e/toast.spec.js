@@ -12,6 +12,7 @@ describe('toast', () => {
         cy.wait(200);
         cy.get('[data-cy=context-holder] .semi-toast').should("have.length", 4);
         cy.get('[data-cy=context-holder] .semi-toast .semi-toast-close-button .semi-button').first().click();
+        cy.wait(200);
         cy.get('[data-cy=context-holder] .semi-toast').should("have.length", 3);
     });
 });

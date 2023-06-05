@@ -36,6 +36,7 @@ const local: Locale = {
             dateTimeRange: ['시작 날짜', '종료일'],
             monthRange: ['시작 월', '종료 월'],
         },
+        presets: '빠른 선택',
         footer: {
             confirm: '확인',
             cancel: '취소',

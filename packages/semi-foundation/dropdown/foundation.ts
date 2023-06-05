@@ -13,7 +13,7 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
         this._adapter.notifyVisibleChange(visible);
 
         const { trigger } = this.getProps();
-        if (visible && trigger === "click"){
+        if (visible && trigger === "click") {
             const popupId = this._adapter.getPopupId();
             this.setFocusToFirstMenuItem(popupId);
         }
@@ -37,6 +37,7 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
 
     handleKeyDown(event: any): void {
         const id = event.target?.attributes['data-popupid']?.value;
+        const { visible } = this._adapter.getStates();
         switch (event.key) {
             case ' ':
             case 'Enter':
@@ -46,11 +47,11 @@ export default class DropdownFoundation extends BaseFoundation<DropdownAdapter> 
                 break;
             case 'ArrowDown':
                 this.setFocusToFirstMenuItem(id);
-                handlePrevent(event);
+                visible && handlePrevent(event);
                 break;
             case 'ArrowUp':
                 this.setFocusToLastMenuItem(id);
-                handlePrevent(event);
+                visible && handlePrevent(event);
                 break;
             default:
                 break;

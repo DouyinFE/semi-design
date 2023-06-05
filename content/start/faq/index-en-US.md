@@ -53,8 +53,8 @@ Welcome to ours [Customer Service Lark Group](https://bytedance.feishu.cn/docs/d
 
 Our style is based on Scss, and we also use CSS Variable as the color wheel variable. Color variables and common variables are mounted under `body`. CSS Module is not used because we want to have a fixed className and retain the ability to modify / override Semi style for our users(although it is not recommended, it is really needed sometime).
 
-#### Why Tooltip、Typography does not set style word-break to all or word?  
-   Content in difference languages (e.g. English, Chinese, combination of English and Chinese) may require different styles in terms of word-break, so Semi does not use a default setting. You could use corresponding CSS styles to your own needs.
+#### Why do some forms of content not wrap when the content in Tooltip and Typography is very long?  
+Before the v2.36.0 version, considering that different language content (e.g. English, Chinese, combination of English and Chinese) have inconsistent requirements for line breaks, so Semi does not use a default setting. After receiving a lot of usage feedback, since the v2.36.0 version, Tooltip has internally set <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a> handles text wrapping for break-word. For any version, if the default settings are not as expected, the user can adjust the line break related CSS properties through the style/className API.
 
 #### More FAQ
 Please refer to https://bytedance.feishu.cn/docs/doccnMRDbkhde6p3dMokfFpcNug
