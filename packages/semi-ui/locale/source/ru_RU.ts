@@ -38,6 +38,7 @@ const local: Locale = {
             dateTimeRange: ['Дата начала', 'Дата окончания'],
             monthRange: ['Начальный месяц', 'Конечный месяц'],
         },
+        presets: 'Быстрый выбор',
         footer: {
             confirm: 'подтвердить',
             cancel: 'отмена',

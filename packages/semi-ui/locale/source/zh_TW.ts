@@ -35,6 +35,7 @@ const local: Locale = {
             dateTimeRange: ['開始日期', '結束日期'],
             monthRange: ['開始月份', '結束月份'],
         },
+        presets: '快捷選擇',
         footer: {
             confirm: '確定',
             cancel: '取消',

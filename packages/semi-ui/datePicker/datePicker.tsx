@@ -552,7 +552,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     renderQuickControls() {
-        const { presets, type, presetPosition, insetInput } = this.props;
+        const { presets, type, presetPosition, insetInput, locale } = this.props;
         return (
             <QuickControl
                 type={type}
@@ -560,6 +560,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 insetInput={insetInput}
                 presetPosition={presetPosition}
                 onPresetClick={(item, e) => this.foundation.handlePresetClick(item, e)}
+                locale={locale}
             />
         );
     }

@@ -18,6 +18,7 @@ export interface QuickControlProps {
     onPresetClick: (preset: PresetType, e: React.MouseEvent) => void;
     type: string;
     insetInput: DateInputFoundationProps['insetInput']
+    locale: any
 }
 
 class QuickControl extends PureComponent<QuickControlProps> {
@@ -27,6 +28,7 @@ class QuickControl extends PureComponent<QuickControlProps> {
         onPresetClick: PropTypes.func,
         type: PropTypes.string,
         insetInput: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        locale: PropTypes.object,
     };
 
     static defaultProps = {
@@ -36,7 +38,7 @@ class QuickControl extends PureComponent<QuickControlProps> {
     };
 
     render() {
-        const { presets, onPresetClick, type, presetPosition, insetInput } = this.props;
+        const { presets, onPresetClick, type, presetPosition, insetInput, locale } = this.props;
         const isTypeRange = type === 'dateRange' || type === 'dateTimeRange';
         const isPanelTopAndBottom = presetPosition === 'top' || presetPosition === 'bottom';
         const isMonth = type === 'month';
@@ -75,7 +77,7 @@ class QuickControl extends PureComponent<QuickControlProps> {
         }
         return (
             <div className={wrapperCls} x-insetinput={insetInput ? "true" : "false"}>
-                {!isPanelTopAndBottom && <div className={headerCls}>快捷选择</div>}
+                {!isPanelTopAndBottom && <div className={headerCls}>{locale.presets}</div>}
                 <div className={contentWrapperCls}>
                     <div className={contentCls}>
                         {presets.map((item, index) => {
