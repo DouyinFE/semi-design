@@ -584,7 +584,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -666,6 +666,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
             ...extraProps,
+            showClearIgnoreDisabled: Boolean(insetInput),
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,
