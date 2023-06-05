@@ -123,16 +123,19 @@ $module: #{$prefix}-notification;
             font-weight: $font-notification_notice_title-fontWeight;
             color: $color-notification_title-text;
             margin-bottom: $spacing-notification_notice_title-marginBottom;
+            @include overflow-break-word;
         }
 
         &-inner {
             display: flex;
             width: 100%;
+            min-width: 0;
         }
 
         &-content-wrapper {
             flex: 1 1 auto;
             margin-right: $spacing-notification_notice_content_wrapper-marginRight;
+            min-width: 0;
         }
 
         &-content {
@@ -140,6 +143,7 @@ $module: #{$prefix}-notification;
             font-weight: $font-notification_notice_content-fontWeight;
             color: $color-notification_content-text;
             // padding-top: $spacing-extra-tight;
+            @include overflow-break-word;
         }
 
         &-icon-close {

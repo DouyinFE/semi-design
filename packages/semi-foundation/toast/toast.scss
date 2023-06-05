@@ -39,6 +39,7 @@ $icon: #{$prefix}-toast-icon;
             margin-left: $spacing-toast_content_text-marginLeft;
             margin-right: $spacing-toast_content_text-marginRight;
             text-align: left;
+            @include overflow-break-word;
         }
     }
 
