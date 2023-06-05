@@ -105,6 +105,15 @@ $module: #{$prefix}-page;
                 background-color: transparent;
                 color: $color-pagination_item-text-disabled;
             }
+
+            &-active {
+                background-color: $color-pagination_item-bg-selected-disabled;
+                font-weight: $font-pagination_item_active-fontWeight;
+
+                &:hover {
+                    background-color: $color-pagination_item-bg-selected-disabled;
+                }
+            }
         }
     }
 

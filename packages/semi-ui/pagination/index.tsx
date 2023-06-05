@@ -337,8 +337,9 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
         return pageList.map((page, i) => {
             const pageListClassName = classNames(`${prefixCls}-item`, {
-                [`${prefixCls}-item-active`]: currentPage === page && !disabled,
+                [`${prefixCls}-item-active`]: currentPage === page,
                 [`${prefixCls}-item-all-disabled`]: disabled,
+                [`${prefixCls}-item-all-disabled-active`]: currentPage === page && disabled,
                 // [`${prefixCls}-item-rest-opening`]: (i < 3 && isLeftRestHover && page ==='...') || (i > 3 && isRightRestHover && page === '...')
             });
             const pageEl = (
