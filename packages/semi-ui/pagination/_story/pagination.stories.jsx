@@ -163,6 +163,7 @@ export const DisabledPagination = () => {
     <div>
       <Pagination total={100} disabled style={{ marginBottom: 12 }} size='small'></Pagination>
       <Pagination total={100} disabled style={{ marginBottom: 12 }} showQuickJumper size='small'></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} size='small' hoverShowPageSelect></Pagination>
       <Pagination total={100} disabled style={{ marginBottom: 12 }} showQuickJumper></Pagination>
       <Pagination total={100} disabled style={{ marginBottom: 12 }} showSizeChanger></Pagination>
       <Pagination total={100} disabled style={{ marginBottom: 12 }} showTotal></Pagination>

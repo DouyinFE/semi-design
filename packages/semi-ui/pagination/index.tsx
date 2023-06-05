@@ -303,10 +303,10 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             return null;
         }
         const totalPageNum = this.foundation._getTotalPageNumber(total, pageSize);
-        const isDisabled = totalPageNum === 1;
+        const isDisabled = (totalPageNum === 1) || disabled;
         const quickJumpCls = classNames({
             [`${prefixCls}-quickjump`]: true,
-            [`${prefixCls}-quickjump-disabled`]: isDisabled || disabled
+            [`${prefixCls}-quickjump-disabled`]: isDisabled
         });
 
         return (
@@ -316,7 +316,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     value={quickJumpPage}
                     className={`${prefixCls}-quickjump-input-number`}
                     hideButtons
-                    disabled={isDisabled || disabled}
+                    disabled={isDisabled}
                     onBlur={(e: React.FocusEvent) => this.foundation.handleQuickJumpBlur()}
                     onEnterPress={(e: React.KeyboardEvent) => this.foundation.handleQuickJumpEnterPress((e.target as any).value)}
                     onChange={(v: string | number) => this.foundation.handleQuickJumpNumberChange(v)}
@@ -435,7 +435,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             <div className={paginationCls} style={style}>
                 {this.renderPrevBtn()}
                 {
-                    (hoverShowPageSelect || !disabled) ? (
+                    (hoverShowPageSelect && !disabled) ? (
                         <Popover
                             content={pageList}
                         >
