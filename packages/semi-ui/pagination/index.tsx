@@ -405,7 +405,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
     }
 
     renderSmallPage(locale: PaginationLocale) {
-        const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger } = this.props;
+        const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger, ...rest } = this.props;
         const paginationCls = classNames(`${prefixCls}-small`, prefixCls, className);
         const { currentPage, total, pageSize } = this.state;
         const totalPageNum = Math.ceil(total / pageSize);
@@ -419,7 +419,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const page = (<div className={`${prefixCls}-item ${prefixCls}-item-small`}>{currentPage}/{totalPageNum} </div>);
 
         return (
-            <div className={paginationCls} style={style}>
+            <div className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {this.renderPrevBtn()}
                 {
                     hoverShowPageSelect ? (
@@ -438,7 +438,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
     renderDefaultPage(locale: PaginationLocale) {
         const { total, pageSize } = this.state;
-        const { showTotal, className, style, hideOnSinglePage, showSizeChanger } = this.props;
+        const { showTotal, className, style, hideOnSinglePage, showSizeChanger, ...rest } = this.props;
         const paginationCls = classNames(className, `${prefixCls}`);
         const showTotalCls = `${prefixCls}-total`;
         const totalPageNum = Math.ceil(total / pageSize);
@@ -450,7 +450,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const totalToken = locale.total.replace('${total}', totalNum.toString());
 
         return (
-            <ul className={paginationCls} style={style}>
+            <ul className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {showTotal ? (
                     <span className={showTotalCls}>
                         {totalToken}

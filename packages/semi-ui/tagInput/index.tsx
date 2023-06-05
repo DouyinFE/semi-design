@@ -560,6 +560,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             disabled,
             placeholder,
             validateStatus,
+            ...rest
         } = this.props;
 
         const {
@@ -602,6 +603,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 onClick={e => {
                     this.handleClick(e);
                 }}
+                {...this.getDataAttr(rest)}
             >
                 {this.renderPrefix()}
                 <div className={wrapperCls}>

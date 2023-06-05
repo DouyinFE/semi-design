@@ -300,6 +300,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                 onClick={this.handleChange}
                 onKeyPress={this.handleEnterPress}
                 aria-labelledby={this.props['aria-labelledby']}
+                {...this.getDataAttr(this.props)}
             >
                 <CheckboxInner
                     {...this.props}

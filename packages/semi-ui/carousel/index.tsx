@@ -150,21 +150,21 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
     };
     
     handleAutoPlay = (): void => {
-        if (!this.foundation.getIsControlledComponent()){
+        if (!this.foundation.getIsControlledComponent()) {
             this.foundation.handleAutoPlay();
         }
     }
 
     handleMouseEnter = (): void => {
         const { autoPlay } = this.props;
-        if ((autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)){
+        if ((autoPlay === true) || (typeof autoPlay === 'object' && autoPlay.hoverToPause)) {
             this.foundation.stop();
         }
     }
 
     handleMouseLeave = (): void => {
         const { autoPlay } = this.props;
-        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControlledComponent()){
+        if ((typeof autoPlay !== 'object' || autoPlay.hoverToPause) && !this.foundation.getIsControlledComponent()) {
             this.foundation.handleAutoPlay();
         }
     }
@@ -231,7 +231,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
             [cssClasses.CAROUSEL_INDICATOR]: true
         });
 
-        if (showIndicator && children.length > 1){
+        if (showIndicator && children.length > 1) {
             return (
                 <div className={carouselIndicatorCls}>
                     <CarouselIndicator
@@ -254,7 +254,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
         const { children } = this.state;
         const { showArrow, arrowType, theme, arrowProps } = this.props;
 
-        if (showArrow && children.length > 1){
+        if (showArrow && children.length > 1) {
             return (
                 <CarouselArrow 
                     type={arrowType} 
@@ -285,6 +285,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
                 style={style} 
                 onMouseEnter={debounce(this.handleMouseEnter, 400)}
                 onMouseLeave={debounce(this.handleMouseLeave, 400)}
+                {...this.getDataAttr(this.props)}
                 // onMouseEnter={this.handleMouseEnter}
                 // onMouseLeave={this.handleMouseLeave}
                 // onKeyDown={e => this.foundation.handleKeyDown(e)}

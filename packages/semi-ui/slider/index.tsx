@@ -565,7 +565,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
 
     render() {
         const { disabled, currentValue, min, max } = this.state;
-        const { vertical, verticalReverse, style, railStyle, range, className } = this.props;
+        const { vertical, verticalReverse, style, railStyle, range, className, ...rest } = this.props;
         const wrapperClass = cls(
             `${prefixCls}-wrapper`,
             {
@@ -591,6 +591,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 aria-label={ariaLabel}
                 onMouseEnter={() => this.foundation.handleWrapperEnter()}
                 onMouseLeave={() => this.foundation.handleWrapperLeave()}
+                {...this.getDataAttr(rest)}
             >
                 {// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <div

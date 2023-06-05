@@ -309,7 +309,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
     }
 
     render() {
-        const { style, prefixCls, disabled, className, id, count, tabIndex } = this.props;
+        const { style, prefixCls, disabled, className, id, count, tabIndex, ...rest } = this.props;
         const { value, emptyStarFocusVisible } = this.state;
         const ariaLabelPrefix = this.getAriaLabelPrefix();
         const ariaLabel = `Rating: ${value} of ${count} ${ariaLabelPrefix}${value === 1 ? '' : 's'},`;
@@ -337,6 +337,7 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
                 onKeyDown={disabled ? noop : this.onKeyDown}
                 ref={this.saveRate as any}
                 id={id}
+                {...this.getDataAttr(rest)}
             >
                 {itemList}
             </ul>

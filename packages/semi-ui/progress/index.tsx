@@ -2,6 +2,7 @@ import React, { ReactNode, Component } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/progress/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import '@douyinfe/semi-foundation/progress/progress.scss';
 import { Animation } from '@douyinfe/semi-animation';
 import { Motion } from '../_base/base';
@@ -160,6 +161,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             percent,
             orbitStroke,
             id,
+            ...rest
         } = this.props;
         const ariaLabel = this.props['aria-label'];
         const ariaLabelledBy = this.props['aria-labelledby'];
@@ -205,6 +207,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 aria-labelledby={ariaLabelledBy}
                 aria-label={ariaLabel}
                 aria-valuetext={ariaValueText}
+                {...getDataAttr(rest)}
             >
                 <svg key={size} className={classNames.svg} height={width} width={width} aria-hidden>
                     <circle
@@ -274,6 +277,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             percent,
             orbitStroke,
             id,
+            ...rest
         } = this.props;
         const ariaLabel = this.props['aria-label'];
         const ariaLabelledBy = this.props['aria-labelledby'];
@@ -318,6 +322,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 aria-labelledby={ariaLabelledBy}
                 aria-label={ariaLabel}
                 aria-valuetext={ariaValueText}
+                {...getDataAttr(rest)}
             >
                 <div
                     className={progressTrackCls}

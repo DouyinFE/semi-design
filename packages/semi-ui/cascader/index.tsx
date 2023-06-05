@@ -998,6 +998,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"
                 tabIndex={0}
+                {...this.getDataAttr(this.props)}
             >
                 {inner}
             </div>
