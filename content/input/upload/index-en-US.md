@@ -858,10 +858,10 @@ class ManulUploadDemo extends React.Component {
                     <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
                         Select a document
                     </Button>
-                    <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                        Start upload
-                    </Button>
                 </Upload>
+                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
+                    Start upload
+                </Button>
             </div>
         );
     }
