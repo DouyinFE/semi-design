@@ -411,7 +411,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                         componentProps={{ ...this.props }}
                     />
                 ) : (
-                    <Input {...innerProps} value={typeof value !== 'undefined' ? value : inputValue} {...getDataAttr(this.props)} />
+                    <Input {...innerProps} value={typeof value !== 'undefined' ? value : inputValue} />
                 )}
             </div>
         );
