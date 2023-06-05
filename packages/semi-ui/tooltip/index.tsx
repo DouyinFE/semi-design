@@ -649,7 +649,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             x-placement={placement}
                             id={id}
                         >
-                            {contentNode}
+                            <div className={`${prefix}-content`} >{contentNode}</div>
                             {icon}
                         </div>;
                     }

@@ -123,16 +123,21 @@ $module: #{$prefix}-notification;
             font-weight: $font-notification_notice_title-fontWeight;
             color: $color-notification_title-text;
             margin-bottom: $spacing-notification_notice_title-marginBottom;
+            // word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         &-inner {
             display: flex;
             width: 100%;
+            min-width: 0;
         }
 
         &-content-wrapper {
             flex: 1 1 auto;
             margin-right: $spacing-notification_notice_content_wrapper-marginRight;
+            min-width: 0;
         }
 
         &-content {
@@ -140,6 +145,9 @@ $module: #{$prefix}-notification;
             font-weight: $font-notification_notice_content-fontWeight;
             color: $color-notification_content-text;
             // padding-top: $spacing-extra-tight;
+            // word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         &-icon-close {
