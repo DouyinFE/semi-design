@@ -20,6 +20,14 @@ $module: #{$prefix}-page;
         padding: $spacing-pagination_small-paddingY $spacing-pagination_small-paddingX;
     }
 
+    &-disabled {
+        cursor: not-allowed;
+
+        .#{$module}-total {
+            color: $color-pagination_item-text-disabled;
+        }
+    }
+
     &-item {
         @include font-size-regular;
         min-width: $width-pagination_item-minWidth;
@@ -85,6 +93,18 @@ $module: #{$prefix}-page;
         &-small {
             min-width: $width-pagination_item_small-minWidth;
             margin: $spacing-pagination_item_small-margin;
+        }
+
+        &-all-disabled {
+            border-color: $color-pagination_item-border-disabled;
+            color: $color-pagination_item-text-disabled;
+            background-color: $color-pagination_item-bg-disabled;
+            cursor: not-allowed;
+    
+            &:hover {
+                background-color: transparent;
+                color: $color-pagination_item-text-disabled;
+            }
         }
     }
 
