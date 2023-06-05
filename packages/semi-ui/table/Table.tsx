@@ -1461,6 +1461,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setBodyHasScrollbar: this.setBodyHasScrollbar,
         };
 
+        const dataAttr = this.getDataAttr(rest);
+
         return (
             <div
                 ref={this.rootWrapRef}
@@ -1468,6 +1470,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
+                {...dataAttr}
             >
                 <TableContextProvider {...tableContextValue} direction={props.direction}>
                     <Spin spinning={loading} size="large">

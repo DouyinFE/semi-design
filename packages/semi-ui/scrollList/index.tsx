@@ -35,7 +35,7 @@ class ScrollList extends BaseComponent<ScrollListProps, {}> {
     }
 
     render() {
-        const { children, header, footer, prefixCls, bodyHeight, className, style } = this.props;
+        const { children, header, footer, prefixCls, bodyHeight, className, style, ...rest } = this.props;
 
         const clsWrapper = classnames(className, {
             [prefixCls || cssClasses.PREFIX]: true,
@@ -46,7 +46,7 @@ class ScrollList extends BaseComponent<ScrollListProps, {}> {
         });
 
         return (
-            <div className={clsWrapper} style={style}>
+            <div className={clsWrapper} style={style} {...this.getDataAttr(rest)}>
                 {header ? (
                     <div className={clsHeader}>
                         <div 

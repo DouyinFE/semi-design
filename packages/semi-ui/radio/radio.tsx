@@ -198,7 +198,8 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
             mode,
             type,
             value: propValue,
-            name
+            name,
+            ...rest
         } = this.props;
 
         let realChecked,
@@ -295,6 +296,7 @@ class Radio extends BaseComponent<RadioProps, RadioState> {
                 className={wrapper}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                {...this.getDataAttr(rest)}
             >
                 <RadioInner
                     {...this.props}

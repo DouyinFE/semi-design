@@ -388,7 +388,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         return (
             <LocaleConsumer componentName="Calendar">
                 {(locale: Locale['Calendar'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => (
-                    <div role="grid" className={monthCls} key={this.state.itemLimit} style={monthStyle}>
+                    <div role="grid" className={monthCls} key={this.state.itemLimit} style={monthStyle} {...this.getDataAttr(this.props)}>
                         <div role="presentation" className={`${prefixCls}-sticky-top`}>
                             {header}
                             {this.renderHeader(dateFnsLocale)}

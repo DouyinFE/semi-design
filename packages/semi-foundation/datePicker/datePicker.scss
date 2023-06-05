@@ -993,12 +993,15 @@ $module-list: #{$prefix}-scrolllist;
             &:hover {
                 .#{$module}-range-input-clearbtn {
                     display: flex;
-                    color: $color-datepicker_range_input_clearbtn-icon-hover;
                     cursor: pointer;
                 }
 
                 .#{$module}-range-input-clearbtn ~ .#{$module}-range-input-suffix {
                     display: none;
+                }
+
+                .#{$module}-range-input-clearbtn:hover {
+                    color: $color-datepicker_range_input_clearbtn-icon-hover;
                 }
             }
 

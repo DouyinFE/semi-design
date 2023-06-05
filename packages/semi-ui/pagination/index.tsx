@@ -432,7 +432,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const page = (<div className={pageCls}>{currentPage}/{totalPageNum} </div>);
 
         return (
-            <div className={paginationCls} style={style}>
+            <div className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {this.renderPrevBtn()}
                 {
                     (hoverShowPageSelect && !disabled) ? (
@@ -463,7 +463,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         const totalToken = locale.total.replace('${total}', totalNum.toString());
 
         return (
-            <ul className={paginationCls} style={style}>
+            <ul className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {showTotal ? (
                     <span className={showTotalCls}>
                         {totalToken}

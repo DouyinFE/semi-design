@@ -207,7 +207,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
             // [`${clsPrefix}-item-wrap-iconOnly`]: !!children && this.props.icon,
         });
         return (
-            <span className={wrapperCLs} {...pageLabel}>
+            <span className={wrapperCLs} {...pageLabel} {...this.getDataAttr(this.props)}>
                 {item}
                 {shouldRenderSeparator && separator}
             </span>

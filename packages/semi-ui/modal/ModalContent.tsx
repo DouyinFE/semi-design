@@ -306,6 +306,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             getPopupContainer,
             maskFixed,
             getContainerContext,
+            ...rest
         } = this.props;
         const { direction } = this.context;
         const classList = cls(className, {
@@ -315,9 +316,10 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         });
 
         const containerContext = getContainerContext();
+        const dataAttr = this.getDataAttr(rest);
 
         const elem = (
-            <div className={classList}>
+            <div className={classList} {...dataAttr}>
                 {this.getMaskElement()}
                 <div
                     role="none"

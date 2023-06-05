@@ -1,5 +1,6 @@
 import React, { cloneElement, Children, useMemo, isValidElement, ReactElement } from 'react';
 import PropTypes from 'prop-types';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import cls from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
 
@@ -17,7 +18,7 @@ export interface NavStepsProps {
 }
 
 const Steps = (props: NavStepsProps) => {
-    const { size, current, initial, children, prefixCls, className, style, onChange } = props;
+    const { size, current, initial, children, prefixCls, className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
         const total = filteredChildren.length;
@@ -47,7 +48,7 @@ const Steps = (props: NavStepsProps) => {
     });
 
     return (
-        <div aria-label={props["aria-label"]} className={wrapperCls} style={style}>
+        <div aria-label={props["aria-label"]} className={wrapperCls} style={style} {...getDataAttr(rest)}>
             {inner}
         </div>
     );

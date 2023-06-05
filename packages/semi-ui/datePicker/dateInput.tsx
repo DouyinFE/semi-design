@@ -38,7 +38,8 @@ export interface DateInputProps extends DateInputFoundationProps, BaseProps {
     value?: Date[];
     inputRef?: React.RefObject<HTMLInputElement>;
     rangeInputStartRef?: React.RefObject<HTMLInputElement>;
-    rangeInputEndRef?: React.RefObject<HTMLInputElement>
+    rangeInputEndRef?: React.RefObject<HTMLInputElement>;
+    showClearIgnoreDisabled?: boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -200,15 +201,16 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     }
 
     renderRangeClearBtn(rangeStart: string, rangeEnd: string) {
-        const { showClear, prefixCls, disabled, clearIcon } = this.props;
-        const allowClear = (rangeStart || rangeEnd) && showClear;
-        return allowClear && !disabled ? (
+        const { showClear, prefixCls, disabled, clearIcon, showClearIgnoreDisabled } = this.props;
+        const isRealDisabled = disabled && !showClearIgnoreDisabled;
+        const allowClear = (rangeStart || rangeEnd) && showClear && !isRealDisabled;
+        return allowClear ? (
             <div
                 role="button"
                 tabIndex={0}
                 aria-label="Clear range input value"
                 className={`${prefixCls}-range-input-clearbtn`}
-                onMouseDown={e => !disabled && this.handleRangeInputClear(e)}>
+                onMouseDown={e => this.handleRangeInputClear(e)}>
                 {clearIcon ? clearIcon : <IconClear aria-hidden />}
             </div>
         ) : null;
@@ -360,7 +362,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                     onChange={this.handleInsetInputChange}
                     onFocus={handleInsetTimeFocus}
                 />
-                { this.isRenderMultipleInputs() && (
+                {this.isRenderMultipleInputs() && (
                     <>
                         <div className={separatorCls}>{density === 'compact' ? null : '-'}</div>
                         <InsetDateInput
@@ -420,6 +422,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             insetInput,
             insetInputValue,
             defaultPickerValue,
+            showClearIgnoreDisabled,
             ...rest
         } = this.props;
         const dateIcon = <IconCalendar aria-hidden />;
@@ -448,6 +451,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 ref={inputRef}
                 insetLabel={insetLabel}
                 disabled={disabled}
+                showClearIgnoreDisabled={showClearIgnoreDisabled}
                 readonly={inputReadOnly}
                 className={inputCls}
                 style={inputStyle}

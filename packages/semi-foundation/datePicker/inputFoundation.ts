@@ -261,6 +261,7 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
             case 'dateTime':
             case 'dateTimeRange':
                 [datePlaceholder, timePlaceholder] = insetInputFormat.split(' ');
+                break;
             case 'monthRange':
                 datePlaceholder = insetInputFormat + rangeSeparator + insetInputFormat;
                 break;
