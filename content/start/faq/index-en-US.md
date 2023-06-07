@@ -9,7 +9,21 @@ order: 10
 
 
 #### Semi now offers Figma UI Kit, will Sketch or other design tool based versions be available in the future?
-- There is no plan in this regard, please refer to [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+No plan for this. Specific reasons: [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+
+#### Semi currently provides a React-based ui library. Is there any official plan to provide other technology stack libs?
+No plans for this. Specific reasons: [Issue 311](https://github.com/DouyinFE/semi-design/issues/311), more discussion [Issue 56](https://github.com/DouyinFE/semi-design/issues/56)
+
+#### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
+
+- Please refer to [Custom theme](/en-US/start/customize-theme). Semi provides **up to 2300+ Design Tokens to allow users to perform in-depth customization**, whether you are a R&D or a designer, you can easily configure the style layer in [Semi DSM](/dsm), and in code, Figma always keep two-way sync. Based on Semi, you can **customize your own Design System at low cost**  Make `Semi Design` to `Any Design`
+- And when using, you only need to specify the theme package name used in webpack.config.js to complete the access (the Semi plugin needs to be connected).
+
+#### In what situations recommend using Design Tokens to customize styles, and in what situations recommend using CSS overrides to customize styles?
+
+- Design Token is mainly suitable for scenarios that require branding and style customization. It needs to be configured through [Semi DSM](/dsm), and the released product is an npm theme package. The scope of effect of Design Token is global. For example, if the component-level tokens of Button and Table are adjusted, it will take effect for all Semi Buttons and Semi Tables in the app, and cannot be adjusted only for a specific submodule
+- If you only need to adjust the style of a certain component under a specific module, it is not recommended to use Design Token, and it is recommended to directly use CSS selectors to override styles
+
 
 #### What is the relationship between Semi 2.x (open source version) and Semi 1.x?
  - The Semi v2.0 version is refactored based on v1.x using ts, which brings a better ts experience, bettter a11y support and a more out-of-the-box engineering solution, which solves the coexistence of multi-component libraries in the micro front-end scenario Style conflict issues, etc. All subsequent long-term work of the Semi team will be based on the v2.x version
@@ -25,10 +39,6 @@ order: 10
 - The API will also remain **forward compatible** between 1.x versions. When upgrading from 1.x to 2.x, breaking changes will be included, please refer to the documentation for specific upgrade precautions
 - 0.x versions are currently discontinued, and hotfix updates are made if and only if a bugfix has to be done. When upgrading from 0.x to 1.x, breaking changes will be included. For specific upgrade precautions, please refer to the documentation
 
-#### Semi's default theme style does not match the positioning of our system. Can i configure another theme?
-
-- Please refer to [Custom theme](/en-US/start/customize-theme). Semi provides **up to 2300+ Design Tokens to allow users to perform in-depth customization**, whether you are a R&D or a designer, you can easily configure the style layer in [Semi DSM](/dsm), and in code, Figma always keep two-way sync. Based on Semi, you can **customize your own Design System at low cost**  Make `Semi Design` to `Any Design`
-- And when using, you only need to specify the theme package name used in webpack.config.js to complete the access (the Semi plugin needs to be connected).
 
 #### TS type check reports an error, indicating that the attribute children does not exist on xxx or that XXX cannot be used as a JSX component
 This is due to the breaking changes of `@types/react` v18. In most cases, two different versions of @types/react will be installed in your project, resulting in no match. Please refer to [Issue 793](https://github.com/DouyinFE/semi-design/issues/793) to lock the version, ensure that only a single version exists
