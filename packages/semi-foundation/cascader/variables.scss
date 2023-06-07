@@ -14,6 +14,7 @@ $color-cascader_option-bg-selected: var(--semi-color-primary-light-default); // 
 $color-cascader_option_disabled-text-default: var(--semi-color-disabled-text); // 级联选择菜单项文字颜色 - 禁用
 $color-cascader_option_disabled-bg-hover: transparent; // 级联选择菜禁用单项背景颜色 - 悬浮
 $color-cascader_option_disabled-bg-active: transparent; // 级联选择菜禁用单项背景颜色 - 按下
+$color-cascader_tag_disabled-bg-default: transparent; // 级联选择菜禁用Tag背景颜色
 
 // warning，same as Input
 $color-cascader_warning-bg-default: var(--semi-color-warning-light-default); // 级联选择触发器警告背景颜色
