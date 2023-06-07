@@ -4,7 +4,7 @@ title:  Frequently Asked Questions
 subTitle: Frequently Asked Questions
 icon: doc-faq
 localeCode: en-US
-order: 10
+order: 8
 ---
 
 
