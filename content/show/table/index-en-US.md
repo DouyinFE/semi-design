@@ -810,9 +810,9 @@ render(App);
 
 You can fix the column by setting the Fixed attribute of the column and scroll.x, and fix the header by setting scroll.y.
 
+> -   It is recommended to specify scroll.x as a **fixed value** or percentage greater than the width of the table. If it is a fixed value, set it to >= the sum of all fixed column widths + the sum of all table column widths.
 > -   Make sure that all elements inside the table do not affect the height of the cells after rendering (e.g. containing unloaded pictures, etc.). In this case, give the stator element a definite height to ensure that the left and right Fixed columns of cells are not deranged.
 > -   If the column header is not aligned with the content or there is a column duplication or when the fixed column fails, specify the width width of the fixed column, if still not effective, try to recommend leaving a column with no width to accommodate the elastic layout, or check for ultra-long continuous fields to destroy the layout.
-> -   It is recommended to specify scroll.x as a **fixed value** or percentage greater than the width of the table. It is recommended to set a fixed value of `>= the sum of all fixed column widths + the sum of all table column widths`.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
