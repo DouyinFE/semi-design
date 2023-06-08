@@ -487,6 +487,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
                 newFileList[index].fileInstance = fileInstance;
                 newFileList[index].size = getFileSize(fileInstance.size);
                 newFileList[index].name = fileInstance.name;
+                newFileList[index].url = this._createURL(fileInstance);
             }
             newFileList[index].shouldUpload = shouldUpload;
         }
