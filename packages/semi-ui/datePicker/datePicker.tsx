@@ -585,7 +585,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             defaultPickerValue
         };
 
-        return insetInput ? <DateInput {...props} insetInput={insetInput}/> : null;
+        return insetInput ? <DateInput {...props} insetInput={insetInput} /> : null;
     }
 
     handleOpenPanel = () => this.foundation.openPanel();
@@ -667,6 +667,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
             ...extraProps,
+            showClearIgnoreDisabled: Boolean(insetInput),
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,
@@ -863,7 +864,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     render() {
-        const { style, className, prefixCls, type } = this.props;
+        const { style, className, prefixCls, type, ...rest } = this.props;
         const outerProps = {
             style,
             className: classnames(className, { [prefixCls]: true }),
@@ -873,6 +874,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             'aria-labelledby': this.props['aria-labelledby'],
             'aria-describedby': this.props['aria-describedby'],
             'aria-required': this.props['aria-required'],
+            ...this.getDataAttr(rest)
         };
 
         const innerPropKeys: string[] = [];

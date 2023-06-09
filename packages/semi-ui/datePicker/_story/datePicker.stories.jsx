@@ -67,7 +67,8 @@ export {
     FixNeedConfirmInTabs,
     DynamicDisabledDate,
     FeatEtcGMT,
-    FixDisabledDate
+    FixDisabledDate,
+    FeatInsetInputShowClear
 } from './v2';
 
 

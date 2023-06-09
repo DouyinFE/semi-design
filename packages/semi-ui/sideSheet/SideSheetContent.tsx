@@ -6,6 +6,7 @@ import Button from '../iconButton';
 import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
 import { SideSheetProps } from "@douyinfe/semi-foundation/sideSheet/sideSheetFoundation";
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 
 let uuid = 0;
 const prefixCls = cssClasses.PREFIX;
@@ -167,6 +168,23 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             mask,
             className,
             width,
+            onClose,
+            maskStyle,
+            maskClosable,
+            maskClassName,
+            title,
+            closable,
+            headerStyle,
+            height,
+            style,
+            size,
+            bodyStyle,
+            dialogClassName,
+            children,
+            footer,
+            maskExtraProps,
+            wrapperExtraProps,
+            ...rest
         } = this.props;
         const wrapperCls = cls(className, {
             [`${prefixCls}-fixed`]: !mask,
@@ -176,8 +194,11 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
         if (!mask && width) {
             wrapperStyle.width = width;
         }
+
+        const dataAttr = getDataAttr(rest);
+
         return (
-            <div className={wrapperCls} style={wrapperStyle}>
+            <div className={wrapperCls} style={wrapperStyle} {...dataAttr}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>

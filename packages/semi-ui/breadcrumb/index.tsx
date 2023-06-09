@@ -291,7 +291,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                     separator,
                 }}
             >
-                <nav aria-label={this.props['aria-label']} className={sizeCls} style={style}>
+                <nav aria-label={this.props['aria-label']} className={sizeCls} style={style} {...this.getDataAttr(this.props)}>
                     {breadcrumbs}
                 </nav>
             </BreadContext.Provider>

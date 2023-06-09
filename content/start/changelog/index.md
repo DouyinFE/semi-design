@@ -13,6 +13,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.37.0-beta.0 (2023-06-05)
+- 【Feat】
+    - Pagination 新增 disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)
+    - DatePicker 内嵌输入框在 trigger 上增加 clear 按钮 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 为所有组件添加 data-* 类属性透传的功能 [#1597](https://github.com/DouyinFE/semi-design/issues/1597)
+- 【Fix】
+    - DatePicker preset 面板标题支持 i18n [#1643](https://github.com/DouyinFE/semi-design/pull/1643)
+    - 修复 DatePicker insetInput 内嵌输入框 placeholder 占位文本错误问题 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 修复 DatePicker 范围输入框 clear 按钮默认颜色不对问题 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 仅当 Dropdown panel 可见时，才触发上下箭头按下事件的 stopPropagation 和 preventDefault [#1640](https://github.com/DouyinFE/semi-design/pull/1640)
+- 【Style】
+    - 设置 Tooltip、Toast、Notification 中内容的默认换行换行规则 [#1623](https://github.com/DouyinFE/semi-design/pull/1623)
+
 #### 🎉 2.36.0 (2023-05-26)
 - 【Fix】
   - 修复 Calander 日历多日模式中，range包括时间时不显示非全天日程的问题 [@sylingd](https://github.com/sylingd)

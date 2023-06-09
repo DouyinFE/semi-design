@@ -971,7 +971,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             leafOnly,
             searchPosition,
             triggerRender,
-            borderless
+            borderless,
+            ...rest
         } = this.props;
         const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -1064,6 +1065,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 {...mouseEvent}
+                {...this.getDataAttr(rest)}
             >
                 {inner}
             </div>

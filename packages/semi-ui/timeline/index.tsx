@@ -3,6 +3,7 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import '@douyinfe/semi-foundation/timeline/timeline.scss';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/timeline/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import ConfigContext from '../configProvider/context';
 import Item, { TimelineItemProps } from './item';
 
@@ -72,7 +73,7 @@ class Timeline extends PureComponent<TimelineProps> {
     });
 
     render() {
-        const { children, className, style, mode, dataSource } = this.props;
+        const { children, className, style, mode, dataSource, ...rest } = this.props;
         const classString = cls(
             prefixCls,
             className,
@@ -88,7 +89,7 @@ class Timeline extends PureComponent<TimelineProps> {
         const items = childrenList || this.addClassName(children);
 
         return (
-            <ul aria-label={this.props['aria-label']} style={style} className={classString}>
+            <ul aria-label={this.props['aria-label']} style={style} className={classString} {...getDataAttr(rest)}>
                 {items}
             </ul>
         );

@@ -34,6 +34,19 @@ import { Pagination } from '@douyinfe/semi-ui';
 );
 ```
 
+### disabled
+
+Disabled via the `disabled` setting
+
+```jsx live=true width=60%
+import React from 'react';
+import { Pagination } from '@douyinfe/semi-ui';
+
+() => (
+    <Pagination total={30} disabled style={{ marginBottom: 12 }}></Pagination>
+);
+```
+
 ### Show total page number
 
 Use the showTotal property to control whether the total number of pages is shown.
@@ -184,6 +197,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | currentPage        | Current page number                                                                                         | number                                          |                     |              |
 | defaultCurrentPage | Default current page number                                                                                 | number                                          |                     |              |
 | hideOnSinglePage   | Whether to hide the page divider automatically when the total number of pages is less than 2. When showSizeChanger is true, this switch no longer takes effect                | boolean                                         | false               |              |
+| disabled           | disabled                                                                             | boolean                                         |false                  | 2.37.0
 | hoverShowPageSelect  | Whether to show the page select when hover page (only work when size='small')                             | boolean                                         | false               |   1.27.0     |
 | nextText           | Text displayed by the next Page button                                                                      | string\| React Node                             |                     |              |
 | pageSize           | Number of entries per page                                                                                  | number                                          | 10                  |              |

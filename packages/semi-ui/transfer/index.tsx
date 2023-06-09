@@ -690,7 +690,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     render() {
-        const { className, style, disabled, renderSelectedPanel, renderSourcePanel } = this.props;
+        const { className, style, disabled, renderSelectedPanel, renderSourcePanel, ...rest } = this.props;
         const transferCls = cls(prefixCls, className, {
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-custom-panel`]: renderSelectedPanel && renderSourcePanel,
@@ -699,7 +699,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return (
             <LocaleConsumer componentName="Transfer">
                 {(locale: Locale['Transfer']) => (
-                    <div className={transferCls} style={style}>
+                    <div className={transferCls} style={style} {...this.getDataAttr(rest)}>
                         {this.renderLeft(locale)}
                         {this.renderRight(locale)}
                     </div>

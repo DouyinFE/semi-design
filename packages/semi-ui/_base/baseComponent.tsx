@@ -6,6 +6,7 @@ import React, { Component, ReactNode } from 'react';
 import log from '@douyinfe/semi-foundation/utils/log';
 import { DefaultAdapter } from '@douyinfe/semi-foundation/base/foundation';
 import { VALIDATE_STATUS } from '@douyinfe/semi-foundation/base/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { ArrayElement } from './base';
 
 const { hasOwnProperty } = Object.prototype;
@@ -78,5 +79,9 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
 
     log(text: string, ...rest: any): any {
         return log(text, ...rest);
+    }
+
+    getDataAttr(props?: any) {
+        return getDataAttr(props);
     }
 }
