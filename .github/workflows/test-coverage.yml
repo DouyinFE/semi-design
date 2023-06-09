@@ -19,7 +19,7 @@ jobs:
               with:
                   node-version: '16'
             - name: Run install
-              run: npm i -g lerna && npm run bootstrap
+              run: npm i -g lerna@^6 && npm run bootstrap
             - name: Run Jest test
               run: npm run test:coverage
             - name: Archive Jest coverage
@@ -37,7 +37,7 @@ jobs:
                   node-version: '16'
             - name: Run install
               run: |
-                  npm i -g lerna
+                  npm i -g lerna@^6
                   npm run bootstrap
             - name: Build storybook
               run: |

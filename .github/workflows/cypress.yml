@@ -30,7 +30,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
             - name: Install global packages
-              run: npm i -g lerna yarn
+              run: npm i -g lerna@^6 yarn
             - name: Build storybook
               run: |
                   yarn bootstrap
