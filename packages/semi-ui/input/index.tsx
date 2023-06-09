@@ -216,6 +216,15 @@ class Input extends BaseComponent<InputProps, InputState> {
         }
     }
 
+    componentDidMount(): void {
+        // autofocus is changed from the original support of input to the support of manually calling the focus method,
+        // so that preventScroll can still take effect under the setting of autofocus
+        const { disabled, autofocus, preventScroll } = this.props;
+        if (!disabled && autofocus) {
+            this.inputRef.current.focus({ preventScroll });
+        }
+    }
+
     handleClear = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClear(e);
     };
@@ -478,7 +487,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
             ...rest,
             style: inputStyle,
-            autoFocus: autofocus,
             className: inputCls,
             disabled,
             readOnly: readonly,
