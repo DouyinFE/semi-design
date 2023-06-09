@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.37.0 (2023-06-09)
+- 【Fix】
+    - 修复 TreeSelect searchAutoFocus 的 preventScroll 未生效问题
+    - 修复 Input 在 autofocus 为 true 时 preventScroll 未生效问题
+    - 修复 Upload 在 beforeUpload中更新 fileInstance后，未更新缩略图渲染的问题
+
 #### 🎉 2.37.0-beta.0 (2023-06-05)
 - 【Feat】
     - Pagination 新增 disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)

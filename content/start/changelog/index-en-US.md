@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.37.0 (2023-06-09)
+- 【Fix】
+    - Fix the problem that preventScroll of TreeSelect searchAutoFocus does not take effect
+    - Fix the problem that preventScroll does not take effect when autofocus is true in Input
+    - Fix the problem that the thumbnail rendering is not updated after Upload updates the fileInstance in beforeUpload
+
 #### 🎉 2.37.0-beta.0 (2023-06-05)
 - 【Feat】
     - Pagination support disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)
