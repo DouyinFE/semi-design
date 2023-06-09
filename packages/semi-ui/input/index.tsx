@@ -219,6 +219,7 @@ class Input extends BaseComponent<InputProps, InputState> {
     componentDidMount(): void {
         // autofocus is changed from the original support of input to the support of manually calling the focus method,
         // so that preventScroll can still take effect under the setting of autofocus
+        this.foundation.init();
         const { disabled, autofocus, preventScroll } = this.props;
         if (!disabled && autofocus) {
             this.inputRef.current.focus({ preventScroll });
