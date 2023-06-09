@@ -2251,3 +2251,24 @@ export const triggerRenderAddMethod = () => {
     </>
   );
 }
+
+export const AutoSearchFocusPlusPreventScroll = () => {
+  return (
+      <div>
+        <div style={{height: '100vh' }}>我是一个高度和视窗高度一致的div。
+          <br />由于 TreeSelect 设置了 searchAutoFocus 以及 preventScroll，
+          <br /> 符合预期的情况是在没有滚动屏幕情况下，你不会看到 TreeSelect 的 trigger
+        </div>
+        <TreeSelect
+          searchAutoFocus
+          searchPosition="trigger"
+          preventScroll={true}
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          filterTreeNode
+          placeholder="单选"
+        />
+      </div>
+  );
+};
