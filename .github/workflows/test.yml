@@ -19,6 +19,6 @@ jobs:
               with:
                   node-version: '16'
             - name: Run install
-              run: npm i -g lerna && npm run bootstrap
+              run: npm i -g lerna@^6 && npm run bootstrap
             - name: Run Jest test
               run: npm run test:unit

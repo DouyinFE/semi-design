@@ -13,7 +13,7 @@ jobs:
               with:
                   node-version: 16
             - run: |
-                  npm i -g lerna && npm run bootstrap
+                  npm i -g lerna@^6 && npm run bootstrap
                   node scripts/release.js
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
