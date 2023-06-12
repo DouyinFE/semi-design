@@ -249,7 +249,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 aria-label="Next"
                 onClick={e => !isDisabled && this.foundation.goNext(e)}
                 className={nextClassName}
-                x-semi-prop="prevText"
+                x-semi-prop="nextText"
             >
                 {nextText || <IconChevronRight size="large" />}
             </li>
