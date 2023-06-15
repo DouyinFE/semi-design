@@ -242,7 +242,6 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 this.setState({ keyboardEventSet: {} });
             },
             updateFocusIndex: (focusIndex: number): void => {
-                console.log("---->", focusIndex);
                 this.setState({ focusIndex });
             },
         };
