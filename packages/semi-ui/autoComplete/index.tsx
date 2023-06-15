@@ -242,6 +242,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 this.setState({ keyboardEventSet: {} });
             },
             updateFocusIndex: (focusIndex: number): void => {
+                console.log("---->", focusIndex);
                 this.setState({ focusIndex });
             },
         };
@@ -324,7 +325,12 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         this.foundation.handleSearch(value);
     };
 
-    onBlur = (e: React.FocusEvent): void => this.foundation.handleBlur(e);
+    onBlur = (e: React.FocusEvent): void => {
+        // Fix out of focus when and only when the dropdown selection item is suspended beyond the viewport, otherwise prohibit hiding the dropdown selection area
+        if (this.state.focusIndex < 0) {
+            return this.foundation.handleBlur(e);
+        }
+    };
 
     onFocus = (e: React.FocusEvent): void => this.foundation.handleFocus(e);
 
@@ -416,7 +422,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             </div>
         );
     }
-
+    
     renderLoading() {
         const loadingWrapperCls = `${prefixCls}-loading-wrapper`;
         return (
@@ -437,6 +443,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 // selected={selection.has(option.label)}
                 focused={isFocused}
                 onMouseEnter={() => this.foundation.handleOptionMouseEnter(optionIndex)}
+                onMouseLeave={() => this.foundation.handleOptionMouseLeave(optionIndex)}
                 key={option.key || option.label + option.value + optionIndex}
                 {...option}
             >

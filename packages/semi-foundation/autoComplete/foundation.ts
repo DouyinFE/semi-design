@@ -155,7 +155,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
         this._modifyFocusIndex(inputValue);
-        if (!this.isPanelOpen){
+        if (!this.isPanelOpen) {
             this.openDropdown();
         }
     }
@@ -383,16 +383,16 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     _handleArrowKeyDown(offset: number): void {
         const { visible } = this.getStates();
-        if (!visible){
+        if (!visible) {
             this.openDropdown();
         } else {
-            this._getEnableFocusIndex(offset);  
+            this._getEnableFocusIndex(offset);
         }
     }
 
     _handleEnterKeyDown() {
         const { visible, options, focusIndex } = this.getStates();
-        if (!visible){
+        if (!visible) {
             this.openDropdown();
         } else {
             if (focusIndex !== undefined && focusIndex !== -1 && options.length !== 0) {
@@ -404,9 +404,13 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             }
         }
     }
-
+    
     handleOptionMouseEnter(optionIndex: number): void {
         this._adapter.updateFocusIndex(optionIndex);
+    }
+    
+    handleOptionMouseLeave(): void {
+        this._adapter.updateFocusIndex(-1);
     }
 
     handleFocus(e: FocusEvent) {

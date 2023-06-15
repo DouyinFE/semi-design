@@ -85,6 +85,7 @@ class Option extends PureComponent<OptionProps> {
             className,
             style,
             onMouseEnter,
+            onMouseLeave,
             prefixCls,
             renderOptionItem,
             inputValue,
@@ -125,6 +126,7 @@ class Option extends PureComponent<OptionProps> {
                 value,
                 inputValue,
                 onMouseEnter: (e: React.MouseEvent) => onMouseEnter(e),
+                onMouseLeave: (e: React.MouseEvent) => onMouseLeave(e),
                 onClick: (e: React.MouseEvent) => this.onClick({ value, label, children, ...rest }, e),
                 ...rest
             });
@@ -145,6 +147,7 @@ class Option extends PureComponent<OptionProps> {
                     this.onClick({ value, label, children, ...rest }, e);
                 }}
                 onMouseEnter={e => onMouseEnter && onMouseEnter(e)}
+                onMouseLeave={e => onMouseLeave && onMouseLeave(e)}
                 role="option"
                 aria-selected={selected ? "true" : "false"}
                 aria-disabled={disabled ? "true" : "false"}
