@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import HookToast from './HookToast';
 import { ToastInstance, ToastProps } from '@douyinfe/semi-foundation/toast/toastFoundation';
@@ -29,7 +29,7 @@ function usePatchElement(): [any, typeof patchElement] {
 
 export default function useToast() {
     const [elements, patchElement] = usePatchElement();
-    const toastRef = new Map<string, { close: () => void } & ReactElement>();
+    const toastRef = useRef(new Map<string, { close: () => void } & ReactElement>());
 
     const addToast = (config: ToastProps) => {
         const id = getUuid('semi_toast_');
@@ -40,7 +40,7 @@ export default function useToast() {
         // eslint-disable-next-line prefer-const
         let closeFunc: ReturnType<typeof patchElement>;
         const ref = (ele: { close: () => void } & ReactElement) => {
-            toastRef.set(id, ele);
+            toastRef.current.set(id, ele);
         };
         const toast = (
             <HookToast
@@ -55,7 +55,7 @@ export default function useToast() {
     };
 
     const removeElement = (id: string) => {
-        const ele = toastRef.get(id);
+        const ele = toastRef.current.get(id);
         ele && ele.close();
     };
 
