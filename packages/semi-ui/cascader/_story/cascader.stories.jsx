@@ -2099,3 +2099,28 @@ export const TriggerAddMethods = () => {
       </>
   );
 }
+
+export const DisabledAndPlusN = () => {
+  const commonProps = {
+    multiple: true,
+    maxTagCount: 1,
+    showRestTagsPopover: true,
+    disabled: true,
+    style: { width: 300 },
+    treeData: treeData4,
+    placeholder: "请选择所在地区",
+    defaultValue: [
+        ['zhejiang', 'ningbo', 'haishu'],
+        ['zhejiang', 'hangzhou', 'xihu']
+    ]
+  }
+  return (
+    <>
+      <span>disabled + maxTagCount + showRestTagsPopover</span><br /><br />
+      <Cascader {...commonProps} />
+      <br /><br />
+      <span>disabled + filterTreeNode + maxTagCount + showRestTagsPopover</span><br /><br />
+      <Cascader {...commonProps} filterTreeNode/>
+    </> 
+  )
+}
