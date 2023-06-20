@@ -3,10 +3,11 @@ import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
-import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch } from '../../index';
+import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography} from '../../index';
 import BigTree from './BigData';
 import testData from './data';
 const TreeNode = Tree.TreeNode;
+const { Title } = Typography;
 
 export default {
   title: 'Tree'
@@ -2622,3 +2623,74 @@ export const virtualizeTree = () => <DemoV />;
 virtualizeTree.story = {
   name: 'virtualize tree',
 };
+
+export const SearchableAndExpandedKeys = () => {
+  const [expandedKeys1, setExpandedKeys1] = useState([]);
+  const [expandedKeys2, setExpandedKeys2] = useState([]);
+  const [expandedKeys3, setExpandedKeys3] = useState([]);
+  const [expandedKeys4, setExpandedKeys4] = useState([]);
+  return (
+      <>
+          <Title heading={6}>expandedKeys 受控</Title>
+          <Tree
+              style={{ width: 300, marginBottom: 30 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData1}
+              expandedKeys={expandedKeys1}
+              defaultValue='beijing'
+              onExpand={v => {
+                  console.log('onExpand value: ', v);
+                  setExpandedKeys1(v);
+              }}
+          />
+          <Title heading={6}>expandedKeys 受控 + 开启搜索</Title>
+          <Tree
+              style={{ width: 300, marginBottom: 30 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData1}
+              filterTreeNode
+              defaultValue='beijing'
+              expandedKeys={expandedKeys2}
+              onExpand={v => {
+                  console.log('onExpand value: ', v);
+                  setExpandedKeys2(v);
+              }}
+          />
+          <Title heading={6}>expandedKeys 受控 + 开启搜索 + 搜索时更新 expandedKeys</Title>
+          <Tree
+              style={{ width: 300, marginBottom: 30 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData1}
+              filterTreeNode
+              expandedKeys={expandedKeys3}
+              defaultValue='beijing'
+              onExpand={v => {
+                  console.log('onExpand value: ', v);
+                  setExpandedKeys3(v)
+              }}
+              onSearch={(input, filterExpandedKeys) => {
+                  console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
+                  setExpandedKeys3(filterExpandedKeys);
+              }}
+          />
+          <Title heading={6}>expandedKeys 受控 + 开启搜索 + showFilteredOnly + 搜索时更新 expandedKeys</Title>
+          <Tree
+              style={{ width: 300, marginBottom: 30 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData1}
+              filterTreeNode
+              showFilteredOnly
+              expandedKeys={expandedKeys4}
+              defaultValue='beijing'
+              onExpand={v => {
+                  console.log('onExpand value: ', v);
+                  setExpandedKeys4(v)
+              }}
+              onSearch={(input, filterExpandedKeys) => {
+                  console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
+                  setExpandedKeys4(filterExpandedKeys);
+              }}
+          />
+      </>
+  )
+}
