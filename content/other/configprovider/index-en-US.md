@@ -379,12 +379,12 @@ function Demo(props = {}) {
 
 ## API Reference
 
-| Properties | Instructions                   | type          | Default |
-|------------|--------------------------------|---------------|---------|
-| direction  | Sets the direction of the text | `ltr`\| `rtl` | `ltr`   |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body    |
-| locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider` | object         |         |
-| timeZone   | [Time zone identifier](#Time_Zone_Identifier)                                                                         | string\|number |         |
+| Properties | Instructions                                                                                                      | type          | Default |
+|------------|-------------------------------------------------------------------------------------------------------------------|---------------|---------|
+| direction  | Sets the direction of the text                                                                                    | `ltr`\| `rtl` | `ltr`   |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.  | function():HTMLElement | () => document.body    |
+| locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider`  | object         |         |
+| timeZone   | [Time zone identifier](#Time_Zone_Identifier)                                                                     | string\|number |         |
 
 
 ### Time Zone Identifier

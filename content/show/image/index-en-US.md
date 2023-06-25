@@ -212,7 +212,7 @@ import { ImagePreview, Button } from '@douyinfe/semi-ui';
 
 ### Render in the specified container
 
-You can specify the parent DOM of the preview component through `getPopupContainer` (you need to specify `position: relative`), and the image preview will be rendered into this DOM
+You can specify the parent DOM of the preview component through `getPopupContainer` (you need to specify `position: relative`), and the image preview will be rendered into this DOM.  This will change the DOM tree position, but not the view's rendering position.
 
 ```jsx live=true dir="column"
 import React, { useMemo } from 'react';
@@ -438,49 +438,49 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 ### ImagePreview
 
-| Properties       | Instructions            | Type            | Default | Version |
-|------------------|-------------------------|-----------------|---------|---------|
-| adaptiveTip      | Adapt to page action button prompts |string  | "Adapt to the page" | |
-| className        | Custom style class name | string          | - | |
-| closable         | Whether to show the close button   | Boolean | true | |
-| closeOnEsc       | Hit esc to close the preview | boolean        | true | |
-| currentIndex     | Controlled property, the current preview image subscript | number | - | |
-| defaultCurrentIndex | First display image subscript | number | - | |
-| defaultVisible   | Whether to open the preview for the first time | boolean | - | |
-| disableDownload  | Disable downloads        | boolean        | false | |
-| downloadTip      | Download action button prompt | string  | "Download" | |
-| getPopupContainer | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. For customization, you need to set container `position: relative`|() => HTMLElement;  | () => document.body | |
-| infinite         | Whether to loop infinitely  | boolean        | false | |
-| lazyLoad         | Whether to enable lazy loading | boolean      | true | |
+| Properties       | Instructions                                                                                                                                                             | Type            | Default | Version |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|---------|---------|
+| adaptiveTip      | Adapt to page action button prompts                                                                                                                                      |string  | "Adapt to the page" | |
+| className        | Custom style class name                                                                                                                                                  | string          | - | |
+| closable         | Whether to show the close button                                                                                                                                         | Boolean | true | |
+| closeOnEsc       | Hit esc to close the preview                                                                                                                                             | boolean        | true | |
+| currentIndex     | Controlled property, the current preview image subscript                                                                                                                 | number | - | |
+| defaultCurrentIndex | First display image subscript                                                                                                                                            | number | - | |
+| defaultVisible   | Whether to open the preview for the first time                                                                                                                           | boolean | - | |
+| disableDownload  | Disable downloads                                                                                                                                                        | boolean        | false | |
+| downloadTip      | Download action button prompt                                                                                                                                            | string  | "Download" | |
+| getPopupContainer | Specify the parent DOM, and the pop-up layer will be rendered into the DOM. For customization, you need to set container `position: relative`  This will change the DOM tree position, but not the view's rendering position.                            |() => HTMLElement;  | () => document.body | |
+| infinite         | Whether to loop infinitely                                                                                                                                               | boolean        | false | |
+| lazyLoad         | Whether to enable lazy loading                                                                                                                                           | boolean      | true | |
 | lazyLoadMargin   | Pass to the rootMargin parameter in options, refer to [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API#interfaces) | string | "0px 100px 100px 0px" | |
-| maskClosable     | Whether the mask can be closed by clicking | Boolean  | true | |
-| nextTip          | Next action button prompt   | string  | "Next" | |
-| originTip        | Original size action button tips |string  | "Original size" | |
-| onChange         | Event triggered by switching pictures  | (index: number) => void | - | |
-| onClose          | The callback function when the close button is clicked  | () => void | - | |
-| onDownload       | Image download callback function  | (src: string, index: number) => void | - | |
-| onRotateLeft     | Callback for rotating the image     | (angle: number) => void | - | |
-| onNext           | Callback for switching pictures backwards   | (index: number) => void | - | |
-| onPrev           | Callback for switching the picture forward  | (index: number) => void | - | |
-| onZoomIn         | The callback function when the image is zoomed in  | (zoom: number) => void | - | |
-| onZoomOut        | The callback function when the image is zoomed out  | (zoom: number) => void | - | |
-| onVisibleChange  | Callback triggered by toggle visible state   | (visible: boolean) => void  | - | |
-| preLoad          | Whether to enable preloading | boolean | true | |
-| preLoadGap       | Preloaded step size      | number         | 2 | |
-| previewTitle     | Custom preview title     | ReactNode      | - | |
-| prevTip          | Previous operation button prompt   | string  | "Previous" | |
-| renderHeader     | Custom render preview top info  |(info: reactNode) => ReactNode  | - | |
-| renderPreviewMenu | Custom render preview bottom menu information | (props: MenuProps) => ReactNode; | - | |
-| rotateTip        | Tips for rotating action buttons  |string        | "Rotate" | |
-| showTooltip      | Whether to display the bottom operation area prompt | boolean | false | |
-| src              | Image list information  | string \| string[] | - | |
-| style            | Custom style            | CSSProperties   | - | |
-| viewerVisibleDelay | The length of time of inactivity before hiding the preview action button | number | 10000 | |
-| visible          | Controlled property, whether to preview  | boolean | - | |
-| zIndex           | Preview layer hierarchy  | number        | 1070 | |
-| zoomInTip        | Zoom in action button tips | string | "Zoom in" | |
-| zoomOutTip       | Zoom out action button prompt | string | "Zoom out" | |
-| zoomStep         | Image reduction/enlargement ratio each time | number | 0.1 | |
+| maskClosable     | Whether the mask can be closed by clicking                                                                                                                               | Boolean  | true | |
+| nextTip          | Next action button prompt                                                                                                                                                | string  | "Next" | |
+| originTip        | Original size action button tips                                                                                                                                         |string  | "Original size" | |
+| onChange         | Event triggered by switching pictures                                                                                                                                    | (index: number) => void | - | |
+| onClose          | The callback function when the close button is clicked                                                                                                                   | () => void | - | |
+| onDownload       | Image download callback function                                                                                                                                         | (src: string, index: number) => void | - | |
+| onRotateLeft     | Callback for rotating the image                                                                                                                                          | (angle: number) => void | - | |
+| onNext           | Callback for switching pictures backwards                                                                                                                                | (index: number) => void | - | |
+| onPrev           | Callback for switching the picture forward                                                                                                                               | (index: number) => void | - | |
+| onZoomIn         | The callback function when the image is zoomed in                                                                                                                        | (zoom: number) => void | - | |
+| onZoomOut        | The callback function when the image is zoomed out                                                                                                                       | (zoom: number) => void | - | |
+| onVisibleChange  | Callback triggered by toggle visible state                                                                                                                               | (visible: boolean) => void  | - | |
+| preLoad          | Whether to enable preloading                                                                                                                                             | boolean | true | |
+| preLoadGap       | Preloaded step size                                                                                                                                                      | number         | 2 | |
+| previewTitle     | Custom preview title                                                                                                                                                     | ReactNode      | - | |
+| prevTip          | Previous operation button prompt                                                                                                                                         | string  | "Previous" | |
+| renderHeader     | Custom render preview top info                                                                                                                                           |(info: reactNode) => ReactNode  | - | |
+| renderPreviewMenu | Custom render preview bottom menu information                                                                                                                            | (props: MenuProps) => ReactNode; | - | |
+| rotateTip        | Tips for rotating action buttons                                                                                                                                         |string        | "Rotate" | |
+| showTooltip      | Whether to display the bottom operation area prompt                                                                                                                      | boolean | false | |
+| src              | Image list information                                                                                                                                                   | string \| string[] | - | |
+| style            | Custom style                                                                                                                                                             | CSSProperties   | - | |
+| viewerVisibleDelay | The length of time of inactivity before hiding the preview action button                                                                                                 | number | 10000 | |
+| visible          | Controlled property, whether to preview                                                                                                                                  | boolean | - | |
+| zIndex           | Preview layer hierarchy                                                                                                                                                  | number        | 1070 | |
+| zoomInTip        | Zoom in action button tips                                                                                                                                               | string | "Zoom in" | |
+| zoomOutTip       | Zoom out action button prompt                                                                                                                                            | string | "Zoom out" | |
+| zoomStep         | Image reduction/enlargement ratio each time                                                                                                                              | number | 0.1 | |
 
 ### MenuProps
 
