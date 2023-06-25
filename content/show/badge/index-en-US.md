@@ -265,7 +265,7 @@ import { Badge } from '@douyinfe/semi-ui';
         <br/>
         <span><Badge dot type='tertiary' /> info</span>
         <br/>
-        <span><Badge dot style={{ backgroundColor: 'var(--semi-color-success)' }} /> success</span>
+        <span><Badge dot type='success' /> success</span>
         <br/>
         <span><Badge dot type='warning' /> warning</span>
         <br/>
@@ -285,7 +285,7 @@ import { Badge } from '@douyinfe/semi-ui';
 | position      | Badge position, optional `left Top`, `left Bottom`, `right Top`, `right Bottom` | string     | `rightTop` |
 | style         | style                                                                           | CSSProperties     | -          |
 | theme         | Badge theme, one of `solid`, `light`, `inverted`                                | string     | `solid`    |
-| type          | Badge type, one of `primary`, `secondary`, `sense`, `danger`, `warning`         | string     | `primary`  |
+| type          | Badge type, one of `primary`, `secondary`, `tertiary`, `danger`, `warning`,`success`,         | string     | `primary`  |
 
 ## Content Guidelines
 
