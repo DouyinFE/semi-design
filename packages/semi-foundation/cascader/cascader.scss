@@ -25,7 +25,7 @@ $module: #{$prefix}-cascader;
         border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
     }
 
-    &:focus {
+    &:focus:not(&-disabled) {
         border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
         background-color: $color-cascader_default-bg-default;
         outline: 0;
