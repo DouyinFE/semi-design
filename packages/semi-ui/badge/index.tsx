@@ -8,7 +8,7 @@ import '@douyinfe/semi-foundation/badge/badge.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
-export type BadgeType = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning';
+export type BadgeType = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'success';
 export type BadgeTheme = 'solid' | 'light' | 'inverted';
 export type BadgePosition = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 

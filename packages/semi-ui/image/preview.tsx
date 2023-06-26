@@ -9,6 +9,7 @@ import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import { isObject, isEqual } from "lodash";
 import "@douyinfe/semi-foundation/image/image.scss";
+import cls from "classnames";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -191,7 +192,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     };
 
     render() {
-        const { src, style, lazyLoad, ...restProps } = this.props;
+        const { src, className, style, lazyLoad, ...restProps } = this.props;
         const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
         const srcArr = Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
@@ -210,7 +211,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     handleVisibleChange: this.handleVisibleChange,
                 }}
             >
-                <div id={this.previewGroupId} style={style} className={`${prefixCls}-preview-group`}>
+                <div id={this.previewGroupId} style={style} className={cls(`${prefixCls}-preview-group`, className)}>
                     {newChildren}
                 </div>
                 <PreviewInner

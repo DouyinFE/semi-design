@@ -584,12 +584,12 @@ function Demo(props = {}) {
 | content | 对话框内容                                                                                                     | ReactNode | 无 |
 | footer | 对话框底部                                                                                                     | ReactNode | 无 |
 | fullScreen | 对话是否是全屏（会覆盖 width height） <br/>**v1.18.0 后提供**                                                            | boolean | false |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` <br/>**v0.33.0 后提供**                                 | () => HTMLElement | () => document.body |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。  <br/>**v0.33.0 后提供**                                | () => HTMLElement | () => document.body |
 | hasCancel | 是否显示取消按钮                                                                                                  | boolean | true |
 | header | 对话框头部                                                                                                     | ReactNode | 无 |
 | height | 高度                                                                                                        | number | 无 |
 | icon | 自定义 icon <br/>**v1.1.0 后提供**                                                                              | ReactNode | - |
-| keepDOM | 关闭对话框时是否保留内部组件不销毁 <br/>**v1.0.0 后提供**                                                                            | boolean | false |
+| keepDOM | 关闭对话框时是否保留内部组件不销毁 <br/>**v1.0.0 后提供**                                                                     | boolean | false |
 | lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染对话框组件 <br/>**v1.0.0 后提供**                                                    | boolean | true |
 | mask | 是否显示遮罩                                                                                                    | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
