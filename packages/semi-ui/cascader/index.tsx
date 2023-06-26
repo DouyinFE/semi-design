@@ -705,7 +705,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             [`${prefixcls}-selection-n-disabled`]: disabled,
         });
         const renderPlusNChildren = <span className={plusNCls}>+{hiddenTag.length}</span>;
-        return showRestTagsPopover && !disabled ? (
+        return showRestTagsPopover ? (
             <Popover
                 content={hiddenTag}
                 showArrow
