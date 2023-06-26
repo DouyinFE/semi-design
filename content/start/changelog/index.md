@@ -13,6 +13,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree 的 onSearch 新增 filterExpandedKeys 参数
+  - Badge 新增 success 类型
+- 【Fix】
+  - 修复 toast useToast 返回值在用户函数 re render 后失效的问题
+  - 修复 disabled 的 Cascader 无法通过 hover +N 部分显示多余 Tag 问题
+  - 修复 ImagePreview 中 className 不生效问题  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - 更正 Form formApi.reset 入参类型的问题
+- 【Style】
+  - 在 disabled 情况下，点击 Cascader 不触发 focus 样式
+
+
 #### 🎉 2.37.0 (2023-06-09)
 - 【Fix】
     - 修复 TreeSelect searchAutoFocus 的 preventScroll 未生效问题
