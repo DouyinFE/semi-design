@@ -32,10 +32,13 @@ $color-radio_buttonRadio-text-disabled: var(--semi-color-disabled-text); // 按�
 $color-radio_addon_buttonRadio-bg-hover: var(--semi-color-fill-1); // 按钮样式单选悬浮态背景色
 $color-radio_addon_buttonRadio-text-checked: var(--semi-color-primary); // 按钮样式单选选中项文字颜色
 $color-radio_addon_buttonRadio-bg-checked: var(--semi-color-bg-3); // 按钮样式单选选中项背景颜色
+$color-radio_cardRadioGroup-bg-default: transparent; // 卡片样式单选默认背景色
 $color-radio_cardRadioGroup-bg-checked: var(--semi-color-primary-light-default); // 卡片样式单选选中态背景色
 $color-radio_cardRadioGroup_disabled-bg-checked: var(--semi-color-primary-light-default); // 卡片样式单选选中且禁用时的背景色
+$color-radio_cardRadioGroup_disabled-bg-active: transparent; // 卡片样式单选禁用时的背景色 - 按下态
 $color-radio_cardRadioGroup-bg-hover: var(--semi-color-fill-0); // 卡片样式单选悬浮态背景色
 $color-radio_cardRadioGroup-bg-active: var(--semi-color-fill-1); // 卡片样式单选按下态背景色
+$color-radio_cardRadioGroup_border-default: transparent; // 卡片样式单选默认描边颜色
 $color-radio_cardRadioGroup_border-active: var(--semi-color-primary); // 卡片样式单选选中态描边颜色
 $color-radio_cardRadioGroup_checked_border-active: var(--semi-color-primary-active); // 卡片样式单选选中态描边颜色 - 按下态
 $color-radio_cardRadioGroup_checked_border-hover: var(--semi-color-primary-hover); // 卡片样式单选选中态描边颜色 - 悬浮态
