@@ -784,7 +784,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     key={option.key || option.label as string + option.value as string + optionIndex}
                     renderOptionItem={renderOptionItem}
                     inputValue={inputValue}
-                    id={`${this.selectID}-option-${optionIndex}`}
+                    optionId={`${this.selectID}-option-${optionIndex}`}
                 >
                     {option.label}
                 </Option>
