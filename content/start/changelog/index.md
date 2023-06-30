@@ -85,7 +85,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.34.0 (2023-04-28)
 - 【Fix】
   - 修复 Table SSR 时渲染不正确的问题  [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
-  - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575) [@xiaoqqchen](https://github.com/xiaoqqchen)
   - 修复 Typography 在父级或自身设置 white-space 为 nowrap 时截断出错问题 [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
   - 修复 懒加载模式下 Image 的 src 变化，图片无法正常加载问题 [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
 
