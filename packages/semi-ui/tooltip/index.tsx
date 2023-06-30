@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
-import React, { isValidElement, cloneElement } from 'react';
+import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -618,7 +618,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const userOpacity = get(style, 'opacity');
+        const userOpacity: CSSProperties['opacity'] | null = get(style, 'opacity', null);
         const opacity = userOpacity ? userOpacity : 1;
         const inner =
             <CSSAnimation
@@ -639,9 +639,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             style={{
                                 ...animationStyle,
                                 ...(displayNone ? { display: "none" } : {}),
-                                transformOrigin, 
+                                transformOrigin,
                                 ...style,
-                                opacity: isPositionUpdated ? opacity : "0",
+                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" }:{}) 
                             }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
