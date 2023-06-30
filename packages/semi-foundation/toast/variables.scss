@@ -26,6 +26,10 @@ $color-toast_danger_light-border: var(--semi-color-danger); // 多色样式 错�
 $spacing-toast_wrapper-top: 0; // 通知容器顶部位置
 $spacing-toast_content-paddingY: $spacing-base-tight; // 通知内容垂直内边距
 $spacing-toast_content-paddingX: $spacing-tight; // 通知内容水平内边距
+$spacing-toast_content-paddingTop: $spacing-toast_content-paddingY; // 通知内容 top 内边距
+$spacing-toast_content-paddingBottom: $spacing-toast_content-paddingY; // 通知内容 bottom 内边距
+$spacing-toast_content-paddingLeft: $spacing-toast_content-paddingX; // 通知内容 left 内边距
+$spacing-toast_content-paddingRight: $spacing-toast_content-paddingX; // 通知内容 right 内边距
 $spacing-toast_content-margin: $spacing-base-tight; // 通知内容外边距
 $spacing-toast_content_close_btn-marginTop: -2px; // 通知关闭按钮顶部外边距
 $spacing-toast_content_text-marginLeft: $spacing-base-tight; // 通知文本左侧外边距
