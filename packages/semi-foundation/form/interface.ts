@@ -58,7 +58,7 @@ export interface BaseFormApi<T extends object = any> {
     /** submit form manual */
     submitForm: () => void;
     /** reset form manual */
-    reset: () => void;
+    reset: (fields?: Array<string>) => void;
     /** trigger validate  manual */
     validate: <K extends keyof T, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: T[R] }>;
     getInitValue: <K extends keyof T>(field: K) => any;

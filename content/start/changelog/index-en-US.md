@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree add filterExpandedKeys parameter for onSearch
+  - Badge add succss type
+- 【Fix】
+  - fix toast useToast return value no effect when user function component re render.
+  - Fix the problem that the disabled Cascader cannot display redundant Tags by hovering the +N part
+  - Fix the problem that className does not take effect in ImagePreview  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - fix formApi.reset params type define error
+- 【Style】
+  - In the disabled case, clicking the Cascader does not trigger the focus style
+
 #### 🎉 2.37.0 (2023-06-09)
 - 【Fix】
     - Fix the problem that preventScroll of TreeSelect searchAutoFocus does not take effect

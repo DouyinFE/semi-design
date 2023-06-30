@@ -489,8 +489,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             notifyChange: value => {
                 this.props.onChange && this.props.onChange(value);
             },
-            notifySearch: input => {
-                this.props.onSearch && this.props.onSearch(input);
+            notifySearch: (input: string, filteredExpandedKeys: string[]) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
             },
             notifyRightClick: (e, node) => {
                 this.props.onContextMenu && this.props.onContextMenu(e, node);

@@ -29,6 +29,10 @@ $color-badge_warning_light-bg-default: var(--semi-color-warning-light-default); 
 $color-badge_warning_light-text-default: var(--semi-color-warning); // 文字颜色 - 浅版危险
 $color-badge_warning_inverted-text-default: var(--semi-color-warning); // 文字颜色 - 白底
 
+$color-badge_success_solid-bg-default: var(--semi-color-success); // 背景颜色 - 成功
+$color-badge_success_light-bg-default: var(--semi-color-success-light-default); // 背景颜色 - 浅版成功
+$color-badge_success_light-text-default: var(--semi-color-success); // 文字颜色 - 浅版成功
+$color-badge_success_inverted-text-default: var(--semi-color-success); // 文字颜色 - 白底
 
 $width-badge_dot: 8px; // 点状徽标宽度
 $height-badge_dot: 8px; // 点状徽标高度
