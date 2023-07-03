@@ -32,7 +32,7 @@ export default class RadioFoundation extends BaseFoundation<RadioAdapter> {
             if (target.matches(':focus-visible')) {
                 this._adapter.setFocusVisible(true);
             }
-        } catch (error){
+        } catch (error) {
             warning(true, 'Warning: [Semi Radio] The current browser does not support the focus-visible');
         }
     }

@@ -20,11 +20,13 @@ type OmitTextareaAttr =
     | 'onBlur'
     | 'onKeyDown'
     | 'onKeyPress'
-    | 'onKeyUp';
+    | 'onKeyUp'
+    | 'onResize'
 
 export interface TextAreaProps extends
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
     autosize?: boolean;
+    borderless?: boolean;
     placeholder?: string;
     value?: string;
     rows?: number;
@@ -64,6 +66,7 @@ export interface TextAreaState {
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     static propTypes = {
         autosize: PropTypes.bool,
+        borderless: PropTypes.bool,
         placeholder: PropTypes.string,
         value: PropTypes.string,
         rows: PropTypes.number,
@@ -83,6 +86,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
     static defaultProps = {
         autosize: false,
+        borderless: false,
         rows: 4,
         cols: 20,
         showCounter: false,
@@ -276,6 +280,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             maxLength,
             minLength,
             showClear,
+            borderless,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -283,6 +288,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             className,
             `${prefixCls}-textarea-wrapper`,
             {
+                [`${prefixCls}-textarea-borderless`]: borderless,
                 [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
                 [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
                 [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),

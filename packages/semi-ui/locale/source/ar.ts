@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
     Pagination: {
-        item: 'بند',
-        pageSize: ' العناصر / الصفحة',
+        pageSize: 'العناصر في كل صفحة: ${pageSize}',
+        total: 'إجمالي الصفحات: ${total}',
+        jumpTo: 'اقفز إلى',
         page: ' الصفحات',
-        total: '',
-        jumpTo: 'اقفز إلى'
     },
     Modal: {
         confirm: 'تؤكد',
@@ -34,7 +33,9 @@ const local: Locale = {
             dateTime: 'حدد التاريخ والوقت',
             dateRange: ['تاريخ البدء', 'تاريخ النهاية'],
             dateTimeRange: ['تاريخ البدء', 'تاريخ النهاية'],
+            monthRange: ['الشهر الأول', 'الشهر الأخير'],
         },
+        presets: 'اختيار سريع',
         footer: {
             confirm: 'تؤكد',
             cancel: 'إلغاء',
@@ -83,7 +84,7 @@ const local: Locale = {
             Sun: 'الأحد‬',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'dd-MM-yyyy',
+            FORMAT_SWITCH_DATE: 'yyyy/MM/dd',
         },
     },
     Popconfirm: {
@@ -117,7 +118,7 @@ const local: Locale = {
         AM: '${time} صباح',
         PM: '${time} في الظهيرة',
         datestring: '',
-        remaining: '${remained} أكثر',
+        remaining: 'الكمية المتبقية: ${remained}',
     },
     Upload: {
         mainText: 'انقر لتحميل الملف أو اسحب الملف إلى هنا',
@@ -147,8 +148,8 @@ const local: Locale = {
         clear: 'واضح',
         selectAll: 'اختر الكل',
         clearSelectAll: 'إلغاء تحديد الكل',
-        total: 'مجموع ${total} العناصر',
-        selected: '${total} العناصر المحدد',
+        total: "إجمالي العناصر: ${total}",
+        selected: "العناصر المحددة: ${total}"
     },
     Form: {
         optional: '(اختياري)',

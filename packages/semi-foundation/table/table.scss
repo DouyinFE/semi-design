@@ -28,6 +28,14 @@ $module: #{$prefix}-table;
         &[data-column-fixed='true'] {
             z-index: 1;
         }
+
+        &-ltr {
+            direction: ltr;
+
+            .#{$prefix}-spin {
+                direction: ltr;
+            }
+        }
     }
 
     &-middle {
@@ -75,6 +83,23 @@ $module: #{$prefix}-table;
         }
     }
 
+    &-align-center {
+        .#{$module}-operate-wrapper {
+            justify-content: center;
+        }
+    }
+
+    &-align-right {
+        .#{$module}-operate-wrapper {
+            justify-content: flex-end;
+        }
+    }
+
+    &-operate-wrapper {
+        display: flex;
+        justify-content: flex-start;
+    }
+
     &-body {
         overflow: auto;
         width: 100%;
@@ -107,8 +132,9 @@ $module: #{$prefix}-table;
                 padding-top: $spacing-table_row_head-paddingY;
                 padding-bottom: $spacing-table_row_head-paddingY;
                 vertical-align: middle;
-                word-break: break-all;
-                word-wrap: break-word;
+                overflow-wrap: break-word;
+                // word-break: break-all;
+                // word-wrap: break-word;
                 position: relative;
 
                 &.#{$module}-cell-fixed {
@@ -169,6 +195,14 @@ $module: #{$prefix}-table;
                     display: inline-flex;
                     align-items: center;
                 }
+
+                &-ellipsis {
+                    @include text-overflow-hidden;
+
+                    .#{$module}-row-head-title {
+                        @include text-overflow-hidden;
+                    }
+                }
             }
 
             .react-resizable {
@@ -201,15 +235,19 @@ $module: #{$prefix}-table;
         display: table-row-group;
         & > .#{$module}-row {
             display: table-row;
+            background-color: $color-table_body-bg-default;
 
             &:hover {
                 & > .#{$module}-row-cell {
-                    background-color: $color-table_body-bg-hover;
+                    // $color-table_body-bg-hover has transparency，will reveal the background color $color-table_body-bg-default\
+                    // combine background-image and background-color to make the non-fixed column color does not show through the bottom color
+                    background-image: linear-gradient(0deg, $color-table_body-bg-hover, $color-table_body-bg-hover);
+                    background-color: $color-table_cell-bg-hover;
 
                     &.#{$module}-cell-fixed {
                         &-left,
                         &-right {
-                            background-color: $color-table_body-bg-default;
+                            background-image: linear-gradient(0deg, $color-table_body-bg-default, $color-table_body-bg-default);
 
                             &::before {
                                 background-color: $color-table_body-bg-hover;
@@ -229,8 +267,9 @@ $module: #{$prefix}-table;
 
             & > .#{$module}-row-cell {
                 display: table-cell;
-                word-wrap: break-word;
-                word-break: break-all;
+                overflow-wrap: break-word;
+                // word-wrap: break-word;
+                // word-break: break-all;
                 border-left: none;
                 border-right: none;
                 border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
@@ -241,6 +280,10 @@ $module: #{$prefix}-table;
 
                 &.resizing {
                     border-right: $width-table_resizer_border solid $color-table_resizer-bg-default;
+                }
+
+                &-ellipsis {
+                    @include text-overflow-hidden;
                 }
             }
             &.#{$module}-row {
@@ -389,9 +432,10 @@ $module: #{$prefix}-table;
             text-align: center;
 
             &-wrapper {
-                display: inline-flex;
+                display: flex;
                 align-items: center;
                 cursor: pointer;
+                overflow: hidden;
             }
 
             &-up,

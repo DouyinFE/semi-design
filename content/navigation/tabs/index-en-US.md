@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 43
 category: Navigation
 title: Tabs
 subTitle: Tabs
@@ -18,9 +18,17 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 ### Basic Usage
 
-Tbs supports three types of styles: `line`, `button`, and `card`. By default, the first tab is selected. You could use either `tabList` to pass in an array of tabs objects, or use `<TabPane>` to create each tab. Mixed usage of two ways is not recommended and data in `tabList` will be rendered with priority.
+Tbs supports three types of styles: `line`, `button`, and `card`. By default, the first tab is selected.
 
-> When you use `tabList`, only the current active tab will be rendered. For `<TabPane>`, all tabs will be rendered in DOM tree by default. You could set `keepDOM={false}` to only render current panel. No animation will be displayed in this case.
+Tabs supports two declare ways, and the rendering process of the two is different:
+- Pass the array of objects through `tabList`, when using `tabList`, only render the currently passed node each time
+- Or use `<TabPane>` to explicitly pass in item by item. When using `<TabPane>`, all panels will be rendered by default. You can set `keepDOM={false}` to only render the current panel, and there will be no animation effect at this time .
+
+<Notice title='Notice'>
+    1. When tabList and TabPane Children are used at the same time, the data passed in through tabList will be rendered first. It is not recommended to configure both <br/>
+    2. When using TabPane Children, TabPane must be a direct child element of Tabs, otherwise Tabs will not be able to correctly collect related attributes such as itemKey and other subcomponents
+</Notice>
+
 
 ```jsx live=true
 import React from 'react';
@@ -241,8 +249,10 @@ class App extends React.Component {
                 <RadioGroup
                     onChange={e => this.onSelect(e)}
                     value={this.state.type}
+                    type='button'
                     style={{
                         display: 'flex',
+                        width: 200,
                         justifyContent: 'center',
                     }}
                 >

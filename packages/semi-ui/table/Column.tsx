@@ -7,6 +7,8 @@ export default class Column extends React.PureComponent<ColumnProps> {
         ...ColumnShape,
     };
 
+    static elementType = 'Column';
+
     constructor(props: ColumnProps = {}) {
         super(props);
     }

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 52
+order: 53
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -426,32 +426,32 @@ function DropdownEvents() {
 
 ### Dropdown
 
-| Properties | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | Whether the pop-up layer automatically adjusts its direction when it is blocked | boolean | true |  |
-| className | classname of the outer style of the pop-up layer | string |  |  |
-| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled | boolean | true | **2.13.0** |
-| children | Child elements wrapped by the drop layer | ReactNode |  |  |
-| clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer | boolean |  | **0.24.0** |
-| contentClassName | Drop-down menu root element class name | string |  |  |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative` | function():HTMLElement | () => document.body |
+| Properties | Instructions                                                                                                                                                                                                                                  | Type | Default | Version |
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| autoAdjustOverflow | Whether the pop-up layer automatically adjusts its direction when it is blocked                                                                                                                                                               | boolean | true |  |
+| className | classname of the outer style of the pop-up layer                                                                                                                                                                                              | string |  |  |
+| closeOnEsc | Whether to close the panel by pressing the Esc key in the trigger or popup layer. It does not take effect when visible is under controlled                                                                                                    | boolean | true | **2.13.0** |
+| children | Child elements wrapped by the drop layer                                                                                                                                                                                                      | ReactNode |  |  |
+| clickToHide | Whether to close the drop-down layer automatically when clicking on the drop-down layer                                                                                                                                                       | boolean |  | **0.24.0** |
+| contentClassName | Drop-down menu root element class name                                                                                                                                                                                                        | string |  |  |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                                                                                              | function():HTMLElement | () => document.body |
 | margin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
-| mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| menu | Menu content config | Array<DropdownMenuItem\> | [] | **1.12.0** |
-| position | The position of the pop-up menu, commonly used: 'bottom', 'bottomLeft', 'bottomRight', for more details, see [Tooltip Position](https://semi.design/en-US/show/tooltip#Position) | string | 'bottom' |  |
-| render | Content of pop-up layer，include `Dropdown.Menu` `Dropdown.Item`、`Dropdown.Title` | ReactNode |  |  |
-| rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer | string \| number |  |  |
-| spacing | The distance between the pop-up layer and the `children` element, in px | number | 4 |  |
-| style | Pop-up layer inline style | object |  |  |
-| showTick | Whether to automatically display the checked tick on the left of the active Dropdown.Item item | boolean | false | **0.26.0** |
-| stopPropagation | Whether to prevent the click event on the pop-up layer from bubbling | boolean | false | **0.34.0** |
-| trigger | The act of triggering a drop-down, optional 'hover', 'focus', 'click', 'custom' | string | 'hover' |  |
-| visible | Display the menu or not, need to be used with trigger custom | boolean |  |  |
-| zIndex | Pop-up layer z-index value | number | 1050 |  |
-| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)  | (e:event) => void | | **2.1.0** |
-| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer | function(e:event) | | **2.13.0** |
-| onVisibleChange | Callback when the pop-up layer display state changes | function |  |  |
+| mouseEnterDelay | After the mouse is moved into the Trigger, the display time is delayed, in milliseconds (only effective when the trigger is hover/focus)                                                                                                      | number | 50 |  |
+| mouseLeaveDelay | The time for the delay to disappear after the mouse moves out of the pop-up layer, in milliseconds (only effective when the trigger is hover/focus)                                                                                           | number | 50 |  |
+| menu | Menu content config                                                                                                                                                                                                                           | Array<DropdownMenuItem\> | [] | **1.12.0** |
+| position | The position of the pop-up menu, commonly used: 'bottom', 'bottomLeft', 'bottomRight', for more details, see [Tooltip Position](https://semi.design/en-US/show/tooltip#Position)                                                              | string | 'bottom' |  |
+| render | Content of pop-up layer，include `Dropdown.Menu` `Dropdown.Item`、`Dropdown.Title`                                                                                                                                                              | ReactNode |  |  |
+| rePosKey | You can update the value of this item to manually trigger the repositioning of the pop-up layer                                                                                                                                               | string \| number |  |  |
+| spacing | The distance between the pop-up layer and the `children` element, in px                                                                                                                                                                       | number | 4 |  |
+| style | Pop-up layer inline style                                                                                                                                                                                                                     | object |  |  |
+| showTick | Whether to automatically display the checked tick on the left of the active Dropdown.Item item                                                                                                                                                | boolean | false | **0.26.0** |
+| stopPropagation | Whether to prevent the click event on the pop-up layer from bubbling                                                                                                                                                                          | boolean | false | **0.34.0** |
+| trigger | The act of triggering a drop-down, optional 'hover', 'focus', 'click', 'custom'                                                                                                                                                               | string | 'hover' |  |
+| visible | Display the menu or not, need to be used with trigger custom                                                                                                                                                                                  | boolean |  |  |
+| zIndex | Pop-up layer z-index value                                                                                                                                                                                                                    | number | 1050 |  |
+| onClickOutSide  | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                              | (e:event) => void | | **2.1.0** |
+| onEscKeyDown | Called when Esc key is pressed in trigger or popup layer                                                                                                                                                                                      | function(e:event) | | **2.13.0** |
+| onVisibleChange | Callback when the pop-up layer display state changes                                                                                                                                                                                          | function |  |  |
 
 ### Dropdown.Menu
 
@@ -534,3 +534,5 @@ function DropdownEvents() {
 ```material
 5
 ``` -->
+## Related Material
+<semi-material-list code="5"></semi-material-list>

@@ -41,6 +41,7 @@ module.exports = {
                 'jsx-a11y/html-has-lang': ['warn'],
                 'jsx-a11y/mouse-events-have-key-events': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
+                'space-before-blocks': ['error', 'always'],
             },
             globals: {
                 "sinon": "readonly",
@@ -67,6 +68,7 @@ module.exports = {
                 'react/jsx-indent-props': ['error', 4],
                 'react/no-find-dom-node': ['warn'],
                 'react/prop-types': 'off',
+                "react/no-unknown-property": ['error', { ignore: ['x-semi-prop', 'x-placement', 'x-type', 'x-label-pos', 'x-prompt-pos', 'x-field-id', 'x-extra-pos']}],
                 'react-hooks/rules-of-hooks': 'error',
                 'react-hooks/exhaustive-deps': 'warn',
                 'react/prefer-stateless-function': 'off',
@@ -91,6 +93,8 @@ module.exports = {
                 'jsx-a11y/html-has-lang': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
                 'semi-design/no-import': 'error',
+                'space-before-blocks': ['error', 'always'],
+                "@typescript-eslint/type-annotation-spacing": ['error', {"after": true}],
                 "@typescript-eslint/member-delimiter-style": [
                     "error",
                     {

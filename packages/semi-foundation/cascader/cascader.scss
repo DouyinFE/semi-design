@@ -25,6 +25,17 @@ $module: #{$prefix}-cascader;
         border: $width-cascader_hover-border $color-cascader_default-border-hover solid;
     }
 
+    &:focus:not(&-disabled) {
+        border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        background-color: $color-cascader_default-bg-default;
+        outline: 0;
+    }
+
+
+    &:active {
+        background-color: $color-cascader_default-bg-active;
+    }
+
     &-small {
         min-height: $height-cascader_small;
         line-height: $height-cascader_small;
@@ -41,10 +52,12 @@ $module: #{$prefix}-cascader;
     &-focus {
         border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
         outline: 0;
-        &:hover,
-        &:active {
+        &:hover{
             background-color: $color-cascader_default-bg-default;
             border: $width-cascader_focus-border solid $color-cascader_default-border-focus;
+        }
+        &:active {
+            background-color: $color-cascader_default-bg-active;
         }
     }
 
@@ -124,6 +137,7 @@ $module: #{$prefix}-cascader;
 
             &-disabled.#{$prefix}-tag {
                 color: $color-cascader_input_disabled-text-default;
+                background-color: $color-cascader_tag_disabled-bg-default;
                 cursor: not-allowed;
 
                 .#{$prefix}-tag-close {
@@ -244,7 +258,7 @@ $module: #{$prefix}-cascader;
     &-inset-label {
         display: inline;
         margin-right: $spacing-cascader_label-marginRight;
-        font-weight: 600;
+        font-weight: $font-weight-bold;
         @include font-size-regular;
         color: $color-cascader_label-text-default;
         flex-shrink: 0;
@@ -323,6 +337,14 @@ $module: #{$prefix}-cascader;
             display: flex;
             align-items: center;
             position: relative;
+
+            &-small {
+                height: $height-cascader_selection_wrapper_small;
+            }
+
+            &-large {
+                height: $height-cascader_selection_wrapper_large;
+            }
 
             .#{$prefix}-input-wrapper {
                 position: absolute;
@@ -485,6 +507,38 @@ $module: #{$prefix}-cascader;
             padding-right: $spacing-cascader_flatten_list-paddingRight;
         }
     }
+}
+
+.#{$module}-borderless{
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        .#{$module}-arrow {
+            opacity: 0;
+        }
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    &.#{$module}-error:not(:focus-within){
+        border-color: $color-cascader_danger-border-focus;
+    }
+
+    &.#{$module}-warning:not(:focus-within){
+        border-color: $color-cascader_warning-border-focus;
+    }
+
+    &.#{$module}-error:focus-within{
+        border-color: $color-cascader_danger-border-focus;
+    }
+
+    &.#{$module}-warning:focus-within{
+        border-color: $color-cascader_warning-border-focus;
+    }
+
+
 }
 
 @import './rtl.scss';

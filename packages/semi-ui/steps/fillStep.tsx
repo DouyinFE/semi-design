@@ -58,22 +58,19 @@ const FillStep = (props: FillStepProps) => {
             [`${prefixCls}-icon`]: 'icon' in props,
             [`${prefixCls}-plain`]: !('icon' in props),
             [`${prefixCls}-icon-process`]: progress,
+            [`${prefixCls}-hover`]: onChange || onClick,
         });
 
         return inner ? <div className={cls}>{inner}</div> : null;
     };
-    const handleClick = (e: React.MouseEvent) => {
-        if (isFunction(onClick)) {
-            onClick(e);
-        }
-        onChange();
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        onClick?.(e);
+        onChange?.();
     };
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (isFunction(onKeyDown)) {
-                onKeyDown(e);
-            }
-            onChange();
+            onKeyDown?.(e);
+            onChange?.();
         }
     };
     return (
@@ -85,6 +82,7 @@ const FillStep = (props: FillStepProps) => {
             className={classnames({
                 [prefixCls]: true,
                 [`${prefixCls}-${status}`]: Boolean(status),
+                [`${prefixCls}-${status}-hover`]: Boolean(status) && (onChange || onClick),
                 [`${prefixCls}-clickable`]: onClick,
             }, className)}
             style={style}

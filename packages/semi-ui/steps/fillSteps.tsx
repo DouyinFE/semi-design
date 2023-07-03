@@ -2,10 +2,12 @@ import React, { cloneElement, Children, useMemo, ReactElement, isValidElement } 
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { Row, Col } from '../grid';
 
 export type Status = 'wait' | 'process' | 'finish' | 'error' | 'warning';
 export type Direction = 'horizontal' | 'vertical';
+
 export interface FillStepsProps {
     prefixCls?: string;
     className?: string;
@@ -20,10 +22,10 @@ export interface FillStepsProps {
 }
 
 const Steps = (props: FillStepsProps) => {
-    const { current, status, children, prefixCls, initial, direction, className, style, onChange } = props;
+    const { current, status, children, prefixCls, initial, direction, className, style, onChange, ...rest } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
-        const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length }%` };
+        const colStyle = direction === 'vertical' ? null : { width: `${100 / filteredChildren.length}%` };
         const content = Children.map(filteredChildren, (child: ReactElement, index) => {
             if (!child) {
                 return null;
@@ -48,11 +50,11 @@ const Steps = (props: FillStepsProps) => {
                     childProps.status = 'wait';
                 }
             }
-            childProps.onChange = () => {
+            childProps.onChange = onChange ? () => {
                 if (index !== current) {
                     onChange(index + initial);
                 }
-            };
+            } : undefined;
             return <Col style={colStyle}>{cloneElement(child, { ...childProps })}</Col>;
         });
         return content;
@@ -60,7 +62,7 @@ const Steps = (props: FillStepsProps) => {
 
     const wrapperCls = cls(className, {
         [prefixCls]: true,
-        [`${prefixCls}-${ direction}`]: true
+        [`${prefixCls}-${direction}`]: true
     });
 
     return (
@@ -68,6 +70,7 @@ const Steps = (props: FillStepsProps) => {
             className={wrapperCls}
             style={style}
             aria-label={props["aria-label"]}
+            {...getDataAttr(rest)}
         >
             <Row type="flex" justify="start">
                 {inner}

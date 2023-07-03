@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 18
+order: 19
 category: Input
 title: AutoComplete
 icon: doc-autocomplete
@@ -355,43 +355,43 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 
 ## API reference
 
-| Properties | Instructions | Type | Default | Version|
-| --- | --- | --- | --- | -- |
-| autoFocus | Whether to auto focus | bool | false | 1.16.0|
-| autoAdjustOverflow | Whether to automatically adjust the direction when the floating layer is blocked<br/>| bool | true | 0.27.0|
-| className | Style class name | string | |
-| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode | |  2.25.0|
-| data | The data source of the candidates, which can be a string array or an object array | array | [] |
-| defaultActiveFirstOption | Whether to highlight the first option by default (press enter to select directly) | bool | false |
-| defaultOpen | Whether to expand the drop-down menu by default | boolean | false |
-| defaultValue | Defaults | string | |
-| disabled | Whether to disable | boolean | false |
-| dropdownClassName | Css class name of the drop-down list | string |  |
-| dropdownStyle | Inline style of the drop-down list | object |  |
-| emptyContent | Customize the drop-down content when data is empty | ReactNode | null | 1.16.0|
-| getPopupContainer | Specify the parent DOM, the floating layer of the drop-down list will be rendered into the DOM, and the customization needs to set `position: relative` | () => HTMLElement | () => document.body |
-| loading | Whether the drop-down list shows loading animation | boolean | false |
-| maxHeight | The maximum height of the drop-down list | number\|string | 300 |
-| motion | Is there an animation when the drop-down list appears/hidden | boolean | true |
+| Properties | Instructions                                                                                                                                                                                                                            | Type | Default | Version|
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | -- |
+| autoFocus | Whether to auto focus                                                                                                                                                                                                                   | bool | false | 1.16.0|
+| autoAdjustOverflow | Whether to automatically adjust the direction when the floating layer is blocked<br/>                                                                                                                                                   | bool | true | 0.27.0|
+| className | Style class name                                                                                                                                                                                                                        | string | |
+| clearIcon | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                 | ReactNode | |  2.25.0|
+| data | The data source of the candidates, which can be a string array or an object array                                                                                                                                                       | array | [] |
+| defaultActiveFirstOption | Whether to highlight the first option by default (press enter to select directly)                                                                                                                                                       | bool | false |
+| defaultOpen | Whether to expand the drop-down menu by default                                                                                                                                                                                         | boolean | false |
+| defaultValue | Defaults                                                                                                                                                                                                                                | string | |
+| disabled | Whether to disable                                                                                                                                                                                                                      | boolean | false |
+| dropdownClassName | Css class name of the drop-down list                                                                                                                                                                                                    | string |  |
+| dropdownStyle | Inline style of the drop-down list                                                                                                                                                                                                      | object |  |
+| emptyContent | Customize the drop-down content when data is empty                                                                                                                                                                                      | ReactNode | null | 1.16.0|
+| getPopupContainer | Specify the parent DOM, the floating layer of the drop-down list will be rendered into the DOM, and the customization needs to set `position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                                                 | () => HTMLElement | () => document.body |
+| loading | Whether the drop-down list shows loading animation                                                                                                                                                                                      | boolean | false |
+| maxHeight | The maximum height of the drop-down list                                                                                                                                                                                                | number\|string | 300 |
+| motion | Is there an animation when the drop-down list appears/hidden                                                                                                                                                                            | boolean | true |
 | onSelectWithObject | When clicking on the candidate, whether to add other attributes of the selected item option as callback parameters. When set to true, the input parameter type of onSelect will change from `string` to object: {value, label, ...rest} | boolean | false | 1.23.0|
-| placeholder | Input box prompt | string | |
-| position | The display position of the drop-down menu, the optional values are the same as the tooltip component | string | 'bottomLeft' |
-| prefix | The prefix tag of the select box | ReactNode |  | 0.23.0|
-| renderItem | Control the rendering of drop-down list candidates | (option: string\|Item)=> React.Node |  |
-| renderSelectedItem | Customize the drop-down list through renderSelectedItem after the candidate is clicked and selected, the content rendered in the select box<br/>** only supports the return value of String type **| (option: string\|Item) => string |  | 0.23.0|
-| showClear | Whether to show the clear button | boolean | false |
-| size | Size, optional `small`, `default`, `large`  | string | `default` |
-| style | style | object |  |
-| suffix | The prefix tag of the select box | ReactNode |  | 0.23.0|
-| value | The current value | string\|number |  |
-| validateStatus | Validation status, optional values are `default`, `error`, `warning`, and the default is default. Only affect the display style | string | 'default' | 1.14.0|
-| zIndex | ZIndex of the drop-down menu | number |  |
-| onBlur | Callback when the focus is lost | Function(event) | |
-| onChange | Input box change / change when the candidate is selected | Function(value:string\|number) | | 1.23.0|
-| onFocus | The callback when the focus is obtained | Function(event) | |
-| onKeyDown | keydown callback | (e: React.KeyboardEvent) => void | | 2.21.0 |
-| onSearch | Callback when input changes | Function(value: string) | |
-| onSelect | Callback when the drop-down menu candidate is selected | Function(item: string\|number\|Item) | |
+| placeholder | Input box prompt                                                                                                                                                                                                                        | string | |
+| position | The display position of the drop-down menu, the optional values are the same as the tooltip component                                                                                                                                   | string | 'bottomLeft' |
+| prefix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | 0.23.0|
+| renderItem | Control the rendering of drop-down list candidates                                                                                                                                                                                      | (option: string\|Item)=> React.Node |  |
+| renderSelectedItem | Customize the drop-down list through renderSelectedItem after the candidate is clicked and selected, the content rendered in the select box<br/>** only supports the return value of String type **                                     | (option: string\|Item) => string |  | 0.23.0|
+| showClear | Whether to show the clear button                                                                                                                                                                                                        | boolean | false |
+| size | Size, optional `small`, `default`, `large`                                                                                                                                                                                              | string | `default` |
+| style | style                                                                                                                                                                                                                                   | object |  |
+| suffix | The prefix tag of the select box                                                                                                                                                                                                        | ReactNode |  | 0.23.0|
+| value | The current value                                                                                                                                                                                                                       | string\|number |  |
+| validateStatus | Validation status, optional values are `default`, `error`, `warning`, and the default is default. Only affect the display style                                                                                                         | string | 'default' | 1.14.0|
+| zIndex | ZIndex of the drop-down menu                                                                                                                                                                                                            | number |  |
+| onBlur | Callback when the focus is lost                                                                                                                                                                                                         | Function(event) | |
+| onChange | Input box change / change when the candidate is selected                                                                                                                                                                                | Function(value:string\|number) | | 1.23.0|
+| onFocus | The callback when the focus is obtained                                                                                                                                                                                                 | Function(event) | |
+| onKeyDown | keydown callback                                                                                                                                                                                                                        | (e: React.KeyboardEvent) => void | | 2.21.0 |
+| onSearch | Callback when input changes                                                                                                                                                                                                             | Function(value: string) | |
+| onSelect | Callback when the drop-down menu candidate is selected                                                                                                                                                                                  | Function(item: string\|number\|Item) | |
 
 ## Accessibility
 ### Keyboard and Focus

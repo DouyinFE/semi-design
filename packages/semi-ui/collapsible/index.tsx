@@ -170,24 +170,31 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, {
             [`${cssClasses.PREFIX}-transition`]: this.props.motion && this.state.isTransitioning
         }, this.props.className);
-        return <div className={wrapperCls} style={wrapperStyle} onTransitionEnd={() => {
-            if (!this.props.isOpen) {
-                this.foundation.updateVisible(false);
-            }
-            this.foundation.updateIsTransitioning(false);
-            this.props.onMotionEnd?.();
-        }}>
+        return (
             <div
-                x-semi-prop="children"
-                ref={this.domRef}
-                style={{ overflow: 'hidden' }}
-                id={this.props.id}
+                className={wrapperCls}
+                style={wrapperStyle}
+                onTransitionEnd={() => {
+                    if (!this.props.isOpen) {
+                        this.foundation.updateVisible(false);
+                    }
+                    this.foundation.updateIsTransitioning(false);
+                    this.props.onMotionEnd?.();
+                }}
+                {...this.getDataAttr(this.props)}
             >
-                {
-                    (this.props.keepDOM || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen) && this.props.children
-                }
+                <div
+                    x-semi-prop="children"
+                    ref={this.domRef}
+                    style={{ overflow: 'hidden' }}
+                    id={this.props.id}
+                >
+                    {
+                        (this.props.keepDOM || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen) && this.props.children
+                    }
+                </div>
             </div>
-        </div>;
+        );
     }
 }
 

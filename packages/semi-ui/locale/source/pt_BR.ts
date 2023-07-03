@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'pt-BR',
     dateFnsLocale: ptBR,
     Pagination: {
-        item: 'artigo',
+        pageSize: 'Itens por página: ${pageSize}',
+        total: 'Total de páginas: ${total}',
+        jumpTo: 'Pule para',
         page: 'página',
-        pageSize: 'artigo /página',
-        total: 'Total',
-        jumpTo: 'Pule para'
     },
     Modal: {
         confirm: 'OK',
@@ -34,7 +33,9 @@ const local: Locale = {
             dateTime: 'Selecione a data e hora',
             dateRange: ['Data de início', 'Data de fim'],
             dateTimeRange: ['Data de início', 'Data de fim'],
+            monthRange: ['Mês de início', 'Mês de fim'],
         },
+        presets: 'Seleção rápida',
         footer: {
             confirm: 'OK',
             cancel: 'Cancelar',
@@ -91,7 +92,7 @@ const local: Locale = {
             Sun: 'Sun',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd-MM-yyyy',
         },
     },
     Navigation: {
@@ -155,8 +156,8 @@ const local: Locale = {
         clear: 'Vazio',
         selectAll: 'selecionar tudo',
         clearSelectAll: 'Cancelar selecionar tudo',
-        total: 'Total de ${total} itens',
-        selected: '${total} itens selecionados',
+        total: 'Total de itens: ${total}',
+        selected: 'Itens selecionados: ${total}',
     },
     Form: {
         optional: '(opcional)',

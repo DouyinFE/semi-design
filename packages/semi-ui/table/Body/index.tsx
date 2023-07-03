@@ -31,9 +31,10 @@ import SectionRow from './SectionRow';
 import TableHeader from '../TableHeader';
 import ConfigContext from '../../configProvider/context';
 import TableContext, { TableContextProps } from '../table-context';
-import {
+import type {
     ExpandedRowRender,
     Virtualized,
+    VirtualizedItemSize,
     GetVirtualizedListRef,
     ColumnProps,
     Size,
@@ -48,6 +49,7 @@ import {
 } from '../interface';
 
 export interface BodyProps extends BaseProps {
+    tableLayout?: 'fixed' | 'auto';
     anyColumnFixed?: boolean;
     columns?: ColumnProps[];
     dataSource?: Record<string, any>[];
@@ -252,9 +254,9 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const virtualizedItem = get(virtualizedData, index);
         const defaultConfig = getDefaultVirtualizedRowConfig(tableSize, virtualizedItem.sectionRow);
 
-        const itemSize = get(virtualized, 'itemSize', defaultConfig.height);
+        const itemSize = get(virtualized, 'itemSize', defaultConfig.height) as VirtualizedItemSize;
 
-        let realSize = itemSize;
+        let realSize = itemSize as number;
 
         if (typeof itemSize === 'function') {
             realSize = itemSize(index, {
@@ -278,7 +280,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     };
 
     handleVirtualizedScroll = (props = {}) => {
-        const onScroll = get(this.props.virtualized, 'onScroll');
+        const onScroll: undefined | ((props?: any) => void) = get(this.props.virtualized, 'onScroll');
         if (typeof onScroll === 'function') {
             onScroll(props);
         }
@@ -405,7 +407,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     };
 
     renderVirtualizedBody = (direction?: Direction) => {
-        const { scroll, prefixCls, virtualized, anyColumnFixed, columns } = this.props;
+        const { scroll, prefixCls, virtualized, columns } = this.props;
         const { virtualizedData } = this.state;
         const { getCellWidths } = this.context;
         const cellWidths = getCellWidths(columns);
@@ -745,6 +747,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             onScroll,
             groups,
             expandedRowRender,
+            tableLayout,
         } = this.props;
 
         const x = get(scroll, 'x');
@@ -758,8 +761,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const tableStyle: {
             width?: string | number
         } = {};
-        const Table = get(components, 'body.outer', 'table');
-        const BodyWrapper = get(components, 'body.wrapper') || 'tbody';
+        const Table = get(components, 'body.outer', 'table') as unknown as typeof React.Component;
+        const BodyWrapper = (get(components, 'body.wrapper') || 'tbody') as unknown as typeof React.Component;
 
         if (y) {
             bodyStyle.maxHeight = y;
@@ -795,7 +798,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     aria-colcount={columns && columns.length}
                     style={tableStyle}
                     className={classnames(prefixCls, {
-                        [`${prefixCls}-fixed`]: anyColumnFixed,
+                        [`${prefixCls}-fixed`]: tableLayout === 'fixed',
                     })}
                 >
                     {colgroup}
@@ -823,11 +826,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
 
     render() {
         const { virtualized } = this.props;
-        return (
-            <ConfigContext.Consumer>
-                {({ direction }: { direction?: Direction }) => (virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction))}
-            </ConfigContext.Consumer>
-        );
+        const { direction } = this.context;
+        return virtualized ? this.renderVirtualizedBody(direction) : this.renderBody(direction);
     }
 }
 

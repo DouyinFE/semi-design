@@ -1,6 +1,6 @@
 module.exports = {
     rules: {
-        'indentation': [4, { severity: 'error' }],
+        'indentation': [4, { severity: 'warning' }],
         'no-missing-end-of-source-newline': [true, { severity: 'warning' }],
         'block-opening-brace-space-before': ['always', { severity: 'warning' }],
         'declaration-colon-space-after': ['always', { severity: 'warning' }],

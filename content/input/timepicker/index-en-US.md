@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 32
+order: 33
 category: Input
 title: TimePicker
 subTitle: TimePicker
@@ -297,52 +297,53 @@ function Demo(props = {}) {
 
 ## API Reference
 
-| Parameters | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked | boolean | true | **0.34.0** |
-| autoFocus | Automatic access to focus | boolean | false |
-| className | Outer style name | string |  |
-| clearIcon | Can be used to customize the clear button, valid when showClear is true | ReactNode |  |  **2.25.0**|
-| clearText | Clear button prompt copy | string | Clear |
-| defaultOpen | Whether the panel is open by default | boolean |  | **0.19.0** |
-| defaultValue | Default time | Date\|timeStamp\|string (array when type = "timeRange") |  |
-| disabled | Disable all operations | boolean | false |
-| disabledHours | Prohibited selection of partial hour options | () => number [] |  |
-| disabledMinutes | Prohibited to select some minute options | (selectedHour: number) => number[] |  |
-| disabledSeconds | Unable to select partial second option | (selectedHour: number, selectedMinute: number) => number[] |  |
+| Parameters | Instructions                                                                                                                                                                                                                                  | Type | Default | Version |
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                                                                             | boolean | true | **0.34.0** |
+| autoFocus | Automatic access to focus                                                                                                                                                                                                                     | boolean | false |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                                                                     | boolean                         |           |
+| className | Outer style name                                                                                                                                                                                                                              | string |  |
+| clearIcon | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                       | ReactNode |  |  **2.25.0**|
+| clearText | Clear button prompt copy                                                                                                                                                                                                                      | string | Clear |
+| defaultOpen | Whether the panel is open by default                                                                                                                                                                                                          | boolean |  | **0.19.0** |
+| defaultValue | Default time                                                                                                                                                                                                                                  | Date\|timeStamp\|string (array when type = "timeRange") |  |
+| disabled | Disable all operations                                                                                                                                                                                                                        | boolean | false |
+| disabledHours | Prohibited selection of partial hour options                                                                                                                                                                                                  | () => number [] |  |
+| disabledMinutes | Prohibited to select some minute options                                                                                                                                                                                                      | (selectedHour: number) => number[] |  |
+| disabledSeconds | Unable to select partial second option                                                                                                                                                                                                        | (selectedHour: number, selectedMinute: number) => number[] |  |
 | dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | **2.25.0** |
-| focusOnOpen     | Whether to open the panel and focus the input box when mounting                         | boolean                                                                            | false                                                     |                    |
-| format | Time format of presentation | string | "HH: mm: ss." |  |
-| getPopupContainer | Specifies the container and the floating layer will be rendered into the element, you need to set 'position: relative` | () => HTMLElement | () => document.body |
-| hideDisabledOptions | Hide the option of forbidden selection | boolean | false |
-| hourStep | Hour option interval | number | 1 |
-| inputReadOnly | Set the input box to read-only (avoid opening a virtual keyboard on a mobile device) | boolean | false |
-| insetLabel | Prefix label, lower priority than `prefix` | string\|ReactNode |  |  |
-| minuteStep | Minute option interval | number | 1 |
-| motion | Whether to display the pop-up layer animation | boolean | true |  |
-| open | Controlled property of whether the panel is open | boolean |  |
-| panelFooter | Addon at the bottom of the panel | ReactNode\|ReactNode[]\|string |  |
-| panelHeader | Panel head addon | ReactNode\|ReactNode[]\|string |  |
-| placeholder | What's displayed when it's not worth it. | string | "Select time" |
-| popupClassName | Pop-up class name | string | '' |
-| popupStyle | Pop-up layer style object | object | - |
-| position | Floating position | string | type="timeRange" => "bottom"<br/>type="time" => "bottomLeft" |
-| prefixCls | Prefix content | string\|ReactNode |  |  |
-| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| rangeSeparator | time range delimiter | string | "~" |
-| scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem) | object |  | **0.31.0** |
-| secondStep | Second option interval | number | 1 |
-| showClear | Whether to show the clear button | boolean | true | **0.35.0**|
-| size  | Size of input box, one of 'default', 'small' and 'large'          | string                                                                   | 'default'                                                              |                    |
-| triggerRender | Custom trigger rendering method | ({ placeholder: string }) => ReactNode |  | **0.34.0** |
-| type | type | "time"\|"timeRange" | "time" |
-| use12Hours | Using a 12-hour system, `format` default to `h: mm: ssa` when true | boolean | false |
-| value | Current time | Date\|timeStamp\|string (array when type = "timeRange") |  |
-| onBlur | Callback when focus is lost | (e: domEvent) => void | () => {} | **1.0.0** |
-| onChange | A callback in time. | (time: Date\|Date[], timeString: string\|string[]) => void |  |
-| onChangeWithDateFirst | Set the order of parameter in `onChange`, `true`: (Date, string); `false`: (string, Date) | boolean | true | **2.4.0** |
-| onFocus | Callback when focus is obtained | (e: domEvent) => void | () => {} | **1.0.0** |
-| onOpenChange | A callback when the panel is on / off | (isOpen: boolean) => void |  |
+| focusOnOpen     | Whether to open the panel and focus the input box when mounting                                                                                                                                                                               | boolean                                                                            | false                                                     |                    |
+| format | Time format of presentation                                                                                                                                                                                                                   | string | "HH: mm: ss." |  |
+| getPopupContainer | Specifies the container and the floating layer will be rendered into the element, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                                                                                        | () => HTMLElement | () => document.body |
+| hideDisabledOptions | Hide the option of forbidden selection                                                                                                                                                                                                        | boolean | false |
+| hourStep | Hour option interval                                                                                                                                                                                                                          | number | 1 |
+| inputReadOnly | Set the input box to read-only (avoid opening a virtual keyboard on a mobile device)                                                                                                                                                          | boolean | false |
+| insetLabel | Prefix label, lower priority than `prefix`                                                                                                                                                                                                    | string\|ReactNode |  |  |
+| minuteStep | Minute option interval                                                                                                                                                                                                                        | number | 1 |
+| motion | Whether to display the pop-up layer animation                                                                                                                                                                                                 | boolean | true |  |
+| open | Controlled property of whether the panel is open                                                                                                                                                                                              | boolean |  |
+| panelFooter | Addon at the bottom of the panel                                                                                                                                                                                                              | ReactNode\|ReactNode[]\|string |  |
+| panelHeader | Panel head addon                                                                                                                                                                                                                              | ReactNode\|ReactNode[]\|string |  |
+| placeholder | What's displayed when it's not worth it.                                                                                                                                                                                                      | string | "Select time" |
+| popupClassName | Pop-up class name                                                                                                                                                                                                                             | string | '' |
+| popupStyle | Pop-up layer style object                                                                                                                                                                                                                     | object | - |
+| position | Floating position                                                                                                                                                                                                                             | string | type="timeRange" => "bottom"<br/>type="time" => "bottomLeft" |
+| prefix | Prefix content                                                                                                                                                                                                                                | string\|ReactNode |  |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean |  |  |
+| rangeSeparator | time range delimiter                                                                                                                                                                                                                          | string | "~" |
+| scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)                                                                                                               | object |  | **0.31.0** |
+| secondStep | Second option interval                                                                                                                                                                                                                        | number | 1 |
+| showClear | Whether to show the clear button                                                                                                                                                                                                              | boolean | true | **0.35.0**|
+| size  | Size of input box, one of 'default', 'small' and 'large'                                                                                                                                                                                      | string                                                                   | 'default'                                                              |                    |
+| triggerRender | Custom trigger rendering method                                                                                                                                                                                                               | ({ placeholder: string }) => ReactNode |  | **0.34.0** |
+| type | type                                                                                                                                                                                                                                          | "time"\|"timeRange" | "time" |
+| use12Hours | Using a 12-hour system, `format` default to `h: mm: ssa` when true                                                                                                                                                                            | boolean | false |
+| value | Current time                                                                                                                                                                                                                                  | Date\|timeStamp\|string (array when type = "timeRange") |  |
+| onBlur | Callback when focus is lost                                                                                                                                                                                                                   | (e: domEvent) => void | () => {} | **1.0.0** |
+| onChange | A callback in time.                                                                                                                                                                                                                           | (time: Date\|Date[], timeString: string\|string[]) => void |  |
+| onChangeWithDateFirst | Set the order of parameter in `onChange`, `true`: (Date, string); `false`: (string, Date)                                                                                                                                                     | boolean | true | **2.4.0** |
+| onFocus | Callback when focus is obtained                                                                                                                                                                                                               | (e: domEvent) => void | () => {} | **1.0.0** |
+| onOpenChange | A callback when the panel is on / off                                                                                                                                                                                                         | (isOpen: boolean) => void |  |
 
 ## Methods
 Some internal methods provided by TimePicker can be accessed through ref:

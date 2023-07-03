@@ -3,9 +3,9 @@ import Tabs from '../index';
 import Button from '@douyinfe/semi-ui/button/index';
 import Typography from '@douyinfe/semi-ui/typography/index';
 import Switch from '@douyinfe/semi-ui/switch/index';
-import { Radio, RadioGroup } from '@douyinfe/semi-ui';
+import { Radio, RadioGroup, Checkbox } from '@douyinfe/semi-ui';
 import Icon from '../../icons';
-import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconFile, IconGlobe, IconHelpCircle, IconClose } from '@douyinfe/semi-icons';
 const TabPane = Tabs.TabPane;
 const { Title } = Typography;
 
@@ -286,7 +286,7 @@ export const RenderTabBar = () => (
     defaultActiveKey="1"
     renderTabBar={(tabBarProps, DefaultTabBar) => {
       return (
-        <div className="tab-bar-box" itemKey="bar">
+        <div className="tab-bar-box" >
           这是二次封装的Tab Bar，当前ActiveKey：{tabBarProps.activeKey}
           <DefaultTabBar {...tabBarProps} />
         </div>
@@ -708,7 +708,7 @@ export const CollapseTabs = () => (
       collapsible
     >
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={`${i}`}>
           Content of card tab {i}
         </TabPane>
       ))}
@@ -717,7 +717,7 @@ export const CollapseTabs = () => (
     <br />
     <Tabs style={style} type="button" collapsible>
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`${i}`} key={`${i}`}>
           Content of button tab {i}
         </TabPane>
       ))}
@@ -726,7 +726,7 @@ export const CollapseTabs = () => (
     <br />
     <Tabs style={style} type="line" collapsible>
       {[...Array(30).keys()].map(i => (
-        <TabPane tab={`Tab-${i}`} itemKey={`${i}`}>
+        <TabPane tab={`Tab-${i}`} itemKey={`${i}`} key={`${i}`}>
           Content of line tab {i}
         </TabPane>
       ))}
@@ -903,3 +903,103 @@ export const TabClosable = () => <TabClosableDemo />;
 TabClosable.story = {
   name: 'tab closable',
 };
+
+export const TabItem = () => {
+  const TabItem = Tabs.TabItem;
+  console.log('TabItem', TabItem.elementType, TabItem);
+  
+  const params = [
+    // line 不同size
+    { tab: '标签栏一', type: 'line',   icon: null, size: 'large', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon: null, size: 'medium', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon: null, size: 'small', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    // with icon
+    { tab: '标签栏一', type: 'line',   icon: <IconFile />, size: 'large', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon: <IconFile />, size: 'medium', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon: <IconFile />, size: 'small', tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '1' },
+    
+    
+    // button card
+    { tab: '标签栏一', type: 'button', icon: null, size: 'large',  tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '2' },
+    { tab: '标签栏一', type: 'card', icon: null, size: 'large',  tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '3' },
+
+    { tab: '标签栏一', type: 'button', icon: <IconFile />, size: 'large',  tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '2' },
+    { tab: '标签栏一', type: 'card', icon: <IconFile />, size: 'large',  tabPosition: 'top', selected: false, closable: false, disabled: false, itemKey: '3' },
+
+    // left
+    { tab: '标签栏一', type: 'line',   icon: null, size: 'large',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon: null, size: 'medium',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line', icon: null, size: 'large',  tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '2' },
+
+    { tab: '标签栏一', type: 'line',   icon:  <IconFile />, size: 'large',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line',   icon:  <IconFile />, size: 'medium',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+    { tab: '标签栏一', type: 'line', icon:  <IconFile />, size: 'large',  tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '2' },
+
+    { tab: '标签栏一', type: 'card', icon: null, size: 'large',  tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '3' },
+    { tab: '标签栏一', type: 'button',   icon: null, size: 'small',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+
+    { tab: '标签栏一', type: 'card', icon: <IconFile />, size: 'large',  tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '3' },
+    { tab: '标签栏一', type: 'button',   icon:  <IconFile />, size: 'small',tabPosition: 'left', selected: false, closable: false, disabled: false, itemKey: '1' },
+  ]
+
+  return (<div style={{ minWidth: 100, minHeight: 100, border: '1px solid grey' }}>
+    {params.map((param, index) => (
+      <div key={`tab-item-${index}`} style={{ margin: 10 }}>
+        <TabItem {...param} />
+        <span style={{ marginLeft: '20px'}}></span>
+        <TabItem {...param}  selected={true}/>
+        <span style={{ marginLeft: '20px'}}></span>
+        <TabItem {...param}  disabled={true}/>
+        {param.type === 'card' &&
+          <div key={`tab-item-${index}-2`} style={{ margin: 10 }}>
+            <TabItem {...param} closable={true} />
+            <span style={{ marginLeft: '20px'}}></span>
+            <TabItem {...param}  selected={true} closable={true} />
+            <span style={{ marginLeft: '20px'}} closable={true} ></span>
+            <TabItem {...param}  disabled={true} closable={true} />
+          </div>
+        }
+      </div>
+    ))}
+  </div>)
+}
+
+
+export const Fix1456 = () =>{
+  const [key, setKey] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  return (
+        <div id='wrapper' style={{ height: 300, overflowY: 'scroll' }}>
+          <div style={{ height: 500 }}>
+          <Tabs style={{ width: '300px', margin: '20px' }} type="card" collapsible>
+            {key.map(i => (
+              <TabPane tab={`tab-${i}`} itemKey={`${i}`} key={i}>
+                  Content of card tab {i}
+              </TabPane>
+            ))}
+          </Tabs>
+          <Button onClick={()=>{setKey([8, 9, 10, 11, 12, 13, 14, 15])}}>change key</Button>
+        </div>
+        </div>
+  );
+}
+
+Fix1456.story = {
+  name: 'Fix-1456',
+};
+
+export const IconStyle = () => {
+  return (
+    <Tabs type="card" >
+        <TabPane tab={<span><IconClose />文档</span> } itemKey="1" closable={true}>
+          用于测试图标设置为 close icon 是否正确
+        </TabPane>
+        <TabPane tab={<Radio defaultChecked>test2</Radio>} itemKey="2">
+          用于测试 tab 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+        <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="3">
+          用于测试 Checkbox 下的 Radio 中的 semi-icon 是否收到影响
+        </TabPane>
+    </Tabs>
+  )
+}

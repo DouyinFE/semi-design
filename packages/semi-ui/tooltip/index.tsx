@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
-import React, { isValidElement, cloneElement } from 'react';
+import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -10,7 +10,11 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import Event from '@douyinfe/semi-foundation/utils/Event';
 import { ArrayElement } from '@douyinfe/semi-foundation/utils/type';
 import { convertDOMRectToObject, DOMRectLikeType } from '@douyinfe/semi-foundation/utils/dom';
-import TooltipFoundation, { TooltipAdapter, Position, PopupContainerDOMRect } from '@douyinfe/semi-foundation/tooltip/foundation';
+import TooltipFoundation, {
+    TooltipAdapter,
+    Position,
+    PopupContainerDOMRect
+} from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
@@ -27,6 +31,7 @@ import CSSAnimation from "../_cssAnimation";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
+
 export interface ArrowBounding {
     offsetX?: number;
     offsetY?: number;
@@ -34,11 +39,11 @@ export interface ArrowBounding {
     height?: number
 }
 
-export interface RenderContentProps {
-    initialFocusRef?: React.RefObject<HTMLElement>
+export interface RenderContentProps<T = HTMLElement> {
+    initialFocusRef?: React.RefObject<T>
 }
 
-export type RenderContent = (props: RenderContentProps) => React.ReactNode;
+export type RenderContent<T = HTMLElement> = (props: RenderContentProps<T>) => React.ReactNode;
 
 export interface TooltipProps extends BaseProps {
     children?: React.ReactNode;
@@ -78,8 +83,10 @@ export interface TooltipProps extends BaseProps {
     wrapperId?: string;
     preventScroll?: boolean;
     disableFocusListener?: boolean;
-    afterClose?: () => void
+    afterClose?: () => void;
+    keepDOM?: boolean
 }
+
 interface TooltipState {
     visible: boolean;
     transitionState: string;
@@ -94,7 +101,8 @@ interface TooltipState {
     placement: Position;
     transitionStyle: Record<string, any>;
     isPositionUpdated: boolean;
-    id: string
+    id: string;
+    displayNone: boolean
 }
 
 const prefix = cssClasses.PREFIX;
@@ -141,6 +149,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         guardFocus: PropTypes.bool,
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
+        keepDOM: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -168,6 +177,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
+        keepDOM: false
     };
 
     eventManager: Event;
@@ -202,7 +212,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             placement: props.position || 'top',
             transitionStyle: {},
             isPositionUpdated: false,
-            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y
+            id: props.wrapperId, // auto generate id, will be used by children.aria-describedby & content.id, improve a11y,
+            displayNone: false
         };
         this.foundation = new TooltipFoundation(this.adapter);
         this.eventManager = new Event();
@@ -313,6 +324,9 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                         this.eventManager.emit('positionUpdated');
                     }
                 );
+            },
+            setDisplayNone: (displayNone: boolean, cb: () => void) => {
+                this.setState({ displayNone }, cb);
             },
             updatePlacementAttr: (placement: Position) => {
                 this.setState({ placement });
@@ -450,6 +464,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.foundation.destroy();
     }
 
+    /**
+     * focus on tooltip trigger
+     */
+    public focusTrigger() {
+        this.foundation.focusTrigger();
+    }
+
     isSpecial = (elem: React.ReactNode | HTMLElement | any) => {
         if (isHTMLElement(elem)) {
             return Boolean(elem.disabled);
@@ -465,8 +486,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             /* Only judge the loading state of the Button, and no longer judge other components */
             const isButton = !isEmpty(elem)
                 && !isEmpty(elem.type)
-                && (elem.type as any).name === 'Button'
-                || (elem.type as any).name === 'IconButton';
+                && (get(elem, 'type.elementType') === 'Button' || get(elem, 'type.elementType') === 'IconButton');
             if (loading && isButton) {
                 return strings.STATUS_LOADING;
             }
@@ -481,9 +501,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     // };
 
     didLeave = () => {
-        this.foundation.removePortal();
+        if (this.props.keepDOM) {
+            this.foundation.setDisplayNone(true);
+        } else {
+            this.foundation.removePortal();
+        }
         this.foundation.unBindEvent();
     };
+
     /** for transition - end */
 
     rePosition() {
@@ -496,7 +521,11 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             "[Semi Tooltip] 'mouseLeaveDelay' cannot be less than 'mouseEnterDelay', which may cause the dropdown layer to not be hidden."
         );
         if (prevProps.visible !== this.props.visible) {
-            this.props.visible ? this.foundation.delayShow() : this.foundation.delayHide();
+            if (['hover', 'focus'].includes(this.props.trigger)) {
+                this.props.visible ? this.foundation.delayShow() : this.foundation.delayHide();
+            } else {
+                this.props.visible ? this.foundation.show() : this.foundation.hide();
+            }
         }
         if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
@@ -511,13 +540,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const bgColor = get(style, 'backgroundColor');
 
         const iconComponent = placement.includes('left') || placement.includes('right') ?
-            <TriangleArrowVertical /> :
-            <TriangleArrow />;
+            <TriangleArrowVertical/> :
+            <TriangleArrow/>;
         if (showArrow) {
             if (isValidElement(showArrow)) {
                 icon = showArrow;
             } else {
-                icon = React.cloneElement(iconComponent, { className: triangleCls, style: { color: bgColor, fill: 'currentColor' } });
+                icon = React.cloneElement(iconComponent, {
+                    className: triangleCls,
+                    style: { color: bgColor, fill: 'currentColor' }
+                });
             }
         }
 
@@ -539,6 +571,18 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         }
     }
 
+    handlePortalFocus = (e: React.FocusEvent<HTMLElement>) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
+    }
+
+    handlePortalBlur = (e: React.FocusEvent<HTMLElement>) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
+    }
+
     handlePortalInnerKeyDown = (e: React.KeyboardEvent) => {
         this.foundation.handleContainerKeydown(e);
     }
@@ -551,7 +595,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     };
 
     renderPortal = () => {
-        const { containerStyle = {}, visible, portalEventSet, placement, transitionState, id, isPositionUpdated } = this.state;
+        const {
+            containerStyle = {},
+            visible,
+            portalEventSet,
+            placement,
+            displayNone,
+            transitionState,
+            id,
+            isPositionUpdated
+        } = this.state;
         const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
@@ -565,9 +618,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const icon = this.renderIcon();
         const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
         const transformOrigin = get(containerStyle, 'transformOrigin');
-        const userOpacity = get(style, 'opacity');
+        const userOpacity: CSSProperties['opacity'] | null = get(style, 'opacity', null);
         const opacity = userOpacity ? userOpacity : 1;
-
         const inner =
             <CSSAnimation
                 fillMode="forwards"
@@ -586,9 +638,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             className={classNames(className, animationClassName)}
                             style={{
                                 ...animationStyle,
+                                ...(displayNone ? { display: "none" } : {}),
                                 transformOrigin,
                                 ...style,
-                                opacity: isPositionUpdated ? opacity : "0",
+                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" }:{}) 
                             }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
@@ -596,7 +649,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             x-placement={placement}
                             id={id}
                         >
-                            {contentNode}
+                            <div className={`${prefix}-content`} >{contentNode}</div>
                             {icon}
                         </div>;
                     }
@@ -608,10 +661,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
+                    // listen keyboard event, don't move tabIndex -1
+                    tabIndex={-1}
                     className={`${BASE_CLASS_PREFIX}-portal-inner`}
                     style={portalInnerStyle}
                     ref={this.setContainerEl}
                     onClick={this.handlePortalInnerClick}
+                    onFocus={this.handlePortalFocus}
+                    onBlur={this.handlePortalBlur}
                     onMouseDown={this.handlePortalMouseDown}
                     onKeyDown={this.handlePortalInnerKeyDown}
                 >
@@ -662,7 +719,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { isInsert, triggerEventSet, visible, id } = this.state;
         const { wrapWhenSpecial, role, trigger } = this.props;
         let { children } = this.props;
-        const childrenStyle = { ...get(children, 'props.style') };
+        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties } ;
         const extraStyle: React.CSSProperties = {};
 
         if (wrapWhenSpecial) {
@@ -705,7 +762,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             ...(children as React.ReactElement).props,
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
             style: {
-                ...get(children, 'props.style'),
+                ...get(children, 'props.style') as React.CSSProperties,
                 ...extraStyle,
             },
             className: classNames(

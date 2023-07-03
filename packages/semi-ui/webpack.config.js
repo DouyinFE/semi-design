@@ -4,7 +4,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const DefinePlugin = webpack.DefinePlugin;
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const WebpackBarPlugin = require('webpackbar');
-const HashedModuleIdsPlugin = webpack.HashedModuleIdsPlugin;
+const HashedModuleIdsPlugin = webpack.ids.HashedModuleIdsPlugin;
 const getBabelConfig = require('./getBabelConfig');
 
 const rootPath = path.join(__dirname, '../..');
@@ -50,9 +50,9 @@ module.exports = function ({ minimize }) {
                 },
                 {
                     test: /semi-icons\/.+\.css$/,
-                    loaders: 'null-loader'
+                    use: 'null-loader'
                 },
-                { test: /\.scss$/, loaders: 'null-loader' },
+                { test: /\.scss$/, use: 'null-loader' },
             ]
         },
         optimization: {

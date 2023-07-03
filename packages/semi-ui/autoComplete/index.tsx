@@ -7,6 +7,7 @@ import { isEqual, noop } from 'lodash';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/autoComplete/constants';
 import AutoCompleteFoundation, { AutoCompleteAdapter, StateOptionItem, DataItem } from '@douyinfe/semi-foundation/autoComplete/foundation';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import { Position } from '../tooltip';
 import Spin from '../spin';
@@ -48,7 +49,7 @@ export interface AutoCompleteProps<T extends AutoCompleteItems> {
     autoFocus?: boolean;
     className?: string;
     clearIcon?: ReactNode;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     data?: T[];
     disabled?: boolean;
     defaultOpen?: boolean;
@@ -370,7 +371,8 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
             id,
             ...keyboardEventSet,
             // tooltip give tabindex 0 to children by default, autoComplete just need the input get focus, so outer div's tabindex set to -1
-            tabIndex: -1
+            tabIndex: -1,
+            ...this.getDataAttr(this.props)
         };
 
         const innerProps = {

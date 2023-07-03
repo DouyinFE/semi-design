@@ -35,6 +35,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
         activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         accordion: PropTypes.bool,
+        clickHeaderToExpand: PropTypes.bool,
         onChange: PropTypes.func,
         expandIcon: PropTypes.node,
         collapseIcon: PropTypes.node,
@@ -47,6 +48,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
 
     static defaultProps = {
         defaultActiveKey: '',
+        clickHeaderToExpand: true,
         onChange: noop,
         expandIconPosition: 'right'
     };
@@ -94,16 +96,17 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
 
     render() {
         // eslint-disable-next-line max-len
-        const { defaultActiveKey, accordion, style, motion, className, keepDOM, expandIconPosition, expandIcon, collapseIcon, children, ...rest } = this.props;
+        const { defaultActiveKey, accordion, style, motion, className, keepDOM, expandIconPosition, expandIcon, collapseIcon, children, clickHeaderToExpand, ...rest } = this.props;
         const clsPrefix = cls(cssClasses.PREFIX, className);
         const { activeSet } = this.state;
         return (
-            <div className={clsPrefix} style={style}>
+            <div className={clsPrefix} style={style} {...this.getDataAttr(this.props)}>
                 <CollapseContext.Provider
                     value={{
                         activeSet,
                         expandIcon,
                         collapseIcon,
+                        clickHeaderToExpand,
                         keepDOM,
                         expandIconPosition,
                         onClick: this.onChange,

@@ -20,7 +20,7 @@ yarn add @douyinfe/semi-ui
 pnpm add @douyinfe/semi-ui
 ```
 
-## 2、模块化方式使用组件
+## 2、使用组件
 
 在 Webpack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包。
 
@@ -41,29 +41,22 @@ class Demo extends React.Component {
 
 > 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以重置浏览器自带的默认样式，避免不同UA之间的样式差异。
 
-## 3、在 Next.js 中使用
+## 3、在 NextJs 中使用
 
-当你在 Next.js 项目中使用时，需要搭配 Semi 提供的编译插件（由于 Next.js 不允许 npm 包从 node_modules 中 import 样式文件，需要配合插件将默认的import CSS 语句移除，并且手动引入 CSS）
+- 如果仅使用默认主题, 在 `transpilePackages` 追加 Semi 相关的 package即可 （Next.js 版本要求 >= v13.1 ）
+```diff
+// next.config.js
+const nextConfig = {
++ transpilePackages: ['@douyinfe/semi-ui', '@douyinfe/semi-icons', '@douyinfe/semi-illustrations'],
+};
 
-### Step1
-
-在项目根目录安装 `@douyinfe/semi-next` 。
-
-```shell
-# 使用 npm
-npm i @douyinfe/semi-next
-
-# 使用 yarn
-yarn add @douyinfe/semi-next
-
-# 使用 pnpm
-pnpm add @douyinfe/semi-next
+module.exports = nextConfig;
 ```
 
-### Step2
-
-在项目根目录创建 `next.config.js`，并进行配置。
-
+- 如果需要使用定制主题包或 Next.js版本低于 v13.1，则需要配合 Semi 提供的编译插件 `@douyinfe/semi-next` 插件使用 
+  - 首先安装插件 `npm i @douyinfe/semi-next` (如果你使用 yarn 或 pnpm，请自行更换为对等命令)
+  - 在 next.config.js 中进行配置，插件会将组件默认的import CSS 语句移除。更多配置可查阅 `@douyinfe/semi-next`[详细文档](https://www.npmjs.com/package/@douyinfe/semi-next) 
+  - 在 `global.css` 中引入全量的 semi css（目前在 Next.js 中不支持按需引入）
 ```js
 // next.config.js
 const semi = require('@douyinfe/semi-next').default({
@@ -74,25 +67,70 @@ module.exports = semi({
 });
 ```
 
-`@douyinfe/semi-next` 的 [详细文档](https://www.npmjs.com/package/@douyinfe/semi-next) 。
-
-### Step3
-
-在 `global.css` 中引入全量的 semi css。目前在 Next.js 中不支持按需引入。
-
 ```css
 /* styles/globals.css */
 @import '~@douyinfe/semi-ui/dist/css/semi.min.css';
 ```
 
 **如何在 Next.js 中使用主题包**  
-你需要更换 Step3 中 import 语句的路径，将默认主题 CSS 产物更换为你定制的主题包中的 CSS 产物，例如主题包为 `@semi-bot/semi-theme-nyx-c`
+你需要更换 globals.css 中 import 语句的路径，将默认主题 CSS 产物更换为你定制的主题包中的 CSS 产物，例如当希望应用抖音创作服务平台的主题包 `@semi-bot/semi-theme-doucreator` 时
 ```css
 /* styles/globals.css */
-@import '~@semi-bot/semi-theme-nyx-c/semi.min.css';
+@import '~@semi-bot/semi-theme-doucreator/semi.min.css';
 ```
 
-## 4、UMD 方式使用组件
+## 4、在 Remix 中使用
+- @remix相关包版本要求 > 1.11.0，并安装 `@remix-run/css-bundle`
+
+- 配置 `remix.config.js`，参考 [Remix Css Side-Effect Imports](https://remix.run/docs/en/v1/guides/styling#css-side-effect-imports)。打开 `unstable_cssSideEffectImports` 开关，并将 Semi 相关包配置在 `serverDependenciesToBundle` 中。
+```diff
+// remix.config.js
+module.exports = {
+  future: {
++    unstable_cssSideEffectImports: true,
+  },
+  serverDependenciesToBundle: [
++    /^@douyinfe\/semi-ui/,
++    /^@douyinfe\/semi-icons/,
++    /^@douyinfe\/semi-illustrations/,
+  ],
+};
+
+```
+
+- 在 `root.tsx` 中进行配置，参考[Remix CSS Bundling](https://remix.run/docs/en/v1/guides/styling#css-bundling)。引入 `cssBundleHref`，并配置 `links`
+
+```diff
+// root.tsx
++ import { cssBundleHref } from "@remix-run/css-bundle";
+
+ export const links = () => {
+   return [
++     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+   ];
+ };
+```
+
+- 完成配置，可以正常使用 Semi 相关组件 
+
+**如何在 Remix 中使用主题包**  
+可以直接将 cssBundleHref 这一步替换为引入主题包中已构建好的全量css 产物，代替默认主题css），例如当希望应用抖音创作服务平台的主题包 `@semi-bot/semi-theme-doucreator` 时
+
+```diff
+// root.tsx
++ import ThemeStyle from "@semi-bot/semi-theme-doucreator/semi.min.css";
+
+ export const links = () => {
+   return [
+-    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),     
++    { rel: "stylesheet", href: ThemeStyle },
+   ];
+ };
+```
+
+
+
+## 5、UMD 方式使用组件
 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
 
@@ -106,14 +144,14 @@ module.exports = semi({
 在浏览器中使用 script 和 link 标签直接引入文件，并使用全局变量 `SemiUI`、`SemiIcons`、`SemiIllustrations`
 
 1、 请确保你已提前引入 react 以及 react-dom  
-2、 引入 JS 文件，以下示例 URL 中 2.1.4 为 version 标识，希望使用不同版本 Semi 时，将 version 中对应的值替换即可  
+2、 引入 JS 文件，以下示例 URL 中 2.27.0 为 version 标识，希望使用不同版本 Semi 时，将 version 中对应的值替换即可  
 
 | 资源 | URL |
 | --- | --- |
-| semi-ui (min) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.min.js |
+| semi-ui (min) | https://unpkg.com/@douyinfe/semi-ui@2.27.0/dist/umd/semi-ui.min.js |
 | semi-icons (min) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js |
 | semi-illustrations (min) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.min.js |
-| semi-ui (normal) | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.js |
+| semi-ui (normal) | https://unpkg.com/@douyinfe/semi-ui@2.27.0/dist/umd/semi-ui.js |
 | semi-icons (normal) | https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.js |
 | semi-illustrations (normal) | https://unpkg.com/@douyinfe/semi-illustrations@latest/dist/umd/semi-illustrations.js |
 
@@ -121,7 +159,7 @@ module.exports = semi({
 
 | 资源 | URL |
 | --- | --- |
-| semi.css | https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css |
+| semi.css | https://unpkg.com/@douyinfe/semi-ui@2.27.0/dist/css/semi.css |
 | semi-icons.css | https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css |
 
 ```diff
@@ -132,8 +170,8 @@ module.exports = semi({
 +       <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 +       <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-+       <script src="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/umd/semi-ui.min.js"></script>
-+       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.1.4/dist/css/semi.css">
++       <script src="https://unpkg.com/@douyinfe/semi-ui@2.27.0/dist/umd/semi-ui.min.js"></script>
++       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-ui@2.27.0/dist/css/semi.css">
 
 +       <script src="https://unpkg.com/@douyinfe/semi-icons@latest/dist/umd/semi-icons.min.js"></script>
 +       <link rel="stylesheet" href="https://unpkg.com/@douyinfe/semi-icons@latest/dist/css/semi-icons.css">

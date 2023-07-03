@@ -58,7 +58,8 @@ export interface BaseColumnProps<RecordType> {
     sorter?: BaseSorter<RecordType>;
     title?: any;
     useFullRender?: boolean;
-    width?: string | number
+    width?: string | number;
+    ellipsis?: BaseEllipsis
 }
 
 export interface TableAdapter<RecordType> extends DefaultAdapter {
@@ -82,6 +83,9 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getCachedFilteredSortedDataSource: () => RecordType[];
     getCachedFilteredSortedRowKeys: () => BaseRowKeyType[];
     getCachedFilteredSortedRowKeysSet: () => Set<BaseRowKeyType>;
+    setAllDisabledRowKeys: (allDisabledRowKeys: BaseRowKeyType[]) => void;
+    getAllDisabledRowKeys: () => BaseRowKeyType[];
+    getAllDisabledRowKeysSet: () => Set<BaseRowKeyType>;
     notifyFilterDropdownVisibleChange: (visible: boolean, dataIndex: string) => void;
     notifyChange: (changeInfo: { pagination: BasePagination; filters: BaseChangeInfoFilter<RecordType>[]; sorter: BaseChangeInfoSorter<RecordType>; extra: any }) => void;
     notifyExpand: (expanded?: boolean, record?: BaseIncludeGroupRecord<RecordType>, mouseEvent?: any) => void;
@@ -100,7 +104,8 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getNormalizeColumns: () => (columns: BaseColumnProps<RecordType>[], children: any) => BaseColumnProps<RecordType>[];
     getHandleColumns: () => (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[];
     getMergePagination: () => (pagination: BasePagination) => BasePagination;
-    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void
+    setBodyHasScrollbar: (bodyHasScrollBar: boolean) => void;
+    getTableLayout: () => 'fixed' | 'auto'
 }
 
 class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType>> {
@@ -130,9 +135,10 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * init filteredValue of filtering column, use defaultFilteredValue or [] when it is undefined
      */
     static initFilteredValue(column: BaseColumnProps<unknown>) {
-        const { defaultFilteredValue, filteredValue, onFilter } = column;
-        const hasFilter = isFunction(onFilter);
-        if (hasFilter && isUndefined(filteredValue)) {
+        const { defaultFilteredValue, filteredValue } = column;
+        // There may be cases where onFilter is empty, such as server-side filtering
+        // Because filterValue affects the output of filters, it needs to be initialized here
+        if (isUndefined(filteredValue)) {
             if (Array.isArray(defaultFilteredValue) && defaultFilteredValue.length) {
                 column.filteredValue = defaultFilteredValue;
             } else {
@@ -174,12 +180,14 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         const dataSource = [...this.getProp('dataSource')];
         const { queries } = this._adapter.getStates();
         const filteredSortedDataSource = this.getFilteredSortedDataSource(dataSource, queries);
+        const allDataDisabledRowKeys = this.getAllDisabledRowKeys(filteredSortedDataSource);
         const pageData = this.getCurrentPageData(filteredSortedDataSource);
         this.setAdapterPageData(pageData);
         this.initExpandedRowKeys(pageData);
         this.initSelectedRowKeys(pageData);
         // cache dataSource after mount, and then calculate it on demand
         this.setCachedFilteredSortedDataSource(filteredSortedDataSource);
+        this.setAllDisabledRowKeys(allDataDisabledRowKeys);
     }
 
     initExpandedRowKeys({ groups }: { groups?: Map<string, RecordType[]> } = {}) {
@@ -243,13 +251,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     getFilteredSortedDataSource(dataSource: RecordType[], queries: BaseColumnProps<RecordType>[]) {
         const filteredDataSource = this.filterDataSource(dataSource, queries.filter(
             query => {
-                /**
-                 * 这里无需判断 filteredValue 是否为数组，初始化时它是 `undefined`，点击选择空时为 `[]`
-                 * 初始化时我们应该用 `defaultFilteredValue`，点击后我们应该用 `filteredValue`
-                 * 
-                 * There is no need to judge whether `filteredValue` is an array here, because it is `undefined` when initialized, and `[]` when you click to select empty
-                 * When initializing we should use `defaultFilteredValue`, after clicking we should use `filteredValue`
-                 */
                 const currentFilteredValue = query.filteredValue ? query.filteredValue : query.defaultFilteredValue;
                 return (
                     isFunction(query.onFilter) &&
@@ -458,6 +459,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                                             }
                                             return arr;
                                         },
+                                        // @ts-ignore
                                         [...children]
                                     ),
                                 });
@@ -552,6 +554,10 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     };
 
     destroy() { }
+
+    setAllDisabledRowKeys(disabledRowKeys) {
+        this._adapter.setAllDisabledRowKeys(disabledRowKeys);
+    }
 
     handleClick(e: any) { }
 
@@ -671,6 +677,9 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         return this.getState('pagination') || {};
     }
 
+    /**
+     * Filters are considered valid if filteredValue exists
+     */
     _getAllFilters(queries?: BaseColumnProps<RecordType>[]) {
         queries = queries || this.getState('queries');
         const filters: BaseChangeInfoFilter<RecordType>[] = [];
@@ -784,8 +793,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             let selectedRowKeys = [...curSelectedRowKeys];
             const selectedRowKeysSet = this._getSelectedRowKeysSet();
             let allRowKeys = [...this._adapter.getCachedFilteredSortedRowKeys()];
-            const disabledRowKeys = this.getAllDisabledRowKeys();
-            const disabledRowKeysSet = new Set(disabledRowKeys);
+            const disabledRowKeys = this._adapter.getAllDisabledRowKeys();
+            const disabledRowKeysSet = this._adapter.getAllDisabledRowKeysSet();
             let changedRowKeys;
 
             // Select all, if not disabled && not in selectedRowKeys
@@ -1130,7 +1139,9 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     handleClickFilterOrSorter(queries: BaseColumnProps<RecordType>[]) {
         const dataSource = [...this.getProp('dataSource')];
         const sortedDataSource = this.getFilteredSortedDataSource(dataSource, queries);
+        const allDataDisabledRowKeys = this.getAllDisabledRowKeys(sortedDataSource);
         this.setCachedFilteredSortedDataSource(sortedDataSource);
+        this.setAllDisabledRowKeys(allDataDisabledRowKeys);
         const pageData = this.getCurrentPageData(sortedDataSource);
         this.setAdapterPageData(pageData);
     }
@@ -1245,5 +1256,7 @@ export interface BaseChangeInfoSorter<RecordType> {
 }
 
 export type BaseIncludeGroupRecord<RecordType> = RecordType | { groupKey: string };
+
+export type BaseEllipsis = boolean | { showTitle: boolean };
 
 export default TableFoundation;

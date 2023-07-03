@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     filter,
@@ -24,7 +24,8 @@ export interface BasicData {
     data: BasicCascaderData;
     disabled: boolean;
     key: string;
-    searchText: any[]
+    searchText: any[];
+    pathData?: BasicCascaderData[]
 }
 
 export interface BasicEntities {
@@ -90,9 +91,16 @@ export interface BasicTriggerRenderProps {
      * should call this function when the value of the Input component
      * customized by triggerRender is updated to synchronize the state
      * with Cascader. */
+    onSearch: (inputValue: string) => void;
+    /* This function is the same as onSearch (supported since v2.32.0),
+     * because this function was used before, and to align with TreeSelect,
+     * use onSearch instead of onChange is more suitable,
+     * onChange needs to be deleted in the next Major
+    */
     onChange: (inputValue: string) => void;
     /* Function to clear the value */
-    onClear: (e: any) => void
+    onClear: (e: any) => void;
+    onRemove: (key: string) => void
 }
 
 export interface BasicScrollPanelProps {
@@ -101,6 +109,7 @@ export interface BasicScrollPanelProps {
 }
 
 export interface BasicCascaderProps {
+    borderless?: boolean;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
     separator?: string;
@@ -115,7 +124,9 @@ export interface BasicCascaderProps {
     emptyContent?: any;
     filterLeafOnly?: boolean;
     motion?: boolean;
-    filterTreeNode?: ((inputValue: string, treeNodeString: string) => boolean) | boolean;
+    filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: BasicCascaderData) => boolean) | boolean;
+    filterSorter?: (first: BasicCascaderData, second: BasicCascaderData, inputValue: string) => number;
+    filterRender?: (props: any) => any;
     placeholder?: string;
     searchPlaceholder?: string;
     size?: CascaderType;
@@ -192,6 +203,7 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateInputValue: (value: string) => void;
     updateInputPlaceHolder: (value: string) => void;
     focusInput: () => void;
+    blurInput: () => void;
     registerClickOutsideHandler: (cb: (e: any) => void) => void;
     unregisterClickOutsideHandler: () => void;
     rePositionDropdown: () => void;
@@ -248,7 +260,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (multiple) {
             const valuePath: BasicValue = [];
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore 
+            // @ts-ignore
             item.forEach((checkedKey: string) => {
                 const valuePathItem = this.getItemPropPath(checkedKey, valueProp);
                 valuePath.push(valuePathItem as any);
@@ -438,7 +450,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 if (filterable && !multiple) {
                     const displayText = this.renderDisplayText(selectedKey, keyEntities);
                     updateStates.inputPlaceHolder = displayText;
-                    updateStates.inputValue = displayText;
+                    /*
+                     *  displayText should not be assign to inputValue,
+                     *  cause inputValue should only change by user enter
+                     */
+                    // updateStates.inputValue = displayText;
                 }
             /**
              * If selectedKeys does not meet the update conditions,
@@ -469,7 +485,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             if (filterable && !multiple) {
                 const displayText = this._defaultRenderText(valuePath);
                 updateStates.inputPlaceHolder = displayText;
-                updateStates.inputValue = displayText;
+                /*
+                 *  displayText should not be assign to inputValue,
+                 *  cause inputValue should only change by user enter
+                 */
+                // updateStates.inputValue = displayText;
             }
             keyEntities[key] = optionNotExist as BasicEntity;
             // Fix: 1155, if the data is loaded asynchronously to update treeData, the emptying operation should not be done when entering the updateSelectedKey method
@@ -536,21 +556,31 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._notifyBlur(e);
     }
 
+    focus() {
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.focusInput();
+        }
+        this._adapter.updateFocusState(true);
+    }
+
+    blur() {
+        const { filterTreeNode } = this.getProps();
+        if (filterTreeNode) {
+            this._adapter.blurInput();
+        }
+        this._adapter.updateFocusState(false);
+    }
+
     toggle2SearchInput(isShow: boolean) {
         if (isShow) {
-            this._adapter.toggleInputShow(isShow, () => this.focusInput());
+            this._adapter.toggleInputShow(isShow, () => this.focus());
         } else {
             this._adapter.toggleInputShow(isShow, () => undefined);
         }
     }
 
-    focusInput() {
-        this._adapter.focusInput();
-        this._adapter.updateFocusState(true);
-    }
-
-
-    updateSearching = (isSearching:boolean)=>{
+    updateSearching = (isSearching: boolean)=>{
         this._adapter.updateStates({ isSearching: false });
     }
 
@@ -863,12 +893,12 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (sugInput) {
             filteredKeys = (Object.values(keyEntities) as BasicEntity[])
                 .filter(item => {
-                    const { key, _notExist } = item;
+                    const { key, _notExist, data } = item;
                     if (_notExist) {
                         return false;
                     }
                     const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join();
-                    return filter(sugInput, filteredPath, filterTreeNode, false);
+                    return filter(sugInput, data, filterTreeNode, false, filteredPath);
                 })
                 .filter(
                     item => (filterTreeNode && !filterLeafOnly) ||
@@ -950,8 +980,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     getFilteredData() {
-        const { treeNodeFilterProp } = this.getProps();
-        const { filteredKeys, keyEntities } = this.getStates();
+        const { treeNodeFilterProp, filterSorter } = this.getProps();
+        const { filteredKeys, keyEntities, inputValue } = this.getStates();
         const filteredList: BasicData[] = [];
         const filteredKeyArr = [...filteredKeys];
         filteredKeyArr.forEach(key => {
@@ -959,15 +989,23 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             if (!item) {
                 return;
             }
-            const itemSearchPath = this.getItemPropPath(key, treeNodeFilterProp);
+            const pathData = this.getItemPropPath(key, []);
+            const itemSearchPath = pathData.map(item => item[treeNodeFilterProp]);
             const isDisabled = this._isOptionDisabled(key, keyEntities);
             filteredList.push({
                 data: item.data,
+                pathData,
                 key,
                 disabled: isDisabled,
                 searchText: itemSearchPath
             });
         });
+
+        if (isFunction(filterSorter)) {
+            filteredList.sort((a, b) => {
+                return filterSorter(a.pathData, b.pathData, inputValue);
+            });
+        }
         return filteredList;
     }
 

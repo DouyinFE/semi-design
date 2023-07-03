@@ -19,7 +19,8 @@ import {
     BaseSorter,
     BaseFilter,
     BaseChangeInfoFilter,
-    BaseIncludeGroupRecord
+    BaseIncludeGroupRecord,
+    BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
 import { ScrollDirection, CSSDirection } from 'react-window';
 
@@ -70,7 +71,8 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     onGroupedRow?: OnGroupedRow<RecordType>;
     onHeaderRow?: OnHeaderRow<RecordType>;
     onRow?: OnRow<RecordType>;
-    sticky?: Sticky
+    sticky?: Sticky;
+    direction?: Direction
 }
 
 export interface ColumnProps<RecordType extends Record<string, any> = any> {
@@ -103,7 +105,8 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onCell?: OnCell<RecordType>;
     onFilter?: OnFilter<RecordType>;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
-    onHeaderCell?: OnHeaderCell<RecordType>
+    onHeaderCell?: OnHeaderCell<RecordType>;
+    ellipsis?: BaseEllipsis
 }
 
 export type Align = BaseAlign;
@@ -286,8 +289,13 @@ export type VirtualizedOnScrollArgs = {
     scrollOffset?: number;
     scrollUpdateWasRequested?: boolean
 };
+
+export type VirtualizeItemSizeRow = { 
+    sectionRow?: boolean; 
+    expandedRow?: boolean
+};
 export type VirtualizedMode = 'list' | 'grid';
-export type VirtualizedItemSizeFn = (index?: number) => number;
+export type VirtualizedItemSizeFn = (index?: number, row?: VirtualizeItemSizeRow) => number;
 export type VirtualizedItemSize = number | VirtualizedItemSizeFn;
 export type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 export interface VirtualizedProps {

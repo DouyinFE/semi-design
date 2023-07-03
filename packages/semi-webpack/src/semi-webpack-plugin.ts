@@ -1,6 +1,7 @@
 import path from 'path';
+import { Compiler as LegacyCompiler } from 'webpack';
+import { Compiler } from 'webpack';
 import { transformPath } from './utils';
-const _NormalModule_ = require('webpack/lib/NormalModule');
 
 export interface WebpackContext {
     NormalModule?: any
@@ -16,8 +17,11 @@ export interface SemiWebpackPluginOptions {
     variables?: {[key: string]: string | number};
     include?: string;
     omitCss?: boolean;
+    /** @deprecated SemiWebpackPlugin will get webpack context from compiler instance. */
     webpackContext?: WebpackContext;
-    extractCssOptions?: ExtractCssOptions
+    extractCssOptions?: ExtractCssOptions;
+    overrideStylesheetLoaders?: (loaders: any[]) => any[]
+
 }
 
 export interface SemiThemeOptions {
@@ -31,8 +35,12 @@ export default class SemiWebpackPlugin {
         this.options = options;
     }
 
-    apply(compiler: any) {
-        const NormalModule = this.options.webpackContext?.NormalModule || _NormalModule_;
+    apply(compiler: Compiler | LegacyCompiler) {
+        let NormalModule = this.options.webpackContext?.NormalModule;
+        if (!NormalModule && 'webpack' in compiler) NormalModule = compiler.webpack.NormalModule;
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        if (!NormalModule) NormalModule = require('webpack/lib/NormalModule');
+
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
             if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
                 if (NormalModule.getCompilationHooks) {
@@ -94,7 +102,7 @@ export default class SemiWebpackPlugin {
                 } : {
                     loader: styleLoader
                 };
-                module.loaders = [
+                const loaderList = [
                     lastLoader,
                     {
                         loader: cssLoader,
@@ -113,6 +121,7 @@ export default class SemiWebpackPlugin {
                             include: this.options.include
                         }
                     }];
+                module.loaders = this.options.overrideStylesheetLoaders?.(loaderList) ?? loaderList;
             }
         }
     }

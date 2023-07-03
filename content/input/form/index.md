@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 24
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -183,11 +183,6 @@ import { Form } from '@douyinfe/semi-ui';
 
 ### 已支持的表单控件
 
-> Form.TreeSelect、Form.Cascader、Form.Rating 在 v0.22.0 及之后的版本开始提供；  
-> Form.AutoComplete 在 v0.28.0 及之后的版本开始提供  
-> Form.Upload 在 v1.0.0 及之后的版本开始提供  
-> Form.TagInput 在 v1.21.0 及之后的版本开始提供  
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Form, Col, Row, Button } from '@douyinfe/semi-ui';
@@ -234,10 +229,7 @@ class BasicDemoWithInit extends React.Component {
                 ]
             }
         };
-        this.getFormApi = this.getFormApi.bind(this);
     }
-
-    getFormApi(formApi) { this.formApi = formApi; }
 
     render() {
         const { Section, Input, InputNumber, AutoComplete, Select, TreeSelect, Cascader, DatePicker, TimePicker, TextArea, CheckboxGroup, Checkbox, RadioGroup, Radio, Slider, Rating, Switch, TagInput } = Form;
@@ -278,7 +270,6 @@ class BasicDemoWithInit extends React.Component {
 
         return (
             <Form
-                getFormApi={this.getFormApi}
                 initValues={initValues}
                 style={{ padding: 10, width: '100%' }}
                 onValueChange={(v)=>console.log(v)}
@@ -408,8 +399,8 @@ class BasicDemoWithInit extends React.Component {
                                 { type: 'boolean' },
                                 { required: true, message: '必须选择是否独占 ' }
                             ]}>
-                                <Radio value={true}>是</Radio>
-                                <Radio value={false}>否</Radio>
+                                <Radio value={1}>是</Radio>
+                                <Radio value={0}>否</Radio>
                             </RadioGroup>
                         </Col>
                     </Row>
@@ -647,7 +638,7 @@ import { Form, Col, Row } from '@douyinfe/semi-ui';
                     rules={[
                         { required: true, message: 'required error' },
                         { type: 'string', message: 'type error' },
-                        { validator: (rule, value) => value === 'semi', message: 'shoulde be semi' }
+                        { validator: (rule, value) => value === 'semi', message: 'should be semi' }
                     ]}
                 />
             </Col>
@@ -948,7 +939,7 @@ import { Form } from '@douyinfe/semi-ui';
                 validateStatus={validateStatus}
                 helpText={helpText}
                 extraText={
-                    <div 
+                    <div
                         style={{
                             color: 'var(--semi-color-link)',
                             fontSize: 14,
@@ -1506,6 +1497,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 
 针对动态增删的数组类表单项，我们提供了 ArrayField 作用域来简化 add/remove 的操作  
 ArrayField 自带了 add、remove、addWithInitValue 等 api 用来执行新增行，删除行，新增带有初始值的行等操作  
+ArrayField 详细的 API请查阅下方 [ArrayField Props](#arrayfield-props)
 注意：ArrayField 的 initValue 类型必须是数组
 
 ```jsx live=true dir="column" hideInDSM
@@ -1517,15 +1509,15 @@ class ArrayFieldDemo extends React.Component {
     constructor() {
         super();
         this.state = {
-            menu: [
-                { name: '脸部贴纸', type: '2D' },
-                { name: '前景贴纸', type: '3D' },
+            data: [
+                { name: 'Semi D2C', role: 'Engineer' },
+                { name: 'Semi C2D', role: 'Designer' },
             ]
         };
     }
 
     render() {
-        let { menu } = this.state;
+        let { data } = this.state;
         const ComponentUsingFormState = () => {
             const formState = useFormState();
             return (
@@ -1533,30 +1525,38 @@ class ArrayFieldDemo extends React.Component {
             );
         };
         return (
-            <Form style={{ width: 500 }} labelPosition='left' labelWidth='220px' allowEmpty>
-                <ArrayField field='effects' initValue={menu}>
+            <Form style={{ width: 800 }} labelPosition='left' labelWidth='100px' allowEmpty>
+                <ArrayField field='rules' initValue={data}>
                     {({ add, arrayFields, addWithInitValue }) => (
                         <React.Fragment>
-                            <Button onClick={add} icon={<IconPlusCircle />} theme='light'>新增空白行</Button>
-                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: '自定义贴纸', type: '2D' });}} style={{ marginLeft: 8 }}>新增带有初始值的行</Button>
+                            <Button onClick={add} icon={<IconPlusCircle />} theme='light'>Add new line</Button>
+                            <Button icon={<IconPlusCircle />} onClick={() => {addWithInitValue({ name: 'Semi DSM', type: 'Designer' });}} style={{ marginLeft: 8 }}>Add new line with init value</Button>
                             {
                                 arrayFields.map(({ field, key, remove }, i) => (
                                     <div key={key} style={{ width: 1000, display: 'flex' }}>
                                         <Form.Input
                                             field={`${field}[name]`}
-                                            label={`特效类型：（${field}.name）`}
+                                            label={`${field}.name`}
                                             style={{ width: 200, marginRight: 16 }}
                                         >
                                         </Form.Input>
                                         <Form.Select
-                                            field={`${field}[type]`}
-                                            label={`素材类型：（${field}.type）`}
-                                            style={{ width: 90 }}
+                                            field={`${field}[role]`}
+                                            label={`${field}.role`}
+                                            style={{ width: 120 }}
+                                            optionList={[
+                                                { label: 'Engineer', value: 'Engineer' },
+                                                { label: 'Designer', value: 'Designer' },
+                                            ]}
                                         >
-                                            <Form.Select.Option value='2D'>2D</Form.Select.Option>
-                                            <Form.Select.Option value='3D'>3D</Form.Select.Option>
                                         </Form.Select>
-                                        <Button type='danger' theme='borderless' icon={<IconMinusCircle />} onClick={remove} style={{ margin: 12 }}></Button>
+                                        <Button
+                                            type='danger'
+                                            theme='borderless'
+                                            icon={<IconMinusCircle />}
+                                            onClick={remove}
+                                            style={{ margin: 12 }}
+                                        />
                                     </div>
                                 ))
                             }
@@ -1951,22 +1951,22 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
     为了防止用户在读取 formState、values 等内部状态后，意外操作直接了修改 Form 组件的内部状态等情况，Semi 对于 formApi.setValue、setValues的入参、formApi.getFormState、getValue、getValues的返回结果都会自动进行 deepClone
 </Notice>
 
-| Function      | 说明                                                                                                                                                                                                                             | example                                                                                                                       |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| getFormState  | 获取 FormState                                                                                                                                                                                                                   | formApi.getFormState()                                                                                                        |
-| submitForm    | 可手动触发 submit 提交操作                                                                                                                                                                                                       | formApi.submitForm()                                                                                                        |
-| reset         | 可手动对 form 进行重置                                                                                                                                                                                                           | formApi.reset()                                                                                                          |
-| validate      | 可手动触发对表单的校验，不传参时默认触发整全体Field的校验（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发），若想触发部分field的校验，将目标field数组传入即可                                                                                                                                                                                                       | formApi.validate()<br/>.then(values=>{})<br/>.catch(errors=>{}) <br/>或 formApi.validate(\['fieldA','fieldB'\])<br/>                                                              |
-| setValues     | 设置整个表单的值。第二个参数中的 isOverride 默认为 false<br/>默认情况下只会从`newValues`中取 Form 中已存在的 field 的值更新到`formState.values`中。<br/>当 isOverride 为`true`时，会直接以 newValues 覆盖赋值给 formState.values | formApi.setValues(newValues: object, { isOverride: boolean })                                                                 |
-| setValue      | 提供直接修改 formState.values 方法，与 setValues 的区别是它仅修改单个 field                                                                                                                                                      | formApi.setValue(field: string, newFieldValue: any)                                                                           |
-| getValue      | 获取 单个 Field 的值                                                                                                                                                                                                             | formApi.getValue() <br/>formApi.getValue(field: string)                                                                        |
-| getValues     | 获取 所有 Field 的值                                                                                                                                                                         | formApi.getValues()                                                                                                           |
-| setTouched    | 修改 formState.touched                                                                                                                                                                                                           | formApi.setTouched(field: string, isTouched: boolean) <br/>                                                                   |
-| getTouched    | 获取 Field 的 touched 状态                                                                                                                                                                                                       | formApi.getTouched(field: string)                                                                                             |
-| setError      | 修改 某个 field 的 error 信息                                                                                                                                                                                                    | formApi.setError(field: string, fieldErrorMessage: string)                                                                    |
-| getError      | 获取 Field 的 error 状态                                                                                                                                                                                                         | formApi.getError(field: string)                                                                                               |
-| getFieldExist | 获取 Form 中是否存在对应的 field                                                                                                                                                                                                 | formApi.getFieldExist(field: string)                                                                                          |
-| scrollToField | 滚动至指定的 field                                                                                                                                                                                                                   | formApi.scrollToField(field: string, scrollOpts: object) |
+| Function      | 说明                                                                                                                                                                                                                             | example                                                                                                             |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------|
+| getFormState  | 获取 FormState                                                                                                                                                                                                                   | formApi.getFormState()                                                                                              |
+| submitForm    | 可手动触发 submit 提交操作                                                                                                                                                                                                       | formApi.submitForm()                                                                                                |
+| reset         | 可手动对 form 进行重置                                                                                                                                                                                                           | formApi.reset(fields?: Array <string\>)                                                                             |
+| validate      | 可手动触发对表单的校验，不传参时默认触发整全体Field的校验（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发），若想触发部分field的校验，将目标field数组传入即可                                                                                                                                                                                                       | formApi.validate()<br/>.then(values=>{})<br/>.catch(errors=>{}) <br/>或 formApi.validate(\['fieldA','fieldB'\])<br/> |
+| setValues     | 设置整个表单的值。第二个参数中的 isOverride 默认为 false<br/>默认情况下只会从`newValues`中取 Form 中已存在的 field 的值更新到`formState.values`中。<br/>当 isOverride 为`true`时，会直接以 newValues 覆盖赋值给 formState.values | formApi.setValues(newValues: object, { isOverride: boolean })                                                       |
+| setValue      | 提供直接修改 formState.values 方法，与 setValues 的区别是它仅修改单个 field                                                                                                                                                      | formApi.setValue(field: string, newFieldValue: any)                                                                 |
+| getValue      | 获取 单个 Field 的值                                                                                                                                                                                                             | formApi.getValue() <br/>formApi.getValue(field: string)                                                             |
+| getValues     | 获取 所有 Field 的值                                                                                                                                                                         | formApi.getValues()                                                                                                 |
+| setTouched    | 修改 formState.touched                                                                                                                                                                                                           | formApi.setTouched(field: string, isTouched: boolean) <br/>                                                         |
+| getTouched    | 获取 Field 的 touched 状态                                                                                                                                                                                                       | formApi.getTouched(field: string)                                                                                   |
+| setError      | 修改 某个 field 的 error 信息                                                                                                                                                                                                    | formApi.setError(field: string, fieldErrorMessage: string)                                                          |
+| getError      | 获取 Field 的 error 状态                                                                                                                                                                                                         | formApi.getError(field: string)                                                                                     |
+| getFieldExist | 获取 Form 中是否存在对应的 field                                                                                                                                                                                                 | formApi.getFieldExist(field: string)                                                                                |
+| scrollToField | 滚动至指定的 field                                                                                                                                                                                                                   | formApi.scrollToField(field: string, scrollOpts: object)                                                            |
 ### 如何获取 formApi
 
 -   Form 组件在 ComponentDidMount 阶段，会执行 props 传入的 getFormApi 回调，你可以在回调函数中保存 formApi 的引用，以便后续进行调用(**示例如下代码**)  
@@ -2127,9 +2127,20 @@ const { Label } = Form;
 | width     | label 宽度               | number/string    |        |  |
 | optional  | 是否自动在text后追加"（可选）"文字标识（根据Locale配置的不同语言自动切换相同语义文本）。当该项为true时，required的\*号将不再展示。若当表单项多数均为必填时，仅强调可选项会更使得整体视觉更简洁  | boolean    | false | v2.18.0 |
 
-## Form.Slot
+## Form.InputGroup
 
-> Form.Slot 在 v0.27.0 开始提供
+| 属性             | 说明                                                      | 类型                     | 默认值 | 版本 |
+| ---------------- | --------------------------------------------------------- | ------------------------ |--- |--- |
+| className        | 样式类名                                                  | string                   | |
+| style            | 内联样式                                                  | object                   ||
+| label            | InputGroup 的 label 标签文本                      |  Label \| string                 | |
+| labelPosition    | 该表单控件的 label 位置，可选'top'/'left'/'inset'。在 Form 与 InputGroup 同时传入时，以 InputGroup props为准 | string     | 'top'|
+| extraText        | 额外的提示信息，当需要错误信息和提示文案同时出现时，可以使用这个，位于 errorMessage 后 | ReactNode | | v2.29.0 |
+| extraTextPosition| 控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Group的顺序显示）、`bottom` (垂直方向以Label、Group、extraText的顺序显示)| string | 'bottom' | v2.29.0|
+
+当 extraTextPositon 为 middle，且 labelPosition 为 left时。由于 extraText允许为 ReactNode，内容高度不定，Label将不再确保能与 Field / InputGroup 中的首行文本对齐。 
+
+## Form.Slot
 
 ```jsx
 import { Form } from '@douyinfe/semi-ui';
@@ -2147,8 +2158,6 @@ const { Slot } = Form;
 
 ## Form.ErrorMessage
 
-> Form.ErrorMessage 在 v0.27.0 开始提供
-
 ```jsx
 import { Form } from '@douyinfe/semi-ui';
 const { ErrorMessage } = Form;
@@ -2164,6 +2173,8 @@ const { ErrorMessage } = Form;
 | style            | 内联样式                                                  | object                   |
 | showValidateIcon | 是否自动加上 validateStatus 对应的 icon                       | boolean                  |
 | validateStatus   | 信息所属的校验状态，可选 default/error/warning/success（success一般建议与default样式相同） | string                  |
+
+
 
 ## withFieldOption
 

@@ -5,6 +5,8 @@ import { cssClasses } from '@douyinfe/semi-foundation/sideSheet/constants';
 import Button from '../iconButton';
 import { noop } from 'lodash';
 import { IconClose } from '@douyinfe/semi-icons';
+import { SideSheetProps } from "@douyinfe/semi-foundation/sideSheet/sideSheetFoundation";
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 
 let uuid = 0;
 const prefixCls = cssClasses.PREFIX;
@@ -19,17 +21,18 @@ export interface SideSheetContentProps {
     title?: React.ReactNode;
     closable?: boolean;
     headerStyle?: CSSProperties;
-    width: CSSProperties['width'];
+    width?: CSSProperties['width'];
     height: CSSProperties['height'];
     style: CSSProperties;
+    size: SideSheetProps['size'];
     bodyStyle?: CSSProperties;
     className: string;
-    dialogClassName?:string;
+    dialogClassName?: string;
     children?: React.ReactNode;
     footer?: React.ReactNode;
     'aria-label'?: string;
-    maskExtraProps?: {[key:string]: any};
-    wrapperExtraProps?: {[key:string]: any}
+    maskExtraProps?: {[key: string]: any};
+    wrapperExtraProps?: {[key: string]: any}
 }
 
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
@@ -138,7 +141,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
                 key="dialog-element"
                 role="dialog"
                 tabIndex={-1}
-                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"")}
+                className={cls(`${prefixCls}-inner`, `${prefixCls}-inner-wrap`, this.props.dialogClassName??"", `${prefixCls}-size-${props.size}`)}
                 // onMouseDown={this.onDialogMouseDown}
                 style={{ ...props.style, ...style }}
                 {...this.props.wrapperExtraProps}
@@ -165,16 +168,37 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             mask,
             className,
             width,
+            onClose,
+            maskStyle,
+            maskClosable,
+            maskClassName,
+            title,
+            closable,
+            headerStyle,
+            height,
+            style,
+            size,
+            bodyStyle,
+            dialogClassName,
+            children,
+            footer,
+            maskExtraProps,
+            wrapperExtraProps,
+            ...rest
         } = this.props;
         const wrapperCls = cls(className, {
             [`${prefixCls}-fixed`]: !mask,
+            [`${prefixCls}-size-${this.props.size}`]: !mask
         });
         const wrapperStyle: CSSProperties = {};
         if (!mask && width) {
             wrapperStyle.width = width;
         }
+
+        const dataAttr = getDataAttr(rest);
+
         return (
-            <div className={wrapperCls} style={wrapperStyle}>
+            <div className={wrapperCls} style={wrapperStyle} {...dataAttr}>
                 {this.getMaskElement()}
                 {this.getDialogElement()}
             </div>

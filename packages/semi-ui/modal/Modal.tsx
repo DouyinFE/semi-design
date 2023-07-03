@@ -92,8 +92,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         centered: false,
         closable: true,
         visible: false,
-        confirmLoading: false,
-        cancelLoading: false,
         okType: 'primary',
         maskClosable: true,
         hasCancel: true,
@@ -150,10 +148,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                 }
             },
             notifyCancel: (e: React.MouseEvent) => {
-                this.props.onCancel(e);
+                return this.props.onCancel(e);
             },
             notifyOk: (e: React.MouseEvent) => {
-                this.props.onOk(e);
+                return this.props.onOk(e);
             },
             notifyClose: () => {
                 this.props.afterClose();
@@ -245,7 +243,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.beforeShow();
         }
 
-        if (!prevState.displayNone && this.state.displayNone){
+        if (!prevState.displayNone && this.state.displayNone) {
             this.foundation.afterHide();
         }
     }
@@ -286,7 +284,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                     <Button
                         aria-label="cancel"
                         onClick={this.handleCancel}
-                        loading={cancelLoading}
+                        loading={cancelLoading === undefined ? this.state.onCancelReturnPromiseStatus === "pending" : cancelLoading}
                         type="tertiary"
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
@@ -307,7 +305,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                             aria-label="confirm"
                             type={okType}
                             theme="solid"
-                            loading={confirmLoading}
+                            loading={confirmLoading === undefined ? this.state.onOKReturnPromiseStatus === "pending" : confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
                             x-semi-children-alias="okText"
@@ -364,53 +362,51 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
         const shouldRender = this.props.visible || (this.props.keepDOM && (!this.props.lazyRender || this._haveRendered)) || (this.props.motion && !this.state.displayNone /* When there is animation, we use displayNone to judge whether animation is ended and judge whether to unmount content */);
 
-        if (shouldRender){
+        if (shouldRender) {
             this._haveRendered = true;
         }
 
         return (
-            <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}>
-                <CSSAnimation
-                    motion={this.props.motion}
-                    animationState={visible?'enter':'leave'}
-                    startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
-                    onAnimationEnd={()=>{
-                        this.updateState();
-                    }}
-                >
-                    {
-                        ({ animationClassName, animationEventsNeedBind })=>{
-                            return <CSSAnimation motion={this.props.motion} animationState={visible?'enter':'leave'}
-                                startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
-                                onAnimationEnd={()=>{
-                                    this.updateState();
-                                }}
-                            >
-                                {
-                                    ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind })=>{
-                                        return shouldRender ? <ModalContent
-                                            {...restProps}
-                                            contentExtraProps={animationEventsNeedBind}
-                                            maskExtraProps={maskAnimationEventsNeedBind}
-                                            isFullScreen={this.state.isFullScreen}
-                                            contentClassName={animationClassName}
-                                            maskClassName={maskAnimationClassName}
-                                            className={classList}
-                                            getPopupContainer={getPopupContainer}
-                                            maskStyle={maskStyle}
-                                            style={style}
-                                            ref={this.modalRef}
-                                            footer={renderFooter}
-                                            onClose={this.handleCancel}
+            <CSSAnimation
+                motion={this.props.motion}
+                animationState={visible?'enter':'leave'}
+                startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
+                onAnimationEnd={()=>{
+                    this.updateState();
+                }}
+            >
+                {
+                    ({ animationClassName, animationEventsNeedBind })=>{
+                        return <CSSAnimation motion={this.props.motion} animationState={visible?'enter':'leave'}
+                            startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
+                            onAnimationEnd={()=>{
+                                this.updateState();
+                            }}
+                        >
+                            {
+                                ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind })=>{
+                                    return shouldRender ? <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}> <ModalContent
+                                        {...restProps}
+                                        contentExtraProps={animationEventsNeedBind}
+                                        maskExtraProps={maskAnimationEventsNeedBind}
+                                        isFullScreen={this.state.isFullScreen}
+                                        contentClassName={animationClassName}
+                                        maskClassName={maskAnimationClassName}
+                                        className={classList}
+                                        getPopupContainer={getPopupContainer}
+                                        maskStyle={maskStyle}
+                                        style={style}
+                                        ref={this.modalRef}
+                                        footer={renderFooter}
+                                        onClose={this.handleCancel}
 
-                                        />:<></>;
-                                    }
+                                    /></Portal>:<></>;
                                 }
-                            </CSSAnimation>;
-                        }
+                            }
+                        </CSSAnimation>;
                     }
-                </CSSAnimation>
-            </Portal>
+                }
+            </CSSAnimation>
         );
     };
 

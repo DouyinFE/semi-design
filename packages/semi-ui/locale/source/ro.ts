@@ -7,11 +7,10 @@ export default {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
-        item: 'articol',
-        pageSize: 'articole/pagină',
-        page: ' pagini',
-        total: '',
+        pageSize: 'Elemente per pagină: ${pageSize}',
+        total: 'Total pagini: ${total}',
         jumpTo: 'Treci la',
+        page: 'pagini',
     },
     Modal: {
         confirm: 'Confirmă',
@@ -36,7 +35,9 @@ export default {
             dateTime: 'Selectează data și ora',
             dateRange: ['Data de început', 'Data de sfârșit'],
             dateTimeRange: ['Data de început', 'Data de sfârșit'],
+            monthRange: ['Luna de început', 'Luna de sfârșit'],
         },
+        presets: 'Selecții rapide',
         footer: {
             confirm: 'Confirmă',
             cancel: 'Anulează',
@@ -85,7 +86,7 @@ export default {
             Sun: 'dum',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Popconfirm: {
@@ -118,7 +119,7 @@ export default {
         AM: '${time} AM',
         PM: '${time} PM',
         datestring: '',
-        remaining: '${remained} plus',
+        remaining: 'Cantitate ramasa: ${remained}',
     },
     Upload: {
         mainText: 'Dă clic pentru a descărca fișierul sau trage fișierul aici',
@@ -148,10 +149,23 @@ export default {
         clear: 'Șterge',
         selectAll: 'Selectează toate',
         clearSelectAll: 'Deselectează toate',
-        total: 'Total ${total} articole',
-        selected: '${total} articole selectate',
+        total: 'Total elemente: ${total}',
+        selected: 'Elemente selectate: ${total}',
     },
     Form: {
         optional: '(opțional)',
+    },
+    Image: {
+        preview: 'Previzualizează',
+        loading: 'Se încarcă',
+        loadError: 'Nu s-a putut încărca',
+        prevTip: 'Anterior',
+        nextTip: 'Înainte',
+        zoomInTip: 'Mărire',
+        zoomOutTip: 'Micșorare',
+        rotateTip: 'Rotește',
+        downloadTip: 'Descarcă',
+        adaptiveTip: 'Afișaj adaptabil',
+        originTip: 'Afișaj implicit',
     },
 };

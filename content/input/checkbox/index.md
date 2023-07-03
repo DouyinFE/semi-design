@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 21
+order: 22
 category: 输入类
 title: Checkbox 复选框
 icon: doc-checkbox
@@ -461,3 +461,5 @@ import { Checkbox, CheckboxGroup, Row, Col } from '@douyinfe/semi-ui';
 ```material
 45, 64, 73, 89, 123
 ``` -->
+## 相关物料
+<semi-material-list code="123"></semi-material-list>

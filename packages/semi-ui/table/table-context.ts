@@ -6,6 +6,7 @@ import {
     BaseRowKeyType,
     BaseHeadWidth,
 } from '@douyinfe/semi-foundation/table/foundation';
+import type { ContextValue } from '../configProvider/context';
 
 export interface TableContextProps {
     children?: React.ReactNode;
@@ -20,7 +21,8 @@ export interface TableContextProps {
     renderExpandIcon?: (record: Record<string, any>, isNested?: boolean, groupKey?: string | number) => React.ReactNode;
     renderSelection?: (record?: Record<string, any>, isHeader?: boolean) => React.ReactNode;
     getVirtualizedListRef?: GetVirtualizedListRef;
-    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void
+    setBodyHasScrollbar?: (bodyHasScrollBar: boolean) => void;
+    direction?: ContextValue['direction']
 }
 
 const TableContext = React.createContext<TableContextProps>({

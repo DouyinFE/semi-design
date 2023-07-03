@@ -6,11 +6,10 @@ import classnames from 'classnames';
 
 import ColGroup from './ColGroup';
 import TableHeader from './TableHeader';
-import { Fixed, TableComponents, Scroll, BodyScrollEvent, ColumnProps, OnHeaderRow } from './interface';
+import { Fixed, TableComponents, Scroll, BodyScrollEvent, ColumnProps, OnHeaderRow, Sticky } from './interface';
 
 export interface HeadTableProps {
-    [x: string]: any;
-    anyColumnFixed?: boolean;
+    tableLayout?: 'fixed' | 'auto';
     bodyHasScrollBar?: boolean;
     columns?: ColumnProps[];
     components?: TableComponents;
@@ -23,7 +22,8 @@ export interface HeadTableProps {
     selectedRowKeysSet: Set<any>;
     showHeader?: boolean;
     onDidUpdate?: (ref: React.MutableRefObject<any>) => void;
-    onHeaderRow?: OnHeaderRow<any>
+    onHeaderRow?: OnHeaderRow<any>;
+    sticky?: Sticky
 }
 
 /**
@@ -31,7 +31,7 @@ export interface HeadTableProps {
  */
 class HeadTable extends React.PureComponent<HeadTableProps> {
     static propTypes = {
-        anyColumnFixed: PropTypes.bool,
+        tableLayout: PropTypes.string,
         bodyHasScrollBar: PropTypes.bool,
         columns: PropTypes.array,
         components: PropTypes.object,
@@ -69,7 +69,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             components,
             onDidUpdate,
             showHeader,
-            anyColumnFixed,
+            tableLayout,
             bodyHasScrollBar,
             sticky
         } = this.props;
@@ -78,7 +78,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             return null;
         }
 
-        const Table = get(components, 'header.outer', 'table');
+        const Table = get(components, 'header.outer', 'table') as unknown as typeof React.Component;
         const x = get(scroll, 'x');
         const headStyle: Partial<React.CSSProperties> = {};
         const tableStyle: { width?: number | string } = {};
@@ -116,7 +116,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
                 <Table
                     style={tableStyle}
                     className={classnames(prefixCls, {
-                        [`${prefixCls}-fixed`]: anyColumnFixed,
+                        [`${prefixCls}-fixed`]: tableLayout === 'fixed',
                     })}
                 >
                     {colgroup}

@@ -62,7 +62,7 @@ export interface BaseRowProps {
     store?: Store;
     style?: React.CSSProperties;
     virtualized?: Virtualized;
-    visible: boolean; // required
+    visible: boolean // required
 }
 
 export default class TableRow extends BaseComponent<BaseRowProps, Record<string, any>> {
@@ -246,7 +246,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                 if (level != null && columnIndex === firstIndex) {
                     expandableProps.indent = level;
 
-                    if (!expandableRow) {
+                    if (!expandableRow && hideExpandedColumn) {
                         expandableProps.indent = level + 1;
                     }
                 }

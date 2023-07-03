@@ -40,6 +40,8 @@ class IconButton extends PureComponent<IconButtonProps> {
         onMouseLeave: noop,
     };
 
+    static elementType = "IconButton";
+
     static propTypes = {
         iconStyle: PropTypes.object,
         style: PropTypes.object,

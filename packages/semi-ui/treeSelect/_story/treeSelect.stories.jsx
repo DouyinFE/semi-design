@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import { Icon, Button, Form, Popover, Tag, Typography, CheckboxGroup } from '../../index';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
-import { IconCreditCard } from '@douyinfe/semi-icons';
+import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
 import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
 const TreeNode = TreeSelect.TreeNode;
 const { Title } = Typography;
@@ -746,6 +746,50 @@ export const OnBlurOnFocus = () => (
     />
     <div>multiple</div>
     <TreeSelect
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      multiple
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+     <div>single, filterTreeNode, searchPosition=dropdown</div>
+    <TreeSelect
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>multiple, filterTreeNode, searchPosition=dropdown</div>
+    <TreeSelect
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      multiple
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>single, filterTreeNode, searchPosition=trigger</div>
+    <TreeSelect
+      searchPosition="trigger"
+      filterTreeNode
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData2}
+      onBlur={(...args) => console.log('blur', args)}
+      onFocus={(...args) => console.log('focus', args)}
+      placeholder="Please select"
+    />
+    <div>multiple, filterTreeNode, searchPosition=trigger</div>
+    <TreeSelect
+      searchPosition="trigger"
+      filterTreeNode
       style={{ width: 300 }}
       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
       treeData={treeData2}
@@ -2042,3 +2086,189 @@ class ValueTypeIsNumber extends React.Component {
 }
 
 export const valueIsNumber = () => <ValueTypeIsNumber />
+
+export const searchPositionInTriggerAndVirtualize = () => {
+  return (
+      <>
+          <TreeSelect  
+              searchPosition="trigger"
+              style={{ width: 300 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData2}
+              filterTreeNode
+              placeholder="单选"
+              virtualize={{
+                  itemSize: 28,
+                  // dropDown height 300 minus search box height minus padding 8 * 2
+                  // or if you set dropdown height, it will fill 100% of rest space
+                  height: 236                
+              }}
+          />
+      </>
+  );
+};
+
+export const clickTriggerToHide = () => (
+  <>
+      <p>clickTriggerToHide 未设置，默认为 true</p>
+      <TreeSelect
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          placeholder="单选"
+      />
+      <p>clickTriggerToHide 设置为 false</p>
+      <TreeSelect
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          placeholder="单选"
+          clickTriggerToHide={false}
+      />
+  </>
+);
+export const triggerRenderAddMethod = () => {
+  const treeData = useMemo(() => [
+      {
+          label: '亚洲',
+          value: '亚洲',
+          key: '0',
+          children: [
+              {
+                  label: '中国',
+                  value: '中国',
+                  key: '0-0',
+                  children: [
+                      {
+                          label: '北京',
+                          value: '北京',
+                          key: '0-0-0',
+                      },
+                      {
+                          label: '上海',
+                          value: '上海',
+                          key: '0-0-1',
+                      },
+                  ],
+              },
+          ],
+      },
+      {
+          label: '北美洲',
+          value: '北美洲',
+          key: '1',
+      }
+  ], []);
+
+  const onValueChange = useCallback((value) => {
+      console.log('onChange', value);
+  });
+
+  const closeIcon = useCallback((value, onClear) => {
+      return value && value.length ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+  }, []);
+
+  const renderTagItem = useCallback((item, onRemove) => (
+      <Tag closable key={item.key} onClose={() => { onRemove(item.key); }}>{item.label}</Tag>
+  ), []);
+
+  const renderTrigger1 = useCallback((props) => {
+    const { value, placeholder, onClear } = props;
+    return (
+      <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+          {value && value.length ? value.map(item => item.label).join('，') : placeholder}
+      </Button>
+    );
+  }, []);
+
+  const renderTrigger2 = useCallback((props) => {
+      const { value, onSearch, onRemove, onClear } = props;
+      return (
+          <div style={{ border: '1px solid grey', width: 'fit-content', padding: 5, borderRadius: 5 }}>
+              {value && value.length > 0 && 
+              <div style={{ width: 'fit-content', minWidth: 10, padding: 5 }}>
+                  {value.map(item => renderTagItem(item, onRemove))}
+              </div>
+              }
+              <Input style={{ width: 200 }} onChange={onSearch} />
+              {closeIcon(value, onClear)}
+          </div>
+      );
+  }, []);
+
+  const renderTrigger3 = useCallback((props) => {
+    const { value, onSearch, onRemove, inputValue } = props;
+    const tagInputValue = value.map(item => item.key);
+    const renderTagInMultiple = (key) => {
+      const label = value.find(item => item.key === key).label;
+      const onCloseTag = (value, e, tagKey) => {
+        onRemove(tagKey);
+      }
+      return <Tag style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>
+    }
+    return (
+      <TagInput
+        inputValue={inputValue}
+        value={tagInputValue}
+        onInputChange={onSearch}
+        renderTagItem={renderTagInMultiple}
+      />
+    )
+  }, []);
+
+  return (
+    <>
+      <TreeSelect
+          triggerRender={renderTrigger1}
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger2}
+          filterTreeNode
+          searchPosition="trigger"
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger3}
+          filterTreeNode
+          searchPosition="trigger"
+          multiple
+          treeData={treeData}
+          placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+    </>
+  );
+}
+
+export const AutoSearchFocusPlusPreventScroll = () => {
+  return (
+      <div>
+        <div style={{height: '100vh' }}>我是一个高度和视窗高度一致的div。
+          <br />由于 TreeSelect 设置了 searchAutoFocus 以及 preventScroll，
+          <br /> 符合预期的情况是在没有滚动屏幕情况下，你不会看到 TreeSelect 的 trigger
+        </div>
+        <TreeSelect
+          searchAutoFocus
+          searchPosition="trigger"
+          preventScroll={true}
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData2}
+          filterTreeNode
+          placeholder="单选"
+        />
+      </div>
+  );
+};

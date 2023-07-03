@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 42
+order: 43
 category: 导航类
 title: Tabs 标签栏
 icon: doc-tabs
@@ -18,10 +18,14 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 ### 基本用法
 
 标签栏支持三种样式的显示：线条式，按钮式，卡片式。默认选中第一项。  
-标签页支持两种传入方式：通过 `tabList` 传入标签页对象的数组，或使用 `<TabPane>` 逐项显式传入。  
-两种方式建议不要同时使用，同时使用时会优先渲染通过 `tabList` 传入的数据。
+标签页支持两种传入方式，两者渲染流程上有所区别：
+- 通过 `tabList` 传入标签页对象的数组，当使用 `tabList` 时每次只渲染当前传入的节点
+- 或使用 `<TabPane>` 逐项显式传入，使用 `<TabPane>` 时默认会渲染所有面板，可以通过设置 `keepDOM={false}` 只渲染当前面板，此时不会有动画效果。
 
-> 当使用 `tabList` 时每次只渲染当前传入的节点使用 `<TabPane>` 时默认会渲染所有面板。可以通过设置 `keepDOM={false}` 只渲染当前面板，此时不会有动画效果。
+<Notice title='注意事项'>
+    1. tabList 与 TabPane Children 同时使用时，会优先渲染通过 tabList 传入的数据。不建议同时配置 <br/>
+    2. 使用 TabPane Children 时， TabPane 必须为 Tabs 的直接子元素，否则 Tabs 将无法正确收集子组件如 itemKey 等相关属性
+</Notice>
 
 ```jsx live=true
 import React from 'react';
@@ -230,8 +234,10 @@ class App extends React.Component {
                 <RadioGroup
                     onChange={e => this.onSelect(e)}
                     value={this.state.type}
+                    type='button'
                     style={{
                         display: 'flex',
+                        width: 200,
                         justifyContent: 'center',
                     }}
                 >

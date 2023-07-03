@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -18,6 +18,7 @@ import { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseT
 import { CopyableConfig, LinkType } from './title';
 import { BaseProps } from '../_base/baseComponent';
 import { isSemiIcon } from '../_utils';
+import ResizeObserver from '../resizeObserver';
 
 export interface BaseTypographyProps extends BaseProps {
     copyable?: CopyableConfig | boolean;
@@ -37,19 +38,20 @@ export interface BaseTypographyProps extends BaseProps {
     children?: React.ReactNode;
     component?: React.ElementType;
     spacing?: string;
-    heading?: string
+    heading?: string;
+    weight?: string | number
 }
 
 interface BaseTypographyState {
     editable: boolean;
     copied: boolean;
     isOverflowed: boolean;
-    ellipsisContent: string;
+    ellipsisContent: React.ReactNode;
     expanded: boolean;
     isTruncated: boolean;
-    first: boolean;
     prevChildren: React.ReactNode
 }
+
 const prefixCls = cssClasses.PREFIX;
 const ELLIPSIS_STR = '...';
 
@@ -158,12 +160,10 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             // ellipsis
             // if text is overflow in container
             isOverflowed: true,
-            ellipsisContent: null,
+            ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
-            isTruncated: false,
-            // record if has click expanded
-            first: true,
+            isTruncated: true,
             prevChildren: null,
         };
         this.wrapperRef = React.createRef();
@@ -173,8 +173,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     componentDidMount() {
         if (this.props.ellipsis) {
-            this.getEllipsisState();
-            window.addEventListener('resize', this.onResize);
+            this.onResize();
         }
     }
 
@@ -186,10 +185,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (props.ellipsis && prevChildren !== props.children) {
             // reset ellipsis state if children update
             newState.isOverflowed = true;
-            newState.ellipsisContent = null;
+            newState.ellipsisContent = props.children;
             newState.expanded = false;
-            newState.isTruncated = false;
-            newState.first = true;
+            newState.isTruncated = true;
         }
         return newState;
     }
@@ -199,15 +197,12 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (this.props.children !== prevProps.children) {
             this.forceUpdate();
             if (this.props.ellipsis) {
-                this.getEllipsisState();
+                this.onResize();
             }
         }
     }
 
     componentWillUnmount() {
-        if (this.props.ellipsis) {
-            window.removeEventListener('resize', this.onResize);
-        }
         if (this.rafId) {
             window.cancelAnimationFrame(this.rafId);
         }
@@ -220,7 +215,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         this.rafId = window.requestAnimationFrame(this.getEllipsisState.bind(this));
     };
 
-    // if need to use js overflowed:
+    // if it needs to use js overflowed:
     // 1. text is expandable 2. expandText need to be shown  3. has extra operation 4. text need to ellipse from mid
     canUseCSSEllipsis = () => {
         const { copyable } = this.props;
@@ -240,9 +235,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             return false;
         }
         const updateOverflow =
-            rows <= 1
-                ? this.wrapperRef.current.scrollWidth > this.wrapperRef.current.clientWidth
-                : this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
+            rows <= 1 ?
+                this.wrapperRef.current.scrollWidth > this.wrapperRef.current.offsetWidth :
+                this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
         return updateOverflow;
     };
 
@@ -284,45 +279,57 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             this.onResize();
             return false;
         }
-        const { ellipsisContent, isOverflowed, isTruncated, expanded } = this.state;
-        const updateOverflow = this.shouldTruncated(rows);
+        const { expanded } = this.state;
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
-        const needUpdate = updateOverflow !== isOverflowed;
+        
+
+        // If children is null, css/js truncated flag isTruncate is false
+        if (isNull(children)) {
+            this.setState({
+                isTruncated: false,
+                isOverflowed: false
+            });
+            return undefined;
+        }
+
+        // Currently only text truncation is supported, if there is non-text, 
+        // both css truncation and js truncation should throw a warning
+        warning(
+            'children' in this.props && typeof children !== 'string',
+            "[Semi Typography] Only children with pure text could be used with ellipsis at this moment."
+        );
 
         if (!rows || rows < 0 || expanded) {
             return undefined;
         }
 
         if (canUseCSSEllipsis) {
-            if (needUpdate) {
-                this.setState({ expanded: !updateOverflow });
-            }
+            const updateOverflow = this.shouldTruncated(rows);
+            // isOverflowed needs to be updated to show tooltip when using css ellipsis
+            this.setState({
+                isOverflowed: updateOverflow,
+                isTruncated: false
+            });
+
             return undefined;
         }
 
-        const extraNode = [this.expandRef.current, this.copyRef && this.copyRef.current];
-        warning(
-            'children' in this.props && typeof children !== 'string',
-            "[Semi Typography] 'Only children with pure text could be used with ellipsis at this moment."
-        );
+        const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
+
         const content = getRenderText(
-            ReactDOM.findDOMNode(this.wrapperRef.current) as HTMLElement,
+            this.wrapperRef.current,
             rows,
-            children as string,
+            // Perform type conversion on children to prevent component crash due to non-string type of children
+            String(children),
             extraNode,
             ELLIPSIS_STR,
             suffix,
             pos
         );
-        if (children === content) {
-            this.setState({ expanded: true });
-        } else if (ellipsisContent !== content || isOverflowed !== updateOverflow) {
-            this.setState({
-                ellipsisContent: content,
-                isOverflowed: updateOverflow,
-                isTruncated: children !== content,
-            });
-        }
+        this.setState({
+            ellipsisContent: content,
+            isTruncated: children !== content,
+        });
         return undefined;
     }
 
@@ -335,7 +342,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const { expanded } = this.state;
         onExpand && onExpand(!expanded, e);
         if ((expandable && !expanded) || (collapsible && expanded)) {
-            this.setState({ expanded: !expanded, first: false });
+            this.setState({ expanded: !expanded });
         }
     };
 
@@ -359,16 +366,17 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     };
 
     renderExpandable = () => {
+        const { expanded, isTruncated } = this.state;
+        if (!isTruncated) return null;
+
         const { expandText, expandable, collapseText, collapsible } = this.getEllipsisOpt();
-        const { expanded, first } = this.state;
         const noExpandText = !expandable && isUndefined(expandText);
         const noCollapseText = !collapsible && isUndefined(collapseText);
         let text;
 
         if (!expanded && !noExpandText) {
             text = expandText;
-        } else if (expanded && !first && !noCollapseText) {
-            // if expanded is true but the text is initally mounted, we dont show collapseText
+        } else if (expanded && !noCollapseText) {
             text = collapseText;
         }
         if (!noExpandText || !noCollapseText) {
@@ -430,8 +438,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
      * @returns {Object}
      */
     getEllipsisStyle = () => {
-        const { ellipsis } = this.props;
-        const { expandable } = this.getEllipsisOpt();
+        const { ellipsis, component } = this.props;
         if (!ellipsis) {
             return {
                 ellipsisCls: '',
@@ -440,25 +447,29 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             };
         }
         const { rows } = this.getEllipsisOpt();
-        const { isOverflowed, expanded, isTruncated } = this.state;
+        const { expanded } = this.state;
         const useCSS = !expanded && this.canUseCSSEllipsis();
         const ellipsisCls = cls({
             [`${prefixCls}-ellipsis`]: true,
             [`${prefixCls}-ellipsis-single-line`]: rows === 1,
             [`${prefixCls}-ellipsis-multiple-line`]: rows > 1,
+            // component === 'span', Text component, It should be externally displayed inline
+            [`${prefixCls}-ellipsis-multiple-line-text`]: rows > 1 && component === 'span',
             [`${prefixCls}-ellipsis-overflow-ellipsis`]: rows === 1 && useCSS,
+            // component === 'span', Text component, It should be externally displayed inline
+            [`${prefixCls}-ellipsis-overflow-ellipsis-text`]: rows === 1 && useCSS && component === 'span',
         });
         const ellipsisStyle = useCSS && rows > 1 ? { WebkitLineClamp: rows } : {};
         return {
             ellipsisCls,
-            ellipsisStyle: isOverflowed ? ellipsisStyle : {},
+            ellipsisStyle,
         };
     };
 
     renderEllipsisText = (opt: Ellipsis) => {
         const { suffix } = opt;
         const { children } = this.props;
-        const { isTruncated, expanded, isOverflowed, ellipsisContent } = this.state;
+        const { isTruncated, expanded, ellipsisContent } = this.state;
         if (expanded || !isTruncated) {
             return (
                 <>
@@ -490,33 +501,35 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (!copyable) {
             return null;
         }
+        // If it is configured in the content of copyable, the copied content will be the content in copyable
+        const willCopyContent = (copyable as CopyableConfig)?.content ?? children;
         let copyContent: string;
         let hasObject = false;
-        if (Array.isArray(children)) {
+        if (Array.isArray(willCopyContent)) {
             copyContent = '';
-            children.forEach(value => {
+            willCopyContent.forEach(value => {
                 if (typeof value === 'object') {
                     hasObject = true;
                 }
                 copyContent += String(value);
             });
-        } else if (typeof children !== 'object') {
-            copyContent = String(children);
+        } else if (typeof willCopyContent !== 'object') {
+            copyContent = String(willCopyContent);
         } else {
             hasObject = true;
-            copyContent = String(children);
+            copyContent = String(willCopyContent);
         }
 
         warning(
             hasObject,
-            'Children in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
+            'Content to be copied in Typography is a object, it will case a [object Object] mistake when copy to clipboard.'
         );
         const copyConfig = {
             content: copyContent,
             duration: 3,
             ...(typeof copyable === 'object' ? copyable : null),
         };
-        return <Copyable {...copyConfig} forwardRef={this.copyRef} />;
+        return <Copyable {...copyConfig} forwardRef={this.copyRef}/>;
     }
 
     renderIcon() {
@@ -527,7 +540,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const iconSize: Size = size === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
-                {isSemiIcon(icon) ? React.cloneElement(icon as React.ReactElement, { size: iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
             </span>
         );
     }
@@ -546,6 +559,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             size,
             link,
             heading,
+            weight,
             ...rest
         } = this.props;
         const textProps = omit(rest, [
@@ -574,6 +588,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             </>
         );
         const hTagReg = /^h[1-6]$/;
+        const isHeader = isString(heading) && hTagReg.test(heading);
         const wrapperCls = cls(className, ellipsisCls, {
             // [`${prefixCls}-primary`]: !type || type === 'primary',
             [`${prefixCls}-${type}`]: type && !link,
@@ -581,12 +596,21 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             [`${prefixCls}-link`]: link,
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-${spacing}`]: spacing,
-            [`${prefixCls}-${heading}`]: isString(heading) && hTagReg.test(heading),
+            [`${prefixCls}-${heading}`]: isHeader,
+            [`${prefixCls}-${heading}-weight-${weight}`]: isHeader && weight && isNaN(Number(weight)),
         });
+
+        const textStyle: CSSProperties = {
+            ...(
+                isNaN(Number(weight)) ? {} : { fontWeight: weight }
+            ),
+            ...style
+        };
+
         return (
             <Typography
                 className={wrapperCls}
-                style={{ ...style, ...ellipsisStyle }}
+                style={{ ...textStyle, ...ellipsisStyle }}
                 component={component}
                 forwardRef={this.wrapperRef}
                 {...textProps}
@@ -621,7 +645,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     render() {
-        return (
+        const content = (
             <LocaleConsumer componentName="Typography">
                 {(locale: Locale['Typography']) => {
                     this.expandStr = locale.expand;
@@ -630,5 +654,13 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                 }}
             </LocaleConsumer>
         );
+        if (this.props.ellipsis) {
+            return (
+                <ResizeObserver onResize={this.onResize} observeParent>
+                    {content}
+                </ResizeObserver>
+            );
+        }
+        return content;
     }
 }

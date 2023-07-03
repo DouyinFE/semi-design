@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 72
+order: 73
 category: Feedback
 title: Toast
 subTitle: Toast
@@ -383,14 +383,14 @@ The static methods provided are as follows: Display: You can pass in `options` o
 
 **If not specifically declared in Toast.config(config), the following APIs need to call additional ToastFactory.create(config) to create new Toast settings**
 
-| Properties | Instructions | type | Default | version |
-| --- | --- | --- | --- | --- |
-| bottom | Pop-up position bottom | number \| string | - | 0.25.0 |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| left | Pop-up position left | number \| string | - | 0.25.0 |
-| right | Pop-up position right | number \| string | - | 0.25.0 |
-| top | Pop-up position top | number \| string | - | 0.25.0 |
-| zIndex | Z-index value | number | 1010 |  |
+| Properties | Instructions                                                                                                                                                | type | Default | version |
+| --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| bottom | Pop-up position bottom                                                                                                                                      | number \| string | - | 0.25.0 |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | 0.34.0 |
+| left | Pop-up position left                                                                                                                                        | number \| string | - | 0.25.0 |
+| right | Pop-up position right                                                                                                                                       | number \| string | - | 0.25.0 |
+| top | Pop-up position top                                                                                                                                         | number \| string | - | 0.25.0 |
+| zIndex | Z-index value                                                                                                                                               | number | 1010 |  |
 
 -   `ToastFactory.create(config) => Toast`  
     If you need Toast with different configs in your application, you can use ToastFactory.create(config)to create a new Toast (>= 1.23):

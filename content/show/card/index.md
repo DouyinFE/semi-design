@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 47
+order: 48
 category: 展示类
 title:  Card 卡片
 subTitle: 卡片
@@ -727,3 +727,5 @@ function Demo() {
 ```material
 41,55,64,74,219,73,84,99,179
 ``` -->
+## 相关物料
+<semi-material-list code="41, 179"></semi-material-list>

@@ -38,6 +38,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     unregisterScrollHandler(): void;
     insertPortal(...args: any[]): void;
     removePortal(...args: any[]): void;
+    setDisplayNone: (displayNone: boolean, cb?: () => void) => void;
     getEventName(): {
         mouseEnter: string;
         mouseLeave: string;
@@ -136,6 +137,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
   
     removePortal = () => {
         this._adapter.removePortal();
+    }
+
+    setDisplayNone: (displayNone: boolean, cb?: () => void) => void = (displayNone, cb) => {
+        this._adapter.setDisplayNone(displayNone, cb);
     }
 
     _adjustPos(position = '', isVertical = false, adjustType = 'reverse', concatPos?: any) {
@@ -266,7 +271,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this.calcPosition();
     };
 
-    _shouldShow() {
+    _shouldShow() { 
         const visible = this.getProp('visible');
         if (visible) {
             this.show();
@@ -294,7 +299,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
-        const { visible } = this.getStates();
+        const { visible, displayNone } = this.getStates();
+        if (displayNone) {
+            this.setDisplayNone(false);
+        } 
         if (visible) {
             return ;
         }
@@ -387,6 +395,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     calcPosStyle(props: {triggerRect: DOMRect; wrapperRect: DOMRect; containerRect: PopupContainerDOMRect; position?: Position; spacing?: number; isOverFlow?: [boolean, boolean]}) {
         const { spacing, isOverFlow } = props;
+        const { innerWidth } = window;
+        
         const triggerRect = (isEmpty(props.triggerRect) ? props.triggerRect : this._adapter.getTriggerBounding()) || { ...defaultRect as any };
         const containerRect = (isEmpty(props.containerRect) ? props.containerRect : this._adapter.getPopupContainerRect()) || {
             ...defaultRect,
@@ -427,7 +437,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         const isTriggerNearLeft = middleX - containerRect.left < containerRect.right - middleX;
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
-
+        
+        const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
 
         switch (position) {
             case 'top':
@@ -441,7 +452,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'topLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
@@ -487,7 +498,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
-                left = isWidthOverFlow ? containerRect.left : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':
@@ -676,19 +687,19 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         return rowSpace < size && reverseSpace > size;
     }
 
-    isOverFlow(rowSpace: number, reverseSpace: number, size: number){
+    isOverFlow(rowSpace: number, reverseSpace: number, size: number) {
         // 原空间且反向空间都不足
         // The original space and the reverse space are not enough
         return rowSpace < size && reverseSpace < size;
     }
 
-    isHalfOverFlow(posSpace: number, negSpace: number, size: number){
+    isHalfOverFlow(posSpace: number, negSpace: number, size: number) {
         // 正半空间或者负半空间不足，即表示有遮挡，需要偏移
         // Insufficient positive half space or negative half space means that there is occlusion and needs to be offset
         return posSpace < size || negSpace < size;
     }
 
-    isHalfAllEnough(posSpace: number, negSpace: number, size: number){
+    isHalfAllEnough(posSpace: number, negSpace: number, size: number) {
         // 正半空间和负半空间都足够，即表示可以从 topLeft/topRight 变成 top
         // Both positive and negative half-spaces are sufficient, which means you can change from topLeft/topRight to top
         return posSpace >= size || negSpace >= size;
@@ -1000,7 +1011,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             // 判断溢出 Judgment overflow
             // 上下方向 top and bottom
-            if (this.isTB(position)){
+            if (this.isTB(position)) {
                 isHeightOverFlow = isViewYOverFlow && isContainerYOverFlow;
                 // Related PR: https://github.com/DouyinFE/semi-design/pull/1297
                 // If clientRight or restClientRight less than 0, means that the left and right parts of the trigger are blocked
@@ -1012,7 +1023,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 }
             }
             // 左右方向 left and right
-            if (this.isLR(position)){
+            if (this.isLR(position)) {
                 isWidthOverFlow = isViewXOverFlow && isContainerXOverFlow;
                 // If clientTop or restClientTop less than 0, means that the top and bottom parts of the trigger are blocked
                 // Then the display of the wrapper will also be affected, make height overflow to offset the wrapper
@@ -1126,7 +1137,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
      * 如果 trigger 是 focus 或者 hover，则它绑定了 onFocus，这里我们如果重新 focus 的话，popup 会再次打开
      * 因此 returnFocusOnClose 只支持 click trigger
      */
-    _focusTrigger() {
+    focusTrigger() {
         const { trigger, returnFocusOnClose, preventScroll } = this.getProps();
         if (returnFocusOnClose && trigger !== 'custom') {
             const triggerNode = this._adapter.getTriggerNode();
@@ -1141,7 +1152,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         if (trigger !== 'custom') {
             // Move the focus into the trigger first and then close the pop-up layer 
             // to avoid the problem of opening the pop-up layer again when the focus returns to the trigger in the case of hover and focus
-            this._focusTrigger();
+            this.focusTrigger();
             this.hide();
         }
         this._adapter.notifyEscKeydown(event);

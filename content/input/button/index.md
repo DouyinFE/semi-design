@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 19
+order: 20
 category: 输入类
 title:  Button 按钮
 icon: doc-button
@@ -534,3 +534,5 @@ function SplitButtonDemo(){
 ```material
 5
 ``` -->
+## 相关物料
+<semi-material-list code="5"></semi-material-list>

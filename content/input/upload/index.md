@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 35
+order: 36
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -26,7 +26,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
     return (
-        <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859">
+        <Upload action="https://api.semi.design/upload">
             <Button icon={<IconUpload />} theme="light">
                 点击上传
             </Button>
@@ -46,7 +46,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    const action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const action = 'https://api.semi.design/upload';
     const getPrompt = (pos, isListType) => {
         let basicStyle = { display: 'flex', alignItems: 'center', color: 'grey', height: isListType ? '100%' : 32 };
         let marginStyle = {
@@ -90,7 +90,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus } from '@douyinfe/semi-icons';
 
 () => {
-    const action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const action = 'https://api.semi.design/upload';
     const getPrompt = (pos, isListType) => {
         let basicStyle = { display: 'flex', alignItems: 'center', color: 'grey', height: isListType ? '100%' : 32 };
         let marginStyle = {
@@ -173,7 +173,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
         <IconCamera />
     </div>);
 
-    const api = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    const api = 'https://api.semi.design/upload';
     let imageOnly = 'image/*';
 
     return (
@@ -207,7 +207,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     let data = {
         role: 'ies',
         time: new Date().getTime(),
@@ -248,7 +248,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     let imageOnly = 'image/*';
     let videoOnly = 'video/*';
     let fileLimit = '.pdf,.png,.jpeg';
@@ -284,7 +284,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     return (
         <>
             <Upload action={action} directory>
@@ -307,7 +307,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     return (
         <Upload action={action} multiple>
             <Button icon={<IconUpload />} theme="light">
@@ -329,7 +329,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     let limit = 1;
     let onChange = props => {
         console.log(props.fileList);
@@ -354,7 +354,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     let [disabled, setDisabled] = useState(false);
     let limit = 2;
     let onChange = props => {
@@ -388,7 +388,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -433,7 +433,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     return (
         <>
@@ -463,7 +463,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconFile } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -497,7 +497,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     const defaultFileList = [
         {
@@ -537,7 +537,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     const defaultFileList = [
         {
@@ -615,7 +615,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
     return (
         <Upload
-            action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859"
+            action="https://api.semi.design/upload"
             onChange={onChange}
             fileList={list}
             showRetry={false}
@@ -638,7 +638,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -668,7 +668,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -710,7 +710,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -753,7 +753,7 @@ import { Upload, Select } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -820,7 +820,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
             url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
         },
     ];
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     return (
         <>
             <Upload action={action} disabled defaultFileList={defaultFileList}>
@@ -854,7 +854,7 @@ class ManulUploadDemo extends React.Component {
     }
 
     render() {
-        let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+        let action = 'https://api.semi.design/upload';
         return (
             <div>
                 <Upload
@@ -868,10 +868,10 @@ class ManulUploadDemo extends React.Component {
                     <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
                         选择文件
                     </Button>
-                    <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                        开始上传
-                    </Button>
                 </Upload>
+                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
+                    开始上传
+                </Button>
             </div>
         );
     }
@@ -891,7 +891,7 @@ import { Upload } from '@douyinfe/semi-ui';
 
 () => (
     <Upload
-        action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859"
+        action="https://api.semi.design/upload"
         draggable={true}
         dragMainText={'点击上传文件或拖拽文件到这里'}
         dragSubText="支持任意类型文件"
@@ -907,7 +907,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconBolt } from '@douyinfe/semi-icons';
 
 () => <Upload
-    action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859"
+    action="https://api.semi.design/upload"
     dragIcon={<IconBolt />}
     draggable={true}
     accept="application/pdf,.jpeg"
@@ -925,7 +925,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconBolt } from '@douyinfe/semi-icons';
 
 () => (<Upload
-    action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859"
+    action="https://api.semi.design/upload"
     dragIcon={<IconBolt />}
     draggable={true}
     accept="application/pdf,.jpeg"
@@ -1035,7 +1035,7 @@ class ValidateDemo extends React.Component {
     render() {
         return (
             <Upload
-                action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859"
+                action="https://api.semi.design/upload"
                 transformFile={this.transformFile}
                 beforeUpload={this.beforeUpload}
             >
@@ -1090,7 +1090,7 @@ class AsyncBeforeUploadDemo extends React.Component {
 
     render() {
         return (
-            <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859" beforeUpload={this.beforeUpload}>
+            <Upload action="https://api.semi.design/upload" beforeUpload={this.beforeUpload}>
                 <Button icon={<IconUpload />} theme="light">
                     点击上传（上传前异步校验）
                 </Button>
@@ -1144,7 +1144,7 @@ class ValidateDemo extends React.Component {
 
     render() {
         return (
-            <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859" afterUpload={this.afterUpload}>
+            <Upload action="https://api.semi.design/upload" afterUpload={this.afterUpload}>
                 <Button icon={<IconUpload />} theme="light">
                     点击上传
                 </Button>
@@ -1175,7 +1175,7 @@ customRequest 包含以下入参
     // 上传出错时应调用的函数
     onError: (userXhr: { status: number }, e: event) => any,
      // 上传成功后应调用的函数, response为上传成功后的请求结果
-    onSuccess: (response: any, e: event) => any,
+    onSuccess: (response: any, e?: event) => any,
     // 用户设置的props.withCredentials
     withCredentials: boolean,
     // 用户设置的props.action
@@ -1203,7 +1203,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
     };
 
     return (
-        <Upload action="https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859" customRequest={mockRequest}>
+        <Upload action="https://api.semi.design/upload" customRequest={mockRequest}>
             <Button icon={<IconUpload />} theme="light">
                 点击上传
             </Button>
@@ -1351,7 +1351,7 @@ Upload组件是一个可交互的控件，在点击或拖拽时触发文件选�
 -   Semi Upload把图片存到哪里了？
     -   Semi Upload不负责图片的保存，当你使用 Upload 组件时需要自定义 action。你可以选择把 action 设置为自己的服务器地址或者图片服务地址。
 -   Form.Upload props.name无效？
-    - Form.Field 中有props.name，Upload也有props.name，同名props会冲突。使用Form.Upload时，可以转为使用 props.fileName，避免冲突
+    - Form.Field 中有 props.name，Upload也有 props.name，同名 props 会冲突。使用 Form.Upload 时，可以转为使用 props.fileName，避免冲突
 -   上传图片后没有调用 XXX 方法？
     - 如果你设置了 `accept`，可以尝试把 accept 属性去掉，然后再看是否调用了改方法。去掉后调用了该方法说明，accept 在当前环境下获取的 file type 与设置的 accept 不符，上传行为提前终止。可以打个断点到 upload/foundation.js checkFileFormat 函数，看下获取的 file.type 真实值是否符合预期。
 

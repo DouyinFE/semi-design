@@ -46,7 +46,7 @@ export const MaxCount = () => (
 );
 
 export const Type = () => (
-  <div>
+  <div style={{ marginTop: 20}}>
     <Badge count={5} type="primary">
       <a style={style}></a>
     </Badge>
@@ -63,6 +63,9 @@ export const Type = () => (
       <a style={style}></a>
     </Badge>
     <Badge dot type="primary">
+      <a style={style}></a>
+    </Badge>
+    <Badge dot type="success">
       <a style={style}></a>
     </Badge>
   </div>

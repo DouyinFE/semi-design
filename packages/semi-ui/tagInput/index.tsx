@@ -21,6 +21,7 @@ import Popover, { PopoverProps } from '../popover';
 import Paragraph from '../typography/paragraph';
 import { IconClear, IconHandle } from '@douyinfe/semi-icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { ShowTooltip } from '../typography';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -53,7 +54,7 @@ export interface TagInputProps {
     maxTagCount?: number;
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: RestTagsPopoverProps;
-    showContentTooltip?: boolean;
+    showContentTooltip?: boolean | ShowTooltip;
     allowDuplicates?: boolean;
     addOnBlur?: boolean;
     draggable?: boolean;
@@ -78,7 +79,7 @@ export interface TagInputProps {
     style?: React.CSSProperties;
     suffix?: React.ReactNode;
     validateStatus?: ValidateStatus;
-    value?: string[] | undefined;
+    value?: string[];
     autoFocus?: boolean;
     'aria-label'?: string;
     preventScroll?: boolean
@@ -107,7 +108,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         maxLength: PropTypes.number,
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
-        showContentTooltip: PropTypes.bool,
+        showContentTooltip: PropTypes.oneOfType([
+            PropTypes.shape({
+                type: PropTypes.string,
+                opts: PropTypes.object,
+            }),
+            PropTypes.bool,
+        ]),
         defaultValue: PropTypes.array,
         value: PropTypes.array,
         inputValue: PropTypes.string,
@@ -445,16 +452,13 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                         visible
                         aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
                     >
-                        {/* Wrap a layer of div outside IconHandler and Value to ensure that the two are aligned */}
-                        <div className={`${prefixCls}-tag-content-wrapper`}>
-                            {showIconHandler && <DragHandle />}
-                            <Paragraph
-                                className={typoCls}
-                                ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                            >
-                                {value}
-                            </Paragraph>
-                        </div>
+                        {showIconHandler && <DragHandle />}
+                        <Paragraph
+                            className={typoCls}
+                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
+                        >
+                            {value}
+                        </Paragraph>
                     </Tag>
                 );
             }
@@ -481,7 +485,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const allTags = this.getAllTags();
         let restTags: Array<React.ReactNode> = [];
         let tags: Array<React.ReactNode> = [...allTags];
-        if (( !active || !expandRestTagsOnClick) && maxTagCount && maxTagCount < allTags.length){
+        if (( !active || !expandRestTagsOnClick) && maxTagCount && maxTagCount < allTags.length) {
             tags = allTags.slice(0, maxTagCount);
             restTags = allTags.slice(maxTagCount);
         }
@@ -556,6 +560,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             disabled,
             placeholder,
             validateStatus,
+            ...rest
         } = this.props;
 
         const {
@@ -598,6 +603,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 onClick={e => {
                     this.handleClick(e);
                 }}
+                {...this.getDataAttr(rest)}
             >
                 {this.renderPrefix()}
                 <div className={wrapperCls}>

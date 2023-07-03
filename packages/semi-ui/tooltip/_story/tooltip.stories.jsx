@@ -15,7 +15,9 @@ import {
   Popover,
   Input,
   RadioGroup,
-  SideSheet
+  SideSheet,
+  Dropdown,
+  Popconfirm
 } from '@douyinfe/semi-ui';
 
 import InTableDemo from './InTable';
@@ -1403,6 +1405,41 @@ export const OcclusionDemo = () => {
   );
 }
 
+export const Fix1449 = () =>{
+  return <div style={{ width: "100%", overflow: "hidden" }}>
+      <div style={{ position: "relative", height: 200 }}>
+        <Select
+          placeholder=""
+          style={{ width: 400, left: 500, position: "absolute" }}
+          filter
+          position='bottomLeft'
+          autoAdjustOverflow
+        >
+          <Select.Option value="abc">抖音</Select.Option>
+          <Select.Option value="ulikecam">轻颜相机</Select.Option>
+          <Select.Option value="jianying" disabled>
+            剪映
+          </Select.Option>
+          <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+      </div>
+      <div style={{ position: "relative", height: 100 }}>
+      <Tooltip 
+        visible
+        position='topLeft'
+        content={
+          <div >
+            贴右显示
+          </div>
+        }>
+        <Button style={{ width: 200, left: 700, top: 50, position: "absolute" }}>
+          缩小视口以遮挡我的右侧
+        </Button>
+      </Tooltip>
+    </div>
+    </div>
+}
+
 // right -> other
 export const AutoRight2LeftDemo = () => <Right2Left />;
 AutoRight2LeftDemo.storyName = `✅ auto : right -> left`;
@@ -1468,3 +1505,132 @@ Bottom2BottomLeftDemo.storyName = `✅ auto : bottom -> bottomLeft`;
 
 export const Bottom2BottomRightDemo = () => <Bottom2BottomRight />;
 Bottom2BottomRightDemo.storyName = `✅ auto : bottom -> bottomRight`;
+
+
+export const Fix1557 = () =>{
+   return (
+      <Dropdown
+          trigger='hover'
+          disableFocusListener
+          render={
+              <Dropdown.Menu>
+                  <Popconfirm
+                    content={
+                        <>
+                        <Select filter/>
+                        </>
+                    }
+                  >
+                      <Button>点我后再点击select, Dropdown 面板不收起</Button>
+                  </Popconfirm>
+              </Dropdown.Menu>
+          }
+      >
+          <Tag>Hover Me</Tag>
+      </Dropdown>
+  );
+}
+
+export const wordBreak = () => {
+  const gapElement = (gap=200) => <div style={{ marginTop: gap }}></div>;
+
+  const tooltipShowProps = { 
+    trigger: "custom",  
+    visible: true ,
+    // showArrow: false
+  };
+
+  const testContent = {
+    '长hash': 'ide2d3a4e9d7b7d93fc4c3b8e4b1b4b08e4f5a9f13ed8b8d6f7c5b7c4c7e4b9e6b9e6e5d4e4c5f6e3b1e7b3a3e3e5c5f4e9c8',
+    'url测试': 'https://semi.bytedance.net/zh-CN/show/tooltip#%E4%BB%85%E5%BD%93%E5%86%85%E5%AE%B9%E5%AE%BD%E5%BA%A6%E8%B6%85%E5%87%BA%E6%97%B6%E5%B1%95%E7%A4%BA%20Tooltip',
+    '中文测试': '中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试',
+    // 以下为英文中最长的单词
+    '英文测试': 'pneumonoultramicroscopicsilicovolcanoconiosis',
+    '日语测试': '超音波検査による胸部エコー検査結果、心拍数や脈波などの検査結果から、緊急性はないものの肺炎の可能性があるため、抗生物質の処方箋を出します。',
+    '韩语测试': '인공지능과 빅데이터 기술을 활용한 자율주행 자동차의 개발은 현재 국내외에서 많은 관심을 받고 있습니다.',
+    '泰语测试': 'เทคโนโลยีการผลิตอาหารและสารสกัดจากพืชชนิดต่าง ๆ กำลังเป็นที่สนใจในวงการอาหารทั่วโลก',
+    '阿拉伯语测试': 'تطور التكنولوجيا والذكاء الاصطناعي يؤثر بشكل كبير على صناعة العمليات الإنتاجية ونمط الحياة الحديثة.',
+    '越南语': 'Ứng dụng công nghệ thông tin và trí tuệ nhân tạo đang ngày càng được sử dụng rộng rãi trong lĩnh vực sản xuất và dịch vụ. không-gian-phi-trụ-điện-từ',
+    '俄罗斯语': 'Разработка новейших технологий искусственного интеллекта и машинного обучения становится все более важной в наши дни.',
+    '印尼语': 'Pemanfaatan teknologi informasi dan kecerdasan buatan semakin penting dalam industri modern.',
+    '马来语': 'Penggunaan teknologi maklumat dan kecerdasan buatan semakin penting dalam industri moden.',
+    '泰语': 'บริการจัดส่งสินค้าทางไปรษณีย์ภายในประเทศไทยมีความสะดวกสบายและรวดเร็วมากยิ่งขึ้นด้วยการใช้เทคโนโลยีที่ทันสมัยในการติดตามสถานะและการจัดส่งสินค้า นอกจากนี้ยังมีการให้บริการเพิ่มเติมอย่างต่างๆ เช่น การจัดส่งพิเศษ การรับส่งเอกสาร การจัดส่งด่วน เป็นต้น',
+    '土耳其语': "Otomobil endüstrisi, Türkiye'nin en önemli sanayi kollarından biridir. Türkiye, yılda yaklaşık 1 milyon adet otomobil üretimiyle Avrupa'nın önde gelen üreticileri arasındadır.",
+    '葡萄牙语': "A eletricidade é uma fonte de energia renovável e limpa, que é produzida a partir de fontes como a energia solar, eólica, hidroelétrica e geotérmica.",
+    '西班牙语': "La biotecnología es una rama de la ciencia que utiliza organismos vivos o partes de ellos para desarrollar productos y servicios que mejoren la calidad de vida.",
+    '意大利语': "L'ingegneria genetica è una branca della biologia molecolare che si occupa di manipolare il DNA per creare organismi con caratteristiche specifiche.",
+    '法语': 'La pharmacologie est la science qui étudie les effets des médicaments sur les êtres vivants et leur utilisation pour la prévention, le diagnostic et le traitement des maladies.',
+    '德语': 'Die Kernenergie ist eine umstrittene Energiequelle, die durch die Nutzung der Energie aus Atomkernen Strom erzeugt.',
+    '罗马尼亚语': 'Ingineria software este o ramură a informaticii care se ocupă cu dezvoltarea de programe și aplicații software.',
+    '瑞典语': 'Neurovetenskap är studiet av nervsystemet och dess funktioner, inklusive dess relationer till beteende och kognition.',
+    '波兰语': 'Archeologia jest nauką humanistyczną zajmującą się badaniem śladów pozostawionych przez człowieka w przeszłości.',
+    '荷兰语': 'Psychologie is de wetenschappelijke studie van het menselijk gedrag en de processen die daaraan ten grondslag liggen.',
+  };
+
+  const longWordContent = {
+    '英文测试': "pneumonoultramicroscopicsilicovolcanoconiosis",
+    '泰语测试': "หน้าต่างจอภาพ",
+    '阿拉伯语测试': "أفاستسقيناكموها",
+    '越南语': "bấtđồngxứngđáng",
+    '俄罗斯语': "человеконенавистничество",
+    '印尼语': "melipatgandakan",
+    '马来语': "pengangkutan",
+    '土耳其语': "çekoslovakyalılaştıramadıklarımızdanmışsınızcasına",
+    '葡萄牙语': "otorrinolaringologista",
+    '西班牙语': "electroencefalografista",
+    '意大利语': "precipitevolissimevolmente",
+    '法语': "anticonstitutionnellement ",
+    '德语': "Donaudampfschifffahrtsgesellschaftskapitän",
+    '罗马尼亚语': "neîncorporabile",
+    '瑞典语': "realisationsvinstbeskattning",
+    '波兰语': "najedźcieżżebrzącychświniątkach",
+    '荷兰语': "Kindercarnavalsoptochtvoorbereidingswerkzaamheden"
+  }
+
+  return (
+  <>
+    {['bottom','top'].map((item, index) => {
+      return <div key={`${index}`}>
+        <Tooltip {...tooltipShowProps} content={'中'} position={item}>
+          <span style={{ marginRight: 10 }}>中文测试</span>
+        </Tooltip>
+        <Tooltip {...tooltipShowProps} content={'-'} position={item}>
+          <span style={{ marginRight: 10 }}>高度测试</span>
+        </Tooltip>
+        <Tooltip showArrow={false} {...tooltipShowProps} content={'中'} position={item} >
+          <span style={{ marginRight: 10 }}>中文无 arrow 测试</span>
+        </Tooltip>
+        <Tooltip showArrow={false} {...tooltipShowProps} content={'t'} position={item}>
+          <span style={{ marginRight: 10 }}>英文无 arrow 测试</span>
+        </Tooltip>
+        {gapElement(100)}
+      </div>
+    })}
+    <p style={{ marginTop: 50 }}>以下为 word-wrap: break-word <strong>VS</strong> word-wrap: normal </p>
+    {Object.entries(testContent).map((item, index) => {
+      const [key, value] = item;
+      return <div key={`${index}`}>
+        {gapElement(200)}
+        <Tooltip {...tooltipShowProps} content={value} position={'top'}>
+        {`${key}`}
+        </Tooltip>
+        <Tooltip {...tooltipShowProps} content={value} position={'top'} style={{ wordWrap: 'normal' }}>
+          <span style={{ marginLeft: 350 }}>{`${key}`}</span>
+        </Tooltip>
+      </div>
+    })}
+    {Object.entries(longWordContent).map((item, index) => {
+      const [key, value] = item;
+      return <div key={`${index}`}>
+        {gapElement(100)}
+        <Tooltip {...tooltipShowProps} content={value} position={'top'} style={{ width: 50 }}>
+        {`${key}`}
+        </Tooltip>
+        <Tooltip {...tooltipShowProps} content={value} position={'top'} style={{ wordWrap: 'normal', width: 50 }}>
+          <span style={{ marginLeft: 350 }}>{`${key}`}</span>
+        </Tooltip>
+      </div>
+    })}
+  </>
+  );
+}

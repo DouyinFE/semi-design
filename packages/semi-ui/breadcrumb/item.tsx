@@ -149,7 +149,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
                                 pos: ellipsisPos,
                             }}
                             // icon={this.renderIcon(icon)}
-                            style={{ width }}
+                            style={{ maxWidth: width }}
                             size={compact ? 'small' : 'normal'}
                         >
                             {children}
@@ -197,7 +197,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
             shouldRenderSeparator
             // children,
         } = this.props;
-        const pageLabel = active ? { 'aria-current': 'page' as const } : {} ;
+        const pageLabel = active ? { 'aria-current': 'page' as const } : {};
         const item = this.renderItem();
         const separator = !active ?
             this.props.separator || <span className={`${clsPrefix}-separator`}>{this.context.separator}</span> :
@@ -207,7 +207,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
             // [`${clsPrefix}-item-wrap-iconOnly`]: !!children && this.props.icon,
         });
         return (
-            <span className={wrapperCLs} {...pageLabel}>
+            <span className={wrapperCLs} {...pageLabel} {...this.getDataAttr(this.props)}>
                 {item}
                 {shouldRenderSeparator && separator}
             </span>

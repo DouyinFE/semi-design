@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 17
+order: 18
 category: Basic
 title:  Typography
 subTitle: Typography
@@ -151,7 +151,8 @@ function Demo() {
 
 Based on Text component, added properties: `rule`, `precision`, `truncate`, `parser`, to provide the ability to handle Numeral in text separately.
 <Notice title='Note'>
-    The Numeral component recursively traverses Children to detect all numeric text within it for conversion and display, taking care to control the rendering structure hierarchy.
+    The Numeral component recursively traverses Children to detect all numeric text within it for conversion and display, taking care to control the rendering structure hierarchy.<br />
+    For Numeral components with a rule of percentage, the data processing rules have changed. In <strong>v2.22.0-v2.29.0</strong>, for num whose absolute value is greater than or equal to 1, the result is num%; for num whose absolute value is less than or equal to 1, the result is (num*100)%. After the <strong>v2.30.0</strong> version, it is unified to (num*100)%.
 </Notice>
 
 `precision` allows you to set the number of decimal places to be retained, used to set precision  
@@ -189,7 +190,7 @@ function Demo() {
             </Numeral>
 
             <Numeral rule="percentages" style={{ marginBottom: 12 }}>
-                My odds of winning this game are 60 and my odds of losing are 40.
+                My odds of winning this game are 0.6 and my odds of losing are 0.4.
             </Numeral>
 
             <Numeral rule="bytes-decimal" precision={2} truncate="floor">
@@ -223,10 +224,10 @@ function Demo() {
 
     function Infos() {
         const data = [
-            { type: 'Stars', min: '6200' },
-            { type: 'Fork', min: '400' },
+            { type: 'Stars', min: '6700' },
+            { type: 'Fork', min: '500' },
             { type: 'Downloads', min: '3000000' },
-            { type: 'Contributors', min: '60' }
+            { type: 'Contributors', min: '90' }
         ];
         return data.map(item =>
             <p key={item.min}>
@@ -279,13 +280,17 @@ function Demo() {
 }
 ```
 
-### Interactive
+### Copyable text
 
-Copyable text.
+Copying of text can be supported by configuring the `copyable` property.  
+When copyable is configured as true, the default copied content is children itself. Note that at this time, children only support string type.    
+When copyable is configured as object, you can specify the content copied to the clipboard through `copyable.content`, which is no longer strongly associated with children.   
+At this time, children will no longer limit the type, but `copyable.content` still needs to be a string.  
 
 ```jsx live=true
 import React from 'react';
 import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
     const { Paragraph, Text, Numeral } = Typography;
@@ -294,8 +299,9 @@ function Demo() {
         <div>
             <Paragraph copyable>Click the right icon to copy text.</Paragraph>
             <Paragraph copyable={{ content: 'Hello, Semi Design!' }}>Click to copy text.</Paragraph>
-            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.'}) }}>Click the right icon to copy.</Paragraph>
+            <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
             Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
+            <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>Custom Copy Node</Paragraph>
             <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>
@@ -309,7 +315,12 @@ function Demo() {
 ### Ellipsis
 
 Show ellipsis if text is overflowed. Refer to [Ellipsis Config](#Ellipsis-Config) for detailed configuration.
-> At this moment, only pure text truncation is supported.
+
+<Notice title='Notice'>
+    1. ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string <br/><br/>
+    2. To achieve abbreviation, ellipsis needs to have a clear width or maxWidth limit for comparison and judgment. If the width is not set by itself (for example, purely relying on the flex property to expand), or the width is an indefinite value such as 100%, the parent needs to have a clear width or maxWidth<br/><br/>
+    3. Ellipsis needs to obtain information such as the width and height of the DOM to make basic judgments. If there is a display:none style in itself or the parent, the value will be incorrect, and the abbreviation will be invalid at this time<br/>
+</Notice>
 
 ```jsx live=true
 import React from 'react';
@@ -360,7 +371,7 @@ function Demo() {
 ```
 
 <Notice type="primary" title="Tips">
-    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a>. The reason why we did not have built-in content is that different language content (pure English, Chinese, mixed Chinese and English) have different requirements for word-break, so the component layer does not make this preset.</div>
+    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually through <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a>, more details can be found in the FAQ section of Tooltip</div>
 </Notice>
 
 ```jsx live=true
@@ -424,7 +435,7 @@ function Demo() {
 ### Typography.Text
 
 | Properties | Instructions                                                                                                                             | type                                                  | Default   | version |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- | ------- |
+| ---------- |------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
 | copyable   | Toggle whether to be copyable                                                                                                            | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
 | code       | wrap with `code` element                                                                                                                 | boolean                                               | -         |         |
 | component  | Custom rendering html element                                                                                                            | html element                                          | span      |         |
@@ -434,25 +445,27 @@ function Demo() {
 | icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         | 0.27.0  |
 | link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     | 0.27.0  |
 | mark       | Marked style                                                                                                                             | boolean                                               | false     | 0.27.0  |
-| size       | Size, one of `normal`，`small`                                                                                                           | string                                                | `normal`  | 0.27.0  |
+| size       | Size, one of `normal`，`small`                                                                                                            | string                                                | `normal`  | 0.27.0  |
 | strong     | Bold style                                                                                                                               | boolean                                               | false     | 0.27.0  |
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                         | boolean                                               | false     | 0.27.0  |
+| weight | set font weight                                                                                                                          |  number                                        |  | 2.34.0 |
 
 ### Typography.Title
 
 | Properties | Instructions                                                                                                                            | type                                                  | Default   | version |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- | ------- |
+| ---------- |-----------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
 | copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
 | component  | Custom rendering html element. The default is determined by heading prop                                                                | html element                                          | h1~h6     |         |
 | delete     | Deleted style                                                                                                                           | boolean                                               | false     | 0.27.0  |
 | disabled   | Disabled style                                                                                                                          | boolean                                               | false     | 0.27.0  |
 | ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
-| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                | number                                                | 1         | 0.27.0  |
+| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                     | number                                                | 1         | 0.27.0  |
 | link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     | 0.27.0  |
 | mark       | Marked style                                                                                                                            | boolean                                               | false     | 0.27.0  |
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
+| weight | set font weight, one of `light`, `regular`, `medium`, `semibold`, `bold`, `default`                                                     | string, number                                        |  | 2.34.0 |
 
 ### Typography.Paragraph
 
@@ -514,8 +527,9 @@ function Demo() {
 | ---------- | --------------------------------------- | ---------------------------------------------- | ------- | ------- |
 | content    | Copied content                          | string                                         | -       | 0.27.0  |
 | copyTip    | Tooltip content when hovering over icon | React.node                                     | -       | 1.0.0   |
-| successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
+| icon       | Custom Render Duplicate Node            | React.node                                     | -       | 2.31.0  |
 | onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       | 0.27.0  |
+| successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
 
 ## Content Guidelines
 

@@ -11,6 +11,7 @@ import { noop, debounce, throttle } from 'lodash';
 import getUuid from '@douyinfe/semi-foundation/utils/uuid';
 import { ArrayElement } from '../_base/base';
 import ConfigContext, { ContextValue } from '../configProvider/context';
+import { ShowTooltip } from '../typography/interface';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -19,7 +20,7 @@ export type { LinkProps } from './link';
 export interface AnchorProps {
     autoCollapse?: boolean;
     className?: string;
-    children?: ReactNode | undefined;
+    children?: ReactNode;
     defaultAnchor?: string;
     getContainer?: () => HTMLElement | Window;
     maxHeight?: string | number;
@@ -28,7 +29,7 @@ export interface AnchorProps {
     position?: ArrayElement<typeof strings.POSITION_SET>;
     railTheme?: ArrayElement<typeof strings.SLIDE_COLOR>;
     scrollMotion?: boolean;
-    showTooltip?: boolean;
+    showTooltip?: boolean | ShowTooltip;
     size?: ArrayElement<typeof strings.SIZE>;
     style?: React.CSSProperties;
     targetOffset?: number;
@@ -316,6 +317,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
                     className={wrapperCls}
                     style={wrapperStyle}
                     id={this.anchorID}
+                    {...this.getDataAttr(this.props)}
                 >
                     <div aria-hidden className={slideCls} style={{ height: scrollHeight }}>
                         <span className={slideBarCls} style={{ top: slideBarTop }} />

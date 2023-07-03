@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty, Image, Card, Space } from '@douyinfe/semi-ui';
 import { IllustrationNoAccess, IllustrationNoAccessDark } from '@douyinfe/semi-illustrations';
 import NotificationCard from '../../packages/semi-ui/notification/notice';
 import ToastCard from '../../packages/semi-ui/toast/toast';
@@ -24,6 +24,8 @@ import { get, isString, capitalize, noop } from 'lodash-es';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import ApiType from 'components/ApiType';
 import IconList from 'components/IconList';
+import FeatureCard from 'components/FeatureCard';
+import ClickOpen from 'components/ClickOpen';
 import { getLocale } from '../utils/locale';
 import ReactDOM from 'react-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -109,6 +111,9 @@ const SemiComponents = {
     IllustrationNoAccessDark,
     Empty,
     Button,
+    Image,
+    Card,
+    Space
 };
 
 const pre = ({ ...props }) => {
@@ -159,17 +164,22 @@ const code = ({ ...props }) => {
     newProps.lineNumber = false;
 
     const Placeholder = () => (
-        <Skeleton
-            active
-            placeholder={
-                <Skeleton.Image
-                    style={{
-                        width: '100%',
-                        height: 518,
-                    }}
-                />
-            }
-        />
+        <>
+            <Skeleton
+                active
+                placeholder={
+                    <Skeleton.Image
+                        style={{
+                            width: '100%',
+                            height: 518,
+                        }}
+                    />
+                }
+            />
+        <div className={"markdown-code-ssr"} style={{display:"none"}}>
+            {props.children}
+        </div>
+        </>
     );
 
     const [Component, _setComponent] = useState(() => Placeholder);
@@ -224,42 +234,49 @@ const components = {
                 duration: 3,
             });
         }
+        const hideMaterialTitle = (children === '相关物料' || children === 'Related Material') && !MATERIAL_LIST_URL; // The external network does not display related materials
         return (
-            <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
-                {children}
+            <>
                 {
-                    children === '设计变量' ?
-                        <Tooltip content={
-                            <span>
-                                如何使用可查阅：
-                                <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
-                            </span>}
-                        >
-                            <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
-                        </Tooltip>
-                        : null
+                    hideMaterialTitle ? 
+                        null : 
+                        <h2 className="md markdown gatsby-h2" id={makeAnchorId(children)}>
+                            {children}
+                            {
+                                children === '设计变量' ?
+                                    <Tooltip content={
+                                        <span>
+                                            如何使用可查阅：
+                                            <a href='https://semi.design/dsm_manual/zh-CN/web/componentToken' target="_blank">Semi DSM 手册</a>
+                                        </span>}
+                                    >
+                                        <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
+                                    </Tooltip>
+                                    : null
+                            }
+                            {
+                                children === 'Design Tokens' ? <Tooltip content={
+                                    <span>
+                                        How to use: Refer to
+                                        <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">DSM Playbook</a>
+                                    </span>}>
+                                    <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
+                                </Tooltip> : null
+                            }
+                            <IconLink
+                                className={'anchor-link-button-icon'}
+                                tabIndex={0}
+                                role="button"
+                                onClick={onIconLinkClick}
+                                onKeyPress={(e) => {
+                                    if (['Enter', ' '].includes(e?.key)) {
+                                        onIconLinkClick(e);
+                                    }
+                                }}
+                            />
+                        </h2>
                 }
-                {
-                    children === 'Design Tokens' ? <Tooltip content={
-                        <span>
-                            How to use: Refer to
-                            <a href='https://bytedance.feishu.cn/docx/doxcnVROZf61ey1zFzlErtJfL2d' target="_blank">DSM Playbook</a>
-                        </span>}>
-                        <IconHelpCircle size='large' type="help_circle" style={{ color: ' --semi-color-tertiary-light-default', marginLeft: 4 }} />
-                    </Tooltip> : null
-                }
-                <IconLink
-                    className={'anchor-link-button-icon'}
-                    tabIndex={0}
-                    role="button"
-                    onClick={onIconLinkClick}
-                    onKeyPress={(e) => {
-                        if (['Enter', ' '].includes(e?.key)) {
-                            onIconLinkClick(e);
-                    }
-                    }}
-                />
-            </h2>
+            </>
         );
     },
     blockquote: ({ children }) => <blockquote className={'gatsby-blockquote'}>{children}</blockquote>,
@@ -484,7 +501,9 @@ const components = {
         // }
     },
     ApiType,
-    StickyHeaderTable
+    StickyHeaderTable,
+    FeatureCard,
+    ClickOpen
 };
 
 const getPrevAndNext = pageContext => {
@@ -671,7 +690,8 @@ export default function Template(args) {
             <SEO lang="zh-CN" title={`${current.frontmatter.title} - Semi Design`} />
             <div className={'pageAnchor'}>
                 {(tabValue === 'rd' || (["Accessibility "].includes(enTitle))) && (
-                    <PageAnchor slug={pageContext.slug} data={current.tableOfContents.items} />
+                    //  The external network does not display related materials
+                    <PageAnchor slug={pageContext.slug} data={MATERIAL_LIST_URL ? current.tableOfContents.items : current.tableOfContents.items.filter(item => !(item.title === '相关物料' || item.title === 'Related Material'))} />
                 )}
                 {
                     iframeAnchorData && tabValue === 'ued' && <DesignPageAnchor data={iframeAnchorData} />

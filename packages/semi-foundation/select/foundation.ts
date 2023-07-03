@@ -32,7 +32,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyClear(): void;
     updateInputValue(inputValue: string): void;
     focusInput(): void;
-    notifySearch(inputValue: string): void;
+    notifySearch(inputValue: string, event?: any): void;
     registerKeyDown(handler: () => void): void;
     unregisterKeyDown(): void;
     notifyChange(value: string | BasicOptionProps | (string | BasicOptionProps)[]): void;
@@ -45,6 +45,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyMouseEnter(event: any): void;
     updateHovering(isHover: boolean): void;
     updateScrollTop(index?: number): void;
+    updateOverflowItemCount(count: number): void;
     getContainer(): any;
     getFocusableElements(node: any): any[];
     getActiveElement(): any;
@@ -93,7 +94,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (isFilterable && isMultiple) {
             // when filter and multiple, only focus input
             this.focusInput();
-        } else if (isFilterable && !isMultiple){
+        } else if (isFilterable && !isMultiple) {
             // when filter and not multiple, only show input and focus input
             this.toggle2SearchInput(true);
         } else {
@@ -195,7 +196,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     // call when props.value change
     handleValueChange(value: PropValue) {
-        const { allowCreate, autoClearSearchValue } = this.getProps();
+        const { allowCreate, autoClearSearchValue, remote } = this.getProps();
         const { inputValue } = this.getStates();
         let originalOptions;
         // AllowCreate and controlled mode, no need to re-collect optionList
@@ -211,7 +212,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         // Multi-selection, controlled mode, you need to reposition the drop-down menu after updating
         this._adapter.rePositionDropdown();
 
-        if (this._isFilterable() && !autoClearSearchValue && inputValue) {
+        if (this._isFilterable() && !autoClearSearchValue && inputValue && !remote) {
             originalOptions = this._filterOption(originalOptions, inputValue);
         }
 
@@ -226,6 +227,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             selections = this._updateSingle(propValue, originalOptions);
         } else {
             selections = this._updateMultiple(propValue as (PropValue)[], originalOptions);
+            this.updateOverflowItemCount(selections.size);
         }
         // Update the text in the selection box
         this._adapter.updateSelection(selections);
@@ -245,7 +247,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const selectedValue = onChangeWithObject && typeof propValue !== 'undefined' ? (propValue as BasicOptionProps).value : propValue;
         const selectedOptions = originalOptions.filter(option => option.value === selectedValue);
 
-        const noMatchOptionInList = !selectedOptions.length && typeof selectedValue !== 'undefined';
+        const noMatchOptionInList = !selectedOptions.length && typeof selectedValue !== 'undefined' && selectedValue !== null;
 
         // If the current value, there is a matching option in the optionList
         if (selectedOptions.length) {
@@ -394,7 +396,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         this._adapter.once('popoverClose', () => {
             if (isFilterable) {
-                this.clearInput();
+                this.clearInput(e);
             }
             if (closeCb) {
                 closeCb();
@@ -465,13 +467,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._notifyChange(selections);
             if (this._isFilterable()) {
                 if (autoClearSearchValue) {
-                    this.clearInput();
+                    this.clearInput(event);
                 }
                 this.focusInput();
             }
         } else {
             // Uncontrolled components, update ui
             this._adapter.updateSelection(selections);
+            this.updateOverflowItemCount(selections.size);
             // In multi-select mode, the drop-down pop-up layer is repositioned every time the value is changed, because the height selection of the selection box may have changed
             this._adapter.rePositionDropdown();
             let { options } = this.getStates();
@@ -479,7 +482,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             if (this._isFilterable()) {
                 // When filter active，if autoClearSearchValue is true，reset input after select
                 if (autoClearSearchValue) {
-                    this.clearInput();
+                    this.clearInput(event);
                     // At the same time, the filtering of options is also cleared, in order to show all candidates
                     const sugInput = '';
                     options = this._filterOption(options, sugInput);
@@ -539,6 +542,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else {
             this._notifyDeselect(item.value, item);
             this._adapter.updateSelection(selections);
+            this.updateOverflowItemCount(selections.size);
             this.updateOptionsActiveStatus(selections);
             // Repostion drop-down layer, because the selection may have changed the number of rows, resulting in a height change
             this._adapter.rePositionDropdown();
@@ -546,12 +550,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
-    clearInput() {
+
+    // The reason why event input is optional is that clearInput may be manually called by the user through ref
+    clearInput(event?: any) {
         const { inputValue } = this.getStates();
         // only when input is not null, select should notifySearch and updateOptions
-        if (inputValue !== ''){
+        if (inputValue !== '') {
             this._adapter.updateInputValue('');
-            this._adapter.notifySearch('');
+            this._adapter.notifySearch('', event);
             // reset options filter
             const { options } = this.getStates();
             const { remote } = this.getProps();
@@ -569,7 +575,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.setIsFocusInContainer(false);
     }
 
-    handleInputChange(sugInput: string) {
+    handleInputChange(sugInput: string, event: any) {
         // Input is a controlled component, so the value needs to be updated
         this._adapter.updateInputValue(sugInput);
         const { options, isOpen } = this.getStates();
@@ -585,7 +591,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         optionsAfterFilter = this._createOptionByInput(allowCreate, optionsAfterFilter, sugInput);
 
         this._adapter.updateOptions(optionsAfterFilter);
-        this._adapter.notifySearch(sugInput);
+        this._adapter.notifySearch(sugInput, event);
         // In multi-select mode, the drop-down box is repositioned each time you enter, because it may cause a line break as the input changes
         if (this._isMultiple()) {
             this._adapter.rePositionDropdown();
@@ -787,16 +793,16 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         isOpen ? this._getEnableFocusIndex(offset) : this.open();
     }
 
-    _handleTabKeyDown(event: any){
+    _handleTabKeyDown(event: any) {
         const { isOpen } = this.getStates();
         this._adapter.updateFocusState(false);
 
-        if (isOpen){
+        if (isOpen) {
             const container = this._adapter.getContainer();
             const focusableElements = this._adapter.getFocusableElements(container);
             const focusableNum = focusableElements.length;
 
-            if (focusableNum > 0){
+            if (focusableNum > 0) {
                 // Shift + Tab will move focus backward
                 if (event.shiftKey) {
                     this._handlePanelOpenShiftTabKeyDown(focusableElements, event);
@@ -805,7 +811,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 }
             } else {
                 // there are no focusable elements inside the container, tab to next element and trigger blur
-                this.close();
+                this.close(event);
                 this._notifyBlur(event);
             }
         } else {
@@ -817,7 +823,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     _handlePanelOpenTabKeyDown(focusableElements: any[], event: any) {
         const activeElement = this._adapter.getActiveElement();
         const isFocusInContainer = this._adapter.getIsFocusInContainer();
-        if (!isFocusInContainer){
+        if (!isFocusInContainer) {
             // focus in trigger, set next focus to the first element in container
             focusableElements[0].focus();
             this._adapter.setIsFocusInContainer(true);
@@ -825,7 +831,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else if (activeElement === focusableElements[focusableElements.length - 1]) {
             // focus in the last element in container, focus back to trigger and close panel
             this._focusTrigger(); 
-            this.close();
+            this.close(event);
             handlePrevent(event);
         }
     }
@@ -836,7 +842,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         if (!isFocusInContainer) {
             // focus in trigger, close the panel, shift tab to previe element and trigger blur
-            this.close();
+            this.close(event);
             this._notifyBlur(event);
         } else if (activeElement === focusableElements[0]) {
             // focus in the first element in container, focus back to trigger
@@ -848,7 +854,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     _handleEnterKeyDown(event: KeyboardEvent) {
         const { isOpen, options, focusIndex } = this.getStates();
-        if (!isOpen){
+        if (!isOpen) {
             this.open();
         } else {
             if (focusIndex !== -1) {
@@ -866,7 +872,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                     this.onSelect(selectedOption, focusIndex, event);
                 }
             } else {
-                this.close();
+                this.close(event);
             }
         }
     }
@@ -1014,7 +1020,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     handleClearClick(e: MouseEvent) {
         const { filter } = this.getProps();
         if (filter) {
-            this.clearInput();
+            this.clearInput(e);
         }
         this.clearSelected();
         // prevent this click open dropdown
@@ -1108,6 +1114,22 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     updateScrollTop() {
         this._adapter.updateScrollTop();
+    }
+
+    updateOverflowItemCount(selectionLength: number, overFlowCount?: number) {
+        const { maxTagCount, ellipsisTrigger } = this.getProps();
+        if (!ellipsisTrigger) {
+            return ;
+        }
+        if (overFlowCount) {
+            this._adapter.updateOverflowItemCount(overFlowCount);
+        } else if (typeof maxTagCount === 'number') {
+            if (selectionLength - maxTagCount > 0) {
+                this._adapter.updateOverflowItemCount(selectionLength - maxTagCount);
+            } else {
+                this._adapter.updateOverflowItemCount(0);
+            }
+        }
     }
 
     updateIsFullTags() {

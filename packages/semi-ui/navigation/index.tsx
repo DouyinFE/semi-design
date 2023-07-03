@@ -20,7 +20,7 @@ export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
 export type { NavHeaderProps } from './Header';
 export type { NavItemProps } from './Item';
-export type { ToggleIcon, SubNavProps } from './SubNav';
+export type { SubNavProps } from './SubNav';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {
@@ -44,9 +44,11 @@ export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[]
 export interface NavProps extends BaseProps {
     bodyStyle?: React.CSSProperties;
     children?: React.ReactNode;
+    
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
+    expandIcon?: React.ReactNode;
     footer?: React.ReactNode | NavFooterProps;
     header?: React.ReactNode | NavHeaderProps;
     isCollapsed?: boolean;
@@ -69,7 +71,7 @@ export interface NavProps extends BaseProps {
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey?: (string | number); openKeys?: (string | number)[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
-    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav:boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
@@ -113,11 +115,13 @@ class Nav extends BaseComponent<NavProps, NavState> {
     static Footer = Footer;
 
     static propTypes = {
+        collapseIcon: PropTypes.node,
         // Initial expanded SubNav navigation key array
         defaultOpenKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         openKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         // Initial selected navigation key array
         defaultSelectedKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+        expandIcon: PropTypes.node,
         selectedKeys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
         // Navigation type, now supports vertical, horizontal
         mode: PropTypes.oneOf([...strings.MODE]),
@@ -261,12 +265,18 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
+        const { expandIcon } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
                     if (Array.isArray(item.items) && item.items.length) {
                         return (
-                            <SubNav key={item.itemKey || String(level) + idx} {...item as SubNavPropsWithItems} level={level}>
+                            <SubNav
+                                key={item.itemKey || String(level) + idx}
+                                {...item as SubNavPropsWithItems}
+                                level={level}
+                                expandIcon={expandIcon}
+                            >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
                         );
@@ -304,7 +314,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
             toggleIconPosition,
             limitIndent,
             renderWrapper,
-            getPopupContainer
+            getPopupContainer,
+            ...rest
         } = this.props;
 
         const { selectedKeys, openKeys, items, isCollapsed } = this.state;
@@ -343,12 +354,12 @@ class Nav extends BaseComponent<NavProps, NavState> {
             for (let i = 0; i < childrenLength; i++) {
                 const child = children[i];
 
-                if ((child as any).type === Footer || get(child, 'type.name') === 'NavFooter') {
+                if ((child as any).type === Footer || get(child, 'type.elementType') === 'NavFooter') {
                     footers.push(child);
                     children.splice(i, 1);
                     i--;
                     childrenLength--;
-                } else if ((child as any).type === Header || get(child, 'type.name') === 'NavHeader') {
+                } else if ((child as any).type === Header || get(child, 'type.elementType') === 'NavHeader') {
                     headers.push(child);
                     children.splice(i, 1);
                     i--;
@@ -407,7 +418,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                             getPopupContainer
                         } as any}
                     >
-                        <div className={finalCls} style={finalStyle}>
+                        <div className={finalCls} style={finalStyle} {...this.getDataAttr(rest)}>
                             <div className={`${prefixCls}-inner`}>
                                 <div className={headerListOuterCls}>
                                     {headers}

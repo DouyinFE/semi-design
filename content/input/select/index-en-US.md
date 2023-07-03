@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 29
 category: Input
 title: Select
 subTitle: Select
@@ -68,10 +68,15 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### Multi-choice
+Since v2.28, the selector will have its own maxHeight 300, and the content can be viewed by scrolling vertically after it exceeds.
 
 Configuration `multiple` properties that can support multi-selection
 
 Configuration `maxTagCount`. You can limit the number of options displayed, and the excess will be displayed in the form of + N
+
+Configure `ellipsisTrigger` (>= v2.28.0) to do adaptive processing on the overflow part of the tag. When the width is insufficient, the last tag content will be truncated. After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios
+
+Configure `expandRestTagsOnClick` (>= v2.28.0) to display all remaining tags by clicking when `maxTagCount` is set
 
 Use `showRestTagsPopover` (>= v2.22.0) to set whether hover +N displays Popover after exceeding `maxTagCount`, the default is `false`. Also, popovers can be configured in the `restTagsPopoverProps` property
 
@@ -113,6 +118,23 @@ import { Select } from '@douyinfe/semi-ui';
             defaultValue={['abc']}
             max={2}
             onExceed={() => Toast.warning('Only two options are allowed')}
+        >
+            <Select.Option value="abc">Semi</Select.Option>
+            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="xigua">BuzzVideo</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            multiple
+            maxTagCount={2}
+            showRestTagsPopover={true}
+            restTagsPopoverProps={{ position: 'top' }}
+            style={{ width: '220px' }}
+            defaultValue={['xigua', 'hotsoon', 'pipixia', 'abc']}
+            ellipsisTrigger
+            expandRestTagsOnClick
         >
             <Select.Option value="abc">Semi</Select.Option>
             <Select.Option value="hotsoon">Hotsoon</Select.Option>
@@ -951,6 +973,10 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 You can create and select entries that do not exist in the options by setting `allowCreate=true` You can customize the content display when creating the label through renderCreateItem (by returning ReactNode, note that you need to customize the style) In addition, can be used with the `defaultActiveFirstOption` property to automatically select the first item. When you enter directly and press Enter, you can immediately create an Option
 
+<Notice title='Notice'>
+  When allowCreate is enabled, it will no longer respond to updates to Children or optionList
+</Notice>
+
 ```jsx live=true
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
@@ -1040,11 +1066,12 @@ If the default layout style of the selection box does not meet your needs, you c
 The parameters of triggerRender are as follows
 
 ```typescript
-interface triggerRenderProps {
+interface TriggerRenderProps {
   value: array<object> // All currently selected options
   inputValue: string; // The input value of the current input box
-  onChange: (inputValue: string) => void; // The function used to update the value of the input box. You should call this function when the value of the Input component you customize in triggerRender is updated to synchronize the state to the Select internal
+  onSearch: (inputValue: string) => void; // The function used to update the value of the input box. You should call this function when the value of the Input component you customize in triggerRender is updated to synchronize the state to the Select internal. props.filter needs to be true, support after v2.32
   onClear: () => void; // Function to clear the value
+  onRemove: (option: object) => void; // support after v2.32
   disabled: boolean; // Whether to disable Select
   placeholder: string; // Select placeholder
   componentProps: //All props passed to Select by users
@@ -1292,71 +1319,74 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### Select Props
 
-| Properties | Instructions | Type | Default | version |
-| --- | --- | --- | --- | --- |
-| allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter` | boolean | false |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon  | ReactNode |  | 1.15.0|
-| autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body) | boolean | true |
-| autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled | boolean | true | 2.3.0|
-| autoFocus | Whether automatically focus when component mount | boolean | false |
-| className | The CSS class name of the wrapper element | string |  |
-| clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                       |   | 2.25.0 |
-| clickToHide | When expanded, click on the selection box to automatically put away the drop-down list | boolean | false |
-| defaultValue | Originally selected value when component mount | string\|number\|array |  |
-| defaultOpen | Whether show dropdown when component mounted | boolean | false |
-| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly) | boolean | true |
-| disabled | Whether disabled component | boolean | false |
-| dropdownClassName | ClassName of the pop-up layer | string |  |
-| dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select | boolean | true |
-| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
-| dropdownStyle | The inline style of the pop-up layer | object |  |
-| emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed | string | ReactNode |  |
+| Properties | Instructions                                                                                                                                                                                                                                                                                                                                                       | Type | Default | version |
+| --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter`. When allowCreate is enabled, it will no longer respond to updates to children or optionList                                                                                                                                                                                       | boolean | false |
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                                                                                                                                               | ReactNode |  | 1.15.0|
+| autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)                                                                                                                                                                                        | boolean | true |
+| autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled                                                                                                                                                                                                                      | boolean | true | 2.3.0|
+| autoFocus | Whether automatically focus when component mount                                                                                                                                                                                                                                                                                                                   | boolean | false |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                                                                                                                                                                                          | boolean                         |           |
+| className | The CSS class name of the wrapper element                                                                                                                                                                                                                                                                                                                          | string |  |
+| clearIcon    | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                                                                                                                                            | ReactNode                       |   | 2.25.0 |
+| clickToHide | When expanded, click on the selection box to automatically put away the drop-down list                                                                                                                                                                                                                                                                             | boolean | false |
+| defaultValue | Originally selected value when component mount                                                                                                                                                                                                                                                                                                                     | string\|number\|array |  |
+| defaultOpen | Whether show dropdown when component mounted                                                                                                                                                                                                                                                                                                                       | boolean | false |
+| defaultActiveFirstOption | Whether to highlight the first option by default (press Enter to select directly)                                                                                                                                                                                                                                                                                  | boolean | true |
+| disabled | Whether disabled component                                                                                                                                                                                                                                                                                                                                         | boolean | false |
+| dropdownClassName | ClassName of the pop-up layer                                                                                                                                                                                                                                                                                                                                      | string |  |
+| dropdownMatchSelectWidth | Is the minimum width of the drop-down menu equal to Select                                                                                                                                                                                                                                                                                                         | boolean | true |
+| dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin                                                                                                                      | object\|number |  | 2.25.0 |
+| dropdownStyle | The inline style of the pop-up layer                                                                                                                                                                                                                                                                                                                               | object |  |
+| emptyContent | Content displayed when there is no result. When set to null, the drop-down list will not be displayed                                                                                                                                                                                                                                                              | string | ReactNode |  |
+| ellipsisTrigger | When maxTagCount exists and is multi-select, whether to perform adaptive processing on the overflow part of the tag(When the width is insufficient, the last tag content is truncated). After enabling this function, there will be a certain performance loss, and it is not recommended to use it in large form scenarios                                        | boolean   | false       | 2.28.0 | 
+| expandRestTagsOnClick | When maxTagCount exists and is multi-selected, select whether to expand redundant Tags when the panel is open                                                                                                                                                                                                                                                      | boolean                          | false       | 2.28.0 | 
 | filter | Whether searchable or not, the default is false. When `true` is passed, it means turn on search ability, default filtering policy is whether the label matches search input<br/>When the input type is function, the function arguments are searchInput, option. It should return true when the option meets the filtering conditions, otherwise it returns false. | false | boolean\|function |  |
-| getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`| function(): HTMLElement | () => document.body |
-| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior)  | object | | 2.2.0|
-| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList | ReactNode |  |
-| innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList | ReactNode |  |
-| insetLabel | Same to `prefix`, just an alias | ReactNode |  |
-| loading | Does the drop-down list show the loading animation | boolean | false |
-| max | Maximum number of choices, effective only in multi-selection mode | number |  |
-| maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N | number |  |
-| maxHeight | Maximum height of `optionList` in the pop-up layer | string \| number | 270 |
-| multiple | Whether allow multiple selection | boolean | false |
-| outerBottomSlot | Rendered at the bottom of the popup layer, custom slot level with optionList | ReactNode |  |
-| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList | ReactNode | |1.6.0 |
-| optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties | Array (\[{value, label}\]) |  |
-| placeholder | placeholder | ReactNode |  |
-| position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference) | string | 'bottomLeft' |
-| prefix | An input helper rendered before | ReactNode |  |
-| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched | boolean | false |
-| renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label | function(inputValue: string) | InputValue => 'Create' + InputValue |
-| renderSelectedItem | Customize the rendering of selected tabs in the selection box | function(option) |  |
-| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference) | PopoverProps | {} | 2.22.0 |
-| showArrow | Whether to show arrow icon | boolean | true |
-| showClear | Whether to show the clear button | boolean | false |
-| showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
-| size | Size, optional value `default` / `small` / `large` | string | 'default' |
-| spacing | Spacing between popup layer and trigger | number | 4 |
-| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true |  |
-| style | Inline Style | object |  |
-| suffix | An input helper rendered after | ReactNode |  |
-| triggerRender | Custom DOM of trigger | function |  |
-| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize  | object |  | 0.37.0 |
-| validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color) | string | 'default' |
-| value | The currently selected value is passed as a controlled component, used in conjunction with `onchange` | string\|number\|array |  |
-| zIndex | Popup layer z-index | number | 1030 |
-| onBlur | Callback when blur | function(event) |  |
-| onChange | Callback function when selected option | function (value) |  |
-| onChangeWithObject | Whether to use the other properties of the selected option as a callback. When set to true, the entry type of onchange changes from string to object: {value, label,...rest} | boolean | false |
-| onClear | Callback when click clear icon | function |  |
-| onCreate | Allow Create is true and provides after the callback when creating the standby option | function |  |
-| onDeselect | Callback when selected cancel | function (value, option) |  |
-| onDropdownVisibleChange | A callback when the drop-down menu expands / collapsed | function(visible: boolean) |  |
-| onExceed | Callback invoked when the number of attempts to select exceeds the max limit, effective only at multi-selection | function |  |
-| onFocus | Callback when focus select | function(event) |  |
-| onSearch | The callback function when the content of the input box changes. | function(sugInput: string) |  |
-| onSelect | Callback when selected | function (value, option) |  |
+| getPopupContainer | Specifies the parent DOM, and the popup layer will be rendered to the DOM, you need to set 'position: relative`    This will change the DOM tree position, but not the view's rendering position.                                                                                                                                                                                                                                                  | function(): HTMLElement | () => document.body |
+| inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior)                                                         | object | | 2.2.0|
+| innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList                                                                                                                                                                                                                                                                                           | ReactNode |  |
+| innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList                                                                                                                                                                                                                                                                                        | ReactNode |  |
+| insetLabel | Same to `prefix`, just an alias                                                                                                                                                                                                                                                                                                                                    | ReactNode |  |
+| loading | Does the drop-down list show the loading animation                                                                                                                                                                                                                                                                                                                 | boolean | false |
+| max | Maximum number of choices, effective only in multi-selection mode                                                                                                                                                                                                                                                                                                  | number |  |
+| maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N                                                                                                                                                                                                                                              | number |  |
+| maxHeight | Maximum height of `optionList` in the pop-up layer                                                                                                                                                                                                                                                                                                                 | string \| number | 270 |
+| multiple | Whether allow multiple selection                                                                                                                                                                                                                                                                                                                                   | boolean | false |
+| outerBottomSlot | Rendered at the bottom of the popup layer, custom slot level with optionList                                                                                                                                                                                                                                                                                       | ReactNode |  |
+| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList                                                                                                                                                                                                                                                                                         | ReactNode | |1.6.0 |
+| optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties                                                                                                                                                                                                                                                | Array (\[{value, label}\]) |  |
+| placeholder | placeholder                                                                                                                                                                                                                                                                                                                                                        | ReactNode |  |
+| position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                              | string | 'bottomLeft' |
+| prefix | An input helper rendered before                                                                                                                                                                                                                                                                                                                                    | ReactNode |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                                                                                                                                      | boolean |  |  |
+| remote | Whether to turn on remote search, when remote is true, the input content will not be locally filtered and matched                                                                                                                                                                                                                                                  | boolean | false |
+| renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label                                                                                                                                                                                                                                                                                    | function(inputValue: string) | InputValue => 'Create' + InputValue |
+| renderSelectedItem | Customize the rendering of selected tabs in the selection box                                                                                                                                                                                                                                                                                                      | function(option) |  |
+| restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                                                 | PopoverProps | {} | 2.22.0 |
+| showArrow | Whether to show arrow icon                                                                                                                                                                                                                                                                                                                                         | boolean | true |
+| showClear | Whether to show the clear button                                                                                                                                                                                                                                                                                                                                   | boolean | false |
+| showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover                                                                                                                                                                                                                                         | boolean | false | 2.22.0 |
+| size | Size, optional value `default` / `small` / `large`                                                                                                                                                                                                                                                                                                                 | string | 'default' |
+| spacing | Spacing between popup layer and trigger                                                                                                                                                                                                                                                                                                                            | number | 4 |
+| stopPropagation | Whether to prevent click events on the popup layer from bubbling                                                                                                                                                                                                                                                                                                   | boolean | true |  |
+| style | Inline Style                                                                                                                                                                                                                                                                                                                                                       | object |  |
+| suffix | An input helper rendered after                                                                                                                                                                                                                                                                                                                                     | ReactNode |  |
+| triggerRender | Custom DOM of trigger                                                                                                                                                                                                                                                                                                                                              | function |  |
+| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize                                                                                                                                                                                                                                  | object |  | 0.37.0 |
+| validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color)                                                                                                                                                                                                                                                               | string | 'default' |
+| value | The currently selected value is passed as a controlled component, used in conjunction with `onchange`                                                                                                                                                                                                                                                              | string\|number\|array |  |
+| zIndex | Popup layer z-index                                                                                                                                                                                                                                                                                                                                                | number | 1030 |
+| onBlur | Callback when blur                                                                                                                                                                                                                                                                                                                                                 | function(event) |  |
+| onChange | Callback function when selected option                                                                                                                                                                                                                                                                                                                             | function (value) |  |
+| onChangeWithObject | Whether to use the other properties of the selected option as a callback. When set to true, the entry type of onchange changes from string to object: {value, label,...rest}                                                                                                                                                                                       | boolean | false |
+| onClear | Callback when click clear icon                                                                                                                                                                                                                                                                                                                                     | function |  |
+| onCreate | Allow Create is true and provides after the callback when creating the standby option                                                                                                                                                                                                                                                                              | function |  |
+| onDeselect | Callback when selected cancel                                                                                                                                                                                                                                                                                                                                      | function (value, option) |  |
+| onDropdownVisibleChange | A callback when the drop-down menu expands / collapsed                                                                                                                                                                                                                                                                                                             | function(visible: boolean) |  |
+| onExceed | Callback invoked when the number of attempts to select exceeds the max limit, effective only at multi-selection                                                                                                                                                                                                                                                    | function |  |
+| onFocus | Callback when focus select                                                                                                                                                                                                                                                                                                                                         | function(event) |  |
+| onSearch | The callback function when the content of the input box changes. The second parameter is available after v2.31                                                                                                                                                                                                                                                     | function(sugInput: string, e: ReactEvent) |  |
+| onSelect | Callback when selected                                                                                                                                                                                                                                                                                                                                             | function (value, option) |  |
 
 ### Option Props
 
@@ -1390,6 +1420,7 @@ Some internal methods provided by Select can be accessed through ref:
 | focus       | Manually focus select           | v1.11.0 |
 | open        | Manually open dropdown list     | v0.34.0 |
 | selectAll   | Manually select all options     | v1.18.0 |
+| search(value: string, event: event)  | You can call this method through ref to search, and the search value will be set to Input          | v2.35.0 |
 
 ## Accessibility
 
@@ -1439,6 +1470,9 @@ Some internal methods provided by Select can be accessed through ref:
 ## Design Tokens
 
 <DesignToken/>
+
+## Related Material
+<semi-material-list code="3, 4, 58, 62"></semi-material-list>
 
 ## FAQ
 

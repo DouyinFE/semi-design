@@ -4,11 +4,10 @@ export interface Locale {
     code: string;
     dateFnsLocale: dateFnsLocale;
     Pagination: {
-        item: string;
-        page: string;
         pageSize: string;
         total: string;
-        jumpTo: string
+        jumpTo: string;
+        page: string
     };
     Modal: {
         confirm: string;
@@ -32,8 +31,10 @@ export interface Locale {
             date: string;
             dateTime: string;
             dateRange: [string, string];
-            dateTimeRange: [string, string]
+            dateTimeRange: [string, string];
+            monthRange: [string, string]
         };
+        presets: string;
         footer: {
             confirm: string;
             cancel: string

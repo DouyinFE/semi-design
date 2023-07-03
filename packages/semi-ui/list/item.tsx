@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/list/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { noop } from 'lodash';
 import { Col } from '../grid';
 import ListContext, { ListContextValue } from './list-context';
@@ -68,7 +69,8 @@ export default class ListItem extends PureComponent<ListItemProps> {
             onClick,
             onRightClick,
             onMouseEnter,
-            onMouseLeave
+            onMouseLeave,
+            ...rest
         } = this.props;
         const { onRightClick: contextOnRightClick, onClick: contextOnClick, grid: contextGrid } = this.context;
         const handleContextMenu = onRightClick ? onRightClick : contextOnRightClick;
@@ -97,6 +99,7 @@ export default class ListItem extends PureComponent<ListItemProps> {
                 onContextMenu={handleContextMenu}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
+                {...getDataAttr(rest)}
             >
                 {body ? body : null}
                 {children}

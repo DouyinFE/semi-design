@@ -37,6 +37,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         style: PropTypes.object,
         className: PropTypes.string,
         dateGridRender: PropTypes.func,
+        allDayEventsRender: PropTypes.func,
     };
 
     static defaultProps = {
@@ -97,7 +98,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
     componentDidUpdate(prevProps: DayCalendarProps, prevState: DayCalendarState) {
         const prevEventKeys = prevState.cachedKeys;
         const nowEventKeys = this.props.events.map(event => event.key);
-        if (!isEqual(prevEventKeys, nowEventKeys)) {
+        if (!isEqual(prevEventKeys, nowEventKeys) || !isEqual(prevProps.displayValue, this.props.displayValue)) {
             this.foundation.parseDailyEvents();
         }
     }
@@ -109,6 +110,9 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
     checkWeekend = (val: Date) => this.foundation.checkWeekend(val);
 
     renderAllDayEvents = (events: ParsedEventsWithArray['allDay']) => {
+        if (this.props.allDayEventsRender) {
+            return this.props.allDayEventsRender(this.props.events);
+        }
         const list = events.map((event, ind) => {
             const { children, key } = event;
             return (
@@ -162,7 +166,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         const { parsedEvents, scrollHeight } = this.state;
         this.isWeekend = markWeekend && this.checkWeekend(displayValue);
         return (
-            <div className={dayCls} style={dayStyle} ref={this.dom}>
+            <div className={dayCls} style={dayStyle} ref={this.dom} {...this.getDataAttr(this.props)}>
                 <div className={`${prefixCls}-sticky-top`}>
                     {header}
                     {this.renderAllDay(parsedEvents.allDay)}

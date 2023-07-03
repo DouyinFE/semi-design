@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { Button, Typography, Toast, Cascader } from '../../index';
+import { IconChevronDown, IconClose } from '@douyinfe/semi-icons';
+import { Button, Typography, Toast, Cascader, Checkbox, Input, Tag, TagInput } from '../../index';
 
 const { Text } = Typography;
 
@@ -333,7 +334,7 @@ export const issue703 = () => {
         },
     ];
     const [data, setData] = useState(initialData);
-    
+
     const updateTreeData = (list, value, children) => {
         return list.map(node => {
             if (node.value === value) {
@@ -379,7 +380,7 @@ export const issue703 = () => {
     useEffect(()=>{
       console.log('data change');
         setTimeout(()=>setV([['0-0'], ['0-1', 'Node2-2', 'Node2-2-2']]),0);
-    },[data]) 
+    },[data])
 
     return (
       <>
@@ -390,7 +391,7 @@ export const issue703 = () => {
             value={v}
             style={{ width: 300 }}
             treeData={data}
-            loadData={onLoadData} 
+            loadData={onLoadData}
             placeholder="Please select"
         />
         <div>非受控，动态更新treeData</div>
@@ -399,7 +400,7 @@ export const issue703 = () => {
             onChange={(a)=>console.log(a)}
             style={{ width: 300 }}
             treeData={data}
-            loadData={onLoadData} 
+            loadData={onLoadData}
             placeholder="Please select"
         />
       </>
@@ -1095,7 +1096,7 @@ export const CascaderWithSlot = () => {
         topSlot={<Text style={slotStyle}>选择地区</Text>}
         bottomSlot={
           <div style={slotStyle}>
-            <Text>找不大相关选项？</Text>
+            <Text>找不到相关选项？</Text>
             <Text link>去新建</Text>
           </div>
         }
@@ -1443,7 +1444,7 @@ export const OnChangeWithObject = () => (
 
 export const undefinedValueWhileMutipleAndOnChangeWithObject = () => {
   const [value, setValue] = useState(undefined);
-  
+
   return (
     <>
       <div>多选 + onChangeWithObject + value 为 undefined</div>
@@ -1564,7 +1565,7 @@ export const DynamicTreeData = () => {
           <Cascader
             style={{ width: 300 }}
             treeData={treeDataDemo1}
-            multiple 
+            multiple
             placeholder="请选择所在地区"
           />
           <Button onClick={()=>{setTreeData1(treeData3)}}>改变treeData</Button>
@@ -1659,4 +1660,467 @@ export const size = () => {
     <br/><br/>
     <Cascader {...props} size={'large'}/>
   </>);
+}
+
+export const filterSorter = () => {
+  const treeData = [
+      {
+          label: 'Product',
+          value: 'Product',
+          children: [
+              {
+                  label: 'Semi-Material',
+                  value: 'Semi-Material',
+
+              },
+              {
+                  label: 'Semi-DSM',
+                  value: 'Semi-DSM',
+
+              },
+              {
+                  label: 'Semi',
+                  value: 'Semi',
+
+              },
+              {
+                  label: 'Semi-C2D',
+                  value: 'Semi-C2D',
+              },
+              {
+                  label: 'Semi-D2C',
+                  value: 'Semi-D2C',
+              },
+          ],
+      }
+  ];
+  return (
+      <div>
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="输入 s 查看排序效果"
+              filterTreeNode
+              filterSorter={(first, second, inputValue) => {
+                  const firstData = first[first.length - 1];
+                  const lastData = second[second.length - 1];
+                  if (firstData.label === inputValue) {
+                      return -1;
+                  } else if (lastData.label === inputValue) {
+                      return 1;
+                  } else {
+                      return firstData.label < lastData.label ? -1 : 1;
+                  }
+              }}
+          />
+      </div>
+  );
+};
+
+export const filterRender = () => {
+  const treeData = [
+    {
+        label: 'Semi',
+        value: 'Semi',
+        children: [
+            {
+                label: 'Semi-Material Semi-Material Semi-Material Semi-Material',
+                value: 'Semi-Material',
+
+            },
+            {
+                label: 'Semi-DSM Semi-DSM Semi-DSM Semi-DSM',
+                value: 'Semi-DSM',
+
+            },
+            {
+                label: 'Semi Design Semi Design Semi Design Semi Design',
+                value: 'Semi',
+
+            },
+            {
+                label: 'Semi-C2D Semi-C2D Semi-C2D Semi-C2D Semi-C2D',
+                value: 'Semi-C2D',
+            },
+            {
+                label: 'Semi-D2C Semi-D2C Semi-D2C Semi-D2C Semi-D2C ',
+                value: 'Semi-D2C',
+            },
+        ],
+    }
+  ];
+
+  const renderSearchOptionSingle = (props) => {
+    const {
+      className,
+      data,
+      onClick,
+      selected,
+    } = props;
+
+    return (
+      <li
+          className={className}
+          style={{justifyContent: 'flex-start'}}
+          role="treeitem"
+          onClick={onClick}
+      >
+        <Text
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}}
+          style={{ width: 270, color: selected ? 'var(--semi-color-primary)': undefined }}
+        >
+            {data.map(item => item.label ).join(' / ')}
+        </Text>
+      </li>
+    )
+  }
+
+  const renderSearchOptionMultiple = (props) => {
+    const {
+      className,
+      data,
+      checkStatus,
+      onCheck,
+    } = props;
+
+    return (
+      <li
+          className={className}
+          style={{justifyContent: 'flex-start'}}
+          role="treeitem"
+          onClick={onCheck}
+      >
+        <Checkbox
+            onClick={onCheck}
+            indeterminate={checkStatus.halfChecked}
+            checked={checkStatus.checked}
+            style={{ marginRight: 8 }}
+        />
+        <Text
+          ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all'} }}}}
+          style={{ width: 270 }}
+        >
+            {data.map(item => item.label).join(' / ')}
+        </Text>
+      </li>
+    )
+  }
+
+  return (
+      <div>
+          <p>鼠标 hover 到选项可查看被省略文本完整内容</p>
+          <br />
+          <Cascader
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="单选，自定义搜索选项渲染"
+              filterTreeNode
+              filterRender={renderSearchOptionSingle}
+          />
+          <br />
+          <Cascader
+            multiple
+            style={{ width: 300, marginTop: 20 }}
+            treeData={treeData}
+            placeholder="多选，自定义搜索选项渲染"
+            filterTreeNode
+            filterRender={renderSearchOptionMultiple}
+          />
+      </div>
+  );
+};
+
+export const RefMethods = () => {
+  const cRef = useRef(null);
+
+  const onClickOpen = useCallback(() => {
+    cRef.current.open();
+  }, [cRef]);
+
+  const onClickClose = useCallback(() => {
+    cRef.current.close();
+  }, [cRef]);
+
+  const onClickFocus = useCallback(() => {
+    cRef.current.focus();
+  }, [cRef]);
+
+  const onClickBlur = useCallback(() => {
+    cRef.current.blur();
+  }, [cRef]);
+
+  const treeData = [
+    {
+        label: '浙江省',
+        value: 'zhejiang',
+        children: [
+            {
+                label: '杭州市',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: '西湖区',
+                        value: 'xihu',
+                    },
+                    {
+                        label: '萧山区',
+                        value: 'xiaoshan',
+                    },
+                    {
+                        label: <div onClick={onClickClose}> click to hide</div>,
+                        value: 'linan',
+                    },
+                ],
+            },
+        ],
+    }
+  ];
+  return (
+      <div>
+          <Button onClick={onClickOpen}> cascader visible</Button>
+          <br /><br />
+          <Button onClick={onClickClose}> cascader hidden</Button>
+          <br /><br />
+          <Button onClick={onClickFocus}> cascader focusable</Button>
+          <br /><br />
+          <Button onClick={onClickBlur}> cascader blur</Button>
+          <br /><br />
+          <Cascader
+              multiple
+              ref={cRef}
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="单选"
+          />
+      </div>
+  );
+};
+
+
+export const FixCursorPositionError = () => {
+  // https://github.com/DouyinFE/semi-design/issues/1468
+  const props = {
+    style: { width: 300 },
+    treeData: treeData5,
+    filterTreeNode: true,
+    leafOnly: true,
+  };
+
+  const multipleProps =  { ...props, multiple: true };
+
+  return (<>
+    <p>多选</p>
+    <Cascader {...multipleProps} size={'small'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'default'} />
+    <br/><br/>
+    <Cascader {...multipleProps} size={'large'}/>
+
+    <p>单选</p>
+    <Cascader {...props} size={'small'} />
+    <br/><br/>
+    <Cascader {...props} size={'default'} />
+    <br/><br/>
+    <Cascader {...props} size={'large'}/>
+  </>);
+}
+
+export const setValueInSearch = () => {
+  const treeData = [
+    {
+        label: '浙江省',
+        text: '杭州市',
+        value: 'zhejiang',
+        children: [
+            {
+                label: <div>杭州市</div>,
+                text: '杭州市',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: <div>西湖区</div>,
+                        text: '西湖区',
+                        value: 'xihu',
+                    },
+                    {
+                        label: <div>萧山区</div>,
+                        text: '萧山区',
+                        value: 'xiaoshan',
+                    },
+                    {
+                        label: <div>临安区</div>,
+                        text: '临安区',
+                        value: 'linan',
+                    },
+                ],
+            },
+            {
+                label: '宁波市',
+                text: '宁波市',
+                value: 'ningbo',
+                children: [
+                    {
+                        label: '海曙区',
+                        text: '海曙区',
+                        value: 'haishu',
+                    },
+                    {
+                        label: '江北区',
+                        text: '江北区',
+                        value: 'jiangbei',
+                    }
+                ]
+            },
+        ],
+      }
+  ];
+  const [value, setValue] = useState(['zhejiang', 'hangzhou', 'xiaoshan']);
+  const handleMouseIn = () => setValue(['zhejiang', 'hangzhou', 'xihu']);
+  return (
+      <div>
+        {/* 关联issue，https://github.com/DouyinFE/semi-design/issues/1472 */}
+          <span id={"mouseIn"} onMouseEnter={handleMouseIn}>changeValueWhenMouseIn</span>
+          <Cascader
+              value={value}
+              style={{ width: 300 }}
+              treeData={treeData}
+              placeholder="默认对label值进行搜索"
+              filterTreeNode
+              treeNodeFilterProp='text'
+              displayProp='text'
+              displayRender={(names) => {
+                console.log('names', names)
+                return names.join("--");
+              }}
+          />
+      </div>
+  );
+}
+
+export const TriggerAddMethods = () => {
+  const treeData = useMemo(() => [
+      {
+          label: '浙江省',
+          value: 'zhejiang',
+          children: [
+              {
+                  label: '杭州市',
+                  value: 'hangzhou',
+                  children: [
+                      {
+                          label: '西湖区',
+                          value: 'xihu',
+                      },
+                      {
+                          label: '萧山区',
+                          value: 'xiaoshan',
+                      },
+                      {
+                          label: '临安区',
+                          value: 'linan',
+                      },
+                  ],
+              },
+              {
+                  label: '宁波市',
+                  value: 'ningbo',
+                  children: [
+                      {
+                          label: '海曙区',
+                          value: 'haishu',
+                      },
+                      {
+                          label: '江北区',
+                          value: 'jiangbei',
+                      }
+                  ]
+              },
+          ],
+      }
+  ], []);
+
+  const closeIcon = useCallback((value, onClear) => {
+      return value ? <IconClose onClick={onClear} /> : <IconChevronDown />;
+  }, []);
+
+  const triggerRenderSingle = ({ value, placeholder, onClear, ...rest }) => {
+      return (
+          <Button theme={'light'} icon={closeIcon(value, onClear)} iconPosition={'right'}>
+              {value && value.length > 0 ? getLabelFromValue(value) : placeholder}
+          </Button>
+      );
+  };
+
+  const getLabelFromValue = useCallback((value) => {
+      const valueArr = value.split('-').map(item => Number(item));
+      let resultData = treeData;
+      valueArr.forEach((item, index) => {
+          resultData = index === 0 ? resultData[item] : resultData.children[item];
+      });
+      return resultData.label;
+  }, [treeData]);
+
+  const triggerRenderMultiple = useCallback((props) => {
+      const { value, onSearch, onRemove } = props;
+      const onCloseTag = (value, e, tagKey) => {
+          onRemove(tagKey);
+      };
+
+      const renderTagItem = (value) => {
+          const label = getLabelFromValue(value);
+          return <Tag tagKey={value} key={value} closable onClose={onCloseTag} style={{ marginLeft: 2 }}>{label}</Tag>
+      };
+
+      return (
+          <TagInput
+              value={Array.from(value)}
+              onInputChange={onSearch}
+              renderTagItem={renderTagItem}
+          />
+      );
+  }, []);
+
+  return (
+      <>
+          <Cascader
+              treeData={treeData}
+              placeholder='Custom Trigger'
+              triggerRender={triggerRenderSingle}
+          />
+          <br />
+          <Cascader
+              triggerRender={triggerRenderMultiple}
+              multiple
+              filterTreeNode
+              treeData={treeData}
+              style={{ width: 300 }}
+              placeholder='Custom Trigger'
+          />
+      </>
+  );
+}
+
+export const DisabledAndPlusN = () => {
+  const commonProps = {
+    multiple: true,
+    maxTagCount: 1,
+    showRestTagsPopover: true,
+    disabled: true,
+    style: { width: 300 },
+    treeData: treeData4,
+    placeholder: "请选择所在地区",
+    defaultValue: [
+        ['zhejiang', 'ningbo', 'haishu'],
+        ['zhejiang', 'hangzhou', 'xihu']
+    ]
+  }
+  return (
+    <>
+      <span>disabled + maxTagCount + showRestTagsPopover</span><br /><br />
+      <Cascader {...commonProps} />
+      <br /><br />
+      <span>disabled + filterTreeNode + maxTagCount + showRestTagsPopover</span><br /><br />
+      <Cascader {...commonProps} filterTreeNode/>
+    </> 
+  )
 }

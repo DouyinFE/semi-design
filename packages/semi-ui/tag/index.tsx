@@ -9,6 +9,7 @@ import { TagProps, TagSize, TagColor, TagType } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import '@douyinfe/semi-foundation/tag/tag.scss';
 import { isString } from 'lodash';
+import cls from 'classnames';
 
 export * from './interface';
 
@@ -126,10 +127,11 @@ export default class Tag extends Component<TagProps, TagState> {
         const { visible: isVisible } = this.state;
         const clickable = onClick !== Tag.defaultProps.onClick || closable;
         // only when the Tag is clickable or closable, the value of tabIndex is allowed to be passed in. 
-        const a11yProps = { role: 'button', tabIndex: tabIndex | 0, onKeyDown: this.handleKeyDown };
+        const a11yProps = { role: 'button', tabIndex: tabIndex || 0, onKeyDown: this.handleKeyDown };
         const baseProps = {
             ...attr,
             onClick,
+            tabIndex: tabIndex,
             className: classNames(
                 prefixCls,
                 {
@@ -154,10 +156,13 @@ export default class Tag extends Component<TagProps, TagState> {
                 <IconClose size="small" />
             </div>
         ) : null;
+        const stringChild = isString(children);
+        const contentCls = cls(`${prefixCls}-content`, `${prefixCls}-content-${stringChild ? 'ellipsis' : 'center' }`);
+
         return (
-            <div aria-label={this.props['aria-label'] || isString(children) ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
+            <div aria-label={this.props['aria-label'] || stringChild ? `${closable ? 'Closable ' : ''}Tag: ${children}` : '' } {...wrapProps}>
                 {avatarSrc ? this.renderAvatar() : null}
-                <div className={`${prefixCls}-content`}>
+                <div className={contentCls}>
                     {children}
                 </div>
                 {closeIcon}

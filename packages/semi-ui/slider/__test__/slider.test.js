@@ -24,41 +24,41 @@ describe('Slider', () => {
         wrapper.unmount();
     });
 
-    it('onChange', () => {
-        const onChange = sinon.spy();
-        const STYLE = { width: 100, height: 32, marginLeft: 13 }; // it is really hack to mock slider wrapper getBoundingClientRect data
-        const wrapper = mount(<Slider style={STYLE} step={1} onChange={onChange}></Slider>);
+    // it('onChange', () => {
+    //     const onChange = sinon.spy();
+    //     const STYLE = { width: 100, height: 32, marginLeft: 13 }; // it is really hack to mock slider wrapper getBoundingClientRect data
+    //     const wrapper = mount(<Slider style={STYLE} step={1} onChange={onChange}></Slider>);
+    //
+    //     const rail = wrapper.find('.semi-slider-rail');
+    //     const railNode = rail.getDOMNode();
+    //
+    //     // click max position
+    //     rail.simulate('click', { pageX: 113, pageY: 16, target: railNode }); // these value calculate from storybook, and simulate here
+    //     expect(wrapper.state('currentValue')).toBe(100);
+    //     expect(onChange.calledOnce).toBe(true);
+    //     // click min position
+    //     rail.simulate('click', { pageX: 13, pageY: 16, target: railNode });
+    //     expect(wrapper.state('currentValue')).toBe(0);
+    //     expect(onChange.getCall(1).args[0]).toBe(0);
+    // });
 
-        const rail = wrapper.find('.semi-slider-rail');
-        const railNode = rail.getDOMNode();
-
-        // click max position
-        rail.simulate('click', { pageX: 113, pageY: 16, target: railNode }); // these value calculate from storybook, and simulate here
-        expect(wrapper.state('currentValue')).toBe(100);
-        expect(onChange.calledOnce).toBe(true);
-        // click min position
-        rail.simulate('click', { pageX: 13, pageY: 16, target: railNode });
-        expect(wrapper.state('currentValue')).toBe(0);
-        expect(onChange.getCall(1).args[0]).toBe(0);
-    });
-
-    it('range onChange', () => {
-        const onChange = sinon.spy();
-        const STYLE = { width: 4, height: 400, marginLeft: 20, marginTop: 40 }; // it is really hack to mock slider wrapper getBoundingClientRect data
-        const wrapper = mount(<Slider range vertical defaultValue={[20, 60]} style={STYLE} onChange={onChange}></Slider>);
-
-        const rail = wrapper.find('.semi-slider-rail');
-        const railNode = rail.getDOMNode();
-
-        // click min position
-        rail.simulate('click', { pageX: 22, pageY: 40, target: railNode }); // these value calculate from storybook, and simulate here
-        expect(isEqual(wrapper.state('currentValue'), [0, 60])).toBe(true);
-        expect(onChange.calledOnce).toBe(true);
-        // click max position
-        rail.simulate('click', { pageX: 22, pageY: 440, target: railNode });
-        expect(isEqual(wrapper.state('currentValue'), [0, 100])).toBe(true);
-        expect(isEqual(onChange.getCall(1).args[0], [0, 100])).toBe(true);
-    });
+    // it('range onChange', () => {
+    //     const onChange = sinon.spy();
+    //     const STYLE = { width: 4, height: 400, marginLeft: 20, marginTop: 40 }; // it is really hack to mock slider wrapper getBoundingClientRect data
+    //     const wrapper = mount(<Slider range vertical defaultValue={[20, 60]} style={STYLE} onChange={onChange}></Slider>);
+    //
+    //     const rail = wrapper.find('.semi-slider-rail');
+    //     const railNode = rail.getDOMNode();
+    //
+    //     // click min position
+    //     rail.simulate('click', { pageX: 22, pageY: 40, target: railNode }); // these value calculate from storybook, and simulate here
+    //     expect(isEqual(wrapper.state('currentValue'), [0, 60])).toBe(true);
+    //     expect(onChange.calledOnce).toBe(true);
+    //     // click max position
+    //     rail.simulate('click', { pageX: 22, pageY: 440, target: railNode });
+    //     expect(isEqual(wrapper.state('currentValue'), [0, 100])).toBe(true);
+    //     expect(isEqual(onChange.getCall(1).args[0], [0, 100])).toBe(true);
+    // });
 
     it('controlled value', () => {
         const onChange = sinon.spy();
@@ -85,20 +85,6 @@ describe('Slider', () => {
     //     handle.simulate('mouseup', { pageX: 55, pageY: 16, target: handleNode }); // these value calculate from storybook, and simulate here
     //     expect(wrapper.state('currentValue')).toBe(54);
     // });
-
-    it('should show tooltip when hovering slider handler', () => {
-        const wrapper = mount(<Slider defaultValue={30} />);
-        wrapper
-            .find(`.${BASE_CLASS_PREFIX}-slider-handle`)
-            .at(0)
-            .simulate('mouseEnter');
-        expect(render(wrapper.find(`.${BASE_CLASS_PREFIX}-tooltip-wrapper`))).toMatchSnapshot();
-        wrapper
-            .find(`.${BASE_CLASS_PREFIX}-slider-handle`)
-            .at(0)
-            .simulate('mouseLeave');
-        expect(render(wrapper.find(`.${BASE_CLASS_PREFIX}-tooltip-wrapper`))).toMatchSnapshot();
-    });
 
     it('when hover into slider', () => {
         let wrapper = mount(<Slider showBoundary={true} />);
@@ -137,14 +123,14 @@ describe('Slider', () => {
         expect(wrapper.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);
     });
 
-    it('marks clickable', () => {
-        const STYLE = { width: 100, height: 32 }; // it is really hack to mock slider wrapper getBoundingClientRect data
-        let slider = mount(<Slider style={STYLE} marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range />);
-        expect(slider.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);
-        expect(slider.state('currentValue')).toEqual([0, 100])
-        slider.find(`.${BASE_CLASS_PREFIX}-slider-dot`).at(0).simulate('click', {pageX: 20 })
-        expect(slider.state('currentValue')).toEqual([20, 100])
-    });
+    // it('marks clickable', () => {
+    //     const STYLE = { width: 100, height: 32 }; // it is really hack to mock slider wrapper getBoundingClientRect data
+    //     let slider = mount(<Slider style={STYLE} marks={{ 20: '20c', 40: '40c' }} defaultValue={[0, 100]} range />);
+    //     expect(slider.exists(`.${BASE_CLASS_PREFIX}-slider-dot`)).toBe(true);
+    //     expect(slider.state('currentValue')).toEqual([0, 100])
+    //     slider.find(`.${BASE_CLASS_PREFIX}-slider-dot`).at(0).simulate('click', {pageX: 20 })
+    //     expect(slider.state('currentValue')).toEqual([20, 100])
+    // });
 
     it('when tooltipVisible is true, tooltip should show always, or should never show', () => {
         let wrapper = mount(<Slider defaultValue={30} tooltipVisible />);

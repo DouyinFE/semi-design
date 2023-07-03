@@ -104,7 +104,7 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     get adapter(): ScrollItemAdapter<ScrollItemProps<T>, ScrollItemState, T> {
         return {
             ...super.adapter,
-            setState: (states, callback) => this.setState({ ...states }, callback),
+            setState: (states, callback) => this.setState({ ...states } as ScrollItemState, callback),
             setPrependCount: prependCount => this.setState({ prependCount }),
             setAppendCount: appendCount => this.setState({ appendCount }),
             isDisabledIndex: this.isDisabledIndex,

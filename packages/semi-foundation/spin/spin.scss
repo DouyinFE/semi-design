@@ -29,6 +29,7 @@ $module: #{$prefix}-spin;
         & > svg {
             animation: $animation_duration-spin_wrapper-spin linear infinite #{$prefix}-animation-rotate;
             animation-fill-mode: forwards;
+            vertical-align: top;
             @include size($width-spin_middle);
         }
     }

@@ -10,11 +10,10 @@ const locale: Locale = {
     code: 'es',
     dateFnsLocale: es,
     Pagination: {
-        item: 'objeto',
-        pageSize: ' objetos / página',
-        page: ' páginas',
-        total: '',
+        pageSize: 'Elementos por página: ${pageSize}',
+        total: 'Páginas totales: ${total}',
         jumpTo: 'Ir a',
+        page: ' páginas',
     },
     Modal: {
         confirm: 'Aceptar',
@@ -39,7 +38,9 @@ const locale: Locale = {
             dateTime: 'Seleccionar hora y fecha',
             dateRange: ['Fecha inicial', 'Fecha final'],
             dateTimeRange: ['Fecha inicial', 'Fecha final'],
+            monthRange: ['Mes inicial', 'Mes final'],
         },
+        presets: 'Seleccionar rango',
         footer: {
             confirm: 'Aceptar',
             cancel: 'Cancelar',
@@ -88,7 +89,7 @@ const locale: Locale = {
             Sun: 'Dom',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
         },
     },
     Popconfirm: {
@@ -152,8 +153,8 @@ const locale: Locale = {
         clear: 'Limpiar',
         selectAll: 'Seleccionar todo',
         clearSelectAll: 'Deseleccionar todo',
-        total: 'Total ${total} objetos',
-        selected: '${total} objetos seleccionados',
+        total: 'Elementos totales: ${total}',
+        selected: 'Elementos seleccionados: ${total}',
     },
     Form: {
         optional: '(opcional)',

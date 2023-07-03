@@ -15,8 +15,7 @@ export default class SwitchFoundation<P = Record<string, any>, S = Record<string
     }
 
     init(): void {
-        const { defaultChecked, checked, disabled } = this.getProps();
-        this.setChecked(defaultChecked || checked);
+        const { disabled } = this.getProps();
         this.setDisabled(disabled);
     }
 
@@ -45,7 +44,7 @@ export default class SwitchFoundation<P = Record<string, any>, S = Record<string
             if (target.matches(':focus-visible')) {
                 this._adapter.setFocusVisible(true);
             }
-        } catch (error){
+        } catch (error) {
             warning(true, 'Warning: [Semi Switch] The current browser does not support the focus-visible');
         }
     }

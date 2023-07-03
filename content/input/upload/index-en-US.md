@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 35
+order: 36
 category: Input
 title: Upload
 icon: doc-upload
@@ -494,7 +494,7 @@ import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
 
     const defaultFileList = [
         {
@@ -700,7 +700,7 @@ import { Upload } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -743,7 +743,7 @@ import { Upload, Select } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
-    let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+    let action = 'https://api.semi.design/upload';
     const defaultFileList = [
         {
             uid: '1',
@@ -858,10 +858,10 @@ class ManulUploadDemo extends React.Component {
                     <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
                         Select a document
                     </Button>
-                    <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                        Start upload
-                    </Button>
                 </Upload>
+                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
+                    Start upload
+                </Button>
             </div>
         );
     }
@@ -1166,7 +1166,7 @@ customRequest contains the following input parameters
      // Function to be called when upload error
      onError: (userXhr: {status: number }, e: event) => any,
       // The function that should be called after the upload is successful, response is the request result after the upload is successful
-     onSuccess: (response: any, e: event) => any,
+     onSuccess: (response: any, e?: event) => any,
      // props.withCredentials set by the user
      withCredentials: boolean,
      // props.action set by the user

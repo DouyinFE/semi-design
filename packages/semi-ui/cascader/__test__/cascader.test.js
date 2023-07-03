@@ -1353,4 +1353,20 @@ describe('Cascader', () => {
         ).toEqual('亚洲');
         cascader4.unmount();
     });
+
+    it('ref method', () => {
+        let r;
+        let props = {
+            ref: (ref) => { r = ref },
+            filter: true,
+            multiple: true,
+        };
+
+        let select = render(props);
+        r.open();
+        expect(select.state().isOpen).toEqual(true);
+
+        r.close();
+        expect(select.state().isOpen).toEqual(false);
+    });
 });

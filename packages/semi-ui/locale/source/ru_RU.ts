@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
     Pagination: {
-        item: 'элемент',
-        pageSize: 'элементов / страницы',
-        page: ' страницы',
-        total: 'общее',
-        jumpTo: 'Прыгать в'
+        pageSize: 'Позиции на странице: ${pageSize}',
+        total: 'Всего страниц: ${total}',
+        jumpTo: 'Прыгать в',
+        page: ' страницы'
     },
     Modal: {
         confirm: 'подтвердить',
@@ -37,7 +36,9 @@ const local: Locale = {
             dateTime: 'Выбрать дату и время',
             dateRange: ['Дата начала', 'Дата окончания'],
             dateTimeRange: ['Дата начала', 'Дата окончания'],
+            monthRange: ['Начальный месяц', 'Конечный месяц'],
         },
+        presets: 'Быстрый выбор',
         footer: {
             confirm: 'подтвердить',
             cancel: 'отмена',
@@ -86,7 +87,7 @@ const local: Locale = {
             Sun: 'Солнце',
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Popconfirm: {
@@ -120,7 +121,7 @@ const local: Locale = {
         AM: '${time} утро',
         PM: '${time} после',
         datestring: '',
-        remaining: '${remained} еще',
+        remaining: 'ставшееся количество: ${remained} ',
     },
     Upload: {
         mainText: 'Нажмите, чтобы загрузить файл или перетащите файл сюда',
@@ -150,8 +151,8 @@ const local: Locale = {
         clear: 'Очистить',
         selectAll: 'Выбрать все',
         clearSelectAll: 'Снять выделение',
-        total: 'Всего ${total} элементов',
-        selected: 'Выбрано ${total} элементов',
+        total: 'Всего позиций: ${total}',
+        selected: 'Выбранные позиции: ${total}',
     },
     Form: {
         optional: '(по желанию)',

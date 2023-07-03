@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title:  InputNumber
 subTitle: InputNumber
@@ -215,7 +215,7 @@ function Demo () {
 | min          | Limit minimum value                                                                             | number                            | -Infinity |            |
 | parser       | Specifies how to convert back number string from formatter and use them in conjunction with formatter | (value: string) => string         | -         |      |
 | precision    | Numerical precision                                                                             | number                            | -         |            |
-| prefixCls    | Prefix content                                                                                  | string\|ReactNode                 |           |            |
+| prefix    | Prefix content                                                                                  | string\|ReactNode                 |           |            |
 | pressInterval| How often will the click event be triggered when the button is long pressed, in milliseconds                                   | number                 |   250        |           |
 | pressTimeout | When the button is long pressed, how long will the click event be triggered after the delay, in milliseconds                                               | number                 |     250      |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |

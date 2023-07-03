@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 导航类
 title:  Pagination 翻页器
 icon: doc-pagination
@@ -34,11 +34,24 @@ import { Pagination } from '@douyinfe/semi-ui';
 );
 ```
 
+### 禁用
+
+通过 `disabled` 设置禁用
+
+```jsx live=true width=60%
+import React from 'react';
+import { Pagination } from '@douyinfe/semi-ui';
+
+() => (
+    <Pagination total={30} disabled style={{ marginBottom: 12 }}></Pagination>
+);
+```
+
 ### 总页数显示
 
 通过 `showTotal` 属性控制是否展示总页数
 
-```jsx live=true width=60%
+```jsx live=true width=55%
 import React from 'react';
 import { Pagination } from '@douyinfe/semi-ui';
 
@@ -54,7 +67,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 
 可以通过 `defaultCurrentPage` 指定当前激活的页码
 
-```jsx live=true width=60%
+```jsx live=true width=55%
 import React from 'react';
 import { Pagination } from '@douyinfe/semi-ui';
 
@@ -177,6 +190,7 @@ import { Pagination } from '@douyinfe/semi-ui';
 | className          | 类名                                                                              | string                                          |                     |
 | currentPage        | 当前页码                                                                          | number                                          |                     |
 | defaultCurrentPage | 默认的当前页码                                                                    | number                                          |                     |
+| disabled           | 禁用                                                                             | boolean                                         |false                  | 2.37.0
 | hideOnSinglePage   | 总页数小于 2 时，是否自动隐藏分页器，当 showSizeChanger 为true时，此开关不再生效           | boolean                                            | false               |
 | hoverShowPageSelect  | hover 页码时是否展示切换页数的Select控件，仅当 size = 'small'时生效  | boolean             | false               | 1.27.0|
 | nextText           | 下一页文本                                                                        | string\|ReactNode                               |                     |

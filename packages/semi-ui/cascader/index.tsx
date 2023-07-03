@@ -23,7 +23,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import Input from '../input/index';
 import Popover, { PopoverProps } from '../popover/index';
-import Item, { CascaderData, Entities, Entity, Data } from './item';
+import Item, { CascaderData, Entities, Entity, Data, FilterRenderProps } from './item';
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
@@ -31,7 +31,7 @@ import { isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
 export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
-export type { CascaderData, Entity, Data, CascaderItemProps } from './item';
+export type { CascaderData, Entity, Data, CascaderItemProps, FilterRenderProps } from './item';
 
 export interface ScrollPanelProps extends BasicScrollPanelProps {
     activeNode: CascaderData
@@ -62,6 +62,9 @@ export interface CascaderProps extends BasicCascaderProps {
     dropdownMargin?: PopoverProps['margin'];
     emptyContent?: ReactNode;
     motion?: boolean;
+    filterTreeNode?: ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) | boolean;
+    filterSorter?: (first: CascaderData, second: CascaderData, inputValue: string) => number;
+    filterRender?: (props: FilterRenderProps) => ReactNode;
     treeData?: Array<CascaderData>;
     restTagsPopoverProps?: PopoverProps;
     children?: React.ReactNode;
@@ -106,6 +109,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         'aria-required': PropTypes.bool,
         'aria-label': PropTypes.string,
         arrowIcon: PropTypes.node,
+        borderless: PropTypes.bool,
         clearIcon: PropTypes.node,
         changeOnSelect: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -178,6 +182,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     static defaultProps = {
+        borderless: false,
         leafOnly: false,
         arrowIcon: <IconChevronDown />,
         stopPropagation: true,
@@ -267,7 +272,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     get adapter(): CascaderAdapter {
-        const filterAdapter: Pick<CascaderAdapter, 'updateInputValue' | 'updateInputPlaceHolder' | 'focusInput'> = {
+        const filterAdapter: Pick<CascaderAdapter, 'updateInputValue' | 'updateInputPlaceHolder' | 'focusInput' | 'blurInput'> = {
             updateInputValue: value => {
                 this.setState({ inputValue: value });
             },
@@ -279,6 +284,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (this.inputRef && this.inputRef.current) {
                     // TODO: check the reason
                     (this.inputRef.current as any).focus({ preventScroll });
+                }
+            },
+            blurInput: () => {
+                if (this.inputRef && this.inputRef.current) {
+                    (this.inputRef.current as any).blur();
                 }
             },
         };
@@ -496,6 +506,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleTagRemove(e, tagValuePath);
     };
 
+    handleRemoveByKey = (key) => {
+        const { keyEntities } = this.state;
+        this.handleTagRemove(null, keyEntities[key].valuePath);
+    }
+
     renderTagItem = (value: string | Array<string>, idx: number, type: string) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
@@ -577,6 +592,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         };
         const wrappercls = cls({
             [`${prefixcls}-search-wrapper`]: true,
+            [`${prefixcls}-search-wrapper-${size}`]: size !== 'default',
         });
 
         const displayText = this.renderDisplayText();
@@ -610,6 +626,22 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleListScroll(e, ind);
     };
 
+    close() {
+        this.foundation.close();
+    }
+
+    open() {
+        this.foundation.open();
+    }
+
+    focus() {
+        this.foundation.focus();
+    }
+
+    blur() {
+        this.foundation.blur();
+    }
+
     renderContent = () => {
         const {
             inputValue,
@@ -632,6 +664,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             bottomSlot,
             showNext,
             multiple,
+            filterRender
         } = this.props;
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
@@ -658,6 +691,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     multiple={multiple}
                     checkedKeys={checkedKeys}
                     halfCheckedKeys={halfCheckedKeys}
+                    filterRender={filterRender}
                 />
                 {bottomSlot}
             </div>
@@ -671,7 +705,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             [`${prefixcls}-selection-n-disabled`]: disabled,
         });
         const renderPlusNChildren = <span className={plusNCls}>+{hiddenTag.length}</span>;
-        return showRestTagsPopover && !disabled ? (
+        return showRestTagsPopover ? (
             <Popover
                 content={hiddenTag}
                 showArrow
@@ -740,6 +774,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { placeholder, filterTreeNode, multiple } = this.props;
         const { checkedKeys } = this.state;
         const searchable = Boolean(filterTreeNode);
+
         if (!searchable) {
             if (multiple) {
                 if (isEmpty(checkedKeys)) {
@@ -815,6 +850,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 triggerRender={triggerRender}
                 componentName={'Cascader'}
                 componentProps={{ ...this.props }}
+                onSearch={this.handleInputChange}
+                onRemove={this.handleRemoveByKey}
             />
         );
     };
@@ -899,6 +936,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             triggerRender,
             showClear,
             id,
+            borderless,
         } = this.props;
         const { isOpen, isFocus, isInput, checkedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -906,6 +944,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const classNames = useCustomTrigger ?
             cls(className) :
             cls(prefixcls, className, {
+                [`${prefixcls}-borderless`]: borderless,
                 [`${prefixcls}-focus`]: isFocus || (isOpen && !isInput),
                 [`${prefixcls}-disabled`]: disabled,
                 [`${prefixcls}-single`]: true,
@@ -959,6 +998,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"
                 tabIndex={0}
+                {...this.getDataAttr(this.props)}
             >
                 {inner}
             </div>

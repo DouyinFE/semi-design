@@ -3,7 +3,7 @@ category: Getting Started
 title: Content Guidelines
 icon: doc-contentguidelines
 localeCode: en-US
-order: 6
+order: 9
 brief: We are all keen to use Semi to create products that users like, and copywriting is the most direct communication method between products and users, and outputting correct and consistent copywriting is an indispensable part of product design.
 ---
 

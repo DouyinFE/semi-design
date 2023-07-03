@@ -7,12 +7,12 @@ import { get, noop, set, omit, isEqual, merge } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation/table/cellFoundation';
-import { isSelectionColumn, isExpandedColumn } from '@douyinfe/semi-foundation/table/utils';
+import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Context, { TableContextProps } from './table-context';
 import { amendTableWidth } from './utils';
-import { Align, ColumnProps, ExpandIcon } from './interface';
+import { ColumnProps, ExpandIcon } from './interface';
 
 export interface TableCellProps extends BaseProps {
     record?: Record<string, any>;
@@ -174,14 +174,16 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
 
         let tdProps: { style?: Partial<React.CSSProperties> } = {};
         let customCellProps = {};
+        const { direction } = this.context;
+        const isRTL = direction === 'rtl';
 
         const fixedLeftFlag = fixedLeft || typeof fixedLeft === 'number';
         const fixedRightFlag = fixedRight || typeof fixedRight === 'number';
 
         if (fixedLeftFlag) {
-            set(tdProps, 'style.left', typeof fixedLeft === 'number' ? fixedLeft : 0);
+            set(tdProps, isRTL ? 'style.right' : 'style.left', typeof fixedLeft === 'number' ? fixedLeft : 0);
         } else if (fixedRightFlag) {
-            set(tdProps, 'style.right', typeof fixedRight === 'number' ? fixedRight : 0);
+            set(tdProps, isRTL ? 'style.left' : 'style.right', typeof fixedRight === 'number' ? fixedRight : 0);
         }
 
         if (width != null) {
@@ -201,7 +203,8 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         }
 
         if (column.align) {
-            tdProps.style = { ...tdProps.style, textAlign: column.align as Align };
+            const textAlign = getRTLAlign(column.align, direction);
+            tdProps.style = { ...tdProps.style, textAlign };
         }
 
         return { tdProps, customCellProps };
@@ -320,7 +323,9 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
             firstFixedRight,
             colIndex
         } = this.props;
-        const { className } = column;
+        const { direction } = this.context;
+        const isRTL = direction === 'rtl';
+        const { className, ellipsis } = column;
         const fixedLeftFlag = fixedLeft || typeof fixedLeft === 'number';
         const fixedRightFlag = fixedRight || typeof fixedRight === 'number';
         const { tdProps, customCellProps } = this.getTdProps();
@@ -328,6 +333,15 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         const renderTextResult = this.renderText(tdProps);
         let { text } = renderTextResult;
         const { indentText, rowSpan, colSpan, realExpandIcon, tdProps: newTdProps } = renderTextResult;
+
+        let title: string;
+
+        const shouldShowTitle = shouldShowEllipsisTitle(ellipsis);
+        if (shouldShowTitle) {
+            if (typeof text === 'string') {
+                title = text;
+            }
+        }
 
         if (rowSpan === 0 || colSpan === 0) {
             return null;
@@ -339,15 +353,30 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
 
         const inner = this.renderInner(text, indentText, realExpandIcon);
 
+        let isFixedLeft, isFixedLeftLast, isFixedRight, isFixedRightFirst;
+
+        if (isRTL) {
+            isFixedLeft = fixedRightFlag;
+            isFixedLeftLast = firstFixedRight;
+            isFixedRight = fixedLeftFlag;
+            isFixedRightFirst = lastFixedLeft;
+        } else {
+            isFixedLeft = fixedLeftFlag;
+            isFixedLeftLast = lastFixedLeft;
+            isFixedRight = fixedRightFlag;
+            isFixedRightFirst = firstFixedRight;
+        }
+
         const columnCls = classnames(
             className,
             `${prefixCls}-row-cell`,
             get(customCellProps, 'className'),
             {
-                [`${prefixCls}-cell-fixed-left`]: fixedLeftFlag,
-                [`${prefixCls}-cell-fixed-left-last`]: lastFixedLeft,
-                [`${prefixCls}-cell-fixed-right`]: fixedRightFlag,
-                [`${prefixCls}-cell-fixed-right-first`]: firstFixedRight,
+                [`${prefixCls}-cell-fixed-left`]: isFixedLeft,
+                [`${prefixCls}-cell-fixed-left-last`]: isFixedLeftLast,
+                [`${prefixCls}-cell-fixed-right`]: isFixedRight,
+                [`${prefixCls}-cell-fixed-right-first`]: isFixedRightFirst,
+                [`${prefixCls}-row-cell-ellipsis`]: ellipsis,
             }
         );
 
@@ -357,6 +386,7 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
                 aria-colindex={colIndex + 1}
                 className={columnCls}
                 onClick={this.handleClick}
+                title={title}
                 {...newTdProps}
                 ref={this.setRef}
             >

@@ -22,7 +22,7 @@ module.exports = function getWebpackConfig({ minimize }){
             rules: [
                 { 
                     test: /\.css$/, 
-                    loaders: [
+                    use: [
                         {
                             loader: MiniCssExtractPlugin.loader
                         },
@@ -43,7 +43,7 @@ module.exports = function getWebpackConfig({ minimize }){
                 'process.env': { NODE_ENV: '"production"' }
             }),
             new CaseSensitivePathsPlugin(),
-            new webpack.HashedModuleIdsPlugin(),
+            new webpack.ids.HashedModuleIdsPlugin(),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional

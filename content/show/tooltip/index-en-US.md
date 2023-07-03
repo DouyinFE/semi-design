@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 65
+order: 66
 category: Show
 title: Tooltip
 subTitle: Tooltip
@@ -330,35 +330,36 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 
 ---
 
-| Properties | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked | boolean | true |  |
-| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time | boolean | true | **0.34.0** |
-| className | Pop-up layer classname | string |  |  |
-| content | Pop-up layer content | string | ReactNode |  |
-| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside | boolean | false | **0.24.0** |
-| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
-| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM | () => HTMLElement | () => document.body |
-| margin | Calculate the added redundancy value when overflowing, see [issue#549](https://github.com/DouyinFE/semi-design/issues/549) | number ｜ { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number } | 0 |  **2.23.0**|
-| mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus) | number | 50 |  |
-| mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus), and is not less than mouseEnterDelay | number | 50 |  |
-| motion | Whether to show the pop-up motion | boolean | true |  |
-| position | Pop-up layer display position, optional value: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight` | string | 'top' |  |
-| prefixCls | The `className` prefix of the pop-up layer wrapper div. When this item is set, the pop-up layer will no longer have the style of Tooltip. | string | 'semi-tooltip ' |  |
-| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| rePosKey | This value can be updated to manually trigger the repositioning of the pop-up layer. | string | number |  |
-| style | Pop-up layer inline style | object |  |  |
-| spacing | The distance between the pop-up layer and the `children` element | number |  |  |
-| showArrow | Does it show an arrow triangle? | boolean | true |  |
-| stopPropagation | Whether to prevent click events on the bomb layer from bubbling | boolean | false | **0.34.0** |
+| Properties | Instructions                                                                                                                                                                                                                | Type | Default | Version |
+| --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                                                           | boolean | true |  |
+| arrowPointAtCenter | Whether the "small triangle" points to the center of the element, you need to pass in "showArrow = true" at the same time                                                                                                   | boolean | true | **0.34.0** |
+| className | Pop-up layer classname                                                                                                                                                                                                      | string |  |  |
+| content | Pop-up layer content                                                                                                                                                                                                        | string | ReactNode |  |
+| clickToHide | Whether to automatically close the elastic layer when clicking on the floating layer and any element inside                                                                                                                 | boolean | false | **0.24.0** |
+| disableFocusListener | When trigger is `hover`, does not respond to the keyboard focus popup event, see details at [issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                                 | boolean | false | **2.17.0** |
+| getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM  This will change the DOM tree position, but not the view's rendering position.                                                                                                                                                  | () => HTMLElement | () => document.body |
+| keepDOM | Whether to keep internal components from being destroyed when closing                                                                                                                                                       | boolean | false | **2.31.0** |
+| margin | Calculate the added redundancy value when overflowing, see [issue#549](https://github.com/DouyinFE/semi-design/issues/549)                                                                                                  | number ｜ { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number } | 0 |  **2.23.0**|
+| mouseEnterDelay | After the mouse is moved in, the display delay time, in milliseconds (only effective when the trigger is hover/focus)                                                                                                       | number | 50 |  |
+| mouseLeaveDelay | The time for the delay to disappear after the mouse is moved out, in milliseconds (only effective when the trigger is hover/focus), and is not less than mouseEnterDelay                                                    | number | 50 |  |
+| motion | Whether to show the pop-up motion                                                                                                                                                                                           | boolean | true |  |
+| position | Pop-up layer display position, optional value: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight`                                     | string | 'top' |  |
+| prefixCls | The `className` prefix of the pop-up layer wrapper div. When this item is set, the pop-up layer will no longer have the style of Tooltip.                                                                                   | string | 'semi-tooltip ' |  |
+| preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                               | boolean |  |  |
+| rePosKey | This value can be updated to manually trigger the repositioning of the pop-up layer.                                                                                                                                        | string | number |  |
+| style | Pop-up layer inline style                                                                                                                                                                                                   | object |  |  |
+| spacing | The distance between the pop-up layer and the `children` element                                                                                                                                                            | number |  |  |
+| showArrow | Does it show an arrow triangle?                                                                                                                                                                                             | boolean | true |  |
+| stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                             | boolean | false | **0.34.0** |
 | transformFromCenter | Whether to transform from the horizontal or vertical center of the element of the package, this parameter affects only the `tansform-origin 'of the dynamic effect transformation and generally does not need to be changed | boolean | true |
-| trigger | Timing of triggering display, optional value: `hover`/`focus`/`click`/`custom` | string | 'hover' |  |
-| visible | Whether to show the pop-up layer | boolean |  |  |
-| wrapperClassName | When children are disabled or children are multiple elements, the outer layer will wrap a layer of span elements, and the api is used to set the style class name of this span | string |  | 1.32.0 |
-| wrapperId | The id of the wrapper node of the popup layer. The aria attribute of the trigger points to this id. | string |  | 2.11.0  |
-| zIndex              | Bullet levels.           | number                      | 1060                |            |
-| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                                               | (isVisible: boolean) => void |                     |            |
-| onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                                             | (e:event) => void           |                     | **2.1.0** |
+| trigger | Timing of triggering display, optional value: `hover`/`focus`/`click`/`custom`                                                                                                                                              | string | 'hover' |  |
+| visible | Whether to show the pop-up layer                                                                                                                                                                                            | boolean |  |  |
+| wrapperClassName | When children are disabled or children are multiple elements, the outer layer will wrap a layer of span elements, and the api is used to set the style class name of this span                                              | string |  | 1.32.0 |
+| wrapperId | The id of the wrapper node of the popup layer. The aria attribute of the trigger points to this id.                                                                                                                         | string |  | 2.11.0  |
+| zIndex              | Bullet levels.                                                                                                                                                                                                              | number                      | 1060                |            |
+| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden                                                                                                                                                              | (isVisible: boolean) => void |                     |            |
+| onClickOutSide      | Callback when the pop-up layer is in the display state and the non-Children, non-floating layer inner area is clicked (only valid when trigger is custom, click)                                                            | (e:event) => void           |                     | **2.1.0** |
 
 
 ## Accessibility
@@ -393,12 +394,13 @@ import { Popconfirm, Tooltip, Button } from '@douyinfe/semi-ui';
 <DesignToken/>
 
 ## FAQ
-
--   **Why Tooltip does not set style word-break to all or word?**  
-    Content in difference languages (e.g. English, Chinese, combination of English and Chinese) may require different styles in terms of word-break, so Semi does not use a default setting. You could use corresponding CSS styles to your own needs.
+-   **Why do some forms of content not wrap when the content in Tooltip and Typography is very long?**    
+    Before the v2.36.0 version, considering that different language content (e.g. English, Chinese, combination of English and Chinese) have inconsistent requirements for line breaks, so Semi does not use a default setting. After receiving a lot of usage feedback, since the v2.36.0 version, Tooltip has internally set <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a> handles text wrapping for break-word. For any version, if the default settings are not as expected, the user can adjust the line break related CSS properties through the style/className API.
 
 <!-- ## Related Material
 
 ```material
 41
 ``` -->
+## Related Material
+<semi-material-list code="41"></semi-material-list>

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 62
+order: 63
 category: Show
 title: Table
 subTitle: Table
@@ -810,9 +810,9 @@ render(App);
 
 You can fix the column by setting the Fixed attribute of the column and scroll.x, and fix the header by setting scroll.y.
 
+> -   It is recommended to specify scroll.x as a **fixed value** or percentage greater than the width of the table. If it is a fixed value, set it to >= the sum of all fixed column widths + the sum of all table column widths.
 > -   Make sure that all elements inside the table do not affect the height of the cells after rendering (e.g. containing unloaded pictures, etc.). In this case, give the stator element a definite height to ensure that the left and right Fixed columns of cells are not deranged.
-> -   If the column header is not aligned with the content or there is a column duplication, specify the width width of the fixed column. If the specified width is not effective, try to recommend leaving a column with no width to accommodate the elastic layout, or check for ultra-long continuous fields to destroy the layout.
-> -   It is recommended to specify scroll.x as a **fixed value** or percentage greater than the width of the table. It is recommended to set a fixed value of `>= the sum of all fixed column widths + the sum of all table column widths`.
+> -   If the column header is not aligned with the content or there is a column duplication or when the fixed column fails, specify the width width of the fixed column, if still not effective, try to recommend leaving a column with no width to accommodate the elastic layout, or check for ultra-long continuous fields to destroy the layout.
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -2576,6 +2576,238 @@ function App() {
     };
 
     return <Table columns={columns} dataSource={data} onRow={handleRow} pagination={false} />;
+}
+
+render(App);
+```
+
+### Column Ellipsis
+
+Use `ellipsis` to make cells automatically clipped. v2.34.0 support.
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            width: 200,
+            ellipsis: true,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Update time',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
+Set `ellipsis.showTitle` to false to hide the default native HTML title. With `column.render` you can customize the content prompt.
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table, Typography } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            width: 200,
+            filters: [
+                {
+                    text: 'Semi Design',
+                    value: 'Semi Design',
+                },
+                {
+                    text: 'Semi Pro',
+                    value: 'Semi Pro',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: 'Update time',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Maintained by the Douyin front-end and UED teams, an easy-to-customize modern design system that helps designers and developers create high-quality products.',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: 'Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao Xuan Hao',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
 }
 
 render(App);
@@ -4751,6 +4983,8 @@ import { Table } from '@douyinfe/semi-ui';
 | dataIndex | The key corresponding to the column data in the data item. It is required when using sorter or filter. | string |  |
 | defaultFilteredValue | Default value of the filter, the filter state of the external control column with a value of the screened value array | any[] |  | **2.5.0** |
 | defaultSortOrder | The default value of sortOrder, one of 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| direction | RTL, LTR direction, the default value is equal to ConfigProvider direction, you can configure the direction of the Table separately here | 'ltr' \| 'rtl' |  | **2.31.0** |
+| ellipsis | Ellipsis Text, table-layout will automatically switch to fixed after it is turned on | boolean\| { showTitle: boolean } | false | **2.34.0** |
 | filterChildrenRecord | Whether the child data needs to be filtered locally. If this function is enabled, if the child meets the filtering criteria, the parent will retain it even if it does not meet the criteria. | boolean |  | **0.29.0** |
 | filterDropdown | You can customize the filter menu. This function is only responsible for rendering the layer and needs to write a variety of interactions. | ReactNode |  |
 | filterDropdownProps | Props passing to Dropdown, see more in [Dropdown API](/en-US/show/dropdown#Dropdown) | object |  |
@@ -4766,11 +5000,11 @@ import { Table } from '@douyinfe/semi-ui';
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
-| title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function type requires **0.34.0** |
-| useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details | boolean | false | **0.34.0** |
+| title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
+| useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |
 | onCell | Set cell properties | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | Determine the running function of the filter in local mode | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilter | Determine the running function of the filter in local mode | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | A callback when a custom filter menu is visible | (visible: boolean) => void |  |
 | onHeaderCell | Set the head cell property | (column: RecordType, columnIndex: number) => object |  |
 
@@ -4796,7 +5030,6 @@ type Filter = {
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
-| title | Custom List Selection Box Title | string | ReactNode |  |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
@@ -4886,6 +5119,12 @@ function Demo() {
 -   Expandable table rows have the aria-expanded attribute, indicating whether the current row is expanded
 -   The new aria-colindex of the cell indicates which column the current grid belongs to, and the first column is 1
 -   Added aria-label to column filter and sort buttons, and added aria-label attribute to row select buttons
+
+## RTL/LTR
+
+- RTL default value of Table is controlled by [ConfigProvider](/zh-CN/other/configprovider)
+- The align and fixed properties of the Table column will be automatically switched in RTL, left <-> right. The RTL function of fixed columns is supported in v2.31
+- Table tree data does not support RTL ([Chrome and Safari browsers behave differently from Firefox](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx ))
 
 ## Content Guidelines
 

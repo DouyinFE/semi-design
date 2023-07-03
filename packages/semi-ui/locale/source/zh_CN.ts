@@ -5,11 +5,10 @@ const local: Locale = {
     code: 'zh-CN',
     dateFnsLocale: zhCN, // locale code to dateFns locale
     Pagination: {
-        item: '条',
+        pageSize: '每页条数：${pageSize}',
+        total: '总页数：${total}',
+        jumpTo: '跳至',
         page: '页',
-        pageSize: '条/页',
-        total: '共',
-        jumpTo: '跳至'
     },
     Modal: {
         confirm: '确定',
@@ -34,7 +33,9 @@ const local: Locale = {
             dateTime: '请选择日期及时间',
             dateRange: ['开始日期', '结束日期'],
             dateTimeRange: ['开始日期', '结束日期'],
+            monthRange: ['开始月份', '结束月份'],
         },
+        presets: '快捷选择',
         footer: {
             confirm: '确定',
             cancel: '取消',
@@ -148,8 +149,8 @@ const local: Locale = {
         clear: '清空',
         selectAll: '全选',
         clearSelectAll: '取消全选',
-        total: '共 ${total} 项',
-        selected: '已选 ${total} 项',
+        total: '总个数：${total}',
+        selected: '已选个数：${total}',
     },
     Form: {
         optional: '（可选）',

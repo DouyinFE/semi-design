@@ -38,7 +38,7 @@ export type MonthsGridState = MonthsGridFoundationState;
 export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGridState> {
     static propTypes = {
         type: PropTypes.oneOf(strings.TYPE_SET),
-        defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object, PropTypes.array]),
+        defaultValue: PropTypes.array,
         defaultPickerValue: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,
@@ -499,7 +499,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderYearAndMonth(panelType: PanelType, panelDetail: MonthInfo) {
         const { pickerDate } = panelDetail;
-        const { locale, localeCode, density, yearAndMonthOpts } = this.props;
+        const { locale, localeCode, density, yearAndMonthOpts, startYear, endYear } = this.props;
         const y = pickerDate.getFullYear();
         const m = pickerDate.getMonth() + 1;
         return (
@@ -507,10 +507,12 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 ref={current => this.cacheRefCurrent(`yam-${panelType}`, current)}
                 locale={locale}
                 localeCode={localeCode}
-                currentYear={y}
-                currentMonth={m}
+                // currentYear={y}
+                // currentMonth={m}
+                currentYear={{ left: y, right: 0 }}
+                currentMonth={{ left: m, right: 0 }}
                 onSelect={item =>
-                    this.foundation.toYearMonth(panelType, new Date(item.currentYear, item.currentMonth - 1))
+                    this.foundation.toYearMonth(panelType, new Date(item.currentYear.left, item.currentMonth.left - 1))
                 }
                 onBackToMain={() => {
                     this.foundation.showDatePanel(panelType);
@@ -521,6 +523,8 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 }}
                 density={density}
                 yearAndMonthOpts={yearAndMonthOpts}
+                startYear={startYear}
+                endYear={endYear}
             />
         );
     }

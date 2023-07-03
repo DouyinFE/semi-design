@@ -24,17 +24,18 @@ import {
     isNull,
     difference,
     isFunction,
-    isObject
+    isObject,
+    isPlainObject
 } from 'lodash';
 
 import {
     mergeQueries,
     equalWith,
-    mergeColumns,
     isAnyFixedRight,
     assignColumnKeys,
     flattenColumns,
-    getAllDisabledRowKeys
+    getAllDisabledRowKeys,
+    shouldShowEllipsisTitle
 } from '@douyinfe/semi-foundation/table/utils';
 import Store from '@douyinfe/semi-foundation/utils/Store';
 import TableFoundation, { TableAdapter, BasePageData, BaseRowKeyType, BaseHeadWidth } from '@douyinfe/semi-foundation/table/foundation';
@@ -56,7 +57,7 @@ import ColumnSorter from './ColumnSorter';
 import ExpandedIcon from './CustomExpandIcon';
 import HeadTable, { HeadTableProps } from './HeadTable';
 import BodyTable, { BodyProps } from './Body';
-import { measureScrollbar, logger, cloneDeep, mergeComponents } from './utils';
+import { logger, cloneDeep, mergeComponents, mergeColumns } from './utils';
 import {
     ColumnProps,
     TablePaginationProps,
@@ -73,6 +74,7 @@ import {
     Data
 } from './interface';
 import { ArrayElement } from '../_base/base';
+import ConfigContext from '../configProvider/context';
 
 export type NormalTableProps<RecordType extends Record<string, any> = Data> = Omit<TableProps<RecordType>, 'resizable'>;
 
@@ -95,7 +97,15 @@ export interface NormalTableState<RecordType extends Record<string, any> = Data>
     bodyHasScrollBar?: boolean;
     prePropRowSelection?: TableStateRowSelection<RecordType>;
     tableWidth?: number;
-    prePagination?: Pagination
+    prePagination?: Pagination;
+    /**
+    * Disabled row keys in sorted and filtered data
+    */
+    allDisabledRowKeys?: BaseRowKeyType[];
+    /**
+     * Disabled row keys set in sorted and filtered data
+     */
+    allDisabledRowKeysSet?: Set<BaseRowKeyType>
 }
 
 export type TableStateRowSelection<RecordType extends Record<string, any> = Data> = (RowSelectionProps<RecordType> & { selectedRowKeysSet?: Set<(string | number)> }) | boolean;
@@ -243,11 +253,17 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 this.cachedFilteredSortedRowKeys = filteredSortedRowKeys;
                 this.cachedFilteredSortedRowKeysSet = new Set(filteredSortedRowKeys);
             },
+            setAllDisabledRowKeys: allDisabledRowKeys => {
+                const allDisabledRowKeysSet = new Set(allDisabledRowKeys);
+                this.setState({ allDisabledRowKeys, allDisabledRowKeysSet });
+            },
             getCurrentPage: () => get(this.state, 'pagination.currentPage', 1),
             getCurrentPageSize: () => get(this.state, 'pagination.pageSize', numbers.DEFAULT_PAGE_SIZE),
             getCachedFilteredSortedDataSource: () => this.cachedFilteredSortedDataSource,
             getCachedFilteredSortedRowKeys: () => this.cachedFilteredSortedRowKeys,
             getCachedFilteredSortedRowKeysSet: () => this.cachedFilteredSortedRowKeysSet,
+            getAllDisabledRowKeys: () => this.state.allDisabledRowKeys,
+            getAllDisabledRowKeysSet: () => this.state.allDisabledRowKeysSet,
             notifyFilterDropdownVisibleChange: (visible, dataIndex) =>
                 this._invokeColumnFn(dataIndex, 'onFilterDropdownVisibleChange', visible),
             notifyChange: (...args) => this.props.onChange(...args),
@@ -271,6 +287,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 }
 
                 return false;
+            },
+            getTableLayout: () => {
+                let isFixed = false;
+                const { flattenColumns } = this.state;
+
+                if (Array.isArray(flattenColumns)) {
+                    isFixed = flattenColumns.some(column => (Boolean(column.ellipsis) || Boolean(column.fixed)));
+                }
+
+                return isFixed ? 'fixed' : 'auto';
             },
             setHeadWidths: (headWidths: Array<BaseHeadWidth>, index = 0) => {
                 if (!equalWith(this.state.headWidths[index], headWidths)) {
@@ -380,6 +406,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const columns = this.getColumns(props.columns, props.children);
         const cachedflattenColumns = flattenColumns(columns);
         const queries = TableFoundation.initColumnsFilteredValueAndSorterOrder(cloneDeep(cachedflattenColumns));
+        const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(this.props.dataSource, queries);
+        const newPagination = isPlainObject(this.props.pagination) ? this.props.pagination : {} as any;
+        const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(filteredSortedDataSource, newPagination, queries);
         this.state = {
             /**
              * Cached props
@@ -393,15 +422,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
              * State calculated based on prop
              */
             queries, // flatten columns, update when sorting or filtering
-            dataSource: [], // data after paging
+            dataSource: pageData.dataSource, // data after paging
             flattenData: [],
             expandedRowKeys: [...(props.expandedRowKeys || []), ...(props.defaultExpandedRowKeys || [])], // cached expandedRowKeys
             rowSelection: props.rowSelection ? isObject(props.rowSelection) ? { ...props.rowSelection } : {} : null,
-            pagination:
-                props.pagination && typeof props.pagination === 'object' ?
-                    { ...props.pagination } :
-                    props.pagination || false,
-
+            pagination: pageData.pagination,
             /**
              * Internal state
              */
@@ -409,6 +434,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             allRowKeys: [], // row keys after paging
             disabledRowKeys: [], // disabled row keys after paging
             disabledRowKeysSet: new Set(),
+            allDisabledRowKeys: [],
+            allDisabledRowKeysSet: new Set(),
             headWidths: [], // header cell width
             bodyHasScrollBar: false,
             prePropRowSelection: undefined,
@@ -470,8 +497,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // The return value of getCheckboxProps affects the disabled rows
             if (isFunction(getCheckboxProps)) {
                 const disabledRowKeys = getAllDisabledRowKeys({ dataSource, getCheckboxProps, childrenRecordName, rowKey });
+                const disabledRowKeysSet = new Set(disabledRowKeys);
                 willUpdateStates.disabledRowKeys = disabledRowKeys;
-                willUpdateStates.disabledRowKeysSet = new Set(disabledRowKeys);
+                willUpdateStates.disabledRowKeysSet = disabledRowKeysSet;
+                willUpdateStates.allDisabledRowKeys = disabledRowKeys;
+                willUpdateStates.allDisabledRowKeysSet = disabledRowKeysSet;
             }
             willUpdateStates.rowSelection = newSelectionStates;
             willUpdateStates.prePropRowSelection = rowSelection;
@@ -566,7 +596,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             // Temporarily use _dataSource=[...dataSource] for processing
             const _dataSource = [...dataSource];
             const filteredSortedDataSource = this.foundation.getFilteredSortedDataSource(_dataSource, stateQueries);
+            const allDataDisabledRowKeys = this.foundation.getAllDisabledRowKeys(filteredSortedDataSource);
             this.foundation.setCachedFilteredSortedDataSource(filteredSortedDataSource);
+            this.foundation.setAllDisabledRowKeys(allDataDisabledRowKeys);
             states.dataSource = filteredSortedDataSource;
 
             if (this.props.groupBy) {
@@ -790,8 +822,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const node = this.bodyWrapRef.current;
         if (node && node.children && node.children.length) {
             const scrollToLeft = node.scrollLeft === 0;
+            // why use Math.abs? @see https://bugzilla.mozilla.org/show_bug.cgi?id=1447743
             const scrollToRight =
-                node.scrollLeft + 1 >=
+                Math.abs(node.scrollLeft) + 1 >=
                 node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
             if (scrollToLeft && scrollToRight) {
                 this.setScrollPosition('both');
@@ -812,7 +845,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     };
 
     renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
-        const { rowSelection, disabledRowKeysSet } = this.state;
+        const { rowSelection, allDisabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
             const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled } = rowSelection;
@@ -821,7 +854,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const columnKey = get(rowSelection, 'key', strings.DEFAULT_KEY_COLUMN_SELECTION);
                 const allRowKeys = this.cachedFilteredSortedRowKeys;
                 const allRowKeysSet = this.cachedFilteredSortedRowKeysSet;
-                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, disabledRowKeysSet, allRowKeys);
+                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, allDisabledRowKeysSet, allRowKeys);
                 const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
                 return (
                     <ColumnSelection
@@ -830,8 +863,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         key={columnKey}
                         selected={allIsSelected}
                         indeterminate={hasRowSelected && !allIsSelected}
-                        onChange={(status, e) => {
-                            this.toggleSelectAllRow(status, e);
+                        onChange={(selected, e) => {
+                            this.toggleSelectAllRow(selected, e);
                         }}
                     />
                 );
@@ -940,7 +973,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       * @param {*} column
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
+        const { prefixCls } = this.props;
         if (column && (column.sorter || column.filters || column.useFullRender)) {
+            let hasSorterOrFilter = false;
             const { dataIndex, title: rawTitle, useFullRender } = column;
             const curQuery = this.foundation.getQuery(dataIndex);
             const titleMap: ColumnTitleProps = {};
@@ -954,7 +989,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateSortOrder = get(curQuery, 'sortOrder');
             const defaultSortOrder = get(curQuery, 'defaultSortOrder', false);
             const sortOrder = this.foundation.isSortOrderValid(stateSortOrder) ? stateSortOrder : defaultSortOrder;
-            const TitleNode = typeof rawTitle !== 'function' && <React.Fragment key={strings.DEFAULT_KEY_COLUMN_TITLE}>{rawTitle as React.ReactNode}</React.Fragment>;
+            const showEllipsisTitle = shouldShowEllipsisTitle(column.ellipsis);
+            const TitleNode = typeof rawTitle !== 'function' && (
+                <span
+                    className={`${prefixCls}-row-head-title`}
+                    key={strings.DEFAULT_KEY_COLUMN_TITLE}
+                    title={showEllipsisTitle && typeof rawTitle === 'string' ? rawTitle : undefined}
+                >
+                    {rawTitle as React.ReactNode}
+                </span>
+            );
             if (typeof column.sorter === 'function' || column.sorter === true) {
                 // In order to increase the click hot area of ​​sorting, when sorting is required & useFullRender is false,
                 // both the title and sorting areas are used as the click hot area for sorting。
@@ -967,6 +1011,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     />
                 );
                 useFullRender && (titleMap.sorter = sorter);
+                hasSorterOrFilter = true;
                 titleArr.push(sorter);
             } else {
                 titleArr.push(TitleNode);
@@ -981,17 +1026,25 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         key={strings.DEFAULT_KEY_COLUMN_FILTER}
                         {...curQuery}
                         filteredValue={filteredValue}
-                        onFilterDropdownVisibleChange={(visible: boolean) => this.foundation.toggleShowFilter(dataIndex, visible)}
+                        onFilterDropdownVisibleChange={(visible: boolean) =>
+                            this.foundation.toggleShowFilter(dataIndex, visible)
+                        }
                         onSelect={(data: OnSelectData) => this.foundation.handleFilterSelect(dataIndex, data)}
                     />
                 );
                 useFullRender && (titleMap.filter = filter);
+                hasSorterOrFilter = true;
                 titleArr.push(filter);
             }
 
             const newTitle =
-                typeof rawTitle === 'function' ?
-                    () => rawTitle(titleMap) : titleArr;
+                typeof rawTitle === 'function' ? (
+                    () => rawTitle(titleMap)
+                ) : hasSorterOrFilter ? (
+                    <div className={`${prefixCls}-operate-wrapper`}>{titleArr}</div>
+                ) : (
+                    titleArr
+                );
 
             column = { ...column, title: newTitle };
         }
@@ -1003,8 +1056,8 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         this.foundation.handleSelectRow(realKey, selected, e);
     };
 
-    toggleSelectAllRow = (status: boolean, e: TableSelectionCellEvent) => {
-        this.foundation.handleSelectAllRow(status, e);
+    toggleSelectAllRow = (selected: boolean, e: TableSelectionCellEvent) => {
+        this.foundation.handleSelectAllRow(selected, e);
     };
 
     /**
@@ -1123,12 +1176,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             sticky,
         } = props;
         const selectedRowKeysSet = get(rowSelection, 'selectedRowKeysSet', new Set());
+        const tableLayout = this.adapter.getTableLayout();
 
         const headTable =
             fixed || useFixedHeader ? (
                 <HeadTable
                     key="head"
-                    anyColumnFixed={anyColumnFixed}
+                    tableLayout={tableLayout}
                     ref={headerRef}
                     columns={filteredColumns}
                     prefixCls={prefixCls}
@@ -1156,6 +1210,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 handleWheel={this.handleWheel}
                 handleBodyScroll={this.handleBodyScroll}
                 anyColumnFixed={anyColumnFixed}
+                tableLayout={tableLayout}
                 includeHeader={includeHeader}
                 showHeader={showHeader}
                 scroll={scroll}
@@ -1339,11 +1394,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
          * TODO: After merging issue 1007, you can place it in the constructor to complete
          * The reason is that #1007 exposes the parameters required by getCurrentPageData in the constructor
          */
-        if (isNull(dataSource)) {
-            const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(this.props.dataSource);
-            dataSource = pageData.dataSource;
-            pagination = pageData.pagination;
-        }
+        // if (isNull(dataSource)) {
+        //     const pageData: BasePageData<RecordType> = this.foundation.getCurrentPageData(this.props.dataSource);
+        //     dataSource = pageData.dataSource;
+        //     pagination = pageData.pagination;
+        // }
 
         const props = {
             ...rest,
@@ -1406,21 +1461,28 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             setBodyHasScrollbar: this.setBodyHasScrollbar,
         };
 
+        const dataAttr = this.getDataAttr(rest);
+
         return (
             <div
                 ref={this.rootWrapRef}
-                className={classnames(className, `${prefixCls}-wrapper`)}
+                className={classnames(className, `${prefixCls}-wrapper`, `${prefixCls}-wrapper-${props.direction}`)}
                 data-column-fixed={anyColumnFixed}
                 style={wrapStyle}
                 id={id}
+                {...dataAttr}
             >
-                <TableContextProvider {...tableContextValue}>
+                <TableContextProvider {...tableContextValue} direction={props.direction}>
                     <Spin spinning={loading} size="large">
                         <div ref={this.wrapRef} className={wrapCls}>
                             <React.Fragment key={'pagination-top'}>
                                 {['top', 'both'].includes(paginationPosition) ? tablePagination : null}
                             </React.Fragment>
-                            {this.renderTitle({ title: (props as any).title, dataSource: props.dataSource, prefixCls: props.prefixCls })}
+                            {this.renderTitle({
+                                title: (props as any).title,
+                                dataSource: props.dataSource,
+                                prefixCls: props.prefixCls,
+                            })}
                             <div className={`${prefixCls}-container`}>{this.renderMainTable({ ...props })}</div>
                             <React.Fragment key={'pagination-bottom'}>
                                 {['bottom', 'both'].includes(paginationPosition) ? tablePagination : null}

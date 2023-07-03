@@ -7,6 +7,7 @@ import { IconTickCircle, IconAlertCircle, IconAlertTriangle } from '@douyinfe/se
 
 export type Status = 'wait' | 'process' | 'finish' | 'error' | 'warning';
 export type Size = 'default' | 'small';
+
 export interface BasicStepProps {
     description?: React.ReactNode;
     icon?: React.ReactNode;
@@ -25,6 +26,7 @@ export interface BasicStepProps {
     "role"?: React.AriaRole;
     "aria-label"?: React.AriaAttributes["aria-label"]
 }
+
 export enum stepSizeMapIconSize {
     small = 'large',
     default = 'extra-large'
@@ -57,7 +59,7 @@ const BasicStep = (props: BasicStepProps) => {
         } else if ('status' in props) {
             switch (status) {
                 case 'error':
-                    inner = <IconAlertCircle size={stepSizeMapIconSize[size]} />;
+                    inner = <IconAlertCircle size={stepSizeMapIconSize[size]}/>;
                     break;
                 case 'wait':
                     inner = <span className={`${prefixCls}-number-icon`}>{stepNumber}</span>;
@@ -67,10 +69,10 @@ const BasicStep = (props: BasicStepProps) => {
                     progress = true;
                     break;
                 case 'finish':
-                    inner = <IconTickCircle size={stepSizeMapIconSize[size]} />;
+                    inner = <IconTickCircle size={stepSizeMapIconSize[size]}/>;
                     break;
                 case 'warning':
-                    inner = <IconAlertTriangle size={stepSizeMapIconSize[size]} />;
+                    inner = <IconAlertTriangle size={stepSizeMapIconSize[size]}/>;
                     break;
                 default:
                     inner = null;
@@ -87,24 +89,23 @@ const BasicStep = (props: BasicStepProps) => {
     };
     const classString = classnames(prefixCls, `${prefixCls}-${status}`, {
         [`${prefixCls}-active`]: active,
-        [`${prefixCls}-done`]: done
+        [`${prefixCls}-done`]: done,
+        [`${prefixCls}-hover`]: onChange || props.onClick,
+        [`${prefixCls}-${status}-hover`]: onChange || props.onClick,
     }, className);
-    const handleClick = (e: React.MouseEvent) => {
-        if (isFunction(onClick)) {
-            onClick(e);
-        }
-        onChange();
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        onClick?.(e);
+        onChange?.();
     };
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (isFunction(onKeyDown)) {
-                onKeyDown(e);
-            }
-            onChange();
+            onKeyDown?.(e);
+            onChange?.();
         }
     };
     return (
-        <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step" className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
+        <div role={props["role"]} aria-label={props["aria-label"]} tabIndex={0} aria-current="step"
+            className={classString} style={style} onClick={e => handleClick(e)} onKeyDown={handleKeyDown}>
             <div className={`${prefixCls}-container`}>
                 <div className={`${prefixCls}-left`}>{renderIcon()}</div>
                 <div className={`${prefixCls}-content`}>

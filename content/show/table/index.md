@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 62
+order: 63
 category: 展示类
 title: Table 表格
 icon: doc-table
@@ -807,9 +807,11 @@ render(App);
 
 可以通过设置 column 的 `fixed` 属性以及 `scroll.x` 来进行列固定，通过设置 `scroll.y` 来进行表头固定。
 
+如果是固定值，设置为 >=所有固定列宽之和+所有表格列宽之和 的数值。
+
+> -   建议指定 `scroll.x` 为大于表格宽度的**固定值**或百分比。 如果是固定值，设置为 `>=所有固定列宽之和+所有表格列宽之和` 的数值。
+> -   若列头与内容不对齐或出现列重复或者固定列失效的情况，请指定固定列的宽度 `width`，若指定宽度后仍不生效，请尝试建议留一列不设宽度以适应弹性布局，或者检查是否有超长连续字段破坏布局。
 > -   请确保表格内部的所有元素在渲染后不会对单元格的高度造成影响（例如含有未加载完成的图片等），这种情况下请给定子元素一个确定的高度，以此确保左右固定列单元格不会错乱。
-> -   若列头与内容不对齐或出现列重复，请指定固定列的宽度 `width`。如果指定 `width` 不生效，请尝试建议留一列不设宽度以适应弹性布局，或者检查是否有超长连续字段破坏布局。
-> -   建议指定 `scroll.x` 为大于表格宽度的**固定值**或百分比。推荐设置为 `>=所有固定列宽之和+所有表格列宽之和` 的固定数值。
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -2574,6 +2576,238 @@ function App() {
     };
 
     return <Table columns={columns} dataSource={data} onRow={handleRow} pagination={false} />;
+}
+
+render(App);
+```
+
+### 单元格缩略
+
+使用 `ellipsis` 可以让单元格自动实现缩略效果。v2.34.0 支持。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            width: 200,
+            ellipsis: true,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            size: '34KB',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
+}
+
+render(App);
+```
+
+设置 `ellipsis.showTitle` 为 false 可以隐藏默认原生的 HTML title。 配合 `column.render` 可以自定义内容提示。
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table, Typography } from '@douyinfe/semi-ui';
+import { IconMore } from '@douyinfe/semi-icons';
+
+function App() {
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            fixed: true,
+            width: 250,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            width: 200,
+            filters: [
+                {
+                    text: 'Semi Design 设计稿',
+                    value: 'Semi Design 设计稿',
+                },
+                {
+                    text: 'Semi Pro 设计稿',
+                    value: 'Semi Pro 设计稿',
+                },
+            ],
+            onFilter: (value, record) => record.name.includes(value),
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: { showTitle: false },
+            render: (text) => <Typography.Text ellipsis={{ showTooltip: true }}>{text}</Typography.Text>,
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.name.length - b.name.length > 0 ? 1 : -1),
+            ellipsis: true,
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            width: 200,
+            ellipsis: true,
+        },
+        {
+            title: '',
+            dataIndex: 'operate',
+            fixed: 'right',
+            align: 'center',
+            width: 100,
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: '1',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
+            size: '2M',
+            owner: 'Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '2M',
+            owner: '郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            name: 'Semi is designed based on FA architecture, and the main logic is extracted as Foundation package, which is easy to migrate to other frameworks',
+            size: '34KB',
+            owner: 'Pengzhi Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。',
+            nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
+            size: '34KB',
+            owner: '郝宣',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table scroll={{ x: 1200 }} columns={columns} dataSource={data} pagination={false} />;
 }
 
 render(App);
@@ -4602,6 +4836,7 @@ render(App);
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效 | boolean | false |
 | defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效 | boolean | false | **1.30.0** |
 | defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效 | Array<\*> | [] |
+| direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **2.31.0** |
 | empty | 无数据时展示的内容 | ReactNode | '暂无数据' |
 | expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同 | boolean\|string | false |
 | expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染 | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
@@ -4750,13 +4985,14 @@ import { Table } from '@douyinfe/semi-ui';
 
 | 属性 | 说明 | 类型 | 默认值 | 版本 |
 | --- | --- | --- | --- | --- |
-| align | 设置列的对齐方式 | 'left' \| 'right' \| 'center' | 'left' |
+| align | 设置列的对齐方式，在 RTL 时会自动切换 | 'left' \| 'right' \| 'center' | 'left' |
 | className | 列样式名 | string |  |
 | children | 表头合并时用于子列的设置 | Column[] |  |
 | colSpan | 表头列合并,设置为 0 时，不渲染 | number |  |
 | dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传 | string |  |
 | defaultFilteredValue | 筛选的默认值，值为已筛选的 value 数组 | any[] |  | **2.5.0** |
 | defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
+| ellipsis | 文本缩略，开启后 table-layout 会自动切换为 fixed | boolean\| { showTitle: boolean } | false | **2.34.0** |
 | filterChildrenRecord | 是否需要对子级数据进行本地过滤，开启该功能后如果子级符合过滤标准，父级即使不符合仍然会保留 | boolean |  | **0.29.0** |
 | filterDropdown | 可以自定义筛选菜单，此函数只负责渲染图层，需要自行编写各种交互 | ReactNode |  |
 | filterDropdownProps | 透传给 Dropdown 的属性，详情点击[Dropdown API](/zh-CN/show/dropdown#Dropdown) | object |  |
@@ -4765,18 +5001,18 @@ import { Table } from '@douyinfe/semi-ui';
 | filterMultiple | 是否多选 | boolean | true |
 | filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | any[] |  |
 | filters | 表头的筛选菜单项 | Filter[] |  |
-| fixed | 列是否固定，可选 true(等效于 left) 'left' 'right' | boolean\|string | false |
+| fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
 | sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
-| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
-| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染) | boolean | false | **0.34.0** |
+| title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
+| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any[], record: RecordType) => boolean |  |
+| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时回调 | (visible: boolean) => void |  |
 | onHeaderCell | 设置头部单元格属性 | (column: RecordType, columnIndex: number) => object |  |
 
@@ -4804,7 +5040,6 @@ type Filter = {
 | getCheckboxProps | 选择框的默认属性配置                                                                                         | (record: RecordType) => object                                                                       |        |            |
 | hidden           | 是否隐藏选择列                                                                                               | boolean                                                                                              | false  | **0.34.0** |
 | selectedRowKeys  | 指定选中项的 key 数组，需要和 onChange 进行配合                                                               | string[]                                                                                             |        |            |
-| title            | 自定义列表选择框标题                                                                                         | string\|ReactNode                                                                                    |        |            |
 | width            | 自定义列表选择框宽度                                                                                         | string\|number                                                                                       |        |            |
 | onChange         | 选中项发生变化时的回调。第一个参数会保存上次选中的 row keys，即使你做了分页受控或更新了 dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                            |        |            |
 | onSelect         | 用户手动点击某行选择框的回调                                                                                 | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |        |            |
@@ -4896,6 +5131,12 @@ function Demo() {
 -   单元格的新增了 aria-colindex 表示当前格子属于第几列，第一列为 1
 -   列的筛选和排序按钮添加了 aria-label，行的选择按钮添加了 aria-label 属性
 
+## RTL/LTR
+
+- Table 的 RTL 默认值为 [ConfigProvider](/zh-CN/other/configprovider) direction，可以通过 Table direction 覆盖
+- Table 列的 align 与 fixed 属性会在 RTL 时会自动切换，left <-> right，固定列的 RTL 功能于 v2.31 版本支持
+- Table 的树形数据暂不支持 RTL（[Chrome、Safari 浏览器表现与 Firefox 表现不同](https://codesandbox.io/s/table-rtl-treedata-uy7gzl?file=/src/App.jsx)）
+
 ## 文案规范
 
 -   表格标题
@@ -4909,7 +5150,6 @@ function Demo() {
     -   列标题使用句子大小写；
 -   表格操作
     -   可以遵循 [Button 的文案规范](/zh-CN/input/button#%E6%96%87%E6%A1%88%E8%A7%84%E8%8C%83)
-
 ## 设计变量
 
 <DesignToken/>
@@ -4917,6 +5157,7 @@ function Demo() {
 ## FAQ
 
 -   **表格数据为何没有更新？**  
+
      Table 组件目前所有参数都为浅层对比，也就是说如果该参数值类型为一个 Array 或者 Object，你需要手动改变其引用才能触发更新。同理，如果你不想触发额外更新，尽量不要直接在传参的时候使用字面量或是在 render 过程中定义引用型参数值：
 
     ```text

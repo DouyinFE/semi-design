@@ -2,6 +2,7 @@ import React, { cloneElement, Children, useMemo, isValidElement, ReactElement } 
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { stepsClasses as css } from '@douyinfe/semi-foundation/steps/constants';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 
 export type Direction = 'horizontal' | 'vertical';
 export type Status = 'wait' | 'process' | 'finish' | 'error' | 'warning';
@@ -34,6 +35,7 @@ const Steps = (props: BasicStepsProps) => {
         style,
         hasLine,
         onChange,
+        ...rest
     } = props;
     const inner = useMemo(() => {
         const filteredChildren = Children.toArray(children).filter(c => isValidElement(c)) as Array<ReactElement>;
@@ -63,11 +65,11 @@ const Steps = (props: BasicStepsProps) => {
             }
             childProps.active = stepNumber === current;
             childProps.done = stepNumber < current;
-            childProps.onChange = () => {
+            childProps.onChange = onChange ? () => {
                 if (index !== current) {
                     onChange(index + initial);
                 }
-            };
+            } : undefined;
             return cloneElement(child, { ...childProps });
         });
         return content;
@@ -81,7 +83,7 @@ const Steps = (props: BasicStepsProps) => {
     });
 
     return (
-        <div aria-label={props["aria-label"]} className={wrapperCls} style={style}>
+        <div aria-label={props["aria-label"]} className={wrapperCls} style={style} {...getDataAttr(rest)}>
             {inner}
         </div>
     );

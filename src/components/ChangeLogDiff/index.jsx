@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 
 /* eslint-disable no-nested-ternary */
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Button, Modal, Space, Select, Empty, Spin, Typography, InputGroup } from '@douyinfe/semi-ui';
@@ -32,6 +32,7 @@ export default function ChangeLogDiff(props) {
     const [result, setResult] = useState([]);
     const [changeType, setChangeType] = useState([]);
     const [modalHeight, setModalHeight] = useState(DEFAULT_MODAL_HEIGHT);
+    const selectRef = useRef();
     useEffect(() => {
         const newVersion = currentVersion ? currentVersion : versionList[0];
 
@@ -47,6 +48,10 @@ export default function ChangeLogDiff(props) {
     const handleShowModal = () => {
         onClick();
         setVisible(true);
+        setTimeout(() => {
+            selectRef.current.open();
+            selectRef.current.focus();
+        }, 1000);
     };
 
     const filterData = useCallback(
@@ -288,9 +293,8 @@ export default function ChangeLogDiff(props) {
                             placeholder={_t('changelog.diff.version.placeholder')}
                             onChange={handleVersion2Change}
                             value={version2}
+                            ref={selectRef}
                             filter={true}
-                            autoFocus
-                            defaultOpen
                         >
                             {versionList
                                 .filter(version => version !== version1)

@@ -50,6 +50,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
 
     context: PreviewContextProps;
     foundation: ImageFoundation;
+    imgRef: React.RefObject<HTMLImageElement>;
 
     constructor(props: ImageProps) {
         super(props);
@@ -60,6 +61,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         };
 
         this.foundation = new ImageFoundation(this.adapter);
+        this.imgRef = React.createRef<HTMLImageElement>();
     }
 
     static getDerivedStateFromProps(props: ImageProps, state: ImageStates) {
@@ -169,7 +171,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
             <IconEyeOpened size="extra-large"/>
             <span className={`${prefixCls}-mask-info-text`}>{this.getLocalTextByKey("preview")}</span>
         </div>
-    </div>)
+    </div>);
 
     render() {
         const { src, loadStatus, previewVisible } = this.state;
@@ -189,6 +191,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                 onClick={this.handleClick}
             >
                 <img
+                    ref={this.imgRef}
                     {...restProps}
                     src={this.isInGroup() && this.isLazyLoad() ? undefined : src}
                     data-src={src}

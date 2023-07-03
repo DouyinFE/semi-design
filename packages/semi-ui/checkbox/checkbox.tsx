@@ -26,7 +26,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
     'aria-invalid'?: React.AriaAttributes['aria-invalid'];
     'aria-labelledby'?: React.AriaAttributes['aria-labelledby'];
     'aria-required'?: React.AriaAttributes['aria-required'];
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     onChange?: (e: CheckboxEvent) => any;
     // TODO, docs
     style?: React.CSSProperties;
@@ -300,6 +300,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
                 onClick={this.handleChange}
                 onKeyPress={this.handleEnterPress}
                 aria-labelledby={this.props['aria-labelledby']}
+                {...this.getDataAttr(this.props)}
             >
                 <CheckboxInner
                     {...this.props}

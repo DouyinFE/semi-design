@@ -30,6 +30,7 @@ $module: #{$prefix}-input;
     transform: scale($transform_scale-input);
 }
 
+
 .#{$module}-wrapper {
     display: inline-block;
     position: relative;
@@ -461,6 +462,9 @@ $module: #{$prefix}-input;
     &[type="password"]::-ms-clear {
         display: none;
     }
+    &[type="search"]::-webkit-search-cancel-button {
+        display: none;
+    }
 
     &::placeholder {
         color: $color-input_placeholder-text-default;
@@ -514,7 +518,7 @@ $module: #{$prefix}-input;
         &-text {
             margin: 0 $spacing-base-tight;
             color: $color-input_prefix-text-default;
-            font-weight: 600;
+            font-weight: $font-weight-bold;
             white-space: nowrap;
         }
 
@@ -623,6 +627,10 @@ $module: #{$prefix}-input;
             }
         }
 
+        .#{$prefix}-select{
+            overflow-y: visible;
+        }
+        
         .#{$prefix}-input-number,
         .#{$prefix}-datepicker,
         .#{$prefix}-timepicker,
@@ -681,6 +689,33 @@ $module: #{$prefix}-input;
             }
         }
     }
+}
+
+
+
+.#{$module}-borderless{
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+
+    &.#{$module}-wrapper-error:not(:focus-within){
+        border-color: $color-input_danger-border-focus;
+    }
+
+    &.#{$module}-wrapper-warning:not(:focus-within){
+        border-color: $color-input_warning-border-focus;
+    }
+
+
+
+
 }
 
 @import "./rtl.scss";

@@ -24,7 +24,7 @@ export type CheckboxGroupProps = {
     options?: any[];
     value?: any[];
     onChange?: (value: any[]) => void;
-    children?: React.ReactNode | undefined;
+    children?: React.ReactNode;
     prefixCls?: string;
     direction?: CheckboxDirection;
     style?: React.CSSProperties;
@@ -172,6 +172,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
                 style={style}
                 aria-labelledby={this.props['aria-labelledby']}
                 aria-describedby={this.props['aria-describedby']}
+                {...this.getDataAttr(this.props)}
                 // aria-errormessage={this.props['aria-errormessage']}
                 // aria-invalid={this.props['aria-invalid']}
                 // aria-required={this.props['aria-required']}

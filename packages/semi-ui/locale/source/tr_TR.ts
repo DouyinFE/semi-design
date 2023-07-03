@@ -5,10 +5,9 @@ const local: Locale = {
     code: 'tr-TR',
     dateFnsLocale: tr,
     Pagination: {
-        item: 'Makale',
         page: 'Sayfa',
-        pageSize: 'Makale / sayfa',
-        total: 'Toplam',
+        pageSize: 'Sayfa başı öğe: ${pageSize}',
+        total: 'Toplam sayfa: ${total}',
         jumpTo: 'Atlamak'
     },
     Modal: {
@@ -37,7 +36,9 @@ const local: Locale = {
             dateTime: 'Lütfen bir tarih ve saat seçin',
             dateRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
             dateTimeRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
+            monthRange: ['Başlangıç ​​ayı', 'Bitiş ayı']
         },
+        presets: 'Hızlı seçim',
         footer: {
             confirm: 'Tamam',
             cancel: 'İptal'
@@ -87,7 +88,7 @@ const local: Locale = {
             Sun: 'Paz'
         },
         localeFormatToken: {
-            FORMAT_SWITCH_DATE: 'yyyy-MM-dd',
+            FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
         },
     },
     Navigation:
@@ -147,8 +148,8 @@ const local: Locale = {
         clear: 'Boş',
         selectAll: 'Tümünü seç',
         clearSelectAll: 'Tümünün seçimini kaldır',
-        total: 'Toplam ${total} öğe',
-        selected: '${total} öğe seçildi'
+        total: 'Toplam öğe: ${total}',
+        selected: 'Seçilen öğeler: ${total}'
     },
     Form: {
         optional: '(isteğe bağlı)',

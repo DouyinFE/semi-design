@@ -273,7 +273,7 @@ $module: #{$prefix}-calendar;
                 justify-content: center;
                 align-items: center;
 
-                span {
+                > span {
                     display: flex;
                     align-items: center;
                     justify-content: center;

@@ -20,9 +20,11 @@ import { includes, isSet, isEqual, isFunction } from 'lodash';
 import { zonedTimeToUtc } from '../utils/date-fns-extra';
 import { getDefaultFormatTokenByType } from './_utils/getDefaultFormatToken';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
-import { BaseValueType, PresetPosition, ValueType } from './foundation';
+import { BaseValueType, DateInputFoundationProps, PresetPosition, ValueType } from './foundation';
 import { MonthDayInfo } from './monthFoundation';
 import { ArrayElement } from '../utils/type';
+import isValidTimeZone from './_utils/isValidTimeZone';
+import { YearAndMonthFoundationProps } from './yearAndMonthFoundation';
 
 const dateDiffFns = {
     month: differenceInCalendarMonths,
@@ -53,9 +55,10 @@ interface MonthsGridElementProps {
 export type PanelType = 'left' | 'right';
 export type YearMonthChangeType = 'prevMonth' | 'nextMonth' | 'prevYear' | 'nextYear';
 
-export interface MonthsGridFoundationProps extends MonthsGridElementProps {
+export interface MonthsGridFoundationProps extends MonthsGridElementProps, Pick<YearAndMonthFoundationProps, 'startYear' | 'endYear'> {
     type?: Type;
-    defaultValue?: ValueType;
+    /** may be null if selection is not complete when type is dateRange or dateTimeRange */
+    defaultValue?: (Date | null)[];
     defaultPickerValue?: ValueType;
     multiple?: boolean;
     max?: number;
@@ -89,14 +92,18 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps {
     isAnotherPanelHasOpened?: (currentRangeInput: 'rangeStart' | 'rangeEnd') => boolean;
     focusRecordsRef?: any;
     triggerRender?: (props: Record<string, any>) => any;
-    insetInput: boolean;
+    insetInput: DateInputFoundationProps['insetInput'];
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
     renderDateInput?: any
 }
 
 export interface MonthInfo {
+    /** The date displayed in the current date panel, update when switching year and month */
     pickerDate: Date;
+    /**
+     * Default date or selected date (when selected)
+     */
     showDate: Date;
     isTimePickerOpen: boolean;
     isYearPickerOpen: boolean
@@ -167,22 +174,22 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         }
     }
 
-    updateSelectedFromProps(values: ValueType, refreshPicker = true) {
+    updateSelectedFromProps(values: (Date | null)[], refreshPicker = true) {
         const type: Type = this.getProp('type');
         const { selected, rangeStart, rangeEnd } = this.getStates();
-        if (values && (values as BaseValueType[]).length) {
+        if (values && values?.length) {
             switch (type) {
                 case 'date':
-                    this._initDatePickerFromValue(values as BaseValueType[], refreshPicker);
+                    this._initDatePickerFromValue(values, refreshPicker);
                     break;
                 case 'dateRange':
-                    this._initDateRangePickerFromValue(values as BaseValueType[]);
+                    this._initDateRangePickerFromValue(values);
                     break;
                 case 'dateTime':
-                    this._initDateTimePickerFromValue(values as BaseValueType[]);
+                    this._initDateTimePickerFromValue(values);
                     break;
                 case 'dateTimeRange':
-                    this._initDateTimeRangePickerFormValue(values as BaseValueType[]);
+                    this._initDateTimeRangePickerFormValue(values);
                     break;
                 default:
                     break;
@@ -222,13 +229,14 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         }
     }
 
-    _initDatePickerFromValue(values: BaseValueType[], refreshPicker = true) {
-        const monthLeft = this.getState('monthLeft');
+    _initDatePickerFromValue(values: Date[], refreshPicker = true) {
+        const { monthLeft } = this._adapter.getStates();
         const newMonthLeft = { ...monthLeft };
         // REMOVE:
         this._adapter.updateMonthOnLeft(newMonthLeft);
         const newSelected = new Set<string>();
-        if (!this._isMultiple()) {
+        const isMultiple = this._isMultiple();
+        if (!isMultiple) {
             values[0] && newSelected.add(format(values[0] as Date, strings.FORMAT_FULL_DATE));
         } else {
             values.forEach(date => {
@@ -236,7 +244,12 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             });
         }
         if (refreshPicker) {
-            this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            if (isMultiple) {
+                const leftPickerDateInSelected = values?.some(item => item && differenceInCalendarMonths(item, monthLeft.pickerDate) === 0);
+                !leftPickerDateInSelected && this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            } else {
+                this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, values[0] || newMonthLeft.pickerDate);
+            }
         } else {
             // FIXME:
             this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, newMonthLeft.pickerDate);
@@ -244,16 +257,32 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         this._adapter.updateDaySelected(newSelected);
     }
 
-    _initDateRangePickerFromValue(values: BaseValueType[], withTime = false) {
+    _initDateRangePickerFromValue(values: (Date | null)[], withTime = false) {
         // init month panel
-        const monthLeft = this.getState('monthLeft');
-        const monthRight = this.getState('monthRight');
+        const monthLeft = this.getState('monthLeft') as MonthsGridFoundationState['monthLeft'];
+        const monthRight = this.getState('monthRight') as MonthsGridFoundationState['monthRight'];
         const adjustResult = this._autoAdjustMonth(
             { ...monthLeft, pickerDate: values[0] || monthLeft.pickerDate },
             { ...monthRight, pickerDate: values[1] || monthRight.pickerDate }
         );
-        this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, adjustResult.monthLeft.pickerDate);
-        this.handleShowDateAndTime(strings.PANEL_TYPE_RIGHT, adjustResult.monthRight.pickerDate);
+
+        const validValue = Array.isArray(values) && values.filter(item => item).length > 1;
+        if (validValue) {
+            this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, adjustResult.monthLeft.pickerDate);
+            this.handleShowDateAndTime(strings.PANEL_TYPE_RIGHT, adjustResult.monthRight.pickerDate);
+        } else {
+            const selectedDate = values.find(item => item) as Date;
+            // 如果日期不完整且输入日期不在面板范围内，则更新面板
+            if (selectedDate) {                
+                const notLeftPanelDate = Math.abs(differenceInCalendarMonths(selectedDate, monthLeft.pickerDate)) > 0;
+                const notRightPanelDate = Math.abs(differenceInCalendarMonths(selectedDate, monthRight.pickerDate)) > 0;
+    
+                if (notLeftPanelDate && notRightPanelDate) {
+                    this.handleShowDateAndTime(strings.PANEL_TYPE_LEFT, adjustResult.monthLeft.pickerDate);
+                    this.handleShowDateAndTime(strings.PANEL_TYPE_RIGHT, adjustResult.monthRight.pickerDate);
+                }
+            }
+        }
 
         // init range
         const formatToken = withTime ? strings.FORMAT_DATE_TIME : strings.FORMAT_FULL_DATE;
@@ -268,11 +297,11 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         this._adapter.setHoverDay(rangeEnd);
     }
 
-    _initDateTimePickerFromValue(values: BaseValueType[]) {
+    _initDateTimePickerFromValue(values: Date[]) {
         this._initDatePickerFromValue(values);
     }
 
-    _initDateTimeRangePickerFormValue(values: BaseValueType[]) {
+    _initDateTimeRangePickerFormValue(values: (Date | null)[]) {
         this._initDateRangePickerFromValue(values, true);
     }
 
@@ -421,13 +450,6 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         return format(date, token, { locale: dateFnsLocale });
     }
 
-    isValidTimeZone(timeZone?: string | number) {
-        const propTimeZone = this.getProp('timeZone');
-        const _timeZone = isNullOrUndefined(timeZone) ? propTimeZone : timeZone;
-
-        return ['string', 'number'].includes(typeof _timeZone) && _timeZone !== '';
-    }
-
     /**
      * 根据 type 处理 onChange 返回的参数
      *
@@ -457,9 +479,9 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
      */
     disposeCallbackArgs(value: Date | Date[]) {
         let _value = Array.isArray(value) ? value : (value && [value]) || [];
+        const timeZone = this.getProp('timeZone');
 
-        if (this.isValidTimeZone()) {
-            const timeZone = this.getProp('timeZone');
+        if (isValidTimeZone(timeZone)) {
             _value = _value.map(date => zonedTimeToUtc(date, timeZone));
         }
         const type = this.getProp('type');

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 49
+order: 50
 category: Show
 title: Collapse
 subTitle: Collapse
@@ -176,6 +176,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | accordion | Accordion mode | boolean | `false` | - |
 | activeKey | Controlled property, key of the currently expanded panel | string \| string[] | - | - |
 | className | className of Collapse | string | '' | - |
+| clickHeaderToExpand | Click Header to expand and collapse, otherwise only respond to click arrow | boolean | true | 2.32.0 |
 | collapseIcon | Custom collapsing icons | ReactNode | `<IconChevronDown />` | - |
 | defaultActiveKey | Key of the expanded panel when initialized | string \| string[] | - | - |
 | expandIcon | Custom expanding icon | ReactNode | `<IconChevronUp />` | - |

@@ -5,11 +5,11 @@ import './index.scss';
 interface ImageBoxProps {
     url: string;
     darkUrl?: string;
-    alt: string;
+    alt: string
 }
 
 function ImageBox(props: ImageBoxProps): React.ReactElement {
-    const { url, alt, darkUrl, darkAlt } = props;
+    const { url, alt, darkUrl } = props;
 
     return (
         <Empty

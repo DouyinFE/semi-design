@@ -73,7 +73,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
     constructor(props: SwitchProps) {
         super(props);
         this.state = {
-            nativeControlChecked: false,
+            nativeControlChecked: props.defaultChecked || props.checked,
             nativeControlDisabled: false,
             focusVisible: false
         };
@@ -126,7 +126,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
 
     render() {
         const { nativeControlChecked, nativeControlDisabled, focusVisible } = this.state;
-        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id } = this.props;
+        const { className, style, onMouseEnter, onMouseLeave, size, checkedText, uncheckedText, loading, id, ...rest } = this.props;
         const wrapperCls = cls(className, {
             [cssClasses.PREFIX]: true,
             [cssClasses.CHECKED]: nativeControlChecked,
@@ -145,7 +145,7 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         const showCheckedText = checkedText && nativeControlChecked && size !== 'small';
         const showUncheckedText = uncheckedText && !nativeControlChecked && size !== 'small';
         return (
-            <div className={wrapperCls} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+            <div className={wrapperCls} style={style} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...this.getDataAttr(rest)}>
                 {loading ? (
                     <Spin wrapperClassName={cssClasses.LOADING_SPIN} size={size === 'default' ? 'middle' : size} />
                 ) : (

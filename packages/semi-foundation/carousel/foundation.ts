@@ -18,6 +18,11 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     _interval = null;
+    _forcePlay = false;
+
+    setForcePlay(forcePlay: boolean) {
+        this._forcePlay = forcePlay;
+    }
 
     play(interval: number): void {
         if (this._interval) {
@@ -105,7 +110,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     getSwitchingTime(): number {
         const { autoPlay, speed } = this.getProps(); 
         const autoPlayType = typeof autoPlay;
-        if (autoPlayType === 'boolean' && autoPlay){
+        if (autoPlayType === 'boolean'){ 
             return numbers.DEFAULT_INTERVAL + speed;
         }
         if (isObject(autoPlay)){
@@ -121,7 +126,8 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     handleAutoPlay(): void { 
         const { autoPlay } = this.getProps(); 
         const autoPlayType = typeof autoPlay;
-        if ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay)){
+        // when user manually call the play function, force play
+        if ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay){
             this.play(this.getSwitchingTime());
         }
     }

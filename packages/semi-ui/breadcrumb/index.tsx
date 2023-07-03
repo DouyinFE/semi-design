@@ -162,7 +162,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
     handleCollapse = (template: Array<React.ReactNode>, itemsLen: number) => {
         const { maxItemCount, renderMore, moreType } = this.props;
         const hasRenderMore = isFunction(renderMore);
-        const restItem = template.slice(1, itemsLen - 3);
+        const restItem = template.slice(1, itemsLen - maxItemCount + 1);
         const spread = (
             <span className={`${clsPrefix}-collapse`} key={`more-${itemsLen}`}>
                 <span className={`${clsPrefix}-item-wrap`}>
@@ -291,7 +291,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                     separator,
                 }}
             >
-                <nav aria-label={this.props['aria-label']} className={sizeCls} style={style}>
+                <nav aria-label={this.props['aria-label']} className={sizeCls} style={style} {...this.getDataAttr(this.props)}>
                     {breadcrumbs}
                 </nav>
             </BreadContext.Provider>

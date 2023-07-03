@@ -6,16 +6,16 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import ScrollList from '../scrollList/index';
 import ScrollItem from '../scrollList/scrollItem';
 import { getYears } from '@douyinfe/semi-foundation/datePicker/_utils/index';
-import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 
 import IconButton from '../iconButton';
 import { IconChevronLeft } from '@douyinfe/semi-icons';
 import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 
-import { noop, stubFalse } from 'lodash';
+import { noop, stubFalse, isEqual } from 'lodash';
 import { setYear, setMonth, set } from 'date-fns';
 import { Locale } from '../locale/interface';
 import { strings } from '@douyinfe/semi-foundation/datePicker/constants';
+import { PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 
 
 const prefixCls = `${BASE_CLASS_PREFIX}-datepicker`;
@@ -28,8 +28,8 @@ export type YearAndMonthState = YearAndMonthFoundationState;
 
 class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
     static propTypes = {
-        currentYear: PropTypes.number,
-        currentMonth: PropTypes.number,
+        currentYear: PropTypes.object,
+        currentMonth: PropTypes.object,
         onSelect: PropTypes.func,
         locale: PropTypes.object,
         localeCode: PropTypes.string,
@@ -40,7 +40,10 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         density: PropTypes.string,
         presetPosition: PropTypes.oneOf(strings.PRESET_POSITION_SET),
         renderQuickControls: PropTypes.node,
-        renderDateInput: PropTypes.node
+        renderDateInput: PropTypes.node,
+        type: PropTypes.oneOf(strings.TYPE_SET),
+        startYear: PropTypes.number,
+        endYear: PropTypes.number,
     };
 
     static defaultProps = {
@@ -49,6 +52,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         yearCycled: false,
         noBackBtn: false,
         onSelect: noop,
+        type: 'month',
     };
     foundation: YearAndMonthFoundation;
     yearRef: React.RefObject<ScrollItem<YearScrollItem>>;
@@ -59,11 +63,15 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         const now = new Date();
 
         let { currentYear, currentMonth } = props;
-        currentYear = currentYear || now.getFullYear();
-        currentMonth = currentMonth || now.getMonth() + 1;
+
+        const currentLeftYear = currentYear.left || now.getFullYear();
+        const currentLeftMonth = currentMonth.left || now.getMonth() + 1;
+
+        currentYear = { left: currentLeftYear, right: currentLeftYear };
+        currentMonth = { left: currentLeftMonth, right: currentMonth.right || currentLeftMonth + 1 };
 
         this.state = {
-            years: getYears().map(year => ({
+            years: getYears(props.startYear, props.endYear).map(year => ({
                 value: year,
                 year,
             })),
@@ -89,14 +97,20 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
             // updateMonths: months => this.setState({ months }),
             setCurrentYear: (currentYear, cb) => this.setState({ currentYear }, cb),
             setCurrentMonth: currentMonth => this.setState({ currentMonth }),
-            notifySelectYear: year =>
+            setCurrentYearAndMonth: (currentYear, currentMonth) => this.setState({ currentYear, currentMonth }),
+            notifySelectYear: (year) =>
                 this.props.onSelect({
                     currentMonth: this.state.currentMonth,
                     currentYear: year,
                 }),
-            notifySelectMonth: month =>
+            notifySelectMonth: (month) =>
                 this.props.onSelect({
                     currentYear: this.state.currentYear,
+                    currentMonth: month,
+                }),
+            notifySelectYearAndMonth: (year, month) =>
+                this.props.onSelect({
+                    currentYear: year,
                     currentMonth: month,
                 }),
             notifyBackToMain: () => this.props.onBackToMain(),
@@ -105,31 +119,45 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     static getDerivedStateFromProps(props: YearAndMonthProps, state: YearAndMonthState) {
         const willUpdateStates: Partial<YearAndMonthState> = {};
-        const now = new Date();
 
-        if (!isNullOrUndefined(props.currentMonth) && props.currentMonth !== state.currentMonth && props.currentMonth !== 0) {
-            willUpdateStates.currentMonth = props.currentMonth || now.getMonth() + 1;
+        if (!isEqual(props.currentYear, state.currentYear) && props.currentYear.left !== 0) {
+            willUpdateStates.currentYear = props.currentYear;
         }
 
-        if (isNullOrUndefined(props.currentYear) && props.currentYear !== state.currentYear && props.currentYear !== 0) {
-            willUpdateStates.currentYear = props.currentYear || now.getFullYear();
+        if (!isEqual(props.currentMonth, state.currentMonth) && props.currentMonth.left !== 0) {
+            willUpdateStates.currentMonth = props.currentMonth;
         }
 
         return willUpdateStates;
     }
 
-    renderColYear() {
+    renderColYear(panelType: PanelType) {
         const { years, currentYear, currentMonth, months } = this.state;
         const { disabledDate, localeCode, yearCycled, yearAndMonthOpts } = this.props;
-        const currentDate = setMonth(Date.now(), currentMonth - 1);
+        const currentDate = setMonth(Date.now(), currentMonth[panelType] - 1);
+        const left = strings.PANEL_TYPE_LEFT;
+        const right = strings.PANEL_TYPE_RIGHT;
+
+        const needDisabled = (year) => {
+            if (panelType === right && currentYear[left]) {
+                if (currentMonth[left] <= currentMonth[right]) {
+                    return currentYear[left] > year;
+                } else {
+                    return currentYear[left] >= year;
+                }
+            }
+            return false;
+        };
+
         const list: any[] = years.map(({ value, year }) => {
             const isAllMonthDisabled = months.every(({ month }) => {
                 return disabledDate(set(currentDate, { year, month: month - 1 }));
             });
+            const isRightPanelDisabled = needDisabled(year);
             return ({
                 year,
                 value, // Actual rendered text
-                disabled: isAllMonthDisabled,
+                disabled: isAllMonthDisabled || isRightPanelDisabled,
             });
         });
         let transform = (val: string) => val;
@@ -143,21 +171,21 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                 cycled={yearCycled}
                 list={list}
                 transform={transform}
-                selectedIndex={years.findIndex(item => item.value === currentYear)}
+                selectedIndex={years.findIndex(item => item.value === currentYear[panelType])}
                 type="year"
-                onSelect={this.selectYear}
+                onSelect={item => this.selectYear(item as YearScrollItem, panelType)}
                 mode="normal"
                 {...yearAndMonthOpts}
             />
         );
     }
 
-    selectYear = (item: YearScrollItem) => {
-        this.foundation.selectYear(item);
+    selectYear = (item: YearScrollItem, panelType?: PanelType) => {
+        this.foundation.selectYear(item, panelType);
     };
 
-    selectMonth = (item: MonthScrollItem) => {
-        this.foundation.selectMonth(item);
+    selectMonth = (item: MonthScrollItem, panelType?: PanelType) => {
+        this.foundation.selectMonth(item, panelType);
     };
 
     reselect = () => {
@@ -172,22 +200,29 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         });
     };
 
-    renderColMonth() {
+    renderColMonth(panelType: PanelType) {
         const { months, currentMonth, currentYear } = this.state;
         const { locale, localeCode, monthCycled, disabledDate, yearAndMonthOpts } = this.props;
         let transform = (val: string) => val;
-        const currentDate = setYear(Date.now(), currentYear);
+        const currentDate = setYear(Date.now(), currentYear[panelType]);
+        const left = strings.PANEL_TYPE_LEFT;
+        const right = strings.PANEL_TYPE_RIGHT;
+
         if (localeCode === 'zh-CN' || localeCode === 'zh-TW') {
             // Only Chinese needs to add [month] after the selected month
             transform = val => `${val}月`;
         }
         // i18n
-        const list: MonthScrollItem[] = months.map(({ value, month }) => ({
-            month,
-            disabled: disabledDate(setMonth(currentDate, month - 1)),
-            value: locale.fullMonths[value], // Actual rendered text
-        }));
-        const selectedIndex = list.findIndex(item => item.month === currentMonth);
+        const list: MonthScrollItem[] = months.map(({ value, month }) => {
+            const isRightPanelDisabled = panelType === right && currentMonth[left] && currentYear[left] === currentYear[right] && currentMonth[left] > month;
+
+            return ({
+                month,
+                disabled: disabledDate(setMonth(currentDate, month - 1)) || isRightPanelDisabled,
+                value: locale.fullMonths[value], // Actual rendered text
+            });
+        });
+        const selectedIndex = list.findIndex(item => item.month === currentMonth[panelType]);
         return (
             <ScrollItem
                 ref={this.monthRef}
@@ -196,7 +231,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                 transform={transform}
                 selectedIndex={selectedIndex}
                 type="month"
-                onSelect={this.selectMonth}
+                onSelect={item => this.selectMonth(item as MonthScrollItem, panelType)}
                 mode='normal'
                 {...yearAndMonthOpts}
             />
@@ -208,13 +243,41 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
         this.foundation.backToMain();
     };
 
+    renderPanel(panelType: PanelType) {
+
+        return (
+            <>
+                <ScrollList>
+                    {this.renderColYear(panelType)}
+                    {this.renderColMonth(panelType)}
+                </ScrollList>
+            </>
+        );
+    }
+
     render() {
-        const { locale, noBackBtn, density, presetPosition, renderQuickControls, renderDateInput } = this.props;
+        const { locale, noBackBtn, density, presetPosition, renderQuickControls, renderDateInput, type } = this.props;
         const prefix = `${prefixCls}-yearmonth-header`;
+        const bodyCls = `${prefixCls}-yearmonth-body`;
+
         // i18n
         const selectDateText = locale.selectDate;
         const iconSize = density === 'compact' ? 'default' : 'large';
         const buttonSize = density === 'compact' ? 'small' : 'default';
+        const panelTypeLeft = strings.PANEL_TYPE_LEFT;
+        const panelTypeRight = strings.PANEL_TYPE_RIGHT;
+
+        let content = null;
+        if (type === 'month') {
+            content = this.renderPanel(panelTypeLeft);
+        } else {
+            content = (
+                <div className={bodyCls}>
+                    {this.renderPanel(panelTypeLeft)}
+                    {this.renderPanel(panelTypeRight)}
+                </div>
+            );
+        }
 
         return (
             <React.Fragment>
@@ -233,23 +296,19 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                 {
                     presetPosition ? (
                         <div style={{ display: 'flex' }}>
-                            {presetPosition === "left" && renderQuickControls}
+                            {/* todo: monthRange does not support presetPosition temporarily */}
+                            {presetPosition === "left" && type !== 'monthRange' && renderQuickControls}
                             <div>
                                 {renderDateInput}
-                                <ScrollList>
-                                    {this.renderColYear()}
-                                    {this.renderColMonth()}
-                                </ScrollList>
+                                {content}
                             </div>
-                            {presetPosition === "right" && renderQuickControls}
+                            {/* todo: monthRange does not support presetPosition temporarily */}
+                            {presetPosition === "right" && type !== 'monthRange' && renderQuickControls}
                         </div>
                     ) :
                         <>
                             {renderDateInput}
-                            <ScrollList>
-                                {this.renderColYear()}
-                                {this.renderColMonth()}
-                            </ScrollList>
+                            {content}
                         </>
                 }
             </React.Fragment>

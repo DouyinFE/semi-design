@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 55
+order: 56
 category: 展示类
 title: Image 图片
 icon: doc-image
@@ -212,7 +212,7 @@ import { ImagePreview, Button } from '@douyinfe/semi-ui';
 
 ### 渲染在指定容器
 
-可以通过 `getPopupContainer` 指定预览组件的父级 DOM（需要指定 `position: relative`)，图片预览将会渲染至该 DOM 中
+可以通过 `getPopupContainer` 指定预览组件的父级 DOM（需要指定 `position: relative`)，图片预览将会渲染至该 DOM 中。这会改变浮层 DOM 树位置，但不会改变视图渲染位置。
 
 ```jsx live=true dir="column"
 import React, { useMemo } from 'react';
@@ -438,50 +438,50 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 ### ImagePreview
 
-| 属性               | 说明                    | 类型              | 默认值 | 版本 |
-|-------------------|-------------------------|------------------|-------|-----|
-| adaptiveTip       | 适应页面操作按钮提示       | string        | "适应页面" | |
-| className         | 自定义样式类名            | string           | - | |
-| closable          | 是否显示关闭按钮           | boolean        | true | |
-| closeOnEsc        | 点击 esc 关闭预览         | boolean        | true | |
-| crossOrigin       | 透传给预览图片的原生 img 标签的 crossorigin  | 'anonymous'｜'use-credentials'| - | |
-| currentIndex      | 受控属性，当前预览图片下标  | number               | - | |
-| defaultCurrentIndex | 首次展示图片下标        | number             | - | |
-| defaultVisible    | 首次是否开启预览           | boolean         | - | |
-| disableDownload   | 禁用下载                  | boolean        | false | |
-| downloadTip       | 下载操作按钮提示          | string         | "下载" | |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container `position: relative` | () => HTMLElement  | () => document.body | |
-| infinite          | 是否无限循环              | boolean       | false | |
-| lazyLoad          | 是否开启懒加载             | boolean      | true | |
+| 属性               | 说明                                                                                                                                               | 类型              | 默认值 | 版本 |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|------------------|-------|-----|
+| adaptiveTip       | 适应页面操作按钮提示                                                                                                                                       | string        | "适应页面" | |
+| className         | 自定义样式类名                                                                                                                                          | string           | - | |
+| closable          | 是否显示关闭按钮                                                                                                                                         | boolean        | true | |
+| closeOnEsc        | 点击 esc 关闭预览                                                                                                                                      | boolean        | true | |
+| crossOrigin       | 透传给预览图片的原生 img 标签的 crossorigin                                                                                                                   | 'anonymous'｜'use-credentials'| - | |
+| currentIndex      | 受控属性，当前预览图片下标                                                                                                                                    | number               | - | |
+| defaultCurrentIndex | 首次展示图片下标                                                                                                                                         | number             | - | |
+| defaultVisible    | 首次是否开启预览                                                                                                                                         | boolean         | - | |
+| disableDownload   | 禁用下载                                                                                                                                             | boolean        | false | |
+| downloadTip       | 下载操作按钮提示                                                                                                                                         | string         | "下载" | |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                       | () => HTMLElement  | () => document.body | |
+| infinite          | 是否无限循环                                                                                                                                           | boolean       | false | |
+| lazyLoad          | 是否开启懒加载                                                                                                                                          | boolean      | true | |
 | lazyLoadMargin    | 传给 options 中的rootMargin 参数，参考 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API#interfaces) | string | "0px 100px 100px 0px" | |
-| maskClosable      | 点击遮罩是否可关闭         | boolean        | true | |
-| nextTip           | 下一步操作按钮提示         | string         | "下一步" | |
-| originTip         | 原始尺寸操作按钮提示       | string        | "原始尺寸" | |
-| onChange          | 切换图片触发的事件  | (index: number) => void | - | |
-| onClose           | 点击关闭按钮时的回调函数  | () => void | - | |
-| onDownload        | 图片下载回调函数     | (src: string, index: number) => void | - | |
-| onRotateLeft      | 旋转图片的回调      | (angle: number) => void | - | |
-| onNext            | 向后切换图片的回调   | (index: number) => void | - | |
-| onPrev            | 向前切换图片的回调   | (index: number) => void | - | |
-| onZoomIn          | 图片放大时的回调函数  | (zoom: number) => void | - | |
-| onZoomOut         | 图片缩小时的回调函数  | (zoom: number) => void | - | |
-| onVisibleChange   | 切换可见状态触发的回调   | (visible: boolean) => void | - | |
-| preLoad           | 是否开启预加载             | boolean        | true | |
-| preLoadGap        | 预加载的步长               | number         | 2 | |
-| previewTitle      | 自定义预览 title          | ReactNode      | - | |
-| prevTip           | 上一步操作按钮提示         | string         | "上一步" | |
-| renderHeader      | 自定义渲染预览顶部信息     | (info: ReactNode) => ReactNode  | - | |
-| renderPreviewMenu | 自定义渲染预览底部菜单信息  | (props: MenuProps) => ReactNode;| - | |
-| rotateTip         | 旋转操作按钮提示                    | string         | "旋转" | |
-| showTooltip       | 是否展示底部操作区提示      | boolean        | false | |
-| src               | 图片列表信息              | string \| string[] | - | |
-| style             | 自定义样式               | CSSProperties    | - | |
-| viewerVisibleDelay | 隐藏预览操作按钮前的无操作时长 | number         | 10000 | |
-| visible           | 受控属性，是否预览         | boolean         | - | |
-| zIndex            | 预览层层级                | number        | 1070 | |
-| zoomInTip         | 放大操作按钮提示           | string         | "放大" | |
-| zoomOutTip        | 缩小操作按钮提示           | string        | "缩小" | |
-| zoomStep          | 图片每次缩小/放大比例       | number        | 0.1 | |
+| maskClosable      | 点击遮罩是否可关闭                                                                                                                                        | boolean        | true | |
+| nextTip           | 下一步操作按钮提示                                                                                                                                        | string         | "下一步" | |
+| originTip         | 原始尺寸操作按钮提示                                                                                                                                       | string        | "原始尺寸" | |
+| onChange          | 切换图片触发的事件                                                                                                                                        | (index: number) => void | - | |
+| onClose           | 点击关闭按钮时的回调函数                                                                                                                                     | () => void | - | |
+| onDownload        | 图片下载回调函数                                                                                                                                         | (src: string, index: number) => void | - | |
+| onRotateLeft      | 旋转图片的回调                                                                                                                                          | (angle: number) => void | - | |
+| onNext            | 向后切换图片的回调                                                                                                                                        | (index: number) => void | - | |
+| onPrev            | 向前切换图片的回调                                                                                                                                        | (index: number) => void | - | |
+| onZoomIn          | 图片放大时的回调函数                                                                                                                                       | (zoom: number) => void | - | |
+| onZoomOut         | 图片缩小时的回调函数                                                                                                                                       | (zoom: number) => void | - | |
+| onVisibleChange   | 切换可见状态触发的回调                                                                                                                                      | (visible: boolean) => void | - | |
+| preLoad           | 是否开启预加载                                                                                                                                          | boolean        | true | |
+| preLoadGap        | 预加载的步长                                                                                                                                           | number         | 2 | |
+| previewTitle      | 自定义预览 title                                                                                                                                      | ReactNode      | - | |
+| prevTip           | 上一步操作按钮提示                                                                                                                                        | string         | "上一步" | |
+| renderHeader      | 自定义渲染预览顶部信息                                                                                                                                      | (info: ReactNode) => ReactNode  | - | |
+| renderPreviewMenu | 自定义渲染预览底部菜单信息                                                                                                                                    | (props: MenuProps) => ReactNode;| - | |
+| rotateTip         | 旋转操作按钮提示                                                                                                                                         | string         | "旋转" | |
+| showTooltip       | 是否展示底部操作区提示                                                                                                                                      | boolean        | false | |
+| src               | 图片列表信息                                                                                                                                           | string \| string[] | - | |
+| style             | 自定义样式                                                                                                                                            | CSSProperties    | - | |
+| viewerVisibleDelay | 隐藏预览操作按钮前的无操作时长                                                                                                                                  | number         | 10000 | |
+| visible           | 受控属性，是否预览                                                                                                                                        | boolean         | - | |
+| zIndex            | 预览层层级                                                                                                                                            | number        | 1070 | |
+| zoomInTip         | 放大操作按钮提示                                                                                                                                         | string         | "放大" | |
+| zoomOutTip        | 缩小操作按钮提示                                                                                                                                         | string        | "缩小" | |
+| zoomStep          | 图片每次缩小/放大比例                                                                                                                                      | number        | 0.1 | |
 
 ### MenuProps
 

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 72
+order: 73
 category: 反馈类
 title: Toast 提示
 icon: doc-toast
@@ -384,14 +384,14 @@ render(Demo);
 
 **若未在 Toast.config(config) 中特别声明，以下API需要调用额外的 ToastFactory.create(config) 创建新 Toast 生效设置**
 
-| 属性 | 说明                                                                                       | 类型 | 默认值 | 版本 |
-| --- |------------------------------------------------------------------------------------------| --- | --- | --- |
-| bottom | 弹出位置 bottom                                                                              | number \| string | - | 0.25.0 |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper `position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| left | 弹出位置 left                                                                                | number \| string | - | 0.25.0 |
-| right | 弹出位置 right                                                                               | number \| string | - | 0.25.0 |
-| top | 弹出位置 top                                                                                 | number \| string | - | 0.25.0 |
-| zIndex | 弹层 z-index 值                                                                             | number | 1010 |  |
+| 属性 | 说明                                                                                        | 类型 | 默认值 | 版本 |
+| --- |-------------------------------------------------------------------------------------------| --- | --- | --- |
+| bottom | 弹出位置 bottom                                                                               | number \| string | - | 0.25.0 |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。  `position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
+| left | 弹出位置 left                                                                                 | number \| string | - | 0.25.0 |
+| right | 弹出位置 right                                                                                | number \| string | - | 0.25.0 |
+| top | 弹出位置 top                                                                                  | number \| string | - | 0.25.0 |
+| zIndex | 弹层 z-index 值                                                                              | number | 1010 |  |
 
 
 -   `ToastFactory.create(config) => Toast`  

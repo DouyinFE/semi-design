@@ -47,7 +47,9 @@ export interface BasicTriggerRenderProps {
     inputValue: string;
     placeholder: string;
     value: BasicTreeNodeData[];
-    onClear: (e: any) => void
+    onClear: (e: any) => void;
+    onSearch: (inputValue: string) => void;
+    onRemove: (key: string) => void
 }
 
 export type BasicOnChangeWithObject = (node: BasicTreeNodeData[] | BasicTreeNodeData, e: any) => void;
@@ -95,7 +97,9 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
 | 'disableStrictly'
 | 'aria-label'
 | 'checkRelation'
+| 'preventScroll'
 > {
+    borderless?: boolean;
     motion?: Motion;
     mouseEnterDelay?: number;
     mouseLeaveDelay?: number;
@@ -127,6 +131,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     loadedKeys?: string[];
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: any;
+    clickTriggerToHide?: boolean;
     loadData?: (data: BasicTreeNodeData) => Promise<void>;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     searchRender?: (inputProps: any) => any;
@@ -163,7 +168,7 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
 > {
     inputTriggerFocus: boolean;
     isOpen: boolean;
-    isInput: boolean;
+    // isInput: boolean;
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
@@ -191,7 +196,8 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     toggleHovering: (bool: boolean) => void;
     notifyLoad: (newLoadedKeys: Set<string>, data: BasicTreeNodeData) => void;
     updateInputFocus: (bool: boolean) => void;
-    updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void
+    updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
+    updateIsFocus: (bool: boolean) => void
 }
 
 // eslint-disable-next-line max-len
@@ -209,6 +215,9 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const isOpen = (this.getProp('defaultOpen') || triggerSearchAutoFocus) && !this._isDisabled();
         if (isOpen) {
             this.open();
+        }
+        if (triggerSearchAutoFocus) {
+            this.handleTriggerFocus(null);
         }
     }
 
@@ -424,10 +433,23 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
+    _registerClickOutsideHandler = (e) => {
+        this._adapter.registerClickOutsideHandler(e => {
+            this.handlerTriggerBlur(e);
+            this.close(e);
+        });
+    }
+
     // Scenes that may trigger focus:
     //  1、click selection
     _notifyFocus(e: any) {
         this._adapter.notifyFocus(e);
+    }
+
+    handleTriggerFocus(e: any) {
+        this._adapter.updateIsFocus(true);
+        this._notifyFocus(e);
+        this._registerClickOutsideHandler(e);
     }
 
     // Scenes that may trigger blur
@@ -438,6 +460,12 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.notifyBlur(e);
     }
 
+    handlerTriggerBlur(e) {
+        this._adapter.updateIsFocus(false);
+        this._notifyBlur(e);
+        this._adapter.unregisterClickOutsideHandler();
+    }
+
     toggleHoverState(bool: boolean) {
         this._adapter.toggleHovering(bool);
     }
@@ -445,15 +473,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     open() {
         this._adapter.openMenu();
         this._setDropdownWidth();
-        this._adapter.registerClickOutsideHandler(e => {
-            this.close(e);
-        });
     }
 
     close(e: any) {
         this._adapter.closeMenu();
-        this._adapter.unregisterClickOutsideHandler();
-        this._notifyBlur(e);
         if (this.getProp('motionExpand')) {
             this._adapter.updateState({ motionKeys: new Set([]) });
         }
@@ -461,18 +484,22 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     handleClick(e: any) {
         const isDisabled = this._isDisabled();
-        const { isOpen, inputValue } = this.getStates();
-        const { searchPosition } = this.getProps();
+        const { isOpen, inputValue, isFocus } = this.getStates();
+        const { searchPosition, clickTriggerToHide } = this.getProps();
         if (isDisabled) {
             return;
-        } else if (!isOpen) {
-            this.open();
-            this._notifyFocus(e);
-        } else if (isOpen) {
-            if (searchPosition === 'trigger' && inputValue) {
-                return;
+        } else {
+            if (!isFocus) {
+                this.handleTriggerFocus(e);
             }
-            this.close(e);
+            if (isOpen) {
+                if (searchPosition === 'trigger' && inputValue) {
+                    return;
+                }
+                clickTriggerToHide && this.close(e);
+            } else {
+                this.open();
+            }
         }
     }
 
@@ -639,6 +666,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
         if (clickToHide && (this._isSelectToClose() || !data.children)) {
             this.close(e);
+            this.handlerTriggerBlur(e);
         }
     }
 

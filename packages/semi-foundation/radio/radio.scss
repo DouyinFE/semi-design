@@ -107,8 +107,8 @@ $inner-width: $width-icon-medium;
         flex-wrap: nowrap;
         border-radius: $radius-radio_cardRadioGroup;
         padding: $spacing-radio_cardRadioGroup-paddingY $spacing-radio_cardRadioGroup-paddingX;
-        background: transparent;
-        border: $width-radio_cardRadioGroup_checked-border solid transparent;
+        background: $color-radio_cardRadioGroup-bg-default;
+        border: $width-radio_cardRadioGroup_checked-border solid $color-radio_cardRadioGroup_border-default;
         transition: background-color $transition_duration_radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
         border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
@@ -172,7 +172,7 @@ $inner-width: $width-icon-medium;
 
         &_disabled {
             &:active {
-                background: transparent;
+                background: $color-radio_cardRadioGroup_disabled-bg-active;
             }
         }
 
@@ -416,6 +416,7 @@ $inner-width: $width-icon-medium;
     &-horizontal {
         display: inline-flex;
         flex-wrap: wrap;
+        vertical-align: bottom; // Fix 1573
         gap: $spacing-radio_group_horizontal-marginRight;
     }
 

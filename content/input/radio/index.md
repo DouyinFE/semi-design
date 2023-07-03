@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 27
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
@@ -400,3 +400,6 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/radiobutton/
 
 ## 设计变量
 <DesignToken/>
+
+## 相关物料
+<semi-material-list code="123"></semi-material-list>

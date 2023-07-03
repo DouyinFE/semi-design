@@ -8,6 +8,7 @@ $module: #{$prefix}-select;
 $single: #{$module}-single;
 $filterable: #{$module}-filterable;
 $multiple: #{$module}-multiple;
+$overflowList: #{$prefix}-overflow-list;
 
 .#{$module} {
     box-sizing: border-box;
@@ -24,6 +25,10 @@ $multiple: #{$module}-multiple;
     cursor: pointer;
     transition: background-color $transition_duration-select-bg $transition_function-select-bg $transition_delay-select-bg, border $transition_duration-select-border $transition_function-select-border $transition_delay-select-border;
     transform: scale($transform_scale-select);
+
+    max-height: 300px;
+    overflow-y: auto;
+
     &:hover {
         background-color: $color-select-bg-hover;
         border: $width-select-border-hover solid $color-select-border-hover;
@@ -31,7 +36,12 @@ $multiple: #{$module}-multiple;
 
     &:focus {
         border: $width-select-border-focus solid $color-select-border-focus;
+        background-color: $color-select-bg-focus;
         outline: 0;
+    }
+
+    &:active{
+        background-color: $color-select-bg-active;
     }
 
     &-small {
@@ -198,6 +208,28 @@ $multiple: #{$module}-multiple;
         display: flex;
         align-items: center;
         height: 100%;
+
+        &-collapse {
+            display: inline-flex;
+            flex-shrink: 0;
+            width: 100%;
+
+            .#{$overflowList}-overflow {
+                max-width: 100%; // when one tag exceed the max width
+                min-width: 50px;
+            }
+
+            &>&-tag {
+                background-color: transparent;
+            }
+
+            &>&-N {
+                background-color: transparent;
+                padding: 4px;
+                color: var(--semi-color-text-0);
+                font-size: 12px;
+            }
+        }
     }
 
     &-multiple {
@@ -436,6 +468,43 @@ $multiple: #{$module}-multiple;
     padding-top: $spacing-select_loading_wrapper-paddingTop;
     padding-bottom: $spacing-select_loading_wrapper-paddingBottom;
     cursor: not-allowed;
+    // make sure that spin align vertical, no need to make 20px as a spacing token here
+    height: 20px;
 }
 
-@import './rtl.scss';
+
+.#{$module}-borderless {
+
+    &:not(:focus-within):not(:hover){
+        background-color:transparent;
+        border-color: transparent;
+        .#{$module}-arrow {
+            opacity: 0;
+        }
+    }
+
+    &:focus-within:not(:active){
+        background-color:transparent;
+    }
+
+    // split style into not and normal to avoid style override
+    &.#{$module}-error:not(:focus-within){
+        border-color: $color-select_danger-border-focus;
+    }
+
+    &.#{$module}-warning:not(:focus-within){
+        border-color: $color-select_warning-border-focus;
+    }
+
+    &.#{$module}-error:focus-within{
+        border-color: $color-select_danger-border-focus;
+    }
+
+    &.#{$module}-warning:focus-within{
+        border-color: $color-select_warning-border-focus;
+    }
+
+}
+
+
+    @import './rtl.scss';

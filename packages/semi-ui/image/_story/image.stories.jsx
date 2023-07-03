@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import {
     Image,
     Button,
@@ -549,3 +549,37 @@ export const CustomRenderTitle = () => (
         </ImagePreview>
     </>
 );
+
+export const issue1526 = () => {
+    // 测试懒加载状态下，image src 改变时候加载是否符合预期
+    const [src, setSrc] = useState([]);
+    const srcList1 = [
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lion.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/seaside.jpeg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/beach.jpeg",
+    ];
+
+    // 模拟远程加载
+    useEffect(() => {
+       setTimeout(() => {
+        setSrc(srcList1);
+       }, 1000);
+    }, []);
+
+    return (
+        <ImagePreview zIndex={1000} >
+            {src.map((file, index) => (
+                <div
+                    style={{
+                        position: 'relative',
+                        cursor: 'pointer',
+                        display: 'inline-block',
+                    }}
+                    key={file}
+                >
+                    <Image key={file} src={file} width={96} height={96} />
+                </div>
+            ))}
+        </ImagePreview>
+    )
+}

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 32
+order: 33
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker
@@ -292,6 +292,7 @@ function Demo(props = {}) {
 | ------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------ |
 | autoAdjustOverflow  | 浮层被遮挡时是否自动调整方向                           | boolean                                                                           | true                                                              | **0.34.0** |
 | autoFocus           | 自动获取焦点                                           | boolean                                                                           | false                                                             |                    |
+| borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
 | className           | 外层样式名                                             | string                                                                            |                                                                   |                    |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |  |**2.25.0**  |
 | clearText           | 清除按钮的提示文案                                     | string                                                                            | clear                                                             |                    |
@@ -304,7 +305,7 @@ function Demo(props = {}) {
 | dropdownMargin      | 浮层算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin      | object\|number  |  | **2.25.0**
 | focusOnOpen         | 挂载时是否打开面板并focus输入框                         | boolean                                                                            | false                                                     |                    |
 | format              | 展示的时间格式                                         | string                                                                            | "HH:mm:ss"                                                        |                    |
-| getPopupContainer   | 指定容器，浮层将会渲染至该元素内，自定义需要设置 `position: relative`                       | Function(): HTMLElement                                                           | () => document.body                                               |                    |
+| getPopupContainer   | 指定容器，浮层将会渲染至该元素内，自定义需要设置 `position: relative`  这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                      | Function(): HTMLElement                                                           | () => document.body                                               |                    |
 | hideDisabledOptions | 隐藏禁止选择的选项                                     | boolean                                                                           | false                                                             |                    |
 | hourStep            | 小时选项间隔                                           | number                                                                            | 1                                                                 |                    |
 | inputReadOnly       | 设置输入框为只读（避免在移动设备上打开虚拟键盘）       | boolean                                                                           | false                                                             |                    |
@@ -318,7 +319,7 @@ function Demo(props = {}) {
 | popupClassName      | 弹出层类名                                             | string                                                                            | ''                                                                |                    |
 | popupStyle          | 弹出层样式对象                                         | object                                                                            | -                                                                 |                    |
 | position            | 浮层位置                                               | string                                                                            | type="timeRange"时默认为"bottom"，type="time"时默认为"bottomLeft" |                    |
-| prefixCls              | 前缀内容                                               | string\|ReactNode                                                                 |                                                                   |                    |
+| prefix              | 前缀内容                                               | string\|ReactNode                                                                 |                                                                   |                    |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | rangeSeparator      | 时间范围分隔符                                         | string                                                                            | " ~ "                                                             |                    |
 | scrollItemProps     | 透传给 scrollItem 的属性，可选值同[ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)                                                | object                                                           | | **0.31.0**         |

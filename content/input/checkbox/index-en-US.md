@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 21
+order: 22
 category: Input
 title:  Checkbox
 subTitle: Checkbox
@@ -474,3 +474,5 @@ Some internal methods provided by Checkbox can be accessed through ref:
 ```material
 45, 64, 73, 89, 123
 ``` -->
+## Related Material
+<semi-material-list code="123"></semi-material-list>

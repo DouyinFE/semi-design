@@ -50,6 +50,7 @@ import { OptionProps, TreeProps, TreeState, FlattenNode, TreeNodeData, TreeNodeP
 import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import CheckboxGroup from '../checkbox/checkboxGroup';
 import Popover, { PopoverProps } from '../popover/index';
+import VirtualRow from '../select/virtualRow';
 
 export type ExpandAction = false | 'click' | 'doubleClick';
 
@@ -159,11 +160,12 @@ export type OverrideCommonState =
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;
-    isInput: boolean;
+    // isInput: boolean;
     rePosKey: number;
     dropdownMinWidth: null | number;
     isHovering: boolean;
-    prevProps: TreeSelectProps
+    prevProps: TreeSelectProps;
+    isFocus: boolean
 }
 
 const prefixcls = cssClasses.PREFIX;
@@ -180,6 +182,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-invalid': PropTypes.bool,
         'aria-labelledby': PropTypes.string,
         'aria-required': PropTypes.bool,
+        borderless: PropTypes.bool,
         loadedKeys: PropTypes.arrayOf(PropTypes.string),
         loadData: PropTypes.func,
         onLoad: PropTypes.func,
@@ -261,9 +264,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-label': PropTypes.string,
         showRestTagsPopover: PropTypes.bool,
         restTagsPopoverProps: PropTypes.object,
+        preventScroll: PropTypes.bool,
+        clickTriggerToHide: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
+        borderless: false,
         searchPosition: strings.SEARCH_POSITION_DROPDOWN,
         arrowIcon: <IconChevronDown />,
         autoExpandParent: false,
@@ -292,6 +298,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         'aria-label': 'TreeSelect',
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
+        clickTriggerToHide: true,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -310,7 +317,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.state = {
             inputTriggerFocus: false,
             isOpen: false,
-            isInput: false,
+            isFocus: false,
+            // isInput: false,
             rePosKey: key,
             dropdownMinWidth: null,
             inputValue: '',
@@ -636,10 +644,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             toggleHovering: bool => {
                 this.setState({ isHovering: bool });
             },
-            updateInputFocus: bool => { 
+            updateInputFocus: bool => {
                 if (bool) {
                     if (this.inputRef && this.inputRef.current) {
-                        (this.inputRef.current as any).focus();
+                        const { preventScroll } = this.props;
+                        (this.inputRef.current as any).focus({ preventScroll });
                     }
                     if (this.tagInputRef && this.tagInputRef.current) {
                         this.tagInputRef.current.focus();
@@ -652,7 +661,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.tagInputRef.current.blur();
                     }
                 }
-            } // eslint-disable-line
+            },
+            updateIsFocus: bool => {
+                this.setState({ isFocus: bool });
+            }
         };
     }
 
@@ -846,8 +858,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             maxTagCount,
             searchPosition,
             filterTreeNode,
-            showRestTagsPopover, 
-            restTagsPopoverProps 
+            showRestTagsPopover,
+            restTagsPopoverProps
         } = this.props;
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
@@ -935,7 +947,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
                 >
-                    { clearIcon ? clearIcon : <IconClear />}
+                    {clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -959,8 +971,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             leafOnly,
             searchPosition,
             triggerRender,
+            borderless,
+            ...rest
         } = this.props;
-        const { isOpen, isInput, inputValue, selectedKeys, checkedKeys, keyEntities } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -977,7 +991,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             cls(
                 prefixcls,
                 {
-                    [`${prefixcls}-focus`]: isOpen && !isInput,
+                    [`${prefixcls}-borderless`]: borderless,
+                    [`${prefixcls}-focus`]: isFocus,
                     [`${prefixcls}-disabled`]: disabled,
                     [`${prefixcls}-single`]: !multiple,
                     [`${prefixcls}-multiple`]: multiple,
@@ -1006,6 +1021,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentName={'TreeSelect'}
                 triggerRender={triggerRender}
                 componentProps={{ ...this.props }}
+                onSearch={this.search}
+                onRemove={this.removeTag}
             />
         ) : (
             [
@@ -1048,6 +1065,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 {...mouseEvent}
+                {...this.getDataAttr(rest)}
             >
                 {inner}
             </div>
@@ -1119,10 +1137,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             placeholder,
             maxTagCount,
             checkRelation,
-            showRestTagsPopover, 
+            showRestTagsPopover,
             restTagsPopoverProps,
             searchPosition,
-            filterTreeNode
+            filterTreeNode,
+            preventScroll
         } = this.props;
         const {
             keyEntities,
@@ -1161,6 +1180,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 renderTagItem={(itemKey, index) => this.renderTagItem(itemKey, index)}
                 onRemove={itemKey => this.removeTag(itemKey)}
                 expandRestTagsOnClick={false}
+                preventScroll={preventScroll}
             />
         );
     };
@@ -1175,6 +1195,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchAutoFocus,
             multiple,
             disabled,
+            preventScroll,
         } = this.props;
         const isDropdownPositionSearch = searchPosition === strings.SEARCH_POSITION_DROPDOWN;
         const inputcls = cls({
@@ -1185,6 +1206,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const baseInputProps = {
             value: inputValue,
             className: inputcls,
+            preventScroll,
             onChange: (value: string) => this.search(value),
         };
         const inputDropdownProps = {
@@ -1285,7 +1307,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
         if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
             this.foundation.focusInput(true);
-        } 
+        }
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
@@ -1299,9 +1321,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return <TreeNode {...treeNodeProps} {...data} key={key} data={data} style={style} />;
     };
 
-    itemKey = (index: number, data: TreeNodeData) => {
+    itemKey = (index: number, data: Record<string, any>) => {
+        const { visibleOptions } = data;
         // Find the item at the specified index.
-        const item = data[index];
+        const item = visibleOptions[index];
         // Return a value that uniquely identifies this item.
         return item.key;
     };
@@ -1331,7 +1354,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             );
         }
 
-        const option = ({ index, style, data }: OptionProps) => this.renderTreeNode(data[index], index, style);
+        const data = {
+            visibleOptions: flattenNodes,
+            renderOption: this.renderTreeNode
+        };
 
         return (
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
@@ -1342,12 +1368,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         height={height}
                         width={width}
                         // @ts-ignore avoid strict check of itemKey
-                        itemKey={this.itemKey as ListItemKeySelector<TreeNodeData>}
-                        itemData={flattenNodes as any}
+                        itemKey={this.itemKey}
+                        itemData={data}
                         className={`${prefixTree}-virtual-list`}
                         style={{ direction }}
                     >
-                        {option}
+                        {VirtualRow}
                     </VirtualList>
                 )}
             </AutoSizer>
@@ -1417,10 +1443,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.renderInput()
                     }
                     <div className={listCls} role="tree" aria-multiselectable={multiple ? true : false} style={optionListStyle}>
-                        { noData ? this.renderEmpty() : (multiple ? 
+                        {noData ? this.renderEmpty() : (multiple ?
                             (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
                                 {this.renderNodeList()}
-                            </CheckboxGroup>) : 
+                            </CheckboxGroup>) :
                             this.renderNodeList()
                         )}
                     </div>

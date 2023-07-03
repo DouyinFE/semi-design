@@ -2,7 +2,7 @@ import React from 'react';
 import cls from 'classnames';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
-import { isEqual, noop, omit, isEmpty, isArray } from 'lodash';
+import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
 import { _generateDataByType, _generateSelectedItems } from '@douyinfe/semi-foundation/transfer/transferUtils';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/transfer/constants';
@@ -115,7 +115,22 @@ interface HeaderConfig {
     allContent: string;
     onAllClick: () => void;
     type: string;
-    showButton: boolean
+    showButton: boolean;
+    num: number;
+    allChecked?: boolean
+}
+
+type SourceHeaderProps = {
+    num: number;
+    showButton: boolean;
+    allChecked: boolean;
+    onAllClick: () => void
+}
+
+type SelectedHeaderProps = {
+    num: number;
+    showButton: boolean;
+    onClear: () => void
 }
 
 export interface TransferState {
@@ -147,7 +162,9 @@ export interface TransferProps {
     renderSourceItem?: (item: RenderSourceItemProps) => React.ReactNode;
     renderSelectedItem?: (item: RenderSelectedItemProps) => React.ReactNode;
     renderSourcePanel?: (sourcePanelProps: SourcePanelProps) => React.ReactNode;
-    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode
+    renderSelectedPanel?: (selectedPanelProps: SelectedPanelProps) => React.ReactNode;
+    renderSourceHeader?: (headProps: SourceHeaderProps) => React.ReactNode;
+    renderSelectedHeader?: (headProps: SelectedHeaderProps) => React.ReactNode
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -161,7 +178,7 @@ const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataIt
     <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
         {items.map((item, index: number) => (
             // @ts-ignore skip SortableItem type check
-            <SortableItem key={item.label} index={index} item={item} />
+            <SortableItem key={item.key} index={index} item={item} />
         ))}
     </div>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -336,13 +353,24 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderHeader(headerConfig: HeaderConfig) {
-        const { disabled } = this.props;
+        const { disabled, renderSourceHeader, renderSelectedHeader } = this.props;
         const { totalContent, allContent, onAllClick, type, showButton } = headerConfig;
         const headerCls = cls({
             [`${prefixCls}-header`]: true,
             [`${prefixCls}-right-header`]: type === 'right',
             [`${prefixCls}-left-header`]: type === 'left',
         });
+
+        if (type === 'left' && typeof renderSourceHeader === 'function') {
+            const { num, showButton, allChecked, onAllClick } = headerConfig;
+            return renderSourceHeader({ num, showButton, allChecked, onAllClick });
+        }
+        
+        if (type === 'right' && typeof renderSelectedHeader === 'function') {
+            const { num, showButton, onAllClick: onClear } = headerConfig;
+            return renderSelectedHeader({ num, showButton, onClear });                 
+        }
+
         return (
             <div className={headerCls}>
                 <span className={`${prefixCls}-header-total`}>{totalContent}</span>
@@ -409,6 +437,8 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             onAllClick: () => this.foundation.handleAll(leftContainesNotInSelected),
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST,
+            num: showNumber,
+            allChecked: !leftContainesNotInSelected
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);
@@ -623,6 +653,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             onAllClick: () => this.foundation.handleClear(),
             type: 'right',
             showButton: Boolean(selectedData.length),
+            num: selectedData.length,
         };
         const headerCom = this.renderHeader(headerConfig);
         const emptyCom = this.renderEmpty('right', emptyContent.right ? emptyContent.right : locale.emptyRight);
@@ -659,7 +690,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     render() {
-        const { className, style, disabled, renderSelectedPanel, renderSourcePanel } = this.props;
+        const { className, style, disabled, renderSelectedPanel, renderSourcePanel, ...rest } = this.props;
         const transferCls = cls(prefixCls, className, {
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-custom-panel`]: renderSelectedPanel && renderSourcePanel,
@@ -668,7 +699,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return (
             <LocaleConsumer componentName="Transfer">
                 {(locale: Locale['Transfer']) => (
-                    <div className={transferCls} style={style}>
+                    <div className={transferCls} style={style} {...this.getDataAttr(rest)}>
                         {this.renderLeft(locale)}
                         {this.renderRight(locale)}
                     </div>

@@ -123,12 +123,25 @@ $module: #{$prefix}-typography;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         overflow: hidden;
+
+        &.#{$module}-ellipsis-multiple-line-text {
+            // inline-block only works in the Text component, keeping the original external inline performance
+            display: -webkit-inline-box;
+        }
     }
 
     &-ellipsis-overflow-ellipsis {
         display: block;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        &.#{$module}-ellipsis-overflow-ellipsis-text {
+            // inline-block only works in the Text component, keeping the original external inline performance
+            display: inline-block;
+            // Ensure that Text component can be limited by the parent's width when no specific width is set
+            max-width: 100%;
+            vertical-align: top;
+        }
     }
 
     &-ellipsis-expand {
@@ -140,7 +153,7 @@ $module: #{$prefix}-typography;
 
     &-action-copy {
         display: inline-flex;
-        vertical-align: text-bottom;
+        vertical-align: middle;
         padding: $spacing-typography_copyIcon-padding;
         margin-left: $spacing-typography_copyIcon-marginLeft;
     }
@@ -156,7 +169,7 @@ $module: #{$prefix}-typography;
         color: $color-typography_copied-text-success;
 
         .#{$prefix}-icon {
-            vertical-align: text-bottom;
+            vertical-align: middle;
             color: $color-typography_copied-icon-success;
         }
     }
@@ -164,49 +177,174 @@ $module: #{$prefix}-typography;
     &-paragraph {
         margin: $spacing-typography_title_paragraph-margin;
     }
+
 }
 
 // ============ Title ============
 h1.#{$module},
 .#{$module}-h1.#{$module} {
     @include font-size-header-1;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title1-fontWeight;
     margin: $spacing-typography_title_h1-margin;
+
+    &.#{$module}-h1-weight-light {
+        font-weight: $font-typography_title1-light-fontWeight;
+    }
+
+    &.#{$module}-h1-weight-regular {
+        font-weight: $font-typography_title1-regular-fontWeight;
+    }
+
+    &.#{$module}-h1-weight-medium {
+        font-weight: $font-typography_title1-medium-fontWeight;
+    }
+
+    &.#{$module}-h1-weight-semibold {
+        font-weight: $font-typography_title1-semibold-fontWeight;
+    }
+
+    &.#{$module}-h1-weight-bold {
+        font-weight: $font-typography_title1-bold-fontWeight;
+    }
+
 }
 
 h2.#{$module},
 .#{$module}-h2.#{$module} {
     @include font-size-header-2;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title2-fontWeight;
     margin: $spacing-typography_title_h2-margin;
+
+    &.#{$module}-h2-weight-light {
+        font-weight: $font-typography_title2-light-fontWeight;
+    }
+
+    &.#{$module}-h2-weight-regular {
+        font-weight: $font-typography_title2-regular-fontWeight;
+    }
+
+    &.#{$module}-h2-weight-medium {
+        font-weight: $font-typography_title2-medium-fontWeight;
+    }
+
+    &.#{$module}-h2-weight-semibold {
+        font-weight: $font-typography_title2-semibold-fontWeight;
+    }
+
+    &.#{$module}-h2-weight-bold {
+        font-weight: $font-typography_title2-bold-fontWeight;
+    }
+
 }
 
 h3.#{$module},
 .#{$module}-h3.#{$module} {
     @include font-size-header-3;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title3-fontWeight;
     margin: $spacing-typography_title_h3-margin;
+
+    &.#{$module}-h3-weight-light {
+        font-weight: $font-typography_title3-light-fontWeight;
+    }
+
+    &.#{$module}-h3-weight-regular {
+        font-weight: $font-typography_title3-regular-fontWeight;
+    }
+
+    &.#{$module}-h3-weight-medium {
+        font-weight: $font-typography_title3-medium-fontWeight;
+    }
+
+    &.#{$module}-h3-weight-semibold {
+        font-weight: $font-typography_title3-semibold-fontWeight;
+    }
+
+    &.#{$module}-h3-weight-bold {
+        font-weight: $font-typography_title3-bold-fontWeight;
+    }
+
 }
 
 h4.#{$module},
 .#{$module}-h4.#{$module} {
     @include font-size-header-4;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title4-fontWeight;
     margin: $spacing-typography_title_h4-margin;
+
+    &.#{$module}-h4-weight-light {
+        font-weight: $font-typography_title4-light-fontWeight;
+    }
+
+    &.#{$module}-h4-weight-regular {
+        font-weight: $font-typography_title4-regular-fontWeight;
+    }
+
+    &.#{$module}-h4-weight-medium {
+        font-weight: $font-typography_title4-medium-fontWeight;
+    }
+
+    &.#{$module}-h4-weight-semibold {
+        font-weight: $font-typography_title4-semibold-fontWeight;
+    }
+
+    &.#{$module}-h4-weight-bold {
+        font-weight: $font-typography_title4-bold-fontWeight;
+    }
 }
 
 h5.#{$module},
 .#{$module}-h5.#{$module} {
     @include font-size-header-5;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title5-fontWeight;
     margin: $spacing-typography_title_h5-margin;
+
+    &.#{$module}-h5-weight-light {
+        font-weight: $font-typography_title5-light-fontWeight;
+    }
+
+    &.#{$module}-h5-weight-regular {
+        font-weight: $font-typography_title5-regular-fontWeight;
+    }
+
+    &.#{$module}-h5-weight-medium {
+        font-weight: $font-typography_title5-medium-fontWeight;
+    }
+
+    &.#{$module}-h5-weight-semibold {
+        font-weight: $font-typography_title5-semibold-fontWeight;
+    }
+
+    &.#{$module}-h5-weight-bold {
+        font-weight: $font-typography_title5-bold-fontWeight;
+    }
 }
 
 h6.#{$module},
 .#{$module}-h6.#{$module} {
     @include font-size-header-6;
-    font-weight: $font-typography_title-fontWeight;
+    font-weight: $font-typography_title6-fontWeight;
     margin: $spacing-typography_title_h6-margin;
+
+    &.#{$module}-h6-weight-light {
+        font-weight: $font-typography_title6-light-fontWeight;
+    }
+
+    &.#{$module}-h6-weight-regular {
+        font-weight: $font-typography_title6-regular-fontWeight;
+    }
+
+    &.#{$module}-h6-weight-medium {
+        font-weight: $font-typography_title6-medium-fontWeight;
+    }
+
+    &.#{$module}-h6-weight-semibold {
+        font-weight: $font-typography_title6-semibold-fontWeight;
+    }
+
+    &.#{$module}-h6-weight-bold {
+        font-weight: $font-typography_title6-bold-fontWeight;
+    }
+
 }
 
 // ============ Paragraph ============

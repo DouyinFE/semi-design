@@ -10,6 +10,7 @@ $color-pagination_item-bg-active: var(--semi-color-fill-1); // 翻页器 页码 
 $color-pagination_item-text-disabled: var(--semi-color-disabled-text); // 翻页器 页码 禁用态文字颜色
 $color-pagination_item-icon-disabled: var(--semi-color-disabled-text); // 翻页器 页码 禁用态图标颜色
 $color-pagination_item-bg-disabled: transparent; // 翻页器 页码 禁用态背景颜色
+$color-pagination_item-bg-selected-disabled: var(--semi-color-disabled-fill); // 翻页器 页码 选中禁用态背景颜色
 $color-pagination_item-text-selected: var(--semi-color-primary); // 翻页器 页码 选中态文字颜色
 $color-pagination_item-bg-selected: var(--semi-color-primary-light-default); // 翻页器 页码 选中态背景颜色
 $color-pagination_quickjump_text-disabled: var(--semi-color-disabled-text); // 翻页器 快速跳转禁用态文字颜色

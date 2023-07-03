@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 52
+order: 53
 category: 展示类
 title: Dropdown 下拉框
 icon: doc-dropdown
@@ -423,32 +423,32 @@ function DropdownEvents() {
 
 ### Dropdown
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向 | boolean | true |  |
-| closeOnEsc | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效 | boolean | true ｜ **2.13.0** |
-| className | 下拉弹层外层样式类名 | string |  |  |
-| children | 触发弹出层的 Trigger 元素 | ReactNode |  |  |
-| clickToHide | 在弹出层内点击时是否自动关闭弹出层 | boolean |  | **0.24.0** |
-| contentClassName | 下拉菜单根元素类名 | string |  |  |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |  |
-| margin| 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin  | number\|object  |  |  **2.25.0**   |
-| mouseEnterDelay | 鼠标移入 Trigger 后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
-| mouseLeaveDelay | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效） | number | 50 |  |
-| menu | 通过传入 JSON Array 来快速配置 Dropdown 内容 | Array<DropdownMenuItem\> | [] | **1.12.0** |
+| 属性 | 说明                                                                                                                           | 类型 | 默认值 | 版本 |
+| --- |------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向                                                                                                              | boolean | true |  |
+| closeOnEsc | 在 trigger 或 弹出层按 Esc 键是否关闭面板，受控时不生效                                                                                          | boolean | true ｜ **2.13.0** |
+| className | 下拉弹层外层样式类名                                                                                                                   | string |  |  |
+| children | 触发弹出层的 Trigger 元素                                                                                                            | ReactNode |  |  |
+| clickToHide | 在弹出层内点击时是否自动关闭弹出层                                                                                                            | boolean |  | **0.24.0** |
+| contentClassName | 下拉菜单根元素类名                                                                                                                    | string |  |  |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                         | function():HTMLElement | () => document.body |  |
+| margin| 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                         | number\|object  |  |  **2.25.0**   |
+| mouseEnterDelay | 鼠标移入 Trigger 后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                    | number | 50 |  |
+| mouseLeaveDelay | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                          | number | 50 |  |
+| menu | 通过传入 JSON Array 来快速配置 Dropdown 内容                                                                                            | Array<DropdownMenuItem\> | [] | **1.12.0** |
 | position | 弹出菜单的位置，常用："bottom", "bottomLeft", "bottomRight"，更多详见[Tooltip 位置](https://semi.design/zh-CN/show/tooltip#%E4%BD%8D%E7%BD%AE) | string | "bottom" |  |
-| render | 弹出层的内容，由 `Dropdown.Menu` 及 `Dropdown.Item`、`Dropdown.Title` 构成 | ReactNode |  |  |
-| rePosKey | 可以更新该项值手动触发弹出层的重新定位 | string \| number |  |  |
-| spacing | 弹出层与 Trigger 元素（即 Dropdown children）的距离，单位 px | number | 4 |  |
-| style | 弹出层内联样式 | object |  |  |
-| showTick | 是否自动在 active 的 Dropdown.Item 项左侧展示表示选中的勾 | boolean | false | **0.26.0** |
-| stopPropagation | 是否阻止弹出层上的点击事件冒泡 | boolean | false | **0.34.0** |
-| trigger | 触发下拉的行为，可选 "hover", "focus", "click", "custom" | string | "hover" |  |
-| visible | 是否显示菜单，需配合 trigger custom 使用 | boolean | 无 |  |
-| zIndex | 弹出层 z-index 值 | number | 1050 |  |
-| onClickOutSide | 当弹出层处于展示状态，点击非Children、非弹出层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0** |
-| onEscKeyDown |  在 trigger 或 弹出层按 Esc 键时调用 |  function(e:event) |  |  **2.13.0** | 
-| onVisibleChange | 弹出层显示状态改变时的回调 | function(visible: boolean) |  |  |
+| render | 弹出层的内容，由 `Dropdown.Menu` 及 `Dropdown.Item`、`Dropdown.Title` 构成                                                               | ReactNode |  |  |
+| rePosKey | 可以更新该项值手动触发弹出层的重新定位                                                                                                          | string \| number |  |  |
+| spacing | 弹出层与 Trigger 元素（即 Dropdown children）的距离，单位 px                                                                                | number | 4 |  |
+| style | 弹出层内联样式                                                                                                                      | object |  |  |
+| showTick | 是否自动在 active 的 Dropdown.Item 项左侧展示表示选中的勾                                                                                     | boolean | false | **0.26.0** |
+| stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                                              | boolean | false | **0.34.0** |
+| trigger | 触发下拉的行为，可选 "hover", "focus", "click", "custom"                                                                               | string | "hover" |  |
+| visible | 是否显示菜单，需配合 trigger custom 使用                                                                                                 | boolean | 无 |  |
+| zIndex | 弹出层 z-index 值                                                                                                                | number | 1050 |  |
+| onClickOutSide | 当弹出层处于展示状态，点击非Children、非弹出层内部区域时的回调（仅trigger为custom、click时有效）                                                                | function(e:event) |  | **2.1.0** |
+| onEscKeyDown | 在 trigger 或 弹出层按 Esc 键时调用                                                                                                    |  function(e:event) |  |  **2.13.0** | 
+| onVisibleChange | 弹出层显示状态改变时的回调                                                                                                                | function(visible: boolean) |  |  |
 
 ### Dropdown.Menu
 
@@ -529,3 +529,5 @@ function DropdownEvents() {
 ```material
 5
 ``` -->
+## 相关物料
+<semi-material-list code="5"></semi-material-list>

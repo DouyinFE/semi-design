@@ -41,12 +41,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.enabledBodyScroll();
     }
 
-    handleRatio(type: string) {
-        this.setState({
-            ratio: type,
-        } as any);
-    }
-
     handleViewVisibleChange = () => {
         const nowTime = new Date().getTime();
         const mouseActiveTime = this._adapter.getMouseActiveTime();

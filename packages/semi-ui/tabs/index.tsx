@@ -3,7 +3,6 @@ import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
-import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import TabsFoundation, { TabsAdapter } from '@douyinfe/semi-foundation/tabs/foundation';
 import { isEqual, pick } from 'lodash';
 import BaseComponent from '../_base/baseComponent';
@@ -11,6 +10,7 @@ import '@douyinfe/semi-foundation/tabs/tabs.scss';
 
 import TabBar from './TabBar';
 import TabPane from './TabPane';
+import TabItem from './TabItem';
 import TabsContext from './tabs-context';
 import { PlainTab, TabBarProps, TabsProps } from './interface';
 
@@ -27,6 +27,7 @@ export interface TabsState {
 
 class Tabs extends BaseComponent<TabsProps, TabsState> {
     static TabPane = TabPane;
+    static TabItem = TabItem;
 
     static propTypes = {
         activeKey: PropTypes.string,
@@ -291,7 +292,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         const content = keepDOM ? children : this.getActiveItem();
 
         return (
-            <div className={tabWrapperCls} style={style} {...getDataAttr(restProps)}>
+            <div className={tabWrapperCls} style={style} {...this.getDataAttr(restProps)}>
                 {tabBar}
                 <TabsContext.Provider
                     value={{

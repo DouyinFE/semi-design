@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, isValidElement } from "react";
 import { PreviewContext } from "./previewContext";
 import BaseComponent from "../_base/baseComponent";
 import PropTypes, { array } from "prop-types";
@@ -7,8 +7,9 @@ import PreviewInner from "./previewInner";
 import PreviewFoundation from "@douyinfe/semi-foundation/image/previewFoundation";
 import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
-import { isObject } from "lodash";
+import { isObject, isEqual } from "lodash";
 import "@douyinfe/semi-foundation/image/image.scss";
+import cls from "classnames";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -70,6 +71,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     foundation: PreviewFoundation;
     previewGroupId: string;
     previewRef: React.RefObject<PreviewInner>;
+    previewObserver: IntersectionObserver;
 
     constructor(props) {
         super(props);
@@ -83,24 +85,47 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     }
 
     componentDidMount() {
-        const { lazyLoadMargin } = this.props;
-        const allElement = document.querySelectorAll(`.${prefixCls}-img`);
-        // use IntersectionObserver to lazy load image
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(item => {
-                const src = (item.target as any).dataset?.src;
-                if (item.isIntersecting && src) {
-                    (item.target as any).src = src;
-                    observer.unobserve(item.target);
-                }
-            });
-        },
-        {
-            root: document.querySelector(`#${this.previewGroupId}`),
-            rootMargin: lazyLoadMargin, 
+        this.props.lazyLoad && this.observerImages();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.lazyLoad) {
+            const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child) =>
+                isValidElement(child) ? child.key : null
+            );
+            const currChildrenKeys = React.Children.toArray(this.props.children).map((child) =>
+                isValidElement(child) ? child.key : null
+            );
+        
+            if (!isEqual(prevChildrenKeys, currChildrenKeys)) {
+                this.observerImages();
+            }
         }
-        );
-        allElement.forEach(item => observer.observe(item));
+    }
+
+    observerImages = () => {
+        if (this.previewObserver) {
+            // cancel the observation of all elements of the previous observer
+            this.previewObserver.disconnect();
+        } else {
+            this.previewObserver = new IntersectionObserver(entries => {
+                entries.forEach(item => {
+                    const src = (item.target as any).dataset?.src;
+                    if (item.isIntersecting && src) {
+                        (item.target as any).src = src;
+                        (item.target as any).removeAttribute("data-src");
+                    }
+                    this.previewObserver.unobserve(item.target);
+                });
+            },
+            {
+                root: document.querySelector(`#${this.previewGroupId}`),
+                rootMargin: this.props.lazyLoadMargin, 
+            }
+            );
+        }
+        const allImgElement = document.querySelectorAll(`.${prefixCls}-img`);
+        allImgElement.forEach(item => this.previewObserver.observe(item));
     }
 
     static getDerivedStateFromProps(props: PreviewProps, state: PreviewState) {
@@ -114,7 +139,14 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         return willUpdateStates;
     }
 
-    handleVisibleChange = (newVisible : boolean) => {
+    componentWillUnmount(): void {
+        if (this.previewObserver) {
+            this.previewObserver.disconnect();
+            this.previewObserver = null;
+        }
+    }
+
+    handleVisibleChange = (newVisible: boolean) => {
         this.foundation.handleVisibleChange(newVisible);
     };
 
@@ -160,7 +192,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     };
 
     render() {
-        const { src, style, lazyLoad, ...restProps } = this.props;
+        const { src, className, style, lazyLoad, ...restProps } = this.props;
         const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
         const srcArr = Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
@@ -174,11 +206,12 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     currentIndex,
                     visible,
                     lazyLoad,
+                    previewObserver: this.previewObserver,
                     setCurrentIndex: this.handleCurrentIndexChange,
                     handleVisibleChange: this.handleVisibleChange,
                 }}
             >
-                <div id={this.previewGroupId} style={style} className={`${prefixCls}-preview-group`}>
+                <div id={this.previewGroupId} style={style} className={cls(`${prefixCls}-preview-group`, className)}>
                     {newChildren}
                 </div>
                 <PreviewInner

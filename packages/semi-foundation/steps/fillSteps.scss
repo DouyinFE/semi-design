@@ -92,7 +92,7 @@ $module: #{$prefix}-steps;
                 color: $color-steps_success-text-default;
             }
 
-            &:hover {
+            &-hover:hover {
                 background-color: $color-steps-bg-hover;
 
                 .#{$prefix}-icon,
@@ -118,7 +118,7 @@ $module: #{$prefix}-steps;
                 color: $color-steps_danger-text-default;
             }
 
-            &:hover {
+            &-hover:hover {
                 background: $color-steps-bg-hover;
 
                 .#{$prefix}-icon,
@@ -144,7 +144,7 @@ $module: #{$prefix}-steps;
                 color: $color-steps_warning-text-default;
             }
 
-            &:hover {
+            &-hover:hover {
                 background: $color-steps-bg-hover;
 
                 .#{$module}-item-title,

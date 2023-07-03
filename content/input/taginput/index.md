@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 31
+order: 32
 category: 输入类
 title: TagInput 标签输入框
 icon: doc-tagInput
@@ -447,7 +447,7 @@ import { TagInput } from '@douyinfe/semi-ui';
 |maxTagCount  |标签的最大展示数量，超出后将以 +N 形式展示              |number                         | -        |1.21.0|
 |showRestTagsPopover  |当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容  |boolean     | true     |1.21.0|
 |restTagsPopoverProps |Popover 的配置属性，可以控制弹出方向、zIndex、trigger等，具体参考[Popover](/zh-CN/show/popover#API_参考)           |PopoverProps     | {}        |1.21.0|
-|showContentTooltip   |当标签长度过长发生截断时，hover 标签的时候，是否通过 Tooltip 显示全部内容     |boolean    | true        |1.21.0|
+|showContentTooltip   |当标签长度过长发生截断时，hover 标签的时候，是否通过 Tooltip 显示全部内容, 支持 Tooltip\|Popover；opts，其他需要透传给浮层组件的属性    |boolean\|{type: 'tooltip'\|'popover', opts: object}    | true        |1.21.0|
 |placeholder  |占位默认值                                         |string                         | -         |1.19.0|
 |prefix       |前缀标签                                           |ReactNode                      |-          |1.19.0|
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
