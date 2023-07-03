@@ -22,7 +22,7 @@ $icon: #{$prefix}-toast-icon;
         @include font-size-regular;
         background-color: $color-toast-bg-default;
         border-radius: $radius-toast_content;
-        padding: $spacing-toast_content-paddingY $spacing-toast_content-paddingX;
+        padding: $spacing-toast_content-paddingTop $spacing-toast_content-paddingRight $spacing-toast_content-paddingBottom $spacing-toast_content-paddingLeft;
         display: inline-flex;
         align-items: flex-start;
         justify-content: center;

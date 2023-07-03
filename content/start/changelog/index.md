@@ -13,6 +13,34 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.38.0 (2023-06-30)
+- 【Fix】
+    - 修复 AutoComplete 长按无法选中，onSelect 未触发问题 [#1665](https://github.com/DouyinFE/semi-design/issues/1665)
+    - 修复 Cascader 禁用态 Tag 背景色与其他输入类组件不一致问题 [#1651](https://github.com/DouyinFE/semi-design/pull/1651)
+    - 修复 min-Width 属性大小写拼写错误导致的 warning，影响范围 (2.37.0-beta.0 - 2.38.0-beta.0)  [#1680](https://github.com/DouyinFE/semi-design/issues/1680)
+    - 修复 tooltip 在 custom trigger 的情况下，特殊场景小概率不消失的问题 [#1676](https://github.com/DouyinFE/semi-design/pull/1676)
+    - 修复在 changeWithObject 时的 Select 中，treeData 中的 id 项无法出现的 onChange 回调的 value 值中问题 [#1678](https://github.com/DouyinFE/semi-design/issues/1678)
+- 【Design Token】
+    - Toast padding token 拆分细化，$spacing-toast_content-paddingY 拆分为 $spacing-toast_content-paddingTop、$spacing-toast_content-paddingBottom，$spacing-toast_content-paddingX 拆分为 $spacing-toast_content-paddingLeft、$spacing-toast_content-paddingRight [#1674](https://github.com/DouyinFE/semi-design/pull/1674)
+
+#### 🎉 2.37.1 (2023-06-28)
+- 【Design Token】
+    - card 类型的 Radio 新增 3 个 token：$color-radio_cardRadioGroup-bg-default 用于控制默认状态下的背景色，$color-radio_cardRadioGroup_border-default 用于控制默认状态下边框背景色，$color-radio_cardRadioGroup_disabled-bg-active用于控制禁用状态并按下的背景色 [#1675](https://github.com/DouyinFE/semi-design/pull/1675)
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree 的 onSearch 新增 filterExpandedKeys 参数
+  - Badge 新增 success 类型
+- 【Fix】
+  - 修复 toast useToast 返回值在用户函数 re render 后失效的问题
+  - 修复 disabled 的 Cascader 无法通过 hover +N 部分显示多余 Tag 问题
+  - 修复 ImagePreview 中 className 不生效问题  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - 更正 Form formApi.reset 入参类型的问题
+- 【Style】
+  - 在 disabled 情况下，点击 Cascader 不触发 focus 样式
+
+
 #### 🎉 2.37.0 (2023-06-09)
 - 【Fix】
     - 修复 TreeSelect searchAutoFocus 的 preventScroll 未生效问题
@@ -402,7 +430,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form 组件 Design Token 修正，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop`更正为更符合语义的 `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop`，并更正相关文档描述 [#1272](https://github.com/DouyinFE/semi-design/pull/1272)
-
+- 【Fix】
+    - 修复 Select 多选时，删除 Tag 不触发聚集却有聚集样式问题
+    
 #### 🎉 2.23.2 (2022-11-14)
 - 【Fix】
     - 修复 React 18 + NextJS SSR 环境下 Input 组件关于 style props报错的问题 [#1262](https://github.com/DouyinFE/semi-design/issues/1262) [#1181](https://github.com/DouyinFE/semi-design/issues/1181)

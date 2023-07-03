@@ -381,12 +381,12 @@ function Demo(props = {}) {
 
 ## API 参考
 
-| 属性              | 说明                                                                          | 类型                   | 默认值              |
-|-------------------|-----------------------------------------------------------------------------|------------------------|---------------------|
-| direction         | 设置文本的方向                                                                | `ltr`\| `rtl`          | `ltr`               |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative`      | function():HTMLElement | () => document.body |
+| 属性              | 说明                                                              | 类型                   | 默认值              |
+|-------------------|-----------------------------------------------------------------|------------------------|---------------------|
+| direction         | 设置文本的方向                                                         | `ltr`\| `rtl`          | `ltr`               |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。            | function():HTMLElement | () => document.body |
 | locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用) | object                 |                     |
-| timeZone          | [时区标识](#时区标识)                                                         | string\|number         |                     |
+| timeZone          | [时区标识](#时区标识)                                                   | string\|number         |                     |
 
 
 ### 时区标识

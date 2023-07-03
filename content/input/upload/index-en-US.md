@@ -1166,7 +1166,7 @@ customRequest contains the following input parameters
      // Function to be called when upload error
      onError: (userXhr: {status: number }, e: event) => any,
       // The function that should be called after the upload is successful, response is the request result after the upload is successful
-     onSuccess: (response: any, e: event) => any,
+     onSuccess: (response: any, e?: event) => any,
      // props.withCredentials set by the user
      withCredentials: boolean,
      // props.action set by the user

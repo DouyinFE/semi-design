@@ -163,6 +163,19 @@ $module: #{$prefix}-badge;
         }
     }
 
+    &-success {
+        &.#{$module}-solid {
+            background-color: $color-badge_success_solid-bg-default;
+        }
+        &.#{$module}-light {
+            background-color: $color-badge_success_light-bg-default;
+            color: $color-badge_success_light-text-default;
+        }
+        &.#{$module}-inverted {
+            color: $color-badge_success_inverted-text-default;
+        }
+    }
+
 }
 
 @import "./rtl.scss";

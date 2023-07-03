@@ -34,9 +34,9 @@ jobs:
               with:
                   node-version: '16'
             - name: Install dependencies
-              run: npx lerna bootstrap
+              run: npx lerna@^6 bootstrap
             - name: Pre-build libs
-              run: npx lerna run build:lib
+              run: npx lerna@^6 run build:lib
             - name: Publish to Chromatic
               uses: chromaui/action@v1
               # Chromatic GitHub Action options

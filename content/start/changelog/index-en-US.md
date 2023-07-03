@@ -16,6 +16,33 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.38.0 (2023-06-30)
+- 【Fix】
+    - Fix the problem that AutoComplete cannot be selected by long pressing, and onSelect is not triggered [#1665](https://github.com/DouyinFE/semi-design/issues/1665)
+    - fixed Cascader disabled tag bg color [#1651](https://github.com/DouyinFE/semi-design/pull/1651)
+    - Fix the warning caused by the misspelling of the min-Width attribute, the scope of influence (2.37.0-beta.0 - 2.38.0-beta.0) [#1680](https://github.com/DouyinFE/semi-design/issues/1680)
+    - Fix the problem that the tooltip does not disappear with a small probability in special scenes under the condition of custom trigger [#1676](https://github.com/DouyinFE/semi-design/pull/1676)
+    - Fix the problem in the value value of the onChange callback that the id item in the treeData data cannot appear in the Select when changeWithObject [#1678](https://github.com/DouyinFE/semi-design/issues/1678)
+- 【Design Token】
+    - Toast padding token is split into 4. $spacing-toast_content-paddingY is split into $spacing-toast_content-paddingTop, $spacing-toast_content-paddingBottom, and $spacing-toast_content-paddingX is split into $spacing-toast_content-paddingLeft, $spacing-toast_content-paddingRight [#1674](https://github.com/DouyinFE/semi-design/pull/1674)
+
+#### 🎉 2.37.1 (2023-06-28)
+- 【Design Token】
+    - Card type Radio adds 3 new tokens: $color-radio_cardRadioGroup-bg-default is used to control the background color in the default state, $color-radio_cardRadioGroup_border-default is used to control the border background color in the default state, $color-radio_cardRadioGroup_disabled-bg -active is used to control the background color of the disabled state and pressed. [#1675](https://github.com/DouyinFE/semi-design/pull/1675)
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree add filterExpandedKeys parameter for onSearch
+  - Badge add succss type
+- 【Fix】
+  - fix toast useToast return value no effect when user function component re render.
+  - Fix the problem that the disabled Cascader cannot display redundant Tags by hovering the +N part
+  - Fix the problem that className does not take effect in ImagePreview  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - fix formApi.reset params type define error
+- 【Style】
+  - In the disabled case, clicking the Cascader does not trigger the focus style
+
 #### 🎉 2.37.0 (2023-06-09)
 - 【Fix】
     - Fix the problem that preventScroll of TreeSelect searchAutoFocus does not take effect
@@ -401,7 +428,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form Design Token is updated，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop` is corrected to more semantically `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop` [#1272](https://github.com/DouyinFE/semi-design/pull/1272)
-
+- 【Fix】
+    - When selecting multiple selections, deleting Tag does not trigger aggregation but has aggregation style problems
 
 #### 🎉 2.23.2 (2022-11-14)
 - 【Fix】

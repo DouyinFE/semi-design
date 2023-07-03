@@ -217,7 +217,7 @@ export interface BasicTreeProps {
     onExpand?: (expandedKeys: string[], expandedOtherProps: BasicExpandedOtherProps) => void;
     onLoad?: (loadedKeys?: Set<string>, treeNode?: BasicTreeNodeData) => void;
     onContextMenu?: (e: any, node: BasicTreeNodeData) => void;
-    onSearch?: (sunInput: string) => void;
+    onSearch?: (sunInput: string, filteredExpandedKeys: string[]) => void;
     onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     preventScroll?: boolean;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: BasicTreeNodeData) => HTMLElement;
@@ -303,7 +303,7 @@ export interface TreeAdapter extends DefaultAdapter<BasicTreeProps, BasicTreeInn
     notifyExpand: (expandedKeys: Set<string>, { expanded, node }: BasicExpandedOtherProps) => void;
     notifySelect: (selectKey: string, bool: boolean, node: BasicTreeNodeData) => void;
     notifyChange: (value: BasicValue) => void;
-    notifySearch: (input: string) => void;
+    notifySearch: (input: string, filteredExpandedKeys: string[]) => void;
     notifyRightClick: (e: any, node: BasicTreeNodeData) => void;
     notifyDoubleClick: (e: any, node: BasicTreeNodeData) => void;
     cacheFlattenNodes: (bool: boolean) => void;
@@ -483,13 +483,14 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 showFilteredOnly && filteredShownKeys
             );
         }
-        this._adapter.notifySearch(sugInput);
+        const newFilteredExpandedKeys = new Set(expandedOptsKeys);
+        this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys));
         this._adapter.updateState({
             expandedKeys,
             flattenNodes,
             motionKeys: new Set([]),
             filteredKeys: new Set(filteredOptsKeys),
-            filteredExpandedKeys: new Set(expandedOptsKeys),
+            filteredExpandedKeys: newFilteredExpandedKeys,
             filteredShownKeys,
         });
     }

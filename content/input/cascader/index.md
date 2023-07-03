@@ -1751,7 +1751,7 @@ function Demo() {
 | filterRender         | 自定义渲染筛选后的选项                                                                                                                                         | (props: FilterRenderProps) => ReactNode;                                                  | -                              | 2.28.0 |
 | filterSorter         | 对筛选后的选项进行排序                                                                                                                                         | (first: CascaderData, second: CascaderData, inputValue: string) => number                 | -                              | 2.28.0 |
 | filterTreeNode       | 设置筛选，默认用 treeNodeFilterProp 的值作为要筛选的 TreeNode 的属性值， data 参数自 v2.28.0 开始提供                                                                           | ((inputValue: string, treeNodeString: string, data?: CascaderData) => boolean) \| boolean | false                          | -      |
-| getPopupContainer    | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative                                                                                                 | () => HTMLElement                                                                         | () => document.body            | -      |
+| getPopupContainer    | 指定父级 DOM，下拉框将会渲染至该 DOM 中，自定义需要设置 position: relative   这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                               | () => HTMLElement                                                                         | () => document.body            | -      |
 | insetLabel           | 前缀标签别名，主要用于 Form                                                                                                                                    | ReactNode                                                                                 | -                              | 0.28.0 |
 | leafOnly             | 多选时设置 value 只包含叶子节点，即显示的 Tag 和 onChange 的 value 参数只包含叶子节点。不支持动态切换                                                                                   | boolean                                                                                   | false                          | 2.2.0  |
 | loadData             | 异步加载数据，需要返回一个Promise                                                                                                                                | (selectOptions: CascaderData[]) => Promise< void >                                        | -                              | 1.8.0  |
@@ -1815,6 +1815,8 @@ function Demo() {
 | ----------- | ----------------------------------- | ------- |
 | close       | 调用时可以手动关闭下拉列表          | v2.30.0 |
 | open        | 调用时可以手动展开下拉列表          | v2.30.0 |
+| focus       | 调用时可以手动聚焦                 | v2.34.0 |
+| blur        | 调用时可以手动失焦                 | v2.34.0 |
 
 ## Accessibility
 
