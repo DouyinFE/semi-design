@@ -303,7 +303,9 @@ function Demo() {
 支持文本的省略，可以通过 `ellipsis` 配置相关参数，具体参考 [Ellipsis Config](#Ellipsis-Config)。
 
 <Notice title='注意事项'>
-    ellipsis 仅支持纯文本的截断，不支持 reactNode 等复杂类型，请确保 children 传入内容类型为 string
+    1. ellipsis 仅支持纯文本的截断，不支持 reactNode 等复杂类型，请确保 children 传入内容类型为 string <br/>
+    2. ellipsis 要实现缩略，需要有明确的 width或 maxWidth 宽度限制做对比判断。若自身未设置宽度（例如纯依靠 flex 属性撑开），或 width为 100% 等不定数值，那么父级需要有明确的 width或 maxWidth <br/>
+    3. ellipsis 需要获取 DOM 的宽高度等信息用以做基本判断，若自身或父级存在 display:none 样式会导致取值不正确，此时缩略会失效<br/>
 </Notice>
 
 
@@ -369,7 +371,7 @@ function Demo() {
 ```
 
 <Notice type="primary" title="注意事项">
-    <div>当发生超长文本在弹出的 tooltip 没有换行时，请手动设置一下 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank" rel="noopener noreferrer">word-break</a>。我们没有内置的原因是不同语言内容（纯英文、中文、中英文混合）对 word-break 的需求不太一致，所以组件层没有做这个预设。</div>
+    <div>当发生超长文本在弹出的 tooltip 没有换行时，可通过手动设置一下 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank" rel="noopener noreferrer">word-break</a> 或者 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a> 等换行相关属性进行调整, 更多细节可查看 Tooltip 的 FAQ 部分</div>
 </Notice>
 
 ```jsx live=true
@@ -507,7 +509,6 @@ function Demo() {
 
 
 ### Ellipsis Config
-**v >= 0.34.0**
 
 | 属性         | 说明                                                                                                              | 类型                                                | 默认值 |
 | ------------ | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------ |

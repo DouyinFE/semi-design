@@ -3,11 +3,24 @@ category: 开始
 title: FAQ 常见问题
 icon: doc-faq
 localeCode: zh-CN
-order: 10
+order: 8
 ---
 
 #### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？
-- 目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+
+#### Semi 目前提供了基于 React 版本的 ui library，是否有官方提供其他技术栈 lib 的计划？
+无这方面的计划。具体原因：[Issue 311](https://github.com/DouyinFE/semi-design/issues/311)，更多讨论 [Issue 56](https://github.com/DouyinFE/semi-design/issues/56)
+
+#### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
+
+- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2700+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在 [Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System** 将 `Semi Design` 定制为 `Any Design`
+- 并且在使用时，你也只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）
+  
+#### 什么情况下推荐使用 Design Token 定制样式，什么情况下推荐通过 css 覆盖方式定制样式？
+
+- Design Token 主要适用于需要做品牌化、样式风格定制的场景，需要通过 [Semi DSM](/dsm) 进行配置，发布产物为 npm 主题包。Design Token的作用范围为全局生效。例如调整了 Button、Table 的组件级Token，那么对于 App 内所有 Semi Button、Semi Table 都会生效，无法仅针对某个特定子模块调整
+- 如果你只需要将某个特定模块下的某个组件的样式做调整，不推荐使用 Design Token，推荐直接使用 CSS 选择器覆盖样式
 
 #### Semi 2.x 与 Semi 1.x 有什么不同？
 
@@ -24,15 +37,9 @@ order: 10
 -   1.x 各版本之间，API 也会保持**向前兼容**。由 1.x 升级到 2.x 时，会包含 breaking change，具体升级注意事项请查阅文档
 -   0.x 版本目前已停止更新，当且仅当必须进行 bugfix 时才会进行 hotfix 更新。由 0.x 升级至 1.x 时，会包含 breaking change，具体升级注意事项请查阅文档
 
-#### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
-
-- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2300+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在[Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System** 将 `Semi Design` 定制为 `Any Design`
-- 并且在使用时，你也只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）。
-
 #### Semi 是否支持 Tree Shaking
 
--   Semi 执行发包时，发布的其实是 esModule 源码，因此天然支持 tree shaking，不需要再进行额外的配置。
--   组件的 Scss 也是由组件的 index.(j|t)sx 负责 import 的，因此样式也会 shaking。简单来说，只有你使用的组件会被打包
+Semi 执行发包时，发布的其实是 esModule 源码，因此天然支持 tree shaking，不需要再进行额外的配置; 组件的 Scss 也是由组件的 index.(j|t)sx 负责 import 的，因此样式也会 shaking。简单来说，只有你使用的组件会被打包。
 
 #### 为什么 defaultValue、defaultXXX 不起作用？
 
@@ -53,13 +60,13 @@ Semi 目前支持 21 种语言，具体使用可以查阅 [Semi·LocaleProvider]
 
 我们的样式基于 Scss，与此我们还使用了 CSS Variable 作为色盘变量。色盘变量和通用变量挂载在 body 下。不使用 CSS Module 是因为我们希望有固定的 className，为业务方保留修改/覆盖 Semi 样式的能力（虽然不提倡，但有些业务场景下确实需要）
 
-#### 为什么 Tooltip、Typography 不默认配置 word-break 样式？
+#### 为什么 Tooltip content 配置很长很长的内容时，某些情况下内容会超出显示区域?
 
-不同语言内容（纯英文、中文、中英文混合）对 word-break 的需求不太一致，所以组件层没有做这个预设。可以根据需求，使用 CSS 进行设置。
+在 v2.36.0 版本以前，考虑到不同语言内容（纯英文、中文、中英文混合、其他语种混合）对换行的需求不太一致，所以组件层没有做这个预设。在接收到较多使用反馈后，自 v2.36.0 版本，Tooltip 内部通过设置 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target="_blank" rel="noopener noreferrer">word-wrap</a> 为 break-word 处理文本换行。对于任意版本，如果默认设置不符合预期，使用方都可以通过 style/className API 设置换行相关 CSS 属性进行调整。
 
 #### 有新组件需求、或者现有组件 Feature 不能满足我的业务需求，该找谁？
 
-右上角问题反馈，提交 Issue，描述你的需求以及业务场景，Label 选择 `Feature Request` / `New Component Request`
+在Github 提交 Issue，描述你的需求以及业务场景，Label 选择 `Feature Request` / `New Component Request`
 
 #### 对组件的使用有疑惑？不知道有没有能满足你业务需求场景的组件？
 

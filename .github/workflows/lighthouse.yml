@@ -18,7 +18,7 @@ jobs:
                   node-version: 16
             - name: npm install, build
               run: |
-                  npm i -g lerna gulp
+                  npm i -g lerna@^6 gulp
                   lerna bootstrap
                   lerna run build:lib
                   npm run build-storybook

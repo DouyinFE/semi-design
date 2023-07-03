@@ -35,6 +35,7 @@ const local: Locale = {
             dateTimeRange: ['Data de início', 'Data de fim'],
             monthRange: ['Mês de início', 'Mês de fim'],
         },
+        presets: 'Seleção rápida',
         footer: {
             confirm: 'OK',
             cancel: 'Cancelar',

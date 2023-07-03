@@ -1403,6 +1403,7 @@ function Demo() {
 | arrowIcon|Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon| ReactNode | | 1.15.0|
 |autoAdjustOverflow|Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)|boolean | true| 0.34.0|
 | autoExpandParent | Toggle whether to expand parent nodes automatically | boolean | false | 0.34.0 |
+| borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className                | Class name                                                                          | string                                                            | -           | -       |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                |       | 2.25.0    |
@@ -1423,7 +1424,7 @@ function Demo() {
 | expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false | 1.30.0 |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | 0.32.0 |
 | filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\|(inputValue: string, treeNodeString: TreeNodeString, data?: TreeNodeData) => boolean | false       | -       |
-| getPopupContainer        | Container to render pop-up, you need to set 'position: relative`                                                    | function():HTMLElement                                            | -           | -       |
+| getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |
 | insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false |0.32.0 |

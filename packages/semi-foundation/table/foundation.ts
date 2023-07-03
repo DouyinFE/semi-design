@@ -135,9 +135,10 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * init filteredValue of filtering column, use defaultFilteredValue or [] when it is undefined
      */
     static initFilteredValue(column: BaseColumnProps<unknown>) {
-        const { defaultFilteredValue, filteredValue, onFilter } = column;
-        const hasFilter = isFunction(onFilter);
-        if (hasFilter && isUndefined(filteredValue)) {
+        const { defaultFilteredValue, filteredValue } = column;
+        // There may be cases where onFilter is empty, such as server-side filtering
+        // Because filterValue affects the output of filters, it needs to be initialized here
+        if (isUndefined(filteredValue)) {
             if (Array.isArray(defaultFilteredValue) && defaultFilteredValue.length) {
                 column.filteredValue = defaultFilteredValue;
             } else {
@@ -250,13 +251,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
     getFilteredSortedDataSource(dataSource: RecordType[], queries: BaseColumnProps<RecordType>[]) {
         const filteredDataSource = this.filterDataSource(dataSource, queries.filter(
             query => {
-                /**
-                 * 这里无需判断 filteredValue 是否为数组，初始化时它是 `undefined`，点击选择空时为 `[]`
-                 * 初始化时我们应该用 `defaultFilteredValue`，点击后我们应该用 `filteredValue`
-                 * 
-                 * There is no need to judge whether `filteredValue` is an array here, because it is `undefined` when initialized, and `[]` when you click to select empty
-                 * When initializing we should use `defaultFilteredValue`, after clicking we should use `filteredValue`
-                 */
                 const currentFilteredValue = query.filteredValue ? query.filteredValue : query.defaultFilteredValue;
                 return (
                     isFunction(query.onFilter) &&
@@ -465,6 +459,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
                                             }
                                             return arr;
                                         },
+                                        // @ts-ignore
                                         [...children]
                                     ),
                                 });
@@ -682,6 +677,9 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         return this.getState('pagination') || {};
     }
 
+    /**
+     * Filters are considered valid if filteredValue exists
+     */
     _getAllFilters(queries?: BaseColumnProps<RecordType>[]) {
         queries = queries || this.getState('queries');
         const filters: BaseChangeInfoFilter<RecordType>[] = [];

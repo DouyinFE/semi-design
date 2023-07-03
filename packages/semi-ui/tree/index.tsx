@@ -489,8 +489,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             notifyChange: value => {
                 this.props.onChange && this.props.onChange(value);
             },
-            notifySearch: input => {
-                this.props.onSearch && this.props.onSearch(input);
+            notifySearch: (input: string, filteredExpandedKeys: string[]) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
             },
             notifyRightClick: (e, node) => {
                 this.props.onContextMenu && this.props.onContextMenu(e, node);
@@ -742,6 +742,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             labelEllipsis,
             virtualize,
             checkRelation,
+            ...rest
         } = this.props;
         const wrapperCls = cls(`${prefixcls}-wrapper`, className);
         const listCls = cls(`${prefixcls}-option-list`, {
@@ -793,7 +794,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     labelEllipsis: typeof labelEllipsis === 'undefined' ? virtualize : labelEllipsis,
                 }}
             >
-                <div aria-label={this.props['aria-label']} className={wrapperCls} style={style}>
+                <div aria-label={this.props['aria-label']} className={wrapperCls} style={style} {...this.getDataAttr(rest)}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} {...ariaAttr}>
                         {noData ? this.renderEmpty() : (multiple ? 

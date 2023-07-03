@@ -868,10 +868,10 @@ class ManulUploadDemo extends React.Component {
                     <Button icon={<IconPlus />} theme="light" style={{ marginRight: 8 }}>
                         选择文件
                     </Button>
-                    <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
-                        开始上传
-                    </Button>
                 </Upload>
+                <Button icon={<IconUpload />} theme="light" onClick={this.manulUpload}>
+                    开始上传
+                </Button>
             </div>
         );
     }
@@ -1351,7 +1351,7 @@ Upload组件是一个可交互的控件，在点击或拖拽时触发文件选�
 -   Semi Upload把图片存到哪里了？
     -   Semi Upload不负责图片的保存，当你使用 Upload 组件时需要自定义 action。你可以选择把 action 设置为自己的服务器地址或者图片服务地址。
 -   Form.Upload props.name无效？
-    - Form.Field 中有props.name，Upload也有props.name，同名props会冲突。使用Form.Upload时，可以转为使用 props.fileName，避免冲突
+    - Form.Field 中有 props.name，Upload也有 props.name，同名 props 会冲突。使用 Form.Upload 时，可以转为使用 props.fileName，避免冲突
 -   上传图片后没有调用 XXX 方法？
     - 如果你设置了 `accept`，可以尝试把 accept 属性去掉，然后再看是否调用了改方法。去掉后调用了该方法说明，accept 在当前环境下获取的 file type 与设置的 accept 不符，上传行为提前终止。可以打个断点到 upload/foundation.js checkFileFormat 函数，看下获取的 file.type 真实值是否符合预期。
 

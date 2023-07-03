@@ -1378,75 +1378,76 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### Select Props
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| allowCreate | 是否允许用户创建新条目，需配合 filter 使用。该项为true时不再响应 optionList的变更 | boolean | false |
-| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon | ReactNode |  | 1.15.0 |
-| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body） | boolean | true |
-| autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效 | boolean | true | 2.3.0 |
-| autoFocus | 初始渲染时是否自动 focus | boolean | false |
-| className | 类名 | string |  |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode | 2.25.0  |
-| clickToHide | 已展开时，点击选择框是否自动收起下拉列表 | boolean | false |
-| defaultValue | 初始选中的值 | string\|number\|array |  |
-| defaultOpen | 是否默认展开下拉列表 | boolean | false |
-| disabled | 是否禁用 | boolean | false |
-| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中） <br/>**v2.17.0 之后默认值从 false 变为 true** | boolean | true |
-| dropdownClassName | 弹出层的 className | string |  |
-| dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于 Select | boolean | true |
-| dropdownStyle | 弹出层的样式 | object |  |
-| dropdownMargin | 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin | object\|number |  | 2.25.0 |
-| emptyContent | 无结果时展示的内容。设为 null 时，下拉列表将不展示 | string\|ReactNode |  |
-| ellipsisTrigger | 当 maxTagCount 存在且为多选时，是否对溢出部分的 tag 做自适应处理(当宽度不足时，最后一个tag内容作截断处理)。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用       | boolean   | false       | 2.28.0 | 
-| expandRestTagsOnClick | 当maxTagCount存在且为多选时，select 在面板打开状态下是否展开多余的 Tag        | boolean   | false       | 2.28.0 | 
+| 属性 | 说明                                                                                                                                    | 类型 | 默认值 | 版本 |
+| --- |---------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| allowCreate | 是否允许用户创建新条目，需配合 filter 使用。该项为true时不再响应 optionList的变更                                                                                  | boolean | false |
+| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                        | ReactNode |  | 1.15.0 |
+| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                | boolean | true |
+| autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效                                                                                            | boolean | true | 2.3.0 |
+| autoFocus | 初始渲染时是否自动 focus                                                                                                                       | boolean | false |
+| borderless        | 无边框模式  >=2.33.0                                                                                                                       | boolean                         |           |
+| className | 类名                                                                                                                                    | string |  |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode | 2.25.0  |
+| clickToHide | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                  | boolean | false |
+| defaultValue | 初始选中的值                                                                                                                                | string\|number\|array |  |
+| defaultOpen | 是否默认展开下拉列表                                                                                                                            | boolean | false |
+| disabled | 是否禁用                                                                                                                                  | boolean | false |
+| defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中） <br/>**v2.17.0 之后默认值从 false 变为 true**                                                                           | boolean | true |
+| dropdownClassName | 弹出层的 className                                                                                                                        | string |  |
+| dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于 Select                                                                                                                   | boolean | true |
+| dropdownStyle | 弹出层的样式                                                                                                                                | object |  |
+| dropdownMargin | 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                                  | object\|number |  | 2.25.0 |
+| emptyContent | 无结果时展示的内容。设为 null 时，下拉列表将不展示                                                                                                          | string\|ReactNode |  |
+| ellipsisTrigger | 当 maxTagCount 存在且为多选时，是否对溢出部分的 tag 做自适应处理(当宽度不足时，最后一个tag内容作截断处理)。开启该功能后会有一定性能损耗，不推荐在大表单场景下使用                                          | boolean   | false       | 2.28.0 | 
+| expandRestTagsOnClick | 当maxTagCount存在且为多选时，select 在面板打开状态下是否展开多余的 Tag                                                                                        | boolean   | false       | 2.28.0 | 
 | filter | 是否可搜索，默认为 false。传入 true 时，代表开启搜索并采用默认过滤策略（label 是否与 sugInput 匹配），传入值为函数时，会接收 sugInput, option 两个参数，当 option 符合筛选条件应返回 true，否则返回 false | boolean \|function(sugInput, option) | false |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` | function():HTMLElement | () => document.body |
-| inputProps | filter 为 true 时, input 输入框的额外配置参数，具体可配置属性请参考 Input 组件（注意：请不要传入 value、ref、onChange、onFocus，否则会覆盖 Select 相关回调，影响组件行为） | object |  | 2.2.0 |
-| innerTopSlot | 渲染在弹出层顶部，在 optionList 内部的自定义 slot | ReactNode |  |
-| innerBottomSlot | 渲染在弹出层底部，在 optionList 内部的自定义 slot | ReactNode |  |
-| insetLabel | 同上，与 prefix 区别是 fontWeight 更大 | ReactNode |  |
-| loading | 下拉列表是否展示加载动画 | boolean | false |
-| maxTagCount | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式 | number |  |
-| max | 最多可选几项，仅在多选模式下生效 | number |  |
-| maxHeight | 下拉菜单中 `optionList` 的最大高度 | string\|number | 270 |
-| multiple | 是否多选 | boolean | false |
-| outerTopSlot | 渲染在弹出层顶部，与 optionList 平级的自定义 slot | ReactNode |  |
-| outerBottomSlot | 渲染在弹出层底部，与 optionList 平级的自定义 slot | ReactNode |  |
-| optionList | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性 | array(\[{value, label}\]) |  |
-| placeholder | 选择框默认文字 | ReactNode |  |
-| position | 菜单展开的位置，可选项同 Tooltip position | string | 'bottomLeft' |
-| prefix | 选择框的前缀标签 | ReactNode |  |
-| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-| renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染 | function(inputValue:string) | inputValue => '创建' + inputValue |
-| renderSelectedItem | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染 | function(option) |  |
-| renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染 | function(props) 入参详见 Demo |  |
-| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) | PopoverProps | {} | 2.22.0 |
-| remote | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配 | boolean | false |
-| size | 大小，可选值 `default`/`small`/`large` | string | 'default' |
-| style | 样式 | object |  |
-| stopPropagation | 是否阻止浮层上的点击事件冒泡 | boolean | true |  |
-| suffix | 选择框的后缀标签 | ReactNode |  |
-| showClear | 是否展示清除按钮 | boolean | false |
-| showArrow | 是否展示下拉箭头 | boolean | true |
-| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容 | boolean | false | 2.22.0 |
-| spacing | 浮层与选择器的距离 | number | 4 |
-| triggerRender | 自定义触发器渲染 | function |  |
-| value | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用 | string\|number\|array |  |
-| validateStatus | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色） | string | 'default' |
-| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成 | object |  |
-| zIndex | 弹层的 zIndex | number | 1030 |
-| onBlur | 失去焦点时的回调 | function(event) |  |
-| onChange | 变化时回调函数 | function(value:string\|number\|array) |  |
-| onCreate | allowCreate 为 true，创建备选项时的回调 | function(option) |  |
-| onClear | 清除按钮的回调 | function |  |
-| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest } | boolean | false |
-| onDropdownVisibleChange | 下拉菜单展开/收起时的回调 | function(visible:boolean) |  |
-| onListScroll | 候选项列表滚动时的回调 | function(e) |  |
-| onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.31 后提供 | function(sugInput:string, e: ReactEvent) |  |
-| onSelect | 被选中时的回调 | function(value, option) |  |
-| onDeselect | 取消选中时的回调，仅在多选时有效 | function(value, option) |  |
-| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供 | function(option) |  |
-| onFocus | 获得焦点时的回调 | function(event) |  |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                      | function():HTMLElement | () => document.body |
+| inputProps | filter 为 true 时, input 输入框的额外配置参数，具体可配置属性请参考 Input 组件（注意：请不要传入 value、ref、onChange、onFocus，否则会覆盖 Select 相关回调，影响组件行为）                   | object |  | 2.2.0 |
+| innerTopSlot | 渲染在弹出层顶部，在 optionList 内部的自定义 slot                                                                                                     | ReactNode |  |
+| innerBottomSlot | 渲染在弹出层底部，在 optionList 内部的自定义 slot                                                                                                     | ReactNode |  |
+| insetLabel | 同上，与 prefix 区别是 fontWeight 更大                                                                                                         | ReactNode |  |
+| loading | 下拉列表是否展示加载动画                                                                                                                          | boolean | false |
+| maxTagCount | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                             | number |  |
+| max | 最多可选几项，仅在多选模式下生效                                                                                                                      | number |  |
+| maxHeight | 下拉菜单中 `optionList` 的最大高度                                                                                                              | string\|number | 270 |
+| multiple | 是否多选                                                                                                                                  | boolean | false |
+| outerTopSlot | 渲染在弹出层顶部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
+| outerBottomSlot | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                     | ReactNode |  |
+| optionList | 可以通过该属性传入 Option,请确保数组内每个元素都具备 label、value 属性                                                                                         | array(\[{value, label}\]) |  |
+| placeholder | 选择框默认文字                                                                                                                               | ReactNode |  |
+| position | 菜单展开的位置，可选项同 Tooltip position                                                                                                         | string | 'bottomLeft' |
+| prefix | 选择框的前缀标签                                                                                                                              | ReactNode |  |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                | boolean |  |  |
+| renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染                                                                                                      | function(inputValue:string) | inputValue => '创建' + inputValue |
+| renderSelectedItem | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染                                                                                                 | function(option) |  |
+| renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                  | function(props) 入参详见 Demo |  |
+| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                              | PopoverProps | {} | 2.22.0 |
+| remote | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                      | boolean | false |
+| size | 大小，可选值 `default`/`small`/`large`                                                                                                      | string | 'default' |
+| style | 样式                                                                                                                                    | object |  |
+| stopPropagation | 是否阻止浮层上的点击事件冒泡                                                                                                                        | boolean | true |  |
+| suffix | 选择框的后缀标签                                                                                                                              | ReactNode |  |
+| showClear | 是否展示清除按钮                                                                                                                              | boolean | false |
+| showArrow | 是否展示下拉箭头                                                                                                                              | boolean | true |
+| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                      | boolean | false | 2.22.0 |
+| spacing | 浮层与选择器的距离                                                                                                                             | number | 4 |
+| triggerRender | 自定义触发器渲染                                                                                                                              | function |  |
+| value | 当前选中的的值,传入该值时将作为受控组件，配合 `onChange` 使用                                                                                                 | string\|number\|array |  |
+| validateStatus | 校验结果，可选`warning`、`error`、 `default`（只影响样式背景色）                                                                                         | string | 'default' |
+| virtualize | 列表虚拟化，用于大量节点的情况优化性能表现，由 height, width, itemSize 组成                                                                                    | object |  |
+| zIndex | 弹层的 zIndex                                                                                                                            | number | 1030 |
+| onBlur | 失去焦点时的回调                                                                                                                              | function(event) |  |
+| onChange | 变化时回调函数                                                                                                                               | function(value:string\|number\|array) |  |
+| onCreate | allowCreate 为 true，创建备选项时的回调                                                                                                          | function(option) |  |
+| onClear | 清除按钮的回调                                                                                                                               | function |  |
+| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型会从 string 变为 object: { value, label, ...rest }                                        | boolean | false |
+| onDropdownVisibleChange | 下拉菜单展开/收起时的回调                                                                                                                         | function(visible:boolean) |  |
+| onListScroll | 候选项列表滚动时的回调                                                                                                                           | function(e) |  |
+| onSearch | input 输入框内容发生改变时回调函数，第二个参数于 v2.31 后提供                                                                                                 | function(sugInput:string, e: ReactEvent) |  |
+| onSelect | 被选中时的回调                                                                                                                               | function(value, option) |  |
+| onDeselect | 取消选中时的回调，仅在多选时有效                                                                                                                      | function(value, option) |  |
+| onExceed | 当试图选择数超出 max 限制时的回调，仅在多选时生效 <br/> 入参在 v1.16.0 后提供                                                                                     | function(option) |  |
+| onFocus | 获得焦点时的回调                                                                                                                              | function(event) |  |
 
 ### Option Props
 

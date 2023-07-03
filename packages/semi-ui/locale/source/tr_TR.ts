@@ -38,6 +38,7 @@ const local: Locale = {
             dateTimeRange: ['Başlangıç tarihi', 'Bitiş tarihi'],
             monthRange: ['Başlangıç ​​ayı', 'Bitiş ayı']
         },
+        presets: 'Hızlı seçim',
         footer: {
             confirm: 'Tamam',
             cancel: 'İptal'

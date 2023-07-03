@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 8
+order: 10
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
@@ -15,6 +15,45 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree add filterExpandedKeys parameter for onSearch
+  - Badge add succss type
+- 【Fix】
+  - fix toast useToast return value no effect when user function component re render.
+  - Fix the problem that the disabled Cascader cannot display redundant Tags by hovering the +N part
+  - Fix the problem that className does not take effect in ImagePreview  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - fix formApi.reset params type define error
+- 【Style】
+  - In the disabled case, clicking the Cascader does not trigger the focus style
+
+#### 🎉 2.37.0 (2023-06-09)
+- 【Fix】
+    - Fix the problem that preventScroll of TreeSelect searchAutoFocus does not take effect
+    - Fix the problem that preventScroll does not take effect when autofocus is true in Input
+    - Fix the problem that the thumbnail rendering is not updated after Upload updates the fileInstance in beforeUpload
+
+#### 🎉 2.37.0-beta.0 (2023-06-05)
+- 【Feat】
+    - Pagination support disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)
+    - DatePicker insetInput input box supports clearing input box content through trigger [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - Add the function of transparently passing data-* class attributes to all components [#1597](https://github.com/DouyinFE/semi-design/issues/1597)
+- 【Fix】
+    - DatePicker preset panel title supports i18n [#1643](https://github.com/DouyinFE/semi-design/pull/1643)
+    - Fix DatePicker insetInput input box placeholder placeholder text error [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - Fix DatePicker range input clear icon color bug [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - the stopPropagation and preventDefault of the up and down arrow press events are triggered only when the Dropdown panel is visible[#1640](https://github.com/DouyinFE/semi-design/pull/1640)
+- 【Style】
+    - Set the default line break rules for content in Tooltip, Toast, and Notification [#1623](https://github.com/DouyinFE/semi-design/pull/1623)
+
+#### 🎉 2.36.0 (2023-05-26)
+- 【Fix】
+  - Fix the problem that in the multi-day mode of the Calander, the non-full-day schedule is not displayed when the range includes time [@sylingd](https://github.com/sylingd)
+  - Fix the problem that the event parameter in Upload customRequest onSuccess is optional, but the ts type declaration is required
+  - Fix the problem that ImagePreview IntersectionObserver throw error when using under SSR（effect version 2.34.1 ~ 2.36.0-beta.0）[#1595](https://github.com/DouyinFE/semi-design/issues/1595)
 
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】
@@ -32,10 +71,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - remove the ellipsis warning when omitting is not enabled in Typography
   - fix Table header column align bug（v2.34 ~ 2.35 affected）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
   - remove the outermost vertical-align top style of DatePicker  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
-  - fix the problem that the parameter type of handleInputChange does not match the parameter type of Input onChange
+  - fix the problem that select the parameter type of handleInputChange does not match the parameter type of Input onChange
 - 【Design Token】
   - Typography Add  `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` tokens. Used to control the font weight of different levels of Header respectively
-
+- 【Docs】
+  - Tabs、Typography update notice tips
+  - Slider fix some wrong spell [@inottn](https://github.com/inottn)
 
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】

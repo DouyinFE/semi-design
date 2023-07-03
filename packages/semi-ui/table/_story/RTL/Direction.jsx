@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import ColumnAlign from '../v2/columnAlign';
-import { Direction } from '../../interface';
 import { Space, Button, ConfigProvider } from '../../../';
 
 function App() {
-    const [propDirection, setDirection] = React.useState<Direction>('ltr');
+    const [propDirection, setDirection] = React.useState('ltr');
     return (
         <Space vertical align="start">
             <Space>

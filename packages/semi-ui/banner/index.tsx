@@ -28,7 +28,7 @@ export interface BannerProps {
     closeIcon?: React.ReactNode;
     style?: React.CSSProperties;
     bordered?: boolean;
-    onClose?(e: React.MouseEvent):void
+    onClose?(e: React.MouseEvent): void
 }
 
 export interface BannerState {
@@ -155,7 +155,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
             [`${prefixCls}-bordered`]: !fullMode && bordered,
         });
         const banner = visible ? (
-            <div className={wrapper} style={style} role="alert">
+            <div className={wrapper} style={style} role="alert" {...this.getDataAttr(this.props)}>
                 <div className={`${prefixCls}-content-wrapper`}>
                     <div className={`${prefixCls}-content`}>
                         {this.renderIcon()}

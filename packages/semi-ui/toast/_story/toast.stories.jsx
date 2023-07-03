@@ -101,6 +101,16 @@ export const _Toast = () => (
         Toast in popup-container
       </Button>
     </div>
+    <div style={{ margin: '10px' }}>
+      <Button
+        type="primary"
+        onClick={() => {
+          Toast.error({ ...opts, content: 'I have a very long word testLongWordLongWordLongWordLongWordLongWordLongWordLongWordLongWordLongWordLongWordLongWordLongWord' });
+        }}
+      >
+        test overflow wrap
+      </Button>
+    </div>
   </>
 );
 

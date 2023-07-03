@@ -34,6 +34,7 @@ export interface Locale {
             dateTimeRange: [string, string];
             monthRange: [string, string]
         };
+        presets: string;
         footer: {
             confirm: string;
             cancel: string

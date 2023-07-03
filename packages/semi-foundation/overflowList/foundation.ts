@@ -8,7 +8,7 @@ export interface OverflowListAdapter extends DefaultAdapter {
     updateStates: (state: any) => void;
     updateVisibleState: (visible: Map<string, boolean>) => void;
     notifyIntersect: (res: any) => void;
-    getItemSizeMap: ()=>Map<string, number>
+    getItemSizeMap: () => Map<string, number>
 }
 
 class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
@@ -46,7 +46,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
 
         const res = {};
         entries.forEach(entry => {
-            const itemKey = get(entry, 'target.dataset.scrollkey');
+            const itemKey: string = get(entry, 'target.dataset.scrollkey');
             const visible = entry.isIntersecting;
             res[itemKey] = entry;
             visibleState.set(itemKey, visible);
@@ -77,7 +77,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
         const { items } = this.getProps();
         return cloneDeep(items).reverse();
     }
-    handleCollapseOverflow(){
+    handleCollapseOverflow() {
         const { minVisibleItems, collapseFrom } = this.getProps();
         const { overflowWidth, containerWidth, pivot: statePivot, overflowStatus } = this.getStates();
         const { items, onOverflow } = this.getProps();
@@ -114,7 +114,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
                 overflow,
             });
             // trigger onOverflow
-            if (statePivot !== pivot){
+            if (statePivot !== pivot) {
                 onOverflow(overflow);
             }
             return;

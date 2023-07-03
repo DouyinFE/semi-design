@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import 'normalize.css';
+// import 'normalize.css';
 import { Button } from '../../index';
 import Pagination from '../index';
 
@@ -157,3 +157,17 @@ export const HideOnSingePageAndShowChanger = () => {
 HideOnSingePageAndShowChanger.story = {
   name: 'hideOnSingelePage & showSizeChanger at same time',
 };
+
+export const DisabledPagination = () => {
+  return (
+    <div>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} size='small'></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} showQuickJumper size='small'></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} size='small' hoverShowPageSelect></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} showQuickJumper></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} showSizeChanger></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} showTotal></Pagination>
+      <Pagination total={100} disabled style={{ marginBottom: 12 }} showTotal showSizeChanger showQuickJumper></Pagination>
+    </div>
+  )
+}

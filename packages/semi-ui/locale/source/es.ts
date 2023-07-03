@@ -40,6 +40,7 @@ const locale: Locale = {
             dateTimeRange: ['Fecha inicial', 'Fecha final'],
             monthRange: ['Mes inicial', 'Mes final'],
         },
+        presets: 'Seleccionar rango',
         footer: {
             confirm: 'Aceptar',
             cancel: 'Cancelar',

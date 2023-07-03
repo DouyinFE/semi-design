@@ -24,8 +24,6 @@ module.exports = {
     if (utils.isTest()) {
       options.plugins.unshift(istanbulPluginOption);
     }
-
-
     return ({
       ...options,
     })

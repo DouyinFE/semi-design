@@ -37,6 +37,7 @@ export default {
             dateTimeRange: ['Data de început', 'Data de sfârșit'],
             monthRange: ['Luna de început', 'Luna de sfârșit'],
         },
+        presets: 'Selecții rapide',
         footer: {
             confirm: 'Confirmă',
             cancel: 'Anulează',

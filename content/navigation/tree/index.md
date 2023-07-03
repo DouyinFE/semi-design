@@ -1039,6 +1039,68 @@ import { Tree, Button } from '@douyinfe/semi-ui';
 
 ```
 
+### 开启搜索的展开受控
+传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.38.0） 来实现展开受控时的搜索展开效果。
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { Tree } from '@douyinfe/semi-ui';
+
+() => {
+    const [expandedKeys, setExpandedKeys] = useState([]);
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+                {
+                    label: '日本',
+                    value: 'Japan',
+                    key: '0-1',
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    return (
+        <Tree
+            style={{ width: 300 }}
+            treeData={treeData}
+            filterTreeNode
+            expandedKeys={expandedKeys}
+            onExpand={expandedKeys => {
+                setExpandedKeys(expandedKeys);
+            }}
+            onSearch={(inputValue, filteredExpandedKeys) => {
+                setExpandedKeys([...filteredExpandedKeys]);
+            }}
+        />
+    );
+};
+```
+
 ### 受控
 
 传入 `value` 时即为受控组件，可以配合 `onChange` 使用。
@@ -2157,7 +2219,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | onExpand | 展示节点时调用 | (expandedKeys: string[], {expanded: boolean, node: TreeNodeData}) => void | - | - |
 | onLoad | 节点加载完毕时触发的回调 | (loadedKeys: Set<string/>, treeNode: TreeNodeData) => void |- |  1.0.0|
 | onContextMenu | 右键点击的回调 | (e: MouseEvent, node: TreeNodeData) => void | - | 0.35.0 |
-| onSearch | 文本框值变化时回调 | (sunInput: string) => void | - | - |
+| onSearch | 文本框值变化时回调, 入参 filteredExpandedKeys 表示因为搜索或 value / defaultValue 而展开的节点的 key, <br/>可以配合 expandedKeys 受控时使用。filteredExpandedKeys 在 2.38.0 中新增 | (sunInput: string, filteredExpandedKeys: string[]) => void | - | - |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值 | (selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void | - | - |
 
 ### TreeNodeData

@@ -644,7 +644,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             toggleHovering: bool => {
                 this.setState({ isHovering: bool });
             },
-            updateInputFocus: bool => { 
+            updateInputFocus: bool => {
                 if (bool) {
                     if (this.inputRef && this.inputRef.current) {
                         const { preventScroll } = this.props;
@@ -664,7 +664,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             },
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
-            } 
+            }
         };
     }
 
@@ -858,8 +858,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             maxTagCount,
             searchPosition,
             filterTreeNode,
-            showRestTagsPopover, 
-            restTagsPopoverProps 
+            showRestTagsPopover,
+            restTagsPopoverProps
         } = this.props;
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
@@ -947,7 +947,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     onClick={this.handleClear}
                     onKeyPress={this.handleClearEnterPress}
                 >
-                    { clearIcon ? clearIcon : <IconClear />}
+                    {clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -971,7 +971,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             leafOnly,
             searchPosition,
             triggerRender,
-            borderless
+            borderless,
+            ...rest
         } = this.props;
         const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
         const filterable = Boolean(filterTreeNode);
@@ -1064,6 +1065,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 {...mouseEvent}
+                {...this.getDataAttr(rest)}
             >
                 {inner}
             </div>
@@ -1135,7 +1137,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             placeholder,
             maxTagCount,
             checkRelation,
-            showRestTagsPopover, 
+            showRestTagsPopover,
             restTagsPopoverProps,
             searchPosition,
             filterTreeNode,
@@ -1193,6 +1195,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchAutoFocus,
             multiple,
             disabled,
+            preventScroll,
         } = this.props;
         const isDropdownPositionSearch = searchPosition === strings.SEARCH_POSITION_DROPDOWN;
         const inputcls = cls({
@@ -1203,6 +1206,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const baseInputProps = {
             value: inputValue,
             className: inputcls,
+            preventScroll,
             onChange: (value: string) => this.search(value),
         };
         const inputDropdownProps = {
@@ -1303,7 +1307,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
         if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
             this.foundation.focusInput(true);
-        } 
+        }
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
@@ -1439,10 +1443,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         this.renderInput()
                     }
                     <div className={listCls} role="tree" aria-multiselectable={multiple ? true : false} style={optionListStyle}>
-                        { noData ? this.renderEmpty() : (multiple ? 
+                        {noData ? this.renderEmpty() : (multiple ?
                             (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
                                 {this.renderNodeList()}
-                            </CheckboxGroup>) : 
+                            </CheckboxGroup>) :
                             this.renderNodeList()
                         )}
                     </div>

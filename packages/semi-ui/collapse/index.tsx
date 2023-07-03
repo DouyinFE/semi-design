@@ -100,7 +100,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
         const clsPrefix = cls(cssClasses.PREFIX, className);
         const { activeSet } = this.state;
         return (
-            <div className={clsPrefix} style={style}>
+            <div className={clsPrefix} style={style} {...this.getDataAttr(this.props)}>
                 <CollapseContext.Provider
                     value={{
                         activeSet,

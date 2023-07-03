@@ -14,15 +14,15 @@ import Table from './Table';
 import { cloneDeep, mergeColumns } from './utils';
 import getColumns from './getColumns';
 import ResizableHeaderCell from './ResizableHeaderCell';
-import { TableProps, ColumnProps } from './interface';
+import type { ResizableProps, TableProps, ColumnProps } from './interface';
 
 const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Table<any>> | ((instance: Table<any>) => void)) => {
     const { components: propComponents, columns: propColumns, resizable, ...restProps } = props;
 
     const childrenColumnName = 'children';
-    const onResize = get(resizable, 'onResize', noop);
-    const onResizeStart = get(resizable, 'onResizeStart', noop);
-    const onResizeStop = get(resizable, 'onResizeStop', noop);
+    const onResize = get(resizable, 'onResize', noop) as ResizableProps<any>['onResize'];
+    const onResizeStart = get(resizable, 'onResizeStart', noop) as ResizableProps<any>['onResize'];
+    const onResizeStop = get(resizable, 'onResizeStop', noop) as ResizableProps<any>['onResize'];
 
     /**
      * 此处关于 columns 有三个存储

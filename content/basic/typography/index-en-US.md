@@ -315,10 +315,11 @@ function Demo() {
 ### Ellipsis
 
 Show ellipsis if text is overflowed. Refer to [Ellipsis Config](#Ellipsis-Config) for detailed configuration.
-> At this moment, only pure text truncation is supported.
 
 <Notice title='Notice'>
-    ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string
+    1. ellipsis only supports truncation of plain text, and does not support complex types such as reactNode. Please ensure that the content type of children is string <br/><br/>
+    2. To achieve abbreviation, ellipsis needs to have a clear width or maxWidth limit for comparison and judgment. If the width is not set by itself (for example, purely relying on the flex property to expand), or the width is an indefinite value such as 100%, the parent needs to have a clear width or maxWidth<br/><br/>
+    3. Ellipsis needs to obtain information such as the width and height of the DOM to make basic judgments. If there is a display:none style in itself or the parent, the value will be incorrect, and the abbreviation will be invalid at this time<br/>
 </Notice>
 
 ```jsx live=true
@@ -370,7 +371,7 @@ function Demo() {
 ```
 
 <Notice type="primary" title="Tips">
-    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a>. The reason why we did not have built-in content is that different language content (pure English, Chinese, mixed Chinese and English) have different requirements for word-break, so the component layer does not make this preset.</div>
+    <div>When the tooltip does not wrap in the pop-up tooltip when the long text occurs, please set it manually through <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break" target="_blank"  rel="noopener noreferrer">word-break</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap" target= "_blank" rel="noopener noreferrer">word-wrap</a>, more details can be found in the FAQ section of Tooltip</div>
 </Notice>
 
 ```jsx live=true

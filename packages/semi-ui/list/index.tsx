@@ -130,7 +130,8 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
             bordered,
             dataSource,
             renderItem,
-            children
+            children,
+            ...rest
         } = this.props;
         const wrapperCls = cls(prefixCls, className, {
             [`${prefixCls}-flex`]: layout === 'horizontal',
@@ -155,7 +156,7 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
             childrenList = this.renderEmpty();
         }
         return (
-            <div className={wrapperCls} style={style}>
+            <div className={wrapperCls} style={style} {...this.getDataAttr(rest)}>
                 {header ? (
                     <div className={`${cssClasses.PREFIX}-header`} x-semi-prop="header">
                         {header}

@@ -39,8 +39,37 @@ import SyncSwitchMonth from './SyncSwitchMonth';
 import { Checkbox } from '../../checkbox';
 import Typography from '../../typography/typography';
 import { IconClose, IconChevronDown } from '@douyinfe/semi-icons';
-export * from './v2';
 import * as dateFns from 'date-fns';
+
+export {
+    YearButton,
+    PanelOpen,
+    FixInputRangeFocus,
+    InsetInput,
+    InsetInputE2E,
+    FixDefaultPickerValue,
+    InputFormat,
+    InputFormatDisabled,
+    AutoFillTime,
+    InputFormatConfirm,
+    FixedTriggerRender,
+    DisabledRange,
+    FixDisabledMonth,
+    FixRangePanelShift,
+    InsetInputControlled,
+    FeatInsetInputProps,
+    FixMultiplePanelShift,
+    FixTimeZone,
+    FeatRefOpen,
+    FeatRefFocus,
+    FeatOnClickOutside,
+    FeatRefClass,
+    FixNeedConfirmInTabs,
+    DynamicDisabledDate,
+    FeatEtcGMT,
+    FixDisabledDate,
+    FeatInsetInputShowClear
+} from './v2';
 
 
 export default {

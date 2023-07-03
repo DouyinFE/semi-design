@@ -3,7 +3,7 @@ category: 开始
 title: Change Log 更新日志
 icon: doc-changelog
 localeCode: zh-CN
-order: 8
+order: 10
 brief: 关于 Semi Design For React 优化与更新。我们提供了版本间的 Changelog Diff，你可以通过 hover 版本号唤出 Diff 控件。如果你想查看单个组件的变更历史，可以通过对应组件文档的 版本对比 按钮查看
 ---
 
@@ -13,41 +13,84 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.38.0-beta.0 (2023-06-26)
+- 【Feat】
+  - Tree 的 onSearch 新增 filterExpandedKeys 参数
+  - Badge 新增 success 类型
+- 【Fix】
+  - 修复 toast useToast 返回值在用户函数 re render 后失效的问题
+  - 修复 disabled 的 Cascader 无法通过 hover +N 部分显示多余 Tag 问题
+  - 修复 ImagePreview 中 className 不生效问题  [#1657](https://github.com/DouyinFE/semi-design/issues/1657)
+- 【Chore】
+  - 更正 Form formApi.reset 入参类型的问题
+- 【Style】
+  - 在 disabled 情况下，点击 Cascader 不触发 focus 样式
+
+
+#### 🎉 2.37.0 (2023-06-09)
+- 【Fix】
+    - 修复 TreeSelect searchAutoFocus 的 preventScroll 未生效问题
+    - 修复 Input 在 autofocus 为 true 时 preventScroll 未生效问题
+    - 修复 Upload 在 beforeUpload中更新 fileInstance后，未更新缩略图渲染的问题
+
+#### 🎉 2.37.0-beta.0 (2023-06-05)
+- 【Feat】
+    - Pagination 新增 disabled API [#1641](https://github.com/DouyinFE/semi-design/pull/1641)
+    - DatePicker 内嵌输入框在 trigger 上增加 clear 按钮 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 为所有组件添加 data-* 类属性透传的功能 [#1597](https://github.com/DouyinFE/semi-design/issues/1597)
+- 【Fix】
+    - DatePicker preset 面板标题支持 i18n [#1643](https://github.com/DouyinFE/semi-design/pull/1643)
+    - 修复 DatePicker insetInput 内嵌输入框 placeholder 占位文本错误问题 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 修复 DatePicker 范围输入框 clear 按钮默认颜色不对问题 [#1638](https://github.com/DouyinFE/semi-design/issues/1638)
+    - 仅当 Dropdown panel 可见时，才触发上下箭头按下事件的 stopPropagation 和 preventDefault [#1640](https://github.com/DouyinFE/semi-design/pull/1640)
+- 【Style】
+    - 设置 Tooltip、Toast、Notification 中内容的默认换行换行规则 [#1623](https://github.com/DouyinFE/semi-design/pull/1623)
+
+#### 🎉 2.36.0 (2023-05-26)
+- 【Fix】
+  - 修复 Calander 日历多日模式中，range包括时间时不显示非全天日程的问题 [@sylingd](https://github.com/sylingd)
+  - 修复 Upload customRequest onSuccess 中 event 参数实为可选，ts类型声明却为必填的问题 
+  - 修复 ImagePreview IntersectionObserver 在 SSR 场景报错的问题（影响范围 2.34 ~ 2.36.0-beta.0）[#1595](https://github.com/DouyinFE/semi-design/issues/1595)
+
 #### 🎉 2.36.0-beta.0 (2023-05-22)
 - 【Feat】
-  - DatePicker 支持设置滚轮的开始年和结束年  [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
+  - DatePicker 支持设置滚轮的开始年和结束年 [#1620](https://github.com/DouyinFE/semi-design/issues/1620)
   - Calendar 支持自定义渲染顶部事件 [@sylingd](https://github.com/sylingd)
   - Calendar 支持自定义日期文案 [@sylingd](https://github.com/sylingd)
+  - Nav 增加 expandIcon 自定义下拉箭头；Nav.Footer 增加 onClick 回调 [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
   - Anchor 的 showTooltip API 支持 object 类型设置
-  - Typography.Title 新增 weight API，用于控制字重。
-  - Select 新增 search 方法
-  - Nav 增加 expandIcon 自定义下拉箭头；Nav.Footer 增加 onClick 回调, [#1611](https://github.com/DouyinFE/semi-design/issues/1611)
+  - Typography.Title 新增 weight API，用于控制字重
+  - Select ref 新增 search 方法暴露
 - 【Fix】
-  - 修复 TimePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题
-  - 修复 Tabs 中通过 tab API 传入的 ReactNode 中的 Radio，Checkbox 样式错误问题  [#1615 ](https://github.com/DouyinFE/semi-design/issues/1615)
-  - Calendar 在改变 displayValue 时，事件渲染错误 [@sylingd](https://github.com/sylingd)
-  - 去除 Typography 中省略未开启时的 ellipsis warning
-  - 修复 Table  表头 column align 对齐 bug（v2.34 ~ 2.35 受影响）  [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
+  - 修复 TimePicker 在 date-fns-tz 版本 >= 1.3.8 时 timeZone 转换问题 [#1604](https://github.com/DouyinFE/semi-design/issues/1604)
+  - 修复 Tabs 中通过 tab API 传入的 ReactNode 中的 Radio，Checkbox 样式错误问题  [#1615](https://github.com/DouyinFE/semi-design/issues/1615)
+  - 修复 Calendar 在改变 displayValue 时，事件渲染错误 [@sylingd](https://github.com/sylingd)
+  - 修复 Typography 中省略未开启时仍抛出 ellipsis warning 的问题
+  - 修复 Table  表头 column align 对齐 bug（影响范围 v2.34 ~ 2.35） [#1599](https://github.com/DouyinFE/semi-design/issues/1599)
   - 移除 DatePicker 最外层 vertical-align top 样式  [#1561](https://github.com/DouyinFE/semi-design/issues/1561)
-  - 修复 handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
+  - 修复 Select handleInputChange 参数类型与 Input onChange 参数类型不匹配问题
 - 【Design Token】
-  - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重。
+  - Typography 新增 `$font-typography_title1-fontWeight` `$font-typography_title2-fontWeight` `$font-typography_title3-fontWeight` `$font-typography_title4-fontWeight` `$font-typography_title5-fontWeight` `$font-typography_title6-fontWeight` 用于分别控制不同级别 Header 字重
+- 【Docs】
+  - Tabs、Typography 增加 Notice 注意事项
+  - Slider 修正部分书写错误内容 [@inottn](https://github.com/inottn)
 
 
 #### 🎉 2.35.0 (2023-05-12)
 - 【Fix】
     - 修复 collapsible Tabs 切换 tab 后，Dropdown item 异常问题
     - 修复 select 单选和 renderSelectedItem 情况下，defaultValue 为 null 时不显示 placeholder 问题
-    - 修复部分情境下垂直 slider 点击跳转值错误的问题
+    - 修复 部分场景下垂直 slider 点击跳转值错误的问题
 
 #### 🎉 2.35.0-beta.0 (2023-05-10)
 - 【Fix】
-    - Avatar Cascader form input 的字重定义使用默认 $font-weight-bold
+    - Avatar、Cascader、Form、Input 的字重定义使用默认 $font-weight-bold
 
 #### 🎉 2.34.2 (2023-05-09)
 - 【Fix】
     - 修复 Input type=search 且 showClear 为true时，原生清除按钮与 Semi 清除按钮同时显示的问题  [#1598](https://github.com/DouyinFE/semi-design/issues/1598)
-    - 修复 DatePicker disabledDate 无法选择禁用边界日期问题  [#1592 ](https://github.com/DouyinFE/semi-design/issues/1592)
+    - 修复 DatePicker disabledDate 无法选择禁用边界日期问题  [#1592](https://github.com/DouyinFE/semi-design/issues/1592)
 
 #### 🎉 2.34.1 (2023-05-06)
 - 【Fix】
@@ -60,6 +103,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复 Form.InputGroup 不受 Form disabled控制的问题 [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
   - 修复 Typography 在父级或自身设置 white-space 为 nowrap 时截断出错问题 [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
   - 修复 懒加载模式下 Image 的 src 变化，图片无法正常加载问题 [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
+
+
 #### 🎉 2.34.0-beta.0 (2023-04-25)
 - 【Feat】
   - 新增 Rspack plugin，支持 Rspack 工程配置主题、prefixCls等 [@Asuka109](https://github.com/Asuka109)

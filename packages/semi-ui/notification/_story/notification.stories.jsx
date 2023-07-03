@@ -223,3 +223,16 @@ export const AsyncCallback = () => <Demo />;
 AsyncCallback.story = {
   name: '二次异步回调'
 }
+
+export const TestOverFlow = () => {
+  let opts = {
+      title: 'Test long word Title, TestLongWordTestLongWordTestLongWordTestLongWordTestLongWord',
+      content: 'Test long word Title, TestLongWordTestLongWordTestLongWordTestLongWordTestLongWord',
+      duration: 0,
+      theme: 'light',
+      style: { width: 320 }
+  };
+  return (
+    <Button onClick={() => Notification.info(opts)}>Info</Button>
+  )
+}

@@ -1,5 +1,5 @@
 describe('navigation', () => {
-    it('danamic change', () => {
+    it('dynamic change', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=navigation--items-change-demo&viewMode=story');
 
         cy.get('span').contains('用户管理').should('exist');
@@ -9,7 +9,6 @@ describe('navigation', () => {
 
     it('auto open', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=navigation--auto-open&viewMode=story');
-
         cy.get('span').contains('人员管理').should('exist');
     });
 

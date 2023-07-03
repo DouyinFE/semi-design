@@ -8,10 +8,10 @@ import MultiDropdown from './MultiDropdown';
 import DisabledItem from './DisabledItem';
 import InHoverElements from './InHoverElements';
 import WrapAvatar from './WrapAvatar';
-import { IconChevronDown, IconBox, IconSimilarity } from '@douyinfe/semi-icons';
-import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
+import TextArea from '../../input/textarea'
+import { IconBox, IconChevronDown, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
 
-export * from '../_story/C2D';
+export { DropdownItem } from '../_story/C2D';
 
 export default {
   title: 'Dropdown',
@@ -376,5 +376,23 @@ export function ShowTick() {
               <Button style={{ marginLeft: 90 }}>ShowTick+始终展示</Button>
           </Dropdown>
       </div>
+  );
+}
+
+export function Fix1606() {
+  return (
+      <Dropdown
+        trigger="customer"
+        visible={false}
+        render={
+              <Dropdown.Menu>
+                  <Dropdown.Item>Menu Item 1</Dropdown.Item>
+                  <Dropdown.Item>Menu Item 2</Dropdown.Item>
+                  <Dropdown.Item>Menu Item 3</Dropdown.Item>
+              </Dropdown.Menu>
+        }
+        >
+          <TextArea style={{ width: 200 }} defaultValue='请尝试在此处使用上下箭头切换当前行'/>
+      </Dropdown>
   );
 }

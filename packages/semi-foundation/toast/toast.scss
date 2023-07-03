@@ -39,6 +39,9 @@ $icon: #{$prefix}-toast-icon;
             margin-left: $spacing-toast_content_text-marginLeft;
             margin-right: $spacing-toast_content_text-marginRight;
             text-align: left;
+            // word-wrap is an alias of overflow-wrap, word-wrap can take effect on more browsers, in order to prevent future changes, use both  
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
     }
 

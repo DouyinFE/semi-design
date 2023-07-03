@@ -649,7 +649,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                             x-placement={placement}
                             id={id}
                         >
-                            {contentNode}
+                            <div className={`${prefix}-content`} >{contentNode}</div>
                             {icon}
                         </div>;
                     }
@@ -719,7 +719,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { isInsert, triggerEventSet, visible, id } = this.state;
         const { wrapWhenSpecial, role, trigger } = this.props;
         let { children } = this.props;
-        const childrenStyle = { ...get(children, 'props.style') };
+        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties } ;
         const extraStyle: React.CSSProperties = {};
 
         if (wrapWhenSpecial) {
@@ -762,7 +762,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             ...(children as React.ReactElement).props,
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
             style: {
-                ...get(children, 'props.style'),
+                ...get(children, 'props.style') as React.CSSProperties,
                 ...extraStyle,
             },
             className: classNames(

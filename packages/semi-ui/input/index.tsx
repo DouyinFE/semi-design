@@ -66,7 +66,9 @@ export interface InputProps extends
     inputStyle?: React.CSSProperties;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    /** internal prop, DatePicker use it */
+    showClearIgnoreDisabled?: boolean
 }
 
 export interface InputState {
@@ -219,6 +221,16 @@ class Input extends BaseComponent<InputProps, InputState> {
         }
     }
 
+    componentDidMount(): void {
+        // autofocus is changed from the original support of input to the support of manually calling the focus method,
+        // so that preventScroll can still take effect under the setting of autofocus
+        this.foundation.init();
+        const { disabled, autofocus, preventScroll } = this.props;
+        if (!disabled && autofocus) {
+            this.inputRef.current.focus({ preventScroll });
+        }
+    }
+
     handleClear = (e: React.MouseEvent<HTMLInputElement>) => {
         this.foundation.handleClear(e);
     };
@@ -309,7 +321,7 @@ class Input extends BaseComponent<InputProps, InputState> {
                     className={clearCls}
                     onMouseDown={this.handleClear}
                 >
-                    { clearIcon ? clearIcon : <IconClear />}
+                    {clearIcon ? clearIcon : <IconClear />}
                 </div>
             );
         }
@@ -370,12 +382,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         );
     }
 
-    showClearBtn() {
-        const { value, isFocus, isHovering } = this.state;
-        const { disabled, showClear } = this.props;
-        return Boolean(value) && showClear && !disabled && (isFocus || isHovering);
-    }
-
     renderSuffix(suffixAllowClear: boolean) {
         const { suffix, hideSuffix } = this.props;
         if (!suffix) {
@@ -406,7 +412,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             if (typeof forwardRef === 'function') {
                 return (node: HTMLInputElement) => {
                     forwardRef(node);
-                    this.inputRef = { current: node } ;
+                    this.inputRef = { current: node };
                 };
             } else if (Object.prototype.toString.call(forwardRef) === '[object Object]') {
                 this.inputRef = forwardRef;
@@ -446,10 +452,11 @@ class Input extends BaseComponent<InputProps, InputState> {
             getValueLength,
             preventScroll,
             borderless,
+            showClearIgnoreDisabled,
             ...rest
         } = this.props;
         const { value, isFocus, minLength: stateMinLength } = this.state;
-        const suffixAllowClear = this.showClearBtn();
+        const suffixAllowClear = this.foundation.isAllowClear();
         const suffixIsIcon = isSemiIcon(suffix);
         const ref = this.getInputRef();
         const wrapperPrefix = `${prefixCls}-wrapper`;
@@ -483,7 +490,6 @@ class Input extends BaseComponent<InputProps, InputState> {
         const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
             ...rest,
             style: inputStyle,
-            autoFocus: autofocus,
             className: inputCls,
             disabled,
             readOnly: readonly,

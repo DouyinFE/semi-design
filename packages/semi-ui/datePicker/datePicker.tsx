@@ -16,6 +16,7 @@ import DatePickerFoundation, {
     Type,
     RangeType
 } from '@douyinfe/semi-foundation/datePicker/foundation';
+import MonthGridFoundation from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
 import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/datePicker/constants';
 import { strings as popoverStrings, numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
 import BaseComponent from '../_base/baseComponent';
@@ -551,7 +552,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     renderQuickControls() {
-        const { presets, type, presetPosition, insetInput } = this.props;
+        const { presets, type, presetPosition, insetInput, locale } = this.props;
         return (
             <QuickControl
                 type={type}
@@ -559,6 +560,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 insetInput={insetInput}
                 presetPosition={presetPosition}
                 onPresetClick={(item, e) => this.foundation.handlePresetClick(item, e)}
+                locale={locale}
             />
         );
     }
@@ -606,7 +608,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         }
     };
     handleInsetDateFocus = (e: React.FocusEvent, rangeType: 'rangeStart' | 'rangeEnd') => {
-        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation') as MonthGridFoundation;
         if (monthGridFoundation) {
             monthGridFoundation.showDatePanel(strings.PANEL_TYPE_LEFT);
             monthGridFoundation.showDatePanel(strings.PANEL_TYPE_RIGHT);
@@ -615,7 +617,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     handleInsetTimeFocus = () => {
-        const monthGridFoundation = get(this, 'monthGrid.current.foundation');
+        const monthGridFoundation = get(this, 'monthGrid.current.foundation') as MonthGridFoundation;
         if (monthGridFoundation) {
             monthGridFoundation.showTimePicker(strings.PANEL_TYPE_LEFT);
             monthGridFoundation.showTimePicker(strings.PANEL_TYPE_RIGHT);
@@ -665,6 +667,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         // These values should be passed to triggerRender, do not delete any key if it is not necessary
         const props = {
             ...extraProps,
+            showClearIgnoreDisabled: Boolean(insetInput),
             placeholder: phText,
             clearIcon,
             disabled: inputDisabled,
@@ -861,7 +864,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     render() {
-        const { style, className, prefixCls, type } = this.props;
+        const { style, className, prefixCls, type, ...rest } = this.props;
         const outerProps = {
             style,
             className: classnames(className, { [prefixCls]: true }),
@@ -871,6 +874,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             'aria-labelledby': this.props['aria-labelledby'],
             'aria-describedby': this.props['aria-describedby'],
             'aria-required': this.props['aria-required'],
+            ...this.getDataAttr(rest)
         };
 
         const innerPropKeys: string[] = [];

@@ -35,6 +35,7 @@ const local: Locale = {
             dateTimeRange: ['Tanggal mulai', 'Tanggal akhir'],
             monthRange: ['Bulan pertama', 'Bulan terakhir'],
         },
+        presets: 'Pilihan cepat',
         footer: {
             confirm: 'Konfirmasi',
             cancel: 'Batalkan',

@@ -705,7 +705,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             [`${prefixcls}-selection-n-disabled`]: disabled,
         });
         const renderPlusNChildren = <span className={plusNCls}>+{hiddenTag.length}</span>;
-        return showRestTagsPopover && !disabled ? (
+        return showRestTagsPopover ? (
             <Popover
                 content={hiddenTag}
                 showArrow
@@ -998,6 +998,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"
                 tabIndex={0}
+                {...this.getDataAttr(this.props)}
             >
                 {inner}
             </div>

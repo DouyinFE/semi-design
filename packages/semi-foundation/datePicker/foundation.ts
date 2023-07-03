@@ -617,9 +617,11 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const inputValue = '';
         if (!this._isControlledComponent('value')) {
             this._updateValueAndInput(value, true, inputValue);
+            this._adapter.updateInsetInputValue(null);
             this.resetCachedSelectedValue(value);
         }
         this._notifyChange(value);
+        this._adapter.setRangeInputFocus(false);
         this._adapter.notifyClear(e);
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-function
