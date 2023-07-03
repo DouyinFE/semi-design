@@ -428,7 +428,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form Design Token is updated，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop` is corrected to more semantically `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop` [#1272](https://github.com/DouyinFE/semi-design/pull/1272)
-
+- 【Fix】
+    - When selecting multiple selections, deleting Tag does not trigger aggregation but has aggregation style problems
 
 #### 🎉 2.23.2 (2022-11-14)
 - 【Fix】
