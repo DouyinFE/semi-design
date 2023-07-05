@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.38.1 (2023-07-05)
+- 【Fix】
+    - Fix the problem that when the AutoComplete panel is open, the option panel cannot be closed by clicking outside, the scope of influence (2.38.0)
+
 #### 🎉 2.38.0 (2023-06-30)
 - 【Fix】
     - Fix the problem that AutoComplete cannot be selected by long pressing, and onSelect is not triggered [#1665](https://github.com/DouyinFE/semi-design/issues/1665)

@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.38.1 (2023-07-05)
+- 【Fix】
+    - 修复当 AutoComplete 的面板在打开时，点击外部无法关闭选项面板问题（影响范围2.38.0）
+
 #### 🎉 2.38.0 (2023-06-30)
 - 【Fix】
     - 修复 AutoComplete 长按无法选中，onSelect 未触发问题 [#1665](https://github.com/DouyinFE/semi-design/issues/1665)
