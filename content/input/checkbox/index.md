@@ -31,7 +31,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox onChange={checked => console.log(checked)} aria-label="Checkbox 示例">Semi Design</Checkbox>
+    <Checkbox onChange={e => console.log(e)} aria-label="Checkbox 示例">Semi Design</Checkbox>
 );
 ```
 
@@ -40,7 +40,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox defaultChecked onChange={checked => console.log(checked)} aria-label="Checkbox 示例">Semi Design</Checkbox>
+    <Checkbox defaultChecked onChange={e => console.log(e)} aria-label="Checkbox 示例">Semi Design</Checkbox>
 );
 ```
 

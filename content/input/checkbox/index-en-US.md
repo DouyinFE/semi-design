@@ -34,7 +34,7 @@ import React from 'react';
 import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
-    <Checkbox aria-label="Checkbox demo" onChange={checked => console.log(checked)}>
+    <Checkbox aria-label="Checkbox demo" onChange={e => console.log(e)}>
         Semi Design
     </Checkbox>
 );
@@ -47,7 +47,7 @@ import { Checkbox } from '@douyinfe/semi-ui';
 () => (
     <Checkbox
         defaultChecked
-        onChange={checked => console.log(checked)}
+        onChange={e => console.log(e)}
         aria-label="Checkbox demo"
     >
         Semi Design

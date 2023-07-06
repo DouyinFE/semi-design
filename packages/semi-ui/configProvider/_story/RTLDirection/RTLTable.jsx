@@ -87,7 +87,7 @@ export default function RTLTable() {
 
     return (
         <>
-            <Checkbox onChange={checked => console.log(checked)}>Semi Design</Checkbox>
+            <Checkbox onChange={e => console.log(e)}>Semi Design</Checkbox>
             <Table columns={sortColumns} dataSource={sortData} />
         </>
     );
