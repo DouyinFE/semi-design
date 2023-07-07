@@ -92,6 +92,7 @@
         "react-virtualized": "^9.22.3",
         "reset-css": "^5.0.1",
         "sass": "1.54.9",
+        "storybook-react-rspack": "^7.0.0-rc.24",
         "typeface-inconsolata": "0.0.72",
         "typeface-inter": "^3.18.1",
         "unist-util-remove": "^1.0.3",
