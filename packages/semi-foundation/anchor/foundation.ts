@@ -171,7 +171,7 @@ export default class AnchorFoundation<P = Record<string, any>, S = Record<string
                  *      2. There is a scroll axis (clientHeight < scrollHeight | | clientWidth < scrollWidth)
                  *      3.overflowX or overflowY has a value and is not visible or clip
                  *       For details, please see https://github.com/stipsan/compute-scroll-into-view
-                 * 
+                 *
                  * behavior定义滚动行为
                  *  - 可选 'auto' | 'smooth' | Function
                  *  - Function 自定义滚动行为
@@ -184,9 +184,12 @@ export default class AnchorFoundation<P = Record<string, any>, S = Record<string
                  */
                 behavior: actions => {
                     // We just need to scroll the innermost target container
-                    const innermostAction = get(actions, '0');
-                    const el = get(innermostAction, 'el');
-                    const top = get(innermostAction, 'top');
+                    const verticalScrollAction = actions.find(action => {
+                        const { el } = action;
+                        return el.scrollHeight > el.clientHeight;
+                    });
+                    const el = get(verticalScrollAction, 'el');
+                    const top = get(verticalScrollAction, 'top');
                     if (el) {
                         const offsetTop = top - targetOffset;
                         if (el.scroll && canSmoothScroll) {
