@@ -155,7 +155,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 getVirtualizedListRef(this.listRef);
             } else {
                 console.warn('getVirtualizedListRef only works with virtualized. ' +
-                    'See https://semi.design/zh-CN/show/table for more information.');
+                    'See https://semi.design/en-US/show/table for more information.');
             }
         }
         this.foundation = new BodyFoundation(this.adapter);
