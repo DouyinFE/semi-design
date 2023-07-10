@@ -43,7 +43,7 @@ return (
 <table>
     <tbody>
         <tr>
-            <td align="center"><a href="https://semi.design/zh-CN/contribute/"><img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/SemiLogo.jpg" width="100px;" alt="" style="max-width:100%;"><br><sub><b>Semi Teams</b></sub></a></td>
+            <td align="center"><a href="https://semi.design/en-US/contribute/"><img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/SemiLogo.jpg" width="100px;" alt="" style="max-width:100%;"><br><sub><b>Semi Teams</b></sub></a></td>
         </tr>
     </tbody>
 </table>
