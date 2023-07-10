@@ -869,7 +869,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         // searchPosition = dropdown and single seleciton
         if (!multiple || !this.hasValue()) {
             const renderText = this.foundation.getRenderTextInSingle();
-            const spanCls = cls({
+            const spanCls = cls(`${prefixcls}-selection-content`, {
                 [`${prefixcls}-selection-placeholder`]: !renderText,
             });
             return <span className={spanCls}>{renderText ? renderText : placeholder}</span>;

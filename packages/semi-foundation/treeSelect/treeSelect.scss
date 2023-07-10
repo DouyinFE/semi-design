@@ -133,11 +133,15 @@ $module: #{$prefix}-tree-select;
         padding-right: 0;
         cursor: pointer;
         color: $color-treeSelect_selection-text-default;
+        position: relative;
 
-        &-placeholder {
+        &-content {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+        }
+        
+        &-placeholder {
             color: $color-treeSelect_input_placeholder-text-default;
         }
 
@@ -154,6 +158,10 @@ $module: #{$prefix}-tree-select;
 
         &-TriggerSearchItem {
             position: absolute;
+            max-width: calc(100% - $spacing-treeSelect_selection-paddingLeft);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
             
             &-placeholder {
                 opacity: .6;
