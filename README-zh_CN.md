@@ -9,8 +9,9 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] ![Design Token][Design Token] [![LICENSE][license-badge]][license-url] 
+[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] ![Design Token][Design Token] 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
+[![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
 
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
@@ -112,10 +113,13 @@ Semi UI 支持所有主流浏览器。
 
 # 👐 贡献指南
 
-阅读贡献指南了解我们的开发流程，包括开发规范、测试规范和构建规范等。
+阅读贡献指南了解我们的开发流程，包括开发规范、测试规范和构建规范等： [CONTRIBUTING](CONTRIBUTING.md)
 
-[CONTRIBUTING](CONTRIBUTING.md)
 
+# 📰 关注我们的动态
+* [Follow on Twitter](https://twitter.com/SemiDesignUI)
+* [Follow on Medium](https://medium.com/@semi-design)
+* [Follow on Dev.to](https://dev.to/semidesign)
 
 # 👨‍👨‍👧‍👦 交流群
 
