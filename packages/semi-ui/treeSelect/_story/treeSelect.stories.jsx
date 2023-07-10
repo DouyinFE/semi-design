@@ -2272,3 +2272,77 @@ export const AutoSearchFocusPlusPreventScroll = () => {
       </div>
   );
 };
+
+export const LongLabel = () => {
+  const treeData = [
+    {
+        label: '这是一个超长的中文测试用标题这是一个超长的中文测试用标题这是一个超长的中文测试用标题这是一个超长的中文测试用标题',
+        value: 'v1',
+        key: '0',
+    },
+    {
+        label: 'ThisISAVeryLongTestSentenceThisISAVeryLongTestSentenceThisISAVeryLongTestSentence',
+        value: 'v2',
+        key: '1',
+    }
+  ];
+
+  return (
+    <>
+      <p>单选</p>
+      <TreeSelect
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+      <p>单选，可搜索, searchPosition='trigger'</p>
+      <TreeSelect
+        filterTreeNode
+        searchPosition='trigger'
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选，可搜索, searchPosition='dropDown'</p>
+      <TreeSelect
+        filterTreeNode
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选</p>
+      <TreeSelect
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+      <p>单选，可搜索, searchPosition='trigger'</p>
+      <TreeSelect
+        filterTreeNode
+        searchPosition='trigger'
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选，可搜索, searchPosition='dropDown'</p>
+      <TreeSelect
+        filterTreeNode
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+    </>
+  );
+}
