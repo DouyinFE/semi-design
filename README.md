@@ -9,8 +9,9 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
+[![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
 [contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
@@ -34,6 +35,7 @@
 [build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
 [build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
+
 
 </div>
 
@@ -118,6 +120,10 @@ Read the contributing guide to learn about our development process, how to propo
 
 See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
+# 📰 News about Semi UI
+* [Follow on Twitter](https://twitter.com/SemiDesignUI)
+* [Follow on Medium](https://medium.com/@semi-design)
+* [Follow on Dev.to](https://dev.to/semidesign)
 
 # 👨‍👨‍👧‍👦 User Group
 
