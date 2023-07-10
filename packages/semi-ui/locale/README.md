@@ -37,7 +37,6 @@ return (
 - dateFnsLocale: need to pass date-fns locale object when formatting a date (using dateFns.format or dateFns.parse etc)
 - text: components' built-in text
 
-
 ## License
 
 MIT

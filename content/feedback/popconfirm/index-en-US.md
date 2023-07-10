@@ -240,7 +240,7 @@ Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-o
 
 ### ARIA
 
-For ARIA, please refer to [Popover](https://semi.design/zh-CN/show/popover#ARIA)
+For ARIA, please refer to [Popover](https://semi.design/en-US/show/popover#ARIA)
 
 ### Keyboard and focus
 

@@ -648,7 +648,7 @@ Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_li
 - 【Fix】
     - Update @douyinfe/semi-webpack-plugin to fix the error that animation.scss cannot be processed when using a custom theme  [#1072](https://github.com/DouyinFE/semi-design/issues/1072)
 - 【Docs】
-    -  Added [Global content guidelines](/zh-CN/), Component content guidelines
+    -  Added [Global content guidelines](/en-US/), Component content guidelines
 
 #### 🎉 2.18.0 (2022-08-26)
 - 【Feat】
@@ -1085,7 +1085,7 @@ Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_li
         - Tree supports passing in aria-label to indicate the role of the Tree, and the corresponding role and aria-* attributes are set for Tree and TreeNode inside the component. [#493](https://github.com/DouyinFE/semi-design/issues/493)
         - TreeSelect supports passing in attributes such as aria-label and aria-errormessage to indicate the role and current status of TreeSelect, and sets relevant aria-* attributes for child nodes. [#493](https://github.com/DouyinFE/semi-design/issues/493)
         - When the trigger of the Popover is hover, the content of the Popover has the tooltip role, and when the trigger is click, custom, the content of the Popover has the dialog role
-        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/zh-CN/start/accessibility)
+        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/en-US/start/accessibility)
 
 #### 🎉 2.2.2 (2021-12-31)
 - 【Fix】

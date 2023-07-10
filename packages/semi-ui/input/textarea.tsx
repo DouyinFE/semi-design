@@ -193,7 +193,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
     componentDidUpdate(prevProps: TextAreaProps, prevState: TextAreaState) {
 
-        if (this.props.value !== prevProps.value && this.props.autosize) {
+        if ((this.props.value !== prevProps.value || this.props.placeholder !== prevProps.placeholder) && this.props.autosize) {
             this.foundation.resizeTextarea();
         }
     }
