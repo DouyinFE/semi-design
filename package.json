@@ -44,7 +44,7 @@
     "dependencies": {
         "@douyinfe/semi-site-banner": "^0.1.0",
         "@douyinfe/semi-site-doc-style": "0.0.1",
-        "@douyinfe/semi-site-header": "^0.0.20",
+        "@douyinfe/semi-site-header": "^0.0.21",
         "@douyinfe/semi-site-markdown-blocks": "^0.0.9",
         "@mdx-js/mdx": "1.6.22",
         "@mdx-js/react": "^1.6.22",
