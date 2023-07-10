@@ -137,6 +137,7 @@ $module: #{$prefix}-cascader;
 
             &-disabled.#{$prefix}-tag {
                 color: $color-cascader_input_disabled-text-default;
+                background-color: $color-cascader_tag_disabled-bg-default;
                 cursor: not-allowed;
 
                 .#{$prefix}-tag-close {

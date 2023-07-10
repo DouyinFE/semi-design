@@ -9,8 +9,9 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
+[![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
 [contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
@@ -34,6 +35,7 @@
 [build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
 [build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
+
 
 </div>
 
@@ -93,16 +95,16 @@ And [Semi UI Doc Site](https://semi.design/en-US/) has hundreds of editable exam
 * [Semi DSM](https://semi.design/dsm)
 * [Semi Design2Code](https://semi.design/code/en-US)
 * [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
-* [Quick Start](https://semi.design/zh-CN/start/getting-started)
-* [Components Overview](https://semi.design/zh-CN/start/overview)
-* [Customizing Themes](https://semi.design/zh-CN/start/customize-theme)
-* [Design Tokens](https://semi.design/zh-CN/basic/tokens)
-* [Dark Mode](https://semi.design/zh-CN/start/dark-mode)
-* [Semi Icons](https://semi.design/zh-CN/basic/icon)
-* [Global Config](https://semi.design/zh-CN/other/configprovider)
-* [Internationalization](https://semi.design/zh-CN/other/locale)
-* [FAQ](https://semi.design/zh-CN/start/faq)
-* [CHANGELOG](https://semi.design/zh-CN/start/changelog)
+* [Quick Start](https://semi.design/en-US/start/getting-started)
+* [Components Overview](https://semi.design/en-US/start/overview)
+* [Customizing Themes](https://semi.design/en-US/start/customize-theme)
+* [Design Tokens](https://semi.design/en-US/basic/tokens)
+* [Dark Mode](https://semi.design/en-US/start/dark-mode)
+* [Semi Icons](https://semi.design/en-US/basic/icon)
+* [Global Config](https://semi.design/en-US/other/configprovider)
+* [Internationalization](https://semi.design/en-US/other/locale)
+* [FAQ](https://semi.design/en-US/start/faq)
+* [CHANGELOG](https://semi.design/en-US/start/changelog)
 
 # 👌 Platform Support
 
@@ -118,6 +120,10 @@ Read the contributing guide to learn about our development process, how to propo
 
 See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
+# 📰 News about Semi UI
+* [Follow on Twitter](https://twitter.com/SemiDesignUI)
+* [Follow on Medium](https://medium.com/@semi-design)
+* [Follow on Dev.to](https://dev.to/semidesign)
 
 # 👨‍👨‍👧‍👦 User Group
 

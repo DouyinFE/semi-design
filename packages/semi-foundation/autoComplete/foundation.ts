@@ -39,7 +39,9 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     notifyFocus: (event?: any) => void;
     notifyBlur: (event?: any) => void;
     rePositionDropdown: () => void;
-    persistEvent: (event: any) => void
+    persistEvent: (event: any) => void;
+    registerClickOutsideHandler: (cb: (e: any) => void) => void;
+    unregisterClickOutsideHandler: () => void
 }
 
 class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<AutoCompleteAdapter<P, S>, P, S> {
@@ -79,7 +81,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     }
 
     destroy(): void {
-        // this._adapter.unregisterClickOutsideHandler();
+        this._adapter.unregisterClickOutsideHandler();
         // this.unBindKeyBoardEvent();
     }
 
@@ -114,7 +116,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this.isPanelOpen = true;
         this._adapter.toggleListVisible(true);
         this._setDropdownWidth();
-        // this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
+        this._adapter.registerClickOutsideHandler(e => this.closeDropdown(e));
         this._adapter.notifyDropdownVisibleChange(true);
         this._modifyFocusIndexOnPanelOpen();
     }
@@ -122,7 +124,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
     closeDropdown(e?: any): void {
         this.isPanelOpen = false;
         this._adapter.toggleListVisible(false);
-        // this._adapter.unregisterClickOutsideHandler();
+        this._adapter.unregisterClickOutsideHandler();
         this._adapter.notifyDropdownVisibleChange(false);
         // After closing the panel, you can still open the panel by pressing the enter key
         // this.unBindKeyBoardEvent();
@@ -155,7 +157,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.notifySearch(inputValue);
         this._adapter.notifyChange(inputValue);
         this._modifyFocusIndex(inputValue);
-        if (!this.isPanelOpen){
+        if (!this.isPanelOpen) {
             this.openDropdown();
         }
     }
@@ -335,6 +337,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             case KeyCode.ESC:
                 this.closeDropdown();
                 break;
+            case KeyCode.TAB:
+                this.closeDropdown();
+                break;
             default:
                 break;
         }
@@ -383,7 +388,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     _handleArrowKeyDown(offset: number): void {
         const { visible } = this.getStates();
-        if (!visible){
+        if (!visible) {
             this.openDropdown();
         } else {
             this._getEnableFocusIndex(offset);  
@@ -392,7 +397,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
     _handleEnterKeyDown() {
         const { visible, options, focusIndex } = this.getStates();
-        if (!visible){
+        if (!visible) {
             this.openDropdown();
         } else {
             if (focusIndex !== undefined && focusIndex !== -1 && options.length !== 0) {
@@ -424,7 +429,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         // internal-issues:1231
         setTimeout(() => {
             this._adapter.notifyBlur(e);
-            this.closeDropdown();
+            // this.closeDropdown();
         }, 100);
     }
 }

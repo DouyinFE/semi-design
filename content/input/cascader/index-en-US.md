@@ -1831,6 +1831,8 @@ Some internal methods provided by Select can be accessed through ref:
 | ----------- | ------------------------------- | ------- |
 | close       | Manually close dropdown list    | v2.30.0 |
 | open        | Manually open dropdown list     | v2.30.0 |
+| focus       | Manually focus                  | v2.34.0 |
+| blur        | Manually blur                   | v2.34.0 |
 
 ## Accessibility
 

@@ -1561,10 +1561,10 @@
   resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
   integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
 
-"@douyinfe/semi-site-header@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-header/-/semi-site-header-0.0.19.tgz#eae92958fe121856138aaefbc4e0aa30c2495b18"
-  integrity sha512-95NvP7a78gM+7n6L1y3k8U220smgQkkgsxGA06v+P2+sCKfHxp9ZJGj5DcNvF9f9npUfwM9mMI26NTfZ8XslPQ==
+"@douyinfe/semi-site-header@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-header/-/semi-site-header-0.0.22.tgz#19ab186b9e496ee43ca2394201e3c75628828613"
+  integrity sha512-NCbCQ0S5u2dpctwiFMx9HFRFv64Nvo/CMszuO4NDDXPCG9rrL4+H4Zde6R7XpxqJBnWC4sZ41XjDaQOuYLfQVA==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -1631,22 +1631,6 @@
     resize-observer-polyfill "^1.5.1"
     scroll-into-view-if-needed "^2.2.24"
     utility-types "^3.10.0"
-
-"@douyinfe/semi-webpack-plugin@2.23.2":
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-webpack-plugin/-/semi-webpack-plugin-2.23.2.tgz#ef55924907c354bf51f3854a09393d4a17bb5ed6"
-  integrity sha512-9o5369Omoo4A5MyoRXiCTEdMHknIHs2139rolWjNHbU1eQ072z+IJhKUu1Ft17GKhs2DiefF4c98IEajfqCckg==
-  dependencies:
-    "@babel/generator" "^7.15.8"
-    "@babel/parser" "^7.15.8"
-    "@babel/traverse" "^7.15.4"
-    css-loader "4.3.0"
-    enhanced-resolve "^5.8.3"
-    loader-utils "2.0.0"
-    sass "1.54.9"
-    sass-loader "^10.1.1"
-    semver "7.3.2"
-    style-loader "1.3.0"
 
 "@emotion/babel-plugin@^11.10.8":
   version "11.10.8"

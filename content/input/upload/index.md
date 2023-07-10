@@ -1175,7 +1175,7 @@ customRequest 包含以下入参
     // 上传出错时应调用的函数
     onError: (userXhr: { status: number }, e: event) => any,
      // 上传成功后应调用的函数, response为上传成功后的请求结果
-    onSuccess: (response: any, e: event) => any,
+    onSuccess: (response: any, e?: event) => any,
     // 用户设置的props.withCredentials
     withCredentials: boolean,
     // 用户设置的props.action

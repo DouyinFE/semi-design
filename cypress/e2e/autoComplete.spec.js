@@ -61,4 +61,12 @@ describe('autoComplete', () => {
         cy.get('input').should('have.value', '123@qq.com');
     });
 
+    it.only('click outer side handler', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=autocomplete--basic-usage&args=&viewMode=story');
+        cy.get('input').type('123');
+        cy.get('.semi-portal').contains('123@163.com');
+        cy.get('body').click();
+        cy.get('.semi-portal').should('not.exist');
+    });
+
 });
