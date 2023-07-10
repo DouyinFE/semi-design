@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.38.2 (2023-07-10)
+- 【Fix】
+    - Fixed the problem that the height was not recalculated when the TextArea placeholder was dynamically updated [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)
+- 【Docs】
+    - Fix the links to the zh-CN version in english docs [@ederzz](https://github.com/ederzz) [#1691](https://github.com/DouyinFE/semi-design/pull/1691)
+
 #### 🎉 2.38.1 (2023-07-05)
 - 【Fix】
     - Fix the problem that when the AutoComplete panel is open, the option panel cannot be closed by clicking outside, the scope of influence (2.38.0)
