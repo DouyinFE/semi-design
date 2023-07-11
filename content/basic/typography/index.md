@@ -217,7 +217,7 @@ function Demo() {
         const data = [
             { type: 'Stars', min: '7100' },
             { type: 'Fork', min: '560' },
-            { type: 'Downloads', min: '3570000' },
+            { type: 'Downloads', min: '5000000' },
             { type: 'Contributors', min: '100' }
         ];
         return data.map(item =>
