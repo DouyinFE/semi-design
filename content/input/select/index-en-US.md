@@ -68,7 +68,7 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### Multi-choice
-Since v2.28, the selector will have its own maxHeight 300, and the content can be viewed by scrolling vertically after it exceeds.
+Since v2.28, the selector will have its own maxHeight 270, and the content can be viewed by scrolling vertically after it exceeds.
 
 Configuration `multiple` properties that can support multi-selection
 

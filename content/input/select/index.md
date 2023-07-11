@@ -79,7 +79,7 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### 多选
-自 v2.28后，select 的选择器会自带 maxHeight 300，内容超出后可以通过垂直滚动查看。
+自 v2.28后，select 的选择器会自带 maxHeight 270，内容超出后可以通过垂直滚动查看。
 
 配置`multiple`属性，可以支持多选
 

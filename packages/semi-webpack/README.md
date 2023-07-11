@@ -45,7 +45,7 @@ module.exports = {
 
 #### Through local Scss file
 
-You can check which tokens can be customized on the [Semi WebSite](https://semi.design/zh-CN/basic/tokens).
+You can check which tokens can be customized on the [Semi WebSite](https://semi.design/en-US/basic/tokens).
 
 - step1: add a local file
 ``` scss

@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.38.2 (2023-07-10)
+- 【Fix】
+    - 修复 TextArea placeholder动态更新时，未重新计算高度的问题 [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)
+- 【Docs】
+    - 更正英文文档中存在中文跳转链接的问题 [@ederzz](https://github.com/ederzz) [#1691](https://github.com/DouyinFE/semi-design/pull/1691)
+
+#### 🎉 2.38.1 (2023-07-05)
+- 【Fix】
+    - 修复当 AutoComplete 的面板在打开时，点击外部无法关闭选项面板问题（影响范围2.38.0）
+
 #### 🎉 2.38.0 (2023-06-30)
 - 【Fix】
     - 修复 AutoComplete 长按无法选中，onSelect 未触发问题 [#1665](https://github.com/DouyinFE/semi-design/issues/1665)
