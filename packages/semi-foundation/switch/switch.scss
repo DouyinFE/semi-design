@@ -25,9 +25,7 @@ $module: #{$prefix}-switch;
 
     &:active {
         border: $border-thickness-control $color-switch_default-bg-active solid;
-
         .#{$module}-knob {
-            // width: $knob-size + $knob-active-expand;
             width: $width-switch_knob_active;
         }
     }
@@ -69,6 +67,9 @@ $module: #{$prefix}-switch;
 
         &:active {
             background-color: $color-switch_disabled-bg-active;
+            .#{$module}-knob {
+                width: $width-switch_knob_default;
+            }
         }
 
         .#{$module}-knob {
@@ -85,6 +86,11 @@ $module: #{$prefix}-switch;
         &.#{$module}-checked {
             border-color: $color-switch_checked_disabled-border-default;
             background-color: $color-switch_checked_disabled-bg-default;
+            &:active {
+                .#{$module}-knob {
+                    transform: translateX($spacing-switch_checked-translateX);
+                }
+            }
             .#{$module}-knob {
                 @include shadow-0;
                 border: none;
