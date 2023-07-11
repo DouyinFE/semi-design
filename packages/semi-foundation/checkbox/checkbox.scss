@@ -12,7 +12,6 @@ $module: #{$prefix}-checkbox;
     position: relative;
     display: flex;
     align-items: flex-start;
-    flex-wrap: wrap;
     @include font-size-regular;
     cursor: pointer;
     transition: background-color $transition_duration-checkbox-bg $transition_function-checkbox-bg $transition_delay-checkbox-bg,
