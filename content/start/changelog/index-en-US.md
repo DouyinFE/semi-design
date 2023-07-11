@@ -124,7 +124,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.34.0 (2023-04-28)
 - 【Fix】
   - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
-  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575) [@xiaoqqchen](https://github.com/xiaoqqchen)
   - Fixed the issue where Typography was truncating incorrectly when the parent or itself was set to white-space: nowrap [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
   - Fixed the issue where Image src changes in lazy loading mode, and the image cannot be loaded normally [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
 
@@ -155,7 +155,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - Fix the problem that items with the same label cannot be dragged when the draggable item in Transfer uses the label as the key of the SortableItem
     - Fix the problem that the prefixCls configured by Webpack plugin does not take effect when using cjs lib [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
-    - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
+    - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1550](https://github.com/DouyinFE/semi-design/pull/1550)
     - Fix rangeStart and rangeEnd in DatePicker disabledDate callback using cached values [#777](https://github.com/DouyinFE/semi-design/issues/777)
 
 #### 🎉 2.33.0-beta.0 (2023-04-10)
