@@ -118,6 +118,7 @@ export type SelectProps = {
     autoClearSearchValue?: boolean;
     arrowIcon?: React.ReactNode;
     borderless?: boolean;
+    showArrowInBorderless?: boolean;
     clearIcon?: React.ReactNode;
     defaultValue?: string | number | any[] | Record<string, any>;
     value?: string | number | any[] | Record<string, any>;
@@ -354,6 +355,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         restTagsPopoverProps: {},
         expandRestTagsOnClick: false,
         ellipsisTrigger: false,
+        showArrowInBorderless: false,
         // Radio selection is different from the default renderSelectedItem for multiple selection, so it is not declared here
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
@@ -923,7 +925,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
-                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null }
+                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -931,11 +933,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
-                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
+                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null}
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null}
                 </div>
-                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
+                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null}
             </div>
         );
     }
@@ -1309,6 +1311,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             arrowIcon,
             clearIcon,
             borderless,
+            showArrowInBorderless,
             ...rest
         } = this.props;
 
@@ -1319,6 +1322,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             cls(className) :
             cls(prefixcls, className, {
                 [`${prefixcls}-borderless`]: borderless,
+                [`${prefixcls}-borderless-arrow`]: showArrowInBorderless,
                 [`${prefixcls}-open`]: isOpen,
                 [`${prefixcls}-focus`]: isFocus,
                 [`${prefixcls}-disabled`]: disabled,

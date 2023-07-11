@@ -3288,4 +3288,48 @@ export const Fix1584 = () => {
   );
 }
 
-
+export const FeatBorderless = () => {
+  return (
+    <>
+      showArrow=false
+      <br />
+      <Select 
+        borderless
+        defaultValue={'abc'}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+      <br />
+      <br />
+      showArrow=true
+      <br />
+      <Select 
+        borderless
+        showArrowInBorderless
+        defaultValue={'abc'}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+      <br />
+      showArrow=true,disabled=true
+      <br />
+      <Select 
+        borderless
+        showArrowInBorderless
+        disabled
+        defaultValue={'abc'}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    </>
+  );
+}

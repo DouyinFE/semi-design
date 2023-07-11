@@ -40,7 +40,7 @@ $overflowList: #{$prefix}-overflow-list;
         outline: 0;
     }
 
-    &:active{
+    &:active {
         background-color: $color-select-bg-active;
     }
 
@@ -52,6 +52,7 @@ $overflowList: #{$prefix}-overflow-list;
     &-large {
         min-height: $height-select_large;
         line-height: $height-select_large;
+
         .#{$module}-selection {
             @include font-size-header-6;
         }
@@ -196,6 +197,7 @@ $overflowList: #{$prefix}-overflow-list;
 
         .#{$prefix}-tag-group {
             height: inherit;
+
             .#{$prefix}-tag {
                 @include select-tag-margin;
             }
@@ -326,6 +328,7 @@ $overflowList: #{$prefix}-overflow-list;
         width: $width-select_clear-icon;
         color: $color-select_clearBtn-text-default;
         flex-shrink: 0;
+
         &:hover {
             color: $color-select_clearBtn-text-hover;
         }
@@ -435,6 +438,7 @@ $overflowList: #{$prefix}-overflow-list;
 .#{$module}-option-list {
     overflow-x: hidden;
     overflow-y: auto;
+
     &-chosen {
         .#{$module}-option-icon {
             display: flex;
@@ -475,36 +479,84 @@ $overflowList: #{$prefix}-overflow-list;
 
 .#{$module}-borderless {
 
-    &:not(:focus-within):not(:hover){
-        background-color:transparent;
-        border-color: transparent;
+    &:not(:focus-within):not(:hover) {
+        background-color: $color-select_borderless-bg-default;
+        border-color: $color-select_borderless-border-default;
+
         .#{$module}-arrow {
             opacity: 0;
         }
+
+        &.#{$module}-borderless-arrow {
+            .#{$module}-arrow {
+                opacity: 1;
+            }
+        }
     }
 
-    &:focus-within:not(:active){
-        background-color:transparent;
+    &:hover {
+        background-color: $color-select_borderless-bg-hover;
+        border: $width-select-border-hover solid $color-select_borderless-border-hover;
+    }
+
+    &:focus {
+        border: $width-select-border-focus solid $color-select_borderless-border-focus;
+        background-color: $color-select_borderless-bg-focus;
+        outline: 0;
+    }
+
+    &:active {
+        background-color: $color-select_borderless-bg-active;
+    }
+
+    &:focus-within:not(:active) {
+        background-color: transparent;
+    }
+
+    &.#{$module}-disabled {
+        background-color: $color-select_borderless_input_disabled-bg;
+
+        &:hover {
+            background-color: $color-select_borderless_input_disabled-bg;
+        }
+
+        .#{$module}-selection,
+        .#{$module}-selection-placeholder {
+            color: $color-select_borderless_input_disabled-text;
+        }
+
+        .#{$module}-prefix,
+        .#{$module}-suffix {
+            color: $color-select_borderless_input_disabled-text;
+        }
+
+        .#{$module}-arrow {
+            color: $color-select_borderless_input_disabled-text;
+        }
+
+        .#{$prefix}-tag {
+            color: $color-select_borderless_input_disabled-text;
+        }
     }
 
     // split style into not and normal to avoid style override
-    &.#{$module}-error:not(:focus-within){
+    &.#{$module}-error:not(:focus-within) {
         border-color: $color-select_danger-border-focus;
     }
 
-    &.#{$module}-warning:not(:focus-within){
+    &.#{$module}-warning:not(:focus-within) {
         border-color: $color-select_warning-border-focus;
     }
 
-    &.#{$module}-error:focus-within{
+    &.#{$module}-error:focus-within {
         border-color: $color-select_danger-border-focus;
     }
 
-    &.#{$module}-warning:focus-within{
+    &.#{$module}-warning:focus-within {
         border-color: $color-select_warning-border-focus;
     }
 
 }
 
 
-    @import './rtl.scss';
+@import './rtl.scss';
