@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useLayoutEffect, useEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';

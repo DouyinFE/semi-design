@@ -1,7 +1,6 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable max-depth */
 /* eslint-disable max-nested-callbacks */
-/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-empty-function */

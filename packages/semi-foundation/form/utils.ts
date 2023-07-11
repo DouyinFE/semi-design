@@ -1,5 +1,4 @@
 /* eslint-disable prefer-destructuring */
-/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import AsyncValidator from 'async-validator';
 import { cloneDeep, toPath } from 'lodash';

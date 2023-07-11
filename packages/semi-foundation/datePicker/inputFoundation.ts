@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { cloneDeep, isObject, set, get } from 'lodash';
 import { format as formatFn } from 'date-fns';
 

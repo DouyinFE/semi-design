@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-did-update-set-state */
-/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import classnames from 'classnames';

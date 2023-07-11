@@ -95,7 +95,6 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
     };
 
     render() {
-        // eslint-disable-next-line max-len
         const { defaultActiveKey, accordion, style, motion, className, keepDOM, expandIconPosition, expandIcon, collapseIcon, children, clickHeaderToExpand, ...rest } = this.props;
         const clsPrefix = cls(cssClasses.PREFIX, className);
         const { activeSet } = this.state;

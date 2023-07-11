@@ -88,7 +88,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         this.props.onTabClick(itemKey, e);
         if (this.props.collapsible) {
             const key = this._getItemKey(itemKey);
-            // eslint-disable-next-line max-len
             const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
             tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
         }
@@ -125,7 +124,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             return;
         }
         const key = this._getItemKey(lastItem.itemKey);
-        // eslint-disable-next-line max-len
         const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
         tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
     };

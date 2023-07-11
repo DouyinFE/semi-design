@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable eqeqeq */
 import {
     toDate,

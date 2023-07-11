@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';

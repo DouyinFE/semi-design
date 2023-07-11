@@ -117,7 +117,6 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
             const maxLen = Math.max(valueArr.length, inputArr.length);
             for (let i = 0; i < maxLen; i++) {
                 // When the input length is increasing
-                // eslint-disable-next-line max-len
                 if (!isUndefined(valueArr[i]) && (isUndefined(inputArr[i]) || valueArr[i].length > inputArr[i].length)) {
                     // When the input length exceeds maxLength
                     // eslint-disable-next-line max-depth

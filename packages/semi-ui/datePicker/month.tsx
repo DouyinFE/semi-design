@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable max-len */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';

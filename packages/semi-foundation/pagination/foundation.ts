@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { numbers } from './constants';

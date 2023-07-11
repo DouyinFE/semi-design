@@ -226,7 +226,6 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateFocusState: (focus: boolean) => void
 }
 
-// eslint-disable-next-line max-len
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
 
     constructor(adapter: CascaderAdapter) {

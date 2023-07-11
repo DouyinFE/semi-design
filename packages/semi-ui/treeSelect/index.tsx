@@ -99,7 +99,6 @@ export type OverrideCommonProps =
 * Type definition description:
 * TreeSelectProps inherits some properties from BasicTreeSelectProps (from foundation) and TreeProps (from semi-ui-react).
 */
-// eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps> {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
@@ -156,7 +155,6 @@ export type OverrideCommonState =
     | 'disabledKeys'
     | 'flattenNodes';
 
-// eslint-disable-next-line max-len
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;

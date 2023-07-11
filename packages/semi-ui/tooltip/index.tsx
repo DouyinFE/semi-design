@@ -1,4 +1,4 @@
-/* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
+/* eslint-disable prefer-destructuring, @typescript-eslint/no-empty-function */
 import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
@@ -744,7 +744,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             }
         }
 
-        // eslint-disable-next-line prefer-const
         let ariaAttribute = {};
 
         // Take effect when used by Popover component

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const, max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isString, isNumber, isUndefined, isObject } from 'lodash';
 import warning from '../utils/warning';

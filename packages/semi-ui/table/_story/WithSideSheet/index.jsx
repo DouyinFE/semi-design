@@ -21,7 +21,6 @@ export default function Demo(props = {}) {
     const getContainer = useCallback(() => document.querySelector('.sidesheet-container'), []);
     const sideSheet = useMemo(
         () => (
-            // eslint-disable-next-line max-len
             <SideSheet style={{ zIndex: 2 }} maskStyle={{ zIndex: 2 }} getPopupContainer={getContainer} title="自定义尺寸的侧边栏" visible={visible} onCancel={() => setVisible(false)}>
                 <p>This is the content of a basic sidesheet.</p>
                 <p>Here is more content...</p>
@@ -34,6 +33,7 @@ export default function Demo(props = {}) {
         {
             title: 'Name',
             dataIndex: 'name',
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             render: text => <a>{text}</a>,
             width: 200,
             fixed: 'left',

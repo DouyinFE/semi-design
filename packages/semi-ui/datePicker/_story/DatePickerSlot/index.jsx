@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState, useMemo } from 'react';
 import { DatePicker, Icon, Typography, Space, Tabs, TabPane } from '../../../index';
 import './index.scss';

@@ -117,7 +117,6 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         if (isNumber(maxLength) && maxLength >= 0 && isFunction(getValueLength) && isString(value)) {
             const valueLength = getValueLength(value);
             if (valueLength > maxLength) {
-                // eslint-disable-next-line max-len
                 console.warn('[Semi TextArea] The input character is truncated because the input length exceeds the maximum length limit');
                 const truncatedValue = this.handleTruncateValue(value, maxLength);
                 return truncatedValue;

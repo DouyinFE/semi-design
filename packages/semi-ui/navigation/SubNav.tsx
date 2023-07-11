@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React from 'react';

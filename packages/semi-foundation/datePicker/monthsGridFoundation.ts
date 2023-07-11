@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings } from './constants';
 import {

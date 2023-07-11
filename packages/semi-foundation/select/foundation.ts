@@ -1,5 +1,3 @@
-/* argus-disable unPkgSensitiveInfo */
-/* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isNumber, isString, isEqual, omit } from 'lodash';
 import KeyCode, { ENTER_KEY } from '../utils/keyCode';

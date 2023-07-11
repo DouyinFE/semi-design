@@ -124,7 +124,6 @@ export default class Transition extends Component<TransitionProps, TransitionSta
 
         let children;
 
-        // eslint-disable-next-line prefer-const
         let { currentChildren, lastChildren, state } = this.state;
 
         let from = {};

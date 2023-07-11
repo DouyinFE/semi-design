@@ -1,4 +1,4 @@
-/* eslint-disable react/destructuring-assignment, prefer-const, @typescript-eslint/no-unused-vars */
+/* eslint-disable react/destructuring-assignment, @typescript-eslint/no-unused-vars */
 import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/modal/constants';
 import Button from '../button';

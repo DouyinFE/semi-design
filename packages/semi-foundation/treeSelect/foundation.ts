@@ -200,7 +200,6 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     updateIsFocus: (bool: boolean) => void
 }
 
-// eslint-disable-next-line max-len
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
 
     constructor(adapter: TreeSelectAdapter<P, S>) {

@@ -37,7 +37,6 @@ function isValid(val: any) {
  * @param filteredShownKeys
  * need expanded keys, provides `true` means all expanded
  */
-// eslint-disable-next-line max-len
 export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, filteredShownKeys: boolean | Set<any> = false) {
     const flattenList: any[] = [];
     const filterSearch = Boolean(filteredShownKeys);
@@ -61,7 +60,6 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
             }
 
             // Loop treeNode children
-            // eslint-disable-next-line max-len
             if (expandedKeys.has(mergedKey) && (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey)))) {
                 flattenNode.children = flatten(treeNode.children || [], flattenNode);
             } else {
@@ -317,7 +315,7 @@ export function calcCheckedKeys(values: any, keyEntities: KeyEntities) {
     let halfCheckedKeys = new Set([]);
     let visited: any[] = [];
 
-    const levelMap:{[key: number]: string[]} = getSortedKeyList(keyList, keyEntities);
+    const levelMap: {[key: number]: string[]} = getSortedKeyList(keyList, keyEntities);
 
     const calcCurrLevel = (node: any) => {
         const { key, parent, level } = node;
@@ -369,7 +367,6 @@ export function calcExpandedKeys(keyList: any[] = [], keyEntities: KeyEntities, 
 }
 
 /* Calculate the expanded node by value */
-// eslint-disable-next-line max-len
 export function calcExpandedKeysForValues(value: any, keyEntities: KeyEntities, isMultiple: boolean, valueEntities: any) {
     const keys = findKeysForValues(value, valueEntities, isMultiple);
     return new Set(findAncestorKeys(keys, keyEntities, false));
@@ -511,7 +508,6 @@ export function calcCheckedKeysForChecked(key: string, keyEntities: KeyEntities,
     };
 }
 
-// eslint-disable-next-line max-len
 export function calcCheckedKeysForUnchecked(key: string, keyEntities: KeyEntities, checkedKeys: Set<string>, halfCheckedKeys: Set<string>) {
     const descendantKeys = findDescendantKeys([key], keyEntities, true);
     const nodeItem = keyEntities[key];

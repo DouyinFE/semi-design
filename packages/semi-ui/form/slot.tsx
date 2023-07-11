@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function, prefer-destructuring, prefer-const, @typescript-eslint/no-unused-vars */
+/* eslint-disable max-lines-per-function, prefer-destructuring, @typescript-eslint/no-unused-vars */
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';

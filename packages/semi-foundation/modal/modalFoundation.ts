@@ -60,8 +60,8 @@ export interface ModalProps {
 export interface ModalState {
     displayNone: boolean;
     isFullScreen: boolean;
-    onOKReturnPromiseStatus?:"pending"|"fulfilled"|"rejected";
-    onCancelReturnPromiseStatus?:"pending"|"fulfilled"|"rejected"
+    onOKReturnPromiseStatus?: "pending"|"fulfilled"|"rejected";
+    onCancelReturnPromiseStatus?: "pending"|"fulfilled"|"rejected"
 }
 
 export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
@@ -91,7 +91,7 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
 
     handleOk(e: any) {
         const result = this._adapter.notifyOk(e);
-        if (isPromise(result)){
+        if (isPromise(result)) {
             this._adapter.setState({ onOKReturnPromiseStatus: "pending" });
             (result as Promise<any>)?.then(()=>{
                 this._adapter.setState({ onOKReturnPromiseStatus: "fulfilled" });
@@ -121,7 +121,6 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     };
 
 
-    // // eslint-disable-next-line max-len
     // mergeMotionProp = (motion: Motion, prop: string, cb: () => void) => {
     //     const mergedMotion = typeof (motion) === 'undefined' || motion ? {
     //         ...(motion as { [key: string]: (() => void) | boolean }),

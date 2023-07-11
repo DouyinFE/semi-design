@@ -1,8 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable prefer-const */
 /* eslint-disable eqeqeq */
-/* eslint-disable import/no-duplicates */
-/* eslint-disable no-duplicate-imports */
 import React, { PureComponent, isValidElement, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import { noop, isFunction, get } from 'lodash';
 import PropTypes from 'prop-types';

@@ -127,7 +127,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     }
 
     formatText(value: ValueType) {
-        // eslint-disable-next-line max-len
         return value && (value as BaseValueType[]).length ? this.foundation.formatShowText(value as BaseValueType[]) : '';
     }
 

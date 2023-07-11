@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* argus-disable unPkgSensitiveInfo */
 import {
     get as lodashGet,
     set as lodashSet,

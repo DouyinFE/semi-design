@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable max-len, max-depth,  */
+/* eslint-disable max-depth */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
 import { get, isObject, isString, isEqual, isFunction } from 'lodash';
 
