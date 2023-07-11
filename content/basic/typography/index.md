@@ -215,10 +215,10 @@ function Demo() {
 
     function Infos() {
         const data = [
-            { type: 'Stars', min: '6700' },
-            { type: 'Fork', min: '500' },
-            { type: 'Downloads', min: '3000000' },
-            { type: 'Contributors', min: '90' }
+            { type: 'Stars', min: '7100' },
+            { type: 'Fork', min: '560' },
+            { type: 'Downloads', min: '5000000' },
+            { type: 'Contributors', min: '100' }
         ];
         return data.map(item =>
             <p key={item.min}>
