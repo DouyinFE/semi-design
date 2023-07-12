@@ -48,7 +48,6 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
     };
 
     renderGroupWithLabel(inner: React.ReactNode) {
-        // eslint-disable-next-line no-unused-vars
         const { size, className, label, labelPosition, ...rest } = this.props;
         const groupWrapperCls = cls({
             [`${prefixCls}-group-wrapper`]: true,

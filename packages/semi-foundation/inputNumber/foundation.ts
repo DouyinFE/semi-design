@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable eqeqeq */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
@@ -260,7 +258,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 }
 
                 if (willSetNum != null) {
-                    // eslint-disable-next-line max-depth
                     if (!this._isControlledComponent('value')) {
                         this._adapter.setNumber(willSetNum);
                     }

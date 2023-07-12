@@ -70,7 +70,6 @@ export default class AvatarGroup extends PureComponent<AvatarGroupProps> {
     }
 
     render() {
-        // eslint-disable-next-line no-unused-vars
         const { children, maxCount, overlapFrom, size, shape, renderMore, ...rest } = this.props;
         let inner;
         const groupCls = cls({

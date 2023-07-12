@@ -71,7 +71,21 @@ module.exports = {
                 'react/jsx-indent-props': ['error', 4],
                 'react/no-find-dom-node': 'off',
                 'react/prop-types': 'off',
-                "react/no-unknown-property": ['error', { ignore: ['x-semi-prop', 'x-placement', 'x-type', 'x-label-pos', 'x-prompt-pos', 'x-field-id', 'x-extra-pos', 'x-open-type', 'x-panel-yearandmonth-open-type', 'x-insetinput', 'x-preset-position']}],
+                "react/no-unknown-property": ['error', { 
+                    ignore: [
+                        'x-semi-prop',
+                        'x-placement',
+                        'x-type',
+                        'x-label-pos',
+                        'x-prompt-pos',
+                        'x-field-id',
+                        'x-extra-pos',
+                        'x-open-type',
+                        'x-panel-yearandmonth-open-type',
+                        'x-insetinput',
+                        'x-preset-position',
+                        'x-form-id'
+                    ]}],
                 'react-hooks/rules-of-hooks': 'error',
                 'react-hooks/exhaustive-deps': 'warn',
                 'react/prefer-stateless-function': 'off',
@@ -83,6 +97,7 @@ module.exports = {
                 '@typescript-eslint/no-var-requires': 'warn',
                 '@typescript-eslint/no-inferrable-types': 'off',
                 '@typescript-eslint/no-this-alias': 'off',
+                '@typescript-eslint/no-empty-function': 'off',
                 // In scenarios where specific rest props need to be passed, some keys may be taken out first, so set 'no-unused-vars' to off
                 '@typescript-eslint/no-unused-vars': 'off',
                 'import/no-unresolved': 'off',

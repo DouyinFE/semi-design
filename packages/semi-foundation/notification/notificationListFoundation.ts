@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { NoticeInstance, NoticePosition, NoticeProps } from '../notification/notificationFoundation';
 import { strings } from './constants';

@@ -117,7 +117,7 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
             if (target.matches(':focus-visible')) {
                 this._adapter.setFocusVisible(true);
             }
-        } catch (error){
+        } catch (error) {
             warning(true, 'Warning: [Semi Checkbox] The current browser does not support the focus-visible');
         }
     }
@@ -127,7 +127,6 @@ class CheckboxFoundation<P = Record<string, any>, S = Record<string, any>> exten
         this._adapter.setFocusVisible(false);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 }
 

@@ -1,10 +1,5 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-shadow */
-/* eslint-disable no-param-reassign */
 /* eslint-disable react/no-did-update-set-state */
 /* eslint-disable eqeqeq */
-/* eslint-disable max-lines-per-function */
 import React, { ReactNode, createRef, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

@@ -190,7 +190,6 @@ function withField<
                         {
                             first: stopValidateWithError,
                         },
-                        // eslint-disable-next-line @typescript-eslint/no-empty-function
                         (errors, fields) => {}
                     )
                     .then(res => {
@@ -402,7 +401,6 @@ function withField<
         useIsomorphicEffect(() => {
             // register
             if (typeof field === 'undefined') {
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 return () => {};
             }
             // log('register: ' + field);

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable eqeqeq */
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';

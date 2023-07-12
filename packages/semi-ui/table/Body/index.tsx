@@ -320,7 +320,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { virtualizedData, cachedExpandBtnShouldInRow } = this.state;
         const { flattenedColumns } = this.context;
         const virtualizedItem: any = get(virtualizedData, [index], {});
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { key, parentKeys, expandedRow, sectionRow, ...rest } = virtualizedItem;
         const rowWidth = this.getVirtualizedRowWidth();
 

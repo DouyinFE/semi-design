@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars, no-debugger */
+/* eslint-disable no-debugger */
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import {

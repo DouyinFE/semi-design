@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { MouseEvent, KeyboardEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';

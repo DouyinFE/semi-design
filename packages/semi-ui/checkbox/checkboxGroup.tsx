@@ -60,7 +60,6 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
 
     static defaultProps: Partial<CheckboxGroupProps> = {
         disabled: false,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onChange: () => {},
         type: strings.TYPE_DEFAULT,
         defaultValue: [] as any,

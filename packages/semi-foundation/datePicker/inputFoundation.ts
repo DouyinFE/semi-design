@@ -110,10 +110,8 @@ export default class InputFoundation extends BaseFoundation<DateInputAdapter> {
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     handleClick(e: any) {

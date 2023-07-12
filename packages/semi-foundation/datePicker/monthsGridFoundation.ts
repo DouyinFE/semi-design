@@ -304,7 +304,6 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         this._initDateRangePickerFromValue(values, true);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() { }
 
     /**

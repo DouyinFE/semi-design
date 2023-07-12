@@ -74,7 +74,6 @@ class CheckboxGroupFoundation extends BaseFoundation<CheckboxGroupAdapter> {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 }
 

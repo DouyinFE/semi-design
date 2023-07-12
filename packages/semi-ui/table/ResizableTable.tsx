@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable max-lines-per-function */
 import React, { useState, useEffect, useMemo } from 'react';
 import { merge, get, find, noop } from 'lodash';
 

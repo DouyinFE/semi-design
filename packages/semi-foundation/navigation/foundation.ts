@@ -1,4 +1,3 @@
-/* eslint-disable max-depth */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import NavItem from './NavItem';
 import { ItemProps } from './itemFoundation';

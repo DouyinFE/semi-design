@@ -338,7 +338,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                 /* Get the value behind not-exist- */
                 // eslint-disable-next-line prefer-destructuring
                 const targetValue = selectedKey.match(/not-exist-(\S*)/)[1];
-                // eslint-disable-next-line max-depth
                 if (isEmpty(keyEntities[targetValue])) {
                     cacheValue = targetValue;
                 } else {

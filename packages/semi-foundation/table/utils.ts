@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable eqeqeq */
 import {
     isEqualWith,
     get,

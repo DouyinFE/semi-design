@@ -352,7 +352,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         };
     }
 
-    // eslint-disable-next-line max-lines-per-function
     static getDerivedStateFromProps(props: TreeSelectProps, prevState: TreeSelectState) {
         const { prevProps, rePosKey } = prevState;
         const needUpdate = (name: string) => (

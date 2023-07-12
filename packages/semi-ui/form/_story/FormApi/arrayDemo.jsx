@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,

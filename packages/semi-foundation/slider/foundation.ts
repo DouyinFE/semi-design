@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-nested-ternary */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';
 import warning from '../utils/warning';
@@ -679,7 +677,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus = (e: any, handler: 'min'| 'max') => {
         handlePrevent(e);
         const { target } = e;

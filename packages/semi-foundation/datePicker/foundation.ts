@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable max-depth */
 import { format, isValid, isSameSecond, isEqual as isDateEqual, isDate } from 'date-fns';
 import { get, isObject, isString, isEqual, isFunction } from 'lodash';
 
@@ -568,7 +566,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {String} input
      * @param {Event} e
      */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleInputBlur(input = '', e?: any) {
     }
 
@@ -624,7 +621,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         this._adapter.setRangeInputFocus(false);
         this._adapter.notifyClear(e);
     }
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    
     handleRangeInputBlur(value: any, e: any) {
     }
 

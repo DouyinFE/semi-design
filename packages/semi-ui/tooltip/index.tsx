@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring, @typescript-eslint/no-empty-function */
 import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
@@ -231,10 +230,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     get adapter(): TooltipAdapter<TooltipProps, TooltipState> {
         return {
             ...super.adapter,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             on: (...args: any[]) => this.eventManager.on(...args),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {

@@ -425,7 +425,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             updateFocusIndex: (focusIndex: number) => {
                 this.setState({ focusIndex });
             },
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             scrollToFocusOption: () => { },
         };
 

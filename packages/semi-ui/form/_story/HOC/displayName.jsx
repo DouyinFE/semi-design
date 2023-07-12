@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
 
