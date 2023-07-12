@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

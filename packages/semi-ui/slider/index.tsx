@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';

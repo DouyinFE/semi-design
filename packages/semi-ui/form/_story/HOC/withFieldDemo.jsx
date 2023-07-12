@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { useState, useLayoutEffect, Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import {
@@ -159,7 +158,7 @@ class WithFieldDemo extends React.Component {
 
     validate() {
         this.formApi.validate().then(() => {
-            debugger;
+            // debugger;
         });
     }
 

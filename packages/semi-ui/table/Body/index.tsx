@@ -1,5 +1,3 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable @typescript-eslint/member-ordering */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { get, size, isMap, each, isEqual, pick, isNull, isFunction } from 'lodash';

@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { createRef, Fragment, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';

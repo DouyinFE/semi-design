@@ -1,5 +1,4 @@
 /* eslint-disable react/no-did-update-set-state */
-/* eslint-disable eqeqeq */
 import React, { ReactNode, createRef, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';

@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';

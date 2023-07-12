@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import Animation, { AnimationProps } from './Animation';
 import PropTypes from 'prop-types';
 import React, { Component, isValidElement } from 'react';

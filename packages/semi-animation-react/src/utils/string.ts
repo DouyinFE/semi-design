@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 export function upperCase(str: string, pos: number) {
     if (typeof str === 'string') {
         return str

@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Table, Button } from '../../../index';
 

@@ -1,5 +1,3 @@
-/* eslint-disable one-var */
-/* eslint-disable react/prefer-stateless-function */
 import * as React from 'react';
 import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
