@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
 import { PreviewProps as PreviewInnerProps, PreviewInnerStates, RatioType } from "./interface";

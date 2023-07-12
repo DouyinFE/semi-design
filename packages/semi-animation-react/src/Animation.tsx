@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import { Animation as SemiAnimation, events } from '@douyinfe/semi-animation';

@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import Event from './utils/Event';
 import shouldStopAnimation from './shouldStopAnimation';
 import shouldUseBezier from './shouldUseBezier';
