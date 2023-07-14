@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.39.0 (2023-07-14)
+- 【Fix】
+  - Semi Webpack Plugin modifies the logic related to animation.scss referenced by theme loader, which is compatible with some special directory organizations in pnpm scenarios
+  - Remove the flex-wrap on the outermost side of the Checkbox
+- 【Style】
+  - Remove disabled switch knob transformX when in active status
+
 #### 🎉 2.39.0-beta.0 (2023-07-10)
 - 【Style】
     - Fix the problem that the content exceeds the trigger box when displaying a long label in TreeSelect  [#623 ](https://github.com/DouyinFE/semi-design/issues/623)
