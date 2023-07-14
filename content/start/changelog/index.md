@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.39.0-beta.0 (2023-07-10)
+- 【Style】
+    - 修复 TreeSelect 中在展示长 label 时内容超出 trigger 框问题  [#623 ](https://github.com/DouyinFE/semi-design/issues/623)
+- 【Fix】
+    - 修复 Anchor 在部分场景下，点击无法跳转问题
+    
 #### 🎉 2.38.2 (2023-07-10)
 - 【Fix】
     - 修复 TextArea placeholder动态更新时，未重新计算高度的问题 [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)

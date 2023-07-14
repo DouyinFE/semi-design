@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.39.0-beta.0 (2023-07-10)
+- 【Style】
+    - Fix the problem that the content exceeds the trigger box when displaying a long label in TreeSelect  [#623 ](https://github.com/DouyinFE/semi-design/issues/623)
+- 【Fix】
+    - Fix the problem that Anchor cannot jump when clicked in some scenarios
+
 #### 🎉 2.38.2 (2023-07-10)
 - 【Fix】
     - Fixed the problem that the height was not recalculated when the TextArea placeholder was dynamically updated [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)
