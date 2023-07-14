@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.39.0-beta.0",
+    "version": "2.39.0",
     "description": "",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
@@ -17,12 +17,12 @@
         "lib/*"
     ],
     "dependencies": {
-        "@douyinfe/semi-animation": "2.39.0-beta.0",
-        "@douyinfe/semi-animation-react": "2.39.0-beta.0",
-        "@douyinfe/semi-foundation": "2.39.0-beta.0",
-        "@douyinfe/semi-icons": "2.39.0-beta.0",
-        "@douyinfe/semi-illustrations": "2.39.0-beta.0",
-        "@douyinfe/semi-theme-default": "2.39.0-beta.0",
+        "@douyinfe/semi-animation": "2.39.0",
+        "@douyinfe/semi-animation-react": "2.39.0",
+        "@douyinfe/semi-foundation": "2.39.0",
+        "@douyinfe/semi-icons": "2.39.0",
+        "@douyinfe/semi-illustrations": "2.39.0",
+        "@douyinfe/semi-theme-default": "2.39.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
