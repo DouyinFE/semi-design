@@ -60,7 +60,6 @@ export default class ItemFoundation<P = Record<string, any>, S = Record<string, 
     }
 
     isValidKey(itemKey: string) {
-        // eslint-disable-next-line eqeqeq
         return itemKey != null && (typeof itemKey === 'string' || typeof itemKey === 'number');
     }
 

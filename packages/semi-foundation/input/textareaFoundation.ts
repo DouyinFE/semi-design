@@ -52,7 +52,6 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         this.setInitValue();
     }
 
-    // eslint-disable-next-line
     destroy() { }
 
     setInitValue() {

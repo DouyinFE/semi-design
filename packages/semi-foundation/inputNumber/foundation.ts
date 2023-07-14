@@ -174,7 +174,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                     const dotBeginStr = dotIndex > -1 ? valueAfterParser.slice(dotIndex) : '';
                     formattedNum += dotBeginStr;
                 } else if (precLength < lengthAfterDot) {
-                    // eslint-disable-next-line max-depth
                     for (let i = 0; i < lengthAfterDot - precLength; i++) {
                         formattedNum += '0';
                     }

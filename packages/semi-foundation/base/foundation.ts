@@ -8,7 +8,6 @@ import log from '../utils/log';
 import { noop } from 'lodash';
 
 export type noopFunction = (...args: any) => any;
-// eslint-disable-next-line
 export interface DefaultAdapter<P = Record<string, any>, S = Record<string, any>> {
     getContext(key: string): any;
     getContexts(): any;

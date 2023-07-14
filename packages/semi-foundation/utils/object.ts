@@ -66,7 +66,6 @@ function cleanup(obj: ObjectType, path: string[], pull = true) {
     // }
 
     // Delete object if its empty
-    // eslint-disable-next-line
     if (Array.isArray(target) && target.every(e => e == null)) {
         lodashUnset(obj, path);
     } else if (isEmptyObject(target)) {

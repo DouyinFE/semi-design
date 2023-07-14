@@ -269,7 +269,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.setState({ portalEventSet });
             },
             getTriggerBounding: () => {
-                // eslint-disable-next-line
                 // It may be a React component or an html element
                 // There is no guarantee that triggerE l.current can get the real dom, so call findDOMNode to ensure that you can get the real dom
                 const triggerDOM = this.adapter.getTriggerNode();

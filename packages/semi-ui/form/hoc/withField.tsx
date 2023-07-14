@@ -209,7 +209,6 @@ function withField<
                         if (errors && fields) {
                             let messages = errors.map((e: any) => e.message);
                             if (messages.length === 1) {
-                                // eslint-disable-next-line prefer-destructuring
                                 messages = messages[0];
                             }
                             updateError(messages, callOpts);

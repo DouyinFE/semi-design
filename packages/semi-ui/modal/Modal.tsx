@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/modal/constants';
 import Button from '../button';

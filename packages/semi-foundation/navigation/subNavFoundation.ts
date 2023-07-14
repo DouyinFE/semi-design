@@ -52,7 +52,7 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
         this._timer = null;
     }
 
-    destroy() {} // eslint-disable-line
+    destroy() {}
 
     clearDelayTimer() {
         if (this._timer) {
@@ -62,7 +62,6 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
     }
 
     isValidKey(itemKey: string | number) {
-        // eslint-disable-next-line eqeqeq
         return itemKey != null && (typeof itemKey === 'number' || typeof itemKey === 'string');
     }
 

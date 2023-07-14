@@ -322,7 +322,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.insertPortal(content, { left: -9999, top: -9999 }); // offscreen rendering
 
         if (trigger === 'custom') {
-            // eslint-disable-next-line
             this._adapter.registerClickOutsideHandler(() => {});
         }
 
@@ -364,7 +363,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     calcTransformOrigin(position: Position, triggerRect: DOMRect, translateX: number, translateY: number) {
-        // eslint-disable-next-line
         if (position && triggerRect && translateX != null && translateY != null) {
             if (this.getProp('transformFromCenter')) {
                 if (['topLeft', 'bottomLeft'].includes(position)) {
@@ -399,9 +397,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             ...defaultRect,
         };
         const wrapperRect = (isEmpty(props.wrapperRect) ? props.wrapperRect : this._adapter.getWrapperBounding()) || { ...defaultRect as any };
-        // eslint-disable-next-line
         const position = props.position != null ? props.position : this.getProp('position');
-        // eslint-disable-next-line
         const SPACING = spacing != null ? spacing : this.getProp('spacing');
         const { arrowPointAtCenter, showArrow, arrowBounding } = this.getProps();
         const pointAtCenter = showArrow && arrowPointAtCenter;
@@ -597,7 +593,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         let transform = '';
 
-        // eslint-disable-next-line
         if (translateX != null) {
             transform += `translateX(${translateX * 100}%) `;
             Object.defineProperty(style, 'translateX', {
@@ -605,7 +600,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 value: translateX,
             });
         }
-        // eslint-disable-next-line
         if (translateY != null) {
             transform += `translateY(${translateY * 100}%) `;
             Object.defineProperty(style, 'translateY', {
@@ -613,7 +607,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 value: translateY,
             });
         }
-        // eslint-disable-next-line
         if (transformOrigin != null) {
             style.transformOrigin = transformOrigin;
         }

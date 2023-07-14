@@ -31,7 +31,6 @@ export default class Event {
                         callbacks.splice(index, 1);
                     }
                 }
-            // eslint-disable-next-line eqeqeq
             } else if (callback == null) {
                 this._eventMap.delete(event);
             }

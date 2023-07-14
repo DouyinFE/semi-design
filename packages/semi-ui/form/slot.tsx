@@ -34,7 +34,6 @@ const FormSlot = (props: SlotProps) => {
     } catch (error) {
     }
 
-    // eslint-disable-next-line react/destructuring-assignment
     props.labelPosition ? labelPosition = props.labelPosition : null;
 
     let { children, label, className, style, error, noLabel, ...rest } = props;

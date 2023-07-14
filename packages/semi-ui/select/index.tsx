@@ -604,7 +604,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 }
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
-                    // eslint-disable-next-line prefer-destructuring
                     destNode = destNode[0];
                 }
                 if (destNode) {

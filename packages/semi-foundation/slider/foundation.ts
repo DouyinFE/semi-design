@@ -266,7 +266,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             startPos = vertical ? sliderY : sliderX;
         }
         //  startPos = chooseMovePos === 'max' && isDrag ? currentPos[0] : startPos;
-        // eslint-disable-next-line one-var
         let endPos;
         if (vertical && verticalReverse) {
             endPos = sliderY;
@@ -311,8 +310,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             stepValue = ((pos - startPos) / len) * (max - min) + min;
         }
-        // debugger
-        // eslint-disable-next-line one-var
         let compareValue;
         if (range) {
             compareValue = isMin ? currentValue[0] : currentValue[1];

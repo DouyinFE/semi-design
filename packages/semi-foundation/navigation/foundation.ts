@@ -197,7 +197,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeySet];
     }
 
-    destroy() {} // eslint-disable-line
+    destroy() {}
 
     selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, ...itemKeys: (string | number)[]) {
         const _itemKeysMap = isNullOrUndefined(itemKeysMap) ? this.getState('itemKeysMap') : itemKeysMap;

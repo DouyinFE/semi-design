@@ -4,7 +4,6 @@ import { BASE_CLASS_PREFIX } from '@douyinfe/semi-foundation/base/constants';
 import DefaultLocale from '../locale/source/zh_CN';
 import Context, { ContextValue } from './context';
 
-// eslint-disable-next-line
 export interface ConfigProviderProps extends ContextValue {}
 
 export default class ConfigProvider extends React.Component<ConfigProviderProps> {

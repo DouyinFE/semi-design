@@ -25,7 +25,6 @@ export interface InputGroupProps {
     disabled?: boolean
 }
 
-// eslint-disable-next-line
 export interface InputGroupState {} 
 
 export default class inputGroup extends BaseComponent<InputGroupProps, InputGroupState> {

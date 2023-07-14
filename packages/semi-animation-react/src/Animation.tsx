@@ -128,7 +128,6 @@ export default class Animation extends PureComponent<AnimationProps> {
     }
 
     initAnimation = (props?: AnimationProps) => {
-        // eslint-disable-next-line eqeqeq
         props = props == null ? this.props : props;
         let { from, to, config, reverse } = props;
 

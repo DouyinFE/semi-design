@@ -215,7 +215,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
 
         // Update the data of tree in state
         if (needUpdate('treeData') || (props.draggable && needUpdateData())) {
-            // eslint-disable-next-line prefer-destructuring
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData);

@@ -51,7 +51,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         }
     }
 
-    // eslint-disable-next-line
     setDisable() {}
 
     _setInitValue() {

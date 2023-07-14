@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line semi-design/no-import
 import { Table } from '@douyinfe/semi-ui';
 
 App.storyName = 'fixed resizable table with form';

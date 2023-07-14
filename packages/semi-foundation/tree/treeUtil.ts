@@ -478,7 +478,6 @@ export function getMotionKeys(eventKey: string, expandedKeys: Set<string>, keyEn
     return res;
 }
 
-// eslint-disable-next-line max-len
 export function calcCheckedKeysForChecked(key: string, keyEntities: KeyEntities, checkedKeys: Set<string>, halfCheckedKeys: Set<string>) {
     const descendantKeys = findDescendantKeys([key], keyEntities, true);
     const nodeItem = keyEntities[key];
@@ -487,10 +486,8 @@ export function calcCheckedKeysForChecked(key: string, keyEntities: KeyEntities,
         if (!node.parent) {
             return;
         }
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key } = node;
         const siblingKeys = findSiblingKeys([key], keyEntities);
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const allChecked = siblingKeys.every(key => checkedKeys.has(key));
         if (!allChecked) {
             const ancestorKeys = findAncestorKeys([key], keyEntities, false);
@@ -530,10 +527,8 @@ export function calcCheckedKeysForUnchecked(key: string, keyEntities: KeyEntitie
             return;
         }
         // Has a parent node, and the parent node is checked or halfChecked
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key } = node;
         const siblingKeys = findSiblingKeys([key], keyEntities);
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const anyChecked = siblingKeys.some(key => checkedKeys.has(key) || halfCheckedKeys.has(key));
         const ancestorKeys = findAncestorKeys([key], keyEntities, false);
         // If there is checked or halfChecked in the sibling node, you need to change the parent node to halfChecked

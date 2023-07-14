@@ -608,7 +608,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
         if (Object.keys(states).length) {
             const {
-                // eslint-disable-next-line @typescript-eslint/no-shadow
                 pagination: mergedStatePagination = null,
                 queries: stateQueries = null,
                 dataSource: stateDataSource = null,
@@ -1238,7 +1237,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const childrenColumnName = 'children';
         let columns: ColumnProps<RecordType>[] = cloneDeep(cachedColumns);
 
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const addFns = (columns: ColumnProps<RecordType>[] = []) => {
             if (Array.isArray(columns) && columns.length) {
                 each(columns, (column, index, originColumns) => {
