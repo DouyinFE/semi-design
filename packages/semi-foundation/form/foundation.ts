@@ -174,14 +174,16 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 maybePromisedErrors = errors;
             }
             if (!maybePromisedErrors) {
-                resolve(values);
+                const _values = this._adapter.cloneDeep(values);
+                resolve(_values);
                 this.injectErrorToField({});
             } else if (isPromise(maybePromisedErrors)) {
                 maybePromisedErrors.then(
                     (result: any) => {
                         // validate success，clear error
                         if (!result) {
-                            resolve(values);
+                            const _values = this._adapter.cloneDeep(values);
+                            resolve(_values);
                             this.injectErrorToField({});
                         } else {
                             this.data.errors = result;
@@ -236,7 +238,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 this._adapter.forceUpdate();
                 const errors = this.getError();
                 if (this._isValid(targetFields)) {
-                    resolve(values);
+                    const _values = this._adapter.cloneDeep(values);
+                    resolve(_values);
                 } else {
                     this._autoScroll();
                     reject(errors);
