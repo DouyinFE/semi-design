@@ -3,6 +3,8 @@ import { BaseProps } from "_base/baseComponent";
 import { RatioType } from '@douyinfe/semi-foundation/image/previewInnerFoundation';
 import React from "react";
 
+export type { RatioType };
+
 export interface ImageStates {
     src: string;
     loadStatus: "loading" | "success" | "error";
