@@ -16,19 +16,22 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.39.1 (2023-07-18)
+- 【Fix】
+    - Fix the problem that the values input parameter in Form validate.then() is not scope isolated and will be affected by Field DOM mount and unmount [#1710](https://github.com/DouyinFE/semi-design/pull/1710)
+
 #### 🎉 2.39.0 (2023-07-14)
 - 【Fix】
-  - Semi Webpack Plugin modifies the logic related to animation.scss referenced by theme loader, which is compatible with some special directory organizations in pnpm scenarios
-  - Remove the flex-wrap on the outermost side of the Checkbox
+  - Semi Webpack Plugin modifies the logic related to animation.scss referenced by theme loader, which is compatible with some special directory organizations in pnpm scenarios [#1704](https://github.com/DouyinFE/semi-design/pull/1704)
+  - Remove the flex-wrap on the outermost side of the Checkbox [#1700](https://github.com/DouyinFE/semi-design/pull/1700)
 - 【Style】
-  - Remove disabled switch knob transformX when in active status
+  - Remove disabled switch knob transformX when in active status [#1697](https://github.com/DouyinFE/semi-design/pull/1697)
 
 #### 🎉 2.39.0-beta.0 (2023-07-10)
 - 【Style】
-    - Fix the problem that the content exceeds the trigger box when displaying a long label in TreeSelect  [#623 ](https://github.com/DouyinFE/semi-design/issues/623)
+    - Fix the problem that the content exceeds the trigger box when displaying a long label in TreeSelect  [#623](https://github.com/DouyinFE/semi-design/issues/623)
 - 【Fix】
-    - Fix the problem that Anchor cannot jump when clicked in some scenarios
-
+    - Fix the problem that Anchor cannot jump when clicked in some scenarios [#1688](https://github.com/DouyinFE/semi-design/pull/1688)
 #### 🎉 2.38.2 (2023-07-10)
 - 【Fix】
     - Fixed the problem that the height was not recalculated when the TextArea placeholder was dynamically updated [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)

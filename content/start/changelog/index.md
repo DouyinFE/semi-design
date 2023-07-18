@@ -14,18 +14,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.39.1 (2023-07-18)
+- 【Fix】
+  - 修复 Form validate.then() 中的 values 入参未做作用域隔离，会受到 Field DOM 挂载、卸载影响的问题 [#1710](https://github.com/DouyinFE/semi-design/pull/1710)
+
 #### 🎉 2.39.0 (2023-07-14)
 - 【Fix】
-  - Semi Webpack Plugin 修改 theme loader 引用 animation.scss 相关的逻辑，对 pnpm 场景下某些特殊目录组织兼容
-  - 移除 Checkbox 最外层侧 flex-wrap
+  - Semi Webpack Plugin 修改 theme loader 引用 animation.scss 相关的逻辑，对 pnpm 场景下某些特殊目录组织兼容，解决部分项目升级构建工具后，Popover、Tooltip等可能由于动画无法正确执行，浮层无法收起的问题 [#1704](https://github.com/DouyinFE/semi-design/pull/1704)
+  - 移除 Checkbox 最外层侧 flex-wrap，解决某些特殊内容可能被意外换行的问题 [#1700](https://github.com/DouyinFE/semi-design/pull/1700)
 - 【Style】
-  - 移除 disabled switch的 knob元素在 active态的 x 轴位移
+  - 移除 disabled switch的 knob元素在 active态的 x 轴位移 [#1697](https://github.com/DouyinFE/semi-design/pull/1697)
 
 #### 🎉 2.39.0-beta.0 (2023-07-10)
 - 【Style】
-    - 修复 TreeSelect 中在展示长 label 时内容超出 trigger 框问题  [#623 ](https://github.com/DouyinFE/semi-design/issues/623)
+    - 修复 TreeSelect 中在展示长 label 时内容超出 trigger 框问题  [#623](https://github.com/DouyinFE/semi-design/issues/623)
 - 【Fix】
-    - 修复 Anchor 在部分场景下，点击无法跳转问题
+    - 修复 Anchor 在部分场景下，点击无法跳转问题 [#1688](https://github.com/DouyinFE/semi-design/pull/1688)
     
 #### 🎉 2.38.2 (2023-07-10)
 - 【Fix】
