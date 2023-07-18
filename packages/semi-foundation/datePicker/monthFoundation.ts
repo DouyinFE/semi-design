@@ -114,7 +114,6 @@ export default class CalendarMonthFoundation extends BaseFoundation<MonthAdapter
         this._adapter.setWeekDays(weekdays);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     handleClick(day: MonthDayInfo) {

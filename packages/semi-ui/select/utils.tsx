@@ -32,7 +32,6 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
     } = { label: '', children: [], _show: false };
 
     // avoid null
-    // eslint-disable-next-line max-len
     let childNodes = React.Children.toArray(selectChildren) as React.ReactElement[];
     childNodes = childNodes.filter((childNode) => childNode && childNode.props);    
 
@@ -49,7 +48,6 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
         } else if (child.type.isSelectOptionGroup) {
             type = 'group';
             // Avoid saving children (reactNode) by... removing other props from the group except children, causing performance problems
-            // eslint-disable-next-line prefer-const
             let { children, ...restGroupProps } = child.props;
             children = React.Children.toArray(children);
             const childrenOption = children.map((option: React.ReactElement) => {

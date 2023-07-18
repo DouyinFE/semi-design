@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import BaseComponent from "../_base/baseComponent";
 import { ImageProps, ImageStates } from "./interface";
@@ -183,8 +181,6 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
         const previewProps = isObject(preview) ? preview : {};
         return ( 
-            // eslint-disable jsx-a11y/no-static-element-interactions
-            // eslint-disable jsx-a11y/click-events-have-key-events
             <div
                 style={outerStyle}
                 className={outerCls}

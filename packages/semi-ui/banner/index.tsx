@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -53,7 +52,6 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
     };
 
     static defaultProps = {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         onClose: () => { },
         type: 'info',
         fullMode: true,

@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { Table, Checkbox, Button, SideSheet } from '@douyinfe/semi-ui';
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import * as _ from 'lodash';

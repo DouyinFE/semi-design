@@ -9,9 +9,7 @@ export default class NavItem {
     items: any[];
     toggleIcon: any;
     constructor(options: any = {}) {
-        // eslint-disable-next-line eqeqeq
         if (options == null || typeof options !== 'object') {
-            // eslint-disable-next-line no-param-reassign
             options = {
                 text: options,
                 itemKey: options,

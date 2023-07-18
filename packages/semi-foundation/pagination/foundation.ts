@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { numbers } from './constants';
 
@@ -203,7 +201,6 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
     }
 
     // TODO handle tab/enter events
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleKeyDown() {
     }
 

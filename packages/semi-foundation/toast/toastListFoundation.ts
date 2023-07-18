@@ -1,7 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { ToastInstance, ToastProps } from '../toast/toastFoundation';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ToastListProps{
 
 }

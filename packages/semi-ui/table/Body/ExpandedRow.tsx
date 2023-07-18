@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { PureComponent, isValidElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -97,7 +96,6 @@ export default class TableExpandedRow extends PureComponent<TableExpandedRowProp
         } else if (isValidElement(cell)) {
             children = cell;
         } else if (cell && Object.prototype.toString.call(cell) === '[object Object]') {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { children: cellChildren, fixed, ...restProps } = cell as { children: ReactNode; fixed: Fixed };
             children = cellChildren;
             column = { ...restProps };

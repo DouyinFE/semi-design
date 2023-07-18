@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import Animation, { AnimationProps } from './Animation';
 import PropTypes from 'prop-types';
 import React, { Component, isValidElement } from 'react';
@@ -124,7 +123,6 @@ export default class Transition extends Component<TransitionProps, TransitionSta
 
         let children;
 
-        // eslint-disable-next-line prefer-const
         let { currentChildren, lastChildren, state } = this.state;
 
         let from = {};

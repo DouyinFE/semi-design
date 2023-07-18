@@ -60,7 +60,6 @@ export default class Badge extends PureComponent<BadgeProps> {
         const { direction } = this.context;
         // DefaultPosition here, static can't get this
         const defaultPosition = direction === 'rtl' ? 'leftTop' : 'rightTop';
-        // eslint-disable-next-line max-len
         const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';

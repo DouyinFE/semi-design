@@ -148,7 +148,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     onWheel = throttle((e: any): void => {
         const { onZoom, zoomStep, maxZoom, minZoom } = this.getProps();
         const { currZoom } = this.getStates();
-        let _zoom:number;
+        let _zoom: number;
         if (e.deltaY < 0) {
             /* zoom in */
             if (currZoom + zoomStep <= maxZoom) {

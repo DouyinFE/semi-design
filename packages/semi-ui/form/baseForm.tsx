@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template, max-len, @typescript-eslint/no-unused-vars */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';

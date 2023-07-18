@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const, max-len */
 import BaseFoundation from '../base/foundation';
 import * as ObjectUtil from '../utils/object';
 import isPromise from '../utils/isPromise';

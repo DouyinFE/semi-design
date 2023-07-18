@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StyledAnimation, { StyledAnimationProps, StyledAnimateStyleType } from './StyledAnimation';

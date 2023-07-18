@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line max-len
 import CalendarFoundation, { ParsedEvents, CalendarAdapter, RangeData, ParsedRangeEvent, ParsedEventsType, EventObject } from '@douyinfe/semi-foundation/calendar/foundation';
 import LocaleConsumer from '../locale/localeConsumer';
 import localeContext from '../locale/context';

@@ -32,7 +32,6 @@ export default class TableBodyFoundation<P = Record<string, any>, S = Record<str
 
         if (!isObject(newExpandRelatedProps) && !newExpandRelatedProps) {
             const expandRelatedProps = strings.EXPAND_RELATED_PROPS;
-            // eslint-disable-next-line no-param-reassign
             newExpandRelatedProps = expandRelatedProps.map(key => get(props, key, undefined));
         }
         this._adapter.setCachedExpandRelatedProps(newExpandRelatedProps);

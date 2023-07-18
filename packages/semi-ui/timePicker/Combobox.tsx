@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable react/no-did-update-set-state */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { format as dateFnsFormat } from 'date-fns';
@@ -121,7 +119,6 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
     };
 
     onItemChange = ({ type, value, disabled }: { type?: string; value: string; disabled?: boolean }) => {
-        // eslint-disable-next-line prefer-const
         let { onChange, use12Hours, isAM, format, timeStampValue } = this.props;
         const transformValue = this.foundation.getDisplayDateFromTimeStamp(timeStampValue);
         // TODO: foundation

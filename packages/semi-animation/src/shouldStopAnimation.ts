@@ -12,7 +12,6 @@ import shouldUseBezier from './shouldUseBezier';
  *
  * @returns {boolean}
  */
-// eslint-disable-next-line max-len
 export default function shouldStopAnimation(currentStyle: Record<string, any>, style: Record<string, any>, currentVelocity: Record<string, any>, startTime: number, nowTime: number) {
     for (const key of Object.keys(style)) {
         const styleValue = style[key];

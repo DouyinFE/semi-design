@@ -24,20 +24,18 @@ type UseModalReturnHooksType = (config: ModalReactProps) => { destroy: () => voi
 export default function useModal(): [{
     info: UseModalReturnHooksType;
     success: UseModalReturnHooksType;
-    error:UseModalReturnHooksType;
+    error: UseModalReturnHooksType;
     warning: UseModalReturnHooksType;
     confirm: UseModalReturnHooksType
 }, ReactNode] {
     const [elements, patchElement] = usePatchElement();
 
-    // eslint-disable-next-line max-len
     function getConfirmFunc(withFunc: (typeof withConfirm | typeof withInfo | typeof withSuccess | typeof withError | typeof withWarning)) {
         return function hookConfirm(config: ModalReactProps) {
             uuid += 1;
 
             const modalRef = React.createRef<HookModalRef>();
 
-            // eslint-disable-next-line prefer-const
             let closeFunc: () => void;
             const modal = (
                 <HookModal

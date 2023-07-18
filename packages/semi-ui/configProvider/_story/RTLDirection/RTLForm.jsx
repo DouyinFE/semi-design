@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-
-/* eslint-disable max-lines-per-function */
 import React from 'react';
 import { Form, Row, Col, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';

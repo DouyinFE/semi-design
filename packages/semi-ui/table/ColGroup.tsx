@@ -31,7 +31,6 @@ export default class ColGroup extends React.PureComponent<ColGroupProps> {
     render() {
         const { columns, className, style, prefixCls, components } = this.props;
 
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const ColGroup = get(components, 'colgroup.wrapper', 'colgroup');
         const Col = get(components, 'colgroup.col', 'col');
 

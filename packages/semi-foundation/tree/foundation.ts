@@ -674,7 +674,6 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         });
     }
 
-    // eslint-disable-next-line max-len
     handleNodeLoad(loadedKeys: Set<string>, loadingKeys: Set<string>, data: BasicTreeNodeData, resolve: (value?: any) => void) {
         const { loadData, onLoad } = this.getProps();
         const { key } = data;

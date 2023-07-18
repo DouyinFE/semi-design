@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Table, Switch, Avatar, Tooltip } from '../../../index';
 
-// eslint-disable-next-line max-lines-per-function
 function Demo() {
     const rowKey = record => `${record.city && record.city.toLowerCase()}-${record.job && record.job.toLowerCase()}`;
     const [dynamic, setDynamic] = useState(false);

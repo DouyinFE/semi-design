@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { format, parse } from 'date-fns';
 import { toNumber } from 'lodash';
 import { strings } from '../constants';
