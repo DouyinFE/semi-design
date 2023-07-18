@@ -1,6 +1,3 @@
-/* eslint-disable max-depth */
-/* eslint-disable eqeqeq */
-/* eslint-disable max-lines-per-function */
 import Event from './utils/Event';
 import shouldStopAnimation from './shouldStopAnimation';
 import shouldUseBezier from './shouldUseBezier';

@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useLayoutEffect, useEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
@@ -190,7 +190,6 @@ function withField<
                         {
                             first: stopValidateWithError,
                         },
-                        // eslint-disable-next-line @typescript-eslint/no-empty-function
                         (errors, fields) => {}
                     )
                     .then(res => {
@@ -210,7 +209,6 @@ function withField<
                         if (errors && fields) {
                             let messages = errors.map((e: any) => e.message);
                             if (messages.length === 1) {
-                                // eslint-disable-next-line prefer-destructuring
                                 messages = messages[0];
                             }
                             updateError(messages, callOpts);
@@ -402,7 +400,6 @@ function withField<
         useIsomorphicEffect(() => {
             // register
             if (typeof field === 'undefined') {
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 return () => {};
             }
             // log('register: ' + field);

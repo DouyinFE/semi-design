@@ -12,7 +12,6 @@ export type FromTo = string | number | (string | number)[];
 export type Parser = (value: FromTo) => any;
 export type Formatter = (value: any[]) => any;
 
-// eslint-disable-next-line max-len
 export default function interpolate(from: FromTo, to: FromTo, ratio = 0, parser: Parser = null, formatter: Formatter = null) {
     if (typeof parser === 'function') {
         from = parser(from);

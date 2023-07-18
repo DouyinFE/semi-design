@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable eqeqeq */
 import React, { useState, useCallback } from 'react';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';

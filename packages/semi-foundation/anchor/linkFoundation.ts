@@ -16,7 +16,6 @@ export default class LinkFoundation extends BaseFoundation<LinkAdapter> {
         // this.setInitValue();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     handleAddLink() {

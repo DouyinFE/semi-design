@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import { cloneDeep, isUndefined } from 'lodash';

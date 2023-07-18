@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { BASE_CLASS_PREFIX } from '../base/constants';
 
 const cssClasses = {

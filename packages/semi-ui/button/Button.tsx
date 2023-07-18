@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -121,9 +120,7 @@ export default class Button extends PureComponent<ButtonProps> {
         }
 
         return (
-            // eslint-disable-next-line react/button-has-type
             <button {...baseProps} onClick={this.props.onClick} onMouseDown={this.props.onMouseDown} style={style}>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
                     {children}
                 </span>

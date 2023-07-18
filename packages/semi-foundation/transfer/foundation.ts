@@ -42,7 +42,6 @@ export interface TransferAdapter<P = Record<string, any>, S = Record<string, any
     searchTree: (keyword: string) => void
 }
 
-// eslint-disable-next-line max-len
 export default class TransferFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TransferAdapter<P, S>> {
     constructor(adapter: TransferAdapter<P, S>) {
         super({ ...adapter });

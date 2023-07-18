@@ -2,13 +2,14 @@ import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import KeyCode from "../utils/keyCode";
 import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
 
+export type RatioType = "adaptation" | "realSize";
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getIsInGroup: () => boolean;
     notifyChange: (index: number, direction: string) => void;
     notifyZoom: (zoom: number, increase: boolean) => void;
     notifyClose: () => void;
     notifyVisibleChange: (visible: boolean) => void;
-    notifyRatioChange: (type: string) => void;
+    notifyRatioChange: (type: RatioType) => void;
     notifyRotateChange: (angle: number) => void;
     notifyDownload: (src: string, index: number) => void;
     registerKeyDownListener: () => void;
@@ -22,6 +23,7 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void
 }
+
 
 const NOT_CLOSE_TARGETS = ["icon", "footer"];
 const STOP_CLOSE_TARGET = ["icon", "footer", "header"];
@@ -138,7 +140,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyClose();
     }
 
-    handleAdjustRatio = (type: string) => {
+    handleAdjustRatio = (type: RatioType) => {
         this.setState({
             ratio: type,
         } as any);
@@ -174,14 +176,14 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const { preLoad, preLoadGap, infinite, currentIndex } = this.getProps();
 
         const { imgSrc }= this.getStates();
-        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1){
+        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1) {
             return;
         }
 
         const preloadImages = getPreloadImagArr(imgSrc, currentIndex, preLoadGap, infinite);
         const Img = new Image();
         let index = 0;
-        function callback(e: any){
+        function callback(e: any) {
             index++;
             if (index < preloadImages.length) {
                 Img.src = preloadImages[index];
@@ -208,7 +210,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     preloadSingleImage = () => {
         const { preLoad, preLoadGap, infinite } = this.getProps();
         const { imgSrc, currentIndex, direction, imgLoadStatus } = this.getStates();
-        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1){
+        if (!preLoad || typeof preLoadGap !== "number" || preLoadGap < 1) {
             return;
         }
         // 根据方向决定preload那个index

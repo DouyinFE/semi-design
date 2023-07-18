@@ -1,4 +1,3 @@
-/* eslint-disable no-unreachable */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -159,7 +158,6 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
         });
         const titleID = getUuidShort({});
         return (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 className={wrapper}
                 style={style}

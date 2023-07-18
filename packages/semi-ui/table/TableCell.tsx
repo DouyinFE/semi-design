@@ -1,5 +1,3 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable eqeqeq */
 import React, { createRef, Fragment, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -265,7 +263,6 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
 
             text = render(text, record, index, renderOptions);
             if (isInvalidRenderCellText(text)) {
-                // eslint-disable-next-line no-param-reassign
                 tdProps = text.props ? merge(tdProps, text.props) : tdProps;
                 colSpan = tdProps.colSpan;
                 rowSpan = tdProps.rowSpan;

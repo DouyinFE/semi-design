@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';

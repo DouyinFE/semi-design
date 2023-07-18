@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';

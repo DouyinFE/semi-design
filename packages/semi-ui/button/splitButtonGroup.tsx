@@ -7,7 +7,6 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
 
-// eslint-disable-next-line
 export interface SplitButtonGroupProps extends BaseProps {
     'aria-label'?: React.AriaAttributes['aria-label']
 }

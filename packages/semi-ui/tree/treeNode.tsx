@@ -256,7 +256,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 if (!hasChild) {
                     itemIcon = <IconFile className={`${prefixcls}-item-icon`} />;
                 } else {
-                    // eslint-disable-next-line max-len
                     itemIcon = expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
                 }
             }
@@ -301,7 +300,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         this.refNode = node;
     };
 
-    // eslint-disable-next-line max-lines-per-function
     render() {
         const {
             eventKey,
@@ -315,7 +313,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             empty,
             filtered,
             treeNodeFilterProp,
-            // eslint-disable-next-line no-unused-vars
             display,
             style,
             ...rest

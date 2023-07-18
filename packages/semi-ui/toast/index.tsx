@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';

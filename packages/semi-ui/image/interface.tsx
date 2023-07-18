@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import { BaseProps } from "_base/baseComponent";
+import { RatioType } from '@douyinfe/semi-foundation/image/previewInnerFoundation';
 import React from "react";
+
+export type { RatioType };
 
 export interface ImageStates {
     src: string;
@@ -88,8 +91,6 @@ export interface MenuProps {
     onRotateLeft?: () => void;
     onRotateRight?: () => void
 }
-
-export type RatioType = "adaptation" | "realSize";
 
 export interface PreviewInnerStates {
     imgSrc?: string[];

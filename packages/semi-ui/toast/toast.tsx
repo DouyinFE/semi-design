@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -17,8 +16,8 @@ export interface ToastReactProps extends ToastProps {
     style?: CSSProperties;
     icon?: React.ReactNode;
     content: React.ReactNode;
-    onAnimationEnd?: (e:React.AnimationEvent) => void;
-    onAnimationStart?: (e:React.AnimationEvent) => void
+    onAnimationEnd?: (e: React.AnimationEvent) => void;
+    onAnimationStart?: (e: React.AnimationEvent) => void
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {

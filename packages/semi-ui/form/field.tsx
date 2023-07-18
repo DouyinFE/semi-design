@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import withField from './hoc/withField';
 
 // Basic component

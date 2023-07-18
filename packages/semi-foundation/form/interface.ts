@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable max-len */
 import { DefaultAdapter } from '../base/foundation';
 import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
 

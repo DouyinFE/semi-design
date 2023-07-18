@@ -12,7 +12,6 @@ export interface HookModalRef {
     update: (newConfig: ConfirmProps) => void
 }
 
-// eslint-disable-next-line max-len
 const HookModal = ({ afterClose, config, ...props }: PropsWithChildren<HookModalProps>, ref: React.Ref<any>) => {
     const [innerConfig, setInnerConfig] = React.useState(config);
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useState, useMemo } from 'react';
 import { Select, DatePicker, ConfigProvider } from '../../../index';
 // import './index.scss';

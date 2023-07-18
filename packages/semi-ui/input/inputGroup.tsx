@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -26,7 +25,6 @@ export interface InputGroupProps {
     disabled?: boolean
 }
 
-// eslint-disable-next-line
 export interface InputGroupState {} 
 
 export default class inputGroup extends BaseComponent<InputGroupProps, InputGroupState> {
@@ -49,7 +47,6 @@ export default class inputGroup extends BaseComponent<InputGroupProps, InputGrou
     };
 
     renderGroupWithLabel(inner: React.ReactNode) {
-        // eslint-disable-next-line no-unused-vars
         const { size, className, label, labelPosition, ...rest } = this.props;
         const groupWrapperCls = cls({
             [`${prefixCls}-group-wrapper`]: true,

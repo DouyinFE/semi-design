@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { CSSProperties } from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';

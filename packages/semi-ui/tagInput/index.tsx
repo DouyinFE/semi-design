@@ -368,7 +368,6 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const prefixWrapperCls = cls(`${prefixCls}-prefix`, {
             [`${prefixCls}-inset-label`]: insetLabel,
             [`${prefixCls}-prefix-text`]: labelNode && isString(labelNode),
-            // eslint-disable-next-line max-len
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
         return (
@@ -391,7 +390,6 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }
         const suffixWrapperCls = cls(`${prefixCls}-suffix`, {
             [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
-            // eslint-disable-next-line max-len
             [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
         });
         return (

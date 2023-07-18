@@ -251,7 +251,6 @@ export const filterEvents = (events: Map<string, EventObject[]>, start: Date, en
  * @returns {arr}
  * filter out event that is not in the week range
  */
-// eslint-disable-next-line max-len
 export const filterWeeklyEvents = (events: Map<string, EventObject[]>, weekStart: Date, weekStartsOn: weekStartsOnEnum ) => filterEvents(events, weekStart, addDays(endOfWeek(weekStart, { weekStartsOn }), 1));
 
 /**
@@ -331,7 +330,6 @@ export const collectDailyEvents = (events: ParsedRangeEvent[][]) => {
 };
 
 export const renderDailyEvent = (event: EventObject) => {
-    // eslint-disable-next-line prefer-const
     let { start, end, allDay, children } = event;
     let startPos,
         endPos;

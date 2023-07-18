@@ -1,9 +1,4 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-depth */
-/* eslint-disable react/no-did-update-set-state */
-/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -56,7 +51,6 @@ export interface InputNumberProps extends InputProps {
     onUpClick?: (value: string, e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface InputNumberState extends BaseInputNumberState {}
 
 class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
