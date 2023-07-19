@@ -7,6 +7,7 @@ export interface PaginationAdapter<P = Record<string, any>, S = Record<string, a
     updateTotal: (total: number) => void;
     updatePageSize: (pageSize: number) => void;
     updateQuickJumpPage: (quickJumpPage: string | number) => void;
+    updateAllPageNumbers: (allPageNumbers: number[]) => void;
     setCurrentPage: (pageIndex: number) => void;
     registerKeyDownHandler: (handler: KeyDownHandler) => void;
     unregisterKeyDownHandler: (handler: KeyDownHandler) => void;
@@ -100,6 +101,18 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
         this._adapter.updateTotal(total);
         this._adapter.setCurrentPage(targetPageIndex);
         this._adapter.updatePageSize(pageSize);
+    }
+
+    updateAllPageNumbers(total: number, pageSize: number) {
+        // only need to update in small size
+
+        const { size, hoverShowPageSelect, disabled } = this.getProps();
+        if (size !== 'small' || !hoverShowPageSelect || disabled) {
+            return;
+        } else {
+            const pageNumbers = Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1);
+            this._adapter.updateAllPageNumbers(pageNumbers);
+        }
     }
 
     goPrev() {
