@@ -8,7 +8,12 @@ export default {
   title: 'Pagination'
 }
 
-export const PaginationSmall = () => <Pagination total={90} size="small"></Pagination>;
+export const PaginationSmall = () => (
+  <>
+    <Pagination total={90} size="small"></Pagination>
+    <Pagination total={200000000} size="small" hoverShowPageSelect></Pagination>
+  </>
+);
 
 PaginationSmall.story = {
   name: 'Pagination small',

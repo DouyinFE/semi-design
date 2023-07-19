@@ -62,7 +62,8 @@ export interface PaginationState {
     quickJumpPage: string | number;
     nextDisabled: boolean;
     restLeftPageList: number[];
-    restRightPageList: number[]
+    restRightPageList: number[];
+    allPageNumbers: number[]
 }
 
 export type PaginationLocale = Locale['Pagination'];
@@ -116,17 +117,23 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
     constructor(props: PaginationProps) {
         super(props);
+
+        const total = props.total;
+
+        const pageSize = props.pageSize || props.pageSizeOpts[0] || numbers.DEFAULT_PAGE_SIZE; // Use pageSize first, use the first of pageSizeOpts when not, use the default value when none
+
         this.state = {
-            total: props.total,
+            total,
             showTotal: props.showTotal,
             currentPage: props.currentPage || props.defaultCurrentPage,
-            pageSize: props.pageSize || props.pageSizeOpts[0] || numbers.DEFAULT_PAGE_SIZE, // Use pageSize first, use the first of pageSizeOpts when not, use the default value when none
+            pageSize,
             pageList: [],
             prevDisabled: false,
             nextDisabled: false,
             restLeftPageList: [],
             restRightPageList: [],
             quickJumpPage: '',
+            allPageNumbers: props.size === 'small' && props.hoverShowPageSelect ? Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1) : [], // only need to count in smallPage mode, when props.size = small
         };
         this.foundation = new PaginationFoundation(this.adapter);
         this.renderDefaultPage = this.renderDefaultPage.bind(this);
@@ -152,7 +159,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             updateTotal: (total: number) => this.setState({ total }),
             updatePageSize: (pageSize: number) => this.setState({ pageSize }),
             updateQuickJumpPage: (quickJumpPage: string | number) => this.setState({ quickJumpPage }),
-            // updateRestPageList: () => {},
+            updateAllPageNumbers: (allPageNumbers: number[]) => this.setState({ allPageNumbers }),
             setCurrentPage: (pageIndex: number) => {
                 this.setState({ currentPage: pageIndex });
             },
@@ -190,6 +197,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         };
 
         let pagerHasChanged = false;
+        let allPageNumberNeedUpdate = false;
 
         if (prevProps.currentPage !== this.props.currentPage) {
             pagerHasChanged = true;
@@ -198,14 +206,20 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
         if (prevProps.total !== this.props.total) {
             pagerHasChanged = true;
+            allPageNumberNeedUpdate = true;
         }
 
         if (prevProps.pageSize !== this.props.pageSize) {
             pagerHasChanged = true;
+            allPageNumberNeedUpdate = true;
         }
 
         if (pagerHasChanged) {
             this.foundation.updatePage(pagerProps.currentPage, pagerProps.total, pagerProps.pageSize);
+        }
+
+        if (allPageNumberNeedUpdate) {
+            this.foundation.updateAllPageNumbers(pagerProps.total, pagerProps.pageSize);
         }
     }
 
@@ -411,6 +425,23 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         );
     }
 
+
+    renderSmallPageSelect(content: React.ReactNode) {
+
+        const allPageNumbers = this.state.allPageNumbers;
+        const { total, pageSize } = this.state;
+
+        const pageList = this.renderRestPageList(allPageNumbers);
+        
+        return (
+            <Popover
+                content={pageList}
+            >
+                {content}
+            </Popover>
+        );
+    }
+
     renderSmallPage(locale: PaginationLocale) {
         const { className, style, hideOnSinglePage, hoverShowPageSelect, showSizeChanger, disabled, ...rest } = this.props;
         const paginationCls = classNames(`${prefixCls}-small`, prefixCls, className, { [`${prefixCls}-disabled`]: disabled });
@@ -420,28 +451,19 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
             return null;
         }
 
-        const pageNumbers = Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1);
-        const pageList = this.renderRestPageList(pageNumbers);
-
         const pageCls = classNames({
             [`${prefixCls}-item`]: true,
             [`${prefixCls}-item-small`]: true,
             [`${prefixCls}-item-all-disabled`]: disabled,
         });
 
-        const page = (<div className={pageCls}>{currentPage}/{totalPageNum} </div>);
+        const content = (<div className={pageCls}>{currentPage}/{totalPageNum} </div>);
 
         return (
             <div className={paginationCls} style={style} {...this.getDataAttr(rest)}>
                 {this.renderPrevBtn()}
                 {
-                    (hoverShowPageSelect && !disabled) ? (
-                        <Popover
-                            content={pageList}
-                        >
-                            {page}
-                        </Popover>
-                    ) : page
+                    (hoverShowPageSelect && !disabled) ? this.renderSmallPageSelect(content) : content
                 }
                 {this.renderNextBtn()}
                 {this.renderQuickJump(locale)}
