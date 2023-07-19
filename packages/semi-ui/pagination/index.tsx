@@ -427,10 +427,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
 
 
     renderSmallPageSelect(content: React.ReactNode) {
-
         const allPageNumbers = this.state.allPageNumbers;
-        const { total, pageSize } = this.state;
-
         const pageList = this.renderRestPageList(allPageNumbers);
         
         return (

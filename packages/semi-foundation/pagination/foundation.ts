@@ -106,9 +106,8 @@ class PaginationFoundation<P = Record<string, any>, S = Record<string, any>> ext
     updateAllPageNumbers(total: number, pageSize: number) {
         // only need to update in small size
 
-        console.log('ccc');
-        const { size } = this.getProps();
-        if (size !== 'small') {
+        const { size, hoverShowPageSelect } = this.getProps();
+        if (size !== 'small' || !hoverShowPageSelect) {
             return;
         } else {
             const pageNumbers = Array.from({ length: Math.ceil(total / pageSize) }, (v, i) => i + 1);
