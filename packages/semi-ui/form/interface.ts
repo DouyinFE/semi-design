@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
-import type { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
+import type { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
 import type { BaseFormApi as FormApi, FormState, WithFieldOption, AllErrors } from '@douyinfe/semi-foundation/form/interface';
 import type { SelectProps } from '../select/index';
@@ -123,7 +123,7 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     render?: (internalProps: FormFCChild) => React.ReactNode;
     component?: React.FC<any> | React.ComponentClass<any>;
     children?: React.ReactNode | ((internalProps: FormFCChild) => React.ReactNode);
-    autoScrollToError?: boolean | scrollIntoViewOptions;
+    autoScrollToError?: boolean | ScrollIntoViewOptions;
     disabled?: boolean;
     showValidateIcon?: boolean;
     extraTextPosition?: 'middle' | 'bottom'
