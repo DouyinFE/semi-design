@@ -312,3 +312,27 @@ export const Fix1604 = () => {
 Fix1604.story = {
   name: 'Fix Time Zone',
 };
+
+export const Fix1716 = () => {
+  const [v, setV] = useState([]);
+  const handleChange = (value) => {
+      console.log(value);
+      setV(value);
+  }
+  return (
+    <div>
+      <h4>非受控的timepicker，正常</h4>
+      <TimePicker type="timeRange" />
+      <h4>受控的timepicker，修改后正常</h4>
+      <TimePicker
+        type="timeRange"
+        value={v}
+        onChange={handleChange} 
+      /> 
+    </div>
+  );
+};
+
+Fix1716.story = {
+  name: 'Fix 1716',
+};
