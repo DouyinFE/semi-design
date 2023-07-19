@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.39.2 (2023-07-19)
+- 【Fix】
+  - Fixed the problem that the size check was not performed correctly when using replace to replace the new file after uploading a legal file during Upload showReplace [#1712](https://github.com/DouyinFE/semi-design/issues/1712)
+- 【Perf】
+  - Optimize the Pagination small size to show the problem of lag when the data is at the level of 100 million [#1714](https://github.com/DouyinFE/semi-design/pull/1714)
+- 【Chore】
+  - Unify the case of the imported type ScrollIntoViewOptions in Form Foundation [#1713](https://github.com/DouyinFE/semi-design/pull/1713) [@rashagu](https://github.com/rashagu)
+
 #### 🎉 2.39.1 (2023-07-18)
 - 【Fix】
     - Fix the problem that the values input parameter in Form validate.then() is not scope isolated and will be affected by Field DOM mount and unmount [#1710](https://github.com/DouyinFE/semi-design/pull/1710)

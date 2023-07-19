@@ -14,6 +14,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.39.2 (2023-07-19)
+- 【Fix】
+    - 修复 Upload showReplace 时，上传合法文件后使用replace 替换新文件，未正确执行 size check的问题 [#1712](https://github.com/DouyinFE/semi-design/issues/1712)
+- 【Perf】
+    -  优化 Pagination small size 在亿级别数据时展示卡顿的问题 [#1714](https://github.com/DouyinFE/semi-design/pull/1714)
+- 【Chore】
+    - 统一 Form Foundation 中导入类型 ScrollIntoViewOptions 大小写 [#1713](https://github.com/DouyinFE/semi-design/pull/1713) [@rashagu](https://github.com/rashagu)
+
+
+
 #### 🎉 2.39.1 (2023-07-18)
 - 【Fix】
   - 修复 Form validate.then() 中的 values 入参未做作用域隔离，会受到 Field DOM 挂载、卸载影响的问题 [#1710](https://github.com/DouyinFE/semi-design/pull/1710)
