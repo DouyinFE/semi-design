@@ -123,10 +123,14 @@ $module: #{$prefix}-image;
     &-footer {
         display: flex;
         align-items: center;
-        padding: $spacing-image_preview_footer-paddingY $spacing-image_preview_footer-paddingX;
-        background: $color-image_preview_footer-bg;
-        border-radius: $radius-image_preview_footer;
-        height: $height-image_preview_footer;
+
+        &-content {
+            padding: $spacing-image_preview_footer-paddingY $spacing-image_preview_footer-paddingX;
+            background: $color-image_preview_footer-bg;
+            border-radius: $radius-image_preview_footer;
+            height: $height-image_preview_footer;
+        }
+        
 
         &-wrapper {
             position: absolute;

@@ -113,6 +113,7 @@ export default class Footer extends BaseComponent<FooterProps> {
             onRatioClick: this.handleRatioClick,
             onZoomIn: this.handlePlusClick,
             onZoomOut: this.handleMinusClick,
+            menuItems: this.getMenu()
         };
         return renderPreviewMenu(props);
     }
@@ -222,51 +223,61 @@ export default class Footer extends BaseComponent<FooterProps> {
         return this.getFinalIconElement(icon, content);
     }
 
+    getNumberInfo = () => {
+        const { curPage, totalNum } = this.props;
+        return (
+            <div className={`${footerPrefixCls}-page`}>
+                {curPage}/{totalNum}
+            </div>
+        );
+    }
+
+    getSlider = () => {
+        const { zoom, min, max, step, showTooltip } = this.props;
+        return (
+            <Slider
+                value={zoom}
+                min={min}
+                max={max}
+                step={step}
+                tipFormatter={(v): string => `${v}%`}
+                tooltipVisible={showTooltip ? undefined : false }
+                onChange={this.handleSlideChange}
+            />
+        );
+    }
+
+    getMenu = () => ([
+        this.getIconChevronLeft(),
+        this.getNumberInfo(),
+        this.getIconChevronRight(),
+        this.getIconMinus(),
+        this.getSlider(),
+        this.getIconPlus(),
+        this.getIconRatio(),
+        this.getIconRotate(),
+        this.getIconDownload()
+    ]);
+
+    getFooterMenu = () => {
+        const menuItems = this.getMenu();
+        menuItems.splice(3, 0, <Divider layout="vertical" />);
+        menuItems.splice(8, 0, <Divider layout="vertical" />);
+        return menuItems;
+    }
 
     render() {
-        const { 
-            min, 
-            max,
-            step,
-            curPage,
-            totalNum,
-            zoom,
-            showTooltip,
-            className,
-            renderPreviewMenu,
-        } = this.props;
+        const { className, renderPreviewMenu } = this.props;
 
-        if (renderPreviewMenu) {
-            return (
-                <div className={`${footerPrefixCls}-wrapper`}>
-                    {this.customRenderViewMenu()}
-                </div>
-            ); 
-        }
+        const menuCls = cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className,
+            {
+                [`${footerPrefixCls}-content`]: !Boolean(renderPreviewMenu),
+            },
+        );
 
         return (
-            <section className={cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className)}>
-                {this.getIconChevronLeft()}
-                <div className={`${footerPrefixCls}-page`}>
-                    <span>{curPage}</span><span>/</span><span>{totalNum}</span>
-                </div>
-                {this.getIconChevronRight()}
-                <Divider layout="vertical" />
-                {this.getIconMinus()}
-                <Slider
-                    value={zoom}
-                    min={min}
-                    max={max}
-                    step={step}
-                    tipFormatter={(v): string => `${v}%`}
-                    tooltipVisible={showTooltip ? undefined : false }
-                    onChange={this.handleSlideChange}
-                />
-                {this.getIconPlus()}
-                {this.getIconRatio()}
-                <Divider layout="vertical" />
-                {this.getIconRotate()}
-                {this.getIconDownload()}
+            <section className={menuCls} >
+                {renderPreviewMenu ? this.customRenderViewMenu() : this.getFooterMenu()}
             </section>
         );
     }

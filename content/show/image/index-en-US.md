@@ -41,6 +41,7 @@ You can customize the placeholder for failed loading through `fallback`, which s
 ```jsx live=true
 import React from 'react';
 import { Image } from '@douyinfe/semi-ui';
+import { IconUploadError } from '@douyinfe/semi-icons';
 
 () => (
     <div style={{ display: 'flex', alignItem: 'center', flexDirection: 'column' }}>
@@ -352,7 +353,6 @@ import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, Ico
             </div>);
     }, []);
 
-
     return ( 
         <ImagePreview renderPreviewMenu={renderPreviewMenu}>
             {srcList.map((src, index) => {
@@ -367,6 +367,48 @@ import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, Ico
                 );
             })}
         </ImagePreview>
+    );
+};
+```
+
+If you want to customize the preview bottom operation area based on the default bottom operation area, you can get the default ReactNodes through the menuItems of renderPreviewMenu. menuItems is an array of ReactNodes, and the order is consistent with the content order of the default bottom operation bar area. The menuItems parameter is supported from v2.40.0.
+
+```jsx live=true dir="column"
+import React, { useMemo, useCallback } from 'react';
+import { Image, ImagePreview, Divider, Tooltip } from '@douyinfe/semi-ui';
+import { IconInfoCircle } from '@douyinfe/semi-icons';
+
+() => {
+    const srcList = useMemo(() => ([
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+    ]), []);
+
+    const renderPreviewMenu = useCallback((props) => {
+        const { menuItems } = props;
+        const customNode = <Tooltip content='I is a custom action'><IconInfoCircle size="large" /></Tooltip>;
+        return (
+            <div style={{ display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.75)', alignItems: 'center', padding: '5px 16px', borderRadius: 4 }}>
+                {menuItems.slice(0, 3)}
+                <Divider layout="vertical" />
+                {menuItems.slice(3, 7)}
+                <Divider layout="vertical" />
+                {menuItems.slice(7)}
+                <Divider layout="vertical" />
+                {customNode}
+            </div>
+        );
+    }, []);
+
+    return (
+        <>  
+            <ImagePreview
+                renderPreviewMenu={renderPreviewMenu}
+            >
+                {srcList.map((src, index) => (<Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />))}
+            </ImagePreview>
+        </>
     );
 };
 ```
@@ -484,25 +526,26 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 
 ### MenuProps
 
-| Properties       | Instructions            | Type             |
-|------------------|-------------------------|------------------|
-| curPage          | Current image page subscript         | number |
-| disabledPrev     | Whether to disable the left toggle button  | boolean |
-| disabledNext     | Whether to disable the right toggle button | boolean |
-| disableDownload  | Whether to disable the download button     | boolean |
-| max              | The maximum ratio of image zoom      | number |
-| min              | The minimum ratio of image scaling   | number |
-| onDownload       | Call function when the image is downloaded | () => void |
-| onZoomIn         | Call function when the image is zoomed in  | () => void |
-| onZoomOut        | Call function when the image is zoomed out | () => void |
-| onPrev           | Call function to switch the picture forward  | () => void |
-| onNext           | Call function to switch the picture backward | () => void |
-| onRotateLeft     | Call function to rotate the image counterclockwise | () => void |
-| onRotateRight    | Call function to rotate the image clockwise | () => void |
-| ratio            | Original size or Fit to page button state  | "adaptation" \| "realSize" |
-| step             | Step size of scaling                 | number |
-| totalNum         | The total number of images that can be previewed | number |
-| zoom             | Current image magnification ratio    | number |
+| Properties       | Instructions            | Type             | Version |
+|------------------|-------------------------|------------------|-----|
+| curPage          | Current image page subscript         | number |  |
+| disabledPrev     | Whether to disable the left toggle button  | boolean |  |
+| disabledNext     | Whether to disable the right toggle button | boolean |  |
+| disableDownload  | Whether to disable the download button     | boolean |  |
+| max              | The maximum ratio of image zoom      | number |  |
+| min              | The minimum ratio of image scaling   | number |  |
+| onDownload       | Call function when the image is downloaded | () => void |  |
+| onZoomIn         | Call function when the image is zoomed in  | () => void |  |
+| onZoomOut        | Call function when the image is zoomed out | () => void |  |
+| onPrev           | Call function to switch the picture forward  | () => void |  |
+| onNext           | Call function to switch the picture backward | () => void |  |
+| onRotateLeft     | Call function to rotate the image counterclockwise | () => void |  |
+| onRotateRight    | Call function to rotate the image clockwise | () => void |  |
+| ratio            | Original size or Fit to page button state  | "adaptation" \| "realSize" |  |
+| step             | Step size of scaling                 | number |  |
+| totalNum         | The total number of images that can be previewed | number |  |
+| zoom             | Current image magnification ratio    | number |  |
+| menuItems        | Default bottom preview operation area function button ReactNode array | ReactNode[] | 2.40.0 |
 
 ## Design Token
 
