@@ -120,10 +120,10 @@ export default class Footer extends BaseComponent<FooterProps> {
 
     // According to showTooltip in props, decide whether to use Tooltip to pack a layer
     // 根据 props 中的 showTooltip 决定是否使用 Tooltip 包一层
-    getFinalIconElement = (element: ReactNode, content: ReactNode) => {
+    getFinalIconElement = (element: ReactNode, content: ReactNode, key: string) => {
         const { showTooltip } = this.props;
         return showTooltip ? (
-            <Tooltip content={content}>
+            <Tooltip content={content} key={`tooltip-${key}`}>
                 {element}
             </Tooltip>
         ): element;
@@ -138,52 +138,57 @@ export default class Footer extends BaseComponent<FooterProps> {
     getIconChevronLeft = () => {
         const { disabledPrev, onPrev, prevTip } = this.props;
         const icon = <IconChevronLeft
+            key="chevron-left"
             size="large"
             className={disabledPrev ? `${footerPrefixCls}-disabled` : ""}
             onClick={!disabledPrev ? onPrev : undefined}
         />;
         const content = prevTip ?? this.getLocalTextByKey("prevTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'chevron-left');
     }
 
     getIconChevronRight = () => {
         const { disabledNext, onNext, nextTip } = this.props;
         const icon = <IconChevronRight
+            key="chevron-right"
             size="large"
             className={disabledNext ? `${footerPrefixCls}-disabled` : ""}
             onClick={!disabledNext ? onNext : undefined}
         />;
         const content = nextTip ?? this.getLocalTextByKey("nextTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'chevron-right');
     }
 
     getIconMinus = () => {
         const { zoomOutTip, zoom, min } = this.props;
         const disabledZoomOut = zoom === min;
-        const icon = <IconMinus 
+        const icon = <IconMinus
+            key="minus"
             size="large" 
             onClick={!disabledZoomOut ? this.handleMinusClick : undefined} 
             className={disabledZoomOut ? `${footerPrefixCls}-disabled` : ""}
         />;
         const content = zoomOutTip ?? this.getLocalTextByKey("zoomOutTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'minus');
     }
 
     getIconPlus = () => {
         const { zoomInTip, zoom, max } = this.props;
         const disabledZoomIn = zoom === max;
-        const icon = <IconPlus 
+        const icon = <IconPlus
+            key="plus"
             size="large" 
             onClick={!disabledZoomIn ? this.handlePlusClick : undefined}  
             className={disabledZoomIn ? `${footerPrefixCls}-disabled` : ""}
         />;
         const content = zoomInTip ?? this.getLocalTextByKey("zoomInTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'plus');
     }
 
     getIconRatio = () => {
         const { ratio, originTip, adaptiveTip } = this.props;
         const props = {
+            key: "ratio",
             size: "large" as IconSize,
             className: cls(`${footerPrefixCls}-gap`),
             onClick: this.handleRatioClick,
@@ -195,22 +200,24 @@ export default class Footer extends BaseComponent<FooterProps> {
         } else {
             content = adaptiveTip ?? this.getLocalTextByKey("adaptiveTip");
         }
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'ratio');
     }
 
     getIconRotate = () => {
         const { rotateTip } = this.props;
         const icon = <IconRotate
+            key="rotate"
             size="large"
             onClick={this.handleRotateLeft}
         />;
         const content = rotateTip ?? this.getLocalTextByKey("rotateTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'rotate');
     }
 
     getIconDownload = () => {
         const { downloadTip, onDownload, disableDownload } = this.props;
         const icon = <IconDownload
+            key='download'
             size="large"
             onClick={!disableDownload ? onDownload : undefined}
             className={cls(`${footerPrefixCls}-gap`,
@@ -220,13 +227,13 @@ export default class Footer extends BaseComponent<FooterProps> {
             )}
         />;
         const content = downloadTip ?? this.getLocalTextByKey("downloadTip");
-        return this.getFinalIconElement(icon, content);
+        return this.getFinalIconElement(icon, content, 'download');
     }
 
     getNumberInfo = () => {
         const { curPage, totalNum } = this.props;
         return (
-            <div className={`${footerPrefixCls}-page`}>
+            <div className={`${footerPrefixCls}-page`} key={'info'} >
                 {curPage}/{totalNum}
             </div>
         );
@@ -236,6 +243,7 @@ export default class Footer extends BaseComponent<FooterProps> {
         const { zoom, min, max, step, showTooltip } = this.props;
         return (
             <Slider
+                key={'slider'}
                 value={zoom}
                 min={min}
                 max={max}
@@ -261,8 +269,8 @@ export default class Footer extends BaseComponent<FooterProps> {
 
     getFooterMenu = () => {
         const menuItems = this.getMenu();
-        menuItems.splice(3, 0, <Divider layout="vertical" />);
-        menuItems.splice(8, 0, <Divider layout="vertical" />);
+        menuItems.splice(3, 0, <Divider layout="vertical" key={"divider-first"}/>);
+        menuItems.splice(8, 0, <Divider layout="vertical" key={"divider-second"} />);
         return menuItems;
     }
 
