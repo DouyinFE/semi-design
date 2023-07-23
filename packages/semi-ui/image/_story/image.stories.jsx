@@ -613,3 +613,45 @@ export const issue1526 = () => {
         </ImagePreview>
     )
 }
+
+export const SetDownloadName = () => {
+    const srcList = useMemo(() => ([
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg?timestap=1",
+    ]), []);
+
+    const setDownloadName = (src) => {
+        console.log('src');
+        let newSrc = src.slice(src.lastIndexOf("/") + 1);
+        newSrc = newSrc.slice(0, newSrc.indexOf('?'));
+        return newSrc;
+    }
+   return  (
+    <>
+        <Image 
+            width={360}
+            height={200}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg?test"
+            setDownloadName={setDownloadName}
+        />
+        <br/>
+        <br />
+        <ImagePreview
+            setDownloadName={setDownloadName}
+        >
+            {srcList.map((src, index) => {
+                return (
+                    <Image 
+                        key={index} 
+                        src={src} 
+                        width={200} 
+                        alt={`lamp${index + 1}`} 
+                        style={{ marginRight: 5 }}
+                    />
+                );
+            })}
+        </ImagePreview>
+    </>);
+}

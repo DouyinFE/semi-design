@@ -23,7 +23,8 @@ export interface ImageProps extends BaseProps{
     onLoad?: (event: Event) => void;
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode;
-    imageID?: number
+    imageID?: number;
+    setDownloadName?: (src: string) => string
 }
 
 export interface PreviewProps extends BaseProps {
@@ -68,7 +69,8 @@ export interface PreviewProps extends BaseProps {
     onNext?: (index: number) => void;
     onRatioChange?: (type: RatioType) => void;
     onRotateLeft?: (angle: number) => void;
-    onDownload?: (src: string, index: number) => void
+    onDownload?: (src: string, index: number) => void;
+    setDownloadName?: (src: string) => string
 }
 
 export interface MenuProps {
