@@ -41,6 +41,9 @@
         "posttest:coverage": "yarn coverage:merge",
         "coverage:merge": "npx istanbul-combine -d test/merged -p detail -r lcov -r json cypress/coverage/coverage-final.json test/coverage/coverage-final.json"
     },
+    "engines": {
+        "node": ">= 16.0.0"
+    },
     "dependencies": {
         "@douyinfe/semi-site-banner": "^0.1.0",
         "@douyinfe/semi-site-doc-style": "0.0.1",
