@@ -478,6 +478,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | src               | 图片获取地址                             | string            | - | |
 | style             | 自定义样式                              | CSSProperties     | - | |
 | width             | 图片显示宽度                             | number            | - | |
+| setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
 
 ### ImagePreview
 
@@ -525,6 +526,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | zoomInTip         | 放大操作按钮提示                                                                                                                                         | string         | "放大" | |
 | zoomOutTip        | 缩小操作按钮提示                                                                                                                                         | string        | "缩小" | |
 | zoomStep          | 图片每次缩小/放大比例                                                                                                                                      | number        | 0.1 | |
+| setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
 
 ### MenuProps
 

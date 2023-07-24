@@ -477,6 +477,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | src              | Image acquisition address            | string            | - | |
 | style            | custom style                         | CSSProperties     | - | |
 | width            | Image display width                  | number            | - | |
+| setDownloadName  | Set the name of the downloaded image | (src: string) => string | - | 2.40.0 |
 
 ### ImagePreview
 
@@ -523,7 +524,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | zoomInTip        | Zoom in action button tips                                                                                                                                               | string | "Zoom in" | |
 | zoomOutTip       | Zoom out action button prompt                                                                                                                                            | string | "Zoom out" | |
 | zoomStep         | Image reduction/enlargement ratio each time                                                                                                                              | number | 0.1 | |
-
+| setDownloadName   | Set the name of the downloaded image            | (src: string) => string | - | 2.40.0 |
 ### MenuProps
 
 | Properties       | Instructions            | Type             | Version |
