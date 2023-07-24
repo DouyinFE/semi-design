@@ -623,7 +623,6 @@ export const SetDownloadName = () => {
     ]), []);
 
     const setDownloadName = (src) => {
-        console.log('src');
         let newSrc = src.slice(src.lastIndexOf("/") + 1);
         newSrc = newSrc.slice(0, newSrc.indexOf('?'));
         return newSrc;
