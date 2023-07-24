@@ -963,7 +963,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -975,7 +975,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept="image/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -987,8 +987,8 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
-      minSize={kb2}
+      maxSize={1024}
+      minSize={200}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
       <Button icon={<IconUpload />} theme="light">
@@ -1046,7 +1046,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1062,7 +1062,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={2}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1079,8 +1079,8 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
-                    minSize={kb2}
+                    maxSize={1024}
+                    minSize={200}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
                 >
