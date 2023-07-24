@@ -41,6 +41,7 @@ import { Image } from '@douyinfe/semi-ui';
 ```jsx live=true
 import React from 'react';
 import { Image } from '@douyinfe/semi-ui';
+import { IconUploadError } from '@douyinfe/semi-icons';
 
 () => (
     <div style={{ display: 'flex', alignItem: 'center', flexDirection: 'column' }}>
@@ -371,6 +372,48 @@ import { IconChevronLeft, IconChevronRight, IconMinus, IconPlus, IconRotate, Ico
 };
 ```
 
+如果想基于默认底部操作区域自定义预览底部操作区域， 可以通过 renderPreviewMenu 的 menuItems 获取默认的 ReactNode, menuItems 是一个 ReactNode 数组，顺序和默认底部操作栏功能区域内容顺序一致，menuItems 参数从 v2.40.0 开始支持
+
+```jsx live=true dir="column"
+import React, { useMemo, useCallback } from 'react';
+import { Image, ImagePreview, Divider, Tooltip } from '@douyinfe/semi-ui';
+import { IconInfoCircle } from '@douyinfe/semi-icons';
+
+() => {
+    const srcList = useMemo(() => ([
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+    ]), []);
+
+    const renderPreviewMenu = useCallback((props) => {
+        const { menuItems } = props;
+        const customNode = <Tooltip content='我是一个自定义操作'><IconInfoCircle size="large" /></Tooltip>;
+        return (
+            <div style={{ display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.75)', alignItems: 'center', padding: '5px 16px', borderRadius: 4 }}>
+                {menuItems.slice(0, 3)}
+                <Divider layout="vertical" />
+                {menuItems.slice(3, 7)}
+                <Divider layout="vertical" />
+                {menuItems.slice(7)}
+                <Divider layout="vertical" />
+                {customNode}
+            </div>
+        );
+    }, []);
+
+    return (
+        <>  
+            <ImagePreview
+                renderPreviewMenu={renderPreviewMenu}
+            >
+                {srcList.map((src, index) => (<Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />))}
+            </ImagePreview>
+        </>
+    );
+};
+```
+
 ### 自定义预览顶部展示区
 
 通过 `renderHeader` 可以自定义预览顶部展示区
@@ -435,6 +478,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | src               | 图片获取地址                             | string            | - | |
 | style             | 自定义样式                              | CSSProperties     | - | |
 | width             | 图片显示宽度                             | number            | - | |
+| setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
 
 ### ImagePreview
 
@@ -482,28 +526,30 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | zoomInTip         | 放大操作按钮提示                                                                                                                                         | string         | "放大" | |
 | zoomOutTip        | 缩小操作按钮提示                                                                                                                                         | string        | "缩小" | |
 | zoomStep          | 图片每次缩小/放大比例                                                                                                                                      | number        | 0.1 | |
+| setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
 
 ### MenuProps
 
-| 属性               | 说明                     | 类型    |
-|-------------------|--------------------------|--------|
-| curPage           | 当前图片页下标              | number |
-| disabledPrev      | 是否禁用向左切换按钮         | boolean |
-| disabledNext      | 是否禁用向右切换按钮         | boolean |
-| disableDownload   | 是否禁用下载按钮            | boolean |
-| max               | 图片缩放最大比例            | number |
-| min               | 图片缩放最小比例            | number |
-| onDownload        | 图片下载的调用函数           | () => void |
-| onZoomIn          | 图片放大时的调用函数         | () => void |
-| onZoomOut         | 图片缩小时的调用函数         | () => void |
-| onPrev            | 向前切换图片的调用函数       | () => void |
-| onNext            | 向后切换图片的调用函数       | () => void |
-| onRotateLeft      | 逆时针旋转图片的调用函数     | () => void |
-| onRotateRight     | 顺时针旋转图片的调用函数     | () => void |
-| ratio             | 原始尺寸或适应页面按钮状态  | "adaptation" \| "realSize"|
-| step              | 缩放的比例步长              | number |
-| totalNum          | 可预览的总图片数            | number |
-| zoom              | 当前图片缩放比例            | number |
+| 属性               | 说明                     | 类型    | 版本 |
+|-------------------|--------------------------|--------|-----|
+| curPage           | 当前图片页下标              | number | |
+| disabledPrev      | 是否禁用向左切换按钮         | boolean | |
+| disabledNext      | 是否禁用向右切换按钮         | boolean | |
+| disableDownload   | 是否禁用下载按钮            | boolean | |
+| max               | 图片缩放最大比例            | number | |
+| min               | 图片缩放最小比例            | number | |
+| onDownload        | 图片下载的调用函数           | () => void | |
+| onZoomIn          | 图片放大时的调用函数         | () => void | |
+| onZoomOut         | 图片缩小时的调用函数         | () => void | |
+| onPrev            | 向前切换图片的调用函数       | () => void | |
+| onNext            | 向后切换图片的调用函数       | () => void | |
+| onRotateLeft      | 逆时针旋转图片的调用函数     | () => void | |
+| onRotateRight     | 顺时针旋转图片的调用函数     | () => void | |
+| ratio             | 原始尺寸或适应页面按钮状态  | "adaptation" \| "realSize"| |
+| step              | 缩放的比例步长              | number | |
+| totalNum          | 可预览的总图片数            | number | |
+| zoom              | 当前图片缩放比例            | number | |
+| menuItems         | 默认底部预览操作区域功能按钮 ReactNode 数组 | ReactNode[] | 2.40.0 |
 
 ## 设计变量
 

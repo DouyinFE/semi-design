@@ -9,7 +9,8 @@ export interface PreviewContextProps {
     visible: boolean;
     previewObserver: IntersectionObserver;
     setCurrentIndex: (current: number) => void;
-    handleVisibleChange: (visible: boolean, preVisible?: boolean) => void
+    handleVisibleChange: (visible: boolean, preVisible?: boolean) => void;
+    setDownloadName: (src: string) => string
 }
 
 export const PreviewContext = createContext<PreviewContextProps>({} as any);
