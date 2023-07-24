@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable max-len */
-/* eslint-disable no-nested-ternary */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import touchEventPolyfill from '../utils/touchPolyfill';
 import warning from '../utils/warning';
@@ -269,7 +266,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
             startPos = vertical ? sliderY : sliderX;
         }
         //  startPos = chooseMovePos === 'max' && isDrag ? currentPos[0] : startPos;
-        // eslint-disable-next-line one-var
         let endPos;
         if (vertical && verticalReverse) {
             endPos = sliderY;
@@ -314,8 +310,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         } else {
             stepValue = ((pos - startPos) / len) * (max - min) + min;
         }
-        // debugger
-        // eslint-disable-next-line one-var
         let compareValue;
         if (range) {
             compareValue = isMin ? currentValue[0] : currentValue[1];
@@ -680,7 +674,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     onFocus = (e: any, handler: 'min'| 'max') => {
         handlePrevent(e);
         const { target } = e;

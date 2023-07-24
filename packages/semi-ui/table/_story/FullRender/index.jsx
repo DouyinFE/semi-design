@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable no-shadow */
 import React, { useState, useEffect, useMemo } from 'react';
 import { Table, Button } from '../../../index';
 

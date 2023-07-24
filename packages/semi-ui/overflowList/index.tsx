@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import React, { CSSProperties, ReactNode, MutableRefObject, RefCallback, Key, ReactElement } from 'react';
 import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';

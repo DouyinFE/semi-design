@@ -30,10 +30,8 @@ export default class AnchorFoundation<P = Record<string, any>, S = Record<string
         super({ ...AnchorFoundation.defaultAdapter, ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init = () => {};
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy = () => {};
 
     addLink = (link: string) => {

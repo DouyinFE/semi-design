@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
-import { PreviewProps as PreviewInnerProps, PreviewInnerStates, RatioType } from "./interface";
+import { PreviewProps as PreviewInnerProps, PreviewInnerStates } from "./interface";
 import PropTypes from "prop-types";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
@@ -11,7 +10,7 @@ import { IconArrowLeft, IconArrowRight } from "@douyinfe/semi-icons";
 import Header from "./previewHeader";
 import Footer from "./previewFooter";
 import PreviewImage from "./previewImage";
-import PreviewInnerFoundation, { PreviewInnerAdapter } from "@douyinfe/semi-foundation/image/previewInnerFoundation";
+import PreviewInnerFoundation, { PreviewInnerAdapter, RatioType } from "@douyinfe/semi-foundation/image/previewInnerFoundation";
 import { PreviewContext, PreviewContextProps } from "./previewContext";
 
 const prefixCls = cssClasses.PREFIX;
@@ -129,7 +128,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 const { onVisibleChange } = this.props;
                 isFunction(onVisibleChange) && onVisibleChange(visible);
             },
-            notifyRatioChange: (type: string) => {
+            notifyRatioChange: (type: RatioType) => {
                 const { onRatioChange } = this.props;
                 isFunction(onRatioChange) && onRatioChange(type);
             },
@@ -273,7 +272,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handlePreviewClose();
     }
 
-    handleAdjustRatio = (type: string) => {
+    handleAdjustRatio = (type: RatioType) => {
         this.foundation.handleAdjustRatio(type);
     }
 

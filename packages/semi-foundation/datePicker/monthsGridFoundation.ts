@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings } from './constants';
 import {
@@ -305,7 +304,6 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         this._initDateRangePickerFromValue(values, true);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() { }
 
     /**

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState, useLayoutEffect } from 'react';
 import { storiesOf } from '@storybook/react';
 import {

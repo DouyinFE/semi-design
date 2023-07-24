@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable react/destructuring-assignment */
 import React, { PureComponent, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import { Animation as SemiAnimation, events } from '@douyinfe/semi-animation';
@@ -129,9 +128,7 @@ export default class Animation extends PureComponent<AnimationProps> {
     }
 
     initAnimation = (props?: AnimationProps) => {
-        // eslint-disable-next-line eqeqeq
         props = props == null ? this.props : props;
-        // eslint-disable-next-line prefer-const
         let { from, to, config, reverse } = props;
 
         if (reverse) {

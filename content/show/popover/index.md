@@ -25,7 +25,7 @@ import { Popover } from '@douyinfe/semi-ui';
 
 Popover 需要将 DOM 事件监听器应用到 children 中，如果子元素是自定义的组件，你需要确保它能将属性传递至底层的 DOM 元素
 
-同时为了计算弹出层的定位，需要获取到 children 的真实 DOM 元素，因此 Tooltip 支持如下类型的 children
+同时为了计算弹出层的定位，需要获取到 children 的真实 DOM 元素，因此 Popover 支持如下类型的 children
 
 1. Class Component，不强制绑定ref，但需要确保 props 可被透传至真实的 DOM 节点上
 2. 使用 forwardRef 包裹后的函数式组件，将 props 与 ref 透传到 children 内真实的 DOM 节点上

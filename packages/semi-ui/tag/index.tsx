@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -151,7 +150,7 @@ export default class Tag extends Component<TagProps, TagState> {
         };
         const wrapProps = clickable ? ({ ...baseProps, ...a11yProps }) : baseProps;
         const closeIcon = closable ? (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div className={`${prefixCls}-close`} onClick={e => this.close(e, children, tagKey)}>
                 <IconClose size="small" />
             </div>

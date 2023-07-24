@@ -226,7 +226,6 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateFocusState: (focus: boolean) => void
 }
 
-// eslint-disable-next-line max-len
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
 
     constructor(adapter: CascaderAdapter) {
@@ -259,7 +258,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const valueProp: string | any[] = onChangeWithObject ? [] : 'value';
         if (multiple) {
             const valuePath: BasicValue = [];
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             item.forEach((checkedKey: string) => {
                 const valuePathItem = this.getItemPropPath(checkedKey, valueProp);
@@ -337,9 +335,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (isEmpty(keyEntities[selectedKey])) {
             if (includes(selectedKey, 'not-exist-')) {
                 /* Get the value behind not-exist- */
-                // eslint-disable-next-line prefer-destructuring
                 const targetValue = selectedKey.match(/not-exist-(\S*)/)[1];
-                // eslint-disable-next-line max-depth
                 if (isEmpty(keyEntities[targetValue])) {
                     cacheValue = targetValue;
                 } else {
@@ -974,7 +970,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         return (Object.values(keyEntities) as BasicEntity[])
             .filter(item => item.parentKey === null && !item._notExist)
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             .sort((a, b) => parseInt(a.ind, 10) - parseInt(b.ind, 10));
     }

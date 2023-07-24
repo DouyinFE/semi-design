@@ -114,7 +114,6 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {
 
     }

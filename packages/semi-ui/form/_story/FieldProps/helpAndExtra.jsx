@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Button, Modal, TreeSelect, Row, Col, Avatar, Tabs, TabPane, Badge } from '@douyinfe/semi-ui';

@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable max-lines-per-function */
 import React, { Fragment, MouseEvent, ReactInstance, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
@@ -427,7 +425,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             updateFocusIndex: (focusIndex: number) => {
                 this.setState({ focusIndex });
             },
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             scrollToFocusOption: () => { },
         };
 
@@ -454,7 +451,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 const clickOutsideHandler: (e: MouseEvent) => void = e => {
                     const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
-                    // eslint-disable-next-line react/no-find-dom-node
                     const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
                     // let isInPanel = optionsDom && optionsDom.contains(e.target);
                     // let isInTrigger = triggerDom && triggerDom.contains(e.target);
@@ -602,14 +598,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
-                // eslint-disable-next-line max-len
                 let optionClassName = `.${prefixcls}-option-selected`;
                 if (index !== undefined) {
                     optionClassName = `.${prefixcls}-option:nth-child(${index})`;
                 }
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
-                    // eslint-disable-next-line prefer-destructuring
                     destNode = destNode[0];
                 }
                 if (destNode) {

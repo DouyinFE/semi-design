@@ -432,6 +432,7 @@ function DropdownEvents() {
 | clickToHide | 在弹出层内点击时是否自动关闭弹出层                                                                                                            | boolean |  | **0.24.0** |
 | contentClassName | 下拉菜单根元素类名                                                                                                                    | string |  |  |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                         | function():HTMLElement | () => document.body |  |
+| keepDOM | 关闭时是否保留内部组件 DOM 不销毁 | boolean | false | **2.31.0** |
 | margin| 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                         | number\|object  |  |  **2.25.0**   |
 | mouseEnterDelay | 鼠标移入 Trigger 后，延迟显示的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                    | number | 50 |  |
 | mouseLeaveDelay | 鼠标移出弹出层后，延迟消失的时间，单位毫秒（仅当 trigger 为 hover/focus 时生效）                                                                          | number | 50 |  |

@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from 'react';
-// eslint-disable-next-line semi-design/no-import
 import { Table, Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';

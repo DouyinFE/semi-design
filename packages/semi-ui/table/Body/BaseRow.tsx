@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable eqeqeq */
 import React, { createRef, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';

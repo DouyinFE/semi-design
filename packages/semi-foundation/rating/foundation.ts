@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import warning from '../utils/warning';
 

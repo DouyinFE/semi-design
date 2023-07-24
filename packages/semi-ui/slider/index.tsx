@@ -1,5 +1,3 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable react/no-find-dom-node */
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -87,7 +85,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             value = this.props.defaultValue;
         }
         this.state = {
-            // eslint-disable-next-line no-nested-ternary
             currentValue: value ? value : this.props.range ? [0, 0] : 0,
             min: this.props.min || 0,
             max: this.props.max || 0,

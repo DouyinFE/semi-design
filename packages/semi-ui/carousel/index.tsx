@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { ReactNode, Children, ReactChild, ReactFragment, ReactPortal, isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';

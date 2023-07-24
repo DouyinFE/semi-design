@@ -86,7 +86,6 @@ export default class FixedTableApp extends React.Component {
     }
 
     render() {
-        // eslint-disable-next-line max-len
         return <Table style={{ width: 2000 }} resizable bordered columns={this.columns} dataSource={this.data} scroll={this.scroll} />;
     }
 }

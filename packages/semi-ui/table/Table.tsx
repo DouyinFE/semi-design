@@ -1,12 +1,4 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable prefer-const */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-shadow */
-/* eslint-disable no-param-reassign */
-/* eslint-disable max-len */
 /* eslint-disable react/no-did-update-set-state */
-/* eslint-disable eqeqeq */
-/* eslint-disable max-lines-per-function */
 import React, { ReactNode, createRef, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -616,7 +608,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
         if (Object.keys(states).length) {
             const {
-                // eslint-disable-next-line @typescript-eslint/no-shadow
                 pagination: mergedStatePagination = null,
                 queries: stateQueries = null,
                 dataSource: stateDataSource = null,
@@ -1246,7 +1237,6 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         const childrenColumnName = 'children';
         let columns: ColumnProps<RecordType>[] = cloneDeep(cachedColumns);
 
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const addFns = (columns: ColumnProps<RecordType>[] = []) => {
             if (Array.isArray(columns) && columns.length) {
                 each(columns, (column, index, originColumns) => {

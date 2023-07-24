@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import React, { Children, ReactElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';

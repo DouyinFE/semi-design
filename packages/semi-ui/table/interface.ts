@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactNode, MutableRefObject } from 'react';
 
 import { BaseProps } from '../_base/baseComponent';

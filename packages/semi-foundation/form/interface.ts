@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable max-len */
 import { DefaultAdapter } from '../base/foundation';
-import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
+import { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
 export type BasicTriggerType = 'blur' | 'change' | 'custom' | 'mount';
 
@@ -66,7 +65,7 @@ export interface BaseFormApi<T extends object = any> {
     getValues: () => T;
     /** set value of multiple fields */
     setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: scrollIntoViewOptions) => void
+    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void
 }
 
 export interface CallOpts {

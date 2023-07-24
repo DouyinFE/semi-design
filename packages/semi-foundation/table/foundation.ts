@@ -1,10 +1,3 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable max-depth */
-/* eslint-disable max-nested-callbacks */
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
-/* eslint-disable eqeqeq */
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {
     get,
     merge,
@@ -1040,7 +1033,6 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         let filterObj: BaseColumnProps<RecordType> = this.getQuery(dataIndex);
         const filterDropdownVisible = visible;
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         filterObj = { ...filterObj, filterDropdownVisible };
 
         if (!this._filterShowIsControlled()) {

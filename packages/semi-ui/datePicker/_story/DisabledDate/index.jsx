@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { useState, useMemo } from 'react';
 import { DatePicker, ConfigProvider, Select } from '@douyinfe/semi-ui';
 import * as _ from 'lodash';

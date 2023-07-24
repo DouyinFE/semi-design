@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import isEnterPress from '../utils/isEnterPress';
 import { BreadcrumbItemInfo, Route } from './itemFoundation';

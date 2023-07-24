@@ -1,5 +1,3 @@
-/* eslint-disable max-depth */
-/* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import NavItem from './NavItem';
 import { ItemProps } from './itemFoundation';
@@ -199,7 +197,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeySet];
     }
 
-    destroy() {} // eslint-disable-line
+    destroy() {}
 
     selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, ...itemKeys: (string | number)[]) {
         const _itemKeysMap = isNullOrUndefined(itemKeysMap) ? this.getState('itemKeysMap') : itemKeysMap;

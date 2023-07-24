@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactNode, CSSProperties, RefObject, ChangeEvent, DragEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';

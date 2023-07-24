@@ -11,7 +11,6 @@ export type { ButtonGroupProps } from './buttonGroup';
 
 export type { SplitButtonGroupProps } from './splitButtonGroup';
 
-// eslint-disable-next-line 
 export interface ButtonProps extends IconButtonProps {} // TODO check
 class Button extends React.PureComponent<ButtonProps> {
     static propTypes = {

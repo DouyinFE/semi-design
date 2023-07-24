@@ -1,5 +1,3 @@
-/* argus-disable unPkgSensitiveInfo */
-/* eslint-disable max-len */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { isNumber, isString, isEqual, omit } from 'lodash';
 import KeyCode, { ENTER_KEY } from '../utils/keyCode';
@@ -66,7 +64,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     // keyboard event listner
-    // eslint-disable-next-line @typescript-eslint/member-ordering
     _keydownHandler: (...arg: any[]) => void | null = null;
 
     init() {
@@ -896,7 +893,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                     index = index - 1;
                     targetLabel = keys[index];
                     targetItem = selections.get(targetLabel);
-                    // eslint-disable-next-line
                     if (index == 0 && targetItem.disabled) {
                         isAllDisabled = true;
                     }
@@ -938,7 +934,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _removeInternalKey(option: BasicOptionProps) {
-        // eslint-disable-next-line
         let newOption = { ...option };
         delete newOption._parentGroup;
         delete newOption._show;

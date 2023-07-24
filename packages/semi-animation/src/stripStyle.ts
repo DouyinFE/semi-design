@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 export default function stripStyle(style: Record<string, any>) {
     const ret = {};
     for (const key in style) {

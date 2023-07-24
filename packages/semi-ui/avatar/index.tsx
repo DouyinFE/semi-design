@@ -201,7 +201,6 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     }
 
     render() {
-        // eslint-disable-next-line max-len, no-unused-vars
         const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, ...others } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
         const isImg = src && isImgExist;

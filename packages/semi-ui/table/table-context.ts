@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { noop } from 'lodash';
 import { ColumnProps, GetVirtualizedListRef, RowKey } from './interface';

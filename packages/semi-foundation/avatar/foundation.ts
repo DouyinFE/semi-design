@@ -14,9 +14,9 @@ export default class AvatarFoundation<P = Record<string, any>, S = Record<string
         super({ ...adapter });
     }
 
-    init() { } // eslint-disable-line
+    init() { }
 
-    destroy() { } // eslint-disable-line
+    destroy() { }
 
     handleImgLoadError() {
         const { onError } = this.getProps();
@@ -40,7 +40,7 @@ export default class AvatarFoundation<P = Record<string, any>, S = Record<string
             if (target.matches(':focus-visible')) {
                 this._adapter.setFocusVisible(true);
             }
-        } catch (error){
+        } catch (error) {
             warning(true, 'Warning: [Semi Avatar] The current browser does not support the focus-visible');
         }
     }
