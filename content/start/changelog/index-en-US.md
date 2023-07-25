@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.39.3 (2023-07-25)
+- 【Fix】
+    - Fix the problem that the Tree component will re-render every time it is rendered in the virtual environment [#1725](https://github.com/DouyinFE/semi-design/issues/1725)
+
 #### 🎉 2.39.2 (2023-07-19)
 - 【Fix】
   - Fixed the problem that the size check was not performed correctly when using replace to replace the new file after uploading a legal file during Upload showReplace [#1712](https://github.com/DouyinFE/semi-design/issues/1712)
