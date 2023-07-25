@@ -164,6 +164,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             setMouseActiveTime: (time: number) => {
                 mouseActiveTime = time;
             },
+            getSetDownloadFunc: () => {
+                return this.context?.setDownloadName ?? this.props.setDownloadName;
+            }
         };
 
     }

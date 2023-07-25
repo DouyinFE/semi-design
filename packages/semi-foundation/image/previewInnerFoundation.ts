@@ -21,7 +21,8 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     setStartMouseDown: (x: number, y: number) => void;
     setMouseActiveTime: (time: number) => void;
     disabledBodyScroll: () => void;
-    enabledBodyScroll: () => void
+    enabledBodyScroll: () => void;
+    getSetDownloadFunc: () => (src: string) => string
 }
 
 
@@ -129,8 +130,9 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleDownload = () => {
         const { currentIndex, imgSrc } = this.getStates();
+        const setDownloadName = this._adapter.getSetDownloadFunc();
         const downloadSrc = imgSrc[currentIndex];
-        const downloadName = downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1);
+        const downloadName = setDownloadName ? setDownloadName(downloadSrc) : downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1);
         downloadImage(downloadSrc, downloadName);
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
