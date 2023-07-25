@@ -664,6 +664,10 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         return item.key;
     };
 
+    option = ({ index, style, data }: OptionProps) => (
+        this.renderTreeNode(data[index], index, style)
+    );
+
     renderNodeList() {
         const { flattenNodes, cachedFlattenNodes, motionKeys, motionType } = this.state;
         const { virtualize, motion } = this.props;
@@ -683,9 +687,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 />
             );
         }
-        const option = ({ index, style, data }: OptionProps) => (
-            this.renderTreeNode(data[index], index, style)
-        );
 
         return (
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
@@ -701,7 +702,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         className={`${prefixcls}-virtual-list`}
                         style={{ direction }}
                     >
-                        {option}
+                        {this.option}
                     </VirtualList>
                 )}
             </AutoSizer>
