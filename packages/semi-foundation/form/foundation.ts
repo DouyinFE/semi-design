@@ -248,7 +248,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         });
     }
 
-    submit(e: any): void {
+    submit(e?: any): void {
         const { values } = this.data;
         // validate form
         this.validate()
