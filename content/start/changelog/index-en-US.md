@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.40.0-beta.0 (2023-07-25)
+- 【Feat】
+    - Form onSubmit, onSubmitFail add event parameters to reveal [#1728](https://github.com/DouyinFE/semi-design/issues/1728)
+    - Image's renderPreview Menu API supports menuItems parameter
+    - Image, ImagePreview provide setDownloadName API to support setting the download file name
+- 【Fix】
+    - Fix the problem that all pop-up components mount Children to delay a macro task [#1703](https://github.com/DouyinFE/semi-design/issues/1703)
+    - Fix the problem that when TimePicker is controlled and the type is timeRange, the start time is automatically filled with the current time after selecting the end time twice [#1716](https://github.com/DouyinFE/semi-design/issues/1716)
+    - Fix the problem that TimePicker set the value to undefined under controlled conditions but displayed the current time
+    - Fix the problem that Upload will upload the submitted files repeatedly when calling the ref method to upload manually [@nekocode](https://github.com/nekocode) [#1720](https://github.com/DouyinFE/semi-design/issues/1720)
+- 【Style】
+    - Adjust the spacing between Radio addon and extra from 0 to 4px
+- 【Design Token】
+    - New Token for Radio: $spacing-radio_content-rowGap
 #### 🎉 2.39.3 (2023-07-25)
 - 【Fix】
     - Fix the problem that the Tree component will re-render every time it is rendered in the virtual environment [#1725](https://github.com/DouyinFE/semi-design/issues/1725)
