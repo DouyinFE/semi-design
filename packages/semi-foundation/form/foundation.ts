@@ -248,19 +248,19 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         });
     }
 
-    submit(): void {
+    submit(e: any): void {
         const { values } = this.data;
         // validate form
         this.validate()
             .then((resolveValues: any) => {
                 // if valid do submit
                 const _values = this._adapter.cloneDeep(resolveValues);
-                this._adapter.notifySubmit(_values);
+                this._adapter.notifySubmit(_values, e);
             })
             .catch(errors => {
                 const _errors = this._adapter.cloneDeep(errors);
                 const _values = this._adapter.cloneDeep(values);
-                this._adapter.notifySubmitFail(_errors, _values);
+                this._adapter.notifySubmitFail(_errors, _values, e);
             });
     }
 
