@@ -12,8 +12,8 @@ export type BasicFieldError = Array<any>;
 
 export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>, Values extends object = any> extends DefaultAdapter<P, S> {
     cloneDeep: (val: any, ...rest: any[]) => any;
-    notifySubmit: (values: any) => void;
-    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>) => void;
+    notifySubmit: (values: any, e: any) => void;
+    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>, e: any) => void;
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
