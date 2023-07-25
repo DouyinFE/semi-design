@@ -9,11 +9,11 @@ export default {
   title: 'Upload'
 }
 
-let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
-// let action = 'https://127.0.0.1:3000/upload/';
+// let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+let action = 'https://api.semi.design/upload';
 // action = 'https://jsonplaceholder.typicode.com/posts/';
-let actionFail = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
-let apiNotExist = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+// let actionFail = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+// let apiNotExist = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
 
 let commonProps = {
   action: action,
@@ -350,21 +350,19 @@ ControlledFileList.story = {
   name: 'controlled fileList',
 };
 
-let kb1 = 1024 * 1024;
-let kb2 = kb1 * 2;
-let mb1 = kb1 * 1024;
-
 export const MaxSizeAndMinSize = () => (
   <>
     <Upload
       {...commonProps}
       action={action}
-      maxSize={mb1}
-      minSize={kb2}
+      maxSize={1024}
+      minSize={2}
+      showReplace
+      defaultFileList={defaultFileList.slice(0, 1)}
       onSizeError={(file, fileList) => Toast.error(`${file.name} size invalid`)}
     >
       <Button icon={<IconUpload />} theme="light">
-        点击上传（最小200kB，最大1MB）
+        点击上传（最小2kB，最大1MB）
       </Button>
     </Upload>
   </>
@@ -965,7 +963,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -977,7 +975,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept="image/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -989,8 +987,8 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
-      minSize={kb2}
+      maxSize={1024}
+      minSize={200}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
       <Button icon={<IconUpload />} theme="light">
@@ -1048,7 +1046,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1064,7 +1062,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={2}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1081,8 +1079,8 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
-                    minSize={kb2}
+                    maxSize={1024}
+                    minSize={200}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
                 >

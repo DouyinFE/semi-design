@@ -1,6 +1,3 @@
-/* eslint-disable eqeqeq */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { get, size, isMap, each, isEqual, pick, isNull, isFunction } from 'lodash';
@@ -321,7 +318,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const { virtualizedData, cachedExpandBtnShouldInRow } = this.state;
         const { flattenedColumns } = this.context;
         const virtualizedItem: any = get(virtualizedData, [index], {});
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { key, parentKeys, expandedRow, sectionRow, ...rest } = virtualizedItem;
         const rowWidth = this.getVirtualizedRowWidth();
 
@@ -338,7 +334,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             index,
             expandBtnShouldInRow,
         };
-        // eslint-disable-next-line no-nested-ternary
         return sectionRow ?
             this.renderSectionRow(props) :
             expandedRow ?
@@ -365,10 +360,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
     // virtualized List outerElementType
     renderOuter = React.forwardRef<HTMLDivElement, any>((props: any, ref: React.MutableRefObject<HTMLDivElement> | ((instance: HTMLDivElement) => void)) => {
         const { children, ...rest } = props;
-        // eslint-disable-next-line react/no-this-in-sfc
         const { handleWheel, prefixCls, emptySlot, dataSource } = this.props;
 
-        // eslint-disable-next-line react/no-this-in-sfc
         const tableWidth = this.getVirtualizedRowWidth();
         const tableCls = classnames(`${prefixCls}`, `${prefixCls}-fixed`);
 
@@ -385,7 +378,6 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     }
                 }}
                 onScroll={(...args) => {
-                    // eslint-disable-next-line react/no-this-in-sfc
                     this.handleVirtualizedBodyScroll(...args);
                     if (rest.onScroll) {
                         rest.onScroll(...args);

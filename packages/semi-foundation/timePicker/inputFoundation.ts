@@ -13,10 +13,8 @@ class TimePickerFoundation extends BaseFoundation<TimeInputAdapter> {
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     handleFocus(e: any) {

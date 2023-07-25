@@ -4,7 +4,6 @@ import Radio from '../index';
 import RadioGroup from '../radioGroup';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 
-// eslint-disable-next-line max-lines-per-function
 describe('RadioGroup', () => {
     function createRadioGroup(props) {
         return (

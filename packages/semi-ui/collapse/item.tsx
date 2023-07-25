@@ -67,7 +67,6 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         const icon = (
             <span ref={this.headerExpandIconTriggerRef} aria-hidden='true' className={cls([`${cssClasses.PREFIX}-header-icon`,
                 { [`${cssClasses.PREFIX}-header-iconDisabled`]: !expandIconEnable }])}>
-                {/* eslint-disable-next-line no-nested-ternary */}
                 {expandIconEnable ? (active ? collapseIcon : expandIcon) : expandIcon}
             </span>
         );

@@ -318,7 +318,6 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
     scrollToIndex = (selectedIndex: number, duration?: number) => {
         // move to selected item
         duration = typeof duration === 'number' ? duration : numbers.DEFAULT_SCROLL_DURATION;
-        // eslint-disable-next-line
         selectedIndex = selectedIndex == null ? this.props.selectedIndex : selectedIndex;
 
         // this.isWheelMode() && this.addClassToNode();
@@ -429,11 +428,9 @@ export default class ScrollItem<T extends Item> extends BaseComponent<ScrollItem
                 if (typeof transform === 'function') {
                     text = transform(item.value, item.text);
                 } else {
-                    // eslint-disable-next-line
                     text = item.text == null ? item.value : item.text;
                 }
             } else {
-                // eslint-disable-next-line
                 text = item.text == null ? item.value : item.text;
             }
 

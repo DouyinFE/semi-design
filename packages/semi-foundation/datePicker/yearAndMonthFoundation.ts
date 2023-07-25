@@ -65,10 +65,8 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     selectYear(item: YearScrollItem, panelType?: PanelType) {

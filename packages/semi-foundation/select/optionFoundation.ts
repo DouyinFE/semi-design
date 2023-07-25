@@ -22,10 +22,8 @@ export default class OptionFoundation extends BaseFoundation<OptionDefaultAdapte
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 
     onOptionClick(option: BasicOptionProps) {

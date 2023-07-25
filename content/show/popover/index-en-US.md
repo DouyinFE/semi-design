@@ -26,7 +26,7 @@ import { Popover } from '@douyinfe/semi-ui';
 
 Tooltip needs to apply DOM event listeners to children. If the child element is a custom component, you need to ensure that it can pass properties to the underlying DOM element 
 
-At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Tooltip supports the following types of children 
+At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Popover supports the following types of children 
 
 1. Class Component, it is not mandatory to bind ref, but you need to ensure that props can be transparently transmitted to the real DOM node 
 2. Use the functional component wrapped by forwardRef to transparently transmit props and ref to the real DOM node in children 

@@ -1,5 +1,4 @@
 
-/* eslint-disable */
 import React, { useLayoutEffect, useRef, useContext, useState, Component } from 'react';
 import { Button, Form, Select } from '@douyinfe/semi-ui';
 

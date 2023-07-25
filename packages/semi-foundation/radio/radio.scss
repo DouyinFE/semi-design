@@ -241,6 +241,7 @@ $inner-width: $width-icon-medium;
     &-content {
         display: flex;
         flex-direction: column;
+        row-gap: $spacing-radio_content-rowGap;
     }
 
     &:hover {

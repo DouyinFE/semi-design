@@ -53,6 +53,5 @@ export default class SwitchFoundation<P = Record<string, any>, S = Record<string
         this._adapter.setFocusVisible(false);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy(): void {}
 }

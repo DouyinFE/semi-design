@@ -93,7 +93,6 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
     }
 
     render() {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { children, className, style, onClick, visibilityHeight, target, ...others } = this.props;
         const { visible } = this.state;
         const preCls = cls(

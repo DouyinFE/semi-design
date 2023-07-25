@@ -39,7 +39,6 @@ const getRenderText = (
     ellipsisStr: string,
     suffix: string,
     ellipsisPos: string
-    // eslint-disable-next-line max-params
 ) => {
     if (content.length === 0) {
         return '';

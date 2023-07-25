@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
 import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
@@ -231,10 +230,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     get adapter(): TooltipAdapter<TooltipProps, TooltipState> {
         return {
             ...super.adapter,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             on: (...args: any[]) => this.eventManager.on(...args),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
@@ -272,7 +269,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.setState({ portalEventSet });
             },
             getTriggerBounding: () => {
-                // eslint-disable-next-line
                 // It may be a React component or an html element
                 // There is no guarantee that triggerE l.current can get the real dom, so call findDOMNode to ensure that you can get the real dom
                 const triggerDOM = this.adapter.getTriggerNode();
@@ -744,7 +740,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             }
         }
 
-        // eslint-disable-next-line prefer-const
         let ariaAttribute = {};
 
         // Take effect when used by Popover component

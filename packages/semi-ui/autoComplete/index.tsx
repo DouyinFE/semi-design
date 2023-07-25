@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types, max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';

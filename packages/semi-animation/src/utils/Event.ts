@@ -27,12 +27,10 @@ export default class Event {
                 const callbacks = this._eventMap.get(event);
                 if (Array.isArray(callbacks) && callbacks.length) {
                     let index = -1;
-                    // eslint-disable-next-line max-depth
                     while ((index = callbacks.findIndex(cb => cb === callback)) > -1) {
                         callbacks.splice(index, 1);
                     }
                 }
-            // eslint-disable-next-line eqeqeq
             } else if (callback == null) {
                 this._eventMap.delete(event);
             }

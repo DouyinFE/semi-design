@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import YearAndMonthFoundation, { MonthScrollItem, YearAndMonthAdapter, YearAndMonthFoundationProps, YearAndMonthFoundationState, YearScrollItem } from '@douyinfe/semi-foundation/datePicker/yearAndMonthFoundation';

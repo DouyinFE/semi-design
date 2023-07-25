@@ -104,7 +104,6 @@ class Progress extends Component<ProgressProps, ProgressState> {
 
         if (prevProps.percent !== this.props.percent) {
             if (!this.props.motion) {
-                // eslint-disable-next-line
                 this.setState({ percentNumber: this.props.percent });
                 return;
             }

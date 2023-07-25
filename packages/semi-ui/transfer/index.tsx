@@ -181,7 +181,6 @@ const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataIt
             <SortableItem key={item.key} index={index} item={item} />
         ))}
     </div>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
 ), { distance: 10 });
 
@@ -241,12 +240,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             inputValue: '',
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
             this.state.data = _generateDataByType(dataSource, type);
         }
         if (Boolean(defaultValue) && isArray(defaultValue)) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
             this.state.selectedItems = _generateSelectedItems(defaultValue, this.state.data);
         }

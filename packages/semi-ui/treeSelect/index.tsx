@@ -99,7 +99,6 @@ export type OverrideCommonProps =
 * Type definition description:
 * TreeSelectProps inherits some properties from BasicTreeSelectProps (from foundation) and TreeProps (from semi-ui-react).
 */
-// eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps> {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
@@ -156,7 +155,6 @@ export type OverrideCommonState =
     | 'disabledKeys'
     | 'flattenNodes';
 
-// eslint-disable-next-line max-len
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;
@@ -354,7 +352,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         };
     }
 
-    // eslint-disable-next-line max-lines-per-function
     static getDerivedStateFromProps(props: TreeSelectProps, prevState: TreeSelectState) {
         const { prevProps, rePosKey } = prevState;
         const needUpdate = (name: string) => (
@@ -541,7 +538,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    // eslint-disable-next-line
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
                     if (
@@ -785,7 +781,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         renderKeys.forEach((key: TreeNodeData['key'], index) => {
             const item = (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
@@ -1013,7 +1008,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const inner = useCustomTrigger ? (
             <Trigger
                 inputValue={inputValue}
-                // eslint-disable-next-line @typescript-eslint/no-shadow
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
                 placeholder={placeholder}
@@ -1072,7 +1066,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         );
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     renderTagItem = (key: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const {
@@ -1294,7 +1287,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     getTreeNodeKey = (treeNode: TreeNodeData) => {
         const { data } = treeNode;
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key }: { key: string } = data;
         return key;
     };
@@ -1312,7 +1304,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
         const { data } = treeNode;
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key }: { key: string } = data;
         const treeNodeProps = this.foundation.getTreeNodeProps(key);
         if (!treeNodeProps) {

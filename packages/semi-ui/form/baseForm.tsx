@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template, max-len, @typescript-eslint/no-unused-vars */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -157,11 +156,11 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         return {
             ...super.adapter,
             cloneDeep,
-            notifySubmit: (values: Values) => {
-                this.props.onSubmit(values);
+            notifySubmit: (values: Values, e: any) => {
+                this.props.onSubmit(values, e);
             },
-            notifySubmitFail: (errors, values) => {
-                this.props.onSubmitFail(errors, values);
+            notifySubmitFail: (errors, values, e: any) => {
+                this.props.onSubmitFail(errors, values, e);
             },
             forceUpdate: (callback?: () => void) => {
                 this.forceUpdate(callback);
@@ -229,7 +228,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
 
     submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        this.foundation.submit();
+        this.foundation.submit(e);
     }
 
     reset(e: React.FormEvent<HTMLFormElement>) {

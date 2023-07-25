@@ -255,7 +255,9 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         this._adapter.notifyChange({ currentFile: newFileItem, fileList: newFileList });
         this._adapter.updateFileList(newFileList, () => {
             this._adapter.resetReplaceInput();
-            this.upload(newFileItem);
+            if (!newFileItem._sizeInvalid) {
+                this.upload(newFileItem);
+            }
         });
     }
 

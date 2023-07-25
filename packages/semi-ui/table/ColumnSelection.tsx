@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import classnames from 'classnames';

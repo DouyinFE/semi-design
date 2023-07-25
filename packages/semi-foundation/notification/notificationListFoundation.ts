@@ -1,10 +1,8 @@
-/* eslint-disable no-useless-constructor */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { NoticeInstance, NoticePosition, NoticeProps } from '../notification/notificationFoundation';
 import { strings } from './constants';
 
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NotificationListProps {
 
 }
