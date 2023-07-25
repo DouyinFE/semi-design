@@ -25,6 +25,8 @@ export const parseToDate = (input: string | Date | number, formatToken = strings
         // console.log(curDate, formatToken);
 
         return curDate;
+    } else if (typeof input === 'undefined') {
+        return undefined;
     }
 
     return new Date();
