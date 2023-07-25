@@ -364,8 +364,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
      * manual upload by user
      */
     upload = (): void => {
-        const { fileList } = this.state;
-        this.foundation.startUpload(fileList);
+        this.foundation.manualUpload();
     };
 
     /**
