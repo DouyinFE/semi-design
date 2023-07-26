@@ -154,6 +154,7 @@ export default function HTML(props) {
             <head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+                <meta name="google-site-verification" content="K9ajinpeafHOSSuts14tlwJswGvmgE8rRmuq8uvkaJQ" />
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
                 <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" />
                 {
