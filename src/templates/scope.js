@@ -34,7 +34,6 @@ import de from '@douyinfe/semi-ui/locale/source/de';
 import it from '@douyinfe/semi-ui/locale/source/it';
 import fr from '@douyinfe/semi-ui/locale/source/fr';
 import ro from '@douyinfe/semi-ui/locale/source/ro';
-import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import GraphemeSplitter from 'grapheme-splitter';
 
 export * from '@douyinfe/semi-ui';
@@ -107,8 +106,6 @@ export {
     FormInputNumber,
 };
 
-export { SortableContainer, SortableElement, sortableHandle };
-
 export {
     useState,
     useEffect,
@@ -126,3 +123,24 @@ export {
 export { debounce, throttle, range, get, filter, map, some };
 
 export { zh_CN, en_GB, en_US, ko_KR, ja_JP, ar, vi_VN, ru_RU, id_ID, ms_MY, th_TH, tr_TR, pt_BR, zh_TW, nl_NL, pl_PL, sv_SE, es, de, it, fr, ro };
+
+export {
+    useSortable,
+    SortableContext,
+    sortableKeyboardCoordinates,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+  
+export { CSS as cssDndKit } from '@dnd-kit/utilities';
+  
+export {
+    closestCenter,
+    DragOverlay,
+    DndContext,
+    MouseSensor,
+    TouchSensor,
+    useSensor,
+    useSensors,
+    KeyboardSensor,
+    TraversalOrder
+} from '@dnd-kit/core';

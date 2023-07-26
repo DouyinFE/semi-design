@@ -77,19 +77,36 @@ ShowClear.story = {
   name: 'showClear',
 };
 
-export const Draggable = () => (
-  <>
-    <TagInput draggable defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} showClear style={style} />
-    <br />
-    <TagInput 
-      draggable
-      defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} 
-      maxTagCount={5} 
-      showClear 
-      style={style} 
-    />
-  </>
-);
+export const Draggable = () => {
+  const renderTagItem = useCallback((value, index, onClose) => (
+    <div 
+        key={value} 
+        style={{ display: 'flex', alignItems: 'center', fontSize: 14, marginRight: 4 }}
+    >
+        <span style={{ marginLeft: 8 }}>
+            {`${value}`}
+        </span>
+        <IconClose onClick={(e) => { 
+            onClose(e);
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
+        }} />
+    </div>), []);
+
+  return (
+    <>
+      <TagInput draggable defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} showClear style={style} />
+      <br />
+      <TagInput 
+        draggable
+        defaultValue={['抖音', '火山', '西瓜视频', 'AI Lab', '花亦山', '水之月','轻颜','醒图']} 
+        renderTagItem={renderTagItem}
+        maxTagCount={5} 
+        showClear 
+        style={style} 
+      />
+    </>);
+};
 
 Draggable.story = {
   name: 'draggable',
