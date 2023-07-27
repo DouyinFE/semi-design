@@ -46,11 +46,11 @@
 # 🎉 特性
 
 - 💪 60+高质量组件
+- 💅 Code2Design，根据不同主题自动生成 Figma UI Kit，保持代码与设计同源
+- 🚀 强大的 D2C （Design2Code）支持，Figma 设计稿一键转出真实代码，快速构建应用
 - 💕 完善的无障碍支持，为所有组件提供遵循 W3C 标准的键盘交互、焦点管理和语义化
 - 🎨 设计系统管理工具 Semi DSM，多达2000+ Design Token，快速定制你的专属设计系统
-- 🌍 国际化支持 17 种语言，提供完备的多语言、多时区、RTL支持
-- 💅 Code2Design，根据不同主题自动生成 Figma UI Kit，保持代码与设计同源
-- 🚀 强大的 Design2Code支持，设计稿一键转代码，快速构建应用
+- 🌍 国际化支持 20+ 语言，提供完备的多语言、多时区、RTL支持
 - ⚙️ 稳定的质量保障，覆盖单元测试、E2E测试、视觉回归测试等多种测试手段
 - 🥳 支持 SSR
 - 👏 使用 TypeScript, 良好的类型定义，基于 Foundation / Adapter 架构，源码易于阅读 / 贡献
@@ -87,6 +87,11 @@ ReactDOM.render(<App />, document.querySelector('#app'));
 
 [Semi UI 官网](https://semi.design) 拥有上千个支持实时调试的例子，欢迎体验使用。
 
+# 📰 关注我们的动态
+* [Follow on Twitter](https://twitter.com/SemiDesignUI)
+* [Follow on Medium](https://medium.com/@semi-design)
+* [Follow on Dev.to](https://dev.to/semidesign)
+
 # 📌 文档
 * [Semi DSM](https://semi.design/dsm)
 * [Semi Design2Code](https://semi.design/code)
@@ -111,21 +116,11 @@ Semi UI 支持所有主流浏览器。
 |--|--|--|--|--|
 | latest 2 versions | latest 2 versions | latest 2 versions | Edge | latest 2 versions |
 
-# 👐 贡献指南
-
-阅读贡献指南了解我们的开发流程，包括开发规范、测试规范和构建规范等： [CONTRIBUTING](CONTRIBUTING.md)
-
-
-# 📰 关注我们的动态
-* [Follow on Twitter](https://twitter.com/SemiDesignUI)
-* [Follow on Medium](https://medium.com/@semi-design)
-* [Follow on Dev.to](https://dev.to/semidesign)
-
 # 👨‍👨‍👧‍👦 交流群
 
 有任何问题可以进群交流，我们会及时给予解答和反馈。
 
-加入[用户群](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#).
+加入飞书[用户群](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#).
 
 # 💖 Thanks
 
@@ -136,6 +131,15 @@ Semi UI 支持所有主流浏览器。
 <a href="https://www.cypress.io/"><img src="https://user-images.githubusercontent.com/26477537/147624641-1274a91d-bc4c-463e-af1a-dbf15de54c49.png" width="90" height="30" alt="Cypress" /></a>
 
 感谢 [Cypress](https://www.cypress.io/) 提供 E2E 测试。
+
+## 👐 参与共建
+Semi Design 欢迎社区开发者参与共建，衷心感谢每一位协作者的付出
+
+<a href="https://github.com/DouyinFE/semi-design/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=DouyinFE/semi-design" />
+</a>
+
+阅读贡献指南了解我们的开发流程，包括开发规范、测试规范和构建规范等： [CONTRIBUTING](CONTRIBUTING.md)
 
 # 🎈 协议
 
