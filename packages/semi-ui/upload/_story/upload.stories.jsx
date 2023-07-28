@@ -12,8 +12,8 @@ export default {
 // let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
 let action = 'https://api.semi.design/upload';
 // action = 'https://jsonplaceholder.typicode.com/posts/';
-// let actionFail = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
-// let apiNotExist = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+let actionFail = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+let apiNotExist = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
 
 let commonProps = {
   action: action,
