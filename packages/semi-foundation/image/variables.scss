@@ -27,7 +27,7 @@ $height-image_preview_icon: 40px; // 图像预览footer操作区icon高度
 $height-image_preview_header_close: 30px; // 图像预览header部分的关闭热区高度
 
 $radius-image: var(--semi-border-radius-small); // 图像圆角
-$radius-image_preview_footer: 6px; // 图像预览footer操作区圆角
+$radius-image_preview_footer: var(--semi-border-radius-medium); // 图像预览footer操作区圆角
 
 $color-image_mask-bg: var(--semi-color-overlay-bg); // 图像蒙层背景色
 $color-image_mask_info_text: var(--semi-color-white); // 图像蒙层文字颜色
