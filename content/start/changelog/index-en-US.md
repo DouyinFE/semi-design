@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.40.0 (2023-07-28)
+- 【Style】
+    - Remove unnecessary margin in button component [#1732](https://github.com/DouyinFE/semi-design/pull/1732)
+    - Skeleton's default rounded corners changed from 4px to --semi-border-radius-small(3px) [#1739](https://github.com/DouyinFE/semi-design/pull/1739)
+
 #### 🎉 2.40.0-beta.0 (2023-07-25)
 - 【Feat】
     - Form onSubmit, onSubmitFail add event parameters to reveal [#1728](https://github.com/DouyinFE/semi-design/issues/1728)
