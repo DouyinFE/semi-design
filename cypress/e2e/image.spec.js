@@ -57,12 +57,12 @@ describe('image', () => {
         // 切换到下一张图片
         cy.get('.semi-image-preview-next').should('be.visible');
         cy.get('.semi-image-preview-next').click();
-        cy.get('.semi-image-preview-footer-page').children('span').eq(0).contains('2');
+        cy.get('.semi-image-preview-footer-page').contains('2/3');
         cy.get('.semi-image-preview').should('exist');
         // 切换到上一张图片
         cy.get('.semi-image-preview-prev').should('be.visible');
         cy.get('.semi-image-preview-prev').click();
-        cy.get('.semi-image-preview-footer-page').children('span').eq(0).contains('1');
+        cy.get('.semi-image-preview-footer-page').contains('1/3');
     });
 
     // 测试鼠标拖拽图片

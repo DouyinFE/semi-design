@@ -14,6 +14,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.40.0-beta.0 (2023-07-25)
+- 【Feat】
+    - Form onSubmit、onSubmitFail 增加 event 参数透出  [#1728](https://github.com/DouyinFE/semi-design/issues/1728)
+    - Image 的 renderPreview Menu API 支持 menuItems 参数 
+    - Image, ImagePreview 提供 setDownloadName API 支持设置下载文件名称
+- 【Fix】
+    - 修复所有弹层组件挂载 Children 延迟一个宏任务的问题 [#1703](https://github.com/DouyinFE/semi-design/issues/1703)
+    - 修复 TimePicker 在受控且 type 为 timeRange 情况下，选择两次结束时间后开始时间被自动填充为当前时间问题  [#1716](https://github.com/DouyinFE/semi-design/issues/1716)
+    - 修复 TimePicker 在受控情况下将 value 设为 undefined 却显示了当前时间的问题
+    - 修复 Upload 当调用ref method手动上传的时候会重复上传已提交的文件的问题 [@nekocode](https://github.com/nekocode) [#1720](https://github.com/DouyinFE/semi-design/issues/1720) 
+- 【Style】
+    - Radio addon 与 extra 的间距由 0 调整为 4px
+- 【Design Token】
+    - Radio 新增Token：$spacing-radio_content-rowGap 
 #### 🎉 2.39.3 (2023-07-25)
 - 【Fix】
     - 修复 Tree 组件在虚拟话情况下每次render 会重新渲染问题 [#1725](https://github.com/DouyinFE/semi-design/issues/1725)
