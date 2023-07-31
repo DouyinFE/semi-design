@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.40.0 (2023-07-28)
+- 【Style】
+    - 删除 Button 组件中的不必要的 margin [#1732](https://github.com/DouyinFE/semi-design/pull/1732)
+    - Skeleton 的默认圆角从 4px 修改为 --semi-border-radius-small(3px) [#1739](https://github.com/DouyinFE/semi-design/pull/1739)
 
 #### 🎉 2.40.0-beta.0 (2023-07-25)
 - 【Feat】
