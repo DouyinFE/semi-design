@@ -34,6 +34,7 @@ import de from '@douyinfe/semi-ui/locale/source/de';
 import it from '@douyinfe/semi-ui/locale/source/it';
 import fr from '@douyinfe/semi-ui/locale/source/fr';
 import ro from '@douyinfe/semi-ui/locale/source/ro';
+import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import GraphemeSplitter from 'grapheme-splitter';
 
 export * from '@douyinfe/semi-ui';
@@ -105,6 +106,8 @@ export {
     FormTimePicker,
     FormInputNumber,
 };
+
+export { SortableContainer, SortableElement, sortableHandle };
 
 export {
     useState,

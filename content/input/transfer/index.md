@@ -711,9 +711,193 @@ class CustomRenderDemo extends React.Component {
 
 ### 完全自定义渲染 、 拖拽排序
 
-在完全自定义渲染的场景下，由于拖拽区的渲染也已由你完全接管，因此你不声明 draggable 亦可。  
-但你需要自行实现拖拽逻辑，我们推荐直接使用 `@dnd-kit/sortable`  
-要支持拖拽排序，你需要在拖拽排序结束后，将 oldIndex、newIndex 作为入参，调用 onSortEnd
+在完全自定义渲染的场景下，由于拖拽区的渲染也已由你完全接管，因此你不声明 draggable 亦可。
+但你需要自行实现拖拽逻辑，你可以借助社区中拖拽类工具库 [dnd-kit](https://github.com/clauderic/dnd-kit) 或者 [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc)，快速实现功能。关于两者选型，这是我们的一些建议
+
+- 两者均由同一作者维护， dnd-kit 是 react-sortable-hoc 的接任产品
+- react-sortable-hoc 的 API 设计更加高内聚，在简单场景上代码更加简洁。但它强依赖了 findDOMNode API，在未来的 React 版本中会被废弃。同时该库最近两年已经处于不维护的状态。
+- dnd-kit 相对而言，有一定上手门槛，但它的自由度更高，扩展性更强，并且仍处于维护状态。我们更推荐使用
+
+更多 DIff 信息可查阅 [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc) 的 Github 主页
+
+另外，要支持拖拽排序，你需要在拖拽排序结束后，将 oldIndex、newIndex 作为入参，调用 onSortEnd
+
+使用 react-sortable-hoc 的示例：
+
+```jsx live=true dir="column"
+import React from 'react';
+import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
+import { Transfer, Button, Spin, Input } from '@douyinfe/semi-ui';
+import { IconHandle, IconSearch } from '@douyinfe/semi-icons';
+
+class CustomRenderDragDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSource: Array.from({ length: 100 }, (v, i) => ({
+                label: `海底捞门店 ${i}`,
+                value: i,
+                disabled: false,
+                key: i,
+            })),
+        };
+        this.renderSourcePanel = this.renderSourcePanel.bind(this);
+        this.renderSelectedPanel = this.renderSelectedPanel.bind(this);
+        this.renderItem = this.renderItem.bind(this);
+    }
+
+    renderItem(type, item, onItemAction, selectedItems) {
+        let buttonText = '删除';
+        let newItem = item;
+
+        if (type === 'source') {
+            let checked = selectedItems.has(item.key);
+            buttonText = checked ? '删除' : '添加';
+        } else {
+            // delete newItem._optionKey;
+            newItem = { ...item, key: item._optionKey };
+            delete newItem._optionKey;
+        }
+
+        const DragHandle = sortableHandle(() => <IconHandle className="pane-item-drag-handler" />);
+
+        return (
+            <div className="semi-transfer-item panel-item" key={item.label}>
+                {type === 'source' ? null : <DragHandle />}
+                <div className="panel-item-main" style={{ flexGrow: 1 }}>
+                    <p>{item.label}</p>
+                    <Button
+                        theme="borderless"
+                        type="primary"
+                        onClick={() => onItemAction(newItem)}
+                        className="panel-item-remove"
+                        size="small"
+                    >
+                        {buttonText}
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    renderSourcePanel(props) {
+        const {
+            loading,
+            noMatch,
+            filterData,
+            selectedItems,
+            allChecked,
+            onAllClick,
+            inputValue,
+            onSearch,
+            onSelectOrRemove,
+        } = props;
+        let content;
+        switch (true) {
+            case loading:
+                content = <Spin loading />;
+                break;
+            case noMatch:
+                content = <div className="empty sp-font">{inputValue ? '无搜索结果' : '暂无内容'}</div>;
+                break;
+            case !noMatch:
+                content = filterData.map(item => this.renderItem('source', item, onSelectOrRemove, selectedItems));
+                break;
+            default:
+                content = null;
+                break;
+        }
+        return (
+            <section className="source-panel">
+                <div className="panel-header sp-font">门店列表</div>
+                <div className="panel-main">
+                    <Input
+                        style={{ width: 454, margin: '12px 14px' }}
+                        prefix={<IconSearch />}
+                        onChange={onSearch}
+                        showClear
+                    />
+                    <div className="panel-controls sp-font">
+                        <span>待选门店: {filterData.length}</span>
+                        <Button onClick={onAllClick} theme="borderless" size="small">
+                            {allChecked ? '取消全选' : '全选'}
+                        </Button>
+                    </div>
+                    <div className="panel-list">{content}</div>
+                </div>
+            </section>
+        );
+    }
+
+    renderSelectedPanel(props) {
+        const { selectedData, onClear, clearText, onRemove, onSortEnd } = props;
+
+        let mainContent = null;
+
+        if (!selectedData.length) {
+            mainContent = <div className="empty sp-font">暂无数据，请从左侧筛选</div>;
+        }
+
+        const SortableItem = SortableElement(item => this.renderItem('selected', item, onRemove));
+        const SortableList = SortableContainer(
+            ({ items }) => {
+                return (
+                    <div className="panel-main">
+                        {items.map((item, index) => (
+                            // sortableElement will take over the property 'key', so use another '_optionKey' to pass
+                            // otherwise you can't get `key` property in this.renderItem
+                            <SortableItem key={item.label} index={index} {...item} _optionKey={item.key}></SortableItem>
+                        ))}
+                    </div>
+                );
+            },
+            { distance: 10 }
+        );
+
+        mainContent = <SortableList useDragHandle onSortEnd={onSortEnd} items={selectedData}></SortableList>;
+
+        return (
+            <section className="selected-panel">
+                <div className="panel-header sp-font">
+                    <div>已选同步门店: {selectedData.length}</div>
+                    <Button theme="borderless" type="primary" onClick={onClear} size="small">
+                        {clearText || '清空 '}
+                    </Button>
+                </div>
+                {mainContent}
+            </section>
+        );
+    }
+
+    render() {
+        const { dataSource } = this.state;
+        return (
+            <Transfer
+                defaultValue={[2, 4]}
+                onChange={values => console.log(values)}
+                className="component-transfer-demo-custom-panel"
+                renderSourcePanel={this.renderSourcePanel}
+                renderSelectedPanel={this.renderSelectedPanel}
+                dataSource={dataSource}
+            />
+        );
+    }
+}
+```
+
+使用 dnd-kit 的示例如下，需要用到的核心依赖有 @dnd-kit/sortable， @dnd-kit/core，其中核心 hooks 为 useSortable，使用说明如下
+
+```
+1. 作用：通过唯一标志 id 获取拖拽过程中必要信息
+2. 核心输入参数：
+    - id: 唯一标识, 以为数字或者字符串，但是不能为数字 0
+3. 核心返回值说明:
+	- setNodeRef: 关联 dom 节点，使其成为一个可拖拽的项
+	- listeners: 包含 onKeyDown，onPointerDown 等方法，主要让节点可以进行拖拽
+	- transform：该节点被拖动时候的移动变化值
+	- transition：过渡效果
+    - active: 被拖拽节点的相关信息，包括 id
+```
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -730,6 +914,7 @@ function SortableList({
     renderItem,
 }) {
     const [activeId, setActiveId] = useState(null);
+    // sensors 确定拖拽操作受哪些外部输入影响（如鼠标，键盘，触摸板）
     const sensors = useSensors(
         useSensor(MouseSensor),
         useSensor(TouchSensor),
@@ -745,6 +930,7 @@ function SortableList({
         setActiveId(active.id);
     }, []);
 
+    // 拖拽结束回调
     const onDragEnd = useCallback(({ over }) => {
         setActiveId(null);
         if (over) {
@@ -766,6 +952,7 @@ function SortableList({
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
             onDragCancel={onDragCancel}
+            // 设置拖拽时候滚动从最靠近被拖拽元素的祖先元素开始
             autoScroll={{ order: TraversalOrder.ReversedTreeOrder }}
         >
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
@@ -780,9 +967,7 @@ function SortableList({
                     ))}
                 </div>
                 {ReactDOM.createPortal(
-                    <DragOverlay
-                        style={{ zIndex: undefined }}
-                    >
+                    <DragOverlay>
                         {activeId ? (
                             renderItem({
                                 id: activeId,
@@ -797,18 +982,15 @@ function SortableList({
     );
 }
 
-function SortableItem({ getNewIndex, id, renderItem }) {
+function SortableItem({ id, renderItem }) {
     const {
         listeners,
         setNodeRef,
         transform,
         transition,
         active,
-        isOver,
-        attributes,
     } = useSortable({
         id,
-        getNewIndex,
     });
 
     const sortableHandle = useCallback((WrapperComponent) => {
@@ -828,7 +1010,6 @@ function SortableItem({ getNewIndex, id, renderItem }) {
     return <div 
         ref={setNodeRef}
         style={wrapperStyle}
-        {...attributes}
     >
         {renderItem({ id, sortableHandle })}
     </div>;

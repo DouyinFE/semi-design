@@ -502,7 +502,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 items={tagsArray} 
                 onSortEnd={this.onSortEnd} 
                 renderItem={this.renderSortTag} 
-                Container={SortContainer}
+                container={SortContainer}
                 prefix={prefixCls}
                 transition={null}
                 dragOverlayCls={`${prefixCls}-right-item-drag-item-move`}

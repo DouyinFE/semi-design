@@ -5,28 +5,32 @@ import cls from 'classnames';
 
 import {
     closestCenter,
-    CollisionDetection,
     DragOverlay,
     DndContext,
     MouseSensor,
-    PointerActivationConstraint,
     TouchSensor,
-    UniqueIdentifier,
     useSensor,
     useSensors,
     KeyboardSensor,
     TraversalOrder,
 } from '@dnd-kit/core';
+import type {
+    UniqueIdentifier,
+    PointerActivationConstraint,
+    CollisionDetection,
+} from '@dnd-kit/core';
 import {
     useSortable,
     SortableContext,
-    SortingStrategy,
     rectSortingStrategy,
-    AnimateLayoutChanges,
-    NewIndexGetter,
     sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { SortableTransition } from '@dnd-kit/sortable/dist/hooks/types';
+import type {
+    SortingStrategy,
+    AnimateLayoutChanges,
+    NewIndexGetter,
+} from '@dnd-kit/sortable';
+import type { SortableTransition } from '@dnd-kit/sortable/dist/hooks/types';
 import { isNull } from 'lodash';
 
 const defaultPrefix = 'semi-sortable';
@@ -61,7 +65,7 @@ export interface SortableProps {
     // Whether to use a separate drag layer for items that move with the mouse
     useDragOverlay?: boolean;
     // A container for all elements that are allowed to be dragged
-    Container?: any;
+    container?: any;
     // Whether to change the size of the item being dragged
     adjustScale?: boolean;
     // Whether to use animation during dragging
@@ -98,7 +102,7 @@ export function Sortable({
     strategy = rectSortingStrategy,
     useDragOverlay = true,
     dragOverlayCls,
-    Container = DefaultContainer,
+    container: Container = DefaultContainer,
     prefix = defaultPrefix,
 }: SortableProps) {
 
@@ -206,9 +210,9 @@ export function SortableItem({
 
     const sortableHandle = useCallback((WrapperComponent) => {
         // console.log('listeners', listeners);
-        // 保证给出的接口的一致性，使用 span 包一层，保证用户无法通过同样的方式使用 handler
+        // 保证给出的接口的一致性，使用 span 包一层，保证用户能够通过同样的方式使用 handler
         // To ensure the consistency of the given interface
-        // use a span package layer to ensure that users cannot use the handler in the same way
+        // use a span package layer to ensure that users can use the handler in the same way
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
         return () => <span {...listeners} style={{ lineHeight: 0 }} onMouseDown={(e) => {
             listeners.onMouseDown(e);
