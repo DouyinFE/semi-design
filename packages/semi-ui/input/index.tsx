@@ -24,7 +24,7 @@ export type InputMode = 'password';
 export type ValidateStatus = "default" | "error" | "warning" | "success";
 
 export interface InputProps extends
-    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size' | 'autoFocus' | 'placeholder' | 'onFocus' | 'onBlur'> {
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'prefix' | 'size' | 'placeholder' | 'onFocus' | 'onBlur'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
@@ -41,7 +41,6 @@ export interface InputProps extends
     defaultValue?: React.ReactText;
     disabled?: boolean;
     readonly?: boolean;
-    autofocus?: boolean;
     type?: string;
     showClear?: boolean;
     hideSuffix?: boolean;
@@ -99,7 +98,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         defaultValue: PropTypes.any,
         disabled: PropTypes.bool,
         readonly: PropTypes.bool,
-        autofocus: PropTypes.bool,
+        autoFocus: PropTypes.bool,
         type: PropTypes.string,
         showClear: PropTypes.bool,
         hideSuffix: PropTypes.bool,
@@ -224,8 +223,8 @@ class Input extends BaseComponent<InputProps, InputState> {
         // autofocus is changed from the original support of input to the support of manually calling the focus method,
         // so that preventScroll can still take effect under the setting of autofocus
         this.foundation.init();
-        const { disabled, autofocus, preventScroll } = this.props;
-        if (!disabled && autofocus) {
+        const { disabled, autoFocus, preventScroll } = this.props;
+        if (!disabled && (autoFocus || this.props['autofocus'])) {
             this.inputRef.current.focus({ preventScroll });
         }
     }
@@ -425,7 +424,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         const {
             addonAfter,
             addonBefore,
-            autofocus,
+            autoFocus,
             clearIcon,
             className,
             disabled,
