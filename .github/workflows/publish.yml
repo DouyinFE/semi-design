@@ -16,8 +16,13 @@ jobs:
               with:
                   token: ${{ secrets.PAT }}
 
+            - name: Use Node.js 16
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
             - name: npm install
-              run: npm i -g lerna@^6 && npm run bootstrap
+              run: npm i -g lerna@^4.0.0 && npm run bootstrap
 
             - name: get version list
               run: |
