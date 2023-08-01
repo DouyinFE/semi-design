@@ -8,13 +8,37 @@ $icon: #{$prefix}-toast-icon;
     pointer-events: none;
 
     &-wrapper {
-        pointer-events: none;
         position: fixed;
         top: $spacing-toast_wrapper-top;
         width: $width-toast_wrapper;
-        text-align: center;
+        display: flex;
+        justify-content: center;
         z-index: $z-toast;
+        perspective-origin: center -280px;
+        transition: all 1s ease-in-out;
+
+        .#{$module}-innerWrapper{
+            width: fit-content;
+            &-hover{
+                .#{$module}-zero-height-wrapper{
+                    perspective: unset;
+                    perspective-origin: center center;
+                }
+            }
+        }
+
+
     }
+
+
+    &-zero-height-wrapper{
+        transition: all 0.3s ease-in-out;
+        perspective-origin: center 280px;
+        perspective: 260px;
+        height: 0;
+        overflow: visible;
+    }
+
 
     &-content {
         pointer-events: all;

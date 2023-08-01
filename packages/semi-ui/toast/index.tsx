@@ -50,12 +50,15 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     static defaultProps = {};
     static wrapperId: null | string;
 
+    innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
+
     constructor(props: ToastListProps) {
         super(props);
         this.state = {
             list: [],
             removedItems: [],
             updatedItems: [],
+            mouseInSide: false
         };
         this.foundation = new ToastListFoundation(this.adapter);
     }
@@ -67,6 +70,17 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                 this.setState({ list, removedItems, updatedItems });
             },
         };
+    }
+
+    handleMouseEnter = (e: React.MouseEvent) => {
+        this.setState({ mouseInSide: true });
+    }
+
+    handleMouseLeave = (e: React.MouseEvent) => {
+        const height = this.innerWrapperRef.current?.getBoundingClientRect().height;
+        if (height) {
+            this.setState({ mouseInSide: false });
+        }
     }
 
     static create(opts: ToastReactProps) {
@@ -218,20 +232,25 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
         return (
             <React.Fragment>
-                {list.map((item, index) =>{
-                    const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
-                    return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
-                        {
-                            ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
-                                return (isRemoved && !isAnimating) ? null : <Toast {...item} className={cls({
-                                    [item.className]: Boolean(item.className),
-                                    [animationClassName]: true
-                                })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
+                <div className={cls({
+                    [`${cssClasses.PREFIX}-innerWrapper`]: true,
+                    [`${cssClasses.PREFIX}-innerWrapper-hover`]: this.state.mouseInSide
+                })} ref={this.innerWrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+                    {list.map((item, index) =>{
+                        const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
+                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
+                            {
+                                ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
+                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={true} stackExpanded={this.state.mouseInSide} index={{ length: list.length, index }} className={cls({
+                                        [item.className]: Boolean(item.className),
+                                        [animationClassName]: true
+                                    })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
+                                }
                             }
-                        }
-                    </CSSAnimation>;
-                }
-                )}
+                        </CSSAnimation>;
+                    }
+                    )}
+                </div>
             </React.Fragment>
         );
     }

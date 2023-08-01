@@ -8,7 +8,8 @@ export interface ToastListProps{
 export interface ToastListState{
     list: ToastInstance[];
     removedItems: ToastInstance[];
-    updatedItems: ToastInstance[]
+    updatedItems: ToastInstance[];
+    mouseInSide: boolean
 }
 
 export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastListState>{
