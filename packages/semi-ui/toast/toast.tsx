@@ -19,7 +19,11 @@ export interface ToastReactProps extends ToastProps {
     stack?: boolean;
     stackExpanded?: boolean;
     onAnimationEnd?: (e: React.AnimationEvent) => void;
-    onAnimationStart?: (e: React.AnimationEvent) => void
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    positionInList?: {
+        index: number;
+        length: number
+    }
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {
@@ -132,7 +136,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         const btnTheme = 'borderless';
         const btnSize = 'small';
 
-        const reservedIndex = this.props['index'] ? ( this.props['index'].length - this.props['index']['index'] - 1) : 0;
+        const reservedIndex = this.props.positionInList ? ( this.props.positionInList.length - this.props.positionInList.index - 1) : 0;
         const toastEle = <div
             ref={this.toastEle}
             role="alert"

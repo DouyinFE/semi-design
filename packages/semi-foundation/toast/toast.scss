@@ -9,6 +9,7 @@ $icon: #{$prefix}-toast-icon;
 
     &-wrapper {
         position: fixed;
+        height: 0;
         top: $spacing-toast_wrapper-top;
         width: $width-toast_wrapper;
         display: flex;
@@ -19,6 +20,7 @@ $icon: #{$prefix}-toast-icon;
 
         .#{$module}-innerWrapper{
             width: fit-content;
+            height: fit-content;
             &-hover{
                 .#{$module}-zero-height-wrapper{
                     perspective: unset;

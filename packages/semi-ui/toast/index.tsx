@@ -45,10 +45,12 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         onClose: PropTypes.func,
         icon: PropTypes.node,
         direction: PropTypes.oneOf(strings.directions),
+        stack: PropTypes.bool,
     };
 
     static defaultProps = {};
     static wrapperId: null | string;
+    stack: boolean = false;
 
     innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -73,13 +75,17 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
     }
 
     handleMouseEnter = (e: React.MouseEvent) => {
-        this.setState({ mouseInSide: true });
+        if (this.stack) {
+            this.setState({ mouseInSide: true });
+        } 
     }
 
     handleMouseLeave = (e: React.MouseEvent) => {
-        const height = this.innerWrapperRef.current?.getBoundingClientRect().height;
-        if (height) {
-            this.setState({ mouseInSide: false });
+        if (this.stack) {
+            const height = this.innerWrapperRef.current?.getBoundingClientRect().height;
+            if (height) {
+                this.setState({ mouseInSide: false });
+            } 
         }
     }
 
@@ -108,13 +114,14 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             } else {
                 document.body.appendChild(div);
             }
-            ReactDOM.render(React.createElement(
+            ReactDOM.render(React.createElement( 
                 ToastList,
                 { ref: instance => (ToastList.ref = instance) }
             ),
             div,
             () => {
                 ToastList.ref.add({ ...opts, id });
+                ToastList.ref.stack = Boolean(opts.stack);
             });
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
@@ -123,6 +130,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                     node.style[pos] = typeof opts[pos] === 'number' ? `${opts[pos]}px` : opts[pos];
                 }
             });
+            if (Boolean(opts.stack) !== ToastList.ref.stack) {
+                ToastList.ref.stack = Boolean(opts.stack);
+            }
             if (ToastList.ref.has(id)) {
                 ToastList.ref.update(id, { ...opts, id });
             } else {
@@ -241,7 +251,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                         return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
                             {
                                 ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
-                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={true} stackExpanded={this.state.mouseInSide} index={{ length: list.length, index }} className={cls({
+                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
                                         [item.className]: Boolean(item.className),
                                         [animationClassName]: true
                                     })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
