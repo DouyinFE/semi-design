@@ -15,9 +15,6 @@ $icon: #{$prefix}-toast-icon;
         display: flex;
         justify-content: center;
         z-index: $z-toast;
-        perspective-origin: center -280px;
-        transition: all 1s ease-in-out;
-
         .#{$module}-innerWrapper{
             width: fit-content;
             height: fit-content;
@@ -34,9 +31,9 @@ $icon: #{$prefix}-toast-icon;
 
 
     &-zero-height-wrapper{
-        transition: all 0.3s ease-in-out;
-        perspective-origin: center 280px;
-        perspective: 260px;
+        transition: all $animation_duration-toast-stack $animation_function-toast-stack;
+        perspective-origin: center $spacing-toast-perspective-originY; ;
+        perspective: $spacing-toast-perspective;
         height: 0;
         overflow: visible;
     }

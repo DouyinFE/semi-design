@@ -34,6 +34,8 @@ $spacing-toast_content-margin: $spacing-base-tight; // 通知内容外边距
 $spacing-toast_content_close_btn-marginTop: -2px; // 通知关闭按钮顶部外边距
 $spacing-toast_content_text-marginLeft: $spacing-base-tight; // 通知文本左侧外边距
 $spacing-toast_content_text-marginRight: $spacing-base-tight; // 通知文本右侧外边距
+$spacing-toast-perspective-originY: 280px; // 通知透视原点 Y 轴位置
+$spacing-toast-perspective: 280px; // 通知透视距离
 
 // Width/Height
 $width-toast_wrapper: 100%; // 通知容器整体宽度
