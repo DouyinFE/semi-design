@@ -136,15 +136,11 @@ import { Toast, Typography, Button } from '@douyinfe/semi-ui';
         duration: 10,
         stack: true,
     };
-    const [showing,setShowing]=useState(false);
+
     
-    return <Button disabled={showing} onClick={() => {
-        for(let i=0;i<10;i++){
-            Toast.info(opts)
-        }
-        setShowing(true);
-        setTimeout(()=>{setShowing(false)},10*1000);
-    }}>Display stack toast</Button>
+    return <Button onClick={() => {
+         Toast.info(opts)
+    }}>Click multiple times</Button>
 }
 
 ```
