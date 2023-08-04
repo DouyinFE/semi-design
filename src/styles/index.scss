@@ -20,6 +20,10 @@ body {
     margin: 0;
     background: var(--semi-color-bg-0);
 
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
 
     &::-webkit-scrollbar-track {
         background: rgba(0, 0, 0, 0);
