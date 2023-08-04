@@ -524,4 +524,13 @@ describe('image', () => {
         // 进入预览状态
         cy.get('.semi-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lion.jpeg');
     });
+
+    // defaultCurrentIndex
+    it('defaultCurrentIndex', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--default-current-index&args=&viewMode=storyi');
+        cy.get('.semi-button').eq(0).click();
+        // 等待 2000 ms， 确保当前src 已经完全改变上
+        cy.wait(2000);
+        cy.get('.semi-image-preview-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/seaside.jpeg');
+    });
 });
