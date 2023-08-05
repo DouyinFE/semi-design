@@ -15,7 +15,7 @@ interface Token {
     key: string;
     value: string;
     category: string;
-    raw: string;
+    raw: string
 }
 
 interface DesignToken {
@@ -24,22 +24,22 @@ interface DesignToken {
     global: {
         global: {
             light: Token[];
-            dark: Token[];
+            dark: Token[]
         };
         palette: {
             light: Token[];
-            dark: Token[];
+            dark: Token[]
         };
         normal: Token[];
-        animation: Token[];
+        animation: Token[]
     };
-    [key: string]: Token[];
+    [key: string]: Token[]
 
 }
 
 
 interface TokenMayWithColor extends Token {
-    color?: string;
+    color?: string
 }
 
 
@@ -59,7 +59,7 @@ const JumpLink = ({ value, availableKeySet }: { value: string; availableKeySet: 
     }
 };
 
-const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light' }: { mode?: 'light' | 'dark', tokenList: TokenMayWithColor[]; designToken: DesignToken; currentTab?: string; }): React.ReactElement => {
+const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light' }: { mode?: 'light' | 'dark'; tokenList: TokenMayWithColor[]; designToken: DesignToken; currentTab?: string }): React.ReactElement => {
     const intl = useIntl();
     const globalTokenJumpAvailableSet = useMemo(() => {
         const global = designToken?.global;
@@ -169,7 +169,7 @@ const GlobalAnimationToken = ({ designToken }: { designToken: DesignToken }) => 
         animationList.forEach(token => {
             const tab = token['key'].match(/--semi-transition_([\w\W]+)-/)?.[1] ?? "other";
             tokenMap[tab] = [...(tokenMap[tab] ?? []), token];
-        })
+        });
         return tokenMap;
     }, [animationList]);
 
@@ -180,15 +180,15 @@ const GlobalAnimationToken = ({ designToken }: { designToken: DesignToken }) => 
             {Object.entries(tokenMap).map(([category, tokenList]) => {
                 return <Tabs.TabPane tab={category} itemKey={category} key={category}>
                     <TokenTable designToken={designToken} tokenList={tokenList} />
-                </Tabs.TabPane>
+                </Tabs.TabPane>;
             })}
         </Tabs>
-    </>
+    </>;
 
 
 
 
-}
+};
 
 
 const DesignToken = (props: Props): React.ReactElement => {

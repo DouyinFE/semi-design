@@ -128,14 +128,14 @@ class TabsFoundation<P = Record<string, any>, S = Record<string, any>> extends B
         }
     }
 
-    handleDeleteKeyDown(event:any, tabs: HTMLElement[], itemKey: string, closable: boolean): void {
+    handleDeleteKeyDown(event: any, tabs: HTMLElement[], itemKey: string, closable: boolean): void {
         const { preventScroll } = this.getProps();
         if (closable) {
             this.handleTabDelete(itemKey);
             const index = tabs.indexOf(event.target);
             // Move focus to next element after deletion
             // If the element is the last removable tab, focus to its previous tab
-            if (tabs.length !== 1 ){
+            if (tabs.length !== 1 ) {
                 tabs[index + 1 >= tabs.length ? index - 1 : index + 1].focus({ preventScroll });
             }
         }

@@ -17,7 +17,7 @@ export interface QuickControlProps {
     presetPosition: typeof strings.PRESET_POSITION_SET[number];
     onPresetClick: (preset: PresetType, e: React.MouseEvent) => void;
     type: string;
-    insetInput: DateInputFoundationProps['insetInput']
+    insetInput: DateInputFoundationProps['insetInput'];
     locale: any
 }
 
