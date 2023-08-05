@@ -146,7 +146,7 @@ $module: #{$prefix}-descriptions;
         }
     }
 }
-`
+`;
 
 const DESCRIPTIONS_VARIABLES = `$font-descriptions-lineHeight: 20px; // 文字行高
 $font-descriptions_value-fontWeight: $font-weight-bold; // 双行显示 value 文字字重
@@ -163,7 +163,7 @@ $color-descriptions_value-text-default: var(--semi-color-text-0); // value 文�
 
 $spacing-descriptions_value_plain-paddingLeft: 8px; // 普通显示 plain 模式下 value 左侧内边距
 $spacing-descriptions_item_double-padding: 0; // 双行显示右侧 item 内边距
-`
+`;
 
 export const TYPOGRAPHY_CONTENT = `@import "./variables.scss";
 
@@ -381,7 +381,7 @@ p.#{$module}-extended,
 .#{$module}-paragraph.#{$module}-extended {
     line-height: $font-typography_paragraph_extended-lineHeight;
 }
-`
+`;
 
 const TYPOGRAPHY_VARIABLES = `$color-typography_default-text-default: var(--semi-color-text-0); // 默认文本颜色
 $color-typography_secondary-text-default: var(--semi-color-text-1); // 稍次要文本颜色
@@ -428,7 +428,7 @@ $width-typography_code-border: 1px; // 代码文本描边宽度
 $width-typography_link-border: 1px; // 链接文本下划线宽度
 
 $radius-typography_code: 2px; // 代码文本圆角
-`
+`;
 
 const INPUT_CONTENT = `@import "./variables.scss";
 
@@ -616,7 +616,7 @@ $module: #{$prefix}-input;
         }
     }
 }
-`
+`;
 
 const INPUT_VARIABLES = `$color-input_default-border-default: transparent; // 输入框描边颜色 - 默认
 
@@ -727,7 +727,7 @@ $width-textarea-icon: $width-icon-medium + $spacing-tight; // clear 图标最小
 $height-textarea-default: 32px; // 多行文本 clear 图标的高度
 $spacing-textarea_withShowClear-paddingRight: 36px; // 多行文本设置 showClear 后的右内边距
 $spacing-textarea-icon-right: $spacing-extra-tight;// 多行文本 clear 图标的右边距
-`
+`;
 
 const SELECT_CONTENT = `//@import '../theme/variables.scss';
 @import './variables.scss';
@@ -1149,7 +1149,7 @@ $multiple: #{$module}-multiple;
     cursor: not-allowed;
 }
 
-`
+`;
 
 const SELECT_VARIABLES = `// Color
 $color-select-bg-default: var(--semi-color-fill-0); // 选择器输入框背景色 - 默认态
@@ -1251,14 +1251,14 @@ $font-select_keyword-fontWeight: 600; // 选择器搜索结果命关键词中文
 // Other
 $opacity-select_selection_text_inactive: .4;
 
-`
+`;
 
 const SELECT_MIXIN = `// Mixin
 @mixin select-tag-margin {
     margin-top: $spacing-select_tag-marginTop;
     margin-right: $spacing-select_tag-marginRight;
     margin-bottom: $spacing-select_tag-marginBottom;
-}`
+}`;
 
 const TABLE_CONTENT = `@import "./variables.scss";
 @import "./mixin.scss";
@@ -1787,7 +1787,7 @@ $module: #{$prefix}-table;
         justify-content: center;
     }
 }
-`
+`;
 
 const TABLE_VARIABLES = `// Spacing
 $spacing-table-paddingY: $spacing-base; // 表格单元格垂直内边距
@@ -1872,7 +1872,7 @@ $shadow-table_left: -3px 0 0 0 $color-table_shadow-bg-default; // 表格滚动�
 $shadow-table_right: 3px 0 0 0 $color-table_shadow-bg-default; // 表格滚动阴影 - 右侧
 $border-table: #{$width-table_base_border} #{$border-table_base-borderStyle} $color-table-border-default; // 表格默认描边
 $border-table_resizer: $width-table_resizer_border solid $color-table_resizer-bg-default; // 表格拉伸标识描边
-`
+`;
 
 const TABLE_MIXIN = `@mixin genResizing() {
     border-right: $border-table_resizer;
@@ -1883,7 +1883,7 @@ const TABLE_MIXIN = `@mixin genResizing() {
             background-color: unset;
         }
     }
-}`
+}`;
 
 const PAGINATION_CONTENT = `//@import '../theme/variables.scss';
 @import "./variables.scss";
@@ -2041,7 +2041,7 @@ $module: #{$prefix}-page;
         }
     }
 }
-`
+`;
 
 const PAGINATION_VARIABLES = `// Color
 $color-pagination-text-default: var(--semi-color-text-2); // 翻页器总页数文本颜色
@@ -2094,7 +2094,7 @@ $font-pagination_small-fontWeight: $font-weight-regular; // 迷你翻页器字�
 $font-pagination_item-fontWeight: $font-weight-regular; // 翻页器页码字重
 $font-pagination_item_active-fontWeight: $font-weight-bold; // 翻页器页码选中态字重
 $font-pagination_quickjump_fontWeight: $font-weight-regular; // 快速跳转输入框字重
-`
+`;
 
 export const componentsScssContent= {
     'descriptions/index.scss': DESCRIPTIONS_CONTENT,
@@ -2111,4 +2111,4 @@ export const componentsScssContent= {
     'table/mixin.scss': TABLE_MIXIN,
     'pagination/index.scss': PAGINATION_CONTENT,
     'pagination/variables.scss': PAGINATION_VARIABLES
-}
+};
