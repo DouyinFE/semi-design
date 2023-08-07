@@ -32,7 +32,7 @@ export interface PreviewProps extends BaseProps {
     src?: string | string[];
     previewTitle?: ReactNode;
     currentIndex?: number;
-    defaultIndex?: number;
+    defaultCurrentIndex?: number;
     defaultVisible?: boolean;
     maskClosable?: boolean;
     closable?: boolean;

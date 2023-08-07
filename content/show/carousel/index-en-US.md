@@ -57,7 +57,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -125,7 +125,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
     
     return (
@@ -209,7 +209,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -307,7 +307,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -371,7 +371,7 @@ class CarouselDemo extends React.Component {
         this.textList = [
             ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
             ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-            ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+            ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
         ];
         this.arrowProps = {
             leftArrow: { children: <IconArrowLeft size='large'/> },
@@ -472,7 +472,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -542,7 +542,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
     const textList = [
         ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
         ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-        ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+        ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
     ];
 
     return (
@@ -587,7 +587,7 @@ class CarouselDemo extends React.Component {
         this.textList = [
             ['Semi Design System Management', 'From Semi Design, To Any Design', 'Quickly define your design system and apply it to design drafts and code'],
             ['Semi Material', 'Customized components for business scenarios, support online preview and debugging', 'Content co-authored by Semi Design users'],
-            ['Semi Pro (In development)', 'Based on 40+ real component code design', 'One-click conversion of massive page template front-end code'],
+            ['Semi Template', 'Efficient Design2Code converts design into real code in seconds', 'One-click conversion of massive page template front-end code'],
         ];
         this.state = {
             activeIndex: 0,

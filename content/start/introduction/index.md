@@ -89,7 +89,7 @@ Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所�
 
 后续结合 D2C 工具，我们能够将团队从海量业务场景中沉淀的页面设计模板，低成本转换为代码模板，用户将能以极低的成本，快速完成前端页面的克隆和结构还原。
 
-![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
+![Semi 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
 ### A11y
 

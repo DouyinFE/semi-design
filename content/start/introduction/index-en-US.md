@@ -87,7 +87,7 @@ For the identification and translation of the component level in the design, we 
 
 In the future, combined with D2C tools, we can convert the page design templates accumulated by the team from massive business scenarios into code templates at low cost, and users will be able to quickly complete the cloning and structure restoration of front-end pages at a very low cost.
 
-![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
+![Semi 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
 ### A11y
 

@@ -15,6 +15,6 @@ $height-skeleton_button: $height-control-default; // 按钮骨架屏高度
 
 $spacing-skeleton_li-marginBottom: 10px; // 按钮骨架屏高度
 
-$radius-skeleton_item: 4px; // 骨架屏圆角
-$radius-skeleton_li: 4px; // 骨架屏圆角
+$radius-skeleton_item: var(--semi-border-radius-small); // 骨架屏圆角
+$radius-skeleton_li: var(--semi-border-radius-small); // 骨架屏圆角
 

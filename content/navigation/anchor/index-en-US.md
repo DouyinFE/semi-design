@@ -332,7 +332,7 @@ import { Anchor } from '@douyinfe/semi-ui';
 | ------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | --------- | - |
 | autoCollapse | Dynamically display child link                                                                                      | boolean                             | false     | |
 | className    | Class name                                                                                                          | string                              | -         | |
-| defaultAnchor | Default highlight anchor                                     | string                              | -         | 1.20.0 |
+| defaultAnchor | Default highlight anchor                                     | string                              | -         |  |
 | getContainer | Scroll container                                                                                                    | () => HTMLElement                   | window    | |
 | maxHeight    | max-height of Anchor                                                                                                | string \| number                    | `750px`   | |
 | maxWidth     | max-width of Anchor                                                                                                 | string \| number                    | `200px`   | |
