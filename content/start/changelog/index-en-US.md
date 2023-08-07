@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.41.0-beta.0 (2023-08-07)
+- 【Refactor】
+    - change react-sortable-hoc to @dnd-kit/sortable for Transfer/Taginput drag & drop [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+- 【Style】
+    - The interaction of the Taginput dragging process has been modified, from the change of the tag position in the original dragging to the vertical line in front of the tag to mark the position where the tag in the dragging can be dropped. TagInput adds drag-related tokens, $width-tagInput_sortable_item_over, $color-tagInput_sortable_item_over-bg [#1738](https://github.com/DouyinFE/semi-design/pull/1738)
+- 【Fix】
+    - fix wrong type definition for defaultCurrentIndex in ImagePreview
+    - fix document is not defined error [@nekocode](https://github.com/nekocode)
+
 #### 🎉 2.40.0 (2023-07-28)
 - 【Style】
     - Remove unnecessary margin in button component [#1732](https://github.com/DouyinFE/semi-design/pull/1732)
