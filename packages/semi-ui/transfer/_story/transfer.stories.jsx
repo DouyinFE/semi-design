@@ -1,9 +1,29 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { Transfer, Button, Popover, SideSheet, Avatar, Checkbox, Tree, Input, Tag } from '../../index';
-import { omit, values } from 'lodash';
+import { omit, values, isNull } from 'lodash';
 import './transfer.scss';
-import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
+import {
+  useSortable,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+
+import {
+  closestCenter,
+  DragOverlay,
+  DndContext,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  KeyboardSensor,
+  TraversalOrder
+} from '@dnd-kit/core';
 
 export default {
   title: 'Transfer'
@@ -28,12 +48,12 @@ const commonProps = {
   },
 };
 
-const data = Array.from({ length: 100 }, (v, i) => {
+const data = Array.from({ length: 20 }, (v, i) => {
   return {
     label: `选项名称${i}`,
     value: i,
     disabled: false,
-    key: i,
+    key: `key-${i}`,
   };
 });
 
@@ -165,7 +185,7 @@ export const TransferDraggableAndDisabled = () => {
       return {
           label: `选项名称 ${i}`,
           value: i,
-          key: i,
+          key: `key-${i}`,
           disabled: true,
       };
   });
@@ -306,8 +326,11 @@ export const CustomFilterRenderSourceItemRenderSelectedItem = () => {
     );
   };
   const renderSelectedItem = item => {
+    const { sortableHandle } = item;
+    const DragHandle = sortableHandle(() => <IconHandle className={`semi-transfer-right-item-drag-handler`} />); 
     return (
       <div className="components-transfer-demo-selected-item" key={item.label}>
+        <DragHandle />
         <Avatar color={item.color} size="small">
           {item.abbr}
         </Avatar>
@@ -322,6 +345,7 @@ export const CustomFilterRenderSourceItemRenderSelectedItem = () => {
   return (
     <div style={{ margin: 10, padding: 10, width: 600 }}>
       <Transfer
+        draggable
         {...commonProps}
         dataSource={data}
         filter={customFilter}
@@ -611,166 +635,254 @@ CustomRender.story = {
   name: 'customRender',
 };
 
+function SortableList({
+  items,
+  onSortEnd,
+  renderItem,
+}) {
+  const [activeId, setActiveId] = useState(null);
+  const sensors = useSensors(
+      useSensor(MouseSensor),
+      useSensor(TouchSensor),
+      useSensor(KeyboardSensor, {
+          coordinateGetter: sortableKeyboardCoordinates,
+      })
+  );
+  const getIndex = useCallback((id) => items.indexOf(id), [items]);
+  const activeIndex = useMemo(() => activeId ? getIndex(activeId) : -1, [getIndex, activeId]);
+
+  const onDragStart = useCallback(({ active }) => {
+      if (!active) { return; }
+      setActiveId(active.id);
+  }, []);
+
+  const onDragEnd = useCallback(({ over }) => {
+      setActiveId(null);
+      if (over) {
+          const overIndex = getIndex(over.id);
+          if (activeIndex !== overIndex) {
+              onSortEnd({ oldIndex: activeIndex, newIndex: overIndex });
+          }
+      }
+  }, [activeIndex, getIndex, onSortEnd]);
+
+  const onDragCancel = useCallback(() => {
+      setActiveId(null);
+  }, []);
+
+  return (
+      <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          onDragCancel={onDragCancel}
+          autoScroll={{ order: TraversalOrder.ReversedTreeOrder }}
+      >
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+              <div style={{ overflow: 'auto', display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
+                  {items.map((value, index) => (
+                      <SortableItem
+                          key={value}
+                          id={value}
+                          index={index}
+                          renderItem={renderItem}
+                      />
+                  ))}
+              </div>
+              {createPortal(
+                  <DragOverlay
+                      style={{ zIndex: undefined }}
+                  >
+                      {activeId ? (
+                          renderItem({
+                              id: activeId,
+                              sortableHandle: (WrapperComponent) => WrapperComponent
+                          })
+                      ) : null}
+                  </DragOverlay>,
+                  document.body
+              )}
+          </SortableContext>
+      </DndContext>
+  );
+}
+
+function SortableItem({ getNewIndex, id, renderItem }) {
+  const {
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      active,
+      isOver,
+      attributes,
+  } = useSortable({
+      id,
+      getNewIndex,
+  });
+
+  const sortableHandle = useCallback((WrapperComponent) => {
+      return () => <span {...listeners} style={{ lineHeight: 0 }}><WrapperComponent /></span>;
+  }, [listeners]);
+
+  const wrapperStyle = {
+      transform: cssDndKit.Transform.toString({
+          ...transform,
+          scaleX: 1,
+          scaleY: 1,
+      }),
+      transition: transition,
+      opacity: active && active.id === id ? 0 : undefined,
+  };
+
+  return <div 
+      ref={setNodeRef}
+      style={wrapperStyle}
+      {...attributes}
+  >
+      {renderItem({ id, sortableHandle })}
+  </div>;
+}
+
 class CustomRenderDragDemo extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      dataSource: Array.from({ length: 100 }, (v, i) => ({
-        label: `海底捞门店 ${i}`,
-        value: i,
-        disabled: false,
-        key: i,
-      })),
-    };
-    this.renderSourcePanel = this.renderSourcePanel.bind(this);
-    this.renderSelectedPanel = this.renderSelectedPanel.bind(this);
-    this.renderItem = this.renderItem.bind(this);
+      super(props);
+      this.state = {
+          dataSource: Array.from({ length: 10 }, (v, i) => ({
+              label: `海底捞门店 ${i}`,
+              value: i,
+              disabled: false,
+              key: `key-${i}`,
+          })),
+      };
+      this.renderSourcePanel = this.renderSourcePanel.bind(this);
+      this.renderSelectedPanel = this.renderSelectedPanel.bind(this);
+      this.renderItem = this.renderItem.bind(this);
   }
 
-  renderItem(type, item, onItemAction, selectedItems) {
-    let buttonText = '删除';
-    let newItem = item;
+  renderItem(type, item, onItemAction, selectedItems, sortableHandle) {
+      let buttonText = '删除';
 
-    if (type === 'source') {
-      let checked = selectedItems.has(item.key);
-      buttonText = checked ? '删除' : '添加';
-    } else {
-      // delete newItem._optionKey;
-      newItem = { ...item, key: item._optionKey };
-      delete newItem._optionKey;
-    }
+      if (type === 'source') {
+          let checked = selectedItems.has(item.key);
+          buttonText = checked ? '删除' : '添加';
+      }
 
-    const DragHandle = sortableHandle(() => <IconHandle className="pane-item-drag-handler" />);
+      const DragHandle = (sortableHandle && sortableHandle(() => <IconHandle className="pane-item-drag-handler" />));
 
-    return (
-      <div className="semi-transfer-item panel-item" key={item.label}>
-        {type === 'source' ? null : <DragHandle />}
-        <div className="panel-item-main" style={{ flexGrow: 1 }}>
-          <p>{item.label}</p>
-          <Button
-            theme="borderless"
-            type="primary"
-            onClick={() => onItemAction(newItem)}
-            className="panel-item-remove"
-            size="small"
-          >
-            {buttonText}
-          </Button>
-        </div>
-      </div>
-    );
+      return (
+          <div className="semi-transfer-item panel-item" key={item.label}>
+              {type === 'source' ? null : ( DragHandle ? <DragHandle /> : null) }
+              <div className="panel-item-main" style={{ flexGrow: 1 }}>
+                  <p style={{ margin: '0 12px' }}>{item.label}</p>
+                  <Button
+                      theme="borderless"
+                      type="primary"
+                      onClick={() => onItemAction(item)}
+                      className="panel-item-remove"
+                      size="small"
+                  >
+                      {buttonText}
+                  </Button>
+              </div>
+          </div>
+      );
   }
 
   renderSourcePanel(props) {
-    const {
-      loading,
-      noMatch,
-      filterData,
-      selectedItems,
-      allChecked,
-      onAllClick,
-      inputValue,
-      onSearch,
-      onSelectOrRemove,
-    } = props;
-    let content;
-    switch (true) {
-      case loading:
-        content = <Spin loading />;
-        break;
-      case noMatch:
-        content = <div className="empty sp-font">{inputValue ? '无搜索结果' : '暂无内容'}</div>;
-        break;
-      case !noMatch:
-        content = filterData.map(item =>
-          this.renderItem('source', item, onSelectOrRemove, selectedItems)
-        );
-        break;
-      default:
-        content = null;
-        break;
-    }
-    return (
-      <section className="source-panel">
-        <div className="panel-header sp-font">门店列表</div>
-        <div className="panel-main">
-          <Input
-            style={{ width: 454, margin: '12px 14px' }}
-            prefix={<IconSearch />}
-            onChange={onSearch}
-            showClear
-          />
-          <div className="panel-controls sp-font">
-            <span>待选门店: {filterData.length}</span>
-            <Button onClick={onAllClick} theme="borderless" size="small">
-              {allChecked ? '取消全选' : '全选'}
-            </Button>
-          </div>
-          <div className="panel-list">{content}</div>
-        </div>
-      </section>
-    );
+      const {
+          loading,
+          noMatch,
+          filterData,
+          selectedItems,
+          allChecked,
+          onAllClick,
+          inputValue,
+          onSearch,
+          onSelectOrRemove,
+      } = props;
+      let content;
+      switch (true) {
+          case loading:
+              content = <Spin loading />;
+              break;
+          case noMatch:
+              content = <div className="empty sp-font">{inputValue ? '无搜索结果' : '暂无内容'}</div>;
+              break;
+          case !noMatch:
+              content = filterData.map(item => this.renderItem('source', item, onSelectOrRemove, selectedItems));
+              break;
+          default:
+              content = null;
+              break;
+      }
+      return (
+          <section className="source-panel">
+              <div className="panel-header sp-font">门店列表</div>
+              <div className="panel-main">
+                  <Input
+                      style={{ width: 454, margin: '12px 14px' }}
+                      prefix={<IconSearch />}
+                      onChange={onSearch}
+                      showClear
+                  />
+                  <div className="panel-controls sp-font">
+                      <span>待选门店: {filterData.length}</span>
+                      <Button onClick={onAllClick} theme="borderless" size="small">
+                          {allChecked ? '取消全选' : '全选'}
+                      </Button>
+                  </div>
+                  <div className="panel-list">{content}</div>
+              </div>
+          </section>
+      );
   }
 
   renderSelectedPanel(props) {
-    const { selectedData, onClear, clearText, onRemove, onSortEnd } = props;
+      const { selectedData, onClear, clearText, onRemove, onSortEnd } = props;
+      let mainContent = null;
 
-    let mainContent = null;
+      if (!selectedData.length) {
+          mainContent = <div className="empty sp-font">暂无数据，请从左侧筛选</div>;
+      }
 
-    if (!selectedData.length) {
-      mainContent = <div className="empty sp-font">暂无数据，请从左侧筛选</div>;
-    }
+      const renderSelectItem = ({ id, sortableHandle }) => {
+          const item = selectedData.find(item => id === item.key);
+          return this.renderItem('selected', item, onRemove, null, sortableHandle);
+      };
 
-    const SortableItem = SortableElement(item => this.renderItem('selected', item, onRemove));
-    const SortableList = SortableContainer(
-      ({ items }) => {
-        return (
-          <div className="panel-main">
-            {items.map((item, index) => (
-              // sortableElement will take over the property 'key', so use another '_optionKey' to pass
-              // otherwise you can't get `key` property in this.renderItem
-              <SortableItem
-                key={item.label}
-                index={index}
-                {...item}
-                _optionKey={item.key}
-              ></SortableItem>
-            ))}
-          </div>
-        );
-      },
-      { distance: 10 }
-    );
+      const sortData = selectedData.map(item => item.key);
 
-    mainContent = (
-      <SortableList useDragHandle onSortEnd={onSortEnd} items={selectedData}></SortableList>
-    );
+      mainContent = <div className="panel-main" style={{ display: 'block' }}>
+          <SortableList onSortEnd={onSortEnd} items={sortData} renderItem={renderSelectItem}></SortableList>
+      </div>;
 
-    return (
-      <section className="selected-panel">
-        <div className="panel-header sp-font">
-          <div>已选同步门店: {selectedData.length}</div>
-          <Button theme="borderless" type="primary" onClick={onClear} size="small">
-            {clearText || '清空 '}
-          </Button>
-        </div>
-        {mainContent}
-      </section>
-    );
+      return (
+          <section className="selected-panel">
+              <div className="panel-header sp-font">
+                  <div>已选同步门店: {selectedData.length}</div>
+                  <Button theme="borderless" type="primary" onClick={onClear} size="small">
+                      {clearText || '清空 '}
+                  </Button>
+              </div>
+              {mainContent}
+          </section>
+      );
   }
 
   render() {
-    const { dataSource } = this.state;
-    return (
-      <Transfer
-        defaultValue={[2, 4]}
-        onChange={values => console.log(values)}
-        className="component-transfer-demo-custom-panel"
-        renderSourcePanel={this.renderSourcePanel}
-        renderSelectedPanel={this.renderSelectedPanel}
-        dataSource={dataSource}
-      />
-    );
+      const { dataSource } = this.state;
+      return (
+          <Transfer
+              defaultValue={[2, 4]}
+              onChange={values => console.log(values)}
+              className="component-transfer-demo-custom-panel"
+              renderSourcePanel={this.renderSourcePanel}
+              renderSelectedPanel={this.renderSelectedPanel}
+              dataSource={dataSource}
+          />
+      );
   }
 }
 
