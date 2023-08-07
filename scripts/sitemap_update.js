@@ -39,7 +39,6 @@ const main = async ()=>{
     const promiseList = [];
     let count = 0;
     const urls = Object.keys(urlMap);
-    urls.sort();
     const updatedArr = [];
     urls.forEach((url)=>{
         const item = urlMap[url];
@@ -68,6 +67,9 @@ const main = async ()=>{
         }));
     });
     await Promise.all(promiseList);
+    updatedArr.sort((itemA, itemB)=>{
+        return itemA.loc.localeCompare(itemB.loc);
+    });
     data['urlset'].url = updatedArr;
     await writeData(data);
 };
