@@ -171,11 +171,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         this.copyRef = React.createRef();
     }
 
-    componentDidMount() {
-        if (this.props.ellipsis) {
-            this.onResize();
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.ellipsis) {
+    //         this.onResize();
+    //     }
+    // }
 
     static getDerivedStateFromProps(props: BaseTypographyProps, prevState: BaseTypographyState) {
         const { prevChildren } = prevState;
