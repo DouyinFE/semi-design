@@ -156,6 +156,8 @@ export default function HTML(props) {
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta name="google-site-verification" content="K9ajinpeafHOSSuts14tlwJswGvmgE8rRmuq8uvkaJQ" />
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
+                <link rel="alternate" hrefLang="zh" href="https://semi.design/zh-CN" />
+                <link rel="alternate" hrefLang="en" href="https://semi.design/en-US" />
                 <meta name="description" content="An easy-to-customize modern design system that helps designers and developers create high-quality products. 由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。 "/>
                 <meta name="keywords" content={[
                     "React",
