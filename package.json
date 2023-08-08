@@ -101,7 +101,9 @@
         "unist-util-remove": "^1.0.3",
         "unist-util-visit": "^2.0.3",
         "wait-on": "^6.0.1",
-        "wcag-color": "^1.1.1"
+        "wcag-color": "^1.1.1",
+        "fast-xml-parser": "^4.2.7",
+        "execa": "5"
     },
     "devDependencies": {
         "@actions/core": "^1.6.0",
