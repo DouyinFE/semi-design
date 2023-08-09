@@ -180,7 +180,7 @@ export default function HTML(props) {
                     "现代设计体系",
                     "前端"
                 ].join(", ")}/>
-                <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" />
+                <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" defer={true} />
                 {
                     THEME_SWITCHER_URL?<script src={THEME_SWITCHER_URL} defer={true}/>:<script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js" defer={true}/>
                 }
