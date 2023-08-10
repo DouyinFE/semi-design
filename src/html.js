@@ -155,6 +155,7 @@ export default function HTML(props) {
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta name="google-site-verification" content="K9ajinpeafHOSSuts14tlwJswGvmgE8rRmuq8uvkaJQ" />
+                <meta name="google-site-verification" content="I__60o8MR6XwZxKCpOe12z9PoGTk78az081sUkkREOU" />
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
                 <link rel="alternate" hrefLang="zh" href="https://semi.design/zh-CN" />
                 <link rel="alternate" hrefLang="en" href="https://semi.design/en-US" />
