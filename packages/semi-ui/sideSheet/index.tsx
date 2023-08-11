@@ -14,6 +14,7 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
+import { getScrollbarWidth } from '_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -152,15 +153,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         return newState;
     }
 
-    static getScrollbarWidth() {
-        if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
-            return window.innerWidth - document.documentElement.clientWidth;
-        }
-        return 0;
-    }
-
     componentDidMount() {
-        this.scrollBarWidth = SideSheet.getScrollbarWidth();
+        this.scrollBarWidth = getScrollbarWidth();
         this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();

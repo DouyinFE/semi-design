@@ -15,6 +15,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
+import { getScrollbarWidth } from '_utils';
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -188,14 +189,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         return newState;
     }
 
-    static getScrollbarWidth() {
-        if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
-            return window.innerWidth - document.documentElement.clientWidth;
-        }
-        return 0;
-    }
-
-
     static info = function (props: ModalReactProps) {
         return confirm<ReturnType<typeof withInfo>>(withInfo(props));
     };
@@ -228,7 +221,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     componentDidMount() {
 
-        this.scrollBarWidth = Modal.getScrollbarWidth();
+        this.scrollBarWidth = getScrollbarWidth();
         this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
@@ -368,22 +361,22 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         return (
             <CSSAnimation
                 motion={this.props.motion}
-                animationState={visible?'enter':'leave'}
-                startClassName={visible?`${cssClasses.DIALOG}-content-animate-show`:`${cssClasses.DIALOG}-content-animate-hide`}
-                onAnimationEnd={()=>{
+                animationState={visible ? 'enter' : 'leave'}
+                startClassName={visible ? `${cssClasses.DIALOG}-content-animate-show` : `${cssClasses.DIALOG}-content-animate-hide`}
+                onAnimationEnd={() => {
                     this.updateState();
                 }}
             >
                 {
-                    ({ animationClassName, animationEventsNeedBind })=>{
-                        return <CSSAnimation motion={this.props.motion} animationState={visible?'enter':'leave'}
-                            startClassName={visible?`${cssClasses.DIALOG}-mask-animate-show`:`${cssClasses.DIALOG}-mask-animate-hide`}
-                            onAnimationEnd={()=>{
+                    ({ animationClassName, animationEventsNeedBind }) => {
+                        return <CSSAnimation motion={this.props.motion} animationState={visible ? 'enter' : 'leave'}
+                            startClassName={visible ? `${cssClasses.DIALOG}-mask-animate-show` : `${cssClasses.DIALOG}-mask-animate-hide`}
+                            onAnimationEnd={() => {
                                 this.updateState();
                             }}
                         >
                             {
-                                ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind })=>{
+                                ({ animationClassName: maskAnimationClassName, animationEventsNeedBind: maskAnimationEventsNeedBind }) => {
                                     return shouldRender ? <Portal style={wrapperStyle} getPopupContainer={getPopupContainer}> <ModalContent
                                         {...restProps}
                                         contentExtraProps={animationEventsNeedBind}
@@ -399,7 +392,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         footer={renderFooter}
                                         onClose={this.handleCancel}
 
-                                    /></Portal>:<></>;
+                                    /></Portal> : <></>;
                                 }
                             }
                         </CSSAnimation>;
