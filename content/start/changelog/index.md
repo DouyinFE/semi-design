@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.41.1 (2023-08-11)
+- 【Feat】
+  - Slider 新增 onMouseUp API
+- 【Fix】
+  - 修复 Slider 鼠标移出窗口后松手再移回的场景下，handle 一直跟随鼠标的问题, [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
+  - SideSheet 新增自动计算滚动条宽度逻辑防止弹出时 mask 背后内容抖动
+  - 修复 Input 和 TextArea autoFoucs 大小写不正确的问题
+
+
 #### 🎉 2.41.0-beta.0 (2023-08-07)
 - 【Refactor】
     - 使用 @dnd-kit/sortable 替换 react-sortable-hoc 实现 Transfer/Taginput 中拖拽 [#1683](https://github.com/DouyinFE/semi-design/issues/1683)

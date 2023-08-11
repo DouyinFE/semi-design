@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.41.1 (2023-08-11)
+- 【Feat】
+  - Slider Add onMouseUp API
+- 【Fix】
+  - Fix the problem that the handle always follows the mouse in the scene where the Slider mouse moves out of the window and then lets go and then moves back [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
+  - SideSheet adds automatic calculation of scroll bar width logic to prevent the content behind the mask from shaking when it pops up
+  - Fix the incorrect case of Input and TextArea autoFoucs
+
 #### 🎉 2.41.0-beta.0 (2023-08-07)
 - 【Refactor】
     - change react-sortable-hoc to @dnd-kit/sortable for Transfer/Taginput drag & drop [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
