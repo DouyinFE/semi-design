@@ -43,6 +43,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         vertical: PropTypes.bool,
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
+        onMouseUp: PropTypes.func,
         tooltipVisible: PropTypes.bool,
         style: PropTypes.object,
         className: PropTypes.string,
@@ -240,6 +241,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this.setState({ focusPos: '' });
             },
             onHandleUpBefore: (e: React.MouseEvent) => {
+                this.props.onMouseUp?.(e);
                 e.stopPropagation();
                 e.preventDefault();
                 document.body.removeEventListener('mousemove', this.foundation.onHandleMove, false);

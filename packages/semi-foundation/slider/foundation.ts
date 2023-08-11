@@ -23,6 +23,7 @@ export interface SliderProps{
     vertical?: boolean;
     onAfterChange?: (value: SliderProps['value']) => void; // triggered when mouse up and clicked
     onChange?: (value: SliderProps['value']) => void;
+    onMouseUp?: (e: any) => void;
     tooltipVisible?: boolean;
     style?: Record<string, any>;
     className?: string;
