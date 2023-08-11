@@ -169,11 +169,18 @@ $module: #{$prefix}-transfer;
                 &-handler {
                     margin-right: $spacing-transfer_right_item_drag_handler-marginRight;
                     flex-shrink: 0;
+                    cursor: move;
                 }
 
                 &-item-move {
                     z-index: $z-transfer_right_item_drag_item_move;
                 }            
+            }
+
+            &-sortable-item {
+                &-active {
+                    opacity: 0;
+                }
             }
         }
 
