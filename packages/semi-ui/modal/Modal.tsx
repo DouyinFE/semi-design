@@ -15,7 +15,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '_utils';
+import { getScrollbarWidth } from '../_utils';
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
