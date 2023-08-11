@@ -1,30 +1,30 @@
 import loadSassCompiler from "./loadSassCompiler";
-import {themeScssContent} from './themeDefaultScssContent'
+import { themeScssContent } from './themeDefaultScssContent';
 import { componentsScssContent } from "./componentsScssContent";
 
 export async function compile(customVariables) {
     if (!customVariables) {
-        return ''
+        return '';
     }
-    const compiler = await loadSassCompiler()
+    const compiler = await loadSassCompiler();
 
-    const customVariablesString  = Object.entries(customVariables).reduce((acc, cur) => {
+    const customVariablesString = Object.entries(customVariables).reduce((acc, cur) => {
         const [key, value] = cur;
-        acc += `${key}: ${value};\n`
+        acc += `${key}: ${value};\n`;
         return acc;
-    }, '')
+    }, '');
 
     await compiler.writeFilePromisify({
         'custom.scss': customVariablesString,
-    })
+    });
 
-    const modifiedComponentScssFiles = insertCustomVariables('../custom.scss')
+    const modifiedComponentScssFiles = insertCustomVariables('../custom.scss');
 
     await compiler.writeFilePromisify({
         ...themeScssContent,
         ...componentsScssContent,
         ...modifiedComponentScssFiles
-    })
+    });
 
     return new Promise(resolve => {
         // hack sass.js write file bug
@@ -32,20 +32,20 @@ export async function compile(customVariables) {
 
             const componentScssEntry = Object.keys(componentsScssContent).filter(path => path.includes('index.scss'));
             const entryString = componentScssEntry.reduce((acc, path) => {
-                acc += `@import '${path}';`
+                acc += `@import '${path}';`;
                 return acc;
-            }, '')
+            }, '');
 
             compiler.compile(`@import 'theme/index.scss';${entryString}`, (res) => {
                 if (res.status === 0) {
-                    console.log(res)
+                    console.log(res);
                     resolve(res.text);
                 } else {
                     console.dir(res);
                     resolve("");
                 }
-            })
-        })
+            });
+        });
     }).finally(() => {
         compiler.clearFiles();
     });
@@ -67,7 +67,7 @@ function insertCustomVariablesTo(source, customVariablesPath) {
             fileStr = fileSplit.join('');
         }
     } catch (error) {}
-    return fileStr
+    return fileStr;
 }
 
 export function insertCustomVariables(customVariablesPath) {
@@ -76,13 +76,13 @@ export function insertCustomVariables(customVariablesPath) {
 
     const modifiedFiles = componentScssEntry.reduce((acc, cur) => {
         const content = componentsScssContent[cur];
-        const newContent = insertCustomVariablesTo(content, customVariablesPath)
-        acc[cur] = newContent
+        const newContent = insertCustomVariablesTo(content, customVariablesPath);
+        acc[cur] = newContent;
         return acc;
-    }, {})
+    }, {});
 
-    const themeVariableContent = themeScssContent['theme/variables.scss']
-    const newThemeVariableContent = themeVariableContent + `\n@import "${customVariablesPath}";`
+    const themeVariableContent = themeScssContent['theme/variables.scss'];
+    const newThemeVariableContent = themeVariableContent + `\n@import "${customVariablesPath}";`;
 
     return {
         ...modifiedFiles,
@@ -91,16 +91,16 @@ export function insertCustomVariables(customVariablesPath) {
 } 
 
 export function insertStyleToDocument(css) {
-    let styleEle = document.querySelector('#customStyle')
+    let styleEle = document.querySelector('#customStyle');
     if (!styleEle) {
         styleEle = document.createElement("style");
         styleEle.setAttribute('id', 'customStyle');
         document.head.appendChild(styleEle);
     }
-    styleEle.textContent = `${css}`
+    styleEle.textContent = `${css}`;
 }
 
 export function removeStyleFromDocument() {
-    let styleEle = document.querySelector('#customStyle')
-    styleEle && styleEle.remove()
+    let styleEle = document.querySelector('#customStyle');
+    styleEle && styleEle.remove();
 }

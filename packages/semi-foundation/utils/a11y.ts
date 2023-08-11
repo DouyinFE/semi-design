@@ -35,7 +35,7 @@ export function setFocusToLastItem(itemNodes: HTMLElement[]): void {
 export function setFocusToPreviousMenuItem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
     let newMenuItem: HTMLElement, index: number;
 
-    if (itemNodes.length > 0){
+    if (itemNodes.length > 0) {
         if (currentItem === itemNodes[0]) {
             newMenuItem = itemNodes[itemNodes.length-1];
         } else {
@@ -50,7 +50,7 @@ export function setFocusToPreviousMenuItem (itemNodes: HTMLElement[], currentIte
 export function setFocusToNextMenuitem (itemNodes: HTMLElement[], currentItem: HTMLElement): void {
     let newMenuItem: HTMLElement, index: number;
 
-    if (itemNodes.length > 0){
+    if (itemNodes.length > 0) {
         if (currentItem === itemNodes[itemNodes.length-1]) {
             newMenuItem = itemNodes[0];
         } else {
@@ -91,17 +91,17 @@ export function getAncestorNodeByRole(curElement: Element, role: string): Elemen
     if (!curElement) {
         return null;
     }
-    while (curElement.parentElement && get(curElement.parentElement, 'attributes.role.value', '') !== role){
+    while (curElement.parentElement && get(curElement.parentElement, 'attributes.role.value', '') !== role) {
         curElement = curElement.parentElement;
     }
     return curElement.parentElement;
 }
 
 // According to the Id, find the corresponding data-popupid element
-export function getMenuButton(focusableEle: NodeListOf<HTMLElement>, Id: string): HTMLElement{
-    for (let i = 0; i < focusableEle.length; i++){
+export function getMenuButton(focusableEle: NodeListOf<HTMLElement>, Id: string): HTMLElement {
+    for (let i = 0; i < focusableEle.length; i++) {
         const curAriDescribedby = focusableEle[i].attributes['data-popupid'];
-        if (curAriDescribedby && curAriDescribedby.value === Id){
+        if (curAriDescribedby && curAriDescribedby.value === Id) {
             return focusableEle[i];
         }
     }

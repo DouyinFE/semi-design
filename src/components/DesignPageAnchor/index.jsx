@@ -34,7 +34,7 @@ const PageAnchor = props => {
                     <Anchor.Link href={"#" + makeAnchorId(item.title)} title={item.title} key={item.title}>
                         {getAnchorLink(item.items, currentLayer + 1)}
                     </Anchor.Link>
-                </span>
+                </span>;
 
             } else {
                 return <span onClickCapture={(e)=>{
@@ -45,7 +45,7 @@ const PageAnchor = props => {
                     dom?.scrollIntoView();
                 }}>
                     <Anchor.Link href={"#" + makeAnchorId(item.title)} title={item.title} key={item.title} />
-                </span>
+                </span>;
             }
         }
         );

@@ -8,7 +8,7 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
 
     handleEscape(menu: Element): void {
         const trigger = this._adapter.getContext('trigger');
-        if (trigger === 'custom'){
+        if (trigger === 'custom') {
             const menuButton = menu && getMenuButton(document.querySelectorAll(`[data-popupid]`), menu.id); 
             menuButton.focus();
         }
@@ -25,11 +25,11 @@ export default class DropdownMenuFoundation extends BaseFoundation<Partial<Defau
     onMenuKeydown(event: any): void {
         const menu = getAncestorNodeByRole(event.target, 'tooltip');
         
-        if (!this.menuItemNodes){
+        if (!this.menuItemNodes) {
             this.menuItemNodes = [...(event.target.parentNode).getElementsByTagName('li')].filter(item => item.ariaDisabled !== "true");
         }
 
-        if (this.firstChars.length === 0){
+        if (this.firstChars.length === 0) {
             this.menuItemNodes.forEach((item: Element) => {
                 // the menuItemNodes can be an component and not exit textContent
                 this.firstChars.push(item.textContent.trim()[0]?.toLowerCase());

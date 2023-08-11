@@ -1,7 +1,6 @@
 import { isObject, get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { numbers } from './constants';
-import { throttle } from 'lodash';
 
 export interface CarouselAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyChange: (activeIndex: number, preIndex: number) => void;
@@ -34,7 +33,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     }
 
     stop(): void {
-        if (this._interval){
+        if (this._interval) {
             clearInterval(this._interval);
         }
     }
@@ -93,7 +92,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
 
     _notifyChange(activeIndex: number): void {
         const { activeIndex: stateActiveIndex, isInit } = this.getStates();
-        if (isInit){
+        if (isInit) {
             this._adapter.setIsInit(false);
         }
         if (stateActiveIndex !== activeIndex) {
@@ -110,10 +109,10 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
     getSwitchingTime(): number {
         const { autoPlay, speed } = this.getProps(); 
         const autoPlayType = typeof autoPlay;
-        if (autoPlayType === 'boolean'){ 
+        if (autoPlayType === 'boolean') { 
             return numbers.DEFAULT_INTERVAL + speed;
         }
-        if (isObject(autoPlay)){
+        if (isObject(autoPlay)) {
             return get(autoPlay, 'interval', numbers.DEFAULT_INTERVAL) + speed;
         }
         return speed;
@@ -127,12 +126,12 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const { autoPlay } = this.getProps(); 
         const autoPlayType = typeof autoPlay;
         // when user manually call the play function, force play
-        if ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay){
+        if ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay) {
             this.play(this.getSwitchingTime());
         }
     }
 
-    handleKeyDown(event: any): void{
+    handleKeyDown(event: any): void {
         if (event.key === 'ArrowLeft') {
             this.prev();
         }

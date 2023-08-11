@@ -7,8 +7,8 @@ const IndexPage = ({ location }) => {
     useEffect(() => {
         setTimeout(()=>{
             window?.__semi__?.Tea?.userVisited();
-            window?.__semi__?.Tea?.eventHappened("refer",document?.referrer ?? 'empty');
-        },3000);
+            window?.__semi__?.Tea?.eventHappened("refer", document?.referrer ?? 'empty');
+        }, 3000);
     }, []);
 
     return (

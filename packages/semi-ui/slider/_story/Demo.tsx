@@ -7,7 +7,7 @@ const Demo = () => {
         <div>
             <div>
                 <div>tipFormatter</div>
-                <Slider showBoundary={true} tipFormatter={ (val:any) => `=====${val}=====` }></Slider>
+                <Slider showBoundary={true} tipFormatter={ (val: any) => `=====${val}=====` }></Slider>
             </div>
             <br/>
             <br/>
