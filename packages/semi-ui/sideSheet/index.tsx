@@ -14,7 +14,7 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '_utils';
+import { getScrollbarWidth } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
