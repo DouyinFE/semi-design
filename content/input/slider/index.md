@@ -249,7 +249,7 @@ import { Slider } from '@douyinfe/semi-ui';
 | verticalReverse | 反转垂直方向，即上大下小 >=1.29.0                                                                                                                                              | boolean                                                                       | false | -      |
 | onAfterChange | 值变化后触发，把当前值作为参数传入                                                                                                                                                  | (value: number \| number[]) => void                                           | 无 | -      |
 | onChange | 当 Slider 的值发生改变时的回调                                                                                                                                                | (value: number \| number[]) => void                                           | 无 | -      |
-| onMouseUp | 鼠标松开 handle 时触发 | (e: React.MouseEvent<HTMLDivElement\>) => void                                | 无 | 2.41.0 |
+| onMouseUp | 鼠标松开滑块时触发                                                                                                                                                          | (e: React.MouseEvent<HTMLDivElement\>) => void                                | 无 | 2.41.0 |
 | getAriaValueText | 用于给滑块的当前值提供一个用户友好的名称，对屏幕阅读器用户很重要，参数value为当前滑块的值，index为当前滑块的顺序                                                                                                      | (value: number, index?: number) => string                                     |-| -      |
 
 ## Accessibility
