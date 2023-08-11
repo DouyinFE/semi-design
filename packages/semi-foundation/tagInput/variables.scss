@@ -27,6 +27,7 @@ $color-tagInput_danger-bg-hover: var(--semi-color-danger-light-hover); // 危险
 $color-tagInput_danger-border-hover: var(--semi-color-danger-light-hover); // 危险标签输入框描边颜色 - 悬浮
 $color-tagInput_danger-bg-focus: var(--semi-color-danger-light-default); // 危险标签输入框背景颜色 - 选中
 $color-tagInput_danger-border-focus: var(--semi-color-danger); // 危险标签输入框描边颜色 - 选中
+$color-tagInput_sortable_item_over-bg: var(--semi-color-primary); // 拖拽经过的元素前竖线背景色
 
 $color-tagInput_handler-icon-default: var(--semi-color-text-2); // 可拖拽的标签拖拽按钮颜色
 
@@ -48,6 +49,7 @@ $width-tagInput-clear-medium: $width-icon-medium * 2; // 标签输入框清空�
 $width-tagInput-border-default: $border-thickness-control; // 标签输入框描边描边宽度 - 默认
 $width-tagInput-border-hover: $width-tagInput-border-default; // 标签输入框描边描边宽度 - 悬浮
 $width-tagInput-border-focus: $border-thickness-control-focus; // 标签输入框描边宽度 - 选中态
+$width-tagInput_sortable_item_over: 2px; // 拖拽经过的元素前竖线宽度
 
 $radius-tagInput: var(--semi-border-radius-small); // 标签输入框圆角
 

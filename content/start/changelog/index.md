@@ -13,6 +13,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.41.0-beta.0 (2023-08-07)
+- 【Refactor】
+    - 使用 @dnd-kit/sortable 替换 react-sortable-hoc 实现 Transfer/Taginput 中拖拽 [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+- 【Style】
+    - Taginput 拖拽过程交互有修改，从原来的拖拽中 tag 位置发生变化修改为通过 tag 前的竖线标识拖拽中的 tag 可被放下的位置。TagInput 新增和拖拽相关的 token，$width-tagInput_sortable_item_over，$color-tagInput_sortable_item_over-bg [#1738](https://github.com/DouyinFE/semi-design/pull/1738)
+- 【Fix】
+    - 修复 ImagePreview 中 defaultCurrentIndex 错误的类型定义
+    - 修复 document is not defined 错误 [@nekocode](https://github.com/nekocode)
+
 #### 🎉 2.40.0 (2023-07-28)
 - 【Style】
     - 删除 Button 组件中的不必要的 margin [#1732](https://github.com/DouyinFE/semi-design/pull/1732)
