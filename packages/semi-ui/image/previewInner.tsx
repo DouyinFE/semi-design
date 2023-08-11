@@ -12,7 +12,7 @@ import Footer from "./previewFooter";
 import PreviewImage from "./previewImage";
 import PreviewInnerFoundation, { PreviewInnerAdapter, RatioType } from "@douyinfe/semi-foundation/image/previewInnerFoundation";
 import { PreviewContext, PreviewContextProps } from "./previewContext";
-import { getScrollbarWidth } from "_utils";
+import { getScrollbarWidth } from "../_utils";
 
 const prefixCls = cssClasses.PREFIX;
 
