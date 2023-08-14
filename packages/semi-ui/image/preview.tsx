@@ -20,7 +20,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         visible: PropTypes.bool,
         src: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         currentIndex: PropTypes.number,
-        defaultIndex: PropTypes.number,
+        defaultCurrentIndex: PropTypes.number,
         defaultVisible: PropTypes.bool,
         maskClosable: PropTypes.bool,
         closable: PropTypes.bool,

@@ -42,6 +42,27 @@ $module: #{$prefix}-tagInput;
         }
     }
 
+    &-sortable-item {
+        position: relative;
+        &-over {
+            overflow: visible;
+            &::before {
+                content: "";
+                display: block;
+                height: 100%;
+                width: $width-tagInput_sortable_item_over;
+                background-color: $color-tagInput_sortable_item_over-bg;
+                position: absolute;
+                left: -$width-tagInput_sortable_item_over;
+                top: 0;
+            }
+        }
+
+        &-active {
+            opacity: 0.5;
+        }
+    }
+
     &-hover {
         background-color: $color-tagInput_default-bg-hover;
         border: $width-tagInput-border-hover $color-tagInput-border-hover solid;

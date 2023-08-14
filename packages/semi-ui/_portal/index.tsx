@@ -52,25 +52,25 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         }
     }
 
-    initContainer = (context: ContextValue, catchError = false)=>{
-        let container: HTMLElement|undefined = undefined;
-        if (!this.el) {
-            this.el = document.createElement('div');
-        }
-        if (!this.state?.container) {
-            try {
+    initContainer = (context: ContextValue, catchError = false) => {
+        try {
+            let container: HTMLElement | undefined = undefined;
+            if (!this.el) {
+                this.el = document.createElement('div');
+            }
+            if (!this.state?.container) {
                 this.el = document.createElement('div');
                 const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
                 const portalContainer = getContainer();
                 portalContainer.appendChild(this.el);
                 this.addStyle(this.props.style);
                 this.addClass(this.props.prefixCls, context, this.props.className);
-                container = portalContainer; 
+                container = portalContainer;
                 return container;
-            } catch (e) {
-                if (!catchError) {
-                    throw e;
-                }
+            }
+        } catch (e) {
+            if (!catchError) {
+                throw e;
             }
         }
         return this.state?.container;

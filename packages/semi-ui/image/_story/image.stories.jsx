@@ -213,6 +213,42 @@ export const ControlledPreviewMultiple = () => {
     )
 }
 
+export const DefaultCurrentIndex = () => {
+    const [visible, setVisible] = useState(false);
+    const [index, setIndex] = useState(1);
+
+    const handlePreviewVisibleChange = useCallback((v) => {
+        setVisible(v);
+    }, []);
+
+    const handleClick = useCallback(() => {
+        setVisible(!visible);
+    }, [visible])
+
+    const onInputChange = useCallback((value) => {
+        setIndex(Number(value) ?? 0);
+    }
+    ,[])
+
+    const imageData = srcList1;
+
+    return (
+        <>
+            <span>{`输入默认打开图片index(0-${imageData.length - 1})`}</span>
+            <Input style={{ width: 100 }} defaultValue={index} onChange={onInputChange}/>
+            <br /><br />
+            <Button onClick={handleClick}>{visible ? "hide" : "show multiple"}</Button>
+            <ImagePreview 
+                key={index}
+                src={imageData}
+                visible={visible}
+                defaultCurrentIndex={index}
+                onVisibleChange={handlePreviewVisibleChange}
+            />
+        </>
+    );
+}
+
 export const BasicPreview = () => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [customTooltip, setCustomTooltip] = useState(false);
@@ -654,3 +690,4 @@ export const SetDownloadName = () => {
         </ImagePreview>
     </>);
 }
+
