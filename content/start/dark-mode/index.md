@@ -9,8 +9,13 @@ order: 5
 
 ## 能力介绍
 
+大多数情况下，深色模式是浅色模式的补充。默认选用值，更多取决于用户的审美选择或业务场景，用户可以根据自己的需要选择使用哪一个模式。
+
 🤩 Semi 的默认主题或任意通过 [Semi DSM](/dsm) 配置的定制主题都自带了亮色模式与暗色模式，可以方便地进行切换。  
 🌒 Semi 也支持在页面的局部范围使用亮/暗色模式。
+
+<Compare dark='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/dark.png' light='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/light.png'>
+</Compare>
 
 ## 推荐设置
 Semi 会自动在 body 元素上挂载全局色盘，我们内置了一些常用的 CSS Token，详细的 Token 详情可查阅 [设计变量](/zh-CN/basic/tokens)  
