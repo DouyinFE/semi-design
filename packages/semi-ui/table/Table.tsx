@@ -288,6 +288,10 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     isFixed = flattenColumns.some(column => (Boolean(column.ellipsis) || Boolean(column.fixed)));
                 }
 
+                if (this.adapter.useFixedHeader()) {
+                    isFixed = true;
+                }
+
                 return isFixed ? 'fixed' : 'auto';
             },
             setHeadWidths: (headWidths: Array<BaseHeadWidth>, index = 0) => {

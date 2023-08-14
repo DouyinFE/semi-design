@@ -42,7 +42,7 @@ export interface SiderProps {
     breakpoint?: Array<keyof ResponsiveMap>;
     onBreakpoint?: (screen: keyof ResponsiveMap, match: boolean) => void;
     'aria-label'?: React.AriaAttributes['aria-label'];
-    'role'?:React.AriaRole
+    'role'?: React.AriaRole
 }
 
 class Sider extends React.PureComponent<SiderProps> {

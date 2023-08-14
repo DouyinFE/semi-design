@@ -1,6 +1,6 @@
 const ENTRY_CONTENT = `@import './mixin.scss';
 @import './variables.scss';
-@import './_font.scss';`
+@import './_font.scss';`;
 
 const MIXIN_CONTENT = `/* shadow */
 @mixin shadow-elevated {
@@ -75,7 +75,7 @@ const MIXIN_CONTENT = `/* shadow */
         }
     }
 }
-`
+`;
 
 const VARIABLES_CONTENT = `$prefix: 'semi';
 
@@ -137,7 +137,7 @@ $font-size-header-1: 32px; // 一级标题字号
 $font-weight-light: 200; // 字重 - 轻
 $font-weight-regular: 400; // 字重 - 常规
 $font-weight-bold: 600; // 字重 - 加粗
-`
+`;
 
 const FONT_CONTENT = `// font-size line-height绑定
 @mixin font-size-small {
@@ -187,11 +187,11 @@ const FONT_CONTENT = `// font-size line-height绑定
     line-height: 44px;
     font-family: $font-family-regular;
 }
-`
+`;
 
 export const themeScssContent = {
     'theme/index.scss': ENTRY_CONTENT,
     'theme/variables.scss': VARIABLES_CONTENT,
     'theme/_font.scss': FONT_CONTENT,
     'theme/mixin.scss': MIXIN_CONTENT
-}
+};

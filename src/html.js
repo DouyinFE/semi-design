@@ -155,8 +155,33 @@ export default function HTML(props) {
                 <meta charSet="utf-8" />
                 <meta httpEquiv="x-ua-compatible" content="ie=edge" />
                 <meta name="google-site-verification" content="K9ajinpeafHOSSuts14tlwJswGvmgE8rRmuq8uvkaJQ" />
+                <meta name="google-site-verification" content="I__60o8MR6XwZxKCpOe12z9PoGTk78az081sUkkREOU" />
                 <meta name="viewport" content="width=1440, initial-scale=0, shrink-to-fit=no" />
-                <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" />
+                <link rel="alternate" hrefLang="zh" href="https://semi.design/zh-CN" />
+                <link rel="alternate" hrefLang="en" href="https://semi.design/en-US" />
+                <meta name="description" content="An easy-to-customize modern design system that helps designers and developers create high-quality products. 由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。 "/>
+                <meta name="keywords" content={[
+                    "React",
+                    "React Component",
+                    "UI Component",
+                    "react library",
+                    "Design component",
+                    "Design System",
+                    "quick develop",
+                    "easy customize",
+                    "modern design system",
+                    "front-end",
+                    "React 组件",
+                    "用户界面组件",
+                    "反应库",
+                    "设计组件",
+                    "设计系统",
+                    "快速发展",
+                    "轻松定制",
+                    "现代设计体系",
+                    "前端"
+                ].join(", ")}/>
+                <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" defer={true} />
                 {
                     THEME_SWITCHER_URL?<script src={THEME_SWITCHER_URL} defer={true}/>:<script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js" defer={true}/>
                 }

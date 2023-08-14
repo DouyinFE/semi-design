@@ -711,9 +711,18 @@ class CustomRenderDemo extends React.Component {
 
 ### 完全自定义渲染 、 拖拽排序
 
-在完全自定义渲染的场景下，由于拖拽区的渲染也已由你完全接管，因此你不声明 draggable 亦可。  
-但你需要自行实现拖拽逻辑，我们推荐直接使用`react-sortable-hoc`  
-要支持拖拽排序，你需要在拖拽排序结束后，将 oldIndex、newIndex 作为入参，调用 onSortEnd
+在完全自定义渲染的场景下，由于拖拽区的渲染也已由你完全接管，因此你不声明 draggable 亦可。
+但你需要自行实现拖拽逻辑，你可以借助社区中拖拽类工具库 [dnd-kit](https://github.com/clauderic/dnd-kit) 或者 [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc)，快速实现功能。关于两者选型，这是我们的一些建议
+
+- 两者均由同一作者维护， dnd-kit 是 react-sortable-hoc 的接任产品
+- react-sortable-hoc 的 API 设计更加高内聚，在简单场景上代码更加简洁。但它强依赖了 findDOMNode API，在未来的 React 版本中会被废弃。同时该库最近两年已经处于不维护的状态。
+- dnd-kit 相对而言，有一定上手门槛，但它的自由度更高，扩展性更强，并且仍处于维护状态。我们更推荐使用
+
+更多 DIff 信息可查阅 [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc) 的 Github 主页
+
+另外，要支持拖拽排序，你需要在拖拽排序结束后，将 oldIndex、newIndex 作为入参，调用 onSortEnd
+
+使用 react-sortable-hoc 的示例：
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -874,6 +883,280 @@ class CustomRenderDragDemo extends React.Component {
         );
     }
 }
+```
+
+使用 dnd-kit 的示例如下，需要用到的核心依赖有 @dnd-kit/sortable， @dnd-kit/core，其中核心 hooks 为 useSortable，使用说明如下
+
+```
+1. 作用：通过唯一标志 id 获取拖拽过程中必要信息
+2. 核心输入参数：
+    - id: 唯一标识, 以为数字或者字符串，但是不能为数字 0
+3. 核心返回值说明:
+	- setNodeRef: 关联 dom 节点，使其成为一个可拖拽的项
+	- listeners: 包含 onKeyDown，onPointerDown 等方法，主要让节点可以进行拖拽
+	- transform：该节点被拖动时候的移动变化值
+	- transition：过渡效果
+    - active: 被拖拽节点的相关信息，包括 id
+```
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Transfer, Input, Spin, Button } from '@douyinfe/semi-ui';
+import { IconSearch, IconHandle } from '@douyinfe/semi-icons';
+import { useSortable, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import { closestCenter, DragOverlay, DndContext, MouseSensor, TouchSensor, useSensor, useSensors, KeyboardSensor, TraversalOrder } from '@dnd-kit/core';
+
+function SortableList({
+    items,
+    onSortEnd,
+    renderItem,
+}) {
+    const [activeId, setActiveId] = useState(null);
+    // sensors 确定拖拽操作受哪些外部输入影响（如鼠标，键盘，触摸板）
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+    const getIndex = useCallback((id) => items.indexOf(id), [items]);
+    const activeIndex = useMemo(() => activeId ? getIndex(activeId) : -1, [getIndex, activeId]);
+
+    const onDragStart = useCallback(({ active }) => {
+        if (!active) { return; }
+        setActiveId(active.id);
+    }, []);
+
+    // 拖拽结束回调
+    const onDragEnd = useCallback(({ over }) => {
+        setActiveId(null);
+        if (over) {
+            const overIndex = getIndex(over.id);
+            if (activeIndex !== overIndex) {
+                onSortEnd({ oldIndex: activeIndex, newIndex: overIndex });
+            }
+        }
+    }, [activeIndex, getIndex, onSortEnd]);
+
+    const onDragCancel = useCallback(() => {
+        setActiveId(null);
+    }, []);
+
+    return (
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onDragCancel={onDragCancel}
+            // 设置拖拽时候滚动从最靠近被拖拽元素的祖先元素开始
+            autoScroll={{ order: TraversalOrder.ReversedTreeOrder }}
+        >
+            <SortableContext items={items} strategy={verticalListSortingStrategy}>
+                <div style={{ overflow: 'auto', display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
+                    {items.map((value, index) => (
+                        <SortableItem
+                            key={value}
+                            id={value}
+                            index={index}
+                            renderItem={renderItem}
+                        />
+                    ))}
+                </div>
+                {ReactDOM.createPortal(
+                    <DragOverlay>
+                        {activeId ? (
+                            renderItem({
+                                id: activeId,
+                                sortableHandle: (WrapperComponent) => WrapperComponent
+                            })
+                        ) : null}
+                    </DragOverlay>,
+                    document.body
+                )}
+            </SortableContext>
+        </DndContext>
+    );
+}
+
+function SortableItem({ id, renderItem }) {
+    const {
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        active,
+    } = useSortable({
+        id,
+    });
+
+    const sortableHandle = useCallback((WrapperComponent) => {
+        return () => <span {...listeners} style={{ lineHeight: 0 }}><WrapperComponent /></span>;
+    }, [listeners]);
+
+    const wrapperStyle = {
+        transform: cssDndKit.Transform.toString({
+            ...transform,
+            scaleX: 1,
+            scaleY: 1,
+        }),
+        transition: transition,
+        opacity: active && active.id === id ? 0 : undefined,
+    };
+
+    return <div 
+        ref={setNodeRef}
+        style={wrapperStyle}
+    >
+        {renderItem({ id, sortableHandle })}
+    </div>;
+}
+
+class CustomRenderDragDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSource: Array.from({ length: 100 }, (v, i) => ({
+                label: `海底捞门店 ${i}`,
+                value: i,
+                disabled: false,
+                key: `key-${i}`,
+            })),
+        };
+        this.renderSourcePanel = this.renderSourcePanel.bind(this);
+        this.renderSelectedPanel = this.renderSelectedPanel.bind(this);
+        this.renderItem = this.renderItem.bind(this);
+    }
+
+    renderItem(type, item, onItemAction, selectedItems, sortableHandle) {
+        let buttonText = '删除';
+
+        if (type === 'source') {
+            let checked = selectedItems.has(item.key);
+            buttonText = checked ? '删除' : '添加';
+        }
+
+        const DragHandle = (sortableHandle && sortableHandle(() => <IconHandle className="pane-item-drag-handler" />));
+
+        return (
+            <div className="semi-transfer-item panel-item" key={item.label}>
+                {type === 'source' ? null : ( DragHandle ? <DragHandle /> : null) }
+                <div className="panel-item-main" style={{ flexGrow: 1 }}>
+                    <p style={{ margin: '0 12px' }}>{item.label}</p>
+                    <Button
+                        theme="borderless"
+                        type="primary"
+                        onClick={() => onItemAction(item)}
+                        className="panel-item-remove"
+                        size="small"
+                    >
+                        {buttonText}
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    renderSourcePanel(props) {
+        const {
+            loading,
+            noMatch,
+            filterData,
+            selectedItems,
+            allChecked,
+            onAllClick,
+            inputValue,
+            onSearch,
+            onSelectOrRemove,
+        } = props;
+        let content;
+        switch (true) {
+            case loading:
+                content = <Spin loading />;
+                break;
+            case noMatch:
+                content = <div className="empty sp-font">{inputValue ? '无搜索结果' : '暂无内容'}</div>;
+                break;
+            case !noMatch:
+                content = filterData.map(item => this.renderItem('source', item, onSelectOrRemove, selectedItems));
+                break;
+            default:
+                content = null;
+                break;
+        }
+        return (
+            <section className="source-panel">
+                <div className="panel-header sp-font">门店列表</div>
+                <div className="panel-main">
+                    <Input
+                        style={{ width: 454, margin: '12px 14px' }}
+                        prefix={<IconSearch />}
+                        onChange={onSearch}
+                        showClear
+                    />
+                    <div className="panel-controls sp-font">
+                        <span>待选门店: {filterData.length}</span>
+                        <Button onClick={onAllClick} theme="borderless" size="small">
+                            {allChecked ? '取消全选' : '全选'}
+                        </Button>
+                    </div>
+                    <div className="panel-list">{content}</div>
+                </div>
+            </section>
+        );
+    }
+
+    renderSelectedPanel(props) {
+        const { selectedData, onClear, clearText, onRemove, onSortEnd } = props;
+        let mainContent = null;
+
+        if (!selectedData.length) {
+            mainContent = <div className="empty sp-font">暂无数据，请从左侧筛选</div>;
+        }
+
+        const renderSelectItem = ({ id, sortableHandle }) => {
+            const item = selectedData.find(item => id === item.key);
+            return this.renderItem('selected', item, onRemove, null, sortableHandle);
+        };
+
+        const sortData = selectedData.map(item => item.key);
+
+        mainContent = <div className="panel-main" style={{ display: 'block' }}>
+            <SortableList onSortEnd={onSortEnd} items={sortData} renderItem={renderSelectItem}></SortableList>
+        </div>;
+
+        return (
+            <section className="selected-panel">
+                <div className="panel-header sp-font">
+                    <div>已选同步门店: {selectedData.length}</div>
+                    <Button theme="borderless" type="primary" onClick={onClear} size="small">
+                        {clearText || '清空 '}
+                    </Button>
+                </div>
+                {mainContent}
+            </section>
+        );
+    }
+
+    render() {
+        const { dataSource } = this.state;
+        return (
+            <Transfer
+                defaultValue={[2, 4]}
+                onChange={values => console.log(values)}
+                className="component-transfer-demo-custom-panel"
+                renderSourcePanel={this.renderSourcePanel}
+                renderSelectedPanel={this.renderSelectedPanel}
+                dataSource={dataSource}
+            />
+        );
+    }
+}
+
+render(CustomRenderDragDemo);
 ```
 
 ### 树穿梭框

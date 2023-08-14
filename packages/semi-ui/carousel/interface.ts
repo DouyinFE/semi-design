@@ -37,7 +37,7 @@ export interface CarouselIndicatorProps {
     defaultActiveIndex?: number;
     position?: typeof strings.POSITION_MAP[number];
     size?: typeof strings.SIZE[number];
-    total?:number;
+    total?: number;
     theme?: typeof strings.THEME_MAP[number];
     type?: typeof strings.TYPE_MAP[number];
     onIndicatorChange?: (activeIndex: number) => void;
