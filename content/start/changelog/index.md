@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.41.2 (2023-08-14)
+- 【Fix】
+  - 修复 Table 表头与表体单元格在 sticky 开启时未对齐问题 [#1760](https://github.com/DouyinFE/semi-design/issues/1760)
+
 
 #### 🎉 2.41.1 (2023-08-11)
 - 【Feat】
