@@ -14,7 +14,8 @@ order: 5
 🤩 Semi 的默认主题或任意通过 [Semi DSM](/dsm) 配置的定制主题都自带了亮色模式与暗色模式，可以方便地进行切换。  
 🌒 Semi 也支持在页面的局部范围使用亮/暗色模式。
 
-<Compare dark='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/dark.png' light='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/light.png'>
+<Compare dark='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/dark.png' light='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/light.png
+'>
 </Compare>
 
 ## 推荐设置
