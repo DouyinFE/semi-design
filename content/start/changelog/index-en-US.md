@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.41.2 (2023-08-14)
+- 【Fix】
+  - fixed Table column not aligned when header is sticky [#1760](https://github.com/DouyinFE/semi-design/issues/1760)
+
+
 #### 🎉 2.41.1 (2023-08-11)
 - 【Feat】
   - Slider Add onMouseUp API
