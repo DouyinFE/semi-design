@@ -38,11 +38,18 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Content } = Layout;
+
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
+
     return (
-        <Layout className='components-layout-demo'>
-            <Header>Header</Header>
-            <Content>Content</Content>
-            <Footer>Footer</Footer>
+        <Layout className="components-layout-demo">
+            <Header style={commonStyle}>Header</Header>
+            <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -56,14 +63,19 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
-        <Layout className='components-layout-demo'>
-            <Header>Header</Header>
-            <Layout >
-                <Sider>Sider</Sider>
-                <Content>Content</Content>
+        <Layout className="components-layout-demo">
+            <Header style={commonStyle}>Header</Header>
+            <Layout>
+                <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -77,14 +89,19 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
-        <Layout className='components-layout-demo'>
-            <Header>Header</Header>
-            <Layout >
-                <Content>Content</Content>
-                <Sider>Sider</Sider>
+        <Layout className="components-layout-demo">
+            <Header style={commonStyle}>Header</Header>
+            <Layout>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+                <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -98,13 +115,18 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
-        <Layout className='components-layout-demo' >
-            <Sider>Sider</Sider>
+        <Layout className="components-layout-demo">
+            <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
             <Layout>
-                <Header>Header</Header>
-                <Content>Content</Content>
-                <Footer>Footer</Footer>
+                <Header style={commonStyle}>Header</Header>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+                <Footer style={commonStyle}>Footer</Footer>
             </Layout>
         </Layout>
     );
@@ -123,15 +145,26 @@ import { Layout } from '@douyinfe/semi-ui';
     const onbreakpoint = (screen, bool) => {
         console.log(screen, bool);
     };
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     const { Header, Footer, Sider, Content } = Layout;
     return (
-        <Layout className='components-layout-demo'>
-            <Header>Header</Header>
-            <Layout >
-                <Sider breakpoint={['md']} onBreakpoint={onbreakpoint}>Sider</Sider>
-                <Content>Content</Content>
+        <Layout className="components-layout-demo">
+            <Header style={commonStyle}>Header</Header>
+            <Layout>
+                <Sider
+                    style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}
+                    breakpoint={['md']}
+                    onBreakpoint={onbreakpoint}
+                >
+                    Sider
+                </Sider>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -362,7 +395,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui';
-import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from '@douyinfe/semi-icons';
+import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
@@ -379,7 +412,7 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                         { itemKey: 'Setting', text: 'Setting', icon: <IconSetting size="large" /> },
                     ]}
                     header={{
-                        logo: <img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />,
+                        logo:  <IconSemiLogo style={{ fontSize: 36 }} />,
                         text: 'Webcast'
                     }}
                     footer={{
