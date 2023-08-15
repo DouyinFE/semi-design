@@ -12,7 +12,8 @@ order: 5
 🤩  Semi's default theme or custom themes configured through [Semi DSM](/dsm) come with both light and dark modes, which can be easily switched.   
 🌒 Semi also supports the use of dark mode in a partial area of the page.  
 
-<Compare dark='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/dark.png' light='https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/ued_doc/light.png'>
+<Compare dark='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/dark.png' light='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/light.png
+'>
 </Compare>
 
 ## Recommended settings
