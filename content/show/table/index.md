@@ -11,7 +11,9 @@ brief: 表格用于呈现结构化的数据内容，通常会伴随提供对数�
 
 往 Table 传入表头 `columns` 和数据 `dataSource` 进行渲染。
 
-> 请为 `dataSource` 中的每个数据项提供一个与其他数据项值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名，表格的行选择、展开等绝大多数行操作功能都会使用到。
+<Notice title='注意事项'>
+ 请为 `dataSource` 中的每个数据项提供一个与其他数据项值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名，表格的行选择、展开等绝大多数行操作功能都会使用到。
+</Notice>
 
 ```jsx import
 import React from 'react';
@@ -254,7 +256,10 @@ render(App);
 -   点击表头的选择框，会选择 `dataSource` 里所有不是 `disabled` 状态的行。选择所有行回调函数为 `onSelectAll`；
 -   点击行的选择框会选中当前行。它的回调函数为 `onSelect`；
 
-> **注意：**请务必为每行数据提供一个与其他行值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名。
+<Notice title='注意事项'>
+    请务必为 dataSource 中每行数据提供一个与其他行值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名。
+</Notice>
+
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -1077,7 +1082,9 @@ render(App);
 
 表格内部集成了过滤器和排序控件，用户可以通过在 Column 中传入 `filters` 以及 `onFilter` 开启表头的过滤器控件展示，传入 `sorter` 开启表头的排序控件的展示。
 
-> **注意：**请务必为每行数据提供一个与其他行值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名。
+<Notice title='注意事项'>
+ 请为 `dataSource` 中的每个数据项提供一个与其他数据项值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名，表格的行选择、展开等绝大多数行操作功能都会使用到。
+</Notice>
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
