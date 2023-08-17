@@ -50,11 +50,15 @@
         "./index.ts"
     ],
     "keywords": [
-        "semi",
-        "react component library",
-        "ies",
-        "pc component",
-        "dark mode"
+        "semi design to any design",
+        "a11y react component library",
+        "design to code",
+        "2700+ design token",
+        "dark mode",
+        "semi design",
+        "design ops",
+        "modern design system",
+        "figma ui kit"
     ],
     "homepage": "https://semi.design",
     "bugs": {
