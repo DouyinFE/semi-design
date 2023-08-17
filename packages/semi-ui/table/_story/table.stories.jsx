@@ -99,7 +99,6 @@ export {
     Fixed1556,
     FixedColumnAlign,
     FixOnChange,
-    FixedSticky,
     ColumnResize
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
