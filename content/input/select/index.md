@@ -1259,9 +1259,10 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 ```jsx live=true
 import React from 'react';
-import { Select, Checkbox } from '@douyinfe/semi-ui';
+import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 
 () => {
+    const [inputValue, setInputValue] = useState('');
     const renderOptionItem = renderProps => {
         const {
             disabled,
@@ -1283,15 +1284,19 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             ['custom-option-render-disabled']: disabled,
             ['custom-option-render-selected']: selected,
         });
+        const searchWords = [inputValue];
+
         // Notice：
         // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
         // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
         // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
-
+        
         return (
             <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={e => onMouseEnter()}>
                 <Checkbox checked={selected} />
-                <div className="option-right">{label}</div>
+                <div className="option-right">
+                    <Highlight sourceString={label} searchWords={searchWords} />
+                </div>
             </div>
         );
     };
@@ -1308,6 +1313,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <Select
                 filter
                 placeholder="单选"
+                onSearch={(v) => setInputValue(v)}
                 dropdownClassName="components-select-demo-renderOptionItem"
                 optionList={optionList}
                 style={{ width: 180 }}
@@ -1319,6 +1325,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
                 filter
                 placeholder="多选"
                 multiple
+                onSearch={(v) => setInputValue(v)}
                 dropdownClassName="components-select-demo-renderOptionItem"
                 optionList={optionList}
                 style={{ width: 320 }}
