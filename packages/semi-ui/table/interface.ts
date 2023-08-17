@@ -105,7 +105,8 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onFilter?: OnFilter<RecordType>;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     onHeaderCell?: OnHeaderCell<RecordType>;
-    ellipsis?: BaseEllipsis
+    ellipsis?: BaseEllipsis;
+    resize?: boolean
 }
 
 export type Align = BaseAlign;
