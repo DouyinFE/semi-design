@@ -46,7 +46,9 @@ const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 
 export interface FileCardProps extends RenderFileItemProps {
     className?: string;
-    style?: CSSProperties
+    style?: CSSProperties;
+    picWidth?: string | number;
+    picHeight?: string | number
 }
 
 export interface FileCardState {
@@ -66,6 +68,8 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         percent: PropTypes.number,
         preview: PropTypes.bool,
         previewFile: PropTypes.func,
+        picWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        picHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         showReplace: PropTypes.bool,
         showRetry: PropTypes.bool,
         size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -143,8 +147,8 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
     }
 
     renderPic(locale: Locale['Upload']): ReactNode {
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index } = this.props;
         const { fallbackPreview } = this.state;
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
@@ -184,12 +188,25 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
             <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
         );
 
-        const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} /> : <IconFile size="large" />;
+        let imgStyle: { height?: number | string; width?: number | string } = {};
+        let itemStyle = style ? { ...style } : {};
+
+        if (picHeight) {
+            itemStyle.height = picHeight;
+            imgStyle.height = picHeight;
+        }
+
+        if (picWidth) {
+            itemStyle.width = picWidth;
+            imgStyle.width = picWidth;
+        }
+        
+        const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} style={imgStyle}/> : <IconFile size="large" />;
 
         const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : defaultThumbTail;
 
         return (
-            <div role="listitem" className={filePicCardCls} style={style} onClick={onPreviewClick}>
+            <div role="listitem" className={filePicCardCls} style={itemStyle} onClick={onPreviewClick}>
                 {thumbnail}
                 {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} aria-label="uploading file progress" /> : null}
                 {showRetry ? retry : null}
