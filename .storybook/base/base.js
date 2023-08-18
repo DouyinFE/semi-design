@@ -75,7 +75,7 @@ module.exports = {
             '@douyinfe/semi-animation-react': resolve('packages/semi-animation-react'),
             '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled')
         };
-        config.devtool = 'source-map';
+        config.devtool = 'eval-source-map';
 
         return config;
     }

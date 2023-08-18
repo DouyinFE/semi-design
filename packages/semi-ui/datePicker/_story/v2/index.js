@@ -26,3 +26,4 @@ export { default as FeatEtcGMT } from './FeatEtcGMT';
 export { default as FixDisabledDate } from './FixDisabledDate';
 export { default as FeatYearScrollRange } from './FeatYearScrollRange';
 export { default as FeatInsetInputShowClear } from './FeatInsetInputShowClear';
+export { default as FixedMonthRangeDisabled } from './FixedMonthRangeDisabled';
