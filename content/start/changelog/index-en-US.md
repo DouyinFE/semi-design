@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.41.3 (2023-08-17)
+- 【Style】
+  - Select loading wrapper adds an explicit box-sizing statement to prevent the loading display height from being incorrect in some special cases（for example, when the box-sizing of all DOMs is globally reset to border-box [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
+- 【Chore】
+  - Table dependence: react-resizable version update from v1 to v3 [#1768](https://github.com/DouyinFE/semi-design/pull/1768) [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+
 #### 🎉 2.41.2 (2023-08-14)
 - 【Fix】
   - fixed Table column not aligned when header is sticky [#1760](https://github.com/DouyinFE/semi-design/issues/1760)

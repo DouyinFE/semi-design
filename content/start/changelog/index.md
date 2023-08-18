@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.41.3 (2023-08-17)
+- 【Style】
+  - Select loading wrapper 增加显式 box-sizing 声明，防止某些特殊情况下（例如全局重置了所有DOM的box-sizing为 border-box）时，loading 展示高度不对 [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
+- 【Chore】
+  - Table 依赖的 react-resizable 版本从v1 升级到 v3 [#1768](https://github.com/DouyinFE/semi-design/pull/1768) [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+
 #### 🎉 2.41.2 (2023-08-14)
 - 【Fix】
   - 修复 Table 表头与表体单元格在 sticky 开启时未对齐问题 [#1760](https://github.com/DouyinFE/semi-design/issues/1760)
@@ -24,7 +30,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
   - 修复 Slider 鼠标移出窗口后松手再移回的场景下，handle 一直跟随鼠标的问题, [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
   - SideSheet 新增自动计算滚动条宽度逻辑防止弹出时 mask 背后内容抖动
-  - 修复 Input 和 TextArea autoFoucs 大小写不正确的问题
+  - 修复 Input 和 TextArea autoFoucs 大小写不正确的问题 [#1608](https://github.com/DouyinFE/semi-design/issues/1608)
 
 
 #### 🎉 2.41.0-beta.0 (2023-08-07)
@@ -210,9 +216,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Table 文本默认换行样式从 break-all 修改为 break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
   - BreadCrumb 中 icon 和文本间距从 8px 修改为 4px（影响面 v2.0.0～v2.33.1）
 - 【Fix】
-  - 修复TimePicker range 模式先选择结束时间，会导致报错的问题  [#1563 ](https://github.com/DouyinFE/semi-design/issues/1563)
+  - 修复TimePicker range 模式先选择结束时间，会导致报错的问题  [#1563](https://github.com/DouyinFE/semi-design/issues/1563)
   - Steps 更改为只在 Steps 传入 onChange 或 Steps.Step 传入 onClick 时，才会 hover 时展示 hover 态。
-  - 修复 RadioGroup 父级容器高度会跟随 RadioGroup 选项不同而变化的问题  [#1573 ](https://github.com/DouyinFE/semi-design/issues/1573)
+  - 修复 RadioGroup 父级容器高度会跟随 RadioGroup 选项不同而变化的问题  [#1573](https://github.com/DouyinFE/semi-design/issues/1573)
   - 修复Calendar组件月视图中，最后一周日期样式错误 [@sylingd](https://github.com/sylingd)
   - Typography resize后可能会丢失省略 [@marshcat0](https://github.com/marshcat0)
   - Typography resize后展开状态可能会被变成折叠 [@marshcat0](https://github.com/marshcat0)
@@ -251,7 +257,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.32.0 (2023-03-31)
 - 【Fix】
-    - 修复 Spin 因为 .semi-spin-wrapper div 高度不正确导致位置上移问题
+    - 修复 Spin 因为 .semi-spin-wrapper div 高度不正确导致位置上移问题 [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
     - 修复 resizable Table 与 form 标签同时存在在 dev 环境下报错问题 [#1506](https://github.com/DouyinFE/semi-design/issues/1506)
     - 修复 Table 设置斑马纹无效问题（影响范围：v2.29 - 2.32）
     - 修复 Modal getPopupContainer 执行时机不正确的问题，预期为 Modal 打开时执行
