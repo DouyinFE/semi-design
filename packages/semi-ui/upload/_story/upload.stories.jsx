@@ -415,6 +415,42 @@ PictureListTypeWithDefaultFileList.story = {
   name: 'picture listType with default file list',
 };
 
+export const PictureListTypeWithCustomHeightWidth = () => {
+  const urls = [
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
+  ];
+  const list = defaultFileList.map((item, i) => {
+    let newItem = {...item};
+    newItem.url = urls[i];
+    return newItem;
+  });
+  return (
+    <>
+      <Upload
+        {...commonProps}
+        showReplace={false}
+        action={action}
+        listType="picture"
+        accept="image/*"
+        picHeight={110}
+        picWidth={200}
+        defaultFileList={list}
+      >
+        <React.Fragment>
+          <IconPlus size="extra-large" />
+        </React.Fragment>
+      </Upload>
+    </>
+  )
+};
+
+PictureListTypeWithCustomHeightWidth.story = {
+  name: 'picture listType with custom height width',
+};
+
 class ManulUploadDemo extends React.Component {
   constructor() {
     super();
@@ -1148,3 +1184,4 @@ export const ClickToOpenUploadDemo = () => <ClickToOpenUpload></ClickToOpenUploa
 ClickToOpenUploadDemo.story = {
   name: 'click to open upload demo',
 };
+

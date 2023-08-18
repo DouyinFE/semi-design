@@ -44,7 +44,9 @@ const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 
 export interface FileCardProps extends RenderFileItemProps {
     className?: string;
-    style?: CSSProperties
+    style?: CSSProperties;
+    picWidth?: string | number;
+    picHeight?: string | number
 }
 
 
@@ -61,6 +63,8 @@ class FileCard extends PureComponent<FileCardProps> {
         percent: PropTypes.number,
         preview: PropTypes.bool,
         previewFile: PropTypes.func,
+        picWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        picHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         showReplace: PropTypes.bool,
         showRetry: PropTypes.bool,
         size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -123,7 +127,7 @@ class FileCard extends PureComponent<FileCardProps> {
     }
 
     renderPic(locale: Locale['Upload']): ReactNode {
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index } = this.props;
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
@@ -162,10 +166,23 @@ class FileCard extends PureComponent<FileCardProps> {
             <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
         );
 
-        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={name} />;
+        let imgStyle: { height?: number | string; width?: number | string } = {};
+        let itemStyle = style ? { ...style } : {};
+
+        if (picHeight) {
+            itemStyle.height = picHeight;
+            imgStyle.height = picHeight;
+        }
+
+        if (picWidth) {
+            itemStyle.width = picWidth;
+            imgStyle.width = picWidth;
+        }
+
+        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={name} style={imgStyle}/>;
 
         return (
-            <div role="listitem" className={filePicCardCls} style={style} onClick={onPreviewClick}>
+            <div role="listitem" className={filePicCardCls} style={itemStyle} onClick={onPreviewClick}>
                 {thumbnail}
                 {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} aria-label="uploading file progress" /> : null}
                 {showRetry ? retry : null}
