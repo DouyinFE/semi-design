@@ -1602,13 +1602,6 @@
   dependencies:
     classnames "^2.2.6"
 
-"@douyinfe/semi-icons@^2.0.0":
-  version "2.41.3"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.41.3.tgz#beea6a1d2a101e49c7e96937f88fd8ad6568da88"
-  integrity sha512-fmhmIql3YidFScE+mi7cGu/eCNGf+3FOnik0q+Q69wdoO+cGzhIVpJtj1o1/aU5Y9f7lckUj5VhJkjAYeRiwrw==
-  dependencies:
-    classnames "^2.2.6"
-
 "@douyinfe/semi-illustrations@2.33.1":
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.33.1.tgz#530ab851f4dc32a52221c4067c778c800b9b55d7"
@@ -1698,33 +1691,6 @@
   integrity sha512-fi9OCHVG3kY+bntiTfLkUz0BzC3xnzFFrvp+Wqg68OC11osLZMR5kKuAUFj/mskTsuUyikGI0lx/dIi0IMNNFw==
   dependencies:
     glob "^7.1.6"
-
-"@douyinfe/semi-ui@^2.0.0":
-  version "2.41.3"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.41.3.tgz#35b029d9bfba96f2afeec5ca2baf77317704eace"
-  integrity sha512-MbgGzltuJbktiGmpO0EMrO8adjBLKHpd+XCu8OeDbZONJaJsGXjY366UL7JLUs9ESTpzLPTJY3EKmT2nuZS5QA==
-  dependencies:
-    "@dnd-kit/core" "^6.0.8"
-    "@dnd-kit/sortable" "^7.0.2"
-    "@dnd-kit/utilities" "^3.2.1"
-    "@douyinfe/semi-animation" "2.40.0-beta.0"
-    "@douyinfe/semi-animation-react" "2.40.0-beta.0"
-    "@douyinfe/semi-foundation" "2.40.0-beta.0"
-    "@douyinfe/semi-icons" "2.40.0-beta.0"
-    "@douyinfe/semi-illustrations" "2.40.0-beta.0"
-    "@douyinfe/semi-theme-default" "2.40.0-beta.0"
-    async-validator "^3.5.0"
-    classnames "^2.2.6"
-    copy-text-to-clipboard "^2.1.1"
-    date-fns "^2.29.3"
-    date-fns-tz "^1.3.8"
-    lodash "^4.17.21"
-    prop-types "^15.7.2"
-    react-resizable "^3.0.5"
-    react-window "^1.8.2"
-    resize-observer-polyfill "^1.5.1"
-    scroll-into-view-if-needed "^2.2.24"
-    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.33.1"
@@ -11292,11 +11258,6 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     resolve "^2.0.0-next.4"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.8"
-
-eslint-plugin-semi-design@^2.33.0:
-  version "2.41.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.41.3.tgz#f336e15021f6efd7411bfab10ce276ac29a116a8"
-  integrity sha512-SHDRf6mAmZP/e6pq0bnSQz0JbZhqJLah+wjFF4fx0dLDWb2pXTeAOZ0+WseuzPGZe53E+eLuB2h+YlWe1xglKw==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
