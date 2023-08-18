@@ -425,6 +425,13 @@ $module: #{$prefix}-upload;
                 transform: translate3D(-50%, -50%, 0);
             }
 
+            &-preview-fallback {
+                background-color: $color-upload_pic_add-bg;
+                border: $width-upload_picture_add-border $color-upload-border;
+                color: $color-upload-icon;
+                border-radius: $radius-upload_picture_add;
+            }
+
             &-pic-info {
                 display: inline-flex;
                 box-sizing: border-box;
