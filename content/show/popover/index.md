@@ -33,7 +33,8 @@ Popover 需要将 DOM 事件监听器应用到 children 中，如果子元素是
 
 ```jsx live=true noInline=true dir="column"
 import React, { forwardRef } from 'react';
-import { Popover, Space } from '@douyinfe/semi-ui';
+import { Popover, Space, Empty } from '@douyinfe/semi-ui';
+import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-illustrations';
 
 const style={ border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
 
@@ -49,7 +50,15 @@ class MyComponent extends React.Component {
     }
 };
 
-const content = (<article style={{ padding: 12 }}> Hi ByteDancer, this is a popover. <br /> We have 2 lines.</article>);
+const content = (
+    <Empty
+        title={'先进的设计 / 研发协作方式'}
+        image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+        darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
+        description="使用 Semi D2C 快速还原 Figma 设计稿，一键转代码"
+        style={{ width: 400, margin: '0 auto', display: 'flex', padding: 20 }}
+    />
+);
 
 function Demo() {
     return (
@@ -77,16 +86,20 @@ render(Demo);
 
 ```jsx live=true
 import React from 'react';
-import { Popover, Tag } from '@douyinfe/semi-ui';
+import { Popover, Tag, Empty } from '@douyinfe/semi-ui';
+import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-illustrations';
 
 function Demo() {
     return (
         <Popover
             content={
-                <article style={{ padding: 12 }}>
-                    Hi ByteDancer, this is a popover.
-                    <br /> We have 2 lines.
-                </article>
+                <Empty
+                    title={'先进的设计 / 研发协作方式'}
+                    image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+                    darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
+                    description="使用 Semi D2C 快速还原 Figma 设计稿，一键转代码"
+                    style={{ width: 400, margin: '0 auto', display: 'flex', padding: 20 }}
+                />
             }
         >
             <Tag>悬停此处</Tag>
@@ -101,7 +114,8 @@ function Demo() {
 
 ```jsx live=true
 import React from 'react';
-import { Popover, Tag } from '@douyinfe/semi-ui';
+import { Popover, Tag, Empty } from '@douyinfe/semi-ui';
+import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-illustrations';
 
 function Demo() {
     const tops = [
@@ -126,10 +140,13 @@ function Demo() {
     ];
 
     const article = (
-        <article style={{ padding: 12 }}>
-            Hi ByteDancer, this is a popover.
-            <br /> We have 2 lines.
-        </article>
+        <Empty
+            title={'先进的设计 / 研发协作方式'}
+            image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+            darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
+            description="使用 Semi D2C 快速还原 Figma 设计稿，一键转代码"
+            style={{ width: 400, margin: '0 auto', display: 'flex', padding: 20 }}
+        />
     );
 
     return (
@@ -188,54 +205,33 @@ function Demo() {
 设置`trigger='custom'`，此场景下，Popover 的显示与否完全受到参数 `visible` 的控制。
 
 ```jsx live=true
-import React from 'react';
-import { Popover, Button } from '@douyinfe/semi-ui';
+import React, { useState } from 'react';
+import { Popover, Button, RadioGroup, Radio, Empty } from '@douyinfe/semi-ui';
+import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-illustrations';
 
-class App extends React.Component {
-    constructor(props = {}) {
-        super(props);
-
-        this.state = {
-            visible: false,
-        };
-
-        this.content = (
-            <article style={{ padding: 12 }}>
-                Hi ByteDancer, this is a popover.
-                <br /> We have 2 lines.
-            </article>
-        );
-
-        this.toggleShow = this.toggleShow.bind(this);
-    }
-
-    toggleShow() {
-        this.setState({
-            visible: !this.state.visible,
-        });
-    }
-
-    render() {
-        const content = this.content;
-
-        const { visible } = this.state;
-
-        return (
-            <div>
-                <div>
-                    <Popover visible={visible} content={content} trigger="custom">
-                        <Button onClick={this.toggleShow}>点我</Button>
-                    </Popover>
-                </div>
-            </div>
-        );
-    }
+() => {
+    const content = (
+        <Empty
+            title={'先进的设计 / 研发协作方式'}
+            image={<IllustrationSuccess style={{ width: 150, height: 150 }} />}
+            darkModeImage={<IllustrationSuccessDark style={{ width: 150, height: 150 }} />}
+            description="使用 Semi D2C 快速还原 Figma 设计稿，一键转代码"
+            style={{ width: 400, margin: '0 auto', display: 'flex', padding: 20 }}
+        />
+    );
+    const [visible, setVisible] = useState(false);
+    return (
+        <Popover visible={visible} content={content} trigger="custom">
+            <RadioGroup type='button' onChange={(e) => setVisible(e.target.value)} value={visible}>
+                <Radio value={true}>受控显示</Radio>
+                <Radio value={false}>受控隐藏</Radio>
+            </RadioGroup>
+        </Popover>
+    );
 }
 ```
 
 ### 显示小三角
-
-**版本：**>= 0.19.0
 
 通过设置`showArrow`, Popover 同样也支持展示一个小三角。
 
@@ -343,8 +339,6 @@ function Demo() {
 ```
 
 ### 指向元素中心
-
-**版本：**>= 0.34.0
 
 在**显示小三角**的条件（`showArrow=true`）下，可以传入 `arrowPointAtCenter=true` 使得小三角始终指向元素中心位置。
 
@@ -548,7 +542,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | spacing            | 弹出层与 children 元素的距离，单位 px                                                                                                       | number                     | 4(showArrow=false 时) 10(showArrow=true 时) |            |
 | showArrow          | 是否显示“小三角”                                                                                                                            | boolean                    |                                             |            |
 | stopPropagation    | 是否阻止弹出层上的点击事件冒泡                                                                                                              | boolean                    | false                                       | **0.34.0** |
-| trigger            | 触发方式，可选值：`hover`, `focus`, `click`, `custom`                                                                                       | string                     | 'hover'                                     |            |
+| trigger            | 触发方式，可选值：`hover`, `focus`, `click`, `custom`, `contextMenu`（v2.42支持）                                                          | string                     | 'hover'                                     |            |
 | visible            | 是否显示，配合trigger='custom'可实现完全受控                                                                                                                                    | boolean                    |                                             |            |
 | zIndex             | 弹出层 z-index 值                                                                                                                             | number                     | 1030                                        |            |
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0**  |

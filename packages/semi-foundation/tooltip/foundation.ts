@@ -44,7 +44,8 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
         click: string;
         focus: string;
         blur: string;
-        keydown: string
+        keydown: string;
+        contextMenu: string
     };
     registerTriggerEvent(...args: any[]): void;
     getTriggerBounding(...args: any[]): DOMRect;
@@ -256,6 +257,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // when trigger type is 'custom', no need to bind eventHandler
                 // show/hide completely depend on props.visible which change by user
                 break;
+            case 'contextMenu':
+                triggerEventSet[eventNames.contextMenu] = (e) => {
+                    e.preventDefault();
+                    this.show();
+                };
+                // Click outside needs special treatment, can not be directly tied to the trigger Element, need to be bound to the document
+                break;
             default:
                 break;
         }
@@ -334,7 +342,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * Because the handler needs to be bound to the document. If you bind during the constructor phase
          * When there are multiple container instances in a page, one click triggers the handler of multiple containers
          */
-        if (trigger === 'click' || clickTriggerToHide) {
+        if (trigger === 'click' || clickTriggerToHide || trigger === 'contextMenu') {
             this._adapter.registerClickOutsideHandler(this.hide);
         }
 
