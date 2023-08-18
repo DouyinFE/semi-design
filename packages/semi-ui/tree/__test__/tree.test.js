@@ -98,6 +98,43 @@ const treeData2 = [
     }
 ];
 
+const treeData3 = [
+    {
+        label: '亚洲',
+        value: 'Asia',
+        key: '0',
+        newLabel: '亚洲#1#yazhou',
+        children: [
+            {
+                label: '中国',
+                value: 'China',
+                key: '0-0',
+                newLabel: '中国#2#zhongguo',
+                children: [
+                    {
+                        label: '北京',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                        newLabel: '北京#3#beijing',
+                    },
+                    {
+                        label: '上海',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                        newLabel: '上海#4#shanghai',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        value: 'North America',
+        newLabel: '北美洲#5#beimeizhou',
+        key: '1',
+    }
+];
+
 const dragNodeData = {"label":"亚洲","value":"Yazhou","key":"yazhou","children":[{"label":"中国","value":"Zhongguo","key":"zhongguo","children":[{"label":"北京","value":"Beijing","key":"beijing"},{"label":"上海","value":"Shanghai","key":"shanghai"}]},{"label":"日本","value":"Riben","key":"riben","children":[{"label":"东京","value":"Dongjing","key":"dongjing"},{"label":"大阪","value":"Daban","key":"daban"}]}],"expanded":false,"pos":"0-0"}
 const dropNodeData = {"label":"北美洲","value":"Beimeizhou","key":"beimeizhou","children":[{"label":"美国","value":"Meiguo","key":"meiguo"},{"label":"加拿大","value":"Jianada","key":"jianada"}],"expanded":false,"pos":"0-1"}
 
@@ -455,10 +492,6 @@ describe('Tree', () => {
         let event2 = { target: { value: searchValue2 } };
         searchWrapper2.find('input').simulate('change', event2);
         expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(10);
-        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(3);
-        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(0).instance().textContent).toEqual('上海');
-        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(1).instance().textContent).toEqual('大阪');
-        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(2).instance().textContent).toEqual('加拿大');
     });
 
     it('filterTreeNode + no result', () => {
@@ -482,9 +515,23 @@ describe('Tree', () => {
         let event2 = { target: { value: searchValue2 } };
         searchWrapper2.find('input').simulate('change', event2);
         expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(2);
-        expect(tree2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(0);
-        
     });
+
+    if('filterTreeNode + treeNodeFilterProp + hightLight right') {
+        let tree = getTree({
+            treeData: treeData3,
+            filterTreeNode: true,
+            treeNodeFilterProp: 'newLabel'
+        });
+        const searchWrapper = tree.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = '中';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        expect(tree.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(3);
+        expect(tree.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).length).toEqual(1);
+        expect(tree.find(`.${BASE_CLASS_PREFIX}-tree-option-highlight`).instance().textContent).toEqual("中");
+        tree.unmount();
+    }
 
     it('filterTreeNode + showFilteredOnly + no result', () => {
         let tree = getTree({

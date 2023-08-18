@@ -134,13 +134,9 @@ $module: #{$prefix}-tree;
             }
         }
 
-        &-highlight,
-        &-filtered {
-            &,
-            .#{$prefix}-checkbox-addon {
-                font-weight: $font-tree_option_hightlight-fontWeight;
-                color: $color-tree_option_hightlight-text;
-            }
+        &-highlight {
+            font-weight: $font-tree_option_hightlight-fontWeight;
+            color: $color-tree_option_hightlight-text;
         }
 
         &-hidden {
