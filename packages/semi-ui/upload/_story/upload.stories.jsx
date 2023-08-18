@@ -1185,3 +1185,66 @@ ClickToOpenUploadDemo.story = {
   name: 'click to open upload demo',
 };
 
+
+
+const PreviewFallbackDemo = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'test.pdf',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/githubdemo/collapse.pdf',
+        },
+        {
+            uid: '2',
+            name: 'normal.png',
+            status: 'success',
+            size: '120KB',
+            preview:true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'
+        }
+    ];
+
+    const SmartPreview = (props) => {
+        const [src, setSrc] = useState(props.src);
+        const fallback = () => {
+            setSrc('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg')
+        };
+        return <img src={src} onError={fallback} />
+    };
+
+    const  previewFile = (file) => {
+        return <SmartPreview src={file.url} />
+    };
+
+    return (
+      <>
+          <Upload
+              defaultFileList={defaultFileList}
+              action={action}
+              // previewFile={previewFile}
+          >
+              <Button icon={<IconUpload />} theme="light">
+                  点击上传
+              </Button>
+          </Upload>
+          <Upload
+              listType='picture'
+              defaultFileList={defaultFileList}
+              action={action}
+              // renderThumbnail={previewFile}
+          >
+             <IconPlus size="extra-large" />
+          </Upload>
+        </>
+    );
+};
+
+export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>;
+
+PreviewFallback.story = {
+  name: 'preview other type',
+};
