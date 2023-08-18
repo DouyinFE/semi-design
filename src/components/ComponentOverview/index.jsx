@@ -4,7 +4,7 @@ import Card from './card';
 const ComponentList = props => {
     const list = props.code.split(',');
     return (
-        <div className="semi-overview-list" style={{ backgroundColor:`var(--semi-color-bg-0)` }}>
+        <div className="semi-overview-list" style={{ backgroundColor: `var(--semi-color-bg-0)` }}>
             {list.map((item, index) => (
                 <Card name={item} key={item + index} />
             ))}

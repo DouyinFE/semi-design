@@ -38,5 +38,5 @@ export const customCssVariables = {
         'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue',
         Helvetica, Arial, sans-serif`
     }
-}
+};
 

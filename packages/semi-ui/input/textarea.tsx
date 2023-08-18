@@ -35,7 +35,7 @@ export interface TextAreaProps extends
     defaultValue?: string;
     disabled?: boolean;
     readonly?: boolean;
-    autofocus?: boolean;
+    autoFocus?: boolean;
     showCounter?: boolean;
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
@@ -280,6 +280,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             minLength,
             showClear,
             borderless,
+            autoFocus,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -307,6 +308,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         );
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
+            autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,
             readOnly: readonly,

@@ -33,7 +33,7 @@ export interface NumeralProps extends Omit<React.HTMLAttributes<HTMLSpanElement>
     strong?: boolean;
     style?: React.CSSProperties;
     type?: TypographyBaseType;
-    underline?: boolean;
+    underline?: boolean
 }
 
 export default class Numeral extends PureComponent<NumeralProps> {

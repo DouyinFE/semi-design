@@ -39,11 +39,17 @@ import { Layout } from '@douyinfe/semi-ui';
 () => {
     const { Header, Footer, Content } = Layout;
 
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
+
     return (
         <Layout className="components-layout-demo">
-            <Header>Header</Header>
-            <Content>Content</Content>
-            <Footer>Footer</Footer>
+            <Header style={commonStyle}>Header</Header>
+            <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -57,14 +63,19 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
         <Layout className="components-layout-demo">
-            <Header>Header</Header>
+            <Header style={commonStyle}>Header</Header>
             <Layout>
-                <Sider>Sider</Sider>
-                <Content>Content</Content>
+                <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -78,14 +89,19 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
         <Layout className="components-layout-demo">
-            <Header>Header</Header>
+            <Header style={commonStyle}>Header</Header>
             <Layout>
-                <Content>Content</Content>
-                <Sider>Sider</Sider>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+                <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -99,13 +115,18 @@ import { Layout } from '@douyinfe/semi-ui';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     return (
         <Layout className="components-layout-demo">
-            <Sider>Sider</Sider>
+            <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
             <Layout>
-                <Header>Header</Header>
-                <Content>Content</Content>
-                <Footer>Footer</Footer>
+                <Header style={commonStyle}>Header</Header>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+                <Footer style={commonStyle}>Footer</Footer>
             </Layout>
         </Layout>
     );
@@ -124,17 +145,26 @@ import { Layout } from '@douyinfe/semi-ui';
     const onbreakpoint = (screen, bool) => {
         console.log(screen, bool);
     };
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
     const { Header, Footer, Sider, Content } = Layout;
     return (
         <Layout className="components-layout-demo">
-            <Header>Header</Header>
+            <Header style={commonStyle}>Header</Header>
             <Layout>
-                <Sider breakpoint={['md']} onBreakpoint={onbreakpoint}>
+                <Sider
+                    style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}
+                    breakpoint={['md']}
+                    onBreakpoint={onbreakpoint}
+                >
                     Sider
                 </Sider>
-                <Content>Content</Content>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
             </Layout>
-            <Footer>Footer</Footer>
+            <Footer style={commonStyle}>Footer</Footer>
         </Layout>
     );
 };
@@ -228,7 +258,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                     }}
                 >
                     <IconBytedanceLogo size="large" style={{ marginRight: '8px' }} />
-                    <span>Copyright © 2019 ByteDance. All Rights Reserved. </span>
+                    <span>Copyright © 2023 ByteDance. All Rights Reserved. </span>
                 </span>
                 <span>
                     <span style={{ marginRight: '24px' }}>平台客服</span>
@@ -255,7 +285,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                 <div>
                     <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
                         <Nav.Header>
-                            <IconSemiLogo style={{ width: '96px', height: '36px', fontSize: 36 }} />
+                            <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />
                         </Nav.Header>
                         <span
                             style={{
@@ -357,7 +387,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
                     }}
                 >
                     <IconBytedanceLogo size="large" style={{ marginRight: '8px' }} />
-                    <span>Copyright © 2019 ByteDance. All Rights Reserved. </span>
+                    <span>Copyright © 2023 ByteDance. All Rights Reserved. </span>
                 </span>
                 <span>
                     <span style={{ marginRight: '24px' }}>平台客服</span>
@@ -374,7 +404,7 @@ import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, Ic
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Layout, Nav, Button, Breadcrumb, Skeleton, Avatar } from '@douyinfe/semi-ui';
-import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting } from '@douyinfe/semi-icons';
+import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, IconLive, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
 
 () => {
     const { Header, Footer, Sider, Content } = Layout;
@@ -391,8 +421,8 @@ import { IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconHistogram, I
                         { itemKey: 'Setting', text: '设置', icon: <IconSetting size="large" /> },
                     ]}
                     header={{
-                        logo: <img src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg" />,
-                        text: 'Semi 运营后台',
+                        logo: <IconSemiLogo style={{ fontSize: 36 }} />,
+                        text: 'Semi Design',
                     }}
                     footer={{
                         collapseButton: true,

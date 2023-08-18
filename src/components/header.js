@@ -12,7 +12,7 @@ const Header = ({ location, localeCode, style }) => (
                 const iframeDOM=document.querySelector('iframe');
                 try {
                     iframeDOM?.contentWindow?.semidoc?.setDarkmode(mode==='dark');
-                } catch (e){
+                } catch (e) {
 
                 }
             }}
