@@ -265,6 +265,10 @@ const defaultFileList = [
     name: 'jiafang2.jpeg',
     status: 'uploadFail',
     size: '222kb',
+    style: {
+      width: 300,
+      height: 300,
+    },
     url:
       'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
   },
@@ -277,15 +281,15 @@ const defaultFileList = [
     url:
       'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
   },
-  {
-    uid: '4',
-    name: 'jiafang3.jpeg',
-    status: 'validateFail',
-    validateMessage: '文件过大',
-    size: '222kb',
-    url:
-      'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
-  },
+  // {
+  //   uid: '4',
+  //   name: 'jiafang3.jpeg',
+  //   status: 'validateFail',
+  //   validateMessage: '文件过大',
+  //   size: '222kb',
+  //   url:
+  //     'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
+  // },
   {
     uid: '5',
     name: 'jiafang4.jpeg',
@@ -413,6 +417,42 @@ export const PictureListTypeWithDefaultFileList = () => (
 
 PictureListTypeWithDefaultFileList.story = {
   name: 'picture listType with default file list',
+};
+
+export const PictureListTypeWithCustomHeightWidth = () => {
+  const urls = [
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
+  ];
+  const list = defaultFileList.map((item, i) => {
+    let newItem = {...item};
+    newItem.url = urls[i];
+    return newItem;
+  });
+  return (
+    <>
+      <Upload
+        {...commonProps}
+        showReplace={false}
+        action={action}
+        listType="picture"
+        accept="image/*"
+        picHeight={110}
+        picWidth={200}
+        defaultFileList={list}
+      >
+        <React.Fragment>
+          <IconPlus size="extra-large" />
+        </React.Fragment>
+      </Upload>
+    </>
+  )
+};
+
+PictureListTypeWithCustomHeightWidth.story = {
+  name: 'picture listType with custom height width',
 };
 
 class ManulUploadDemo extends React.Component {
@@ -1148,3 +1188,4 @@ export const ClickToOpenUploadDemo = () => <ClickToOpenUpload></ClickToOpenUploa
 ClickToOpenUploadDemo.story = {
   name: 'click to open upload demo',
 };
+
