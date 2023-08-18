@@ -265,10 +265,6 @@ const defaultFileList = [
     name: 'jiafang2.jpeg',
     status: 'uploadFail',
     size: '222kb',
-    style: {
-      width: 300,
-      height: 300,
-    },
     url:
       'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
   },
@@ -281,15 +277,15 @@ const defaultFileList = [
     url:
       'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
   },
-  // {
-  //   uid: '4',
-  //   name: 'jiafang3.jpeg',
-  //   status: 'validateFail',
-  //   validateMessage: '文件过大',
-  //   size: '222kb',
-  //   url:
-  //     'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
-  // },
+  {
+    uid: '4',
+    name: 'jiafang3.jpeg',
+    status: 'validateFail',
+    validateMessage: '文件过大',
+    size: '222kb',
+    url:
+      'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/bag.jpeg',
+  },
   {
     uid: '5',
     name: 'jiafang4.jpeg',
