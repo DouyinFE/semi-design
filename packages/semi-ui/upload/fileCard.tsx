@@ -1,11 +1,13 @@
-import React, { PureComponent, ReactNode, MouseEventHandler, MouseEvent, CSSProperties, SVGProps, FC } from 'react';
+import React, { Component, ReactNode, MouseEventHandler, MouseEvent, CSSProperties, SVGProps, FC } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/upload/constants';
+import FileCardFoundation, { FileCardAdapter } from '@douyinfe/semi-foundation/upload/fileCardFoundation';
 import { getFileSize } from '@douyinfe/semi-foundation/upload/utils';
 import { IconAlertCircle, IconClose, IconClear, IconFile, IconRefresh, IconEyeOpened } from '@douyinfe/semi-icons';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale } from '../locale/interface';
+import BaseComponent from '../_base/baseComponent';
 
 import Button from '../button/index';
 import Progress from '../progress/index';
@@ -44,11 +46,16 @@ const DirectorySvg: FC<SVGProps<SVGSVGElement>> = (props = {}) => (
 
 export interface FileCardProps extends RenderFileItemProps {
     className?: string;
-    style?: CSSProperties
+    style?: CSSProperties;
+    picWidth?: string | number;
+    picHeight?: string | number
 }
 
+export interface FileCardState {
+    fallbackPreview?: boolean
+}
 
-class FileCard extends PureComponent<FileCardProps> {
+class FileCard extends BaseComponent<FileCardProps, FileCardState> {
     static propTypes = {
         className: PropTypes.string,
         disabled: PropTypes.bool,
@@ -61,6 +68,8 @@ class FileCard extends PureComponent<FileCardProps> {
         percent: PropTypes.number,
         preview: PropTypes.bool,
         previewFile: PropTypes.func,
+        picWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        picHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         showReplace: PropTypes.bool,
         showRetry: PropTypes.bool,
         size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -79,6 +88,21 @@ class FileCard extends PureComponent<FileCardProps> {
         preview: false,
         size: '',
     };
+
+    constructor(props: FileCardProps) {
+        super(props);
+        this.state = {
+            fallbackPreview: false,
+        };
+        this.foundation = new FileCardFoundation(this.adapter);
+    }
+
+    get adapter(): FileCardAdapter<FileCardProps, FileCardState> {
+        return {
+            ...super.adapter,
+            updateFallbackPreview: (fallbackPreview: boolean): void => this.setState({ fallbackPreview }),
+        };
+    }
 
     transSize(size: string | number): string {
         if (typeof size === 'number') {
@@ -123,13 +147,15 @@ class FileCard extends PureComponent<FileCardProps> {
     }
 
     renderPic(locale: Locale['Upload']): ReactNode {
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index } = this.props;
+        const { fallbackPreview } = this.state;
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
         const showPreview = status === strings.FILE_STATUS_SUCCESS && !this.props.showReplace;
         const filePicCardCls = cls({
             [`${prefixCls}-picture-file-card`]: true,
+            [`${prefixCls}-picture-file-card-preview-fallback`]: fallbackPreview,
             [`${prefixCls}-picture-file-card-disabled`]: disabled,
             [`${prefixCls}-picture-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
             [`${prefixCls}-picture-file-card-error`]: status === strings.FILE_STATUS_UPLOAD_FAIL,
@@ -162,10 +188,25 @@ class FileCard extends PureComponent<FileCardProps> {
             <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
         );
 
-        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : <img src={url} alt={name} />;
+        let imgStyle: { height?: number | string; width?: number | string } = {};
+        let itemStyle = style ? { ...style } : {};
+
+        if (picHeight) {
+            itemStyle.height = picHeight;
+            imgStyle.height = picHeight;
+        }
+
+        if (picWidth) {
+            itemStyle.width = picWidth;
+            imgStyle.width = picWidth;
+        }
+        
+        const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} style={imgStyle}/> : <IconFile size="large" />;
+
+        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : defaultThumbTail;
 
         return (
-            <div role="listitem" className={filePicCardCls} style={style} onClick={onPreviewClick}>
+            <div role="listitem" className={filePicCardCls} style={itemStyle} onClick={onPreviewClick}>
                 {thumbnail}
                 {showProgress ? <Progress percent={percent} type="circle" size="small" orbitStroke={'#FFF'} aria-label="uploading file progress" /> : null}
                 {showRetry ? retry : null}
@@ -180,6 +221,7 @@ class FileCard extends PureComponent<FileCardProps> {
 
     renderFile(locale: Locale["Upload"]) {
         const { name, size, percent, url, showRetry: propsShowRetry, showReplace: propsShowReplace, preview, previewFile, status, style, onPreviewClick, renderFileOperation } = this.props;
+        const { fallbackPreview } = this.state;
         const fileCardCls = cls({
             [`${prefixCls}-file-card`]: true,
             [`${prefixCls}-file-card-fail`]: status === strings.FILE_STATUS_VALID_FAIL || status === strings.FILE_STATUS_UPLOAD_FAIL,
@@ -187,7 +229,7 @@ class FileCard extends PureComponent<FileCardProps> {
         });
         const previewCls = cls({
             [`${prefixCls}-file-card-preview`]: true,
-            [`${prefixCls}-file-card-preview-placeholder`]: !preview || previewFile
+            [`${prefixCls}-file-card-preview-placeholder`]: !preview || previewFile || fallbackPreview
         });
         const infoCls = `${prefixCls}-file-card-info`;
         const closeCls = `${prefixCls}-file-card-close`;
@@ -197,7 +239,7 @@ class FileCard extends PureComponent<FileCardProps> {
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && propsShowRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && propsShowReplace;
         const fileSize = this.transSize(size);
-        let previewContent: ReactNode = preview ? (<img src={url} alt={name} />) : (<IconFile size="large" />);
+        let previewContent: ReactNode = (preview && !fallbackPreview) ? (<img src={url} alt={name} onError={(error) => this.foundation.handleImageError(error)} />) : (<IconFile size="large" />);
         if (previewFile) {
             previewContent = previewFile(this.props);
         }

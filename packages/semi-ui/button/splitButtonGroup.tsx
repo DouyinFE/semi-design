@@ -12,16 +12,31 @@ export interface SplitButtonGroupProps extends BaseProps {
 }
 
 export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProps> {
+
+    containerRef: React.RefObject<HTMLDivElement> = React.createRef();
+
     static propTypes = {
         style: PropTypes.object,
         className: PropTypes.string,
         'aria-label': PropTypes.string,
     };
+
+    componentDidMount() { 
+        if (this.containerRef.current) {
+            const buttons = this.containerRef.current.querySelectorAll('button');
+            const firstButton = buttons[0];
+            const lastButton = buttons[buttons.length - 1];
+            firstButton?.classList.add(`${prefixCls}-first`);
+            lastButton?.classList.add(`${prefixCls}-last`);
+        }
+    }
+
     render() {
         const { children, style, className } = this.props;
         const cls = classNames(`${prefixCls}-split`, className);
         return (
-            <div className={cls} style={style} role="group" aria-label={this.props['aria-label']}>
+            <div ref={this.containerRef} className={cls} style={style} role="group"
+                aria-label={this.props['aria-label']}>
                 {children}
             </div>
         );

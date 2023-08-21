@@ -29,19 +29,26 @@ import { Banner, Layout, Button } from '@douyinfe/semi-ui';
         setVisible(!visible);
     };
     const { Header, Footer, Content } = Layout;
+
+    const commonStyle = {
+        height: 64,
+        lineHeight: '64px',
+        background: 'var(--semi-color-fill-0)'
+    };
+
     const banner = (
         <Banner 
             onClose={changeVisible}
-            description="A pre-released version is available"
+            description="Semi D2C 现已支持 Figma DevMode, 安装插件，随时查阅图层对应的前端代码"
         />
     );
     return (
         <>
             <Layout className='components-layout-demo banner-basic'>
-                <Header>Header</Header>
+                <Header style={commonStyle}>Header</Header>
                 {visible? banner : null}
-                <Content>Content</Content>
-                <Footer>Footer</Footer>
+                <Content style={{ height: 300, lineHeight: '300px' }}>Content</Content>
+                <Footer style={commonStyle}>Footer</Footer>
             </Layout>
             <Button
                 onClick={changeVisible}
@@ -70,22 +77,22 @@ import { Banner } from '@douyinfe/semi-ui';
     <>
         <Banner 
             type="info"
-            description="A pre-released version is available."
+            description="Semi D2C 现已支持 Figma DevMode, 安装插件，随时查阅图层对应的前端代码"
         />
         <br/>
         <Banner 
             type="warning"
-            description="This version of the document is going to expire after 4 days."
+            description="当前使用 Figma UI Kit 为旧版，可能无法支持完整的 Design to code 能力"
         />
         <br/>
         <Banner 
             type="danger"
-            description="This document was deprecated since Jan 1, 2019."
+            description="当前使用 API 已过期，请尽快升级"
         />
         <br/>
         <Banner 
             type="success"
-            description="You are viewing the latest version of this document."
+            description="Semi DSM, Make Semi Design to Any Design"
         />
     </>
 );

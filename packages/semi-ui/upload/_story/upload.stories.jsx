@@ -415,6 +415,42 @@ PictureListTypeWithDefaultFileList.story = {
   name: 'picture listType with default file list',
 };
 
+export const PictureListTypeWithCustomHeightWidth = () => {
+  const urls = [
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
+  ];
+  const list = defaultFileList.map((item, i) => {
+    let newItem = {...item};
+    newItem.url = urls[i];
+    return newItem;
+  });
+  return (
+    <>
+      <Upload
+        {...commonProps}
+        showReplace={false}
+        action={action}
+        listType="picture"
+        accept="image/*"
+        picHeight={110}
+        picWidth={200}
+        defaultFileList={list}
+      >
+        <React.Fragment>
+          <IconPlus size="extra-large" />
+        </React.Fragment>
+      </Upload>
+    </>
+  )
+};
+
+PictureListTypeWithCustomHeightWidth.story = {
+  name: 'picture listType with custom height width',
+};
+
 class ManulUploadDemo extends React.Component {
   constructor() {
     super();
@@ -1147,4 +1183,68 @@ export const ClickToOpenUploadDemo = () => <ClickToOpenUpload></ClickToOpenUploa
 
 ClickToOpenUploadDemo.story = {
   name: 'click to open upload demo',
+};
+
+
+
+const PreviewFallbackDemo = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'test.pdf',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/githubdemo/collapse.pdf',
+        },
+        {
+            uid: '2',
+            name: 'normal.png',
+            status: 'success',
+            size: '120KB',
+            preview:true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'
+        }
+    ];
+
+    const SmartPreview = (props) => {
+        const [src, setSrc] = useState(props.src);
+        const fallback = () => {
+            setSrc('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg')
+        };
+        return <img src={src} onError={fallback} />
+    };
+
+    const  previewFile = (file) => {
+        return <SmartPreview src={file.url} />
+    };
+
+    return (
+      <>
+          <Upload
+              defaultFileList={defaultFileList}
+              action={action}
+              // previewFile={previewFile}
+          >
+              <Button icon={<IconUpload />} theme="light">
+                  点击上传
+              </Button>
+          </Upload>
+          <Upload
+              listType='picture'
+              defaultFileList={defaultFileList}
+              action={action}
+              // renderThumbnail={previewFile}
+          >
+             <IconPlus size="extra-large" />
+          </Upload>
+        </>
+    );
+};
+
+export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>;
+
+PreviewFallback.story = {
+  name: 'preview other type',
 };
