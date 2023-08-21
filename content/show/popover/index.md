@@ -36,7 +36,7 @@ import React, { forwardRef } from 'react';
 import { Popover, Space, Empty } from '@douyinfe/semi-ui';
 import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-illustrations';
 
-const style={ border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
+const style = { border: '2px solid var(--semi-color-border)', paddingLeft: 4, paddingRight: 4, borderRadius: 4 };
 
 // 将props属性传递，绑定ref
 const FCChildren = forwardRef((props, ref) => {
