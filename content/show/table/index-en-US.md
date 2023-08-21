@@ -2825,8 +2825,12 @@ But you need to pay attention to some parameters:
 
 -   `resizable` is set to `true` or an `object`
 -   Any column in `columns` that requires a telescopic function should specify the `width`field (if not passed, the column does not have a telescopic function and its column width will be automatically adjusted by the browser)
+-   `column.resize` can take effect after resizable is enabled. After setting to false, the column no longer supports scaling. v2.42 support
 
-> It is not recommended to use with fixed columns at the same time. Fixed columns need to specify `scroll.x`, which stipulates that the table has a width range, and the flexible column will expand the column width, which may cause the table to be misaligned
+
+> When used with fixed columns, you need to specify a column without setting the width
+
+> It is not recommended to use it with `scroll.x` at the same time. scroll.x specifies that the table has a width range, and stretching columns will expand the column width, which may cause the table to be misaligned
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
@@ -2841,7 +2845,8 @@ function ResizableDemo() {
         {
             title: 'Title',
             dataIndex: 'name',
-            width: 400,
+            width: 300,
+            resize: false,
             render: (text, record, index) => {
                 return (
                     <div>
@@ -2890,6 +2895,16 @@ function ResizableDemo() {
             sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
             render: value => {
                 return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+        {
+            title: 'Operate',
+            dataIndex: 'operate',
+            fixed: 'right',
+            width: 100,
+            resize: false,
+            render: () => {
+                return <IconMore />;
             },
         },
     ];
@@ -4997,6 +5012,7 @@ import { Table } from '@douyinfe/semi-ui';
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
 | render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
