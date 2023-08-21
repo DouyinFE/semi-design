@@ -26,7 +26,8 @@ export interface ToastProps extends ConfigProps {
     icon?: any;
     theme?: ToastTheme;
     direction?: Directions;
-    close?: (id: string) => void
+    close?: (id: string) => void;
+    stack?: boolean
 }
 
 
