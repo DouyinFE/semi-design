@@ -139,6 +139,11 @@ const appLocale = {
         "content_ally_info": "「不支持 Accessibility 的前端开源 UI 组件库，就是灾难」",
         "content_theme": "深入浅出 Semi 主题化方案",
         "content_theme_info": "兼容多元的品牌语言和产品形态，避免无意义的重造",
+        "content_d2c": "Semi D2C 设计转代码的演进之路",
+        "content_d2c_info": "用先进的工具连接设计师与开发者",
+        "content_test": "Semi Design 如何做质量保障",
+        "content_test_info": "综合运用 UnitTest、E2E Test、Visual Test保障组件库稳定性",
+
         // page nine: comment
         "grow_with_users": "与用户共同成长",
         "grow_with_users_description": "Semi Design 重视我们的用户，加入并助力我们不断完善",

@@ -137,6 +137,11 @@ const appLocale = {
         "content_ally_info": "\"A front-end open source UI component library that does not support Accessibility is a disaster\"",
         "content_theme": "In-depth explanation of Semi theming scheme",
         "content_theme_info": "Compatible with diverse brand languages ​​and product forms to avoid meaningless re-creation",
+        "content_d2c": "The evolution of Semi D2C design to code",
+        "content_d2c_info": "Connect designers and developers with advanced tools",
+        "content_test": "How We Test Semi Design Component",
+        "content_test_info": "Comprehensively use UnitTest, E2E Test, and Visual Test to ensure the stability of the component library",
+
         // page nine: Comment
         "grow_with_users": "Grow together with users",
         "grow_with_users_description": "Semi Design value our users, any kind of contribution is welcome",
