@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { noop, pick } from 'lodash';
 import UploadFoundation from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
+import { Toast } from '@douyinfe/semi-ui';
 import FileCard from './fileCard';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -240,6 +241,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation = new UploadFoundation(this.adapter);
         this.inputRef = React.createRef<HTMLInputElement>();
         this.replaceInputRef = React.createRef<HTMLInputElement>();
+        this.imgList = []
     }
 
     /**
@@ -257,6 +259,33 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             };
         }
         return null;
+    }
+
+    componentDidMount() {
+        document.body.addEventListener('keydown', async (e) => {
+            if (e.ctrlKey && e.code === 'KeyV' && e.target === document.body) {
+                try {
+                    const clipboardItems = await navigator.clipboard.read();
+                    for (const clipboardItem of clipboardItems) {
+                        for (const type of clipboardItem.types) {
+                            const fileReader = new FileReader();
+                            const blob = await clipboardItem.getType(type);
+                            const buffer = await blob.arrayBuffer();
+                            fileReader.onload = (e) => {
+                                const base64DataUrl = e.target.result as string
+                                const sameIndex = this.imgList.findIndex(item => item === base64DataUrl);
+                                if (sameIndex < 0) {
+                                    this.imgList.push(base64DataUrl);
+                                    const file = new File([buffer], `semi-upload.${type.split('/')[1]}`, { type });
+                                    this.foundation.handleChange([file]);
+                                }
+                            };
+                            fileReader.readAsDataURL(blob);
+                        }
+                    }
+                } catch (err) { Toast.error((err as Error).message) }
+            }
+        })
     }
 
     get adapter(): UploadAdapter<UploadProps, UploadState> {
@@ -310,9 +339,10 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     foundation: UploadFoundation;
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
-
+    imgList: Array<string>;
     componentWillUnmount(): void {
         this.foundation.destroy();
+        document.body.removeEventListener('keydown', () => { })
     }
 
     onClick = (): void => {
@@ -739,5 +769,4 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         );
     }
 }
-
 export default Upload;
