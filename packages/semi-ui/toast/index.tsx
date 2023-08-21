@@ -73,6 +73,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             },
             handleMouseInSideChange: (mouseInSide: boolean) => {
                 this.setState({ mouseInSide });
+            },
+            getInputWrapperRect: () => {
+                return this.innerWrapperRef.current?.getBoundingClientRect();
             }
         };
     }
@@ -85,9 +88,8 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
     handleMouseLeave = (e: React.MouseEvent) => {
         if (this.stack) {
-            const height = this.innerWrapperRef.current?.getBoundingClientRect().height;
+            const height = this.foundation.getInputWrapperRect()?.height;
             if (height) {
-                this.setState({ mouseInSide: false });
                 this.foundation.handleMouseInSideChange(false);
             } 
         }

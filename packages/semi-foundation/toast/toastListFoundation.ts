@@ -14,7 +14,8 @@ export interface ToastListState{
 
 export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastListState>{
     updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void;
-    handleMouseInSideChange: (mouseInSideChange: boolean) => void 
+    handleMouseInSideChange: (mouseInSideChange: boolean) => void;
+    getInputWrapperRect: () => DOMRect | null
 }
 
 export default class ToastListFoundation extends BaseFoundation<ToastListAdapter> {
@@ -31,6 +32,10 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
 
     handleMouseInSideChange = (mouseInSideChange: boolean)=>{
         this._adapter.handleMouseInSideChange(mouseInSideChange);
+    }
+
+    getInputWrapperRect = () => {
+        return this._adapter.getInputWrapperRect();
     }
 
     addToast(toastOpts: ToastProps) {
