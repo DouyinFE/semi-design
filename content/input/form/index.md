@@ -1801,8 +1801,8 @@ withField 主要做了以下事情
 withFieldOption 具体配置可参考 [withField Option](#withFieldOption)
 
 你的自定义受控组件需要做以下事情：  
-- 值发生变化时，调用props.onChange并且将最新的值作为入参  
-- 响应props.value的变化，并更新你的组件UI渲染结果  
+- 值发生变化时，调用props.onChange (或 onKeyChangeFnName 指定的其他回调函数) 并且将最新的值作为入参  
+- 响应props.value（或者 valueKey 指定的其他属性）的变化，并更新你的组件UI渲染结果  
 
 ```jsx
 withField(YourComponent, withFieldOption);

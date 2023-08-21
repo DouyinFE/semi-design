@@ -10,9 +10,6 @@ import { Button, Modal, TreeSelect, Row, Col, Avatar, Select as BasicSelect,
     withFormApi,
     withField,
     ArrayField,
-    AutoComplete,
-    Collapse,
-    Icon,
 } from '../../../index';
 import { format } from 'date-fns';
 import { ComponentUsingFormState } from '../Hook/hookDemo';
@@ -120,7 +117,7 @@ class NestArrayField extends React.Component {
 
 
 class Child extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             ts: format(new Date(), 'yyyy-MM-dd HH:mm:ss')
@@ -134,7 +131,7 @@ class Child extends React.Component {
 }
 
 class Parent extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.click = this.click.bind(this);
     }

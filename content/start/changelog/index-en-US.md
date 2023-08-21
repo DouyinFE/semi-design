@@ -16,6 +16,34 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.41.3 (2023-08-17)
+- 【Style】
+  - Select loading wrapper adds an explicit box-sizing statement to prevent the loading display height from being incorrect in some special cases（for example, when the box-sizing of all DOMs is globally reset to border-box [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
+- 【Chore】
+  - Table dependence: react-resizable version update from v1 to v3 [#1768](https://github.com/DouyinFE/semi-design/pull/1768) [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+
+#### 🎉 2.41.2 (2023-08-14)
+- 【Fix】
+  - fixed Table column not aligned when header is sticky [#1760](https://github.com/DouyinFE/semi-design/issues/1760)
+
+
+#### 🎉 2.41.1 (2023-08-11)
+- 【Feat】
+  - Slider Add onMouseUp API
+- 【Fix】
+  - Fix the problem that the handle always follows the mouse in the scene where the Slider mouse moves out of the window and then lets go and then moves back [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
+  - SideSheet adds automatic calculation of scroll bar width logic to prevent the content behind the mask from shaking when it pops up
+  - Fix the incorrect case of Input and TextArea autoFoucs
+
+#### 🎉 2.41.0-beta.0 (2023-08-07)
+- 【Refactor】
+    - change react-sortable-hoc to @dnd-kit/sortable for Transfer/Taginput drag & drop [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+- 【Style】
+    - The interaction of the Taginput dragging process has been modified, from the change of the tag position in the original dragging to the vertical line in front of the tag to mark the position where the tag in the dragging can be dropped. TagInput adds drag-related tokens, $width-tagInput_sortable_item_over, $color-tagInput_sortable_item_over-bg [#1738](https://github.com/DouyinFE/semi-design/pull/1738)
+- 【Fix】
+    - fix wrong type definition for defaultCurrentIndex in ImagePreview
+    - fix document is not defined error [@nekocode](https://github.com/nekocode)
+
 #### 🎉 2.40.0 (2023-07-28)
 - 【Style】
     - Remove unnecessary margin in button component [#1732](https://github.com/DouyinFE/semi-design/pull/1732)

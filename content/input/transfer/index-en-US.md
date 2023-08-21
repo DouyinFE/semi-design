@@ -710,8 +710,15 @@ class CustomRenderDemo extends React.Component {
 ### Fully custom rendering, drag and drop sorting
 
 In a completely custom rendering scene, since the rendering of the drag area has also been completely taken over by you, you do not need to declare draggable.
-But you need to implement the drag and drop logic yourself, we recommend using `react-sortable-hoc` directly
-To support drag sorting, you need to call onSortEnd with oldIndex and newIndex as the input parameters after the drag sorting is over
+But you need to implement the drag and drop logic yourself, You can use the drag-and-drop tool library [dnd-kit](https://github.com/clauderic/dnd-kit) or [react-sortable-hoc](https://github.com/clauderic/react-sortable-hoc), quickly realize the function. Regarding the selection of the two, here are some of our suggestions.
+
+- Both are maintained by the same author, dnd-kit is the successor of react-sortable-hoc
+- The API design of react-sortable-hoc is more cohesive, and the code is more concise in simple scenarios. But it strongly relies on the findDOMNode API, which will be deprecated in future React versions. At the same time, the library has not been maintained for the past two years.
+- Relatively speaking, dnd-kit has a certain threshold for getting started, but it has a higher degree of freedom, stronger scalability, and is still under maintenance. we recommend it.
+
+Besides, To support drag sorting, you need to call onSortEnd with oldIndex and newIndex as the input parameters after the drag sorting is over
+
+Example using react-sortable-hoc:
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -872,6 +879,280 @@ class CustomRenderDragDemo extends React.Component {
         );
     }
 }
+```
+
+Example using dnd-kit，The core dependencies that need to be used are @dnd-kit/sortable, @dnd-kit/core. The core hooks are useSortable, and the usage instructions of useSortable are as follows
+
+```
+1. Function: Obtain the necessary information during the drag and drop process through the unique id
+2. Core input parameters:
+    - id: unique identifier, which can be a number or a string, but cannot be a number 0
+3. Core return value description:
+    - setNodeRef: Associate the dom node to make it a draggable item
+    - listeners: Contains onKeyDown, onPointerDown and other methods, mainly to allow nodes to be dragged
+    - transform: the movement change value when the node is dragged
+    - transition: transition effect
+    - active: information about the dragged node, including id
+```
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Transfer, Input, Spin, Button } from '@douyinfe/semi-ui';
+import { IconSearch, IconHandle } from '@douyinfe/semi-icons';
+import { useSortable, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import { closestCenter, DragOverlay, DndContext, MouseSensor, TouchSensor, useSensor, useSensors, KeyboardSensor, TraversalOrder } from '@dnd-kit/core';
+
+function SortableList({
+    items,
+    onSortEnd,
+    renderItem,
+}) {
+    const [activeId, setActiveId] = useState(null);
+    // sensors determine which external input is affected by the drag operation (such as mouse, keyboard, touchpad)
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
+    const getIndex = useCallback((id) => items.indexOf(id), [items]);
+    const activeIndex = useMemo(() => activeId ? getIndex(activeId) : -1, [getIndex, activeId]);
+
+    const onDragStart = useCallback(({ active }) => {
+        if (!active) { return; }
+        setActiveId(active.id);
+    }, []);
+
+    // Drag end callback
+    const onDragEnd = useCallback(({ over }) => {
+        setActiveId(null);
+        if (over) {
+            const overIndex = getIndex(over.id);
+            if (activeIndex !== overIndex) {
+                onSortEnd({ oldIndex: activeIndex, newIndex: overIndex });
+            }
+        }
+    }, [activeIndex, getIndex, onSortEnd]);
+
+    const onDragCancel = useCallback(() => {
+        setActiveId(null);
+    }, []);
+
+    return (
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onDragCancel={onDragCancel}
+            // Set the scrolling when dragging to start from the ancestor element closest to the dragged element
+            autoScroll={{ order: TraversalOrder.ReversedTreeOrder }}
+        >
+            <SortableContext items={items} strategy={verticalListSortingStrategy}>
+                <div style={{ overflow: 'auto', display: 'flex', flexDirection: 'column', rowGap: '8px' }}>
+                    {items.map((value, index) => (
+                        <SortableItem
+                            key={value}
+                            id={value}
+                            index={index}
+                            renderItem={renderItem}
+                        />
+                    ))}
+                </div>
+                {ReactDOM.createPortal(
+                    <DragOverlay>
+                        {activeId ? (
+                            renderItem({
+                                id: activeId,
+                                sortableHandle: (WrapperComponent) => WrapperComponent
+                            })
+                        ) : null}
+                    </DragOverlay>,
+                    document.body
+                )}
+            </SortableContext>
+        </DndContext>
+    );
+}
+
+function SortableItem({ id, renderItem }) {
+    const {
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        active,
+    } = useSortable({
+        id,
+    });
+
+    const sortableHandle = useCallback((WrapperComponent) => {
+        return () => <span {...listeners} style={{ lineHeight: 0 }}><WrapperComponent /></span>;
+    }, [listeners]);
+
+    const wrapperStyle = {
+        transform: cssDndKit.Transform.toString({
+            ...transform,
+            scaleX: 1,
+            scaleY: 1,
+        }),
+        transition: transition,
+        opacity: active && active.id === id ? 0 : undefined,
+    };
+
+    return <div 
+        ref={setNodeRef}
+        style={wrapperStyle}
+    >
+        {renderItem({ id, sortableHandle })}
+    </div>;
+}
+
+class CustomRenderDragDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataSource: Array.from({ length: 100 }, (v, i) => ({
+                label: `Hdl Store ${i}`,
+                value: i,
+                disabled: false,
+                key: `key-${i}`,
+            })),
+        };
+        this.renderSourcePanel = this.renderSourcePanel.bind(this);
+        this.renderSelectedPanel = this.renderSelectedPanel.bind(this);
+        this.renderItem = this.renderItem.bind(this);
+    }
+
+    renderItem(type, item, onItemAction, selectedItems, sortableHandle) {
+        let buttonText = 'delete';
+
+        if (type === 'source') {
+            let checked = selectedItems.has(item.key);
+            buttonText = checked ? 'delete' : 'add';
+        }
+
+        const DragHandle = (sortableHandle && sortableHandle(() => <IconHandle className="pane-item-drag-handler" />));
+
+        return (
+            <div className="semi-transfer-item panel-item" key={item.label}>
+                {type === 'source' ? null : ( DragHandle ? <DragHandle /> : null) }
+                <div className="panel-item-main" style={{ flexGrow: 1 }}>
+                    <p style={{ margin: '0 12px' }}>{item.label}</p>
+                    <Button
+                        theme="borderless"
+                        type="primary"
+                        onClick={() => onItemAction(item)}
+                        className="panel-item-remove"
+                        size="small"
+                    >
+                        {buttonText}
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    renderSourcePanel(props) {
+        const {
+            loading,
+            noMatch,
+            filterData,
+            selectedItems,
+            allChecked,
+            onAllClick,
+            inputValue,
+            onSearch,
+            onSelectOrRemove,
+        } = props;
+        let content;
+        switch (true) {
+            case loading:
+                content = <Spin loading />;
+                break;
+            case noMatch:
+                content = <div className="empty sp-font">{inputValue ? 'No search results' : 'No content yet'}</div>;
+                break;
+            case !noMatch:
+                content = filterData.map(item => this.renderItem('source', item, onSelectOrRemove, selectedItems));
+                break;
+            default:
+                content = null;
+                break;
+        }
+        return (
+            <section className="source-panel">
+                <div className="panel-header sp-font">Store list</div>
+                <div className="panel-main">
+                    <Input
+                        style={{ width: 454, margin: '12px 14px' }}
+                        prefix={<IconSearch />}
+                        onChange={onSearch}
+                        showClear
+                    />
+                    <div className="panel-controls sp-font">
+                        <span>Store to be selected: {filterData.length}</span>
+                        <Button onClick={onAllClick} theme="borderless" size="small">
+                            {allChecked ? 'Unselect all' : 'Select all'}
+                        </Button>
+                    </div>
+                    <div className="panel-list">{content}</div>
+                </div>
+            </section>
+        );
+    }
+
+    renderSelectedPanel(props) {
+        const { selectedData, onClear, clearText, onRemove, onSortEnd } = props;
+        let mainContent = null;
+
+        if (!selectedData.length) {
+            mainContent = <div className="empty sp-font">No data, please filter from the left</div>;
+        }
+
+        const renderSelectItem = ({ id, sortableHandle }) => {
+            const item = selectedData.find(item => id === item.key);
+            return this.renderItem('selected', item, onRemove, null, sortableHandle);
+        };
+
+        const sortData = selectedData.map(item => item.key);
+
+        mainContent = <div className="panel-main" style={{ display: 'block' }}>
+            <SortableList onSortEnd={onSortEnd} items={sortData} renderItem={renderSelectItem}></SortableList>
+        </div>;
+
+        return (
+            <section className="selected-panel">
+                <div className="panel-header sp-font">
+                    <div>Selected: {selectedData.length}</div>
+                    <Button theme="borderless" type="primary" onClick={onClear} size="small">
+                        {clearText || 'Clear '}
+                    </Button>
+                </div>
+                {mainContent}
+            </section>
+        );
+    }
+
+    render() {
+        const { dataSource } = this.state;
+        return (
+            <Transfer
+                defaultValue={[2, 4]}
+                onChange={values => console.log(values)}
+                className="component-transfer-demo-custom-panel"
+                renderSourcePanel={this.renderSourcePanel}
+                renderSelectedPanel={this.renderSelectedPanel}
+                dataSource={dataSource}
+            />
+        );
+    }
+}
+
+render(CustomRenderDragDemo);
 ```
 
 ### Tree Transfer

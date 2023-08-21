@@ -259,7 +259,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                 return merge(
                     {
                         opts: {
-                            style: { width: '240px' },
+                            // style: { width: '240px' },
                             showArrow: true,
                         },
                     },

@@ -43,6 +43,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         vertical: PropTypes.bool,
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
+        onMouseUp: PropTypes.func,
         tooltipVisible: PropTypes.bool,
         style: PropTypes.object,
         className: PropTypes.string,
@@ -186,7 +187,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             getMaxHandleEl: () => this.maxHanleEl.current,
             onHandleDown: (e: React.MouseEvent) => {
                 this._addEventListener(document.body, 'mousemove', this.foundation.onHandleMove, false);
-                this._addEventListener(document.body, 'mouseup', this.foundation.onHandleUp, false);
+                this._addEventListener(window, 'mouseup', this.foundation.onHandleUp, false);
                 this._addEventListener(document.body, 'touchmove', this.foundation.onHandleTouchMove, false);
             },
             onHandleMove: (mousePos: number, isMin: boolean, stateChangeCallback = noop, clickTrack = false, outPutValue): boolean | void => {
@@ -240,6 +241,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this.setState({ focusPos: '' });
             },
             onHandleUpBefore: (e: React.MouseEvent) => {
+                this.props.onMouseUp?.(e);
                 e.stopPropagation();
                 e.preventDefault();
                 document.body.removeEventListener('mousemove', this.foundation.onHandleMove, false);
@@ -613,7 +615,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         return slider;
     }
 
-    private _addEventListener<T extends keyof HTMLElementEventMap>(target: HTMLElement, eventName: T, callback: (e: HTMLElementEventMap[T]) => void, ...rests: any) {
+    private _addEventListener<T extends keyof (HTMLElementEventMap & WindowEventMap)>(target: HTMLElement | Window, eventName: T, callback: EventListenerOrEventListenerObject, ...rests: any) {
         if (target.addEventListener) {
             target.addEventListener(eventName, callback, ...rests);
             const clearSelf = () => {

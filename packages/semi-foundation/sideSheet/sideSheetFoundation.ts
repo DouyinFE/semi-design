@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { get, noop } from 'lodash';
+import { noop } from 'lodash';
 import KeyCode from '../utils/keyCode';
 
 
@@ -95,7 +95,7 @@ export default class SideSheetFoundation extends BaseFoundation<SideSheetAdapter
     }
 
 
-    toggleDisplayNone = (displayNone:boolean)=>{
+    toggleDisplayNone = (displayNone: boolean)=>{
         this._adapter.toggleDisplayNone(displayNone);
     }
 
