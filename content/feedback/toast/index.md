@@ -124,7 +124,7 @@ render(Demo);
 ```
 
 ### 堆叠样式
-可以通过 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开。
+可以通过 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开。 （>=2.42.0）
 
 ```jsx live=true
 import { Toast, Typography, Button } from '@douyinfe/semi-ui';
@@ -394,16 +394,16 @@ render(Demo);
 
 **以下API无需调用额外的 ToastFactory.create(config) 创建新 Toast 即能生效设置**
 
-| 属性 | 说明                        | 类型 | 默认值 | 版本 |
-| --- |---------------------------| --- | --- | --- |
-| content | 提示内容                      | ReactNode | '' |  |
-| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭  | number | 3 |  |
+| 属性 | 说明                        | 类型 | 默认值 | 版本     |
+| --- |---------------------------| --- | --- |--------|
+| content | 提示内容                      | ReactNode | '' |        |
+| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭  | number | 3 |        |
 | icon | 自定义图标                     | ReactNode |  | 0.25.0 |
 | showClose | 是否展示关闭按钮                  | boolean | true | 0.25.0 |
 | textMaxWidth | 内容的最大宽度                   | number \| string | 450 | 0.25.0 |
-| theme | 填充样式，支持 `light`, `normal` | string | `normal` | 1.0.0 |
-| onClose | toast 关闭的回调函数             | () => void |  |  |
-| stack | 是否堆叠 Toast                | boolean | false | 2.41.0  |
+| theme | 填充样式，支持 `light`, `normal` | string | `normal` | 1.0.0  |
+| onClose | toast 关闭的回调函数             | () => void |  |        |
+| stack | 是否堆叠 Toast                | boolean | false | 2.42.0 |
 
 **若未在 Toast.config(config) 中特别声明，以下API需要调用额外的 ToastFactory.create(config) 创建新 Toast 生效设置**
 

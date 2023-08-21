@@ -71,12 +71,15 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
                 this.setState({ list, removedItems, updatedItems });
             },
+            handleMouseInSideChange: (mouseInSide: boolean) => {
+                this.setState({ mouseInSide });
+            }
         };
     }
 
     handleMouseEnter = (e: React.MouseEvent) => {
         if (this.stack) {
-            this.setState({ mouseInSide: true });
+            this.foundation.handleMouseInSideChange(true);
         } 
     }
 
@@ -85,6 +88,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             const height = this.innerWrapperRef.current?.getBoundingClientRect().height;
             if (height) {
                 this.setState({ mouseInSide: false });
+                this.foundation.handleMouseInSideChange(false);
             } 
         }
     }

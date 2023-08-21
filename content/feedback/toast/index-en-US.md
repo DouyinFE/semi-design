@@ -123,7 +123,7 @@ render(Demo);
 ```
 
 ### Stacking styles
-You can apply stacking styles to multiple Toasts on the same screen through the stack property, and Hover expands them.
+You can apply stacking styles to multiple Toasts on the same screen through the stack property, and Hover expands them. （>=2.42.0）
 
 
 ```jsx live=true
@@ -403,7 +403,7 @@ The static methods provided are as follows: Display: You can pass in `options` o
 | textMaxWidth | Maximum width of content                           | number \| string | 450 | 0.25.0  |
 | theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0   |
 | onClose | Callback function when closing toast               | () => void |  |         |
-| stack | Whether to stack toast                             | boolean | false | 2.41.0  |
+| stack | Whether to stack toast                             | boolean | false | 2.42.0  |
 
 **If not specifically declared in Toast.config(config), the following APIs need to call additional ToastFactory.create(config) to create new Toast settings**
 

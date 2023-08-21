@@ -13,7 +13,8 @@ export interface ToastListState{
 }
 
 export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastListState>{
-    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void
+    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void;
+    handleMouseInSideChange: (mouseInSideChange: boolean) => void 
 }
 
 export default class ToastListFoundation extends BaseFoundation<ToastListAdapter> {
@@ -26,6 +27,10 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
     hasToast(id: string) {
         const toastList = this._adapter.getState('list') as ToastListState['list'];
         return toastList.map(({ id }) =>id).includes(id);
+    }
+
+    handleMouseInSideChange = (mouseInSideChange: boolean)=>{
+        this._adapter.handleMouseInSideChange(mouseInSideChange);
     }
 
     addToast(toastOpts: ToastProps) {
