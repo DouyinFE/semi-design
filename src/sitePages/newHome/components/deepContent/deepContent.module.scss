@@ -36,9 +36,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 1200px;
+    width: 1208px;
     height: 495px;
-    margin: 48px 0px 0px;
+    margin: 48px 0px 0px 0px;
 
     :hover {
         .headline {
@@ -53,7 +53,8 @@
     align-items: flex-start;
     row-gap: 29px;
     cursor: pointer;
-    height: 523px;
+    height: 495px;
+    box-sizing: border-box;
 }
 
 .frame1312316426 {

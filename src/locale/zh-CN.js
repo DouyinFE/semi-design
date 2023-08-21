@@ -144,7 +144,7 @@ const appLocale = {
         "content_d2c": "Semi D2C 设计转代码的演进之路",
         "content_d2c_info": "用先进的工具连接设计师与开发者",
         "content_test": "Semi Design 如何做质量保障",
-        "content_test_info": "综合运用 UnitTest、E2E Test、Visual Test保障组件库稳定性",
+        "content_test_info": "综合运用 Unit Test、E2E Test、Visual Test保障组件库稳定性",
 
         // page nine: comment
         "grow_with_users": "与用户共同成长",
