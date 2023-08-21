@@ -32,9 +32,9 @@ function Pro(props) {
         <div {...props} className={`${styles.macBookPro2}`}>
             <div className={styles.frame14294}>
                 <div className={`${styles.frame4151}`}>
-                    <Badge count={<BetaTag style={{ right: -14, top: 4 }} />}>
-                        <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
-                    </Badge>
+                    {/* <Badge count={<BetaTag style={{ right: -14, top: 4 }} />}> */}
+                    <p className={styles.semiPro} data-locale={"en-US"}>{_t('home.pro.title')}</p>
+                    {/* </Badge> */}
                 </div>
                 <p className={styles.text}>
                     <span className={styles.text_4c571d3f}>{_t('home.pro.desc', {}, '使用真实组件设计，前端代码一键转')}</span>

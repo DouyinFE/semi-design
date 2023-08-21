@@ -94,7 +94,9 @@ const appLocale = {
         "feature_test": "Stable quality assurance",
         "feature_test_description": "Semi uses a variety of methods such as unit testing to ensure the stability and quality of components, and the code coverage rate reaches 90%",
         "feature_SSR": "SSR support",
-        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js and Gatsby",
+        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js、Gatsby、Remix",
+        "feature_D2C": "Design to code",
+        "feature_D2C_description": "Offical provides powerful design to code capabilities, 3-5s, one-click, generate real code from Figma design draft",
         // page four: Theme
         "home.theme": "Theming",
         "home.theme.desc": "Create variations of UI Styles that suit your brand with full flexibility",

@@ -96,7 +96,9 @@ const appLocale = {
         "feature_test": "稳定的质量保障",
         "feature_test_description": "Semi 使用了单元测试等多种方法保证组件的稳定和质量，代码覆盖率达到 90%",
         "feature_SSR": "支持 SSR",
-        "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 和 Gatsby 等框架中使用",
+        "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 、 Gatsby 和 Remix 等框架中使用",
+        "feature_D2C": "设计稿转代码",
+        "feature_D2C_description": "Semi 提供强大的 design to code能力，3-5s，一键点击，从 Figma 设计稿生成真实代码",
         // page four: theme
         "home.theme": "百变主题",
         "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
