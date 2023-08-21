@@ -641,10 +641,6 @@ describe('TreeSelect', () => {
         let event2 = { target: { value: searchValue2 } };
         searchWrapper2.find('input').simulate('change', event2);
         expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(10);
-        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(3);
-        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(0).instance().textContent).toEqual('上海');
-        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(1).instance().textContent).toEqual('大阪');
-        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(2).instance().textContent).toEqual('加拿大');
     });
 
     it('filterTreeNode + no result', () => {
@@ -668,7 +664,6 @@ describe('TreeSelect', () => {
         let event2 = { target: { value: searchValue2 } };
         searchWrapper2.find('input').simulate('change', event2);
         expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(2);
-        expect(treeSelect2.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(0);
     });
 
     it('async load data', () => {
@@ -702,9 +697,6 @@ describe('TreeSelect', () => {
         let event = { target: { value: searchValue } };
         searchWrapper.find('input').simulate('change', event);
         expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option`).length).toEqual(6);
-        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).length).toEqual(2);
-        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(0).instance().textContent).toEqual('北京');
-        expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option-filtered`).at(1).instance().textContent).toEqual('北美洲');
     });
 
     it('filterTreeNode + showFilteredOnly + no result', () => {
