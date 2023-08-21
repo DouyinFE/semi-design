@@ -1147,8 +1147,8 @@ class ModalFormDemo extends React.Component {
 -   你可以通过`rules`为每个 Field 表单控件配置校验规则  
     Form 内部的校验库基于 async-validator，更多配置规则可查阅其[官方文档](https://github.com/yiminghe/async-validator)
 -   你可以通过 form 的`initValues`为整个表单统一设置初始值，也可以在每个 field 中通过`initValue`设置初始值（后者优先级更高）
--   可以通过 trigger 为每个 Field 配置不同的校验触发时机，默认为 change（即onChange触发时，自动进行校验）。还支持 change、blur、mount、custom 或以上的组合。v2.42 后支持通过 FormProps 统一配置
--   可以通过 stopValidateWithError 开关，决定使用 rules 校验时，当碰到第一个检验不通过的 rules 后，是否继续触发后续 rules 的校验。v2.42 后支持通过 FormProps 统一配置
+-   可以通过 trigger 为每个 Field 配置不同的校验触发时机，默认为 change（即onChange触发时，自动进行校验）。还支持 change、blur、mount、custom 或以上的组合。v2.42 后支持通过 FormProps 统一配置, 若都配置时，以 FieldProps 为准  
+-   可以通过 stopValidateWithError 开关，决定使用 rules 校验时，当碰到第一个检验不通过的 rules 后，是否继续触发后续 rules 的校验。v2.42 后支持通过 FormProps 统一配置，若都配置时，以 FieldProps 为准  
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
@@ -1158,33 +1158,37 @@ import { Form, Button } from '@douyinfe/semi-ui';
     
     const initValues = {
         name: 'semi',
-        role: 'rd'
+        shortcut: 'se'
     };
     
     const style = { width: '100%' };
     
     const { Select, Input } = Form;
 
-
     return (
         <Form initValues={initValues}>
             <Input
                 field="name"
-                label="名称（Input）"
                 style={style}
                 trigger='blur'
                 rules={[
                     { required: true, message: 'required error' },
                     { type: 'string', message: 'type error' },
-                    { validator: (rule, value) => value === 'semi', message: 'should be semi' }
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
                 ]}
             />
-            <Select field="role" style={style} label='角色' placeholder='请选择你的角色' initValue={'pm'}>
-                <Select.Option value="operate">运营</Select.Option>
-                <Select.Option value="rd">开发</Select.Option>
-                <Select.Option value="pm">产品</Select.Option>
-                <Select.Option value="ued">设计</Select.Option>
-            </Select>
+            <Input
+                field="shortcut"
+                style={style}
+                stopValidateWithError
+                rules={[
+                    { required: true, message: 'required error' },
+                    { type: 'string', message: 'type error' },
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                ]}
+            />
             <Button htmlType='submit'>提交</Button>
         </Form>
     );
@@ -1916,7 +1920,7 @@ render(WithFieldDemo2);
 | render            | 用于声明表单控件，不可与 component、props.children 同时使用                                                                                                                  | function                                      |
 | showValidateIcon  | Field 内的校验信息区块否自动添加对应状态的 icon 展示                                                                                                                         | boolean                                       | true       |
 | style             | 可将内联样式传入 form 标签                                                                                                                                                   | object                                        |
-| stopValidateWithError | 统一应用在每个 Field 的 stopValidateWithError，使用说明见 Field props中同名 API （v2.42后提供）                                                                                            | boolean                             | false     |
+| stopValidateWithError | 统一应用在每个 Field 的 stopValidateWithError，使用说明见 Field props中同名 API （v2.42后提供）                                                                            | boolean                             | false     |
 | validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
 | wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
