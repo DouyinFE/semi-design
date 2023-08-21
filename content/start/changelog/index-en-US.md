@@ -16,6 +16,22 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.42.0-beta.0 (2023-08-21)
+- 【Feat】
+    - Form add API: stopValidateWithError 、trigger，allow unified configuration of stopValidateWithError and trigger properties of all Fields  [#640](https://github.com/DouyinFE/semi-design/issues/640)
+    - Tooltip、Popover、Dropdown add trigger=contextMenu support right click to show  [#396](https://github.com/DouyinFE/semi-design/issues/396)
+    - Table column support resize prop #1762  [#1650](https://github.com/DouyinFE/semi-design/issues/1650)
+    - Upload adds picWidth and picHeight to quickly set the width and height of pictures in picture wall mode  [#1757](https://github.com/DouyinFE/semi-design/issues/1757)
+    - Split Button supports deep nested Button [#487](https://github.com/DouyinFE/semi-design/issues/487)
+    - Toast add stack mode, improve the display experience when multiple toasts at the same time [#1746](https://github.com/DouyinFE/semi-design/pull/1746)
+- 【Fix】
+    - Fix InputNumber formatter error in controlled mode  [#1672](https://github.com/DouyinFE/semi-design/issues/1672)
+    - fix collapse aria-owns in SSR not match with server result.  [#1763](https://github.com/DouyinFE/semi-design/issues/1763)
+    - When Upload preview is true, add previews for other types of files to prevent pdf and other types of files from displaying x-cracked images when loading fails
+- 【Style】
+    - When Tree/TreeSelect enables search and treeNodeFilterProp is not label, only the search content is highlighted  instead of the entire line  [#1711](https://github.com/DouyinFE/semi-design/issues/1711)
+    - Typography when ellipsis showTooltip is set to popover, remove the default 240px width, which is consistent with popover alone  [#1766](https://github.com/DouyinFE/semi-design/issues/1766)
+
 #### 🎉 2.41.3 (2023-08-17)
 - 【Style】
   - Select loading wrapper adds an explicit box-sizing statement to prevent the loading display height from being incorrect in some special cases（for example, when the box-sizing of all DOMs is globally reset to border-box [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
