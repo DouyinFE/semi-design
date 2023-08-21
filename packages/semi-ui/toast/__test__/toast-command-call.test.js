@@ -12,7 +12,7 @@ describe('Toast - 2', () => {
         clear();
         const tw = document.querySelector(`.${BASE_CLASS_PREFIX}-toast-wrapper`);
         if (tw) {
-            tw.innerHTML = '';
+            tw.childNodes[0].innerHTML = '';
         }
     });
 
