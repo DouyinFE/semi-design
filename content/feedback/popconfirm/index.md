@@ -86,10 +86,10 @@ function TypesConfirmDemo(props = {}) {
 
     return (
         <div>
-            <RadioGroup onChange={changeType} value={type} style={{ marginTop: 14, marginBottom: 14 }}>
+            <RadioGroup type="button" onChange={changeType} value={type} style={{ marginTop: 14, marginBottom: 14 }}>
                 {keys.map(key => (
                     <Radio key={key} value={key}>
-                        <strong style={{ color: `var(--semi-color-${key === 'default' ? 'primary' : key})` }}>{key}</strong>
+                        <span style={{ color: `var(--semi-color-${key === 'default' ? 'primary' : key})` }}>{key}</span>
                     </Radio>
                 ))}
             </RadioGroup>
@@ -112,8 +112,8 @@ function TypesConfirmDemo(props = {}) {
 
 ### 延时关闭
 
-onOk、onCancel 可以通过 return Promise 实现点击后延时关闭 （v2.19后支持）。 onCancel、onOk 被触发时，对应的 Button 会自动切换为 loading: true  
-promise solve 会关闭气泡确认框， promise reject时气泡依然保留，同时 button loading 自动切换为 false
+onOk、onCancel 可以通过 return Promise 实现点击后延时关闭 （v2.19后支持）  
+onCancel、onOk 被触发时，对应的 Button 会自动切换为 loading: true, promise solve 会关闭气泡确认框， promise reject时气泡依然保留，同时 button loading 自动切换为 false
 
 ```jsx live=true
 import React from 'react';
