@@ -1481,7 +1481,7 @@ render(App);
 
 **版本：>=0.27.0**
 
-默认情况，展开按钮会与第列文案渲染在同一个单元格内，你可以通过传入 `hideExpandedColumn={false}` 来渲染为单独一列：
+默认情况，展开按钮会与第一列文案渲染在同一个单元格内，你可以通过传入 `hideExpandedColumn={false}` 来渲染为单独一列：
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';

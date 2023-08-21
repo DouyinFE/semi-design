@@ -771,3 +771,28 @@ export const PrefixSuffix = () => {
     <InputNumber prefix="年龄" suffix='岁' />
   );
 }
+
+export const Fix1772 = () => {
+  const [value, setValue] = useState(60000);
+  return (
+    <InputNumber
+      formatter={value => {
+        const formattedValue = String(Number(`${value}`.replace(/\D/g, '')) / 60000);
+        console.log('format value', value, formattedValue);
+        return formattedValue;
+      }}
+      parser={value => {
+        const parsedValue = String(Number(`${value}`.replace(/\D/g, '')) * 60000);
+        console.log('parser value', value, parsedValue);
+        return parsedValue;
+      }}
+      value={value}
+      onChange={value => {
+        console.log('onChange', value);
+        setValue(value)
+      }}
+      min={60000}
+      step={60000}
+    />
+  );
+}
