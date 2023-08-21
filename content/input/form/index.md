@@ -1921,6 +1921,7 @@ render(WithFieldDemo2);
 | showValidateIcon  | Field 内的校验信息区块否自动添加对应状态的 icon 展示                                                                                                                         | boolean                                       | true       |
 | style             | 可将内联样式传入 form 标签                                                                                                                                                   | object                                        |
 | stopValidateWithError | 统一应用在每个 Field 的 stopValidateWithError，使用说明见 Field props中同名 API （v2.42后提供）                                                                            | boolean                             | false     |
+| trigger    |  统一应用在每个 Field 的 trigger，使用说明详见 Field props中同名 API（v2.42后提供）                                                        | string\|array                            |  'change'  |
 | validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
 | wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
