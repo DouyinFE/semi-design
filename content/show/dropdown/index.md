@@ -228,7 +228,8 @@ function Demo() {
 
 ### 触发方式
 
-默认是移入触发，可通过获取焦点(focus)，点击(click)或自定义事件触发菜单展开。
+默认是移入触发，可通过获取焦点(focus)，点击(click)或自定义事件触发菜单展开。  
+contextMenu方式在 v2.42 后提供
 
 ```jsx live=true
 import React from 'react';
@@ -286,6 +287,21 @@ function Demo() {
                 }
             >
                 <Button>Click me</Button>
+            </Dropdown>
+            <br />
+            <br />
+            <Dropdown
+                trigger={'contextMenu'}
+                position={'bottomRight'}
+                render={
+                    <Dropdown.Menu>
+                        <Dropdown.Item>Menu Item 1</Dropdown.Item>
+                        <Dropdown.Item>Menu Item 2</Dropdown.Item>
+                        <Dropdown.Item>Menu Item 3</Dropdown.Item>
+                    </Dropdown.Menu>
+                }
+            >
+                <Button theme='solid' type='secondary' style={{ marginBottom: 20 }}>Right click (ContextMenu)</Button>
             </Dropdown>
         </div>
     );
@@ -444,7 +460,7 @@ function DropdownEvents() {
 | style | 弹出层内联样式                                                                                                                      | object |  |  |
 | showTick | 是否自动在 active 的 Dropdown.Item 项左侧展示表示选中的勾                                                                                     | boolean | false | **0.26.0** |
 | stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                                              | boolean | false | **0.34.0** |
-| trigger | 触发下拉的行为，可选 "hover", "focus", "click", "custom"                                                                               | string | "hover" |  |
+| trigger | 触发下拉的行为，可选 "hover", "focus", "click", "custom", "contextMenu"(v2.42后提供)                                                                               | string | "hover" |  |
 | visible | 是否显示菜单，需配合 trigger custom 使用                                                                                                 | boolean | 无 |  |
 | zIndex | 弹出层 z-index 值                                                                                                                | number | 1050 |  |
 | onClickOutSide | 当弹出层处于展示状态，点击非Children、非弹出层内部区域时的回调（仅trigger为custom、click时有效）                                                                | function(e:event) |  | **2.1.0** |

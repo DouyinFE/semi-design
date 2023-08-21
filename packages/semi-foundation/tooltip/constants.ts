@@ -23,7 +23,7 @@ const strings = {
         'leftBottomOver',
         'rightBottomOver',
     ],
-    TRIGGER_SET: ['hover', 'focus', 'click', 'custom'],
+    TRIGGER_SET: ['hover', 'focus', 'click', 'custom', 'contextMenu'],
     STATUS_DISABLED: 'disabled',
     STATUS_LOADING: 'loading',
 } as const;

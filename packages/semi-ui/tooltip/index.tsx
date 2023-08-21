@@ -260,7 +260,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 click: 'onClick',
                 focus: 'onFocus',
                 blur: 'onBlur',
-                keydown: 'onKeyDown'
+                keydown: 'onKeyDown',
+                contextMenu: 'onContextMenu',
             }),
             registerTriggerEvent: (triggerEventSet: Record<string, any>) => {
                 this.setState({ triggerEventSet });
