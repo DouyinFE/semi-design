@@ -19,8 +19,7 @@
     ],
     "sideEffects": [
         "*.scss",
-        "*.css",
-        "lib/es/index.js"
+        "*.css"
     ],
     "scripts": {
         "clean": "rimraf dist lib",
