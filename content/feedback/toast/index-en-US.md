@@ -122,6 +122,29 @@ function Demo() {
 render(Demo);
 ```
 
+### Stacking styles
+You can apply stacking styles to multiple Toasts on the same screen through the stack property, and Hover expands them. （>=2.42.0）
+
+
+```jsx live=true
+import { Toast, Typography, Button } from '@douyinfe/semi-ui';
+
+()=>{
+    
+    const opts = {
+        content: 'Hi, Bytedance dance dance',
+        duration: 10,
+        stack: true,
+    };
+
+    
+    return <Button onClick={() => {
+         Toast.info(opts)
+    }}>Click multiple times</Button>
+}
+
+```
+
 ### Custom Children with Link
 
 Informational feedback
@@ -371,15 +394,16 @@ The static methods provided are as follows: Display: You can pass in `options` o
 
 **The following APIs can take effect without calling additional ToastFactory.create(config) to create a new Toast**
 
-| Properties | Instructions | type | Default | version |
-| --- | --- | --- | --- | --- |
-| content | Toast content | string | ReactNode | '' |  |
-| duration | Automatic close delay, no auto-close when set to 0 | number | 3 |  |
-| icon | Custom icons | ReactNode |  | 0.25.0 |
-| showClose | Toggle Whether show close button | boolean | true | 0.25.0 |
-| textMaxWidth | Maximum width of content | number \| string | 450 | 0.25.0 |
-| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0 |
-| onClose | Callback function when closing toast | () => void |  |  |
+| Properties | Instructions                                       | type | Default | version |
+| --- |----------------------------------------------------| --- | --- |---------|
+| content | Toast content                                      | string | ReactNode | ''      |  |
+| duration | Automatic close delay, no auto-close when set to 0 | number | 3 |         |
+| icon | Custom icons                                       | ReactNode |  | 0.25.0  |
+| showClose | Toggle Whether show close button                   | boolean | true | 0.25.0  |
+| textMaxWidth | Maximum width of content                           | number \| string | 450 | 0.25.0  |
+| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0   |
+| onClose | Callback function when closing toast               | () => void |  |         |
+| stack | Whether to stack toast                             | boolean | false | 2.42.0  |
 
 **If not specifically declared in Toast.config(config), the following APIs need to call additional ToastFactory.create(config) to create new Toast settings**
 
