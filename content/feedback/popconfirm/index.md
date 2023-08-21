@@ -198,7 +198,7 @@ import { Button, Popconfirm, Space } from '@douyinfe/semi-ui';
 
 ### 搭配 Tooltip 或 Popover 使用
 
-请参考[搭配使用](zh-CN/show/tooltip#%E6%90%AD%E9%85%8D%20Popover%20%E6%88%96%20Popconfirm%20%E4%BD%BF%E7%94%A8)
+请参考[搭配使用](/zh-CN/show/tooltip#%E6%90%AD%E9%85%8D%20Popover%20%E6%88%96%20Popconfirm%20%E4%BD%BF%E7%94%A8)
 
 ## API 参考
 

@@ -200,7 +200,7 @@ import { Button, Popconfirm, Space } from '@douyinfe/semi-ui';
 
 ### Use with Tooltip or Popover
 
-Please refer to [Use with Tooltip/Popover](/en-US/show/tooltip#Use-with-Popver-or-Popconfirm)
+Please refer to [Use with Tooltip/Popover](https://semi.design/en-US/show/tooltip#Use%20with%20Popver%20or%20Popconfirm)
 
 ## API Reference
 
