@@ -258,7 +258,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
             } else {
                 let valueStr = value;
                 if (typeof value === 'number') {
-                    valueStr = value.toString();
+                    valueStr = this.foundation.doFormat(value);
                 }
 
                 const parsedNum = this.foundation.doParse(valueStr, false, true, true);
