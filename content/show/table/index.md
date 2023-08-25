@@ -2830,10 +2830,13 @@ render(App);
 
 不过你需要注意一些参数：
 
--   `resizable` 设定为 `true` 或者一个 `object`
--   `columns` 里需要伸缩功能的列都要指定 `width` 这个字段（如果不传，该列不具备伸缩功能，且其列宽度会被浏览器自动调整）
+- `resizable` 设定为 `true` 或者一个 `object`
+- `columns` 里需要伸缩功能的列都要指定 `width` 这个字段（如果不传，该列不具备伸缩功能，且其列宽度会被浏览器自动调整）
+- `column.resize` 可以在 resizable 开启后生效，设置为 false 后，列不再支持伸缩。v2.42 支持
 
-> 不推荐与固定列同时使用，固定列需要指定 `scroll.x`，这约定了表格是有宽度范围的，而伸缩列会拓展列宽，这可能会导致表格对不齐
+> 与固定列同时使用时，需指定某一列不设置宽度
+
+> 不推荐与 `scroll.x` 同时使用，scroll.x 指定表格是有宽度范围的，而伸缩列会拓展列宽，这可能会导致表格对不齐
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
@@ -2848,7 +2851,8 @@ function ResizableDemo() {
         {
             title: '标题',
             dataIndex: 'name',
-            width: 400,
+            width: 300,
+            resize: false,
             render: (text, record, index) => {
                 return (
                     <div>
@@ -2897,6 +2901,16 @@ function ResizableDemo() {
             sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
             render: value => {
                 return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+        {
+            title: '操作列',
+            dataIndex: 'operate',
+            fixed: 'right',
+            width: 100,
+            resize: false,
+            render: () => {
+                return <IconMore />;
             },
         },
     ];
@@ -5012,6 +5026,7 @@ import { Table } from '@douyinfe/semi-ui';
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
 | sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true | boolean\|(r1: RecordType, r2: RecordType) => number | true |

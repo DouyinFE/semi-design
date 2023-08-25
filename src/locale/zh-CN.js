@@ -96,7 +96,9 @@ const appLocale = {
         "feature_test": "稳定的质量保障",
         "feature_test_description": "Semi 使用了单元测试等多种方法保证组件的稳定和质量，代码覆盖率达到 90%",
         "feature_SSR": "支持 SSR",
-        "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 和 Gatsby 等框架中使用",
+        "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 、 Gatsby 和 Remix 等框架中使用",
+        "feature_D2C": "设计稿转代码",
+        "feature_D2C_description": "Semi 提供强大的 design to code能力，3-5s，一键点击，从 Figma 设计稿生成真实代码",
         // page four: theme
         "home.theme": "百变主题",
         "home.theme.desc": "快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
@@ -139,6 +141,11 @@ const appLocale = {
         "content_ally_info": "「不支持 Accessibility 的前端开源 UI 组件库，就是灾难」",
         "content_theme": "深入浅出 Semi 主题化方案",
         "content_theme_info": "兼容多元的品牌语言和产品形态，避免无意义的重造",
+        "content_d2c": "Semi D2C 设计转代码的演进之路",
+        "content_d2c_info": "用先进的工具连接设计师与开发者",
+        "content_test": "Semi Design 如何做质量保障",
+        "content_test_info": "综合运用 Unit Test、E2E Test、Visual Test保障组件库稳定性",
+
         // page nine: comment
         "grow_with_users": "与用户共同成长",
         "grow_with_users_description": "Semi Design 重视我们的用户，加入并助力我们不断完善",

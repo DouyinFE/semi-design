@@ -982,7 +982,7 @@ class ModalFormDemo extends React.Component {
         this.formApi = formApi;
     }
 
-    render(){
+    render() {
         const { visible } = this.state;
         let message = 'Required';
         return (
@@ -1066,51 +1066,53 @@ class ModalFormDemo extends React.Component {
 -   You can configure check rules for each Field through `rules`  
      The verification library inside the Form is based on `async-validator`, and more configuration rules can be found in its [official documentation](https://github.com/yiminghe/async-validator)
 -   You can uniformly set the initial value for the entire form through the `initValues` of form, or you can set the initial value through `initValue` in each field (the latter has a higher priority)
+-   You can configure different verification trigger timings for each Field through `trigger`, and the default is `change` (that is, when onChange is triggered, the verification is performed automatically). Also supports `change`, `blur`, `mount`, `custom` or a combination of the above. After v2.42, it supports unified configuration through FormProps. If both are configured, FieldProps shall prevail
+-   You can use the `stopValidateWithError`` switch to decide whether to continue to trigger the validation of subsequent rules when the first rule that fails the validation is encountered. After v2.42, unified configuration through FormProps is supported. If both are configured, FieldProps shall prevail
+
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Form } from '@douyinfe/semi-ui';
+import { Form, Button } from '@douyinfe/semi-ui';
 
-class BasicDemoWithInit extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            initValues: {
-                name: 'semi',
-                role: 'rd'
-            }
-        };
-        this.getFormApi = this.getFormApi.bind(this);
-    }
+() => {
+    
+    const initValues = {
+        name: 'semi',
+        shortcut: 'se'
+    };
+    
+    const style = { width: '100%' };
+    
+    const { Select, Input } = Form;
 
-    getFormApi(formApi) { this.formApi = formApi; }
-
-    render() {
-        const { Select, Input } = Form;
-        const style = { width: '100%' };
-        return (
-            <Form initValues={this.state.initValues}>
-                <Input
-                    field="name"
-                    label="Name（Input）"
-                    style={style}
-                    trigger='blur'
-                    rules={[
-                        { required: true, message: 'required error' },
-                        { type: 'string', message: 'type error' },
-                        { validator: (rule, value) => value === 'muji', message: 'not muji' }
-                    ]}
-                />
-                <Select field="role" style={style} label='Role' placeholder='Choose Role' initValue={'pm'}>
-                    <Select.Option value="qa">Quality Assurance</Select.Option>
-                    <Select.Option value="rd">Software Engineer</Select.Option>
-                    <Select.Option value="pm">Product Manager</Select.Option>
-                    <Select.Option value="ued">Designer</Select.Option>
-                </Select>
-            </Form>
-        );
-    }
-}
+    return (
+        <Form initValues={initValues}>
+            <Input
+                field="name"
+                style={style}
+                trigger='blur'
+                rules={[
+                    { required: true, message: 'required error' },
+                    { type: 'string', message: 'type error' },
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                ]}
+            />
+            <Input
+                field="shortcut"
+                style={style}
+                stopValidateWithError
+                rules={[
+                    { required: true, message: 'required error' },
+                    { type: 'string', message: 'type error' },
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                ]}
+            />
+            <Button htmlType='submit'>提交</Button>
+        </Form>
+    );
+};
 ```
 
 ### Custom Validate (Form Level)

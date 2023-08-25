@@ -207,12 +207,13 @@ function Demo() {
 ```
 ### 触发时机
 
--   配置触发展示的时机，默认为 `hover`，可选 `hover`/`focus`/`click`/`custom`
+-   配置触发展示的时机，默认为 `hover`，可选 `hover`/`focus`/`click`/`custom`/ 'contextMenu' 
 -   设为 `custom` 时，需要配合 `visible` 属性使用，此时显示与否完全受控
+-   contextMenu 右键触发在 v 2.42.0 后开始提供
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
-import { Tooltip, Button, ButtonGroup, Input } from '@douyinfe/semi-ui';
+import { Tooltip, Button, Input, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 function Demo() {
     const [visible, setVisible] = useState(false);
@@ -223,7 +224,7 @@ function Demo() {
         <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }} id="tooltip-container">
             <div style={{ width: '150%', height: '150%', paddingLeft: 50, paddingTop: 50 }}>
                 <Tooltip content={'hi bytedance'} getPopupContainer={getPopupContainer}>
-                    <Button style={{ marginBottom: 20 }}>悬停显示</Button>
+                    <Button theme='solid' type='tertiary' style={{ marginBottom: 20 }}>悬停显示</Button>
                 </Tooltip>
                 <br />
                 <Tooltip content={'hi bytedance'} trigger="click" getPopupContainer={getPopupContainer}>
@@ -234,6 +235,10 @@ function Demo() {
                     <Input style={{ width: 100, marginBottom: 20 }} placeholder="聚焦显示" />
                 </Tooltip>
                 <br />
+                <Tooltip content={'hi bytedance'} trigger="contextMenu" getPopupContainer={getPopupContainer}>
+                    <Button theme='solid' type='secondary' style={{ marginBottom: 20 }}>右键点击展示</Button>
+                </Tooltip>
+                <br />
                 <Tooltip
                     content={'hi bytedance'}
                     trigger="custom"
@@ -241,10 +246,10 @@ function Demo() {
                     getPopupContainer={getPopupContainer}
                 >
                     <span style={{ display: 'inline-block' }}>
-                        <ButtonGroup>
-                            <Button onClick={() => setVisible(true)}>受控显示</Button>
-                            <Button onClick={() => setVisible(false)}>受控隐藏</Button>
-                        </ButtonGroup>
+                        <RadioGroup type='button' onChange={(e) => setVisible(e.target.value)} value={visible}>
+                            <Radio value={true}>受控显示</Radio>
+                            <Radio value={false}>受控隐藏</Radio>
+                        </RadioGroup>
                     </span>
                 </Tooltip>
             </div>
@@ -364,10 +369,10 @@ function Demo() {
 | 属性 | 说明                                                                                                                                                   | 类型 | 默认值 | 版本 |
 | --- |------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | autoAdjustOverflow | 弹出层被遮挡时是否自动调整方向                                                                                                                                      | boolean | true |  |
-| arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                                                 | boolean | true | **0.34.0** |
+| arrowPointAtCenter | “小三角”是否指向元素中心，需要同时传入"showArrow=true"                                                                                                                 | boolean | true |  |
 | content | 弹出层内容                                                                                                                                                | string\|ReactNode |  |  |
 | className | 弹出层的样式名                                                                                                                                              | string |  |  |
-| clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                                                | boolean | false | **0.24.0** |
+| clickToHide | 点击弹出层及内部任一元素时是否自动关闭弹层                                                                                                                                | boolean | false |  |
 | disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977)                                                     | boolean | false | **2.17.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                                 | function():HTMLElement | () => document.body |  |
 | keepDOM | 关闭时是否保留内部组件不销毁                                                                                                                                       | boolean | false | **2.31.0** |
@@ -384,9 +389,9 @@ function Demo() {
 | showArrow | 是否显示箭头三角形                                                                                                                                            | boolean | true |  |
 | stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false | **0.34.0** |
 | transformFromCenter | 是否从包裹的元素水平或垂直中心处变换，该参数仅影响动效变换的 `transform-origin`，一般无需改动                                                                                             | boolean | true |  |
-| trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom`                                                                                                   | string | 'hover' |  |
+| trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom` / `contextMenu` (v2.42后提供)                                                                                                   | string | 'hover' |  |
 | visible | 是否展示弹出层                                                                                                                                              | boolean |  |  |
-| wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名                                                                    | string |  | **1.32.0** |
+| wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名                                                                    | string |  |  |
 | wrapperId | 弹出层 wrapper 节点的 id，trigger 的 aria 属性指向此 id，若不设置组件会随机生成一个 id                                                                                          | string |  | 2.11.0  |
 | zIndex | 弹层层级                                                                                                                                                 | number | 1060 |  |
 | onVisibleChange | 弹出层展示/隐藏时触发的回调                                                                                                                                       | function(isVisible:boolean) |  |  |

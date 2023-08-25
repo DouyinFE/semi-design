@@ -47,6 +47,12 @@ function test(visible) {
   console.log('visible Change:' + visible);
 }
 
+export const ContextMenuTooltip = () => {
+  return <Tooltip content='context menu content' trigger='contextMenu'>
+    <Button>点击右键展开 Tooltip</Button>
+  </Tooltip>
+};
+
 const ScrollDemo = function ScrollDemo(props = {}) {
   const tops = [
     ['topLeft', 'TL'],

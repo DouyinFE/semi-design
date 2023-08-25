@@ -95,6 +95,8 @@ export interface UploadProps {
     previewFile?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     prompt?: ReactNode;
     promptPosition?: PromptPositionType;
+    picHeight?: string | number;
+    picWidth?: string | number;
     renderFileItem?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderPicInfo?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderThumbnail?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
@@ -170,6 +172,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         previewFile: PropTypes.func, // Custom preview
         prompt: PropTypes.node,
         promptPosition: PropTypes.oneOf<UploadProps['promptPosition']>(strings.PROMPT_POSITION),
+        picWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        picHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         renderFileItem: PropTypes.func,
         renderPicPreviewIcon: PropTypes.func,
         renderFileOperation: PropTypes.func,
@@ -389,6 +393,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             renderThumbnail,
             disabled,
             onPreviewClick,
+            picWidth,
+            picHeight,
         } = this.props;
         const onRemove = (): void => this.remove(file);
         const onRetry = (): void => {
@@ -418,6 +424,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                 typeof onPreviewClick !== 'undefined'
                     ? (): void => this.foundation.handlePreviewClick(file)
                     : undefined,
+            picWidth,
+            picHeight
         };
 
         if (status === strings.FILE_STATUS_UPLOAD_FAIL && !validateMessage) {
@@ -449,7 +457,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     };
 
     renderFileListPic = () => {
-        const { showUploadList, limit, disabled, children, draggable, hotSpotLocation } = this.props;
+        const { showUploadList, limit, disabled, children, draggable, hotSpotLocation, picHeight, picWidth } = this.props;
         const { fileList: stateFileList, dragAreaStatus } = this.state;
         const fileList = this.props.fileList || stateFileList;
         const showAddTriggerInList = limit ? limit > fileList.length : true;
@@ -470,6 +478,10 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             role: 'button',
             className: uploadAddCls,
             onClick: this.onClick,
+            style: {
+                height: picHeight,
+                width: picWidth
+            }
         };
         const containerProps = {
             className: fileListCls,

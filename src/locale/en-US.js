@@ -94,7 +94,9 @@ const appLocale = {
         "feature_test": "Stable quality assurance",
         "feature_test_description": "Semi uses a variety of methods such as unit testing to ensure the stability and quality of components, and the code coverage rate reaches 90%",
         "feature_SSR": "SSR support",
-        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js and Gatsby",
+        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js、Gatsby、Remix",
+        "feature_D2C": "Design to code",
+        "feature_D2C_description": "Offical provides powerful design to code capabilities, 3-5s, one-click, generate real code from Figma design draft",
         // page four: Theme
         "home.theme": "Theming",
         "home.theme.desc": "Create variations of UI Styles that suit your brand with full flexibility",
@@ -137,6 +139,11 @@ const appLocale = {
         "content_ally_info": "\"A front-end open source UI component library that does not support Accessibility is a disaster\"",
         "content_theme": "In-depth explanation of Semi theming scheme",
         "content_theme_info": "Compatible with diverse brand languages ​​and product forms to avoid meaningless re-creation",
+        "content_d2c": "The evolution of Semi D2C design to code",
+        "content_d2c_info": "Connect designers and developers with advanced tools",
+        "content_test": "How We Test Semi Design Component",
+        "content_test_info": "Comprehensively use UnitTest, E2E Test, and Visual Test to ensure the stability of the component library",
+
         // page nine: Comment
         "grow_with_users": "Grow together with users",
         "grow_with_users_description": "Semi Design value our users, any kind of contribution is welcome",

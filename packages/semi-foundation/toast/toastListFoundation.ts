@@ -8,11 +8,14 @@ export interface ToastListProps{
 export interface ToastListState{
     list: ToastInstance[];
     removedItems: ToastInstance[];
-    updatedItems: ToastInstance[]
+    updatedItems: ToastInstance[];
+    mouseInSide: boolean
 }
 
 export interface ToastListAdapter extends DefaultAdapter<ToastListProps, ToastListState>{
-    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void
+    updateToast: (list: ToastListState['list'], removedItems: ToastListState['removedItems'], updatedItems: ToastListState['updatedItems']) => void;
+    handleMouseInSideChange: (mouseInSideChange: boolean) => void;
+    getInputWrapperRect: () => DOMRect | null
 }
 
 export default class ToastListFoundation extends BaseFoundation<ToastListAdapter> {
@@ -25,6 +28,14 @@ export default class ToastListFoundation extends BaseFoundation<ToastListAdapter
     hasToast(id: string) {
         const toastList = this._adapter.getState('list') as ToastListState['list'];
         return toastList.map(({ id }) =>id).includes(id);
+    }
+
+    handleMouseInSideChange = (mouseInSideChange: boolean)=>{
+        this._adapter.handleMouseInSideChange(mouseInSideChange);
+    }
+
+    getInputWrapperRect = () => {
+        return this._adapter.getInputWrapperRect();
     }
 
     addToast(toastOpts: ToastProps) {
