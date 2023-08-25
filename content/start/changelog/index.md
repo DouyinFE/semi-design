@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.42.0 (2023-08-25)
+- 【Style】
+    - 设置 datePicker 的内嵌标签的 font-family 为 $font-family-regular，和其他组件的内嵌标签保持一致 [#1780](https://github.com/DouyinFE/semi-design/pull/1780)
+
 #### 🎉 2.42.0-beta.0 (2023-08-21)
 - 【Feat】
     - Tooltip、Popover、Dropdown增加 trigger=contextMenu 右键点击触发  [#396](https://github.com/DouyinFE/semi-design/issues/396)
