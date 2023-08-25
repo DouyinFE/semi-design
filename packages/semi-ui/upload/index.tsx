@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { noop, pick } from 'lodash';
 import UploadFoundation from '@douyinfe/semi-foundation/upload/foundation';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/upload/constants';
-import { Toast } from '@douyinfe/semi-ui';
 import FileCard from './fileCard';
 import BaseComponent from '../_base/baseComponent';
 import LocaleConsumer from '../locale/localeConsumer';
@@ -68,6 +67,7 @@ export interface UploadProps {
     dragMainText?: ReactNode;
     dragSubText?: ReactNode;
     draggable?: boolean;
+    pasting?: boolean;
     fileList?: Array<FileItem>;
     fileName?: string;
     headers?: Record<string, any> | ((file: File) => Record<string, string>);
@@ -84,6 +84,7 @@ export interface UploadProps {
     onClear?: () => void;
     onDrop?: (e: Event, files: Array<File>, fileList: Array<FileItem>) => void;
     onError?: (e: CustomError, file: File, fileList: Array<FileItem>, xhr: XMLHttpRequest) => void;
+    onPastingError?: (error: Error) => void;
     onExceed?: (fileList: Array<File>) => void;
     onFileChange?: (files: Array<File>) => void;
     onOpenFileDialog?: () => void;
@@ -120,6 +121,7 @@ export interface UploadProps {
 export interface UploadState {
     dragAreaStatus: 'default' | 'legal' | 'illegal'; // Status of the drag zone
     fileList: Array<FileItem>;
+    imgList: Array<string>;
     inputKey: number;
     localUrls: Array<string>;
     replaceIdx: number;
@@ -231,6 +233,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         super(props);
         this.state = {
             fileList: props.defaultFileList || [],
+            imgList: [],
             replaceIdx: -1,
             inputKey: Math.random(),
             replaceInputKey: Math.random(),
@@ -241,7 +244,6 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation = new UploadFoundation(this.adapter);
         this.inputRef = React.createRef<HTMLInputElement>();
         this.replaceInputRef = React.createRef<HTMLInputElement>();
-        this.imgList = []
     }
 
     /**
@@ -261,33 +263,6 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         return null;
     }
 
-    componentDidMount() {
-        document.body.addEventListener('keydown', async (e) => {
-            if (e.ctrlKey && e.code === 'KeyV' && e.target === document.body) {
-                try {
-                    const clipboardItems = await navigator.clipboard.read();
-                    for (const clipboardItem of clipboardItems) {
-                        for (const type of clipboardItem.types) {
-                            const fileReader = new FileReader();
-                            const blob = await clipboardItem.getType(type);
-                            const buffer = await blob.arrayBuffer();
-                            fileReader.onload = (e) => {
-                                const base64DataUrl = e.target.result as string
-                                const sameIndex = this.imgList.findIndex(item => item === base64DataUrl);
-                                if (sameIndex < 0) {
-                                    this.imgList.push(base64DataUrl);
-                                    const file = new File([buffer], `semi-upload.${type.split('/')[1]}`, { type });
-                                    this.foundation.handleChange([file]);
-                                }
-                            };
-                            fileReader.readAsDataURL(blob);
-                        }
-                    }
-                } catch (err) { Toast.error((err as Error).message) }
-            }
-        })
-    }
-
     get adapter(): UploadAdapter<UploadProps, UploadState> {
         return {
             ...super.adapter,
@@ -299,6 +274,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             notifyRemove: (file, fileList, fileItem): void => this.props.onRemove(file, fileList, fileItem),
             notifySizeError: (file, fileList): void => this.props.onSizeError(file, fileList),
             notifyExceed: (fileList): void => this.props.onExceed(fileList),
+            notifyPastingInvalidContent: (error): void => this.props.onPastingError(error),
             updateFileList: (fileList, cb): void => {
                 if (typeof cb === 'function') {
                     this.setState({ fileList }, cb);
@@ -339,10 +315,13 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     foundation: UploadFoundation;
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
-    imgList: Array<string>;
+
+    componentDidMount() {
+        this.foundation.init()
+    }
+
     componentWillUnmount(): void {
         this.foundation.destroy();
-        document.body.removeEventListener('keydown', () => { })
     }
 
     onClick = (): void => {
