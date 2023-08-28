@@ -52,7 +52,9 @@ export default class SubNavFoundation<P = Record<string, any>, S = Record<string
         this._timer = null;
     }
 
-    destroy() {}
+    destroy() {
+        this.clearDelayTimer();
+    }
 
     clearDelayTimer() {
         if (this._timer) {

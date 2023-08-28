@@ -22,6 +22,7 @@ export interface CollapsePanelProps {
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
     static contextType: React.Context<CollapseContextType> = CollapseContext;
     headerExpandIconTriggerRef = React.createRef<HTMLElement>()
+    private ariaID: string = ""
     static propTypes = {
         itemKey: PropTypes.string,
         extra: PropTypes.node,
@@ -43,9 +44,13 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
         disabled: false,
     };
 
-    private ariaID = getUuidShort({});
 
     context: CollapseContextType;
+
+
+    componentDidMount() {
+        this.ariaID = getUuidShort({});
+    }
 
     renderHeader(active: boolean, expandIconEnable = true) {
         const {

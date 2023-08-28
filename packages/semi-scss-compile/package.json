@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-scss-compile",
-    "version": "2.41.3",
+    "version": "2.42.1",
     "description": "compile semi scss to css",
     "author": "daiqiang@bytedance.com",
     "license": "MIT",

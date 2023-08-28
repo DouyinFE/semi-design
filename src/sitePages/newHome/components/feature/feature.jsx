@@ -12,11 +12,11 @@ function Feature(props) {
             <div className={styles.featuresList}>
                 <div className={styles.row1}>
                     <div className={styles.iconDetails}>
-                        <img className={styles.icon} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/fa-icon.png" />
+                        <img className={styles.icon} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/d2c-code.png" />
                         <div className={styles.details}>
-                            <p className={styles.headline}>{_t("feature_FA")}</p>
+                            <p className={styles.headline}>{_t("feature_D2C")}</p> 
                             <p className={styles.description}>
-                                {_t("feature_FA_description")}
+                                {_t("feature_D2C_description")}
                             </p>
                         </div>
                     </div>
@@ -64,6 +64,17 @@ function Feature(props) {
                             <p className={styles.headline}>{_t("feature_SSR")}</p>
                             <p className={styles.description}>
                                 {_t("feature_SSR_description")}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.row1} style={{ width: "100%" }}>
+                    <div className={styles.iconDetails}>
+                        <img className={styles.icon} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/fa-icon.png" />
+                        <div className={styles.details}>
+                            <p className={styles.headline}>{_t("feature_FA")}</p>
+                            <p className={styles.description}>
+                                {_t("feature_FA_description")}
                             </p>
                         </div>
                     </div>

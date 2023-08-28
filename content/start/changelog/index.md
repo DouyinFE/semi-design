@@ -13,6 +13,26 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.42.0 (2023-08-25)
+- 【Style】
+    - 设置 datePicker 的内嵌标签的 font-family 为 $font-family-regular，和其他组件的内嵌标签保持一致 [#1780](https://github.com/DouyinFE/semi-design/pull/1780)
+
+#### 🎉 2.42.0-beta.0 (2023-08-21)
+- 【Feat】
+    - Tooltip、Popover、Dropdown增加 trigger=contextMenu 右键点击触发  [#396](https://github.com/DouyinFE/semi-design/issues/396)
+    - Form 增加 stopValidateWithError 、trigger API，允许统一配置所有 Field的 stopValidateWithError、trigger属性  [#640](https://github.com/DouyinFE/semi-design/issues/640)
+    - Table column 支持设置 resize 属性 [#1762](https://github.com/DouyinFE/semi-design/issues/1762) [#1650](https://github.com/DouyinFE/semi-design/issues/1650)
+    - Upload 新增 picWidth、picHeight 快速设置图片墙模式下图片展示宽高  [#1757](https://github.com/DouyinFE/semi-design/issues/1757)
+    - Split Button 支持深层嵌套 Button [#487](https://github.com/DouyinFE/semi-design/issues/487)
+    - Toast 支持堆叠模式，优化多个 toast 同时弹出时的显示体验 [#1746](https://github.com/DouyinFE/semi-design/pull/1746)
+- 【Fix】
+    - 修复 InputNumber 在受控模式下 formatter 错误问题  [#1672](https://github.com/DouyinFE/semi-design/issues/1672)
+    - 修复 collapse aria_owns 在 SSR 下 Client 和 Server 属性不匹配的问题  [#1763](https://github.com/DouyinFE/semi-design/issues/1763)
+    - Upload preview 为true时，增加对其他类型文件的预览兜底，防止 pdf 等其他类型文件加载失败时显示 x 裂图
+- 【Style】
+    - 当 Tree/TreeSelect 开启搜索，并且 treeNodeFilterProp 不为 label 时，仅高亮搜索内容而不是整行高亮  [#1711](https://github.com/DouyinFE/semi-design/issues/1711)
+    - Typography ellipsis showTooltip设为 popover时，移除默认自带的 240px width，与 Popover单独使用时保持一致  [#1766](https://github.com/DouyinFE/semi-design/issues/1766)
+
 #### 🎉 2.41.3 (2023-08-17)
 - 【Style】
   - Select loading wrapper 增加显式 box-sizing 声明，防止某些特殊情况下（例如全局重置了所有DOM的box-sizing为 border-box）时，loading 展示高度不对 [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
@@ -26,9 +46,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.41.1 (2023-08-11)
 - 【Feat】
-  - Slider 新增 onMouseUp API
+  - Slider 新增 onMouseUp API 
 - 【Fix】
-  - 修复 Slider 鼠标移出窗口后松手再移回的场景下，handle 一直跟随鼠标的问题, [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
+  - 修复 Slider 鼠标移出窗口后松手再移回的场景下，handle 一直跟随鼠标的问题 [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
   - SideSheet 新增自动计算滚动条宽度逻辑防止弹出时 mask 背后内容抖动
   - 修复 Input 和 TextArea autoFoucs 大小写不正确的问题 [#1608](https://github.com/DouyinFE/semi-design/issues/1608)
 

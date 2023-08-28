@@ -6,7 +6,7 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import { shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
 import TableHeaderRow from './TableHeaderRow';
-import { Fixed, TableComponents, OnHeaderRow } from './interface';
+import { Fixed, TableComponents, OnHeaderRow, ColumnProps } from './interface';
 
 function parseHeaderRows(columns: any[]) {
     const rows: any[] = [];
@@ -175,7 +175,7 @@ export interface TableHeaderCell {
     key: string | number;
     className: string;
     children: ReactNode;
-    column: any[];
+    column: ColumnProps;
     colStart: number;
     level: number;
     parents: any[];

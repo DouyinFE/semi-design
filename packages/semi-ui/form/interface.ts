@@ -3,7 +3,7 @@ import { Subtract } from 'utility-types';
 import type { RuleItem } from 'async-validator';
 import type { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
-import type { BaseFormApi as FormApi, FormState, WithFieldOption, AllErrors } from '@douyinfe/semi-foundation/form/interface';
+import type { BaseFormApi as FormApi, FormState, WithFieldOption, AllErrors, FieldValidateTriggerType } from '@douyinfe/semi-foundation/form/interface';
 import type { SelectProps } from '../select/index';
 import Option from '../select/option';
 import OptGroup from '../select/optionGroup';
@@ -105,6 +105,7 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     onReset?: () => void;
     onValueChange?: (values: Values, changedValue: Partial<Values>) => void;
     onChange?: (formState: FormState<Values>) => void;
+    allowEmpty?: boolean;
     validateFields?: (values: Values) => string | Partial<AllErrors<Values>>;
     /** Use this if you want to populate the form with initial values. */
     initValues?: Values;
@@ -113,18 +114,19 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     getFormApi?: (formApi: FormApi<Values>) => void;
     style?: React.CSSProperties;
     className?: string;
+    extraTextPosition?: 'middle' | 'bottom';
     layout?: 'horizontal' | 'vertical';
     labelPosition?: 'top' | 'left' | 'inset';
     labelWidth?: number | string;
     labelAlign?: 'left' | 'right';
     labelCol?: Record<string, any>;
     wrapperCol?: Record<string, any>;
-    allowEmpty?: boolean;
     render?: (internalProps: FormFCChild) => React.ReactNode;
     component?: React.FC<any> | React.ComponentClass<any>;
     children?: React.ReactNode | ((internalProps: FormFCChild) => React.ReactNode);
     autoScrollToError?: boolean | ScrollIntoViewOptions;
     disabled?: boolean;
     showValidateIcon?: boolean;
-    extraTextPosition?: 'middle' | 'bottom'
+    stopValidateWithError?: boolean;
+    trigger?: FieldValidateTriggerType
 }

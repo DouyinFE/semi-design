@@ -46,6 +46,7 @@ import {
   RulesExample,
   RaceAsyncDemo,
 } from './Validate/validateDemo';
+import { TriggerDemo } from './Validate/TriggerAndStopValidateWithError';
 
 // field props
 import { ConvertDemo } from './FieldProps/convert';
@@ -242,6 +243,8 @@ export const RaceAsync = () => <RaceAsyncDemo />;
 RaceAsyncDemo.story = {
   name: 'Validate - race async'
 }
+
+export const Trigger = () => <TriggerDemo></TriggerDemo>;
 
 export const HooksUseFormApi = () => <UseFormApiDemo />;
 

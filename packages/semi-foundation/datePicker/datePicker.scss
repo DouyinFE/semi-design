@@ -1072,6 +1072,7 @@ $module-list: #{$prefix}-scrolllist;
                 font-weight: $font-datepicker_range_input_prefix_suffix_clearbtn-fontWeight;
                 font-size: $font-datepicker_range_input_prefix_suffix_clearbtn-fontSize;
                 line-height: $font-datepicker_range_input_prefix_suffix_clearbtn-lineHeight;
+                font-family: $font-family-regular;
                 white-space: nowrap;
                 color: $color-datepicker_range_input-text-default;
             }
