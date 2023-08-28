@@ -1,7 +1,7 @@
 {
     "name": "@douyinfe/semi-ui",
     "version": "2.42.1",
-    "description": "",
+    "description": "A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps. Maintained by Douyin-fe team.",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
