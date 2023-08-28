@@ -9,12 +9,16 @@
     
 <div align="center">
 
-[![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url] [![FIGMA][figma-badge]][figma-url] [![LICENSE][license-badge]][license-url]
+[![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
+
+[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
+
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
 [contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
 [contributors-url]: https://github.com/DouyinFE/semi-design/graphs/contributors
+[Design Token]: https://img.shields.io/badge/Design%20Token-2739%2B-brightgreen
 [npm-url]: https://www.npmjs.com/package/@douyinfe/semi-ui
 [figma-badge]: https://img.shields.io/badge/Figma-UIKit-%2318a0fb
 [figma-url]: https://www.figma.com/@semi
@@ -34,6 +38,7 @@
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
 [build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
 
+
 </div>
 
 <p>
@@ -46,62 +51,92 @@ English | [简体中文](./README-zh_CN.md)
 
 # 🎉 Features
 
-- 💪 Up to 60+ high-quality Components.
+- 💪 Up to 60+ high-quality Components. Stable update since 2019
+- 🚀 Official Design to Code (D2C) support, convert figma draft to real code in a few seconds
+- 💅 Code to Design (C2D), automatically generate Figma UI Kit according to different themes, keep same between design and code
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
-- 💅 Design system management Semi DSM, up to 2000+ Design Tokens, build your own design system quickly.
+- 💅 Design system management Semi DSM, up to 2700+ Design Tokens, make Semi Design to Any Design quickly.
 - 🌍 Internationalization Support for Dozens of Languages, timezone, RTL support
-- 💅 Code2Design, automatically generate Figma UI Kit according to different themes, keep same between design and code
-- 🚀 Powerful Design2Code support, convert figma draft to code in a few seconds
-- ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing
+- ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing.
 - 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute
-- 🥳 SSR (Server Side Rendering) Compatible.
+- 🥳 SSR (Server Side Rendering) Compatible. 
 
 # 🔥 Install
 
 ```sh
-# with npm
 npm install @douyinfe/semi-ui
-
-# with yarn
-yarn add @douyinfe/semi-ui
-
 ```
 
-# 👍 Usage
+# 👍 Component Usage
 
 Here is a quick example to get you started, it's all you need:
 
 ```jsx
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button, Switch } from '@douyinfe/semi-ui';
+import { createRoot } from 'react-dom/client';
+import { Button, Form } from '@douyinfe/semi-ui';
 
 const App = () => (
-    <>
-        <Button type='primary'>primary button</Button>
-        <Switch size='large' />
-    </>
+    <Form>
+        <Form.Input field='name' initValue='semi design'></Form.Input>
+        <Button htmlType='submit'>submit</Button>
+    </Form>
 );
 
-ReactDOM.render(<App />, document.querySelector('#app'));
+const root = createRoot(document.querySelector('#app'));
+
+root.render(<App />);
 ```
 
-And [Semi UI Doc Site](https://semi.design/en-US/) has hundreds of editable examples and live preview, welcome to play with those examples.
+[Semi UI Doc Site](https://semi.design/en-US/) has hundreds of editable examples and live preview, welcome to play with those examples.
+
+# ⚡️ Design to Code Usage
+
+Install [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81). Translate Figma to real code in seconds. Support multiple output formats: JSX + SCSS / Emotion/Tailwind, or JSON Schema DSL
+
+- Support figma devmode, selecting a layer, directly get corresponding code on the right
+  
+![design2code](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/devmode.gif)
+
+- Or jump to codesandbox to continue editing
+  
+![codesandboxdemo](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/1080p-fps5.gif)
+
+
+# 🎨 DSM Usage
+
+Define your own design system base on Semi UI with DSM in one click, Provide more than 2700 tokens for you to configure every detail. Sync between Figma and Code at all times.
+
+![dsm-intro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsm-intro.png)
+
+# 📰 News about Semi UI
+* [Follow on Twitter](https://twitter.com/SemiDesignUI)
+* [Follow on Medium](https://medium.com/@semi-design)
+* [Follow on Dev.to](https://dev.to/semidesign)
+
 
 # 📌 Documentation
 * [Semi DSM](https://semi.design/dsm)
-* [Semi Design2Code](https://semi.design/code/en-US)
+* [Design to Code](https://semi.design/code/en-US)
 * [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
-* [Quick Start](https://semi.design/zh-CN/start/getting-started)
-* [Components Overview](https://semi.design/zh-CN/start/overview)
-* [Customizing Themes](https://semi.design/zh-CN/start/customize-theme)
-* [Design Tokens](https://semi.design/zh-CN/basic/tokens)
-* [Dark Mode](https://semi.design/zh-CN/start/dark-mode)
-* [Semi Icons](https://semi.design/zh-CN/basic/icon)
-* [Global Config](https://semi.design/zh-CN/other/configprovider)
-* [Internationalization](https://semi.design/zh-CN/other/locale)
-* [FAQ](https://semi.design/zh-CN/start/faq)
-* [CHANGELOG](https://semi.design/zh-CN/start/changelog)
+* [Quick Start](https://semi.design/en-US/start/getting-started)
+* [Components Overview](https://semi.design/en-US/start/overview)
+* [Customizing Themes](https://semi.design/en-US/start/customize-theme)
+* [Design Tokens](https://semi.design/en-US/basic/tokens)
+* [Dark Mode](https://semi.design/en-US/start/dark-mode)
+* [Semi Icons](https://semi.design/en-US/basic/icon)
+* [Global Config](https://semi.design/en-US/other/configprovider)
+* [Internationalization](https://semi.design/en-US/other/locale)
+* [FAQ](https://semi.design/en-US/start/faq)
+* [CHANGELOG](https://semi.design/en-US/start/changelog)
+
+# 📝 Blogs
+- [The Evolution of Semi D2C Design to Code](https://juejin.cn/post/7267418854124699702)
+- [How to design component library architecture to adapt to different mvvm frameworks](https://bytedance.feishu.cn/wiki/wikcnOVYexosCS1Rmvb5qCsWT1f)
+- [How we test semi ui](https://medium.com/front-end-weekly/how-we-test-semi-design-component-libraries-64b854f63b65)
+- [In-depth explanation of Semi theme](https://mp.weixin.qq.com/s/noHoWRuA25PgqFNcurhIUA)
+- [Accessibility in Semi Design](https://mp.weixin.qq.com/s/O3js-SZDNPEOjGxh-aAkbw)
+
 
 # 👌 Platform Support
 
@@ -111,16 +146,9 @@ Semi UI supports all major modern browsers.
 |--|--|--|--|--|
 | latest 2 versions | latest 2 versions | latest 2 versions | Edge | latest 2 versions |
 
-# 👐 Contributing
-
-Read the contributing guide to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Semi UI.
-
-See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
-
-
 # 👨‍👨‍👧‍👦 User Group
 
-Join [User Group](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#).
+Join [User Group](https://bytedance.feishu.cn/docs/doccnw93Dujm3UCkHRDTMTm1qwe#) on Feishu / Lark
 
 # 💖 Thanks
 
@@ -131,6 +159,17 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 <a href="https://www.cypress.io/"><img src="https://user-images.githubusercontent.com/26477537/147624641-1274a91d-bc4c-463e-af1a-dbf15de54c49.png" width="90" height="30" alt="Cypress" /></a>
 
 Thanks to [Cypress](https://www.cypress.io/) for providing E2E testing.
+
+## 👐 Contributing
+Thanks to all the people who already contributed!
+
+<a href="https://github.com/DouyinFE/semi-design/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=DouyinFE/semi-design" />
+</a>
+
+Read the contributing guide to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Semi UI.
+
+See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
 # 🎈 License
 
