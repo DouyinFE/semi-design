@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.42.0 (2023-08-25)
+#### 🎉 2.42.1 (2023-08-25)
 - 【Style】
     - Set the font-family of the inset label of datePicker to $font-family-regular, consistent with the inset label of other components [#1780](https://github.com/DouyinFE/semi-design/pull/1780)
 
