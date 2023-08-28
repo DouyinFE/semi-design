@@ -7,10 +7,13 @@ order: 8
 ---
 
 #### Semi 提供了 Figma UI Kit，考虑提供 Sketch 或基于其他设计工具的版本吗？
-目前没有这方面的计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
+暂无计划，具体原因请参考 [Issue 74](https://github.com/DouyinFE/semi-design/issues/74)
 
 #### Semi 目前提供了基于 React 版本的 ui library，是否有官方提供其他技术栈 lib 的计划？
-无这方面的计划。具体原因：[Issue 311](https://github.com/DouyinFE/semi-design/issues/311)，更多讨论 [Issue 56](https://github.com/DouyinFE/semi-design/issues/56)
+暂无计划。具体原因：[Issue 311](https://github.com/DouyinFE/semi-design/issues/311)，更多讨论 [Issue 56](https://github.com/DouyinFE/semi-design/issues/56)
+
+#### Semi 后续会提供移动端组件吗 ？ 
+暂无计划，具体原因参考 [discussions 287](https://github.com/DouyinFE/semi-design/discussions/287)
 
 #### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
 
