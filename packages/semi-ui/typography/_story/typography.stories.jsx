@@ -809,3 +809,14 @@ export const TextNoWarning = () => {
     </div>
   )
 }
+
+export const JsEllipsisNoTooltip = () => (
+  <Title 
+    heading={5} 
+    ellipsis={{ showTooltip: true, suffix: ' ' }} 
+    // wordBreak 设置在 Title 的style里
+    style={{ width: 250, wordBreak: 'break-all' }}
+  >
+      data_tns
+  </Title>
+)

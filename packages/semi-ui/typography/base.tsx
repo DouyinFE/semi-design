@@ -327,6 +327,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             pos
         );
         this.setState({
+            isOverflowed: false,
             ellipsisContent: content,
             isTruncated: children !== content,
         });
