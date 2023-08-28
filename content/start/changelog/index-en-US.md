@@ -16,6 +16,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.42.2 (2023-08-28)
+- 【Fix】
+    - Fix the problem that when the image file name has a query parameter, the image cannot be opened due to the wrong file name after downloading [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)
+    - Fix Typography under the Js ellipsis strategy. When it is judged not to truncate, an unexpected tooltip will still appear when the mouse moves into the content [#1788](https://github.com/DouyinFE/semi-design/pull/1788)
+    - Fix the problem that the OverflowList component reports a warning in some scene keys [#1786](https://github.com/DouyinFE/semi-design/pull/1786)
+    - Fix the problem of memory leaks in some scenes of pop-up layer components and Navigation [#1785](https://github.com/DouyinFE/semi-design/pull/1785)
+
 #### 🎉 2.42.1 (2023-08-25)
 - 【Style】
     - Set the font-family of the inset label of datePicker to $font-family-regular, consistent with the inset label of other components [#1780](https://github.com/DouyinFE/semi-design/pull/1780)
