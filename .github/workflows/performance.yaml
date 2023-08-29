@@ -9,6 +9,7 @@ jobs:
     steps:
       - run: |
           wget https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/performance/main
+          chmod +x ./main
           ./main --mode=all
         env:
           TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
