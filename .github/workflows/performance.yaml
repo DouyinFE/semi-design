@@ -1,0 +1,15 @@
+name: performance
+
+on: create
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+    if: github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha')
+    steps:
+      - run: |
+          wget https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/performance/main
+          ./main
+        env:
+          TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
