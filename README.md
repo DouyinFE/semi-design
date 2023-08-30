@@ -107,7 +107,8 @@ Install [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662
 
 Define your own design system base on Semi UI with DSM in one click, Provide more than 2700 tokens for you to configure every detail. Sync between Figma and Code at all times.
 
-![dsm-intro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsm-intro.png)
+![dsmintro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsmintro.png)
+
 
 # 📰 News about Semi UI
 * [Follow on Twitter](https://twitter.com/SemiDesignUI)
