@@ -81,7 +81,7 @@ module.exports = {
         config.module.rules = rules;
         config.resolve.extensions.push('.js', '.jsx', '.ts', '.tsx');
         config.resolve.symlinks = false;
-        // config.mode = "development";
+        config.mode = "development";
         config.resolve.alias = {
             '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
             '@douyinfe/semi-icons': resolve('packages/semi-icons/src'),
