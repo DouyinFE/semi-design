@@ -2,6 +2,10 @@ name: performance
 
 on:
   workflow_dispatch:
+    inputs:
+      test_component_name:
+        description: 'Input Component Name to test performance, input all to test all'
+        required: false
 
 jobs:
   performance:
@@ -10,7 +14,7 @@ jobs:
       - run: |
           wget https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/performance/main
           chmod +x ./main
-          ./main --mode=all
+          ./main --mode=diffComponent --componentName=${{ github.event.inputs.test_component_name }}
         env:
           TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
