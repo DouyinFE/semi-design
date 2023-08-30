@@ -2112,7 +2112,7 @@ class OptionGroupDemo extends React.Component {
               value: 'zhongguo',
             },
             {
-              label: 'Koera',
+              label: 'Korea',
               value: 'hanguo',
             },
           ],
@@ -2217,7 +2217,7 @@ const BlurDemo = () => {
         onFocus={onFocus}
       >
         <Select.Option value="zhongguo">China</Select.Option>
-        <Select.Option value="hanguo">Koera</Select.Option>
+        <Select.Option value="hanguo">Korea</Select.Option>
         <Select.Option value="deguo">Germany</Select.Option>
         <Select.Option value="faguo">France</Select.Option>
       </Select>
@@ -2694,7 +2694,7 @@ const FilterDefaultOpen = () => {
       >
         <Select.OptGroup label="Asia">
           <Select.Option value="a-1">China</Select.Option>
-          <Select.Option value="a-2">Koera</Select.Option>
+          <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
           <Select.Option value="b-1">Germany</Select.Option>
@@ -2716,7 +2716,7 @@ const FilterDefaultOpen = () => {
       >
         <Select.OptGroup label="Asia">
           <Select.Option value="a-1">China</Select.Option>
-          <Select.Option value="a-2">Koera</Select.Option>
+          <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
           <Select.Option value="b-1">Germany</Select.Option>
@@ -2738,7 +2738,7 @@ const FilterDefaultOpen = () => {
         onChange={val => setValue1(val)}
       >
         <Select.Option value="a-1">China</Select.Option>
-        <Select.Option value="a-2">Koera</Select.Option>
+        <Select.Option value="a-2">Korea</Select.Option>
         <Select.Option value="b-1">Germany</Select.Option>
         <Select.Option value="b-2">France</Select.Option>
         <Select.Option value="c-1">Peru</Select.Option>
