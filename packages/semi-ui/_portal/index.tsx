@@ -40,7 +40,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     context: ContextValue;
     constructor(props: PortalProps, context: ContextValue) {
         super(props);
-        this.state = { 
+        this.state = {
             container: this.initContainer(context, true)
         };
     }
@@ -55,10 +55,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     initContainer = (context: ContextValue, catchError = false) => {
         try {
             let container: HTMLElement | undefined = undefined;
-            if (!this.el) {
-                this.el = document.createElement('div');
-            }
-            if (!this.state?.container) {
+            if (!this.state?.container || !this.el || !Array.from(this.state.container.childNodes).includes(this.el)) {
                 this.el = document.createElement('div');
                 const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
                 const portalContainer = getContainer();
