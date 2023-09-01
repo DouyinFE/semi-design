@@ -100,7 +100,7 @@ root.render(<App />);
 
 基于 Semi UI 定制你的专属设计系统, 提供高达 2700+ Token 允许你定义每一处细节. 并时刻在 Figma 与主题商店间保持同步。
 
-![dsm-intro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsm-intro.png)
+![dsmintro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsmintro.png)
 
 
 # 📰 关注我们的动态

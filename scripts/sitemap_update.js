@@ -42,24 +42,28 @@ const main = async ()=>{
     const updatedArr = [];
     urls.forEach((url)=>{
         const item = urlMap[url];
-        promiseList.push(new Promise(async resolve=>{
-            const res = await axios.get(url);
-            if (url.startsWith("https://semi.design/zh-CN") || url.startsWith("https://semi.design/en-US")) {
-                const lang = url.startsWith("https://semi.design/zh-CN") ? "zh-CN" : "en-US";
-                const mdRelativePath = url.replace(`https://semi.design/${lang}/`, "");
-                const mdPath = `./content/${mdRelativePath}/${lang==="zh-CN"?"index.md":"index-en-US.md"}`;
-                const seconds = execa.commandSync(`echo $(git log -1 --pretty="format:%ct" ${mdPath})`, { shell: true }).stdout;
-                item.lastmod = new Date(seconds * 1000).toISOString();
-            } else {
-                const scm = res.headers['X-Deploy-Scm-Version'] || res.headers['X-Deploy-Scm-Version'.toLowerCase()] || res.headers['X-Deploy-Scm-Version'.toUpperCase()];
-                if (item['scm'] && item['scm']!==scm || !item['scm']) {
-                    item['scm'] = scm;
-                    item.lastmod = new Date().toISOString();
+        promiseList.push(new Promise(async (resolve, reject)=>{
+            try {
+                const res = await axios.get(url);
+                if (url.startsWith("https://semi.design/zh-CN") || url.startsWith("https://semi.design/en-US")) {
+                    const lang = url.startsWith("https://semi.design/zh-CN") ? "zh-CN" : "en-US";
+                    const mdRelativePath = url.replace(`https://semi.design/${lang}/`, "");
+                    const mdPath = `./content/${mdRelativePath}/${lang==="zh-CN"?"index.md":"index-en-US.md"}`;
+                    const seconds = execa.commandSync(`echo $(git log -1 --pretty="format:%ct" ${mdPath})`, { shell: true }).stdout;
+                    item.lastmod = new Date(seconds * 1000).toISOString();
+                } else {
+                    const scm = res.headers['X-Deploy-Scm-Version'] || res.headers['X-Deploy-Scm-Version'.toLowerCase()] || res.headers['X-Deploy-Scm-Version'.toUpperCase()];
+                    if (item['scm'] && item['scm']!==scm || !item['scm']) {
+                        item['scm'] = scm;
+                        item.lastmod = new Date().toISOString();
+                    }
                 }
+                count++;
+                console.log(`SiteMap processed ${url}  ${count}/${urls.length}`);
+                resolve();
+            } catch (e) {
+                reject(e);
             }
-            count++;
-            console.log(`SiteMap processed ${url}  ${count}/${urls.length}`);
-            resolve();
         }).catch(e=>{
             console.log("error", e, url);
         }).finally(()=>{

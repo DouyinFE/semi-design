@@ -132,7 +132,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const { currentIndex, imgSrc } = this.getStates();
         const setDownloadName = this._adapter.getSetDownloadFunc();
         const downloadSrc = imgSrc[currentIndex];
-        const downloadName = setDownloadName ? setDownloadName(downloadSrc) : downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1);
+        const downloadName = setDownloadName ? setDownloadName(downloadSrc) : downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1).split('?')[0];
         downloadImage(downloadSrc, downloadName);
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
