@@ -58,34 +58,50 @@
 # 🔥 安装
 
 ```sh
-# 使用 npm
 npm install @douyinfe/semi-ui
-
-# 使用 yarn
-yarn add @douyinfe/semi-ui
-
 ```
 
-# 👍 使用
+# 👍 组件使用
 
 这是一个快速开始的例子：
 
 ```jsx
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button, Switch } from '@douyinfe/semi-ui';
+import { createRoot } from 'react-dom/client';
+import { Button, Form } from '@douyinfe/semi-ui';
 
 const App = () => (
-    <>
-        <Button type='primary'>primary button</Button>
-        <Switch size='large' />
-    </>
+    <Form>
+        <Form.Input field='name' initValue='semi design'></Form.Input>
+        <Button htmlType='submit'>submit</Button>
+    </Form>
 );
 
-ReactDOM.render(<App />, document.querySelector('#app'));
+const root = createRoot(document.querySelector('#app'));
+root.render(<App />);
 ```
 
 [Semi UI 官网](https://semi.design) 拥有上千个支持实时调试的例子，欢迎体验使用。
+
+# ⚡️ D2C 设计稿转代码
+
+安装插件 [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81). 数秒内将 Figma 转为真实前端代码，支持多种出码格式： JSX + SCSS / Emotion/Tailwind、 JSON Schema DSL
+
+- 支持 Figma Devmode，选中图层后，右侧可直接查看对应的真实代码
+  
+![design2code](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/devmode.gif)
+
+- 或跳转至 Codesandbox 进行二次编辑
+  
+![codesandboxdemo](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/1080p-fps5.gif)
+
+
+# 🎨 DSM 设计系统管理
+
+基于 Semi UI 定制你的专属设计系统, 提供高达 2700+ Token 允许你定义每一处细节. 并时刻在 Figma 与主题商店间保持同步。
+
+![dsmintro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsmintro.png)
+
 
 # 📰 关注我们的动态
 * [Follow on Twitter](https://twitter.com/SemiDesignUI)

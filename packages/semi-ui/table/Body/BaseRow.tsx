@@ -294,7 +294,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
         const customRowProps = this.adapter.getCache('customRowProps');
 
-        if (typeof customRowProps.onMouseEnter === 'function') {
+        if (typeof customRowProps?.onMouseEnter === 'function') {
             customRowProps.onMouseEnter(e);
         }
     };
@@ -304,7 +304,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
 
         const customRowProps = this.adapter.getCache('customRowProps');
 
-        if (typeof customRowProps.onMouseLeave === 'function') {
+        if (typeof customRowProps?.onMouseLeave === 'function') {
             customRowProps.onMouseLeave(e);
         }
     };
