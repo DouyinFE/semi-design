@@ -70,6 +70,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyProgress: (percent: number, fileInstance: File, newFileList: Array<BaseFileItem>) => void;
     notifyRemove: (file: File, newFileList: Array<BaseFileItem>, fileItem: BaseFileItem) => void;
     notifySizeError: (file: File, fileList: Array<BaseFileItem>) => void;
+    notifyPastingInvalidContent: (error: Error) => void;
     notifyExceed: (files: Array<File>) => void;
     updateFileList: (newFileList: Array<BaseFileItem>, callback?: () => void) => void;
     notifyBeforeUpload: ({ file, fileList }: { file: BaseFileItem; fileList: Array<BaseFileItem> }) => boolean | BeforeUploadObjectResult | Promise<BeforeUploadObjectResult>;
@@ -92,8 +93,14 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         super({ ...adapter });
     }
 
+    init(): void {
+        const pasting = this._adapter.getProp('pasting');
+        if (pasting) this.handlePastingOperation();
+    }
+
     destroy() {
         this.releaseMemory();
+        this.removePastingOperation();
     }
 
     getError({ action, xhr, message, fileName }: { action: string;xhr: XMLHttpRequest;message?: string;fileName: string }): XhrError {
@@ -846,6 +853,38 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
     handlePreviewClick(fileItem: BaseFileItem): void {
         this._adapter.notifyPreviewClick(fileItem);
+    }
+
+    handlePastingOperation(): void {
+        const imgList = this._adapter.getState('imgList') as Array<string>;
+        document.body.addEventListener('keydown', async (e) => {
+            if (e.ctrlKey && e.code === 'KeyV' && e.target === document.body) {
+                try {
+                    const clipboardItems = await navigator.clipboard.read();
+                    for (const clipboardItem of clipboardItems) {
+                        for (const type of clipboardItem.types) {
+                            const fileReader = new FileReader();
+                            const blob = await clipboardItem.getType(type);
+                            const buffer = await blob.arrayBuffer();
+                            fileReader.onload = (e) => {
+                                const base64DataUrl = e.target.result as string;
+                                const sameIndex = imgList.findIndex(item => item === base64DataUrl);
+                                if (sameIndex < 0) {
+                                    imgList.push(base64DataUrl);
+                                    const file = new File([buffer], `semi-upload.${type.split('/')[1]}`, { type });
+                                    this.handleChange([file]);
+                                }
+                            };
+                            fileReader.readAsDataURL(blob);
+                        }
+                    }
+                } catch (err) { this._adapter?.notifyPastingInvalidContent(err as Error); }
+            }
+        });
+    }
+
+    removePastingOperation() {
+        document.body.removeEventListener('keydown', ()=>{});
     }
 }
 
