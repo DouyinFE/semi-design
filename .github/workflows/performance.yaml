@@ -19,7 +19,7 @@ jobs:
           TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: data.db
           path: ./data.db
