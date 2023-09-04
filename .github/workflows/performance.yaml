@@ -18,3 +18,13 @@ jobs:
         env:
           TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: data.db
+          path: ./data.db
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: diffResult.txt
+          path: ./diffResult.txt
