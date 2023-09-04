@@ -33,7 +33,7 @@
         "build:lib": "lerna run build:lib",
         "build:js": "lerna run build:js",
         "build:css": "lerna run build:css",
-        "build-storybook": "sb build  -c ./.storybook/js/ -o ./storybook",
+        "build-storybook": "sb build  -c ./.storybook/js/ -o ./storybook && cp -r storybook storybook-static",
         "build:gatsbydoc": "lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rimraf build && mv public build",
         "build:icon": "lerna run build:icon --scope='@douyinfe/semi-{icons,illustrations}'",
         "cypress:coverage": "npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run",
