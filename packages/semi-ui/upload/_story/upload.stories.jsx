@@ -1248,3 +1248,29 @@ export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>
 PreviewFallback.story = {
   name: 'preview other type',
 };
+
+
+export const PastingDemo = () => {
+  return (
+    <div style={{ width: 800, height: 500 }}>
+      <Upload
+        addOnPasting
+        action={action}
+        // {...commonProps}
+        onChange={(e) => console.log(e)}
+      >
+        <Button>点击或粘贴上传</Button>
+      </Upload>
+      <Button
+        type='danger'
+        theme='solid'
+        onClick={() => {
+          navigator.clipboard
+          .write([])
+          .then(() => alert('clear'))
+          .catch(error => console.log(error))
+      }}>清空clipboard</Button>
+    </div>
+
+  )
+};

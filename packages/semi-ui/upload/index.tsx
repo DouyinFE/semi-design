@@ -67,7 +67,7 @@ export interface UploadProps {
     dragMainText?: ReactNode;
     dragSubText?: ReactNode;
     draggable?: boolean;
-    pasting?: boolean;
+    addOnPasting?: boolean;
     fileList?: Array<FileItem>;
     fileName?: string;
     headers?: Record<string, any> | ((file: File) => Record<string, string>);
@@ -84,7 +84,7 @@ export interface UploadProps {
     onClear?: () => void;
     onDrop?: (e: Event, files: Array<File>, fileList: Array<FileItem>) => void;
     onError?: (e: CustomError, file: File, fileList: Array<FileItem>, xhr: XMLHttpRequest) => void;
-    onPastingError?: (error: Error) => void;
+    onPastingError?: (error: Error | PermissionStatus) => void;
     onExceed?: (fileList: Array<File>) => void;
     onFileChange?: (files: Array<File>) => void;
     onOpenFileDialog?: () => void;
@@ -121,7 +121,6 @@ export interface UploadProps {
 export interface UploadState {
     dragAreaStatus: 'default' | 'legal' | 'illegal'; // Status of the drag zone
     fileList: Array<FileItem>;
-    imgList: Array<string>;
     inputKey: number;
     localUrls: Array<string>;
     replaceIdx: number;
@@ -132,6 +131,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     static propTypes = {
         accept: PropTypes.string, // Limit allowed file types
         action: PropTypes.string.isRequired,
+        addOnPasting: PropTypes.bool,
         afterUpload: PropTypes.func,
         beforeClear: PropTypes.func,
         beforeRemove: PropTypes.func,
@@ -172,6 +172,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         onRetry: PropTypes.func,
         onSizeError: PropTypes.func, // Callback with invalid file size
         onSuccess: PropTypes.func,
+        onPastingError: PropTypes.func,
         previewFile: PropTypes.func, // Custom preview
         prompt: PropTypes.node,
         promptPosition: PropTypes.oneOf<UploadProps['promptPosition']>(strings.PROMPT_POSITION),
@@ -217,6 +218,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         onRetry: noop,
         onSizeError: noop,
         onSuccess: noop,
+        onPastingError: noop,
         promptPosition: 'right' as const,
         showClear: true,
         showPicInfo: false,
@@ -233,7 +235,6 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         super(props);
         this.state = {
             fileList: props.defaultFileList || [],
-            imgList: [],
             replaceIdx: -1,
             inputKey: Math.random(),
             replaceInputKey: Math.random(),
@@ -274,7 +275,6 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             notifyRemove: (file, fileList, fileItem): void => this.props.onRemove(file, fileList, fileItem),
             notifySizeError: (file, fileList): void => this.props.onSizeError(file, fileList),
             notifyExceed: (fileList): void => this.props.onExceed(fileList),
-            notifyPastingInvalidContent: (error): void => this.props.onPastingError(error),
             updateFileList: (fileList, cb): void => {
                 if (typeof cb === 'function') {
                     this.setState({ fileList }, cb);
@@ -299,6 +299,19 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                     replaceInputKey: Math.random(),
                 }));
             },
+            isMac: (): boolean => {
+                return navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            },
+            registerPastingHandler: (cb?: (e: KeyboardEvent) => void): void => {
+                document.body.addEventListener('keydown', cb);
+                this.pastingCb = cb;
+            },
+            unRegisterPastingHandler: (): void => {
+                if (this.pastingCb) {
+                    document.body.removeEventListener('keydown', this.pastingCb);
+                }
+            },
+            notifyPastingError: (error): void => this.props.onPastingError(error),
             updateDragAreaStatus: (dragAreaStatus: string): void =>
                 this.setState({ dragAreaStatus } as { dragAreaStatus: 'default' | 'legal' | 'illegal' }),
             notifyChange: ({ currentFile, fileList }): void => this.props.onChange({ currentFile, fileList }),
@@ -315,9 +328,10 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     foundation: UploadFoundation;
     inputRef: RefObject<HTMLInputElement> = null;
     replaceInputRef: RefObject<HTMLInputElement> = null;
+    pastingCb: null | ((params: any) => void);
 
-    componentDidMount() {
-        this.foundation.init()
+    componentDidMount(): void {
+        this.foundation.init();
     }
 
     componentWillUnmount(): void {
