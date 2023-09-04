@@ -2,8 +2,12 @@
 const path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk').default;
-
 const utils = require('./utils');
+
+let AnalyzePlugin = null
+if(process.env.__ENABLE_ANALYZE__ === 'true') {
+    AnalyzePlugin = require("@ies/semi-page-analyze-inject/src/AnalyzePlugin")
+}
 
 function resolve(...dirs) {
     return path.join(__dirname, '../..', ...dirs);
@@ -62,9 +66,22 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader', resolve('packages/semi-webpack/lib/semi-theme-loader.js')],
             }
         );
+        AnalyzePlugin && rules.push({
+            test: /\.tsx?$/,
+            exclude: /node_modules/,
+            use: [
+                {
+                    loader: "babel-loader",
+                    options: {
+                        plugins: [AnalyzePlugin],
+                    }
+                },
+            ]
+        })
         config.module.rules = rules;
         config.resolve.extensions.push('.js', '.jsx', '.ts', '.tsx');
         config.resolve.symlinks = false;
+        config.mode = "development";
         config.resolve.alias = {
             '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
             '@douyinfe/semi-icons': resolve('packages/semi-icons/src'),
@@ -76,6 +93,7 @@ module.exports = {
             '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled')
         };
         config.devtool = 'source-map';
+        // config.output.publicPath = "/storybook/"
 
         return config;
     }

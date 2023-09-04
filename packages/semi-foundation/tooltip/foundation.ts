@@ -113,6 +113,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.unregisterClickOutsideHandler();
         this.unBindResizeEvent();
         this.unBindScrollEvent();
+        clearTimeout(this._timer);
     }
 
     _bindTriggerEvent(triggerEventSet: Record<string, any>) {
