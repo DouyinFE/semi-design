@@ -41,7 +41,7 @@ jobs:
               with:
                   name: storybook-static
                   if-no-files-found: error
-                  path: storybook-static
+                  path: storybook
             - name: Reclaim cache directory
               run: chown -R 1001:1001 /github/home/.cache && echo "pwn dat cache"
             - name: Cypress install
@@ -62,13 +62,13 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: storybook-static
-                  path: storybook-static
+                  path: storybook
             - name: 'Cypress Tests - Chrome'
               uses: cypress-io/github-action@v5
               with:
                   # we have already installed all dependencies above
                   install: true
-                  start: npx http-server -p 6006 storybook-static
+                  start: npx http-server -p 6006 storybook
                   wait-on: 'http://localhost:6006'
                   wait-on-timeout: 120
                   browser: chrome
