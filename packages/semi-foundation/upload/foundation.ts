@@ -86,7 +86,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyDrop: (e: any, files: Array<File>, fileList: Array<BaseFileItem>) => void;
     notifyAcceptInvalid: (invalidFiles: Array<File>) => void;
     registerPastingHandler: (cb?: (params?: any) => void) => void;
-    unRegisterPastingHandler: (cb?: (params?: any) => void) => void;
+    unRegisterPastingHandler: () => void;
     isMac: () => boolean;
     notifyPastingError: (error: Error | PermissionStatus) => void
     // notifyPasting: () => void; 
@@ -917,7 +917,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     }
 
     unbindPastingHandler() {
-        this._adapter.unRegisterPastingHandler(this.handlePasting);
+        this._adapter.unRegisterPastingHandler();
     }
 }
 
