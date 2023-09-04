@@ -13,6 +13,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.43.0-beta.0 (2023-09-04)
+- 【Feat】
+    - Tree 和 TreeSelect 的 renderFullLabel 回调增加 filtered 和 searchWord 参数
+    - Upload 新增API：addOnPasting，支持读取粘贴板中的图片，自动添加到 fileList中 [@ChuTingzj](https://github.com/ChuTingzj)  [#1612](https://github.com/DouyinFE/semi-design/issues/1612)
+- 【Fix】
+    - 修复嵌套 Dropdown 时，Item 的点击在极个别场景不生效的问题。
+    - 修复 resizable Table onHeaderCell 失效问题 [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
+
 #### 🎉 2.42.2 (2023-08-28)
 - 【Fix】
     - 修复当 Image 文件名称带 query 参数时候，图片下载后因文件名错误无法打开问题 [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)

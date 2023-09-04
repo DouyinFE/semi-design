@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.43.0-beta.0 (2023-09-04)
+- 【Feat】
+    - The renderFullLabel callback of Tree and TreeSelect adds filtered and searchWord parameters
+    - Upload new API: addOnPasting,  supports reading the pictures in the pasteboard and automatically adding to fileList [@ChuTingzj](https://github.com/ChuTingzj)  [#1612 ](https://github.com/DouyinFE/semi-design/issues/1612)
+- 【Fix】
+    - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
+    - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
+
 #### 🎉 2.42.2 (2023-08-28)
 - 【Fix】
     - Fix the problem that when the image file name has a query parameter, the image cannot be opened due to the wrong file name after downloading [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)
