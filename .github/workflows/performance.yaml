@@ -23,3 +23,8 @@ jobs:
         with:
           name: data.db
           path: ./data.db
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: diffResult.txt
+          path: ./diffResult.txt
