@@ -254,12 +254,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Style】
   - The default word wrap style of Table text is changed from break-all to break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
   - Changed the spacing between icon and text in BreadCrumb from 8px to 4px（Affects v2.0.0～v2.33.1）
-  
+- 【Breaking Change】
+  - **In order to solve the word wrapping problem, the Table word break style is modified from break-all to break-word. If a column of a non-fixed table is set to a fixed width, the cell text in this column will originally be folded, but will now be stretched and displayed, causing the width of other columns to be reduced** [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+
+
 #### 🎉 2.33.1 (2023-04-21)
--【Fix】
-     - Fixed the issue that Popover StopPropagation did not stop the bubbling of the focus and blur triggered in the Portal layer [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
-     - Fix the problem of Input reporting error about noBg props, the scope of influence is 2.33.0-beta.0 - 2.33.0
-     - Fix Fix the indent problem when Table hideExpandedColumn is false [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
+- 【Fix】
+    - Fixed the issue that Popover StopPropagation did not stop the bubbling of the focus and blur triggered in the Portal layer [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
+    - Fix the problem of Input reporting error about noBg props, the scope of influence is 2.33.0-beta.0 - 2.33.0
+    - Fix Fix the indent problem when Table hideExpandedColumn is false [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
 
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】

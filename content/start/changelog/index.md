@@ -258,6 +258,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Typography resize后可能会丢失省略 [@marshcat0](https://github.com/marshcat0)
   - Typography resize后展开状态可能会被变成折叠 [@marshcat0](https://github.com/marshcat0)
   - Typography 展开按钮可能会在不需要折叠时出现 [@marshcat0](https://github.com/marshcat0)
+- 【Breaking Change】
+  - **为了解决单词换行问题，Table 换行样式从 break-all 修改为 break-word。如果非 fixed 表格某列设置固定了宽度，原来这一列的单元格文本会折行，现在会撑开展示，导致其他列宽度减少** [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
 
 #### 🎉 2.33.1 (2023-04-21)
 - 【Fix】
