@@ -156,7 +156,11 @@ export interface BasicRenderFullLabelProps {
         expanded: boolean;
         /* Is it unfolding */
         loading: boolean
-    }
+    };
+    /* Whether the node meets the search conditions */
+    filtered: boolean | undefined;
+    /* Current search box input */
+    searchWord: string | undefined
 }
 
 export interface BasicSearchRenderProps {
