@@ -139,7 +139,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     stopPropagation?: boolean | string;
     restTagsPopoverProps?: PopoverProps;
     searchRender?: boolean | ((inputProps: InputProps) => React.ReactNode);
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
     triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
