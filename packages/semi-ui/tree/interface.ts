@@ -79,7 +79,7 @@ export interface TreeProps extends BasicTreeProps {
     onExpand?: (expandedKeys: string[], expandedOtherProps: ExpandedOtherProps) => void;
     onLoad?: (loadedKeys?: Set<string>, treeNode?: TreeNodeData) => void;
     onContextMenu?: (e: MouseEvent, node: TreeNodeData) => void;
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => ReactNode;
     renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData) => ReactNode

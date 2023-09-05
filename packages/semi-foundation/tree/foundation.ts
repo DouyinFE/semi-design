@@ -218,7 +218,7 @@ export interface BasicTreeProps {
     onLoad?: (loadedKeys?: Set<string>, treeNode?: BasicTreeNodeData) => void;
     onContextMenu?: (e: any, node: BasicTreeNodeData) => void;
     onSearch?: (sunInput: string, filteredExpandedKeys: string[]) => void;
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     preventScroll?: boolean;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: BasicTreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: BasicRenderFullLabelProps) => any;
