@@ -227,7 +227,7 @@ describe('Dropdown', () => {
                 value: 'B1',
             },
         };
-        targetItem.simulate('click', event);
+        targetItem.simulate('mousedown', event);
         expect(spyItemCLick.calledOnce).toEqual(true);
         expect(spyItemCLick.calledWithMatch(event)).toEqual(true);
     });
