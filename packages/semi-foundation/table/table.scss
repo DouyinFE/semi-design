@@ -142,7 +142,7 @@ $module: #{$prefix}-table;
                     &-right {
                         z-index: $z-table_fixed_column;
                         position: sticky;
-                        background-color: $color-table-bg-default;
+                        // background-color: $color-table-bg-default;
 
                         &::before {
                             background-color: $color-table_th-bg-default;
@@ -299,7 +299,7 @@ $module: #{$prefix}-table;
                 &-right {
                     z-index: $z-table_fixed_column;
                     position: sticky;
-                    background-color: $color-table-bg-default;
+                    // background-color: $color-table-bg-default;
                 }
 
                 &-left-last {
