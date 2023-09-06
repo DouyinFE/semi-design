@@ -170,8 +170,15 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
 
     componentDidUpdate(prevProps: OverflowListProps, prevState: OverflowListState): void {
 
+        const prevItemsKeys = prevProps.items.map((item) =>
+            item.key
+        );
+        const nowItemsKeys = this.props.items.map((item) =>
+            item.key
+        );
 
-        if (!isEqual(prevProps.items, this.props.items)) {
+        // Determine whether to update by comparing key values
+        if (!isEqual(prevItemsKeys, nowItemsKeys)) {
             this.itemRefs = {};
             this.setState({ visibleState: new Map() });
         }
