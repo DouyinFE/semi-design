@@ -156,7 +156,7 @@ indicatorUsage.story = {
 
 // 箭头主题、显示时机
 export const arrowShow = () => {
-  const [arrowType, setArrowTypew] = useState('always');
+  const [arrowType, setArrowType] = useState('always');
   const [show, setShow] = useState(true);
   
   return (
@@ -170,7 +170,7 @@ export const arrowShow = () => {
       </div>
       <div> 
         <span style={radioTitleStyle}>展示时机</span>
-        <RadioGroup onChange={e => setArrowTypew(e.target.value)} value={arrowType}>
+        <RadioGroup onChange={e => setArrowType(e.target.value)} value={arrowType}>
           <Radio value='always'>always</Radio>
           <Radio value='hover'>hover</Radio>
         </RadioGroup>
