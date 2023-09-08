@@ -14,8 +14,11 @@ import {
     BasicCascaderData,
     BasicEntity,
     ShowNextType,
-    BasicData
+    BasicData,
+    Virtualize
 } from '@douyinfe/semi-foundation/cascader/foundation';
+import { FixedSizeList as List } from 'react-window';
+import VirtualRow from './virtualRow';
 
 export interface CascaderData extends BasicCascaderData {
     label: React.ReactNode
@@ -73,7 +76,8 @@ export interface CascaderItemProps {
     multiple: boolean;
     checkedKeys: Set<string>;
     halfCheckedKeys: Set<string>;
-    filterRender?: (props: FilterRenderProps) => ReactNode
+    filterRender?: (props: FilterRenderProps) => ReactNode;
+    virtualize?: Virtualize
 }
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -93,7 +97,8 @@ export default class Item extends PureComponent<CascaderItemProps> {
         halfCheckedKeys: PropTypes.object,
         onItemCheckboxClick: PropTypes.func,
         separator: PropTypes.string,
-        keyword: PropTypes.string
+        keyword: PropTypes.string,
+        virtualize: PropTypes.object
     };
 
     static defaultProps = {
@@ -197,67 +202,96 @@ export default class Item extends PureComponent<CascaderItemProps> {
         return content;
     };
 
+    renderFlattenOptionItem = (data: Data, index?: number, style?: any) => {
+        const { multiple, selectedKeys, checkedKeys, halfCheckedKeys, keyword, filterRender, virtualize } = this.props;
+        const { searchText, key, disabled, pathData } = data;
+        const selected = selectedKeys.has(key);
+        const className = cls(prefixcls, {
+            [`${prefixcls}-flatten`]: true && !filterRender,
+            [`${prefixcls}-disabled`]: disabled,
+            [`${prefixcls}-select`]: selected && !multiple,
+        });
+        const onClick = e => {
+            this.onClick(e, data);
+        };
+        const onKeyPress = e => this.handleItemEnterPress(e, data);
+        const onCheck = (e: CheckboxEvent) => this.onCheckboxChange(e, data);
+        if (filterRender) {
+            const props = {
+                className,
+                inputValue: keyword,
+                disabled,
+                data: pathData,
+                checkStatus: {
+                    checked: checkedKeys.has(data.key),
+                    halfChecked: halfCheckedKeys.has(data.key),
+                },
+                selected,
+                onClick,
+                onCheck
+            };
+            const item = filterRender(props) as any;
+            const otherProps = virtualize ? { 
+                key, 
+                style: {
+                    ...(item.props.style ?? {}),
+                    ...style
+                },
+            } : { key };
+            return React.cloneElement(item, otherProps );
+        }
+        return (
+            <li
+                role='menuitem'
+                className={className}
+                style={style}
+                key={key}
+                onClick={onClick}
+                onKeyPress={onKeyPress}
+            >
+                <span className={`${prefixcls}-label`}>
+                    {!multiple && this.renderIcon('empty')}
+                    {multiple && (
+                        <Checkbox
+                            onChange={onCheck}
+                            disabled={disabled}
+                            indeterminate={halfCheckedKeys.has(data.key)}
+                            checked={checkedKeys.has(data.key)}
+                            className={`${prefixcls}-label-checkbox`}
+                        />
+                    )}
+                    {this.highlight(searchText)}
+                </span>
+            </li>
+        );
+    }
+
     renderFlattenOption = (data: Data[]) => {
-        const { multiple, selectedKeys, checkedKeys, halfCheckedKeys, keyword, filterRender } = this.props;
+        const { virtualize } = this.props;
         const content = (
             <ul className={`${prefixcls}-list`} key={'flatten-list'}>
-                {data.map(item => {
-                    const { searchText, key, disabled, pathData } = item;
-                    const selected = selectedKeys.has(key);
-                    const className = cls(prefixcls, {
-                        [`${prefixcls}-flatten`]: true && !filterRender,
-                        [`${prefixcls}-disabled`]: disabled,
-                        [`${prefixcls}-select`]: selected && !multiple,
-                    });
-                    const onClick = e => {
-                        this.onClick(e, item);
-                    };
-                    const onKeyPress = e => this.handleItemEnterPress(e, item);
-                    const onCheck = (e: CheckboxEvent) => this.onCheckboxChange(e, item);
-                    if (filterRender) {
-                        const props = {
-                            className,
-                            inputValue: keyword,
-                            disabled,
-                            data: pathData,
-                            checkStatus: {
-                                checked: checkedKeys.has(item.key),
-                                halfChecked: halfCheckedKeys.has(item.key),
-                            },
-                            selected,
-                            onClick,
-                            onCheck
-                        };
-                        return React.cloneElement(filterRender(props) as any, { key });
-                    }
-                    return (
-                        <li
-                            role='menuitem'
-                            className={className}
-                            key={key}
-                            onClick={onClick}
-                            onKeyPress={onKeyPress}
-                        >
-                            <span className={`${prefixcls}-label`}>
-                                {!multiple && this.renderIcon('empty')}
-                                {multiple && (
-                                    <Checkbox
-                                        onChange={onCheck}
-                                        disabled={disabled}
-                                        indeterminate={halfCheckedKeys.has(item.key)}
-                                        checked={checkedKeys.has(item.key)}
-                                        className={`${prefixcls}-label-checkbox`}
-                                    />
-                                )}
-                                {this.highlight(searchText)}
-                            </span>
-                        </li>
-                    );
-                })}
+                {virtualize ? this.renderVirtualizeList(data) : data.map(item => this.renderFlattenOptionItem(item))}
             </ul>
         );
         return content;
     };
+
+    renderVirtualizeList = (visibleOptions: any) => {
+        const { direction } = this.context;
+        const { virtualize } = this.props;
+        return (
+            <List
+                height={virtualize.height}
+                itemCount={visibleOptions.length}
+                itemSize={virtualize.itemSize}
+                itemData={{ visibleOptions, renderOption: this.renderFlattenOptionItem }}
+                width={virtualize.width ?? '100%'}
+                style={{ direction }}
+            >
+                {VirtualRow}
+            </List>
+        );
+    }
 
     renderItem(renderData: Array<Entity>, content: Array<React.ReactNode> = []) {
         const { multiple, checkedKeys, halfCheckedKeys } = this.props;

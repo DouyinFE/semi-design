@@ -28,6 +28,12 @@ export interface BasicData {
     pathData?: BasicCascaderData[]
 }
 
+export interface Virtualize {
+    itemSize: number;
+    height?: number | string;
+    width?: number | string
+}
+
 export interface BasicEntities {
     [idx: string]: BasicEntity
 }
@@ -157,6 +163,7 @@ export interface BasicCascaderProps {
     leafOnly?: boolean;
     enableLeafClick?: boolean;
     preventScroll?: boolean;
+    virtualizeInSearch?: Virtualize;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
