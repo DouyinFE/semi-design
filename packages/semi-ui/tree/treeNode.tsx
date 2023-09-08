@@ -366,6 +366,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 expanded,
                 loading,
             },
+            filtered,
+            searchWord: rest.keyword,
         };
 
         const dragProps = {

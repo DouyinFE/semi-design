@@ -1638,6 +1638,51 @@ import { Tree } from '@douyinfe/semi-ui';
 
 Tree 组件的 api 支持了大部分的渲染需求，但是如果有非常特殊的定制要求的话，可以使用 `renderFullLabel` 来接管整行 option 的渲染效果。
 
+renderFullLabel 参数类型如下：
+
+```ts
+type RenderFullLabelProps = {
+    /* 节点数据 */
+    data: BasicTreeNodeData;
+    /* 层级 */
+    level: number;
+    /* 虚拟化情况下，该 style 必须给到 DOM 节点上*/
+    style: any;
+     /* 样式类名，包括内置样式，如缩进、展开按钮、过滤器、禁用、选择等。 */
+    className: string;
+    /* 展开按钮 */
+    expandIcon: any;
+    /* 选中状态 */
+    checkStatus: {
+        /* 是否选中 */
+        checked: boolean;
+        /* 是否半选 */
+        halfChecked: boolean
+    };
+    /* 展开状态 */
+    expandStatus: {
+        /* 是否展开 */
+        expanded: boolean;
+        /* 是否加载中 */
+        loading: boolean
+    };
+    /* 该节点是否符合筛选条件 */
+    filtered: boolean | undefined;
+    /* 当前搜索框输入值 */
+    searchWord: string | undefined;
+    /* 点击回调 */
+    onClick: (e: MouseEvent) => void;
+    /* 多选点击回调 */
+    onCheck: (e: MouseEvent) => void;
+    /* 右键点击回调 */
+    onContextMenu: (e: MouseEvent) => void; 
+    /* 二次点击回调 */
+    onDoubleClick: (e: MouseEvent) => void;
+    /* 展开回调 */
+    onExpand: (e: MouseEvent) => void;
+}
+```
+
 <Notice type="primary" title="注意事项">
 <div>如果开启了虚拟化，需要将 style （虚拟化相关样式）赋予给渲染的 DOM 节点</div>
 </Notice>

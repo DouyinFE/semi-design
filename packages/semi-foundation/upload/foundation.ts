@@ -84,7 +84,12 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyClear: () => void;
     notifyPreviewClick: (file: any) => void;
     notifyDrop: (e: any, files: Array<File>, fileList: Array<BaseFileItem>) => void;
-    notifyAcceptInvalid: (invalidFiles: Array<File>) => void
+    notifyAcceptInvalid: (invalidFiles: Array<File>) => void;
+    registerPastingHandler: (cb?: (params?: any) => void) => void;
+    unRegisterPastingHandler: () => void;
+    isMac: () => boolean;
+    notifyPastingError: (error: Error | PermissionStatus) => void
+    // notifyPasting: () => void; 
 }
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
@@ -92,8 +97,19 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         super({ ...adapter });
     }
 
+    init(): void {
+        const { disabled, addOnPasting } = this.getProps();
+        if (addOnPasting && !disabled) {
+            this.bindPastingHandler();
+        }
+    }
+
     destroy() {
+        const { disabled, addOnPasting } = this.getProps();
         this.releaseMemory();
+        if (addOnPasting && !disabled) {
+            this.unbindPastingHandler();
+        }
     }
 
     getError({ action, xhr, message, fileName }: { action: string;xhr: XMLHttpRequest;message?: string;fileName: string }): XhrError {
@@ -846,6 +862,62 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
 
     handlePreviewClick(fileItem: BaseFileItem): void {
         this._adapter.notifyPreviewClick(fileItem);
+    }
+
+    readFileFromClipboard(clipboardItems) {
+        for (const clipboardItem of clipboardItems) {
+            for (const type of clipboardItem.types) {
+                // types maybe: text/plain, image/png, text/html
+                if (type.startsWith('image')) {
+                    clipboardItem.getType(type).then(blob => {
+                        return blob.arrayBuffer();
+                    }).then((buffer) => {
+                        const format = type.split('/')[1];
+                        const file = new File([buffer], `upload.${format}`, { type });
+                        this.handleChange([file]);
+                    });
+                }
+            }
+        }
+    }
+
+    handlePasting(e: any) {
+        const isMac = this._adapter.isMac();
+        const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
+
+        if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
+            // https://github.com/microsoft/TypeScript/issues/33923
+            const permissionName = "clipboard-read" as PermissionName;
+            // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
+            navigator.permissions
+                .query({ name: permissionName })
+                .then(result => {
+                    console.log(result);
+                    if (result.state === 'granted' || result.state === 'prompt') {
+                        // user has authorized or will authorize
+                        navigator.clipboard
+                            .read()
+                            .then(clipboardItems => {
+                                // Process the data read from the pasteboard
+                                // Check the returned data type to determine if it is image data, and process accordingly
+                                this.readFileFromClipboard(clipboardItems);
+                            });
+                    } else {
+                        this._adapter.notifyPastingError(result);
+                    }
+                })
+                .catch(error => {
+                    this._adapter.notifyPastingError(error);
+                });
+        }
+    }
+
+    bindPastingHandler(): void {
+        this._adapter.registerPastingHandler((event) => this.handlePasting(event));
+    }
+
+    unbindPastingHandler() {
+        this._adapter.unRegisterPastingHandler();
     }
 }
 

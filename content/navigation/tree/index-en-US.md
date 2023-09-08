@@ -1613,26 +1613,48 @@ import { Tree } from '@douyinfe/semi-ui';
 
 You could use `renderFullLabel` for advanced rendering to render the entire option on you own.
 
-```
-{
-    onClick: Function, // Click the callback of the entire row to control the expansion behavior and selection
-    onContextMenu: Function, // Callback for right-clicking the entire row
-    onDoubleClick: Function,  // Callback for double-clicking the entire row
-    className: strings, // Class name, including built-in styles such as indent, expand button, filter, disable, check, etc.
-    onExpand: Function, // Expand callback
-    data: object, // The original data of the row
-    level: number, // The level where the line is located, which can be used to customize the indentation value
-    style: object, // The style required for virtualization, if virtualization is used, the style must be assigned to the DOM element
-    onCheck: Function, // Multiple selection click callback
-    expandIcon: ReactNode, // Expand button
+The parameter types of renderFullLabel are as follows:
+
+```ts
+type RenderFullLabelProps = {
+    /* The original data of the row */
+    data: BasicTreeNodeData;
+    /* The level of the line can be used to customize the indentation value */
+    level: number;
+    /* The style required for virtualization, if virtualization is used, the style must be assigned to the DOM element */
+    style: any;
+    /* Class name, including built-in styles such as indentation, expand button, filter, disable, select, etc. */
+    className: string;
+    /* icon of Expand button */
+    expandIcon: any;
+    /* Selected state */
     checkStatus: {
-        checked: Boolean, // Whether it is selected in the multi-select state
-        halfChecked: Boolean, // Whether half-selected in multi-select state
-    },
+        /* Whether to select in the multi-select state */
+        checked: boolean;
+        /* Whether to half-select in the multi-select state */
+        halfChecked: boolean
+    };
+    /* Expand status */
     expandStatus: {
-        expanded,
-        loading,
-    },
+        /* Has it been expanded */
+        expanded: boolean;
+        /* Is it unfolding */
+        loading: boolean
+    };
+    /* Whether the node meets the search conditions */
+    filtered: boolean | undefined;
+    /* Current search box input */
+    searchWord: string | undefined;
+    /* Click the callback of the entire row to control the expansion behavior and selection */
+    onClick: (e: MouseEvent) => void;
+    /* Multi-select click callback */
+    onCheck: (e: MouseEvent) => void;
+    /* Right-click the callback for the entire row */
+    onContextMenu: (e: MouseEvent) => void; 
+    /* Double-click the entire line of callback */
+    onDoubleClick: (e: MouseEvent) => void;
+    /* 展开回调 */
+    onExpand: (e: MouseEvent) => void;
 }
 ```
 
