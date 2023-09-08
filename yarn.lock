@@ -1519,10 +1519,24 @@
     "@douyinfe/semi-animation-styled" "2.23.2"
     classnames "^2.2.6"
 
+"@douyinfe/semi-animation-react@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-react/-/semi-animation-react-2.42.4.tgz#6a1219c473af5c96e77561525afe59b739d56976"
+  integrity sha512-oODJNx2x8ZGIT8al+yfPu+ZCLiz2C3m3fB9VQRDtm749fPBbKh6URoO3qZQaiyLGLL7HTV98v0KVnrF4uwX2sg==
+  dependencies:
+    "@douyinfe/semi-animation" "2.42.4"
+    "@douyinfe/semi-animation-styled" "2.42.4"
+    classnames "^2.2.6"
+
 "@douyinfe/semi-animation-styled@2.23.2":
   version "2.23.2"
   resolved "https://registry.npmjs.org/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.23.2.tgz#f18bc074515441c297cc636ed98521e249d093c9"
   integrity sha512-cKaA1yGHPF76Rx7EZDZicj+1oX1su2wnqb/UGFOTquAwqWmkTfgQ+EKxCd/N704WH+RtmGf4xbrJKpBvvcEdSQ==
+
+"@douyinfe/semi-animation-styled@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.42.4.tgz#0be0e69ef607a58f1ea47c96027ef544144a0f94"
+  integrity sha512-XNfTVh1nmAN/LW/jK3FaMGFijuPBX3fynoHV19VWl/qX22VZcrBQgqdXud8sDWiMcUjpHL7sgqdj+sOu1v91TA==
 
 "@douyinfe/semi-animation@2.12.0":
   version "2.12.0"
@@ -1536,6 +1550,13 @@
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.33.1.tgz#cb5e2d45355212f7e1994671fe4acc6be12f6d26"
   integrity sha512-11L+NlecZ3Xdb9/sS6WJRsLpwsOv8jpxOivX0yRXdFKlP+lFYKnbM8klASFEJBce2/CywHw0ue65M/dkhoIIBw==
+  dependencies:
+    bezier-easing "^2.1.0"
+
+"@douyinfe/semi-animation@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-animation/-/semi-animation-2.42.4.tgz#91f33bd9a85b8ff1a4ffe48fc144b967707a2803"
+  integrity sha512-TRtrZqQydslIsjSR7t3GgwXsKZHznoeNSo82/nbV9CasWtuS0EkxioVIcHXo6urBOaO0SCUwZ6MFxw8Yw2DlPA==
   dependencies:
     bezier-easing "^2.1.0"
 
@@ -1553,6 +1574,20 @@
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
 
+"@douyinfe/semi-foundation@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-foundation/-/semi-foundation-2.42.4.tgz#ad4678beeea8ad36868a9f17855d8c9098a83623"
+  integrity sha512-egEFfewnJhnLFjwpW0FVjUx0VM08jkPKPVq3K2SaVMrH559Od0M3ik3vFi2LC3zFQfafc3mWwbRf3fPHyEQGKQ==
+  dependencies:
+    "@douyinfe/semi-animation" "2.42.4"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    date-fns "^2.29.3"
+    date-fns-tz "^1.3.8"
+    lodash "^4.17.21"
+    memoize-one "^5.2.1"
+    scroll-into-view-if-needed "^2.2.24"
+
 "@douyinfe/semi-icons@2.33.1", "@douyinfe/semi-icons@latest":
   version "2.33.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.33.1.tgz#8e2871d9bc0ab7e12df74e3c71802d53d69b7425"
@@ -1560,10 +1595,22 @@
   dependencies:
     classnames "^2.2.6"
 
+"@douyinfe/semi-icons@2.42.4", "@douyinfe/semi-icons@^2.0.0":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.42.4.tgz#76bf40b2dc3c493a295cbc5b682d33f2f56058d6"
+  integrity sha512-8Z9Hsg+CJlHUk7WHr+FFcZ6jEc5dI7NOWhfz6evu/n7FrLKETmA3JtLjZFP46bh8RB9It7mjGuk27ZwQ9NP2jQ==
+  dependencies:
+    classnames "^2.2.6"
+
 "@douyinfe/semi-illustrations@2.33.1":
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.33.1.tgz#530ab851f4dc32a52221c4067c778c800b9b55d7"
   integrity sha512-tTTUN8QwnQiF++sk4VBNzfkG87aYZ4iUeqk2ys8/ymVUmCZQ7y46ys020GO1MfPHRR47OMFPI82FVcH1WQtE3g==
+
+"@douyinfe/semi-illustrations@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-illustrations/-/semi-illustrations-2.42.4.tgz#70a5fadb735aec39b367511a2688a5c7cb79eb76"
+  integrity sha512-cIj2wTxIX+mjvWhFpAHSbI68HG5o0vKnubJCsLPvmGMg/3W+SjoxYYQMoGEPvN9iqQqdA42TBeNoHs/AbNWYHw==
 
 "@douyinfe/semi-scss-compile@2.23.2":
   version "2.23.2"
@@ -1637,6 +1684,40 @@
   integrity sha512-YptJl5aFiV6DVU7675DNQ2seA2FsXQ+kcx9GmPwonO7vUwY0syc05KuuNnR8dSZuDBI6mOzfQm/mw80RzkZ7pg==
   dependencies:
     glob "^7.1.6"
+
+"@douyinfe/semi-theme-default@2.42.4":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.42.4.tgz#6547f30eff6ad3180e4840f34ccf8e8afaecb887"
+  integrity sha512-AAR+gGTpFQhuTKJmgv60pHUplxrIqEh8Z4fCyleWYrk7rKDI5Bg0pBMM5RdagutOzkjJby3UY8RlXO6/b60SwA==
+  dependencies:
+    glob "^7.1.6"
+
+"@douyinfe/semi-ui@^2.0.0":
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.42.4.tgz#60a378a7d08fcf7d897797e8dc9a169d19e47ab4"
+  integrity sha512-fcVzGq0k9oKWHtCc/MdqWONEOXAm27KCB77CEownFjJRlIk5Cc32oQ9sutxDtOeVs2gthLnacnJ5rBW3XTWM2w==
+  dependencies:
+    "@dnd-kit/core" "^6.0.8"
+    "@dnd-kit/sortable" "^7.0.2"
+    "@dnd-kit/utilities" "^3.2.1"
+    "@douyinfe/semi-animation" "2.42.4"
+    "@douyinfe/semi-animation-react" "2.42.4"
+    "@douyinfe/semi-foundation" "2.42.4"
+    "@douyinfe/semi-icons" "2.42.4"
+    "@douyinfe/semi-illustrations" "2.42.4"
+    "@douyinfe/semi-theme-default" "2.42.4"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    copy-text-to-clipboard "^2.1.1"
+    date-fns "^2.29.3"
+    date-fns-tz "^1.3.8"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-resizable "^3.0.5"
+    react-window "^1.8.2"
+    resize-observer-polyfill "^1.5.1"
+    scroll-into-view-if-needed "^2.2.24"
+    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.33.1"
@@ -11204,6 +11285,11 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     resolve "^2.0.0-next.4"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.8"
+
+eslint-plugin-semi-design@^2.33.0:
+  version "2.42.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.42.4.tgz#bbf9007dc02b2a45d162ec00593c8ff0b45a2975"
+  integrity sha512-0aaOGn4I9XtqWEsuTjTky+InSzZ5LVdeYCtz8io5Jj2Naeo2gcrAuTMa7PpJEwmDCblSzg19dNZZ1bQOySRL+g==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
