@@ -388,12 +388,6 @@ $module: #{$prefix}-cascader;
         margin: 0;
     }
 
-    ul > li {
-        padding-top: $spacing-cascader_option-paddingTop;
-        padding-bottom: $spacing-cascader_option-paddingBottom;
-        padding-left: $spacing-cascader_option-paddingLeft;
-        padding-right: $spacing-cascader_option-paddingRight;
-    }
 
     .#{$module}-option-list {
         box-sizing: border-box;
@@ -412,11 +406,17 @@ $module: #{$prefix}-cascader;
     }
 
     .#{$module}-option {
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
         transition: background-color $transition_duration-cascader_option-bg $transition_function-cascader_option-bg $transition_delay-cascader_option-bg;
+
+        padding-top: $spacing-cascader_option-paddingTop;
+        padding-bottom: $spacing-cascader_option-paddingBottom;
+        padding-left: $spacing-cascader_option-paddingLeft;
+        padding-right: $spacing-cascader_option-paddingRight;
 
         @include font-size-regular;
         min-width: min-content;
