@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 2.43.0 (2023-09-08)
+- 【Fix】
+    - 修复在 Firefox 浏览器中， 中文输入无法正常显示问题（影响版本 2.26.0～2.42.4）  [#1810](https://github.com/DouyinFE/semi-design/issues/1810)
+    - 修复 ImagePreview 在 lazyLoad 模式下，滚动容器，视区图片未加载问题 [#1817](https://github.com/DouyinFE/semi-design/pull/1817)
+
+
 #### 🎉 2.43.0-beta.0 (2023-09-04)
 - 【Feat】
     - Tree 和 TreeSelect 的 renderFullLabel 回调增加 filtered 和 searchWord 参数
@@ -26,7 +32,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复当 Image 文件名称带 query 参数时候，图片下载后因文件名错误无法打开问题 [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)
     - 修复 js 截断策略下的 Typography ，当判断为不截断，鼠标移入内容出现意外 tooltip 问题 [#1788](https://github.com/DouyinFE/semi-design/pull/1788)
     - 修复 OverflowList 组件在部分场景 key 报警告的问题 [#1786](https://github.com/DouyinFE/semi-design/pull/1786)
-    - 修复 弹层组件 和 Navigation 在部分场景内存泄漏的问题。[#1785](https://github.com/DouyinFE/semi-design/pull/1785)
+    - 修复 弹层组件 和 Navigation 在部分场景内存泄漏的问题。 Thanks [@boliangleung](https://github.com/boliangleung) [#1785](https://github.com/DouyinFE/semi-design/pull/1785)
 
 #### 🎉 2.42.1 (2023-08-25)
 - 【Style】
