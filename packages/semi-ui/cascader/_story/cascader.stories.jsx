@@ -1791,7 +1791,7 @@ export const filterRender = () => {
           onClick={onCheck}
       >
         <Checkbox
-            onClick={onCheck}
+            onChange={onCheck}
             indeterminate={checkStatus.halfChecked}
             checked={checkStatus.checked}
             style={{ marginRight: 8 }}
