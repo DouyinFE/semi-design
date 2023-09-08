@@ -411,6 +411,25 @@ export const GridImage= () => {
     </>
 )};
 
+export const LazyLoadImage = () => {
+    return (
+    <>
+        <ImagePreview
+            style={{ width: 848, height: 200, overflow: 'auto' }}
+            lazyLoadMargin={"0px"}
+        >
+            <Row style={{ width: 800 }}>
+                {srcList2.map((src, index) => {
+                    return (
+                        <Col span={6} style={{ height: 200 }} key={`col${index}`}>
+                            <Image key={index} src={src} style={{ width: 200, height: 200 }} width={200} alt={`lamp${index + 1}`} />
+                        </Col>
+                )})}
+            </Row>
+        </ImagePreview>
+    </>
+)};
+
 export const CustomContainer = () => {
     const srcList = useMemo(() => ([
         "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/flower.jpeg",
