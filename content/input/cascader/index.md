@@ -479,7 +479,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
 
 ```
 
-如果搜索结果中存在大量 Option，可以通过设置 virtualizeInSearch 开启搜索结果面板的虚拟化来优化性能，virtualizeInSearch 自 v2.43.0 提供。virtualizeInSearch 是一个包含下列值的对象：
+如果搜索结果中存在大量 Option，可以通过设置 virtualizeInSearch 开启搜索结果面板的虚拟化来优化性能，virtualizeInSearch 自 v2.44.0 提供。virtualizeInSearch 是一个包含下列值的对象：
 
 - height: Option 列表高度值
 - width: Option 列表宽度值

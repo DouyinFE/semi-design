@@ -474,7 +474,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
 
 ```
 
-If there are a lot of options in the search results, you can optimize performance by setting virtualizeInSearch to enable the virtualization of the search result panel. virtualizeInSearch has been available since v2.43.0. virtualizeInSearch is an object containing the following values:
+If there are a lot of options in the search results, you can optimize performance by setting virtualizeInSearch to enable the virtualization of the search result panel. virtualizeInSearch has been available since v2.44.0. virtualizeInSearch is an object containing the following values:
 
 - height: Option list height value
 - width: Option list width value
