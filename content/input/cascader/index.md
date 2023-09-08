@@ -518,7 +518,7 @@ import { Cascader, Checkbox, Typography } from '@douyinfe/semi-ui';
             <div 
                 key={data.value}
                 className={className}
-                style={{ justifyContent: 'start' }}
+                style={{ justifyContent: 'start', padding: '8px 16px 8px 12px', boxSizing: 'border-box' }}
             >
                 <Checkbox
                     onChange={onCheck}
