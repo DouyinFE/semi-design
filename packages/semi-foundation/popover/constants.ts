@@ -23,7 +23,7 @@ const strings = {
         'leftTopOver',
         'rightTopOver',
     ],
-    TRIGGER_SET: ['hover', 'focus', 'click', 'custom'],
+    TRIGGER_SET: ['hover', 'focus', 'click', 'custom', 'contextMenu'],
     DEFAULT_ARROW_STYLE: {
         borderOpacity: '1',
         backgroundColor: 'var(--semi-color-bg-3)',
