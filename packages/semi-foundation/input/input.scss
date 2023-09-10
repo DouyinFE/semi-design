@@ -41,6 +41,7 @@ $module: #{$prefix}-input;
     background-color: $color-input_default-bg-default;
     border: $width-input_wrapper-border $color-input_default-border-default solid;
     border-radius: $radius-input_wrapper;
+    overflow: hidden;
 
     width: 100%;
     outline: none;
