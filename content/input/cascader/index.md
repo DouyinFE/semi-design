@@ -458,7 +458,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
             <p>鼠标 hover 到选项可查看被省略文本完整内容</p>
             <br />
             <Cascader
-                style={{ width: 300 }}
+                style={{ width: 320 }}
                 treeData={treeData}
                 placeholder="单选，输入 s 自定义搜索选项渲染结果"
                 filterTreeNode
@@ -467,7 +467,7 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
             <br />
             <Cascader
                 multiple
-                style={{ width: 300, marginTop: 20 }}
+                style={{ width: 320, marginTop: 20 }}
                 treeData={treeData}
                 placeholder="多选，输入 s 自定义搜索选项渲染结果"
                 filterTreeNode
@@ -477,6 +477,77 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
     );
 };
 
+```
+
+如果搜索结果中存在大量 Option，可以通过设置 virtualizeInSearch 开启搜索结果面板的虚拟化来优化性能，virtualizeInSearch 自 v2.44.0 提供。virtualizeInSearch 是一个包含下列值的对象：
+
+- height: Option 列表高度值
+- width: Option 列表宽度值
+- itemSize: 每行 Option 的高度
+
+```jsx live=true
+import React from 'react';
+import { Cascader, Checkbox, Typography } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = useMemo(() => (
+        ['通用', '场景'].map((label, m) => ({
+            label: label,
+            value: m,
+            children: new Array(100).fill(0).map((item, n)=> ({
+                value: `${m}-${n}`,
+                label: `${m}-${n} 第二级`,
+                children: new Array(20).fill(0).map((item, o)=> ({
+                    value: `${m}-${n}-${o}`,
+                    label: `${m}-${n}-${o} 第三级详细内容`,
+                })),
+            }))
+        }))
+    ), []);
+    
+    let virtualize = {
+        // 高度为面板默认高度为 180px 减去上下padding 2 * 8px
+        height: 172,
+        width: 320,
+        itemSize: 36, 
+    };
+
+    const filterRender = useCallback((props) => {
+        const { data, onCheck, checkStatus, className } = props;
+        return (
+            <div 
+                key={data.value}
+                className={className}
+                style={{ justifyContent: 'start', padding: '8px 16px 8px 12px', boxSizing: 'border-box' }}
+            >
+                <Checkbox
+                    onChange={onCheck}
+                    indeterminate={checkStatus.halfChecked}
+                    checked={checkStatus.checked}
+                    style={{ marginRight: 8 }}
+                />
+                <Typography.Text
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }}
+                    style={{ maxWidth: 260 }}
+                >
+                    {data.map(item => item.label).join(' | ')}
+                </Typography.Text>
+            </div>
+        );
+    }, []);
+     
+    return (
+        <Cascader
+            multiple
+            filterTreeNode
+            style={{ width: 320 }}
+            treeData={treeData}
+            placeholder="输入 通用 or 场景 进行搜索"
+            virtualizeInSearch={virtualize}
+            filterRender={filterRender}
+        />
+    );
+};
 ```
 
 ### 限制标签展示数量
@@ -1782,6 +1853,7 @@ function Demo() {
 | triggerRender        | 自定义触发器渲染方法                                                                                                                                          | (props: TriggerRenderProps) => ReactNode                                                  | -                              | 0.34.0 |
 | validateStatus       | trigger 的校验状态，仅影响展示样式。可选: default、error、warning                                                                                                     | string                                                                                    | `default`                      | -      |
 | value                | （受控）选中的条目                                                                                                                                           | string\|number\|CascaderData\|(string\|number\|CascaderData)[]                            | -                              | -      |
+| virtualizeInSearch   | 搜索列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成 | Object | - | - | - |
 | zIndex               | 下拉菜单的 zIndex                                                                                                                                        | number                                                                                    | 1030                           | -      |
 | enableLeafClick      | 多选时，是否启动点击叶子节点选项触发勾选                                                                                                                                | boolean                                                                                   | false                          | 2.2.0  |
 | onBlur               | 失焦 Cascader 的回调                                                                                                                                     | (e: MouseEvent) => void                                                                   | -                              | -      |
