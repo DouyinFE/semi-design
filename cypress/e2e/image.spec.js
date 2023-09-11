@@ -533,4 +533,14 @@ describe('image', () => {
         cy.wait(2000);
         cy.get('.semi-image-preview-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/seaside.jpeg');
     });
+
+    // 测试懒加载
+    it('lazyLoad + lazyLoadMargin', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--lazy-load-image&args=&viewMode=storyi');
+        cy.get('.semi-image-img').eq(4).should('have.attr', 'data-src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png');
+        cy.get('.semi-image-img').eq(4).should('not.have.attr', 'src');
+        cy.get('.semi-image-preview-group').eq(0).scrollTo('bottom');
+        cy.get('.semi-image-img').eq(4).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png');
+        cy.get('.semi-image-img').eq(4).should('not.have.attr', 'data-src');
+    });
 });

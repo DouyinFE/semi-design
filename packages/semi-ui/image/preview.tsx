@@ -114,8 +114,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     if (item.isIntersecting && src) {
                         (item.target as any).src = src;
                         (item.target as any).removeAttribute("data-src");
+                        this.previewObserver.unobserve(item.target);
                     }
-                    this.previewObserver.unobserve(item.target);
                 });
             },
             {

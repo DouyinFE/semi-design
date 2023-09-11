@@ -9,7 +9,7 @@ const cssClasses = {
 
 const strings = {
     POSITION_SET: tooltipStrings.POSITION_SET,
-    TRIGGER_SET: ['hover', 'focus', 'click', 'custom'],
+    TRIGGER_SET: ['hover', 'focus', 'click', 'custom', 'contextMenu'],
     DEFAULT_LEAVE_DELAY: 100,
     ITEM_TYPE: ['primary', 'secondary', 'tertiary', 'warning', 'danger'],
 };

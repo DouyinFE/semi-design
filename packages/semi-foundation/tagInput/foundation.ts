@@ -66,36 +66,45 @@ class TagInputFoundation extends BaseFoundation<TagInputAdapter> {
     };
 
     handleInputCompositionStart = (e: any) => {
+        const { maxLength } = this.getProps();
+        if (!isNumber(maxLength)) {
+            return;
+        }
         this._adapter.setEntering(true);
     }
 
     handleInputCompositionEnd = (e: any) => {
-        this._adapter.setEntering(false);
         const { value } = e.target;
         const {
             maxLength, 
             onInputExceed,
             separator
         } = this.getProps();
+        if (!isNumber(maxLength)) {
+            return;
+        }
+        this._adapter.setEntering(false);
         let allowChange = true;
-        const { inputValue } = this.getStates();
-        if (isNumber(maxLength)) {
-            const inputArr = getSplitedArray(inputValue, separator);
-            let index = 0;
-            for (; index < inputArr.length; index++) {
-                if (inputArr[index].length > maxLength) {
-                    allowChange = false;
-                    isFunction(onInputExceed) && onInputExceed(value);
-                    break;
-                }
+        const inputArr = getSplitedArray(value, separator);
+        let index = 0;
+        for (; index < inputArr.length; index++) {
+            if (inputArr[index].length > maxLength) {
+                allowChange = false;
+                isFunction(onInputExceed) && onInputExceed(value);
+                break;
             }
-            if (!allowChange) {
-                const newInputArr = inputArr.slice(0, index);
-                if (index < inputArr.length) {
-                    newInputArr.push(inputArr[index].slice(0, maxLength));
-                }
-                this._adapter.setInputValue(newInputArr.join(separator));
+        }
+        if (!allowChange) {
+            const newInputArr = inputArr.slice(0, index);
+            if (index < inputArr.length) {
+                newInputArr.push(inputArr[index].slice(0, maxLength));
             }
+            this._adapter.setInputValue(newInputArr.join(separator));
+        } else {
+            // Why does it need to be updated here instead of in onChange when the value meets the maxLength limit?
+            // Because in firefox, the state change in InputCompositionEnd causes onChange to not be triggered after 
+            // the composition input completes input.
+            this._adapter.setInputValue(value);
         }
     }
 

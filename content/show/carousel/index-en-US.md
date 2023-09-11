@@ -274,7 +274,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
 
 () => {
     const { Title, Paragraph } = Typography;
-    const [arrowType, setArrowTypew] = useState('always');
+    const [arrowType, setArrowType] = useState('always');
     const [show, setShow] = useState(true);
   
     const style = {
@@ -341,7 +341,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 </Space>
                 <Space> 
                     <div>show time</div>
-                    <RadioGroup onChange={e => setArrowTypew(e.target.value)} value={arrowType} type="button">
+                    <RadioGroup onChange={e => setArrowType(e.target.value)} value={arrowType} type="button">
                         <Radio value='always'>always</Radio>
                         <Radio value='hover'>hover</Radio>
                     </RadioGroup>

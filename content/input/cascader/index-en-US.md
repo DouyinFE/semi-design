@@ -429,11 +429,11 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 className={className}
                 style={{ justifyContent: 'flex-start' }}
                 role="treeitem"
-                onClick={onClick}
+                onClick={onCheck}
                 onKeyPress={onKeyPress}
             > 
                 <Checkbox
-                    onClick={onClick}
+                    onChange={onCheck}
                     indeterminate={checkStatus.halfChecked}
                     checked={checkStatus.checked}
                     style={{ marginRight: 8 }}
