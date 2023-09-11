@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 2.43.1 (2023-09-11)
+- 【Fix】
+  - 修复 Popover Trigger 传入 ContextMenu 类型提示错误的问题 [#1819](https://github.com/DouyinFE/semi-design/issues/1819)
+  - 修复 React18 strict mode 下 portal 不弹出的问题 [#1769](https://github.com/DouyinFE/semi-design/issues/1769)
+
+
 #### 2.43.0 (2023-09-08)
 - 【Fix】
     - 修复在 Firefox 浏览器中， 中文输入无法正常显示问题（影响版本 2.26.0～2.42.4）  [#1810](https://github.com/DouyinFE/semi-design/issues/1810)

@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 2.43.1 (2023-09-11)
+- 【Fix】
+  - Fix Popover Trigger  ContextMenu dts error [#1819](https://github.com/DouyinFE/semi-design/issues/1819)
+  - fix portal not popup in React18 strict mode [#1769](https://github.com/DouyinFE/semi-design/issues/1769)
+
 #### 2.43.0 (2023-09-08)
 - 【Fix】
   - Fix the problem that Chinese input cannot be displayed normally in the Firefox browser (affecting versions 2.26.0~2.42.4)  [#1810](https://github.com/DouyinFE/semi-design/issues/1810)
