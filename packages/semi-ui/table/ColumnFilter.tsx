@@ -122,7 +122,7 @@ function renderDropdown(props: RenderDropdownProps = {}, nestedElem: React.React
     }
 
     return (
-        <Dropdown {...dropdownProps} key={`Dropdown_level_${level}`} className='semi-table-column-filter-dropdown'>
+        <Dropdown {...dropdownProps} key={`Dropdown_level_${level}`} className={`${cssClasses.PREFIX}-table-column-filter-dropdown`}>
             {nestedElem}
         </Dropdown>
     );
