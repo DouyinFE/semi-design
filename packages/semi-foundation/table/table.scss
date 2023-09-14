@@ -620,4 +620,11 @@ $module: #{$prefix}-table;
     }
 }
 
+.#{$module}-column-filter-dropdown {
+    .#{$prefix}-dropdown-menu {
+        max-height: $height-table_column_filter_dropdown;
+        overflow-y: auto;
+    }
+}
+
 @import './rtl.scss';
