@@ -131,19 +131,6 @@ describe('Calendar', () => {
 
         ];
         
-        let monthCalendar = mount(<Calendar
-                    height={400}
-                    mode={'month'}
-                    displayValue={new Date(2019, 6, 23, 8, 32, 0)}
-                    events={events}
-                ></Calendar>)
-        const eventInJuly = events.filter(event=>{
-            return event.start.getMonth() === 6
-        })
-        // test whether july's event rendered
-        expect(monthCalendar.find(`.eventDay`).length).toBe(eventInJuly.length)
-
-        
         let dailyCalendar = mount(<Calendar
             height={400}
             mode={'day'}

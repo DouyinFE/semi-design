@@ -27,4 +27,9 @@ describe('calendar', () => {
         cy.get('li[data-time="09:30:00"]').eq(1).click({ force: true });
         cy.get('div').contains('当前点击的日期是24号');
     });
+
+    it('month event render', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=calendar--month-event-render&args=&viewMode=story');
+        cy.get('.eventDay').should('have.length', 7);
+    })
 });
