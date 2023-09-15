@@ -256,9 +256,9 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const tagList = [
-        { color: 'white', children: '抖音' },
-        { color: 'white', children: '火山' },
-        { color: 'white', children: '剪映' },
+        { color: 'light-blue', children: '抖音' },
+        { color: 'cyan', children: '火山' },
+        { color: 'violet', children: '剪映' },
         { color: 'white', children: '醒图' },
     ];
     const src = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png';
@@ -310,16 +310,16 @@ import { TagGroup } from '@douyinfe/semi-ui';
 
 () => {
     const defaultList = [
-        { tagKey: '1', color: 'white', children: '抖音', closable: true, },
-        { tagKey: '3', color: 'white', children: '剪映', closable: true, },
-        { tagKey: '2', color: 'white', children: '醒图', closable: true, },
-        { tagKey: '4', color: 'white', children: '轻颜相机', closable: true, },
+        { tagKey: '1', color: 'light-blue', children: '抖音', closable: true, },
+        { tagKey: '3', color: 'cyan', children: '剪映', closable: true, },
+        { tagKey: '2', color: 'violet', children: '醒图', closable: true, },
+        { tagKey: '4', color: 'teal', children: '轻颜相机', closable: true, },
         { tagKey: '5', color: 'white', children: '飞书', closable: true, },
     ];
 
     const [tagList, setTagList] = useState(defaultList);
 
-    const tagListClick = () => {
+    const tagListClick = (value, e, tagKey) => {
         const newTagList = [...tagList];
         const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
         newTagList.splice(closeTagIndex, 1);
@@ -338,6 +338,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
         }}>
             <TagGroup
                 maxTagCount={3}
+                showPopover
                 style={ {
                     display: 'flex',
                     alignItems: 'center',
@@ -349,8 +350,7 @@ import { TagGroup } from '@douyinfe/semi-ui';
             />
         </div>
     );
-}
-
+};
 ```
 
 ## API参考

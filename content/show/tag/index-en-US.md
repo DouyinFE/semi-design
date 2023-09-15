@@ -289,58 +289,49 @@ import { TagGroup } from '@douyinfe/semi-ui';
 If the tags in the TagGroup can be deleted, the user needs to process the `tagList` passed to the TagGroup in `onTagClose`
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { TagGroup } from '@douyinfe/semi-ui';
 
-class TagGroupCloseableDemo extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            tagList: [
-                { tagKey: '1', color: 'white', children: '抖音', closable: true, },
-                { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
-                { tagKey: '3', color: 'white', children: '剪映', closable: true, },
-                { tagKey: '4', color: 'white', children: '皮皮虾', closable: true, },
-                { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
-            ]
-        };
-        this.tagListClick = this.tagListClick.bind(this);
-    }
+() => {
+    const defaultList = [
+        { tagKey: '1', color: 'light-blue', children: 'Douyin', closable: true, },
+        { tagKey: '3', color: 'amber', children: 'Jianying', closable: true, },
+        { tagKey: '3', color: 'violet', children: 'Faceu', closable: true, },
+        { tagKey: '4', color: 'white', children: 'Lark', closable: true, },
+    ];
 
-    tagListClick(value, e, tagKey){
-        const newTagList = [...this.state.tagList];
+    const [tagList, setTagList] = useState(defaultList);
+
+    const tagListClick = (value, e, tagKey) => {
+        const newTagList = [...tagList];
         const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
         newTagList.splice(closeTagIndex, 1);
-        this.setState({
-            tagList: newTagList,
-        });
-    }
+        setTagList(newTagList);
+    };
 
-    render() {
-        return (
-            <div style={ {
-                backgroundColor: 'var(--semi-color-fill-0)',
-                height: 35,
-                width: 300,
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0 10px',
-                marginBottom: 30,
-            }}>
-                <TagGroup
-                    maxTagCount={3}
-                    style={ {
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: 350,
-                    }}
-                    tagList={this.state.tagList}
-                    size='large'
-                    onTagClose={this.tagListClick}
-                />
-            </div>
-        );
-    }
+    return (
+        <div style={ {
+            backgroundColor: 'var(--semi-color-fill-0)',
+            height: 35,
+            width: 300,
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 10px',
+            marginBottom: 30,
+        }}>
+            <TagGroup
+                maxTagCount={3}
+                style={ {
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: 350,
+                }}
+                tagList={tagList}
+                size='large'
+                onTagClose={tagListClick}
+            />
+        </div>
+    );
 }
 ```
 
