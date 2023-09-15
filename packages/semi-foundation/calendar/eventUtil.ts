@@ -230,7 +230,11 @@ export const filterEvents = (events: Map<string, EventObject[]>, start: Date, en
         const item = events.get(day);
         const date = new Date(day);
         if (isDateInRange(date, start, end)) {
-            res.set(day, item);
+            if (res.has(day)) {
+                res.set(day, [...res.get(day), ...item]);
+            } else {
+                res.set(day, item);
+            }
         } else if (isBefore(end, date)) {
             // do nothing
         } else {
