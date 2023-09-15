@@ -25,6 +25,9 @@ $radius-tag_circle: var(--semi-border-radius-full); // 胶囊标签圆角大小
 $spacing-tag_small-paddingY: 2px; // 小尺寸标签垂直方向内边距
 $spacing-tag_small-paddingX: $spacing-tight; // 小尺寸标签水平方向内边距
 
+$spacing-tag_prefix_icon_paddingRight: $spacing-extra-tight; // 后缀图标右侧边距 
+$spacing-tag_suffix_icon_paddingLeft: $spacing-extra-tight; // 后缀图标左侧边距
+
 $spacing-tag_large-paddingY: 4px; // 大尺寸标签垂直方向内边距
 $spacing-tag_large-paddingX: $spacing-tight; // 大尺寸标签水平方向内边距
 

@@ -36,7 +36,6 @@ import { Tag, Space } from '@douyinfe/semi-ui';
     </div>
 );
 ```
-
 ### 尺寸
 
 默认定义了两种尺寸：大、小（默认）。
@@ -47,8 +46,8 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space>
-        <Tag size="small"> small tag </Tag>
-        <Tag size="large"> large tag </Tag>
+        <Tag size="small" color='light-blue'> small tag </Tag>
+        <Tag size="large" color='cyan'> large tag </Tag>
     </Space>
 );
 ```
@@ -63,10 +62,40 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space>
-        <Tag size="small" shape='circle'> small circle tag </Tag>
-        <Tag size="large" shape='circle'> large circle tag </Tag>
+        <Tag size="small" shape='circle' color='amber'> small circle tag </Tag>
+        <Tag size="large" shape='circle' color='violet'> large circle tag </Tag>
     </Space>
 );
+```
+
+### 配置图标
+v2.44 后支持通过配置 prefixIcon、suffixIcon， 可以在 children 内容前后添加 Icon 图标 
+
+```jsx live=true
+import React from 'react';
+import { Tag, Space } from '@douyinfe/semi-ui';
+import { IconGithubLogo, IconSemiLogo } from '@douyinfe/semi-icons';
+
+() => (
+    <Space>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+        >
+            Semi Design
+        </Tag>
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            suffixIcon={<IconSemiLogo />}
+        >
+            D2C: figma to code in one click</Tag>
+    </Space>
+);
+
 ```
 
 ### 颜色
@@ -83,7 +112,7 @@ import { Tag, Space } from '@douyinfe/semi-ui';
             ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
                 'light-blue', 'light-green', 'lime', 'orange', 'pink',  
                 'purple', 'red', 'teal', 'violet', 'yellow', 'white'
-            ].map(item => (<Tag color={item} key={item}> {item} tag </Tag>))
+            ].map(item => (<Tag color={item} key={item}> {item} </Tag>))
         }
     </Space>
 );
@@ -91,26 +120,66 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 ### 样式类型
 
-标签支持三种样式类型，包括浅色底色 `light`，白色底色 `ghost`，深色底色 `solid`；默认值为 `light`。
+标签支持三种样式类型，包括浅色底色 `light`，白色底色 `ghost`，深色底色 `solid`；默认值为 `light`。通过 type 配置
 
 ```jsx live=true
 import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
+import { IconGithubLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 
 () => (
-    <Space>
-        <Tag color="blue" type="light">
-            {' '}
-            light tag{' '}
+    <Space wrap>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='light'
+        >
+            Semi Design Light Tag
         </Tag>
-        <Tag color="blue" type="ghost">
-            {' '}
-            ghost tag{' '}
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            suffixIcon={<IconSemiLogo />}
+            type='light'
+        >
+            D2C: figma to code in one click</Tag>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='ghost'
+        >
+            Semi Design Ghost Tag
         </Tag>
-        <Tag color="blue" type="solid">
-            {' '}
-            solid tag{' '}
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            type='ghost'
+            suffixIcon={<IconSemiLogo />}
+        >
+            D2C: figma to code in one click</Tag>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='solid'
+        >
+            Semi Design Solid Tag
         </Tag>
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            type='solid'
+            suffixIcon={<IconSemiLogo />}
+        >
+            D2C: figma to code in one click</Tag>
     </Space>
 );
 ```
@@ -154,7 +223,7 @@ function Demo() {
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { Tag, Button } from '@douyinfe/semi-ui';
+import { Tag, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => {
     const [visible, setVisible] = useState(false);
@@ -163,13 +232,17 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     };
     return (
         <div>
-            <Button onClick={toggleVisible}>{visible ? 'Hide Tag': 'Show Tag'}</Button>
+            <RadioGroup type='button' defaultValue={0} onChange={e => toggleVisible(e.target.value)}>
+                <Radio value={1}>Show</Radio>
+                <Radio value={0}>Hide</Radio>
+            </RadioGroup>
             <div style={{ marginTop: 10 }}>
-                <Tag visible={visible}>Invisible tag </Tag>
+                <Tag visible={visible} size='large' color='light-blue'>Invisible tag </Tag>
             </div>
         </div>
     );
 };
+
 ```
 
 ### TagGroup 使用
@@ -232,59 +305,52 @@ import { TagGroup } from '@douyinfe/semi-ui';
 如果 TagGroup 中的标签可删除，用户需要在 `onTagClose` 中处理传递给 TagGroup 的 `tagList`。
 
 ```jsx live=true
-import React from 'react';
+import React, { useState } from 'react';
 import { TagGroup } from '@douyinfe/semi-ui';
 
-class TagGroupCloseableDemo extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            tagList: [
-                { tagKey: '1', color: 'white', children: '抖音', closable: true, },
-                { tagKey: '2', color: 'white', children: '火山小视频', closable: true, },
-                { tagKey: '3', color: 'white', children: '剪映', closable: true, },
-                { tagKey: '4', color: 'white', children: '轻颜相机', closable: true, },
-                { tagKey: '5', color: 'white', children: '懂车帝', closable: true, },
-            ]
-        };
-        this.tagListClick = this.tagListClick.bind(this);
-    }
+() => {
+    const defaultList = [
+        { tagKey: '1', color: 'white', children: '抖音', closable: true, },
+        { tagKey: '3', color: 'white', children: '剪映', closable: true, },
+        { tagKey: '2', color: 'white', children: '醒图', closable: true, },
+        { tagKey: '4', color: 'white', children: '轻颜相机', closable: true, },
+        { tagKey: '5', color: 'white', children: '飞书', closable: true, },
+    ];
 
-    tagListClick(value, e, tagKey){
-        const newTagList = [...this.state.tagList];
+    const [tagList, setTagList] = useState(defaultList);
+
+    const tagListClick = () => {
+        const newTagList = [...tagList];
         const closeTagIndex = newTagList.findIndex(t => t.tagKey === tagKey);
         newTagList.splice(closeTagIndex, 1);
-        this.setState({
-            tagList: newTagList,
-        });
-    }
+        setTagList(newTagList);
+    };
 
-    render() {
-        return (
-            <div style={ {
-                backgroundColor: 'var(--semi-color-fill-0)',
-                height: 35,
-                width: 300,
-                display: 'flex',
-                alignItems: 'center',
-                padding: '0 10px',
-                marginBottom: 30,
-            }}>
-                <TagGroup
-                    maxTagCount={3}
-                    style={ {
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: 350,
-                    }}
-                    tagList={this.state.tagList}
-                    size='large'
-                    onTagClose={this.tagListClick}
-                />
-            </div>
-        );
-    }
+    return (
+        <div style={ {
+            backgroundColor: 'var(--semi-color-fill-0)',
+            height: 35,
+            width: 300,
+            display: 'flex',
+            alignItems: 'center',
+            padding: '0 10px',
+            marginBottom: 30,
+        }}>
+            <TagGroup
+                maxTagCount={3}
+                style={ {
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: 350,
+                }}
+                tagList={tagList}
+                size='large'
+                onTagClose={tagListClick}
+            />
+        </div>
+    );
 }
+
 ```
 
 ## API参考
@@ -298,6 +364,8 @@ class TagGroupCloseableDemo extends React.Component {
 | className | 类名 | string |     | |
 | closable | 标签是否可以关闭 | boolean  |  false   | |
 | color  | 标签的颜色，可选 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string  | `grey`| |
+| prefixIcon | 前缀图标 | ReactNode | | 2.44.0 |
+| suffixIcon | 后缀图标 | ReactNode | | 2.44.0 |
 | shape | 标签的形状，可选 `square`、 `circle` | string | `square` | 2.20.0 |
 | size | 标签的尺寸，可选 `small`、 `large` | string | `small` | |
 | style | 样式 | CSSProperties |     | |

@@ -45,15 +45,13 @@ Supports two sizes: `large` and `small` (default).
 
 ```jsx live=true
 import React from 'react';
-import { Tag } from '@douyinfe/semi-ui';
+import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
-    <div>
-        <Tag size="small" style={{ marginRight: 8 }}>
-            small tag
-        </Tag>
-        <Tag size="large"> large tag </Tag>
-    </div>
+    <Space>
+        <Tag size="small" color='light-blue'> small tag </Tag>
+        <Tag size="large" color='cyan'> large tag </Tag>
+    </Space>
 );
 ```
 
@@ -67,8 +65,8 @@ import { Tag, Space } from '@douyinfe/semi-ui';
 
 () => (
     <Space>
-        <Tag size="small" shape='circle'> small circle tag </Tag>
-        <Tag size="large" shape='circle'> large circle tag </Tag>
+        <Tag size="small" shape='circle' color='amber'> small circle tag </Tag>
+        <Tag size="large" shape='circle' color='violet'> large circle tag </Tag>
     </Space>
 );
 ```
@@ -88,7 +86,7 @@ import { Tag, Space } from '@douyinfe/semi-ui';
                 ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo',  
                     'light-blue', 'light-green', 'lime', 'orange', 'pink',  
                     'purple', 'red', 'teal', 'violet', 'yellow', 'white'
-                ].map(item => (<Tag color={item} key={item}> {item} tag</Tag>))
+                ].map(item => (<Tag color={item} key={item}> {item} </Tag>))
             }
         </Space>
     );
@@ -102,18 +100,61 @@ Tag supports three different types, including: `light`(default), `ghost`, `solid
 ```jsx live=true
 import React from 'react';
 import { Tag, Space } from '@douyinfe/semi-ui';
+import { IconGithubLogo, IconSemiLogo } from '@douyinfe/semi-icons';
 
 () => (
-    <Space>
-        <Tag color="blue" type="light">
-            light tag
+    <Space wrap>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='light'
+        >
+            Semi Design Light Tag
         </Tag>
-        <Tag color="blue" type="ghost">
-            ghost tag
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            suffixIcon={<IconSemiLogo />}
+            type='light'
+        >
+            D2C: figma to code in one click</Tag>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='ghost'
+        >
+            Semi Design Ghost Tag
         </Tag>
-        <Tag color="blue" type="solid">
-            solid tag
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            type='ghost'
+            suffixIcon={<IconSemiLogo />}
+        >
+            D2C: figma to code in one click</Tag>
+        <Tag
+            color='light-blue'
+            prefixIcon={<IconGithubLogo />}
+            size='large'
+            shape='circle'
+            type='solid'
+        >
+            Semi Design Solid Tag
         </Tag>
+        <Tag
+            color='cyan'
+            size='large'
+            shape='circle'
+            type='solid'
+            suffixIcon={<IconSemiLogo />}
+        >
+            D2C: figma to code in one click</Tag>
     </Space>
 );
 ```
@@ -158,7 +199,7 @@ You can use `visible` property to control whether the tag is visible.
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { Tag, Button } from '@douyinfe/semi-ui';
+import { Tag, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => {
     const [visible, setVisible] = useState(false);
@@ -167,13 +208,17 @@ import { Tag, Button } from '@douyinfe/semi-ui';
     };
     return (
         <div>
-            <Button onClick={toggleVisible}>{visible ? 'Hide Tag' : 'Show Tag'}</Button>
+            <RadioGroup type='button' defaultValue={0} onChange={e => toggleVisible(e.target.value)}>
+                <Radio value={1}>Show</Radio>
+                <Radio value={0}>Hide</Radio>
+            </RadioGroup>
             <div style={{ marginTop: 10 }}>
-                <Tag visible={visible}>Invisible tag </Tag>
+                <Tag visible={visible} size='large' color='light-blue'>Invisible tag </Tag>
             </div>
         </div>
     );
 };
+
 ```
 
 ### TagGroup
@@ -310,6 +355,8 @@ class TagGroupCloseableDemo extends React.Component {
 | className | Class name | string |  |  |
 | closable | Toggle whether the tag can be closed | boolean | false |  |
 | color | Color of tags, one of `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow`、 `white` | string | `grey` |  |
+| prefixIcon | prefix icon | ReactNode | | 2.44.0 |
+| suffixIcon | suffix icon | ReactNode | | 2.44.0 |
 | shape | Shape of tag, one of `square`、 `circle` | string | `square` | 2.20.0 |
 | size | Size, one of `small`, `large` | string | `small` |  |
 | style | Inline style | object |  |  |
