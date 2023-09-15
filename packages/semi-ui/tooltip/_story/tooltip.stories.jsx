@@ -1548,7 +1548,7 @@ export const wordBreak = () => {
 
   const testContent = {
     '长hash': 'ide2d3a4e9d7b7d93fc4c3b8e4b1b4b08e4f5a9f13ed8b8d6f7c5b7c4c7e4b9e6b9e6e5d4e4c5f6e3b1e7b3a3e3e5c5f4e9c8',
-    'url测试': 'https://semi.bytedance.net/zh-CN/show/tooltip#%E4%BB%85%E5%BD%93%E5%86%85%E5%AE%B9%E5%AE%BD%E5%BA%A6%E8%B6%85%E5%87%BA%E6%97%B6%E5%B1%95%E7%A4%BA%20Tooltip',
+    'url测试': 'https://semi.design/zh-CN/show/tooltip#%E4%BB%85%E5%BD%93%E5%86%85%E5%AE%B9%E5%AE%BD%E5%BA%A6%E8%B6%85%E5%87%BA%E6%97%B6%E5%B1%95%E7%A4%BA%20Tooltip',
     '中文测试': '中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试',
     // 以下为英文中最长的单词
     '英文测试': 'pneumonoultramicroscopicsilicovolcanoconiosis',
