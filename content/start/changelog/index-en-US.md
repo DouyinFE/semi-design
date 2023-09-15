@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 2.43.2 (2023-09-14)
+- 【Style】
+  - When the Popconfirm icon is null, the body part does not retain the marginLeft left spacing. [#1828](https://github.com/DouyinFE/semi-design/pull/1828)
+  - Table column filter Dropdown increases the default maximum height to 290px [#1647](https://github.com/DouyinFE/semi-design/issues/1647)
+- 【Design Token】
+  - Table add new token： $height-table_column_filter_dropdown
+
+#### 2.43.1 (2023-09-11)
+- 【Fix】
+  - Fix Popover Trigger  ContextMenu dts error [#1819](https://github.com/DouyinFE/semi-design/issues/1819)
+  - fix portal not popup in React18 strict mode [#1769](https://github.com/DouyinFE/semi-design/issues/1769)
+
 #### 2.43.0 (2023-09-08)
 - 【Fix】
   - Fix the problem that Chinese input cannot be displayed normally in the Firefox browser (affecting versions 2.26.0~2.42.4)  [#1810](https://github.com/DouyinFE/semi-design/issues/1810)
@@ -24,7 +36,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.43.0-beta.0 (2023-09-04)
 - 【Feat】
     - The renderFullLabel callback of Tree and TreeSelect adds filtered and searchWord parameters
-    - Upload new API: addOnPasting,  supports reading the pictures in the pasteboard and automatically adding to fileList [@ChuTingzj](https://github.com/ChuTingzj)  [#1612 ](https://github.com/DouyinFE/semi-design/issues/1612)
+    - Upload new API: addOnPasting,  supports reading the pictures in the pasteboard and automatically adding to fileList [@ChuTingzj](https://github.com/ChuTingzj)  [#1612](https://github.com/DouyinFE/semi-design/issues/1612)
 - 【Fix】
     - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
     - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
