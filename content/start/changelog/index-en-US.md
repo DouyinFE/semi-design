@@ -16,12 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 2.43.2 (2023-09-14)
+#### 2.43.2 (2023-09-15)
 - 【Style】
   - When the Popconfirm icon is null, the body part does not retain the marginLeft left spacing. [#1828](https://github.com/DouyinFE/semi-design/pull/1828)
   - Table column filter Dropdown increases the default maximum height to 290px [#1647](https://github.com/DouyinFE/semi-design/issues/1647)
 - 【Design Token】
   - Table add new token： $height-table_column_filter_dropdown
+- 【Fix】
+  - Fix the problem that the rendering result of Calendar month view event does not meet expectations [#1825](https://github.com/DouyinFE/semi-design/issues/1825) 
 
 #### 2.43.1 (2023-09-11)
 - 【Fix】

@@ -13,13 +13,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 2.43.2 (2023-09-14)
+#### 2.43.2 (2023-09-15)
 - 【Style】
   - Popconfirm icon 为 null 时，body部分不保留 marginLeft 左间距 [#1828](https://github.com/DouyinFE/semi-design/pull/1828)
   - Table column filter Dropdown 增加默认最大高度 290px [#1647](https://github.com/DouyinFE/semi-design/issues/1647)
 - 【Design Token】
   - Table 新增设计变量： $height-table_column_filter_dropdown
-
+- 【Fix】
+  - 修复 Calendar 月视图事件渲染结果不符合预期问题 [#1825](https://github.com/DouyinFE/semi-design/issues/1825) 
 
 #### 2.43.1 (2023-09-11)
 - 【Fix】
