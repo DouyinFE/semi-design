@@ -61,7 +61,7 @@ export interface TooltipProps extends BaseProps {
     prefixCls?: string;
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
-    spacing?: number;
+    spacing?: number | { x: number; y: number };
     margin?: number | { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number };
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
@@ -133,7 +133,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         prefixCls: PropTypes.string,
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
@@ -537,8 +537,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const bgColor = get(style, 'backgroundColor');
 
         const iconComponent = placement.includes('left') || placement.includes('right') ?
-            <TriangleArrowVertical/> :
-            <TriangleArrow/>;
+            <TriangleArrowVertical /> :
+            <TriangleArrow />;
         if (showArrow) {
             if (isValidElement(showArrow)) {
                 icon = showArrow;
@@ -638,7 +638,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 ...(displayNone ? { display: "none" } : {}),
                                 transformOrigin,
                                 ...style,
-                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" }:{}) 
+                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" } : {})
                             }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
@@ -716,7 +716,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { isInsert, triggerEventSet, visible, id } = this.state;
         const { wrapWhenSpecial, role, trigger } = this.props;
         let { children } = this.props;
-        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties } ;
+        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties };
         const extraStyle: React.CSSProperties = {};
 
         if (wrapWhenSpecial) {

@@ -385,7 +385,7 @@ function Demo() {
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                               | boolean |  |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位                                                                                                                                  | string\|number |  |  |
 | style    | 弹出层的内联样式                                                                                                                                             | object |  |  |
-| spacing | 弹出层与 `children` 元素的距离，单位 px                                                                                                                          | number | 8 |  |
+| spacing | 弹出层与 `children` 元素的距离，单位 px                                                                                                                          | number ｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 8 |  |
 | showArrow | 是否显示箭头三角形                                                                                                                                            | boolean | true |  |
 | stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false | **0.34.0** |
 | transformFromCenter | 是否从包裹的元素水平或垂直中心处变换，该参数仅影响动效变换的 `transform-origin`，一般无需改动                                                                                             | boolean | true |  |
