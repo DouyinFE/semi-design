@@ -299,7 +299,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         autoAdjustOverflow: PropTypes.bool,
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onClear: PropTypes.func,
@@ -917,7 +917,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
-                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null }
+                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -925,11 +925,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
-                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
+                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null}
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null}
                 </div>
-                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
+                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null}
             </div>
         );
     }

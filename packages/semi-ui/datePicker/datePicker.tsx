@@ -135,7 +135,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         validateStatus: PropTypes.oneOf(strings.STATUS),
         renderDate: PropTypes.func,
         renderFullDate: PropTypes.func,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         startDateOffset: PropTypes.func,
         endDateOffset: PropTypes.func,
         autoSwitchDate: PropTypes.bool,
