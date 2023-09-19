@@ -34,7 +34,11 @@ import {
   Top2Bottom, Top2BottomLeft, Top2BottomRight, Top2TopLeft, Top2TopRight,
   Bottom2Top, Bottom2TopLeft, Bottom2TopRight, Bottom2BottomLeft, Bottom2BottomRight,
  } from './AutoAdjustOverflow';
+ import FixedStringEllipsis from './FixedStringEllipsis';
 
+ export {
+  FixedStringEllipsis,
+ }
 
 export default {
   title: 'Tooltip',
