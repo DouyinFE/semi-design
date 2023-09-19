@@ -13,13 +13,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.44.0-beta.0 (2023-09-19)
+- 【Feat】
+    - Cascader 的搜索结果面板支持虚拟化 [#1815](https://github.com/DouyinFE/semi-design/pull/1815)
+    - Tag 增加 API：suffixIcon、prefixIcon [#1832](https://github.com/DouyinFE/semi-design/pull/1832)
+- 【Fix】
+    - 修复 Tooltip 默认文本内容时包裹 span 的 display 设置为 inline-block 导致缩略文本失效问题 [#1831](https://github.com/DouyinFE/semi-design/issues/1831)
+    - 更新 tooltip 自动调整位置策略，在视口原方向空间不足，反向空间足够的情况下，统一转为反向 [#1812](https://github.com/DouyinFE/semi-design/pull/1812)
+
 #### 2.43.2 (2023-09-14)
 - 【Style】
   - Popconfirm icon 为 null 时，body部分不保留 marginLeft 左间距 [#1828](https://github.com/DouyinFE/semi-design/pull/1828)
   - Table column filter Dropdown 增加默认最大高度 290px [#1647](https://github.com/DouyinFE/semi-design/issues/1647)
 - 【Design Token】
   - Table 新增设计变量： $height-table_column_filter_dropdown
-
+- 【Fix】
+  - 修复 Calendar 月视图事件渲染结果不符合预期问题 [#1825](https://github.com/DouyinFE/semi-design/issues/1825)
 
 #### 2.43.1 (2023-09-11)
 - 【Fix】
