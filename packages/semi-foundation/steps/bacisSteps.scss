@@ -167,11 +167,14 @@ $basicType: #{$module}-basic;
         vertical-align: top;
         overflow: hidden;
         flex: 1;
-        cursor: pointer;
         transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text, //step文字color的transition变化
         background-color $transition_duration-steps_item-backgroundColor $transition_function-steps_item_backgroundColor $transition_delay-steps_item_backgroundColor; //step backgroundColor 的transition变化
         
         transform:scale($transform_scale-step-item);
+
+        &-clickable {
+            cursor: pointer;
+        }
 
         &-hover:hover {
 
