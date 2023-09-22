@@ -6,8 +6,12 @@ $color-anchor_slide_muted-bg-active: var(--semi-color-white); // 选中颜色 - 
 
 $color-anchor_title-text-default: var(--semi-color-text-2); // 文字颜色 - 未选中
 $color-anchor_title-text-hover: var(--semi-color-tertiary-hover); // 文字颜色 - 未选中悬浮态
+$color-anchor_title_active-text-hover: $color-anchor_title-text-hover;  // 文字颜色 - 选中悬浮态
 $color-anchor_title-text-active: var(--semi-color-text-0); // 文字颜色 - 选中
 $color-anchor_title-text-disabled: var(--semi-color-disabled-text); // 文字颜色 - 禁用
+
+$color-anchor_title-bg: transparent; // 背景色
+$color-anchor_title_active-bg: transparent; // 背景色 - 选中
 
 $color-anchor_title-outline-focus: var(--semi-color-primary-light-active); // 轮廓 - 聚焦
 
