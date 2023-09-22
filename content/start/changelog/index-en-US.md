@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.44.0-beta.0 (2023-09-19)
+- 【Feat】
+  - Cascader's search results panel supports virtualization [#1815](https://github.com/DouyinFE/semi-design/pull/1815)
+  - Tag added API: suffixIcon, prefixIcon [#1832](https://github.com/DouyinFE/semi-design/pull/1832)
+- 【Fix】
+  - Fixed the problem of abbreviated text failure when the display of wrapped span is set to inline-block when the default text content of Tooltip is set [#1831](https://github.com/DouyinFE/semi-design/issues/1831)
+  - Update tooltip autoAdjustOverflow strategy. When there is insufficient space in the original direction of the viewport and sufficient reverse space, it will be uniformly converted to the reverse direction [#1812](https://github.com/DouyinFE/semi-design/pull/1812)
+  
 #### 2.43.2 (2023-09-15)
 - 【Style】
   - When the Popconfirm icon is null, the body part does not retain the marginLeft left spacing. [#1828](https://github.com/DouyinFE/semi-design/pull/1828)

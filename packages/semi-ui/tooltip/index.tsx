@@ -679,10 +679,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { wrapperClassName } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
+        const isStringElem = typeof elem == 'string';
 
-        const style: React.CSSProperties = {
-            display: 'inline-block',
-        };
+        const style: React.CSSProperties = {};
+
+        if (!isStringElem) {
+            style.display = 'inline-block';
+        }
 
         if (block || blockDisplays.includes(display)) {
             style.width = '100%';

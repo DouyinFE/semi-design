@@ -1,3 +1,4 @@
+import React from 'react';
 import { PopoverProps } from '../popover/index';
 
 export type TagColor =
@@ -33,6 +34,8 @@ export interface TagProps {
     visible?: boolean;
     onClose?: (tagChildren: React.ReactNode, event: React.MouseEvent<HTMLElement>, tagKey: string | number) => void;
     onClick?: React.MouseEventHandler<HTMLDivElement>;
+    prefixIcon?: React.ReactNode;
+    suffixIcon?: React.ReactNode;
     style?: React.CSSProperties;
     className?: string;
     avatarSrc?: string;
