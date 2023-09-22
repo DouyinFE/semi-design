@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.44.0 (2023-09-22)
+- 【Fix】
+    - Fix the problem of incomplete display/non-display of Image  when the height is very small [#1838](https://github.com/DouyinFE/semi-design/issues/1838)
+    - Fixed the issue of incorrect styles of some Step pseudo-classes [#1836](https://github.com/DouyinFE/semi-design/pull/1836)
+
 #### 🎉 2.44.0-beta.0 (2023-09-19)
 - 【Feat】
   - Cascader's search results panel supports virtualization [#1815](https://github.com/DouyinFE/semi-design/pull/1815)
