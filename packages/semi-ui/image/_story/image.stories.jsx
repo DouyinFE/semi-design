@@ -710,3 +710,12 @@ export const SetDownloadName = () => {
     </>);
 }
 
+export const SmallHeightImage = () => {
+    return <>
+        <Image 
+            width={360}
+            height={10}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+        />
+    </>
+}
