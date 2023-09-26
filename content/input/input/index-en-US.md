@@ -434,7 +434,7 @@ Answers to some questions:
 | aria-label        | Set aria-label properties                                                                                              | string                          | -       |
 | aria-labelledby   | Set aria-labelledby properties                                                                                         | string                          | -       |
 | aria-required     | Set aria-required properties                                                                                           | string                          | -       |
-| autosize          | Toggle whether to allow autosize when content height changes                                                           | boolean                         | false   |
+| autosize          | Toggle whether to allow autosize when content height changes, can config max and min rows by object value`{minRows?: number, maxRows?: number}`<br />**object param support from version x.x.x**                                                           | boolean                         | false   |
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | className         | Class name                                                                                                             | string                          | -       |
 | cols              | The visible width of the text control, in average character widths. If it is specified, it must be a positive integer. | number                          | -       |

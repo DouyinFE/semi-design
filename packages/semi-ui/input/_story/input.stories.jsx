@@ -905,6 +905,11 @@ export const TextAreaAutosize = () => {
   return (
     <div style={{ width: 200 }}>
       <TextArea autosize />
+      <TextArea autosize rows={2} />
+      <TextArea autosize={false} rows={2} />
+      <TextArea autosize={{ minRows: 1 }} />
+      <TextArea autosize={{ minRows: 1, maxRows: 3 }} onResize={({ height }) => console.log('onResize', height)}/>
+      <TextArea autosize={{ maxRows: 3 }} rows={1} />
     </div>
   )
 };

@@ -5,7 +5,7 @@ import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundati
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/textarea.scss';
-import { noop, omit, isFunction } from 'lodash';
+import { noop, omit, isFunction, isUndefined, isObject } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
@@ -22,9 +22,14 @@ type OmitTextareaAttr =
     | 'onKeyUp'
     | 'onResize'
 
+export type AutosizeRow = {
+    minRows?: number;
+    maxRows?: number
+}
+
 export interface TextAreaProps extends
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
-    autosize?: boolean;
+    autosize?: boolean | AutosizeRow;
     borderless?: boolean;
     placeholder?: string;
     value?: string;
@@ -64,7 +69,7 @@ export interface TextAreaState {
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     static propTypes = {
-        autosize: PropTypes.bool,
+        autosize: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         borderless: PropTypes.bool,
         placeholder: PropTypes.string,
         value: PropTypes.string,
@@ -302,7 +307,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             {
                 [`${prefixCls}-textarea-disabled`]: disabled,
                 [`${prefixCls}-textarea-readonly`]: readonly,
-                [`${prefixCls}-textarea-autosize`]: autosize,
+                [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
                 [`${prefixCls}-textarea-showClear`]: showClear,
             }
         );
