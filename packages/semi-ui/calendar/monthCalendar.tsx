@@ -200,6 +200,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     };
 
     renderEvents = (events: ParsedRangeEvent[]) => {
+        const { itemLimit } = this.state;
         if (!events) {
             return undefined;
         }
@@ -210,15 +211,17 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                 width: toPercent(width),
                 top: `${topInd}em`
             };
-            return (
-                <li
-                    className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-month`}
-                    key={key || `${ind}-monthevent`}
-                    style={style}
-                >
-                    {children}
-                </li>
-            );
+            if (topInd < itemLimit)
+                return (
+                    <li
+                        className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-month`}
+                        key={key || `${ind}-monthevent`}
+                        style={style}
+                    >
+                        {children}
+                    </li>
+                );
+            return null;
         });
         return list;
     };

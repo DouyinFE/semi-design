@@ -17,7 +17,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.44.0-beta.0 (2023-09-19)
-
 - 【Feat】
   - Cascader's search results panel supports virtualization [#1815](https://github.com/DouyinFE/semi-design/pull/1815)
   - Tag added API: suffixIcon, prefixIcon [#1832](https://github.com/DouyinFE/semi-design/pull/1832)
@@ -32,7 +31,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Design Token】
   - Table add new token： $height-table_column_filter_dropdown
 - 【Fix】
-  - Fixed the problem that the rendering result of Calendar month view event does not meet expectations [#1825](https://github.com/DouyinFE/semi-design/issues/1825)
+  - Fix the problem that the rendering result of Calendar month view event does not meet expectations [#1825](https://github.com/DouyinFE/semi-design/issues/1825) 
+
 #### 2.43.1 (2023-09-11)
 - 【Fix】
   - Fix Popover Trigger  ContextMenu dts error [#1819](https://github.com/DouyinFE/semi-design/issues/1819)
