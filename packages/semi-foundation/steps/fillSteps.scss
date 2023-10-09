@@ -101,7 +101,7 @@ $module: #{$prefix}-steps;
                 }
             }
 
-            &:active {
+            &-active:active {
                 background-color: $color-steps-bg-active;
 
                 .#{$prefix}-icon,
@@ -127,7 +127,7 @@ $module: #{$prefix}-steps;
                 }
             }
 
-            &:active {
+            &-active:active {
                 background-color: $color-steps-bg-active;
 
                 .#{$prefix}-icon,
@@ -153,7 +153,7 @@ $module: #{$prefix}-steps;
                 }
             }
 
-            &:active {
+            &-active:active {
                 background-color: $color-steps-bg-active;
 
                 .#{$module}-item-title,
