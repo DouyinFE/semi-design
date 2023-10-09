@@ -38,7 +38,7 @@ const main = async () => {
 
     }
 
-    console.log(`Find ${list.length} issues since ${since}`);
+    console.log(`Find ${list.length} updated issues since ${since}`);
 
     const result = {};
 
@@ -53,6 +53,9 @@ const main = async () => {
         const createdAt = issue['created_at'];
         const closedAt = issue['closed_at'];
         (()=>{
+            if (new Date(createdAt).getFullYear()!== new Date().getFullYear()) {
+                return;
+            }
             const tmp = lodash.get(result, [`q${whichQ(createdAt)}`, "created"], []);
             tmp.push(issue);
             lodash.set(result, [`q${whichQ(createdAt)}`, "created"], tmp);
@@ -60,6 +63,9 @@ const main = async () => {
          
         if (closedAt!==null) {
             (()=>{
+                if (new Date(closedAt).getFullYear()!== new Date().getFullYear()) {
+                    return;
+                }
                 const tmp = lodash.get(result, [`q${whichQ(closedAt)}`, "closed"], []);
                 tmp.push(issue);
                 lodash.set(result, [`q${whichQ(closedAt)}`, "closed"], tmp);
