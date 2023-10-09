@@ -74,6 +74,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
         this.state = {
             notices: [],
             removedItems: [],
+            updatedItems: []
         };
         this.noticeStorage = [];
         this.removeItemStorage = [];
@@ -86,18 +87,18 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     get adapter(): NotificationListAdapter {
         return {
             ...super.adapter,
-            updateNotices: (notices: NoticeInstance[], removedItems: NoticeInstance[] = []) => {
+            updateNotices: (notices: NoticeInstance[], removedItems: NoticeInstance[] = [], updatedItems: NoticeInstance[] = []) => {
                 this.noticeStorage = [...notices];
                 this.removeItemStorage = [...removedItems];
                 // setState is async sometimes and react often merges state, so use "this" , make sure other code always get right data.
-                this.setState({ notices, removedItems });
+                this.setState({ notices, removedItems, updatedItems });
             },
             getNotices: () => this.noticeStorage,
         };
     }
 
     static addNotice(notice: NoticeProps) {
-        const id = getUuid('notification');
+        const id = notice.id ?? getUuid('notification');
         if (!ref) {
             const { getPopupContainer } = notice;
             const div = document.createElement('div');
@@ -117,7 +118,12 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                 ref.add({ ...notice, id });
             });
         } else {
-            ref.add({ ...notice, id });
+            if (ref.has(`${id}`)) {
+                ref.update(id, notice);
+            } else {
+                ref.add({ ...notice, id });
+            }
+
         }
         return id;
     }
@@ -185,16 +191,25 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     add = (noticeOpts: NoticeProps) => this.foundation.addNotice(noticeOpts);
 
+    has = (id: string) => this.foundation.has(id);
+
     remove = (id: string | number) => {
         this.foundation.removeNotice(String(id));
     };
+
+
+
+    update = (id: string|number, opts: NoticeProps)=>{
+        return this.foundation.update(id, opts);
+    }
 
     destroyAll = () => this.foundation.destroyAll();
 
     renderNoticeInPosition = (
         notices: NoticeInstance[],
         position: NoticePosition,
-        removedItems: NoticeInstance[] = []
+        removedItems: NoticeInstance[] = [],
+        updatedItems: NoticeInstance[] = []
     ) => {
         const className = cls(cssClasses.LIST);
         // TODO notifyOnClose
@@ -211,6 +226,12 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                             {({ animationClassName, animationEventsNeedBind, isAnimating }) => {
                                 return isRemoved && !isAnimating ? null : <Notice
                                     {...notice}
+                                    ref={(notice)=>{
+                                        if (notice && updatedItems.some(item=>item.id===notice.props.id)) {
+                                            notice.foundation.setState({ duration: notice.props.duration });
+                                            notice.foundation.restartCloseTimer();
+                                        }
+                                    }}
                                     className={cls({
                                         [notice.className]: Boolean(notice.className),
                                         [animationClassName]: true,
@@ -242,7 +263,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     render() {
         let { notices } = this.state;
-        const { removedItems } = this.state;
+        const { removedItems, updatedItems } = this.state;
         notices = Array.from(new Set([...notices, ...removedItems]));
         const noticesInPosition: NoticesInPosition = {
             top: [],
@@ -261,7 +282,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
         const noticesList = Object.entries(noticesInPosition).map(obj => {
             const pos = obj[0];
             const noticesInPos = obj[1];
-            return this.renderNoticeInPosition(noticesInPos, pos as NoticePosition, removedItems);
+            return this.renderNoticeInPosition(noticesInPos, pos as NoticePosition, removedItems, updatedItems);
         });
 
         return <React.Fragment>{noticesList}</React.Fragment>;
