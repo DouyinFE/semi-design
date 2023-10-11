@@ -241,7 +241,6 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
         const refFn: React.LegacyRef<Toast> = (toast) => {
             if (toast?.foundation?._id && updatedIds.includes(toast.foundation._id)) {
-                toast.foundation.setState({ duration: toast.props.duration });
                 toast.foundation.restartCloseTimer();
             }
         };

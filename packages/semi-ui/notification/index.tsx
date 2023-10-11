@@ -228,7 +228,6 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
                                     {...notice}
                                     ref={(notice)=>{
                                         if (notice && updatedItems.some(item=>item.id===notice.props.id)) {
-                                            notice.foundation.setState({ duration: notice.props.duration });
                                             notice.foundation.restartCloseTimer();
                                         }
                                     }}
