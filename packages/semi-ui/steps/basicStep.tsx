@@ -91,6 +91,7 @@ const BasicStep = (props: BasicStepProps) => {
         [`${prefixCls}-active`]: active,
         [`${prefixCls}-done`]: done,
         [`${prefixCls}-hover`]: onChange || props.onClick,
+        [`${prefixCls}-clickable`]: (onChange || onClick),
         [`${prefixCls}-${status}-hover`]: onChange || props.onClick,
     }, className);
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {

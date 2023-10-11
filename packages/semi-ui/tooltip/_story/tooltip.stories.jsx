@@ -34,7 +34,11 @@ import {
   Top2Bottom, Top2BottomLeft, Top2BottomRight, Top2TopLeft, Top2TopRight,
   Bottom2Top, Bottom2TopLeft, Bottom2TopRight, Bottom2BottomLeft, Bottom2BottomRight,
  } from './AutoAdjustOverflow';
+ import FixedStringEllipsis from './FixedStringEllipsis';
 
+ export {
+  FixedStringEllipsis,
+ }
 
 export default {
   title: 'Tooltip',
@@ -1661,3 +1665,15 @@ export const TooltipAllAddSpacing = () => (
 TooltipAllAddSpacing.story = {
   name: 'tooltip All Add Spacing',
 };
+export const ViewportPrioritJudgment = () => {
+  // If the viewport reverse space is sufficient, the viewport result shall prevail
+  return (
+    <div style={{ height: '1000px' }}>
+      <Tooltip content={"hi bytedance"} position='top'>
+        <Button theme="solid" type="tertiary" style={{ marginBottom: 20, marginTop: 200 }}>
+          悬停显示
+        </Button>
+      </Tooltip>
+    </div>
+  )
+}

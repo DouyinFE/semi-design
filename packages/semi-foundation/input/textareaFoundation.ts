@@ -171,7 +171,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
 
     resizeTextarea = (cb?: any) => {
         const { height } = this.getStates();
-        const { rows } = this.getProps();
+        const { rows, autosize } = this.getProps();
         const node = this._adapter.getRef();
         const nodeSizingData = getSizingData(node);
 
@@ -180,11 +180,16 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
             return;
         }
 
+        const [minRows, maxRows] = autosize !== null && typeof autosize === 'object' ? [
+            autosize?.minRows ?? rows,
+            autosize?.maxRows
+        ] : [rows];
+
         const newHeight = calculateNodeHeight(
             nodeSizingData,
             node.value || node.placeholder || 'x',
-            rows
-            // maxRows,
+            minRows,
+            maxRows
         );
 
         if (height !== newHeight) {

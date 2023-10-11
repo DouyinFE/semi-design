@@ -718,8 +718,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * 基于视口和容器一起判断，以下几种情况允许从原方向转到反方向，以判断是否应该由top->bottom为例子
          *
          * 1. 视口上下空间不足 且 容器上空间❌下空间✅
-         * 2. 视口上空间❌下空间✅ 且 容器上下空间不足
-         * 3. 视口上空间❌下空间✅ 且 容器上空间❌下空间✅
+         * 2. 视口上空间❌下空间✅
          * 
          * Based on the judgment of the viewport and the container, the following situations are allowed to turn from the original direction to the opposite direction
          * to judge whether it should be top->bottom as an example
@@ -727,7 +726,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * 2. The space above the viewport ❌ the space below ✅ and the space above and below the container is insufficient
          * 3. Viewport upper space ❌ lower space✅ and container upper space ❌ lower space✅
          */
-        return (viewOverFlow && shouldReverseContainer) || (shouldReverseView && containerOverFlow) || (shouldReverseView && shouldReverseContainer);
+        return (viewOverFlow && shouldReverseContainer) || shouldReverseView ;
     }
 
     // place the dom correctly
