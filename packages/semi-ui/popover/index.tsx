@@ -10,6 +10,7 @@ import { BaseProps } from '../_base/baseComponent';
 import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
+import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
@@ -32,7 +33,7 @@ export interface PopoverProps extends BaseProps {
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
     showArrow?: boolean;
-    spacing?: number;
+    spacing?: number | { x: number; y: number };
     stopPropagation?: boolean | string;
     arrowStyle?: ArrowStyle;
     arrowBounding?: ArrowBounding;
@@ -75,7 +76,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
         style: PropTypes.object,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         zIndex: PropTypes.number,
         showArrow: PropTypes.bool,
         arrowStyle: PropTypes.shape({
@@ -170,7 +171,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
 
         const arrow = showArrow ? <Arrow {...arrowProps} /> : false;
 
-        if (typeof spacing !== 'number') {
+        if (isNullOrUndefined(spacing)) {
             spacing = showArrow ? numbers.SPACING_WITH_ARROW : numbers.SPACING;
         }
 

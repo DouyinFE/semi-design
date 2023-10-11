@@ -91,7 +91,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         position: PropTypes.oneOf(positionSet),
         rePosKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         render: PropTypes.node,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         showTick: PropTypes.bool,
         style: PropTypes.object,
         trigger: PropTypes.oneOf(triggerSet),

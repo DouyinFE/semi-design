@@ -1645,6 +1645,26 @@ export const wordBreak = () => {
   );
 }
 
+
+export const TooltipAllAddSpacing = () => (
+  <div className="demo">
+    <ScrollDemo spacing={{ x: 16, y: 16}} />
+    <div
+      style={{
+        padding: 120,
+      }}
+    >
+      <ScrollDemo
+        showArrow={false}
+        spacing={{ x: 16, y: 16}}
+      />
+    </div>
+  </div>
+);
+
+TooltipAllAddSpacing.story = {
+  name: 'tooltip All Add Spacing',
+};
 export const ViewportPrioritJudgment = () => {
   // If the viewport reverse space is sufficient, the viewport result shall prevail
   return (
