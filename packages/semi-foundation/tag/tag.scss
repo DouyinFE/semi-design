@@ -51,6 +51,16 @@ $types: "ghost", "solid", "light";
         display: none;
     }
 
+    &-prefix-icon {
+        display: flex;
+        padding-right: $spacing-tag_prefix_icon_paddingRight;
+    }
+
+    &-suffix-icon {
+        display: flex;
+        padding-left: $spacing-tag_suffix_icon_paddingLeft;
+    }
+
     &-content {
         flex: 1;
 

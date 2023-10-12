@@ -900,7 +900,10 @@ $module-list: #{$prefix}-scrolllist;
 
             &:active {
                 border-color: $color-datepicker_range_trigger-border-active;
+            }
 
+            &:focus-within{
+                border-color: $color-datepicker_range_trigger-border-focus;
             }
 
             .#{$module}-monthRange-input {

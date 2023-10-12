@@ -664,7 +664,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             bottomSlot,
             showNext,
             multiple,
-            filterRender
+            filterRender,
+            virtualizeInSearch
         } = this.props;
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
@@ -692,6 +693,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     checkedKeys={checkedKeys}
                     halfCheckedKeys={halfCheckedKeys}
                     filterRender={filterRender}
+                    virtualize={virtualizeInSearch}
                 />
                 {bottomSlot}
             </div>

@@ -543,4 +543,20 @@ describe('image', () => {
         cy.get('.semi-image-img').eq(4).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png');
         cy.get('.semi-image-img').eq(4).should('not.have.attr', 'data-src');
     });
+
+    // 测试在图片高度非常小时候，图片显示是否正常
+    // 关联 issue: https://github.com/DouyinFE/semi-design/issues/1838
+    it('small height Image', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--small-height-image&args=&viewMode=storyi');
+
+        cy.get('.semi-image').eq(0) // 获取 div 元素
+            .then((divElement) => {
+                const divTop = divElement[0].getBoundingClientRect().top; // 获取 div 元素顶部相对于视口顶部的距离
+                cy.get('.semi-image-img').eq(0) // 获取 img 元素
+                    .then((imgElement) => {
+                        const imgTop = imgElement[0].getBoundingClientRect().top; // 获取 img 元素顶部相对于视口顶部的距离
+                        expect(imgTop).to.equal(divTop); 
+                    });
+            });
+    });
 });
