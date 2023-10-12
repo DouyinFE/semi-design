@@ -75,12 +75,18 @@ $module: #{$prefix}-anchor;
             border-radius: $width-anchor-outline_border_radius;
             transition: color $transition_duration-anchor_title-text $transition_function-anchor_title-text $transition_delay-anchor_title-text;//锚点选项文字的动效
             transform: scale($transform_scale-anchor_title-text);
+            background: $color-anchor_title-bg-default;
             &:hover {
                 color: $color-anchor_title-text-hover;
             }
 
             &-active {
                 color: $color-anchor_title-text-active;
+                background: $color-anchor_title-bg-active;
+                &:hover{
+                    color: $color-anchor_title_active-text-hover;
+                }
+
             }
 
             &:focus-visible {
