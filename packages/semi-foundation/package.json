@@ -1,13 +1,13 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.44.0",
+    "version": "2.45.0-beta.0",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.44.0",
+        "@douyinfe/semi-animation": "2.45.0-beta.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.29.3",
