@@ -137,7 +137,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         this.setState({ keys });
     }
 
-    addWithInitValue(rowVal: Record<string, any> ｜ string) {
+    addWithInitValue(rowVal: Record<string, any> | string) {
         const updater = this.context;
         const { field } = this.props;
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
