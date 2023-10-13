@@ -213,8 +213,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             return firstInProps || treeDataHasChange;
         };
 
+        const needUpdateTreeData = needUpdate('treeData');
+        const needUpdateSimpleJson = needUpdate('treeDataSimpleJson');
+
         // Update the data of tree in state
-        if (needUpdate('treeData') || (props.draggable && needUpdateData())) {
+        if (needUpdateTreeData || (props.draggable && needUpdateData())) {
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData);
@@ -224,7 +227,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             keyEntities = newState.keyEntities;
             newState.cachedKeyValuePairs = { ...entitiesMap.valueEntities };
             valueEntities = newState.cachedKeyValuePairs;
-        } else if (needUpdate('treeDataSimpleJson')) {
+        } else if (needUpdateSimpleJson) {
             // Convert treeDataSimpleJson to treeData
             treeData = convertJsonToData(props.treeDataSimpleJson);
             newState.treeData = treeData;
@@ -244,7 +247,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 newState.motionType = null;
             }
         }
-        const dataUpdated = needUpdate('treeDataSimpleJson') || needUpdate('treeData');
+        const dataUpdated = needUpdateSimpleJson || needUpdateTreeData;
         const expandAllWhenDataChange = dataUpdated && props.expandAll;
         if (!isSeaching) {
             // Update expandedKeys
