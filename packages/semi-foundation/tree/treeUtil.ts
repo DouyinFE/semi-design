@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree/blob/master/src/util.tsx
  */
 
-import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get } from 'lodash';
+import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get, omit } from 'lodash';
 
 export interface KeyEntities {
     [x: string]: any
@@ -20,6 +20,10 @@ export interface NodeData {
     children?: any
 }
 
+export interface FieldNameProps {
+    [key: string]: string
+}
+
 const DRAG_OFFSET = 0.45;
 
 function getPosition(level: any, index: any) {
@@ -30,6 +34,11 @@ function isValid(val: any) {
     return !isNull(val) && !isUndefined(val);
 }
 
+function getResultByFieldName(data, key, fieldNames) {
+    const realKeyName = get(fieldNames, key, key);
+    return get(data, realKeyName, null);
+}
+
 /**
  * Flat nest tree data into flatten list. This is used for virtual list render.
  * @param treeNodeList Origin data node list
@@ -37,17 +46,26 @@ function isValid(val: any) {
  * @param filteredShownKeys
  * need expanded keys, provides `true` means all expanded
  */
-export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, filteredShownKeys: boolean | Set<any> = false) {
+export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, fieldNames: FieldNameProps, filteredShownKeys: boolean | Set<any> = false) {
     const flattenList: any[] = [];
     const filterSearch = Boolean(filteredShownKeys);
     function flatten(list: any[], parent: any = null) {
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
-            const mergedKey = treeNode.key;
+            const mergedKey = getResultByFieldName(treeNode, 'key', fieldNames);
+
+            const otherData = {};
+            if (fieldNames) {
+                Object.entries(omit(fieldNames, 'children')).forEach(([key, value]) => {
+                    const result = treeNode[value as string];
+                    !isUndefined(result) && (otherData[key] = result);
+                });
+            }
 
             // Add FlattenDataNode into list
             const flattenNode: any = {
                 ...pick(treeNode, ['key', 'label', 'value', 'icon', 'disabled', 'isLeaf']),
+                ...otherData,
                 parent,
                 pos,
                 children: null,
@@ -61,7 +79,7 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
 
             // Loop treeNode children
             if (expandedKeys.has(mergedKey) && (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey)))) {
-                flattenNode.children = flatten(treeNode.children || [], flattenNode);
+                flattenNode.children = flatten(getResultByFieldName(treeNode, 'children', fieldNames) || [], flattenNode);
             } else {
                 flattenNode.children = [];
             }
@@ -100,17 +118,18 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
 /**
  * Traverse all the data by `treeData`.
  */
-export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void) {
+export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, fieldNames: FieldNameProps) {
     const processNode = (node: any, ind?: number, parent?: any) => {
-        const children = node ? node.children : treeNodes;
+        const children = node ? getResultByFieldName(node, 'children', fieldNames) : treeNodes;
         const pos = node ? getPosition(parent.pos, ind) : '0';
+        const nodeKey = getResultByFieldName(node, 'key', fieldNames);
         // Process node if is not root
         if (node) {
             const data = {
                 data: { ...node },
                 ind,
                 pos,
-                key: node.key !== null ? node.key : pos,
+                key: nodeKey !== null ? nodeKey : pos,
                 parentPos: parent.node ? parent.pos : null,
                 level: Number(parent.level) + 1,
             };
@@ -132,7 +151,7 @@ export function traverseDataNodes(treeNodes: any[], callback: (data: any) => voi
 }
 
 /* Convert data to entities map */
-export function convertDataToEntities(dataNodes: any[]) {
+export function convertDataToEntities(dataNodes: any[], fieldNames?: FieldNameProps) {
     const posEntities = {};
     const keyEntities = {};
     const valueEntities = {};
@@ -145,7 +164,7 @@ export function convertDataToEntities(dataNodes: any[]) {
     traverseDataNodes(dataNodes, (data: any) => {
         const { pos, key, parentPos } = data;
         const entity = { ...data };
-        const value = get(entity, 'data.value', null);
+        const value = getResultByFieldName(entity.data, 'value', fieldNames);
 
         if (value !== null) {
             valueEntities[value] = key;
@@ -160,7 +179,7 @@ export function convertDataToEntities(dataNodes: any[]) {
             entity.parent.children = entity.parent.children || [];
             entity.parent.children.push(entity);
         }
-    });
+    }, fieldNames);
 
     return wrapper;
 }
@@ -566,6 +585,7 @@ export function filterTreeData(info: any) {
         filterTreeNode,
         filterProps,
         prevExpandedKeys,
+        fieldNames
     } = info;
 
     let filteredOptsKeys = [];
@@ -579,7 +599,7 @@ export function filterTreeData(info: any) {
     }
     const shownChildKeys = findDescendantKeys(filteredOptsKeys, keyEntities, true);
     const filteredShownKeys = new Set([...shownChildKeys, ...expandedOptsKeys]);
-    const flattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), showFilteredOnly && filteredShownKeys);
+    const flattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), fieldNames, showFilteredOnly && filteredShownKeys);
 
     return {
         flattenNodes,
@@ -590,17 +610,19 @@ export function filterTreeData(info: any) {
 }
 
 // return data.value if data.value exist else fall back to key
-export function getValueOrKey(data: any) {
+export function getValueOrKey(data: any, fieldNames?: FieldNameProps) {
+    const valueName = get(fieldNames, 'value', 'value');
+    const keyName = get(fieldNames, 'key', 'key');
     if (Array.isArray(data)) {
-        return data.map(item => get(item, 'value', item.key));
+        return data.map(item => get(item, valueName, item[keyName]));
     }
-    return get(data, 'value', data.key);
+    return get(data, valueName, data[keyName]);
 }
 
 /* Convert value to string */
-export function normalizeValue(value: any, withObject: boolean) {
+export function normalizeValue(value: any, withObject: boolean, fieldNames?: FieldNameProps) {
     if (withObject && isValid(value)) {
-        return getValueOrKey(value);
+        return getValueOrKey(value, fieldNames);
     } else {
         return value;
     }
@@ -611,8 +633,8 @@ export function updateKeys(keySet: Set<string> | string[], keyEntities: KeyEntit
     return keyArr.filter(key => key in keyEntities);
 }
 
-export function calcDisabledKeys(keyEntities: KeyEntities) {
-    const disabledKeys = Object.keys(keyEntities).filter(key => keyEntities[key].data.disabled);
+export function calcDisabledKeys(keyEntities: KeyEntities, fieldNames: FieldNameProps) {
+    const disabledKeys = Object.keys(keyEntities).filter(key => getResultByFieldName(keyEntities[key].data, 'disabled', fieldNames));
     const { checkedKeys } = calcCheckedKeys(disabledKeys, keyEntities);
     return checkedKeys;
 }

@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react';
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput } from '../../index';
+import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch } from '../../index';
 import TreeSelect from '../index';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, cloneDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
 import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
@@ -214,6 +214,68 @@ const treeDataWithoutValue = [
       {
         label: '加拿大',
         key: 'jianada',
+      },
+    ],
+  },
+];
+
+const specialTreeData = [
+  {
+    label1: '亚洲',
+    // value1: 'Yazhou',
+    key1: 'yazhou',
+    children1: [
+      {
+        label1: '中国',
+        // value1: 'Zhongguo',
+        key1: 'zhongguo',
+        disabled1: true,
+        children1: [
+          {
+            label1: '北京',
+            // value1: 'Beijing',
+            key1: 'beijing',
+          },
+          {
+            label1: '上海',
+            // value1: 'Shanghai',
+            key1: 'shanghai',
+          },
+        ],
+      },
+      {
+        label1: '日本',
+        // value1: 'Riben',
+        key1: 'riben',
+        children1: [
+          {
+            label1: '东京',
+            // value1: 'Dongjing',
+            key1: 'dongjing',
+          },
+          {
+            label1: '大阪',
+            // value1: 'Daban',
+            key1: 'daban',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label1: '北美洲',
+    // value1: 'Beimeizhou',
+    key1: 'beimeizhou',
+    children1: [
+      {
+        label1: '美国',
+        // value1: 'Meiguo',
+        key1: 'meiguo',
+      },
+      {
+        label1: '加拿大',
+        // value1: 'Jianada',
+        key1: 'jianada',
       },
     ],
   },
@@ -2473,4 +2535,121 @@ export const ChangeTreeData = () => {
         placeholder="请选择"
     />
   </>
+}
+
+export const FieldNames = () => {
+  const [withObject, setWithObject] = useState(false);
+  const [value1, setValue1] = useState(undefined);
+  const [value2, setValue2] = useState(undefined);
+  const [expandKeys, setExpandedKeys] = useState(["yazhou", 'zhongguo']);
+  
+  const switchChange = useCallback((checked) => {
+    setWithObject(checked);
+    setValue1(undefined);
+    setValue2(undefined);
+  }, []);
+
+  const onSingleChange = useCallback((value) => {
+    console.log('onSingleChange', value);
+    setValue1(value);
+  }, []);
+
+  const onMultipleChange = useCallback((value) => {
+    console.log('onMultipleChange', value);
+    setValue2(value);
+  }, []);
+
+  const normalChange = useCallback((value) => {
+    console.log('onChange', value);
+  }, []);
+
+  const normalExpand = useCallback((expandedKeys, {expanded, node}) => {
+    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+  }, []);
+
+  const fieldNames = useMemo(() => {
+    return {
+      // value: 'value1',
+      key: 'key1',
+      label: 'label1',
+      children: 'children1',
+      disabled: 'disabled1'
+    };
+  }, []);
+
+  const regularTreeProps = useMemo(() => ({
+    fieldNames: fieldNames,
+    treeData: specialTreeData,
+    style: { width: 300 },
+    dropdownStyle: { maxHeight: 400, overflow: 'auto' },
+    onChange: normalChange,
+    onExpand: normalExpand,
+    onChangeWithObject: withObject,
+  }), [withObject]);
+
+  const defaultSelectedObj = {
+    label1: '北京',
+    // value1: 'Beijing',
+    key1: 'beijing',
+  };
+
+  return (
+    <>
+      <span>onChangeWithObject</span><Switch checked={withObject} onChange={switchChange} />
+      <div key={String(withObject)} style={{ marginTop: 10 }}>
+        <div> Single select</div>
+        <TreeSelect
+          {...regularTreeProps}
+          defaultValue={withObject ? defaultSelectedObj : 'beijing'}
+        />
+        <div> Single select, onSearch, filterTreeNode, treeNodeFilterProp</div>
+        <TreeSelect
+          {...regularTreeProps}
+          filterTreeNode={(inputValue, treeNodeString, data)=> {
+            console.log("filterTreeNode", inputValue, treeNodeString, data);
+            return treeNodeString.includes(inputValue);
+          }}
+          treeNodeFilterProp={"key1"}
+          onSearch={(input, filteredExpandedKeys) => {
+            console.log('onSearch', input, filteredExpandedKeys);
+          }}
+        />
+        <div>Single select, controlled</div>
+        <TreeSelect  
+          {...regularTreeProps}
+          value={value1}
+          onChange={onSingleChange}
+        />
+        <div> Multiple select</div>
+        <TreeSelect
+          {...regularTreeProps}
+          multiple
+          defaultValue={withObject ? [defaultSelectedObj] : ['beijing']}
+        />
+        <div> Multiple select, controlled</div>
+        <TreeSelect
+          {...regularTreeProps}
+          value={value2}
+          multiple
+          onChange={onMultipleChange}
+        />
+        <div> Multiple select, disableStrictly</div>
+        <TreeSelect
+          {...regularTreeProps}
+          multiple
+          disableStrictly
+        />
+        <div> Multiple, 展开受控</div>
+        <TreeSelect
+          {...regularTreeProps}
+          multiple
+          expandedKeys={expandKeys}
+          onExpand={(expandedKeys, {expanded, node}) => {
+            console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+            setExpandedKeys(expandedKeys);
+          }}
+        />
+      </div>
+    </> 
+  );
 }
