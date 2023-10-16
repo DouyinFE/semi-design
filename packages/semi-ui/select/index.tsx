@@ -1094,7 +1094,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const { maxTagCount } = this.props;
         const maxVisibleCount = selections.size - maxTagCount;
         const newOverFlowItemCount = maxVisibleCount > 0 ? maxVisibleCount + items.length - 1 : items.length - 1;
-        if (items.length > 1 && overflowItemCount !== newOverFlowItemCount) {
+
+        // fix: issues 1560
+        if (items.length >= 1 && overflowItemCount !== newOverFlowItemCount) {
             this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
         }
     }
