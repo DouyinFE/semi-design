@@ -633,7 +633,7 @@ export function updateKeys(keySet: Set<string> | string[], keyEntities: KeyEntit
     return keyArr.filter(key => key in keyEntities);
 }
 
-export function calcDisabledKeys(keyEntities: KeyEntities, fieldNames: FieldNameProps) {
+export function calcDisabledKeys(keyEntities: KeyEntities, fieldNames?: FieldNameProps) {
     const disabledKeys = Object.keys(keyEntities).filter(key => getResultByFieldName(keyEntities[key].data, 'disabled', fieldNames));
     const { checkedKeys } = calcCheckedKeys(disabledKeys, keyEntities);
     return checkedKeys;
