@@ -99,6 +99,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             alias: {
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
+                'univers-webview': process.env.SEMI_SITE_UNIVERS_WEBVIEW || resolve('packages/semi-ui'),
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
@@ -170,6 +171,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             "DSM_URL": JSON.stringify(process.env['DSM_URL']),
             'process.env.SEMI_SITE_HEADER': JSON.stringify(process.env.SEMI_SITE_HEADER),
             'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
+            "process.env.SEMI_SITE_UNIVERS_WEBVIEW": JSON.stringify(process.env.SEMI_SITE_UNIVERS_WEBVIEW),
             'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
             "ASSET_PREFIX":JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}`: ""),
         })],
