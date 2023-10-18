@@ -1015,7 +1015,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 ### 创建条目
 
 设置`allowCreate`，可以创建并选中选项中不存在的条目  
-允许通过 `renderCreateItem` 自定义创建标签时的内容显示（通过返回 ReactNode，注意你需要自定义样式），该函数默认值为 (input) => '创建' + input  
+允许通过 `renderCreateItem` 自定义创建标签时的内容显示（通过返回 ReactNode，注意你需要自定义样式），该函数默认值为 (input, isFocus, style) => '创建' + input  
 可以配合`defaultActiveFirstOption`属性使用，自动选中第一项，当输入完内容直接回车时，可立即创建
 
 <Notice title='注意'>
@@ -1028,7 +1028,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const optionList = [
-        { value: 'abc', label: '抖音' },
+        { value: 'douyin', label: '抖音' },
         { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
@@ -1053,7 +1053,7 @@ import { Select } from '@douyinfe/semi-ui';
                 multiple={true}
                 filter={true}
                 placeholder="With renderCreateItem"
-                renderCreateItem={input => <div style={{ padding: 10 }}>Create Item：{input}</div>}
+                renderCreateItem={(input, isFocus, style) => (<div style={{ padding: 10, ...style }}>Create Item：{input}</div>)}
                 onChange={v => console.log(v)}
                 defaultActiveFirstOption
             ></Select>
@@ -1425,7 +1425,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | position | 菜单展开的位置，可选项同 Tooltip position                                                                                                         | string | 'bottomLeft' |
 | prefix | 选择框的前缀标签                                                                                                                              | ReactNode |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                | boolean |  |  |
-| renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染                                                                                                      | function(inputValue:string) | inputValue => '创建' + inputValue |
+| renderCreateItem | allowCreate 为 true 时，可自定义创建标签的渲染。与虚拟化结合使用时，必须将第三个参数style传入自定义DOM中消费(v2.44.1后提供)                                                                                                | function(inputValue:string, isFocus: boolean, style: object) | inputValue => '创建' + inputValue |
 | renderSelectedItem | 通过 renderSelectedItem 自定义选择框中已选项标签的渲染                                                                                                 | function(option) |  |
 | renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                  | function(props) 入参详见 Demo |  |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                              | PopoverProps | {} | 2.22.0 |

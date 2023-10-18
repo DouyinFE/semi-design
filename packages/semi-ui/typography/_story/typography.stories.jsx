@@ -4,6 +4,7 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import Icon from '../../icons';
 import Typography from '../index';
 import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
+import {HugeData} from "./HugeData";
 
 export default {
   title: 'Typography'
@@ -820,3 +821,7 @@ export const JsEllipsisNoTooltip = () => (
       data_tns
   </Title>
 )
+
+export const HugeDataDemo = ()=>{
+    return <HugeData/>
+}

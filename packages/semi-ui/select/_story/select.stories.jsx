@@ -3327,3 +3327,43 @@ export const Fix1560 = () => {
     </div>
   );
 }
+
+class VirtualizeAllowCreate extends React.Component {
+    constructor(props) {
+        super(props);
+        const taskList=[{
+            "task_id": 500333,
+            "task_name": "抖音直播间-哈哈哈",
+            "task_key": "hhh_watch_live"
+        },]
+        let newOptions = taskList.map(r=>({value:r.task_id,label:`${r.task_id} ${r.task_name}`}))
+        this.state = {
+            optionList: newOptions,
+        };
+    }
+    render() {
+        let { optionList } = this.state;
+        let virtualize = {
+            height: 270,
+            width: '100%',
+            itemSize: 36, // px
+        };
+        return (
+            <>
+                <Select
+                    allowCreate
+                    placeholder="拥有3k个Option的Select"
+                    style={{ width: 260 }}
+                    filter
+                    onSearch={this.handleSearch}
+                    virtualize={virtualize}
+                    optionList={optionList}
+                    renderCreateItem={(iv, isFocused, style) => <div style={{ padding: '6px 12px', ...style }}>输入 {iv}</div>} 
+                ></Select>
+            </>
+        );
+    }
+}
+
+// virtualize allowCreate + renderCreateItem, optionList render not as expected
+export const Fix1856 = () => (<VirtualizeAllowCreate />); 

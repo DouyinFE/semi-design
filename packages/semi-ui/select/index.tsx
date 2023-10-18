@@ -159,7 +159,7 @@ export type SelectProps = {
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
-    renderCreateItem?: (inputValue: OptionProps['value'], focus: boolean) => React.ReactNode;
+    renderCreateItem?: (inputValue: OptionProps['value'], focus: boolean, style?: React.CSSProperties) => React.ReactNode;
     renderOptionItem?: (props: optionRenderProps) => React.ReactNode;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
@@ -814,7 +814,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             return defaultCreateItem;
         }
 
-        const customCreateItem = renderCreateItem(option.value, isFocused);
+        const customCreateItem = renderCreateItem(option.value, isFocused, style);
 
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus

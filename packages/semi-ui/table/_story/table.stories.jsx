@@ -46,6 +46,7 @@ import ExpandAllRows from './ExpandAllRows';
 import ExpandAllGroupRows from './ExpandAllGroupRows';
 import ExpandRowByClick from './ExpandRowByClick';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
+import HugeData from "./HugeData"
 
 export default {
   title: 'Table'
@@ -619,3 +620,5 @@ PerfRenderDemo.parameters = {
   chromatic: { disableSnapshot: true },
 }
 export const RenderPaginationDemo = () => <RenderPagination />;
+
+export const HugeDataDemo = ()=><HugeData/>
