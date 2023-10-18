@@ -46,12 +46,13 @@ export const useIde = (props) => {
         btnElm.setAttribute('class', 'action-ide');
         btnElm.onclick = () => {
             const codeElem = wrapperRef?.current?.querySelectorAll('.gatsby-live-code-ide');
-            if (codeElem?.length && codeElem[demoIndex + 1]) {
+            const index = demoIndex + 1;
+            if (codeElem?.length && codeElem[index]) {
                 Modal.confirm({
                     title: '插入 Demo 代码',
                     content: '确定在编辑器中插入当前 Demo 代码吗？',
                     onOk: () => {
-                        const { codeString } = formatCode(codeElem[demoIndex]?.value || '');
+                        const { codeString } = formatCode(codeElem[index]?.value || '');
                         autoImportComponent({ codeString, snippetString: '' });
                         const lineNum = codeString?.split('\n')?.length || 0;
                         runtime?.require('tea').behave('importCode-auxo', { num: lineNum });
