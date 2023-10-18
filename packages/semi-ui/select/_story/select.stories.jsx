@@ -3289,3 +3289,41 @@ export const Fix1584 = () => {
 }
 
 
+export const Fix1560 = () => {
+  return (
+    <div>
+      <h4>边界 case 测试</h4>
+      <h4>maxTagCount = 3，截断最后一个 tag, 加减项正常</h4>
+      <Select
+        multiple
+        maxTagCount={3}
+        ellipsisTrigger
+        showRestTagsPopover={true}
+        restTagsPopoverProps={{ position: 'top' }}
+        style={{ width: '255px' }}
+        defaultValue={['abc', 'ulikecam', "xigua"]}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+      <br /><br />
+      <h4>maxTagCount = 3，最大宽度只展示 2 个 Tag，加减项正常</h4>
+      <Select
+        multiple
+        maxTagCount={2}
+        ellipsisTrigger
+        showRestTagsPopover={true}
+        restTagsPopoverProps={{ position: 'top' }}
+        style={{ width: '240px' }}
+        defaultValue={['xigua', 'ulikecam', 'jianying', 'abc']}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    </div>
+  );
+}

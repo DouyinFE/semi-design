@@ -917,7 +917,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
-                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null }
+                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -925,11 +925,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
-                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
+                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null}
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null}
                 </div>
-                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
+                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null}
             </div>
         );
     }
@@ -1092,9 +1092,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleOverflow(items: [React.ReactNode, any][]) {
         const { overflowItemCount, selections } = this.state;
         const { maxTagCount } = this.props;
-        const maxVisibleCount = selections.size - maxTagCount;
-        const newOverFlowItemCount = maxVisibleCount > 0 ? maxVisibleCount + items.length - 1 : items.length - 1;
-        if (items.length > 1 && overflowItemCount !== newOverFlowItemCount) {
+        const newOverFlowItemCount = selections.size - maxTagCount > 0 ? selections.size - maxTagCount + items.length - 1 : items.length - 1;
+        if (overflowItemCount !== newOverFlowItemCount) {
             this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
         }
     }
@@ -1107,6 +1106,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
                     items={normalTags}
+                    key={String(selections.length)}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
                     onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
                     visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}
