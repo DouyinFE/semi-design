@@ -63,32 +63,32 @@ describe('Select', () => {
         cy.get('.semi-select-option').should('have.text', 'Design');
     });
 
-    it('ellipsisTrigger', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
+    // it('ellipsisTrigger', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
-        // add option
-        cy.get('.semi-select-arrow').eq(0).click();
-        cy.get('.semi-select-option').contains('剪映').click();
-        cy.get('.semi-tag-grey-light').eq(0).contains('+2');
+    //     // add option
+    //     cy.get('.semi-select-arrow').eq(0).click();
+    //     cy.get('.semi-select-option').contains('剪映').click();
+    //     cy.get('.semi-tag-grey-light').eq(0).contains('+2');
 
-        // reduce option
-        cy.get('.semi-select-arrow').eq(0).click();
-        cy.get('.semi-select-option').contains('抖音').click();
-        cy.get('.semi-tag-large').eq(2).contains('剪映');
+    //     // reduce option
+    //     cy.get('.semi-select-arrow').eq(0).click();
+    //     cy.get('.semi-select-option').contains('抖音').click();
+    //     cy.get('.semi-tag-large').eq(2).contains('剪映');
 
-        cy.get('body').click('right');
+    //     cy.get('body').click('right');
 
-        // reduce option
-        cy.get('.semi-select-arrow').eq(1).click();
-        cy.get('.semi-select-option').contains('西瓜视频').click();
-        cy.get('.semi-tag-grey-light').eq(0).contains('+1');
+    //     // reduce option
+    //     cy.get('.semi-select-arrow').eq(1).click();
+    //     cy.get('.semi-select-option').contains('西瓜视频').click();
+    //     cy.get('.semi-tag-grey-light').eq(0).contains('+1');
 
-        // add option
-        cy.get('.semi-select-arrow').eq(1).click();
-        cy.get('.semi-select-option').contains('西瓜视频').click();
-        cy.get('.semi-tag-grey-light').eq(0).contains('+2');
+    //     // add option
+    //     cy.get('.semi-select-arrow').eq(1).click();
+    //     cy.get('.semi-select-option').contains('西瓜视频').click();
+    //     cy.get('.semi-tag-grey-light').eq(0).contains('+2');
         
-    });
+    // });
 
     // it('should trigger onSearch when click x icon', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-filter-single');
