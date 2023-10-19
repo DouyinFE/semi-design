@@ -69,6 +69,7 @@ module.exports = {
         AnalyzePlugin && rules.push({
             test: /\.tsx?$/,
             include: [resolve('packages/semi-ui'), resolve('packages/semi-foundation')],
+            exclude:/node_modules/,
             use: [
                 {
                     loader: "babel-loader",
