@@ -21,3 +21,4 @@ export { default as Fixed1556 } from './Fixed1556';
 export { default as FixedColumnAlign } from './FixedColumnAlign';
 export { default as FixOnChange } from './FixOnChange';
 export { default as ColumnResize } from './ColumnResize';
+export { default as FixedResizableRowSelection } from './FixedResizableRowSelection';
