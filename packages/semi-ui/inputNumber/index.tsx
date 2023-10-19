@@ -303,7 +303,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                          * We need to set the status to false after trigger focus event
                          */
                         if (this.clickUpOrDown) {
-                            obj.value = this.foundation.doFormat(valueStr, true);
+                            obj.value = this.foundation.doFormat(obj.number, true);
                             newValue = obj.value;
                         }
                         this.foundation.updateStates(obj, () => this.adapter.restoreCursor());
@@ -313,8 +313,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                         this.foundation.updateStates({ value: newValue });
                     } else {
                         // Update input content when controlled input NaN
-                        newValue = this.foundation.doFormat(valueStr, false);
-                        this.foundation.updateStates({ value: newValue });
+                        this.foundation.updateStates({ value: valueStr });
                     }
                 } else if (this.foundation.isValidNumber(parsedNum)) {
                     newValue = this.foundation.doFormat(parsedNum);

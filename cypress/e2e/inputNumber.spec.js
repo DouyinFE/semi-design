@@ -58,4 +58,18 @@ describe('inputNumber', () => {
         cy.get('.semi-input-number .semi-input-number-button-down').click();
         cy.get('.semi-input-number .semi-input').should('have.value', '60000');
     });
+
+    it('fixed formatter error in controlled mode + focus and click add button', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=inputnumber--fix-1772&viewMode=story');
+        cy.get('.semi-input-number .semi-input').should('have.value', '60000');
+        cy.get('.semi-input-number .semi-input').click();
+        cy.get('.semi-input-number .semi-input-number-button-up').click();
+        cy.get('.semi-input-number .semi-input').should('have.value', '60001');
+        cy.get('.semi-input-number .semi-input-number-button-up').click();
+        cy.get('.semi-input-number .semi-input').should('have.value', '60002');
+        cy.get('.semi-input-number .semi-input-number-button-down').click();
+        cy.get('.semi-input-number .semi-input').should('have.value', '60001');
+        cy.get('.semi-input-number .semi-input-number-button-down').click();
+        cy.get('.semi-input-number .semi-input').should('have.value', '60000');
+    });
 });
