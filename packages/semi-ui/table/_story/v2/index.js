@@ -10,3 +10,4 @@ export { default as RadioRowSelection } from './radioRowSelection';
 export { default as FixedVirtualizedEmpty } from './FixedVirtualizedEmpty';
 export { default as FixedFilter } from './FixedFilter';
 export { default as FixedSorter } from './FixedSorter';
+export { default as FixedResizablePerf } from './FixedResizablePerf';

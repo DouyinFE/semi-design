@@ -11,7 +11,7 @@
         "editor.formatOnPaste": false
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[less]": {
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
