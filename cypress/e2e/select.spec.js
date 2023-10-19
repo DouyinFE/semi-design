@@ -63,7 +63,7 @@ describe('Select', () => {
         cy.get('.semi-select-option').should('have.text', 'Design');
     });
 
-    it.only('ellipsisTrigger', () => {
+    it('ellipsisTrigger', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
         // add option
