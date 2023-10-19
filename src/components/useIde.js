@@ -55,7 +55,7 @@ export const useIde = (props) => {
                         const { codeString } = formatCode(codeElem[index]?.value || '');
                         autoImportComponent({ codeString, snippetString: '' });
                         const lineNum = codeString?.split('\n')?.length || 0;
-                        runtime?.require('tea').behave('importCode-auxo', { num: lineNum });
+                        runtime?.require('tea').behave('importCode-semi', { num: lineNum });
                     }
                 });
             }
