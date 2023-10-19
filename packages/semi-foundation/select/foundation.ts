@@ -506,6 +506,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const { isOpen } = this.getStates();
         if (isOpen) {
             this._adapter.rePositionDropdown();
+        } else {
+            // fix: #1453
+            this._adapter.registerClickOutsideHandler((e: MouseEvent) => {
+                this.close(e);
+                this._notifyBlur(e);
+                this._adapter.updateFocusState(false);
+            });
         }
     }
 
