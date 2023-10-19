@@ -2694,3 +2694,73 @@ export const SearchableAndExpandedKeys = () => {
       </>
   )
 }
+
+export const UnRelatedAndAsyncLoad = () => {
+  const initialData = [
+      {
+          label: 'Expand to load0',
+          value: '0',
+          key: '0',
+      },
+      {
+          label: 'Expand to load1',
+          value: '1',
+          key: '1',
+      },
+      {
+          label: 'Leaf Node',
+          value: '2',
+          key: '2',
+          isLeaf: true,
+      },
+  ];
+  const [treeData, setTreeData] = useState(initialData);
+
+  function updateTreeData(list, key, children) {
+      return list.map(node => {
+          if (node.key === key) {
+              return { ...node, children };
+          }
+          if (node.children) {
+              return { ...node, children: updateTreeData(node.children, key, children) };
+          }
+          return node;
+      });
+  }
+
+  function onLoadData({ key, children }) {
+      return new Promise(resolve => {
+          if (children) {
+              resolve();
+              return;
+          }
+          setTimeout(() => {
+              setTreeData(origin =>
+                  updateTreeData(origin, key, [
+                      {
+                          label: `Child Node${key}-0`,
+                          key: `${key}-0`,
+                      },
+                      {
+                          label: `Child Node${key}-1`,
+                          key: `${key}-1`,
+                      },
+                  ]),
+              );
+              resolve();
+          }, 1000);
+      });
+  }
+  return (
+    <>
+      <span>issue 1852: checkRelation='unRelated', 异步加载数据</span>
+      <Tree
+        checkRelation='unRelated'
+        defaultValue={['0']}
+        multiple
+        loadData={onLoadData}
+        treeData={[...treeData]}
+      />
+    </>
+  );
+};
