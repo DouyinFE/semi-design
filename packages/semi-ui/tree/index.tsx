@@ -431,7 +431,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         isMultiple
                     );
                 } else {
-                    checkedKeyValues = updateKeys(prevState.checkedKeys, keyEntities);
+                    checkedKeyValues = updateKeys(props.checkRelation === 'related' ? prevState.checkedKeys : prevState.realCheckedKeys, keyEntities);
                 }
             }
 
