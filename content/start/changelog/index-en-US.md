@@ -15,6 +15,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.45.0 (2023-10-20)
+- 【Fix】
+    - resizable Table width reset to initial bug（Affected v2.32~v2.44）
+    - Fixed the problem of incorrect update of select ellipsisTrigger under certain boundary conditions
+    - Fixed the problem of asynchronous loading of data in Tree/TreeSelect where checkRelation is unRelated, causing the selected status to be lost.
+    - Fix the issue of selecting ellipsisTrigger displaying more quantities incorrectly [#1560](https://github.com/DouyinFE/semi-design/issues/1560) [@Jon-Millent](https://github.com/Jon-Millent)
+
 #### 🎉 2.45.0-beta.0 (2023-10-13)
 - 【Fix】
     - Fixed the problem that when Select virtualization and renderCreateItem are used at the same time, the display position of custom creation options is incorrect.  [#1856](https://github.com/DouyinFE/semi-design/issues/1856)
