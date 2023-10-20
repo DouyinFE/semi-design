@@ -181,14 +181,14 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
 > & React.RefAttributes<any>;
 
 export interface SelectState {
@@ -299,7 +299,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         autoAdjustOverflow: PropTypes.bool,
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onClear: PropTypes.func,

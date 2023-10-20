@@ -15,6 +15,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.45.0-beta.0 (2023-10-13)
+- 【Fix】
+    - Fixed the problem that when Select virtualization and renderCreateItem are used at the same time, the display position of custom creation options is incorrect.  [#1856](https://github.com/DouyinFE/semi-design/issues/1856)
+    - Remove the redundant comparison of whether TreeData has changed in getDerivedState of TreeSelect/Tree
+- 【Design Token】
+    - Anchor add $color-anchor_title_active-text-hover $color-anchor_title-bg $color-anchor_title_active-bg
+    - Datepicker Add $color-datepicker_range_trigger-border-focus
+- 【Feat】
+    - Notification support modify exist notification content.
+    - Tooltip API spacing supports defining distances on two axes
+    - Textarea `autosize` support object prop `{minRows: number, maxRows: number}` [@hehehai](https://github.com/hehehai)
 
 #### 🎉 2.44.0 (2023-09-22)
 - 【Fix】

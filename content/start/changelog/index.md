@@ -13,6 +13,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.45.0-beta.0 (2023-10-13)
+- 【Fix】
+    - 修复 Select 虚拟化与 renderCreateItem 同时使用时，自定义创建选项显示位置不正确的问题  [#1856](https://github.com/DouyinFE/semi-design/issues/1856)
+    - 去掉 TreeSelect/Tree 的 getDerivedState 中对 TreeData 是否变化的多余比较
+- 【Design Token】
+    - Anchor 新增 $color-anchor_title_active-text-hover $color-anchor_title-bg $color-anchor_title_active-bg
+    - Datepicker 新增 $color-datepicker_range_trigger-border-focus
+- 【Feat】
+    - Notification 支持修改已弹出的内容
+    - Tooltip API spacing 支持在两个轴上定义距离
+    - Textarea `autosize` 支持对象参数 `{minRows: number, maxRows: number}` [@hehehai](https://github.com/hehehai)
+
 #### 🎉 2.44.0 (2023-09-22)
 - 【Fix】
     - 修复当 Image 高度设置非常小时候图片显示不全或者未显示问题 [#1838](https://github.com/DouyinFE/semi-design/issues/1838)
