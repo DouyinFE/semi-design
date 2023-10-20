@@ -395,7 +395,7 @@ export function mergeQueries(query: Record<string, any>, queries: Record<string,
  * @param {Object[]} newColumns
  */
 export function withResizeWidth(columns: Record<string, any>[], newColumns: Record<string, any>[]) {
-    const _newColumns = { ...newColumns };
+    const _newColumns = [ ...newColumns ];
     for (const column of columns) {
         if (!isNullOrUndefined(column.width)) {
             const currentColumn = column.key;
