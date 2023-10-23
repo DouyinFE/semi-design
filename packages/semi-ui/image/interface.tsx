@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import { BaseProps } from "_base/baseComponent";
+import { RatioType } from '@douyinfe/semi-foundation/image/previewInnerFoundation';
 import React from "react";
+
+export type { RatioType };
 
 export interface ImageStates {
     src: string;
@@ -20,7 +23,8 @@ export interface ImageProps extends BaseProps{
     onLoad?: (event: Event) => void;
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode;
-    imageID?: number
+    imageID?: number;
+    setDownloadName?: (src: string) => string
 }
 
 export interface PreviewProps extends BaseProps {
@@ -28,7 +32,7 @@ export interface PreviewProps extends BaseProps {
     src?: string | string[];
     previewTitle?: ReactNode;
     currentIndex?: number;
-    defaultIndex?: number;
+    defaultCurrentIndex?: number;
     defaultVisible?: boolean;
     maskClosable?: boolean;
     closable?: boolean;
@@ -65,7 +69,8 @@ export interface PreviewProps extends BaseProps {
     onNext?: (index: number) => void;
     onRatioChange?: (type: RatioType) => void;
     onRotateLeft?: (angle: number) => void;
-    onDownload?: (src: string, index: number) => void
+    onDownload?: (src: string, index: number) => void;
+    setDownloadName?: (src: string) => string
 }
 
 export interface MenuProps {
@@ -88,8 +93,6 @@ export interface MenuProps {
     onRotateLeft?: () => void;
     onRotateRight?: () => void
 }
-
-export type RatioType = "adaptation" | "realSize";
 
 export interface PreviewInnerStates {
     imgSrc?: string[];

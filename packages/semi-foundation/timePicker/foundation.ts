@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { strings } from './constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
@@ -214,14 +213,14 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
                     )
                 );
             }
-            const inputValue = this.formatValue(dates);
-
-            this.setState({
-                value: dates,
-                invalid,
-                inputValue,
-            } as any);
         }
+        const inputValue = this.formatValue(dates);
+
+        this.setState({
+            value: dates,
+            invalid,
+            inputValue,
+        } as any);
     }
 
     handleFocus(e: any) {

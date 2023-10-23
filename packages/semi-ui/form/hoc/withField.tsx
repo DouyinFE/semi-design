@@ -1,8 +1,8 @@
-/* eslint-disable max-lines-per-function, react-hooks/rules-of-hooks, prefer-const, max-len */
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useLayoutEffect, useEffect, useMemo, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
-import { isValid, generateValidatesFromRules, mergeOptions, mergeProps, getDisplayName } from '@douyinfe/semi-foundation/form/utils';
+import { isValid, generateValidatesFromRules, mergeOptions, mergeProps, getDisplayName, transformTrigger, transformDefaultBooleanAPI } from '@douyinfe/semi-foundation/form/utils';
 import * as ObjectUtil from '@douyinfe/semi-foundation/utils/object';
 import isPromise from '@douyinfe/semi-foundation/utils/isPromise';
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -98,6 +98,27 @@ function withField<
             return null;
         }
 
+        let formProps = updater.getFormProps([
+            'labelPosition',
+            'labelWidth',
+            'labelAlign',
+            'labelCol',
+            'wrapperCol',
+            'disabled',
+            'showValidateIcon',
+            'extraTextPosition',
+            'stopValidateWithError',
+            'trigger'
+        ]);
+        let mergeLabelPos = labelPosition || formProps.labelPosition;
+        let mergeLabelWidth = labelWidth || formProps.labelWidth;
+        let mergeLabelAlign = labelAlign || formProps.labelAlign;
+        let mergeLabelCol = labelCol || formProps.labelCol;
+        let mergeWrapperCol = wrapperCol || formProps.wrapperCol;
+        let mergeExtraPos = extraTextPosition || formProps.extraTextPosition || 'bottom';
+        let mergeStopValidateWithError = transformDefaultBooleanAPI(stopValidateWithError, formProps.stopValidateWithError, false);
+        let mergeTrigger = transformTrigger(trigger, formProps.trigger);
+
         // To prevent user forgetting to pass the field, use undefined as the key, and updater.getValue will get the wrong value.
         let initValueInFormOpts = typeof field !== 'undefined' ? updater.getValue(field) : undefined; // Get the init value of form from formP rops.init Values Get the initial value set in the initValues of Form
         let initVal = typeof initValue !== 'undefined' ? initValue : initValueInFormOpts;
@@ -116,7 +137,7 @@ function withField<
 
         // FIXME typeof initVal
         const [value, setValue, getVal] = useStateWithGetter(typeof initVal !== undefined ? initVal : null);
-        const validateOnMount = trigger.includes('mount');
+        const validateOnMount = mergeTrigger.includes('mount');
 
         allowEmpty = allowEmpty || updater.getFormProps().allowEmpty;
 
@@ -188,9 +209,8 @@ function withField<
                     .validate(
                         model,
                         {
-                            first: stopValidateWithError,
+                            first: mergeStopValidateWithError,
                         },
-                        // eslint-disable-next-line @typescript-eslint/no-empty-function
                         (errors, fields) => {}
                     )
                     .then(res => {
@@ -210,7 +230,6 @@ function withField<
                         if (errors && fields) {
                             let messages = errors.map((e: any) => e.message);
                             if (messages.length === 1) {
-                                // eslint-disable-next-line prefer-destructuring
                                 messages = messages[0];
                             }
                             updateError(messages, callOpts);
@@ -348,7 +367,7 @@ function withField<
             updateTouched(true, { notNotify: true, notUpdate: true });
             updateValue(val);
             // only validate when trigger includes change
-            if (trigger.includes('change')) {
+            if (mergeTrigger.includes('change')) {
                 fieldValidate(val);
             }
         };
@@ -360,7 +379,7 @@ function withField<
             if (!touched) {
                 updateTouched(true);
             }
-            if (trigger.includes('blur')) {
+            if (mergeTrigger.includes('blur')) {
                 let val = getVal();
                 fieldValidate(val);
             }
@@ -402,7 +421,6 @@ function withField<
         useIsomorphicEffect(() => {
             // register
             if (typeof field === 'undefined') {
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 return () => {};
             }
             // log('register: ' + field);
@@ -431,23 +449,6 @@ function withField<
             };
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [field]);
-
-        let formProps = updater.getFormProps([
-            'labelPosition',
-            'labelWidth',
-            'labelAlign',
-            'labelCol',
-            'wrapperCol',
-            'disabled',
-            'showValidateIcon',
-            'extraTextPosition',
-        ]);
-        let mergeLabelPos = labelPosition || formProps.labelPosition;
-        let mergeLabelWidth = labelWidth || formProps.labelWidth;
-        let mergeLabelAlign = labelAlign || formProps.labelAlign;
-        let mergeLabelCol = labelCol || formProps.labelCol;
-        let mergeWrapperCol = wrapperCol || formProps.wrapperCol;
-        let mergeExtraPos = extraTextPosition || formProps.extraTextPosition || 'bottom';
 
         // id attribute to improve a11y
         const a11yId = id ? id : field;

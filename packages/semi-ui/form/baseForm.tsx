@@ -1,4 +1,3 @@
-/* eslint-disable prefer-template, max-len, @typescript-eslint/no-unused-vars */
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -58,25 +57,30 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         onReset: PropTypes.func,
         // Triggered when the value of the form is updated, only when the value of the subfield changes. The entry parameter is formState.values
         onValueChange: PropTypes.func,
-        initValues: PropTypes.object,
-        getFormApi: PropTypes.func,
-        component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-        render: PropTypes.func,
-        validateFields: PropTypes.func,
-        style: PropTypes.object,
+        autoScrollToError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+        allowEmpty: PropTypes.bool,
         className: PropTypes.string,
+        component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+        disabled: PropTypes.bool,
+        extraTextPosition: PropTypes.oneOf(strings.EXTRA_POS),
+        getFormApi: PropTypes.func,
+        initValues: PropTypes.object,
+        validateFields: PropTypes.func,
         layout: PropTypes.oneOf(strings.LAYOUT),
         labelPosition: PropTypes.oneOf(strings.LABEL_POS),
         labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         labelAlign: PropTypes.oneOf(strings.LABEL_ALIGN),
         labelCol: PropTypes.object, // Control labelCol {span: number, offset: number} for all field child nodes
-        wrapperCol: PropTypes.object, // Control wrapperCol {span: number, offset: number} for all field child nodes
-        allowEmpty: PropTypes.bool,
-        autoScrollToError: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
-        disabled: PropTypes.bool,
+        render: PropTypes.func,
+        style: PropTypes.object,
         showValidateIcon: PropTypes.bool,
-        extraTextPosition: PropTypes.oneOf(strings.EXTRA_POS),
+        stopValidateWithError: PropTypes.bool,
         id: PropTypes.string,
+        wrapperCol: PropTypes.object, // Control wrapperCol {span: number, offset: number} for all field child nodes
+        trigger: PropTypes.oneOfType([
+            PropTypes.oneOf(['blur', 'change', 'custom', 'mount']),
+            PropTypes.arrayOf(PropTypes.oneOf(['blur', 'change', 'custom', 'mount'])),
+        ])
     };
 
     static defaultProps = {
@@ -157,11 +161,11 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         return {
             ...super.adapter,
             cloneDeep,
-            notifySubmit: (values: Values) => {
-                this.props.onSubmit(values);
+            notifySubmit: (values: Values, e: any) => {
+                this.props.onSubmit(values, e);
             },
-            notifySubmitFail: (errors, values) => {
-                this.props.onSubmitFail(errors, values);
+            notifySubmitFail: (errors, values, e: any) => {
+                this.props.onSubmitFail(errors, values, e);
             },
             forceUpdate: (callback?: () => void) => {
                 this.forceUpdate(callback);
@@ -229,7 +233,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
 
     submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        this.foundation.submit();
+        this.foundation.submit(e);
     }
 
     reset(e: React.FormEvent<HTMLFormElement>) {
@@ -264,8 +268,10 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             allowEmpty,
             autoScrollToError,
             showValidateIcon,
+            stopValidateWithError,
             extraTextPosition,
             id,
+            trigger,
             ...rest
         } = this.props;
 

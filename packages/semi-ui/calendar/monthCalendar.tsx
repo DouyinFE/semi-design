@@ -5,7 +5,6 @@ import cls from 'classnames';
 import { isEqual } from 'lodash';
 import PropTypes from 'prop-types';
 import { IconClose } from '@douyinfe/semi-icons';
-// eslint-disable-next-line max-len
 import CalendarFoundation, { CalendarAdapter, EventObject, MonthData, MonthlyEvent, ParsedEventsType, ParsedEventsWithArray, ParsedRangeEvent } from '@douyinfe/semi-foundation/calendar/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/calendar/constants';
 import { DateObj } from '@douyinfe/semi-foundation/calendar/eventUtil';
@@ -87,7 +86,6 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
             registerClickOutsideHandler: (key: string, cb: () => void) => {
                 const clickOutsideHandler = (e: MouseEvent) => {
                     const cardInstance = this.cardRef && this.cardRef.get(key);
-                    // eslint-disable-next-line react/no-find-dom-node
                     const cardDom = ReactDOM.findDOMNode(cardInstance);
                     if (cardDom && !cardDom.contains(e.target as any)) {
                         cb();
@@ -202,6 +200,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
     };
 
     renderEvents = (events: ParsedRangeEvent[]) => {
+        const { itemLimit } = this.state;
         if (!events) {
             return undefined;
         }
@@ -212,15 +211,17 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                 width: toPercent(width),
                 top: `${topInd}em`
             };
-            return (
-                <li
-                    className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-month`}
-                    key={key || `${ind}-monthevent`}
-                    style={style}
-                >
-                    {children}
-                </li>
-            );
+            if (topInd < itemLimit)
+                return (
+                    <li
+                        className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-month`}
+                        key={key || `${ind}-monthevent`}
+                        style={style}
+                    >
+                        {children}
+                    </li>
+                );
+            return null;
         });
         return list;
     };
@@ -317,7 +318,6 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
             );
         }
         return (
-            // eslint-disable-next-line max-len
             <span className={`${prefixCls}-date`}><span className={`${cssClasses.PREFIX}-today-date`}>{date}</span></span>
         );
     };

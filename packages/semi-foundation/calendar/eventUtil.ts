@@ -230,7 +230,11 @@ export const filterEvents = (events: Map<string, EventObject[]>, start: Date, en
         const item = events.get(day);
         const date = new Date(day);
         if (isDateInRange(date, start, end)) {
-            res.set(day, item);
+            if (res.has(day)) {
+                res.set(day, [...res.get(day), ...item]);
+            } else {
+                res.set(day, item);
+            }
         } else if (isBefore(end, date)) {
             // do nothing
         } else {
@@ -251,7 +255,6 @@ export const filterEvents = (events: Map<string, EventObject[]>, start: Date, en
  * @returns {arr}
  * filter out event that is not in the week range
  */
-// eslint-disable-next-line max-len
 export const filterWeeklyEvents = (events: Map<string, EventObject[]>, weekStart: Date, weekStartsOn: weekStartsOnEnum ) => filterEvents(events, weekStart, addDays(endOfWeek(weekStart, { weekStartsOn }), 1));
 
 /**
@@ -331,7 +334,6 @@ export const collectDailyEvents = (events: ParsedRangeEvent[][]) => {
 };
 
 export const renderDailyEvent = (event: EventObject) => {
-    // eslint-disable-next-line prefer-const
     let { start, end, allDay, children } = event;
     let startPos,
         endPos;

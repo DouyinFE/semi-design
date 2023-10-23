@@ -494,7 +494,7 @@ import { IconUpload, IconFile } from '@douyinfe/semi-icons';
 ```jsx live=true width=48%
 import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
-import { IconUpload, IconDownload, IconEyeOpened } from '@douyinfe/semi-icons';
+import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/semi-icons';
 
 () => {
     let action = 'https://api.semi.design/upload';
@@ -628,7 +628,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-### 照片墙
+### 图片墙
 
 设置 `listType = 'picture'`，用户可以上传图片并在列表中显示缩略图
 
@@ -699,10 +699,47 @@ import { IconPlus } from '@douyinfe/semi-icons';
 };
 ```
 
+### 图片墙放大预览
+配合 Image 组件，通过 renderThumbnail API ，可以实现点击图片放大预览
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Image } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'music.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        }
+    ];
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                renderThumbnail={(file) => (<Image src={file.url} />)}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
 可以通过 `renderPicPreviewIcon`，`onPreviewClick` 来自定义预览图标，当显示替换图标 `showReplace` 时，不会再显示预览图标<br />
 当需要自定义预览/替换功能时，需要关闭替换功能，使用 `renderPicPreviewIcon` 监听图标点击事件即可。<br />
 `onPreviewClick` 监听的是单张图片容器的点击事件
-
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -745,11 +782,53 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 };
 ```
 
+### 图片墙设置宽高
+通过设置 picHeight, picWidth （ v2.42 后提供），可以统一设置图片墙元素的宽高
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'image-1.jpg',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
+        }
+    ];
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                picHeight={110}
+                picWidth={200}
+            >
+                <IconPlus size="extra-large" style={{ margin: 4 }} />
+                点击添加图片
+            </Upload>
+        </>
+    );
+};
+```
+
+
+
 设置 `hotSpotLocation` 自定义点击热区的顺序，默认在照片墙列表结尾
 
 ```jsx live=true width=48%
 import React from 'react';
-import { Upload, Select } from '@douyinfe/semi-ui';
+import { Upload, Select, RadioGroup, Radio } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
@@ -769,13 +848,16 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
     };
-    const [hotSpotLocation, $hotSpotLocation] = useState('end');
+    const [hotSpotLocation, setLocation] = useState('end');
     return (
         <>
-            <Select value={hotSpotLocation} insetLabel='hotSpotLocation' onChange={$hotSpotLocation} style={{ width: 250 }}>
-                <Select.Option value='start'>开始</Select.Option>
-                <Select.Option value='end'>结尾</Select.Option>
-            </Select>
+            <RadioGroup
+                value={hotSpotLocation}
+                type='button'
+                onChange={e => setLocation(e.target.value)}>
+                <Radio value='start'>start</Radio>
+                <Radio value='end'>end</Radio>
+            </RadioGroup>
             <hr />
             <Upload
                 action={action}
@@ -1220,21 +1302,22 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |--- | --- | --- | --- | --- |
 |accept | `html` 原生属性，接受上传的[文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)。<br/>`accept` 的值为你允许选择文件的[MIME types 字符串](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types)或文件后缀（.jpg等） | string | |  |
 |action | 文件上传地址，必填 | string |  |  |
+|addOnPasting | 按下 ctrl/command + v时，是否自动将剪贴板中的文件添加至 fileList，当前仅支持图片类型; 需用户授权同意 | boolean | false | 2.43.0 |
 |afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  | 1.0.0 |
-|beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean \| Promise||1.31.0|
-|beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean \| Promise||1.31.0|
+|beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise||1.31.0|
+|beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise||1.31.0|
 |beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  | 1.0.0 |
-|capture | 文件上传控件中媒体拍摄的方式 | boolean \| string \| undefined | | |
+|capture | 文件上传控件中媒体拍摄的方式 | boolean\|string\|undefined | | |
 |className | 类名 | string |  |  |
 |customRequest | 自定义上传使用的异步请求方法 | (object: customRequestArgs) => void |  | 1.5.0 |
 |data | 上传时附带的额外参数或返回上传额外参数的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |defaultFileList | 已上传的文件列表 | Array<FileItem\> | [] |  |
 |directory | 文件夹类型上传 | boolean | false | 1.20.0 |
 |disabled | 是否禁用 | boolean | false |  |
-|dragIcon | 拖拽区左侧 Icon | ReactNode | `<IconUpload />` | 0.22.0 |
-|dragMainText | 拖拽区主文本 | ReactNode | '点击上传文件或拖拽文件到这里' | 0.22.0 |
-|dragSubText | 拖拽区帮助文本 | ReactNode | '' | 0.22.0 |
-|draggable | 是否支持拖拽上传 | boolean | false | 0.22.0 |
+|dragIcon | 拖拽区左侧 Icon | ReactNode | `<IconUpload />` |  |
+|dragMainText | 拖拽区主文本 | ReactNode | '点击上传文件或拖拽文件到这里' | |
+|dragSubText | 拖拽区帮助文本 | ReactNode | '' |  |
+|draggable | 是否支持拖拽上传 | boolean | false |  |
 |fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  | 1.0.0 |
 |fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | 1.0.0 |
 |headers | 上传时附带的 headers 或返回上传额外 headers 的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
@@ -1256,10 +1339,13 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onOpenFileDialog | 打开系统文系统文件选择弹窗时触发 | () => void |  | 1.18.0 |
 |onPreviewClick | 点击文件卡片时的回调 | (fileItem: FileItem) => void |  | 1.8.0 |
 |onProgress | 上传文件时的回调 | (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>) => void |  |  |
+|onPastingError | addOnPasting为true时，粘贴读取失败时的回调 | (Error\|PermissionState) |  | 2.43.0 |
 |onRemove | 移除文件的回调 | (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem) => void |  |  |
 |onRetry | 上传重试的回调 | (file: <FileItem\>) => void |  | 1.18.0 |
 |onSizeError | 文件尺寸非法的回调 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |  |
 |onSuccess | 上传成功后的回调 | (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |
+|picHeight | 图片墙模式下，可通过该 API 定制图片展示高度 | string\|number |  | 2.42.0 |
+|picWidth | 图片墙模式下，可通过该 API 定制图片展示宽度 | string\|number |  | 2.42.0 |
 |previewFile | 自定义预览逻辑，该函数返回内容将会替换原缩略图 | (fileItem: FileItem) => ReactNode |  |  |
 |prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |

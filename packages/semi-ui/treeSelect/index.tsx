@@ -99,7 +99,6 @@ export type OverrideCommonProps =
 * Type definition description:
 * TreeSelectProps inherits some properties from BasicTreeSelectProps (from foundation) and TreeProps (from semi-ui-react).
 */
-// eslint-disable-next-line max-len
 export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideCommonProps | 'validateStatus' | 'searchRender'>, Pick<TreeProps, OverrideCommonProps> {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
     'aria-errormessage'?: React.AriaAttributes['aria-errormessage'];
@@ -140,7 +139,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     stopPropagation?: boolean | string;
     restTagsPopoverProps?: PopoverProps;
     searchRender?: boolean | ((inputProps: InputProps) => React.ReactNode);
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: TreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
     triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
@@ -156,7 +155,6 @@ export type OverrideCommonState =
     | 'disabledKeys'
     | 'flattenNodes';
 
-// eslint-disable-next-line max-len
 export interface TreeSelectState extends Omit<BasicTreeSelectInnerData, OverrideCommonState | 'prevProps'>, Pick<TreeState, OverrideCommonState> {
     inputTriggerFocus: boolean;
     isOpen: boolean;
@@ -354,7 +352,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         };
     }
 
-    // eslint-disable-next-line max-lines-per-function
     static getDerivedStateFromProps(props: TreeSelectProps, prevState: TreeSelectState) {
         const { prevProps, rePosKey } = prevState;
         const needUpdate = (name: string) => (
@@ -369,9 +366,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const newState: Partial<TreeSelectState> = {
             prevProps: props,
         };
+        const needUpdateTreeData = needUpdate('treeData');
+        const needUpdateExpandedKeys = needUpdate('expandedKeys');
 
         // TreeNode
-        if (needUpdate('treeData')) {
+        if (needUpdateTreeData) {
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData);
@@ -394,9 +393,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 newState.motionType = null;
             }
         }
-        const expandAllWhenDataChange = needUpdate('treeData') && props.expandAll;
+        const expandAllWhenDataChange = needUpdateTreeData && props.expandAll;
         // expandedKeys
-        if (needUpdate('expandedKeys') || (prevProps && needUpdate('autoExpandParent'))) {
+        if (needUpdateExpandedKeys || (prevProps && needUpdate('autoExpandParent'))) {
             newState.expandedKeys = calcExpandedKeys(
                 props.expandedKeys,
                 keyEntities,
@@ -432,7 +431,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             );
         }
         // flattenNodes
-        if (treeData || needUpdate('expandedKeys')) {
+        if (treeData || needUpdateExpandedKeys) {
             const flattenNodes = flattenTreeData(
                 treeData || prevState.treeData,
                 newState.expandedKeys || prevState.expandedKeys
@@ -492,7 +491,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         isMultiple
                     );
                 } else {
-                    checkedKeyValues = updateKeys(prevState.checkedKeys, keyEntities);
+                    checkedKeyValues = updateKeys(props.checkRelation === 'related' ? prevState.checkedKeys : prevState.realCheckedKeys, keyEntities);
                 }
             }
 
@@ -514,7 +513,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
 
         // ================== rePosKey ==================
-        if (needUpdate('treeData') || needUpdate('value')) {
+        if (needUpdateTreeData || needUpdate('value')) {
             newState.rePosKey = rePosKey + 1;
         }
 
@@ -541,7 +540,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
-                    // eslint-disable-next-line
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
                     if (
@@ -785,7 +783,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             renderKeys = [...realCheckedKeys];
         }
         const tagList: Array<React.ReactNode> = [];
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         renderKeys.forEach((key: TreeNodeData['key'], index) => {
             const item = (keyEntities[key] && keyEntities[key].data.key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
@@ -869,7 +866,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         // searchPosition = dropdown and single seleciton
         if (!multiple || !this.hasValue()) {
             const renderText = this.foundation.getRenderTextInSingle();
-            const spanCls = cls({
+            const spanCls = cls(`${prefixcls}-selection-content`, {
                 [`${prefixcls}-selection-placeholder`]: !renderText,
             });
             return <span className={spanCls}>{renderText ? renderText : placeholder}</span>;
@@ -1013,7 +1010,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const inner = useCustomTrigger ? (
             <Trigger
                 inputValue={inputValue}
-                // eslint-disable-next-line @typescript-eslint/no-shadow
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
                 placeholder={placeholder}
@@ -1072,7 +1068,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         );
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     renderTagItem = (key: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const {
@@ -1294,7 +1289,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     getTreeNodeKey = (treeNode: TreeNodeData) => {
         const { data } = treeNode;
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key }: { key: string } = data;
         return key;
     };
@@ -1312,7 +1306,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
         const { data } = treeNode;
-        // eslint-disable-next-line @typescript-eslint/no-shadow
         const { key }: { key: string } = data;
         const treeNodeProps = this.foundation.getTreeNodeProps(key);
         if (!treeNodeProps) {

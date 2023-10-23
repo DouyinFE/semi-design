@@ -12,6 +12,9 @@ order: 5
 🤩  Semi's default theme or custom themes configured through [Semi DSM](/dsm) come with both light and dark modes, which can be easily switched.   
 🌒 Semi also supports the use of dark mode in a partial area of the page.  
 
+<Compare dark='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/dark.png' light='https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/dsm/light.png
+'>
+</Compare>
 
 ## Recommended settings
 Semi will automatically mount the global color palette on the body element. We have built in some commonly used CSS Tokens. For detailed Token details, please refer to [Design Variables](/en-US/basic/tokens)

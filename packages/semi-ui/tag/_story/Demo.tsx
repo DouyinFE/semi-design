@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import Tag from '../index';
 import TagGroup from '../group';

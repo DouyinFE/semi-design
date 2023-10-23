@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -17,10 +16,11 @@ import {
 import BaseComponent from '../_base/baseComponent';
 import TableContext, { TableContextProps } from './table-context';
 import { TableComponents, OnHeaderRow, Fixed } from './interface';
+import type { TableHeaderCell } from './TableHeader';
 
 export interface TableHeaderRowProps {
     components?: TableComponents;
-    row?: any[];
+    row?: TableHeaderCell[];
     prefixCls?: string;
     onHeaderRow?: OnHeaderRow<any>;
     index?: number;
@@ -82,7 +82,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             this.context.setHeadWidths(
                 map(heads, (head, headIndex) => {
                     let configWidth = get(row, [headIndex, 'column', 'width']);
-                    const key = get(row, [headIndex, 'column', 'key']);
+                    const key = get(row, [headIndex, 'column', 'key']) as any;
                     if (typeof configWidth !== 'number') {
                         configWidth = (head && head.getBoundingClientRect().width) || 0;
                     }
@@ -175,6 +175,8 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
                     }
                 }
             }
+
+            Object.assign(cellProps, { resize: column.resize });
 
             const props = omit({ ...cellProps, ...customProps }, [
                 'colStart',

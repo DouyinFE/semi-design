@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function, prefer-destructuring, prefer-const, @typescript-eslint/no-unused-vars */
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/form/constants';
@@ -35,7 +34,6 @@ const FormSlot = (props: SlotProps) => {
     } catch (error) {
     }
 
-    // eslint-disable-next-line react/destructuring-assignment
     props.labelPosition ? labelPosition = props.labelPosition : null;
 
     let { children, label, className, style, error, noLabel, ...rest } = props;

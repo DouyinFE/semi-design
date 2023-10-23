@@ -20,7 +20,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         visible: PropTypes.bool,
         src: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
         currentIndex: PropTypes.number,
-        defaultIndex: PropTypes.number,
+        defaultCurrentIndex: PropTypes.number,
         defaultVisible: PropTypes.bool,
         maskClosable: PropTypes.bool,
         closable: PropTypes.bool,
@@ -114,8 +114,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     if (item.isIntersecting && src) {
                         (item.target as any).src = src;
                         (item.target as any).removeAttribute("data-src");
+                        this.previewObserver.unobserve(item.target);
                     }
-                    this.previewObserver.unobserve(item.target);
                 });
             },
             {
@@ -192,7 +192,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
     };
 
     render() {
-        const { src, className, style, lazyLoad, ...restProps } = this.props;
+        const { src, className, style, lazyLoad, setDownloadName, ...restProps } = this.props;
         const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
         const srcArr = Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
@@ -209,6 +209,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     previewObserver: this.previewObserver,
                     setCurrentIndex: this.handleCurrentIndexChange,
                     handleVisibleChange: this.handleVisibleChange,
+                    setDownloadName: setDownloadName,
                 }}
             >
                 <div id={this.previewGroupId} style={style} className={cls(`${prefixCls}-preview-group`, className)}>

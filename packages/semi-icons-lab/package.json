@@ -1,0 +1,30 @@
+{
+  "name": "@douyinfe/semi-icons-lab",
+  "version": "2.45.1",
+  "description": "semi icons lab",
+  "keywords": [
+    "semi",
+    "icons"
+  ],
+  "author": "semi",
+  "homepage": "https://semi.design",
+  "bugs": {
+    "url": "https://github.com/DouyinFE/semi-design/issues"
+  },
+  "main": "src/react/index.js",
+  "module": "src/react/index.js",
+  "typings": "src/react/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "src/react",
+    "src/svgs"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "_unpkg": true,
+  "unpkgFiles": [
+    "*"
+  ]
+}

@@ -133,7 +133,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     restTagsPopoverProps?: any;
     clickTriggerToHide?: boolean;
     loadData?: (data: BasicTreeNodeData) => Promise<void>;
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     searchRender?: (inputProps: any) => any;
     renderSelectedItem?: BasicRenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
@@ -181,7 +181,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     unregisterClickOutsideHandler: () => void;
     rePositionDropdown: () => void;
     updateState: (states: Partial<BasicTreeSelectInnerData>) => void;
-    notifySelect: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
+    notifySelect: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     notifySearch: (input: string, filteredExpandedKeys: string[]) => void;
     cacheFlattenNodes: (bool: boolean) => void;
     openMenu: () => void;
@@ -200,7 +200,6 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     updateIsFocus: (bool: boolean) => void
 }
 
-// eslint-disable-next-line max-len
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
 
     constructor(adapter: TreeSelectAdapter<P, S>) {

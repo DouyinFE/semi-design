@@ -1,10 +1,9 @@
-/* eslint-disable prefer-const, max-len */
 import BaseFoundation from '../base/foundation';
 import * as ObjectUtil from '../utils/object';
 import isPromise from '../utils/isPromise';
 import { isValid } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
-import scrollIntoView, { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
+import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
 
@@ -175,14 +174,16 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 maybePromisedErrors = errors;
             }
             if (!maybePromisedErrors) {
-                resolve(values);
+                const _values = this._adapter.cloneDeep(values);
+                resolve(_values);
                 this.injectErrorToField({});
             } else if (isPromise(maybePromisedErrors)) {
                 maybePromisedErrors.then(
                     (result: any) => {
                         // validate success，clear error
                         if (!result) {
-                            resolve(values);
+                            const _values = this._adapter.cloneDeep(values);
+                            resolve(_values);
                             this.injectErrorToField({});
                         } else {
                             this.data.errors = result;
@@ -237,7 +238,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 this._adapter.forceUpdate();
                 const errors = this.getError();
                 if (this._isValid(targetFields)) {
-                    resolve(values);
+                    const _values = this._adapter.cloneDeep(values);
+                    resolve(_values);
                 } else {
                     this._autoScroll();
                     reject(errors);
@@ -246,19 +248,19 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         });
     }
 
-    submit(): void {
+    submit(e?: any): void {
         const { values } = this.data;
         // validate form
         this.validate()
             .then((resolveValues: any) => {
                 // if valid do submit
                 const _values = this._adapter.cloneDeep(resolveValues);
-                this._adapter.notifySubmit(_values);
+                this._adapter.notifySubmit(_values, e);
             })
             .catch(errors => {
                 const _errors = this._adapter.cloneDeep(errors);
                 const _values = this._adapter.cloneDeep(values);
-                this._adapter.notifySubmitFail(_errors, _values);
+                this._adapter.notifySubmitFail(_errors, _values, e);
             });
     }
 
@@ -694,7 +696,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
     }
 
-    _getErrorFieldAndScroll(scrollOpts?: scrollIntoViewOptions | boolean): void {
+    _getErrorFieldAndScroll(scrollOpts?: ScrollIntoViewOptions | boolean): void {
         const errorDOM = this._adapter.getAllErrorDOM();
         if (errorDOM && errorDOM.length) {
             try {
@@ -704,7 +706,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         }
     }
 
-    scrollToField(field: string, scrollOpts = { behavior: 'smooth', block: 'start' } as scrollIntoViewOptions): void {
+    scrollToField(field: string, scrollOpts = { behavior: 'smooth', block: 'start' } as ScrollIntoViewOptions): void {
         if (this.getFieldExist(field)) {
             const fieldDOM = this._adapter.getFieldDOM(field);
             scrollIntoView(fieldDOM as Element, scrollOpts);

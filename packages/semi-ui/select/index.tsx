@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable max-lines-per-function */
 import React, { Fragment, MouseEvent, ReactInstance, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import cls from 'classnames';
@@ -161,7 +159,7 @@ export type SelectProps = {
     showClear?: boolean;
     showArrow?: boolean;
     renderSelectedItem?: RenderSelectedItemFn;
-    renderCreateItem?: (inputValue: OptionProps['value'], focus: boolean) => React.ReactNode;
+    renderCreateItem?: (inputValue: OptionProps['value'], focus: boolean, style?: React.CSSProperties) => React.ReactNode;
     renderOptionItem?: (props: optionRenderProps) => React.ReactNode;
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
@@ -183,14 +181,14 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
 > & React.RefAttributes<any>;
 
 export interface SelectState {
@@ -301,7 +299,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         autoAdjustOverflow: PropTypes.bool,
         mouseEnterDelay: PropTypes.number,
         mouseLeaveDelay: PropTypes.number,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         onBlur: PropTypes.func,
         onFocus: PropTypes.func,
         onClear: PropTypes.func,
@@ -427,7 +425,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             updateFocusIndex: (focusIndex: number) => {
                 this.setState({ focusIndex });
             },
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             scrollToFocusOption: () => { },
         };
 
@@ -454,7 +451,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 const clickOutsideHandler: (e: MouseEvent) => void = e => {
                     const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
-                    // eslint-disable-next-line react/no-find-dom-node
                     const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
                     // let isInPanel = optionsDom && optionsDom.contains(e.target);
                     // let isInTrigger = triggerDom && triggerDom.contains(e.target);
@@ -602,14 +598,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
-                // eslint-disable-next-line max-len
                 let optionClassName = `.${prefixcls}-option-selected`;
                 if (index !== undefined) {
                     optionClassName = `.${prefixcls}-option:nth-child(${index})`;
                 }
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
-                    // eslint-disable-next-line prefer-destructuring
                     destNode = destNode[0];
                 }
                 if (destNode) {
@@ -820,7 +814,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             return defaultCreateItem;
         }
 
-        const customCreateItem = renderCreateItem(option.value, isFocused);
+        const customCreateItem = renderCreateItem(option.value, isFocused, style);
 
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
@@ -923,7 +917,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 ref={this.setOptionContainerEl}
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
-                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null }
+                {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -931,11 +925,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     aria-multiselectable={multiple}
                     onScroll={e => this.foundation.handleListScroll(e)}
                 >
-                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null }
+                    {innerTopSlot ? <div className={`${prefixcls}-option-list-inner-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerTopSlot}</div> : null}
                     {loading ? this.renderLoading() : isEmpty ? this.renderEmpty() : listContent}
-                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null }
+                    {innerBottomSlot ? <div className={`${prefixcls}-option-list-inner-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{innerBottomSlot}</div> : null}
                 </div>
-                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null }
+                {outerBottomSlot ? <div className={`${prefixcls}-option-list-outer-bottom-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerBottomSlot}</div> : null}
             </div>
         );
     }
@@ -1098,9 +1092,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleOverflow(items: [React.ReactNode, any][]) {
         const { overflowItemCount, selections } = this.state;
         const { maxTagCount } = this.props;
-        const maxVisibleCount = selections.size - maxTagCount;
-        const newOverFlowItemCount = maxVisibleCount > 0 ? maxVisibleCount + items.length - 1 : items.length - 1;
-        if (items.length > 1 && overflowItemCount !== newOverFlowItemCount) {
+        const newOverFlowItemCount = selections.size - maxTagCount > 0 ? selections.size - maxTagCount + items.length - 1 : items.length - 1;
+        if (overflowItemCount !== newOverFlowItemCount) {
             this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
         }
     }
@@ -1113,6 +1106,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
                     items={normalTags}
+                    key={String(selections.length)}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
                     onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
                     visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}

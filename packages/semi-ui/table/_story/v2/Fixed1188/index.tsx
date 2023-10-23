@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
-// eslint-disable-next-line semi-design/no-import
 import { Table, Avatar } from '@douyinfe/semi-ui';
-// eslint-disable-next-line semi-design/no-import
 import { ColumnProps } from '@douyinfe/semi-ui/table';
 
 const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';

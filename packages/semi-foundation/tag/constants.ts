@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { BASE_CLASS_PREFIX } from '../base/constants';
 
 const cssClasses = {
@@ -7,7 +6,25 @@ const cssClasses = {
 
 const strings = {
     TAG_SIZE: ['default', 'small', 'large'],
-    TAG_COLOR: ['grey', 'red', 'pink', 'purple', 'violet', 'indigo', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'white'],
+    TAG_COLOR: [
+        'grey',
+        'red',
+        'pink',
+        'purple',
+        'violet',
+        'indigo',
+        'blue',
+        'light-blue',
+        'cyan',
+        'teal',
+        'green',
+        'light-green',
+        'lime',
+        'yellow',
+        'amber',
+        'orange',
+        'white',
+    ],
     TAG_TYPE: ['light', 'solid', 'ghost'],
     AVATAR_SHAPE: ['square', 'circle'],
 };

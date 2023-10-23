@@ -60,6 +60,5 @@ export default class RadioInnerFoundation extends BaseFoundation<RadioInnerAdapt
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 }

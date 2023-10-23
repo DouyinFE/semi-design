@@ -20,8 +20,8 @@ import Input from '../input';
 import Popover, { PopoverProps } from '../popover';
 import Paragraph from '../typography/paragraph';
 import { IconClear, IconHandle } from '@douyinfe/semi-icons';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { ShowTooltip } from '../typography';
+import { RenderItemProps, Sortable } from '../_sortable';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -29,19 +29,9 @@ export type Size = ArrayElement<typeof strings.SIZE_SET>;
 export type RestTagsPopoverProps = PopoverProps;
 type ValidateStatus = "default" | "error" | "warning";
 
-const SortableItem = SortableElement(props => props.item);
-
-const SortableList = SortableContainer(
-    ({ items }) => {
-        return (
-            <div className={`${prefixCls}-sortable-list`}>
-                {items.map((item, index) => (
-                    // @ts-ignore skip SortableItem type check
-                    <SortableItem key={item.key} index={index} item={item.item}></SortableItem>
-                ))}
-            </div>
-        );
-    });
+function SortContainer(props) {
+    return <div className={`${prefixCls}-sortable-list`} {...props}></div>;
+}
 
 export interface TagInputProps {
     className?: string;
@@ -368,7 +358,6 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         const prefixWrapperCls = cls(`${prefixCls}-prefix`, {
             [`${prefixCls}-inset-label`]: insetLabel,
             [`${prefixCls}-prefix-text`]: labelNode && isString(labelNode),
-            // eslint-disable-next-line max-len
             [`${prefixCls}-prefix-icon`]: isSemiIcon(labelNode),
         });
         return (
@@ -391,7 +380,6 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }
         const suffixWrapperCls = cls(`${prefixCls}-suffix`, {
             [`${prefixCls}-suffix-text`]: suffix && isString(suffix),
-            // eslint-disable-next-line max-len
             [`${prefixCls}-suffix-icon`]: isSemiIcon(suffix),
         });
         return (
@@ -408,6 +396,11 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
     }
 
     getAllTags = () => {
+        const { tagsArray } = this.state;
+        return tagsArray.map((value, index) => this.renderTag(value, index));
+    }
+
+    renderTag = (value: any, index: number, sortableHandle?: any) => {
         const {
             size,
             disabled,
@@ -415,7 +408,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             showContentTooltip,
             draggable,
         } = this.props;
-        const { tagsArray, active } = this.state;
+        const { active } = this.state;
         const showIconHandler = active && draggable;
         const tagCls = cls(`${prefixCls}-wrapper-tag`, {
             [`${prefixCls}-wrapper-tag-size-${size}`]: size,
@@ -428,41 +421,46 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-drag-item`]: showIconHandler,
             [`${prefixCls}-wrapper-tag-icon`]: showIconHandler,
         });
-        const DragHandle = SortableHandle(() => <IconHandle className={`${prefixCls}-drag-handler`}></IconHandle>);
-        return tagsArray.map((value, index) => {
-            const elementKey = showIconHandler ? value : `${index}${value}`;
-            const onClose = () => {
-                !disabled && this.handleTagClose(index);
-            };
-            if (isFunction(renderTagItem)) {
-                return showIconHandler? (<div className={itemWrapperCls} key={elementKey}>
-                    <DragHandle />
-                    {renderTagItem(value, index, onClose)}
-                </div>) : renderTagItem(value, index, onClose);
-            } else {
-                return (
-                    <Tag
-                        className={tagCls}
-                        color="white"
-                        size={size === 'small' ? 'small' : 'large'}
-                        type="light"
-                        onClose={onClose}
-                        closable={!disabled}
-                        key={elementKey}
-                        visible
-                        aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
+        const DragHandle = sortableHandle && sortableHandle(() => <IconHandle className={`${prefixCls}-drag-handler`}></IconHandle>);
+        const elementKey = showIconHandler ? value : `${index}${value}`;
+        const onClose = () => {
+            !disabled && this.handleTagClose(index);
+        };
+        if (isFunction(renderTagItem)) {
+            return (<div className={itemWrapperCls} key={elementKey}>
+                {showIconHandler && sortableHandle ? <DragHandle /> : null}
+                {renderTagItem(value, index, onClose)}
+            </div>);
+        } else {
+            return (
+                <Tag
+                    className={tagCls}
+                    color="white"
+                    size={size === 'small' ? 'small' : 'large'}
+                    type="light"
+                    onClose={onClose}
+                    closable={!disabled}
+                    key={elementKey}
+                    visible
+                    aria-label={`${!disabled ? 'Closable ' : ''}Tag: ${value}`}
+                >
+                    {showIconHandler && sortableHandle ? <DragHandle /> : null}
+                    <Paragraph
+                        className={typoCls}
+                        ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
                     >
-                        {showIconHandler && <DragHandle />}
-                        <Paragraph
-                            className={typoCls}
-                            ellipsis={{ showTooltip: showContentTooltip, rows: 1 }}
-                        >
-                            {value}
-                        </Paragraph>
-                    </Tag>
-                );
-            }
-        });
+                        {value}
+                    </Paragraph>
+                </Tag>
+            );
+        }
+    }
+
+    renderSortTag = (props: RenderItemProps) => {
+        const { id: item, sortableHandle } = props;
+        const { tagsArray } = this.state;
+        const index = tagsArray.indexOf(item as string);
+        return this.renderTag(item, index, sortableHandle);
     }
 
     onSortEnd = (callbackProps: OnSortEndProps) => {
@@ -500,9 +498,15 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
         }));
 
         if (active && draggable && sortableListItems.length > 0) {
-            // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
-            // @ts-ignore skip SortableItem type check
-            return <SortableList useDragHandle helperClass={`${prefixCls}-drag-item-move`} items={sortableListItems} onSortEnd={this.onSortEnd} axis={"xy"} />;
+            return <Sortable 
+                items={tagsArray} 
+                onSortEnd={this.onSortEnd} 
+                renderItem={this.renderSortTag} 
+                container={SortContainer}
+                prefix={prefixCls}
+                transition={null}
+                dragOverlayCls={`${prefixCls}-right-item-drag-item-move`}
+            />;
         }
         return (
             <>

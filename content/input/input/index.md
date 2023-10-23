@@ -319,6 +319,8 @@ import { TextArea } from '@douyinfe/semi-ui';
     <div>
         <TextArea autosize rows={1} />
         <br/><br/>
+        <TextArea autosize={{ minRows: 1, maxRows: 3}} />
+        <br/><br/>
         <TextArea autosize maxCount={100} />
     </div>
 );
@@ -444,7 +446,7 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | aria-label   | 设置 aria-label 属性           | string                         | -  |
 | aria-labelledby   | 设置 aria-labelledby 属性           | string                         | -  |
 | aria-required   | 设置 aria-required 属性           | string                         | -  |
-| autosize     | 是否随着自动适应内容高度           | boolean                         | false  |
+| autosize     | 是否随着自动适应内容高度，可写成对象配置最小最大行数`{minRows?: number, maxRows?: number}`<br />**从x.x.x版本起支持对象参数**           | boolean\|object                         | false  |
 | borderless        | 无边框模式  >=2.33.0                                 | boolean                         |           |
 | className    | 类名                               | string                          | -      |
 | cols         | 默认列数                           | number                          | 无     |

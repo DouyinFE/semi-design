@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-param-reassign */
-/* eslint-disable eqeqeq */
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import keyCode from '../utils/keyCode';
 import { numbers } from './constants';
@@ -177,7 +174,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                     const dotBeginStr = dotIndex > -1 ? valueAfterParser.slice(dotIndex) : '';
                     formattedNum += dotBeginStr;
                 } else if (precLength < lengthAfterDot) {
-                    // eslint-disable-next-line max-depth
                     for (let i = 0; i < lengthAfterDot - precLength; i++) {
                         formattedNum += '0';
                     }
@@ -261,7 +257,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 }
 
                 if (willSetNum != null) {
-                    // eslint-disable-next-line max-depth
                     if (!this._isControlledComponent('value')) {
                         this._adapter.setNumber(willSetNum);
                     }

@@ -20,7 +20,6 @@ const reusedTuple = [0, 0];
  * @param {number} b
  * @param {number} precision
  */
-// eslint-disable-next-line max-len
 export default function stepper(secondPerFrame: number, x: number, v: number, destX: number, k: number, b: number, precision: number) {
     // Spring stiffness, in kg / s^2
 

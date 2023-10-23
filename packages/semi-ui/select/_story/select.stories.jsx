@@ -2112,7 +2112,7 @@ class OptionGroupDemo extends React.Component {
               value: 'zhongguo',
             },
             {
-              label: 'Koera',
+              label: 'Korea',
               value: 'hanguo',
             },
           ],
@@ -2217,7 +2217,7 @@ const BlurDemo = () => {
         onFocus={onFocus}
       >
         <Select.Option value="zhongguo">China</Select.Option>
-        <Select.Option value="hanguo">Koera</Select.Option>
+        <Select.Option value="hanguo">Korea</Select.Option>
         <Select.Option value="deguo">Germany</Select.Option>
         <Select.Option value="faguo">France</Select.Option>
       </Select>
@@ -2694,7 +2694,7 @@ const FilterDefaultOpen = () => {
       >
         <Select.OptGroup label="Asia">
           <Select.Option value="a-1">China</Select.Option>
-          <Select.Option value="a-2">Koera</Select.Option>
+          <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
           <Select.Option value="b-1">Germany</Select.Option>
@@ -2716,7 +2716,7 @@ const FilterDefaultOpen = () => {
       >
         <Select.OptGroup label="Asia">
           <Select.Option value="a-1">China</Select.Option>
-          <Select.Option value="a-2">Koera</Select.Option>
+          <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
           <Select.Option value="b-1">Germany</Select.Option>
@@ -2738,7 +2738,7 @@ const FilterDefaultOpen = () => {
         onChange={val => setValue1(val)}
       >
         <Select.Option value="a-1">China</Select.Option>
-        <Select.Option value="a-2">Koera</Select.Option>
+        <Select.Option value="a-2">Korea</Select.Option>
         <Select.Option value="b-1">Germany</Select.Option>
         <Select.Option value="b-2">France</Select.Option>
         <Select.Option value="c-1">Peru</Select.Option>
@@ -3289,3 +3289,81 @@ export const Fix1584 = () => {
 }
 
 
+export const Fix1560 = () => {
+  return (
+    <div>
+      <h4>边界 case 测试</h4>
+      <h4>maxTagCount = 3，截断最后一个 tag, 加减项正常</h4>
+      <Select
+        multiple
+        maxTagCount={3}
+        ellipsisTrigger
+        showRestTagsPopover={true}
+        restTagsPopoverProps={{ position: 'top' }}
+        style={{ width: '255px' }}
+        defaultValue={['abc', 'ulikecam', "xigua"]}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+      <br /><br />
+      <h4>maxTagCount = 3，最大宽度只展示 2 个 Tag，加减项正常</h4>
+      <Select
+        multiple
+        maxTagCount={2}
+        ellipsisTrigger
+        showRestTagsPopover={true}
+        restTagsPopoverProps={{ position: 'top' }}
+        style={{ width: '240px' }}
+        defaultValue={['xigua', 'ulikecam', 'jianying', 'abc']}
+      >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying">剪映</Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    </div>
+  );
+}
+
+class VirtualizeAllowCreate extends React.Component {
+    constructor(props) {
+        super(props);
+        const taskList=[{
+            "task_id": 500333,
+            "task_name": "抖音直播间-哈哈哈",
+            "task_key": "hhh_watch_live"
+        },]
+        let newOptions = taskList.map(r=>({value:r.task_id,label:`${r.task_id} ${r.task_name}`}))
+        this.state = {
+            optionList: newOptions,
+        };
+    }
+    render() {
+        let { optionList } = this.state;
+        let virtualize = {
+            height: 270,
+            width: '100%',
+            itemSize: 36, // px
+        };
+        return (
+            <>
+                <Select
+                    allowCreate
+                    placeholder="拥有3k个Option的Select"
+                    style={{ width: 260 }}
+                    filter
+                    onSearch={this.handleSearch}
+                    virtualize={virtualize}
+                    optionList={optionList}
+                    renderCreateItem={(iv, isFocused, style) => <div style={{ padding: '6px 12px', ...style }}>输入 {iv}</div>} 
+                ></Select>
+            </>
+        );
+    }
+}
+
+// virtualize allowCreate + renderCreateItem, optionList render not as expected
+export const Fix1856 = () => (<VirtualizeAllowCreate />); 

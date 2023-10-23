@@ -97,7 +97,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
         };
         let style = { ...basicStyle, ...marginStyle[pos] };
 
-        return <div style={style}>Please upload pet certification materials</div>;
+        return <div style={style}>Please upload certification materials</div>;
     };
     const defaultFileList = [
         {
@@ -739,7 +739,7 @@ Set `hotSpotLocation` to customize the order of click hotspots, the default is a
 
 ```jsx live=true width=48%
 import React from 'react';
-import { Upload, Select } from '@douyinfe/semi-ui';
+import { Upload, Select, RadioGroup, Radio } from '@douyinfe/semi-ui';
 import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 () => {
@@ -759,13 +759,16 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
         const feature = "width=300,height=300";
         window.open(file.url, 'imagePreview', feature);
     };
-    const [hotSpotLocation, $hotSpotLocation] = useState('end');
+    const [hotSpotLocation, setLocation] = useState('end');
     return (
         <>
-            <Select value={hotSpotLocation} onChange={$hotSpotLocation} style={{ width: 120 }}>
-                <Select.Option value='start'>Start</Select.Option>
-                <Select.Option value='end'>End</Select.Option>
-            </Select>
+            <RadioGroup
+                value={hotSpotLocation}
+                type='button'
+                onChange={e => setLocation(e.target.value)}>
+                <Radio value='start'>start</Radio>
+                <Radio value='end'>end</Radio>
+            </RadioGroup>
             <hr />
             <Upload
                 action={action}
@@ -778,6 +781,84 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
                 onPreviewClick={handlePreview}
             >
                 <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+### Photo Wall With Preview
+With the Image component, through the renderThumbnail API, you can click on the image to enlarge the preview
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Image } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'music.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        }
+    ];
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                renderThumbnail={(file) => (<Image src={file.url} />)}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
+```
+
+### Photo Wall Width/Height
+By setting picHeight, picWidth (provided after v2.42), the width and height of picture wall elements can be uniformly set
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Upload } from '@douyinfe/semi-ui';
+import { IconPlus } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'image-1.jpg',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
+        }
+    ];
+    return (
+        <>
+            <Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                picHeight={110}
+                picWidth={200}
+            >
+                <IconPlus size="extra-large" style={{ margin: 4 }} />
+                Click to add picture
             </Upload>
         </>
     );
@@ -1251,6 +1332,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |onRetry | Upload retry callback | (file: <FileItem\>) => void | | 1.18.0 |
 |onSizeError | File size invalid callback| (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void | | |
 |onSuccess | Callback after successful upload| (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\> ) => void | |
+|picHeight | Set picture display height when listType='picture' | string\|number |  | 2.42.0 |
+|picWidth | Set picture display width when listType='picture' | string\|number |  | 2.42.0 |
 |previewFile | Customize the preview logic, the content returned by this function will replace the original thumbnail | (fileItem: FileItem) => ReactNode | | |
 |prompt | Custom slot, which can be used to insert prompt text. Different from writing directly in `children`, the content of `prompt` will not trigger upload when clicked.<br/>(In the picture wall mode, the incoming prompt is only supported after v1.3.0) | ReactNode | | |
 |promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |

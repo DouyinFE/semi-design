@@ -156,7 +156,11 @@ export interface BasicRenderFullLabelProps {
         expanded: boolean;
         /* Is it unfolding */
         loading: boolean
-    }
+    };
+    /* Whether the node meets the search conditions */
+    filtered: boolean | undefined;
+    /* Current search box input */
+    searchWord: string | undefined
 }
 
 export interface BasicSearchRenderProps {
@@ -218,7 +222,7 @@ export interface BasicTreeProps {
     onLoad?: (loadedKeys?: Set<string>, treeNode?: BasicTreeNodeData) => void;
     onContextMenu?: (e: any, node: BasicTreeNodeData) => void;
     onSearch?: (sunInput: string, filteredExpandedKeys: string[]) => void;
-    onSelect?: (selectedKeys: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
+    onSelect?: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
     preventScroll?: boolean;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: BasicTreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: BasicRenderFullLabelProps) => any;
@@ -674,7 +678,6 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         });
     }
 
-    // eslint-disable-next-line max-len
     handleNodeLoad(loadedKeys: Set<string>, loadingKeys: Set<string>, data: BasicTreeNodeData, resolve: (value?: any) => void) {
         const { loadData, onLoad } = this.getProps();
         const { key } = data;

@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { CSSProperties } from 'react';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
@@ -15,6 +14,7 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
+import { getScrollbarWidth } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -88,23 +88,32 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         super(props);
         this.state = { displayNone: !this.props.visible };
         this.foundation = new SideSheetFoundation(this.adapter);
+        this.bodyOverflow = '';
+        this.scrollBarWidth = 0;
+        this.originBodyWidth = '100%';
     }
 
     context: ContextValue;
+    private bodyOverflow: string;
+    private scrollBarWidth: number;
+    private originBodyWidth: string;
 
     get adapter(): SideSheetAdapter {
         return {
             ...super.adapter,
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && document) {
+                this.bodyOverflow = document.body.style.overflow || '';
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
+                    document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && document) {
-                    document.body.style.overflow = '';
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                    document.body.style.overflow = this.bodyOverflow;
+                    document.body.style.width = this.originBodyWidth;
                 }
             },
             notifyCancel: (e: React.MouseEvent | React.KeyboardEvent) => {
@@ -145,6 +154,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
     }
 
     componentDidMount() {
+        this.scrollBarWidth = getScrollbarWidth();
+        this.originBodyWidth = document.body.style.width;
         if (this.props.visible) {
             this.foundation.beforeShow();
         }
@@ -215,7 +226,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             [`${prefixCls}-hidden`]: keepDOM && this.state.displayNone,
         });
         const contentProps = {
-            ...( isVertical ? (width ? { width } : {}) : { width: "100%" }),
+            ...(isVertical ? (width ? { width } : {}) : { width: "100%" }),
             ...props,
             visible,
             motion: false,

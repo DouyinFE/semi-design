@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
@@ -7,7 +6,6 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
-// eslint-disable-next-line max-len
 import ModalContentFoundation, {
     ModalContentAdapter,
     ModalContentProps,
@@ -336,7 +334,6 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             </div>
         );
 
-        // eslint-disable-next-line max-len
         return containerContext && containerContext.Provider ?
             <containerContext.Provider value={containerContext.value}>{elem}</containerContext.Provider> : elem;
     }

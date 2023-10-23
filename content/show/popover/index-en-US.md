@@ -26,7 +26,7 @@ import { Popover } from '@douyinfe/semi-ui';
 
 Tooltip needs to apply DOM event listeners to children. If the child element is a custom component, you need to ensure that it can pass properties to the underlying DOM element 
 
-At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Tooltip supports the following types of children 
+At the same time, in order to calculate the positioning of the popup layer, it is necessary to obtain the real DOM elements of the children, so Popover supports the following types of children 
 
 1. Class Component, it is not mandatory to bind ref, but you need to ensure that props can be transparently transmitted to the real DOM node 
 2. Use the functional component wrapped by forwardRef to transparently transmit props and ref to the real DOM node in children 
@@ -549,7 +549,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to hover, focus, click, etc                                                                                                | boolean | true | **2.8.0** |
 | visible | Display popup or not                                                                                                                                                                                                                          | boolean |  |
 | position | Directions, optional values: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight`                                                                         | string | "bottom" |
-| spacing | The distance between the out layer and the children element, in px                                                                                                                                                                            | number | 4(while showArrow=false) 10(while showArrow=true) |  |
+| spacing | The distance between the out layer and the children element, in px                                                                                                                                                                            | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 4(while showArrow=false) 10(while showArrow=true) |  |
 | showArrow | Display little arrow or not                                                                                                                                                                                                                   | boolean |  |
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom`                                                                                                                                                                             | string | 'hover' |
 | stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                                               | boolean | false | **0.34.0** |

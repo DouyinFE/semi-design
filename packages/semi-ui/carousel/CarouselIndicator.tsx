@@ -27,14 +27,14 @@ class CarouselIndicator extends React.PureComponent<CarouselIndicatorProps> {
 
     handleIndicatorClick = (activeIndex: number): void => {
         const { trigger } = this.props;
-        if (trigger === 'click'){
+        if (trigger === 'click') {
             this.onIndicatorChange(activeIndex);
         }
     }
 
     handleIndicatorHover = (activeIndex: number): void => {
         const { trigger } = this.props;
-        if (trigger === 'hover'){
+        if (trigger === 'hover') {
             this.onIndicatorChange(activeIndex);
         }
     }

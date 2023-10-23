@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable prefer-destructuring, max-lines-per-function, one-var, max-len, @typescript-eslint/restrict-plus-operands */
-/* argus-disable unPkgSensitiveInfo */
 import { get, isEmpty } from 'lodash';
 import { DOMRectLikeType } from '../utils/dom';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
@@ -47,7 +44,8 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
         click: string;
         focus: string;
         blur: string;
-        keydown: string
+        keydown: string;
+        contextMenu: string
     };
     registerTriggerEvent(...args: any[]): void;
     getTriggerBounding(...args: any[]): DOMRect;
@@ -115,6 +113,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.unregisterClickOutsideHandler();
         this.unBindResizeEvent();
         this.unBindScrollEvent();
+        clearTimeout(this._timer);
     }
 
     _bindTriggerEvent(triggerEventSet: Record<string, any>) {
@@ -259,6 +258,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // when trigger type is 'custom', no need to bind eventHandler
                 // show/hide completely depend on props.visible which change by user
                 break;
+            case 'contextMenu':
+                triggerEventSet[eventNames.contextMenu] = (e) => {
+                    e.preventDefault();
+                    this.show();
+                };
+                // Click outside needs special treatment, can not be directly tied to the trigger Element, need to be bound to the document
+                break;
             default:
                 break;
         }
@@ -325,7 +331,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.insertPortal(content, { left: -9999, top: -9999 }); // offscreen rendering
 
         if (trigger === 'custom') {
-            // eslint-disable-next-line
             this._adapter.registerClickOutsideHandler(() => {});
         }
 
@@ -338,7 +343,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * Because the handler needs to be bound to the document. If you bind during the constructor phase
          * When there are multiple container instances in a page, one click triggers the handler of multiple containers
          */
-        if (trigger === 'click' || clickTriggerToHide) {
+        if (trigger === 'click' || clickTriggerToHide || trigger === 'contextMenu') {
             this._adapter.registerClickOutsideHandler(this.hide);
         }
 
@@ -367,7 +372,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     }
 
     calcTransformOrigin(position: Position, triggerRect: DOMRect, translateX: number, translateY: number) {
-        // eslint-disable-next-line
         if (position && triggerRect && translateX != null && translateY != null) {
             if (this.getProp('transformFromCenter')) {
                 if (['topLeft', 'bottomLeft'].includes(position)) {
@@ -402,12 +406,19 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             ...defaultRect,
         };
         const wrapperRect = (isEmpty(props.wrapperRect) ? props.wrapperRect : this._adapter.getWrapperBounding()) || { ...defaultRect as any };
-        // eslint-disable-next-line
         const position = props.position != null ? props.position : this.getProp('position');
-        // eslint-disable-next-line
-        const SPACING = spacing != null ? spacing : this.getProp('spacing');
+        const RAW_SPACING = spacing != null ? spacing : this.getProp('spacing');
         const { arrowPointAtCenter, showArrow, arrowBounding } = this.getProps();
         const pointAtCenter = showArrow && arrowPointAtCenter;
+
+        let SPACING = RAW_SPACING;
+        let ANO_SPACING = 0;
+        if (typeof RAW_SPACING !== 'number') {
+            // extended spacing api with {x: number, y: number}, the axes of the spacing is determined based on the position
+            const isTopOrBottom = position.includes('top') || position.includes('bottom');
+            SPACING = isTopOrBottom ? RAW_SPACING.y : RAW_SPACING.x;
+            ANO_SPACING = isTopOrBottom ? RAW_SPACING.x : RAW_SPACING.y;
+        }
 
         const horizontalArrowWidth = get(arrowBounding, 'width', 24);
         const verticalArrowHeight = get(arrowBounding, 'width', 24);
@@ -444,7 +455,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'top':
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX + ANO_SPACING;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateX = -0.5;
                 translateY = -1;
@@ -452,14 +463,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'topLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 break;
             case 'topRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
+                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateY = -1;
                 translateX = -1;
@@ -469,7 +480,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // top = middleY;
                 // left = isWidthOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
-                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight): middleY;
+                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight): middleY + ANO_SPACING;
                 translateX = -1;
                 translateY = -0.5;
                 break;
@@ -477,34 +488,34 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
-                top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top);
+                top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
                 translateX = -1;
                 break;
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow: triggerRect.left - SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight: (pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom);
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight: (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
                 translateX = -1;
                 translateY = -1;
                 break;
             case 'bottom':
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
-                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX + ANO_SPACING;
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING: triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
                 break;
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
-                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING: triggerRect.left + ANO_SPACING);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':
                 // left = pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right;
                 // top = triggerRect.bottom + SPACING;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow : triggerRect.right);
+                left = isWidthOverFlow ? containerRect.right + offsetWidth : (pointAtCenter ? middleX + offsetXWithArrow + ANO_SPACING : triggerRect.right + ANO_SPACING);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -1;
                 break;
@@ -512,20 +523,20 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // left = triggerRect.right + SPACING;
                 // top = middleY;
                 left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
-                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY;
+                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
                 translateY = -0.5;
                 break;
             case 'rightTop':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top;
                 left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
-                top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow : triggerRect.top);
+                top = isHeightOverFlow ? containerRect.top : (pointAtCenter ? middleY - offsetYWithArrow + ANO_SPACING : triggerRect.top + ANO_SPACING);
                 break;
             case 'rightBottom':
                 // left = triggerRect.right + SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
                 left = isWidthOverFlow ? containerRect.left - SPACING + offsetXWithArrow : triggerRect.right + SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom);
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
                 translateY = -1;
                 break;
             case 'leftTopOver':
@@ -600,7 +611,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         let transform = '';
 
-        // eslint-disable-next-line
         if (translateX != null) {
             transform += `translateX(${translateX * 100}%) `;
             Object.defineProperty(style, 'translateX', {
@@ -608,7 +618,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 value: translateX,
             });
         }
-        // eslint-disable-next-line
         if (translateY != null) {
             transform += `translateY(${translateY * 100}%) `;
             Object.defineProperty(style, 'translateY', {
@@ -616,7 +625,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 value: translateY,
             });
         }
-        // eslint-disable-next-line
         if (transformOrigin != null) {
             style.transformOrigin = transformOrigin;
         }
@@ -710,8 +718,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * 基于视口和容器一起判断，以下几种情况允许从原方向转到反方向，以判断是否应该由top->bottom为例子
          *
          * 1. 视口上下空间不足 且 容器上空间❌下空间✅
-         * 2. 视口上空间❌下空间✅ 且 容器上下空间不足
-         * 3. 视口上空间❌下空间✅ 且 容器上空间❌下空间✅
+         * 2. 视口上空间❌下空间✅
          * 
          * Based on the judgment of the viewport and the container, the following situations are allowed to turn from the original direction to the opposite direction
          * to judge whether it should be top->bottom as an example
@@ -719,13 +726,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
          * 2. The space above the viewport ❌ the space below ✅ and the space above and below the container is insufficient
          * 3. Viewport upper space ❌ lower space✅ and container upper space ❌ lower space✅
          */
-        return (viewOverFlow && shouldReverseContainer) || (shouldReverseView && containerOverFlow) || (shouldReverseView && shouldReverseContainer);
+        return (viewOverFlow && shouldReverseContainer) || shouldReverseView ;
     }
 
     // place the dom correctly
     adjustPosIfNeed(position: Position | string, style: Record<string, any>, triggerRect: DOMRect, wrapperRect: DOMRect, containerRect: PopupContainerDOMRect) {
         const { innerWidth, innerHeight } = window;
-        const { spacing, margin } = this.getProps();
+        const { margin } = this.getProps();
 
         const marginLeft = typeof margin === 'number' ? margin : margin.marginLeft;
         const marginTop = typeof margin === 'number' ? margin : margin.marginTop;
@@ -734,6 +741,16 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         let isHeightOverFlow = false;
         let isWidthOverFlow = false;
+
+        const raw_spacing = this.getProp('spacing');
+        let spacing = raw_spacing;
+        let ano_spacing = 0;
+        if (typeof raw_spacing !== 'number') {
+            // extended spacing api with {x: number, y: number}, the axes of the spacing is determined based on the position
+            const isTopOrBottom = position.includes('top') || position.includes('bottom');
+            spacing = isTopOrBottom ? raw_spacing.y : raw_spacing.x;
+            ano_spacing = isTopOrBottom ? raw_spacing.x : raw_spacing.y;
+        }
 
         if (wrapperRect.width > 0 && wrapperRect.height > 0) {
             // let clientLeft = left + translateX * wrapperRect.width - containerRect.scrollLeft;
@@ -772,10 +789,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldViewReverseTopOver = restClientTop - marginBottom< wrapperRect.height + spacing && clientBottom - marginTop> wrapperRect.height + spacing;
             const shouldViewReverseBottomOver = clientBottom - marginTop < wrapperRect.height + spacing && restClientTop - marginBottom > wrapperRect.height + spacing;
 
-            const shouldViewReverseTopSide = restClientTop < wrapperRect.height && clientBottom > wrapperRect.height;
-            const shouldViewReverseBottomSide = clientBottom < wrapperRect.height && restClientTop > wrapperRect.height;
-            const shouldViewReverseLeftSide = restClientLeft < wrapperRect.width && clientRight > wrapperRect.width;
-            const shouldViewReverseRightSide = clientRight < wrapperRect.width && restClientLeft > wrapperRect.width;
+            const shouldViewReverseTopSide = restClientTop < wrapperRect.height + ano_spacing && clientBottom > wrapperRect.height + ano_spacing;
+            const shouldViewReverseBottomSide = clientBottom < wrapperRect.height + ano_spacing && restClientTop > wrapperRect.height + ano_spacing;
+            const shouldViewReverseLeftSide = restClientLeft < wrapperRect.width + ano_spacing && clientRight > wrapperRect.width + ano_spacing;
+            const shouldViewReverseRightSide = clientRight < wrapperRect.width + ano_spacing && restClientLeft > wrapperRect.width + ano_spacing;
 
             const shouldReverseTopOver = restClientTop < wrapperRect.height + spacing && clientBottom > wrapperRect.height + spacing;
             const shouldReverseBottomOver = clientBottom < wrapperRect.height + spacing && restClientTop > wrapperRect.height + spacing;
@@ -804,10 +821,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldContainerReverseTopOver = this.isReverse(restClientTopInContainer - marginBottom, clientBottomInContainer - marginTop, wrapperRect.height + spacing);
             const shouldContainerReverseBottomOver = this.isReverse(clientBottomInContainer - marginTop, restClientTopInContainer - marginBottom, wrapperRect.height + spacing);
 
-            const shouldContainerReverseTopSide = this.isReverse(restClientTopInContainer, clientBottomInContainer, wrapperRect.height);
-            const shouldContainerReverseBottomSide = this.isReverse(clientBottomInContainer, restClientTopInContainer, wrapperRect.height);
-            const shouldContainerReverseLeftSide = this.isReverse(restClientLeftInContainer, clientRightInContainer, wrapperRect.width);
-            const shouldContainerReverseRightSide = this.isReverse(clientRightInContainer, restClientLeftInContainer, wrapperRect.width);
+            const shouldContainerReverseTopSide = this.isReverse(restClientTopInContainer, clientBottomInContainer, wrapperRect.height + ano_spacing);
+            const shouldContainerReverseBottomSide = this.isReverse(clientBottomInContainer, restClientTopInContainer, wrapperRect.height + ano_spacing);
+            const shouldContainerReverseLeftSide = this.isReverse(restClientLeftInContainer, clientRightInContainer, wrapperRect.width + ano_spacing);
+            const shouldContainerReverseRightSide = this.isReverse(clientRightInContainer, restClientLeftInContainer, wrapperRect.width + ano_spacing);
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
@@ -818,10 +835,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const isViewXOverFlow = this.isOverFlow(clientLeft - marginLeft, restClientRight - marginRight, wrapperRect.width + spacing);
             const isViewYOverFlowSide = this.isOverFlow(clientBottom - marginTop, restClientTop - marginBottom, wrapperRect.height + spacing);
             const isViewXOverFlowSide = this.isOverFlow(clientRight - marginLeft, restClientLeft - marginRight, wrapperRect.width + spacing);
-            const isViewYOverFlowSideHalf = this.isHalfOverFlow(clientBottom - halfHeight, restClientTop - halfHeight, wrapperRect.height / 2);
-            const isViewXOverFlowSideHalf = this.isHalfOverFlow(clientRight - halfWidth, restClientLeft - halfWidth, wrapperRect.width / 2);
-            const isViewYEnoughSideHalf = this.isHalfAllEnough(clientBottom - halfHeight, restClientTop - halfHeight, wrapperRect.height / 2);
-            const isViewXEnoughSideHalf = this.isHalfAllEnough(clientRight - halfWidth, restClientLeft - halfWidth, wrapperRect.width / 2);
+            const isViewYOverFlowSideHalf = this.isHalfOverFlow(clientBottom - halfHeight, restClientTop - halfHeight, (wrapperRect.height + ano_spacing) / 2);
+            const isViewXOverFlowSideHalf = this.isHalfOverFlow(clientRight - halfWidth, restClientLeft - halfWidth, (wrapperRect.width + ano_spacing) / 2);
+            const isViewYEnoughSideHalf = this.isHalfAllEnough(clientBottom - halfHeight, restClientTop - halfHeight, (wrapperRect.height + ano_spacing) / 2);
+            const isViewXEnoughSideHalf = this.isHalfAllEnough(clientRight - halfWidth, restClientLeft - halfWidth, (wrapperRect.width + ano_spacing) / 2);
 
             // 容器, 原空间与反向空间是否都不足判断
             // container, whether the original space and the reverse space are insufficient to judge
@@ -829,10 +846,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const isContainerXOverFlow = this.isOverFlow(clientLeftInContainer - marginLeft, restClientRightInContainer - marginRight, wrapperRect.width + spacing);
             const isContainerYOverFlowSide = this.isOverFlow(clientBottomInContainer - marginTop, restClientTopInContainer - marginBottom, wrapperRect.height + spacing);
             const isContainerXOverFlowSide = this.isOverFlow(clientRightInContainer - marginLeft, restClientLeftInContainer - marginRight, wrapperRect.width + spacing);
-            const isContainerYOverFlowSideHalf = this.isHalfOverFlow(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, wrapperRect.height / 2);
-            const isContainerXOverFlowSideHalf = this.isHalfOverFlow(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, wrapperRect.width / 2);
-            const isContainerYEnoughSideHalf = this.isHalfAllEnough(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, wrapperRect.height / 2);
-            const isContainerXEnoughSideHalf = this.isHalfAllEnough(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, wrapperRect.width / 2);
+            const isContainerYOverFlowSideHalf = this.isHalfOverFlow(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, (wrapperRect.height + ano_spacing) / 2);
+            const isContainerXOverFlowSideHalf = this.isHalfOverFlow(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, (wrapperRect.width + ano_spacing) / 2);
+            const isContainerYEnoughSideHalf = this.isHalfAllEnough(clientBottomInContainer - halfHeight, restClientTopInContainer - halfHeight, (wrapperRect.height + ano_spacing) / 2);
+            const isContainerXEnoughSideHalf = this.isHalfAllEnough(clientRightInContainer - halfWidth, restClientLeftInContainer - halfWidth, (wrapperRect.width + ano_spacing) / 2);
 
             // 综合 viewport + container 判断微调，即视口 + 容器都放置不行时才能考虑位置调整
             // Comprehensive viewport + container judgment fine-tuning, that is, the position adjustment can only be considered when the viewport + container cannot be placed.

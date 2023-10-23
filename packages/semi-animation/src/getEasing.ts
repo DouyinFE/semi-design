@@ -104,7 +104,6 @@ export default function getEasing(easing: string) {
     if (name === 'cubic-bezier' || name === 'cubicBezier') {
         return bezier(...(args.length ? args : easingMap.linear) as BezierArgs);
     } else {
-        // eslint-disable-next-line eqeqeq
         if (!name || typeof name !== 'string' || (typeof name === 'string' && easingMap[name] == null)) {
             name = 'linear';
         }

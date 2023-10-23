@@ -57,12 +57,12 @@ describe('image', () => {
         // 切换到下一张图片
         cy.get('.semi-image-preview-next').should('be.visible');
         cy.get('.semi-image-preview-next').click();
-        cy.get('.semi-image-preview-footer-page').children('span').eq(0).contains('2');
+        cy.get('.semi-image-preview-footer-page').contains('2/3');
         cy.get('.semi-image-preview').should('exist');
         // 切换到上一张图片
         cy.get('.semi-image-preview-prev').should('be.visible');
         cy.get('.semi-image-preview-prev').click();
-        cy.get('.semi-image-preview-footer-page').children('span').eq(0).contains('1');
+        cy.get('.semi-image-preview-footer-page').contains('1/3');
     });
 
     // 测试鼠标拖拽图片
@@ -523,5 +523,40 @@ describe('image', () => {
         cy.wait(5000);
         // 进入预览状态
         cy.get('.semi-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lion.jpeg');
+    });
+
+    // defaultCurrentIndex
+    it('defaultCurrentIndex', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--default-current-index&args=&viewMode=storyi');
+        cy.get('.semi-button').eq(0).click();
+        // 等待 2000 ms， 确保当前src 已经完全改变上
+        cy.wait(2000);
+        cy.get('.semi-image-preview-image-img').eq(0).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/seaside.jpeg');
+    });
+
+    // 测试懒加载
+    it('lazyLoad + lazyLoadMargin', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--lazy-load-image&args=&viewMode=storyi');
+        cy.get('.semi-image-img').eq(4).should('have.attr', 'data-src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png');
+        cy.get('.semi-image-img').eq(4).should('not.have.attr', 'src');
+        cy.get('.semi-image-preview-group').eq(0).scrollTo('bottom');
+        cy.get('.semi-image-img').eq(4).should('have.attr', 'src', 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png');
+        cy.get('.semi-image-img').eq(4).should('not.have.attr', 'data-src');
+    });
+
+    // 测试在图片高度非常小时候，图片显示是否正常
+    // 关联 issue: https://github.com/DouyinFE/semi-design/issues/1838
+    it('small height Image', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--small-height-image&args=&viewMode=storyi');
+
+        cy.get('.semi-image').eq(0) // 获取 div 元素
+            .then((divElement) => {
+                const divTop = divElement[0].getBoundingClientRect().top; // 获取 div 元素顶部相对于视口顶部的距离
+                cy.get('.semi-image-img').eq(0) // 获取 img 元素
+                    .then((imgElement) => {
+                        const imgTop = imgElement[0].getBoundingClientRect().top; // 获取 img 元素顶部相对于视口顶部的距离
+                        expect(imgTop).to.equal(divTop); 
+                    });
+            });
     });
 });

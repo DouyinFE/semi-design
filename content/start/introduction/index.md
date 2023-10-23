@@ -34,7 +34,7 @@ Semi 是如何在连贯统一的基础上，做到灵活多变的？答案是强
 
 通过对数千个设计变量 (Design Token) 的分层和梳理，设计师和开发者可在全局、乃至组件级别，对 表现层进行深度定制 —— 即使你不了解 CSS，也可以**通过主题编辑器(DSM)，打造符合业务和品牌多样化视觉需求的风格**。开发者则可通过 npm 包一键发布并替换，轻松定制，易于管理。
 
-你可以在[Semi DSM](https://semi.design/dsm/store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。
+你可以在[Semi DSM](https://semi.design/dsm_store)，查看 Semi 在抖音、剪映、飞书、火山引擎等不同品牌场景下的官方示例主题。
 
 ![全面覆盖的设计变量用例、文档与编辑器](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/p3.gif)
 
@@ -89,7 +89,7 @@ Adapter 是一个接口，具有 Foundation 实现 Semi Design 业务逻辑所�
 
 后续结合 D2C 工具，我们能够将团队从海量业务场景中沉淀的页面设计模板，低成本转换为代码模板，用户将能以极低的成本，快速完成前端页面的克隆和结构还原。
 
-![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
+![Semi 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
 ### A11y
 

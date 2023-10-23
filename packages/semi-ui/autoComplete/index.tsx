@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types, max-len */
 import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
@@ -18,6 +17,7 @@ import Trigger from '../trigger';
 import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
+import ReactDOM from 'react-dom';
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;
@@ -197,7 +197,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
     triggerRef: React.RefObject<HTMLDivElement> | null;
     optionsRef: React.RefObject<HTMLDivElement> | null;
 
-    private clickOutsideHandler: () => void | null;
+    private clickOutsideHandler: (e: Event) => void | null;
 
     constructor(props: AutoCompleteProps<T>) {
         super(props);
@@ -295,7 +295,30 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                 let { rePosKey } = this.state;
                 rePosKey = rePosKey + 1;
                 this.setState({ rePosKey });
-            }
+            },
+            registerClickOutsideHandler: cb => {
+                const clickOutsideHandler = (e: Event) => {
+                    const optionInstance = this.optionsRef && this.optionsRef.current;
+                    const triggerDom = this.triggerRef && this.triggerRef.current;
+                    const optionsDom = ReactDOM.findDOMNode(optionInstance);
+                    const target = e.target as Element;
+                    if (
+                        optionsDom &&
+                        (!optionsDom.contains(target) || !optionsDom.contains(target.parentNode)) &&
+                        triggerDom &&
+                        !triggerDom.contains(target)
+                    ) {
+                        cb(e);
+                    }
+                };
+                this.clickOutsideHandler = clickOutsideHandler;
+                document.addEventListener('mousedown', clickOutsideHandler, false);
+            },
+            unregisterClickOutsideHandler: () => {
+                if (this.clickOutsideHandler) {
+                    document.removeEventListener('mousedown', this.clickOutsideHandler, false);
+                }
+            },
         };
     }
 

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable max-len */
 import { DefaultAdapter } from '../base/foundation';
-import { Options as scrollIntoViewOptions } from 'scroll-into-view-if-needed';
+import { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
 
 export type BasicTriggerType = 'blur' | 'change' | 'custom' | 'mount';
 
@@ -13,8 +12,8 @@ export type BasicFieldError = Array<any>;
 
 export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any>, Values extends object = any> extends DefaultAdapter<P, S> {
     cloneDeep: (val: any, ...rest: any[]) => any;
-    notifySubmit: (values: any) => void;
-    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>) => void;
+    notifySubmit: (values: any, e?: any) => void;
+    notifySubmitFail: (errors: Record<keyof Values, BasicFieldError>, values: Partial<Values>, e?: any) => void;
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
@@ -66,7 +65,7 @@ export interface BaseFormApi<T extends object = any> {
     getValues: () => T;
     /** set value of multiple fields */
     setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: scrollIntoViewOptions) => void
+    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void
 }
 
 export interface CallOpts {

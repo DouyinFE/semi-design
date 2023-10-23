@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 export default function shallowEqual(a: any, b: any) {
     if (typeof a !== typeof b) {
         return false;

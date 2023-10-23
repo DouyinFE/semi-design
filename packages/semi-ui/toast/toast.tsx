@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -17,12 +16,19 @@ export interface ToastReactProps extends ToastProps {
     style?: CSSProperties;
     icon?: React.ReactNode;
     content: React.ReactNode;
-    onAnimationEnd?: (e:React.AnimationEvent) => void;
-    onAnimationStart?: (e:React.AnimationEvent) => void
+    stack?: boolean;
+    stackExpanded?: boolean;
+    onAnimationEnd?: (e: React.AnimationEvent) => void;
+    onAnimationStart?: (e: React.AnimationEvent) => void;
+    positionInList?: {
+        index: number;
+        length: number
+    }
 }
 
 class Toast extends BaseComponent<ToastReactProps, ToastState> {
 
+    toastEle: React.RefObject<HTMLDivElement> = React.createRef();
     static contextType = ConfigContext;
     static propTypes = {
         onClose: PropTypes.func,
@@ -35,6 +41,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         style: PropTypes.object,
         className: PropTypes.string,
         showClose: PropTypes.bool,
+        stack: PropTypes.bool,
+        stackExpanded: PropTypes.bool,
         icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
         direction: PropTypes.oneOf(strings.directions),
     };
@@ -46,6 +54,8 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         duration: numbers.duration,
         textMaxWidth: 450,
         showClose: true,
+        stack: false,
+        stackExpanded: false,
         theme: 'normal'
     };
 
@@ -125,36 +135,49 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         textStyle.maxWidth = textMaxWidth;
         const btnTheme = 'borderless';
         const btnSize = 'small';
-        return (
-            <div
-                role="alert"
-                aria-label={`${type ? type : 'default'} type`}
-                className={toastCls}
-                style={style}
-                onMouseEnter={this.clearCloseTimer}
-                onMouseLeave={this.startCloseTimer}
-                onAnimationStart={this.props.onAnimationStart}
-                onAnimationEnd={this.props.onAnimationEnd}
-            >
-                <div className={`${prefixCls}-content`}>
-                    {this.renderIcon()}
-                    <span className={`${prefixCls}-content-text`} style={textStyle} x-semi-prop="content">
-                        {content}
-                    </span>
-                    {showClose && (
-                        <div className={`${prefixCls}-close-button`}>
-                            <Button
-                                onClick={e => this.close(e)}
-                                type="tertiary"
-                                icon={<IconClose x-semi-prop="icon" />}
-                                theme={btnTheme}
-                                size={btnSize}
-                            />
-                        </div>
-                    )}
-                </div>
+
+        const reservedIndex = this.props.positionInList ? ( this.props.positionInList.length - this.props.positionInList.index - 1) : 0;
+        const toastEle = <div
+            ref={this.toastEle}
+            role="alert"
+            aria-label={`${type ? type : 'default'} type`}
+            className={toastCls}
+            style={{
+                ...style,
+                transform: `translate3d(0,0,${reservedIndex*-10}px)`,
+            }}
+            onMouseEnter={this.clearCloseTimer}
+            onMouseLeave={this.startCloseTimer}
+            onAnimationStart={this.props.onAnimationStart}
+            onAnimationEnd={this.props.onAnimationEnd}
+        >
+            <div className={`${prefixCls}-content`}>
+                {this.renderIcon()}
+                <span className={`${prefixCls}-content-text`} style={textStyle} x-semi-prop="content">
+                    {content}
+                </span>
+                {showClose && (
+                    <div className={`${prefixCls}-close-button`}>
+                        <Button
+                            onClick={e => this.close(e)}
+                            type="tertiary"
+                            icon={<IconClose x-semi-prop="icon" />}
+                            theme={btnTheme}
+                            size={btnSize}
+                        />
+                    </div>
+                )}
             </div>
-        );
+        </div>;
+        if (this.props.stack) {
+            const height = this.props.stackExpanded && this.toastEle.current && getComputedStyle(this.toastEle.current).height || 0;
+            return <div className={`${prefixCls}-zero-height-wrapper`} style={{ height }}>
+                {toastEle}
+            </div>;
+        } else {
+            return toastEle;
+        }
+        
     }
 }
 

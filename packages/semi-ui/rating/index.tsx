@@ -140,7 +140,6 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
             },
             getStarDOM: (index: number) => {
                 const instance = this.stars && this.stars[index];
-                // eslint-disable-next-line react/no-find-dom-node
                 return ReactDOM.findDOMNode(instance) as Element;
             },
             notifyHoverChange: (hoverValue: number, clearedValue: number) => {

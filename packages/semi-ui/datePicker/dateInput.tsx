@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -127,7 +125,6 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
     }
 
     formatText(value: ValueType) {
-        // eslint-disable-next-line max-len
         return value && (value as BaseValueType[]).length ? this.foundation.formatShowText(value as BaseValueType[]) : '';
     }
 
@@ -284,7 +281,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                         onChange={(rangeStartValue, e) => this.handleRangeInputChange(rangeStartValue, rangeEnd, e)}
                         onEnterPress={e => this.handleRangeInputEnterPress(e, rangeStart, rangeEnd)}
                         onFocus={e => this.handleRangeInputFocus(e as any, 'rangeStart')}
-                        autofocus={autofocus} // autofocus moved to range start
+                        autoFocus={autofocus} // autofocus moved to range start
                         ref={rangeInputStartRef}
                     />
                 </div>
@@ -465,7 +462,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
                 value={text}
                 validateStatus={validateStatus}
                 prefix={prefix}
-                autofocus={autofocus}
+                autoFocus={autofocus}
                 size={size}
                 onBlur={onBlur as any}
                 onFocus={onFocus as any}

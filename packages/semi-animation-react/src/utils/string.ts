@@ -1,8 +1,6 @@
-/* eslint-disable eqeqeq */
 export function upperCase(str: string, pos: number) {
     if (typeof str === 'string') {
         return str
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             .split()
             .reduce(
@@ -16,7 +14,6 @@ export function upperCase(str: string, pos: number) {
 export function lowerCase(str: string, pos: number) {
     if (typeof str === 'string') {
         return str
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             .split()
             .reduce(

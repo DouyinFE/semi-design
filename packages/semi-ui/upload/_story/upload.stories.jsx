@@ -9,8 +9,8 @@ export default {
   title: 'Upload'
 }
 
-let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
-// let action = 'https://127.0.0.1:3000/upload/';
+// let action = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
+let action = 'https://api.semi.design/upload';
 // action = 'https://jsonplaceholder.typicode.com/posts/';
 let actionFail = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
 let apiNotExist = 'https://run.mocky.io/v3/d6ac5c9e-4d39-4309-a747-7ed3b5694859';
@@ -350,21 +350,19 @@ ControlledFileList.story = {
   name: 'controlled fileList',
 };
 
-let kb1 = 1024 * 1024;
-let kb2 = kb1 * 2;
-let mb1 = kb1 * 1024;
-
 export const MaxSizeAndMinSize = () => (
   <>
     <Upload
       {...commonProps}
       action={action}
-      maxSize={mb1}
-      minSize={kb2}
+      maxSize={1024}
+      minSize={2}
+      showReplace
+      defaultFileList={defaultFileList.slice(0, 1)}
       onSizeError={(file, fileList) => Toast.error(`${file.name} size invalid`)}
     >
       <Button icon={<IconUpload />} theme="light">
-        点击上传（最小200kB，最大1MB）
+        点击上传（最小2kB，最大1MB）
       </Button>
     </Upload>
   </>
@@ -415,6 +413,42 @@ export const PictureListTypeWithDefaultFileList = () => (
 
 PictureListTypeWithDefaultFileList.story = {
   name: 'picture listType with default file list',
+};
+
+export const PictureListTypeWithCustomHeightWidth = () => {
+  const urls = [
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg",
+  ];
+  const list = defaultFileList.map((item, i) => {
+    let newItem = {...item};
+    newItem.url = urls[i];
+    return newItem;
+  });
+  return (
+    <>
+      <Upload
+        {...commonProps}
+        showReplace={false}
+        action={action}
+        listType="picture"
+        accept="image/*"
+        picHeight={110}
+        picWidth={200}
+        defaultFileList={list}
+      >
+        <React.Fragment>
+          <IconPlus size="extra-large" />
+        </React.Fragment>
+      </Upload>
+    </>
+  )
+};
+
+PictureListTypeWithCustomHeightWidth.story = {
+  name: 'picture listType with custom height width',
 };
 
 class ManulUploadDemo extends React.Component {
@@ -965,7 +999,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -977,7 +1011,7 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept="image/*"
-      maxSize={mb1}
+      maxSize={1024}
       minSize={0}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
@@ -989,8 +1023,8 @@ export const TestReplaceFunc = () => (
       {...commonProps}
       action={action}
       accept=".md,image/*,video/*"
-      maxSize={mb1}
-      minSize={kb2}
+      maxSize={1024}
+      minSize={200}
       transformFile={(fileInstance)=>{return fileInstance;}}
     >
       <Button icon={<IconUpload />} theme="light">
@@ -1048,7 +1082,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1064,7 +1098,7 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
+                    maxSize={1024}
                     minSize={0}
                     limit={2}
                     transformFile={(fileInstance)=>{return fileInstance;}}
@@ -1081,8 +1115,8 @@ class InsertUpload extends React.Component {
                     onSuccess={(...v) => console.log(...v)}
                     onError={(...v) => console.log(...v)}
                     onFileChange={this.onFileChange}
-                    maxSize={mb1}
-                    minSize={kb2}
+                    maxSize={1024}
+                    minSize={200}
                     limit={1}
                     transformFile={(fileInstance)=>{return fileInstance;}}
                 >
@@ -1149,4 +1183,94 @@ export const ClickToOpenUploadDemo = () => <ClickToOpenUpload></ClickToOpenUploa
 
 ClickToOpenUploadDemo.story = {
   name: 'click to open upload demo',
+};
+
+
+
+const PreviewFallbackDemo = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'test.pdf',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/githubdemo/collapse.pdf',
+        },
+        {
+            uid: '2',
+            name: 'normal.png',
+            status: 'success',
+            size: '120KB',
+            preview:true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png'
+        }
+    ];
+
+    const SmartPreview = (props) => {
+        const [src, setSrc] = useState(props.src);
+        const fallback = () => {
+            setSrc('https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg')
+        };
+        return <img src={src} onError={fallback} />
+    };
+
+    const  previewFile = (file) => {
+        return <SmartPreview src={file.url} />
+    };
+
+    return (
+      <>
+          <Upload
+              defaultFileList={defaultFileList}
+              action={action}
+              // previewFile={previewFile}
+          >
+              <Button icon={<IconUpload />} theme="light">
+                  点击上传
+              </Button>
+          </Upload>
+          <Upload
+              listType='picture'
+              defaultFileList={defaultFileList}
+              action={action}
+              // renderThumbnail={previewFile}
+          >
+             <IconPlus size="extra-large" />
+          </Upload>
+        </>
+    );
+};
+
+export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>;
+
+PreviewFallback.story = {
+  name: 'preview other type',
+};
+
+
+export const PastingDemo = () => {
+  return (
+    <div style={{ width: 800, height: 500 }}>
+      <Upload
+        addOnPasting
+        action={action}
+        // {...commonProps}
+        onChange={(e) => console.log(e)}
+      >
+        <Button>点击或粘贴上传</Button>
+      </Upload>
+      <Button
+        type='danger'
+        theme='solid'
+        onClick={() => {
+          navigator.clipboard
+          .write([])
+          .then(() => alert('clear'))
+          .catch(error => console.log(error))
+      }}>清空clipboard</Button>
+    </div>
+
+  )
 };

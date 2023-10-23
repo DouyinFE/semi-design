@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
 import React, { isValidElement, cloneElement, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
@@ -62,7 +61,7 @@ export interface TooltipProps extends BaseProps {
     prefixCls?: string;
     onVisibleChange?: (visible: boolean) => void;
     onClickOutSide?: (e: React.MouseEvent) => void;
-    spacing?: number;
+    spacing?: number | { x: number; y: number };
     margin?: number | { marginLeft: number; marginTop: number; marginRight: number; marginBottom: number };
     showArrow?: boolean | React.ReactNode;
     zIndex?: number;
@@ -134,7 +133,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         prefixCls: PropTypes.string,
         onVisibleChange: PropTypes.func,
         onClickOutSide: PropTypes.func,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         margin: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         showArrow: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
         zIndex: PropTypes.number,
@@ -231,10 +230,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     get adapter(): TooltipAdapter<TooltipProps, TooltipState> {
         return {
             ...super.adapter,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             on: (...args: any[]) => this.eventManager.on(...args),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
@@ -263,7 +260,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 click: 'onClick',
                 focus: 'onFocus',
                 blur: 'onBlur',
-                keydown: 'onKeyDown'
+                keydown: 'onKeyDown',
+                contextMenu: 'onContextMenu',
             }),
             registerTriggerEvent: (triggerEventSet: Record<string, any>) => {
                 this.setState({ triggerEventSet });
@@ -272,7 +270,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.setState({ portalEventSet });
             },
             getTriggerBounding: () => {
-                // eslint-disable-next-line
                 // It may be a React component or an html element
                 // There is no guarantee that triggerE l.current can get the real dom, so call findDOMNode to ensure that you can get the real dom
                 const triggerDOM = this.adapter.getTriggerNode();
@@ -540,8 +537,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const bgColor = get(style, 'backgroundColor');
 
         const iconComponent = placement.includes('left') || placement.includes('right') ?
-            <TriangleArrowVertical/> :
-            <TriangleArrow/>;
+            <TriangleArrowVertical /> :
+            <TriangleArrow />;
         if (showArrow) {
             if (isValidElement(showArrow)) {
                 icon = showArrow;
@@ -641,7 +638,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                                 ...(displayNone ? { display: "none" } : {}),
                                 transformOrigin,
                                 ...style,
-                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" }:{}) 
+                                ...(userOpacity ? { opacity: isPositionUpdated ? opacity : "0" } : {})
                             }}
                             {...portalEventSet}
                             {...animationEventsNeedBind}
@@ -682,10 +679,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { wrapperClassName } = this.props;
         const display = get(elem, 'props.style.display');
         const block = get(elem, 'props.block');
+        const isStringElem = typeof elem == 'string';
 
-        const style: React.CSSProperties = {
-            display: 'inline-block',
-        };
+        const style: React.CSSProperties = {};
+
+        if (!isStringElem) {
+            style.display = 'inline-block';
+        }
 
         if (block || blockDisplays.includes(display)) {
             style.width = '100%';
@@ -719,7 +719,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const { isInsert, triggerEventSet, visible, id } = this.state;
         const { wrapWhenSpecial, role, trigger } = this.props;
         let { children } = this.props;
-        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties } ;
+        const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties };
         const extraStyle: React.CSSProperties = {};
 
         if (wrapWhenSpecial) {
@@ -744,7 +744,6 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             }
         }
 
-        // eslint-disable-next-line prefer-const
         let ariaAttribute = {};
 
         // Take effect when used by Popover component

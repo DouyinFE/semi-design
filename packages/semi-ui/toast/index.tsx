@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
@@ -46,10 +45,14 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
         onClose: PropTypes.func,
         icon: PropTypes.node,
         direction: PropTypes.oneOf(strings.directions),
+        stack: PropTypes.bool,
     };
 
     static defaultProps = {};
     static wrapperId: null | string;
+    stack: boolean = false;
+
+    innerWrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
 
     constructor(props: ToastListProps) {
         super(props);
@@ -57,6 +60,7 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             list: [],
             removedItems: [],
             updatedItems: [],
+            mouseInSide: false
         };
         this.foundation = new ToastListFoundation(this.adapter);
     }
@@ -67,7 +71,28 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             updateToast: (list: ToastInstance[], removedItems: ToastInstance[], updatedItems: ToastInstance[]) => {
                 this.setState({ list, removedItems, updatedItems });
             },
+            handleMouseInSideChange: (mouseInSide: boolean) => {
+                this.setState({ mouseInSide });
+            },
+            getInputWrapperRect: () => {
+                return this.innerWrapperRef.current?.getBoundingClientRect();
+            }
         };
+    }
+
+    handleMouseEnter = (e: React.MouseEvent) => {
+        if (this.stack) {
+            this.foundation.handleMouseInSideChange(true);
+        } 
+    }
+
+    handleMouseLeave = (e: React.MouseEvent) => {
+        if (this.stack) {
+            const height = this.foundation.getInputWrapperRect()?.height;
+            if (height) {
+                this.foundation.handleMouseInSideChange(false);
+            } 
+        }
     }
 
     static create(opts: ToastReactProps) {
@@ -95,13 +120,14 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             } else {
                 document.body.appendChild(div);
             }
-            ReactDOM.render(React.createElement(
+            ReactDOM.render(React.createElement( 
                 ToastList,
                 { ref: instance => (ToastList.ref = instance) }
             ),
             div,
             () => {
                 ToastList.ref.add({ ...opts, id });
+                ToastList.ref.stack = Boolean(opts.stack);
             });
         } else {
             const node = document.querySelector(`#${this.wrapperId}`) as HTMLElement;
@@ -110,6 +136,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
                     node.style[pos] = typeof opts[pos] === 'number' ? `${opts[pos]}px` : opts[pos];
                 }
             });
+            if (Boolean(opts.stack) !== ToastList.ref.stack) {
+                ToastList.ref.stack = Boolean(opts.stack);
+            }
             if (ToastList.ref.has(id)) {
                 ToastList.ref.update(id, { ...opts, id });
             } else {
@@ -212,27 +241,31 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
 
         const refFn: React.LegacyRef<Toast> = (toast) => {
             if (toast?.foundation?._id && updatedIds.includes(toast.foundation._id)) {
-                toast.foundation.setState({ duration: toast.props.duration });
                 toast.foundation.restartCloseTimer();
             }
         };
 
         return (
             <React.Fragment>
-                {list.map((item, index) =>{
-                    const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
-                    return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
-                        {
-                            ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
-                                return (isRemoved && !isAnimating) ? null : <Toast {...item} className={cls({
-                                    [item.className]: Boolean(item.className),
-                                    [animationClassName]: true
-                                })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
+                <div className={cls({
+                    [`${cssClasses.PREFIX}-innerWrapper`]: true,
+                    [`${cssClasses.PREFIX}-innerWrapper-hover`]: this.state.mouseInSide
+                })} ref={this.innerWrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+                    {list.map((item, index) =>{
+                        const isRemoved = removedItems.find(removedItem=>removedItem.id===item.id) !== undefined;
+                        return <CSSAnimation key={item.id} motion={item.motion} animationState={isRemoved?"leave":"enter"} startClassName={isRemoved?`${cssClasses.PREFIX}-animation-hide`:`${cssClasses.PREFIX}-animation-show`}>
+                            {
+                                ({ animationClassName, animationEventsNeedBind, isAnimating })=>{
+                                    return (isRemoved && !isAnimating) ? null : <Toast {...item} stack={this.stack} stackExpanded={this.state.mouseInSide} positionInList={{ length: list.length, index }} className={cls({
+                                        [item.className]: Boolean(item.className),
+                                        [animationClassName]: true
+                                    })} {...animationEventsNeedBind} style={{ ...item.style }} close={id => this.remove(id)} ref={refFn} />;
+                                }
                             }
-                        }
-                    </CSSAnimation>;
-                }
-                )}
+                        </CSSAnimation>;
+                    }
+                    )}
+                </div>
             </React.Fragment>
         );
     }

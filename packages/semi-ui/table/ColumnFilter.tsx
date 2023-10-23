@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable eqeqeq */
 import React, { isValidElement } from 'react';
 import cls from 'classnames';
 import { noop } from 'lodash';
@@ -124,7 +122,7 @@ function renderDropdown(props: RenderDropdownProps = {}, nestedElem: React.React
     }
 
     return (
-        <Dropdown {...dropdownProps} key={`Dropdown_level_${level}`}>
+        <Dropdown {...dropdownProps} key={`Dropdown_level_${level}`} className={`${cssClasses.PREFIX}-column-filter-dropdown`}>
             {nestedElem}
         </Dropdown>
     );

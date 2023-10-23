@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import { Animation } from '@douyinfe/semi-animation-react';
 import './style.scss';

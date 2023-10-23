@@ -121,6 +121,177 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.45.0 (2023-10-20)
+- 【Fix】
+    - resizable Table width reset to initial bug（Affected v2.32~v2.44）
+    - Fixed the problem of incorrect update of select ellipsisTrigger under certain boundary conditions
+    - Fixed the problem of asynchronous loading of data in Tree/TreeSelect where checkRelation is unRelated, causing the selected status to be lost.
+    - Fix the issue of selecting ellipsisTrigger displaying more quantities incorrectly [#1560](https://github.com/DouyinFE/semi-design/issues/1560) [@Jon-Millent](https://github.com/Jon-Millent)
+
+#### 🎉 2.45.0-beta.0 (2023-10-13)
+- 【Fix】
+    - Fixed the problem that when Select virtualization and renderCreateItem are used at the same time, the display position of custom creation options is incorrect.  [#1856](https://github.com/DouyinFE/semi-design/issues/1856)
+    - Remove the redundant comparison of whether TreeData has changed in getDerivedState of TreeSelect/Tree
+- 【Design Token】
+    - Anchor add $color-anchor_title_active-text-hover $color-anchor_title-bg $color-anchor_title_active-bg
+    - Datepicker Add $color-datepicker_range_trigger-border-focus
+- 【Feat】
+    - Notification support modify exist notification content.
+    - Tooltip API spacing supports defining distances on two axes
+    - Textarea `autosize` support object prop `{minRows: number, maxRows: number}` [@hehehai](https://github.com/hehehai)
+
+#### 🎉 2.44.0 (2023-09-22)
+- 【Fix】
+    - Fix the problem of incomplete display/non-display of Image  when the height is very small [#1838](https://github.com/DouyinFE/semi-design/issues/1838)
+    - Fixed the issue of incorrect styles of some Step pseudo-classes [#1836](https://github.com/DouyinFE/semi-design/pull/1836)
+
+#### 🎉 2.44.0-beta.0 (2023-09-19)
+- 【Feat】
+  - Cascader's search results panel supports virtualization [#1815](https://github.com/DouyinFE/semi-design/pull/1815)
+  - Tag added API: suffixIcon, prefixIcon [#1832](https://github.com/DouyinFE/semi-design/pull/1832)
+- 【Fix】
+  - Fixed the problem of abbreviated text failure when the display of wrapped span is set to inline-block when the default text content of Tooltip is set [#1831](https://github.com/DouyinFE/semi-design/issues/1831)
+  - Update tooltip autoAdjustOverflow strategy. When there is insufficient space in the original direction of the viewport and sufficient reverse space, it will be uniformly converted to the reverse direction [#1812](https://github.com/DouyinFE/semi-design/pull/1812)
+  
+#### 2.43.2 (2023-09-15)
+- 【Style】
+  - When the Popconfirm icon is null, the body part does not retain the marginLeft left spacing. [#1828](https://github.com/DouyinFE/semi-design/pull/1828)
+  - Table column filter Dropdown increases the default maximum height to 290px [#1647](https://github.com/DouyinFE/semi-design/issues/1647)
+- 【Design Token】
+  - Table add new token： $height-table_column_filter_dropdown
+- 【Fix】
+  - Fix the problem that the rendering result of Calendar month view event does not meet expectations [#1825](https://github.com/DouyinFE/semi-design/issues/1825) 
+
+#### 2.43.1 (2023-09-11)
+- 【Fix】
+  - Fix Popover Trigger  ContextMenu dts error [#1819](https://github.com/DouyinFE/semi-design/issues/1819)
+  - fix portal not popup in React18 strict mode [#1769](https://github.com/DouyinFE/semi-design/issues/1769)
+
+#### 2.43.0 (2023-09-08)
+- 【Fix】
+  - Fix the problem that Chinese input cannot be displayed normally in the Firefox browser (affecting versions 2.26.0~2.42.4)  [#1810](https://github.com/DouyinFE/semi-design/issues/1810)
+  - Fixed the problem of ImagePreview scrolling container and viewport images not loading in lazyLoad mode [#1817](https://github.com/DouyinFE/semi-design/pull/1817)
+
+#### 🎉 2.43.0-beta.0 (2023-09-04)
+- 【Feat】
+    - The renderFullLabel callback of Tree and TreeSelect adds filtered and searchWord parameters
+    - Upload new API: addOnPasting,  supports reading the pictures in the pasteboard and automatically adding to fileList [@ChuTingzj](https://github.com/ChuTingzj)  [#1612](https://github.com/DouyinFE/semi-design/issues/1612)
+- 【Fix】
+    - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
+    - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
+
+#### 🎉 2.42.2 (2023-08-28)
+- 【Fix】
+    - Fix the problem that when the image file name has a query parameter, the image cannot be opened due to the wrong file name after downloading [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)
+    - Fix Typography under the Js ellipsis strategy. When it is judged not to truncate, an unexpected tooltip will still appear when the mouse moves into the content [#1788](https://github.com/DouyinFE/semi-design/pull/1788)
+    - Fix the problem that the OverflowList component reports a warning in some scene keys [#1786](https://github.com/DouyinFE/semi-design/pull/1786)
+    - Fix the problem of memory leaks in some scenes of pop-up layer components and Navigation Thanks [@boliangleung](https://github.com/boliangleung) [#1785](https://github.com/DouyinFE/semi-design/pull/1785)
+
+#### 🎉 2.42.1 (2023-08-25)
+- 【Style】
+    - Set the font-family of the inset label of datePicker to $font-family-regular, consistent with the inset label of other components [#1780](https://github.com/DouyinFE/semi-design/pull/1780)
+
+#### 🎉 2.42.0-beta.0 (2023-08-21)
+- 【Feat】
+    - Form add API: stopValidateWithError 、trigger，allow unified configuration of stopValidateWithError and trigger properties of all Fields  [#640](https://github.com/DouyinFE/semi-design/issues/640)
+    - Tooltip、Popover、Dropdown add trigger=contextMenu support right click to show  [#396](https://github.com/DouyinFE/semi-design/issues/396)
+    - Table column support resize prop #1762  [#1650](https://github.com/DouyinFE/semi-design/issues/1650)
+    - Upload adds picWidth and picHeight to quickly set the width and height of pictures in picture wall mode  [#1757](https://github.com/DouyinFE/semi-design/issues/1757)
+    - Split Button supports deep nested Button [#487](https://github.com/DouyinFE/semi-design/issues/487)
+    - Toast add stack mode, improve the display experience when multiple toasts at the same time [#1746](https://github.com/DouyinFE/semi-design/pull/1746)
+- 【Fix】
+    - Fix InputNumber formatter error in controlled mode  [#1672](https://github.com/DouyinFE/semi-design/issues/1672)
+    - fix collapse aria-owns in SSR not match with server result.  [#1763](https://github.com/DouyinFE/semi-design/issues/1763)
+    - When Upload preview is true, add previews for other types of files to prevent pdf and other types of files from displaying x-cracked images when loading fails
+- 【Style】
+    - When Tree/TreeSelect enables search and treeNodeFilterProp is not label, only the search content is highlighted  instead of the entire line  [#1711](https://github.com/DouyinFE/semi-design/issues/1711)
+    - Typography when ellipsis showTooltip is set to popover, remove the default 240px width, which is consistent with popover alone  [#1766](https://github.com/DouyinFE/semi-design/issues/1766)
+
+#### 🎉 2.41.3 (2023-08-17)
+- 【Style】
+  - Select loading wrapper adds an explicit box-sizing statement to prevent the loading display height from being incorrect in some special cases（for example, when the box-sizing of all DOMs is globally reset to border-box [#1507](https://github.com/DouyinFE/semi-design/issues/1507)
+- 【Chore】
+  - Table dependence: react-resizable version update from v1 to v3 [#1768](https://github.com/DouyinFE/semi-design/pull/1768) [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+
+#### 🎉 2.41.2 (2023-08-14)
+- 【Fix】
+  - fixed Table column not aligned when header is sticky [#1760](https://github.com/DouyinFE/semi-design/issues/1760)
+
+
+#### 🎉 2.41.1 (2023-08-11)
+- 【Feat】
+  - Slider Add onMouseUp API
+- 【Fix】
+  - Fix the problem that the handle always follows the mouse in the scene where the Slider mouse moves out of the window and then lets go and then moves back [#1412](https://github.com/DouyinFE/semi-design/issues/1412)
+  - SideSheet adds automatic calculation of scroll bar width logic to prevent the content behind the mask from shaking when it pops up
+  - Fix the incorrect case of Input and TextArea autoFoucs
+
+#### 🎉 2.41.0-beta.0 (2023-08-07)
+- 【Refactor】
+    - change react-sortable-hoc to @dnd-kit/sortable for Transfer/Taginput drag & drop [#1683](https://github.com/DouyinFE/semi-design/issues/1683)
+- 【Style】
+    - The interaction of the Taginput dragging process has been modified, from the change of the tag position in the original dragging to the vertical line in front of the tag to mark the position where the tag in the dragging can be dropped. TagInput adds drag-related tokens, $width-tagInput_sortable_item_over, $color-tagInput_sortable_item_over-bg [#1738](https://github.com/DouyinFE/semi-design/pull/1738)
+- 【Fix】
+    - fix wrong type definition for defaultCurrentIndex in ImagePreview
+    - fix document is not defined error [@nekocode](https://github.com/nekocode)
+
+#### 🎉 2.40.0 (2023-07-28)
+- 【Style】
+    - Remove unnecessary margin in button component [#1732](https://github.com/DouyinFE/semi-design/pull/1732)
+    - Skeleton's default rounded corners changed from 4px to --semi-border-radius-small(3px) [#1739](https://github.com/DouyinFE/semi-design/pull/1739)
+
+#### 🎉 2.40.0-beta.0 (2023-07-25)
+- 【Feat】
+    - Form onSubmit, onSubmitFail add event parameters to reveal [#1728](https://github.com/DouyinFE/semi-design/issues/1728)
+    - Image's renderPreview Menu API supports menuItems parameter
+    - Image, ImagePreview provide setDownloadName API to support setting the download file name
+- 【Fix】
+    - Fix the problem that all pop-up components mount Children to delay a macro task [#1703](https://github.com/DouyinFE/semi-design/issues/1703)
+    - Fix the problem that when TimePicker is controlled and the type is timeRange, the start time is automatically filled with the current time after selecting the end time twice [#1716](https://github.com/DouyinFE/semi-design/issues/1716)
+    - Fix the problem that TimePicker set the value to undefined under controlled conditions but displayed the current time
+    - Fix the problem that Upload will upload the submitted files repeatedly when calling the ref method to upload manually [@nekocode](https://github.com/nekocode) [#1720](https://github.com/DouyinFE/semi-design/issues/1720)
+- 【Style】
+    - Adjust the spacing between Radio addon and extra from 0 to 4px
+- 【Design Token】
+    - New Token for Radio: $spacing-radio_content-rowGap
+#### 🎉 2.39.3 (2023-07-25)
+- 【Fix】
+    - Fix the problem that the Tree component will re-render every time it is rendered in the virtual environment [#1725](https://github.com/DouyinFE/semi-design/issues/1725)
+
+#### 🎉 2.39.2 (2023-07-19)
+- 【Fix】
+  - Fixed the problem that the size check was not performed correctly when using replace to replace the new file after uploading a legal file during Upload showReplace [#1712](https://github.com/DouyinFE/semi-design/issues/1712)
+- 【Perf】
+  - Optimize the Pagination small size to show the problem of lag when the data is at the level of 100 million [#1714](https://github.com/DouyinFE/semi-design/pull/1714)
+- 【Chore】
+  - Unify the case of the imported type ScrollIntoViewOptions in Form Foundation [#1713](https://github.com/DouyinFE/semi-design/pull/1713) [@rashagu](https://github.com/rashagu)
+
+#### 🎉 2.39.1 (2023-07-18)
+- 【Fix】
+    - Fix the problem that the values input parameter in Form validate.then() is not scope isolated and will be affected by Field DOM mount and unmount [#1710](https://github.com/DouyinFE/semi-design/pull/1710)
+
+#### 🎉 2.39.0 (2023-07-14)
+- 【Fix】
+  - Semi Webpack Plugin modifies the logic related to animation.scss referenced by theme loader, which is compatible with some special directory organizations in pnpm scenarios [#1704](https://github.com/DouyinFE/semi-design/pull/1704)
+  - Remove the flex-wrap on the outermost side of the Checkbox [#1700](https://github.com/DouyinFE/semi-design/pull/1700)
+- 【Style】
+  - Remove disabled switch knob transformX when in active status [#1697](https://github.com/DouyinFE/semi-design/pull/1697)
+
+#### 🎉 2.39.0-beta.0 (2023-07-10)
+- 【Style】
+    - Fix the problem that the content exceeds the trigger box when displaying a long label in TreeSelect  [#623](https://github.com/DouyinFE/semi-design/issues/623)
+- 【Fix】
+    - Fix the problem that Anchor cannot jump when clicked in some scenarios [#1688](https://github.com/DouyinFE/semi-design/pull/1688)
+#### 🎉 2.38.2 (2023-07-10)
+- 【Fix】
+    - Fixed the problem that the height was not recalculated when the TextArea placeholder was dynamically updated [@nekocode](https://github.com/nekocode) [#1690](https://github.com/DouyinFE/semi-design/pull/1690)
+- 【Docs】
+    - Fix the links to the zh-CN version in english docs [@ederzz](https://github.com/ederzz) [#1691](https://github.com/DouyinFE/semi-design/pull/1691)
+
+#### 🎉 2.38.1 (2023-07-05)
+- 【Fix】
+    - Fix the problem that when the AutoComplete panel is open, the option panel cannot be closed by clicking outside, the scope of influence (2.38.0)
+
 #### 🎉 2.38.0 (2023-06-30)
 - 【Fix】
     - Fix the problem that AutoComplete cannot be selected by long pressing, and onSelect is not triggered [#1665](https://github.com/DouyinFE/semi-design/issues/1665)
@@ -219,7 +390,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.34.0 (2023-04-28)
 - 【Fix】
   - Fixed the issue where Table SSR was not rendering correctly [#1466](https://github.com/DouyinFE/semi-design/issues/1466)
-  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575)
+  - Fixed the issue where Form.InputGroup was not controlled by Form disabled [#1575](https://github.com/DouyinFE/semi-design/pull/1575) [@xiaoqqchen](https://github.com/xiaoqqchen)
   - Fixed the issue where Typography was truncating incorrectly when the parent or itself was set to white-space: nowrap [#1577](https://github.com/DouyinFE/semi-design/issues/1577)
   - Fixed the issue where Image src changes in lazy loading mode, and the image cannot be loaded normally [#1526](https://github.com/DouyinFE/semi-design/issues/1526)
 
@@ -239,18 +410,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Style】
   - The default word wrap style of Table text is changed from break-all to break-word  [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
   - Changed the spacing between icon and text in BreadCrumb from 8px to 4px（Affects v2.0.0～v2.33.1）
-  
+- 【Breaking Change】
+  - **In order to solve the word wrapping problem, the Table word break style is modified from break-all to break-word. If a column of a non-fixed table is set to a fixed width, the cell text in this column will originally be folded, but will now be stretched and displayed, causing the width of other columns to be reduced** [#1318](https://github.com/DouyinFE/semi-design/issues/1318)
+
+
 #### 🎉 2.33.1 (2023-04-21)
--【Fix】
-     - Fixed the issue that Popover StopPropagation did not stop the bubbling of the focus and blur triggered in the Portal layer [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
-     - Fix the problem of Input reporting error about noBg props, the scope of influence is 2.33.0-beta.0 - 2.33.0
-     - Fix Fix the indent problem when Table hideExpandedColumn is false [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
+- 【Fix】
+    - Fixed the issue that Popover StopPropagation did not stop the bubbling of the focus and blur triggered in the Portal layer [#1557](https://github.com/DouyinFE/semi-design/pull/1559)
+    - Fix the problem of Input reporting error about noBg props, the scope of influence is 2.33.0-beta.0 - 2.33.0
+    - Fix Fix the indent problem when Table hideExpandedColumn is false [#1556](https://github.com/DouyinFE/semi-design/issues/1556)
 
 #### 🎉 2.33.0 (2023-04-14)
 - 【Fix】
     - Fix the problem that items with the same label cannot be dragged when the draggable item in Transfer uses the label as the key of the SortableItem
     - Fix the problem that the prefixCls configured by Webpack plugin does not take effect when using cjs lib [#1544](https://github.com/DouyinFE/semi-design/pull/1544)
-    - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1543](https://github.com/DouyinFE/semi-design/issues/1543)
+    - Fix the problem that the background content of the mask cannot be clicked when the Sidesheet is set to mask=false, and the impact range is 2.32.0-beta.0 ~ 2.33.0-beta.0 [#1550](https://github.com/DouyinFE/semi-design/pull/1550)
     - Fix rangeStart and rangeEnd in DatePicker disabledDate callback using cached values [#777](https://github.com/DouyinFE/semi-design/issues/777)
 
 #### 🎉 2.33.0-beta.0 (2023-04-10)
@@ -533,7 +707,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.23.3 (2022-11-15)
 - 【Style】
     - Form Design Token is updated，`$spacing-form_label_extra_posBottom-marginTop`、`$spacing-form_label_extra_posMid-marginBottom`、`$spacing-form_label_extra_posMid-marginTop` is corrected to more semantically `$spacing-form_extra_posBottom-marginTop`、`$spacing-form_extra_posMid-marginBottom`、`$spacing-form_extra_posMid-marginTop` [#1272](https://github.com/DouyinFE/semi-design/pull/1272)
-
+- 【Fix】
+    - When selecting multiple selections, deleting Tag does not trigger aggregation but has aggregation style problems
 
 #### 🎉 2.23.2 (2022-11-14)
 - 【Fix】
@@ -742,7 +917,7 @@ Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_li
 - 【Fix】
     - Update @douyinfe/semi-webpack-plugin to fix the error that animation.scss cannot be processed when using a custom theme  [#1072](https://github.com/DouyinFE/semi-design/issues/1072)
 - 【Docs】
-    -  Added [Global content guidelines](/zh-CN/), Component content guidelines
+    -  Added [Global content guidelines](/en-US/), Component content guidelines
 
 #### 🎉 2.18.0 (2022-08-26)
 - 【Feat】
@@ -1179,7 +1354,7 @@ Change ：`$spacing-select_option_list-paddingTop` 、`$spacing-select_option_li
         - Tree supports passing in aria-label to indicate the role of the Tree, and the corresponding role and aria-* attributes are set for Tree and TreeNode inside the component. [#493](https://github.com/DouyinFE/semi-design/issues/493)
         - TreeSelect supports passing in attributes such as aria-label and aria-errormessage to indicate the role and current status of TreeSelect, and sets relevant aria-* attributes for child nodes. [#493](https://github.com/DouyinFE/semi-design/issues/493)
         - When the trigger of the Popover is hover, the content of the Popover has the tooltip role, and when the trigger is click, custom, the content of the Popover has the dialog role
-        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/zh-CN/start/accessibility)
+        - For details of other components, please refer to the documentation of each component, click to view the [accessibility design guide](https://semi.design/en-US/start/accessibility)
 
 #### 🎉 2.2.2 (2021-12-31)
 - 【Fix】

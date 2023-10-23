@@ -1,7 +1,7 @@
 {
     "name": "@douyinfe/semi-ui",
-    "version": "2.38.0",
-    "description": "",
+    "version": "2.45.1",
+    "description": "A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps. Maintained by Douyin-fe team.",
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
@@ -17,12 +17,15 @@
         "lib/*"
     ],
     "dependencies": {
-        "@douyinfe/semi-animation": "2.38.0",
-        "@douyinfe/semi-animation-react": "2.38.0",
-        "@douyinfe/semi-foundation": "2.38.0",
-        "@douyinfe/semi-icons": "2.38.0",
-        "@douyinfe/semi-illustrations": "2.38.0",
-        "@douyinfe/semi-theme-default": "2.38.0",
+        "@dnd-kit/core": "^6.0.8",
+        "@dnd-kit/sortable": "^7.0.2",
+        "@dnd-kit/utilities": "^3.2.1",
+        "@douyinfe/semi-animation": "2.45.1",
+        "@douyinfe/semi-animation-react": "2.45.1",
+        "@douyinfe/semi-foundation": "2.45.1",
+        "@douyinfe/semi-icons": "2.45.1",
+        "@douyinfe/semi-illustrations": "2.45.1",
+        "@douyinfe/semi-theme-default": "2.45.1",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
@@ -30,8 +33,7 @@
         "date-fns-tz": "^1.3.8",
         "lodash": "^4.17.21",
         "prop-types": "^15.7.2",
-        "react-resizable": "^1.8.0",
-        "react-sortable-hoc": "^2.0.0",
+        "react-resizable": "^3.0.5",
         "react-window": "^1.8.2",
         "resize-observer-polyfill": "^1.5.1",
         "scroll-into-view-if-needed": "^2.2.24",
@@ -48,11 +50,15 @@
         "./index.ts"
     ],
     "keywords": [
-        "semi",
-        "react component library",
-        "ies",
-        "pc component",
-        "dark mode"
+        "semi design to any design",
+        "a11y react component library",
+        "design to code",
+        "2700+ design token",
+        "dark mode",
+        "semi design",
+        "design ops",
+        "modern design system",
+        "figma ui kit"
     ],
     "homepage": "https://semi.design",
     "bugs": {

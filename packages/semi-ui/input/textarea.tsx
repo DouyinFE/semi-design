@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -6,7 +5,7 @@ import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundati
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/textarea.scss';
-import { noop, omit, isFunction } from 'lodash';
+import { noop, omit, isFunction, isUndefined, isObject } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';
 
 const prefixCls = cssClasses.PREFIX;
@@ -23,9 +22,14 @@ type OmitTextareaAttr =
     | 'onKeyUp'
     | 'onResize'
 
+export type AutosizeRow = {
+    minRows?: number;
+    maxRows?: number
+}
+
 export interface TextAreaProps extends
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
-    autosize?: boolean;
+    autosize?: boolean | AutosizeRow;
     borderless?: boolean;
     placeholder?: string;
     value?: string;
@@ -36,7 +40,7 @@ export interface TextAreaProps extends
     defaultValue?: string;
     disabled?: boolean;
     readonly?: boolean;
-    autofocus?: boolean;
+    autoFocus?: boolean;
     showCounter?: boolean;
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
@@ -65,7 +69,7 @@ export interface TextAreaState {
 
 class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     static propTypes = {
-        autosize: PropTypes.bool,
+        autosize: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         borderless: PropTypes.bool,
         placeholder: PropTypes.string,
         value: PropTypes.string,
@@ -193,7 +197,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
     componentDidUpdate(prevProps: TextAreaProps, prevState: TextAreaState) {
 
-        if (this.props.value !== prevProps.value && this.props.autosize) {
+        if ((this.props.value !== prevProps.value || this.props.placeholder !== prevProps.placeholder) && this.props.autosize) {
             this.foundation.resizeTextarea();
         }
     }
@@ -281,6 +285,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             minLength,
             showClear,
             borderless,
+            autoFocus,
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
@@ -302,12 +307,13 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             {
                 [`${prefixCls}-textarea-disabled`]: disabled,
                 [`${prefixCls}-textarea-readonly`]: readonly,
-                [`${prefixCls}-textarea-autosize`]: autosize,
+                [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
                 [`${prefixCls}-textarea-showClear`]: showClear,
             }
         );
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
+            autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,
             readOnly: readonly,

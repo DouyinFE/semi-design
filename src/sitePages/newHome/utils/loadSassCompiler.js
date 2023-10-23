@@ -10,22 +10,22 @@ const loadSassCompiler = () => new Promise((resolve) => {
     scriptEle.src = "/sass.js";
     scriptEle.onload = () => {
         // @ts-ignore
-        const {Sass} = window;
+        const { Sass } = window;
         compiler = new Sass();
         compiler.writeFilePromisify = (...args) => {
             return new Promise((resolve, reject) => {
                 compiler.writeFile(...args, (result) => {
                     if (result) {
-                        console.log("writed", args)
+                        console.log("writed", args);
                         resolve();
                     } else {
                         reject();
                     }
-                })
-            })
-        }
+                });
+            });
+        };
         resolve(compiler);
-    }
+    };
     document.head.appendChild(scriptEle);
 });
 

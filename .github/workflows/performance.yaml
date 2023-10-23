@@ -1,0 +1,31 @@
+name: performance
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_component_name:
+        description: 'Input Component Name to test performance, input all to test all'
+        required: false
+
+jobs:
+  performance:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          wget https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/performance/main
+          chmod +x ./main
+          ./main --mode=diffComponent --component=${{ github.event.inputs.test_component_name }}
+          tar -zcvf data.tar.gz data.db
+        env:
+          TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: data.tar.gz
+          path: ./data.tar.gz
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: diffResult.txt
+          path: ./diffResult.txt

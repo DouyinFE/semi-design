@@ -32,7 +32,7 @@ In addition, a good design system must be "live", it needs to be able to develop
 
 How does Semi become flexible and changeable on the basis of coherence and unity? The answer is a powerful theming program.  
 By layering and sorting out thousands of design variables (Design Token), designers and developers can deeply customize the presentation layer at the global and even component level-even if you don’t know CSS, you can use the theme editor (DSM), to create a style that meets the diverse visual needs of the business and brand. Developers can publish and replace with one click through the npm package, which is easy to customize and easy to manage.  
-You can check Semi's official sample themes in different brand scenarios such as Douyin, Cut Ying, Feishu, Volcano Engine, etc. in [Semi DSM](https://semi.design/dsm/store)
+You can check Semi's official sample themes in different brand scenarios such as Douyin, Cut Ying, Feishu, Volcano Engine, etc. in [Semi DSM](https://semi.design/dsm_store)
 
 Within this year, we will also realize real-time synchronization of themes from online to design tools-while improving efficiency, we will further ensure the continuous alignment of design and R&D, and reduce the cost of communication between production and research.
 
@@ -87,7 +87,7 @@ For the identification and translation of the component level in the design, we 
 
 In the future, combined with D2C tools, we can convert the page design templates accumulated by the team from massive business scenarios into code templates at low cost, and users will be able to quickly complete the cloning and structure restoration of front-end pages at a very low cost.
 
-![Semi Pro 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
+![Semi 页面模板 & 落地页转代码 (内部)](https://lf9-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/tech-doc/semiPro.gif)
 
 ### A11y
 

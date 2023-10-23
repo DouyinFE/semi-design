@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { useState } from 'react';
 import { Table, Dropdown, Tooltip, Tag, Popover } from '@douyinfe/semi-ui/';
 import { IconCaretdown, IconUser } from '@douyinfe/semi-icons';

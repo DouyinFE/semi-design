@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import noop from './utils/noop';

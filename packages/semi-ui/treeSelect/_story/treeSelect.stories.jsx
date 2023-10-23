@@ -2272,3 +2272,148 @@ export const AutoSearchFocusPlusPreventScroll = () => {
       </div>
   );
 };
+
+export const LongLabel = () => {
+  const treeData = [
+    {
+        label: '这是一个超长的中文测试用标题这是一个超长的中文测试用标题这是一个超长的中文测试用标题这是一个超长的中文测试用标题',
+        value: 'v1',
+        key: '0',
+    },
+    {
+        label: 'ThisISAVeryLongTestSentenceThisISAVeryLongTestSentenceThisISAVeryLongTestSentence',
+        value: 'v2',
+        key: '1',
+    }
+  ];
+
+  return (
+    <>
+      <p>单选</p>
+      <TreeSelect
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+      <p>单选，可搜索, searchPosition='trigger'</p>
+      <TreeSelect
+        filterTreeNode
+        searchPosition='trigger'
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选，可搜索, searchPosition='dropDown'</p>
+      <TreeSelect
+        filterTreeNode
+        defaultValue='v1'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选</p>
+      <TreeSelect
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+      <p>单选，可搜索, searchPosition='trigger'</p>
+      <TreeSelect
+        filterTreeNode
+        searchPosition='trigger'
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+       <p>单选，可搜索, searchPosition='dropDown'</p>
+      <TreeSelect
+        filterTreeNode
+        defaultValue='v2'
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData}
+        placeholder="请选择"
+      />
+    </>
+  );
+}
+
+export const UnRelatedAndAsyncLoad = () => {
+  const initialData = [
+      {
+          label: 'Expand to load0',
+          value: '0',
+          key: '0',
+      },
+      {
+          label: 'Expand to load1',
+          value: '1',
+          key: '1',
+      },
+      {
+          label: 'Leaf Node',
+          value: '2',
+          key: '2',
+          isLeaf: true,
+      },
+  ];
+  const [treeData, setTreeData] = useState(initialData);
+
+  function updateTreeData(list, key, children) {
+      return list.map(node => {
+          if (node.key === key) {
+              return { ...node, children };
+          }
+          if (node.children) {
+              return { ...node, children: updateTreeData(node.children, key, children) };
+          }
+          return node;
+      });
+  }
+
+  function onLoadData({ key, children }) {
+      return new Promise(resolve => {
+          if (children) {
+              resolve();
+              return;
+          }
+          setTimeout(() => {
+              setTreeData(origin =>
+                  updateTreeData(origin, key, [
+                      {
+                          label: `Child Node${key}-0`,
+                          key: `${key}-0`,
+                      },
+                      {
+                          label: `Child Node${key}-1`,
+                          key: `${key}-1`,
+                      },
+                  ]),
+              );
+              resolve();
+          }, 1000);
+      });
+  }
+  return (
+    <>
+      <span>issue 1852: checkRelation='unRelated', 异步加载数据</span>
+      <TreeSelect
+        checkRelation='unRelated'
+        defaultValue={['0']}
+        multiple
+        defaultOpen
+        loadData={onLoadData}
+        treeData={[...treeData]}
+      />
+    </>
+  );
+};

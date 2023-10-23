@@ -114,7 +114,6 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
         super({ ...adapter });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     init() {
 
     }
@@ -321,13 +320,13 @@ export default class CalendarFoundation<P = Record<string, any>, S = Record<stri
 
     convertMapToArray(weekMap: Map<string, EventObject[]>, weekStart: Date) {
         const eventArray = [];
+        const map = new Map();
         for (const entry of weekMap.entries()) {
             const [key, value] = entry;
-            const map = new Map();
             map.set(key, value);
-            const weekEvents = this._parseWeeklyEvents(map, weekStart);
-            eventArray.push(...weekEvents);
         }
+        const weekEvents = this._parseWeeklyEvents(map, weekStart);
+        eventArray.push(...weekEvents);
         return eventArray;
     }
 

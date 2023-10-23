@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { ReactNode } from 'react';
 import { noop, isFunction, get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -7,12 +6,11 @@ import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import { shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
 import TableHeaderRow from './TableHeaderRow';
-import { Fixed, TableComponents, OnHeaderRow } from './interface';
+import { Fixed, TableComponents, OnHeaderRow, ColumnProps } from './interface';
 
 function parseHeaderRows(columns: any[]) {
     const rows: any[] = [];
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     function fillRowCells(columns: any[], colIndex: number, parents: any[] = [], rowIndex = 0, level = 0) {
         // Init rows
         rows[rowIndex] = rows[rowIndex] || [];
@@ -91,7 +89,6 @@ function parseHeaderRows(columns: any[]) {
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
         rows[rowIndex].forEach((cell: TableHeaderCell) => {
             if (!('rowSpan' in cell) && !cell.hasSubColumns) {
-                // eslint-disable-next-line no-param-reassign
                 cell.rowSpan = rowCount - rowIndex;
             }
         });
@@ -178,7 +175,7 @@ export interface TableHeaderCell {
     key: string | number;
     className: string;
     children: ReactNode;
-    column: any[];
+    column: ColumnProps;
     colStart: number;
     level: number;
     parents: any[];

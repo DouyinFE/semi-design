@@ -7,7 +7,9 @@ import {
     Col,
     Icon,
     Switch,
-    Input
+    Input,
+    Divider,
+    Tooltip
 } from "../../index";
 import { 
     IconChevronLeft, 
@@ -19,6 +21,7 @@ import {
     IconWindowAdaptionStroked,
     IconRealSizeStroked,
     IconUploadError,
+    IconInfoCircle
 } from "@douyinfe/semi-icons";
 
 export default {
@@ -210,6 +213,42 @@ export const ControlledPreviewMultiple = () => {
     )
 }
 
+export const DefaultCurrentIndex = () => {
+    const [visible, setVisible] = useState(false);
+    const [index, setIndex] = useState(1);
+
+    const handlePreviewVisibleChange = useCallback((v) => {
+        setVisible(v);
+    }, []);
+
+    const handleClick = useCallback(() => {
+        setVisible(!visible);
+    }, [visible])
+
+    const onInputChange = useCallback((value) => {
+        setIndex(Number(value) ?? 0);
+    }
+    ,[])
+
+    const imageData = srcList1;
+
+    return (
+        <>
+            <span>{`输入默认打开图片index(0-${imageData.length - 1})`}</span>
+            <Input style={{ width: 100 }} defaultValue={index} onChange={onInputChange}/>
+            <br /><br />
+            <Button onClick={handleClick}>{visible ? "hide" : "show multiple"}</Button>
+            <ImagePreview 
+                key={index}
+                src={imageData}
+                visible={visible}
+                defaultCurrentIndex={index}
+                onVisibleChange={handlePreviewVisibleChange}
+            />
+        </>
+    );
+}
+
 export const BasicPreview = () => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [customTooltip, setCustomTooltip] = useState(false);
@@ -372,6 +411,25 @@ export const GridImage= () => {
     </>
 )};
 
+export const LazyLoadImage = () => {
+    return (
+    <>
+        <ImagePreview
+            style={{ width: 848, height: 200, overflow: 'auto' }}
+            lazyLoadMargin={"0px"}
+        >
+            <Row style={{ width: 800 }}>
+                {srcList2.map((src, index) => {
+                    return (
+                        <Col span={6} style={{ height: 200 }} key={`col${index}`}>
+                            <Image key={index} src={src} style={{ width: 200, height: 200 }} width={200} alt={`lamp${index + 1}`} />
+                        </Col>
+                )})}
+            </Row>
+        </ImagePreview>
+    </>
+)};
+
 export const CustomContainer = () => {
     const srcList = useMemo(() => ([
         "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/flower.jpeg",
@@ -445,7 +503,6 @@ export const customRenderFooterMenu = () => {
             style={{ 
                 background: "grey", 
                 height: 40, 
-                width: 280, 
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
@@ -509,6 +566,34 @@ export const customRenderFooterMenu = () => {
                 {srcList1.map((src, index) => {
                     return <Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />
                 })}
+            </ImagePreview>
+        </>
+    );
+}
+
+export const customRenderFooterMenuByNode = () => {
+    const renderPreviewMenu = useCallback((props) => {
+        const { menuItems } = props;
+        const customNode = <Tooltip content='我是一个自定义操作'><IconInfoCircle size="large" /></Tooltip>;
+        return (
+            <div style={{ display: 'flex', backgroundColor: 'rgba(0, 0, 0, 0.75)', alignItems: 'center', padding: '5px 16px', borderRadius: 4 }}>
+                {menuItems.slice(0, 3)}
+                <Divider layout="vertical" />
+                {menuItems.slice(3, 7)}
+                <Divider layout="vertical" />
+                {menuItems.slice(7)}
+                <Divider layout="vertical" />
+                {customNode}
+            </div>
+        );
+    }, []);
+
+    return (
+        <>  
+            <ImagePreview
+                renderPreviewMenu={renderPreviewMenu}
+            >
+                {srcList1.map((src, index) => (<Image key={index} src={src} width={200} alt={`lamp${index + 1}`} />))}
             </ImagePreview>
         </>
     );
@@ -582,4 +667,55 @@ export const issue1526 = () => {
             ))}
         </ImagePreview>
     )
+}
+
+export const SetDownloadName = () => {
+    const srcList = useMemo(() => ([
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg?timestap=1",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg?timestap=1",
+    ]), []);
+
+    const setDownloadName = (src) => {
+        let newSrc = src.slice(src.lastIndexOf("/") + 1);
+        newSrc = newSrc.slice(0, newSrc.indexOf('?'));
+        return newSrc;
+    }
+   return  (
+    <>
+        <Image 
+            width={360}
+            height={200}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg?test"
+            setDownloadName={setDownloadName}
+        />
+        <br/>
+        <br />
+        <ImagePreview
+            setDownloadName={setDownloadName}
+        >
+            {srcList.map((src, index) => {
+                return (
+                    <Image 
+                        key={index} 
+                        src={src} 
+                        width={200} 
+                        alt={`lamp${index + 1}`} 
+                        style={{ marginRight: 5 }}
+                    />
+                );
+            })}
+        </ImagePreview>
+    </>);
+}
+
+export const SmallHeightImage = () => {
+    return <>
+        <Image 
+            width={360}
+            height={10}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+        />
+    </>
 }

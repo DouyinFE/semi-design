@@ -68,7 +68,7 @@ import { Select } from '@douyinfe/semi-ui';
 ```
 
 ### Multi-choice
-Since v2.28, the selector will have its own maxHeight 300, and the content can be viewed by scrolling vertically after it exceeds.
+Since v2.28, the selector will have its own maxHeight 270, and the content can be viewed by scrolling vertically after it exceeds.
 
 Configuration `multiple` properties that can support multi-selection
 
@@ -157,7 +157,7 @@ import { Select } from '@douyinfe/semi-ui';
     <Select placeholder="" style={{ width: 180 }} filter>
         <Select.OptGroup label="Asia">
             <Select.Option value="a-1">China</Select.Option>
-            <Select.Option value="a-2">Koera</Select.Option>
+            <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
             <Select.Option value="b-1">Germany</Select.Option>
@@ -180,7 +180,7 @@ import { Select } from '@douyinfe/semi-ui';
             label: 'Asia',
             children: [
                 { value: 'a-1', label: 'China' },
-                { value: 'a-2', label: 'Koera' },
+                { value: 'a-2', label: 'Korea' },
             ],
         },
         {

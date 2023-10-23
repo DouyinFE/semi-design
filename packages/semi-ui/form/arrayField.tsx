@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import { cloneDeep, isUndefined } from 'lodash';
@@ -138,11 +137,11 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         this.setState({ keys });
     }
 
-    addWithInitValue(lineObject: Record<string, any>) {
+    addWithInitValue(rowVal: Record<string, any> | string) {
         const updater = this.context;
         const { field } = this.props;
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
-        newArrayFieldVal.push(lineObject);
+        newArrayFieldVal.push(rowVal);
         updater.updateStateValue(field, newArrayFieldVal, {});
         updater.updateArrayField(field, { updateKey: new Date().valueOf() });
     }

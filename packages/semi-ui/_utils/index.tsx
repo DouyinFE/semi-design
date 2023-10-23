@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* argus-disable unPkgSensitiveInfo */
 import React from 'react';
 import { cloneDeepWith, set, get } from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
@@ -196,4 +194,12 @@ export function getFocusableElements(node: HTMLElement) {
     const focusableElements = Array.from(node.querySelectorAll<HTMLElement>(focusableSelectorsStr));
     return focusableElements;
 }
+
+export function getScrollbarWidth() {
+    if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
+        return window.innerWidth - document.documentElement.clientWidth;
+    }
+    return 0;
+}
+
 

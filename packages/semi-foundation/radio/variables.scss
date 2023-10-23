@@ -77,6 +77,7 @@ $spacing-radio_addon_buttonRadio_middle-paddingX: $spacing-base; // 中尺寸按
 $spacing-radio_addon_buttonRadio_middle-paddingY: $spacing-extra-tight; // 中尺寸按钮式单选按钮垂直内边距
 $spacing-radio_addon_buttonRadio_marginLeft: $spacing-none; // 按钮式单选按钮左侧外边距
 $spacing-radio_extra-paddingLeft: $width-radio_inner + $spacing-tight; // 单选副标题左侧内边距
+$spacing-radio_content-rowGap: 4px; // 内容行间距
 
 $spacing-radio_group_vertical-marginBottom: $spacing-base-tight; // 垂直布局单选框组底部外边距
 $spacing-radio_card_group_vertical-marginBottom: $spacing-base; // 垂直布局卡片式单选框组底部外边距

@@ -38,7 +38,6 @@ export default function useToast() {
             ...config,
             id,
         };
-        // eslint-disable-next-line prefer-const
         let closeFunc: ReturnType<typeof patchElement>;
 
         const toast = (

@@ -264,6 +264,40 @@ import { Notification, Button } from '@douyinfe/semi-ui';
 };
 ```
 
+### Update content
+
+You can use id to update notification content. >=2.45.0
+
+```jsx live=true
+import React from 'react';
+import { Notification, Button } from '@douyinfe/semi-ui';
+
+() => (
+    <Button
+        onClick={() => {
+            const id = Notification.open({
+                title: 'Hi, Bytedance',
+                content: 'ies dance dance dance',
+                duration: 3,
+            })
+            setTimeout(() => {
+                Notification.open({
+                    title: 'Hi, Bytedance',
+                    content: 'updated',
+                    duration: 10,
+                    id
+                })
+            }, 1000)
+        }
+        }
+    >
+        Display Notification
+    </Button>
+);
+
+
+```
+
 ## API Reference
 
 The static methods provided are as follows:

@@ -13,7 +13,7 @@ import '../styles/layout.scss';
 import 'typeface-inter';
 import 'typeface-inconsolata';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { IntlProvider } from 'react-intl';
@@ -32,6 +32,7 @@ import SideNav from './side-nav';
 import Footer from './Footer';
 import { itemsArr } from 'utils/category';
 import { getLocale, _t } from 'utils/locale';
+import { ISIDE, useIde } from './useIde';
 
 
 const insertScript = scriptText => {
@@ -43,6 +44,9 @@ const insertScript = scriptText => {
 
 const AppLayout = ({ type, location, children }) => {
     const [showBanner, setShowBanner] = useState(false);
+    const wrapperRef = useRef(null);
+    
+    useIde({ wrapperRef });
 
     // ----------------START insert static code to document-------------------------
     useEffect(() => {
@@ -111,7 +115,8 @@ const AppLayout = ({ type, location, children }) => {
     // -----------------------------------------------------------------------------
 
     const showSideNav =
-        location.pathname.replace(/(zh\-CN\/?|en\-US\/?)/, '') !== '/' && !/(showcase|resources|customers|contribute|teams)/g.test(location.pathname);
+        location.pathname.replace(/(zh\-CN\/?|en\-US\/?)/, '') !== '/' && !/(showcase|resources|customers|contribute|teams)/g.test(location.pathname) && !ISIDE;
+    
     const data = useStaticQuery(graphql`
         query {
             allMdx(
@@ -176,28 +181,30 @@ const AppLayout = ({ type, location, children }) => {
         <>
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
-                    <div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
-                        <div className="skip-to-content">
-                            <div>{locale === "zh-CN" ? '跳转到:' : 'skip to:'}</div>
-                            <ol>
-                                {
-                                    showSideNav ? (<li><a className="skip-to-content-link" href='#side-nav'>{locale === "zh-CN" ? '跳转到侧边导航' : 'skip to navigation'}</a></li>):null
-                                }
-                                <li><a className="skip-to-content-link" href='#main-content'>{locale === "zh-CN" ? '跳转到主内容' : 'skip to main content'}</a></li>
-                                <li><a className="skip-to-content-link" href='#footer'>{locale === "zh-CN" ? '跳转到页脚' : 'skip to footer'}</a></li>
-                            </ol>
-                        </div>
-                        <SemiSiteBanner ref={bannerRef} type="black" style={{ height: 32 }} icon={null} />
-                        {/* ssr, can't use location directly, get location from layout and pass to children */}
-                        <Header style={headerStyle} location={location} localeCode={locale} />
-                    </div>
+                    {
+                        !ISIDE && (<div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
+                            <div className="skip-to-content">
+                                <div>{locale === "zh-CN" ? '跳转到:' : 'skip to:'}</div>
+                                <ol>
+                                    {
+                                        showSideNav ? (<li><a className="skip-to-content-link" href='#side-nav'>{locale === "zh-CN" ? '跳转到侧边导航' : 'skip to navigation'}</a></li>) : null
+                                    }
+                                    <li><a className="skip-to-content-link" href='#main-content'>{locale === "zh-CN" ? '跳转到主内容' : 'skip to main content'}</a></li>
+                                    <li><a className="skip-to-content-link" href='#footer'>{locale === "zh-CN" ? '跳转到页脚' : 'skip to footer'}</a></li>
+                                </ol>
+                            </div>
+                            <SemiSiteBanner ref={bannerRef} type="black" style={{ height: 32 }} icon={null} />
+                            {/* ssr, can't use location directly, get location from layout and pass to children */}
+                            <Header style={headerStyle} location={location} localeCode={locale} />
+                        </div>)
+                    }
                     {showSideNav ? (
                         <>
                             <SideNav hasBanner={showBanner} type={type} style={sideNavStyle} location={location} edges={data.allMdx.edges} itemsArr={itemsArr} />
                             {/* {footer} */}
                         </>
                     ) : null}
-                    <div className="content-area" style={contentAeraStyle} id="main-content">
+                    <div className="content-area" style={contentAeraStyle} id="main-content" ref={wrapperRef}>
                         {children}
                         {!/showcase|teams/.test(location.pathname) && <Footer />}
                     </div>

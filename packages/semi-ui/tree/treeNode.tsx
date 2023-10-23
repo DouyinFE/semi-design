@@ -256,7 +256,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 if (!hasChild) {
                     itemIcon = <IconFile className={`${prefixcls}-item-icon`} />;
                 } else {
-                    // eslint-disable-next-line max-len
                     itemIcon = expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
                 }
             }
@@ -283,7 +282,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const { label, keyword, data, filtered, treeNodeFilterProp } = this.props;
         if (isFunction(renderLabel)) {
             return renderLabel(label, data);
-        } else if (isString(label) && filtered && keyword && treeNodeFilterProp === 'label') {
+        } else if (isString(label) && filtered && keyword) {
             return getHighLightTextHTML({
                 sourceString: label,
                 searchWords: [keyword],
@@ -301,7 +300,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         this.refNode = node;
     };
 
-    // eslint-disable-next-line max-lines-per-function
     render() {
         const {
             eventKey,
@@ -315,7 +313,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             empty,
             filtered,
             treeNodeFilterProp,
-            // eslint-disable-next-line no-unused-vars
             display,
             style,
             ...rest
@@ -342,7 +339,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             [`${prefixcls}-selected`]: selected,
             [`${prefixcls}-active`]: !multiple && active,
             [`${prefixcls}-ellipsis`]: labelEllipsis,
-            [`${prefixcls}-filtered`]: filtered && treeNodeFilterProp !== 'label',
             [`${prefixcls}-drag-over`]: !disabled && dragOver,
             [`${prefixcls}-draggable`]: !disabled && draggable && !renderFullLabel,
             // When draggable + renderFullLabel is enabled, the default style
@@ -370,6 +366,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 expanded,
                 loading,
             },
+            filtered,
+            searchWord: rest.keyword,
         };
 
         const dragProps = {

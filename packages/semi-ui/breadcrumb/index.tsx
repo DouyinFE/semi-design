@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import cls from 'classnames';
 import propTypes from 'prop-types';
@@ -202,7 +201,6 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                         key={key}
                         active={idx === items.length - 1}
                         route={route._origin}
-                        // eslint-disable-next-line max-len
                         shouldRenderSeparator={!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
                     >
                         {renderItem ? renderItem(route._origin) : route.name}

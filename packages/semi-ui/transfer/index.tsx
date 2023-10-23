@@ -1,6 +1,5 @@
 import React from 'react';
 import cls from 'classnames';
-import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import PropTypes from 'prop-types';
 import { isEqual, noop, omit, isEmpty, isArray, pick } from 'lodash';
 import TransferFoundation, { TransferAdapter, BasicDataItem, OnSortEndProps } from '@douyinfe/semi-foundation/transfer/foundation';
@@ -17,6 +16,8 @@ import Button from '../button';
 import Tree from '../tree';
 import { IconClose, IconSearch, IconHandle } from '@douyinfe/semi-icons';
 import { Value as TreeValue, TreeProps } from '../tree/interface';
+import { RenderItemProps, Sortable } from '../_sortable';
+import { verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 export interface DataItem extends BasicDataItem {
     label?: React.ReactNode;
@@ -39,7 +40,7 @@ export interface RenderSourceItemProps extends DataItem {
 
 export interface RenderSelectedItemProps extends DataItem {
     onRemove?: () => void;
-    sortableHandle?: typeof SortableHandle
+    sortableHandle?: any
 }
 
 export interface EmptyContent {
@@ -168,23 +169,6 @@ export interface TransferProps {
 }
 
 const prefixCls = cssClasses.PREFIX;
-
-// SortableItem & SortableList should not be assigned inside of the render function
-const SortableItem = SortableElement((
-    (props: DraggableResolvedDataItem) => (props.item.node as React.FC<DraggableResolvedDataItem>)
-));
-
-const SortableList = SortableContainer(({ items }: { items: Array<ResolvedDataItem> }) => (
-    <div className={`${prefixCls}-right-list`} role="list" aria-label="Selected list">
-        {items.map((item, index: number) => (
-            // @ts-ignore skip SortableItem type check
-            <SortableItem key={item.key} index={index} item={item} />
-        ))}
-    </div>
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore see reasons: https://github.com/clauderic/react-sortable-hoc/issues/206
-), { distance: 10 });
-
 class Transfer extends BaseComponent<TransferProps, TransferState> {
     static propTypes = {
         style: PropTypes.object,
@@ -241,12 +225,10 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             inputValue: '',
         };
         if (Boolean(dataSource) && isArray(dataSource)) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
             this.state.data = _generateDataByType(dataSource, type);
         }
         if (Boolean(defaultValue) && isArray(defaultValue)) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore Avoid reporting errors this.state.xxx is read-only
             this.state.selectedItems = _generateSelectedItems(defaultValue, this.state.data);
         }
@@ -572,7 +554,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         return <div className={`${prefixCls}-left-list`} role="list" aria-label="Option list">{content}</div>;
     }
 
-    renderRightItem(item: ResolvedDataItem): React.ReactNode {
+    renderRightItem = (item: ResolvedDataItem, sortableHandle?: any): React.ReactNode => {
         const { renderSelectedItem, draggable, type, showPath } = this.props;
         const onRemove = () => this.foundation.handleSelectOrRemove(item);
         const rightItemCls = cls({
@@ -585,17 +567,17 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         const label = shouldShowPath ? this.foundation._generatePath(item) : item.label;
 
         if (renderSelectedItem) {
-            return renderSelectedItem({ ...item, onRemove, sortableHandle: SortableHandle });
+            return renderSelectedItem({ ...item, onRemove, sortableHandle });
         }
 
-        const DragHandle = SortableHandle(() => (
+        const DragHandle = sortableHandle && sortableHandle(() => (
             <IconHandle role="button" aria-label="Drag and sort" className={`${prefixCls}-right-item-drag-handler`} />
         ));
 
         return (
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
             <div role="listitem" className={rightItemCls} key={item.key}>
-                {draggable ? <DragHandle /> : null}
+                {draggable && sortableHandle ? <DragHandle /> : null}
                 <div className={`${prefixCls}-right-item-text`}>{label}</div>
                 <IconClose
                     onClick={onRemove}
@@ -608,6 +590,14 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         );
     }
 
+    renderSortItem = (props: RenderItemProps): React.ReactNode => {
+        const { id, sortableHandle } = props;
+        const { selectedItems } = this.state;
+        const selectedData = [...selectedItems.values()];
+        const item = selectedData.find(item => item.key === id);
+        return this.renderRightItem(item, sortableHandle);
+    }
+
     renderEmpty(type: string, emptyText: React.ReactNode) {
         const emptyCls = cls({
             [`${prefixCls}-empty`]: true,
@@ -618,14 +608,15 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
     }
 
     renderRightSortableList(selectedData: Array<ResolvedDataItem>) {
-        const sortableListItems = selectedData.map(item => ({
-            ...item,
-            node: this.renderRightItem(item)
-        }));
-
-        // helperClass：add styles to the helper(item being dragged) https://github.com/clauderic/react-sortable-hoc/issues/87
-        // @ts-ignore skip SortableItem type check
-        const sortList = <SortableList useDragHandle helperClass={`${prefixCls}-right-item-drag-item-move`} onSortEnd={this.onSortEnd} items={sortableListItems} />;
+        const sortItems = selectedData.map(item => item.key);
+        const sortList = <Sortable
+            strategy={verticalListSortingStrategy} 
+            onSortEnd={this.onSortEnd} 
+            items={sortItems} 
+            renderItem={this.renderSortItem} 
+            prefix={`${prefixCls}-right-item`}
+            dragOverlayCls={`${prefixCls}-right-item-drag-item-move`}
+        />;
         return sortList;
     }
 

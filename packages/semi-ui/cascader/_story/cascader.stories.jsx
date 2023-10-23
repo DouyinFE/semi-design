@@ -1791,7 +1791,7 @@ export const filterRender = () => {
           onClick={onCheck}
       >
         <Checkbox
-            onClick={onCheck}
+            onChange={onCheck}
             indeterminate={checkStatus.halfChecked}
             checked={checkStatus.checked}
             style={{ marginRight: 8 }}
@@ -2124,3 +2124,63 @@ export const DisabledAndPlusN = () => {
     </> 
   )
 }
+
+export const VirtualizeInSearch = () => {
+  const treeData = useMemo(() => (
+      ['通用', '场景'].map((label, m) => ({
+          label: label,
+          value: m,
+          children: new Array(100).fill(0).map((item, n)=> ({
+              value: `${m}-${n}`,
+              label: `${m}-${n} 第二级`,
+              children: new Array(20).fill(0).map((item, o)=> ({
+                  value: `${m}-${n}-${o}`,
+                  label: `${m}-${n}-${o} 第三级详细内容`,
+              })),
+          }))
+      }))
+  ), []);
+  
+  let virtualize = {
+      // 高度为面板默认高度为 180px 减去上下padding 2 * 8px
+      height: 172,
+      width: 320,
+      itemSize: 36, 
+  };
+
+  const filterRender = useCallback((props) => {
+      const { data, onCheck, checkStatus, className } = props;
+      return (
+          <div 
+              key={data.value}
+              className={className}
+              style={{ justifyContent: 'start', padding: '8px 16px 8px 12px', boxSizing: 'border-box' }}
+          >
+              <Checkbox
+                  onChange={onCheck}
+                  indeterminate={checkStatus.halfChecked}
+                  checked={checkStatus.checked}
+                  style={{ marginRight: 8 }}
+              />
+              <Typography.Text
+                  ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }}
+                  style={{ maxWidth: 260 }}
+              >
+                  {data.map(item => item.label).join(' | ')}
+              </Typography.Text>
+          </div>
+      );
+  }, []);
+   
+  return (
+      <Cascader
+          multiple
+          filterTreeNode
+          style={{ width: 320 }}
+          treeData={treeData}
+          placeholder="输入 通用 or 场景 进行搜索"
+          virtualizeInSearch={virtualize}
+          filterRender={filterRender}
+      />
+  );
+};

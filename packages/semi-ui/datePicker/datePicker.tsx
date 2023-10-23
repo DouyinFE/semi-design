@@ -1,7 +1,4 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -138,7 +135,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         validateStatus: PropTypes.oneOf(strings.STATUS),
         renderDate: PropTypes.func,
         renderFullDate: PropTypes.func,
-        spacing: PropTypes.number,
+        spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         startDateOffset: PropTypes.func,
         endDateOffset: PropTypes.func,
         autoSwitchDate: PropTypes.bool,

@@ -16,13 +16,13 @@ const IconCategory = props => {
 
     const handleToggle = (i) => {
         $categorySet((c)=>{
-            if(c.has(i)){
+            if (c.has(i)) {
                 c.delete(i);
             } else {
                 c.add(i);
             }
             return new Set(Array.from(c));
-        })
+        });
     };
     return groups.map((g, i) => (
         <article key={i} className="semi-icons-category">

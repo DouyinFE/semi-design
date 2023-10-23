@@ -1,8 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable max-lines-per-function */
 import React, { useState, useEffect, useMemo } from 'react';
 import { merge, get, find, noop } from 'lodash';
 
@@ -145,19 +141,23 @@ const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Tabl
         setColumns(nextColumns);
     };
 
-    const resizableRender = (col: ColumnProps, index: number, level = 0) => ({
+    const resizableRender = (col: ColumnProps, index: number, level = 0, originalHeaderCellProps) => ({
         ...col,
-        onHeaderCell: (column: ColumnProps) => ({
-            width: column.width,
-            onResize: handleResize(column),
-            onResizeStart: handleResizeStart(column),
-            onResizeStop: handleResizeStop(column),
-        }),
+        onHeaderCell: (column: ColumnProps) => {
+            return {
+                ...originalHeaderCellProps,
+                width: column.width,
+                onResize: handleResize(column),
+                onResizeStart: handleResizeStart(column),
+                onResizeStop: handleResizeStop(column),
+            };
+        },
     });
 
     const assignResizableRender = (columns: ColumnProps[] = [], level = 0) => (Array.isArray(columns) && columns.length ?
         columns.map((col, index) => {
-            Object.assign(col, resizableRender(col, index, level));
+            const originalHeaderCellProps = col.onHeaderCell?.(col, index, level) ?? {};
+            Object.assign(col, resizableRender(col, index, level, originalHeaderCellProps));
             const children = col[childrenColumnName];
 
             if (Array.isArray(children) && children.length) {

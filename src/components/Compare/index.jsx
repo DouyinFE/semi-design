@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Resizable } from 're-resizable';
 import { IconExpand } from '@douyinfe/semi-icons';
+import './index.scss';
 
 const Handle = () => (
     <div className="handle">
@@ -10,9 +11,9 @@ const Handle = () => (
     </div>
 );
 
-const Compare = ({ children }) => {
-    const a = children[0];
-    const b = children[1];
+const Compare = ({ dark, light }) => {
+    const a = dark;
+    const b = light;
     const [last, setLast] = useState(0);
     const [w, setW] = useState(50);
     const selfRef = useRef();
@@ -59,10 +60,13 @@ const Compare = ({ children }) => {
                     clipPath: `polygon(0 0, 0 100%, ${w}% 100%, ${w}% 0)`,
                 }}
             >
-                <div className="inner-image">{a}</div>
+                <div className="inner-image"><img src={a} alt='dark' /></div>
             </div>
             <div ref={selfRef} className="absolute b">
-                {b}
+                <img
+                    alt='light'
+                    src={b}
+                />
             </div>
         </div>
     );

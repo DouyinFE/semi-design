@@ -52,7 +52,6 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         this.setInitValue();
     }
 
-    // eslint-disable-next-line
     destroy() { }
 
     setInitValue() {
@@ -117,7 +116,6 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         if (isNumber(maxLength) && maxLength >= 0 && isFunction(getValueLength) && isString(value)) {
             const valueLength = getValueLength(value);
             if (valueLength > maxLength) {
-                // eslint-disable-next-line max-len
                 console.warn('[Semi TextArea] The input character is truncated because the input length exceeds the maximum length limit');
                 const truncatedValue = this.handleTruncateValue(value, maxLength);
                 return truncatedValue;
@@ -173,7 +171,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
 
     resizeTextarea = (cb?: any) => {
         const { height } = this.getStates();
-        const { rows } = this.getProps();
+        const { rows, autosize } = this.getProps();
         const node = this._adapter.getRef();
         const nodeSizingData = getSizingData(node);
 
@@ -182,11 +180,16 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
             return;
         }
 
+        const [minRows, maxRows] = autosize !== null && typeof autosize === 'object' ? [
+            autosize?.minRows ?? rows,
+            autosize?.maxRows
+        ] : [rows];
+
         const newHeight = calculateNodeHeight(
             nodeSizingData,
             node.value || node.placeholder || 'x',
-            rows
-            // maxRows,
+            minRows,
+            maxRows
         );
 
         if (height !== newHeight) {

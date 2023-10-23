@@ -344,7 +344,7 @@ function App() {
         },
         {
             key: '4',
-            name: 'Semi Pro design draft.fig',
+            name: 'Semi D2C design draft.fig',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: 'Jiang Pengzhi',
@@ -353,7 +353,7 @@ function App() {
         },
         {
             key: '5',
-            name: 'Semi Pro share docs',
+            name: 'Semi D2C share docs',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: 'Hao Xuan',
@@ -362,7 +362,7 @@ function App() {
         },
         {
             key: '6',
-            name: 'Semi Pro Design docs',
+            name: 'Semi D2C Design docs',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
             owner: 'Zoey Edwards',
@@ -440,7 +440,7 @@ const raw = [
     },
     {
         key: '4',
-        name: 'Semi Pro design draft title may be a bit long Tooltip should be displayed at this time.fig',
+        name: 'Semi D2C design draft title may be a bit long Tooltip should be displayed at this time.fig',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
         owner: 'Jiang Qi',
@@ -585,8 +585,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -647,7 +647,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -705,8 +705,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -748,7 +748,7 @@ const getData = () => {
         const randomNumber = (i * 1000) % 199;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -843,8 +843,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -917,7 +917,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -971,8 +971,8 @@ const columns = [
                 value: 'Semi Design 设计稿',
             },
             {
-                text: 'Semi Pro 设计稿',
-                value: 'Semi Pro 设计稿',
+                text: 'Semi D2C 设计稿',
+                value: 'Semi D2C 设计稿',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -1045,7 +1045,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi Pro 设计稿${i}.fig`,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -1107,8 +1107,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -1168,7 +1168,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -1230,8 +1230,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -1299,7 +1299,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -2357,8 +2357,8 @@ function EventTable(props = {}) {
                         value: 'Semi Design design draft',
                     },
                     {
-                        text: 'Semi Pro design draft',
-                        value: 'Semi Pro design draft',
+                        text: 'Semi D2C design draft',
+                        value: 'Semi D2C design draft',
                     },
                 ],
                 onFilter: (value, record) => record.name.includes(value),
@@ -2402,7 +2402,7 @@ function EventTable(props = {}) {
             const randomNumber = (i * 1000) % 199;
             _data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -2536,7 +2536,7 @@ function App() {
         },
         {
             key: '4',
-            name: 'Semi Pro design draft.fig',
+            name: 'Semi D2C design draft.fig',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: 'Jiang Pengzhi',
@@ -2545,7 +2545,7 @@ function App() {
         },
         {
             key: '5',
-            name: 'Semi Pro share docs',
+            name: 'Semi D2C share docs',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: 'Hao Xuan',
@@ -2554,7 +2554,7 @@ function App() {
         },
         {
             key: '6',
-            name: 'Semi Pro Design docs',
+            name: 'Semi D2C Design docs',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
             owner: 'Zoey Edwards',
@@ -2603,8 +2603,8 @@ function App() {
                     value: 'Semi Design',
                 },
                 {
-                    text: 'Semi Pro',
-                    value: 'Semi Pro',
+                    text: 'Semi D2C',
+                    value: 'Semi D2C',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -2622,8 +2622,8 @@ function App() {
                     value: 'Semi Design',
                 },
                 {
-                    text: 'Semi Pro',
-                    value: 'Semi Pro',
+                    text: 'Semi D2C',
+                    value: 'Semi D2C',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -2717,8 +2717,8 @@ function App() {
                     value: 'Semi Design',
                 },
                 {
-                    text: 'Semi Pro',
-                    value: 'Semi Pro',
+                    text: 'Semi D2C',
+                    value: 'Semi D2C',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -2736,8 +2736,8 @@ function App() {
                     value: 'Semi Design',
                 },
                 {
-                    text: 'Semi Pro',
-                    value: 'Semi Pro',
+                    text: 'Semi D2C',
+                    value: 'Semi D2C',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -2825,8 +2825,12 @@ But you need to pay attention to some parameters:
 
 -   `resizable` is set to `true` or an `object`
 -   Any column in `columns` that requires a telescopic function should specify the `width`field (if not passed, the column does not have a telescopic function and its column width will be automatically adjusted by the browser)
+-   `column.resize` can take effect after resizable is enabled. After setting to false, the column no longer supports scaling. v2.42 support
 
-> It is not recommended to use with fixed columns at the same time. Fixed columns need to specify `scroll.x`, which stipulates that the table has a width range, and the flexible column will expand the column width, which may cause the table to be misaligned
+
+> When used with fixed columns, you need to specify a column without setting the width
+
+> It is not recommended to use it with `scroll.x` at the same time. scroll.x specifies that the table has a width range, and stretching columns will expand the column width, which may cause the table to be misaligned
 
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
@@ -2841,7 +2845,8 @@ function ResizableDemo() {
         {
             title: 'Title',
             dataIndex: 'name',
-            width: 400,
+            width: 300,
+            resize: false,
             render: (text, record, index) => {
                 return (
                     <div>
@@ -2856,8 +2861,8 @@ function ResizableDemo() {
                     value: 'Semi Design design draft',
                 },
                 {
-                    text: 'Semi Pro design draft',
-                    value: 'Semi Pro design draft',
+                    text: 'Semi D2C design draft',
+                    value: 'Semi D2C design draft',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -2892,6 +2897,16 @@ function ResizableDemo() {
                 return dateFns.format(new Date(value), 'yyyy-MM-dd');
             },
         },
+        {
+            title: 'Operate',
+            dataIndex: 'operate',
+            fixed: 'right',
+            width: 100,
+            resize: false,
+            render: () => {
+                return <IconMore />;
+            },
+        },
     ];
 
     const data = useMemo(() => {
@@ -2901,7 +2916,7 @@ function ResizableDemo() {
             const randomNumber = (i * 1000) % 199;
             _data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -2956,8 +2971,8 @@ function ResizableDemo() {
                     value: 'Semi Design design draft',
                 },
                 {
-                    text: 'Semi Pro design draft',
-                    value: 'Semi Pro design draft',
+                    text: 'Semi D2C design draft',
+                    value: 'Semi D2C design draft',
                 },
             ],
             onFilter: (value, record) => record.name.includes(value),
@@ -3001,7 +3016,7 @@ function ResizableDemo() {
             const randomNumber = (i * 1000) % 199;
             _data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -3136,8 +3151,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -3180,7 +3195,7 @@ for (let i = 0; i < 46; i++) {
     const randomNumber = (i * 1000) % 199;
     initData.push({
         key: '' + i,
-        name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+        name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
         owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
         size: randomNumber,
         updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -3290,8 +3305,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -3333,7 +3348,7 @@ const getData = () => {
         const randomNumber = ((i * 1000) % 19) + 100;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -3414,8 +3429,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -3460,7 +3475,7 @@ const getData = () => {
         const randomNumber = (i * 1000) % 199;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -3522,8 +3537,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -3576,7 +3591,7 @@ function InfiniteScrollDemo() {
             const randomNumber = (i * 1000) % 199;
             newData.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -3652,8 +3667,8 @@ class App extends React.Component {
                         value: 'Semi Design design draft',
                     },
                     {
-                        text: 'Semi Pro design draft',
-                        value: 'Semi Pro design draft',
+                        text: 'Semi D2C design draft',
+                        value: 'Semi D2C design draft',
                     },
                 ],
                 onFilter: (value, record) => record.name.includes(value),
@@ -3695,7 +3710,7 @@ class App extends React.Component {
                 const randomNumber = (i * 1000) % 199;
                 data.push({
                     key: '' + i,
-                    name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                    name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                     owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                     size: randomNumber,
                     updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -4281,8 +4296,8 @@ const columns = [
                 value: 'Semi Design design draft',
             },
             {
-                text: 'Semi Pro design draft',
-                value: 'Semi Pro design draft',
+                text: 'Semi D2C design draft',
+                value: 'Semi D2C design draft',
             },
         ],
         onFilter: (value, record) => record.name.includes(value),
@@ -4338,7 +4353,7 @@ const getData = total => {
         const randomNumber = (i * 1000) % 199;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -4426,8 +4441,8 @@ const columns = [
                         value: 'Semi Design design draft',
                     },
                     {
-                        text: 'Semi Pro design draft',
-                        value: 'Semi Pro design draft',
+                        text: 'Semi D2C design draft',
+                        value: 'Semi D2C design draft',
                     },
                 ],
                 onFilter: (value, record) => record.name.includes(value),
@@ -4488,7 +4503,7 @@ const getData = total => {
         const randomNumber = (i * 1000) % 199;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -4538,7 +4553,7 @@ const getData = total => {
         const randomNumber = (i * 1000) % 199;
         data.push({
             key: '' + i,
-            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+            name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
             owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
             size: randomNumber,
             updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -4560,8 +4575,8 @@ function Demo() {
             value: 'Semi Design design draft',
         },
         {
-            text: 'Semi Pro design draft',
-            value: 'Semi Pro design draft',
+            text: 'Semi D2C design draft',
+            value: 'Semi D2C design draft',
         },
     ];
 
@@ -4800,7 +4815,7 @@ function App() {
             const randomNumber = (i * 1000) % 199;
             data.push({
                 key: '' + i,
-                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi Pro design draft${i}.fig`,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
                 owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
                 size: randomNumber,
                 updateTime: new Date().valueOf() + randomNumber * DAY,
@@ -4997,6 +5012,7 @@ import { Table } from '@douyinfe/semi-ui';
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
 | render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
+| resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType) => number | true |

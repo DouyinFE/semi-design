@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { MouseEvent, KeyboardEvent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -214,9 +213,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             return firstInProps || treeDataHasChange;
         };
 
+        const needUpdateTreeData = needUpdate('treeData');
+        const needUpdateSimpleJson = needUpdate('treeDataSimpleJson');
+
         // Update the data of tree in state
-        if (needUpdate('treeData') || (props.draggable && needUpdateData())) {
-            // eslint-disable-next-line prefer-destructuring
+        if (needUpdateTreeData || (props.draggable && needUpdateData())) {
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData);
@@ -226,7 +227,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             keyEntities = newState.keyEntities;
             newState.cachedKeyValuePairs = { ...entitiesMap.valueEntities };
             valueEntities = newState.cachedKeyValuePairs;
-        } else if (needUpdate('treeDataSimpleJson')) {
+        } else if (needUpdateSimpleJson) {
             // Convert treeDataSimpleJson to treeData
             treeData = convertJsonToData(props.treeDataSimpleJson);
             newState.treeData = treeData;
@@ -246,7 +247,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 newState.motionType = null;
             }
         }
-        const dataUpdated = needUpdate('treeDataSimpleJson') || needUpdate('treeData');
+        const dataUpdated = needUpdateSimpleJson || needUpdateTreeData;
         const expandAllWhenDataChange = dataUpdated && props.expandAll;
         if (!isSeaching) {
             // Update expandedKeys
@@ -430,7 +431,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         isMultiple
                     );
                 } else {
-                    checkedKeyValues = updateKeys(prevState.checkedKeys, keyEntities);
+                    checkedKeyValues = updateKeys(props.checkRelation === 'related' ? prevState.checkedKeys : prevState.realCheckedKeys, keyEntities);
                 }
             }
 
@@ -666,6 +667,10 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         return item.key;
     };
 
+    option = ({ index, style, data }: OptionProps) => (
+        this.renderTreeNode(data[index], index, style)
+    );
+
     renderNodeList() {
         const { flattenNodes, cachedFlattenNodes, motionKeys, motionType } = this.state;
         const { virtualize, motion } = this.props;
@@ -685,9 +690,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 />
             );
         }
-        const option = ({ index, style, data }: OptionProps) => (
-            this.renderTreeNode(data[index], index, style)
-        );
 
         return (
             <AutoSizer defaultHeight={virtualize.height} defaultWidth={virtualize.width}>
@@ -703,7 +705,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         className={`${prefixcls}-virtual-list`}
                         style={{ direction }}
                     >
-                        {option}
+                        {this.option}
                     </VirtualList>
                 )}
             </AutoSizer>

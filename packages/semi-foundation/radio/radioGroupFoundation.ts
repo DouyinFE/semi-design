@@ -69,6 +69,5 @@ export default class RadioGroupFoundation extends BaseFoundation<RadioGroupAdapt
         this._adapter.setValue(value);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     destroy() {}
 }

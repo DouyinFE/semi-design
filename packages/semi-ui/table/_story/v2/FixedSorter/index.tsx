@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line semi-design/no-import
 import { Table } from '@douyinfe/semi-ui';
-// eslint-disable-next-line semi-design/no-import
 import { ChangeInfo } from '@douyinfe/semi-ui/table';
 
 const data = [

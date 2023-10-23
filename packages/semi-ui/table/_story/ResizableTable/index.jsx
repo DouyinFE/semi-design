@@ -1,6 +1,9 @@
 import React from 'react';
 import { Table, Tooltip, Tag } from '@douyinfe/semi-ui';
 
+/**
+ * test with cypress, don't modify
+ */
 export default class ResizableDemo extends React.Component {
     constructor() {
         super();
@@ -20,12 +23,18 @@ export default class ResizableDemo extends React.Component {
                     },
                 ],
                 onFilter: (value, record) => record.name.includes(value),
+                onHeaderCell: (column, columnIndex) => ({
+                    className: `test-${columnIndex}`,
+                })
             },
             {
                 title: 'Age',
                 dataIndex: 'age',
                 width: 150,
                 sorter: (a, b) => (a.age - b.age > 0 ? 1 : -1),
+                onHeaderCell: (column, columnIndex) => ({
+                    className: `test-${columnIndex}`,
+                })
             },
             {
                 title: 'Address',

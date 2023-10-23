@@ -26,7 +26,8 @@ export interface ToastProps extends ConfigProps {
     icon?: any;
     theme?: ToastTheme;
     direction?: Directions;
-    close?: (id: string) => void
+    close?: (id: string) => void;
+    stack?: boolean
 }
 
 
@@ -35,10 +36,7 @@ export interface ToastInstance extends ToastProps{
     motion?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ToastState{
-
-}
+export interface ToastState{}
 
 
 export interface ToastAdapter extends DefaultAdapter<ToastProps, ToastState>{

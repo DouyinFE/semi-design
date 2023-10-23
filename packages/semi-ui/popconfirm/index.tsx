@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
@@ -203,15 +202,19 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         );
         const showTitle = title !== null && typeof title !== 'undefined';
         const showContent = !(content === null || typeof content === 'undefined');
+        
+        const hasIcon = React.isValidElement(icon);
+        const bodyCls = cls({
+            [`${prefixCls}-body`]: true,
+            [`${prefixCls}-body-withIcon`]: hasIcon
+        });
 
         return (
             /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
             <div className={popCardCls} onClick={this.stopImmediatePropagation} style={style}>
                 <div className={`${prefixCls}-inner`}>
                     <div className={`${prefixCls}-header`}>
-                        <i className={`${prefixCls}-header-icon`} x-semi-prop="icon">
-                            {React.isValidElement(icon) ? icon : null}
-                        </i>
+                        { hasIcon ? <i className={`${prefixCls}-header-icon`} x-semi-prop="icon">{icon}</i> : null}
                         <div className={`${prefixCls}-header-body`}>
                             {showTitle ? (
                                 <div className={`${prefixCls}-header-title`} x-semi-prop="title">
@@ -229,7 +232,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                         />
                     </div>
                     {showContent ? (
-                        <div className={`${prefixCls}-body`} x-semi-prop="content">
+                        <div className={bodyCls} x-semi-prop="content">
                             {isFunction(content) ? content({ initialFocusRef }) : content}
                         </div>
                     ) : null}

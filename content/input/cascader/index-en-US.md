@@ -429,11 +429,11 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
                 className={className}
                 style={{ justifyContent: 'flex-start' }}
                 role="treeitem"
-                onClick={onClick}
+                onClick={onCheck}
                 onKeyPress={onKeyPress}
             > 
                 <Checkbox
-                    onClick={onClick}
+                    onChange={onCheck}
                     indeterminate={checkStatus.halfChecked}
                     checked={checkStatus.checked}
                     style={{ marginRight: 8 }}
@@ -472,6 +472,77 @@ import { Cascader, Typography, Checkbox } from '@douyinfe/semi-ui';
     );
 };
 
+```
+
+If there are a lot of options in the search results, you can optimize performance by setting virtualizeInSearch to enable the virtualization of the search result panel. virtualizeInSearch has been available since v2.44.0. virtualizeInSearch is an object containing the following values:
+
+- height: Option list height value
+- width: Option list width value
+- itemSize: The height of each row of Option
+
+```jsx live=true
+import React from 'react';
+import { Cascader, Checkbox, Typography } from '@douyinfe/semi-ui';
+
+() => {
+    const treeData = useMemo(() => (
+        ['Generic', 'Scene'].map((label, m) => ({
+            label: label,
+            value: m,
+            children: new Array(100).fill(0).map((item, n)=> ({
+                value: `${m}-${n}`,
+                label: `${m}-${n} level one`,
+                children: new Array(20).fill(0).map((item, o)=> ({
+                    value: `${m}-${n}-${o}`,
+                    label: `${m}-${n}-${o} level two detail info`,
+                })),
+            }))
+        }))
+    ), []);
+    
+    let virtualize = {
+        // The height is the panel's default height of 180px minus the upper and lower padding 2 * 8px
+        height: 172,
+        width: 320,
+        itemSize: 36, 
+    };
+
+    const filterRender = useCallback((props) => {
+        const { data, onCheck, checkStatus, className } = props;
+        return (
+            <div 
+                key={data.value}
+                className={className}
+                style={{ justifyContent: 'start', padding: '8px 16px 8px 12px', boxSizing: 'border-box' }}
+            >
+                <Checkbox
+                    onChange={onCheck}
+                    indeterminate={checkStatus.halfChecked}
+                    checked={checkStatus.checked}
+                    style={{ marginRight: 8 }}
+                />
+                <Typography.Text
+                    ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-all' } } } }}
+                    style={{ maxWidth: 260 }}
+                >
+                    {data.map(item => item.label).join(' | ')}
+                </Typography.Text>
+            </div>
+        );
+    }, []);
+     
+    return (
+        <Cascader
+            multiple
+            filterTreeNode
+            style={{ width: 320 }}
+            treeData={treeData}
+            placeholder="Enter generic or scene to search"
+            virtualizeInSearch={virtualize}
+            filterRender={filterRender}
+        />
+    );
+};
 ```
 
 ### Limit Tags Displayed
@@ -1666,8 +1737,8 @@ function Demo() {
                     ],
                 },
                 {
-                    label: 'Koera',
-                    value: 'koera',
+                    label: 'Korea',
+                    value: 'korea',
                     children: [
                         {
                             label: 'Seoul',
@@ -1799,6 +1870,7 @@ function Demo() {
 | triggerRender | Method to create a custom trigger                                                                                                                                                                                                             | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
 | value | Selected value (controlled mode)                                                                                                                                                                                                              | string\|number\|CascaderData\|(string\|number\|CascaderData)[][]  | - | -  |
 | validateStatus | The validation status of the trigger only affects the display style. Optional: default、error、warning                                                                                                                                          | string | `default` | - |
+| virtualizeInSearch  | Search result list virtualization, used when there are a large number of tree nodes, composed of height, width,itemSize  | Object | -  | -  | - |
 | zIndex | zIndex for dropdown menu                                                                                                                                                                                                                      | number | 1030 | - |
 | enableLeafClick | Multiple mode, click the leaf option enable trigger check                                                                                                                                                                                     | boolean | false | 2.2.0 |
 | onBlur | Out of focus Cascader's callback                                                                                                                                                                                                              | (e: MouseEvent) => void | - | - |
@@ -1831,6 +1903,8 @@ Some internal methods provided by Select can be accessed through ref:
 | ----------- | ------------------------------- | ------- |
 | close       | Manually close dropdown list    | v2.30.0 |
 | open        | Manually open dropdown list     | v2.30.0 |
+| focus       | Manually focus                  | v2.34.0 |
+| blur        | Manually blur                   | v2.34.0 |
 
 ## Accessibility
 

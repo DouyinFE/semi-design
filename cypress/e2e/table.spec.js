@@ -185,4 +185,10 @@ describe('table', () => {
         // filters 长度应该为 1
         cy.get('@consoleLog').should('be.calledWith', 1);
     });
+
+    it('resizable onHeaderCell', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--resizable-table&viewMode=story');
+        cy.get('.test-1').should('have.length', 1);
+        cy.get('.test-2').should('have.length', 1);
+    })
 });

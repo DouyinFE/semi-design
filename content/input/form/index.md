@@ -1062,7 +1062,7 @@ class ModalFormDemo extends React.Component {
         this.formApi = formApi;
     }
 
-    render(){
+    render() {
         const { visible } = this.state;
         let message = '该项为必填项';
         return (
@@ -1147,52 +1147,52 @@ class ModalFormDemo extends React.Component {
 -   你可以通过`rules`为每个 Field 表单控件配置校验规则  
     Form 内部的校验库基于 async-validator，更多配置规则可查阅其[官方文档](https://github.com/yiminghe/async-validator)
 -   你可以通过 form 的`initValues`为整个表单统一设置初始值，也可以在每个 field 中通过`initValue`设置初始值（后者优先级更高）
+-   可以通过 trigger 为每个 Field 配置不同的校验触发时机，默认为 change（即onChange触发时，自动进行校验）。还支持 change、blur、mount、custom 或以上的组合。v2.42 后支持通过 FormProps 统一配置, 若都配置时，以 FieldProps 为准  
+-   可以通过 stopValidateWithError 开关，决定使用 rules 校验时，当碰到第一个检验不通过的 rules 后，是否继续触发后续 rules 的校验。v2.42 后支持通过 FormProps 统一配置，若都配置时，以 FieldProps 为准  
 
 ```jsx live=true dir="column" hideInDSM
 import React from 'react';
 import { Form, Button } from '@douyinfe/semi-ui';
 
-class BasicDemoWithInit extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            initValues: {
-                name: 'semi',
-                role: 'rd'
-            }
-        };
-        this.getFormApi = this.getFormApi.bind(this);
-    }
+() => {
+    
+    const initValues = {
+        name: 'semi',
+        shortcut: 'se'
+    };
+    
+    const style = { width: '100%' };
+    
+    const { Select, Input } = Form;
 
-    getFormApi(formApi) { this.formApi = formApi; }
-
-    render() {
-        const { Select, Input } = Form;
-        const style = { width: '100%' };
-        return (
-            <Form initValues={this.state.initValues}>
-                <Input
-                    field="name"
-                    label="名称（Input）"
-                    style={style}
-                    trigger='blur'
-                    rules={[
-                        { required: true, message: 'required error' },
-                        { type: 'string', message: 'type error' },
-                        { validator: (rule, value) => value === 'semi', message: 'should be semi' }
-                    ]}
-                />
-                <Select field="role" style={style} label='角色' placeholder='请选择你的角色' initValue={'pm'}>
-                    <Select.Option value="operate">运营</Select.Option>
-                    <Select.Option value="rd">开发</Select.Option>
-                    <Select.Option value="pm">产品</Select.Option>
-                    <Select.Option value="ued">设计</Select.Option>
-                </Select>
-                <Button htmlType='submit'>提交</Button>
-            </Form>
-        );
-    }
-}
+    return (
+        <Form initValues={initValues}>
+            <Input
+                field="name"
+                style={style}
+                trigger='blur'
+                rules={[
+                    { required: true, message: 'required error' },
+                    { type: 'string', message: 'type error' },
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                ]}
+            />
+            <Input
+                field="shortcut"
+                style={style}
+                stopValidateWithError
+                rules={[
+                    { required: true, message: 'required error' },
+                    { type: 'string', message: 'type error' },
+                    { validator: (rule, value) => value === 'semi', message: 'should be semi' },
+                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                ]}
+            />
+            <Button htmlType='submit'>提交</Button>
+        </Form>
+    );
+};
 ```
 
 ### 自定义校验(Form 级别)
@@ -1801,8 +1801,8 @@ withField 主要做了以下事情
 withFieldOption 具体配置可参考 [withField Option](#withFieldOption)
 
 你的自定义受控组件需要做以下事情：  
-- 值发生变化时，调用props.onChange并且将最新的值作为入参  
-- 响应props.value的变化，并更新你的组件UI渲染结果  
+- 值发生变化时，调用props.onChange (或 onKeyChangeFnName 指定的其他回调函数) 并且将最新的值作为入参  
+- 响应props.value（或者 valueKey 指定的其他属性）的变化，并更新你的组件UI渲染结果  
 
 ```jsx
 withField(YourComponent, withFieldOption);
@@ -1915,11 +1915,13 @@ render(WithFieldDemo2);
 | onChange          | form 更新时触发，包括表单控件挂载/卸载/值变更/blur/验证状态变更/错误提示变更, 入参为 formState                                                                               | function(formState:object)                    |            |
 | onValueChange     | form 的值被更新时触发，仅在表单控件值发生变化时触发。第一个入参为 formState.values，第二个入参为当前发生变化的 field                                                         | function(values:object, changedValue: object) |            |
 | onReset           | 点击 reset 按钮或调用 `formApi.reset()`时的回调函数                                                                                                                          | function()                                    |            |
-| onSubmit          | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证成功后的回调函数                                                                                                      | function(values:object)                       |            |
-| onSubmitFail      | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证失败后的回调函数                                                                                                      | function(errors:object, values:object)        |            |
+| onSubmit          | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证成功后的回调函数                                                                                                      | function(values:object, e: event)                       |            |
+| onSubmitFail      | 点击 submit 按钮或调用 `formApi.submitForm()`，数据验证失败后的回调函数                                                                                                      | function(errors:object, values:object, e: event)        |            |
 | render            | 用于声明表单控件，不可与 component、props.children 同时使用                                                                                                                  | function                                      |
-| showValidateIcon  | Field 内的校验信息区块否自动添加对应状态的 icon 展示 <br/>**在 v1.0.0 开始提供**                                                                                                                         | boolean                                       | true       |
+| showValidateIcon  | Field 内的校验信息区块否自动添加对应状态的 icon 展示                                                                                                                         | boolean                                       | true       |
 | style             | 可将内联样式传入 form 标签                                                                                                                                                   | object                                        |
+| stopValidateWithError | 统一应用在每个 Field 的 stopValidateWithError，使用说明见 Field props中同名 API （v2.42后提供）                                                                            | boolean                             | false     |
+| trigger    |  统一应用在每个 Field 的 trigger，使用说明详见 Field props中同名 API（v2.42后提供）                                                        | string\|array                            |  'change'  |
 | validateFields    | Form 级别的自定义校验函数，submit 时或 formApi.validate 时会被调用（配置Form级别校验器后，Field级别校验器在submit或formApi.validate()时不会再被触发）。支持同步校验、异步校验                                                                                   | function(values)                              |            |
 | wrapperCol        | 统一应用在每个 Field 上的布局，同[Col 组件](/zh-CN/basic/grid#Col)，设置`span`、`offset`值，如{span: 20, offset: 4}                                 | object                                        |
 
@@ -2061,10 +2063,10 @@ import { Form, Button } from '@douyinfe/semi-ui';
 | transform             | 校验前转换字段值，转换后的值仅会在校验时被消费，对 formState 无影响<br/> 使用示例: (value) => Number                                                                                                                 | function(fieldValue)                                                                          |           |
 | allowEmptyString      | 是否允许值为空字符串。默认情况下值为''时，该 field 对应的 key 会从 values 中移除，如果你希望保留该 key，那么需要将 allowEmptyString 设为 true                                                                       | boolean                                                                                       | false     |
 | stopValidateWithError | 为 true 时，使用 rules 校验，碰到第一个检验不通过的 rules 后，将不再触发后续 rules 的校验                                                                                                  | boolean                                                                                       | false     |
-| helpText              | 自定义提示信息，与校验信息公用同一区块展示，两者均有值时，优先展示校验信息<br/>**v1.0.0 开始提供**                                                                                                                  | ReactNode                                                                                     |           |
-| extraText             | 额外的提示信息，当需要错误信息和提示文案同时出现时，可以使用这个，位于 helpText/errorMessage 后<br/>**v1.0.0 开始提供**                                                                                             | ReactNode                                                                                     |           |
-| pure                  | 是否仅接管数据流，为 true 时不会自动插入 ErrorMessage、Label、extraText 等模块，样式、DOM 结构与原始的组件保持一致<br/>**v1.1.0 开始提供**                                                                          | boolean                                                                                       | false     |
-| extraTextPosition     | 控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Field主体的顺序显示）、`bottom` (垂直方向以Label、Field主体、extraText的顺序显示)；在Form与Field上同时传入时，以Field props为准<br/>**v1.9.0 开始提供**                                                                          | string                                                                                       | 'bottom'     |
+| helpText              | 自定义提示信息，与校验信息公用同一区块展示，两者均有值时，优先展示校验信息                                                                                                                | ReactNode                                                                                     |           |
+| extraText             | 额外的提示信息，当需要错误信息和提示文案同时出现时，可以使用这个，位于 helpText/errorMessage 后                                                                                           | ReactNode                                                                                     |           |
+| pure                  | 是否仅接管数据流，为 true 时不会自动插入 ErrorMessage、Label、extraText 等模块，样式、DOM 结构与原始的组件保持一致                                                                         | boolean                                                                                       | false     |
+| extraTextPosition     | 控制extraText的显示位置，可选`middle`（垂直方向以Label、extraText、Field主体的顺序显示）、`bottom` (垂直方向以Label、Field主体、extraText的顺序显示)；在Form与Field上同时传入时，以Field props为准                                                                          | string                                                                                       | 'bottom'     |
 | ...other              | 组件的其他可配置属性，与上面的属性平级一并传入即可，例如 Input 的 size/placeholder，**Field 会将其透传至组件本身**                                                                                                  |                                                                                               |
 
 

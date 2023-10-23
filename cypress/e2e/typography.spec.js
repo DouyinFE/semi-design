@@ -81,4 +81,12 @@ describe('typography', () => {
         cy.get('.semi-typography-ellipsis').eq(1).children('.semi-typography-ellipsis-expand').should('not.exist');
     });
 
+    it('js ellipsis, no truncate, no tooltip', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--js-ellipsis-no-tooltip&args=&viewMode=story');
+        cy.viewport(800, 1000);
+        cy.get('.semi-typography').trigger('mouseover');
+        cy.wait(1000);
+        cy.get('.semi-tooltip-content').should('not.exist');;
+    });
+
 });
