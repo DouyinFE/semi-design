@@ -44,6 +44,7 @@ $color-select_option_disabled-text: var(--semi-color-disabled-text); // 禁用�
 $color-select_option_disabled-bg: transparent; // 禁用选择器菜单选项背景颜色
 $color-select_option-icon-active: var(--semi-color-text-2); // 禁用选择器菜单选项图标颜色 - 选中态
 $color-select_option-border-default: var(--semi-color-border); // 分组选择器菜单项描边颜色
+$color-select-option-bg-selected: transparent; // 选择器菜单选项背景颜色 - 选中态
 $color-select_inset_label-text: var(--semi-color-text-2); // 分组选择器菜单项辅助文本颜色
 $color-select_create_tips-text: var(--semi-color-text-2); // 分组选择器菜单项提示文本颜色
 $color-select_group-text: var(--semi-color-text-2); // 分组选择器菜单项分组标题文本颜色
