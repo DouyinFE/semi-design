@@ -46,7 +46,7 @@ const AppLayout = ({ type, location, children }) => {
     const [showBanner, setShowBanner] = useState(false);
     const wrapperRef = useRef(null);
     
-    useIde({ wrapperRef });
+    useIde({ wrapperRef, location });
 
     // ----------------START insert static code to document-------------------------
     useEffect(() => {

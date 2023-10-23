@@ -5,13 +5,18 @@ import '../styles/ide.scss';
 let runtime = null;
 let autoImportComponent = () => void 0;
 const ISSSR = typeof window === 'undefined';
-export const ISIDE = !ISSSR && window.location.search?.includes('env=ide');
+export let ISIDE = false;
 
-if (ISIDE) {
-    const { callNative, createProxy, Runtime } = require('univers-webview');
-    runtime = Runtime?.init({ isInIframe: false });
-    autoImportComponent = createProxy('ImportCode', callNative)?.autoImportComponent;
+export function ideInit(location) {
+    ISIDE = (ISSSR ? location :window.location).search?.includes('env=ide');
+    if (ISIDE && !runtime) {
+        const { callNative, createProxy, Runtime } = require('univers-webview');
+        runtime = Runtime?.init({ isInIframe: false });
+        autoImportComponent = createProxy('ImportCode', callNative)?.autoImportComponent;
+    }
 }
+
+
 
 const formatCode = (code, demoIndex) => {
     const codeArr = code.split('\n');
@@ -36,7 +41,9 @@ const formatCode = (code, demoIndex) => {
  */
 export const useIde = (props) => {
     const timer = useRef(null);
-    const { wrapperRef } = props;
+    const { wrapperRef, location } = props;
+
+    ideInit(location);
 
     const addSnippetsBtn = (demoIndex) => {
         const btnElm = document.createElement('div');
@@ -72,6 +79,7 @@ export const useIde = (props) => {
     };
 
     useEffect(() => {
+        ideInit();
         timer.current = setTimeout(() => {
             ISIDE && setSandBoxVisible();
         }, 1000);
