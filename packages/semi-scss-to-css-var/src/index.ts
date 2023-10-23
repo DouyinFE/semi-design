@@ -7,7 +7,7 @@ import destroyDeps from "./utils/destroyDeps";
 
 
 export interface Options {
-    sourcePath: string,
+    sourcePath: string
 }
 
 const getAllScssFilesInPath = (filePath: string) => {
@@ -81,14 +81,17 @@ const transScssToCSSVar = (scssFilePathList: string[]) => {
             // const scssVariableInSelectorSet = new Set<string>();
             // postcss([getScssVariableNotUsedInSelectorSetPlugin(scssVariableInSelectorSet)]).process(raw, { syntax: postcssScss }).css;
 
-            if (scssFilePath.includes('variables.scss')){
+            if (scssFilePath.includes('variables.scss')) {
                 raw = destroyDeps(raw);
             }
 
-            const cssDefine: { key: string, value: string }[] = [];
+            const cssDefine: { key: string; value: string }[] = [];
 
             const result = postcss([transVarPlugin(scssFilePath.includes('variables.scss')||scssFilePath.includes('animation.scss'), cssDefine)]).process(raw, { syntax: postcssScss });
-            const resultSCSS = result.css; //Real call postcss
+            let resultSCSS = result.css; //Real call postcss
+            if (!resultSCSS.endsWith(";")) {
+                resultSCSS+=";";
+            }
             const rawCSSDefine = `.allCSSVar{\n${cssDefine.map(({ key, value }) => {
                 return `${key}: #{${trimEnd(value, '!default')}};`;
             }).join('\n')}\n}`;

@@ -37,40 +37,40 @@ import { trimStart } from "lodash";
 // };
 
 
-const transVarPlugin=(replaceScss=false,extraCssVarDefineList:{key:string,value:string}[])=>{
+const transVarPlugin=(replaceScss=false, extraCssVarDefineList: {key: string;value: string}[])=>{
 
     return {
-        postcssPlugin:"semi-scss-to-css-var-plugin",
-        Root(root:Root,postcss:Postcss){
+        postcssPlugin: "semi-scss-to-css-var-plugin",
+        Root(root: Root, postcss: Postcss) {
             //console.log(root)
         },
-        Once(root:Root){
+        Once(root: Root) {
             //  console.log(root)
         },
-        Comment(comment){
+        Comment(comment) {
 
         },
-        Declaration(decl:Declaration){
+        Declaration(decl: Declaration) {
 
-            if ( decl.source?.input.css.split('\n')[(decl.source?.start?.line ?? 1)-1].includes('ignore-semi-css-trans')){
+            if ( decl.source?.input.css.split('\n')[(decl.source?.start?.line ?? 1)-1].includes('ignore-semi-css-trans')) {
                 return;
             }
             //@ts-ignore
-            if (!decl.isVisited){
+            if (!decl.isVisited) {
                 let value = decl.value;
                 value = replaceOther(value);
                 value = replaceWithCalc(value);
                 decl.value=value;
 
                 //inject css variable define
-                if (/\$[\w\d_-]+$/.test(decl.prop) && replaceScss){
-                    const scssVariable=trimStart(decl.prop,'$');
+                if (/\$[\w\d_-]+$/.test(decl.prop) && replaceScss) {
+                    const scssVariable=trimStart(decl.prop, '$');
                     const cssVariable =`--semi-css-${scssVariable}`;
                     // const cssDeclaration=new Declaration({ prop:cssVariable,value:decl.value });
                     // //@ts-ignore
                     // cssDeclaration.isVisited=true;
                     // decl.after(cssDeclaration);
-                    extraCssVarDefineList.push({ key:cssVariable,value:decl.value });
+                    extraCssVarDefineList.push({ key: cssVariable, value: decl.value });
                     decl.value=`var(${cssVariable})`;
                 }
                 //@ts-ignore
