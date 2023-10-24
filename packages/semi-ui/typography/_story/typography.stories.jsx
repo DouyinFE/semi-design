@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
 import Typography from '../index';
 import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
 import {HugeData} from "./HugeData";
+import { Tooltip } from '@douyinfe/semi-ui'
 
 export default {
   title: 'Typography'
@@ -822,6 +823,27 @@ export const JsEllipsisNoTooltip = () => (
   </Title>
 )
 
-export const HugeDataDemo = ()=>{
+export const HugeDataDemo = () => {
     return <HugeData/>
+}
+
+export const customTooltip = () => {
+  const customRenderTooltip = useCallback((content, children) => {
+    return <Tooltip content={content} style={{ backgroundColor: 'blue' }}>{children}</Tooltip>
+  }, []);
+
+  return <div>
+     <Title 
+      heading={5} 
+      ellipsis={{ 
+        showTooltip: {
+          renderTooltip: customRenderTooltip
+        }
+      }} 
+      style={{ width: 250 }}
+      
+    >
+      这是一个自定义 tooltip 的省略文本，背景色是蓝色
+    </Title>
+  </div>
 }

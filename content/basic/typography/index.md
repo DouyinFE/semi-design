@@ -312,10 +312,13 @@ function Demo() {
 
 ```jsx live=true
 import React from 'react';
-import { Typography } from '@douyinfe/semi-ui';
+import { Typography, Tooltip } from '@douyinfe/semi-ui';
 
 function Demo() {
     const { Paragraph, Title, Text } = Typography;
+    const customRenderTooltip = useCallback((content, children) => {
+        return <Tooltip content={content} style={{ backgroundColor: 'blue' }}>{children}</Tooltip>;
+    }, []);
 
     return (
         <div>
@@ -366,6 +369,18 @@ function Demo() {
             >
                 sssssssssssssssssssssssss
             </Text>
+            <br/><br/>
+            <Title 
+                heading={5} 
+                ellipsis={{ 
+                    showTooltip: {
+                        renderTooltip: customRenderTooltip
+                    }
+                }} 
+                style={{ width: 250 }}
+            >
+                这是一个自定义弹出层组件的省略文本，背景色是蓝色
+            </Title>
         </div>
     );
 }
@@ -519,7 +534,7 @@ function Demo() {
 | expandable   | 是否支持展开                                                                                                      | boolean                                             | false  |
 | pos          | 省略截断的位置，支持末尾和中间截断：`end`, `middle`                                                               | string                                              | `end`  |
 | rows         | 省略溢出行数                                                                                                      | number                                              | 1      |
-| showTooltip  | 是否展示 tooltip 及相关配置: type，浮层内容承载的组件，支持 Tooltip\| Popover；opts，其他需要透传给浮层组件的属性 | boolean\|{type: 'tooltip'\|'popover', opts: object} | false  |
+| showTooltip  | 是否展示 tooltip 及相关配置: type，浮层内容承载的组件，支持 Tooltip\| Popover；opts，其他需要透传给浮层组件的属性； renderTooltip，自定义渲染弹出层组件 | boolean\|{type: 'tooltip'\|'popover', opts: object, renderTooltip: (content, children) => ReactNode} | false  |
 | suffix       | 始终展示的后缀                                                                                                    | string                                              | -      |
 | onExpand     | 展开/收起的回调                                                                                                   | function(expanded: bool, Event: e)                  | -      |
 

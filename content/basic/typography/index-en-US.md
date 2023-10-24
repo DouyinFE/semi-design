@@ -325,10 +325,13 @@ Show ellipsis if text is overflowed. Refer to [Ellipsis Config](#Ellipsis-Config
 
 ```jsx live=true
 import React from 'react';
-import { Typography } from '@douyinfe/semi-ui';
+import { Typography, Tooltip } from '@douyinfe/semi-ui';
 
 function Demo() {
     const { Paragraph, Text, Title } = Typography;
+    const customRenderTooltip = useCallback((content, children) => {
+        return <Tooltip content={content} style={{ backgroundColor: 'blue' }}>{children}</Tooltip>;
+    }, []);
 
     return (
         <div>
@@ -366,6 +369,19 @@ function Demo() {
             <Paragraph ellipsis={{ rows: 3, expandable: true, collapsible: true, collapseText: 'Show Less', onExpand: (bool, e) => console.log(bool, e) }} style={{ width: 300 }}>
                 {`Expandable and collapsible: Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </Paragraph>
+            <br />
+            <Title 
+                heading={6} 
+                ellipsis={{ 
+                    showTooltip: {
+                        renderTooltip: customRenderTooltip
+                    }
+                }} 
+                style={{ width: 250 }}
+                
+            >
+                Custom tooltip with a blue background color
+            </Title>
         </div>
     );
 }
@@ -518,7 +534,7 @@ function Demo() {
 | expandable   | Toggle whether text is expandable                                                                                                                                                            | boolean                                             | false      |
 | pos          | Position to start ellipsis, one of `end`, `middle`                                                                                                                                           | string                                              | `end`      |
 | rows         | Number of rows that should not be truncated                                                                                                                                                  | number                                              | 1          |
-| showTooltip  | Toggle whether to show tooltip, if passed in as object: type，type of component to show tooltip, one of `Tooltip`, `Popover`; opts, properties that will be passed directly to the component | boolean\|{type: 'tooltip'\|'popover', opts: object} | false      |
+| showTooltip  | Toggle whether to show tooltip, if passed in as object: type，type of component to show tooltip, one of `Tooltip`, `Popover`; opts, properties that will be passed directly to the component; renderTooltip, custom rendering popup layer component | boolean\|{type: 'tooltip'\|'popover', opts: object, renderTooltip: (content, children) => ReactNode} | false      |
 | suffix       | Text suffix that will not be truncated                                                                                                                                                       | string                                              | -          |
 | onExpand     | Callback when expand or collapse                                                                                                                                                             | function(expanded: bool, Event: e)                  | -          |
 

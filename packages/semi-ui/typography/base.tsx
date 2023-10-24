@@ -6,7 +6,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/consta
 import Typography from './typography';
 import Copyable from './copyable';
 import { IconSize as Size } from '../icons/index';
-import { isUndefined, omit, merge, isString, isNull } from 'lodash';
+import { isUndefined, omit, merge, isString, isNull, isFunction } from 'lodash';
 import Tooltip from '../tooltip/index';
 import Popover from '../popover/index';
 import getRenderText from './util';
@@ -648,8 +648,10 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const showTooltip = this.showTooltip();
         const content = this.renderContent();
         if (showTooltip) {
-            const { type, opts } = showTooltip as ShowTooltip;
-            if (type.toLowerCase() === 'popover') {
+            const { type, opts, renderTooltip } = showTooltip as ShowTooltip;
+            if (isFunction(renderTooltip)) {
+                return renderTooltip(children, content);
+            } else if (type.toLowerCase() === 'popover') {
                 return (
                     <Popover content={children} position="top" {...opts}>
                         {content}

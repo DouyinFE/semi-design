@@ -89,4 +89,11 @@ describe('typography', () => {
         cy.get('.semi-tooltip-content').should('not.exist');;
     });
 
+    it.only('custom render tooltip', () => {
+        cy.viewport(800, 1000);
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--custom-tooltip&args=&viewMode=story');
+        cy.get('.semi-typography').trigger('mouseover');
+        cy.get('.semi-tooltip-wrapper').eq(0).should('have.attr', 'style').should('contain', 'background-color: blue');
+    });
+
 });
