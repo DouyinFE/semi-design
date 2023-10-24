@@ -794,7 +794,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             };
             const { content, isRenderInTag } = (item && treeNodeLabelProp in item) ?
                 (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index, onClose }) :
-                null;
+                ({} as any);
             if (isNull(content) || isUndefined(content)) {
                 return;
             }
@@ -1109,7 +1109,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (isFunction(renderSelectedItem)) {
             const { content, isRenderInTag } = item && treeNodeLabelProp in item ?
                 (renderSelectedItem as RenderSelectedItemInMultiple)(item, { index: idx, onClose }) :
-                null;
+                ({} as any);
             if (isRenderInTag) {
                 return <Tag {...tagProps}>{content}</Tag>;
             } else {
