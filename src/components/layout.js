@@ -32,7 +32,7 @@ import SideNav from './side-nav';
 import Footer from './Footer';
 import { itemsArr } from 'utils/category';
 import { getLocale, _t } from 'utils/locale';
-import { ISIDE, useIde } from './useIde';
+import { useIde } from './useIde';
 
 
 const insertScript = scriptText => {
@@ -46,7 +46,7 @@ const AppLayout = ({ type, location, children }) => {
     const [showBanner, setShowBanner] = useState(false);
     const wrapperRef = useRef(null);
     
-    useIde({ wrapperRef });
+    const isIde = useIde({ wrapperRef });
 
     // ----------------START insert static code to document-------------------------
     useEffect(() => {
@@ -115,7 +115,7 @@ const AppLayout = ({ type, location, children }) => {
     // -----------------------------------------------------------------------------
 
     const showSideNav =
-        location.pathname.replace(/(zh\-CN\/?|en\-US\/?)/, '') !== '/' && !/(showcase|resources|customers|contribute|teams)/g.test(location.pathname) && !ISIDE;
+        location.pathname.replace(/(zh\-CN\/?|en\-US\/?)/, '') !== '/' && !/(showcase|resources|customers|contribute|teams)/g.test(location.pathname) && !isIde;
     
     const data = useStaticQuery(graphql`
         query {
@@ -182,7 +182,7 @@ const AppLayout = ({ type, location, children }) => {
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
                     {
-                        !ISIDE && (<div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
+                        !isIde && (<div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
                             <div className="skip-to-content">
                                 <div>{locale === "zh-CN" ? '跳转到:' : 'skip to:'}</div>
                                 <ol>
