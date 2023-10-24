@@ -32,7 +32,7 @@ function OperateButton() {
         >
             <span style={{ display: 'flex' }}>
                 GitHub
-                <span className={styles.badge}>7.1k</span>
+                <span className={styles.badge}>7.3k</span>
             </span>
         </Button>
     </div>);
