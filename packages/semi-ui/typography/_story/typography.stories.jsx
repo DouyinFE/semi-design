@@ -827,7 +827,7 @@ export const HugeDataDemo = () => {
     return <HugeData/>
 }
 
-export const customTooltip = () => {
+export const CustomTooltip = () => {
   const customRenderTooltip = useCallback((content, children) => {
     return <Tooltip content={content} style={{ backgroundColor: 'blue' }}>{children}</Tooltip>
   }, []);
@@ -847,3 +847,21 @@ export const customTooltip = () => {
     </Title>
   </div>
 }
+
+export const GlobalEllipsisPopoverCls = () => (
+  <Title 
+    heading={5} 
+    ellipsis={{ 
+      showTooltip: {
+        type: 'popover',
+        opts: {
+          className: 'testPopoverCls'
+        }
+      },
+    }} 
+    // wordBreak 设置在 Title 的style里
+    style={{ width: 250, wordBreak: 'break-all' }}
+  >
+    测试 showTooltip 中的 type 为 popover 时，传入的类名称正确
+  </Title>
+)

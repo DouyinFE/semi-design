@@ -273,7 +273,6 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         const defaultOpts = {
             type: 'tooltip',
-            opts: {},
         };
         if (typeof showTooltip === 'object') {
             if (showTooltip.type && showTooltip.type.toLowerCase() === 'popover') {
@@ -284,7 +283,15 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
                             showArrow: true,
                         },
                     },
-                    showTooltip
+                    showTooltip,
+                    {
+                        opts: {
+                            className: cls({
+                                [`${prefixCls}-ellipsis-popover`]: true,
+                                [showTooltip?.opts?.className]: Boolean(showTooltip?.opts?.className)
+                            }),
+                        }
+                    }
                 );
             }
             return { ...defaultOpts, ...showTooltip };
