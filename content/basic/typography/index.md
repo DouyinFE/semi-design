@@ -534,7 +534,7 @@ function Demo() {
 | expandable   | 是否支持展开                                                                                                      | boolean                                             | false  |
 | pos          | 省略截断的位置，支持末尾和中间截断：`end`, `middle`                                                               | string                                              | `end`  |
 | rows         | 省略溢出行数                                                                                                      | number                                              | 1      |
-| showTooltip  | 是否展示 tooltip 及相关配置: type，浮层内容承载的组件，支持 Tooltip\| Popover；opts，其他需要透传给浮层组件的属性； renderTooltip，自定义渲染弹出层组件 | boolean\|{type: 'tooltip'\|'popover', opts: object, renderTooltip: (content, children) => ReactNode} | false  |
+| showTooltip  | 是否展示 tooltip 及相关配置: type，浮层内容承载的组件，支持 Tooltip\| Popover；opts，其他需要透传给浮层组件的属性； renderTooltip，自定义渲染弹出层组件 | boolean\|{type: 'tooltip'\|'popover', opts: object, renderTooltip: (content: ReactNode, children: ReactNode) => ReactNode} | false  |
 | suffix       | 始终展示的后缀                                                                                                    | string                                              | -      |
 | onExpand     | 展开/收起的回调                                                                                                   | function(expanded: bool, Event: e)                  | -      |
 
