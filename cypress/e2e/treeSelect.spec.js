@@ -108,5 +108,14 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select').eq(1).click();
         cy.get('.semi-tree-select-popover').should('exist');
     });
+
+    it("unRelated + async load", () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--un-related-and-async-load');
+        cy.get('.semi-checkbox').eq(0).get('.semi-checkbox-inner-checked').should("exist");
+        cy.get('.semi-icon-tree_triangle_down').eq(0).trigger('click');
+        // sync load, 1000ms
+        cy.wait(1000);
+        cy.get('.semi-checkbox').eq(0).get('.semi-checkbox-inner-checked').should("exist");
+    });
 });
 

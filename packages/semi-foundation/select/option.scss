@@ -73,7 +73,7 @@ $multiple: #{$module}-multiple;
 
     &-selected {
         font-weight: $font-weight-bold;
-
+        background: $color-select-option-bg-selected;
         .#{$module}-option-icon {
             color: $color-select_option-icon-active;
         }

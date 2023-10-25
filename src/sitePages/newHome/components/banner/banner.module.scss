@@ -8,6 +8,15 @@
     width: 480px;
 }
 
+:global{
+    body{
+        --react-logo-color:#087ea4;
+    }
+    body[theme-mode='dark']{
+        --react-logo-color:var(--semi-color-primary)
+    }
+}
+
 .autoWrapper_4fa00029 {
     position: relative;
     width: 721px;

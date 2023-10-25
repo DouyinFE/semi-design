@@ -13,6 +13,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.45.0 (2023-10-20)
+- 【Fix】
+    - 修复 resizable Table 宽度在行选择时错误设置为初始值问题（影响 v2.32~v2.44）
+    - 修复 select ellipsisTrigger 在某些边界条件下更新不正确的问题
+    - 修复 checkRelation 为 unRelated 的 Tree/TreeSelect 中，异步加载数据导致已选状态丢失问题
+    - 修复 select ellipsisTrigger 更多数量显示错误的问题 [#1560](https://github.com/DouyinFE/semi-design/issues/1560) [@Jon-Millent](https://github.com/Jon-Millent)
+   
 #### 🎉 2.45.0-beta.0 (2023-10-13)
 - 【Fix】
     - 修复 Select 虚拟化与 renderCreateItem 同时使用时，自定义创建选项显示位置不正确的问题  [#1856](https://github.com/DouyinFE/semi-design/issues/1856)

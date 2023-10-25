@@ -52,6 +52,7 @@ import ImageBox from 'components/ImageBox';
 import './toUEDUtils/toUED.scss';
 import { debounce } from 'lodash';
 import StickyHeaderTable from '../demos/StickyHeaderTable';
+import { useIsIde } from '../components/useIde';
 
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
@@ -206,8 +207,10 @@ const code = ({ ...props }) => {
             ref.current.mounted = false;
         };
     });
+    const isIde = useIsIde();
     return (
-        <div className={'gatsby-live-code'}>
+        <div className={'gatsby-live-code'} >
+            {isIde && <textarea {...{ value: ref.current.newProps.children }} className='gatsby-live-code-ide'/>}
             <Component {...ref.current.newProps} />
         </div>
     );
