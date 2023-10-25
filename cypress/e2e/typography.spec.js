@@ -93,6 +93,7 @@ describe('typography', () => {
         cy.viewport(800, 1000);
         cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--custom-tooltip&args=&viewMode=story');
         cy.get('.semi-typography').trigger('mouseover');
+        cy.wait(2000);
         cy.get('.semi-tooltip-wrapper').eq(0).should('have.attr', 'style').should('contain', 'background-color: blue');
     });
 
@@ -100,6 +101,7 @@ describe('typography', () => {
         cy.viewport(800, 1000);
         cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--global-ellipsis-popover-cls&args=&viewMode=story');
         cy.get('.semi-typography').trigger('mouseover');
+        cy.wait(2000);
         cy.get('.testPopoverCls.semi-typography-ellipsis-popover').should('exist');
     });
 
