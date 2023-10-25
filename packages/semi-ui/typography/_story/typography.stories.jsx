@@ -829,7 +829,7 @@ export const HugeDataDemo = () => {
 
 export const CustomTooltip = () => {
   const customRenderTooltip = useCallback((content, children) => {
-    return <Tooltip content={content} style={{ backgroundColor: 'blue' }}>{children}</Tooltip>
+    return <Tooltip content={content} style={{ backgroundColor: 'var(--semi-color-primary)' }}>{children}</Tooltip>
   }, []);
 
   return <div>

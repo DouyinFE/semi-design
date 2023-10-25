@@ -94,7 +94,7 @@ describe('typography', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=typography--custom-tooltip&args=&viewMode=story');
         cy.get('.semi-typography').trigger('mouseover');
         cy.wait(2000);
-        cy.get('.semi-tooltip-wrapper').eq(0).should('have.attr', 'style').should('contain', 'background-color: blue');
+        cy.get('.semi-tooltip-wrapper').eq(0).should('have.attr', 'style').should('contain', 'background-color: var(--semi-color-primary)');
     });
 
     it('ellipsis popover cls name', () => {
