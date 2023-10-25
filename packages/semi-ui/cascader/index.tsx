@@ -221,6 +221,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     clickOutsideHandler: any;
     mergeType: string;
     context: ContextValue;
+    loadingKeysRef: React.RefObject<Set<string> | null>;
+    loadedKeysRef: React.RefObject<Set<string> | null>;
 
     constructor(props: CascaderProps) {
         super(props);
@@ -269,6 +271,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
         this.foundation = new CascaderFoundation(this.adapter);
+        this.loadingKeysRef = React.createRef();
+        this.loadedKeysRef = React.createRef();
     }
 
     get adapter(): CascaderAdapter {
@@ -389,6 +393,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             updateFocusState: (isFocus: boolean) => {
                 this.setState({ isFocus });
             },
+            updateLoadingKeyRefValue: (keys: Set<string>) => {
+                (this.loadingKeysRef as any).current = keys;
+            },
+            getLoadingKeyRefValue: () => {
+                return this.loadingKeysRef.current;
+            },
+            updateLoadedKeyRefValue: (keys: Set<string>) => {
+                (this.loadedKeysRef as any).current = keys;
+            },
+            getLoadedKeyRefValue: () => {
+                return this.loadedKeysRef.current;
+            }
         };
     }
 
