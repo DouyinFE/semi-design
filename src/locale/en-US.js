@@ -22,6 +22,13 @@ const appLocale = {
         'footer.component': 'React Component Library',
         'footer.dsm': 'Theme & DSM',
 
+        //new footer
+        "footer.design": "Design System",
+        "footer.getInfo": "Get Semi News",
+        "footer.getInfo.lark": "Semi Lark Group",
+        "footer.getInfo.redBook": "xiaohongshu",
+        "footer.friends": "Friends",
+
         // search
         'search.belong.component': 'Component',
         'search.belong.material': 'Material',
