@@ -588,6 +588,22 @@ export const EllipsisFromCenter = () => (
       我是一个酷炫的从中间折断的3号标题
     </Title>
     <br />
+    <Text
+        data-cy="nowrap-middile-ellipsis1"
+        ellipsis={{ pos: 'middle', rows: 1, showTooltip: true }}
+        style={{ width: '200px', whiteSpace: 'nowrap', overflow: 'hidden' }}
+    >
+      不能换行的单行从中间截断时，应该能正常展示省略
+    </Text>
+    <br />
+    <Text
+        data-cy="nowrap-middile-ellipsis2"
+        ellipsis={{ pos: 'middle', rows: 1, showTooltip: true }}
+        style={{ width: '200px', overflow: 'hidden' }}
+    >
+      This/one/does/not/wrap/like/the/one/before/but/does/not/have/whiteSpace/set
+    </Text>
+    <br />
     <Text ellipsis={{ pos: 'middle' }} style={{ width: '50%' }}>
       通常のテキストでさえ、切り捨てる機能が必要です
     </Text>
