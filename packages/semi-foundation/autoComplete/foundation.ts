@@ -426,10 +426,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         this._persistEvent(e);
         // In order to handle the problem of losing onClick binding when clicking on the padding area, the onBlur event is triggered first to cause the react view to be updated
         // internal-issues:1231
-        setTimeout(() => {
-            this._adapter.notifyBlur(e);
-            // this.closeDropdown();
-        }, 100);
+        this._adapter.notifyBlur(e);
     }
 }
 
