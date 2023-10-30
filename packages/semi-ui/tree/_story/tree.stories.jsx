@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
@@ -2764,3 +2764,59 @@ export const UnRelatedAndAsyncLoad = () => {
     </>
   );
 };
+
+const constructLargeData = () => {
+  const newArray = (new Array(10)).fill(0).map((item, m) => {
+    const parent = {
+      key: `key-${m}`,
+      label: `node-${m}`,
+      children: []
+    }
+    new Array(100).fill(0).map((item, n) => {
+      const children = {
+        key: `key-${m}-${n}`,
+        label: `value-${m}-${n}`,
+        children: []
+      }
+      new Array(10).fill(0).map((item, o) => {
+        const grandChildren = {
+          key: `key-${m}-${n}-${o}`,
+          label: `value-${m}-${n}-${o}`,
+        }
+        children.children.push(grandChildren);
+      });
+      parent.children.push(children);
+    });
+    return parent;
+  });
+  return newArray;
+}
+
+export const ChangeTreeData = () => {
+  const [sign, setSign] = useState(true);
+
+  const treeData1 = useMemo(() => {
+    return constructLargeData();
+  }, []);
+
+  const treeData2 =  useMemo(() => {
+    return constructLargeData();
+  }, []);
+
+  const onButtonClick = useCallback(() => {
+    setSign((sign) => {
+      return !sign;
+    })
+  }, []);
+
+  return <>
+    <Button onClick={onButtonClick}>点击修改TreeData</Button>
+    <br/><br/>
+    <Tree
+        treeData={sign ? treeData1 : treeData2}
+        style={{ width: 300 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        placeholder="请选择"
+    />
+  </>
+}
