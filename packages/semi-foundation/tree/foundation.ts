@@ -427,7 +427,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, fieldNames } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps } = this.getProps();
         let value;
         let keyList = [];
         if (checkRelation === 'related') {
@@ -438,14 +438,14 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         if (this.getProp('onChangeWithObject')) {
             value = keyList.map((itemKey: string) => keyEntities[itemKey].data);
         } else {
-            value = getValueOrKey(keyList.map((itemKey: string) => keyEntities[itemKey].data), fieldNames);
+            value = getValueOrKey(keyList.map((itemKey: string) => keyEntities[itemKey].data), keyMaps);
         }
         this._adapter.notifyChange(value);
     }
 
     notifyChange(key: string[] | string, e: any) {
         const isMultiple = this._isMultiple();
-        const { fieldNames } = this.getProps();
+        const { keyMaps } = this.getProps();
         const { keyEntities } = this.getStates();
         if (this.getProp('treeDataSimpleJson')) {
             this.notifyJsonChange(key, e);
@@ -457,7 +457,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
                 value = get(keyEntities, key).data;
             } else {
                 const { data } = get(keyEntities, key);
-                value = getValueOrKey(data, fieldNames);
+                value = getValueOrKey(data, keyMaps);
             }
             this._adapter.notifyChange(value);
         }
@@ -467,8 +467,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         // Input is a controlled component, so the value value needs to be updated
         this._adapter.updateInputValue(sugInput);
         const { expandedKeys, selectedKeys, keyEntities, treeData } = this.getStates();
-        const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, fieldNames } = this.getProps();
-        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(fieldNames, 'label', 'label');
+        const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, keyMaps } = this.getProps();
+        const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         let filteredOptsKeys: string[] = [];
         let expandedOptsKeys: string[] = [];
         let flattenNodes: BasicFlattenNode[] = [];
@@ -477,7 +477,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         if (!sugInput) {
             expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities);
             expandedOptsKeys.forEach(item => expandedKeys.add(item));
-            flattenNodes = flattenTreeData(treeData, expandedKeys, fieldNames);
+            flattenNodes = flattenTreeData(treeData, expandedKeys, keyMaps);
         } else {
             filteredOptsKeys = Object.values(keyEntities)
                 .filter((item: BasicKeyEntity) => filter(sugInput, item.data, filterTreeNode, realFilterProp))
@@ -488,7 +488,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
             flattenNodes = flattenTreeData(
                 treeData,
                 new Set(expandedOptsKeys),
-                fieldNames,
+                keyMaps,
                 showFilteredOnly && filteredShownKeys
             );
         }
@@ -632,7 +632,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     setExpandedStatus(treeNode: BasicTreeNodeProps) {
         const { inputValue, treeData, filteredShownKeys, keyEntities } = this.getStates();
-        const { fieldNames } = this.getProps();
+        const { keyMaps } = this.getProps();
         const isSearching = Boolean(inputValue);
         const showFilteredOnly = this._showFilteredOnly();
         const expandedStateKey = isSearching ? 'filteredExpandedKeys' : 'expandedKeys';
@@ -652,7 +652,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
             const flattenNodes = flattenTreeData(
                 treeData,
                 expandedKeys,
-                fieldNames,
+                keyMaps,
                 isSearching && showFilteredOnly && filteredShownKeys
             );
             const motionKeys = this._isAnimated() ? getMotionKeys(eventKey, expandedKeys, keyEntities) : [];

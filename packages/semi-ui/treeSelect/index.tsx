@@ -94,7 +94,7 @@ export type OverrideCommonProps =
     | 'treeData'
     | 'value'
     | 'onExpand'
-    | 'fieldNames';
+    | 'keyMaps';
 
 /**
 * Type definition description:
@@ -217,7 +217,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         showFilteredOnly: PropTypes.bool,
         motionExpand: PropTypes.bool,
         emptyContent: PropTypes.node,
-        fieldNames: PropTypes.object,
+        keyMaps: PropTypes.object,
         leafOnly: PropTypes.bool,
         treeData: PropTypes.arrayOf(
             PropTypes.shape({
@@ -356,7 +356,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
     static getDerivedStateFromProps(props: TreeSelectProps, prevState: TreeSelectState) {
         const { prevProps, rePosKey } = prevState;
-        const { fieldNames } = props;
+        const { keyMaps } = props;
         const needUpdate = (name: string) => (
             (!prevProps && name in props) ||
             (prevProps && !isEqual(prevProps[name], props[name]))
@@ -376,7 +376,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (needUpdateTreeData) {
             treeData = props.treeData;
             newState.treeData = treeData;
-            const entitiesMap = convertDataToEntities(treeData, fieldNames);
+            const entitiesMap = convertDataToEntities(treeData, keyMaps);
             newState.keyEntities = {
                 ...entitiesMap.keyEntities,
             };
@@ -420,14 +420,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             newState.expandedKeys = calcExpandedKeys(props.defaultExpandedKeys, keyEntities);
         } else if (!prevProps && props.defaultValue) {
             newState.expandedKeys = calcExpandedKeysForValues(
-                normalizeValue(props.defaultValue, withObject, fieldNames),
+                normalizeValue(props.defaultValue, withObject, keyMaps),
                 keyEntities,
                 props.multiple,
                 valueEntities
             );
         } else if (!prevProps && props.value) {
             newState.expandedKeys = calcExpandedKeysForValues(
-                normalizeValue(props.value, withObject, fieldNames),
+                normalizeValue(props.value, withObject, keyMaps),
                 keyEntities,
                 props.multiple,
                 valueEntities
@@ -438,7 +438,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             const flattenNodes = flattenTreeData(
                 treeData || prevState.treeData,
                 newState.expandedKeys || prevState.expandedKeys,
-                fieldNames,
+                keyMaps,
             );
             newState.flattenNodes = flattenNodes;
         }
@@ -448,13 +448,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (!isMultiple) {
             if (needUpdate('value')) {
                 newState.selectedKeys = findKeysForValues(
-                    normalizeValue(props.value, withObject, fieldNames),
+                    normalizeValue(props.value, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
             } else if (!prevProps && props.defaultValue) {
                 newState.selectedKeys = findKeysForValues(
-                    normalizeValue(props.defaultValue, withObject, fieldNames),
+                    normalizeValue(props.defaultValue, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
@@ -462,7 +462,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 // If `treeData` changed, we also need check it
                 if (props.value) {
                     newState.selectedKeys = findKeysForValues(
-                        normalizeValue(props.value, withObject, fieldNames) || '',
+                        normalizeValue(props.value, withObject, keyMaps) || '',
                         valueEntities,
                         isMultiple
                     );
@@ -476,13 +476,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
             if (needUpdate('value')) {
                 checkedKeyValues = findKeysForValues(
-                    normalizeValue(props.value, withObject, fieldNames),
+                    normalizeValue(props.value, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
             } else if (!prevProps && props.defaultValue) {
                 checkedKeyValues = findKeysForValues(
-                    normalizeValue(props.defaultValue, withObject, fieldNames),
+                    normalizeValue(props.defaultValue, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
@@ -490,7 +490,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 // If `treeData` changed, we also need check it
                 if (props.value) {
                     checkedKeyValues = findKeysForValues(
-                        normalizeValue(props.value, withObject, fieldNames) || [],
+                        normalizeValue(props.value, withObject, keyMaps) || [],
                         valueEntities,
                         isMultiple
                     );
@@ -523,7 +523,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
 
         // ================ disableStrictly =================
         if (treeData && props.disableStrictly && props.checkRelation === 'related') {
-            newState.disabledKeys = calcDisabledKeys(keyEntities, fieldNames);
+            newState.disabledKeys = calcDisabledKeys(keyEntities, keyMaps);
         }
 
         return newState;
@@ -773,9 +773,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             size,
             checkRelation,
             renderSelectedItem: propRenderSelectedItem,
-            fieldNames
+            keyMaps
         } = this.props;
-        const realLabelName = get(fieldNames, 'label', treeNodeLabelProp);
+        const realLabelName = get(keyMaps, 'label', treeNodeLabelProp);
         const renderSelectedItem = isFunction(propRenderSelectedItem) ?
             propRenderSelectedItem :
             (item: TreeNodeData) => ({
@@ -1083,12 +1083,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             disableStrictly,
             renderSelectedItem: propRenderSelectedItem,
             treeNodeLabelProp,
-            fieldNames
+            keyMaps
         } = this.props;
-        const realLabelName = get(fieldNames, 'label', treeNodeLabelProp);
+        const realLabelName = get(keyMaps, 'label', treeNodeLabelProp);
         const keyList = normalizeKeyList([key], keyEntities, leafOnly, true);
         const nodes = keyList.map(i => (keyEntities[key] && keyEntities[key].key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
-        const value = getValueOrKey(nodes, fieldNames);
+        const value = getValueOrKey(nodes, keyMaps);
         const tagCls = cls(`${prefixcls}-selection-tag`, {
             [`${prefixcls}-selection-tag-disabled`]: disabled,
         });
@@ -1319,8 +1319,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             return null;
         }
         const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf']);
-        const { fieldNames } = this.props;
-        const children = data[get(fieldNames, 'children', 'children')];
+        const { keyMaps } = this.props;
+        const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
         return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={style} />;
     };

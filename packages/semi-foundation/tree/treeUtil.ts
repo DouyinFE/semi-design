@@ -34,8 +34,8 @@ function isValid(val: any) {
     return !isNull(val) && !isUndefined(val);
 }
 
-function getResultByFieldName(data, key, fieldNames) {
-    const realKeyName = get(fieldNames, key, key);
+function getResultByFieldName(data, key, keyMaps) {
+    const realKeyName = get(keyMaps, key, key);
     return get(data, realKeyName, null);
 }
 
@@ -46,17 +46,17 @@ function getResultByFieldName(data, key, fieldNames) {
  * @param filteredShownKeys
  * need expanded keys, provides `true` means all expanded
  */
-export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, fieldNames: FieldNameProps, filteredShownKeys: boolean | Set<any> = false) {
+export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, keyMaps: FieldNameProps, filteredShownKeys: boolean | Set<any> = false) {
     const flattenList: any[] = [];
     const filterSearch = Boolean(filteredShownKeys);
     function flatten(list: any[], parent: any = null) {
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
-            const mergedKey = getResultByFieldName(treeNode, 'key', fieldNames);
+            const mergedKey = getResultByFieldName(treeNode, 'key', keyMaps);
 
             const otherData = {};
-            if (fieldNames) {
-                Object.entries(omit(fieldNames, 'children')).forEach(([key, value]) => {
+            if (keyMaps) {
+                Object.entries(omit(keyMaps, 'children')).forEach(([key, value]) => {
                     const result = treeNode[value as string];
                     !isUndefined(result) && (otherData[key] = result);
                 });
@@ -79,7 +79,7 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
 
             // Loop treeNode children
             if (expandedKeys.has(mergedKey) && (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey)))) {
-                flattenNode.children = flatten(getResultByFieldName(treeNode, 'children', fieldNames) || [], flattenNode);
+                flattenNode.children = flatten(getResultByFieldName(treeNode, 'children', keyMaps) || [], flattenNode);
             } else {
                 flattenNode.children = [];
             }
@@ -118,11 +118,11 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
 /**
  * Traverse all the data by `treeData`.
  */
-export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, fieldNames: FieldNameProps) {
+export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, keyMaps: FieldNameProps) {
     const processNode = (node: any, ind?: number, parent?: any) => {
-        const children = node ? getResultByFieldName(node, 'children', fieldNames) : treeNodes;
+        const children = node ? getResultByFieldName(node, 'children', keyMaps) : treeNodes;
         const pos = node ? getPosition(parent.pos, ind) : '0';
-        const nodeKey = getResultByFieldName(node, 'key', fieldNames);
+        const nodeKey = getResultByFieldName(node, 'key', keyMaps);
         // Process node if is not root
         if (node) {
             const data = {
@@ -151,7 +151,7 @@ export function traverseDataNodes(treeNodes: any[], callback: (data: any) => voi
 }
 
 /* Convert data to entities map */
-export function convertDataToEntities(dataNodes: any[], fieldNames?: FieldNameProps) {
+export function convertDataToEntities(dataNodes: any[], keyMaps?: FieldNameProps) {
     const posEntities = {};
     const keyEntities = {};
     const valueEntities = {};
@@ -164,7 +164,7 @@ export function convertDataToEntities(dataNodes: any[], fieldNames?: FieldNamePr
     traverseDataNodes(dataNodes, (data: any) => {
         const { pos, key, parentPos } = data;
         const entity = { ...data };
-        const value = getResultByFieldName(entity.data, 'value', fieldNames);
+        const value = getResultByFieldName(entity.data, 'value', keyMaps);
 
         if (value !== null) {
             valueEntities[value] = key;
@@ -179,7 +179,7 @@ export function convertDataToEntities(dataNodes: any[], fieldNames?: FieldNamePr
             entity.parent.children = entity.parent.children || [];
             entity.parent.children.push(entity);
         }
-    }, fieldNames);
+    }, keyMaps);
 
     return wrapper;
 }
@@ -585,7 +585,7 @@ export function filterTreeData(info: any) {
         filterTreeNode,
         filterProps,
         prevExpandedKeys,
-        fieldNames
+        keyMaps
     } = info;
 
     let filteredOptsKeys = [];
@@ -599,7 +599,7 @@ export function filterTreeData(info: any) {
     }
     const shownChildKeys = findDescendantKeys(filteredOptsKeys, keyEntities, true);
     const filteredShownKeys = new Set([...shownChildKeys, ...expandedOptsKeys]);
-    const flattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), fieldNames, showFilteredOnly && filteredShownKeys);
+    const flattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), keyMaps, showFilteredOnly && filteredShownKeys);
 
     return {
         flattenNodes,
@@ -610,9 +610,9 @@ export function filterTreeData(info: any) {
 }
 
 // return data.value if data.value exist else fall back to key
-export function getValueOrKey(data: any, fieldNames?: FieldNameProps) {
-    const valueName = get(fieldNames, 'value', 'value');
-    const keyName = get(fieldNames, 'key', 'key');
+export function getValueOrKey(data: any, keyMaps?: FieldNameProps) {
+    const valueName = get(keyMaps, 'value', 'value');
+    const keyName = get(keyMaps, 'key', 'key');
     if (Array.isArray(data)) {
         return data.map(item => get(item, valueName, item[keyName]));
     }
@@ -620,9 +620,9 @@ export function getValueOrKey(data: any, fieldNames?: FieldNameProps) {
 }
 
 /* Convert value to string */
-export function normalizeValue(value: any, withObject: boolean, fieldNames?: FieldNameProps) {
+export function normalizeValue(value: any, withObject: boolean, keyMaps?: FieldNameProps) {
     if (withObject && isValid(value)) {
-        return getValueOrKey(value, fieldNames);
+        return getValueOrKey(value, keyMaps);
     } else {
         return value;
     }
@@ -633,8 +633,8 @@ export function updateKeys(keySet: Set<string> | string[], keyEntities: KeyEntit
     return keyArr.filter(key => key in keyEntities);
 }
 
-export function calcDisabledKeys(keyEntities: KeyEntities, fieldNames?: FieldNameProps) {
-    const disabledKeys = Object.keys(keyEntities).filter(key => getResultByFieldName(keyEntities[key].data, 'disabled', fieldNames));
+export function calcDisabledKeys(keyEntities: KeyEntities, keyMaps?: FieldNameProps) {
+    const disabledKeys = Object.keys(keyEntities).filter(key => getResultByFieldName(keyEntities[key].data, 'disabled', keyMaps));
     const { checkedKeys } = calcCheckedKeys(disabledKeys, keyEntities);
     return checkedKeys;
 }

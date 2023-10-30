@@ -2537,7 +2537,7 @@ export const ChangeTreeData = () => {
   </>
 }
 
-export const FieldNames = () => {
+export const KeyMaps = () => {
   const [withObject, setWithObject] = useState(false);
   const [value1, setValue1] = useState(undefined);
   const [value2, setValue2] = useState(undefined);
@@ -2567,7 +2567,7 @@ export const FieldNames = () => {
     console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
   }, []);
 
-  const fieldNames = useMemo(() => {
+  const keyMaps = useMemo(() => {
     return {
       // value: 'value1',
       key: 'key1',
@@ -2578,7 +2578,7 @@ export const FieldNames = () => {
   }, []);
 
   const regularTreeProps = useMemo(() => ({
-    fieldNames: fieldNames,
+    keyMaps: keyMaps,
     treeData: specialTreeData,
     style: { width: 300 },
     dropdownStyle: { maxHeight: 400, overflow: 'auto' },

@@ -88,7 +88,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 isLeaf: PropTypes.bool,
             })
         ),
-        fieldNames: PropTypes.object,
+        keyMaps: PropTypes.object,
         treeDataSimpleJson: PropTypes.object,
         treeNodeFilterProp: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.object]),
@@ -191,7 +191,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
 
     static getDerivedStateFromProps(props: TreeProps, prevState: TreeState) {
         const { prevProps } = prevState;
-        const { fieldNames } = props;
+        const { keyMaps } = props;
         let treeData;
         let keyEntities = prevState.keyEntities || {};
         let valueEntities = prevState.cachedKeyValuePairs || {};
@@ -222,7 +222,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         if (needUpdateTreeData || (props.draggable && needUpdateData())) {
             treeData = props.treeData;
             newState.treeData = treeData;
-            const entitiesMap = convertDataToEntities(treeData, fieldNames);
+            const entitiesMap = convertDataToEntities(treeData, keyMaps);
             newState.keyEntities = {
                 ...entitiesMap.keyEntities,
             };
@@ -233,7 +233,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             // Convert treeDataSimpleJson to treeData
             treeData = convertJsonToData(props.treeDataSimpleJson);
             newState.treeData = treeData;
-            const entitiesMap = convertDataToEntities(treeData, fieldNames);
+            const entitiesMap = convertDataToEntities(treeData, keyMaps);
             newState.keyEntities = {
                 ...entitiesMap.keyEntities,
             };
@@ -317,7 +317,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 const flattenNodes = flattenTreeData(
                     treeData || prevState.treeData,
                     newState.expandedKeys || prevState.expandedKeys,
-                    fieldNames
+                    keyMaps
                 );
                 newState.flattenNodes = flattenNodes;
             }
@@ -334,7 +334,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                     showFilteredOnly: props.showFilteredOnly,
                     keyEntities: newState.keyEntities,
                     prevExpandedKeys: [...prevState.filteredExpandedKeys],
-                    fieldNames: fieldNames
+                    keyMaps: keyMaps
                 });
                 newState.flattenNodes = filteredState.flattenNodes;
                 newState.motionKeys = new Set([]);
@@ -378,7 +378,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 newState.flattenNodes = flattenTreeData(
                     treeData || prevState.treeData,
                     newState.filteredExpandedKeys || prevState.filteredExpandedKeys,
-                    fieldNames,
+                    keyMaps,
                     props.showFilteredOnly && prevState.filteredShownKeys
                 );
             }
@@ -392,13 +392,13 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             if (needUpdate('value')) {
                 newState.selectedKeys = findKeysForValues(
                     // In both cases whether withObject is turned on, the value is standardized to string
-                    normalizeValue(props.value, withObject, fieldNames),
+                    normalizeValue(props.value, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
             } else if (!prevProps && props.defaultValue) {
                 newState.selectedKeys = findKeysForValues(
-                    normalizeValue(props.defaultValue, withObject, fieldNames),
+                    normalizeValue(props.defaultValue, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
@@ -406,7 +406,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 // If `treeData` changed, we also need check it
                 if (props.value) {
                     newState.selectedKeys = findKeysForValues(
-                        normalizeValue(props.value, withObject, fieldNames) || '',
+                        normalizeValue(props.value, withObject, keyMaps) || '',
                         valueEntities,
                         isMultiple
                     );
@@ -417,13 +417,13 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             // Get the selected node during multiple selection
             if (needUpdate('value')) {
                 checkedKeyValues = findKeysForValues(
-                    normalizeValue(props.value, withObject, fieldNames),
+                    normalizeValue(props.value, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
             } else if (!prevProps && props.defaultValue) {
                 checkedKeyValues = findKeysForValues(
-                    normalizeValue(props.defaultValue, withObject, fieldNames),
+                    normalizeValue(props.defaultValue, withObject, keyMaps),
                     valueEntities,
                     isMultiple
                 );
@@ -431,7 +431,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 // If `treeData` changed, we also need check it
                 if (props.value) {
                     checkedKeyValues = findKeysForValues(
-                        normalizeValue(props.value, withObject, fieldNames) || [],
+                        normalizeValue(props.value, withObject, keyMaps) || [],
                         valueEntities,
                         isMultiple
                     );
@@ -459,7 +459,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
 
         // update disableStrictly
         if (treeData && props.disableStrictly && props.checkRelation === 'related') {
-            newState.disabledKeys = calcDisabledKeys(keyEntities, fieldNames);
+            newState.disabledKeys = calcDisabledKeys(keyEntities, keyMaps);
         }
 
         return newState;
@@ -661,9 +661,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         if (!treeNodeProps) {
             return null;
         }
-        const { fieldNames } = this.props;
+        const { keyMaps } = this.props;
         const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf']);
-        const children = data[get(fieldNames, 'children', 'children')];
+        const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
         return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={isEmpty(style) ? {} : style} />;
     };

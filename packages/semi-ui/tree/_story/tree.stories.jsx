@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useRef, useState, useCallback, useMemo } from 'react';
-=======
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
->>>>>>> 640bf168 (feat: Tree/TreeSelect support fieldNames API)
 import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
@@ -2887,7 +2883,7 @@ export const ChangeTreeData = () => {
   </>
 }
 
-export const FieldNames = () => {
+export const KeyMaps = () => {
   const [withObject, setWithObject] = useState(false);
   const [value1, setValue1] = useState(undefined);
   const [value2, setValue2] = useState([]);
@@ -2932,7 +2928,7 @@ export const FieldNames = () => {
   }, []);
 
   const regularTreeProps = useMemo(() => ({
-    fieldNames: fieldName,
+    keyMaps: fieldName,
     treeData: specialTreeData,
     style: { width: 300 },
     onChange: normalChange,

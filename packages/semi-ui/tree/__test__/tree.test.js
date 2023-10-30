@@ -197,7 +197,7 @@ const specialTreeData = [
     },
 ];
 
-const defaultFieldNames = {
+const defaultKeyMaps = {
     value: 'value1',
     key: 'key1',
     label: 'label1',
@@ -1042,7 +1042,7 @@ describe('Tree', () => {
         expect(spyOnDragEnd.calledWithMatch({node: dragNodeData})).toEqual(true);
     });
 
-    it('fieldNames', () => {
+    it('keyMaps', () => {
         let spyOnChange = sinon.spy(() => { });
         let tree = getTree({
             treeData: specialTreeData,
@@ -1050,7 +1050,7 @@ describe('Tree', () => {
             onChange: spyOnChange,
             defaultExpandAll: true,
             motion: false,
-            fieldNames: defaultFieldNames
+            keyMaps: defaultKeyMaps
         });
         let disabledNode = tree.find(`.${BASE_CLASS_PREFIX}-tree-option-disabled`).at(0);
         expect(disabledNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('中国');
@@ -1064,7 +1064,7 @@ describe('Tree', () => {
         expect(spyOnChange.calledWithMatch("Shanghai")).toEqual(true);
     });
 
-    it('fieldNames + onChangeWithObject', () => {
+    it('keyMaps + onChangeWithObject', () => {
         let spyOnChange = sinon.spy(() => { });
         let tree = getTree({
             treeData: specialTreeData,
@@ -1076,7 +1076,7 @@ describe('Tree', () => {
             onChangeWithObject: true,
             onChange: spyOnChange,
             defaultExpandAll: true,
-            fieldNames: defaultFieldNames
+            keyMaps: defaultKeyMaps
         });
         let disabledNode = tree.find(`.${BASE_CLASS_PREFIX}-tree-option-disabled`).at(0);
         expect(disabledNode.find(`.${BASE_CLASS_PREFIX}-tree-option-label-text`).instance().textContent).toEqual('中国');
