@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.46.0-beta.0 (2023-10-30)
+- 【Feat】
+    - Typography's showTooltip API adds renderTooltip to support custom rendering pop-up layer components  [#1853](https://github.com/DouyinFE/semi-design/issues/1853)
+- 【Fix】
+    - Fixed formatter error issue when InputNumber is in controlled mode and focused [#1870](https://github.com/DouyinFE/semi-design/pull/1870)
+    - Fixed ide dom error in ssr [#1875](https://github.com/DouyinFE/semi-design/pull/1875) [@tank0317](https://github.com/tank0317)
+    - Fixed an issue in Cascader that loads data asynchronously due to untimely updating of loadingKeys resulting in incorrect node status when loading is completed.  [#1867](https://github.com/DouyinFE/semi-design/issues/1867)
+    - Fixed the problem of TypeError caused by the destructured data in TreeSelect being null
+- 【Design Token】
+    - Select Add color-select-option-bg-selected [#1871](https://github.com/DouyinFE/semi-design/pull/1871)
+
+
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】
     - resizable Table width reset to initial bug（Affected v2.32~v2.44）
