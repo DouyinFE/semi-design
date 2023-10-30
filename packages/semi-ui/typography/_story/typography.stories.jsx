@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
 import Typography from '../index';
 import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
+<<<<<<< HEAD
+=======
+import {HugeData} from "./HugeData";
+import { Tooltip } from '@douyinfe/semi-ui'
+>>>>>>> 0348353f (feat: typography support custom tooltip component (#1874))
 
 export default {
   title: 'Typography'
@@ -818,5 +823,48 @@ export const JsEllipsisNoTooltip = () => (
     style={{ width: 250, wordBreak: 'break-all' }}
   >
       data_tns
+  </Title>
+)
+
+export const HugeDataDemo = () => {
+    return <HugeData/>
+}
+
+export const CustomTooltip = () => {
+  const customRenderTooltip = useCallback((content, children) => {
+    return <Tooltip content={content} style={{ backgroundColor: 'var(--semi-color-primary)' }}>{children}</Tooltip>
+  }, []);
+
+  return <div>
+     <Title 
+      heading={5} 
+      ellipsis={{ 
+        showTooltip: {
+          renderTooltip: customRenderTooltip
+        }
+      }} 
+      style={{ width: 250 }}
+      
+    >
+      这是一个自定义 tooltip 的省略文本，背景色是蓝色
+    </Title>
+  </div>
+}
+
+export const GlobalEllipsisPopoverCls = () => (
+  <Title 
+    heading={5} 
+    ellipsis={{ 
+      showTooltip: {
+        type: 'popover',
+        opts: {
+          className: 'testPopoverCls'
+        }
+      },
+    }} 
+    // wordBreak 设置在 Title 的style里
+    style={{ width: 250, wordBreak: 'break-all' }}
+  >
+    测试 showTooltip 中的 type 为 popover 时，传入的类名称正确
   </Title>
 )
