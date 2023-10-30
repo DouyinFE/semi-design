@@ -366,11 +366,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const newState: Partial<TreeSelectState> = {
             prevProps: props,
         };
-        const needUpdateTreeData = needUpdate('treeData');
-        const needUpdateExpandedKeys = needUpdate('expandedKeys');
 
         // TreeNode
-        if (needUpdateTreeData) {
+        if (needUpdate('treeData')) {
             treeData = props.treeData;
             newState.treeData = treeData;
             const entitiesMap = convertDataToEntities(treeData);
@@ -393,9 +391,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 newState.motionType = null;
             }
         }
-        const expandAllWhenDataChange = needUpdateTreeData && props.expandAll;
+        const expandAllWhenDataChange = needUpdate('treeData') && props.expandAll;
         // expandedKeys
-        if (needUpdateExpandedKeys || (prevProps && needUpdate('autoExpandParent'))) {
+        if (needUpdate('expandedKeys') || (prevProps && needUpdate('autoExpandParent'))) {
             newState.expandedKeys = calcExpandedKeys(
                 props.expandedKeys,
                 keyEntities,
@@ -431,7 +429,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             );
         }
         // flattenNodes
-        if (treeData || needUpdateExpandedKeys) {
+        if (treeData || needUpdate('expandedKeys')) {
             const flattenNodes = flattenTreeData(
                 treeData || prevState.treeData,
                 newState.expandedKeys || prevState.expandedKeys
@@ -513,7 +511,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         }
 
         // ================== rePosKey ==================
-        if (needUpdateTreeData || needUpdate('value')) {
+        if (needUpdate('treeData') || needUpdate('value')) {
             newState.rePosKey = rePosKey + 1;
         }
 
