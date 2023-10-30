@@ -32,5 +32,13 @@ describe('tree', () => {
         cy.get('.semi-tree-option-expand-icon');
     });
 
+    it("unRelated + async load", () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tree--un-related-and-async-load&args=&viewMode=story');
+        cy.get('.semi-checkbox').eq(0).get('.semi-checkbox-inner-checked').should("exist");
+        cy.get('.semi-icon-tree_triangle_down').eq(0).trigger('click');
+        // sync load, 1000ms
+        cy.wait(1000);
+        cy.get('.semi-checkbox').eq(0).get('.semi-checkbox-inner-checked').should("exist");
+    });
 
 });

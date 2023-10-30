@@ -181,14 +181,14 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
 > & React.RefAttributes<any>;
 
 export interface SelectState {
@@ -1092,11 +1092,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     handleOverflow(items: [React.ReactNode, any][]) {
         const { overflowItemCount, selections } = this.state;
         const { maxTagCount } = this.props;
-        const maxVisibleCount = selections.size - maxTagCount;
-        const newOverFlowItemCount = maxVisibleCount > 0 ? maxVisibleCount + items.length - 1 : items.length - 1;
-
-        // fix: issues 1560
-        if (items.length >= 1 && overflowItemCount !== newOverFlowItemCount) {
+        const newOverFlowItemCount = selections.size - maxTagCount > 0 ? selections.size - maxTagCount + items.length - 1 : items.length - 1;
+        if (overflowItemCount !== newOverFlowItemCount) {
             this.foundation.updateOverflowItemCount(selections.size, newOverFlowItemCount);
         }
     }
@@ -1109,6 +1106,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <div className={`${prefixcls}-content-wrapper-collapse`}>
                 <OverflowList
                     items={normalTags}
+                    key={String(selections.length)}
                     overflowRenderer={overflowItems => this.renderOverflow(overflowItems as [React.ReactNode, any][], length - 1)}
                     onOverflow={overflowItems => this.handleOverflow(overflowItems as [React.ReactNode, any][])}
                     visibleItemRenderer={(item, index) => this.renderTag(item as [React.ReactNode, any], index)}

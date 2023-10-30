@@ -22,6 +22,15 @@ const appLocale = {
         'footer.component': 'React 组件库',
         'footer.dsm': '主题与 DSM',
 
+        //new footer
+        "footer.design": "设计系统",
+        "footer.getInfo": "获取 Semi 动态",
+        "footer.getInfo.lark": "Semi 飞书群",
+        "footer.getInfo.redBook": "小红书",
+        "footer.friends": "友情链接",
+
+
+
         // search
         'search.belong.component': '组件',
         'search.belong.material': '物料',

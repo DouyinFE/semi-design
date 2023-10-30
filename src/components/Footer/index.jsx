@@ -1,24 +1,79 @@
 /* eslint-disable max-lines-per-function */
 import React, { Component } from 'react';
-import UserContext from 'context/context';
-import './footer.scss';
-import { _t } from 'src/utils/locale';
-import { getLocale } from '../../utils/locale';
-import { IconBytedanceLogo } from '@douyinfe/semi-icons';
+import { FormattedMessage } from 'react-intl';
+
+import './index.scss';
+import { getLocale } from "../../utils/locale";
+const _t = id => <FormattedMessage id={id} />;
 
 export class Footer extends Component {
-    static contextType = UserContext;
+
 
     render() {
+        const locale = getLocale();
+        const { style } = this.props;
         return (
-            <div className='footerMini8' id="footer"><img alt="semi logo" aria-hidden src="https://lf9-static.semi.design/obj/semi-tos/images/a5768a90-324e-11ec-b393-ab4adc2e449f.svg" className='group6' />
-                <div className='links'>
-                    <a href={`/${getLocale()}/start/getting-started`} className='text'>{_t('footer.component')}</a>
-                    <a href='https://figma.com/@semi' className='figmaUIKit' target="_blank" rel="noreferrer">Figma UIKit</a>
-                    <p className='text_d3ba282e'><a href={DSM_URL?DSM_URL:"https://semi.design/dsm/landing"} className='text_8b88424e' target="_blank" rel="noreferrer">{_t('footer.dsm')}</a></p>
-                    <a href="https://github.com/DouyinFE/semi-design" className='github' target="_blank" rel="noreferrer">GitHub</a>
+            <footer className="footer" style={{ ...style, zIndex: 10 }}>
+                <div className="footer-circle" />
+                <div className="footer-link" style={{ width: "inherit" }}>
+                    {/*<Icon className="footer-icon" type="doc-semi-logo" />*/}
+                    <img alt="semi logo" style={{ height: "fit-content" }} aria-hidden src="https://lf9-static.semi.design/obj/semi-tos/images/a5768a90-324e-11ec-b393-ab4adc2e449f.svg" className='group6' />
+                    <div className="link-col">
+                        <p className="link-group">{_t('footer.design')}</p>
+                        <a href={`/${locale}/start/introduction`}>Semi UI</a>
+                        <a href={`/code`}>
+                            Semi D2C
+                        </a>
+                        <a href={`/dsm`}>Semi DSM</a>
+                        <a href={`/template`}>Semi Template</a>
+                    </div>
+                    <div className="link-col">
+                        <p className="link-group">Semi x Figma</p>
+                        <a
+                            href={`https://www.figma.com/community/file/1034817675495341827`}
+                        >
+                            Figma UIKit
+                        </a>
+                        <a
+                            href={`https://www.figma.com/community/file/1034817061440731906`}
+                        >
+                            Figma Iconset
+                        </a>
+                        <a
+                            href={`https://www.figma.com/community/plugin/1166339852662786534/semi-design`}
+                        >
+                            Figma Plugin
+                        </a>
+                    </div>
+                    <div className="link-col">
+                        <p className="link-group">{_t('footer.getInfo')}</p>
+                        <a href="https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=a12h8083-7d57-46cd-b431-5f388a0ce410">
+                            {_t('footer.getInfo.lark')}
+                        </a>
+                        <a href="https://twitter.com/SemiDesignUI">
+                            Twitter
+                        </a>
+                        <a href="https://medium.com/@semi-design">
+                            Medium
+                        </a>
+                        <a href="https://dev.to/semidesign">
+                            Dev.to
+                        </a>
+                        <a href="https://www.xiaohongshu.com/user/profile/5cf030c20000000010013636">
+                            {_t('footer.getInfo.redBook')}
+                        </a>
+                    </div>
+                    <div className="link-col">
+                        <p className="link-group">{_t('footer.friends')}</p>
+                        <a href={"https://www.rspack.dev/"}>
+                            Rspack
+                        </a>
+                        <a href={"https://www.visactor.io/"}>
+                            Visactor
+                        </a>
+
+                    </div>
                 </div>
-                <img src="https://lf9-static.semi.design/obj/semi-tos/images/a577c310-324e-11ec-8b14-8fb159794ae4.svg" className='divider' aria-hidden alt='' />
                 <div className='autoWrapper'>
                     <div className='icpWrapper'>
                         <p className={'a2021SemiDesignAllRi'}>© 2021 - {new Date().getFullYear()} Semi Design. All rights reserved.</p>
@@ -38,8 +93,9 @@ export class Footer extends Component {
                         <a href="https://dribbble.com/MetaEnterpriseDesign" className='designedDevelopedWit_6eaa79ba'>MED</a>
                     </p>
                 </div>
-            </div>
+            </footer>
         );
     }
 }
+
 export default Footer;
