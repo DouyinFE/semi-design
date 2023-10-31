@@ -454,7 +454,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             newState.disabledKeys = calcDisabledKeys(keyEntities);
         }
         //@ts-ignore
-        alert(performance.now() - __startTime__);
+        // alert(performance.now() - __startTime__);
 
         return newState;
     }
