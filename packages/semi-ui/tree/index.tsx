@@ -453,6 +453,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         if (treeData && props.disableStrictly && props.checkRelation === 'related') {
             newState.disabledKeys = calcDisabledKeys(keyEntities);
         }
+        //@ts-ignore
+        alert(performance.now() - __startTime__);
 
         return newState;
     }
