@@ -2696,7 +2696,7 @@ export const SearchableAndExpandedKeys = () => {
 }
 
 const constructLargeData = () => {
-    const newArray = (new Array(10)).fill(0).map((item, m) => {
+    const newArray = (new Array(100)).fill(0).map((item, m) => {
         const parent = {
             key: `key-${m}`,
             label: `node-${m}`,
