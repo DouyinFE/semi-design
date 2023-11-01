@@ -22,7 +22,7 @@ const generateOption = (child: React.ReactElement, parent: any, index: number): 
     // Props are collected from ReactNode, after React.Children.toArray
     // no need to determine whether the key exists in child
     // Even if the user does not explicitly declare it, React will always generate a key.
-    option.key = child.key;
+    option._keyInJsx = child.key;
     
     return option;
 };
