@@ -30,15 +30,42 @@ function getAddons() {
     return addons;
 }
 
+const commonAlias = {
+    '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
+    '@douyinfe/semi-icons': resolve('packages/semi-icons/src'),
+    '@douyinfe/semi-ui': resolve('packages/semi-ui'),
+    '@douyinfe/semi-theme-default': resolve('packages/semi-theme-default'),
+    '@douyinfe/semi-illustrations': resolve('packages/semi-illustrations/src'),
+    '@douyinfe/semi-animation': resolve('packages/semi-animation'),
+    '@douyinfe/semi-animation-react': resolve('packages/semi-animation-react'),
+    '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled')
+};
+
 module.exports = {
     framework: {
         // name: "@storybook/react-webpack5",
-        name: "storybook-react-rspack",
+        // name: "storybook-react-rspack",
+        name: process.env.BUILD_ENV === 'rspack' ? "storybook-react-rspack" : '@storybook/react-webpack5',
         options: {
             fastRefresh: true
         },
     },
     addons: getAddons(),
+    rspackFinal(config) {
+        config.module.rules.push(
+            {
+                test: /\.s(a|c)ss$/,
+                include: [resolve('packages/semi-ui'), resolve('packages/semi-foundation'), resolve('packages/semi-icons')],
+                use: [{ loader: 'sass-loader' }, { loader: resolve('packages/semi-webpack/lib/semi-theme-loader.js') }],
+                type: 'css'
+            }
+        );
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            ...commonAlias,
+        };
+        return config;
+    },
     webpackFinal: async (config) => {
         const rules =
             (config.module.rules &&
@@ -66,16 +93,7 @@ module.exports = {
         config.module.rules = rules;
         config.resolve.extensions.push('.js', '.jsx', '.ts', '.tsx');
         config.resolve.symlinks = false;
-        config.resolve.alias = {
-            '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
-            '@douyinfe/semi-icons': resolve('packages/semi-icons/src'),
-            '@douyinfe/semi-ui': resolve('packages/semi-ui'),
-            '@douyinfe/semi-theme-default': resolve('packages/semi-theme-default'),
-            '@douyinfe/semi-illustrations': resolve('packages/semi-illustrations/src'),
-            '@douyinfe/semi-animation': resolve('packages/semi-animation'),
-            '@douyinfe/semi-animation-react': resolve('packages/semi-animation-react'),
-            '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled')
-        };
+        config.resolve.alias = commonAlias;
         config.devtool = 'source-map';
 
         return config;

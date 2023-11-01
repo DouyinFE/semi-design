@@ -2,10 +2,12 @@ const config = require('../base/base');
 const utils = require('../base/utils');
 const nycConfig = require('../../nyc.config');
 
+const storiesSuffix = process.env.BUILD_ENV === 'rspack' ? '{js,jsx}' : '(js|jsx)'; // rspack, webpack
+
 module.exports = {
   ...config,
   "stories": [
-    '../../packages/semi-ui/**/_story/*.stories.(js|jsx)',
+    `../../packages/semi-ui/**/_story/*.stories.${storiesSuffix}`,
   ],
   typescript: {
     check: false,
