@@ -13,6 +13,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.45.3 (2023-11-01)
+- 【Fix】
+    - 修复 Select 使用 JSX 传入 Option时，Option传入的 key 未在渲染时生效的问题
+
+#### 🎉 2.45.1 (2023-10-23)
+- 【Design Token】
+  -  Select 增加 $color-select-option-bg-selected 
+
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】
     - 修复 resizable Table 宽度在行选择时错误设置为初始值问题（影响 v2.32~v2.44）

@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.45.3 (2023-11-01)
+- 【Fix】
+    - Fixed the problem that when Select uses JSX to pass in Option, the key passed in Option does not take effect during rendering.
+
+#### 🎉 2.45.1 (2023-10-23)
+- 【Design Token】
+    - Select added $color-select-option-bg-selected
+
+
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】
     - resizable Table width reset to initial bug（Affected v2.32~v2.44）
