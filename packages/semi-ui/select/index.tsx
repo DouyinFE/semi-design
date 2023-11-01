@@ -181,14 +181,14 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-    TooltipProps,
-    | 'spacing'
-    | 'getPopupContainer'
-    | 'motion'
-    | 'autoAdjustOverflow'
-    | 'mouseLeaveDelay'
-    | 'mouseEnterDelay'
-    | 'stopPropagation'
+TooltipProps,
+| 'spacing'
+| 'getPopupContainer'
+| 'motion'
+| 'autoAdjustOverflow'
+| 'mouseLeaveDelay'
+| 'mouseEnterDelay'
+| 'stopPropagation'
 > & React.RefAttributes<any>;
 
 export interface SelectState {
@@ -775,7 +775,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     focused={isFocused}
                     onMouseEnter={() => this.onOptionHover(optionIndex)}
                     style={optionStyle}
-                    key={option.key || option.label as string + option.value as string + optionIndex}
+                    key={option._keyInOptionList || option._keyInJsx || option.label as string + option.value as string + optionIndex}
                     renderOptionItem={renderOptionItem}
                     inputValue={inputValue}
                     semiOptionId={`${this.selectID}-option-${optionIndex}`}
