@@ -17,8 +17,6 @@ import { throttle } from "lodash";
 const prefixCls = cssClasses.PREFIX;
 const footerPrefixCls = `${cssClasses.PREFIX}-preview-footer`;
 
-let mouseActiveTime: number = 0;
-
 export default class Footer extends BaseComponent<FooterProps> {
     static propTypes = {
         curPage: PropTypes.number,
@@ -58,9 +56,6 @@ export default class Footer extends BaseComponent<FooterProps> {
     get adapter(): PreviewFooterAdapter<FooterProps> {
         return {
             ...super.adapter,
-            setStartMouseOffset: (time: number) => {
-                mouseActiveTime = time;
-            }
         };
     }
 

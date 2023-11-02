@@ -57,6 +57,8 @@ export interface PreviewProps extends BaseProps {
     zIndex?: number;
     children?: ReactNode;
     crossOrigin?: "anonymous"| "use-credentials";
+    maxZoom?: number;
+    minZoom?: number;
     renderHeader?: (info: any) => ReactNode;
     renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
@@ -153,9 +155,9 @@ export interface PreviewImageProps {
     src?: string;
     rotation?: number;
     style?: React.CSSProperties;
-    maxZoom?: number;
-    minZoom?: number;
-    zoomStep?: number;
+    // maxZoom?: number;
+    // minZoom?: number;
+    // zoomStep?: number;
     zoom?: number;
     ratio?: RatioType;
     disableDownload?: boolean;

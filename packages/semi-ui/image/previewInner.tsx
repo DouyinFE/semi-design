@@ -18,9 +18,8 @@ const prefixCls = cssClasses.PREFIX;
 
 let startMouseDown = { x: 0, y: 0 };
 
-let mouseActiveTime: number = null;
-let stopTiming = false;
-let timer = null;
+// let mouseActiveTime: number = null;
+// let stopTiming = false;
 // let bodyOverflowValue = document.body.style.overflow;
 
 export default class PreviewInner extends BaseComponent<PreviewInnerProps, PreviewInnerStates> {
@@ -53,6 +52,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         disableDownload: PropTypes.bool,
         viewerVisibleDelay: PropTypes.number,
         zIndex: PropTypes.number,
+        maxZoom: PropTypes.number,
+        minZoom: PropTypes.number,
         renderHeader: PropTypes.func,
         renderPreviewMenu: PropTypes.func,
         getPopupContainer: PropTypes.func,
@@ -79,6 +80,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         zIndex: 1000,
         maskClosable: true,
         viewerVisibleDelay: 10000,
+        maxZoom: 5,
+        minZoom: 0.1
     };
 
     private bodyOverflow: string;
@@ -147,23 +150,23 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             unregisterKeyDownListener: () => {
                 window && window.removeEventListener("keydown", this.handleKeyDown);
             },
-            getMouseActiveTime: () => {
-                return mouseActiveTime;
-            },
-            getStopTiming: () => {
-                return stopTiming;
-            },
-            setStopTiming: (value) => {
-                stopTiming = value;
-            },
+            // getMouseActiveTime: () => {
+            //     return mouseActiveTime;
+            // },
+            // setMouseActiveTime: (time: number) => {
+            //     mouseActiveTime = time;
+            // },
+            // getStopTiming: () => {
+            //     return stopTiming;
+            // },
+            // setStopTiming: (value) => {
+            //     stopTiming = value;
+            // },
             getStartMouseDown: () => {
                 return startMouseDown;
             },
             setStartMouseDown: (x: number, y: number) => {
                 startMouseDown = { x, y };
-            },
-            setMouseActiveTime: (time: number) => {
-                mouseActiveTime = time;
             },
             getSetDownloadFunc: () => {
                 return this.context?.setDownloadName ?? this.props.setDownloadName;
@@ -172,7 +175,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     }
 
-    timer;
+    // timer;
     context: PreviewContextProps;
     foundation: PreviewInnerFoundation;
 
@@ -230,11 +233,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentDidUpdate(prevProps: PreviewInnerProps, prevState: PreviewInnerStates) {
-        if (prevState.visible !== this.props.visible && this.props.visible) {
-            mouseActiveTime = new Date().getTime();
-            timer && clearInterval(timer);
-            timer = setInterval(this.viewVisibleChange, 1000);
-        }
+        // if (prevState.visible !== this.props.visible && this.props.visible) {
+        //     mouseActiveTime = new Date().getTime();
+        //     timer && clearInterval(timer);
+        //     timer = setInterval(this.viewVisibleChange, 1000);
+        // }
         // hide => show
         if (!prevProps.visible && this.props.visible) {
             this.foundation.beforeShow();
@@ -245,17 +248,17 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         }
     }
 
-    componentWillUnmount() {
-        timer && clearInterval(timer);
-    }
+    // componentWillUnmount() {
+    //     timer && clearInterval(timer);
+    // }
 
     isInGroup() {
         return Boolean(this.context && this.context.isGroup);
     }
 
-    viewVisibleChange = () => {
-        this.foundation.handleViewVisibleChange();
-    }
+    // viewVisibleChange = () => {
+    //     this.foundation.handleViewVisibleChange();
+    // }
 
     handleSwitchImage = (direction: string) => {
         this.foundation.handleSwitchImage(direction);
@@ -285,13 +288,13 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleMouseUp(e.nativeEvent);
     }
 
-    handleMouseMove = (e): void => {
-        this.foundation.handleMouseMove(e);
-    }
+    // handleMouseMove = (e): void => {
+    //     this.foundation.handleMouseMove(e);
+    // }
 
-    handleMouseEvent = (e, event: string) => {
-        this.foundation.handleMouseMoveEvent(e, event);
-    }
+    // handleMouseEvent = (e, event: string) => {
+    //     this.foundation.handleMouseMoveEvent(e, event);
+    // }
 
     handleKeyDown = (e: KeyboardEvent) => {
         this.foundation.handleKeyDown(e);
@@ -307,6 +310,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     handleMouseDown = (e): void => {
         this.foundation.handleMouseDown(e);
+    }
+
+    handleWheel = (e) => {
+        this.foundation.handleWheel(e);
     }
 
     render() {
@@ -370,9 +377,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         style={style}
                         onMouseDown={this.handleMouseDown}
                         onMouseUp={this.handleMouseUp}
-                        onMouseMove={this.handleMouseMove}
-                        onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
-                        onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
+                        onWheel={this.handleWheel}
+                        // onMouseMove={this.handleMouseMove}
+                        // onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
+                        // onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                     >
                         <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} />
                         <PreviewImage
@@ -382,7 +390,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                             setRatio={this.handleAdjustRatio}
                             zoom={zoom}
                             ratio={ratio}
-                            zoomStep={zoomStep}
                             rotation={rotation}
                             crossOrigin={crossOrigin}
                             onError={this.onImageError}

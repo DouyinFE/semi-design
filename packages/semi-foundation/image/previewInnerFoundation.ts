@@ -1,6 +1,8 @@
+import { handlePrevent } from "../utils/a11y";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import KeyCode from "../utils/keyCode";
 import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
+import { isUndefined } from "lodash";
 
 export type RatioType = "adaptation" | "realSize";
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -14,12 +16,12 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     notifyDownload: (src: string, index: number) => void;
     registerKeyDownListener: () => void;
     unregisterKeyDownListener: () => void;
-    getMouseActiveTime: () => number;
-    getStopTiming: () => boolean;
-    setStopTiming: (value: boolean) => void;
+    // getMouseActiveTime: () => number;
+    // setMouseActiveTime: (time: number) => void;
+    // getStopTiming: () => boolean;
+    // setStopTiming: (value: boolean) => void;
     getStartMouseDown: () => {x: number; y: number};
     setStartMouseDown: (x: number, y: number) => void;
-    setMouseActiveTime: (time: number) => void;
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     getSetDownloadFunc: () => (src: string) => string
@@ -44,34 +46,59 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.enabledBodyScroll();
     }
 
-    handleViewVisibleChange = () => {
-        const nowTime = new Date().getTime();
-        const mouseActiveTime = this._adapter.getMouseActiveTime();
-        const stopTiming = this._adapter.getStopTiming();
-        const { viewerVisibleDelay } = this.getProps();
-        const { viewerVisible } = this.getStates();
-        if (nowTime - mouseActiveTime > viewerVisibleDelay && !stopTiming) {
-            viewerVisible && this.setState({
-                viewerVisible: false,
-            } as any);
-        }
+    // handleViewVisibleChange = () => {
+    //     const nowTime = new Date().getTime();
+    //     const mouseActiveTime = this._adapter.getMouseActiveTime();
+    //     const stopTiming = this._adapter.getStopTiming();
+    //     const { viewerVisibleDelay } = this.getProps();
+    //     const { viewerVisible } = this.getStates();
+    //     if (nowTime - mouseActiveTime > viewerVisibleDelay && !stopTiming) {
+    //         viewerVisible && this.setState({
+    //             viewerVisible: false,
+    //         } as any);
+    //     }
+    // }
+
+    // handleMouseMoveEvent = (e: any, event: string) => {
+    //     const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
+    //     if (isTarget && event === "over") {
+    //         this._adapter.setStopTiming(true);
+    //     } else if (isTarget && event === "out") {
+    //         this._adapter.setStopTiming(false);
+    //     }
+    // }
+
+    // handleMouseMove = (e: any) => {
+    //     this._adapter.setMouseActiveTime(new Date().getTime());
+    //     this.setState({
+    //         viewerVisible: true,
+    //     } as any);
+    // }
+
+    handleWheel = (e: any) => {
+        this.onWheel(e);
+        handlePrevent(e);
     }
 
-    handleMouseMoveEvent = (e: any, event: string) => {
-        const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
-        if (isTarget && event === "over") {
-            this._adapter.setStopTiming(true);
-        } else if (isTarget && event === "out") {
-            this._adapter.setStopTiming(false);
+    onWheel = (e: any): void => {
+        const { zoomStep, maxZoom, minZoom } = this.getProps();
+        const { zoom: currZoom } = this.getStates();
+        let _zoom: number;
+        if (e.deltaY < 0) {
+            /* zoom in */
+            if (currZoom + zoomStep <= maxZoom) {
+                _zoom = Number((currZoom + zoomStep).toFixed(2));
+            }
+        } else if (e.deltaY > 0) {
+            /* zoom out */
+            if (currZoom - zoomStep >= minZoom) {
+                _zoom = Number((currZoom - zoomStep).toFixed(2));
+            }
         }
-    }
-
-    handleMouseMove = (e: any) => {
-        this._adapter.setMouseActiveTime(new Date().getTime());
-        this.setState({
-            viewerVisible: true,
-        } as any);
-    }
+        if (!isUndefined(_zoom)) {
+            this.handleZoomImage(_zoom);
+        }
+    };
 
     handleMouseUp = (e: any) => {
         const { maskClosable } = this.getProps();
@@ -160,10 +187,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleZoomImage = (newZoom: number) => {
         const { zoom } = this.getStates();
-        this._adapter.notifyZoom(newZoom, newZoom > zoom);
-        this.setState({
-            zoom: newZoom,
-        } as any);
+        if (zoom !== newZoom) {
+            this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            this.setState({
+                zoom: newZoom,
+            } as any);
+        }
     }
 
     // 当 visible 改变之后，预览组件完成首张图片加载后，启动预加载

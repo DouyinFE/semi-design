@@ -10,7 +10,6 @@ const prefixCls = cssClasses.PREFIX;
 const preViewImgPrefixCls = `${prefixCls}-preview-image`;
 let originImageWidth = null;
 let originImageHeight = null;
-let startMouseMove = false;
 // startMouseOffset：The offset of the mouse relative to the left and top of the picture
 let startMouseOffset = { x: 0, y: 0 };
 
@@ -19,9 +18,9 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         src: PropTypes.string,
         rotation: PropTypes.number,
         style: PropTypes.object,
-        maxZoom: PropTypes.number,
-        minZoom: PropTypes.number,
-        zoomStep: PropTypes.number,
+        // maxZoom: PropTypes.number,
+        // minZoom: PropTypes.number,
+        // zoomStep: PropTypes.number,
         zoom: PropTypes.number,
         ratio: PropTypes.string,
         disableDownload: PropTypes.bool,
@@ -33,9 +32,9 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     }
 
     static defaultProps = {
-        maxZoom: 5,
-        minZoom: 0.1,
-        zoomStep: 0.1,
+        // maxZoom: 5,
+        // minZoom: 0.1,
+        // zoomStep: 0.1,
         zoom: undefined,
     };
 
@@ -51,10 +50,8 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                 return this.containerRef.current;
             },
             getImage: () => {
-                return this.imageRef;
+                return this.imageRef.current;
             },
-            getMouseMove: () => startMouseMove,
-            setStartMouseMove: (move: boolean) => { startMouseMove = move; },
             getMouseOffset: () => startMouseOffset,
             setStartMouseOffset: (offset: { x: number; y: number }) => { startMouseOffset = offset; },
             setLoading: (loading: boolean) => { 
@@ -63,13 +60,13 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                 });
             },
             setImageCursor: (canDrag: boolean) => {
-                this.imageRef.style.cursor = canDrag ? "grab" : "default";
+                this.imageRef.current.style.cursor = canDrag ? "grab" : "default";
             }
         };
     }
 
     containerRef: React.RefObject<HTMLDivElement>;
-    imageRef: HTMLImageElement | null;
+    imageRef: React.RefObject<HTMLImageElement>;
     foundation: PreviewImageFoundation;
 
     constructor(props) {
@@ -84,7 +81,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             left: 0,
         };
         this.containerRef = React.createRef<HTMLDivElement>();
-        this.imageRef = null;
+        this.imageRef = React.createRef<HTMLImageElement>();
         this.foundation = new PreviewImageFoundation(this.adapter);
     }
 
@@ -110,7 +107,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
             if (originImageWidth && originImageHeight) {
                 if (this.props.ratio === "adaptation") {
-                    this.resizeImage();
+                    this.imageAdaptToViewArea();
                 } else {
                     this.props.onZoom(1);
                 }
@@ -135,10 +132,6 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleRightClickImage(e);
     };
 
-    handleWheel = (e) => {
-        this.foundation.handleWheel(e);
-    }
-
     handleLoad = (e): void => {
         this.foundation.handleLoad(e);
     }
@@ -147,38 +140,16 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleError(e);
     }
 
-    resizeImage = () => {
-        this.foundation.handleResizeImage();
+    imageAdaptToViewArea = () => {
+        this.foundation.handleResizeImage(true);
     }
 
     handleMoveImage = (e): void => {
         this.foundation.handleMoveImage(e);
     };
-  
-    // 为什么通过ref注册wheel而不是使用onWheel事件？
-    // 因为对于wheel事件，浏览器将 addEventListener 的 passive 默认值更改为 true。如此，事件监听器便不能取消事件，也不会在用户滚动页面时阻止页面呈现。
-    // 这里我们需要保持页面不动，仅放大图片，因此此处需要将 passive 更改设置为 false。
-    // Why register wheel via ref instead of using onWheel event?
-    // Because for wheel events, the browser changes the passive default of addEventListener to true. This way, the event listener cannot cancel the event, nor prevent the page from rendering when the user scrolls.
-    // Here we need to keep the page still and only zoom in on the image, so here we need to set the passive change to false.
-    // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners。
-    
-    registryImageRef = (ref): void => {
-        if (this.imageRef) {
-            (this.imageRef as any).removeEventListener("wheel", this.handleWheel);
-        }
-        if (ref) {
-            ref.addEventListener("wheel", this.handleWheel, { passive: false });
-        }
-        this.imageRef = ref;
-    };
 
     onImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
         this.foundation.handleImageMouseDown(e);
-    };
-
-    onImageMouseUp = (): void => {
-        this.foundation.handleImageMouseUp();
     };
 
     render() {
@@ -190,8 +161,8 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             transform: `rotate(${-rotation}deg)`,
             top,
             left,
-            width: loading ? "auto" : `${width}px`,
-            height: loading ? "auto" : `${height}px`,
+            width,
+            height,
         };
         return (
             <div 
@@ -200,14 +171,13 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             >
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
                 <img
-                    ref={this.registryImageRef}
+                    ref={this.imageRef}
                     src={src}
                     alt="previewImag"
                     className={`${preViewImgPrefixCls}-img`}
                     key={src}
                     onMouseMove={this.handleMoveImage}
                     onMouseDown={this.onImageMouseDown}
-                    onMouseUp={this.onImageMouseUp}
                     onContextMenu={this.handleRightClickImage}
                     onDragStart={(e): void => e.preventDefault()}
                     onLoad={this.handleLoad}
