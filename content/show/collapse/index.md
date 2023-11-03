@@ -187,16 +187,17 @@ import { IconCopy } from '@douyinfe/semi-icons';
 
 ### Collapse.Panel
 
-| 属性      | 说明                                                                  | 类型                   | 默认值 |版本|
-| --------- | --------------------------------------------------------------------- | ---------------------- | ------ |--- |
-| className | 样式类名                                                              | string                 |   无     ||
-| disabled  | 面板是否被禁用                                                         | boolean                 |  false  | v2.17.0   |
-| extra     | 自定义渲染每个面板右上角的辅助内容（仅当 header 为 string 时生效）    | ReactNode              | 无     ||
-| header    | 面板头内容                                                            | ReactNode      | 无     ||
-| itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     ||
-| reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0  |
-| showArrow | 是否展示箭头                                                          | boolean                 |  true  | v2.17.0   |
-| style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |    |
+| 属性      | 说明                                                                  | 类型                   | 默认值 | 版本            |
+| --------- | --------------------------------------------------------------------- | ---------------------- | ------ |---------------|
+| className | 样式类名                                                              | string                 |   无     |               |
+| disabled  | 面板是否被禁用                                                         | boolean                 |  false  | v2.17.0       |
+| extra     | 自定义渲染每个面板右上角的辅助内容（仅当 header 为 string 时生效）    | ReactNode              | 无     |               |
+| header    | 面板头内容                                                            | ReactNode      | 无     |               |
+| itemKey   | 必填且唯一，选中状态匹配 `activeKey`，`defaultActiveKey`              | string                 | 无     |               |
+| onMotionEnd | 动画结束的回调 | () => void | - | 2.47.0-beta.0 |
+| reCalcKey | 当 reCalcKey 改变时，将重新计算子节点的高度，用于优化动态渲染时的计算 | string \| number |无| 1.5.0         |
+| showArrow | 是否展示箭头                                                          | boolean                 |  true  | v2.17.0       |
+| style     | 内联 CSS 样式                                                         | CSSProperties                 |  无  |               |
 
 ## Accessibility
 
