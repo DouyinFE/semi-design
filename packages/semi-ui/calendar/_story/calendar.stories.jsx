@@ -635,7 +635,7 @@ export const MonthEventRender = () => {
         )
 }
 
-export const TestDemo = () => {
+export const Fix1892 = () => {
     const [events, setEvents] = React.useState([]);
         const allDayStyle = {
             borderRadius: '3px',
