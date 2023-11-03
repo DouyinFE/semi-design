@@ -157,7 +157,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
             }
         }
         if (!isEqual(prevEventKeys, nowEventKeys) || itemLimitUpdate || !isEqual(prevProps.displayValue, this.props.displayValue)) {
-            this.foundation.parseMonthlyEvents((itemLimit || this.props.events) as any);
+            this.foundation.parseMonthlyEvents(itemLimit);
         }
     }
 
