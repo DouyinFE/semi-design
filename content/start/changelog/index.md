@@ -13,13 +13,27 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.45.3 (2023-11-01)
+
+#### 🎉 2.46.1 (2023-11-07)
 - 【Fix】
+    - 修复 Pagination popoverZIndex 在 SizeChanger 上不生效的问题
+
+#### 🎉 2.46.0 (2023-11-03)
+- 【Fix】
+    - 修复高度不足以容纳一个事件时，更新事件后不展示 「还有 x 项」问题
+    - 修复 AutoComplete 中 onBlur 和 onSelect 的调用顺序不一致问题  [#1880 ](https://github.com/DouyinFE/semi-design/issues/1880)
     - 修复 Select 使用 JSX 传入 Option时，Option传入的 key 未在渲染时生效的问题
 
-#### 🎉 2.45.1 (2023-10-23)
+#### 🎉 2.46.0-beta.0 (2023-10-30)
+- 【Feat】
+    - Typography 的 showTooltip API 增加 renderTooltip 支持自定义渲染弹出层组件  [#1853](https://github.com/DouyinFE/semi-design/issues/1853)
+- 【Fix】
+    - 修复 InputNumber 在受控模式且聚焦时 formatter [#1870](https://github.com/DouyinFE/semi-design/pull/1870)
+    - 修复 ide 在 ssr 场景下 dom error [#1875](https://github.com/DouyinFE/semi-design/pull/1875) [@tank0317](https://github.com/tank0317)
+    - 修复异步加载数据的 Cascader 中由于 loadingKeys 更新不及时导致加载完成的节点状态错误问题  [#1867](https://github.com/DouyinFE/semi-design/issues/1867)
+    - 修复由于用户 TreeData 不符合规范，被解构数据为 null 导致 TypeError 问题 [#1873](https://github.com/DouyinFE/semi-design/pull/1873)
 - 【Design Token】
-  -  Select 增加 $color-select-option-bg-selected 
+    - Select 新增 color-select-option-bg-selected [#1871](https://github.com/DouyinFE/semi-design/pull/1871)
 
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】

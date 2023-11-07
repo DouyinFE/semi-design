@@ -16,13 +16,27 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.45.3 (2023-11-01)
+#### 🎉 2.46.1 (2023-11-07)
 - 【Fix】
-    - Fixed the problem that when Select uses JSX to pass in Option, the key passed in Option does not take effect during rendering.
+    - Fixed the problem that Pagination popoverZIndex does not take effect on SizeChanger
 
-#### 🎉 2.45.1 (2023-10-23)
+#### 🎉 2.46.0 (2023-11-03)
+- 【Fix】
+    - Fixed the problem that "x more" is not displayed after updating the event when the height is not enough to accommodate an event.
+    - Fix the inconsistent order of onBlur callback and onSelect callback in AutoComplete  [#1880 ](https://github.com/DouyinFE/semi-design/issues/1880)
+    - Fix the problem that when Select uses JSX to pass in Option, the key passed in Option does not take effect during rendering.
+
+
+#### 🎉 2.46.0-beta.0 (2023-10-30)
+- 【Feat】
+    - Typography's showTooltip API adds renderTooltip to support custom rendering pop-up layer components  [#1853](https://github.com/DouyinFE/semi-design/issues/1853)
+- 【Fix】
+    - Fixed formatter error issue when InputNumber is in controlled mode and focused [#1870](https://github.com/DouyinFE/semi-design/pull/1870)
+    - Fixed ide dom error in ssr [#1875](https://github.com/DouyinFE/semi-design/pull/1875) [@tank0317](https://github.com/tank0317)
+    - Fixed an issue in Cascader that loads data asynchronously due to untimely updating of loadingKeys resulting in incorrect node status when loading is completed.  [#1867](https://github.com/DouyinFE/semi-design/issues/1867)
+    - Fixed the problem of TypeError caused by the destructured data in TreeSelect being null
 - 【Design Token】
-    - Select added $color-select-option-bg-selected
+    - Select Add color-select-option-bg-selected [#1871](https://github.com/DouyinFE/semi-design/pull/1871)
 
 
 #### 🎉 2.45.0 (2023-10-20)
