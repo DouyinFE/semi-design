@@ -16,6 +16,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.46.1 (2023-11-07)
+- 【Fix】
+    - Fixed the problem that Pagination popoverZIndex does not take effect on SizeChanger
 
 #### 🎉 2.46.0 (2023-11-03)
 - 【Fix】

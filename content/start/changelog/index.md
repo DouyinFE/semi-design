@@ -14,6 +14,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.46.1 (2023-11-07)
+- 【Fix】
+    - 修复 Pagination popoverZIndex 在 SizeChanger 上不生效的问题
 
 #### 🎉 2.46.0 (2023-11-03)
 - 【Fix】
