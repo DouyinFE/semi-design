@@ -275,7 +275,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         // rtl modify the default position
         const { direction } = this.context;
         const defaultPopoverPosition = direction === 'rtl' ? 'bottomRight' : 'bottomLeft';
-        const { showSizeChanger, popoverPosition = defaultPopoverPosition, disabled } = this.props;
+        const { showSizeChanger, popoverPosition = defaultPopoverPosition, disabled, popoverZIndex } = this.props;
         const { pageSize } = this.state;
         const switchCls = classNames(`${prefixCls}-switch`);
         if (!showSizeChanger) {
@@ -303,6 +303,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     key={pageSize}
                     position={popoverPosition || 'bottomRight'}
                     clickToHide
+                    zIndex={popoverZIndex}
                     dropdownClassName={`${prefixCls}-select-dropdown`}
                 >
                     {options}
