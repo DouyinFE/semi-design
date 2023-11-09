@@ -148,8 +148,8 @@ const appLocale = {
         "content_theme_info": "Compatible with diverse brand languages ​​and product forms to avoid meaningless re-creation",
         "content_d2c": "The evolution of Semi D2C design to code",
         "content_d2c_info": "Connect designers and developers with advanced tools",
-        "content_d2c_openday": "ByteDance Open Source OpenDay theme sharing",
-        "content_d2c_info_openday": "Deep in Semi D2C",
+        "content_d2c_openday": "ByteDance OpenDay Tech Talk",
+        "content_d2c_info_openday": "A Deep Dive into Design to Code",
         "content_test": "How We Test Semi Design Component",
         "content_test_info": "Comprehensively use UnitTest, E2E Test, and Visual Test to ensure the stability of the component library",
 
