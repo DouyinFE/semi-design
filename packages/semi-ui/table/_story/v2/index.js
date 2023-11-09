@@ -22,3 +22,4 @@ export { default as FixedColumnAlign } from './FixedColumnAlign';
 export { default as FixOnChange } from './FixOnChange';
 export { default as ColumnResize } from './ColumnResize';
 export { default as FixedResizableRowSelection } from './FixedResizableRowSelection';
+export { default as SorterSortOrder } from './SorterSortOrder';
