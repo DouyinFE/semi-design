@@ -12,6 +12,7 @@ import DynamicDisableDemo from './DynamicDisable';
 import TitleConfirmDemo from './TitlePopconfirm';
 import InTableDemo from './InTable';
 import ShowArrow from './ShowArrow';
+import ShowCloseIcon from './ShowCloseIcon';
 
 export default {
   title: 'Popconfirm',
@@ -140,6 +141,11 @@ InTable.story = {
 export const ShowArrowDemo = () => <ShowArrow />;
 ShowArrowDemo.style = {
   name: 'show arrow'
+}
+
+export const ShowCloseIconDemo = () => <ShowCloseIcon />;
+ShowCloseIcon.style = {
+  name: 'show close icon'
 }
 
 export const ClickOutSideDemo = () => {
