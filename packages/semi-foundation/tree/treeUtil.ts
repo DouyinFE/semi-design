@@ -20,8 +20,14 @@ export interface NodeData {
     children?: any
 }
 
-export interface FieldNameProps {
-    [key: string]: string
+export interface KeyMapProps {
+    key?: string;
+    label?: string;
+    value?: string;
+    disabled?: string;
+    children?: string;
+    isLeaf?: string;
+    icon?: string
 }
 
 const DRAG_OFFSET = 0.45;
@@ -46,7 +52,7 @@ function getResultByFieldName(data, key, keyMaps) {
  * @param filteredShownKeys
  * need expanded keys, provides `true` means all expanded
  */
-export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, keyMaps: FieldNameProps, filteredShownKeys: boolean | Set<any> = false) {
+export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, keyMaps: KeyMapProps, filteredShownKeys: boolean | Set<any> = false) {
     const flattenList: any[] = [];
     const filterSearch = Boolean(filteredShownKeys);
     function flatten(list: any[], parent: any = null) {
@@ -118,7 +124,7 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
 /**
  * Traverse all the data by `treeData`.
  */
-export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, keyMaps: FieldNameProps) {
+export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, keyMaps: KeyMapProps) {
     const processNode = (node: any, ind?: number, parent?: any) => {
         const children = node ? getResultByFieldName(node, 'children', keyMaps) : treeNodes;
         const pos = node ? getPosition(parent.pos, ind) : '0';
@@ -151,7 +157,7 @@ export function traverseDataNodes(treeNodes: any[], callback: (data: any) => voi
 }
 
 /* Convert data to entities map */
-export function convertDataToEntities(dataNodes: any[], keyMaps?: FieldNameProps) {
+export function convertDataToEntities(dataNodes: any[], keyMaps?: KeyMapProps) {
     const posEntities = {};
     const keyEntities = {};
     const valueEntities = {};
@@ -610,7 +616,7 @@ export function filterTreeData(info: any) {
 }
 
 // return data.value if data.value exist else fall back to key
-export function getValueOrKey(data: any, keyMaps?: FieldNameProps) {
+export function getValueOrKey(data: any, keyMaps?: KeyMapProps) {
     const valueName = get(keyMaps, 'value', 'value');
     const keyName = get(keyMaps, 'key', 'key');
     if (Array.isArray(data)) {
@@ -620,7 +626,7 @@ export function getValueOrKey(data: any, keyMaps?: FieldNameProps) {
 }
 
 /* Convert value to string */
-export function normalizeValue(value: any, withObject: boolean, keyMaps?: FieldNameProps) {
+export function normalizeValue(value: any, withObject: boolean, keyMaps?: KeyMapProps) {
     if (withObject && isValid(value)) {
         return getValueOrKey(value, keyMaps);
     } else {
@@ -633,8 +639,9 @@ export function updateKeys(keySet: Set<string> | string[], keyEntities: KeyEntit
     return keyArr.filter(key => key in keyEntities);
 }
 
-export function calcDisabledKeys(keyEntities: KeyEntities, keyMaps?: FieldNameProps) {
-    const disabledKeys = Object.keys(keyEntities).filter(key => getResultByFieldName(keyEntities[key].data, 'disabled', keyMaps));
+export function calcDisabledKeys(keyEntities: KeyEntities, keyMaps?: KeyMapProps) {
+    const disabledName = get(keyMaps, 'disabled', 'disabled');
+    const disabledKeys = Object.keys(keyEntities).filter(key => keyEntities[key].data[disabledName]);
     const { checkedKeys } = calcCheckedKeys(disabledKeys, keyEntities);
     return checkedKeys;
 }

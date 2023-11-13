@@ -662,7 +662,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             return null;
         }
         const { keyMaps } = this.props;
-        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf']);
+        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon']);
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
         return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={isEmpty(style) ? {} : style} />;
