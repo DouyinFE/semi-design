@@ -22,7 +22,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.46.0 (2023-11-03)
 - 【Fix】
-    - Fixed the problem that "x more" is not displayed after updating the event when the height is not enough to accommodate an event.
+    - Fixed the problem that "x more" is not displayed after updating the event when the Calendar height is not enough to accommodate an event.
     - Fix the inconsistent order of onBlur callback and onSelect callback in AutoComplete  [#1880 ](https://github.com/DouyinFE/semi-design/issues/1880)
     - Fix the problem that when Select uses JSX to pass in Option, the key passed in Option does not take effect during rendering.
 

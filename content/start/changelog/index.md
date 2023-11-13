@@ -20,7 +20,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.46.0 (2023-11-03)
 - 【Fix】
-    - 修复高度不足以容纳一个事件时，更新事件后不展示 「还有 x 项」问题
+    - 修复 Calendar 高度不足以容纳一个事件时，更新事件后不展示 「还有 x 项」问题
     - 修复 AutoComplete 中 onBlur 和 onSelect 的调用顺序不一致问题  [#1880 ](https://github.com/DouyinFE/semi-design/issues/1880)
     - 修复 Select 使用 JSX 传入 Option时，Option传入的 key 未在渲染时生效的问题
 
