@@ -21,24 +21,24 @@ export function pullAll(arrayA: any[], arrayB: any[]) {
     }
     return arrayA;
 }
-type CompareFn<T> = (a: T, b: T) => number;
+type CompareFn<T> = (a: T, b: T, sortOrder: 'ascend' | 'descend') => number;
 /**
  * Adapt the descending order
  * @param {Function} fn
  * @param {String} order
  * @returns
  */
-export function withOrderSort<T = any>(fn: CompareFn<T>, order = 'ascend'): CompareFn<T> {
+export function withOrderSort<T = any>(fn: CompareFn<T>, order: 'ascend' | 'descend' = 'ascend'): (a: T, b: T) => number {
     switch (order) {
         case 'descend':
             return (
                 (a: any, b: any) => {
-                    const result = Number(fn(a, b));
+                    const result = Number(fn(a, b, order));
                     return result !== 0 ? -result : result;
                 }
             );
         case 'ascend':
         default:
-            return fn;
+            return (a: any, b: any) => fn(a, b, order);
     }
 }

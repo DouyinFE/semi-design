@@ -13,7 +13,7 @@ export class Footer extends Component {
         const locale = getLocale();
         const { style } = this.props;
         return (
-            <footer className="footer" style={{ ...style, zIndex: 10 }}>
+            <footer className="footer" style={{ ...style, zIndex: 10, overflow: 'hidden' }}>
                 <div className="footer-circle" />
                 <div className="footer-link" style={{ width: "inherit" }}>
                     {/*<Icon className="footer-icon" type="doc-semi-logo" />*/}

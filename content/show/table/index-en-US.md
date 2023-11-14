@@ -1189,6 +1189,135 @@ function App() {
 render(App);
 ```
 
+When sorter is a function type, the sortOrder status can be obtained through the third parameter of the function. The function type is `(a?: RecordType, b?: RecordType, sortOrder?: 'ascend' | 'descend') => number`. Supported by version v2.47.
+
+```jsx live=true noInline=true dir="column"
+import React from 'react';
+import { Table, Avatar } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            }
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (r1, r2, order) => {
+                const a = r1.size;
+                const b = r2.size;
+                if (typeof a === "number" && typeof b === "number") {
+                    return a - b;
+                } else if (typeof a === "undefined") {
+                    return order === "ascend" ? 1 : -1;
+                } else if (typeof b === "undefined") {
+                    return order === "ascend" ? -1 : 1;
+                } else {
+                    return 0;
+                }
+            },
+            render: text => text ? `${text} KB` : 'Unknown',
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+    const docIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png';
+
+    const dataSource = [
+        {
+            key: '1',
+            name: 'Semi Design draft.fig',
+            nameIconSrc: figmaIconUrl,
+            size: 3,
+            owner: 'Jiang',
+            updateTime: '2020-02-02 05:13',
+            avatarBg: 'grey',
+        },
+        {
+            key: '2',
+            name: 'Semi D2C draft',
+            nameIconSrc: docIconUrl,
+            size: undefined,
+            owner: 'Hao',
+            updateTime: '2020-01-17 05:31',
+            avatarBg: 'red',
+        },
+        {
+            key: '3',
+            name: 'Semi D2C doc 3',
+            nameIconSrc: docIconUrl,
+            size: 1,
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '4',
+            name: 'Semi Design doc 4',
+            nameIconSrc: docIconUrl,
+            size: 5,
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '5',
+            name: 'Semi D2C doc 5',
+            nameIconSrc: docIconUrl,
+            size: undefined,
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue',
+        },
+        {
+            key: '6',
+            name: 'Semi Design doc 6',
+            nameIconSrc: docIconUrl,
+            size: 2,
+            owner: 'Zoey Edwards',
+            updateTime: '2020-01-26 11:01',
+            avatarBg: 'light-blue',
+        },
+    ];
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 ### Custom Filter Item Rendering
 
 Since the **1.1.0** version, it is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
@@ -5015,7 +5144,7 @@ import { Table } from '@douyinfe/semi-ui';
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
-| sorter | Sorting function, local sorting uses a function (refer to the compreFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType) => number | true |
+| sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
 | useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |

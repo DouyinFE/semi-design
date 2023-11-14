@@ -3367,3 +3367,21 @@ class VirtualizeAllowCreate extends React.Component {
 
 // virtualize allowCreate + renderCreateItem, optionList render not as expected
 export const Fix1856 = () => (<VirtualizeAllowCreate />); 
+
+
+export const TestOptionKey = () => {
+  return <><Select style={{ width: 300 }}>
+      <Select.Option label='3' value='2' key='abc'></Select.Option>
+      <Select.Option label='2' value='3' key='efg'></Select.Option>
+      <Select.Option label='4' value='5'></Select.Option>
+      <Select.Option label='5' value='4'></Select.Option>
+    </Select>
+    <br/><br/>
+    <Select style={{ width: 300 }} optionList={[
+      { label: '1', value: '2', key: 'kkk' },
+      { label: '2', value: '3', key: 'jjj' },
+      { label: '3', value: '2' },
+    ]}>
+    </Select>
+  </>
+}

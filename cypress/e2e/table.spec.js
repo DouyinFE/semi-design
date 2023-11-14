@@ -190,5 +190,20 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--resizable-table&viewMode=story');
         cy.get('.test-1').should('have.length', 1);
         cy.get('.test-2').should('have.length', 1);
-    })
+    });
+
+    it('test sorter sortOrder parameter', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--sorter-sort-order&viewMode=story', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog'); // 测试时用到控制台的前置步骤
+            },
+        });
+
+        cy.get('.semi-table-column-sorter').eq(0).click();
+        cy.get('.semi-table-tbody .semi-table-row').eq(4).should('contain.text', '未知');
+        cy.get('.semi-table-tbody .semi-table-row').eq(5).should('contain.text', '未知');
+        cy.get('.semi-table-column-sorter').eq(0).click();
+        cy.get('.semi-table-tbody .semi-table-row').eq(4).should('contain.text', '未知');
+        cy.get('.semi-table-tbody .semi-table-row').eq(5).should('contain.text', '未知');
+    });
 });

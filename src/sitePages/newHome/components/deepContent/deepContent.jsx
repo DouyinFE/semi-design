@@ -24,6 +24,10 @@ function DeepContent(props) {
         window.open('https://juejin.cn/post/7267418854124699702');
     };
 
+    const goD2COpenDayVideo = () => {
+        window.open('https://www.bilibili.com/video/BV1n94y137kB/?share_source=copy_web&vd_source=6b19a3eea11d2cd88eaa3c2a7f3226e1');
+    };
+
     const goTest = () => {
         window.open('https://medium.com/front-end-weekly/how-we-test-semi-design-component-libraries-64b854f63b65');
     };
@@ -50,7 +54,7 @@ function DeepContent(props) {
             </div>
             <div className={styles.autoWrapper}>
                 <div className={styles.frame1312316425} onClick={goTest}>
-                    <img className={styles.frame1312316426} alt="evalution of semi d2c" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/test.jpg" />
+                    <img className={styles.frame1312316426} alt="evolution of semi d2c" src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/test.jpg" />
                     <div className={styles.details}>
                         <p className={styles.headline}>{_t("content_test")}</p>
                         <p className={styles.description}>{_t("content_test_info")}</p>
@@ -61,6 +65,15 @@ function DeepContent(props) {
                     <div className={styles.details}>
                         <p className={styles.headline}>{_t("content_d2c")}</p>
                         <p className={styles.description}>{_t("content_d2c_info")}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.autoWrapper}>
+                <div className={styles.frame1312316425} onClick={goD2COpenDayVideo}>
+                    <img className={styles.frame1312316426} alt="evolution of semi d2c" src="https://lf26-static.semi.design/obj/semi-tos/images/a8a32ee0-7eae-11ee-af66-8975b17081a1.png" />
+                    <div className={styles.details}>
+                        <p className={styles.headline}>{_t("content_d2c_openday")}</p>
+                        <p className={styles.description}>{_t("content_d2c_info_openday")}</p>
                     </div>
                 </div>
             </div>
