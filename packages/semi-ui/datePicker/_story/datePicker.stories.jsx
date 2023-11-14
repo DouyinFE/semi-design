@@ -68,7 +68,8 @@ export {
     DynamicDisabledDate,
     FeatEtcGMT,
     FixDisabledDate,
-    FeatInsetInputShowClear
+    FeatInsetInputShowClear,
+    AutoSplitInput
 } from './v2';
 
 
