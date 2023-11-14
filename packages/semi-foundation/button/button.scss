@@ -44,10 +44,10 @@ $module: #{$prefix}-button;
         transform: scale($transform-scale-button_danger);
 
         &-disabled {
-            background-color: $color-button_disabled-bg-danger;
+            background-color: $color-button_disabled_danger-bg-default;
 
             &.#{$module}-light {
-                background-color: $color-button_disabled_light-bg-danger;
+                background-color: $color-button_disabled_light_danger-bg-default;
             }
         }
 
@@ -77,10 +77,10 @@ $module: #{$prefix}-button;
         transform: scale($transform_scale-button_warning);
 
         &-disabled {
-            background-color: $color-button_disabled-bg-warning;
+            background-color: $color-button_disabled_warning-bg-default;
 
             &.#{$module}-light {
-                background-color: $color-button_disabled_light-bg-warning;
+                background-color: $color-button_disabled_light_warning-bg-default;
             }
         }
 
@@ -110,10 +110,10 @@ $module: #{$prefix}-button;
         transform: scale($transform_scale_button_tertiary);
 
         &-disabled {
-            background-color: $color-button_disabled-bg-tertiary;
+            background-color: $color-button_disabled_tertiary-bg-default;
 
             &.#{$module}-light {
-                background-color: $color-button_disabled_light-bg-tertiary;
+                background-color: $color-button_disabled_light_tertiary-bg-default;
             }
         }
 
@@ -139,10 +139,10 @@ $module: #{$prefix}-button;
         transform: scale($transform_scale-button_primary);
 
         &-disabled {
-            background-color: $color-button_disabled-bg-primary;
+            background-color: $color-button_disabled_primary-bg-default;
 
             &.#{$module}-light {
-                background: $color-button_disabled_light-bg-primary;
+                background: $color-button_disabled_light_primary-bg-default;
             }
         }
 
@@ -169,10 +169,10 @@ $module: #{$prefix}-button;
         transform: scale($transform_scale-button_secondary);
 
         &-disabled {
-            background-color: $color-button_disabled-bg-secondary;
+            background-color: $color-button_disabled_secondary-bg-default;
 
             &.#{$module}-light {
-                background-color: $color-button_disabled_light-bg-secondary;
+                background-color: $color-button_disabled_light_secondary-bg-default;
             }
         }
 
