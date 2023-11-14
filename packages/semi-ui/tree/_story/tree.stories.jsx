@@ -2911,7 +2911,7 @@ export const KeyMaps = () => {
     console.log('onSearch', input, filteredExpandedKeys);
   }, []);
 
-  const fieldName = useMemo(() => {
+  const keyMaps = useMemo(() => {
     return {
       value: 'value1',
       key: 'key1',
@@ -2928,7 +2928,7 @@ export const KeyMaps = () => {
   }, []);
 
   const regularTreeProps = useMemo(() => ({
-    keyMaps: fieldName,
+    keyMaps: keyMaps,
     treeData: specialTreeData,
     style: { width: 300 },
     onChange: normalChange,

@@ -40,11 +40,6 @@ function isValid(val: any) {
     return !isNull(val) && !isUndefined(val);
 }
 
-function getResultByFieldName(data, key, keyMaps) {
-    const realKeyName = get(keyMaps, key, key);
-    return get(data, realKeyName, null);
-}
-
 /**
  * Flat nest tree data into flatten list. This is used for virtual list render.
  * @param treeNodeList Origin data node list
@@ -55,10 +50,12 @@ function getResultByFieldName(data, key, keyMaps) {
 export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, keyMaps: KeyMapProps, filteredShownKeys: boolean | Set<any> = false) {
     const flattenList: any[] = [];
     const filterSearch = Boolean(filteredShownKeys);
+    const realKeyName = get(keyMaps, 'key', 'key');
+    const realChildrenName = get(keyMaps, 'children', 'children');
     function flatten(list: any[], parent: any = null) {
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
-            const mergedKey = getResultByFieldName(treeNode, 'key', keyMaps);
+            const mergedKey = treeNode[realKeyName];
 
             const otherData = {};
             if (keyMaps) {
@@ -85,7 +82,7 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
 
             // Loop treeNode children
             if (expandedKeys.has(mergedKey) && (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey)))) {
-                flattenNode.children = flatten(getResultByFieldName(treeNode, 'children', keyMaps) || [], flattenNode);
+                flattenNode.children = flatten(treeNode[realChildrenName] || [], flattenNode);
             } else {
                 flattenNode.children = [];
             }
@@ -125,10 +122,12 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
  * Traverse all the data by `treeData`.
  */
 export function traverseDataNodes(treeNodes: any[], callback: (data: any) => void, keyMaps: KeyMapProps) {
+    const realKeyName = get(keyMaps, 'key', 'key');
+    const realChildrenName = get(keyMaps, 'children', 'children');
     const processNode = (node: any, ind?: number, parent?: any) => {
-        const children = node ? getResultByFieldName(node, 'children', keyMaps) : treeNodes;
+        const children = node ? node[realChildrenName] : treeNodes;
         const pos = node ? getPosition(parent.pos, ind) : '0';
-        const nodeKey = getResultByFieldName(node, 'key', keyMaps);
+        const nodeKey = node[realKeyName];
         // Process node if is not root
         if (node) {
             const data = {
@@ -166,11 +165,12 @@ export function convertDataToEntities(dataNodes: any[], keyMaps?: KeyMapProps) {
         keyEntities,
         valueEntities,
     };
+    const realValueName = get(keyMaps, 'value', 'value');
 
     traverseDataNodes(dataNodes, (data: any) => {
         const { pos, key, parentPos } = data;
         const entity = { ...data };
-        const value = getResultByFieldName(entity.data, 'value', keyMaps);
+        const value = get(entity, `data.${realValueName}`, null);
 
         if (value !== null) {
             valueEntities[value] = key;
