@@ -31,6 +31,7 @@ export interface PopconfirmProps extends PopoverProps {
     prefixCls?: string;
     zIndex?: number;
     trigger?: Trigger;
+    showCloseIcon?: boolean;
     position?: Position;
     onCancel?: (e: React.MouseEvent) => Promise<any> | void;
     onConfirm?: (e: React.MouseEvent) => Promise<any> | void;
@@ -72,6 +73,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         okButtonProps: PropTypes.object,
         cancelButtonProps: PropTypes.object,
         stopPropagation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        showCloseIcon: PropTypes.bool,
         zIndex: PropTypes.number,
         // private
         trigger: PropTypes.string,
@@ -89,6 +91,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         cancelType: 'tertiary',
         prefixCls: cssClasses.PREFIX,
         zIndex: numbers.DEFAULT_Z_INDEX,
+        showCloseIcon: true,
         onCancel: noop,
         onConfirm: noop,
         onClickOutSide: noop,
@@ -191,7 +194,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
     }
 
     renderConfirmPopCard = ({ initialFocusRef }: { initialFocusRef?: RenderContentProps<any>['initialFocusRef'] }) => {
-        const { content, title, className, style, cancelType, icon, prefixCls } = this.props;
+        const { content, title, className, style, cancelType, icon, prefixCls, showCloseIcon } = this.props;
         const { direction } = this.context;
         const popCardCls = cls(
             prefixCls,
@@ -202,7 +205,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         );
         const showTitle = title !== null && typeof title !== 'undefined';
         const showContent = !(content === null || typeof content === 'undefined');
-        
+
         const hasIcon = React.isValidElement(icon);
         const bodyCls = cls({
             [`${prefixCls}-body`]: true,
@@ -222,14 +225,19 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
                                 </div>
                             ) : null}
                         </div>
-                        <Button
-                            className={`${prefixCls}-btn-close`}
-                            icon={<IconClose />}
-                            size="small"
-                            theme={'borderless'}
-                            type={cancelType}
-                            onClick={this.handleCancel}
-                        />
+                        {
+                            showCloseIcon ? (
+                                <Button
+                                    className={`${prefixCls}-btn-close`}
+                                    icon={<IconClose />}
+                                    size="small"
+                                    theme={'borderless'}
+                                    type={cancelType}
+                                    onClick={this.handleCancel}
+                                />
+                            ) : null
+                        }
+
                     </div>
                     {showContent ? (
                         <div className={bodyCls} x-semi-prop="content">
