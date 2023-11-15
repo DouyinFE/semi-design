@@ -53,6 +53,10 @@ $module: #{$prefix}-typography;
 
     &-small {
         @include font-size-small;
+        font-weight: $font-typography_smallText-regular-fontWeight;
+        &.#{$module}-paragraph{
+            font-weight: $font-typography_smallParagraph-regular-fontWeight;
+        }
     }
 
     code {
@@ -351,6 +355,7 @@ h6.#{$module},
 p.#{$module}-extended,
 .#{$module}-paragraph.#{$module}-extended {
     line-height: $font-typography_paragraph_extended-lineHeight;
+    font-weight: $font-typography_normalParagraph-regular-fontWeight;
 }
 
 @import "./rtl.scss";
