@@ -234,11 +234,20 @@ export interface RowSelectionProps<RecordType> {
     width?: string | number;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
-    onSelectAll?: RowSelectionOnSelectAll<RecordType>
+    onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    renderCell?: RowSelectionRenderCell<RecordType>
 }
 
 export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
+
+export type RowSelectionRenderCell<RecordType> = (
+    value: boolean,
+    record: RecordType,
+    index: number,
+    originNode: React.ReactNode,
+) => React.ReactNode
+
 export type RowSelectionOnSelect<RecordType> = (
     record?: RecordType,
     selected?: boolean,
@@ -290,8 +299,8 @@ export type VirtualizedOnScrollArgs = {
     scrollUpdateWasRequested?: boolean
 };
 
-export type VirtualizeItemSizeRow = { 
-    sectionRow?: boolean; 
+export type VirtualizeItemSizeRow = {
+    sectionRow?: boolean;
     expandedRow?: boolean
 };
 export type VirtualizedMode = 'list' | 'grid';

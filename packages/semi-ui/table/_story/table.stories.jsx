@@ -47,6 +47,7 @@ import ExpandAllGroupRows from './ExpandAllGroupRows';
 import ExpandRowByClick from './ExpandRowByClick';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 import HugeData from "./HugeData"
+import CheckboxRenderCell from "./CheckboxRenderCell"
 
 export default {
   title: 'Table'
@@ -623,4 +624,6 @@ PerfRenderDemo.parameters = {
 }
 export const RenderPaginationDemo = () => <RenderPagination />;
 
-export const HugeDataDemo = ()=><HugeData/>
+export const HugeDataDemo = ()=><HugeData/>;
+
+export const CheckboxRenderCellDemo = ()=><CheckboxRenderCell/>;
