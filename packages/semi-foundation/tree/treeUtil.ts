@@ -127,9 +127,9 @@ export function traverseDataNodes(treeNodes: any[], callback: (data: any) => voi
     const processNode = (node: any, ind?: number, parent?: any) => {
         const children = node ? node[realChildrenName] : treeNodes;
         const pos = node ? getPosition(parent.pos, ind) : '0';
-        const nodeKey = node[realKeyName];
         // Process node if is not root
         if (node) {
+            const nodeKey = get(node, realKeyName, null);
             const data = {
                 data: { ...node },
                 ind,
