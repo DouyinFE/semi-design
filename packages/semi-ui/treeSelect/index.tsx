@@ -1318,7 +1318,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         if (!treeNodeProps) {
             return null;
         }
-        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf']);
+        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon']);
         const { keyMaps } = this.props;
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
