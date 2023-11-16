@@ -16,7 +16,8 @@ export interface CollapsePanelProps {
     reCalcKey?: number | string;
     style?: CSSProperties;
     showArrow?: boolean;
-    disabled?: boolean
+    disabled?: boolean;
+    onMotionEnd?: () => void
 }
 
 export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
@@ -155,6 +156,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                     children && (
                         <Collapsible
                             isOpen={active} keepDOM={keepDOM} motion={motion}
+                            onMotionEnd={this.props.onMotionEnd}
                             reCalcKey={reCalcKey}>
                             <div
                                 className={contentCls}

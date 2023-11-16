@@ -121,6 +121,41 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.47.0-beta.0 (2023-11-15)
+- 【Feat】
+    - Tree/TreeSelect supports keyMaps API for customizing fields in nodes [#1274](https://github.com/DouyinFE/semi-design/issues/1274) [#316](https://github.com/DouyinFE/semi-design/issues/316)
+    - The DatePicker `insetInput` type supports pasting a legal date string into the first input box and automatically splitting the date and time and selecting the corresponding date  [#1787](https://github.com/DouyinFE/semi-design/issues/1787)
+    - Table sorter supports sortOrder parameter [#1897](https://github.com/DouyinFE/semi-design/pull/1897)
+     - add popconfirm api showCloseIcon [#1898](https://github.com/DouyinFE/semi-design/issues/1898) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Design token】
+    - Typography add $font-typography_normalText-regular-fontWeight $font-typography_smallText-regular-fontWeight $font-typography_normalParagraph-regular-fontWeight $font-typography_smallParagraph-regular-fontWeight [#1878](https://github.com/DouyinFE/semi-design/pull/1878)
+    - Add `$color-button_disabled-bg-primary`  `$color-button_disabled-bg-secondary` `$color-button_disabled-bg-danger` `$color-button_disabled-bg-warning` `$color-button_disabled-bg-tertiary`  `$color-button_disabled_light-bg-primary` `$color-button_disabled_light-bg-secondary` `$color-button_disabled_light-bg-danger` `$color-button_disabled_light-bg-warning` `$color-button_disabled_light-bg-tertiary` [#1904](https://github.com/DouyinFE/semi-design/pull/1904)
+    - Add `--semi-color-data-0` series css variables [#1907](https://github.com/DouyinFE/semi-design/pull/1907)
+   
+
+#### 🎉 2.46.1 (2023-11-07)
+- 【Fix】
+    - Fixed the problem that Pagination popoverZIndex does not take effect on SizeChanger
+
+#### 🎉 2.46.0 (2023-11-03)
+- 【Fix】
+    - Fixed the problem that "x more" is not displayed after updating the event when the Calendar height is not enough to accommodate an event.
+    - Fix the inconsistent order of onBlur callback and onSelect callback in AutoComplete  [#1880](https://github.com/DouyinFE/semi-design/issues/1880)
+    - Fix the problem that when Select uses JSX to pass in Option, the key passed in Option does not take effect during rendering.
+
+
+#### 🎉 2.46.0-beta.0 (2023-10-30)
+- 【Feat】
+    - Typography's showTooltip API adds renderTooltip to support custom rendering pop-up layer components  [#1853](https://github.com/DouyinFE/semi-design/issues/1853)
+- 【Fix】
+    - Fixed formatter error issue when InputNumber is in controlled mode and focused [#1870](https://github.com/DouyinFE/semi-design/pull/1870)
+    - Fixed ide dom error in ssr [#1875](https://github.com/DouyinFE/semi-design/pull/1875) [@tank0317](https://github.com/tank0317)
+    - Fixed an issue in Cascader that loads data asynchronously due to untimely updating of loadingKeys resulting in incorrect node status when loading is completed.  [#1867](https://github.com/DouyinFE/semi-design/issues/1867)
+    - Fixed the problem of TypeError caused by the destructured data in TreeSelect being null
+- 【Design Token】
+    - Select Add color-select-option-bg-selected [#1871](https://github.com/DouyinFE/semi-design/pull/1871)
+
+
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】
     - resizable Table width reset to initial bug（Affected v2.32~v2.44）

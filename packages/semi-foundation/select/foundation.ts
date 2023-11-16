@@ -939,6 +939,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         delete newOption._show;
         delete newOption._selected;
         delete newOption._scrollIndex;
+        delete newOption._keyInJsx;
+        
         if ('_keyInOptionList' in newOption) {
             newOption.key = newOption._keyInOptionList;
             delete newOption._keyInOptionList;

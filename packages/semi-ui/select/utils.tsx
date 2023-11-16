@@ -10,7 +10,7 @@ const generateOption = (child: React.ReactElement, parent: any, index: number): 
     }
     const option = {
         value: childProps.value,
-        // Drop-down menu rendering priority label value, children, value in turn downgrade
+        // Dropdown menu rendering priority label value, children, value in turn downgrade
         label: childProps.label || childProps.children || childProps.value,
         _show: true,
         _selected: false,
@@ -18,6 +18,12 @@ const generateOption = (child: React.ReactElement, parent: any, index: number): 
         ...childProps,
         _parentGroup: parent,
     };
+
+    // Props are collected from ReactNode, after React.Children.toArray
+    // no need to determine whether the key exists in child
+    // Even if the user does not explicitly declare it, React will always generate a key.
+    option._keyInJsx = child.key;
+    
     return option;
 };
 

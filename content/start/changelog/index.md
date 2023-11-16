@@ -13,6 +13,39 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.47.0-beta.0 (2023-11-15)
+- 【Feat】
+    - Tree/TreeSelect 支持 keyMaps API，用于自定义节点中的字段 [#1274](https://github.com/DouyinFE/semi-design/issues/1274) [#316](https://github.com/DouyinFE/semi-design/issues/316)
+    - DatePicker 内嵌输入类型，支持粘贴合法日期字符串到第一个输入框后自动拆分日期与时间并选择对应日期 [#1787](https://github.com/DouyinFE/semi-design/issues/1787)
+    - Table sorter 支持 sortOrder 参数 [#1897](https://github.com/DouyinFE/semi-design/pull/1897)
+    - Popconfirm增加api：showCloseIcon 控制关闭图标展示 [#1898](https://github.com/DouyinFE/semi-design/issues/1898) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Design token】
+    - Typography 新增 $font-typography_normalText-regular-fontWeight $font-typography_smallText-regular-fontWeight $font-typography_normalParagraph-regular-fontWeight $font-typography_smallParagraph-regular-fontWeight [#1878](https://github.com/DouyinFE/semi-design/pull/1878)
+    - 新增 `$color-button_disabled-bg-primary`  `$color-button_disabled-bg-secondary` `$color-button_disabled-bg-danger` `$color-button_disabled-bg-warning` `$color-button_disabled-bg-tertiary`  `$color-button_disabled_light-bg-primary` `$color-button_disabled_light-bg-secondary` `$color-button_disabled_light-bg-danger` `$color-button_disabled_light-bg-warning` `$color-button_disabled_light-bg-tertiary` [#1904](https://github.com/DouyinFE/semi-design/pull/1904)
+    - 新增 `--semi-color-data-0` 系列 css variables [#1907](https://github.com/DouyinFE/semi-design/pull/1907)
+
+#### 🎉 2.46.1 (2023-11-07)
+- 【Fix】
+    - 修复 Pagination popoverZIndex 在 SizeChanger 上不生效的问题
+
+#### 🎉 2.46.0 (2023-11-03)
+- 【Fix】
+    - 修复 Calendar 高度不足以容纳一个事件时，更新事件后不展示 「还有 x 项」问题
+    - 修复 AutoComplete 中 onBlur 和 onSelect 的调用顺序不一致问题  [#1880 ](https://github.com/DouyinFE/semi-design/issues/1880)
+    - 修复 Select 使用 JSX 传入 Option时，Option传入的 key 未在渲染时生效的问题
+
+#### 🎉 2.46.0-beta.0 (2023-10-30)
+- 【Feat】
+    - Typography 的 showTooltip API 增加 renderTooltip 支持自定义渲染弹出层组件  [#1853](https://github.com/DouyinFE/semi-design/issues/1853)
+- 【Fix】
+    - 修复 InputNumber 在受控模式且聚焦时 formatter [#1870](https://github.com/DouyinFE/semi-design/pull/1870)
+    - 修复 ide 在 ssr 场景下 dom error [#1875](https://github.com/DouyinFE/semi-design/pull/1875) [@tank0317](https://github.com/tank0317)
+    - 修复异步加载数据的 Cascader 中由于 loadingKeys 更新不及时导致加载完成的节点状态错误问题  [#1867](https://github.com/DouyinFE/semi-design/issues/1867)
+    - 修复由于用户 TreeData 不符合规范，被解构数据为 null 导致 TypeError 问题 [#1873](https://github.com/DouyinFE/semi-design/pull/1873)
+- 【Design Token】
+    - Select 新增 color-select-option-bg-selected [#1871](https://github.com/DouyinFE/semi-design/pull/1871)
+
 #### 🎉 2.45.0 (2023-10-20)
 - 【Fix】
     - 修复 resizable Table 宽度在行选择时错误设置为初始值问题（影响 v2.32~v2.44）

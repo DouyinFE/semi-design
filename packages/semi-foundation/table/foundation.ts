@@ -1202,7 +1202,7 @@ export interface BaseSorterInfo<RecordType> {
     sorter?: BaseSorter<RecordType>
 }
 export type BaseSortOrder = boolean | ArrayElement<typeof strings.SORT_DIRECTIONS>;
-export type BaseSorter<RecordType> = boolean | ((a?: RecordType, b?: RecordType) => number);
+export type BaseSorter<RecordType> = boolean | ((a?: RecordType, b?: RecordType, sortOrder?: 'ascend' | 'descend') => number);
 export interface BaseChangeInfoFilter<RecordType> {
     dataIndex?: string;
     value?: any;

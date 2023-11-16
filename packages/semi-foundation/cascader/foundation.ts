@@ -230,7 +230,11 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     notifyListScroll: (e: any, panel: BasicScrollPanelProps) => void;
     notifyOnExceed: (data: BasicEntity[]) => void;
     toggleInputShow: (show: boolean, cb: () => void) => void;
-    updateFocusState: (focus: boolean) => void
+    updateFocusState: (focus: boolean) => void;
+    updateLoadingKeyRefValue: (keys: Set<string>) => void;
+    getLoadingKeyRefValue: () => Set<string>;
+    updateLoadedKeyRefValue: (keys: Set<string>) => void;
+    getLoadedKeyRefValue: () => Set<string>
 }
 
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
@@ -242,6 +246,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     init() {
         const isOpen = this.getProp('open') || this.getProp('defaultOpen');
         this.collectOptions(true);
+        this._adapter.updateLoadingKeyRefValue(new Set());
+        this._adapter.updateLoadedKeyRefValue(new Set());
 
         if (isOpen && !this._isDisabled()) {
             this.open();
@@ -426,11 +432,11 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { changeOnSelect, onChangeWithObject, multiple } = this.getProps();
         const {
             activeKeys,
-            loadingKeys,
             loading,
             keyEntities: keyEntityState,
             selectedKeys: selectedKeysState
         } = this.getStates();
+        const loadingKeys = this._adapter.getLoadingKeyRefValue();
         const filterable = this._isFilterable();
         const loadingActive = [...activeKeys].filter(i => loadingKeys.has(i));
 
@@ -672,18 +678,19 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleNodeLoad(item: BasicEntity | BasicData) {
         const { data, key } = item;
-        const {
-            loadedKeys: prevLoadedKeys,
-            loadingKeys: prevLoadingKeys
-        } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+        const prevLoadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
+        const prevLoadedKeys = cloneDeep(this._adapter.getLoadedKeyRefValue());
         const newLoadedKeys = prevLoadedKeys.add(key);
         const newLoadingKeys = new Set([...prevLoadingKeys]);
         newLoadingKeys.delete(key);
 
         // onLoad should trigger before internal setState to avoid `loadData` trigger twice.
         this._adapter.notifyOnLoad(newLoadedKeys, data);
+        this._adapter.updateLoadingKeyRefValue(newLoadingKeys);
+        this._adapter.updateLoadedKeyRefValue(newLoadedKeys);
         this._adapter.updateStates({
             loadingKeys: newLoadingKeys,
+            loadedKeys: newLoadedKeys
         });
     }
 
@@ -691,14 +698,17 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { data, key } = item;
         this._adapter.updateStates({ loading: false });
         if (!data.isLeaf && !data.children && this.getProp('loadData')) {
-            const { loadedKeys, loadingKeys } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+            const loadedKeys = this._adapter.getLoadedKeyRefValue();
+            const loadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
             if (loadedKeys.has(key) || loadingKeys.has(key)) {
                 return;
             }
             this._adapter.updateStates({ loading: true });
             const { keyEntities } = this.getStates();
             const optionPath = this.getItemPropPath(key, [], keyEntities);
-            this._adapter.updateStates({ loadingKeys: loadingKeys.add(key) });
+            const newLoadingKeys = loadingKeys.add(key);
+            this._adapter.updateLoadingKeyRefValue(newLoadingKeys);
+            this._adapter.updateStates({ loadingKeys: newLoadingKeys });
             this._adapter.notifyLoadData(optionPath, this.handleNodeLoad.bind(this, item));
         }
     }

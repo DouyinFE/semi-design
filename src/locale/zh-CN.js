@@ -22,6 +22,15 @@ const appLocale = {
         'footer.component': 'React 组件库',
         'footer.dsm': '主题与 DSM',
 
+        //new footer
+        "footer.design": "设计系统",
+        "footer.getInfo": "获取 Semi 动态",
+        "footer.getInfo.lark": "Semi 飞书群",
+        "footer.getInfo.redBook": "小红书",
+        "footer.friends": "友情链接",
+
+
+
         // search
         'search.belong.component': '组件',
         'search.belong.material': '物料',
@@ -143,6 +152,8 @@ const appLocale = {
         "content_theme_info": "兼容多元的品牌语言和产品形态，避免无意义的重造",
         "content_d2c": "Semi D2C 设计转代码的演进之路",
         "content_d2c_info": "用先进的工具连接设计师与开发者",
+        "content_d2c_openday": "字节跳动开源 OpenDay 主题分享",
+        "content_d2c_info_openday": "D2C 设计稿转代码深度解读",
         "content_test": "Semi Design 如何做质量保障",
         "content_test_info": "综合运用 Unit Test、E2E Test、Visual Test保障组件库稳定性",
 

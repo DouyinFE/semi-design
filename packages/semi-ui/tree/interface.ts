@@ -11,6 +11,7 @@ import {
     BasicFlattenNode,
     BasicTreeNodeData,
     BasicOnDragProps,
+    KeyMapProps,
 } from '@douyinfe/semi-foundation/tree/foundation';
 
 /* Tree */
@@ -67,6 +68,7 @@ export interface TreeProps extends BasicTreeProps {
     treeData?: TreeNodeData[];
     value?: Value;
     icon?: ReactNode;
+    keyMaps?: KeyMapProps;
     loadData?: (treeNode?: TreeNodeData) => Promise<void>;
     onChange?: (value?: Value) => void;
     onDoubleClick?: (e: MouseEvent, node: TreeNodeData) => void;
