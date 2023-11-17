@@ -106,6 +106,7 @@ export default class Button extends PureComponent<ButtonProps> {
                     [`${prefixCls}-block`]: block,
                     [`${prefixCls}-circle`]: circle,
                     [`${prefixCls}-borderless`]: theme === 'borderless',
+                    [`${prefixCls}-${type}-disabled`]: disabled && type,
                 },
                 className
             ),
