@@ -206,4 +206,17 @@ describe('table', () => {
         cy.get('.semi-table-tbody .semi-table-row').eq(4).should('contain.text', '未知');
         cy.get('.semi-table-tbody .semi-table-row').eq(5).should('contain.text', '未知');
     });
+
+    it('test given pageSize + showSizeChanger', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-pagination&viewMode=story');
+        cy.get('.semi-page-switch').eq(0).click();
+        cy.get('.semi-select-option').eq(0).click();
+        cy.wait(500);
+        cy.get('.semi-page-item').eq(4).click();
+        cy.get('.semi-table-pagination-info').should('contain.text', '显示第 31 条-第 40 条，共 46 条')
+        cy.get('.semi-page-item-active').eq(0).should('contain.text', '4');
+        cy.get('.semi-page-item').eq(5).click();
+        cy.get('.semi-table-pagination-info').should('contain.text', '显示第 41 条-第 46 条，共 46 条')
+        cy.get('.semi-page-item-active').eq(0).should('contain.text', '5');
+    })
 });
