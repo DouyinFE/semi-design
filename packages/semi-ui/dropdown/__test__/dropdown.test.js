@@ -223,6 +223,7 @@ describe('Dropdown', () => {
         let DD = getDD(props);
         let targetItem = DD.find('li.test');
         let event = {
+            button:0,
             target: {
                 value: 'B1',
             },
