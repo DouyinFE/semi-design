@@ -8,9 +8,19 @@ import '@douyinfe/semi-foundation/_portal/portal.scss';
 
 export interface PortalProps {
     children: React.ReactNode;
-    style?: React.CSSProperties;
     prefixCls?: string;
+    /**
+     * @deprecated
+     * Prefer using `initStyle` due to non-reactive constraints.
+     * For compatibility, `style` and `initStyle` will be merged by `Object.assign({}, style, initStyle)`
+     */
+    style?: React.CSSProperties;
+    initStyle?: React.CSSProperties;
     className?: string;
+
+    /**
+     * Only called at `constructor` and `componentDidMount`
+     */
     getPopupContainer?: () => HTMLElement;
     didUpdate?: (props: PortalProps) => void
 }
@@ -20,6 +30,17 @@ export interface PortalState {
 }
 
 const defaultGetContainer = () => document.body;
+
+const createEl = (initStyle: React.CSSProperties = {}) => {
+    const el = document.createElement('div');
+
+    for (const key of Object.keys(initStyle)) {
+        el.style[key] = initStyle[key];
+    }
+
+    return el;
+};
+
 class Portal extends PureComponent<PortalProps, PortalState> {
     static contextType = ConfigContext;
 
@@ -31,46 +52,42 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     static propTypes = {
         children: PropTypes.node,
         prefixCls: PropTypes.string,
-        getPopupContainer: PropTypes.func,
+        style: PropTypes.object,
+        initStyle: PropTypes.object,
         className: PropTypes.string,
+
+        getPopupContainer: PropTypes.func,
         didUpdate: PropTypes.func,
     };
 
     el: HTMLElement;
     context: ContextValue;
+
     constructor(props: PortalProps, context: ContextValue) {
         super(props);
+        /**
+         * Unlike other implementations, we initize `container` and `el` immediately to get children's refs in this tick.
+         * See issue: https://github.com/DouyinFE/semi-design/issues/1703
+         * 
+         * We only append `el` to `container` at `componentDidMount` to fix react18 strict mode error.
+         */
         this.state = {
-            container: this.initContainer(context, true)
+            container: this.getContainer(context)
         };
+        this.el = createEl(Object.assign({}, props.style, props.initStyle));
     }
 
     componentDidMount() {
-        const container = this.initContainer(this.context);
-        if (container!==this.state.container) {
-            this.setState({ container });
-        }
-    }
+        const container = this.getContainer();
+        if (this.el.parentElement !== container) {
+            if (container) {
+                container.appendChild(this.el);
+                this.setState({ container });
+            } else {
+                this.el.parentElement?.removeChild(this.el);
+            }
 
-    initContainer = (context: ContextValue, catchError = false) => {
-        try {
-            let container: HTMLElement | undefined = undefined;
-            if (!this.el || !this.state?.container || !Array.from(this.state.container.childNodes).includes(this.el)) {
-                this.el = document.createElement('div');
-                const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
-                const portalContainer = getContainer();
-                portalContainer.appendChild(this.el);
-                this.addStyle(this.props.style);
-                this.addClass(this.props.prefixCls, context, this.props.className);
-                container = portalContainer;
-                return container;
-            }
-        } catch (e) {
-            if (!catchError) {
-                throw e;
-            }
         }
-        return this.state?.container;
     }
 
     componentDidUpdate(prevProps: PortalProps) {
@@ -88,30 +105,40 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         }
     }
 
-    addStyle = (style = {}) => {
-        if (this.el) {
-            for (const key of Object.keys(style)) {
-                this.el.style[key] = style[key];
-            }
-        }
-    };
+    private getContainer(context: ContextValue = this.context) {
+        const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
+        const container = getContainer();
+        return container;
+    }
 
-    addClass = (prefixCls: string, context = this.context, ...classNames: string[]) => {
-        const { direction } = context;
-        const cls = classnames(prefixCls, ...classNames, {
-            [`${prefixCls}-rtl`]: direction === 'rtl'
-        });
-        if (this.el) {
-            this.el.className = cls;
+    private patchClassNameToEl() {
+        if (!this.el) {
+            return;
         }
-    };
+
+        const { prefixCls, className } = this.props;
+        const { direction } = this.context;
+
+        const cls = classnames(
+            prefixCls,
+            className,
+            {
+                [`${prefixCls}-rtl`]: direction === 'rtl'
+            }
+        );
+
+        this.el.className = cls;
+    }
 
     render() {
-        const { state, props } = this;
-        if (state.container) {
-            return createPortal(props.children, this.el);
+        const container = this.state.container;
+        if (!container) {
+            return null;
         }
-        return null;
+
+        this.patchClassNameToEl();
+
+        return createPortal(this.props.children, this.el);
     }
 }
 
