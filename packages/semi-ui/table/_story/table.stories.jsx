@@ -102,7 +102,8 @@ export {
     FixOnChange,
     ColumnResize,
     FixedResizableRowSelection,
-    SorterSortOrder
+    SorterSortOrder,
+    FixedPagination
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

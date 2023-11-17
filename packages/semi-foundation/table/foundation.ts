@@ -511,8 +511,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
 
             if (!this._pagerIsControlled()) {
                 const total = get(propPagination, 'total', dataSource.length);
-                const pageSize = get(propPagination, 'pageSize', pagination.pageSize);
-                const { currentPage } = pagination;
+                const { currentPage, pageSize } = pagination;
 
                 const realTotalPage = Math.ceil(total / pageSize);
 
