@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.47.1 (2023-11-17)
+- 【Fix】
+    - fixed Table pagination bug when given pageSize and showSizeChanger at same time  [#1885](https://github.com/DouyinFE/semi-design/issues/1885)
+    - Fix the problem that the right and middle click of Dropdown Item will also trigger onClick [#1914](https://github.com/DouyinFE/semi-design/pull/1914) (Broken version range: 2.43.0-beta.0 ~ 2.46.1)
+
 #### 🎉 2.47.0-beta.0 (2023-11-15)
 - 【Feat】
     - Tree/TreeSelect supports keyMaps API for customizing fields in nodes [#1274](https://github.com/DouyinFE/semi-design/issues/1274) [#316](https://github.com/DouyinFE/semi-design/issues/316)
