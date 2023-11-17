@@ -225,7 +225,7 @@ $module: #{$prefix}-input;
 
             &:not(:last-child) {
                 border-right-style: none;
-                border-radius: 0;
+                // border-radius: 0;
             }
         }
     }
