@@ -27,7 +27,7 @@ jobs:
           id=$(curl --location "https://api.semi.design/analyze/createTask" --header "X-TT-ENV: canary" --header "Content-Type: application/json" --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}" --data "{\"v2\":\"$(git rev-parse HEAD)\",\"v1\":\"$(git rev-parse HEAD^)\",\"component\":\"tree--change-tree-data\"}")
           echo "Task id is $id"
           for i in {1..30}; do
-                      sleep 60
+                      sleep 300
                       json_data=$(curl --location 'https://api.semi.design/analyze/checkAllTask' --header 'X-TT-ENV: canary' --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}")
                       parsed_data=$(python -c "
           import json;
