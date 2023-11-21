@@ -1,4 +1,4 @@
-name: "Get Commit Hash on PR Merge"
+name: "Check PR performance on PR Merge"
 
 on:
   pull_request:
@@ -16,7 +16,7 @@ jobs:
         with:
             fetch-depth: '2'
 
-      - name: Get commit hashes
+      - name: Check PR performance
         if: ${{ github.event.pull_request.merged == true }}
         env:
           BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
