@@ -24,7 +24,7 @@ jobs:
           git checkout $BASE_BRANCH
           echo "Current Commit: $(git rev-parse HEAD)"
           echo "Before Commit: $(git rev-parse HEAD^)"
-          id=$(curl --location "https://api.semi.design/analyze/createTask" --header "X-TT-ENV: canary" --header "Content-Type: application/json" --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}" --data "{\"v2\":\"$(git rev-parse HEAD)\",\"v1\":\"$(git rev-parse HEAD^)\",\"component\":\"tree--change-tree-data\"}")
+          id=$(curl --location "https://api.semi.design/analyze/createTask" --header "X-TT-ENV: canary" --header "Content-Type: application/json" --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}" --data "{\"v2\":\"$(git rev-parse HEAD)\",\"v1\":\"$(git rev-parse HEAD^)\",\"component\":\"\"}")
           echo "Task id is $id"
           for i in {1..30}; do
                       sleep 300
