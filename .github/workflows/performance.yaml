@@ -1,7 +1,8 @@
-name: Get Commit Hash on PR Merge
+name: "Get Commit Hash on PR Merge"
 
 on:
   pull_request:
+    branches: [main, release]
     types:
       - closed
 
