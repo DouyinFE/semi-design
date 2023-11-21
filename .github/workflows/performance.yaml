@@ -44,6 +44,7 @@ jobs:
 
                       if [ -n "$parsed_data" ]; then
                         echo "$parsed_data"
+                        curl --location --request DELETE 'https://api.semi.design/analyze/removeTask?id=964fa063-36bd-4ada-9acf-d81f73bc0e16' --header 'X-TT-ENV: canary' --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}"
                         break
                       else
                         echo "task result is empty at tried number  #$i"
