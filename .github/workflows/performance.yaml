@@ -1,31 +1,23 @@
-name: performance
+name: Get Commit Hash on PR Merge
 
 on:
-  workflow_dispatch:
-    inputs:
-      test_component_name:
-        description: 'Input Component Name to test performance, input all to test all'
-        required: false
+  pull_request:
+    types:
+      - closed
 
 jobs:
-  performance:
+  get_commit_hash:
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-          wget https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/performance/main
-          chmod +x ./main
-          ./main --mode=diffComponent --component=${{ github.event.inputs.test_component_name }}
-          tar -zcvf data.tar.gz data.db
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get commit hashes
+        if: ${{ github.event.pull_request.merged == true }}
         env:
-          TOS_PASSWD: ${{ secrets.TOS_PASSWD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: data.tar.gz
-          path: ./data.tar.gz
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: diffResult.txt
-          path: ./diffResult.txt
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+        run: |
+          git checkout $BASE_BRANCH
+          echo "Current Commit: $(git rev-parse HEAD)"
+          echo "Before Commit: $( git rev-parse HEAD^)"
