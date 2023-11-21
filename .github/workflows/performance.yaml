@@ -13,9 +13,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+            fetch-depth: '2'
 
       - name: Get commit hashes
         if: ${{ github.event.pull_request.merged == true }}
+        env:
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
         run: |
-          echo "Current Commit: ${{ github.sha }}"
-          echo "Before Commit: ${{ github.event.pull_request.before }}"
+          git checkout $BASE_BRANCH
+          echo "Current Commit: $(git rev-parse HEAD)"
+          echo "Before Commit: $( git rev-parse HEAD^)"
