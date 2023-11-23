@@ -561,6 +561,7 @@ describe(`Table`, () => {
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
             .simulate('mousedown', {
+                button:0,
                 nativeEvent: null,
             });
         expect(onChange.callCount).toBe(++onChangeCalledCount); // click first filter again
@@ -569,6 +570,7 @@ describe(`Table`, () => {
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
             .simulate('mousedown', {
+                button:0,
                 nativeEvent: null,
             });
         expect(onChange.callCount).toBe(++onChangeCalledCount); // to page 2
@@ -629,6 +631,7 @@ describe(`Table`, () => {
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
             .simulate('mousedown', {
+                button:0,
                 nativeEvent: null,
             });
         const nameColList = demo.find('.semi-table-tbody .name-col');
