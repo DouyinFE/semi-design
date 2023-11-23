@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { cloneDeep, difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
@@ -72,6 +72,68 @@ const treeData1 = [
         label: '加拿大',
         value: 'jianada',
         key: 'jianada',
+      },
+    ],
+  },
+];
+
+const specialTreeData = [
+  {
+    label1: '亚洲',
+    value1: 'Yazhou',
+    key1: 'yazhou',
+    children1: [
+      {
+        label1: '中国',
+        value1: 'Zhongguo',
+        key1: 'zhongguo',
+        disabled1: true,
+        children1: [
+          {
+            label1: '北京',
+            value1: 'Beijing',
+            key1: 'beijing',
+          },
+          {
+            label1: '上海',
+            value1: 'Shanghai',
+            key1: 'shanghai',
+          },
+        ],
+      },
+      {
+        label1: '日本',
+        value1: 'Riben',
+        key1: 'riben',
+        children1: [
+          {
+            label1: '东京',
+            value1: 'Dongjing',
+            key1: 'dongjing',
+          },
+          {
+            label1: '大阪',
+            value1: 'Daban',
+            key1: 'daban',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label1: '北美洲',
+    value1: 'Beimeizhou',
+    key1: 'beimeizhou',
+    children1: [
+      {
+        label1: '美国',
+        value1: 'Meiguo',
+        key1: 'meiguo',
+      },
+      {
+        label1: '加拿大',
+        value1: 'Jianada',
+        key1: 'jianada',
       },
     ],
   },
@@ -2819,4 +2881,112 @@ export const ChangeTreeData = () => {
         placeholder="请选择"
     />
   </>
+}
+
+export const KeyMaps = () => {
+  const [withObject, setWithObject] = useState(false);
+  const [value1, setValue1] = useState(undefined);
+  const [value2, setValue2] = useState([]);
+  const [expandKeys, setExpandedKeys] = useState(undefined);
+
+  const onSingleChange = useCallback((value) => {
+    console.log('onSingleChange', value);
+    setValue1(value);
+  }, []);
+
+  const onMultipleChange = useCallback((value) => {
+    console.log('onMultipleChange', value);
+    setValue2(value);
+  }, []);
+
+  const normalChange = useCallback((value) => {
+    console.log('onChange', value);
+  }, []);
+
+  const normalExpanded = useCallback((expandedKeys, {expanded, node}) => {
+    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+  }, []);
+  
+  const normalSearch = useCallback((input, filteredExpandedKeys) => {
+    console.log('onSearch', input, filteredExpandedKeys);
+  }, []);
+
+  const keyMaps = useMemo(() => {
+    return {
+      value: 'value1',
+      key: 'key1',
+      label: 'label1',
+      children: 'children1',
+      disabled: 'disabled1'
+    };
+  }, []);
+
+  const switchChange = useCallback((checked) => {
+    setWithObject(checked);
+    setValue1(undefined);
+    setValue2(undefined);
+  }, []);
+
+  const regularTreeProps = useMemo(() => ({
+    keyMaps: keyMaps,
+    treeData: specialTreeData,
+    style: { width: 300 },
+    onChange: normalChange,
+    onExpand: normalExpanded,
+    onChangeWithObject: withObject,
+  }), [withObject]);
+
+  const defaultSelectedObj = {
+    label1: '北京',
+    value1: 'Beijing',
+    key1: 'beijing',
+  };
+
+  return (
+    <>
+      <span>onChangeWithObject</span><Switch checked={withObject} onChange={switchChange} />
+      <div key={String(withObject)} style={{ marginTop: 10 }}>
+        <span>Single select</span>
+        <Tree
+          {...regularTreeProps}
+          defaultValue={withObject ? [defaultSelectedObj] : 'Beijing'}
+        />
+        <span>Single select, onSearch, filterTreeNode</span>
+        <Tree
+          {...regularTreeProps}
+          filterTreeNode
+          onSearch={normalSearch}
+        />
+        <span>Single select, controlled</span>
+        <Tree
+          {...regularTreeProps}
+          value={value1}
+          onChange={onSingleChange}
+        />
+        <span>Multiple select</span>
+        <Tree
+          {...regularTreeProps}
+          multiple
+          defaultValue={withObject ? [defaultSelectedObj] : ['Beijing']}
+        />
+        <span>Multiple select, controlled, disableStrictly</span>
+        <Tree
+          {...regularTreeProps}
+          multiple
+          value={value2}
+          disableStrictly
+          onChange={onMultipleChange}
+        />
+        <span>Multiple, 展开受控</span>
+        <Tree
+          {...regularTreeProps}
+          multiple
+          expandedKeys={expandKeys}
+          onExpand={(expandedKeys, {expanded, node}) => {
+            setExpandedKeys(expandedKeys);
+          }}
+        />
+      </div>
+    </> 
+  );
 }

@@ -775,4 +775,31 @@ describe('DatePicker', () => {
         cy.get('.semi-input').eq(0).should('have.value', '2023-05-03');
         cy.get('.semi-input').eq(1).should('have.value', '2023-05-10');
     });
+
+    it('test split first inset input + dateTime', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--auto-split-input&viewMode=story');
+        cy.get('[data-cy=dateTime] .semi-input').click();
+        cy.window().then(window => {
+            window.document.querySelector('.semi-popover .semi-input').setAttribute('value', '2023-09-05 17:41:36');
+            cy.get('.semi-popover .semi-input').eq(0).trigger('change')
+            cy.get('.semi-popover .semi-input').eq(0).should('have.value', '2023-09-05');
+            cy.get('.semi-popover .semi-input').eq(1).should('have.value', '17:41:36');
+            cy.get('.semi-datepicker-day-selected').contains("5");
+        })
+    });
+
+    it('test split first inset input + dateTimeRange', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--auto-split-input&viewMode=story');
+        cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).click();
+        cy.window().then(window => {
+            window.document.querySelector('.semi-popover .semi-input').setAttribute('value', '2023-10-09 16:14:31 ~ 2023-10-13 16:14:31');
+            cy.get('.semi-popover .semi-input').eq(0).trigger('change')
+            cy.get('.semi-popover .semi-input').eq(0).should('have.value', '2023-10-09');
+            cy.get('.semi-popover .semi-input').eq(1).should('have.value', '16:14:31');
+            cy.get('.semi-popover .semi-input').eq(2).should('have.value', '2023-10-13');
+            cy.get('.semi-popover .semi-input').eq(3).should('have.value', '16:14:31');
+            cy.get('.semi-datepicker-day-selected-start').contains("9");
+            cy.get('.semi-datepicker-day-selected-end').contains("13");
+        })
+    });
 });

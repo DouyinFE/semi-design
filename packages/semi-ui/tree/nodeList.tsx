@@ -5,9 +5,7 @@ import { FlattenNode, NodeListProps, NodeListState, TransitionNodes } from './in
 import NodeCollapsible from './nodeCollapsible';
 
 const getTreeNodeKey = (treeNode: FlattenNode) => {
-    const { data } = treeNode;
-    const { key } = data;
-    return key;
+    return treeNode.key;
 };
 
 export default class NodeList extends PureComponent<NodeListProps, NodeListState> {
