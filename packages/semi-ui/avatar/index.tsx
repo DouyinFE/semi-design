@@ -18,7 +18,8 @@ export * from './interface';
 export interface AvatarState {
     isImgExist: boolean;
     hoverContent: React.ReactNode;
-    focusVisible: boolean
+    focusVisible: boolean;
+    scale: number
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
@@ -26,6 +27,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         size: 'medium',
         color: 'grey',
         shape: 'circle',
+        gap: 3,
         onClick: noop,
         onMouseEnter: noop,
         onMouseLeave: noop,
@@ -40,6 +42,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         hoverMask: PropTypes.node,
         className: PropTypes.string,
         style: PropTypes.object,
+        gap: PropTypes.number,
         imgAttr: PropTypes.object,
         src: PropTypes.string,
         srcSet: PropTypes.string,
@@ -51,18 +54,21 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     };
 
     foundation!: AvatarFoundation;
+    avatarRef: React.RefObject<HTMLElement | null>;
     constructor(props: AvatarProps) {
         super(props);
         this.state = {
             isImgExist: true,
             hoverContent: '',
             focusVisible: false,
+            scale: 1,
         };
         this.onEnter = this.onEnter.bind(this);
         this.onLeave = this.onLeave.bind(this);
         this.handleError = this.handleError.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.getContent = this.getContent.bind(this);
+        this.avatarRef = React.createRef();
     }
 
     get adapter(): AvatarAdapter<AvatarProps, AvatarState> {
@@ -94,6 +100,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     componentDidMount() {
         this.foundation = new AvatarFoundation<AvatarProps, AvatarState>(this.adapter);
         this.foundation.init();
+        this.changeScale();
     }
 
     componentDidUpdate(prevProps: AvatarProps) {
@@ -109,6 +116,9 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             image.onabort = () => {
                 this.setState({ isImgExist: false });
             };
+        }
+        if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
+            this.changeScale();
         }
     }
 
@@ -151,6 +161,16 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         this.foundation.handleBlur();
     }
 
+    changeScale = () => {
+        const gap = this.props.gap;
+        const [node, stringNode] = [this.avatarRef.current, this.avatarRef.current.firstChild as HTMLElement];
+        const [nodeWidth, stringWidth] = [node.offsetWidth || 0, stringNode?.offsetWidth || 0];
+        if (nodeWidth !== 0 && stringWidth !== 0 && gap * 2 < nodeWidth) {
+            const scale = nodeWidth - gap * 2 > stringWidth ? 1 : (nodeWidth - gap * 2) / stringWidth;
+            this.setState({ scale });
+        }
+    }
+
     getContent = () => {
         const { children, onClick, imgAttr, src, srcSet, alt } = this.props;
         const { isImgExist } = this.state;
@@ -191,8 +211,11 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 ),
             };
             const finalProps = clickable ? { ...props, ...a11yFocusProps } : props;
+            const stringStyle: React.CSSProperties = {
+                transform: `scale(${this.state.scale})`,
+            };
             content = (
-                <span className={`${prefixCls}-content`}>
+                <span className={`${prefixCls}-content`} style={stringStyle}>
                     <span {...finalProps} x-semi-prop="children">{children}</span>
                 </span>
             );
@@ -227,6 +250,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 onMouseEnter={this.onEnter as any}
                 onMouseLeave={this.onLeave as any}
                 role='listitem'
+                ref={this.avatarRef}
             >
                 {this.getContent()}
                 {hoverRender}

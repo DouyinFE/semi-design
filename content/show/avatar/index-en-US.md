@@ -72,6 +72,23 @@ import { Avatar } from '@douyinfe/semi-ui';
 );
 ```
 
+### Adaptive character size
+
+For the avatar of the character type, the font size will be adjusted adaptively according to the width of the avatar. Use `gap` to adjust the pixel size on the left and right sides of the character avatar distance.
+
+```jsx live=true
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <Avatar style={{ margin: 4 }}>AS</Avatar>
+        <Avatar style={{ margin: 4 }} gap={4}>Semi</Avatar>
+        <Avatar style={{ margin: 4 }} gap={10}>Semi</Avatar>
+    </div>
+);
+```
+
 ### Image
 
 Image avatars can be created by using the `src` or `srcSet` prop.
@@ -268,6 +285,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 | alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
 | className    | Class name                                                                                                                                                                                | string         | -        |
 | color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
+| gap          | Pixel size of the distance between the left and right sides of the character avatar | number                                     | 3        |
 | hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |
 | imgAttr | Native html img attributes **>=1.5.0**| React.ImgHTMLAttributes<HTMLImageElement\> | - |
 | shape        | Shape of the avatar, one of `circle`, `square`                                                                                                                                            | string         | `circle` |
