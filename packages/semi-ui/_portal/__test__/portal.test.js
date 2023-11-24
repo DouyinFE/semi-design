@@ -162,3 +162,27 @@ describe(`Portal`, () => {
         expect(shouldRendered.innerHTML).toBe(`<div class="semi-portal">shouldRendered</div>`)
     })
 });
+
+describe('Portal SSR/SSG', () => {
+    beforeEach(() => {
+        clear();
+        genBeforeEach()();
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+        genAfterEach()();
+    });
+
+    it('test mock ssr', async () => {
+        jest.spyOn(window, 'document', 'get').mockImplementation(() => {
+            return undefined;
+        })
+        expect(document).toBeFalsy()
+
+        expect(() => {
+            const portal = new Portal({ children: null })
+            portal.render()
+        }).not.toThrow();
+    })
+})
