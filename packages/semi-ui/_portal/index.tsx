@@ -29,9 +29,16 @@ export interface PortalState {
     container: undefined | HTMLElement
 }
 
+const canUseDom = () => {
+    return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+};
+
 const defaultGetContainer = () => document.body;
 
 const createEl = (initStyle: React.CSSProperties = {}) => {
+    if (!canUseDom()) {
+        return null;
+    }
     const el = document.createElement('div');
 
     for (const key of Object.keys(initStyle)) {
@@ -41,6 +48,11 @@ const createEl = (initStyle: React.CSSProperties = {}) => {
     return el;
 };
 
+/**
+ * This component does not support server-side rendering (SSR) or static site generation (SSG).
+ * If you encounter React errors [418](https://legacy.reactjs.org/docs/error-decoder.html/?invariant=418) or [423](https://legacy.reactjs.org/docs/error-decoder.html/?invariant=423),
+ * consider wrapping the component in a dynamic import.
+ */
 class Portal extends PureComponent<PortalProps, PortalState> {
     static contextType = ConfigContext;
 
@@ -60,7 +72,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         didUpdate: PropTypes.func,
     };
 
-    el: HTMLElement;
+    el: HTMLElement | null;
     context: ContextValue;
 
     constructor(props: PortalProps, context: ContextValue) {
@@ -78,6 +90,9 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     }
 
     componentDidMount() {
+        if (!this.el) {
+            this.el = createEl(Object.assign({}, this.props.style, this.props.initStyle));
+        }
         const container = this.getContainer();
         if (this.el.parentElement !== container) {
             if (container) {
@@ -86,7 +101,6 @@ class Portal extends PureComponent<PortalProps, PortalState> {
             } else {
                 this.el.parentElement?.removeChild(this.el);
             }
-
         }
     }
 
@@ -106,6 +120,9 @@ class Portal extends PureComponent<PortalProps, PortalState> {
     }
 
     private getContainer(context: ContextValue = this.context) {
+        if (!canUseDom()) {
+            return null;
+        }
         const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
         const container = getContainer();
         return container;
