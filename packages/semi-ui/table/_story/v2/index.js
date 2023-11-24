@@ -24,3 +24,4 @@ export { default as ColumnResize } from './ColumnResize';
 export { default as FixedResizableRowSelection } from './FixedResizableRowSelection';
 export { default as SorterSortOrder } from './SorterSortOrder';
 export { default as FixedPagination } from './FixedPagination';
+export { default as ShowHeader } from './ShowHeader';

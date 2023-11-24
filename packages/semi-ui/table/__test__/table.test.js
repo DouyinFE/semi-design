@@ -1102,7 +1102,6 @@ describe(`Table`, () => {
         demo.setProps({
             showHeader: false,
         });
-        expect(demo.find('.semi-table-thead').length).toEqual(0); // jsx column
 
         const jsxColumns = getJSXColumns();
         const demo1 = mount(<Table dataSource={data}>{jsxColumns}</Table>);

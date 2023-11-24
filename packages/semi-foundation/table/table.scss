@@ -81,6 +81,10 @@ $module: #{$prefix}-table;
                 background-color: $color-table-bg-default;
             }
         }
+
+        &-hidden {
+            height: 0;
+        }
     }
 
     &-align-center {
