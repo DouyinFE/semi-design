@@ -93,8 +93,17 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         if (!this.el) {
             this.el = createEl(Object.assign({}, this.props.style, this.props.initStyle));
         }
-        const container = this.getContainer();
-        if (this.el.parentElement !== container) {
+
+        if (this.state.container) {
+            // container is created at constructor
+            if (this.el.parentElement !== this.state.container) {
+                this.state.container.appendChild(this.el);
+            }
+        } else {
+            // container isn't created at constructor, such as ssr / ssg
+            // or maybe user's getPopupContainer returns a invalid node.
+            // is there necessary adding more flag for this or just make `getPopopContainer` reactive(seems big change)?
+            const container = this.getContainer();
             if (container) {
                 container.appendChild(this.el);
                 this.setState({ container });
