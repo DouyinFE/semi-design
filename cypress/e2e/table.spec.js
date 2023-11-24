@@ -219,4 +219,14 @@ describe('table', () => {
         cy.get('.semi-table-pagination-info').should('contain.text', '显示第 41 条-第 46 条，共 46 条')
         cy.get('.semi-page-item-active').eq(0).should('contain.text', '5');
     })
+
+    it('test virtualized showHeader false', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--show-header&viewMode=story');
+        cy.get('.semi-table-header').should('have.length', 1);
+        cy.window().then(window => {
+            const header = window.document.querySelector('.semi-table-header');
+            const style = window.getComputedStyle(header);
+            expect(style.height).eq('0px');
+        });
+    })
 });
