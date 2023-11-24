@@ -123,7 +123,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         if (!canUseDom()) {
             return null;
         }
-        const getContainer = this.props.getPopupContainer || context.getPopupContainer || defaultGetContainer;
+        const getContainer = this.props.getPopupContainer || context?.getPopupContainer || defaultGetContainer;
         const container = getContainer();
         return container;
     }
@@ -134,7 +134,7 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         }
 
         const { prefixCls, className } = this.props;
-        const { direction } = this.context;
+        const direction = this.context?.direction || 'ltr';
 
         const cls = classnames(
             prefixCls,
