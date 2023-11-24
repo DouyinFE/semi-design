@@ -626,3 +626,6 @@ PerfRenderDemo.parameters = {
 export const RenderPaginationDemo = () => <RenderPagination />;
 
 export const HugeDataDemo = ()=><HugeData/>
+HugeDataDemo.parameters = {
+  chromatic: { disableSnapshot: true },
+};
