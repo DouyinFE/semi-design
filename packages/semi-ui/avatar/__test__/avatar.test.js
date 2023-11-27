@@ -317,7 +317,6 @@ describe('Avatar', () => {
     it('gap & scale', () => {
         const gap = 10
         const wrapper = mount(<Avatar gap={gap}>Semi</Avatar>);
-        expect(wrapper.find(`.${avartarPrefix}`).at(0).props().gap).toEqual(gap)
         expect(wrapper.find(`.${avartarPrefix}-content`).at(0)).toHaveStyle({
             'transform': expect.stringMatching(/scale\((1|0\.\d+)\)/)
         })

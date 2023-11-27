@@ -94,13 +94,18 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             setFocusVisible: (focusVisible: boolean): void => {
                 this.setState({ focusVisible });
             },
+            setScale: (scale: number) => {
+                this.setState({ scale });
+            },
+            getAvatarNode: () => {
+                return this.avatarRef?.current;
+            }
         };
     }
 
     componentDidMount() {
         this.foundation = new AvatarFoundation<AvatarProps, AvatarState>(this.adapter);
         this.foundation.init();
-        this.changeScale();
     }
 
     componentDidUpdate(prevProps: AvatarProps) {
@@ -118,7 +123,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             };
         }
         if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
-            this.changeScale();
+            this.foundation.changeScale();
         }
     }
 
@@ -159,16 +164,6 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
     handleBlur = (event: React.FocusEvent) => {
         this.foundation.handleBlur();
-    }
-
-    changeScale = () => {
-        const gap = this.props.gap;
-        const [node, stringNode] = [this.avatarRef.current, this.avatarRef.current.firstChild as HTMLElement];
-        const [nodeWidth, stringWidth] = [node.offsetWidth || 0, stringNode?.offsetWidth || 0];
-        if (nodeWidth !== 0 && stringWidth !== 0 && gap * 2 < nodeWidth) {
-            const scale = nodeWidth - gap * 2 > stringWidth ? 1 : (nodeWidth - gap * 2) / stringWidth;
-            this.setState({ scale });
-        }
     }
 
     getContent = () => {
@@ -224,7 +219,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     }
 
     render() {
-        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, ...others } = this.props;
+        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, gap, ...others } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
         const isImg = src && isImgExist;
         const avatarCls = cls(
