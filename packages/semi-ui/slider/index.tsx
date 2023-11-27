@@ -32,7 +32,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         // allowClear: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
         disabled: PropTypes.bool,
-        hideLabel: PropTypes.bool,
+        showMarkLabel: PropTypes.bool,
         included: PropTypes.bool, // Whether to juxtapose. Allow dragging
         marks: PropTypes.object, // Scale
         max: PropTypes.number,
@@ -45,7 +45,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
         onMouseUp: PropTypes.func,
-        tooltipOnDot: PropTypes.bool,
+        tooltipOnMark: PropTypes.bool,
         tooltipVisible: PropTypes.bool,
         showArrow: PropTypes.bool, 
         style: PropTypes.object,
@@ -59,7 +59,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     static defaultProps: Partial<SliderProps> = {
         // allowClear: false,
         disabled: false,
-        hideLabel: false,
+        showMarkLabel: true,
+        tooltipOnMark: false,
         included: true, // No is juxtaposition. Allow dragging
         max: 100,
         min: 0,
@@ -529,7 +530,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
                             />;
                         return activeResult ? (
-                            this.props.tooltipOnDot?<Tooltip content={marks[mark]}>{dotDOM}</Tooltip>:dotDOM
+                            this.props.tooltipOnMark?<Tooltip content={marks[mark]}>{dotDOM}</Tooltip>:dotDOM
                         ) : null;
                     })}
                 </div>
@@ -538,7 +539,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     };
 
     renderLabel = () => {
-        if (this.props.hideLabel) {
+        if (!this.props.showMarkLabel) {
             return null;
         }
         const { min, max, vertical, marks, verticalReverse } = this.props;
