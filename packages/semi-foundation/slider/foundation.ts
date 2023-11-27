@@ -12,6 +12,7 @@ export type tipFormatterBasicType = string | number | boolean | null;
 export interface SliderProps{
     defaultValue?: number | number[];
     disabled?: boolean;
+    showMarkLabel?: boolean;
     included?: boolean; // Whether to juxtapose. Allow dragging
     marks?: Marks; // Scale
     max?: number;
@@ -24,8 +25,10 @@ export interface SliderProps{
     onAfterChange?: (value: SliderProps['value']) => void; // triggered when mouse up and clicked
     onChange?: (value: SliderProps['value']) => void;
     onMouseUp?: (e: any) => void;
+    tooltipOnMark?: boolean;
     tooltipVisible?: boolean;
     style?: Record<string, any>;
+    showArrow?: boolean; 
     className?: string;
     showBoundary?: boolean;
     railStyle?: Record<string, any>;
