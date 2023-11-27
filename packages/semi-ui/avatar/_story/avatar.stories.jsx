@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Avatar,Popover, AvatarGroup, RadioGroup, Radio } from '../../index';
+import { Input } from '../../input'
 
 export default {
   title: 'Avatar',
@@ -245,4 +246,27 @@ export const srcChange = () => {
       />
     </>
   )
+}
+
+export const adaptLength = () => {
+    const [string, setString] = useState("Semi")
+    return (
+        <div>
+            <div>
+                <span></span>
+                <div style={{width: "300px", display: "flex", alignItems: "center"}}>
+                    <span>Content:</span>
+                    <Input value={string} onChange={(value)=>{ setString(value) }}></Input>
+                </div>
+            </div>
+            <div>
+                <Avatar>{string}</Avatar>
+                <Avatar gap={10}>{string}</Avatar>
+            </div>
+            <div>
+                <Avatar size="large">{string}</Avatar>
+                <Avatar size="large" gap={10}>{string}</Avatar>
+            </div>
+        </div>
+    );
 }
