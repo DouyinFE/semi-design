@@ -32,6 +32,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         // allowClear: PropTypes.bool,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
         disabled: PropTypes.bool,
+        hideLabel: PropTypes.bool,
         included: PropTypes.bool, // Whether to juxtapose. Allow dragging
         marks: PropTypes.object, // Scale
         max: PropTypes.number,
@@ -44,7 +45,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         onAfterChange: PropTypes.func, // OnmouseUp and triggered when clicked
         onChange: PropTypes.func,
         onMouseUp: PropTypes.func,
+        tooltipOnDot: PropTypes.bool,
         tooltipVisible: PropTypes.bool,
+        showArrow: PropTypes.bool, 
         style: PropTypes.object,
         className: PropTypes.string,
         showBoundary: PropTypes.bool,
@@ -56,10 +59,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     static defaultProps: Partial<SliderProps> = {
         // allowClear: false,
         disabled: false,
+        hideLabel: false,
         included: true, // No is juxtaposition. Allow dragging
         max: 100,
         min: 0,
         range: false, // Whether both sides
+        showArrow: true, 
         step: 1,
         tipFormatter: (value: tipFormatterBasicType | tipFormatterBasicType[]) => value,
         vertical: false,
@@ -313,6 +318,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const handleContents = !range ? (
             <Tooltip
                 content={tipChildren.min}
+                showArrow={this.props.showArrow}
                 position="top"
                 trigger="custom"
                 rePosKey={minPercent}
@@ -515,14 +521,15 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                             [`${prefixCls}-dot-active`]: this.foundation.isMarkActive(Number(mark)) === 'active',
                         });
                         const markPercent = (Number(mark) - min) / (max - min);
-                        return activeResult ? (
-                            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                        const dotDOM = // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                             <span
                                 key={mark}
                                 onClick={this.foundation.handleWrapClick}
                                 className={markClass}
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
-                            />
+                            />;
+                        return activeResult ? (
+                            this.props.tooltipOnDot?<Tooltip content={marks[mark]}>{dotDOM}</Tooltip>:dotDOM
                         ) : null;
                     })}
                 </div>
@@ -531,6 +538,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
     };
 
     renderLabel = () => {
+        if (this.props.hideLabel) {
+            return null;
+        }
         const { min, max, vertical, marks, verticalReverse } = this.props;
         const stylePos = vertical ? 'top' : 'left';
         const labelContent =
