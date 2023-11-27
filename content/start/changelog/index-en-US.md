@@ -15,7 +15,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.48.0-beta.0 (2023-11-27)
+- 【Feat】
+    - Slider adds `showMarkLabel` to control the visibility of the label, `tooltipOnMark` to display the tooltip on the mark, and `showArrow` to control the visibility of the tooltip triangle.
+    - String type avatar, the character length can be automatically adjusted according to the width of the avatar [#1917](https://github.com/DouyinFE/semi-design/issues/1917) [@LonelySnowman](https://github.com/LonelySnowman )
+- 【Fix】
+    - fixed virtualized Table showHeader bug  [#726](https://github.com/DouyinFE/semi-design/issues/726)
+   
 #### 🎉 2.47.1 (2023-11-17)
 - 【Fix】
     - fixed Table pagination bug when given pageSize and showSizeChanger at same time  [#1885](https://github.com/DouyinFE/semi-design/issues/1885)
