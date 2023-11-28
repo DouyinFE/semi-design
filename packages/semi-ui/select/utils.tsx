@@ -55,7 +55,13 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
             type = 'group';
             // Avoid saving children (reactNode) by... removing other props from the group except children, causing performance problems
             let { children, ...restGroupProps } = child.props;
-            const originKeys = children.map(item => item.key);
+            let originKeys = [];
+            if (Array.isArray(children)) {
+                // if group has children > 1
+                originKeys = children.map(item => item.key);
+            } else {
+                originKeys.push(children.key);
+            }
             children = React.Children.toArray(children);
             const childrenOption = children.map((option: React.ReactElement, index: number) => {
                 let newKey = option.key;
