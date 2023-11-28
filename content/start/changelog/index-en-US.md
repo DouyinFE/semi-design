@@ -20,12 +20,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Slider adds `showMarkLabel` to control the visibility of the label, `tooltipOnMark` to display the tooltip on the mark, and `showArrow` to control the visibility of the tooltip triangle.
     - String type avatar, the character length can be automatically adjusted according to the width of the avatar [#1917](https://github.com/DouyinFE/semi-design/issues/1917) [@LonelySnowman](https://github.com/LonelySnowman )
 - 【Fix】
-    - fixed virtualized Table showHeader bug  [#726](https://github.com/DouyinFE/semi-design/issues/726)
+    - fixed virtualized Table showHeader bug [#726](https://github.com/DouyinFE/semi-design/issues/726)
    
-#### 🎉 2.47.1 (2023-11-17)
+
+#### 🎉 2.47.1 (2023-11-28)
+- 【Fix】
+    - Fixed the problem of incorrect list filtering after filter when Option is used in Select Group grouping scenario and the key attribute is not explicitly declared. Effect version range: v2.46.0 ~ v2.47.0 [#1939](https://github.com/DouyinFE/semi-design/pull/1939)
+    - Fix the problem of clicking on Dropdown item when there is no onClick. Effect version v2.47.0 [#1936](https://github.com/DouyinFE/semi-design/issues/1936)
+
+
+#### 🎉 2.47.0 (2023-11-17)
 - 【Fix】
     - fixed Table pagination bug when given pageSize and showSizeChanger at same time  [#1885](https://github.com/DouyinFE/semi-design/issues/1885)
-    - Fix the problem that the right and middle click of Dropdown Item will also trigger onClick [#1914](https://github.com/DouyinFE/semi-design/pull/1914) (Broken version range: 2.43.0-beta.0 ~ 2.46.1)
+    - Fix the problem that the right and middle click of Dropdown Item will also trigger onClick [#1914](https://github.com/DouyinFE/semi-design/pull/1914) (Effect version range: 2.43.0-beta.0 ~ 2.46.1)
 
 #### 🎉 2.47.0-beta.0 (2023-11-15)
 - 【Feat】

@@ -31,7 +31,7 @@ jobs:
                       json_data=$(curl --location 'https://api.semi.design/analyze/checkAllTask' --header 'X-TT-ENV: canary' --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}")
                       parsed_data=$(python -c "
           import json;
-          data = json.loads('''$json_data''');
+          data = json.loads('''$json_data''',strict=False);
           for item in data:
               if item['id'] == $id :
                   if item['status'] == 'done':

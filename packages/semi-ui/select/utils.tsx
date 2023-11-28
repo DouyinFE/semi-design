@@ -3,7 +3,7 @@ import warning from '@douyinfe/semi-foundation/utils/warning';
 import { OptionProps } from './option';
 import { OptionGroupProps } from './optionGroup';
 
-const generateOption = (child: React.ReactElement, parent: any, index: number): OptionProps => {
+const generateOption = (child: React.ReactElement, parent: any, index: number, newKey?: string | number): OptionProps => {
     const childProps = child.props;
     if (!child || !childProps) {
         return null;
@@ -22,7 +22,7 @@ const generateOption = (child: React.ReactElement, parent: any, index: number): 
     // Props are collected from ReactNode, after React.Children.toArray
     // no need to determine whether the key exists in child
     // Even if the user does not explicitly declare it, React will always generate a key.
-    option._keyInJsx = child.key;
+    option._keyInJsx = newKey || child.key;
     
     return option;
 };
@@ -55,10 +55,21 @@ const getOptionsFromGroup = (selectChildren: React.ReactNode) => {
             type = 'group';
             // Avoid saving children (reactNode) by... removing other props from the group except children, causing performance problems
             let { children, ...restGroupProps } = child.props;
+            let originKeys = [];
+            if (Array.isArray(children)) {
+                // if group has children > 1
+                originKeys = children.map(item => item.key);
+            } else {
+                originKeys.push(children.key);
+            }
             children = React.Children.toArray(children);
-            const childrenOption = children.map((option: React.ReactElement) => {
+            const childrenOption = children.map((option: React.ReactElement, index: number) => {
+                let newKey = option.key;
+                if (originKeys[index] === null) {
+                    newKey = child.key + '' + option.key; // if option in group and didn't set key, concat parent key to avoid conflict (default generate key just like .0, .1)
+                }
                 optionIndex++;
-                return generateOption(option, restGroupProps, optionIndex);
+                return generateOption(option, restGroupProps, optionIndex, newKey);
             });
             const group = {
                 ...child.props,

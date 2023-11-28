@@ -2101,7 +2101,6 @@ _CustomCreate.story = {
 class OptionGroupDemo extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSearch = this.handleSearch.bind(this);
     this.state = {
       groups: [
         {
@@ -2143,24 +2142,6 @@ class OptionGroupDemo extends React.Component {
     };
   }
 
-  handleSearch(input) {
-    let groups = [1, 2, 3].map(i => {
-      return {
-        label: i,
-        // label: Math.random(),
-        children: [10, 20].map(j => {
-          return {
-            label: Math.random(),
-            value: Math.random(),
-          };
-        }),
-      };
-    });
-    this.setState({
-      groups,
-    });
-  }
-
   renderGroup(group, index) {
     const options = group.children.map(option => (
       <Select.Option value={option.value} label={option.label} key={option.label} />
@@ -2173,16 +2154,44 @@ class OptionGroupDemo extends React.Component {
     return (
       <>
         <Select
-          placeholder=""
+          placeholder="with key"
+          id='with-key'
           style={{
             width: 180,
           }}
           filter
-          onSearch={this.handleSearch}
-          remote
         >
           {groups.map((group, index) => this.renderGroup(group, index))}
         </Select>
+
+        <Select
+          filter={(sugInput, option) => {
+              let label = option.label.toUpperCase();
+              let sug = sugInput.toUpperCase();
+              return label.includes(sug);
+          }}
+          id='without-key'
+          style={{ width: "180px" }}
+          placeholder="without key"
+        >
+          <Select.OptGroup label="Group1">
+            <Select.Option value="douyin">
+              Douyin
+            </Select.Option>
+            <Select.Option value="ulikecam">
+              Ulikecam
+            </Select.Option>
+          </Select.OptGroup>
+          <Select.OptGroup label="Group2">
+            <Select.Option value="jianying">
+              Capcut
+            </Select.Option>
+            <Select.Option value="xigua">
+              Xigua
+            </Select.Option>
+          </Select.OptGroup>
+        </Select>
+
       </>
     );
   }
@@ -3371,10 +3380,10 @@ export const Fix1856 = () => (<VirtualizeAllowCreate />);
 
 export const TestOptionKey = () => {
   return <><Select style={{ width: 300 }}>
-      <Select.Option label='3' value='2' key='abc'></Select.Option>
-      <Select.Option label='2' value='3' key='efg'></Select.Option>
-      <Select.Option label='4' value='5'></Select.Option>
-      <Select.Option label='5' value='4'></Select.Option>
+      <Select.Option label='abc' value='2' key='abc'></Select.Option>
+      <Select.Option label='efg' value='3' key='efg'></Select.Option>
+      <Select.Option label='kkk' value='5'></Select.Option>
+      <Select.Option label='fff' value='4'></Select.Option>
     </Select>
     <br/><br/>
     <Select style={{ width: 300 }} optionList={[

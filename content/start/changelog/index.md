@@ -21,6 +21,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复虚拟化表格 showHeader 为 false 时表格体渲染空问题  [#726](https://github.com/DouyinFE/semi-design/issues/726)
     - 修复 Input 仅使用 addOnBefore 的情况下 borderRadius 不正确的问题  [#1912 ](https://github.com/DouyinFE/semi-design/issues/1912)
 
+#### 🎉 2.47.1 (2023-11-28)
+- 【Fix】
+    - 修复 Select Group 分组场景使用 Option，未显式声明 key属性时，filter 后列表筛选错误的问题，影响范围 (v2.46.0-v2.47.0) [#1939](https://github.com/DouyinFE/semi-design/pull/1939)
+    - 修复 Dropdown item 在没有声明 onClick 时点击报错的问题，影响范围 v2.47.0 [#1936](https://github.com/DouyinFE/semi-design/issues/1936)
+
+
 #### 🎉 2.47.0 (2023-11-17)
 - 【Fix】
     - 修复 Table 分页器在同时传入 pageSize 和 showSizeChanger 时点击分页器返回第一页问题  [#1885](https://github.com/DouyinFE/semi-design/issues/1885)
