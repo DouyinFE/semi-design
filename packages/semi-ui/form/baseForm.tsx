@@ -279,7 +279,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             [prefix + '-vertical']: layout === 'vertical',
             [prefix + '-horizontal']: layout === 'horizontal',
         });
-        const showldAppendRow = wrapperCol && labelCol;
+        const shouldAppendRow = wrapperCol && labelCol;
 
         const formContent = (
             <form
@@ -298,7 +298,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             <FormUpdaterContext.Provider value={updaterApi}>
                 <FormApiContext.Provider value={this.formApi}>
                     <FormStateContext.Provider value={formState}>
-                        {showldAppendRow ? withRowForm : formContent}
+                        {shouldAppendRow ? withRowForm : formContent}
                     </FormStateContext.Provider>
                 </FormApiContext.Provider>
             </FormUpdaterContext.Provider>
