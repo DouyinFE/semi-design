@@ -2,7 +2,6 @@ import React from 'react';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { OptionProps } from './option';
 import { OptionGroupProps } from './optionGroup';
-import Item from 'cascader/item';
 
 const generateOption = (child: React.ReactElement, parent: any, index: number, newKey?: string | number): OptionProps => {
     const childProps = child.props;
