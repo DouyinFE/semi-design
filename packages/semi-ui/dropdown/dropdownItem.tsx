@@ -96,7 +96,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
                 if (eventName === "onClick") {
                     events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>)=>{
                         if (e.button===0) { 
-                            this.props[eventName](e); 
+                            this.props[eventName]?.(e);
                         }
                     };
                 } else {
