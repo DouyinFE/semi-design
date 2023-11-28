@@ -63,6 +63,23 @@ describe('Select', () => {
         cy.get('.semi-select-option').should('have.text', 'Design');
     });
 
+    it('optionGroup without key setting, filter',  () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-option-group');
+        cy.get('#without-key').eq(0).click();
+        cy.get('#without-key .semi-input').eq(0).type('dou');
+        cy.wait(500);
+        cy.get('.semi-select-option-keyword').should('have.text', 'Dou');
+        cy.get('.semi-select-group').should('have.text', 'Group1');
+        cy.get('#without-key .semi-input').eq(0).type('{backspace}{backspace}{backspace}');
+        cy.wait(500);
+        cy.get('.semi-select-group').eq(0).should('have.text', 'Group1');
+        cy.get('.semi-select-group').eq(1).should('have.text', 'Group2');
+        cy.get('.semi-select-option').eq(0).should('have.text', 'Douyin');
+        cy.get('.semi-select-option').eq(1).should('have.text', 'Ulikecam');
+        cy.get('.semi-select-option').eq(2).should('have.text', 'Capcut');
+        cy.get('.semi-select-option').eq(3).should('have.text', 'Xigua');
+    });
+
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
