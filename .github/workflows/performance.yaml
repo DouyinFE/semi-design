@@ -21,7 +21,7 @@ jobs:
         env:
           BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
         run: |
-          git checkout $BASE_BRANCH 
+          git checkout $BASE_BRANCH
           echo "Current Commit: $(git rev-parse HEAD)"
           echo "Before Commit: $(git rev-parse HEAD^)"
           PR_NUMBER=${{ github.event.pull_request.number }}
