@@ -7,7 +7,7 @@ on:
       - closed
 
 jobs:
-  get_commit_hash:
+  check_performance:
     runs-on: ubuntu-latest
 
     steps:
