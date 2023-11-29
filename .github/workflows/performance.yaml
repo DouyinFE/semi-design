@@ -26,9 +26,10 @@ jobs:
           echo "Before Commit: $(git rev-parse HEAD^)"
           id=$(curl --location "https://api.semi.design/analyze/createTask" --header "X-TT-ENV: canary" --header "Content-Type: application/json" --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}" --data "{\"v2\":\"$(git rev-parse HEAD)\",\"v1\":\"$(git rev-parse HEAD^)\",\"component\":\"\"}")
           PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          PR_MERGE_USER=${{github.event.pull_request.user.login}}
+          PR_MERGE_BY_USER=${{github.event.pull_request.user.login}}
           echo "Task id is $id"
           echo "PR_Number is $PR_NUMBER"
+          echo "User is $PR_MERGE_BY_USER"
           
           for i in {1..30}; do
                       sleep 300
