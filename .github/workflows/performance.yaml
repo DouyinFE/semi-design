@@ -25,7 +25,10 @@ jobs:
           echo "Current Commit: $(git rev-parse HEAD)"
           echo "Before Commit: $(git rev-parse HEAD^)"
           id=$(curl --location "https://api.semi.design/analyze/createTask" --header "X-TT-ENV: canary" --header "Content-Type: application/json" --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}" --data "{\"v2\":\"$(git rev-parse HEAD)\",\"v1\":\"$(git rev-parse HEAD^)\",\"component\":\"\"}")
+          PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
           echo "Task id is $id"
+          echo "PR_Number is $PR_NUMBER"
+          
           for i in {1..30}; do
                       sleep 300
                       json_data=$(curl --location 'https://api.semi.design/analyze/checkAllTask' --header 'X-TT-ENV: canary' --header "X-SEMI-Request: ${{ secrets.SEMI_REQUEST }}")
