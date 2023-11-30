@@ -2664,7 +2664,8 @@ export const Issue1542 = () => {
   }, [expandedKeys]);
 
   const onSearch = useCallback((inputValue, filteredExpandedKeys) => {
-    setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+    const set = new Set([...filteredExpandedKeys, ...expandedKeys]);
+    setExpandedKeys(Array.from(set));
   }, [setExpandedKeys]);
 
   return (

@@ -133,7 +133,11 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option').eq(1).children('.semi-icon-tree_triangle_down').eq(0).trigger('click');
         cy.get('.semi-tree-option').should('have.length', 6);
         cy.get('body').click();
+        // 等待弹出层收起
+        cy.wait(500);
         cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        // 等待弹出层展开
+        cy.wait(500);
         cy.get('.semi-tree-option').should('have.length', 2);
         cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('o');
         cy.get('.semi-tree-option').should('have.length', 4);
