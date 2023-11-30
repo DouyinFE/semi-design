@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch } from '../../index';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Tree } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep, cloneDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
@@ -279,6 +279,67 @@ const specialTreeData = [
       },
     ],
   },
+];
+
+const treeDataEn = [
+  {
+      label: 'Asia',
+      value: 'Asia',
+      key: '0',
+      children: [
+          {
+              label: 'China',
+              value: 'China',
+              key: '0-0',
+              children: [
+                  {
+                      label: 'Beijing',
+                      value: 'Beijing',
+                      key: '0-0-0',
+                  },
+                  {
+                      label: 'Shanghai',
+                      value: 'Shanghai',
+                      key: '0-0-1',
+                  },
+                  {
+                      label: 'Chengdu',
+                      value: 'Chengdu',
+                      key: '0-0-2',
+                  },
+              ],
+          },
+          {
+              label: 'Japan',
+              value: 'Japan',
+              key: '0-1',
+              children: [
+                  {
+                      label: 'Osaka',
+                      value: 'Osaka',
+                      key: '0-1-0'
+                  }
+              ]
+          },
+      ],
+  },
+  {
+      label: 'North America',
+      value: 'North America',
+      key: '1',
+      children: [
+          {
+              label: 'United States',
+              value: 'United States',
+              key: '1-0'
+          },
+          {
+              label: 'Canada',
+              value: 'Canada',
+              key: '1-1'
+          }
+      ]
+  }
 ];
 
 export const TreeSelectWrapper = () => (
@@ -1382,66 +1443,7 @@ DisabledStrictly.story = {
 
 
 export const CheckRelationDemo = () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: 'Chengdu',
-                        value: 'Chengdu',
-                        key: '0-0-2',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ];
+  const treeData = treeDataEn;
   const [value, setValue] = useState('China');
   const [value2, setValue2] = useState();
   const [value3, setValue3] = useState();
@@ -2653,3 +2655,32 @@ export const KeyMaps = () => {
     </> 
   );
 }
+
+export const Issue1542 = () => {
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const treeData = treeDataEn;
+  const onExpand = useCallback((expandedKeys) => {
+    setExpandedKeys(expandedKeys);
+  }, [expandedKeys]);
+
+  const onSearch = useCallback((inputValue, filteredExpandedKeys) => {
+    setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+  }, [setExpandedKeys]);
+
+  return (
+    <>
+      <TreeSelect
+          // multiple
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData}
+          filterTreeNode
+          searchPosition='trigger'
+          showFilteredOnly
+          expandedKeys={expandedKeys}
+          onExpand={onExpand}
+          onSearch={onSearch}
+      />
+    </>  
+  );
+};
