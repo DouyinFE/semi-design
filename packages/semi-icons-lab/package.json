@@ -18,13 +18,18 @@
     "build:js": "npm run build:lib && node scripts/compileDist.js",
     "prepublishOnly": "npm run clean && npm run build:js"
   },
-  "main": "src/react/index.js",
-  "module": "src/react/index.js",
-  "typings": "src/react/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/es/index.js",
+  "typings": "lib/es/index.d.ts",
   "license": "MIT",
   "files": [
-    "src/react",
-    "src/svgs"
+    "lib",
+    "src",
+    "dist"
+  ],
+  "sideEffects": [
+    "*.scss",
+    "*.css"
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",
