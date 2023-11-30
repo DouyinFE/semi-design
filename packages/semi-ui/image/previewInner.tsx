@@ -16,12 +16,6 @@ import { getScrollbarWidth } from "../_utils";
 
 const prefixCls = cssClasses.PREFIX;
 
-let startMouseDown = { x: 0, y: 0 };
-
-// let mouseActiveTime: number = null;
-// let stopTiming = false;
-// let bodyOverflowValue = document.body.style.overflow;
-
 export default class PreviewInner extends BaseComponent<PreviewInnerProps, PreviewInnerStates> {
     static contextType = PreviewContext;
 
@@ -150,24 +144,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             unregisterKeyDownListener: () => {
                 window && window.removeEventListener("keydown", this.handleKeyDown);
             },
-            // getMouseActiveTime: () => {
-            //     return mouseActiveTime;
-            // },
-            // setMouseActiveTime: (time: number) => {
-            //     mouseActiveTime = time;
-            // },
-            // getStopTiming: () => {
-            //     return stopTiming;
-            // },
-            // setStopTiming: (value) => {
-            //     stopTiming = value;
-            // },
-            getStartMouseDown: () => {
-                return startMouseDown;
-            },
-            setStartMouseDown: (x: number, y: number) => {
-                startMouseDown = { x, y };
-            },
             getSetDownloadFunc: () => {
                 return this.context?.setDownloadName ?? this.props.setDownloadName;
             }
@@ -175,7 +151,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     }
 
-    // timer;
     context: PreviewContextProps;
     foundation: PreviewInnerFoundation;
 
@@ -213,6 +188,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             willUpdateStates.visible = props.visible;
             if (props.visible) {
                 willUpdateStates.preloadAfterVisibleChange = true;
+                willUpdateStates.viewerVisible = true;
             }
         }
         if ("currentIndex" in props && props.currentIndex !== state.currentIndex) {
@@ -233,11 +209,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentDidUpdate(prevProps: PreviewInnerProps, prevState: PreviewInnerStates) {
-        // if (prevState.visible !== this.props.visible && this.props.visible) {
-        //     mouseActiveTime = new Date().getTime();
-        //     timer && clearInterval(timer);
-        //     timer = setInterval(this.viewVisibleChange, 1000);
-        // }
+        if (prevProps.src !== this.props.src) {
+            this.foundation.updateTimer();
+        }
         // hide => show
         if (!prevProps.visible && this.props.visible) {
             this.foundation.beforeShow();
@@ -248,17 +222,17 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         }
     }
 
-    // componentWillUnmount() {
-    //     timer && clearInterval(timer);
-    // }
+    componentWillUnmount() {
+        this.foundation.clearTimer();
+    }
 
     isInGroup() {
         return Boolean(this.context && this.context.isGroup);
     }
 
-    // viewVisibleChange = () => {
-    //     this.foundation.handleViewVisibleChange();
-    // }
+    viewVisibleChange = () => {
+        this.foundation.handleViewVisibleChange();
+    }
 
     handleSwitchImage = (direction: string) => {
         this.foundation.handleSwitchImage(direction);
@@ -288,9 +262,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleMouseUp(e.nativeEvent);
     }
 
-    // handleMouseMove = (e): void => {
-    //     this.foundation.handleMouseMove(e);
-    // }
+    handleMouseMove = (e): void => {
+        this.foundation.handleMouseMove(e);
+    }
 
     // handleMouseEvent = (e, event: string) => {
     //     this.foundation.handleMouseMoveEvent(e, event);
@@ -378,7 +352,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         onMouseDown={this.handleMouseDown}
                         onMouseUp={this.handleMouseUp}
                         onWheel={this.handleWheel}
-                        // onMouseMove={this.handleMouseMove}
+                        onMouseMove={this.handleMouseMove}
                         // onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
                         // onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                     >

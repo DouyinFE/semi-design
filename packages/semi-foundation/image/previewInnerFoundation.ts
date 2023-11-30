@@ -2,7 +2,7 @@ import { handlePrevent } from "../utils/a11y";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import KeyCode from "../utils/keyCode";
 import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
-import { isUndefined } from "lodash";
+import { isUndefined, throttle } from "lodash";
 
 export type RatioType = "adaptation" | "realSize";
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -16,12 +16,6 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     notifyDownload: (src: string, index: number) => void;
     registerKeyDownListener: () => void;
     unregisterKeyDownListener: () => void;
-    // getMouseActiveTime: () => number;
-    // setMouseActiveTime: (time: number) => void;
-    // getStopTiming: () => boolean;
-    // setStopTiming: (value: boolean) => void;
-    getStartMouseDown: () => {x: number; y: number};
-    setStartMouseDown: (x: number, y: number) => void;
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     getSetDownloadFunc: () => (src: string) => string
@@ -36,28 +30,35 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
+    _mouseActiveTime: number = null;
+    _timer = null;
+    _startMouseDown = { x: 0, y: 0 };
+
     beforeShow() {
         this._adapter.registerKeyDownListener();
         this._adapter.disabledBodyScroll();
+        this.updateTimer();
     }
 
     afterHide() {
         this._adapter.unregisterKeyDownListener();
         this._adapter.enabledBodyScroll();
+        this.clearTimer();
     }
 
-    // handleViewVisibleChange = () => {
-    //     const nowTime = new Date().getTime();
-    //     const mouseActiveTime = this._adapter.getMouseActiveTime();
-    //     const stopTiming = this._adapter.getStopTiming();
-    //     const { viewerVisibleDelay } = this.getProps();
-    //     const { viewerVisible } = this.getStates();
-    //     if (nowTime - mouseActiveTime > viewerVisibleDelay && !stopTiming) {
-    //         viewerVisible && this.setState({
-    //             viewerVisible: false,
-    //         } as any);
-    //     }
-    // }
+    handleViewVisibleChange = () => {
+        const nowTime = new Date().getTime();
+        const { viewerVisibleDelay } = this.getProps();
+        const { viewerVisible } = this.getStates();
+        if (nowTime - this._mouseActiveTime > viewerVisibleDelay) {
+            if (viewerVisible) {
+                this.setState({
+                    viewerVisible: false,
+                } as any);
+                this.clearTimer();
+            }
+        } 
+    }
 
     // handleMouseMoveEvent = (e: any, event: string) => {
     //     const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
@@ -68,12 +69,29 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     //     }
     // }
 
-    // handleMouseMove = (e: any) => {
-    //     this._adapter.setMouseActiveTime(new Date().getTime());
-    //     this.setState({
-    //         viewerVisible: true,
-    //     } as any);
-    // }
+    handleMouseMove = throttle((e: any) => {
+        this._mouseActiveTime = new Date().getTime();
+        const { viewerVisible } = this.getStates();
+        if (!viewerVisible) {
+            this.setState({
+                viewerVisible: true,
+            } as any);
+            this._timer = setInterval(this.handleViewVisibleChange, 1000);
+        }
+    }, 500);
+
+    updateTimer = () => {
+        this.clearTimer();
+        this._timer = setInterval(this.handleViewVisibleChange, 1000);
+        this._mouseActiveTime = new Date().getTime();
+    }
+
+    clearTimer = () => {
+        if (this._timer) {
+            clearInterval(this._timer);
+            this._timer = null;
+        }
+    }
 
     handleWheel = (e: any) => {
         this.onWheel(e);
@@ -104,7 +122,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const { maskClosable } = this.getProps();
         let couldClose = !isTargetEmit(e, NOT_CLOSE_TARGETS);
         const { clientX, clientY } = e;
-        const { x, y } = this._adapter.getStartMouseDown();
+        const { x, y } = this._startMouseDown;
         // 对鼠标移动做容错处理，当 x 和 y 方向在 mouseUp 的时候移动距离都小于等于 5px 时候就可以关闭预览
         // Error-tolerant processing of mouse movement, when the movement distance in the x and y directions is less than or equal to 5px in mouseUp, the preview can be closed
         // 不做容错处理的话，直接用 clientX !== x || y !== clientY 做判断，鼠标在用户点击时候无意识的轻微移动无法关闭预览，不符合用户预期
@@ -119,7 +137,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleMouseDown = (e: any) => {
         const { clientX, clientY } = e;
-        this._adapter.setStartMouseDown(clientX, clientY);
+        this._startMouseDown = { x: clientX, y: clientY } ;
     }
 
     handleKeyDown = (e: any) => {
