@@ -8,6 +8,7 @@ import { DefaultAdapter } from '@douyinfe/semi-foundation/base/foundation';
 import { VALIDATE_STATUS } from '@douyinfe/semi-foundation/base/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import { ArrayElement } from './base';
+import { without } from "lodash";
 
 const { hasOwnProperty } = Object.prototype;
 
@@ -19,15 +20,51 @@ export interface BaseProps {
     children?: ReactNode | undefined | any
 }
 
+export enum SemiUsedEvent {
+    Click = "click",
+    MouseDown = "mousedown",
+    MouseUp = "mouseup",
+    Scroll = "scroll",
+    TouchEnd = "touchend",
+    Resize = "resize",
+    KeyDown = "keydown",
+    TouchMove = "touchmove"
+}
+
 // eslint-disable-next-line
 export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Component<P, S> {
     static propTypes = {};
 
     static defaultProps = {};
+    static windowEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
+    static documentEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
+    static finalizationRegistry: FinalizationRegistry<() => void>
+    static initEventListener = ()=>{
+        Object.values(SemiUsedEvent).forEach((eventName)=>{
+            BaseComponent.windowEventWeakMap[eventName] = [];
+            window.addEventListener(eventName, (e)=>{
+                BaseComponent.windowEventWeakMap[eventName]?.forEach(ref=>{
+                    const cb = ref.deref();
+                    cb?.(e);
+                }); 
+            });
+            BaseComponent.documentEventWeakMap[eventName] = [];
+            document.addEventListener(eventName, (e)=>{
+                BaseComponent.documentEventWeakMap[eventName]?.forEach(ref=>{
+                    const cb = ref.deref();
+                    cb?.(e);
+                });
+            });
+        });
+        BaseComponent.finalizationRegistry = new FinalizationRegistry(BaseComponent.onEventCallbackGC);
+    } 
+
+    private static onEventCallbackGC = (clearRefCallback: () => void)=>{
+        clearRefCallback();
+    }
 
     cache: any;
     foundation: any;
-
     constructor(props: P) {
         super(props);
         this.cache = {};
@@ -84,4 +121,23 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
     getDataAttr(props?: any) {
         return getDataAttr(props);
     }
+
+    hookedAddEventListener = (target: typeof window| typeof document, eventName: SemiUsedEvent, callback: ((e: Event) => void))=>{
+        let eventWeakMap: Record<string, WeakRef<(e: Event) => void>[]>;
+        if (target===window) {
+            eventWeakMap = BaseComponent.windowEventWeakMap;
+        } else if (target===document) {
+            eventWeakMap = BaseComponent.documentEventWeakMap;
+        }
+        const weakRef = new WeakRef(callback);
+        eventWeakMap[eventName]?.push(weakRef);
+        BaseComponent.finalizationRegistry.register(this, ()=>{
+            eventWeakMap[eventName] = without(eventWeakMap[eventName], weakRef);
+            console.log("unregister");
+        });
+    }
+}
+
+if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
+    BaseComponent.initEventListener();
 }
