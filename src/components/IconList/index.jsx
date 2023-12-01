@@ -11,7 +11,6 @@ const _t = id => <FormattedMessage id={id} />;
 
 const IconList = props => {
 
-    console.log('render');
     const data = useStaticQuery(graphql`
         query {
             semiIconNodeType {
