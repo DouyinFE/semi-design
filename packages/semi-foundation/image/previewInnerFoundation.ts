@@ -60,14 +60,14 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         } 
     }
 
-    // handleMouseMoveEvent = (e: any, event: string) => {
-    //     const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
-    //     if (isTarget && event === "over") {
-    //         this._adapter.setStopTiming(true);
-    //     } else if (isTarget && event === "out") {
-    //         this._adapter.setStopTiming(false);
-    //     }
-    // }
+    handleMouseMoveEvent = (e: any, event: string) => {
+        const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
+        if (isTarget && event === "over") {
+            this.clearTimer();
+        } else if (isTarget && event === "out") {
+            this.updateTimer();
+        }
+    }
 
     handleMouseMove = throttle((e: any) => {
         this._mouseActiveTime = new Date().getTime();
