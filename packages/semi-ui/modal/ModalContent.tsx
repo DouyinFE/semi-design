@@ -121,8 +121,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         clearTimeout(this.timeoutId);
-        this.foundation.destroy();
     }
 
     onKeyDown = (e: React.MouseEvent) => {

@@ -112,9 +112,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     onEnter(e: React.MouseEvent) {
         this.foundation.handleEnter(e);

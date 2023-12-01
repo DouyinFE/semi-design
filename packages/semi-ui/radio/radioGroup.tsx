@@ -112,9 +112,6 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     get adapter(): RadioGroupAdapter {
         return {

@@ -74,6 +74,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
 
     cache: any;
     foundation: any;
+    componentIsUnmounted = false;
     constructor(props: P) {
         super(props);
         this.cache = {};
@@ -85,6 +86,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
     }
 
     componentWillUnmount(): void {
+        this.componentIsUnmounted = true;
         this.foundation && typeof this.foundation.destroy === 'function' && this.foundation.destroy();
         this.cache = {};
     }

@@ -83,9 +83,6 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     close(e: React.MouseEvent) {
         this.foundation.close(e);

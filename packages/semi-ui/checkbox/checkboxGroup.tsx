@@ -98,9 +98,7 @@ class CheckboxGroup extends BaseComponent<CheckboxGroupProps, CheckboxGroupState
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     onChange(evt: CheckboxEvent) {
         this.foundation.handleChange(evt);

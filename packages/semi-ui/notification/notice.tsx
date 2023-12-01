@@ -85,9 +85,6 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
     context: ContextValue;
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     renderTypeIcon() {
         const { type, icon } = this.props;

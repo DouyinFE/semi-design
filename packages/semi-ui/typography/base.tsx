@@ -227,6 +227,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         if (this.rafId) {
             window.cancelAnimationFrame(this.rafId);
         }
+        super.componentWillUnmount();
     }
 
     onResize = () => {

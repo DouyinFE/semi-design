@@ -44,6 +44,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;

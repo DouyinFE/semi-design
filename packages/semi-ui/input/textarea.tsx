@@ -191,7 +191,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     }
 
     componentWillUnmount() {
-        this.foundation.destroy();
+        super.componentWillUnmount();
         this._resizeListener && window.removeEventListener('resize', this._resizeListener);
     }
 

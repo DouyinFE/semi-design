@@ -279,9 +279,6 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     renderHandle = () => {
         const { vertical, range, tooltipVisible, tipFormatter, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, 'aria-valuetext': ariaValueText, getAriaValueText, disabled } = this.props;

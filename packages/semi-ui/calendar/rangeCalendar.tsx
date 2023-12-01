@@ -116,9 +116,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     handleClick = (e: React.MouseEvent, val: [Date, number, number, number]) => {
         const { onClick } = this.props;

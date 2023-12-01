@@ -56,9 +56,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     get adapter(): BackTopAdapter {
         return {

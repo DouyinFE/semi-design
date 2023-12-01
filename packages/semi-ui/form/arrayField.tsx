@@ -109,6 +109,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const updater = this.context;
         const { field } = this.props;
         updater.unRegisterArrayField(field);
+        super.componentWillUnmount();
     }
 
     componentDidUpdate() {

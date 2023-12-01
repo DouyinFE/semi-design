@@ -627,9 +627,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.selectID = this.props.id || getUuidShort();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     componentDidUpdate(prevProps: SelectProps, prevState: SelectState) {
         const prevChildrenKeys = React.Children.toArray(prevProps.children).map((child: any) => child.key);

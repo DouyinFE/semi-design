@@ -122,9 +122,7 @@ class Carousel extends BaseComponent<CarouselProps, CarouselState> {
         }
     }
 
-    componentWillUnmount(): void {
-        this.foundation.destroy();
-    }
+
 
     play = (): void => {
         this.foundation.setForcePlay(true);

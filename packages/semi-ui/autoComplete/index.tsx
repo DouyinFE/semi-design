@@ -326,9 +326,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     componentDidUpdate(prevProps: AutoCompleteProps<T>, prevState: AutoCompleteState) {
         if (!isEqual(this.props.data, prevProps.data)) {

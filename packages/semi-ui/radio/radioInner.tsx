@@ -88,9 +88,6 @@ class RadioInner extends BaseComponent<RadioInnerProps, RadioInnerState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     blur() {
         this.inputEntity.blur();

@@ -89,9 +89,7 @@ export default class Banner extends BaseComponent<BannerProps, BannerState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     remove: React.MouseEventHandler = e => {
         e && e.stopPropagation();

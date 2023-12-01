@@ -246,6 +246,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         timer && clearInterval(timer);
     }
 

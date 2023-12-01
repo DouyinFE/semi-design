@@ -61,6 +61,7 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
             clearTimeout(this._timeId);
             this._timeId = null;
         }
+        super.componentWillUnmount();
     }
 
     copy = (e: React.MouseEvent) => {

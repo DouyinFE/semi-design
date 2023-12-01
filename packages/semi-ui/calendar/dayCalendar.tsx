@@ -103,9 +103,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     checkWeekend = (val: Date) => this.foundation.checkWeekend(val);
 
