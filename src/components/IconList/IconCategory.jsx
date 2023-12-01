@@ -8,7 +8,7 @@ import './index.scss';
 const { Title } = Typography;
 
 const IconCategory = props => {
-    const { groups } = props;
+    const { groups, pkgType } = props;
     const [categorySet, $categorySet] = useState(new Set());
     useEffect(() => {
         $categorySet(new Set(Array.from(Array(groups.length), (g, i) => i)));
@@ -46,7 +46,7 @@ const IconCategory = props => {
             >
                 <ul className="semi-icons-content">
                     {g[1].map(icon => (
-                        <SemiIcon key={icon.name} name={icon.name} />
+                        <SemiIcon key={icon.name} name={icon.name} pkgType={pkgType} />
                     ))}
                 </ul>
             </Collapsible>
