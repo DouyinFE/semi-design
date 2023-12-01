@@ -79,6 +79,8 @@ const appLocale = {
         // Icon list
         'icon.list.tab.fill': 'Fill Icons',
         'icon.list.tab.stroked': 'Stroked Icons',
+        'icon.list.tab.lab': 'Colorful Icons',
+
 
         // new Home
         // page one

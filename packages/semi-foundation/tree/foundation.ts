@@ -22,7 +22,8 @@ import {
     calcDropActualPosition
 } from './treeUtil';
 
-export { KeyMapProps } from './treeUtil';
+import type { KeyMapProps } from './treeUtil';
+export type { KeyMapProps };
 
 export interface BasicTreeNodeProps {
     [x: string]: any;
