@@ -71,8 +71,8 @@ const IconList = props => {
     return (
         <div className="semi-icons-container">
             <div>
-                <img style={{ marginRight: 8 }} src={`https://badgen.net/badge/${encodeURIComponent(pkgJson.name)}/${pkgJson.version}`} alt="" />
-                <img src={`https://badgen.net/badge/count/${iconData.length}/grey`} alt="" />
+                <img style={{ marginRight: 8 }} src={`https://badgen.net/badge/${encodeURIComponent(pkgJson.name)}/${pkgJson.version}?blue`} alt="" />
+                <img src={`https://badgen.net/badge/count/${iconData.length}/blue`} alt="" />
                 <img style={{ marginRight: 8, marginLeft: 24 }} src={`https://badgen.net/badge/%40douyinfe%2Fsemi-icons-lab/${pkgJson.version}?color=cyan`} alt="" />
                 <img src={`https://badgen.net/badge/count/${iconLabData.length}/cyan`} alt="" />
             </div>
