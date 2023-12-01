@@ -22,5 +22,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'scroll-list');
+const IconComponent = convertIcon(SvgComponent, 'scrolllist');
 export default IconComponent;
