@@ -34,11 +34,14 @@ export enum SemiUsedEvent {
 // eslint-disable-next-line
 export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Component<P, S> {
     static propTypes = {};
-
     static defaultProps = {};
     static windowEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
     static documentEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
-    static finalizationRegistry: FinalizationRegistry<() => void>
+    static finalizationRegistry: FinalizationRegistry<{
+        target: typeof window | typeof document;
+        weakRef: WeakRef<any>;
+        eventName: SemiUsedEvent
+    }>
     static initEventListener = ()=>{
         Object.values(SemiUsedEvent).forEach((eventName)=>{
             BaseComponent.windowEventWeakMap[eventName] = [];
@@ -59,8 +62,14 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         BaseComponent.finalizationRegistry = new FinalizationRegistry(BaseComponent.onEventCallbackGC);
     } 
 
-    private static onEventCallbackGC = (clearRefCallback: () => void)=>{
-        clearRefCallback();
+    static onEventCallbackGC = ({ target, weakRef, eventName }: {target: typeof window|typeof document;weakRef: WeakRef<any>;eventName: SemiUsedEvent})=>{
+        let eventWeakMap: Record<string, WeakRef<(e: Event) => void>[]>;
+        if (target===window) {
+            eventWeakMap = BaseComponent.windowEventWeakMap;
+        } else if (target===document) {
+            eventWeakMap = BaseComponent.documentEventWeakMap;
+        }
+        eventWeakMap[eventName] = without(eventWeakMap[eventName] ?? [], weakRef);
     }
 
     cache: any;
@@ -131,11 +140,13 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         }
         const weakRef = new WeakRef(callback);
         eventWeakMap[eventName]?.push(weakRef);
-        BaseComponent.finalizationRegistry.register(this, ()=>{
-            eventWeakMap[eventName] = without(eventWeakMap[eventName], weakRef);
-            console.log("unregister");
+        BaseComponent.finalizationRegistry.register(this, {
+            target,
+            weakRef: weakRef,
+            eventName
         });
     }
+
 }
 
 if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
