@@ -26,112 +26,37 @@ import { Nav } from '@douyinfe/semi-ui';
 
 -   `itemKey`：导航项目的唯一标识（必须）
 -   `text`：导航文案
--   `icon`：导航图标
+-   `icon`：导航图标，你可以从 `@douyinfe/semi-icons`、`@douyinfe/semi-icons-lab` 中自由选择你喜欢的图标，详情可查阅 [Icon 组件文档](/zh-CN/basic/icon)
 
 参数含义详见 [Nav.Item](#Nav.Item) 或 [Nav.Sub](#Nav.Sub)
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
-
-class NavApp extends React.Component {
-    render() {
-        return (
-            <Nav
-                bodyStyle={{ height: 320 }}
-                items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
-                    {
-                        text: '任务平台',
-                        icon: <IconSetting />,
-                        itemKey: 'job',
-                        items: ['任务管理', '用户任务查询'],
-                    },
-                ]}
-                onSelect={data => console.log('trigger onSelect: ', data)}
-                onClick={data => console.log('trigger onClick: ', data)}
-            />
-        );
-    }
-}
-
-```
-
-
-### 导航缩进
-
-版本：>= 0.16.0
-
-> 导航缩进目前仅对第一级导航有效果。
-
-#### 纯文案导航
-
-如果导航项目没有传入 `icon` 字段，那么文案会自动向左填充。
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Nav } from '@douyinfe/semi-ui';
-
-class NavApp extends React.Component {
-    render() {
-        return (
-            <Nav
-                bodyStyle={{ height: 320 }}
-                defaultOpenKeys={[ 'job' ]}
-                items={[
-                    { itemKey: 'user', text: '用户管理' },
-                    { itemKey: 'union', text: '活动管理' },
-                    {
-                        itemKey: 'union-management',
-                        text: '任务管理',
-                        items: ['公告设置', '任务查询', '信息录入']
-                    },
-                    {
-                        text: '任务平台',
-                        itemKey: 'job',
-                        items: ['任务管理', '用户任务查询'],
-                    },
-                ]}
-                onSelect={data => console.log('trigger onSelect: ', data)}
-                onClick={data => console.log('trigger onClick: ', data)}
-            />
-        );
-    }
-}
-```
-
-### 定义头部和底部
-
-开发者可能会经常定义 Logo 区域和收起按钮区域，Navigation 则提供了这样的容器方便开发者快速定义导航头部和底部，你仅需按要求传入 header 或 footer 即可。
+开发者可能会经常定义 Logo 区域和收起按钮区域，Navigation 则提供了这样的容器方便开发者快速定义导航头部和底部，你仅需按要求传入 `header` 或 `footer` 即可。
 
 对于 `footer`，semi-ui 额外封装了一个收起功能按钮，开发者可以通过传递 `collapseButton = true` 开启此功能，不过该参数仅在 `mode = "vertical"` （垂直导航）生效。
 
-参数详见[Nav.Header](#Nav.Header)和[Nav.Footer](#Nav.Footer)。
+参数详见 [Nav.Header](#Nav.Header) 和 [Nav.Footer](#Nav.Footer)。
 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconDescriptions, IconIntro, IconTree, IconAvatar, IconTreeSelect, IconTabs } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
         return (
             <Nav
-                defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                    { itemKey: 'user', text: '用户管理', icon: <IconAvatar /> },
+                    { itemKey: 'union', text: '活动管理', icon: <IconDescriptions /> },
                     {
                         text: '任务平台',
-                        icon: <IconSetting />,
+                        icon: <IconTree />,
                         itemKey: 'job',
                         items: ['任务管理', '用户任务查询'],
                     },
                 ]}
-                onSelect={key => console.log(key)}
                 header={{
                     logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
                     text: 'Semi 运营后台'
@@ -139,45 +64,48 @@ class NavApp extends React.Component {
                 footer={{
                     collapseButton: true,
                 }}
+                onSelect={data => console.log('trigger onSelect: ', data)}
+                onClick={data => console.log('trigger onClick: ', data)}
             />
         );
     }
 }
+
 ```
 
 ### 导航样式定义
 
 Navigation 目前提供了个两个参数用于定义导航样式：`style` 和 `bodyStyle`，其中 `style` 用于定义导航组件最外层的样式，而 `bodyStyle` 用于定义导航列表的样式。（导航头部和导航底部则都接受各自的 `style` 参数）。
 
-例如你需要一个导航列表可以滚动，导航头部和底部固定的导航组件，可以这么使用：
+例如你需要一个中间列表可以滚动，导航头部和底部固定的导航组件，可以这么使用：
 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconSetting, IconFolder, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconTreeSelect, IconForm, IconTree, IconBanner, IconBadge, IconNotification,IconSteps, IconTree, IconTabs, IconNavigation } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
         return (
             <Nav
                 style={{ height: 520 }}
-                bodyStyle={{ height: 320 }}
-                defaultOpenKeys={['job', 'resource']}
+                bodyStyle={{ height: 300 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                    { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                    { itemKey: '2', text: '订单管理', icon: <IconBanner /> },
+                    { itemKey: '3', text: '资源管理', icon: <IconTreeSelect /> },
                     {
                         text: '任务平台',
-                        icon: <IconSetting />,
-                        itemKey: 'job',
+                        icon: <IconForm />,
+                        itemKey: '4',
                         items: ['任务管理', '用户任务查询'],
                     },
-                    {
-                        text: '资源管理',
-                        icon: <IconFolder />,
-                        itemKey: 'resource',
-                        items: ['转盘配置', '转盘审核'],
-                    },
+                    { itemKey: '5', text: '推送通知', icon: <IconNotification /> },
+                    { itemKey: '6', text: '任务', icon: <IconSteps /> },
+                    { itemKey: '7', text: '活动管理', icon: <IconTree /> },
+                    { itemKey: '8', text: '内容工具', icon: <IconTabs /> },
+                    { itemKey: '9', text: '快捷导航', icon: <IconNavigation /> },
                 ]}
                 onSelect={key => console.log(key)}
                 header={{
@@ -191,16 +119,18 @@ class NavApp extends React.Component {
         );
     }
 }
+
 ```
 
 ### JSX 写法
 
-用户可以使用 JSX 写法定义导航头部、导航项以及导航底部。
+可以使用 JSX 写法定义导航头部、导航项以及导航底部。使用 JSX写法时，在 Nav 的 children 层级，你除了可以使用 Nav.Header、Nav.Item、Nav.Sub、Nav.Footer外，你也可以置入其他自定义的 ReactNode 元素
 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconStar, IconUser, IconUserGroup, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconDescriptions, IconForm, IconTree, IconBanner, IconBadge } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
@@ -212,12 +142,12 @@ class NavApp extends React.Component {
                 onClick={data => console.log('trigger onClick: ', data)}
             >
                 <Nav.Header logo={<IconSemiLogo style={{ height: '36px', fontSize: 36 }} />} text={'Semi 运营后台'} />
-                <Nav.Item itemKey={'union'} text={'活动管理'} icon={<IconStar />} />
-                <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconUser />}>
+                <Nav.Item itemKey={'union'} text={'活动管理'} icon={<IconForm />} />
+                <Nav.Sub itemKey={'user'} text="用户管理" icon={<IconBadge />}>
                     <Nav.Item itemKey={'active'} text={'活跃用户'} />
                     <Nav.Item itemKey={'negative'} text={'非活跃用户'} />
                 </Nav.Sub>
-                <Nav.Sub itemKey={'union-management'} text="任务管理" icon={<IconUserGroup />}>
+                <Nav.Sub itemKey={'union-management'} text="任务管理" icon={<IconTree />}>
                     <Nav.Item itemKey={'notice'} text={'任务设置'} />
                     <Nav.Item itemKey={'query'} text={'任务查询'} />
                     <Nav.Item itemKey={'info'} text={'信息录入'} />
@@ -295,7 +225,9 @@ Navigation 目前提供两种方向的导航：
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconTreeSelect, IconForm, IconTree, IconBanner, IconBadge, IconNotification,IconSteps, IconTree, IconTabs, IconNavigation } from '@douyinfe/semi-icons-lab';
+
 
 class NavApp extends React.Component {
     render() {
@@ -304,17 +236,17 @@ class NavApp extends React.Component {
                 <Nav
                     bodyStyle={{ height: 320 }}
                     items={[
-                        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                        { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                        { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                        { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect/> },
                         {
                             itemKey: 'union-management',
                             text: '任务管理',
-                            icon: <IconUserGroup />,
+                            icon: <IconForm />,
                             items: ['任务设置', '任务查询', '信息录入']
                         },
                         {
                             text: '公告管理',
-                            icon: <IconSetting />,
+                            icon: <IconBanner />,
                             itemKey: 'job',
                             items: ['推送管理', '已推送查询'],
                         },
@@ -340,6 +272,8 @@ class NavApp extends React.Component {
 import React from 'react';
 import { Nav, Avatar, Dropdown } from '@douyinfe/semi-ui';
 import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNotification, IconSteps, IconTree, IconTabs, IconNavigation } from '@douyinfe/semi-icons-lab';
+
 
 class NavApp extends React.Component {
     render() {
@@ -348,12 +282,12 @@ class NavApp extends React.Component {
                 <Nav
                     mode={'horizontal'}
                     items={[
-                        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                        { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                        { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                        { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect /> },
                         {
                             itemKey: 'approve-management',
                             text: '审批管理',
-                            icon: <IconEdit />,
+                            icon: <IconBreadcrumb />,
                             items: [
                                 '入驻审核',
                                 {
@@ -368,7 +302,7 @@ class NavApp extends React.Component {
                         },
                         {
                             text: '任务平台',
-                            icon: <IconSetting />,
+                            icon: <IconSteps />,
                             itemKey: 'job',
                             items: ['任务管理', '用户任务查询'],
                         },
@@ -509,12 +443,13 @@ class NavApp extends React.Component {
 
 ### 展开收起箭头位置
 
-`toggleIconPosition` 设置 'left' 或 'right', 默认 right
+可通过 `toggleIconPosition` 改变 NavSub 展开收起箭头的位置，默认为 'right' 右侧展示，可改为 'left'
 
 ```jsx live=true dir=column
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconForm, IconBadge, IconBanner, IconAvatar, IconTree, IconTabs } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
@@ -524,11 +459,11 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                    { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                    { itemKey: 'union', text: '活动管理', icon: <IconBanner /> },
                     {
                         text: '任务平台',
-                        icon: <IconSetting />,
+                        icon: <IconForm />,
                         itemKey: 'job',
                         items: ['任务管理', '用户任务查询'],
                     },
@@ -547,41 +482,39 @@ class NavApp extends React.Component {
 }
 ```
 
-### 缩进限制
-默认无缩进，需要导航项依据层级缩进请将 limitIndent 设置为 false
-
-React Jsx 方式用 Nav.Item 传入导航项时 请手动给 Nav.Item 传入 `level` props。
-
-Object 方式 传入导航项时 无需关心 level
-
-limitIndent 只在 竖直方向生效
+### 导航缩进
+默认导航缩进目前仅对第一级导航有效果。
+如果你希望对多级导航，按层级缩进，请先将 `limitIndent` 设置为 false (只在竖直方向生效)
+- 当以 Jsx 方式用 Nav.Item 传入导航项时，请手动给 Nav.Item 传入 `level` props。
+- 以 items 方式传入导航项时，无需关心 level
 
 ```jsx live=true dir=column
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconForm, IconBadge, IconBanner, IconAvatar, IconTree, IconTabs } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
         return (
             <Nav
                 limitIndent={false}
-                defaultOpenKeys={['job']}
+                defaultOpenKeys={['job', 'mission1']}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+                    { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
                     {
                         text: '任务平台',
-                        icon: <IconSetting />,
+                        icon: <IconBanner />,
                         itemKey: 'job',
                         items: ['任务管理', {
                             text: '任务1',
-                            icon: <IconSetting />,
+                            icon: <IconForm />,
                             itemKey: 'mission1',
                             items: ['任务2',
                                 {
                                     text: '任务3拆解',
-                                    icon: <IconSetting />,
+                                    icon: <IconTabs />,
                                     itemKey: 'mission3',
                                     items: ['子任务1', '子任务2'],
                                 }
@@ -601,6 +534,7 @@ class NavApp extends React.Component {
         );
     }
 }
+
 ```
 
 
@@ -615,7 +549,8 @@ class NavApp extends React.Component {
 ```jsx live=true dir="column"
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconForm, IconBadge, IconBanner, IconAvatar, IconTree, IconTabs } from '@douyinfe/semi-icons-lab';
 
 class NavApp extends React.Component {
     render() {
@@ -626,17 +561,17 @@ class NavApp extends React.Component {
                 defaultIsCollapsed={true}
                 bodyStyle={{ height: 320 }}
                 items={[
-                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                    { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                    { itemKey: 'union', text: '活动管理', icon: <IconBanner /> },
                     {
                         itemKey: 'union-management',
                         text: '任务管理',
-                        icon: <IconUserGroup />,
+                        icon: <IconForm />,
                         items: ['公告设置', '任务查询', '信息录入']
                     },
                     {
                         text: '任务平台',
-                        icon: <IconSetting />,
+                        icon: <IconTree />,
                         itemKey: 'job',
                         items: ['任务管理', '用户任务查询'],
                     },
@@ -674,11 +609,12 @@ Navigation 组件提供了几个受控属性，配合各种回调，可以很轻
 ```jsx live=true dir="column"
 import React, { useMemo, useState } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconUser, IconStar, IconUserGroup, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconSemiLogo } from '@douyinfe/semi-icons';
+import { IconForm, IconBadge, IconBanner, IconAvatar, IconTree, IconTabs } from '@douyinfe/semi-icons-lab';
 
 function NavApp (props = {}) {
     const [openKeys, setOpenKeys] = useState(['union-management', 'job']);
-    const [selectedKeys, setSelectedKeys] = useState(['用户任务查询']);
+    const [selectedKeys, setSelectedKeys] = useState(['公告设置']);
     const [isCollapsed, setIsCollapsed] = useState(true);
 
     const onSelect = data => {
@@ -695,17 +631,17 @@ function NavApp (props = {}) {
     };
 
     const items = useMemo(() => [
-        { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-        { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+        { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+        { itemKey: 'union', text: '活动管理', icon: <IconBanner /> },
         {
             itemKey: 'union-management',
             text: '任务管理',
-            icon: <IconUserGroup />,
+            icon: <IconForm />,
             items: ['公告设置', '任务查询', '信息录入']
         },
         {
             text: '任务平台',
-            icon: <IconSetting />,
+            icon: <IconTree />,
             itemKey: 'job',
             items: ['任务管理', '用户任务查询'],
         },

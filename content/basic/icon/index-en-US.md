@@ -104,10 +104,10 @@ import React from 'react';
 import { Icon } from '@douyinfe/semi-ui';
 
 () => {
-    function CustomIcon(){
+    function CustomIcon() {
         return <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="11" fill="#FBCD2C"/>
-            <mask id="mask0" maskType="alpha" maskUnits="userSpaceOnUse" x="1" y="1" width="22" height="22">
+            <mask id="mask0" masktype="alpha" maskUnits="userSpaceOnUse" x="1" y="1" width="22" height="22">
                 <circle cx="12" cy="12" r="11" fill="#A2845E"/>
             </mask>
             <g mask="url(#mask0)">
