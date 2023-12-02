@@ -56,7 +56,6 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
             const mergedKey = treeNode[realKeyName];
-
             const otherData = {};
             if (keyMaps) {
                 Object.entries(omit(keyMaps, 'children')).forEach(([key, value]) => {
@@ -74,6 +73,8 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
                 children: null,
                 data: treeNode,
                 _innerDataTag: true,
+                isStart: [...(parent ? parent.isStart : []), index === 0],
+                isEnd: [...(parent ? parent.isEnd : []), index === list.length - 1],
             };
             const isBooleanFilteredShownKeys = typeof filteredShownKeys === 'boolean';
             if (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey))) {
@@ -340,7 +341,7 @@ export function calcCheckedKeys(values: any, keyEntities: KeyEntities) {
     let halfCheckedKeys = new Set([]);
     let visited: any[] = [];
 
-    const levelMap: {[key: number]: string[]} = getSortedKeyList(keyList, keyEntities);
+    const levelMap: { [key: number]: string[] } = getSortedKeyList(keyList, keyEntities);
 
     const calcCurrLevel = (node: any) => {
         const { key, parent, level } = node;

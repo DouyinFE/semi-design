@@ -5,55 +5,78 @@ $module: #{$prefix}-tree;
     .#{$module} {
         direction: rtl;
     }
-    
+
     .#{$module}-wrapper {
         direction: rtl;
     }
-    
+
     .#{$module}-option-list {
         direction: rtl;
-    
+
         .#{$module}-option-expand-icon,
         .#{$module}-option-empty-icon {
             margin-right: 0;
             margin-left: $spacing-tree_icon-marginRight;
         }
-    
+
         .#{$module}-option {
             &-label {
                 & > .#{$prefix}-icon {
                     margin-right: 0;
                     margin-left: $spacing-tree_icon-marginRight;
                 }
-    
+
                 .#{$prefix}-checkbox {
                     margin-right: 0;
                     margin-left: $spacing-tree_icon-marginRight;
                 }
             }
-    
+
             &-collapsed {
                 .#{$module}-option-expand-icon {
                     transform: rotate(90deg);
                 }
             }
         }
-    
-        @for $i from 1 through 20 {
-            .#{$module}-option-level-#{$i} {
-                padding-left: 0;
-                padding-right: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
+
+        .#{$module}-option-indent {
+            white-space: nowrap;
+            user-select: none;
+            &-unit {
+                display: inline-block;
+                width: $spacing-tree_option_level-paddingLeft;
             }
         }
-    
+
+        .#{$module}-option-indent-show-line {
+            .#{$module}-option-indent-unit {
+                position: relative;
+                height: 100%;
+
+                &::before {
+                    position: absolute;
+                    top: -$spacing-tree_option-paddingTop;
+                    inset-inline-start: calc($width-tree_emptyIcon / 2);
+                    bottom: -$spacing-tree_option-paddingBottom;
+                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                    content: '';
+                }
+
+                &-end {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+
         .#{$module}-option-label-empty {
             padding-left: auto;
             padding-right: 0;
         }
     }
-    
+
     .#{$module}-option-list-block {
         direction: rtl;
     }
 }
-

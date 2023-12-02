@@ -1,11 +1,9 @@
-@import "./animation.scss";
+@import './animation.scss';
 @import './variables.scss';
-
 
 $module: #{$prefix}-tree;
 
 .#{$module} {
-
     &-search-wrapper {
         padding: $spacing-tree_search_wrapper-paddingY $spacing-tree_search_wrapper-paddingX;
     }
@@ -55,8 +53,9 @@ $module: #{$prefix}-tree;
         display: flex;
         align-items: center;
         cursor: pointer;
-        transition: background-color $transition_duration-tree_option-bg $transition_function-tree_option-bg $transition_delay-tree_option-bg;
-        transform:scale($transform_scale-tree-option);
+        transition: background-color $transition_duration-tree_option-bg $transition_function-tree_option-bg
+            $transition_delay-tree_option-bg;
+        transform: scale($transform_scale-tree-option);
 
         @include font-size-regular;
         word-break: break-word;
@@ -175,7 +174,8 @@ $module: #{$prefix}-tree;
             }
 
             .#{$module}-option-drag-over-gap-bottom {
-                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default solid;
+                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default
+                    solid;
             }
         }
 
@@ -185,7 +185,8 @@ $module: #{$prefix}-tree;
             }
 
             &.#{$module}-option-fullLabel-drag-over-gap-bottom {
-                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default solid;
+                border-bottom: $width-tree_option_draggable-border $color-tree_option_draggable_insert-border-default
+                    solid;
             }
         }
 
@@ -207,7 +208,8 @@ $module: #{$prefix}-tree;
                     left: -$width-tree_option_draggable-border;
                     bottom: 0;
                     right: -1px;
-                    border-top: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
+                    border-top: $width-tree_option_draggable-border solid
+                        $color-tree_option_draggable_insert-border-default;
                 }
             }
         }
@@ -231,10 +233,37 @@ $module: #{$prefix}-tree;
         }
     }
 
-    @for $i from 1 through 20 {
-        .#{$module}-option-level-#{$i} {
-            padding-left: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
+    .#{$module}-option-indent {
+        align-self: stretch;
+        white-space: nowrap;
+        user-select: none;
+        &-unit {
+            display: inline-block;
+            width: $spacing-tree_option_level-paddingLeft;
         }
+    }
+    
+    .#{$module}-option-indent-show-line{
+        .#{$module}-option-indent-unit {
+            position: relative;
+            height: 100%;
+
+            &::before {
+                position: absolute;
+                top: -$spacing-tree_option-paddingTop;
+                inset-inline-start: calc($width-tree_emptyIcon / 2);
+                bottom: -$spacing-tree_option-paddingBottom;
+                border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                content: '';
+            }
+
+            &-end {
+                &::before {
+                    display: none;
+                }
+            }
+        }
+       
     }
 
     .#{$module}-option-empty {

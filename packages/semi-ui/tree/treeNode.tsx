@@ -10,6 +10,7 @@ import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
 import { getHighLightTextHTML } from '../_utils/index';
+import Indent from './indent';
 
 const prefixcls = cssClasses.PREFIX_OPTION;
 
@@ -33,7 +34,10 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         keyword: PropTypes.string,
         treeNodeFilterProp: PropTypes.string,
         selectedKey: PropTypes.string,
-        motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
+        motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+        isStart: PropTypes.arrayOf(PropTypes.bool),
+        isEnd: PropTypes.arrayOf(PropTypes.bool),
+        showLine: PropTypes.bool
     };
 
     static defaultProps = {
@@ -208,7 +212,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             return (
                 <IconTreeTriangleDown
                     role='button'
-                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`} 
+                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`}
                     className={`${prefixcls}-expand-icon`}
                     size="small"
                     onClick={this.onExpand}
@@ -226,7 +230,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         return (
             <div
                 role='none'
-                onClick={this.onCheck} 
+                onClick={this.onCheck}
                 onKeyPress={this.handleCheckEnterPress}
             >
                 <Checkbox
@@ -315,8 +319,12 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             treeNodeFilterProp,
             display,
             style,
+            isEnd,
+            isStart,
+            showLine,
             ...rest
         } = this.props;
+        console.log(this.props, 'treeNode');
         if (empty) {
             return this.renderEmptyNode();
         }
@@ -333,7 +341,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const dragOverGapTop = dragOverNodeKey === eventKey && dropPosition === -1;
         const dragOverGapBottom = dragOverNodeKey === eventKey && dropPosition === 1;
         const nodeCls = cls(prefixcls, {
-            [`${prefixcls}-level-${level + 1}`]: true,
+            // [`${prefixcls}-level-${level + 1}`]: true,
             [`${prefixcls}-collapsed`]: !expanded,
             [`${prefixcls}-disabled`]: Boolean(disabled),
             [`${prefixcls}-selected`]: selected,
@@ -406,18 +414,18 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             [`${prefixcls}-drag-over-gap-bottom`]: !disabled && dragOverGapBottom,
         });
         const setsize = get(rest, ['data', 'children', 'length']);
-        const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level+1]) + 1 : 1;
+        const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level + 1]) + 1 : 1;
         return (
             <li
                 className={nodeCls}
                 role="treeitem"
-                aria-disabled={disabled} 
+                aria-disabled={disabled}
                 aria-checked={checked}
                 aria-selected={selected}
                 aria-setsize={setsize}
                 aria-posinset={posinset}
                 aria-expanded={expanded}
-                aria-level={level+1}
+                aria-level={level + 1}
                 data-key={eventKey}
                 onClick={this.onClick}
                 onKeyPress={this.handleliEnterPress}
@@ -427,6 +435,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 style={style}
                 {...dragProps}
             >
+                <Indent showLine={showLine} prefixcls={prefixcls} level={level} isStart={isStart} isEnd={isEnd} />
                 {this.renderArrow()}
                 <span
                     className={labelCls}

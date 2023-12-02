@@ -108,16 +108,18 @@ export interface TreeState extends BasicTreeInnerData {
 }
 
 /* TreeNode */
-export interface TreeNodeProps extends BasicTreeNodeProps{
+export interface TreeNodeProps extends BasicTreeNodeProps {
     children?: TreeNodeData[];
-    icon?: ReactNode
+    icon?: ReactNode;
+    isStart?: boolean[];
+    isEnd?: boolean[]
 }
 export interface TreeNodeState {
     [x: string]: any
 }
 
 /* NodeList */
-export interface TreeNodeData extends BasicTreeNodeData{
+export interface TreeNodeData extends BasicTreeNodeData {
     label?: ReactNode;
     icon?: ReactNode;
     children?: TreeNodeData[]
@@ -126,7 +128,9 @@ export interface FlattenNode extends BasicFlattenNode {
     children?: FlattenNode[];
     data?: BasicTreeNodeData;
     label?: ReactNode;
-    parent?: null | FlattenNode
+    parent?: null | FlattenNode;
+    isStart?: boolean[];
+    isEnd?: boolean[]
 }
 export interface NodeListProps {
     [x: string]: any;
