@@ -93,7 +93,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         if (zoomChange) {
             this.foundation.calculatePreviewImage(this.props.zoom, null);
         }
-        if (!zoomChange && !srcChange) {
+        if (!zoomChange && !srcChange && prevProps) {
             if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
                 this.foundation.handleRatioChange();
             }

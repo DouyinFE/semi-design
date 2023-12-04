@@ -122,9 +122,6 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             } else {
                 onZoom(_zoom);
             }
-            if (_zoom === 1 && ratio === 'adaptation') {
-                setRatio('realSize');
-            }
         }
     }
 
