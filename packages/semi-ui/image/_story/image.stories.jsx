@@ -48,6 +48,15 @@ const srcList2 = [
     "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag8.png",
 ];
 
+const srcList3 = [
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag1.png",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/small-size.jpeg",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag3.png",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/beach.jpeg",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png",
+    'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/200100.jpeg',
+];
+
 export const basicImage = () => {
     const [escOut, setEscOut] = useState(true);
     const [disableDownload, setDisableDownload] = useState(false);
@@ -400,6 +409,7 @@ export const GridImage= () => {
             infinite={infinite}
         >
             <Row style={{ width: 800 }}>
+                {/* {srcList3.map((src, index) => { */}
                 {srcList2.map((src, index) => {
                     return (
                         <Col span={6} style={{ height: 200 }} key={`col${index}`}>

@@ -8,10 +8,6 @@ import PreviewImageFoundation, { PreviewImageAdapter } from "@douyinfe/semi-foun
 
 const prefixCls = cssClasses.PREFIX;
 const preViewImgPrefixCls = `${prefixCls}-preview-image`;
-let originImageWidth = null;
-let originImageHeight = null;
-// startMouseOffset：The offset of the mouse relative to the left and top of the picture
-let startMouseOffset = { x: 0, y: 0 };
 
 export default class PreviewImage extends BaseComponent<PreviewImageProps, PreviewImageStates> {
     static propTypes = {
@@ -41,19 +37,12 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     get adapter(): PreviewImageAdapter<PreviewImageProps, PreviewImageStates> {
         return {
             ...super.adapter,
-            getOriginImageSize: () => ({ originImageWidth, originImageHeight }),
-            setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number }) => {
-                originImageWidth = size.originImageWidth;
-                originImageHeight = size.originImageHeight;
-            },
             getContainer: () => {
                 return this.containerRef.current;
             },
             getImage: () => {
                 return this.imageRef.current;
             },
-            getMouseOffset: () => startMouseOffset,
-            setStartMouseOffset: (offset: { x: number; y: number }) => { startMouseOffset = offset; },
             setLoading: (loading: boolean) => { 
                 this.setState({
                     loading,
@@ -95,36 +84,27 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
 
     componentDidUpdate(prevProps: PreviewImageProps, prevStates: PreviewImageStates) {
         // If src changes, start a new loading
-        if (this.props.src && this.props.src !== prevProps.src) {
+        const zoomChange = "zoom" in this.props && this.props.zoom !== this.state.currZoom;
+        const srcChange = this.props.src && this.props.src !== prevProps.src;
+        if (srcChange) {
             this.foundation.setLoading(true);
-        } 
+        }
         // If the incoming zoom changes, other content changes are determined based on the new zoom value
-        if ("zoom" in this.props && this.props.zoom !== prevStates.currZoom) {
-            this.handleZoomChange(this.props.zoom, null);
+        if (zoomChange) {
+            this.foundation.calculatePreviewImage(this.props.zoom, null);
         }
-        // When the incoming ratio is changed, if it"s adaptation, then resizeImage is triggered to make the image adapt to the page
-        // else if it"s adaptation is realSize, then onZoom(1) is called to make the image size the original size;
-        if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
-            if (originImageWidth && originImageHeight) {
-                if (this.props.ratio === "adaptation") {
-                    this.imageAdaptToViewArea();
-                } else {
-                    this.props.onZoom(1);
-                }
+        if (!zoomChange && !srcChange) {
+            if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
+                this.foundation.handleRatioChange();
             }
-        }
-        // When the incoming rotation angle of the image changes, it needs to be resized to make the image fit on the page
-        if ("rotation" in this.props && this.props.rotation !== prevProps.rotation) {
-            this.onWindowResize();
-        }
+            if ("rotation" in this.props && this.props.rotation !== prevProps.rotation) {
+                this.onWindowResize();
+            }
+        }   
     }
 
     onWindowResize = (): void => {
         this.foundation.handleWindowResize();
-    };
-
-    handleZoomChange = (newZoom, e): void => {
-        this.foundation.handleZoomChange(newZoom, e);
     };
 
     // Determine the response method of right click according to the disableDownload parameter in props
@@ -138,10 +118,6 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
 
     handleError = (e): void => {
         this.foundation.handleError(e);
-    }
-
-    imageAdaptToViewArea = () => {
-        this.foundation.handleResizeImage(true);
     }
 
     handleMoveImage = (e): void => {
