@@ -191,6 +191,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             if (props.visible) {
                 willUpdateStates.preloadAfterVisibleChange = true;
                 willUpdateStates.viewerVisible = true;
+                willUpdateStates.rotation = 0;
             }
         }
         if ("currentIndex" in props && props.currentIndex !== state.currentIndex) {
