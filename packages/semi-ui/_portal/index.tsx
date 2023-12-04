@@ -86,7 +86,6 @@ class Portal extends PureComponent<PortalProps, PortalState> {
         if (container) {
             container.removeChild(this.el);
         }
-        super.componentWillUnmount();
     }
 
     addStyle = (style = {}) => {

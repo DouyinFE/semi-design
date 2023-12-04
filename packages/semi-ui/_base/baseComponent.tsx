@@ -20,6 +20,7 @@ export interface BaseProps {
     children?: ReactNode | undefined | any
 }
 
+
 export enum SemiUsedEvent {
     Click = "click",
     MouseDown = "mousedown",
@@ -31,42 +32,45 @@ export enum SemiUsedEvent {
     TouchMove = "touchmove"
 }
 
+type SemiEventTarget = typeof window | typeof document;
+
+type Callback = (e: Event) => void
+
 // eslint-disable-next-line
 export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Component<P, S> {
     static propTypes = {};
     static defaultProps = {};
-    static windowEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
-    static documentEventWeakMap: Record<string, WeakRef<(e: Event) => void>[]> = {}
+    static windowEventWeakMap: Record<string, WeakRef<Callback>[]> = {}
+    static documentEventWeakMap: Record<string, WeakRef<Callback & {_function?: Callback}>[]> = {}
     static finalizationRegistry: FinalizationRegistry<{
-        target: typeof window | typeof document;
-        weakRef: WeakRef<any>;
+        target: SemiEventTarget;
+        weakRef: WeakRef<Callback & {_function?: Callback}>;
         eventName: SemiUsedEvent
     }>
-    static initEventListener = ()=>{
-        Object.values(SemiUsedEvent).forEach((eventName)=>{
-            BaseComponent.windowEventWeakMap[eventName] = [];
-            window.addEventListener(eventName, (e)=>{
-                BaseComponent.windowEventWeakMap[eventName]?.forEach(ref=>{
-                    const cb = ref.deref();
-                    cb?.(e);
-                }); 
-            });
-            BaseComponent.documentEventWeakMap[eventName] = [];
-            document.addEventListener(eventName, (e)=>{
-                BaseComponent.documentEventWeakMap[eventName]?.forEach(ref=>{
-                    const cb = ref.deref();
-                    cb?.(e);
+    static initEventListener = () => {
+        Object.values(SemiUsedEvent).forEach((eventName) => {
+            [[BaseComponent.windowEventWeakMap, window], [BaseComponent.documentEventWeakMap, document]].forEach(([eventWeakMap, target])=>{
+                eventWeakMap[eventName] = [];
+                (target as SemiEventTarget).addEventListener(eventName, (e) => {
+                    eventWeakMap[eventName]?.forEach((ref: WeakRef<Callback & {_function?: Callback}>) => {
+                        const cb = ref.deref();  
+                        cb?._function(e);
+                    });
                 });
             });
         });
         BaseComponent.finalizationRegistry = new FinalizationRegistry(BaseComponent.onEventCallbackGC);
-    } 
+    }
 
-    static onEventCallbackGC = ({ target, weakRef, eventName }: {target: typeof window|typeof document;weakRef: WeakRef<any>;eventName: SemiUsedEvent})=>{
-        let eventWeakMap: Record<string, WeakRef<(e: Event) => void>[]>;
-        if (target===window) {
+    static onEventCallbackGC = ({ target, weakRef, eventName }: {
+        target: SemiEventTarget;
+        weakRef: WeakRef<Callback & {_function?: Callback}>;
+        eventName: SemiUsedEvent
+    }) => {
+        let eventWeakMap: Record<string, WeakRef<Callback>[]>;
+        if (target === window) {
             eventWeakMap = BaseComponent.windowEventWeakMap;
-        } else if (target===document) {
+        } else if (target === document) {
             eventWeakMap = BaseComponent.documentEventWeakMap;
         }
         eventWeakMap[eventName] = without(eventWeakMap[eventName] ?? [], weakRef);
@@ -74,7 +78,8 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
 
     cache: any;
     foundation: any;
-    componentIsUnmounted = false;
+    componentIsMounted = true;
+
     constructor(props: P) {
         super(props);
         this.cache = {};
@@ -86,7 +91,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
     }
 
     componentWillUnmount(): void {
-        this.componentIsUnmounted = true;
+        this.componentIsMounted = false;
         this.foundation && typeof this.foundation.destroy === 'function' && this.foundation.destroy();
         this.cache = {};
     }
@@ -104,7 +109,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
             getProps: () => this.props, // eslint-disable-line
             getState: key => this.state[key], // eslint-disable-line
             getStates: () => this.state, // eslint-disable-line
-            setState: (states, cb) => this.setState({ ...states } as S, cb), // eslint-disable-line
+            setState: (states, cb) => this.setState({...states} as S, cb), // eslint-disable-line
             getCache: key => key && this.cache[key], // eslint-disable-line
             getCaches: () => this.cache, // eslint-disable-line
             setCache: (key, value) => key && (this.cache[key] = value), // eslint-disable-line
@@ -133,18 +138,23 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         return getDataAttr(props);
     }
 
-    hookedAddEventListener = (target: typeof window| typeof document, eventName: SemiUsedEvent, callback: ((e: Event) => void))=>{
+    hookedAddEventListener = (target: SemiEventTarget, eventName: SemiUsedEvent, callback: (Callback) & {_function?: Callback}) => {
         let eventWeakMap: Record<string, WeakRef<(e: Event) => void>[]>;
-        if (target===window) {
+        if (target === window) {
             eventWeakMap = BaseComponent.windowEventWeakMap;
-        } else if (target===document) {
+        } else if (target === document) {
             eventWeakMap = BaseComponent.documentEventWeakMap;
         }
+        callback._function = (e)=>{
+            if (this.componentIsMounted) {
+                callback(e);
+            }
+        };
         const weakRef = new WeakRef(callback);
         eventWeakMap[eventName]?.push(weakRef);
         BaseComponent.finalizationRegistry.register(this, {
             target,
-            weakRef: weakRef,
+            weakRef,
             eventName
         });
     }
