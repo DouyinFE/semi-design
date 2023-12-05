@@ -17,7 +17,7 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
-    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started', 'design-to-code'].some(item => slug.includes(item));
+    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started', 'design-to-code', 'chart'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
@@ -30,7 +30,7 @@ const PageAnchor = props => {
                 continue;
             }
             if (Array.isArray(anchorItem.items) && anchorItem.items.length > 0) {
-                if (['Voice and Tone', '语法', 'Grammar and Mechanics'].includes(anchorItem.title)) {
+                if (['Voice and Tone', '语法', 'Grammar and Mechanics', '什么是 vCharts', '适用于 Semi Design 的图表主题包', 'Chart Theme Package for Semi Design'].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}
@@ -38,7 +38,7 @@ const PageAnchor = props => {
                     > 
                         {makeAnchor(anchorItem.items)}
                     </Anchor.Link>);
-                } else if (['与其他方案的差异', 'Comparisons'].includes(anchorItem.title)) {
+                } else if (['与其他方案的差异', 'Comparisons', 'Token 映射', 'Token Mapping'].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}

@@ -53,6 +53,7 @@ import './toUEDUtils/toUED.scss';
 import { debounce } from 'lodash';
 import StickyHeaderTable from '../demos/StickyHeaderTable';
 import { useIsIde } from '../components/useIde';
+import Charts from '../components/VChartDemo';
 
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
@@ -130,6 +131,10 @@ const pre = ({ ...props }) => {
         return <Blocks.pre className={'pre-overview gatsby-overview'} {...props} />;
     }
 
+    if (props.children.props.className === 'language-chart') {
+        return <Blocks.pre className={'pre-chart gatsby-overview'} {...props} />;
+    }
+
     return <Blocks.pre {...props} />;
 };
 
@@ -140,6 +145,10 @@ const code = ({ ...props }) => {
 
     if (props.className === 'language-overview') {
         return <ComponentOverview code={props.children} />;
+    }
+
+    if (props.className === 'language-chart') {
+        return <Charts code={props.children} />;
     }
 
     const scope = {

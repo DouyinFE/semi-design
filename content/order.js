@@ -74,6 +74,7 @@ const order = [
     'toast',
     'configprovider',
     'locale',
+    'chart',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');
