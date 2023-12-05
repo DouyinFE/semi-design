@@ -190,6 +190,7 @@ class Demo extends React.Component {
             {
                 key: '6',
                 start: new Date(2019, 6, 23, 8, 32, 0),
+                end: new Date(2019, 6, 23, 8,42, 0),
                 children: <div style={dailyStyle}>July 23 8:32</div>,
             },
             {
@@ -229,6 +230,7 @@ class Demo extends React.Component {
                     mode={mode}
                     displayValue={displayValue}
                     events={events}
+                    minEventHeight={40}
                     range={mode === 'range' ? [new Date(2019, 6, 23), new Date(2019, 6, 26)] : []}
                 ></Calendar>
             </>
@@ -356,6 +358,7 @@ import { Avatar, Calendar } from '@douyinfe/semi-ui';
 | header       | Header                                                                                                 | React.Node            | -            |
 | height       | Height                                                                                                 | string\|number        | 600          |
 | markWeekend  | Toggle whether to distinguish weekend column with grey background from weekdays                        | boolean               | false        |
+| minEventHeight | The minimum height of events in daily view, multi-day view and weekly view | number | - |
 | mode         | Mode, one of `day`, `week`, `month`, `range`(**>=1.5.0**)                                         | "day" \| "week" \| "month" \| "range" | `week` |
 | onClick      | Callback invoked when clicking on date, basic unit for day and week mode is 0.5h, for month mode is 1d | function(e: Event, date: Date） | -            |
 | onClose | Callback invoked when event display card close in the month mode | function(e: Event） | - |
