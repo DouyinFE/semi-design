@@ -82,6 +82,7 @@ export type TimePickerProps = {
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;
+    stopPropagation: boolean | string;
     style?: React.CSSProperties;
     timeZone?: string | number;
     triggerRender?: (props?: any) => React.ReactNode;
@@ -150,6 +151,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         focusOnOpen: PropTypes.bool,
         autoFocus: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
+        stopPropagation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
         panels: PropTypes.arrayOf(PropTypes.shape(PanelShape)),
         onFocus: PropTypes.func,
         onBlur: PropTypes.func,
@@ -184,6 +186,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         prefixCls: cssClasses.PREFIX,
         inputReadOnly: false,
         style: {},
+        stopPropagation: false,
         className: '',
         popupClassName: '',
         popupStyle: { left: '0px', top: '0px' },
@@ -470,8 +473,10 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             triggerRender,
             motion,
             autoAdjustOverflow,
+            stopPropagation,
             ...rest
         } = this.props;
+        console.log('stopPropagation', stopPropagation);
         const format = this.foundation.getDefaultFormatIfNeed();
         const position = this.foundation.getPosition();
         const useCustomTrigger = typeof triggerRender === 'function';
@@ -534,6 +539,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     motion={motion}
                     margin={dropdownMargin}
                     autoAdjustOverflow={autoAdjustOverflow}
+                    stopPropagation={stopPropagation}
                 >
                     {useCustomTrigger ? (
                         <Trigger

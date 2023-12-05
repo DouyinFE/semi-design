@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import TimePickerPanel from '../index';
-import { TimePicker as BasicTimePicker, Button, Form } from '../../index';
+import { TimePicker as BasicTimePicker, Button, Form, Popover } from '../../index';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
 import { get } from 'lodash';
 
@@ -336,3 +336,18 @@ export const Fix1716 = () => {
 Fix1716.story = {
   name: 'Fix 1716',
 };
+
+export const StopPropagation = () => {
+  return (
+    <Popover 
+      content={
+        <div style={{ padding: 12 }}>
+          <TimePicker insetLabel="每天" style={{ width: '100%' }} stopPropagation={true} />
+        </div>
+      }
+      trigger="click"
+    >
+        <Button>click me</Button>
+    </Popover>
+  );
+}
