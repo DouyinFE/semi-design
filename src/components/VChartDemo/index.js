@@ -10,7 +10,7 @@ const chartHeight = 400;
 
 const Charts = (props) => {
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 30, rowGap: 30, padding: '30px 0 30px 30px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 30, rowGap: 10, padding: '30px 0 30px 30px' }}>
             {charts.map((chart, i) => {
                 return (
                     <div
