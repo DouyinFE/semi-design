@@ -476,7 +476,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
             stopPropagation,
             ...rest
         } = this.props;
-        console.log('stopPropagation', stopPropagation);
         const format = this.foundation.getDefaultFormatIfNeed();
         const position = this.foundation.getPosition();
         const useCustomTrigger = typeof triggerRender === 'function';
