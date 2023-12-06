@@ -8,9 +8,9 @@ typeof window !== 'undefined' && initVChartSemiTheme();
 
 const chartHeight = 400;
 
-const Charts = () => {
+const Charts = (props) => {
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 30, rowGap: 30, padding: '30px 0 30px 30px', height: 900, overflow: 'auto' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 30, rowGap: 30, padding: '30px 0 30px 30px' }}>
             {charts.map((chart, i) => {
                 return (
                     <div
@@ -22,6 +22,7 @@ const Charts = () => {
                             boxSizing: "border-box"
                         }}
                     >
+                        <h4>{props.zh ? chart.titleZh : chart.title}</h4>
                         <div
                             className="chartContainer"
                             style={{ outline: `1px solid #404349` }}

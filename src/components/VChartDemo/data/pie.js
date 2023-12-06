@@ -1,5 +1,6 @@
 export default {
     title: 'Pie Chart',
+    titleZh: "饼图",
     spec: {
         type: 'pie',
         data: [

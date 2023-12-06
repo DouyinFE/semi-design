@@ -1,5 +1,6 @@
 export default {
     title: "Gauge Chart",
+    titleZh: "仪表图",
     spec: {
         type: "gauge",
         data: [

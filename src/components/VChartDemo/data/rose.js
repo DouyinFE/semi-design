@@ -1,5 +1,6 @@
 export default {
     title: 'Rose Chart',
+    titleZh: "玫瑰图",
     spec: {
         type: 'rose',
         data: {

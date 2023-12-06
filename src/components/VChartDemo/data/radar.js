@@ -1,5 +1,6 @@
 export default {
     title: 'Radar Chart',
+    titleZh: "雷达图",
     spec: {
         type: 'radar',
         data: [

@@ -106,5 +106,6 @@ const spec = {
 
 export default {
     title: 'Heatmap Chart',
+    titleZh: "热力图",
     spec
 };

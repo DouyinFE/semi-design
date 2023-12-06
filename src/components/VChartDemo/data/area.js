@@ -1,5 +1,6 @@
 export default {
     title: 'Area Chart',
+    titleZh: "面积图",
     spec: {
         type: 'area',
         data: {

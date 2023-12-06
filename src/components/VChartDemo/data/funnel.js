@@ -1,5 +1,6 @@
 export default {
     title: 'Funnel Chart',
+    titleZh: "漏斗图",
     spec: {
         type: 'funnel',
         categoryField: 'name',

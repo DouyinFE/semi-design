@@ -45,6 +45,7 @@ const DURATION = 300;
 
 export default {
     title: 'Scatter Chart',
+    titleZh: "散点图",
     spec: {
         type: 'common',
         player: {

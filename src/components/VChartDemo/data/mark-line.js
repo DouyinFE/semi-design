@@ -1,5 +1,6 @@
 export default {
     title: 'Mark Line',
+    titleZh: "数据标注线",
     spec: {
         type: 'scatter',
         xField: 'x',

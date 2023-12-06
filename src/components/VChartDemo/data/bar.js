@@ -1,5 +1,6 @@
 export default {
     title: 'Bar Chart',
+    titleZh: "条形图",
     spec: {
         type: 'bar',
         direction: 'horizontal',

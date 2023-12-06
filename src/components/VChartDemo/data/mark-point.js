@@ -1,5 +1,6 @@
 export default {
     title: 'Mark Point',
+    titleZh: "数据标注点",
     spec: {
         type: 'line',
         xField: 'year',

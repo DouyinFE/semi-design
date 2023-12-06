@@ -1,5 +1,6 @@
 export default {
     title: 'Mark Area',
+    titleZh: "数据标注区域",
     spec: {
         type: 'line',
         xField: 'Date',
