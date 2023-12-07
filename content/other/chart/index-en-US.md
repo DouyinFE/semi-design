@@ -49,7 +49,7 @@ yarn add @visactor/vchart-semi-theme
 
 ### 2.Usage
 
-To adapt VCharts to the Semi theme/user-defined themes, you only need to execute the `initVChartSemiTheme` method once globally for initialization. This statement is typically placed in the entry file of your React project. Here's an example:
+To adapt VChart to the Semi theme/user-defined themes, you only need to execute the `initVChartSemiTheme` method once globally for initialization. This statement is typically placed in the entry file of your React project. Here's an example:
 
 ```javascript
 //index.jsx
@@ -137,7 +137,7 @@ const App = () => {
 
 ## Configuring VChart Theme
 
-VChart supports overall configuration and reuse of chart themes. For more details, please refer to [VChart Theme Concept and Design Guidelines](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules). The most important aspect of theme configuration is the color palette. VChart supports two types of palettes: data palettes and semantic palettes. VChart retrieves tokens from the Semi theme/user-defined theme through `@visactor/vchart-semi-theme` and maps them to the data and semantic palettes of VChart themes, achieving compatibility with the Semi default theme/user-defined theme. If you want to configure VChart themes in a project based on Semi, you can use DSM to set the corresponding tokens for data palettes and semantic palettes.
+VChart supports overall configuration and reuse of chart themes. For more details, please refer to [VChart Theme Concept and Design Guidelines](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules). The most important aspect of theme configuration is the color palette. VChart supports two types of palettes: data palettes and semantic palettes. VChart retrieves tokens from the Semi theme/user-defined theme through `@visactor/vchart-semi-theme` and maps them to the data and semantic palettes of VChart themes, achieving compatibility with the Semi default theme/user-defined theme. If you want to configure VChart themes in a project based on Semi, you can use [DSM](https://semi.design/dsm/) to set the corresponding tokens for data palettes and semantic palettes.
 
 ### Data Palette
 
@@ -149,13 +149,13 @@ The data palette in VChart can also be dynamic and progressive. In general, the 
 
 ![data palette](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/vchart-data-color-en.png)
 
-Semi Design has defined 20 tokens corresponding to the data palette for VChart, as shown in the table below. Users can customize the data palette of VChart by configuring these tokens when customizing themes in DSM (Design System Manager). These 20 tokens represent a palette of 20 colors, and the tokens with names like --semi-color-data-n(where n is 0, 2, 4, 6, 8, 10, 12, 14, 16, 18) represent a palette of 10 colors.
+Semi Design has defined 20 tokens corresponding to the data palette for VChart, as shown in the table below. Users can customize the data palette of VChart by configuring these tokens when customizing themes in DSM. These 20 tokens represent a palette of 20 colors, and the tokens with names like --semi-color-data-n(where n is 0, 2, 4, 6, 8, 10, 12, 14, 16, 18) represent a palette of 10 colors.
 
 <DesignToken componentName='global' reg={/--semi-color-data/} hasTab={false}/>
 
 #### Semantic Color Palette
 
-The semantic Color palette primarily defines the common styles for chart components, such as background color, border, sliders, pop-ups, fonts, and text color. The `@visactor/vchart-semi-theme` package automatically crawls the token values of similar scenarios in the current Semi theme in the page environment to generate the VChart chart theme. <strong>Users who configure themes in the Semi DSM usually do not need to consider additional configurations in this aspect</strong>.
+The semantic Color palette primarily defines the common styles for chart components, such as background color, border, sliders, pop-ups, fonts, and text color. The `@visactor/vchart-semi-theme` package automatically crawls the token values of similar scenarios in the current Semi theme in the page environment to generate the VChart chart theme. <strong>Users who configure themes in the DSM usually do not need to consider additional configurations in this aspect</strong>.
 
 For more information, please refer to the following two documents:
 

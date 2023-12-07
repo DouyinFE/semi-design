@@ -142,7 +142,7 @@ const App = () => {
 
 ## 配置 VChart 主题
 
-VChart 支持对图表主题的整体配置和复用，详见 [VChart 主题概念和设计规范](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)。 主题配置中最主要的是色板的配置。VChart 支持的色板分为两大类，数据色板和语义色板。VChart 通过 `@visactor/vchart-semi-theme` 获取 Semi 主题/用户自定义主题中的 token，并映射到 VChart 主题的数据色板和语义色板中，从而实现和 Semi 默认主题/用户自定义主题的适配。基于 Semi 的项目如果想要配置 VCharts 主题，可以通过 DSM 设置数据色板和语义色板相应的 token。
+VChart 支持对图表主题的整体配置和复用，详见 [VChart 主题概念和设计规范](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)。 主题配置中最主要的是色板的配置。VChart 支持的色板分为两大类，数据色板和语义色板。VChart 通过 `@visactor/vchart-semi-theme` 获取 Semi 主题/用户自定义主题中的 token，并映射到 VChart 主题的数据色板和语义色板中，从而实现和 Semi 默认主题/用户自定义主题的适配。基于 Semi 的项目如果想要配置 VCharts 主题，可以通过 [DSM](https://semi.design/dsm/) 设置数据色板和语义色板相应的 token。
 
 ### 数据色板
 
@@ -160,7 +160,7 @@ Semi Design 为 VChart 声明了数据色板对应的 20 个 token， 详见下�
 
 ### 语义色板
 
-语义色板中主要定义了图表组件的公共样式，比如背景色、边框、滑块、弹层、字体、字色等。`@visactor/vchart-semi-theme` 也会自动在页面环境爬取当前 Semi 主题的类似场景的 token 值来自动生成 VChart 图表主题。在 Semi DSM 配置主题的用户，<strong>通常无需额外考虑此部分的配置</strong>。
+语义色板中主要定义了图表组件的公共样式，比如背景色、边框、滑块、弹层、字体、字色等。`@visactor/vchart-semi-theme` 也会自动在页面环境爬取当前 Semi 主题的类似场景的 token 值来自动生成 VChart 图表主题。在 DSM 配置主题的用户，<strong>通常无需额外考虑此部分的配置</strong>。
 
 更多信息可以参阅以下两篇文档：
 
