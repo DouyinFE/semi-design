@@ -325,7 +325,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const { children } = this.props;
         // wait until element mounted
         if (!this.wrapperRef || !this.wrapperRef.current) {
-            this.onResize();
+            await this.onResize();
             return;
         }
         const { expanded } = this.state;
