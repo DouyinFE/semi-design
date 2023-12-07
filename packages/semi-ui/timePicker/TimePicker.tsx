@@ -186,7 +186,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         prefixCls: cssClasses.PREFIX,
         inputReadOnly: false,
         style: {},
-        stopPropagation: false,
+        stopPropagation: true,
         className: '',
         popupClassName: '',
         popupStyle: { left: '0px', top: '0px' },
