@@ -104,7 +104,8 @@ export {
     FixedResizableRowSelection,
     SorterSortOrder,
     FixedPagination,
-    ShowHeader
+    ShowHeader,
+    KeepDOM
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

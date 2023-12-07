@@ -4991,6 +4991,7 @@ render(App);
 | groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element | string\|number<br/>\|(record: any) => string\|number |  | **0.29.0** |
 | hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on | boolean | true |
 | indentSize | indent size of TableCell | number | 20 |
+| keepDOM | Whether to not destroy the collapsed DOM when folding a row | boolean | false |
 | loading | Table is loading or not | boolean | false |
 | pagination | Paging component configuration | boolean\|TablePaginationProps | true |
 | prefixCls | Style name prefix | string |  |
