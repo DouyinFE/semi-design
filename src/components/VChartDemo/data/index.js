@@ -20,7 +20,7 @@ export const charts = [
     rose,
     radar,
     scatter,
-    heatmap,
+    // heatmap,
     gauge,
     funnel,
     markArea,
