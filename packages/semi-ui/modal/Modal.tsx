@@ -75,7 +75,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         getPopupContainer: PropTypes.func,
         getContainerContext: PropTypes.func,
         maskFixed: PropTypes.bool,
-        closeIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        closeIcon: PropTypes.node,
         closeOnEsc: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
         keepDOM: PropTypes.bool,

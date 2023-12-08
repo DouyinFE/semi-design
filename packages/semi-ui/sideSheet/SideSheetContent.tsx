@@ -39,7 +39,7 @@ export interface SideSheetContentProps {
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
     static propTypes = {
         onClose: PropTypes.func,
-        closeIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        closeIcon: PropTypes.node,
     };
 
     static defaultProps = {
