@@ -1,5 +1,6 @@
 import { Icon, SideSheet, Modal } from '../../index';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
+import { IconEyeClosed } from '@douyinfe/semi-icons';
 // import toJson from 'enzyme-to-json';
 
 function getSideSheet(SideSheetProps, children) {
@@ -314,6 +315,15 @@ describe('SideSheet', () => {
         sideSheet.update(); // 必须调用一次update
         expect(sideSheet.exists(`div.${BASE_CLASS_PREFIX}-sidesheet`)).toEqual(false);
         sideSheet.unmount();
+    });
+
+    it('closeIcon', () => {
+        let com = getSideSheet({
+            visible: true,
+            closeIcon: (<IconEyeClosed />)
+        });
+        let sideSheet = mount(com, { attachTo: document.getElementById('container') });
+        expect(sideSheet.find(`.${BASE_CLASS_PREFIX}-icon-eye_closed`).length).toBe(1);
     });
 
 })
