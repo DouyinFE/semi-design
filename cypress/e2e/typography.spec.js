@@ -11,7 +11,7 @@ describe('typography', () => {
 
     });
 
-    it.only('ellipsis from center', () => {
+    it('ellipsis from center', () => {
         cy.visit('http://localhost:6006/iframe.html?args=&id=typography--ellipsis-from-center');
         cy.viewport(800, 1000);
         cy.get('[data-cy=nowrap-middile-ellipsis1]').should('contain', '...');
