@@ -71,6 +71,23 @@ import { Avatar } from '@douyinfe/semi-ui';
 );
 ```
 
+### 自适应字符大小
+
+字符类型的头像，字体大小会根据头像宽度自适应调整。使用`gap`调整字符头像距离左右两侧的像素大小。
+
+```jsx live=true
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+() => (
+    <div>
+        <Avatar style={{ margin: 4 }}>AS</Avatar>
+        <Avatar style={{ margin: 4 }} gap={4}>Semi</Avatar>
+        <Avatar style={{ margin: 4 }} gap={10}>Semi</Avatar>
+    </div>
+);
+```
+
 ### 图片
 
 可以通过 `src` 设置图片格式的头像。
@@ -268,6 +285,7 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 | className | 类名 | string | - |
 | color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
 | hoverMask | hover 时头像内容覆盖层 | ReactNode | - |
+| gap | 字符头像距离左右两侧的像素大小 | number| 3 |
 | imgAttr | 原生 img 属性 **>=1.5.0** | React.ImgHTMLAttributes<HTMLImageElement\> | - |
 | shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
 | size | 设置头像的大小，支持 `extra-extra-small`、`extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |

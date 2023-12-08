@@ -336,3 +336,9 @@ export const Fix1716 = () => {
 Fix1716.story = {
   name: 'Fix 1716',
 };
+
+export const Fix1953 = () => {
+  return (
+    <TimePicker format={'HH'} defaultValue={'10'}/>
+  );
+};

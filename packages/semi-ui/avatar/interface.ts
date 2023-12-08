@@ -30,6 +30,7 @@ export interface AvatarProps extends BaseProps {
     src?: string;
     srcSet?: string;
     alt?: string;
+    gap?: number;
     onError?: React.MouseEventHandler;
     onClick?: React.MouseEventHandler;
     onMouseEnter?: React.MouseEventHandler;

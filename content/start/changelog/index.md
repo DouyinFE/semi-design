@@ -13,6 +13,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.48.0 (2023-12-01)
+- 【Fix】
+    - 修复 TimePicker format 为 HH 时，defaultValue 设置不正确问题。（注意：若原先 default 或 value 传入的值类型不合法，例如数字格式的时间戳以字符串形式传入，将不再尝试进行类型转换）
+- 【Docs】
+    - 增加 @douyinfe/semi-icons-lab 的使用说明
+
+
+
+#### 🎉 2.48.0-beta.0 (2023-11-27)
+- 【Feat】
+    - Slider 新增 `showMarkLabel` 控制 label 显隐， `tooltipOnMark` 在 mark 上显示 tooltip，`showArrow` 控制 tooltip 的三角形显隐
+    - 字符串类型头像，字符长度可根据头像宽度自动调整  [#1917 ](https://github.com/DouyinFE/semi-design/issues/1917) [@LonelySnowman](https://github.com/LonelySnowman)
+- 【Fix】
+    - 修复虚拟化表格 showHeader 为 false 时表格体渲染空问题  [#726](https://github.com/DouyinFE/semi-design/issues/726)
+    - 修复 Input 仅使用 addOnBefore 的情况下 borderRadius 不正确的问题  [#1912 ](https://github.com/DouyinFE/semi-design/issues/1912)
 
 #### 🎉 2.47.1 (2023-11-28)
 - 【Fix】

@@ -16,7 +16,23 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.48.1 (2023-11-28)
+#### 🎉 2.48.0 (2023-12-01)
+- 【Fix】
+    - fixed the issue of incorrect defaultValue setting when TimePicker format is HH. (Note: If the value type originally passed in default or value is illegal, for example, a timestamp in numeric format is passed in in string form, type conversion will no longer be attempted)
+- 【Docs】
+    - add @douyinfe/semi-icons-lab description
+
+
+
+#### 🎉 2.48.0-beta.0 (2023-11-27)
+- 【Feat】
+    - Slider adds `showMarkLabel` to control the visibility of the label, `tooltipOnMark` to display the tooltip on the mark, and `showArrow` to control the visibility of the tooltip triangle.
+    - String type avatar, the character length can be automatically adjusted according to the width of the avatar [#1917](https://github.com/DouyinFE/semi-design/issues/1917) [@LonelySnowman](https://github.com/LonelySnowman )
+- 【Fix】
+    - fixed virtualized Table showHeader bug [#726](https://github.com/DouyinFE/semi-design/issues/726)
+   
+
+#### 🎉 2.47.1 (2023-11-28)
 - 【Fix】
     - Fixed the problem of incorrect list filtering after filter when Option is used in Select Group grouping scenario and the key attribute is not explicitly declared. Effect version range: v2.46.0 ~ v2.47.0 [#1939](https://github.com/DouyinFE/semi-design/pull/1939)
     - Fix the problem of clicking on Dropdown item when there is no onClick. Effect version v2.47.0 [#1936](https://github.com/DouyinFE/semi-design/issues/1936)
