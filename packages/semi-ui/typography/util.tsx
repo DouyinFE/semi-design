@@ -80,8 +80,6 @@ const getRenderText = (
     // Check if ellipsis in measure div is enough for content
     function inRange() {
         // If content does not wrap due to line break strategy, width should be judged to determine whether it's in range
-        // Note that we cannot achieve that by detecting whitespace: nowrap and compare width
-        // Because even when whitespace is not set, the text may still not wrap
         const widthInRange = ellipsisContainer.scrollWidth <= ellipsisContainer.offsetWidth;
         const heightInRange = ellipsisContainer.scrollHeight < maxHeight;
 
