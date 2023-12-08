@@ -8,7 +8,8 @@ interface Props {
     componentName?: string;
     isColorPalette?: boolean;
     reg?: RegExp;
-    isAnimation?: boolean
+    isAnimation?: boolean;
+    hasTab?: boolean
 }
 
 interface Token {
@@ -128,7 +129,7 @@ const TokenTab = ({ designToken, componentName }: { designToken: DesignToken; co
     );
 };
 
-const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: { designToken: DesignToken; isColorPalette?: boolean; reg: RegExp }): React.ReactElement => {
+const GlobalTokenTab = ({ designToken, isColorPalette = false, reg, hasTab: hasTabInProps = true }: { designToken: DesignToken; isColorPalette?: boolean; reg: RegExp; hasTab?: boolean }): React.ReactElement => {
     const { global, palette, normal } = designToken.global;
     const [currentTab, setCurrentTab] = useState<'light' | 'dark'>('light');
     const [hasTab, setHasTab] = useState(true);
@@ -152,7 +153,7 @@ const GlobalTokenTab = ({ designToken, isColorPalette = false, reg }: { designTo
 
     return (
         <>
-            {hasTab ? (
+            {hasTab && hasTabInProps? (
                 <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key: typeof currentTab): void => setCurrentTab(key)}>
                     <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />
                 </Tabs>
@@ -228,7 +229,7 @@ const DesignToken = (props: Props): React.ReactElement => {
     return (
         <div>
             {designToken && componentName && !props.isAnimation && (props.componentName === 'global' ?
-                <GlobalTokenTab designToken={designToken} reg={props.reg} isColorPalette={props.isColorPalette} /> :
+                <GlobalTokenTab designToken={designToken} reg={props.reg} isColorPalette={props.isColorPalette} hasTab={props?.hasTab}/> :
                 <TokenTab designToken={designToken} componentName={componentName} />)}
 
             {
