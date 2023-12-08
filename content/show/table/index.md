@@ -4984,6 +4984,7 @@ render(App);
 | className | 最外层样式名 | string |  |
 | clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起 | boolean |  | **0.29.0** |
 | columns | 表格列的配置描述，详见[Column](#Column) | Column[] | [] |
+| components | 覆盖 Table 的组成元素，如 table, body，row，td，th 等 | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
 | dataSource | 数据 | RecordType[] | [] |
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效 | boolean | false |
 | defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效 | boolean | false | **1.30.0** |
