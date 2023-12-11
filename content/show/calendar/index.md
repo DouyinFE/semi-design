@@ -182,6 +182,7 @@ class Demo extends React.Component {
             {
                 key: '6',
                 start: new Date(2019, 6, 23, 8, 32, 0),
+                end: new Date(2019, 6, 23, 8, 42, 0),
                 children: <div style={dailyStyle}>7月23日 8:32</div>,
             },
             {
@@ -221,6 +222,7 @@ class Demo extends React.Component {
                     mode={mode}
                     displayValue={displayValue}
                     events={events}
+                    minEventHeight={40}
                     range={mode === 'range' ? [new Date(2019, 6, 23), new Date(2019, 6, 26)] : []}
                 ></Calendar>
             </>
@@ -333,6 +335,7 @@ import { Avatar, Calendar } from '@douyinfe/semi-ui';
 | header | 自定义头部内容 | ReactNode | - |
 | height | 日历高度 | string\|number | 600 |
 | markWeekend | 区分周末列和工作日，以灰色显示 | boolean | false |
+| minEventHeight | 日视图、多日视图以及周视图下事件的最小高度(**>=2.49.0**) | number | Number.MIN_SAFE_INTEGER |
 | mode | 初始模式，`day`, `week`, `month`, `range`(**>=1.5.0**) | "day" \| "week" \| "month" \| "range" | `week` |
 | onClick | 单击日期格的回调，日视图和周视图以半小时为单位，月视图以日为单位 | function(e: Event, date: Date） | - |
 | onClose | 月视图下，展示所有 event 的卡片关闭时的回调 | function(e: Event） | - |

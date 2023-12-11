@@ -308,6 +308,7 @@ class Demo extends React.Component {
 | bodyStyle | 面板内容的样式                                                                       | CSSProperties | - | - |
 | className | 类名                                                                            | string | - | - |
 | closable | 是否允许通过右上角的关闭按钮关闭                                                              | boolean | true | - |
+| closeIcon | 关闭按钮的 icon                                                                 | ReactNode | <IconClose /\> | - |
 | closeOnEsc | 允许通过键盘事件 Esc 触发关闭                                                             | boolean | false | 1.0.0 |
 | disableScroll | 默认渲染在 document.body 层时是否禁止 body 的滚动，即给 body 添加 `overflow: hidden`             | boolean | true | - |
 | footer | 侧边栏底部                                                                         | ReactNode | null | 1.3.0 |
