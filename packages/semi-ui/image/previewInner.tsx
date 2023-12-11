@@ -173,11 +173,11 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     context: PreviewContextProps;
     foundation: PreviewInnerFoundation;
-    imageWrapRef: any;
-    headerRef: any;
-    footerRef: any;
-    leftIconRef: any;
-    rightIconRef: any;
+    imageWrapRef: React.RefObject<HTMLDivElement>;
+    headerRef: React.RefObject<HTMLElement>;
+    footerRef: React.RefObject<HTMLElement>;
+    leftIconRef: React.RefObject<HTMLDivElement>;
+    rightIconRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: PreviewInnerProps) {
         super(props);
@@ -199,9 +199,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.scrollBarWidth = 0;
         this.imageWrapRef = null;
         this.headerRef = React.createRef<HTMLElement>();
-        this.footerRef= React.createRef();
-        this.leftIconRef= React.createRef<HTMLElement>();
-        this.rightIconRef= React.createRef<HTMLElement>();
+        this.footerRef= React.createRef<HTMLElement>();
+        this.leftIconRef= React.createRef<HTMLDivElement>();
+        this.rightIconRef= React.createRef<HTMLDivElement>();
     }
 
     static getDerivedStateFromProps(props: PreviewInnerProps, state: PreviewInnerStates) {
@@ -438,7 +438,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                             </div>
                         )}
                         <Footer
-                            ref={this.footerRef}
+                            forwardRef={this.footerRef}
                             className={hideViewerCls}
                             totalNum={total}
                             curPage={currentIndex + 1}

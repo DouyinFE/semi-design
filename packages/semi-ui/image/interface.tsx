@@ -148,7 +148,8 @@ export interface FooterProps extends SliderProps {
     onAdjustRatio?: (type: RatioType) => void;
     onRotate?: (direction: string) => void;
     onDownload?: () => void;
-    renderPreviewMenu?: (props: MenuProps) => ReactNode
+    renderPreviewMenu?: (props: MenuProps) => ReactNode;
+    forwardRef?: React.RefObject<HTMLElement>
 }
 
 export interface PreviewImageProps {

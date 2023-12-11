@@ -270,7 +270,7 @@ export default class Footer extends BaseComponent<FooterProps> {
     }
 
     render() {
-        const { className, renderPreviewMenu } = this.props;
+        const { className, renderPreviewMenu, forwardRef } = this.props;
 
         const menuCls = cls(footerPrefixCls, `${footerPrefixCls}-wrapper`, className,
             {
@@ -279,7 +279,7 @@ export default class Footer extends BaseComponent<FooterProps> {
         );
 
         return (
-            <section className={menuCls} >
+            <section className={menuCls} ref={forwardRef}>
                 {renderPreviewMenu ? this.customRenderViewMenu() : this.getFooterMenu()}
             </section>
         );

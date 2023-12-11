@@ -56,7 +56,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
     }
 
-    handleMouseMove = (e: any) => {
+    handleMouseMove = (e) => {
+        this._persistEvent(e);
+        this.mouseMoveHandler(e);
+    }
+    
+    mouseMoveHandler = throttle((e: any) => {
         const { viewerVisible } = this.getStates();
         const isValidTarget = this._adapter.isValidTarget(e);
         if (isValidTarget) {
@@ -69,7 +74,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         } else {
             this.clearTimer();
         }
-    };
+    }, 50);
 
     updateTimer = () => {
         const { viewerVisibleDelay } = this.getProps();
