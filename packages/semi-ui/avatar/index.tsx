@@ -18,7 +18,8 @@ export * from './interface';
 export interface AvatarState {
     isImgExist: boolean;
     hoverContent: React.ReactNode;
-    focusVisible: boolean
+    focusVisible: boolean;
+    scale: number
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
@@ -26,6 +27,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         size: 'medium',
         color: 'grey',
         shape: 'circle',
+        gap: 3,
         onClick: noop,
         onMouseEnter: noop,
         onMouseLeave: noop,
@@ -40,6 +42,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         hoverMask: PropTypes.node,
         className: PropTypes.string,
         style: PropTypes.object,
+        gap: PropTypes.number,
         imgAttr: PropTypes.object,
         src: PropTypes.string,
         srcSet: PropTypes.string,
@@ -51,18 +54,21 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     };
 
     foundation!: AvatarFoundation;
+    avatarRef: React.RefObject<HTMLElement | null>;
     constructor(props: AvatarProps) {
         super(props);
         this.state = {
             isImgExist: true,
             hoverContent: '',
             focusVisible: false,
+            scale: 1,
         };
         this.onEnter = this.onEnter.bind(this);
         this.onLeave = this.onLeave.bind(this);
         this.handleError = this.handleError.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.getContent = this.getContent.bind(this);
+        this.avatarRef = React.createRef();
     }
 
     get adapter(): AvatarAdapter<AvatarProps, AvatarState> {
@@ -88,6 +94,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             setFocusVisible: (focusVisible: boolean): void => {
                 this.setState({ focusVisible });
             },
+            setScale: (scale: number) => {
+                this.setState({ scale });
+            },
+            getAvatarNode: () => {
+                return this.avatarRef?.current;
+            }
         };
     }
 
@@ -109,6 +121,9 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             image.onabort = () => {
                 this.setState({ isImgExist: false });
             };
+        }
+        if (typeof this.props.children === "string" && this.props.children !== prevProps.children) {
+            this.foundation.changeScale();
         }
     }
 
@@ -189,8 +204,11 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 ),
             };
             const finalProps = clickable ? { ...props, ...a11yFocusProps } : props;
+            const stringStyle: React.CSSProperties = {
+                transform: `scale(${this.state.scale})`,
+            };
             content = (
-                <span className={`${prefixCls}-content`}>
+                <span className={`${prefixCls}-content`} style={stringStyle}>
                     <span {...finalProps} x-semi-prop="children">{children}</span>
                 </span>
             );
@@ -199,7 +217,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
     }
 
     render() {
-        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, ...others } = this.props;
+        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, gap, ...others } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
         const isImg = src && isImgExist;
         const avatarCls = cls(
@@ -225,6 +243,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 onMouseEnter={this.onEnter as any}
                 onMouseLeave={this.onLeave as any}
                 role='listitem'
+                ref={this.avatarRef}
             >
                 {this.getContent()}
                 {hoverRender}

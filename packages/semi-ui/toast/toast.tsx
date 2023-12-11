@@ -43,7 +43,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         showClose: PropTypes.bool,
         stack: PropTypes.bool,
         stackExpanded: PropTypes.bool,
-        icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        icon: PropTypes.node,
         direction: PropTypes.oneOf(strings.directions),
     };
 

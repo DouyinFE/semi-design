@@ -42,9 +42,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
     const srcScssModuleUse = [];
     const srcScssUse = [];
     const srcCssUse = [];
-    const semiDvScssUse = [];
 
-    const semiDvJsxRule = [];
 
     // for semi
     semiOptions.scssUse = [
@@ -87,7 +85,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
     srcScssUse.push(cssLoader({ importLoaders: 2 }), loaders.postcss(), sassLoader());
     srcCssUse.push(cssLoader({ importLoaders: 1 }), loaders.postcss());
     if (!isSSR) {
-        [semiOptions.scssUse, semiOptions.cssUse, srcScssModuleUse, srcScssUse, srcCssUse, semiDvScssUse].forEach(
+        [semiOptions.scssUse, semiOptions.cssUse, srcScssModuleUse, srcScssUse, srcCssUse].forEach(
             arr => {
                 arr.unshift(miniCssExtract());
             }
@@ -103,6 +101,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
+                '@douyinfe/semi-icons-lab': resolve('packages/semi-icons-lab/src/'),
                 '@douyinfe/semi-theme-default': resolve('packages/semi-theme-default'),
                 '@douyinfe/semi-illustrations': resolve('packages/semi-illustrations/src/'),
                 '@douyinfe/semi-animation-react': resolve('packages/semi-animation-react/'),
@@ -117,7 +116,6 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
         },
         module: {
             rules: [
-                ...semiDvJsxRule,
                 {
                     include: [path.resolve(__dirname, 'src')],
                     oneOf: [
@@ -173,7 +171,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
             "process.env.SEMI_SITE_UNIVERS_WEBVIEW": JSON.stringify(process.env.SEMI_SITE_UNIVERS_WEBVIEW),
             'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
-            "ASSET_PREFIX":JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}`: ""),
+            "ASSET_PREFIX": JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}`: ""),
         })],
     });
 };
@@ -306,12 +304,12 @@ exports.onPostBuild = async () => {
     for (let file of htmlAndJSFiles) {
         const stats = fs.statSync(file);
         if (stats.isFile()) {
-            if (file.includes("public/editor")){
+            if (file.includes("public/editor")) {
                 continue;
             }
             let content = fs.readFileSync(file, 'utf8');
             let result = content.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=>{
-                if (replacedNameSet.has(p1) && !/^\d+$/.test(p1)){
+                if (replacedNameSet.has(p1) && !/^\d+$/.test(p1)) {
                     const newFileName = `${p1}.${hash}.json`;
                     console.log(`Add hash to json in ${file} from ${p1}.json to ${newFileName} ..`);
                     return newFileName;
@@ -330,19 +328,19 @@ exports.onPostBuild = async () => {
     //only match nav json (only number)
     const jsonFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
     for (let file of jsonFiles) {
-        if (file.includes("public/editor")){
+        if (file.includes("public/editor")) {
             continue;
         }
         const stats = fs.statSync(file);
         if (stats.isFile()) {
             console.log("Notice: Add Hash to JSON File "+ file);
-            if (file.includes("public/editor")){
+            if (file.includes("public/editor")) {
                 continue;
             }
             let result = fs.readFileSync(file, 'utf8');
 
-            for (let name of replacedNameSet){
-                if (/^\d+$/.test(name)){
+            for (let name of replacedNameSet) {
+                if (/^\d+$/.test(name)) {
                     result = result.replaceAll(name, `${name}${numHash}`);
                 }
 
@@ -362,7 +360,7 @@ exports.onPostBuild = async () => {
             const fileNameWithoutExt = filename.split('.')[0];
             const originHash = fileNameWithoutExt.split('-').at(-1);
 
-            if (originHash && originHash!==fileNameWithoutExt){
+            if (originHash && originHash!==fileNameWithoutExt) {
                 let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
                 replaceNames[originHash] = `${originHash}${numHash}`;
                 fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js`));
@@ -396,7 +394,7 @@ exports.onPostBuild = async () => {
             const originHash = fileNameWithoutExt.split('.').at(-1);
 
 
-            if (originHash && originHash!==fileNameWithoutExt){
+            if (originHash && originHash!==fileNameWithoutExt) {
                 let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
                 replaceNames[originHash] = `${originHash}${numHash}`;
                 fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.css`));
