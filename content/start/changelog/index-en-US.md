@@ -16,25 +16,26 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
 #### 🎉 2.49.0-beta.0 (2023-12-11)
--【Feat】
-     - Table supports keepDOM and does not destroy folded rows when folding [#1969](https://github.com/DouyinFE/semi-design/pull/1969)
-     - Calendar adds the minEventHeight api to support the display of the event dom structure with a minimum height when the event start and end are very close in day, multi-day and week views [#702](https://github.com/DouyinFE/semi-design/issues/702)
-     - Timepicker adds stopPropagation to determine whether to prevent click events on the popup layer from bubbling [#1966](https://github.com/DouyinFE/semi-design/pull/1966)
-     - The SideSheet component supports custom closeIcon [@LonelySnowman](https://github.com/LonelySnowman) [#1948](https://github.com/DouyinFE/semi-design/issues/1948)
--【Fix】
-     - Fixed the issue where the tooltip on the Slider handle occasionally flickers when dragging [#1935](https://github.com/DouyinFE/semi-design/pull/1935)
-     - Fixed typography JS truncation calculation error for non-wrapped text [@marshcat0](https://github.com/marshcat0)
-     - Fixed the issue where Radio pure card clicks on the hotspot incorrectly under Safari [@nekocode](https://github.com/nekocode) [#1959](https://github.com/DouyinFE/semi-design/issues/1959)
--【Docs】
-     - Add VChart chart introduction
+- 【Feat】
+    - Table supports keepDOM and does not destroy folded rows when folding [#1969](https://github.com/DouyinFE/semi-design/pull/1969)
+    - Calendar adds the minEventHeight api to support the display of the event dom structure with a minimum height when the event start and end are very close in day, multi-day and week views [#702](https://github.com/DouyinFE/semi-design/issues/702)
+    - Timepicker adds stopPropagation to determine whether to prevent click events on the popup layer from bubbling [#1966](https://github.com/DouyinFE/semi-design/pull/1966)
+    - The SideSheet component supports custom closeIcon [@LonelySnowman](https://github.com/LonelySnowman) [#1948](https://github.com/DouyinFE/semi-design/issues/1948)
+- 【Fix】
+    - Fixed the issue where the tooltip on the Slider handle occasionally flickers when dragging [#1935](https://github.com/DouyinFE/semi-design/pull/1935)
+    - Fixed typography JS truncation calculation error for non-wrapped text [@marshcat0](https://github.com/marshcat0)
+    - Fixed the issue where Radio pure card clicks on the hotspot incorrectly under Safari [@nekocode](https://github.com/nekocode) [#1959](https://github.com/DouyinFE/semi-design/issues/1959)
+- 【Docs】
+    - Add VChart chart introduction
+
 
 #### 🎉 2.48.0 (2023-12-01)
 - 【Fix】
     - fixed the issue of incorrect defaultValue setting when TimePicker format is HH. (Note: If the value type originally passed in default or value is illegal, for example, a timestamp in numeric format is passed in in string form, type conversion will no longer be attempted)
 - 【Docs】
     - add @douyinfe/semi-icons-lab description
-
 
 
 #### 🎉 2.48.0-beta.0 (2023-11-27)
