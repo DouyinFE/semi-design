@@ -213,6 +213,87 @@ $module: #{$prefix}-tree;
                 }
             }
         }
+        &-indent {
+            align-self: stretch;
+            white-space: nowrap;
+            user-select: none;
+            &-unit {
+                display: inline-block;
+                width: $spacing-tree_option_level-paddingLeft;
+            }
+        }
+
+        &-indent-show-line {
+            .#{$module}-option-indent-unit {
+                position: relative;
+                height: 100%;
+
+                &::before {
+                    position: absolute;
+                    top: -$spacing-tree_option-paddingTop;
+                    inset-inline-start: calc($width-tree_emptyIcon / 2);
+                    bottom: -$spacing-tree_option-paddingBottom;
+                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                    content: '';
+                }
+
+                &-end {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &-switcher {
+            position: relative;
+            flex: none;
+            align-self: stretch;
+            width: $width-tree_emptyIcon;
+            margin: 0;
+            line-height: $width-tree_emptyIcon;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            margin-right: $spacing-tree_icon-marginRight;
+            &-leaf-line {
+                z-index: 1;
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+
+                &::before {
+                    position: absolute;
+                    top: -$spacing-tree_option-paddingTop;
+                    inset-inline-start: calc($width-tree_emptyIcon / 2);
+                    bottom: -$spacing-tree_option-paddingBottom;
+                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
+                    content: '';
+                }
+
+                &::after {
+                    position: absolute;
+                    width: calc((($width-tree_emptyIcon + $spacing-tree_option-paddingTop) / 2));
+                    height: calc(($width-tree_emptyIcon + $spacing-tree_option-paddingTop) / 2);
+                    border-bottom: $width-tree_option_line solid var(--semi-color-text-3);
+                    content: '';
+                }
+            }
+        }
+
+        &-tree-node-last-leaf {
+            .#{$module}-option-switcher-leaf-line {
+                &::before {
+                    height: calc(
+                        (
+                            $width-tree_emptyIcon / 2 + $spacing-tree_option-paddingTop +
+                                $spacing-tree_option-paddingBottom / 2
+                        )
+                    );
+                }
+            }
+        }
     }
 
     //overwrite draggable option structure
@@ -231,39 +312,6 @@ $module: #{$prefix}-tree;
                 background-color: transparent;
             }
         }
-    }
-
-    .#{$module}-option-indent {
-        align-self: stretch;
-        white-space: nowrap;
-        user-select: none;
-        &-unit {
-            display: inline-block;
-            width: $spacing-tree_option_level-paddingLeft;
-        }
-    }
-    
-    .#{$module}-option-indent-show-line{
-        .#{$module}-option-indent-unit {
-            position: relative;
-            height: 100%;
-
-            &::before {
-                position: absolute;
-                top: -$spacing-tree_option-paddingTop;
-                inset-inline-start: calc($width-tree_emptyIcon / 2);
-                bottom: -$spacing-tree_option-paddingBottom;
-                border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
-                content: '';
-            }
-
-            &-end {
-                &::before {
-                    display: none;
-                }
-            }
-        }
-       
     }
 
     .#{$module}-option-empty {

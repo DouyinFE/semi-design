@@ -10,7 +10,6 @@ interface IndentProps {
 }
 
 const Indent = ({ prefixcls, level, isStart, isEnd, showLine }: IndentProps) => {
-    console.log(showLine, 'showLine');
     const baseClassName = `${prefixcls}-indent-unit`;
     const list: React.ReactElement[] = [];
     for (let i = 0; i < level; i += 1) {

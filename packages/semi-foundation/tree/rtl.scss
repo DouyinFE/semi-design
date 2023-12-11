@@ -39,37 +39,6 @@ $module: #{$prefix}-tree;
             }
         }
 
-        .#{$module}-option-indent {
-            white-space: nowrap;
-            user-select: none;
-            &-unit {
-                display: inline-block;
-                width: $spacing-tree_option_level-paddingLeft;
-            }
-        }
-
-        .#{$module}-option-indent-show-line {
-            .#{$module}-option-indent-unit {
-                position: relative;
-                height: 100%;
-
-                &::before {
-                    position: absolute;
-                    top: -$spacing-tree_option-paddingTop;
-                    inset-inline-start: calc($width-tree_emptyIcon / 2);
-                    bottom: -$spacing-tree_option-paddingBottom;
-                    border-inline-end: $width-tree_option_line solid var(--semi-color-text-3);
-                    content: '';
-                }
-
-                &-end {
-                    &::before {
-                        display: none;
-                    }
-                }
-            }
-        }
-
         .#{$module}-option-label-empty {
             padding-left: auto;
             padding-right: 0;

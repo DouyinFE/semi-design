@@ -204,7 +204,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading, expanded } = this.props;
+        const { loading, expanded, showLine } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
@@ -218,6 +218,9 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                     onClick={this.onExpand}
                 />
             );
+        }
+        if (showLine) {
+            return this.renderSwitcher();
         }
         return (
             <span className={`${prefixcls}-empty-icon`} />
@@ -243,6 +246,18 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             </div>
         );
     }
+
+    // Switcher
+    renderSwitcher = () => {
+        if (this.isLeaf()) {
+            // if switcherIconDom is null, no render switcher span
+            return (<span className={cls(`${prefixcls}-switcher`)} >
+                <span className={`${prefixcls}-switcher-leaf-line`} />
+            </span>);
+
+        }
+        return null;
+    };
 
     renderIcon() {
         const {
@@ -324,7 +339,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             showLine,
             ...rest
         } = this.props;
-        console.log(this.props, 'treeNode');
         if (empty) {
             return this.renderEmptyNode();
         }
@@ -336,6 +350,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             dropPosition,
             labelEllipsis
         } = this.context;
+        const isEndNode = isEnd[isEnd.length - 1];
         const disabled = this.isDisabled();
         const dragOver = dragOverNodeKey === eventKey && dropPosition === 0;
         const dragOverGapTop = dragOverNodeKey === eventKey && dropPosition === -1;
@@ -354,6 +369,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             // When draggable + renderFullLabel is turned on, the style of dragover
             [`${prefixcls}-fullLabel-drag-over-gap-top`]: !disabled && dragOverGapTop && renderFullLabel,
             [`${prefixcls}-fullLabel-drag-over-gap-bottom`]: !disabled && dragOverGapBottom && renderFullLabel,
+            [`${prefixcls}-tree-node-last-leaf`]: isEndNode,
         });
         const labelProps = {
             onClick: this.onClick,
@@ -440,6 +456,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 <span
                     className={labelCls}
                 >
+
                     {multiple ? this.renderCheckbox() : null}
                     {this.renderIcon()}
                     <span className={`${prefixcls}-label-text`}>{this.renderRealLabel()}</span>
