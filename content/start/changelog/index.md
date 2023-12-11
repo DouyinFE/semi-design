@@ -13,6 +13,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.49.0-beta.0 (2023-12-11)
+- 【Feat】
+    - Table 支持 keepDOM，在折叠时不销毁被折叠的行 [#1969](https://github.com/DouyinFE/semi-design/pull/1969)
+    - Calendar 新增 minEventHeight api 以支持在日、多日以及周视图下，当 event start 和 end 非常接近时，event dom 结构存在且有最小高度的展示 [#702](https://github.com/DouyinFE/semi-design/issues/702) 
+    - Timepicker 新增 stopPropagation 用于判断是否阻止弹出层上的点击事件冒泡 [#1966](https://github.com/DouyinFE/semi-design/pull/1966)
+    - SideSheet 组件支持自定义 closeIcon [@LonelySnowman](https://github.com/LonelySnowman) [#1948](https://github.com/DouyinFE/semi-design/issues/1948)
+- 【Fix】
+    - 修复 Slider 把手上的tooltip 在拖动时偶尔闪烁的问题 [#1935](https://github.com/DouyinFE/semi-design/pull/1935)
+    - 修复 Typography JS截断对于不换行文本的计算错误 [@marshcat0](https://github.com/marshcat0)
+    - 修复 Radio pure card 在 Safari 下点击热区不正确的问题 [@nekocode](https://github.com/nekocode) [#1959](https://github.com/DouyinFE/semi-design/issues/1959)
+- 【Docs】
+    - 新增 VChart 图表介绍
+
+
 #### 🎉 2.48.0 (2023-12-01)
 - 【Fix】
     - 修复 TimePicker format 为 HH 时，defaultValue 设置不正确问题。（注意：若原先 default 或 value 传入的值类型不合法，例如数字格式的时间戳以字符串形式传入，将不再尝试进行类型转换）
