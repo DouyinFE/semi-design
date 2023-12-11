@@ -150,8 +150,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             },
             isValidTarget: (e) => {
                 const headerDom = this.headerRef && this.headerRef.current;
-                const footerInstance = this.footerRef && this.footerRef.current;
-                const footerDom = ReactDOM.findDOMNode(footerInstance);
+                const footerDom = this.footerRef && this.footerRef.current;
                 const leftIconDom = this.leftIconRef && this.leftIconRef.current;
                 const rightIconDom = this.rightIconRef && this.rightIconRef.current;
                 const target = e.target as any;
