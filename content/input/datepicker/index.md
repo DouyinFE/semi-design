@@ -892,7 +892,7 @@ function Demo() {
 | startDateOffset | type 为 dateRange 时，设置单击选择范围的开始日期                                                                     | <ApiType detail='(selectedDate?: Date) => Date '>(selectedDate) => Date </ApiType>| - | **1.10.0** |
 | startYear | 滚轮的开始年                                                                                               | number | 当前年前 100 年 | **2.36.0** |
 | endYear | 滚轮的结束年，结束年需要大于开始年                                                                                    | number | 当前年后 100 年 | **2.36.0** |
-| stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                      | boolean | false |  |
+| stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                      | boolean | true |  |
 | style | 自定义样式                                                                                                | CSSProperties |  |  |
 | syncSwitchMonth | 在范围选择的场景中，支持同步切换双面板的月份                                                                               | boolean | false | **1.28.0** |
 | timePickerOpts | 其他可以透传给时间选择器的参数，详见 [TimePicker·API 参考](/zh-CN/input/timepicker#API_参考)                               |  | object | **1.1.0** |
