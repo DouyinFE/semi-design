@@ -3002,11 +3002,16 @@ export const KeyMaps = () => {
 }
 
 
-export const ShowLine = () => (
-  <div>
+export const ShowLine = () => {
+  const [showLine,setShowLine] = useState(true);
+  return (
+    <div>
+    <h2>showLine
+      <Switch checked={showLine} onChange={(checked)=>{setShowLine(checked)}}/>
+    </h2>
     <h2>单选</h2>
     <Tree
-      showLine
+      showLine={showLine}
       treeData={treeDataWithoutValue}
       value="meiguo"
       defaultExpandAll
@@ -3014,7 +3019,7 @@ export const ShowLine = () => (
     />
     <h2>多选</h2>
     <Tree
-      showLine
+      showLine={showLine}
       treeData={[
         {
           label: 'Asia',
@@ -3060,11 +3065,9 @@ export const ShowLine = () => (
       defaultExpandAll
       disableStrictly
     />
-    <h2>virtualize</h2>
-    <DemoV />
   </div>
-
-);
+  )
+}
 
 ShowLine.story = {
   name: 'show line',
