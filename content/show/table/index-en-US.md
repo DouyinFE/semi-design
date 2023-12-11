@@ -4975,6 +4975,7 @@ render(App);
 | className | Outermost style name | string |  |
 | clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked | boolean |  | **0.29.0** |
 | columns | For a configuration description of the table column, see [Column](#Column) | Column [] | [] |
+| components | Override the elements of Table, such as table, body, row, td, th, etc. | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
 | dataSource | Data | RecordType[] | [] |
 | defaultExpandAllRows | All rows are expanded by default | boolean | false |
 | defaultExpandAllGroupRows | All grouped rows are expanded by default | boolean | false | **1.30.0** |

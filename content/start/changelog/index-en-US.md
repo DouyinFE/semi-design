@@ -15,6 +15,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.48.0 (2023-12-01)
+- 【Fix】
+    - fixed the issue of incorrect defaultValue setting when TimePicker format is HH. (Note: If the value type originally passed in default or value is illegal, for example, a timestamp in numeric format is passed in in string form, type conversion will no longer be attempted)
+- 【Docs】
+    - add @douyinfe/semi-icons-lab description
+
+
+
 #### 🎉 2.48.0-beta.0 (2023-11-27)
 - 【Feat】
     - Slider adds `showMarkLabel` to control the visibility of the label, `tooltipOnMark` to display the tooltip on the mark, and `showArrow` to control the visibility of the tooltip triangle.

@@ -351,3 +351,8 @@ export const StopPropagation = () => {
     </Popover>
   );
 }
+export const Fix1953 = () => {
+  return (
+    <TimePicker format={'HH'} defaultValue={'10'}/>
+  );
+};
