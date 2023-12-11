@@ -135,6 +135,10 @@ const pre = ({ ...props }) => {
         return <Blocks.pre className={'pre-chart gatsby-overview'} {...props} />;
     }
 
+    if (props.children.props.className === 'language-chartcontact') {
+        return <Blocks.pre className={'pre-chartcontact gatsby-overview'} {...props} />;
+    }
+
     return <Blocks.pre {...props} />;
 };
 
@@ -149,6 +153,13 @@ const code = ({ ...props }) => {
 
     if (props.className === 'language-chart') {
         return <Charts code={props.children} zh={props.zh} />;
+    }
+
+    if (props.className === 'language-chartcontact') {
+        return <>
+        <img src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/contact_wechat.jpeg'} style={{width:250, height:250}}/>
+        <img src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/contact_lark.jpeg'} style={{width:250, height:250}}/>
+     </>;
     }
 
     const scope = {

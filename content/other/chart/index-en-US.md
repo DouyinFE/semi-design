@@ -161,3 +161,7 @@ For more information, please refer to the following two documents:
 
 - [VChart Theme Concept and Design Rules](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)
 - [VChart Theme Extension Package](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Extension)
+
+Contact VChart:
+```chartcontact 
+```

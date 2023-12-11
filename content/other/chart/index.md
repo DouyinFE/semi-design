@@ -166,3 +166,7 @@ Semi Design 为 VChart 声明了数据色板对应的 20 个 token， 详见下�
 
 - [VChart 主题概念和设计规范](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)
 - [VChart 扩展主题包](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Extension)
+
+联系 VChart：
+```chartcontact 
+```
