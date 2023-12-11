@@ -40,7 +40,8 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
         showCurrTime: true,
         scrollHeight: 0,
         currPos: 0,
-        mode: 'dayCol'
+        mode: 'dayCol',
+        minEventHeight: Number.MIN_SAFE_INTEGER
     };
 
     static contextType = localeContext;
@@ -84,7 +85,7 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
             const height = (endPos - startPos) * scrollHeight;
             const style = {
                 top: `${top}px`,
-                height: `${height <= minEventHeight ? 'auto' : height}px`,
+                height: `${Math.max(minEventHeight, height)}px`,
             };
             return (
                 <li className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-day`} style={style} key={key || `${top}-${ind}`}>

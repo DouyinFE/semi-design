@@ -358,7 +358,7 @@ import { Avatar, Calendar } from '@douyinfe/semi-ui';
 | header       | Header                                                                                                 | React.Node            | -            |
 | height       | Height                                                                                                 | string\|number        | 600          |
 | markWeekend  | Toggle whether to distinguish weekend column with grey background from weekdays                        | boolean               | false        |
-| minEventHeight | The minimum height of events in daily view, multi-day view and weekly view(**>=2.49.0**) | number | - |
+| minEventHeight | The minimum height of events in daily view, multi-day view and weekly view(**>=2.49.0**) | number | Number.MIN_SAFE_INTEGER |
 | mode         | Mode, one of `day`, `week`, `month`, `range`(**>=1.5.0**)                                         | "day" \| "week" \| "month" \| "range" | `week` |
 | onClick      | Callback invoked when clicking on date, basic unit for day and week mode is 0.5h, for month mode is 1d | function(e: Event, date: Date） | -            |
 | onClose | Callback invoked when event display card close in the month mode | function(e: Event） | - |

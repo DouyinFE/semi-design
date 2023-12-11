@@ -748,6 +748,12 @@ export const DayEventMinHeight = () => {
       end: new Date(2019, 6, 23, 9, 30, 0),
       children: <div style={dailyEventStyle}>7月23日 8:50</div>,
     },
+    {
+      key: '3',
+      start: new Date(2019, 6, 23, 9, 50, 0),
+      end: new Date(2019, 6, 23, 11, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 9:50</div>,
+    },
   ];
 
   const displayValue = new Date(2019, 6, 23, 8, 32, 0);
