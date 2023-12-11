@@ -82,7 +82,7 @@ export type TimePickerProps = {
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;
-    stopPropagation: boolean | string;
+    stopPropagation: boolean;
     style?: React.CSSProperties;
     timeZone?: string | number;
     triggerRender?: (props?: any) => React.ReactNode;
@@ -151,7 +151,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         focusOnOpen: PropTypes.bool,
         autoFocus: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
-        stopPropagation: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+        stopPropagation: PropTypes.bool,
         panels: PropTypes.arrayOf(PropTypes.shape(PanelShape)),
         onFocus: PropTypes.func,
         onBlur: PropTypes.func,
