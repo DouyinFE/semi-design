@@ -18,7 +18,8 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     unregisterKeyDownListener: () => void;
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
-    getSetDownloadFunc: () => (src: string) => string
+    getSetDownloadFunc: () => (src: string) => string;
+    isValidTarget: (e: any) => boolean
 }
 
 
@@ -30,7 +31,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
-    _mouseActiveTime: number = null;
     _timer = null;
     _startMouseDown = { x: 0, y: 0 };
 
@@ -47,48 +47,39 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
     }
 
     handleViewVisibleChange = () => {
-        const nowTime = new Date().getTime();
-        const { viewerVisibleDelay } = this.getProps();
         const { viewerVisible } = this.getStates();
-        if (nowTime - this._mouseActiveTime > viewerVisibleDelay) {
-            if (viewerVisible) {
-                this.setState({
-                    viewerVisible: false,
-                } as any);
-                this.clearTimer();
-            }
-        } 
-    }
-
-    handleMouseMoveEvent = (e: any, event: string) => {
-        const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
-        if (isTarget && event === "over") {
-            this.clearTimer();
-        } else if (isTarget && event === "out") {
-            this.updateTimer();
-        }
-    }
-
-    handleMouseMove = throttle((e: any) => {
-        this._mouseActiveTime = new Date().getTime();
-        const { viewerVisible } = this.getStates();
-        if (!viewerVisible) {
+        if (viewerVisible) {
             this.setState({
-                viewerVisible: true,
+                viewerVisible: false,
             } as any);
-            this._timer = setInterval(this.handleViewVisibleChange, 1000);
+            this.clearTimer();
         }
-    }, 500);
+    }
+
+    handleMouseMove = (e: any) => {
+        const { viewerVisible } = this.getStates();
+        const isValidTarget = this._adapter.isValidTarget(e);
+        if (isValidTarget) {
+            if (!viewerVisible) {
+                this.setState({
+                    viewerVisible: true,
+                } as any);
+            }
+            this.updateTimer();
+        } else {
+            this.clearTimer();
+        }
+    };
 
     updateTimer = () => {
+        const { viewerVisibleDelay } = this.getProps();
         this.clearTimer();
-        this._timer = setInterval(this.handleViewVisibleChange, 1000);
-        this._mouseActiveTime = new Date().getTime();
+        this._timer = setTimeout(this.handleViewVisibleChange, viewerVisibleDelay);
     }
 
     clearTimer = () => {
         if (this._timer) {
-            clearInterval(this._timer);
+            clearTimeout(this._timer);
             this._timer = null;
         }
     }

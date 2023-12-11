@@ -13,6 +13,7 @@ import PreviewImage from "./previewImage";
 import PreviewInnerFoundation, { PreviewInnerAdapter, RatioType } from "@douyinfe/semi-foundation/image/previewInnerFoundation";
 import { PreviewContext, PreviewContextProps } from "./previewContext";
 import { getScrollbarWidth } from "../_utils";
+import ReactDOM from "react-dom";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -146,6 +147,25 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             },
             getSetDownloadFunc: () => {
                 return this.context?.setDownloadName ?? this.props.setDownloadName;
+            },
+            isValidTarget: (e) => {
+                const headerDom = this.headerRef && this.headerRef.current;
+                const footerInstance = this.footerRef && this.footerRef.current;
+                const footerDom = ReactDOM.findDOMNode(footerInstance);
+                const leftIconDom = this.leftIconRef && this.leftIconRef.current;
+                const rightIconDom = this.rightIconRef && this.rightIconRef.current;
+                const target = e.target as any;
+                if (
+                    headerDom && headerDom.contains(target) ||
+                    footerDom && footerDom.contains(target) ||
+                    leftIconDom && leftIconDom.contains(target) ||
+                    rightIconDom && rightIconDom.contains(target)  
+                ) {
+                    // Move in the operation area, return false
+                    return false;
+                }
+                // Move in the preview area except the operation area, return true
+                return true;
             }
         };
 
@@ -154,6 +174,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     context: PreviewContextProps;
     foundation: PreviewInnerFoundation;
     imageWrapRef: any;
+    headerRef: any;
+    footerRef: any;
+    leftIconRef: any;
+    rightIconRef: any;
 
     constructor(props: PreviewInnerProps) {
         super(props);
@@ -174,6 +198,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.originBodyWidth = '100%';
         this.scrollBarWidth = 0;
         this.imageWrapRef = null;
+        this.headerRef = React.createRef<HTMLElement>();
+        this.footerRef= React.createRef();
+        this.leftIconRef= React.createRef<HTMLElement>();
+        this.rightIconRef= React.createRef<HTMLElement>();
     }
 
     static getDerivedStateFromProps(props: PreviewInnerProps, state: PreviewInnerStates) {
@@ -270,9 +298,6 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleMouseMove(e);
     }
 
-    handleMouseEvent = (e, event: string) => {
-        this.foundation.handleMouseMoveEvent(e, event);
-    }
 
     handleKeyDown = (e: KeyboardEvent) => {
         this.foundation.handleKeyDown(e);
@@ -378,10 +403,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         onMouseUp={this.handleMouseUp}
                         ref={this.registryImageWrapRef}
                         onMouseMove={this.handleMouseMove}
-                        onMouseOver={(e): void => this.handleMouseEvent(e.nativeEvent, "over")}
-                        onMouseOut={(e): void => this.handleMouseEvent(e.nativeEvent, "out")}
                     >
-                        <Header className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} />
+                        <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} />
                         <PreviewImage
                             src={imgSrc[currentIndex]}
                             onZoom={this.handleZoomImage}
@@ -397,6 +420,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         {showPrev && (
                             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                             <div
+                                ref={this.leftIconRef}
                                 className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-prev`, hideViewerCls)}
                                 onClick={(): void => this.handleSwitchImage("prev")}
                             >
@@ -406,6 +430,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         {showNext && (
                             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                             <div
+                                ref={this.rightIconRef}
                                 className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-next`, hideViewerCls)}
                                 onClick={(): void => this.handleSwitchImage("next")}
                             >
@@ -413,6 +438,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                             </div>
                         )}
                         <Footer
+                            ref={this.footerRef}
                             className={hideViewerCls}
                             totalNum={total}
                             curPage={currentIndex + 1}
