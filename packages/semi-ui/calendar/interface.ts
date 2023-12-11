@@ -16,6 +16,7 @@ export interface CalendarProps extends BaseProps {
     onClose?: (e: React.MouseEvent) => void;
     renderTimeDisplay?: (time: number) => React.ReactNode;
     markWeekend?: boolean;
+    minEventHeight?: number;
     width?: number | string;
     height?: number | string;
     renderDateDisplay?: (date: Date) => React.ReactNode;
@@ -25,7 +26,7 @@ export interface CalendarProps extends BaseProps {
 
 export type DayCalendarProps = Omit<CalendarProps, 'mode'>;
 
-type DayCalendarPropsKeys = 'events' | 'displayValue' | 'showCurrTime' | 'mode' | 'dateGridRender';
+type DayCalendarPropsKeys = 'events' | 'displayValue' | 'showCurrTime' | 'mode' | 'dateGridRender' | 'minEventHeight';
 export interface DayColProps extends Pick<CalendarProps, DayCalendarPropsKeys>, BaseProps {
     scrollHeight: number;
     currPos: number;
