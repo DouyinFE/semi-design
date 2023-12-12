@@ -35,7 +35,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         treeNodeFilterProp: PropTypes.string,
         selectedKey: PropTypes.string,
         motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-        isStart: PropTypes.arrayOf(PropTypes.bool),
         isEnd: PropTypes.arrayOf(PropTypes.bool),
         showLine: PropTypes.bool
     };
@@ -335,7 +334,6 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             display,
             style,
             isEnd,
-            isStart,
             showLine,
             ...rest
         } = this.props;
@@ -451,7 +449,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 style={style}
                 {...dragProps}
             >
-                <Indent showLine={showLine} prefixcls={prefixcls} level={level} isStart={isStart} isEnd={isEnd} />
+                <Indent showLine={showLine} prefixcls={prefixcls} level={level} isEnd={isEnd} />
                 {this.renderArrow()}
                 <span
                     className={labelCls}

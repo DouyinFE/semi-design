@@ -4,12 +4,11 @@ import classNames from 'classnames';
 interface IndentProps {
     prefixcls: string;
     level: number;
-    isStart: boolean[];
     isEnd: boolean[];
     showLine: boolean
 }
 
-const Indent = ({ prefixcls, level, isStart, isEnd, showLine }: IndentProps) => {
+const Indent = ({ prefixcls, level, isEnd, showLine }: IndentProps) => {
     const baseClassName = `${prefixcls}-indent-unit`;
     const list: React.ReactElement[] = [];
     for (let i = 0; i < level; i += 1) {
@@ -17,7 +16,6 @@ const Indent = ({ prefixcls, level, isStart, isEnd, showLine }: IndentProps) => 
             <span
                 key={i}
                 className={classNames(baseClassName, {
-                    [`${baseClassName}-start`]: isStart[i],
                     [`${baseClassName}-end`]: isEnd[i],
                 })}
             />,

@@ -111,7 +111,6 @@ export interface TreeState extends BasicTreeInnerData {
 export interface TreeNodeProps extends BasicTreeNodeProps {
     children?: TreeNodeData[];
     icon?: ReactNode;
-    isStart?: boolean[];
     isEnd?: boolean[]
 }
 export interface TreeNodeState {
@@ -129,7 +128,6 @@ export interface FlattenNode extends BasicFlattenNode {
     data?: BasicTreeNodeData;
     label?: ReactNode;
     parent?: null | FlattenNode;
-    isStart?: boolean[];
     isEnd?: boolean[]
 }
 export interface NodeListProps {

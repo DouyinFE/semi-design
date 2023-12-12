@@ -73,7 +73,6 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
                 children: null,
                 data: treeNode,
                 _innerDataTag: true,
-                isStart: [...(parent ? parent.isStart : []), index === 0],
                 isEnd: [...(parent ? parent.isEnd : []), index === list.length - 1],
             };
             const isBooleanFilteredShownKeys = typeof filteredShownKeys === 'boolean';
