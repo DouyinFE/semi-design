@@ -363,6 +363,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this.close(e);
             this._notifyBlur(e);
             this._adapter.updateFocusState(false);
+            this._adapter.unregisterClickOutsideHandler();
         });
     }
 
@@ -383,7 +384,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.setIsFocusInContainer(false);
         // this.unBindKeyBoardEvent();
         // this._notifyBlur(e);
-        this._adapter.unregisterClickOutsideHandler();
         // this._adapter.updateFocusState(false);
 
         const isFilterable = this._isFilterable();

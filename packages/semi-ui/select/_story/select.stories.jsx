@@ -2207,11 +2207,13 @@ const BlurDemo = () => {
   const onBlur = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onBlur');
   };
 
   const onFocus = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onFocus');
   };
 
   return (
@@ -2224,6 +2226,24 @@ const BlurDemo = () => {
         }}
         onBlur={onBlur}
         onFocus={onFocus}
+      >
+        <Select.Option value="zhongguo">China</Select.Option>
+        <Select.Option value="hanguo">Korea</Select.Option>
+        <Select.Option value="deguo">Germany</Select.Option>
+        <Select.Option value="faguo">France</Select.Option>
+      </Select>
+      <br />
+      <br />
+      <br />
+      <Select
+        filter
+        placeholder="多选"
+        style={{
+          width: 180,
+        }}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        multiple
       >
         <Select.Option value="zhongguo">China</Select.Option>
         <Select.Option value="hanguo">Korea</Select.Option>
