@@ -4,7 +4,19 @@
     "description": "Semi monorepo main project",
     "author": "",
     "workspaces": [
-        "packages/**"
+        "packages/semi-animation",
+        "packages/semi-animation-react",
+        "packages/semi-animation-styled",
+        "packages/semi-eslint-plugin",
+        "packages/semi-foundation",
+        "packages/semi-icons",
+        "packages/semi-icons-lab",
+        "packages/semi-illustrations",
+        "packages/semi-next",
+        "packages/semi-respack",
+        "packages/semi-theme-default",
+        "packages/semi-ui",
+        "packages/semi-webpack"
     ],
     "private": true,
     "scripts": {

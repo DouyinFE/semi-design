@@ -1,0 +1,14 @@
+{
+  "name": "@douyinfe/semi-extra-ui",
+  "version": "2.0.0",
+  "description": "Semi UI extra component lib.",
+  "main": "lib/index.js",
+  "repository": "https://github.com/DouyinFE/semi-design",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.19.9",
+    "webpack": "^5.89.0"
+  }
+}
