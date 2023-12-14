@@ -66,7 +66,19 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
 
 
     render() {
-        const { children, disabled, className, forwardRef, style, type, active, icon, onKeyDown, showTick, hover } = this.props;
+        const {
+            children,
+            disabled,
+            className,
+            forwardRef,
+            style,
+            type,
+            active,
+            icon,
+            onKeyDown,
+            showTick,
+            hover
+        } = this.props;
         const { showTick: contextShowTick } = this.context;
         const realShowTick = contextShowTick ?? showTick;
         const itemclass = cls(className, {
@@ -81,16 +93,24 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         const events = {};
         if (!disabled) {
             ['onClick', 'onMouseEnter', 'onMouseLeave', 'onContextMenu'].forEach(eventName => {
-                events[eventName] = this.props[eventName];
+                if (eventName === "onClick") {
+                    events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>)=>{
+                        if (e.button===0) {
+                            this.props[eventName]?.(e);
+                        }
+                    };
+                } else {
+                    events[eventName] = this.props[eventName];
+                }
             });
         }
         let tick = null;
         switch (true) {
             case realShowTick && active:
-                tick = <IconTick />;
+                tick = <IconTick/>;
                 break;
             case realShowTick && !active:
-                tick = <IconTick style={{ color: 'transparent' }} />;
+                tick = <IconTick style={{ color: 'transparent' }}/>;
                 break;
             default:
                 tick = null;
@@ -105,7 +125,8 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
             );
         }
         return (
-            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown} ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+            <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown}
+                ref={ref => forwardRef(ref)} className={itemclass} style={style}>
                 {tick}
                 {iconContent}
                 {children}
