@@ -6,22 +6,15 @@
   "repository": "https://github.com/DouyinFE/semi-design",
   "license": "MIT",
   "private": false,
-  "dependencies": {},
+  "dependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "peerDependencies": {
+  },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.4",
-    "@storybook/addon-interactions": "^7.6.4",
-    "@storybook/addon-links": "^7.6.4",
-    "@storybook/addon-onboarding": "^1.0.10",
-    "@storybook/blocks": "^7.6.4",
-    "@storybook/react": "^7.6.4",
-    "@storybook/react-webpack5": "^7.6.4",
-    "@storybook/test": "^7.6.4",
-    "storybook": "^7.6.4",
-    "esbuild": "^0.19.9",
-    "webpack": "^5.89.0"
   },
   "scripts": {
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build": "./build.sh"
   }
 }

@@ -10,7 +10,7 @@ function getAbsolutePath(value) {
 
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
-    stories: ['../src/**/_story/*.mdx', '../src/**/_story/*.stories.@(js|jsx|mjs|ts|tsx)'],
+    stories: ['../../../packages/semi-extra-ui/src/**/_story/*.mdx', '../../../packages/semi-extra-ui/src/**/_story/*.stories.@(js|jsx|mjs|ts|tsx)'],
     addons: [
         getAbsolutePath('@storybook/addon-links'),
         getAbsolutePath('@storybook/addon-essentials'),

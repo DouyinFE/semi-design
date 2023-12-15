@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
+    "target": "ES2021",
     "sourceMap": true,
     "strict": true,
     "jsx": "react",
     "esModuleInterop":true,
+    "outDir": "lib",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
   },
   "include": [
-    "**/*"
-  ]
+    "src/**/*.ts*"
+  ],
 }

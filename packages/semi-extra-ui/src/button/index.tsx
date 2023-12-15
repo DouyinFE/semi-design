@@ -1,13 +1,11 @@
-import React from "react";
 
-export const Button = () => {
+import React from 'react';
 
-    return (
-        <button
-            type="button"
 
-        >
-            test
-        </button>
-    );
+const Button = ()=>{
+    return <button>test</button>;
+};
+
+export {
+    Button
 };

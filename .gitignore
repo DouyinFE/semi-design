@@ -11,6 +11,8 @@ static/designToken.json
 # dependencies
 /node_modules
 packages/**/node_modules
+semi-extra/**/node_modules
+**/node_modules
 
 # output
 .build_temp
@@ -232,3 +234,4 @@ tmp
 
 
 .vscode
+
