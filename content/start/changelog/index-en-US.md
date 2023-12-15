@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.49.0 (2023-12-15)
+- 【Fix】
+    - Image supports zooming via panel and mouse scrolling anywhere on the preview page [#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - The initial size of the Image preview has been adjusted. Before adjustment, the initial size of the preview is to fit the width and height of the page; after adjustment, if the width and height of the image are smaller than the width and height of the page, the initial width and height of the preview will be the same as the width and height of the image, otherwise the preview will be scaled to fit the width and height of the page.[#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - fixed the problem that after selecting a radio option, clicking outside does not trigger the onblur event [#1977](https://github.com/DouyinFE/semi-design/pull/1977)
 
 #### 🎉 2.49.0-beta.0 (2023-12-11)
 - 【Feat】
