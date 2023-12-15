@@ -296,6 +296,9 @@ $module: #{$prefix}-table;
                         background-color: $color-table_row_expanded-bg-default;
                     }
                 }
+                &-hidden {
+                    display: none;
+                }
             }
 
             & > .#{$module}-cell-fixed {

@@ -49,6 +49,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     hideExpandedColumn?: boolean;
     id?: string;
     indentSize?: number;
+    keepDOM?: boolean;
     loading?: boolean;
     pagination?: TablePagination;
     prefixCls?: string;

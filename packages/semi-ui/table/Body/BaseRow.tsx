@@ -60,7 +60,9 @@ export interface BaseRowProps {
     store?: Store;
     style?: React.CSSProperties;
     virtualized?: Virtualized;
-    visible: boolean // required
+    visible: boolean; // required
+    /** whether display none */
+    displayNone?: boolean;
 }
 
 export default class TableRow extends BaseComponent<BaseRowProps, Record<string, any>> {
@@ -74,6 +76,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         expandIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.node]),
         expandableRow: PropTypes.bool,
         expanded: PropTypes.bool,
+        displayNone: PropTypes.bool,
         expandedRow: PropTypes.bool,
         fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
         height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -332,6 +335,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             record,
             hovered,
             expanded,
+            displayNone,
             expandableRow,
             level,
             expandedRow,
@@ -356,6 +360,7 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                         [`${prefixCls}-row-selected`]: selected,
                         [`${prefixCls}-row-expanded`]: expanded,
                         [`${prefixCls}-row-hovered`]: hovered,
+                        [`${prefixCls}-row-hidden`]: displayNone,
                     },
                     customClassName
                 );

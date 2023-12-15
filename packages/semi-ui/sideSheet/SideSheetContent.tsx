@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/sideSheet/constants';
@@ -14,6 +14,7 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface SideSheetContentProps {
     onClose?: (e: React.MouseEvent) => void;
+    closeIcon?: ReactNode;
     mask?: boolean;
     maskStyle?: CSSProperties;
     maskClosable?: boolean;
@@ -38,6 +39,7 @@ export interface SideSheetContentProps {
 export default class SideSheetContent extends React.PureComponent<SideSheetContentProps> {
     static propTypes = {
         onClose: PropTypes.func,
+        closeIcon: PropTypes.node,
     };
 
     static defaultProps = {
@@ -92,6 +94,7 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             title,
             closable,
             headerStyle,
+            closeIcon,
         } = this.props;
         let header, closer;
         if (title) {
@@ -102,13 +105,14 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
             );
         }
         if (closable) {
+            const iconType = closeIcon || <IconClose/>;
             closer = (
                 <Button
                     className={`${prefixCls}-close`}
                     key="close-btn"
                     onClick={this.close}
                     type="tertiary"
-                    icon={<IconClose/>}
+                    icon={iconType}
                     theme="borderless"
                     size="small"
                 />

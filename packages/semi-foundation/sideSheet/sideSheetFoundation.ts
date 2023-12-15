@@ -8,6 +8,7 @@ export interface SideSheetProps {
     bodyStyle?: Record<string, any>;
     className?: string;
     closable?: boolean;
+    closeIcon?: any;
     closeOnEsc?: boolean;
     disableScroll?: boolean;
     footer?: any;

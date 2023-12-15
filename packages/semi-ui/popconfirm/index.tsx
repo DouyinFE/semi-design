@@ -59,7 +59,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         prefixCls: PropTypes.string,
         className: PropTypes.string,
         style: PropTypes.object,
-        icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        icon: PropTypes.node,
         okText: PropTypes.string,
         okType: PropTypes.string,
         cancelText: PropTypes.string,

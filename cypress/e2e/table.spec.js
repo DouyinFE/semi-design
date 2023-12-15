@@ -229,4 +229,15 @@ describe('table', () => {
             expect(style.height).eq('0px');
         });
     })
+
+    it('test keepDOM', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--keep-dom&viewMode=story');
+        cy.get('[data-cy=expand] .semi-table-row-hidden').should('have.length', 3);
+        cy.get('[data-cy=tree] .semi-table-row-hidden').should('have.length', 5);
+        cy.get('[data-cy=tree] .semi-table-expand-icon').eq(0).click();
+        cy.get('[data-cy=tree] .semi-table-row-hidden').should('have.length', 3);
+        cy.get('[data-cy=section] .semi-table-row-hidden').should('have.length', 10);
+        cy.get('[data-cy=section] .semi-table-expand-icon').eq(0).click({ force: true });
+        cy.get('[data-cy=section] .semi-table-row-hidden').should('have.length', 7);
+    });
 });

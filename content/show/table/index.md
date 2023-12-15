@@ -5003,6 +5003,7 @@ render(App);
 | groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法 | string\|number<br/>\|(record: RecordType) => string\|number |  | **0.29.0** |
 | hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染 | boolean | true |
 | indentSize | 树形结构 TableCell 的缩进大小 | number | 20 |
+| keepDOM | 折叠行时是否不销毁被折叠的 DOM | boolean | false |
 | loading | 页面是否加载中 | boolean | false |
 | pagination | 分页组件配置 | boolean\|TablePaginationProps | true |
 | prefixCls | 样式名前缀 | string |  |
