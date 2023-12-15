@@ -80,6 +80,20 @@ describe('Select', () => {
         cy.get('.semi-select-option').eq(3).should('have.text', 'Xigua');
     });
 
+    it('blur', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-on-blur-on-focus', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
+        cy.get('.semi-select-selection').eq(0).click();
+        cy.get('.semi-select-option').eq(0).click();
+        cy.get('body').click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'onBlur');
+       
+    });
+
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
