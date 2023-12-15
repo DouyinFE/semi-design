@@ -7,15 +7,11 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "css-loader": "^6.8.1",
     "esbuild": "^0.19.9",
-    "esbuild-loader": "^4.0.2",
-    "esbuild-sass-plugin": "^2.16.0",
-    "mini-css-extract-plugin": "^2.7.6",
-    "sass": "^1.69.5",
-    "sass-loader": "^13.3.2",
-    "webpack": "^5.89.0",
-    "webpack-node-externals": "^3.0.0"
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.69.5"
   },
   "dependencies": {
     "@douyinfe/semi-foundation": "latest",
