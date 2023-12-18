@@ -1,7 +1,9 @@
 import './_base/base.scss';
+export { default as BaseFoundation } from "@douyinfe/semi-foundation/base/foundation";
+export { default as BaseComponent } from "./_base/baseComponent";
 export { default as Anchor } from './anchor';
 export { default as AutoComplete } from './autoComplete';
-export { default as Avatar } from './avatar';
+export { default as Avatar } from './avatar'; 
 export { default as AvatarGroup } from './avatar/avatarGroup';
 export { default as BackTop } from './backtop';
 export { default as Badge } from './badge';
