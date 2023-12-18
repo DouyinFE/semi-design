@@ -8,7 +8,8 @@
   "private": false,
   "dependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "@douyinfe/semi-ui": "latest"
   },
   "peerDependencies": {
   },
