@@ -1029,13 +1029,16 @@ Adopted in the semi-ui component library [date-fns(v2.9.0)](https://date-fns.org
 -   `"m"`: minutes
 -   `"s"`: seconds
 
-The default date time is formatted to:
+The following uses `new Date('2023-12-09 08:08:00')` or `[new Date('2023-12-09 08:08:00'), new Date('2023-12-10 10 :08:00')]` as `value` to explain the impact of different types and different `format` values on the displayed value:
 
--   `"date"`(date): `"yyyy-mm-dd`
--   `"dateTime"`(date and time)`"yyyy-mm-dd HH:mm:ss"`
--   `"month"`(month): `"yyyy-MM"`
--   `"dateRange"`(Date Range): `"yyyy-mm-dd ~ yyyy-mm-dd"`
--   `"dateTimeRange"`(Date and Time Range): `"yyyy-mm-dd HH:mm:ss ~ yyyy-mm-dd HH:mm:ss"`
+| type | format | display value |
+| --- | --- | --- |
+| date | yyyy-MM-dd | 2023-12-09 |
+| dateTime | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08:00 |
+| month | yyyy-MM | 2023-12 |
+| dateRange | yyyy-MM-dd | 2023-12-09 ~ 2023-12-10 |
+| dateTimeRange | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08 ~ 2023-12-10 10:08 |
+
 
 Multiple dates or times are used by default `","` (English comma) separated.
 

@@ -1009,13 +1009,15 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 -   `"m"` ：分钟
 -   `"s"` ：秒
 
-默认的日期时间会格式化为：
+下面以 `new Date('2023-12-09 08:08:00')` 和 `[new Date('2023-12-09 08:08:00'), new Date('2023-12-10 10:08:00')]` 为例说明不同 `format` 值对展示值的影响：
 
--   `"date"`（日期）：`"yyyy-MM-dd"`
--   `"dateTime"`（日期时间）：`"yyyy-MM-dd HH:mm:ss"`
--   `"month"`（年月）：`"yyyy-MM"`
--   `"dateRange"`（日期范围）：`"yyyy-MM-dd ~ yyyy-MM-dd"`
--   `"dateTimeRange"`（日期时间范围）：`"yyyy-MM-dd HH:mm:ss ~ yyyy-MM-dd HH:mm:ss"`
+| 类型 | format | 展示值 |  
+| --- | --- |  --- | 
+| date | yyyy-MM-dd | 2023-12-09 |
+| dateTime | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08:00 |
+| month | yyyy-MM | 2023-12 |
+| dateRange | yyyy-MM-dd | 2023-12-09 ～ 2023-12-10 |
+| dateTimeRange | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08 ～ 2023-12-10 10:08 |
 
 多个日期或时间默认使用 `","` （英文逗号）分隔。
 
