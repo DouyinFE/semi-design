@@ -28,14 +28,34 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
     get adapter(): RichEditorAdapter<RichEditorProps, RichEditorState> {
         return {
             ...super.adapter,
-            createElement: (node: EditorNode, index: number)=>{
+            replaceElement: async (node: EditorNode, newNodes: EditorNode[])=>{
+                const oldElement = this.nodeElementMap.get(node);
+                if (oldElement) {
+                    const index = this.state.elementList.indexOf(oldElement);
+                    const newElements = newNodes.map(this.nodeToElement);
+                    if (index!==-1) {
+                        const eleList = [...this.state.elementList];
+                        eleList.splice(index, 1, ...newElements);
+                        this.nodeElementMap.delete(node);
+                        newNodes.forEach((n, i)=>{
+                            this.nodeElementMap.set(n, newElements[i]);
+                        });
+                        return new Promise(resolve => {
+                            this.setState({ elementList: eleList }, resolve);
+                        });
+                    }
+                }
+            },
+            createElement: async (node: EditorNode, index: number)=>{
                 const element = this.nodeToElement(node);
                 const eleList = [...this.state.elementList];
                 eleList.splice(index, 0, element);
-                this.setState({ elementList: eleList });
                 this.nodeElementMap.set(node, element);
+                return new Promise(resolve => {
+                    this.setState({ elementList: eleList }, resolve);
+                });
             },
-            updateElement: (node: EditorNode)=>{
+            updateElement: async (node: EditorNode)=>{
                 const oldElement = this.nodeElementMap.get(node);
                 if (oldElement) {
                     const newElement = this.nodeToElement(node);
@@ -43,9 +63,11 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                     if (index!==-1) {
                         const eleList = [...this.state.elementList];
                         eleList.splice(index, 1, newElement);
-                        this.setState({ elementList: eleList });
                         this.nodeElementMap.delete(node);
                         this.nodeElementMap.set(node, newElement);
+                        return new Promise(resolve => {
+                            this.setState({ elementList: eleList }, resolve);
+                        });
                     }
                 }
             },
@@ -57,11 +79,16 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                     return null;
                 }
 
+            },
+            getActiveNodeId: ()=>{
+                const dom = window.getSelection()?.anchorNode?.parentElement;
+                const id = dom?.getAttribute("data-node-id");
+                return id||null;
             }
         };
     }
 
-    private nodeToElement(node: EditorNode): ReactNode {
+    private nodeToElement = (node: EditorNode): ReactNode => {
         const closure: {
             dom: HTMLDivElement|null;
             eventMounted: boolean
@@ -73,7 +100,7 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
             if (r && !closure.eventMounted) {
                 closure.dom = r;
                 this.nodeDOMMap.set(node, closure.dom);
-                closure.dom.addEventListener("beforeinput", (e)=>this.handleBeforeInputEvent(e as InputEvent, closure.dom));
+                closure.dom.addEventListener("beforeinput", (e)=>this.handleBeforeInputEvent(e as InputEvent, closure.dom!));
                 closure.eventMounted=true;
             }
 
@@ -98,7 +125,6 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
             const nodeId = ele.getAttribute("data-node-id");
             this.foundation.onUserInput(nodeId, e.data);
         }
-        console.log("handleBeforeInputEvent", e, ele);
         e.preventDefault();
         e.stopPropagation();
     }
@@ -108,8 +134,8 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
     render() {
         return (
             <div>
-                <Button>Bold</Button>
-                <div onClick={this.foundation.onContainerClick} contentEditable={this.state.elementList.length===0} suppressContentEditableWarning={true} style={{ border: '1px solid red', width: 600, height: 400 }} ref={this.containerRef}>
+                <Button onClick={this.foundation.onBold}>Bold</Button>
+                <div onClick={this.foundation.onContainerClick} suppressContentEditableWarning={true} className={"semi-rich-editor-container"} style={{ border: '1px solid red', width: 600, height: 400 }} ref={this.containerRef}>
                     {this.state.elementList}
                 </div>
             </div>

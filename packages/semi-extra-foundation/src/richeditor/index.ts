@@ -1,7 +1,7 @@
 import BaseFoundation, { DefaultAdapter } from "@douyinfe/semi-foundation/lib/es/base/foundation";
 import { v4 } from 'uuid';
 import "./index.scss";
-import { nth } from "lodash-es";
+import { cloneDeep, nth } from "lodash-es";
 
 
 export interface RichEditorProps{
@@ -65,18 +65,21 @@ export interface EditorTypeText extends EditorType{
     value?: number
 }
 
+export type EditorTypes = EditorTypeBold|EditorTypeItalic|EditorTypeTitle|EditorTypeUnderline|EditorTypeColor|EditorTypeBgColor|EditorTypeLink|EditorTypeText
 
 export interface RichEditorAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    createElement: (node: EditorNode, index: number) => void;
-    updateElement: (node: EditorNode) => void;
-    getDOMByNodeId: (id: string) => HTMLElement|null
+    createElement: (node: EditorNode, index: number) => Promise<void>;
+    updateElement: (node: EditorNode) => Promise<void>;
+    getDOMByNodeId: (id: string) => HTMLElement|null;
+    getActiveNodeId: () => string|null;
+    replaceElement: (node: EditorNode, newNodes: EditorNode[]) => Promise<void>
 }
 
 
 export interface EditorNode{
     id: string;
     content: string;
-    type: (EditorTypeBold|EditorTypeItalic|EditorTypeTitle|EditorTypeUnderline|EditorTypeColor|EditorTypeBgColor|EditorTypeLink|EditorTypeText)[]
+    type: EditorTypes[]
 }
 
 
@@ -96,31 +99,48 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         super({ ...RichEditorFoundation.defaultAdapter, ...adapter });
     }
 
+    init = ()=>{
+        const node = this.createNode("", [{
+            name: 'text'
+        } as EditorTypeText]);
+        this.idNodeMap.set(node.id, node);
+        this._adapter.createElement(node, this.foundationState.data.nodes.length);
+        this.foundationState.data.nodes.push(node);
+    }
+
     registerContainer = (container: HTMLElement)=>{
         this.foundationState.container = container;
     }
 
 
-    onUserInput = (nodeId: string|null, data: string)=>{
+    onUserInput = async (nodeId: string|null, data: string)=>{
         if (nodeId===null) {
-
+            // all inputs are empty or empty editor
             const node = this.createNode(data, [{
                 name: 'text'
             } as EditorTypeText]);
             this.idNodeMap.set(node.id, node);
-            this._adapter.createElement(node, this.foundationState.data.nodes.length);
+            await this._adapter.createElement(node, this.foundationState.data.nodes.length);
             this.foundationState.data.nodes.push(node);
-
-
         } else {
-            const lastNode = nth(this.foundationState.data.nodes, -1)!;
-            lastNode.content+=data;
-            this._adapter.updateElement(lastNode);
-            console.log(lastNode);
-            setTimeout(()=>{
-                this._adapter.getDOMByNodeId(lastNode.id)?.focus();
-                console.log("===>this._adapter.getDOMByNodeId(lastNode.id)", this._adapter.getDOMByNodeId(lastNode.id)?.focus());
-            }, 1000);
+            const node = this.getNodeById(nodeId);
+            if (!node) {
+                return;
+            }
+            const dom = this._adapter.getDOMByNodeId(node.id);
+
+            const section = window.getSelection();
+            const range = section!.getRangeAt(0);
+            const cursorIndex = range!.startOffset;
+            node.content = node.content.slice(0, cursorIndex) + data + node.content.slice(cursorIndex);
+            await this._adapter.updateElement(node);
+            if (dom && section && range) {
+                dom.focus?.();
+                range.setStart(dom.childNodes[0], cursorIndex + data.length);
+                range.collapse();
+                section.removeAllRanges();
+                section.addRange(range);
+            }
         }
     }
 
@@ -144,11 +164,43 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         }
     }
 
+
     onTitle = (titleNum: number)=>{
 
     }
     onBold = ()=>{
+        const id = this._adapter.getActiveNodeId();
+        if (!id) {
+            return;
+        }
+        const node = this.getNodeById(id);
+        if (!node) {
+            return;
+        }
+        const selectStart = window.getSelection()?.anchorOffset;
+        const selectEnd = window.getSelection()?.focusOffset;
+        if (selectStart===selectEnd) {
+            return;
+        }
+        const oldNodeContent = node.content = node.content.slice(0, selectStart);
+        const midNodeContent = node.content.slice(selectStart, selectEnd);
+        const lastNodeContent = node.content.slice(selectEnd);
 
+        node.content = oldNodeContent;
+        const midNode = this.createNode(midNodeContent, [{
+            name: 'bold'
+        } as EditorTypeBold, ...node.type]);
+        const lastNode = {
+            ...cloneDeep(node),
+            content: lastNodeContent
+        };
+
+        const nodeIndex = this.foundationState.data.nodes.findIndex((item)=>item.id===node.id);
+        this.foundationState.data.nodes.splice(nodeIndex, 1, node, midNode, lastNode);
+        this._adapter.replaceElement(node, [node, midNode, lastNode]);
+
+
+        
     }
 
     onItalic = ()=>{
