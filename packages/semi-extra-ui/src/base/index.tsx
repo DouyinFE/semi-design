@@ -1,5 +1,3 @@
-import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
+import { BaseComponent } from "@douyinfe/semi-ui";
 
-export default {
-    BaseComponent
-}
+export default BaseComponent;

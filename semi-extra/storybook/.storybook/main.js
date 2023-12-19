@@ -16,6 +16,7 @@ const config = {
         getAbsolutePath('@storybook/addon-essentials'),
         getAbsolutePath('@storybook/addon-onboarding'),
         getAbsolutePath('@storybook/addon-interactions'),
+        '@storybook/preset-scss'
     ],
     framework: {
         name: getAbsolutePath('@storybook/react-webpack5'),

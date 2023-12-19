@@ -9,11 +9,16 @@
     "@storybook/addon-links": "^7.6.4",
     "@storybook/addon-onboarding": "^1.0.10",
     "@storybook/blocks": "^7.6.4",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^7.6.4",
     "@storybook/react-webpack5": "^7.6.4",
     "@storybook/test": "^7.6.4",
-    "storybook": "^7.6.4",
+    "css-loader": "^6.8.1",
     "esbuild": "^0.19.9",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "storybook": "^7.6.4",
+    "style-loader": "^3.3.3",
     "webpack": "^5.89.0"
   },
   "scripts": {

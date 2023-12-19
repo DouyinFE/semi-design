@@ -7,13 +7,10 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@douyinfe/semi-extra-foundation": "2.0.0",
+    "@douyinfe/semi-ui": "^2.49.1",
     "react": ">=16",
-    "react-dom": ">=16",
-    "@douyinfe/semi-ui": "latest"
-  },
-  "peerDependencies": {
-  },
-  "devDependencies": {
+    "react-dom": ">=16"
   },
   "scripts": {
     "build": "./build.sh"
