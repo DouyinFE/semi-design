@@ -143,7 +143,7 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
-    triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
+    triggerRender?: (props: TriggerRenderProps) => React.ReactNode;
     onBlur?: (e: React.MouseEvent) => void;
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;

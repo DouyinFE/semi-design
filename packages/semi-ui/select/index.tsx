@@ -170,7 +170,7 @@ export type SelectProps = {
     onDeselect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     onSelect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     allowCreate?: boolean;
-    triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
+    triggerRender?: (props: TriggerRenderProps) => React.ReactNode;
     onClear?: () => void;
     virtualize?: virtualListProps;
     onFocus?: (e: React.FocusEvent) => void;
