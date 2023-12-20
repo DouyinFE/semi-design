@@ -182,7 +182,7 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         if (selectStart===selectEnd) {
             return;
         }
-        const oldNodeContent = node.content = node.content.slice(0, selectStart);
+        const oldNodeContent = node.content.slice(0, selectStart);
         const midNodeContent = node.content.slice(selectStart, selectEnd);
         const lastNodeContent = node.content.slice(selectEnd);
 
