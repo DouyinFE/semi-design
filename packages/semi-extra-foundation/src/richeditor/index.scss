@@ -1,15 +1,27 @@
 
+.semi-rich-editor-type{
+    &-bold{
+        font-weight: 600;
+    }
+    &-italic{
+        font-style: italic;
+    }
+    &-underline{
+        text-decoration: underline;
+    }
+    &-newLine{
+        display: inline;
+    }
+}
+
 .semi-rich-editor-type-text{
+    display: inline;
+    min-width: 2px;
 }
 
 .semi-rich-editor-container{
     white-space: pre-wrap;
     * {
         outline: unset;
-        display: inline-block;
     }
-}
-
-.semi-rich-editor-type-bold {
-    font-weight: 600;
 }
