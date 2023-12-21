@@ -94,31 +94,47 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
 
             },
             getSelectionInfo: ()=>{
-                const anchorDOM = window.getSelection()?.anchorNode?.parentElement;
-                const anchorNodeId = anchorDOM?.getAttribute("data-node-id");
-                const focusDOM = window.getSelection()?.focusNode?.parentElement;
-                const focusNodeId = focusDOM?.getAttribute("data-node-id");
-                const anchorOffset = window.getSelection()?.anchorOffset;
-                const focusOffset = window.getSelection()?.focusOffset;
+                const getHTMLElement = (ele: HTMLElement | Node | undefined)=>{
+                    if (ele instanceof HTMLElement) {
+                        return ele;
+                    } else {
+                        return ele?.parentElement || null;
+                    }
+                };
 
-                let anchorIndex: number;
-                let focusIndex: number;
+                //TODO: process start or end caret is between nodes
+
+
+                let anchorDOM = getHTMLElement(window.getSelection()!.anchorNode!);
+                let focusDOM = getHTMLElement(window.getSelection()!.focusNode!);
+
+                let anchorOffset = window.getSelection()?.anchorOffset;
+                let focusOffset = window.getSelection()?.focusOffset;
+
+                let anchorNodeId: string|null;
+                let focusNodeId: string|null;
+
+                anchorNodeId = anchorDOM?.getAttribute("data-node-id") || null;
+                focusNodeId = focusDOM?.getAttribute("data-node-id") || null;
+
+                let anchorNodeIndex: number;
+                let focusNodeIndex: number;
                 this.foundation.foundationState.data.nodes.forEach((n, i)=>{
                     if (n.id===anchorNodeId) {
-                        anchorIndex = i;
+                        anchorNodeIndex = i;
                     }
                     if (n.id===focusNodeId) {
-                        focusIndex = i;
+                        focusNodeIndex = i;
                     }
                 });
-                if (anchorIndex! < focusIndex!) {
+                if (anchorNodeIndex! < focusNodeIndex!) {
                     return {
                         startNodeId: anchorNodeId!,
                         endNodeId: focusNodeId!,
                         startOffset: anchorOffset!,
                         endOffset: focusOffset!
                     };
-                } else if (anchorIndex! > focusIndex!) {
+                } else if (anchorNodeIndex! > focusNodeIndex!) {
                     return {
                         startNodeId: focusNodeId!,
                         endNodeId: anchorNodeId!,
@@ -210,8 +226,10 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                 const nodeId = ele.getAttribute("data-node-id");
                 this.foundation.onUserInsertParagraph(nodeId);
             }
+        } else if (e.inputType==="deleteContentBackward") {
+            this.foundation.onUserDeleteContentBackward();
         }
-
+        console.log(e);
         e.preventDefault();
         e.stopPropagation();
     }

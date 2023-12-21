@@ -119,7 +119,7 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
     }
 
 
-    setCaretInToDOM = (dom: HTMLElement, offset: number)=>{
+    setCaretIntoDOM = (dom: HTMLElement, offset: number)=>{
         const section = window.getSelection();
         const range = section!.getRangeAt(0);
         if (dom && section && range) {
@@ -136,6 +136,47 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
                 dom.innerText="";
             }
         }
+    }
+
+    onUserDeleteContentBackward = async ()=>{
+        const selectInfo = this._adapter.getSelectionInfo();
+        const startNode = this.getNodeById(selectInfo.startNodeId!);
+        const endNode = this.getNodeById(selectInfo.endNodeId!);
+        if (!startNode || !endNode) {
+            return;
+        }
+
+        if (startNode===endNode && selectInfo.startOffset===selectInfo.endOffset) {
+            const caretOffset = selectInfo.startOffset;
+            const node = startNode;
+            const nodeIndex = this.foundationState.data.nodes.findIndex((item)=>item.id===node.id);
+            if (!node) {
+                return;
+            }
+            if (caretOffset===0) {
+                const prevNode = this.foundationState.data.nodes[nodeIndex - 1];
+                console.log("prevNode", prevNode);
+                if (prevNode) {
+                    prevNode.content = prevNode.content.slice(0, -1);
+                    await this._adapter.updateElement(prevNode);
+                    const prevDOM = this._adapter.getDOMByNodeId(prevNode.id);
+                    this.setCaretIntoDOM(prevDOM!, prevNode.content.length);
+                }
+                if (node.content.length===0) {
+                    await this._adapter.replaceElement(nodeIndex, nodeIndex, [node], []);
+                }
+
+
+            } else if (caretOffset<=node.content.length) {
+                node.content = node.content.slice(0, caretOffset-1) + node.content.slice(caretOffset + 1 - 1 );
+                this._adapter.updateElement(node);
+                const dom = this._adapter.getDOMByNodeId(node.id);
+                this.setCaretIntoDOM(dom!, caretOffset-1);
+            }
+            console.log("node.content", node.content.length, caretOffset);
+            return;
+        }
+
     }
 
     onUserInput = async (nodeId: string|null, data: string)=>{
@@ -173,7 +214,6 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         const node = this.createNode("\n", [{
             name: 'newLine',
         } as EditorTypeNewLine]);
-        debugger;
         if (nodeId===null) {
             const nextTextNode = this.createNode("", [{ name: 'text' }] as EditorTypes[]); 
             await this._adapter.createElement(node, this.foundationState.data.nodes.length);
@@ -181,7 +221,7 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
             const nextTextNodeDom = this._adapter.getDOMByNodeId(nextTextNode.id);
             if (nextTextNodeDom) {
                 console.log("nextTextNodeDom", nextTextNodeDom);
-                this.setCaretInToDOM(nextTextNodeDom, 0);
+                this.setCaretIntoDOM(nextTextNodeDom, 0);
             }
             this.foundationState.data.nodes.push(node, nextTextNode);
             this.idNodeMap.set(node.id, node);
@@ -194,10 +234,9 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
 
             const insertNode = this.getNodeById(nodeId);
             const insertPosition = window.getSelection()?.getRangeAt(0).startOffset;
-            debugger;
             const [startNode, newLineNode, endNode] = await this.insertNodeIntoNode(node, insertNode!, insertPosition!);
 
-            this.setCaretInToDOM(this._adapter.getDOMByNodeId(endNode.id)!, 0);
+            this.setCaretIntoDOM(this._adapter.getDOMByNodeId(endNode.id)!, 0);
 
         }
 
