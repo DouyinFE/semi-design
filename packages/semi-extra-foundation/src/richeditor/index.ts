@@ -120,6 +120,7 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
 
 
     onUserInput = async (nodeId: string|null, data: string)=>{
+        debugger;
         if (nodeId===null) {
             // all inputs are empty or empty editor
             const node = this.createNode(data, [{
@@ -181,6 +182,7 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
 
 
     onContainerClick = (e: PointerEvent)=>{
+        debugger;
         const id = (e.target as HTMLElement)?.getAttribute('data-node-id');
         if (id) {
             const node = this.getNodeById(id);

@@ -177,6 +177,7 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
 
     handleBeforeInputEvent = (e: InputEvent, ele: HTMLDivElement)=>{
         debugger;
+        ele = e.target;
         if (e.inputType==="insertText") {
             if (ele===this.containerRef.current) {
                 if (this.state.elementList.length===0) {
