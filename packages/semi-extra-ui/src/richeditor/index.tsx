@@ -195,6 +195,7 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
             } else {
                 const nodeId = ele.getAttribute("data-node-id");
                 this.foundation.onUserInput(nodeId, e.data);
+                console.log(nodeId);
             }
         } else if (e.inputType==="insertParagraph") {
             if (ele===this.containerRef.current) {
@@ -206,7 +207,6 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                 }
 
             } else {
-                debugger;
                 const nodeId = ele.getAttribute("data-node-id");
                 this.foundation.onUserInsertParagraph(nodeId);
             }

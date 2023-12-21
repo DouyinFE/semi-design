@@ -119,8 +119,26 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
     }
 
 
+    setCaretInToDOM = (dom: HTMLElement, offset: number)=>{
+        const section = window.getSelection();
+        const range = section!.getRangeAt(0);
+        if (dom && section && range) {
+            const isDOMEmpty = dom.innerText.length===0;
+            if (isDOMEmpty) {
+                dom.innerText = "\u200B"; // insert a zero-width character to make dom not empty and put caret on it
+            }
+            dom.focus?.();
+            range.setStart(dom.childNodes[0], offset);
+            range.collapse();
+            section.removeAllRanges();
+            section.addRange(range);
+            if (isDOMEmpty) {
+                dom.innerText="";
+            }
+        }
+    }
+
     onUserInput = async (nodeId: string|null, data: string)=>{
-        debugger;
         if (nodeId===null) {
             // all inputs are empty or empty editor
             const node = this.createNode(data, [{
@@ -155,28 +173,34 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         const node = this.createNode("\n", [{
             name: 'newLine',
         } as EditorTypeNewLine]);
+        debugger;
         if (nodeId===null) {
+            const nextTextNode = this.createNode("", [{ name: 'text' }] as EditorTypes[]); 
             await this._adapter.createElement(node, this.foundationState.data.nodes.length);
+            await this._adapter.createElement(nextTextNode, this.foundationState.data.nodes.length + 1);
+            const nextTextNodeDom = this._adapter.getDOMByNodeId(nextTextNode.id);
+            if (nextTextNodeDom) {
+                console.log("nextTextNodeDom", nextTextNodeDom);
+                this.setCaretInToDOM(nextTextNodeDom, 0);
+            }
+            this.foundationState.data.nodes.push(node, nextTextNode);
+            this.idNodeMap.set(node.id, node);
+            this.idNodeMap.set(nextTextNode.id, nextTextNode);
         } else {
             const index = this.foundationState.data.nodes.findIndex((item)=>item.id===nodeId);
             if (index===-1) {
                 return;
             }
-            await this._adapter.createElement(node, index+1);
-        }
-        this.idNodeMap.set(node.id, node);
-        this.foundationState.data.nodes.push(node);
 
-        const dom = this._adapter.getDOMByNodeId(node.id);
-        const section = window.getSelection();
-        const range = section!.getRangeAt(0);
-        if (dom && section && range) {
-            dom.focus?.();
-            range.setStart(dom.childNodes[0], 1);
-            range.collapse();
-            section.removeAllRanges();
-            section.addRange(range);
+            const insertNode = this.getNodeById(nodeId);
+            const insertPosition = window.getSelection()?.getRangeAt(0).startOffset;
+            debugger;
+            const [startNode, newLineNode, endNode] = await this.insertNodeIntoNode(node, insertNode!, insertPosition!);
+
+            this.setCaretInToDOM(this._adapter.getDOMByNodeId(endNode.id)!, 0);
+
         }
+
     }
 
     createNode = (data: string, types: EditorNode['type'])=>{
@@ -193,7 +217,6 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
 
 
     onContainerClick = (e: PointerEvent)=>{
-        debugger;
         const id = (e.target as HTMLElement)?.getAttribute('data-node-id');
         if (id) {
             const node = this.getNodeById(id);
@@ -249,6 +272,20 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         await this._adapter.replaceElement(startNodeIndex, endNodeIndex, [startNode, ...middleNodes, endNode], willAddedNodesWithContent);
         // await this.optimizeNodes(startNodeIndex, startNodeIndex - (endNodeIndex - startNodeIndex + 1) + willAddedNodesWithContent.length);
     }
+
+    insertNodeIntoNode = async (newNode: EditorNode, targetNode: EditorNode, insertPosition: number)=>{
+        const targetNodeIndex = this.foundationState.data.nodes.findIndex((item)=>item.id===targetNode.id);
+        const targetNodeOriginContent = targetNode.content;
+        targetNode.content = targetNodeOriginContent.slice(0, insertPosition);
+        const endNode = this.createNode(targetNodeOriginContent.slice(insertPosition), targetNode.type);
+
+        await this._adapter.replaceElement(targetNodeIndex, targetNodeIndex, [targetNode], [targetNode, newNode, endNode]);
+        this.foundationState.data.nodes.splice(targetNodeIndex, 1, targetNode, newNode, endNode);
+        this.idNodeMap.set(newNode.id, newNode);
+        this.idNodeMap.set(endNode.id, endNode);
+        return [targetNode, newNode, endNode];
+    }
+
 
 
     onTitle = (titleNum: number)=>{
