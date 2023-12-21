@@ -183,7 +183,6 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                 return window.getSelection()!.anchorNode!.parentElement! as HTMLDivElement;
             }
         })();
-        console.log(ele===this.containerRef.current, this.state.elementList.length, this.containerRef.current);
         if (e.inputType==="insertText") {
             if (ele===this.containerRef.current) {
                 if (this.state.elementList.length===0) {
@@ -207,6 +206,7 @@ class RichEditor extends BaseComponent<RichEditorProps, RichEditorState> {
                 }
 
             } else {
+                debugger;
                 const nodeId = ele.getAttribute("data-node-id");
                 this.foundation.onUserInsertParagraph(nodeId);
             }

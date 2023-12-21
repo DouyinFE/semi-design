@@ -166,6 +166,17 @@ class RichEditorFoundation <P = Record<string, any>, S = Record<string, any>> ex
         }
         this.idNodeMap.set(node.id, node);
         this.foundationState.data.nodes.push(node);
+
+        const dom = this._adapter.getDOMByNodeId(node.id);
+        const section = window.getSelection();
+        const range = section!.getRangeAt(0);
+        if (dom && section && range) {
+            dom.focus?.();
+            range.setStart(dom.childNodes[0], 1);
+            range.collapse();
+            section.removeAllRanges();
+            section.addRange(range);
+        }
     }
 
     createNode = (data: string, types: EditorNode['type'])=>{
