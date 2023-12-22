@@ -6,7 +6,7 @@ import { IconCaretup, IconCaretdown } from '@douyinfe/semi-icons';
 
 import { cssClasses, strings } from '@douyinfe/semi-foundation/table/constants';
 
-import { SortOrder } from './interface';
+import { SortIcon, SortOrder } from './interface';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 
 export interface ColumnSorterProps {
@@ -15,7 +15,8 @@ export interface ColumnSorterProps {
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
     prefixCls?: string;
     sortOrder?: SortOrder;
-    title?: React.ReactNode
+    title?: React.ReactNode;
+    sortIcon?: SortIcon
 }
 
 export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
@@ -25,6 +26,7 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
         onClick: PropTypes.func,
         prefixCls: PropTypes.string,
         sortOrder: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+        sortIcon: PropTypes.func,
     };
 
     static defaultProps = {
@@ -34,7 +36,7 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
     };
 
     render() {
-        const { prefixCls, onClick, sortOrder, style, title } = this.props;
+        const { prefixCls, onClick, sortOrder, style, title, sortIcon } = this.props;
 
         const iconBtnSize = 'default';
 
@@ -54,9 +56,26 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
             'aria-roledescription': 'Sort data with this column',
         };
 
+        const renderSortIcon = () => {
+            if (typeof sortIcon === 'function') {
+                return sortIcon({ sortOrder });
+            } else {
+                return (
+                    <div style={style} className={`${prefixCls}-column-sorter`}>
+                        <span className={`${upCls}`}>
+                            <IconCaretup size={iconBtnSize} />
+                        </span>
+                        <span className={`${downCls}`}>
+                            <IconCaretdown size={iconBtnSize} />
+                        </span>
+                    </div>
+                );
+            }
+        };
+
         return (
             <div
-                role='button'
+                role="button"
                 {...ariaProps}
                 tabIndex={-1}
                 className={`${prefixCls}-column-sorter-wrapper`}
@@ -64,17 +83,7 @@ export default class ColumnSorter extends PureComponent<ColumnSorterProps> {
                 onKeyPress={e => isEnterPress(e) && onClick(e as any)}
             >
                 {title}
-                <div
-                    style={style}
-                    className={`${prefixCls}-column-sorter`}
-                >
-                    <span className={`${upCls}`}>
-                        <IconCaretup size={iconBtnSize} />
-                    </span>
-                    <span className={`${downCls}`}>
-                        <IconCaretdown size={iconBtnSize} />
-                    </span>
-                </div>
+                {renderSortIcon()}
             </div>
         );
     }

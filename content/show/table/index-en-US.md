@@ -5147,6 +5147,7 @@ import { Table } from '@douyinfe/semi-ui';
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
+| sortIcon |Customize the sort icon. The returned node controls the entire sort button, including ascending and descending buttons. Need to control highlighting behavior based on sortOrder | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
 | useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |
