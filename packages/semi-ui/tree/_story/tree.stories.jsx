@@ -1981,6 +1981,7 @@ const DnDTree = () => {
   ];
 
   const [treeData, setTreeData] = useState(initialData);
+  const [showLine, setShowLine] = useState(false);
 
   // const [expandedKeys, setExpandedKeys] = useState(['zhongguo']);
 
@@ -2041,14 +2042,23 @@ const DnDTree = () => {
     setTreeData(data);
   }
 
+  const onSwitchChange = useCallback((value) => {
+    setShowLine(value);
+  }, []);
+
   return (
-    <Tree
-      treeData={treeData}
-      draggable
-      //expandedKeys={expandedKeys}
-      onDragEnter={onDragEnter}
-      onDrop={onDrop}
-    />
+    <>
+      <Switch onChange={onSwitchChange}/>
+      <Tree
+        treeData={treeData}
+        draggable
+        showLine={showLine}
+        //expandedKeys={expandedKeys}
+        onDragEnter={onDragEnter}
+        onDrop={onDrop}
+      />
+    </>
+    
   );
 };
 
