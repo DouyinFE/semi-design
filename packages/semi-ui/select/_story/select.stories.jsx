@@ -3414,3 +3414,24 @@ export const TestOptionKey = () => {
     </Select>
   </>
 }
+
+export const TestDemo = () => {
+  const [value, setValue] = useState("1");
+  return (
+    <Select
+      value={value}
+      onChange={(v) => {
+        setValue(v);
+        console.log(v);
+      }}
+      onBlur={()=>{
+        console.log('onBlur')
+      }}
+      placeholder="受控的Select"
+    >
+      <Select.Option value={"1"}>抖音</Select.Option>
+      <Select.Option value={"2"}>轻颜相机</Select.Option>
+      <Select.Option value={"3"}>剪映</Select.Option>
+    </Select>
+  );
+};

@@ -448,19 +448,21 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             notifyMaxLimit: (option: OptionProps) => this.props.onExceed(option),
             getMaxLimit: () => this.props.max,
             registerClickOutsideHandler: (cb: (e: MouseEvent) => void) => {
-                const clickOutsideHandler: (e: MouseEvent) => void = e => {
-                    const optionInstance = this.optionsRef && this.optionsRef.current;
-                    const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
-                    const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
-                    // let isInPanel = optionsDom && optionsDom.contains(e.target);
-                    // let isInTrigger = triggerDom && triggerDom.contains(e.target);
-                    if (optionsDom && !optionsDom.contains(e.target as Node) &&
-                        triggerDom && !triggerDom.contains(e.target as Node)) {
-                        cb(e);
-                    }
-                };
-                this.clickOutsideHandler = clickOutsideHandler;
-                document.addEventListener('mousedown', clickOutsideHandler as any, false);
+                if (!this.clickOutsideHandler) {
+                    const clickOutsideHandler: (e: MouseEvent) => void = e => {
+                        const optionInstance = this.optionsRef && this.optionsRef.current;
+                        const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
+                        const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
+                        // let isInPanel = optionsDom && optionsDom.contains(e.target);
+                        // let isInTrigger = triggerDom && triggerDom.contains(e.target);
+                        if (optionsDom && !optionsDom.contains(e.target as Node) &&
+                            triggerDom && !triggerDom.contains(e.target as Node)) {
+                            cb(e);
+                        }
+                    };
+                    this.clickOutsideHandler = clickOutsideHandler;
+                    document.addEventListener('mousedown', clickOutsideHandler as any, false);
+                }
             },
             unregisterClickOutsideHandler: () => {
                 if (this.clickOutsideHandler) {

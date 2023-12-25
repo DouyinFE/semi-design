@@ -379,6 +379,11 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     close(e?: any, closeCb?: () => void) {
         // to support A11y, closing the panel trigger does not necessarily lose focus
 
+        const isOpen = this.getState('isOpen');
+        if (!isOpen) {
+            return;
+        }
+
         this._adapter.closeMenu();
         this._adapter.notifyDropdownVisibleChange(false);
         this._adapter.setIsFocusInContainer(false);
