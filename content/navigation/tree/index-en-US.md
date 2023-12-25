@@ -1213,6 +1213,79 @@ class Demo extends React.Component {
 }
 ```
 
+### Tree with line
+
+Set the line between nodes through `showLine`, the default is false, supported starting from 2.50.0
+
+```jsx live=true hideInDSM
+import React, { useState, useCallback } from 'react';
+import { Tree, Switch } from '@douyinfe/semi-ui';
+
+() => {
+    const [show, setShow] = useState(true);
+    const onChange = useCallback((value) => {
+        setShow(value);
+    }, []);
+    const treeData = useMemo(() => {
+        return [
+            {
+                label: 'parent-0',
+                key: 'parent-0',
+                children: [
+                    {
+                        label: 'leaf-0-0',
+                        key: 'leaf-0-0',
+                        children: [
+                            {
+                                label: 'leaf-0-0-0',
+                                key: 'leaf-0-0-0',
+                            },
+                            {
+                                label: 'leaf-0-0-1',
+                                key: 'leaf-0-0-1',
+                            },
+                            {
+                                label: 'leaf-0-0-2',
+                                key: 'leaf-0-0-2',
+                            },
+                        ]
+                    },
+                    {
+                        label: 'leaf-0-1',
+                        key: 'leaf-0-1',
+                    }
+                ]
+            },
+            {
+                label: 'parent-1',
+                key: 'parent-1',
+            }
+        ];
+    }, []);
+
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+
+    return (
+        <>
+            <div style={{ display: 'flex', alignItems: 'center', columnGap: 5, marginBottom: 5 }}>
+                <strong>showLine </strong>
+                <Switch checked={show} onChange={onChange} />
+            </div>
+            <Tree
+                showLine={show}
+                defaultExpandAll
+                treeData={treeData}
+                style={style}
+            />
+        </>
+    );
+};
+```
+
 ### Virtualized Tree
 If you need to render large sets of tree structured data, you could use virtualized tree. In virtualized mode, animation / motion is disabled for better performance. 
 
@@ -2232,6 +2305,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | searchStyle         | Style for for search box           | CSSProperties                      | -       | - |
 | showClear   | Toggle whether to support clear input box | boolean                     | true   | 0.35.0|
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
+| showLine | show line between tree nodes | boolean | false | 2.50.0 |
 | style               | Inline style                       | CSSProperties                      | -       | - |
 | treeData            | Data for treeNodes                 | TreeNodeData[]            | \[]     | - |
 | treeDataSimpleJson  | Data for treeNodes in JSON format, return value in JSON format as well    | TreeDataSimpleJson                      | \{}     | - |
