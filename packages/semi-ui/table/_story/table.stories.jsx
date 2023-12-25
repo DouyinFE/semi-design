@@ -105,7 +105,8 @@ export {
     SorterSortOrder,
     FixedPagination,
     ShowHeader,
-    KeepDOM
+    KeepDOM,
+    SortIcon
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

@@ -26,3 +26,4 @@ export { default as SorterSortOrder } from './SorterSortOrder';
 export { default as FixedPagination } from './FixedPagination';
 export { default as ShowHeader } from './ShowHeader';
 export { default as KeepDOM } from './KeepDOM';
+export { default as SortIcon } from './SortIcon';
