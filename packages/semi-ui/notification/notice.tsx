@@ -33,7 +33,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     static contextType = ConfigContext;
     static propTypes = {
         duration: PropTypes.number,
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        id: PropTypes.string,
         title: PropTypes.node,
         content: PropTypes.node, // strings、numbers、array、element
         type: PropTypes.oneOf(types),
