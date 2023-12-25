@@ -80,7 +80,7 @@ describe('Select', () => {
         cy.get('.semi-select-option').eq(3).should('have.text', 'Xigua');
     });
 
-    it('blur', () => {
+    it('single select blur behavior', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-on-blur-on-focus', {
             onBeforeLoad(win) {
                 cy.stub(win.console, 'log').as('consoleLog');
@@ -90,7 +90,13 @@ describe('Select', () => {
         cy.get('.semi-select-selection').eq(0).click();
         cy.get('.semi-select-option').eq(0).click();
         cy.get('body').click('right');
+        // 一次选择后点击外部区域正常触发 onBlur 事件
         cy.get('@consoleLog').should('be.calledWith', 'onBlur');
+
+        cy.get('.semi-select-selection').eq(0).click();
+        cy.get('.semi-select-option').eq(1).click();
+        // 失去焦点后再次选择选项
+        cy.get('.semi-select-selection').contains('Korea');
        
     });
 
