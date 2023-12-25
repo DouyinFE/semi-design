@@ -32,6 +32,7 @@ $module: #{$prefix}-tree;
         box-sizing: border-box;
         padding-top: $spacing-tree_option-paddingTop;
         padding-bottom: $spacing-tree_option-paddingBottom;
+        padding-left: $spacing-tree_option_level1-paddingLeft;
     }
 
     li > .#{$module}-option-label {
