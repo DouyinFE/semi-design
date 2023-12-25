@@ -84,6 +84,10 @@ $basicType: #{$module}-basic;
         display: flex;
         flex-flow: column nowrap;
 
+        .#{$item}-icon {
+            box-sizing: content-box;
+        }
+
         &.#{$module}-small {
             .#{$item} {
                 .#{$item}-content {
