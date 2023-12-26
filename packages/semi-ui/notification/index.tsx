@@ -98,6 +98,7 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static addNotice(notice: NoticeProps) {
+        notice = { ...defaultConfig, ...notice };
         const id = notice.id ?? getUuid('notification');
         if (!ref) {
             const { getPopupContainer } = notice;
@@ -137,23 +138,23 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
     }
 
     static info(opts: NoticeProps) {
-        return this.addNotice({ ...defaultConfig, ...opts, type: 'info' });
+        return this.addNotice({ ...opts, type: 'info' });
     }
 
     static success(opts: NoticeProps) {
-        return this.addNotice({ ...defaultConfig, ...opts, type: 'success' });
+        return this.addNotice({ ...opts, type: 'success' });
     }
 
     static error(opts: NoticeProps) {
-        return this.addNotice({ ...defaultConfig, ...opts, type: 'error' });
+        return this.addNotice({ ...opts, type: 'error' });
     }
 
     static warning(opts: NoticeProps) {
-        return this.addNotice({ ...defaultConfig, ...opts, type: 'warning' });
+        return this.addNotice({ ...opts, type: 'warning' });
     }
 
     static open(opts: NoticeProps) {
-        return this.addNotice({ ...defaultConfig, ...opts, type: 'default' });
+        return this.addNotice({ ...opts, type: 'default' });
     }
 
     static close(id: string) {

@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.49.2 (2023-12-26)
+- 【Fix】
+    - fix the problem of Select failing to select option after clicking outside when the selection is radio (scope of impact v2.49.0)
+    - Fixed the problem that showFilteredOnly does not take effect in TreeSelect controlled expandedKeys  [#1542 ](https://github.com/DouyinFE/semi-design/issues/1542)
+    - fixed the problem that when the DatePicker type is monthRange, the limited date range does not meet the expectations.
+    - Fixed vertical basic step style error when setting box-sizing to border-box globally.  [#1985 ](https://github.com/DouyinFE/semi-design/issues/1985)
+    - Remove the optional type setting of props of triggerRender of TreeSelect/Select  [#532 ](https://github.com/DouyinFE/semi-design/issues/532)
+    - `Notification.addNotice()` now uses the default config provided to `Notification.config()` [@lideming](https://github.com/lideming)
+
+#### 🎉 2.49.0 (2023-12-15)
+- 【Fix】
+    - Image supports zooming via panel and mouse scrolling anywhere on the preview page [#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - The initial size of the Image preview has been adjusted. Before adjustment, the initial size of the preview is to fit the width and height of the page; after adjustment, if the width and height of the image are smaller than the width and height of the page, the initial width and height of the preview will be the same as the width and height of the image, otherwise the preview will be scaled to fit the width and height of the page.[#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - fixed the problem that after selecting a radio option, clicking outside does not trigger the onblur event [#1977](https://github.com/DouyinFE/semi-design/pull/1977)
 
 #### 🎉 2.49.0-beta.0 (2023-12-11)
 - 【Feat】

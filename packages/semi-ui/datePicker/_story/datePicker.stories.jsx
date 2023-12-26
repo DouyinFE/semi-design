@@ -1165,3 +1165,7 @@ NeedConfirmDelete.storyName = "cashedSelectedValue return to last selected when 
   );
 };
 CashedSelectedValue.storyName = "cashedSelectedValue";
+
+export const Fix1982 = () => {
+  return <DatePicker type="monthRange" style={{ width: 200 }} />
+}

@@ -122,7 +122,7 @@ describe('image', () => {
         // 图片拖动策略是图片只能够拖动到图片边缘和容器边缘重合，因此预期top和left都为 0px
         cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 0, clientY: 0 });
         cy.wait(200);
-        cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100 }).trigger('mouseup');
+        cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100, buttons: 1 });
         cy.wait(200);
         cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '0px');
         cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '0px');
