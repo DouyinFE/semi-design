@@ -25,3 +25,5 @@ export {
     strings,
     numbers
 };
+
+export const VALUE_SPLIT = '_SEMI_CASCADER_SPLIT_';

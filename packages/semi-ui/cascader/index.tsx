@@ -14,10 +14,10 @@ import CascaderFoundation, {
 } from '@douyinfe/semi-foundation/cascader/foundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/cascader/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
-import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten } from 'lodash';
+import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
-import { findKeysForValues, convertDataToEntities, calcMergeType } from '@douyinfe/semi-foundation/cascader/util';
+import { convertDataToEntities, calcMergeType, getKeyByValuePath } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -424,31 +424,27 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             return firstInProps || treeDataHasChange;
         };
         const getRealKeys = (realValue: Value, keyEntities: Entities) => {
-            // normallizedValue is used to save the value in two-dimensional array format
-            let normallizedValue: SimpleValueType[][] = [];
+            // normalizedValue is used to save the value in two-dimensional array format
+            let normalizedValue: SimpleValueType[][] = [];
             if (Array.isArray(realValue)) {
-                normallizedValue = Array.isArray(realValue[0])
+                normalizedValue = Array.isArray(realValue[0])
                     ? (realValue as SimpleValueType[][])
                     : ([realValue] as SimpleValueType[][]);
             } else {
                 if (realValue !== undefined) {
-                    normallizedValue = [[realValue]];
+                    normalizedValue = [[realValue]];
                 }
             }
             // formatValuePath is used to save value of valuePath
             const formatValuePath: (string | number)[][] = [];
-            normallizedValue.forEach((valueItem: SimpleValueType[]) => {
-                const formatItem: (string | number)[] = onChangeWithObject ?
+            normalizedValue.forEach((valueItem: SimpleValueType[]) => {
+                const formatItem: (string | number)[] = onChangeWithObject && isObject(valueItem[0]) ?
                     (valueItem as CascaderData[]).map(i => i?.value) :
                     valueItem as (string | number)[];
                 formatValuePath.push(formatItem);
             });
             // formatKeys is used to save key of value
-            const formatKeys: any[] = [];
-            formatValuePath.forEach(v => {
-                const formatKeyItem = findKeysForValues(v, keyEntities);
-                !isEmpty(formatKeyItem) && formatKeys.push(formatKeyItem);
-            });
+            const formatKeys = formatValuePath.map(v => getKeyByValuePath(v));
             return formatKeys;
         };
         const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
@@ -478,7 +474,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (isSet(realKeys)) {
                     realKeys = [...realKeys];
                 }
-                const calRes = calcCheckedKeys(flatten(realKeys), keyEntities);
+                const calRes = calcCheckedKeys(realKeys, keyEntities);
                 const checkedKeys = new Set(calRes.checkedKeys);
                 const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
                 // disableStrictly
@@ -505,7 +501,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     componentDidUpdate(prevProps: CascaderProps) {
         let isOptionsChanged = false;
-        if (!isEqual(prevProps.treeData, this.props.treeData)) {
+        if (!isEqual(prevProps.treeData, this.props.treeData) && !this.props.multiple) {
             isOptionsChanged = true;
             this.foundation.collectOptions();
         }
@@ -527,13 +523,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.handleTagRemove(null, keyEntities[key].valuePath);
     }
 
-    renderTagItem = (value: string | Array<string>, idx: number, type: string) => {
+    renderTagItem = (nodeKey: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
-        const nodeKey = type === strings.IS_VALUE ? findKeysForValues(value, keyEntities)[0] : value;
         const isDsiabled =
             disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
-        if (!isEmpty(keyEntities) && !isEmpty(keyEntities[nodeKey])) {
+        if (keyEntities[nodeKey]) {
             const tagCls = cls(`${prefixcls}-selection-tag`, {
                 [`${prefixcls}-selection-tag-disabled`]: isDsiabled,
             });
@@ -567,25 +562,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps } = this.props;
         const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
-        const tagValue: Array<Array<string>> = [];
         const realKeys = this.mergeType === strings.NONE_MERGE_TYPE ? checkedKeys : resolvedCheckedKeys;
-        [...realKeys].forEach(checkedKey => {
-            if (!isEmpty(keyEntities[checkedKey])) {
-                tagValue.push(keyEntities[checkedKey].valuePath);
-            }
-        });
         return (
             <TagInput
                 className={tagInputcls}
                 ref={this.inputRef as any}
                 disabled={disabled}
                 size={size}
-                // TODO Modify logic, not modify type
-                value={(tagValue as unknown) as string[]}
+                value={[...realKeys]}
                 showRestTagsPopover={showRestTagsPopover}
                 restTagsPopoverProps={restTagsPopoverProps}
                 maxTagCount={maxTagCount}
-                renderTagItem={(value, index) => this.renderTagItem(value, index, strings.IS_VALUE)}
+                renderTagItem={(value, index) => this.renderTagItem(value, index)}
                 inputValue={inputValue}
                 onInputChange={this.handleInputChange}
                 // TODO Modify logic, not modify type
@@ -747,7 +735,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const hiddenTag: Array<ReactNode> = [];
         [...realKeys].forEach((checkedKey, idx) => {
             const notExceedMaxTagCount = !isNumber(maxTagCount) || maxTagCount >= idx + 1;
-            const item = this.renderTagItem(checkedKey, idx, strings.IS_KEY);
+            const item = this.renderTagItem(checkedKey, idx);
             if (notExceedMaxTagCount) {
                 displayTag.push(item);
             } else {
@@ -795,7 +783,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
         if (!searchable) {
             if (multiple) {
-                if (isEmpty(checkedKeys)) {
+                if (checkedKeys.size === 0) {
                     return <span className={`${prefixcls}-selection-placeholder`}>{placeholder}</span>;
                 }
                 return this.renderMultipleTags();

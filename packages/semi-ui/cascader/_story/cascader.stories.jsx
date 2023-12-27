@@ -2184,3 +2184,83 @@ export const VirtualizeInSearch = () => {
       />
   );
 };
+
+function generateOptions(arr, level, frontKey) {
+  const realLevel = level ?? 0;
+  const notLeaf = realLevel !== arr.length - 1;
+  const realFrontKey = frontKey ? `${frontKey}-` : '';
+  return new Array(arr[realLevel])
+    .fill(0)
+    .map((_item, index) => {
+      const data = {
+        label: `label-${realFrontKey}${index}`,
+        value: `value-${realFrontKey}${index}`,
+      };
+      if (notLeaf) {
+        data.children = generateOptions(
+          arr,
+          realLevel + 1,
+          `${realFrontKey}${index}`,
+        );
+      }
+      return data;
+    });
+}
+
+export const LeafOnlyPF = () => {
+  const treeData = useMemo(() => {
+    return generateOptions([4, 10, 10, 10]);
+  }, []);
+
+  return (
+    <Cascader
+      multiple
+      leafOnly
+      maxTagCount={4}
+      treeData={treeData}
+      style={{ width: 200 }}
+    />
+  );
+};
+
+export const SearchPF = () => {
+  const treeData = useMemo(() => {
+    return generateOptions([4, 10, 10, 10]);
+  }, []);
+
+  return (
+    <Cascader
+      filterTreeNode
+      multiple
+      leafOnly
+      maxTagCount={4}
+      treeData={treeData}
+      style={{ width: 200 }}
+    />
+  );
+};
+
+export const ControlledPF = () => {
+  const [cValue, setCValue] = useState([]);
+  const onCascaderChange = useCallback(value => {
+    // console.log('cValue', value);
+    setCValue(value);
+  }, []);
+
+  const treeData = useMemo(() => {
+    return generateOptions([4, 10, 10, 10, 10]);
+  }, []);
+
+  return (
+    <Cascader
+      value={cValue}
+      onChange={onCascaderChange}
+      filterTreeNode
+      leafOnly
+      multiple
+      maxTagCount={4}
+      treeData={treeData}
+      style={{ width: 200 }}
+    />
+  )
+}
