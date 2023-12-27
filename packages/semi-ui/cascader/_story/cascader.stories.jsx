@@ -1626,7 +1626,7 @@ export const DynamicTreeData = () => {
 
 
 export const SuperLongList = () => {
-    let treeData = new Array(100).fill().map(() => ({ label: '浙江省', value: 'zhejiang' }));
+    let treeData = new Array(100).fill().map((item, index) => ({ label: `浙江省${index}`, value: `zhejiang${index}` }));
     treeData.push({ label: '到底啦', value: 'bottom' })
     return (
         <Cascader
