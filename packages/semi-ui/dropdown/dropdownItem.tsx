@@ -47,7 +47,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         forwardRef: PropTypes.func,
         type: PropTypes.oneOf(strings.ITEM_TYPE),
         active: PropTypes.bool,
-        icon: PropTypes.node
+        icon: PropTypes.node,
     };
 
     static contextType = DropdownContext;
@@ -93,9 +93,11 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         const events = {};
         if (!disabled) {
             ['onClick', 'onMouseEnter', 'onMouseLeave', 'onContextMenu'].forEach(eventName => {
-                if (eventName === "onClick") {
+                const isInAnotherDropdown = this.context.level!==1;
+                console.log("isInAnotherDropdown", this.context.level, isInAnotherDropdown);
+                if (isInAnotherDropdown && eventName==="onClick") {
                     events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>)=>{
-                        if (e.button===0) { 
+                        if (e.button===0) {
                             this.props[eventName]?.(e);
                         }
                     };
