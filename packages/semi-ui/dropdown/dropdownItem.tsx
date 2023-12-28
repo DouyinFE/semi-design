@@ -93,11 +93,10 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         const events = {};
         if (!disabled) {
             ['onClick', 'onMouseEnter', 'onMouseLeave', 'onContextMenu'].forEach(eventName => {
-                const isInAnotherDropdown = this.context.level!==1;
-                console.log("isInAnotherDropdown", this.context.level, isInAnotherDropdown);
-                if (isInAnotherDropdown && eventName==="onClick") {
-                    events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>)=>{
-                        if (e.button===0) {
+                const isInAnotherDropdown = this.context.level !== 1;
+                if (isInAnotherDropdown && eventName === "onClick") {
+                    events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+                        if (e.button === 0) {
                             this.props[eventName]?.(e);
                         }
                     };
