@@ -1,11 +1,13 @@
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
-import { cloneDeep, difference, isEqual } from 'lodash';
+import { difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
 import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography} from '../../index';
 import BigTree from './BigData';
 import testData from './data';
+import copy from 'fast-copy';
+
 const TreeNode = Tree.TreeNode;
 const { Title } = Typography;
 
@@ -643,7 +645,7 @@ class TagSideSheet2 extends React.Component {
   }
 
   transLabel(list) {
-    // list = cloneDeep(list);
+    // list = copy(list);
     list.forEach(item => {
       item.label = this.renderLabel(item);
       // item.key += Math.random().toString().slice(0, 5);
@@ -653,7 +655,7 @@ class TagSideSheet2 extends React.Component {
 
   render() {
     const { tagList = [] } = this.state;
-    const transformedTags = this.transLabel(cloneDeep(tagList));
+    const transformedTags = this.transLabel(copy(tagList));
     console.log('transformedTags', transformedTags, treeDataTest);
     return <Tree treeData={transformedTags} />;
   }
@@ -1421,7 +1423,7 @@ const LoadingTreeDemo = () => {
     });
   }
 
-  return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} />;
+  return <Tree loadData={onLoadData} treeData={copy(treeData)} />;
 };
 
 export const Loading = () => (
@@ -1462,7 +1464,7 @@ const LoadingWithSearch = () => {
     });
   }
 
-  return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} filterTreeNode />;
+  return <Tree loadData={onLoadData} treeData={copy(treeData)} filterTreeNode />;
 };
 
 export const _LoadingWithSearch = () => (
@@ -1813,7 +1815,7 @@ const ActionTree = () => {
   const remove = key => {
     let ind = data[0].children.findIndex(item => item.key === key);
     if (ind >= 0) {
-      let items = cloneDeep(data);
+      let items = copy(data);
       items[0].children.splice(ind, 1);
       setData(items);
     }
@@ -1821,7 +1823,7 @@ const ActionTree = () => {
 
   return (
     <Tree
-      treeData={cloneDeep(data)}
+      treeData={copy(data)}
       renderLabel={(label, data) => (
         <div>
           {label}
@@ -2904,7 +2906,7 @@ export const KeyMaps = () => {
   }, []);
 
   const normalExpanded = useCallback((expandedKeys, {expanded, node}) => {
-    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+    console.log('onExpanded', expandedKeys, expanded, copy(node));
   }, []);
   
   const normalSearch = useCallback((input, filteredExpandedKeys) => {

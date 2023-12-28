@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from '@douyinfe/semi-ui';
-import { cloneDeep } from 'lodash';
+import copy from 'fast-copy';
 
 const ControlledSortOrder = () => {
     const [sortColumns, setSortColumns] = React.useState([]);
@@ -59,7 +59,7 @@ const ControlledSortOrder = () => {
             columns={sortColumns}
             dataSource={sortData}
             onChange={({ sorter }) => {
-                const cT = cloneDeep(sortColumns);
+                const cT = copy(sortColumns);
                 let sortOrder;
                 const sortTrend = sorter.sortOrder;
                 if (!sortTrend) {

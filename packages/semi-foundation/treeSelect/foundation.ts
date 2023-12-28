@@ -1,4 +1,4 @@
-import { isNumber, isFunction, get, isUndefined, isString, cloneDeep, isEmpty, difference } from 'lodash';
+import { isNumber, isFunction, get, isUndefined, isString, isEmpty, difference } from 'lodash';
 import { strings } from '../treeSelect/constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
@@ -305,14 +305,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    getCopyFromState(items: string | string[]) {
-        const res = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res as BasicTreeInnerData;
-    }
-
     getTreeNodeProps(key: string) {
         const {
             expandedKeys = new Set([]),
@@ -374,10 +366,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             return {};
         }
         loadData(data).then(() => {
-            const {
-                loadedKeys: prevLoadedKeys,
-                loadingKeys: prevLoadingKeys
-            } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+            const prevLoadedKeys = new Set(this.getState('loadedKeys')) as Set<string>;
+            const prevLoadingKeys = new Set(this.getState('loadingKeys')) as Set<string>;
             const newLoadedKeys: Set<string> = prevLoadedKeys.add(key);
             const newLoadingKeys: Set<string> = new Set([...prevLoadingKeys]);
             newLoadingKeys.delete(key);
@@ -663,7 +653,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleSingleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        let { selectedKeys } = this.getCopyFromState('selectedKeys');
+        let selectedKeys = [...this.getState('selectedKeys')];
         const { clickToHide } = this.getProps();
         const { selected, eventKey, data } = treeNode;
         this._adapter.notifySelect(eventKey, true, data);
@@ -683,10 +673,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     calcCheckedKeys(eventKey: BasicTreeNodeProps['eventKey'], targetStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const {
-            checkedKeys,
-            halfCheckedKeys
-        } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         if (targetStatus) {
             return calcCheckedKeysForChecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys);
         } else {
@@ -736,7 +724,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some(key => disabledKeys.has(key));
         if (!hasDisabled) {
@@ -767,7 +755,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { treeData, filteredShownKeys, keyEntities, keyMaps } = this.getStates();
         const showFilteredOnly = this._showFilteredOnly();
         // clone otherwise will be modified unexpectedly
-        const { filteredExpandedKeys } = this.getCopyFromState('filteredExpandedKeys');
+        const filteredExpandedKeys = new Set(this.getState('filteredExpandedKeys')) as Set<string>;
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
 
@@ -819,7 +807,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
         const { treeData } = this.getStates();
         // clone otherwise will be modified unexpectedly
-        const { expandedKeys } = this.getCopyFromState('expandedKeys');
+        const expandedKeys = new Set(this.getState('expandedKeys')) as Set<string>;
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
         if (!expanded) {
