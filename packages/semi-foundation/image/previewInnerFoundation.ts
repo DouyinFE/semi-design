@@ -166,7 +166,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             direction,
             rotation: 0,
         } as any);
-        this._adapter.notifyRotateChange(0);
     }
 
     handleDownload = () => {
