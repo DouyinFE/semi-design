@@ -99,6 +99,7 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     sortChildrenRecord?: boolean;
     sortOrder?: SortOrder;
     sorter?: Sorter<RecordType>;
+    sortIcon?: SortIcon;
     title?: ColumnTitle;
     useFullRender?: boolean;
     width?: string | number;
@@ -112,6 +113,7 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
 
 export type Align = BaseAlign;
 export type SortOrder = BaseSortOrder;
+export type SortIcon = (props: { sortOrder: SortOrder }) => ReactNode;
 export type FilterIcon = boolean | React.ReactNode | FilterIconRenderFunction;
 export interface Filter extends BaseFilter {
     value?: any;

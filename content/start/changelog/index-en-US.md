@@ -15,7 +15,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.50.0-beta.0 (2023-12-26)
+- 【Feat】
+    - Tree, TreeSelect add showLine api.  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+    - Table column support sortIcon
+- 【Style】
+    - Modify the CSS implementation of the indentation of each line of the Tree/TreeSelect option. There is no limit to the indentation level greater than 20 levels. [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Fix】
+    - fix the problem that types of Id in Notification is not correct.
+    - 
 #### 🎉 2.49.2 (2023-12-26)
 - 【Fix】
     - fix the problem of Select failing to select option after clicking outside when the selection is radio (scope of impact v2.49.0)

@@ -1431,6 +1431,7 @@ function Demo() {
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                          | string | `dropdown` | 1.29.0 |
 | showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                                    | boolean | false |  |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                                           | boolean | false | 0.32.0 |
+| showLine | 选项面板中选项显示连接线 | boolean | false | 2.50.0 |
 | showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                           | boolean | false | 2.22.0 |
 | showSearchClear | 是否显示搜索框的清除按钮                                                                                                                               | boolean | true | 0.35.0 |
 | size | 选择框大小，可选 `large`，`small`，`default`                                                                                                         | string | `default` | - |

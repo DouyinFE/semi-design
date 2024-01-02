@@ -1241,6 +1241,79 @@ class Demo extends React.Component {
 }
 ```
 
+### 连接线
+
+通过 `showLine` 设置节点之间的连接线，默认为 false，从 2.50.0 开始支持
+
+```jsx live=true hideInDSM
+import React, { useState, useCallback } from 'react';
+import { Tree, Switch } from '@douyinfe/semi-ui';
+
+() => {
+    const [show, setShow] = useState(true);
+    const onChange = useCallback((value) => {
+        setShow(value);
+    }, []);
+    const treeData = useMemo(() => {
+        return [
+            {
+                label: 'parent-0',
+                key: 'parent-0',
+                children: [
+                    {
+                        label: 'leaf-0-0',
+                        key: 'leaf-0-0',
+                        children: [
+                            {
+                                label: 'leaf-0-0-0',
+                                key: 'leaf-0-0-0',
+                            },
+                            {
+                                label: 'leaf-0-0-1',
+                                key: 'leaf-0-0-1',
+                            },
+                            {
+                                label: 'leaf-0-0-2',
+                                key: 'leaf-0-0-2',
+                            },
+                        ]
+                    },
+                    {
+                        label: 'leaf-0-1',
+                        key: 'leaf-0-1',
+                    }
+                ]
+            },
+            {
+                label: 'parent-1',
+                key: 'parent-1',
+            }
+        ];
+    }, []);
+
+    const style = {
+        width: 260,
+        height: 420,
+        border: '1px solid var(--semi-color-border)'
+    };
+
+    return (
+        <>
+            <div style={{ display: 'flex', alignItems: 'center', columnGap: 5, marginBottom: 5 }}>
+                <strong>showLine </strong>
+                <Switch checked={show} onChange={onChange} />
+            </div>
+            <Tree
+                showLine={show}
+                defaultExpandAll
+                treeData={treeData}
+                style={style}
+            />
+        </>
+    );
+};
+```
+
 ### 虚拟化
 列表虚拟化，用于大量树节点的情况。开启后，动画效果将被关闭。
 
@@ -2247,6 +2320,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | searchStyle | 搜索框的样式 | CSSProperties | - | - |
 | showClear | 支持清除搜索框 | boolean | true | 0.35.0 |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果 | boolean | false | 0.32.0 |
+| showLine | 显示连接线 | boolean | false | 2.50.0 |
 | style | 样式  | CSSProperties | - | - |
 | treeData | treeNodes 数据，如果设置则不需要手动构造 TreeNode 节点（key值在整个树范围内唯一） | TreeNodeData[] | \[] | - |
 | treeDataSimpleJson | 简单 JSON 形式的 `TreeNodeData` 数据，如果设置则不需要手动构造 TreeNode 节点，返回值为包含选中节点的Json数据 | TreeDataSimpleJson | \{} | - |

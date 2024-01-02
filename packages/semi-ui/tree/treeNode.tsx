@@ -10,6 +10,7 @@ import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
 import { getHighLightTextHTML } from '../_utils/index';
+import Indent from './indent';
 
 const prefixcls = cssClasses.PREFIX_OPTION;
 
@@ -33,7 +34,9 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         keyword: PropTypes.string,
         treeNodeFilterProp: PropTypes.string,
         selectedKey: PropTypes.string,
-        motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)])
+        motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+        isEnd: PropTypes.arrayOf(PropTypes.bool),
+        showLine: PropTypes.bool
     };
 
     static defaultProps = {
@@ -200,7 +203,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading, expanded } = this.props;
+        const { loading, expanded, showLine } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
@@ -208,12 +211,15 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             return (
                 <IconTreeTriangleDown
                     role='button'
-                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`} 
+                    aria-label={`${expanded ? 'Expand' : 'Collapse'} the tree item`}
                     className={`${prefixcls}-expand-icon`}
                     size="small"
                     onClick={this.onExpand}
                 />
             );
+        }
+        if (showLine) {
+            return this.renderSwitcher();
         }
         return (
             <span className={`${prefixcls}-empty-icon`} />
@@ -226,7 +232,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         return (
             <div
                 role='none'
-                onClick={this.onCheck} 
+                onClick={this.onCheck}
                 onKeyPress={this.handleCheckEnterPress}
             >
                 <Checkbox
@@ -239,6 +245,18 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             </div>
         );
     }
+
+    // Switcher
+    renderSwitcher = () => {
+        if (this.isLeaf()) {
+            // if switcherIconDom is null, no render switcher span
+            return (<span className={cls(`${prefixcls}-switcher`)} >
+                <span className={`${prefixcls}-switcher-leaf-line`} />
+            </span>);
+
+        }
+        return null;
+    };
 
     renderIcon() {
         const {
@@ -315,6 +333,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             treeNodeFilterProp,
             display,
             style,
+            isEnd,
+            showLine,
             ...rest
         } = this.props;
         if (empty) {
@@ -328,6 +348,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             dropPosition,
             labelEllipsis
         } = this.context;
+        const isEndNode = isEnd[isEnd.length - 1];
         const disabled = this.isDisabled();
         const dragOver = dragOverNodeKey === eventKey && dropPosition === 0;
         const dragOverGapTop = dragOverNodeKey === eventKey && dropPosition === -1;
@@ -346,6 +367,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             // When draggable + renderFullLabel is turned on, the style of dragover
             [`${prefixcls}-fullLabel-drag-over-gap-top`]: !disabled && dragOverGapTop && renderFullLabel,
             [`${prefixcls}-fullLabel-drag-over-gap-bottom`]: !disabled && dragOverGapBottom && renderFullLabel,
+            [`${prefixcls}-tree-node-last-leaf`]: isEndNode,
         });
         const labelProps = {
             onClick: this.onClick,
@@ -406,18 +428,18 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             [`${prefixcls}-drag-over-gap-bottom`]: !disabled && dragOverGapBottom,
         });
         const setsize = get(rest, ['data', 'children', 'length']);
-        const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level+1]) + 1 : 1;
+        const posinset = isString(rest.pos) ? Number(rest.pos.split('-')[level + 1]) + 1 : 1;
         return (
             <li
                 className={nodeCls}
                 role="treeitem"
-                aria-disabled={disabled} 
+                aria-disabled={disabled}
                 aria-checked={checked}
                 aria-selected={selected}
                 aria-setsize={setsize}
                 aria-posinset={posinset}
                 aria-expanded={expanded}
-                aria-level={level+1}
+                aria-level={level + 1}
                 data-key={eventKey}
                 onClick={this.onClick}
                 onKeyPress={this.handleliEnterPress}
@@ -427,10 +449,12 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 style={style}
                 {...dragProps}
             >
+                <Indent showLine={showLine} prefixcls={prefixcls} level={level} isEnd={isEnd} />
                 {this.renderArrow()}
                 <span
                     className={labelCls}
                 >
+
                     {multiple ? this.renderCheckbox() : null}
                     {this.renderIcon()}
                     <span className={`${prefixcls}-label-text`}>{this.renderRealLabel()}</span>

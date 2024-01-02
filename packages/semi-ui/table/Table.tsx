@@ -1001,6 +1001,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     <ColumnSorter
                         key={strings.DEFAULT_KEY_COLUMN_SORTER}
                         sortOrder={sortOrder}
+                        sortIcon={column.sortIcon}
                         onClick={e => this.foundation.handleSort(column, e)}
                         title={TitleNode}
                     />
