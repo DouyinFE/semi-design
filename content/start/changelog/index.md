@@ -13,6 +13,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - ImagePreview 中图片初次加载，zoom 改变不需要通过 onZoomIn/onZoomOut 回调透出  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - 修复在图片预览时切换图片触发意外的 onRotateLeft 回调
+
 #### 🎉 2.50.0-beta.0 (2023-12-26)
 - 【Feat】
     - Tree, TreeSelect 新增 showLine api。  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)

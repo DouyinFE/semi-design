@@ -15,6 +15,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - When images in ImagePreview is loaded for the first time, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
+    callbacks  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - Fixed the issue of unexpected onRotateLeft callback being triggered when switching images during image preview
+
+
 #### 🎉 2.50.0-beta.0 (2023-12-26)
 - 【Feat】
     - Tree, TreeSelect add showLine api.  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
