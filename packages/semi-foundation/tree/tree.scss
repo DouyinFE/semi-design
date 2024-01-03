@@ -329,6 +329,12 @@ $module: #{$prefix}-tree;
         }
     }
 
+    @for $i from 1 through 20 {
+        li.#{$module}-option.#{$module}-option-fullLabel-level-#{$i} {
+            padding-left: $spacing-tree_option_level-paddingLeft * ($i - 1) + $spacing-tree_option_level1-paddingLeft;
+        }
+    }
+
     .#{$module}-option-empty {
         &:hover,
         &:active {
