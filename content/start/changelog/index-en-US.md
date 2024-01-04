@@ -16,9 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - Fix the indentation error problem when renderingFullLabel after Tree supports showLine（scope of impact: v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - After Tree supports showLine, the connection line and option text partially overlap in rtl mode (scope of impact: v2.50.0) [#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - Fix the font-weight error of the active item in BreadCrumb(scope of impact: v2.47-2.50) [#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
 #### 🎉 2.50.0 (2024-01-02)
 - 【Fix】
-  - When images in ImagePreview is loaded for the first time, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
+  - When opening a preview in ImagePreview and switching preview images, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
     callbacks  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
   - Fixed the issue of unexpected onRotateLeft callback being triggered when switching images during image preview
 

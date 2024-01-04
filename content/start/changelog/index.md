@@ -13,9 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - 修复 Tree 在支持 showLine 后， renderFullLabel 时缩进错误问题（影响范围：v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - 修复 Tree 在支持 showLine 后， rtl 模式下连接线和选项文字部分重合问题（影响范围：v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - 修复 BreadCrumb 中 active 项 font-weight 错误问题 （影响范围 v2.47-2.50）[#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
 #### 🎉 2.50.0 (2024-01-02)
 - 【Fix】
-  - ImagePreview 中图片初次加载，zoom 改变不需要通过 onZoomIn/onZoomOut 回调透出  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - ImagePreview 中打开预览，切换预览图片时，zoom 改变不需要通过 onZoomIn/onZoomOut 回调透出  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
   - 修复在图片预览时切换图片触发意外的 onRotateLeft 回调
 
 #### 🎉 2.50.0-beta.0 (2023-12-26)
