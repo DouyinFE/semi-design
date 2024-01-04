@@ -8,8 +8,8 @@ brief: 关于 Semi Design For React 优化与更新。我们提供了版本间�
 ---
 
 Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本号）：
--   主版本号（major）：重大性能/使用变更，允许做 breaking change
--   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者样式变更
+-   主版本号（major）：大版本更新，一般为重大性能/使用变更，允许做 API 级别的 breaking change
+-   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者设计规范样式更新，或者不合理交互的变更，但不会对组件 API 做删减或功能变更。
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
