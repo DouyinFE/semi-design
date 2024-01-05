@@ -481,9 +481,8 @@ function Demo() {
                     <br /> We have 2 lines.
                 </article>
             }
-            trigger="custom"
+            trigger="click"
             position='right'
-            visible
             showArrow
             style={{
                 backgroundColor: 'rgba(var(--semi-blue-4),1)',
