@@ -116,6 +116,7 @@ export interface SliderProps {
 }
 
 export interface HeaderProps {
+    closable: boolean;
     renderHeader?: (info: any) => ReactNode;
     title?: string;
     titleStyle?: React.CSSProperties;

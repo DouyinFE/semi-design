@@ -60,6 +60,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         src: [],
         lazyLoad: true,
         lazyLoadMargin: "0px 100px 100px 0px",
+        closable: true
     };
 
     get adapter() {

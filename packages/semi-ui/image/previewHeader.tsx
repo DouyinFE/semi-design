@@ -7,7 +7,7 @@ import { PreviewContext } from "./previewContext";
 
 const prefixCls = `${cssClasses.PREFIX}-preview-header`;
 
-const Header = forwardRef(({ onClose, titleStyle, className, renderHeader }: HeaderProps, ref: React.LegacyRef<HTMLElement>) => (
+const Header = forwardRef(({ onClose, titleStyle, className, renderHeader, closable }: HeaderProps, ref: React.LegacyRef<HTMLElement>) => (
     <PreviewContext.Consumer>
         {({ currentIndex, titles }) => {
             let title;
@@ -18,9 +18,9 @@ const Header = forwardRef(({ onClose, titleStyle, className, renderHeader }: Hea
                 <section ref={ref} className={cls(prefixCls, className)}>
                     <section className={`${prefixCls}-title`} style={titleStyle}>{renderHeader ? renderHeader(title) : title}</section>
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <section className={`${prefixCls}-close`} onMouseUp={onClose}>
+                    {closable && <section className={`${prefixCls}-close`} onMouseUp={onClose}>
                         <IconClose />
-                    </section>
+                    </section>}
                 </section>
             );
         }}

@@ -62,6 +62,7 @@ export const basicImage = () => {
     const [disableDownload, setDisableDownload] = useState(false);
     const [maskClosable, setMaskClosable] = useState(true);
     const [preview, setPreview] = useState(true);
+    const [closable, setClosable] = useState(true);
 
     const itemStyle = { display: 'flex', alignItems: 'center', flexShrink: 0, width: 'fit-content', margin: '10px 20px 0 0' };
     const menuStyle = { marginBottom: 20, display: 'flex', flexWrap: 'wrap' };
@@ -81,6 +82,10 @@ export const basicImage = () => {
                 <span >是否禁用下载：</span>
                 <Switch checked={disableDownload} checkedText="是" uncheckedText="否" onChange={setDisableDownload}/>
             </div>
+            <div style={itemStyle} id='closable'>
+                <span>是否显示预览关闭按钮：</span>
+                <Switch checked={closable} checkedText="是" uncheckedText="否" onChange={setClosable} />
+            </div>
             <div style={itemStyle} id='maskClosable'>
                 <span >点击遮罩层是否关闭预览：</span>
                 <Switch checked={maskClosable} checkedText="是" uncheckedText="否" onChange={setMaskClosable}/>
@@ -93,7 +98,8 @@ export const basicImage = () => {
             preview={preview ? {
                 closeOnEsc: escOut,
                 disableDownload,
-                maskClosable
+                maskClosable,
+                closable
             } : false}
         />
     </>

@@ -342,6 +342,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     render() {
         const {
             getPopupContainer,
+            closable,
             zIndex,
             visible,
             className,
@@ -402,7 +403,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     ref={this.registryImageWrapRef}
                     onMouseMove={this.handleMouseMove}
                 >
-                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} />
+                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable}/>
                     <PreviewImage
                         src={imgSrc[currentIndex]}
                         onZoom={this.handleZoomImage}
