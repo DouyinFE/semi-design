@@ -15,6 +15,7 @@ Semi 团队会维护两个常驻分支：`main` 和 `release`，根据我们的[
 Semi Design 团队会认真对待每一个 Pull Request。我们会 review 并合并你的代码。也有可能对你的代码提出一些修改意见。
 
 要提交一个 Pull Request，请遵循以下步骤：
+ - Node.js > v16
  - Fork 项目并克隆下来
 ```bash
 git clone https://github.com/<your-username>/semi-design.git
@@ -26,7 +27,8 @@ git checkout -b <TOPIC_BRANCH_NAME>
 ```
 >安装环境前确保本地有 `lerna` 和 `yarn` 的依赖，如果没有则运行：
 ```bash
-npm install --global lerna yarn
+corepack enable
+npm install --global lerna
 ```
  - 完成项目依赖安装
 ```bash

@@ -15,6 +15,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - Fix the indentation error problem when renderingFullLabel after Tree supports showLine（scope of impact: v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - After Tree supports showLine, the connection line and option text partially overlap in rtl mode (scope of impact: v2.50.0) [#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - Fix the font-weight error of the active item in BreadCrumb(scope of impact: v2.47-2.50) [#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - When opening a preview in ImagePreview and switching preview images, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
+    callbacks  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - Fixed the issue of unexpected onRotateLeft callback being triggered when switching images during image preview
+
+
 #### 🎉 2.50.0-beta.0 (2023-12-26)
 - 【Feat】
     - Tree, TreeSelect add showLine api.  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
@@ -31,7 +46,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - fixed the problem that when the DatePicker type is monthRange, the limited date range does not meet the expectations.
     - Fixed vertical basic step style error when setting box-sizing to border-box globally.  [#1985 ](https://github.com/DouyinFE/semi-design/issues/1985)
     - Remove the optional type setting of props of triggerRender of TreeSelect/Select  [#532 ](https://github.com/DouyinFE/semi-design/issues/532)
-    - `Notification.addNotice()` now uses the default config provided to `Notification.config()` [@lideming](https://github.com/lideming)
+    - Fixed an issue where `Notification.addNotice()` did not use the global configuration set via `Notification.config()` [@lideming](https://github.com/lideming)
 
 #### 🎉 2.49.0 (2023-12-15)
 - 【Fix】

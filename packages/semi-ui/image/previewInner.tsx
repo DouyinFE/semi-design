@@ -285,8 +285,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleRotateImage(direction);
     }
 
-    handleZoomImage = (newZoom: number) => {
-        this.foundation.handleZoomImage(newZoom);
+    handleZoomImage = (newZoom: number, notify: boolean = true) => {
+        this.foundation.handleZoomImage(newZoom, notify);
     }
 
     handleMouseUp = (e): void => {

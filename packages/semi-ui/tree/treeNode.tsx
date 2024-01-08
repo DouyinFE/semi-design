@@ -355,6 +355,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const dragOverGapBottom = dragOverNodeKey === eventKey && dropPosition === 1;
         const nodeCls = cls(prefixcls, {
             [`${prefixcls}-level-${level + 1}`]: true,
+            [`${prefixcls}-fullLabel-level-${level + 1}`]: renderFullLabel,
             [`${prefixcls}-collapsed`]: !expanded,
             [`${prefixcls}-disabled`]: Boolean(disabled),
             [`${prefixcls}-selected`]: selected,
