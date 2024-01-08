@@ -31,6 +31,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         preview: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onLoad: PropTypes.func,
         onError: PropTypes.func,
+        onClick: PropTypes.func,
         crossOrigin: PropTypes.string,
         imageID: PropTypes.number,
     }

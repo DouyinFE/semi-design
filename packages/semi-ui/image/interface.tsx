@@ -21,6 +21,7 @@ export interface ImageProps extends BaseProps{
     preview?: boolean | PreviewProps;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
+    onClick?: (event: any) => void;
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode;
     imageID?: number;
