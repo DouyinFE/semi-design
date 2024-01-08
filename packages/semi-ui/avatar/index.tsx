@@ -218,8 +218,47 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         return content;
     }
 
+
+    renderBottomSlot = ()=>{
+        if (!this.props.bottomSlot) {
+            return null;
+        }
+
+        if (this.props.bottomSlot.render) {
+            return this.props.bottomSlot.render();
+        }
+
+        const renderContent = this.props.bottomSlot.render ??(()=>{
+            return <span className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`)}>
+                {this.props.bottomSlot.content}
+            </span>;
+        });
+
+        return <div className={cls([`${prefixCls}-bottom_slot`])}>
+            {renderContent()}
+        </div>;
+
+    }
+
     render() {
-        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, gap, ...others } = this.props;
+        const {
+            shape,
+            children,
+            size,
+            color,
+            className,
+            hoverMask,
+            onClick,
+            imgAttr,
+            src,
+            srcSet,
+            style,
+            alt,
+            gap,
+            bottomSlot,
+            border,
+            ...others
+        } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
         const isImg = src && isImgExist;
         const avatarCls = cls(
@@ -234,23 +273,43 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             className
         );
 
-        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
-        
-        return (
-            <span
-                {...(others as any)}
-                style={style}
-                className={avatarCls}
-                onClick={onClick as any}
-                onMouseEnter={this.onEnter as any}
-                onMouseLeave={this.onLeave as any}
-                role='listitem'
-                ref={this.avatarRef}
-            >
-                {this.getContent()}
-                {hoverRender}
-            </span>
-        );
+        const hoverRender = hoverContent ? (
+            <div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
+
+        let avatar = <span
+            {...(others as any)}
+            style={style}
+            className={avatarCls}
+            onClick={onClick as any}
+            onMouseEnter={this.onEnter as any}
+            onMouseLeave={this.onLeave as any}
+            role='listitem'
+            ref={this.avatarRef}>
+            {this.getContent()}
+            {hoverRender}
+        </span>;
+
+        if (border) {
+            avatar = <div className={cls([
+                `${prefixCls}-border`,
+                `${prefixCls}-border-${shape}-${size}`,
+                {
+                    [`${prefixCls}-${shape}`]: shape
+                },
+            ])}>
+                {avatar} 
+            </div>;
+        }
+
+
+        if (bottomSlot) {
+            return <span className={cls([`${prefixCls}-wrapper`])}>
+                {avatar}
+                {this.renderBottomSlot()}
+            </span>;
+        } else {
+            return avatar;
+        }
     }
 }
 Avatar.elementType = 'Avatar';

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Avatar,Popover, AvatarGroup, RadioGroup, Radio } from '../../index';
 import { Input } from '../../input'
+import {IconPlus} from "@douyinfe/semi-icons";
 
 export default {
   title: 'Avatar',
@@ -36,6 +37,29 @@ export const Basic = () => (
     </div>
   </div>
 );
+
+export const BottomSolt = () => (
+    <div>
+        <div>
+            <Avatar shape="circle" border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
+            <Avatar shape="circle" bottomSlot={{
+                shape:'rect',
+                content: "直播中"
+            }}>U</Avatar>
+            <Avatar shape="circle" bottomSlot={{
+                shape:'rect',
+                content: "直播中",
+                render:()=>{
+                    return "test"
+                }
+            }}>U</Avatar>
+        </div>
+    </div>
+);
+
 
 export const CustomAvatar = () => (
   <div>

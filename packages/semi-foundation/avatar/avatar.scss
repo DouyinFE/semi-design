@@ -15,6 +15,11 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     text-align: center;
     vertical-align: middle;
 
+    &-border {
+        border: $width-avatar_additional-border solid $color-avatar_additional-border;
+        padding: $spacing-avatar_additional-borderGap;
+    }
+
     &:focus-visible {
         outline: $width-avatar-outline solid $color-avatar-outline-focus;
     }
@@ -148,6 +153,45 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
 
     &:hover {
         cursor: pointer;
+    }
+
+
+}
+
+.#{$module}-wrapper{
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    .#{$module}-bottom_slot{
+        color:var(--semi-color-bg-0);
+        position: absolute;
+        cursor: pointer;
+        bottom: $spacing-avatar_additional-borderGap + $width-avatar_additional-border;
+        transform: translateY(50%);
+        &-shape_circle{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $color-avatar-bottom_slot_bg;
+            border-radius: var(--semi-border-radius-circle);
+        }
+        &-shape_circle-small{
+            width:$width-avatar-bottom_slot_circle_small;
+            height:$width-avatar-bottom_slot_circle_small;
+        }
+        &-shape_circle-default{
+            width:$width-avatar-bottom_slot_circle_default;
+            height:$width-avatar-bottom_slot_circle_default;
+        }
+        &-shape_circle-medium{
+            width:$width-avatar-bottom_slot_circle_medium;
+            height:$width-avatar-bottom_slot_circle_medium;
+        }
+        &-shape_circle-large{
+            width:$width-avatar-bottom_slot_circle_large;
+            height:$width-avatar-bottom_slot_circle_large;
+        }
     }
 }
 

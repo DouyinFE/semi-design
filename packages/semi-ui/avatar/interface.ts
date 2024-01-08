@@ -35,7 +35,13 @@ export interface AvatarProps extends BaseProps {
     onClick?: React.MouseEventHandler;
     onMouseEnter?: React.MouseEventHandler;
     onMouseLeave?: React.MouseEventHandler;
-    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>
+    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
+    bottomSlot?: {
+        render?: () => React.ReactNode;
+        shape?: "circle"|"rect";
+        content: React.ReactNode
+    };
+    border?: boolean
 }
 
 export type AvatarGroupShape = 'circle' | 'square';

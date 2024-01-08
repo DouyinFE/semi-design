@@ -24,28 +24,37 @@ $font-avatar_extra_large-lineHeight: 77px; // 文本行高 - 超大
 
 $radius-avatar: var(--semi-border-radius-circle); // 头像圆角
 
-$width-avatar_extra_large-border: 3px; // 头像描边尺寸 - 超大
-$spacing-avatar_extra_large-marginLeft: -32px; // 头像左侧外边距 - 超大
+$width-avatar_extra_large-border: 3px; // 头像组头像描边尺寸 - 超大
+$spacing-avatar_extra_large-marginLeft: -32px; // 头像组头像左侧外边距 - 超大
 
-$width-avatar_large-border: 3px; // 头像描边尺寸 - 大
+$width-avatar_large-border: 3px; // 头像组头像描边尺寸 - 大
 $spacing-avatar_large-marginLeft: -18px; // 头像左侧外边距 - 大
 
-$width-avatar_medium-border: 2px; // 头像描边尺寸 - 中
+$width-avatar_medium-border: 2px; // 头像组头像描边尺寸 - 中
 $spacing-avatar_medium-marginLeft: -12px; // 头像左侧外边距 - 中
 
-$width-avatar_default-border: 2px; // 头像描边尺寸 - 默认
+$width-avatar_default-border: 2px; // 头像组头像描边尺寸 - 默认
 $spacing-avatar_default-marginLeft: -12px; // 头像左侧外边距 - 默认
 
-$width-avatar_small-border: 2px; // 头像描边尺寸 - 小
+$width-avatar_small-border: 2px; // 头像组头像描边尺寸 - 小
 $spacing-avatar_small-marginLeft: -12px; // 头像左侧外边距 - 小
 
-$width-avatar_extra_small-border: 1px; // 头像描边尺寸 - 超小
+$width-avatar_extra_small-border: 1px; // 头像组头像描边尺寸 - 超小
 $spacing-avatar_extra_small-marginLeft: -10px; // 头像左侧外边距 - 超小
 
-$width-avatar_extra_extra_small-border: 1px; // 头像描边尺寸 - 极小
+$width-avatar_extra_extra_small-border: 1px; // 头像组头像描边尺寸 - 极小
 $spacing-avatar_extra_extra_small-marginLeft: -4px; // 头像左侧外边距 - 极小
-
 $width-avatar-outline: 2px; //头像聚焦轮廓宽度
+
+$width-avatar_additional-border: 2px; // 额外描边尺寸
+$color-avatar_additional-border: var(--semi-color-primary); // 额外描边颜色
+$spacing-avatar_additional-borderGap: 1px; // 额外描边与内侧间距
+
+$width-avatar-bottom_slot_circle_small: 22px;
+$width-avatar-bottom_slot_circle_default: 28px;
+$width-avatar-bottom_slot_circle_medium: 34px;
+$width-avatar-bottom_slot_circle_large: 50px;
+$color-avatar-bottom_slot_bg:var(--semi-color-primary);
 
 // radius
 $radius-avatar_extra_extra_small: 3px; // 极小尺寸头像的圆角
