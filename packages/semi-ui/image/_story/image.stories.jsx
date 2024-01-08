@@ -735,3 +735,38 @@ export const SmallHeightImage = () => {
         />
     </>
 }
+
+export const previewClsAndPreviewStyle = () => {
+   return <>
+        <span>1.previewCls为 test-preview， previewStyle 的 background 为 lightblue </span>
+        <br />
+        <Image 
+            width={360}
+            height={200}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+            preview={{
+                previewCls: 'test-preview',
+                previewStyle: { background: 'lightblue' }
+            }}
+        />
+        <br />
+        <span>2.previewCls为 test-imagePreview， previewStyle 的 background 为 lightgreen </span>
+        <br />
+        <ImagePreview
+            previewCls='test-imagePreview'
+            previewStyle={{ background: 'lightgreen' }}
+        >
+            {srcList1.map((src, index) => {
+                return (
+                    <Image 
+                        key={index} 
+                        src={src} 
+                        width={200} 
+                        alt={`lamp${index + 1}`} 
+                        style={{ marginRight: 5 }}
+                    />
+                );
+            })}
+        </ImagePreview> 
+    </>
+}

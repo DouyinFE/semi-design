@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
-import { PreviewProps as PreviewInnerProps, PreviewInnerStates } from "./interface";
+import { PreviewInnerProps, PreviewInnerStates } from "./interface";
 import PropTypes from "prop-types";
 import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
