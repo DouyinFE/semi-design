@@ -41,6 +41,11 @@ export interface AvatarProps extends BaseProps {
         shape?: "circle"|"square";
         content: React.ReactNode
     };
+    topSlot?: {
+        gradientStart?: string;
+        gradientEnd?: string; 
+        content: React.ReactNode
+    };
     border?: boolean
 }
 

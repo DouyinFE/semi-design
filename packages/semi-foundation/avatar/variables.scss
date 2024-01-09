@@ -57,18 +57,38 @@ $width-avatar-bottom_slot_circle_large: 28px;
 $color-avatar-bottom_slot_bg:var(--semi-color-primary);
 
 $radius-avatar-bottom_slot_square:4px;
-$font-avatar_bottom_slot-small: 5px; // 底部 slot 文字大小
-$font-avatar_bottom_slot-default: 6px; // 底部 slot 文字大小
-$font-avatar_bottom_slot-medium: 8px; // 底部 slot 文字大小
-$font-avatar_bottom_slot-large: 12px; // 底部 slot 文字大小
+$font-avatar_bottom_slot-small: 5px; // small 底部 slot 文字大小
+$font-avatar_bottom_slot-default: 6px; // default 底部 slot 文字大小
+$font-avatar_bottom_slot-medium: 8px; // medium 底部 slot 文字大小
+$font-avatar_bottom_slot-large: 12px; // large 底部 slot 文字大小
 $spacing-avatar-bottom_slot_square-paddingX:4px;
 $spacing-avatar-bottom_slot_square-paddingY:1px;
+
+$font-avatar_top_slot-small: 5px; // small 顶部 slot 文字大小
+$font-avatar_top_slot-default: 6px; // default 顶部 slot 文字大小
+$font-avatar_top_slot-medium: 8px; // medium 顶部 slot 文字大小
+$font-avatar_top_slot-large: 14px; // large 顶部 slot 文字大小
 
 $color-avatar-bottom_slot_square-border:var(--semi-color-bg-0);
 $width-avatar-bottom_slot_square_small-border:2px;
 $width-avatar-bottom_slot_square_default-border:2px;
 $width-avatar-bottom_slot_square_medium-border:2px;
 $width-avatar-bottom_slot_square_large-border:2px;
+
+
+$color-avatar-top_slot_gradient_start: rgb(255,23,100);
+$color-avatar-top_slot_gradient_end: rgb(237,52,148);
+
+
+$spacing-avatar-top_slot_small-shift: -28px; // small 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置
+$spacing-avatar-top_slot_default-shift: -32px; // default 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置
+$spacing-avatar-top_slot_medium-shift: -30px; // medium 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置
+$spacing-avatar-top_slot_large-shift: -30px; // large 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置
+
+$spacing-avatar-top_slot_small-scale: 0.4; // small 顶部 slot 缩放比例
+$spacing-avatar-top_slot_default-scale: 0.7; // default 顶部 slot 缩放比例
+$spacing-avatar-top_slot_medium-scale: 0.8; // medium 顶部 slot 缩放比例
+$spacing-avatar-top_slot_large-scale: 1.1; // large 顶部 slot 缩放比例
 
 
 // radius

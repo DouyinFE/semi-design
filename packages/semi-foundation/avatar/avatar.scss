@@ -1,6 +1,7 @@
 @import './variables.scss';
 @import './mixin.scss';
 
+
 $module: #{$prefix}-avatar;
 $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'light-green', 'lime', 'orange', 'pink',
     'purple', 'red', 'teal', 'violet', 'yellow';
@@ -18,7 +19,34 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     &-border {
         border: $width-avatar_additional-border solid $color-avatar_additional-border;
         padding: $spacing-avatar_additional-borderGap;
+        display: inline-block;
     }
+
+    &-border-square-extra_extra_small {
+        border-radius: $radius-avatar-extra_extra_small;
+    }
+
+    &-border-square-extra_small {
+        border-radius: $radius-avatar-extra_small;
+    }
+
+    &-border-square-small {
+        border-radius: $radius-avatar-small;
+    }
+
+    &-border-square-default {
+        border-radius: $radius-avatar-default;
+    }
+
+    &-border-square-medium {
+        border-radius: $radius-avatar-medium;
+    }
+
+    &-border-square-large {
+        border-radius: $radius-avatar-large;
+    }
+
+
 
     &:focus-visible {
         outline: $width-avatar-outline solid $color-avatar-outline-focus;
@@ -163,6 +191,89 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+
+    .#{$module}-top_slot-bg{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        border-radius: 50%;
+        overflow: hidden;
+
+        &-small{
+            width: $width-avatar_small;
+            height: $width-avatar_small;
+        }
+
+        &-default{
+            width: $width-avatar_default;
+            height: $width-avatar_default;
+        }
+
+        &-medium{
+            width: $width-avatar_medium;
+            height: $width-avatar_medium;
+        }
+
+        &-large{
+            width: $width-avatar_large;
+            height: $width-avatar_large;
+        }
+
+
+        &-svg{
+            position: absolute;
+        }
+        &-svg-small{
+            top: $spacing-avatar-top_slot_small-shift;
+            scale: $spacing-avatar-top_slot_small-scale;
+        }
+        &-svg-default{
+            top: $spacing-avatar-top_slot_default-shift;
+            scale: $spacing-avatar-top_slot_default-scale;
+        }
+        &-svg-medium{
+            top: $spacing-avatar-top_slot_medium-shift;
+            scale: $spacing-avatar-top_slot_medium-scale;
+        }
+        &-svg-large{
+            top: $spacing-avatar-top_slot_large-shift;
+            scale: $spacing-avatar-top_slot_large-scale;
+        }
+    }
+
+    .#{$module}-top_slot-bg-with_border{
+        top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border;
+    }
+
+
+    .#{$module}-top_slot{
+        position: absolute;
+        color:var(--semi-color-bg-0);
+        font-weight: $font-weight-bold;
+        &-with_border{
+            top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border
+        }
+
+        &-content{
+            position: relative;
+
+            &-small{
+                font-size: $font-avatar_top_slot-small;
+            }
+            &-default{
+                font-size: $font-avatar_top_slot-default;
+            }
+            &-medium{
+                font-size: $font-avatar_top_slot-medium;
+            }
+            &-large{
+                font-size: $font-avatar_top_slot-large;
+            }
+        }
+
+    }
+
+
     .#{$module}-bottom_slot{
         color:var(--semi-color-bg-0);
         position: absolute;

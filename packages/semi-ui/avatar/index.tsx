@@ -8,6 +8,8 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent from '../_base/baseComponent';
 import { AvatarProps } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
+import TopSlotSvg from "@douyinfe/semi-ui/avatar/TopSlotSvg";
+
 
 const sizeSet = strings.SIZE;
 const shapeSet = strings.SHAPE;
@@ -240,6 +242,25 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
     }
 
+
+    renderTopSlot = ()=> {
+        return <>
+            <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`, {
+                [`${prefixCls}-top_slot-bg-with_border`]: this.props.border,
+            }])}>
+                <div className={cls([`${prefixCls}-top_slot-bg-svg`, `${prefixCls}-top_slot-bg-svg-${this.props.size}`])}>
+                    <TopSlotSvg gradientStart={this.props.topSlot.gradientStart ?? "#FF1764"} gradientEnd={this.props.topSlot.gradientStart ?? "#ED3494"}/>
+                </div>
+            </div>
+            <div className={cls([`${prefixCls}-top_slot`, {
+                [`${prefixCls}-top_slot-with_border`]: this.props.border,
+            }])}>
+                <div
+                    className={cls([`${prefixCls}-top_slot-content`, `${prefixCls}-top_slot-content-${this.props.size}`])}>{this.props.topSlot.content}</div>
+            </div>
+        </>;
+    }
+
     render() {
         const {
             shape,
@@ -256,6 +277,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             alt,
             gap,
             bottomSlot,
+            topSlot,
             border,
             ...others
         } = this.props;
@@ -290,7 +312,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         </span>;
 
         if (border) {
-            avatar = <div className={cls([
+            avatar = <span className={cls([
                 `${prefixCls}-border`,
                 `${prefixCls}-border-${shape}-${size}`,
                 {
@@ -298,14 +320,15 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 },
             ])}>
                 {avatar} 
-            </div>;
+            </span>;
         }
 
 
-        if (bottomSlot) {
+        if (bottomSlot|| topSlot && ["small", "default", "medium", "large"].includes(size) ) { 
             return <span className={cls([`${prefixCls}-wrapper`])}>
                 {avatar}
-                {this.renderBottomSlot()}
+                {topSlot && shape==="circle" && this.renderTopSlot()}
+                {bottomSlot && this.renderBottomSlot()}
             </span>;
         } else {
             return avatar;

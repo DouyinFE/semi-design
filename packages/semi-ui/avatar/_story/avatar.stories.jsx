@@ -72,6 +72,26 @@ export const BottomSolt = () => (
     </div>
 );
 
+export const TopSolt = () => (
+    <div>
+        <div>
+            <Avatar shape="circle"  size={"extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"medium"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+
+            <Avatar shape="circle" size={"large"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+        </div>
+    </div>
+);
+
 
 export const CustomAvatar = () => (
   <div>
