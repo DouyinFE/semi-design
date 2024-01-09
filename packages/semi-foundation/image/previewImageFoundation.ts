@@ -86,7 +86,9 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             this.setState({
                 loading: false,
             } as any);
-            this.handleResizeImage();
+            // 图片初次加载，计算 zoom，zoom 改变不需要通过回调透出
+            // When the image is loaded for the first time, zoom is calculated, and zoom changes do not need to be exposed through callbacks.
+            this.handleResizeImage(false);
         }
         const { src, onLoad } = this.getProps();
         onLoad && onLoad(src);
@@ -100,7 +102,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         onError && onError(src);
     }
 
-    handleResizeImage = () => {
+    handleResizeImage = (notify: boolean = true) => {
         const horizontal = !this._isImageVertical();
         const { currZoom } = this.getStates();
         const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
@@ -120,7 +122,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             if (currZoom === _zoom) {
                 this.calculatePreviewImage(_zoom, null);
             } else {
-                onZoom(_zoom);
+                onZoom(_zoom, notify);
             }
         }
     }

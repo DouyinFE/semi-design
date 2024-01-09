@@ -10,16 +10,16 @@ export type NoticeTheme = 'light' | 'normal';
 
 export interface NoticeProps {
     duration?: number;
-    id?: string | number;
+    id?: string;
     title?: any;
     content?: any;
     position?: NoticePosition;
     type?: NoticeType;
     onClick?: (e: any) => void;
     onClose?: () => void;
-    onCloseClick?: (id: string | number) => void;
+    onCloseClick?: (id: string) => void;
     showClose?: boolean;
-    close?: (id: string | number) => void;
+    close?: (id: string) => void;
     zIndex?: number;
     icon?: any;
     getPopupContainer?: () => HTMLElement;

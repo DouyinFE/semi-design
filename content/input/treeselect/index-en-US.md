@@ -1450,6 +1450,7 @@ function Demo() {
 | searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | 1.29.0 |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
 | showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
+| showLine | The option in the options panel shows connecting lines | boolean | false | 2.50.0 |
 | showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
 | showSearchClear | Toggle whether to support clear search box | boolean | true | 0.35.0 |
 | size                     | Size for input box，one of `large`，`small`，`default`                              | string                                                            | `default`   | -       |

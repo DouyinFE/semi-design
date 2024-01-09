@@ -166,7 +166,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             direction,
             rotation: 0,
         } as any);
-        this._adapter.notifyRotateChange(0);
     }
 
     handleDownload = () => {
@@ -199,10 +198,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyRotateChange(newRotation);
     }
 
-    handleZoomImage = (newZoom: number) => {
+    handleZoomImage = (newZoom: number, notify: boolean = true) => {
         const { zoom } = this.getStates();
         if (zoom !== newZoom) {
-            this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
             this.setState({
                 zoom: newZoom,
             } as any);

@@ -16,6 +16,38 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - Fix the indentation error problem when renderingFullLabel after Tree supports showLine（scope of impact: v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - After Tree supports showLine, the connection line and option text partially overlap in rtl mode (scope of impact: v2.50.0) [#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - Fix the font-weight error of the active item in BreadCrumb(scope of impact: v2.47-2.50) [#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - When opening a preview in ImagePreview and switching preview images, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
+    callbacks  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - Fixed the issue of unexpected onRotateLeft callback being triggered when switching images during image preview
+
+
+#### 🎉 2.50.0-beta.0 (2023-12-26)
+- 【Feat】
+    - Tree, TreeSelect add showLine api.  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+    - Table column support sortIcon
+- 【Style】
+    - Modify the CSS implementation of the indentation of each line of the Tree/TreeSelect option. There is no limit to the indentation level greater than 20 levels. [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Fix】
+    - fix the problem that types of Id in Notification is not correct.
+    - 
+#### 🎉 2.49.2 (2023-12-26)
+- 【Fix】
+    - fix the problem of Select failing to select option after clicking outside when the selection is radio (scope of impact v2.49.0)
+    - Fixed the problem that showFilteredOnly does not take effect in TreeSelect controlled expandedKeys  [#1542 ](https://github.com/DouyinFE/semi-design/issues/1542)
+    - fixed the problem that when the DatePicker type is monthRange, the limited date range does not meet the expectations.
+    - Fixed vertical basic step style error when setting box-sizing to border-box globally.  [#1985 ](https://github.com/DouyinFE/semi-design/issues/1985)
+    - Remove the optional type setting of props of triggerRender of TreeSelect/Select  [#532 ](https://github.com/DouyinFE/semi-design/issues/532)
+    - Fixed an issue where `Notification.addNotice()` did not use the global configuration set via `Notification.config()` [@lideming](https://github.com/lideming)
+
 #### 🎉 2.49.0 (2023-12-15)
 - 【Fix】
     - Image supports zooming via panel and mouse scrolling anywhere on the preview page [#1890](https://github.com/DouyinFE/semi-design/pull/1890)

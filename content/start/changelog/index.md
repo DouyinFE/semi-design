@@ -8,16 +8,46 @@ brief: 关于 Semi Design For React 优化与更新。我们提供了版本间�
 ---
 
 Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本号）：
--   主版本号（major）：重大性能/使用变更，允许做 breaking change
--   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者样式变更
+-   主版本号（major）：大版本更新，一般为重大性能/使用变更，允许做 API 级别的 breaking change
+-   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者设计规范样式更新，或者不合理交互的变更，但不会对组件 API 做删减或功能变更。
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
+
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - 修复 Tree 在支持 showLine 后， renderFullLabel 时缩进错误问题（影响范围：v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - 修复 Tree 在支持 showLine 后， rtl 模式下连接线和选项文字部分重合问题（影响范围：v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - 修复 BreadCrumb 中 active 项 font-weight 错误问题 （影响范围 v2.47-2.50）[#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - ImagePreview 中打开预览，切换预览图片时，zoom 改变不需要通过 onZoomIn/onZoomOut 回调透出  [#2000](https://github.com/DouyinFE/semi-design/issues/2000)
+  - 修复在图片预览时切换图片触发意外的 onRotateLeft 回调
+
+#### 🎉 2.50.0-beta.0 (2023-12-26)
+- 【Feat】
+    - Tree, TreeSelect 新增 showLine api  [#1801](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+    - Table 列支持自定义排序 icon
+- 【Style】
+    - 修改 Tree/TreeSelect 的选项每行缩进的 CSS 实现，对于缩进层级大于 20层的，不再有限制。 [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Fix】
+    - 修复 Notification 的 Id 类型不正确的问题
+    - 
+#### 🎉 2.49.2 (2023-12-26)
+- 【Fix】
+    - 修复 Select 在单选情况下，点击外部后再次选择选项失败问题（影响范围 v2.49.0）
+    - 修复受控 expandedKeys 的 TreeSelect 中，showFilteredOnly 不生效问题  [#1542 ](https://github.com/DouyinFE/semi-design/issues/1542)
+    - 修复 DatePicker 类型为 monthRange 时，限制日期范围不符合预期问题。
+    - 修复在全局设置box-sizing 为 border-box后，vertical 的basic step 样式错误问题  [#1985 ](https://github.com/DouyinFE/semi-design/issues/1985)
+    - 去除 TreeSelect/Select 的triggerRender的props 的可选类型设置  [#532 ](https://github.com/DouyinFE/semi-design/issues/532)
+    - 修复 `Notification.addNotice()` 未使用通过 `Notification.config()` 设置的全局配置的问题 [@lideming](https://github.com/lideming)
 
 #### 🎉 2.49.0 (2023-12-15)
 - 【Fix】
     - Image 支持在预览页面的任何位置通过面板和鼠标滚动进行缩放 [#1890](https://github.com/DouyinFE/semi-design/pull/1890)
     - Image 预览的初始尺寸做了调整。调整前，预览初始尺寸为适应页面的宽高；调整后，如果图片宽高小于适应页面的宽高，则预览初始宽高和图片宽高相同，否则以适应页面宽高进行缩放 [#1890](https://github.com/DouyinFE/semi-design/pull/1890)
-    - 修复 select 单选选择选项后，点击外部不触发 onblur 事件问题 [#1977](https://github.com/DouyinFE/semi-design/pull/1977)
+    - 修复 Select 单选选择选项后，点击外部不触发 onblur 事件问题 [#1977](https://github.com/DouyinFE/semi-design/pull/1977)
 
 #### 🎉 2.49.0-beta.0 (2023-12-11)
 - 【Feat】
@@ -35,7 +65,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.48.0 (2023-12-01)
 - 【Fix】
-    - 修复 TimePicker format 为 HH 时，defaultValue 设置不正确问题。（注意：若原先 default 或 value 传入的值类型不合法，例如数字格式的时间戳以字符串形式传入，将不再尝试进行类型转换）
+    - **修复 TimePicker format 为 HH 时，defaultValue 设置不正确问题。（注意：若原先 default 或 value 传入的值类型不合法，例如数字格式的时间戳以字符串形式传入，将不再尝试进行类型转换）**
 - 【Docs】
     - 增加 @douyinfe/semi-icons-lab 的使用说明
 
@@ -576,10 +606,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.27.1 (2023-01-12)
 - 【Fix】
-    - 修复Form Field 级别校验，使用 props.rules 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题,  [#1375](https://github.com/DouyinFE/semi-design/issues/1375) [@SyMind](https://github.com/SyMind)
-    - 修复Form Field 级别校验，使用 props.validate 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题,  [#1375 ](https://github.com/DouyinFE/semi-design/issues/1375)
+    - **修复Form Field 级别校验，使用 props.rules 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题  [#1375](https://github.com/DouyinFE/semi-design/issues/1375) [@SyMind](https://github.com/SyMind) (注意：如果原先存在对单次值修改，触发多次重复校验逻辑。例如本身props.trigger 已配置为change，又在onChange回调中手动调用 formApi.validate 对其进行了校验等，前面执行的校验将会被丢弃，即 promise pending，不再 resolve或 reject)**
+    - 修复Form Field 级别校验，使用 props.validate 时存在竞态异步，后执行的校验会被前执行的校验覆盖的问题  [#1375 ](https://github.com/DouyinFE/semi-design/issues/1375)
 - 【Docs】
-    - 修改 Cascader / TreeSelect / Tree 文档中 treeData API 类型名， 使其和代码一致
+    - 修改 Cascader / TreeSelect / Tree 文档中 treeData API 类型名， 使其和 Ts 代码 interface 一致
 
 #### 🎉 2.27.0 (2023-01-06)
 - 【Fix】

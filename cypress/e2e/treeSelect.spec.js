@@ -117,5 +117,38 @@ describe('treeSelect', () => {
         cy.wait(1000);
         cy.get('.semi-checkbox').eq(0).get('.semi-checkbox-inner-checked').should("exist");
     });
+
+    it('expanded controlled + showFilteredOnly', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--issue-1542');
+        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('b');
+        // showFilteredOnly，因此搜索后的选项应该只有 3 项
+        cy.get('.semi-tree-option').should('have.length', 3);
+        // 清空搜索框，由 state 中的 expandedKeys 决定展示展示项，应该只有两项
+        cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).clear();
+        cy.get('.semi-tree-option').should('have.length', 2);
+        cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('s');
+        cy.get('.semi-tree-option').should('have.length', 9);
+        // 搜索状态下，输入框有值，被筛选的选项点击展开按钮行为正常
+        cy.get('.semi-tree-option').eq(1).children('.semi-icon-tree_triangle_down').eq(0).trigger('click');
+        cy.get('.semi-tree-option').should('have.length', 6);
+        cy.get('body').click();
+        // 等待弹出层收起
+        cy.wait(500);
+        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        // 等待弹出层展开
+        cy.wait(500);
+        cy.get('.semi-tree-option').should('have.length', 2);
+        cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('o');
+        cy.get('.semi-tree-option').should('have.length', 4);
+        cy.get('.semi-tree-option').eq(3).trigger('click');
+        cy.wait(1000);
+        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        cy.wait(1000);
+        // 此时展开项目由选中项和原来的 state 中的 expandedKeys 决定
+        cy.get('.semi-tree-option').should('have.length', 4);
+        cy.get('.semi-icon-tree_triangle_down').eq(0).trigger('click');
+        cy.get('.semi-tree-option').should('have.length', 6);
+    });
 });
 
