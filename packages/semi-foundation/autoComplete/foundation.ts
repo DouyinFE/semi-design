@@ -235,7 +235,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         const options = this._generateList(data);
         // Get the option whose value match from options
-        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => renderSelectedItem(option) === selectedValue);
+        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.length ? options.filter(option => renderSelectedItem(option) === selectedValue) : [];
         const canMatchInData = selectedOption.length;
 
         const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === selectedValue);
