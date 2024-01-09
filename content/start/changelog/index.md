@@ -13,6 +13,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.51.0-beta.0 (2024-01-09)
+- 【Feat】
+    - Dropdown.Item 支持透传 data-* 属性到 dom
+    - ImagePreview 增加 previewCls，previewStyle 用于设置预览的样式
+    - Image 增加 onClick API
+- 【Perf】
+    - 优化 Cascader 在多选，leafOnly，可搜索，受控情况下在千级叶子节点量级时被选中出现卡顿问题 [#1999](https://github.com/DouyinFE/semi-design/pull/1999)
+- 【Fix】
+    - 修复 Table 所有行全选且禁用时表头选择未选中问题  [#2001](https://github.com/DouyinFE/semi-design/issues/2001)
+    - 修复配置了 onSelectWithObject 的受控 AutoComplete 在点击 clear 清空按钮时报错的问题 [#2013](https://github.com/DouyinFE/semi-design/issues/2013)
+    - 修复 Image 在未展示时也默认创建 portal DOM节点的问题  [#2004](https://github.com/DouyinFE/semi-design/issues/2004)
+    - 修复 Image 的 closable 参数不生效问题 
+
+
 #### 🎉 2.50.1 (2024-01-04)
 - 【Fix】
     - 修复 Tree 在支持 showLine 后， renderFullLabel 时缩进错误问题（影响范围：v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
