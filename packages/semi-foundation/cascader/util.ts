@@ -3,7 +3,7 @@ import {
     isUndefined,
     isEqual
 } from 'lodash';
-import { strings } from './constants';
+import { strings, VALUE_SPLIT } from './constants';
 
 function getPosition(level: any, index: any) {
     return `${level}-${index}`;
@@ -30,7 +30,7 @@ function traverseDataNodes(treeNodes: any, callback: any) {
         let item: any = null;
         // Process node if is not root
         if (node) {
-            const key = parent ? getPosition(parent.key, ind) : `${ind}`;
+            const key = parent ? `${parent.key}${VALUE_SPLIT}${node.value}` : node.value;
             item = {
                 data: { ...node },
                 ind,
@@ -55,6 +55,25 @@ function traverseDataNodes(treeNodes: any, callback: any) {
     processNode(null);
 }
 
+export function getKeysByValuePath(valuePath: (string | number)[][] | (string | number)[]) {
+    if (valuePath?.length) {
+        if (Array.isArray(valuePath[0])) {
+            return valuePath.map((item) => getKeyByValuePath(item));
+        } else {
+            return [getKeyByValuePath(valuePath as (string | number)[])];
+        }
+    }
+    return [];
+}
+
+export function getKeyByValuePath(valuePath: (string | number)[]) {
+    return valuePath.join(VALUE_SPLIT);
+}
+
+export function getValuePathByKey(key: string) {
+    return key.split(VALUE_SPLIT);
+}
+
 export function convertDataToEntities(dataNodes: any) {
     const keyEntities: any = {};
 
@@ -72,14 +91,6 @@ export function convertDataToEntities(dataNodes: any) {
         }
     });
     return keyEntities;
-}
-
-export function findKeysForValues(value: any, keyEntities: any) {
-    const valuePath = normalizedArr(value);
-    const res = Object.values(keyEntities)
-        .filter((item: any) => isEqual(item.valuePath, valuePath))
-        .map((item: any) => item.key);
-    return res;
 }
 
 export function calcMergeType(autoMergeValue: boolean, leafOnly: boolean): string {
