@@ -240,4 +240,10 @@ describe('table', () => {
         cy.get('[data-cy=section] .semi-table-expand-icon').eq(0).click({ force: true });
         cy.get('[data-cy=section] .semi-table-row-hidden').should('have.length', 7);
     });
+
+    it('test header selected status when all rows are disabled and selected ', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-all-disabled-and-selected&viewMode=story');
+        cy.get('button').contains('点击全选').click();
+        cy.get('.semi-table-thead .semi-checkbox-checked').should('exist')
+    });
 });
