@@ -229,7 +229,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
 
         const renderContent = this.props.bottomSlot.render ??(()=>{
-            return <span className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`)}>
+            return <span className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`, `${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}-${this.props.size}`)}>
                 {this.props.bottomSlot.content}
             </span>;
         });

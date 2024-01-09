@@ -179,18 +179,56 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         &-shape_circle-small{
             width:$width-avatar-bottom_slot_circle_small;
             height:$width-avatar-bottom_slot_circle_small;
+            font-size: $font-avatar_bottom_slot-small;
         }
         &-shape_circle-default{
             width:$width-avatar-bottom_slot_circle_default;
             height:$width-avatar-bottom_slot_circle_default;
+            font-size: $font-avatar_bottom_slot-default;
         }
         &-shape_circle-medium{
             width:$width-avatar-bottom_slot_circle_medium;
             height:$width-avatar-bottom_slot_circle_medium;
+            font-size: $font-avatar_bottom_slot-medium;
         }
         &-shape_circle-large{
             width:$width-avatar-bottom_slot_circle_large;
             height:$width-avatar-bottom_slot_circle_large;
+            font-size: $font-avatar_bottom_slot-large;
+        }
+
+
+
+        &-shape_square{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: $color-avatar-bottom_slot_bg;
+            border-radius: $radius-avatar-bottom_slot_square;
+            padding: $spacing-avatar-bottom_slot_square-paddingY $spacing-avatar-bottom_slot_square-paddingX;
+            font-weight: $font-weight-bold;
+            border-style: solid;
+            border-color: $color-avatar-bottom_slot_square-border;
+        }
+
+        &-shape_square-small{
+            font-size: $font-avatar_bottom_slot-small;
+            border-width: $width-avatar-bottom_slot_square_small-border;
+        }
+        &-shape_square-default{
+            font-size: $font-avatar_bottom_slot-default;
+            border-width: $width-avatar-bottom_slot_square_default-border;
+
+        }
+        &-shape_square-medium{
+            font-size: $font-avatar_bottom_slot-medium;
+            border-width: $width-avatar-bottom_slot_square_medium-border;
+
+        }
+        &-shape_square-large{
+          font-size: $font-avatar_bottom_slot-large;
+            border-width: $width-avatar-bottom_slot_square_large-border;
+
         }
     }
 }

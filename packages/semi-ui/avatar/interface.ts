@@ -38,7 +38,7 @@ export interface AvatarProps extends BaseProps {
     imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
     bottomSlot?: {
         render?: () => React.ReactNode;
-        shape?: "circle"|"rect";
+        shape?: "circle"|"square";
         content: React.ReactNode
     };
     border?: boolean

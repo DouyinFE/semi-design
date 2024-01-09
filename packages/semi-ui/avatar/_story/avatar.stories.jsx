@@ -45,8 +45,20 @@ export const BottomSolt = () => (
                 shape:'circle',
                 content:<IconPlus/>
             }}>U</Avatar>
+            <Avatar shape="circle" size={'large'} border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
+            <Avatar shape="circle" size={'small'} border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
             <Avatar shape="circle" bottomSlot={{
-                shape:'rect',
+                shape:'square',
+                content: "直播中"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"large"} bottomSlot={{
+                shape:'square',
                 content: "直播中"
             }}>U</Avatar>
             <Avatar shape="circle" bottomSlot={{

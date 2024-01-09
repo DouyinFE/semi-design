@@ -50,11 +50,26 @@ $width-avatar_additional-border: 2px; // 额外描边尺寸
 $color-avatar_additional-border: var(--semi-color-primary); // 额外描边颜色
 $spacing-avatar_additional-borderGap: 1px; // 额外描边与内侧间距
 
-$width-avatar-bottom_slot_circle_small: 22px;
-$width-avatar-bottom_slot_circle_default: 28px;
-$width-avatar-bottom_slot_circle_medium: 34px;
-$width-avatar-bottom_slot_circle_large: 50px;
+$width-avatar-bottom_slot_circle_small: 12px;
+$width-avatar-bottom_slot_circle_default: 16px;
+$width-avatar-bottom_slot_circle_medium: 18px;
+$width-avatar-bottom_slot_circle_large: 28px;
 $color-avatar-bottom_slot_bg:var(--semi-color-primary);
+
+$radius-avatar-bottom_slot_square:4px;
+$font-avatar_bottom_slot-small: 5px; // 底部 slot 文字大小
+$font-avatar_bottom_slot-default: 6px; // 底部 slot 文字大小
+$font-avatar_bottom_slot-medium: 8px; // 底部 slot 文字大小
+$font-avatar_bottom_slot-large: 12px; // 底部 slot 文字大小
+$spacing-avatar-bottom_slot_square-paddingX:4px;
+$spacing-avatar-bottom_slot_square-paddingY:1px;
+
+$color-avatar-bottom_slot_square-border:var(--semi-color-bg-0);
+$width-avatar-bottom_slot_square_small-border:2px;
+$width-avatar-bottom_slot_square_default-border:2px;
+$width-avatar-bottom_slot_square_medium-border:2px;
+$width-avatar-bottom_slot_square_large-border:2px;
+
 
 // radius
 $radius-avatar_extra_extra_small: 3px; // 极小尺寸头像的圆角
