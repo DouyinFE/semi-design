@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     filter,
@@ -12,10 +12,10 @@ import {
 import { Motion } from '../utils/type';
 import {
     convertDataToEntities,
-    findKeysForValues,
     normalizedArr,
     isValid,
-    calcMergeType
+    calcMergeType,
+    getKeysByValuePath
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
@@ -439,14 +439,14 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const loadingKeys = this._adapter.getLoadingKeyRefValue();
         const filterable = this._isFilterable();
         const loadingActive = [...activeKeys].filter(i => loadingKeys.has(i));
-
-        const valuePath = onChangeWithObject ? normalizedArr(value).map(i => i.value) : normalizedArr(value);
-        const selectedKeys = findKeysForValues(valuePath, keyEntities);
+        const normalizedValue = normalizedArr(value);
+        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? normalizedValue.map(i => i.value) : normalizedValue;
+        const selectedKeys = getKeysByValuePath(valuePath);
         let updateStates: Partial<BasicCascaderInnerData> = {};
 
-        if (selectedKeys.length) {
-            const selectedKey = selectedKeys[0];
-            const selectedItem = keyEntities[selectedKey];
+        const selectedKey = selectedKeys.length > 0 ? selectedKeys[0] : undefined;
+        const selectedItem = selectedKey ? keyEntities[selectedKey] : undefined;
+        if (selectedItem) {
             /**
              * When changeOnSelect is turned on, or the target option is a leaf option,
              * the option is considered to be selected, even if the option is disabled
@@ -874,10 +874,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { keyEntities } = this.getStates();
         const values: (string | number)[] = [];
         keys.forEach(key => {
-            if (!isEmpty(keyEntities) && !isEmpty(keyEntities[key])) {
-                const valueItem = keyEntities[key].data.value;
-                values.push(valueItem);
-            }
+            const valueItem = keyEntities[key]?.data?.value;
+            valueItem !== undefined && values.push(valueItem);
         });
         const formatValue: number | string | Array<string | number> = values.length === 1 ?
             values[0] :
