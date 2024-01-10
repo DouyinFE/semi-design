@@ -127,8 +127,9 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
                     return value.slice(0, maxLength);
                 }
             }
+            return value;
         }
-        return value;
+        return undefined;
     }
 
     /**
