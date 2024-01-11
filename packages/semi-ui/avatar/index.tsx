@@ -312,23 +312,36 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         </span>;
 
         if (border) {
-            avatar = <span className={cls([
-                `${prefixCls}-border`,
-                `${prefixCls}-border-${shape}-${size}`,
+            avatar = <>
+                {avatar}
+                <span className={cls([
+                    `${prefixCls}-border`,
+                    `${prefixCls}-border-${size}`,
+                    {
+                        [`${prefixCls}-${shape}`]: shape,
+                    },
+                ])}>
+                </span>
                 {
-                    [`${prefixCls}-${shape}`]: shape
-                },
-            ])}>
-                {avatar} 
-            </span>;
+                    this.props.borderMotion && <span className={cls([
+                        `${prefixCls}-border`,
+                        `${prefixCls}-border-${size}`,
+                        {
+                            [`${prefixCls}-${shape}`]: shape,
+                            [`${prefixCls}-border-animated`]: this.props.borderMotion,
+                        },
+                    ])}/>
+                }
+            </>;
+
         }
 
 
-        if (bottomSlot|| topSlot && ["small", "default", "medium", "large"].includes(size) ) { 
+        if (bottomSlot || topSlot ||border) {
             return <span className={cls([`${prefixCls}-wrapper`])}>
                 {avatar}
-                {topSlot && shape==="circle" && this.renderTopSlot()}
-                {bottomSlot && this.renderBottomSlot()}
+                {topSlot && ["small", "default", "medium", "large"].includes(size) && shape === "circle" && this.renderTopSlot()}
+                {bottomSlot && ["small", "default", "medium", "large"].includes(size) && this.renderBottomSlot()}
             </span>;
         } else {
             return avatar;

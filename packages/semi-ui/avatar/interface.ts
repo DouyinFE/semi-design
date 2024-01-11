@@ -46,7 +46,8 @@ export interface AvatarProps extends BaseProps {
         gradientEnd?: string; 
         content: React.ReactNode
     };
-    border?: boolean
+    border?: boolean;
+    borderMotion?: boolean 
 }
 
 export type AvatarGroupShape = 'circle' | 'square';

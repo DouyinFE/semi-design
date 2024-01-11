@@ -75,6 +75,9 @@ export const BottomSolt = () => (
 export const TopSolt = () => (
     <div>
         <div>
+            <Avatar shape="circle"  size={"extra-extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
             <Avatar shape="circle"  size={"extra-small"}  border={true} topSlot={{
                 content:"直播"
             }}>U</Avatar>
@@ -85,7 +88,7 @@ export const TopSolt = () => (
                 content:"直播"
             }}>U</Avatar>
 
-            <Avatar shape="circle" size={"large"} border={true} topSlot={{
+            <Avatar shape="circle" size={"large"} borderMotion={true} border={true} topSlot={{
                 content:"直播"
             }}>U</Avatar>
         </div>

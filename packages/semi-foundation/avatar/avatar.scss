@@ -16,35 +16,9 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     text-align: center;
     vertical-align: middle;
 
-    &-border {
-        border: $width-avatar_additional-border solid $color-avatar_additional-border;
-        padding: $spacing-avatar_additional-borderGap;
-        display: inline-block;
-    }
 
-    &-border-square-extra_extra_small {
-        border-radius: $radius-avatar-extra_extra_small;
-    }
 
-    &-border-square-extra_small {
-        border-radius: $radius-avatar-extra_small;
-    }
 
-    &-border-square-small {
-        border-radius: $radius-avatar-small;
-    }
-
-    &-border-square-default {
-        border-radius: $radius-avatar-default;
-    }
-
-    &-border-square-medium {
-        border-radius: $radius-avatar-medium;
-    }
-
-    &-border-square-large {
-        border-radius: $radius-avatar-large;
-    }
 
 
 
@@ -186,6 +160,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
 
 }
 
+
 .#{$module}-wrapper{
     position: relative;
     display: inline-flex;
@@ -242,7 +217,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     }
 
     .#{$module}-top_slot-bg-with_border{
-        top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border;
+        //top: $width-avatar_additional-border;
     }
 
 
@@ -251,7 +226,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         color:var(--semi-color-bg-0);
         font-weight: $font-weight-bold;
         &-with_border{
-            top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border
+            //top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border
         }
 
         &-content{
@@ -399,6 +374,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         }
     }
 
+
     .#{$module}-item-more {
         background-color: $color-avatar_more_default-bg-default;
     }
@@ -409,5 +385,111 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         @include avatar-style($c);
     }
 }
+
+
+.#{$module}-border{
+    border-style: solid;
+    border-color: #66ccff88;
+    padding: $spacing-avatar_additional-borderGap;
+    display: inline-block;
+    box-sizing: border-box;
+    position: absolute;
+
+    &-extra-extra-small{
+        border-width: $width-avatar_extra_extra_small-border;
+        top: -1 *  $width-avatar-extra_extra_small-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra_extra_small-border;
+        height: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra_extra_small-border;
+    }
+
+    &-extra-small{
+        border-width: $width-avatar_extra-small-border;
+        top: -1 *  $width-avatar-extra-small-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra-small-border;
+        height: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra-small-border;
+    }
+
+    &-small{
+        border-width: $width-avatar_small-border;
+        top: -1 *  $width-avatar-small-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-small-border;
+        height: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-small-border;
+    }
+
+    &-default{
+        border-width: $width-avatar_default-border;
+        top: -1 *  $width-avatar-default-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-default-border;
+        height: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-default-border;
+    }
+
+    &-medium{
+        border-width: $width-avatar_medium-border;
+        top: -1 *  $width-avatar-medium-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-medium-border;
+        height: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-medium-border;
+    }
+
+    &-large{
+        border-width: $width-avatar_large-border;
+        top: -1 *  $width-avatar-large-border - $spacing-avatar_additional-borderGap;
+        width: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-large-border;
+        height: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-large-border;
+    }
+}
+
+.#{$module}-square.#{$module}-border-extra_extra_small {
+    border-radius: $radius-avatar-extra_extra_small;
+}
+
+.#{$module}-square.#{$module}-border-extra_small {
+    border-radius: $radius-avatar-extra_small;
+}
+
+.#{$module}-square.#{$module}-border-small {
+    border-radius: $radius-avatar-small;
+}
+
+.#{$module}-square.#{$module}-border-default {
+    border-radius: $radius-avatar-default;
+}
+
+.#{$module}-square.#{$module}-border-medium {
+    border-radius: $radius-avatar-medium;
+}
+
+.#{$module}-square.#{$module}-border-large {
+    border-radius: $radius-avatar-large;
+}
+
+.#{$module}-border-circle{
+    border-radius: var(--semi-border-radius-circle);
+}
+
+
+.#{$module}-border-animated{
+    animation: 1s linear infinite #{$module}-border;
+}
+
+@keyframes #{$module}-border {
+    0% {
+        border-width: $width-avatar_large-border;
+        border-color: #fe2c55;
+        transform: scale(1)
+    }
+
+    80% {
+        border-width: 0;
+        border-color: rgba(254,44,85,0);
+        transform: scale(1.15)
+    }
+
+    to {
+        border-width: 0;
+        border-color: rgba(254,44,85,0);
+        transform: scale(1.15)
+    }
+}
+
 
 @import './rtl.scss';
