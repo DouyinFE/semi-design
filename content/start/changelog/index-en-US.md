@@ -202,6 +202,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
     - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
 
+#### 🎉 2.42.3 (2023-09-01)
+- 【Fix】
+    - Fix: Fix Table baseRow onMouseLeave error [#1794](https://github.com/DouyinFE/semi-design/pull/1794)
+
 #### 🎉 2.42.2 (2023-08-28)
 - 【Fix】
     - Fix the problem that when the image file name has a query parameter, the image cannot be opened due to the wrong file name after downloading [@nekocode](https://github.com/nekocode) [#1782](https://github.com/DouyinFE/semi-design/pull/1784)
