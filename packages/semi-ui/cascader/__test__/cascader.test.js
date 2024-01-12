@@ -1369,4 +1369,17 @@ describe('Cascader', () => {
         r.close();
         expect(select.state().isOpen).toEqual(false);
     });
+
+    it('autoMerge false & value []', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            value: [],
+            placeholder: "autoMergeValue 为 false"
+        });
+
+        const placeholder = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection-placeholder`)
+        expect(placeholder.getDOMNode().textContent).toEqual('autoMergeValue 为 false');
+        cascader.unmount();
+    })
 });

@@ -441,7 +441,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 const formatItem: (string | number)[] = onChangeWithObject && isObject(valueItem[0]) ?
                     (valueItem as CascaderData[]).map(i => i?.value) :
                     valueItem as (string | number)[];
-                formatValuePath.push(formatItem);
+                formatItem.length > 0 && (formatValuePath.push(formatItem));
             });
             // formatKeys is used to save key of value
             const formatKeys = formatValuePath.map(v => getKeyByValuePath(v));
