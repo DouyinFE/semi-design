@@ -1493,7 +1493,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
 );
 ```
 
-#### 数组类动态增删表单项-使用 ArrayField
+### 使用 ArrayField
 
 针对动态增删的数组类表单项，我们提供了 ArrayField 作用域来简化 add/remove 的操作  
 ArrayField 自带了 add、remove、addWithInitValue 等 api 用来执行新增行，删除行，新增带有初始值的行等操作  
@@ -1569,6 +1569,157 @@ class ArrayFieldDemo extends React.Component {
     }
 }
 ```
+
+
+#### 嵌套 ArrayField
+
+ArrayField 支持多级嵌套，如下是一个两级嵌套的例子
+
+```jsx live=true dir="column" noInline=true
+import { Form, ArrayField, Button, Card, Typography, } from "@douyinfe/semi-ui";
+import { IconPlusCircle, IconMinusCircle } from "@douyinfe/semi-icons";
+import React from "react";
+
+const initValue = {
+    group: [
+        {
+            name: "收信规则1",
+            rules: [
+                { itemName: "发件人地址", type: "include" },
+                { itemName: "邮件主题", type: "exclude" },
+            ],
+        },
+        {
+            name: "收信规则2",
+            rules: [
+                { itemName: "发送时间", type: "include" }
+            ],
+        },
+    ]
+};
+
+const NestedField = (props) => {
+    const rowStyle = {
+        marginTop: 12,
+        marginLeft: 12,
+    };
+    return (
+        <ArrayField field={`${props.field}.rules`}>
+            {({ add, arrayFields, addWithInitValue }) => (
+                <React.Fragment>
+                    {arrayFields.map(({ field, key, remove }, i) => (
+                        <div style={{ display: "flex" }} key={key}>
+                            <Form.Input
+                                field={`${field}[itemName]`}
+                                label={`${field}.itemName`}
+                                noLabel
+                                style={{ width: 100, marginRight: 12 }}
+                            ></Form.Input>
+                            <Form.Select
+                                field={`${field}[type]`}
+                                label={`${field}.type`}
+                                noLabel
+                                style={{ width: 100 }}
+                                optionList={[
+                                    { label: "包含", value: "include" },
+                                    { label: "不包含", value: "exclude" },
+                                ]}
+                            ></Form.Select>
+                            <Button
+                                type="danger"
+                                theme="borderless"
+                                style={rowStyle}
+                                icon={<IconMinusCircle />}
+                                onClick={remove}
+                            />
+                            <Button
+                                icon={<IconPlusCircle />}
+                                style={rowStyle}
+                                disabled={i !== arrayFields.length - 1}
+                                onClick={() => {
+                                    addWithInitValue({
+                                        itemName: `条件${arrayFields.length + 1}`,
+                                        type: "include",
+                                    });
+                                }}
+                            />
+                        </div>
+                    ))}
+                </React.Fragment>
+            )}
+        </ArrayField>
+    );
+};
+
+const NestArrayFieldDemo = () => {
+    return (
+        <Form
+            onValueChange={(values) => console.log(values)}
+            initValues={initValue}
+            labelPosition="left"
+            style={{ textAlign: "left" }}
+        >
+            <ArrayField field="group" allowEmpty>
+                {({ add, arrayFields, addWithInitValue }) => (
+                    <React.Fragment>
+                        <Button
+                            icon={<IconPlusCircle />}
+                            theme="solid"
+                            onClick={() => {
+                                addWithInitValue({
+                                    name: "新规则名称",
+                                    rules: [
+                                        { itemName: "正文", type: "include" },
+                                        { itemName: "附件名称", type: "include" },
+                                    ],
+                                });
+                            }}
+                        >
+                            新增收信规则
+                        </Button>
+                        {arrayFields.map(({ field, key, remove }, i) => (
+                            <div
+                                key={key}
+                                style={{ width: 1000, display: "flex", flexWrap: "wrap" }}
+                            >
+                                <Form.Input
+                                    field={`${field}[name]`}
+                                    labelPosition="top"
+                                    label={"规则名称"}
+                                    style={{ width: "600px" }}
+                                ></Form.Input>
+                                <Button
+                                    type="danger"
+                                    style={{ margin: "36px 0 0 12px" }}
+                                    icon={<IconMinusCircle />}
+                                    onClick={remove}
+                                />
+                                <Typography.Text strong style={{ flexBasis: "100%" }}>
+                                    当邮件到达，满足以下条件时：
+                                </Typography.Text>
+                                <Card
+                                    shadow="hover"
+                                    style={{
+                                        width: 620,
+                                        margin: "12px 0 0 24px",
+                                    }}
+                                >
+                                    <NestedField field={field} />
+                                </Card>
+                            </div>
+                        ))}
+                    </React.Fragment>
+                )}
+            </ArrayField>
+        </Form>
+    );
+};
+
+render(NestArrayFieldDemo);
+```
+
+
+
 
 ### Hooks 的使用
 

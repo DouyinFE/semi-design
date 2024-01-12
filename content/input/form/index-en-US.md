@@ -1417,13 +1417,13 @@ import { Form, Button } from '@douyinfe/semi-ui';
 );
 ```
 
-#### Add or delete form items dynamically - by use ArrayField
+### ArrayField Usage
 
 For array items that are dynamically added or deleted, we provide the `ArrayField` component to simplify the operation of add / remove
 
 For the detailed API of ArrayField, please refer to [ArrayField Props](#arrayfield-props) below
 
-Note: The initValue type of ArrayField must be an array
+> Note: The initValue type of ArrayField must be an array
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1497,6 +1497,155 @@ class ArrayFieldDemo extends React.Component {
 ```
 
 
+#### Nesting ArrayField
+
+ArrayField supports multi-level nesting. The following is an example of two-level nesting.
+
+```jsx live=true dir="column" noInline=true
+import { Form, ArrayField, Button, Card, Typography, } from "@douyinfe/semi-ui";
+import { IconPlusCircle, IconMinusCircle } from "@douyinfe/semi-icons";
+import React from "react";
+
+const initValue = {
+    group: [
+        {
+            name: "Email filtering rule 1",
+            rules: [
+                { itemName: "Sender address", type: "include" },
+                { itemName: "Email Title", type: "exclude" },
+            ],
+        },
+        {
+            name: "Email filtering rule 2",
+            rules: [
+                { itemName: "Send time", type: "include" }
+            ],
+        },
+    ]
+};
+
+const NestedField = (props) => {
+    const rowStyle = {
+        marginTop: 12,
+        marginLeft: 12,
+    };
+    return (
+        <ArrayField field={`${props.field}.rules`}>
+            {({ add, arrayFields, addWithInitValue }) => (
+                <React.Fragment>
+                    {arrayFields.map(({ field, key, remove }, i) => (
+                        <div style={{ display: "flex" }} key={key}>
+                            <Form.Input
+                                field={`${field}[itemName]`}
+                                label={`${field}.itemName`}
+                                noLabel
+                                style={{ width: 140, marginRight: 12 }}
+                            ></Form.Input>
+                            <Form.Select
+                                field={`${field}[type]`}
+                                label={`${field}.type`}
+                                noLabel
+                                style={{ width: 140 }}
+                                optionList={[
+                                    { label: "Include", value: "include" },
+                                    { label: "Exclude", value: "exclude" },
+                                ]}
+                            ></Form.Select>
+                            <Button
+                                type="danger"
+                                theme="borderless"
+                                style={rowStyle}
+                                icon={<IconMinusCircle />}
+                                onClick={remove}
+                            />
+                            <Button
+                                icon={<IconPlusCircle />}
+                                style={rowStyle}
+                                disabled={i !== arrayFields.length - 1}
+                                onClick={() => {
+                                    addWithInitValue({
+                                        itemName: `Condition ${arrayFields.length + 1}`,
+                                        type: "include",
+                                    });
+                                }}
+                            />
+                        </div>
+                    ))}
+                </React.Fragment>
+            )}
+        </ArrayField>
+    );
+};
+
+const NestArrayFieldDemo = () => {
+    return (
+        <Form
+            onValueChange={(values) => console.log(values)}
+            initValues={initValue}
+            labelPosition="left"
+            style={{ textAlign: "left" }}
+        >
+            <ArrayField field="group" allowEmpty>
+                {({ add, arrayFields, addWithInitValue }) => (
+                    <React.Fragment>
+                        <Button
+                            icon={<IconPlusCircle />}
+                            theme="solid"
+                            onClick={() => {
+                                addWithInitValue({
+                                    name: "New Rule",
+                                    rules: [
+                                        { itemName: "Main Text", type: "include" },
+                                        { itemName: "Accessory name", type: "include" },
+                                    ],
+                                });
+                            }}
+                        >
+                            Add receiving rules
+                        </Button>
+                        {arrayFields.map(({ field, key, remove }, i) => (
+                            <div
+                                key={key}
+                                style={{ width: 1000, display: "flex", flexWrap: "wrap" }}
+                            >
+                                <Form.Input
+                                    field={`${field}[name]`}
+                                    labelPosition="top"
+                                    label={"RuleName"}
+                                    style={{ width: "600px" }}
+                                ></Form.Input>
+                                <Button
+                                    type="danger"
+                                    theme="borderless"
+                                    style={{ margin: "36px 0 0 12px" }}
+                                    icon={<IconMinusCircle />}
+                                    onClick={remove}
+                                />
+                                <Typography.Text strong style={{ flexBasis: "100%" }}>
+                                    When the mail arrives, the following conditions are met:
+                                </Typography.Text>
+                                <Card
+                                    shadow="hover"
+                                    style={{
+                                        width: 620,
+                                        margin: "12px 0 0 24px",
+                                    }}
+                                >
+                                    <NestedField field={field} />
+                                </Card>
+                            </div>
+                        ))}
+                    </React.Fragment>
+                )}
+            </ArrayField>
+        </Form>
+    );
+};
+
+render(NestArrayFieldDemo);
+```
+
+
 #### Add or delete form items dynamically - by use formApi
 
 If you don't use ArrayField, you can use the provided formApi to manually add or delete formState.
@@ -1544,12 +1693,12 @@ class ArrayDemo extends React.Component {
     renderItems(formState, values) {
         return values.effects && values.effects.map((effect, i) => (
             <div key={effect.key} style={{ width: 1000, display: 'flex' }}>
-                <Form.Input field={`effects[${i}].name`} style={{ width: 200, marginRight: 16 }}></Form.Input>
+                <Form.Input field={`effects[${i}].name`} style={{ width: 200, marginRight: 12 }}></Form.Input>
                 <Form.Select field={`effects[${i}].type`} style={{ width: 90 }}>
                     <Form.Select.Option value='2D'>2D</Form.Select.Option>
                     <Form.Select.Option value='3D'>3D</Form.Select.Option>
                 </Form.Select>
-                <Button type='danger' onClick={() => this.remove(effect.key)} style={{ margin: 16 }}>Remove</Button>
+                <Button type='danger' onClick={() => this.remove(effect.key)} style={{ margin: 12 }}>Remove</Button>
             </div>
         ));
     }

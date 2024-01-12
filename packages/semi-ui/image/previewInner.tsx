@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
-import { PreviewProps as PreviewInnerProps, PreviewInnerStates } from "./interface";
+import { PreviewInnerProps, PreviewInnerStates } from "./interface";
 import PropTypes from "prop-types";
 import { cssClasses, numbers } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
@@ -342,6 +342,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     render() {
         const {
             getPopupContainer,
+            closable,
             zIndex,
             visible,
             className,
@@ -389,84 +390,83 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         const showPrev = total !== 1 && (infinite || currentIndex !== 0);
         const showNext = total !== 1 && (infinite || currentIndex !== total - 1);
         return (
-            <Portal
+            visible && <Portal
                 getPopupContainer={getPopupContainer}
                 style={wrapperStyle}
-            >
-                {visible &&
-                    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                        className={previewWrapperCls}
-                        style={style}
-                        onMouseDown={this.handleMouseDown}
-                        onMouseUp={this.handleMouseUp}
-                        ref={this.registryImageWrapRef}
-                        onMouseMove={this.handleMouseMove}
-                    >
-                        <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} />
-                        <PreviewImage
-                            src={imgSrc[currentIndex]}
-                            onZoom={this.handleZoomImage}
-                            disableDownload={disableDownload}
-                            setRatio={this.handleAdjustRatio}
-                            zoom={zoom}
-                            ratio={ratio}
-                            rotation={rotation}
-                            crossOrigin={crossOrigin}
-                            onError={this.onImageError}
-                            onLoad={this.onImageLoad}
-                        />
-                        {showPrev && (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                            <div
-                                ref={this.leftIconRef}
-                                className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-prev`, hideViewerCls)}
-                                onClick={(): void => this.handleSwitchImage("prev")}
-                            >
-                                <IconArrowLeft size="large" />
-                            </div>
-                        )}
-                        {showNext && (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                            <div
-                                ref={this.rightIconRef}
-                                className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-next`, hideViewerCls)}
-                                onClick={(): void => this.handleSwitchImage("next")}
-                            >
-                                <IconArrowRight size="large" />
-                            </div>
-                        )}
-                        <Footer
-                            forwardRef={this.footerRef}
-                            className={hideViewerCls}
-                            totalNum={total}
-                            curPage={currentIndex + 1}
-                            disabledPrev={!showPrev}
-                            disabledNext={!showNext}
-                            zoom={zoom * 100}
-                            step={zoomStep * 100}
-                            showTooltip={showTooltip}
-                            ratio={ratio}
-                            prevTip={prevTip}
-                            nextTip={nextTip}
-                            zIndex={zIndex}
-                            zoomInTip={zoomInTip}
-                            zoomOutTip={zoomOutTip}
-                            rotateTip={rotateTip}
-                            downloadTip={downloadTip}
-                            disableDownload={disableDownload}
-                            adaptiveTip={adaptiveTip}
-                            originTip={originTip}
-                            onPrev={(): void => this.handleSwitchImage("prev")}
-                            onNext={(): void => this.handleSwitchImage("next")}
-                            onZoomIn={this.handleZoomImage}
-                            onZoomOut={this.handleZoomImage}
-                            onDownload={this.handleDownload}
-                            onRotate={this.handleRotateImage}
-                            onAdjustRatio={this.handleAdjustRatio}
-                            renderPreviewMenu={renderPreviewMenu}
-                        />
-                    </div>}
+            >  
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+                <div
+                    className={previewWrapperCls}
+                    style={style}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseUp={this.handleMouseUp}
+                    ref={this.registryImageWrapRef}
+                    onMouseMove={this.handleMouseMove}
+                >
+                    <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable}/>
+                    <PreviewImage
+                        src={imgSrc[currentIndex]}
+                        onZoom={this.handleZoomImage}
+                        disableDownload={disableDownload}
+                        setRatio={this.handleAdjustRatio}
+                        zoom={zoom}
+                        ratio={ratio}
+                        rotation={rotation}
+                        crossOrigin={crossOrigin}
+                        onError={this.onImageError}
+                        onLoad={this.onImageLoad}
+                    />
+                    {showPrev && (
+                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                        <div
+                            ref={this.leftIconRef}
+                            className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-prev`, hideViewerCls)}
+                            onClick={(): void => this.handleSwitchImage("prev")}
+                        >
+                            <IconArrowLeft size="large" />
+                        </div>
+                    )}
+                    {showNext && (
+                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                        <div
+                            ref={this.rightIconRef}
+                            className={cls(`${previewPrefixCls}-icon`, `${previewPrefixCls}-next`, hideViewerCls)}
+                            onClick={(): void => this.handleSwitchImage("next")}
+                        >
+                            <IconArrowRight size="large" />
+                        </div>
+                    )}
+                    <Footer
+                        forwardRef={this.footerRef}
+                        className={hideViewerCls}
+                        totalNum={total}
+                        curPage={currentIndex + 1}
+                        disabledPrev={!showPrev}
+                        disabledNext={!showNext}
+                        zoom={zoom * 100}
+                        step={zoomStep * 100}
+                        showTooltip={showTooltip}
+                        ratio={ratio}
+                        prevTip={prevTip}
+                        nextTip={nextTip}
+                        zIndex={zIndex}
+                        zoomInTip={zoomInTip}
+                        zoomOutTip={zoomOutTip}
+                        rotateTip={rotateTip}
+                        downloadTip={downloadTip}
+                        disableDownload={disableDownload}
+                        adaptiveTip={adaptiveTip}
+                        originTip={originTip}
+                        onPrev={(): void => this.handleSwitchImage("prev")}
+                        onNext={(): void => this.handleSwitchImage("next")}
+                        onZoomIn={this.handleZoomImage}
+                        onZoomOut={this.handleZoomImage}
+                        onDownload={this.handleDownload}
+                        onRotate={this.handleRotateImage}
+                        onAdjustRatio={this.handleAdjustRatio}
+                        renderPreviewMenu={renderPreviewMenu}
+                    />
+                </div>
             </Portal>
         );
     }
