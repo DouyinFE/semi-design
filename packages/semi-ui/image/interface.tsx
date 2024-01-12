@@ -141,6 +141,7 @@ export interface FooterProps extends SliderProps {
     adaptiveTip?: string;
     originTip?: string;
     showTooltip?: boolean;
+    zIndex?: number;
     onZoomIn?: (zoom: number) => void;
     onZoomOut?: (zoom: number) => void;
     onPrev?: () => void;
