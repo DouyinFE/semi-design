@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.51.1 (2024-01-12)
+#### 🎉 2.51.0 (2024-01-12)
 - 【Fix】
     - Fixed the problem that when a TextArea with maxLength is input in Chinese, clicking outside triggers blur, and the echoed content does not comply with the maxLength setting  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)
     - Fix typeError in Cascader when autoMergeValue is false and value is [] [#2017](https://github.com/DouyinFE/semi-design/pull/2017)
