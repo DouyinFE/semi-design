@@ -47,7 +47,8 @@ export interface AvatarProps extends BaseProps {
         content: React.ReactNode
     };
     border?: boolean;
-    borderMotion?: boolean 
+    borderMotion?: boolean;
+    contentMotion?: boolean
 }
 
 export type AvatarGroupShape = 'circle' | 'square';

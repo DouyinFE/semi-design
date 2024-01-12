@@ -87,9 +87,68 @@ export const TopSolt = () => (
             <Avatar shape="circle" size={"medium"} border={true} topSlot={{
                 content:"直播"
             }}>U</Avatar>
-
             <Avatar shape="circle" size={"large"} borderMotion={true} border={true} topSlot={{
                 content:"直播"
+            }} bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }} contentMotion={true}>U</Avatar>
+            <br/>
+            <Avatar shape="square"  size={"extra-extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square"  size={"extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"medium"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"large"} borderMotion={true} border={true} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }}>U</Avatar>
+            <br/>
+            <Avatar shape="circle"  size={"extra-extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle"  size={"extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"medium"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"large"} borderMotion={true} border={false} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }}>U</Avatar>
+            <br/>
+            <Avatar shape="square"  size={"extra-extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square"  size={"extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"medium"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"large"} borderMotion={true} border={false} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
             }}>U</Avatar>
         </div>
     </div>
@@ -115,7 +174,7 @@ export const GroupSize = () => (
   <div>
     <p>medium</p>
     <AvatarGroup>
-      <Avatar color="red">LL</Avatar>
+      <Avatar color="red" topSlot={{content:"T"}} bottomSlot={{content:"T"}}>LL</Avatar>
       <Avatar>CX</Avatar>
       <Avatar size="default">CX</Avatar>
       <Avatar color="amber">RM</Avatar>

@@ -1,3 +1,4 @@
+@import "./animation";
 @import './variables.scss';
 @import './mixin.scss';
 
@@ -220,33 +221,34 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         //top: $width-avatar_additional-border;
     }
 
-
-    .#{$module}-top_slot{
+    .#{$module}-top_slot-wrapper{
         position: absolute;
-        color:var(--semi-color-bg-0);
-        font-weight: $font-weight-bold;
-        &-with_border{
-            //top: $spacing-avatar_additional-borderGap + $width-avatar_additional-border
+        display: flex;
+        justify-content: center;
+        .#{$module}-top_slot{
+            color:var(--semi-color-bg-0);
+            font-weight: $font-weight-bold;
+
+            &-content{
+                position: relative;
+
+                &-small{
+                    font-size: $font-avatar_top_slot-small;
+                }
+                &-default{
+                    font-size: $font-avatar_top_slot-default;
+                }
+                &-medium{
+                    font-size: $font-avatar_top_slot-medium;
+                }
+                &-large{
+                    font-size: $font-avatar_top_slot-large;
+                }
+            }
+
         }
-
-        &-content{
-            position: relative;
-
-            &-small{
-                font-size: $font-avatar_top_slot-small;
-            }
-            &-default{
-                font-size: $font-avatar_top_slot-default;
-            }
-            &-medium{
-                font-size: $font-avatar_top_slot-medium;
-            }
-            &-large{
-                font-size: $font-avatar_top_slot-large;
-            }
-        }
-
     }
+
 
 
     .#{$module}-bottom_slot{
@@ -468,28 +470,38 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
 
 
 .#{$module}-border-animated{
-    animation: 1s linear infinite #{$module}-border;
+    animation: $animation_duration-content linear infinite #{$module}-border;
+}
+
+.#{$module}-animated{
+    animation: $animation_duration-border linear infinite #{$module}-content ;
 }
 
 @keyframes #{$module}-border {
     0% {
-        border-width: $width-avatar_large-border;
-        border-color: #fe2c55;
-        transform: scale(1)
-    }
-
-    80% {
-        border-width: 0;
-        border-color: rgba(254,44,85,0);
-        transform: scale(1.15)
+        opacity: $animation_opacity-border-start;
+        transform: scale($animation_scale-border-start)
     }
 
     to {
-        border-width: 0;
-        border-color: rgba(254,44,85,0);
-        transform: scale(1.15)
+        border-width: $animation_width-border-end;
+        opacity: $animation_opacity-border-end;
+        transform: scale($animation_scale-border-end);
     }
 }
 
+@keyframes #{$module}-content{
+    0% {
+        transform: scale($animation_scale-content-start)
+    }
+
+    50% {
+        transform: scale($animation_scale-content-middle)
+    }
+
+    to {
+        transform: scale($animation_scale-content-start)
+    }
+}
 
 @import './rtl.scss';

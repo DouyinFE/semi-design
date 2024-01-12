@@ -244,21 +244,19 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
     renderTopSlot = ()=> {
-        return <>
-            <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`, {
-                [`${prefixCls}-top_slot-bg-with_border`]: this.props.border,
-            }])}>
+        return <div className={cls([`${prefixCls}-top_slot-wrapper`, {
+            [`${prefixCls}-animated`]: this.props.contentMotion,
+        }])}>
+            <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`])}>
                 <div className={cls([`${prefixCls}-top_slot-bg-svg`, `${prefixCls}-top_slot-bg-svg-${this.props.size}`])}>
                     <TopSlotSvg gradientStart={this.props.topSlot.gradientStart ?? "#FF1764"} gradientEnd={this.props.topSlot.gradientStart ?? "#ED3494"}/>
                 </div>
             </div>
-            <div className={cls([`${prefixCls}-top_slot`, {
-                [`${prefixCls}-top_slot-with_border`]: this.props.border,
-            }])}>
+            <div className={cls([`${prefixCls}-top_slot`])}>
                 <div
                     className={cls([`${prefixCls}-top_slot-content`, `${prefixCls}-top_slot-content-${this.props.size}`])}>{this.props.topSlot.content}</div>
             </div>
-        </>;
+        </div>;
     }
 
     render() {
@@ -279,6 +277,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             bottomSlot,
             topSlot,
             border,
+            contentMotion,
             ...others
         } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
@@ -291,6 +290,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 [`${prefixCls}-${color}`]: color && !isImg,
                 [`${prefixCls}-img`]: isImg,
                 [`${prefixCls}-focus`]: focusVisible,
+                [`${prefixCls}-animated`]: contentMotion,
             },
             className
         );
@@ -310,6 +310,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             {this.getContent()}
             {hoverRender}
         </span>;
+
 
         if (border) {
             avatar = <>
@@ -337,7 +338,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
 
 
-        if (bottomSlot || topSlot ||border) {
+        if (bottomSlot || topSlot || border) {
             return <span className={cls([`${prefixCls}-wrapper`])}>
                 {avatar}
                 {topSlot && ["small", "default", "medium", "large"].includes(size) && shape === "circle" && this.renderTopSlot()}
