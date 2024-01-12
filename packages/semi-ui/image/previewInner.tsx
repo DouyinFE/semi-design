@@ -72,7 +72,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         lazyLoad: false,
         preLoad: true,
         preLoadGap: 2,
-        zIndex: 1000,
+        zIndex: 1070,
         maskClosable: true,
         viewerVisibleDelay: 10000,
         maxZoom: 5,
