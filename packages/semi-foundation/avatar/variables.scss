@@ -46,9 +46,9 @@ $width-avatar_extra_extra_small-border: 1px; // 头像组头像描边尺寸 - �
 $spacing-avatar_extra_extra_small-marginLeft: -4px; // 头像左侧外边距 - 极小
 $width-avatar-outline: 2px; //头像聚焦轮廓宽度
 
-$width-avatar_additional-border: 2px; // 额外描边尺寸
+$width-avatar_additional-border: 1.5px; // 额外描边尺寸
 $color-avatar_additional-border: var(--semi-color-primary); // 额外描边颜色
-$spacing-avatar_additional-borderGap: 1px; // 额外描边与内侧间距
+$spacing-avatar_additional-borderGap: 2px; // 额外描边与内侧间距
 
 $width-avatar-bottom_slot_circle_small: 12px;
 $width-avatar-bottom_slot_circle_default: 16px;

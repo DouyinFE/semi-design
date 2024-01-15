@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/avatar/constants';
@@ -231,12 +231,19 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
 
         const renderContent = this.props.bottomSlot.render ??(()=>{
-            return <span className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`, `${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}-${this.props.size}`)}>
+            const style:CSSProperties = {};
+            if(this.props.bottomSlot.bgColor){
+                style['backgroundColor'] = this.props.bottomSlot.bgColor
+            }
+            if(this.props.bottomSlot.textColor){
+                style['color'] = this.props.bottomSlot.textColor
+            }
+            return <span style={style} className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`, `${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}-${this.props.size}`,this.props.bottomSlot.className ?? "")}>
                 {this.props.bottomSlot.content}
             </span>;
         });
 
-        return <div className={cls([`${prefixCls}-bottom_slot`])}>
+        return <div className={cls([`${prefixCls}-bottom_slot`])} style={this.props.bottomSlot.style ?? {}}>
             {renderContent()}
         </div>;
 
@@ -244,7 +251,13 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
     renderTopSlot = ()=> {
-        return <div className={cls([`${prefixCls}-top_slot-wrapper`, {
+        const textStyle:CSSProperties = {};
+        if(this.props.topSlot.textColor){
+            textStyle['color'] = this.props.topSlot.textColor
+        }
+        
+        return <div style={this.props.topSlot.style ?? {}}
+            className={cls([`${prefixCls}-top_slot-wrapper`,this.props.topSlot.className ?? "", {
             [`${prefixCls}-animated`]: this.props.contentMotion,
         }])}>
             <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`])}>
@@ -254,6 +267,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             </div>
             <div className={cls([`${prefixCls}-top_slot`])}>
                 <div
+                    style={textStyle}
                     className={cls([`${prefixCls}-top_slot-content`, `${prefixCls}-top_slot-content-${this.props.size}`])}>{this.props.topSlot.content}</div>
             </div>
         </div>;
@@ -300,7 +314,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         let avatar = <span
             {...(others as any)}
-            style={style}
+            style={(border ||bottomSlot || topSlot || border ) ? {}:style}
             className={avatarCls}
             onClick={onClick as any}
             onMouseEnter={this.onEnter as any}
@@ -313,7 +327,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
         if (border) {
-            avatar = <>
+            avatar = <div style={{position:"relative",...style}}>
                 {avatar}
                 <span className={cls([
                     `${prefixCls}-border`,
@@ -333,13 +347,13 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                         },
                     ])}/>
                 }
-            </>;
+            </div>;
 
         }
 
 
         if (bottomSlot || topSlot || border) {
-            return <span className={cls([`${prefixCls}-wrapper`])}>
+            return <span className={cls([`${prefixCls}-wrapper`])} style={style}>
                 {avatar}
                 {topSlot && ["small", "default", "medium", "large","extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
                 {bottomSlot && ["small", "default", "medium", "large","extra-large"].includes(size) && this.renderBottomSlot()}

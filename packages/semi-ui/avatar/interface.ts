@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { BaseProps } from '../_base/baseComponent';
 
 export type AvatarShape = 'circle' | 'square';
@@ -39,12 +39,19 @@ export interface AvatarProps extends BaseProps {
     bottomSlot?: {
         render?: () => React.ReactNode;
         shape?: "circle"|"square";
-        content: React.ReactNode
+        content: React.ReactNode,
+        bgColor:string,
+        textColor:string
+        className:string
+        style?:CSSProperties
     };
     topSlot?: {
         gradientStart?: string;
         gradientEnd?: string; 
-        content: React.ReactNode
+        content: React.ReactNode,
+        textColor:string
+        className:string
+        style?:CSSProperties
     };
     border?: boolean;
     borderMotion?: boolean;

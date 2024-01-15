@@ -167,7 +167,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-
+    width: fit-content;
     .#{$module}-top_slot-bg{
         position: absolute;
         display: flex;
@@ -417,52 +417,49 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
 
 .#{$module}-border{
     border-style: solid;
-    border-color: #66ccff88;
-    padding: $spacing-avatar_additional-borderGap;
+    border-color: $color-avatar_additional-border;
     display: inline-block;
     box-sizing: border-box;
     position: absolute;
+    border-width: $width-avatar_additional-border;
+    top: -1 *  $width-avatar_additional-border - $spacing-avatar_additional-borderGap;
+    left: -1 *  $width-avatar_additional-border - $spacing-avatar_additional-borderGap;
 
     &-extra-extra-small{
-        border-width: $width-avatar_extra_extra_small-border;
-        top: -1 *  $width-avatar-extra_extra_small-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra_extra_small-border;
-        height: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra_extra_small-border;
+        width: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_extra_extra_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 
     &-extra-small{
-        border-width: $width-avatar_extra-small-border;
-        top: -1 *  $width-avatar-extra-small-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra-small-border;
-        height: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-extra-small-border;
+        width: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_extra-small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 
     &-small{
-        border-width: $width-avatar_small-border;
-        top: -1 *  $width-avatar-small-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-small-border;
-        height: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-small-border;
+        width: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_small + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 
     &-default{
-        border-width: $width-avatar_default-border;
-        top: -1 *  $width-avatar-default-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-default-border;
-        height: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-default-border;
+        width: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_default + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 
     &-medium{
-        border-width: $width-avatar_medium-border;
-        top: -1 *  $width-avatar-medium-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-medium-border;
-        height: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-medium-border;
+      
+        width: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_medium + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 
     &-large{
-        border-width: $width-avatar_large-border;
-        top: -1 *  $width-avatar-large-border - $spacing-avatar_additional-borderGap;
-        width: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-large-border;
-        height: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar-large-border;
+        width: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+       
+    }
+
+    &-extra-large{
+        width: $width-avatar_extra_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
+        height: $width-avatar_extra_large + 2 * $spacing-avatar_additional-borderGap + 2 * $width-avatar_additional-border;
     }
 }
 

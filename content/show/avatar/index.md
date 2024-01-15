@@ -165,7 +165,25 @@ import { IconCamera } from '@douyinfe/semi-icons';
 
 ### 顶部和底部 Slot
 
+
 #### 顶部
+
+ <Avatar
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+            style={{ margin: 4 }}
+            size="large"
+            border={true}
+            borderMotion={true}
+            contentMotion={true}
+            topSlot={{
+        content: "直播"
+            }}
+            bottomSlot={{
+             shape: "circle", 
+        content: <IconPlus/>
+    }}
+        />
 
 ```jsx live=true
 ()=>{
