@@ -73,6 +73,10 @@ $module: #{$prefix}-modal;
         box-shadow: $shadow-modal_content;
     }
 
+    &-footerfill{
+        display: flex;
+    }
+
     &-content-fullScreen {
         border-radius: $radius-modal_content_fullscreen;
         border: none;

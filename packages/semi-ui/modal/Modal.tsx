@@ -82,6 +82,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         lazyRender: PropTypes.bool,
         direction: PropTypes.oneOf(strings.directions),
         fullScreen: PropTypes.bool,
+        footerFill: PropTypes.bool,
     };
 
 
@@ -267,6 +268,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             confirmLoading,
             cancelLoading,
             hasCancel,
+            footerFill,
         } = this.props;
         const getCancelButton = (locale: Locale['Modal']) => {
             if (!hasCancel) {
@@ -278,6 +280,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         onClick={this.handleCancel}
                         loading={cancelLoading === undefined ? this.state.onCancelReturnPromiseStatus === "pending" : cancelLoading}
                         type="tertiary"
+                        block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
                         x-semi-children-alias="cancelText"
@@ -291,12 +294,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         return (
             <LocaleConsumer componentName="Modal">
                 {(locale: Locale['Modal'], localeCode: Locale['code']) => (
-                    <div>
+                    <div className={cls({
+                        [`${cssClasses.DIALOG}-footerfill`]: footerFill
+                    })}>
                         {getCancelButton(locale)}
                         <Button
                             aria-label="confirm"
                             type={okType}
                             theme="solid"
+                            block={footerFill}
                             loading={confirmLoading === undefined ? this.state.onOKReturnPromiseStatus === "pending" : confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
