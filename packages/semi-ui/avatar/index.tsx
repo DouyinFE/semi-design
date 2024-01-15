@@ -341,8 +341,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         if (bottomSlot || topSlot || border) {
             return <span className={cls([`${prefixCls}-wrapper`])}>
                 {avatar}
-                {topSlot && ["small", "default", "medium", "large"].includes(size) && shape === "circle" && this.renderTopSlot()}
-                {bottomSlot && ["small", "default", "medium", "large"].includes(size) && this.renderBottomSlot()}
+                {topSlot && ["small", "default", "medium", "large","extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
+                {bottomSlot && ["small", "default", "medium", "large","extra-large"].includes(size) && this.renderBottomSlot()}
             </span>;
         } else {
             return avatar;

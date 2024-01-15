@@ -163,6 +163,112 @@ import { IconCamera } from '@douyinfe/semi-icons';
 };
 ```
 
+### 顶部和底部 Slot
+
+#### 顶部
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" topSlot={{
+        content: "直播"
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" topSlot={{
+        content: "直播"
+    }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" topSlot={{
+        content: "直播"
+    }}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
+#### 底部
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" bottomSlot={{
+             shape: "square", 
+        content: "直播中"
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" bottomSlot={{
+             shape: "square", 
+        content: "直播中"
+    }}>T</Avatar>
+
+      <Avatar color="amber" size="extra-large" bottomSlot={{
+             shape: "square", 
+        content: "直播中"
+    }}>T</Avatar>
+    <br/>
+    <br/>
+    <br/>
+    <Avatar color="amber" bottomSlot={{
+                shape: "circle", 
+        content: <IconPlus/>
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" bottomSlot={{
+              shape: "circle", 
+        content: <IconPlus/>
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="extra-large" bottomSlot={{
+             shape: "circle", 
+        content: <IconPlus/>
+    }}>T</Avatar>
+    </div>
+}
+
+```
+
+### 额外边框
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+### 额外动效
+通过  borderMotion 和 contentMotion 开启边框和内容区域的额外动效
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true}  size={"large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true} size={"extra-large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
 ### 头像组
 
 可以通过 AvatarGroup 将 `avatar` 显示为组。

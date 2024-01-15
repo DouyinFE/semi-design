@@ -174,7 +174,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         justify-content: center;
         border-radius: 50%;
         overflow: hidden;
-
+        
         &-small{
             width: $width-avatar_small;
             height: $width-avatar_small;
@@ -193,6 +193,11 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         &-large{
             width: $width-avatar_large;
             height: $width-avatar_large;
+        }
+
+        &-extra-large{
+            width: $width-avatar_extra_large;
+            height: $width-avatar_extra_large;
         }
 
 
@@ -215,6 +220,10 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             top: $spacing-avatar-top_slot_large-shift;
             scale: $spacing-avatar-top_slot_large-scale;
         }
+        &-svg-extra-large{
+            top: $spacing-avatar-top_slot_extra_large-shift;
+            scale: $spacing-avatar-top_slot_extra_large-scale;
+        }
     }
 
     .#{$module}-top_slot-bg-with_border{
@@ -228,21 +237,28 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         .#{$module}-top_slot{
             color:var(--semi-color-bg-0);
             font-weight: $font-weight-bold;
-
             &-content{
                 position: relative;
 
                 &-small{
-                    font-size: $font-avatar_top_slot-small;
+                    font-size: $font-avatar_top_slot-small; 
+                    margin-top: $spacing-avatar-top_slot_small-content-marginTop;
                 }
                 &-default{
                     font-size: $font-avatar_top_slot-default;
+                    margin-top: $spacing-avatar-top_slot_default-content-marginTop;
                 }
                 &-medium{
                     font-size: $font-avatar_top_slot-medium;
+                    margin-top: $spacing-avatar-top_slot_medium-content-marginTop;
                 }
                 &-large{
                     font-size: $font-avatar_top_slot-large;
+                    margin-top: $spacing-avatar-top_slot_large-content-marginTop;
+                }
+                &-extra-large{
+                    font-size: $font-avatar_top_slot-extra_large;
+                    margin-top: $spacing-avatar-top_slot_extra_large-content-marginTop;
                 }
             }
 
@@ -285,6 +301,12 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             font-size: $font-avatar_bottom_slot-large;
         }
 
+        &-shape_circle-extra-large{
+            width:$width-avatar-bottom_slot_circle_extra_large;
+            height:$width-avatar-bottom_slot_circle_extra_large;
+            font-size: $font-avatar_bottom_slot-extra_large; 
+        }
+
 
 
         &-shape_square{
@@ -316,8 +338,12 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         &-shape_square-large{
           font-size: $font-avatar_bottom_slot-large;
             border-width: $width-avatar-bottom_slot_square_large-border;
-
         }
+
+        &-shape_square-extra-large{
+            font-size: $font-avatar_bottom_slot-extra_large;
+              border-width: $width-avatar-bottom_slot_square_extra_large-border;
+          }
     }
 }
 
