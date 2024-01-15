@@ -47,8 +47,8 @@ export const _Input = () => (
       width: 200,
     }}
   >
-    <Input />
-    <Input validateStatus="warning" />
+      <Input onlyBorder={2} size={"large"} />
+      <Input validateStatus="warning" />
     <Input validateStatus="error" />
     <br />
     <br />

@@ -12,7 +12,7 @@ export type DropdownMenuProps = BaseProps;
 
 class DropdownMenu extends BaseComponent<DropdownMenuProps> {
     static propTypes = {
-        children: PropTypes.node,
+        children: PropTypes.arrayOf(PropTypes.node),
         className: PropTypes.string,
         style: PropTypes.object,
     };
