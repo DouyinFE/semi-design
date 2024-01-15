@@ -46,6 +46,7 @@ export interface AvatarProps extends BaseProps {
         style?:CSSProperties
     };
     topSlot?: {
+        render?: () => React.ReactNode;
         gradientStart?: string;
         gradientEnd?: string; 
         content: React.ReactNode,
@@ -53,8 +54,10 @@ export interface AvatarProps extends BaseProps {
         className:string
         style?:CSSProperties
     };
-    border?: boolean;
-    borderMotion?: boolean;
+    border?: {
+        color?:string,
+        motion?:boolean
+    } & boolean;
     contentMotion?: boolean
 }
 

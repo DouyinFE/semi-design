@@ -251,6 +251,15 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
     renderTopSlot = ()=> {
+
+        if(!this.props.topSlot){
+            return null
+        }
+
+        if (this.props.topSlot.render) {
+            return this.props.topSlot.render();
+        }
+
         const textStyle:CSSProperties = {};
         if(this.props.topSlot.textColor){
             textStyle['color'] = this.props.topSlot.textColor
@@ -327,23 +336,27 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
         if (border) {
+            const borderStyle:CSSProperties = {};
+            if(border?.color){
+                borderStyle['borderColor'] = border.color
+            }
             avatar = <div style={{position:"relative",...style}}>
                 {avatar}
-                <span className={cls([
-                    `${prefixCls}-border`,
-                    `${prefixCls}-border-${size}`,
+                <span style={borderStyle} className={cls([
+                    `${prefixCls}-additionalBorder`,
+                    `${prefixCls}-additionalBorder-${size}`,
                     {
                         [`${prefixCls}-${shape}`]: shape,
                     },
                 ])}>
                 </span>
                 {
-                    this.props.borderMotion && <span className={cls([
-                        `${prefixCls}-border`,
-                        `${prefixCls}-border-${size}`,
+                    this.props.border?.motion && <span style={borderStyle} className={cls([
+                        `${prefixCls}-additionalBorder`,
+                        `${prefixCls}-additionalBorder-${size}`,
                         {
                             [`${prefixCls}-${shape}`]: shape,
-                            [`${prefixCls}-border-animated`]: this.props.borderMotion,
+                            [`${prefixCls}-additionalBorder-animated`]: this.props.border?.motion,
                         },
                     ])}/>
                 }

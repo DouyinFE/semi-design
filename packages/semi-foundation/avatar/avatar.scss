@@ -415,11 +415,11 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
 }
 
 
-.#{$module}-border{
+.#{$module}-additionalBorder{
     border-style: solid;
     border-color: $color-avatar_additional-border;
     display: inline-block;
-    box-sizing: border-box;
+    box-sizing: border-box;  
     position: absolute;
     border-width: $width-avatar_additional-border;
     top: -1 *  $width-avatar_additional-border - $spacing-avatar_additional-borderGap;
@@ -463,53 +463,53 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
     }
 }
 
-.#{$module}-square.#{$module}-border-extra_extra_small {
+.#{$module}-square.#{$module}-additionalBorder-extra_extra_small {
     border-radius: $radius-avatar-extra_extra_small;
 }
 
-.#{$module}-square.#{$module}-border-extra_small {
+.#{$module}-square.#{$module}-additionalBorder-extra_small {
     border-radius: $radius-avatar-extra_small;
 }
 
-.#{$module}-square.#{$module}-border-small {
+.#{$module}-square.#{$module}-additionalBorder-small {
     border-radius: $radius-avatar-small;
 }
 
-.#{$module}-square.#{$module}-border-default {
+.#{$module}-square.#{$module}-additionalBorder-default {
     border-radius: $radius-avatar-default;
 }
 
-.#{$module}-square.#{$module}-border-medium {
+.#{$module}-square.#{$module}-additionalBorder-medium {
     border-radius: $radius-avatar-medium;
 }
 
-.#{$module}-square.#{$module}-border-large {
+.#{$module}-square.#{$module}-additionalBorder-large {
     border-radius: $radius-avatar-large;
 }
 
-.#{$module}-border-circle{
+.#{$module}-additionalBorder-circle{
     border-radius: var(--semi-border-radius-circle);
 }
 
 
-.#{$module}-border-animated{
-    animation: $animation_duration-content linear infinite #{$module}-border;
+.#{$module}-additionalBorder-animated{
+    animation: $animation_duration-additionalBorder linear infinite #{$module}-additionalBorder;
 }
 
 .#{$module}-animated{
-    animation: $animation_duration-border linear infinite #{$module}-content ;
+    animation: $animation_duration-content linear infinite #{$module}-content ;
 }
 
-@keyframes #{$module}-border {
+@keyframes #{$module}-additionalBorder {
     0% {
-        opacity: $animation_opacity-border-start;
-        transform: scale($animation_scale-border-start)
+        opacity: $animation_opacity-additionalBorder-start;
+        transform: scale($animation_scale-additionalBorder-start)
     }
 
     to {
-        border-width: $animation_width-border-end;
-        opacity: $animation_opacity-border-end;
-        transform: scale($animation_scale-border-end);
+        border-width: $animation_width-additionalBorder-end;
+        opacity: $animation_opacity-additionalBorder-end;
+        transform: scale($animation_scale-additionalBorder-end);
     }
 }
 
