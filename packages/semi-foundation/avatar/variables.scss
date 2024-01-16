@@ -57,14 +57,14 @@ $width-avatar-bottom_slot_circle_large: 28px; // large 头像底部 slot 圆形�
 $width-avatar-bottom_slot_circle_extra_large: 28px; // extra large 头像底部 slot 圆形半径
 $color-avatar-bottom_slot_bg:var(--semi-color-primary); // 头像底部 slot 背景色
 
-$radius-avatar-bottom_slot_square:4px;  // 底部 Slot square 圆角
+$radius-avatar-bottom_slot_square:4px;  // 底部 slot square 圆角
 $font-avatar_bottom_slot-small: 5px; // small 底部 slot 文字大小
 $font-avatar_bottom_slot-default: 12px; // default 底部 slot 文字大小
 $font-avatar_bottom_slot-medium: 12px; // medium 底部 slot 文字大小
 $font-avatar_bottom_slot-large: 12px; // large 底部 slot 文字大小
 $font-avatar_bottom_slot-extra_large: 14px; // extra large 底部 slot 文字大小
-$spacing-avatar-bottom_slot_square-paddingX:4px;
-$spacing-avatar-bottom_slot_square-paddingY:1px;
+$spacing-avatar-bottom_slot_square-paddingX:4px; // 底部 slot square 形状左边距
+$spacing-avatar-bottom_slot_square-paddingY:1px; //底部 slot square 形状右边距
 
 $font-avatar_top_slot-small: 5px; // small 顶部 slot 文字大小
 $font-avatar_top_slot-default: 6px; // default 顶部 slot 文字大小
