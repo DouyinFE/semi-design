@@ -239,7 +239,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             font-weight: $font-weight-bold;
             &-content{
                 position: relative;
-
+                line-height: normal;
                 &-small{
                     font-size: $font-avatar_top_slot-small; 
                     margin-top: $spacing-avatar-top_slot_small-content-marginTop;
@@ -279,6 +279,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             align-items: center;
             background: $color-avatar-bottom_slot_bg;
             border-radius: var(--semi-border-radius-circle);
+            line-height:normal;
         }
         &-shape_circle-small{
             width:$width-avatar-bottom_slot_circle_small;

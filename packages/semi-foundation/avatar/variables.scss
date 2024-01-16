@@ -74,14 +74,14 @@ $font-avatar_top_slot-extra_large: 16px; // extra large 顶部 slot 文字大小
 
 $spacing-avatar-top_slot_small-content-marginTop: 0px; // small 顶部文字 marginTop
 $spacing-avatar-top_slot_default-content-marginTop: -2px; // default 顶部文字 marginTop
-$spacing-avatar-top_slot_medium-content-marginTop: -3px; // medium 顶部文字 marginTop
+$spacing-avatar-top_slot_medium-content-marginTop: 0px; // medium 顶部文字 marginTop
 $spacing-avatar-top_slot_large-content-marginTop: 0px; // large 顶部文字 marginTop
-$spacing-avatar-top_slot_extra_large-content-marginTop: 4px; // extra large 顶部文字 marginTop 
+$spacing-avatar-top_slot_extra_large-content-marginTop: 0px; // extra large 顶部文字 marginTop 
 
 $color-avatar-bottom_slot_square-border:var(--semi-color-bg-0); // 底部 square 边框颜色
 $width-avatar-bottom_slot_square_small-border:2px; // small 头像底部 square 边框宽度
 $width-avatar-bottom_slot_square_default-border:2px; // default 头像底部 square 边框宽度
-$width-avatar-bottom_slot_square_medium-border:2px; // medium 头像底部 square 边框宽度
+$width-avatar-bottom_slot_square_medium-border:2px; // medium 头像底部 square 边框宽度 
 $width-avatar-bottom_slot_square_large-border:2px; // large 头像底部 square 边框宽度
 $width-avatar-bottom_slot_square_extra_large-border:2px; // extra large 头像底部 square 边框宽度
 

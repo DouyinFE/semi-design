@@ -224,19 +224,19 @@ import { IconCamera } from '@douyinfe/semi-icons';
         <Avatar color="amber" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "LIVE"
+            content: "直播中"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "LIVE"
+            content: "直播中"
     }}>T</Avatar>
 
       <Avatar color="amber" size="extra-large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "LIVE"
+            content: "直播中"
     }}>T</Avatar>
     <br/>
     <br/>
