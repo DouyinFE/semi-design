@@ -235,7 +235,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         display: flex;
         justify-content: center;
         .#{$module}-top_slot{
-            color:var(--semi-color-bg-0);
+            color:$color-avatar-top_slot_text;
             font-weight: $font-weight-bold;
             &-content{
                 position: relative;

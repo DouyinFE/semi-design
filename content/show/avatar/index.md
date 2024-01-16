@@ -173,14 +173,16 @@ import { IconCamera } from '@douyinfe/semi-icons';
             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
             style={{ margin: 4 }}
             size="large"
-            border={true}
-            borderMotion={true}
+            border={{color:"#FE2C55",motion:true}}
             contentMotion={true}
             topSlot={{
-        content: "直播"
+        content: "直播",
+          gradientStart:"rgb(255,23,100)",
+         gradientEnd:"rgb(237,52,148)"
             }}
             bottomSlot={{
-             shape: "circle", 
+             shape: "circle",
+             bgColor:"#FE2C55",
         content: <IconPlus/>
     }}
         />
@@ -190,15 +192,21 @@ import { IconCamera } from '@douyinfe/semi-icons';
     return <div>
 
         <Avatar color="amber" topSlot={{
-        content: "直播"
+        content: "直播",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" topSlot={{
-        content: "直播"
+        content: "直播",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
         <Avatar color="amber" size="extra-large" topSlot={{
-        content: "直播"
+        content: "直播",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
     
     </div>
@@ -214,39 +222,44 @@ import { IconCamera } from '@douyinfe/semi-icons';
     return <div>
 
         <Avatar color="amber" bottomSlot={{
-             shape: "square", 
-        content: "直播中"
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" bottomSlot={{
-             shape: "square", 
-        content: "直播中"
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
     }}>T</Avatar>
 
       <Avatar color="amber" size="extra-large" bottomSlot={{
-             shape: "square", 
-        content: "直播中"
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
     }}>T</Avatar>
     <br/>
     <br/>
     <br/>
     <Avatar color="amber" bottomSlot={{
-                shape: "circle", 
-        content: <IconPlus/>
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" bottomSlot={{
-              shape: "circle", 
-        content: <IconPlus/>
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
     }}>T</Avatar>
 
     <Avatar color="amber" size="extra-large" bottomSlot={{
-             shape: "circle", 
-        content: <IconPlus/>
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
     }}>T</Avatar>
     </div>
 }
-
 ```
 
 ### 额外边框
@@ -406,8 +419,11 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | alt | 图像的替代文本描述 | string | - |
+| border | 额外边框 （>=2.xx.0） | {color?:string //颜色, motion?:boolean //是否开启动画} or boolean | - |
+| bottomSlot | 底部 Slot 配置 （>= 2.xx.0 ）| { render?: () => React.ReactNode //完全控制渲染,<br/> shape?: "circle" or "square" // Slot 形状,<br/>  content: React.ReactNode // Slot 内容,<br/> bgColor:string // Slot 背景色 <br/> textColor:string // 文字颜色 <br/> className:string <br/> style?:CSSProperties } | - |
 | className | 类名 | string | - |
 | color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
+| contentMotion | 头像内容区域动效 （>=2.xx.0） | boolean | - |
 | hoverMask | hover 时头像内容覆盖层 | ReactNode | - |
 | gap | 字符头像距离左右两侧的像素大小 | number| 3 |
 | imgAttr | 原生 img 属性 **>=1.5.0** | React.ImgHTMLAttributes<HTMLImageElement\> | - |
@@ -420,6 +436,9 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 | onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为 | (e: Event) => boolean | - |
 | onMouseEnter | MouseEnter 事件的回调 | (e: Event) => void | - |
 | onMouseLeave | MouseLeave 事件的回调 | (e: Event) => void | - |
+| topSlot |  顶部 Slot 配置 （>= 2.xx.0 ） | {render?: () => React.ReactNode //完全控制渲染,<br/> gradientStart?: string // 顶部背景渐变起始色<br/> gradientEnd?: string // 顶部背景渐变结束色<br/> content: React.ReactNode <br/> textColor:string //文字颜色 <br/> className:string<br/>style?:CSSProperties} | - |
+
+
 
 ### AvatarGroup
 

@@ -264,14 +264,14 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         if(this.props.topSlot.textColor){
             textStyle['color'] = this.props.topSlot.textColor
         }
-        
+        console.log("this.props.topSlot.gradientStart",this.props.topSlot.gradientStart)
         return <div style={this.props.topSlot.style ?? {}}
             className={cls([`${prefixCls}-top_slot-wrapper`,this.props.topSlot.className ?? "", {
             [`${prefixCls}-animated`]: this.props.contentMotion,
         }])}>
             <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`])}>
                 <div className={cls([`${prefixCls}-top_slot-bg-svg`, `${prefixCls}-top_slot-bg-svg-${this.props.size}`])}>
-                    <TopSlotSvg gradientStart={this.props.topSlot.gradientStart ?? "#FF1764"} gradientEnd={this.props.topSlot.gradientStart ?? "#ED3494"}/>
+                    <TopSlotSvg gradientStart={this.props.topSlot.gradientStart ?? "var(--semi-color-primary)"} gradientEnd={this.props.topSlot.gradientEnd ?? "var(--semi-color-primary)"}/>
                 </div>
             </div>
             <div className={cls([`${prefixCls}-top_slot`])}>

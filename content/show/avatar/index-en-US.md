@@ -165,6 +165,145 @@ import { IconCamera } from '@douyinfe/semi-icons';
 };
 ```
 
+
+### Top and Bottom Slot
+
+
+#### Top
+
+ <Avatar
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+            style={{ margin: 4 }}
+            size="large"
+            border={{color:"#FE2C55",motion:true}}
+            contentMotion={true}
+            topSlot={{
+        content: "LIVE",
+          gradientStart:"rgb(255,23,100)",
+         gradientEnd:"rgb(237,52,148)"
+            }}
+            bottomSlot={{
+             shape: "circle",
+             bgColor:"#FE2C55",
+        content: <IconPlus/>
+    }}
+        />
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" topSlot={{
+        content: "LIVE",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" topSlot={{
+        content: "LIVE",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
+    }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" topSlot={{
+        content: "LIVE",
+        gradientStart:"rgb(255,23,100)",
+        gradientEnd:"rgb(237,52,148)"
+    }}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
+#### Bottom
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+    }}>T</Avatar>
+
+      <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+    }}>T</Avatar>
+    <br/>
+    <br/>
+    <br/>
+    <Avatar color="amber" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+    }}>T</Avatar>
+
+    <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+    }}>T</Avatar>
+    </div>
+}
+
+```
+
+### Additional border
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+### Additional Animation
+Turn on additional animation effects for borders and content areas through `borderMotion` and `contentMotion`
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true}  size={"large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true} size={"extra-large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
 ### AvatarGroup
 
 You can use `AvatarGroup` component to display avatars as a group.
@@ -283,8 +422,11 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 | Properties   | Instructions                                                                                                                                                                              | type           | Default  |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------- |
 | alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
+| border | additional border（>=2.xx.0） | {color?:string //color, motion?:boolean // has animation} or boolean | - |
+| bottomSlot | bottom Slot config （>= 2.xx.0 ）| { render?: () => React.ReactNode //Full control the rendering,<br/> shape?: "circle" or "square" // slot shape,<br/>  content: React.ReactNode // slot content,<br/> bgColor:string // slot background <br/> textColor:string // text color <br/> className:string <br/> style?:CSSProperties } | - |
 | className    | Class name                                                                                                                                                                                | string         | -        |
 | color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
+| contentMotion | avatar content area animation （>=2.xx.0） | boolean | - |
 | gap          | Pixel size of the distance between the left and right sides of the character avatar | number                                     | 3        |
 | hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |
 | imgAttr | Native html img attributes **>=1.5.0**| React.ImgHTMLAttributes<HTMLImageElement\> | - |
@@ -297,6 +439,8 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 | onError      | Image load failed event, returning false closes the default fallback behavior of the component                                                                                            | (e: Event) = > boolean | -        |
 | onMouseEnter | Callback to onMouseEnter event                                                                                                                                                            | (e: Event) => void       | -        |
 | onMouseLeave | Callback to onMouseLeave event                                                                                                                                                            | (e: Event) => void       | -        |
+| topSlot |  top Slot config （>= 2.xx.0 ） | {render?: () => React.ReactNode //Full control the rendering,<br/> gradientStart?: string // Top background gradient starting color <br/> gradientEnd?: string // Top background gradient ending color<br/> content: React.ReactNode <br/> textColor:string //text color <br/> className:string<br/>style?:CSSProperties} | - |
+
 
 ### AvatarGroup
 

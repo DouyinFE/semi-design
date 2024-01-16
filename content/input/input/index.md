@@ -434,6 +434,8 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | onKeyDown         | keydown回调                                       | function(e:event)               |           |
 | onKeyPress        | keypress回调                                      | function(e:event)               |           |
 | onKeyUp           | keyup回调                                         | function(e:event)               |           |
+| onlyBorder | 设置边框宽度，只保留边框，适合简约场景 | number | - |
+
 ### TextArea
 
 > 其他属性与 html textarea 标签保持一致

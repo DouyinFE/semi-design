@@ -422,6 +422,7 @@ Answers to some questions:
 | onKeyDown         | Callback invoked when keydown                                                                                                                                                                 | function(e:event)               |           |
 | onKeyPress        | Callback invoked when keypress                                                                                                                                                                | function(e:event)               |           |
 | onKeyUp           | Callback invoked when keyup                                                                                                                                                                   | function(e:event)               |           |
+| onlyBorder | Set the border width and keep only the border, suitable for simple scenes | number | - |
 ### TextArea
 
 > Other attributes are same with html `<textarea>`

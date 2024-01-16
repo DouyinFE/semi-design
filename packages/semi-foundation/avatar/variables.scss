@@ -85,9 +85,9 @@ $width-avatar-bottom_slot_square_medium-border:2px;
 $width-avatar-bottom_slot_square_large-border:2px;
 $width-avatar-bottom_slot_square_extra_large-border:2px;
 
-
-$color-avatar-top_slot_gradient_start: rgb(255,23,100);
-$color-avatar-top_slot_gradient_end: rgb(237,52,148);
+$color-avatar-top_slot_text:var(--semi-color-bg-0);
+$color-avatar-top_slot_gradient_start: var(--semi-color-primary);
+$color-avatar-top_slot_gradient_end: var(--semi-color-primary);
 
 
 $spacing-avatar-top_slot_small-shift: -28px; // small 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置

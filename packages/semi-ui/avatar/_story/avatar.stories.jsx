@@ -76,7 +76,9 @@ export const TopSolt = () => (
     <div>
         <div>
             <Avatar shape="circle"  size={"extra-extra-small"}  border={true} topSlot={{
-                content:"直播"
+                content:"直播",
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
             }}>U</Avatar>
             <Avatar shape="circle"  size={"extra-small"}  border={true} topSlot={{
                 content:"直播"
