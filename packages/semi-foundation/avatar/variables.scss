@@ -78,16 +78,16 @@ $spacing-avatar-top_slot_medium-content-marginTop: -3px; // medium 顶部文字 
 $spacing-avatar-top_slot_large-content-marginTop: 0px; // large 顶部文字 marginTop
 $spacing-avatar-top_slot_extra_large-content-marginTop: 4px; // extra large 顶部文字 marginTop 
 
-$color-avatar-bottom_slot_square-border:var(--semi-color-bg-0);
-$width-avatar-bottom_slot_square_small-border:2px;
-$width-avatar-bottom_slot_square_default-border:2px;
-$width-avatar-bottom_slot_square_medium-border:2px;
-$width-avatar-bottom_slot_square_large-border:2px;
-$width-avatar-bottom_slot_square_extra_large-border:2px;
+$color-avatar-bottom_slot_square-border:var(--semi-color-bg-0); // 底部 square 边框颜色
+$width-avatar-bottom_slot_square_small-border:2px; // small 头像底部 square 边框宽度
+$width-avatar-bottom_slot_square_default-border:2px; // default 头像底部 square 边框宽度
+$width-avatar-bottom_slot_square_medium-border:2px; // medium 头像底部 square 边框宽度
+$width-avatar-bottom_slot_square_large-border:2px; // large 头像底部 square 边框宽度
+$width-avatar-bottom_slot_square_extra_large-border:2px; // extra large 头像底部 square 边框宽度
 
-$color-avatar-top_slot_text:var(--semi-color-bg-0);
-$color-avatar-top_slot_gradient_start: var(--semi-color-primary);
-$color-avatar-top_slot_gradient_end: var(--semi-color-primary);
+$color-avatar-top_slot_text:var(--semi-color-bg-0); //顶部 Slot 文字颜色
+$color-avatar-top_slot_gradient_start: var(--semi-color-primary); // 顶部 slot 渐变起始色
+$color-avatar-top_slot_gradient_end: var(--semi-color-primary); //  顶部 slot 渐变结束色
 
 
 $spacing-avatar-top_slot_small-shift: -28px; // small 顶部 slot 偏移量, 和 scale 一起控制 slot 的位置
