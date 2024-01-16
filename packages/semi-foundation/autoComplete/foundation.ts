@@ -235,7 +235,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         const options = this._generateList(data);
         // Get the option whose value match from options
-        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.filter(option => renderSelectedItem(option) === selectedValue);
+        let selectedOption: StateOptionItem | Array<StateOptionItem> = options.length ? options.filter(option => renderSelectedItem(option) === selectedValue) : [];
         const canMatchInData = selectedOption.length;
 
         const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === selectedValue);
@@ -262,11 +262,13 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
 
         let { data, defaultActiveFirstOption } = this.getProps();
 
-        let renderSelectedItem = this._getRenderSelectedItem();
+        let selectedOptionIndex = -1;
 
-        const options = this._generateList(data);
-
-        const selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === searchValue);
+        if (searchValue) {
+            let renderSelectedItem = this._getRenderSelectedItem();
+            const options = this._generateList(data);
+            selectedOptionIndex = options.findIndex(option => renderSelectedItem(option) === searchValue);
+        }
 
         if (selectedOptionIndex === -1 && defaultActiveFirstOption) {
             if (focusIndex !== 0) {
@@ -288,7 +290,9 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
         let { renderSelectedItem } = this.getProps();
 
         if (typeof renderSelectedItem === 'undefined') {
-            renderSelectedItem = (option: any) => option.value;
+            renderSelectedItem = (option: any) => {
+                return option?.value;
+            };
         } else if (renderSelectedItem && typeof renderSelectedItem === 'function') {
             // do nothing
         }

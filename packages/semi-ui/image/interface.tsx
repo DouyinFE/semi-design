@@ -21,6 +21,7 @@ export interface ImageProps extends BaseProps{
     preview?: boolean | PreviewProps;
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
+    onClick?: (event: any) => void;
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode;
     imageID?: number;
@@ -59,6 +60,8 @@ export interface PreviewProps extends BaseProps {
     crossOrigin?: "anonymous"| "use-credentials";
     maxZoom?: number;
     minZoom?: number;
+    previewCls?: string;
+    previewStyle?: React.CSSProperties;
     renderHeader?: (info: any) => ReactNode;
     renderPreviewMenu?: (props: MenuProps) => ReactNode;
     getPopupContainer?: () => HTMLElement;
@@ -74,6 +77,8 @@ export interface PreviewProps extends BaseProps {
     onDownload?: (src: string, index: number) => void;
     setDownloadName?: (src: string) => string
 }
+
+export interface PreviewInnerProps extends Omit<PreviewProps, "previewCls" | "previewStyle"> {}
 
 export interface MenuProps {
     min?: number;
@@ -116,6 +121,7 @@ export interface SliderProps {
 }
 
 export interface HeaderProps {
+    closable: boolean;
     renderHeader?: (info: any) => ReactNode;
     title?: string;
     titleStyle?: React.CSSProperties;

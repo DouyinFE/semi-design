@@ -470,6 +470,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | crossOrigin      | Passthrough to the crossorigin of the native img tag | 'anonymous' \| 'use-credentials' |-| |
 | fallback         | Custom loading failed display content | ReactNode  | - | |
 | height           | Image display height                 | number            | - | |
+| onClick          | Click callback on image              | (event: Event) => void | - | |
 | onError          | Load error callback                  | (event: Event) => void | - | |
 | onLoad           | Load success callback                | (event: Event) => void | - | |
 | placeholder      | Placeholder content when the image is not loaded | ReactNode | - | |
@@ -511,6 +512,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | preLoad          | Whether to enable preloading                                                                                                                                             | boolean | true | |
 | preLoadGap       | Preloaded step size                                                                                                                                                      | number         | 2 | |
 | previewTitle     | Custom preview title                                                                                                                                                     | ReactNode      | - | |
+| previewCls        | Custom preview style class name                                                                                                                                       | string           | - | |
+| previewStyle        | Custom preview style                                                                                                                                       | object           | - | |
 | prevTip          | Previous operation button prompt                                                                                                                                         | string  | "Previous" | |
 | renderHeader     | Custom render preview top info                                                                                                                                           |(info: reactNode) => ReactNode  | - | |
 | renderPreviewMenu | Custom render preview bottom menu information                                                                                                                            | (props: MenuProps) => ReactNode; | - | |

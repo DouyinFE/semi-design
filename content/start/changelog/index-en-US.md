@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.51.0-beta.0 (2024-01-09)
+- 【Feat】
+    - Dropdown.Item supports transparent transmission of data-* attributes to dom
+    - ImagePreview adds previewCls and previewStyle for setting the preview style
+    - Image adds onClick API
+- 【Perf】
+    - Optimize Cascader's stuck problem when thousand-level leaf nodes are selected under multi-selection, leafOnly, searchable, and controlled conditions [#1999](https://github.com/DouyinFE/semi-design/pull/1999)
+- 【Fix】
+    - Fixed the problem that the table header is not selected when all rows of Table are selected and disabled [#2001](https://github.com/DouyinFE/semi-design/issues/2001)
+    - Fixed the issue where the controlled AutoComplete configured with onSelectWithObject reported an error when clicking the clear button [#2013](https://github.com/DouyinFE/semi-design/issues/2013)
+    - Fixed the problem of creating portal DOM node by default when Image is not displayed [#2004](https://github.com/DouyinFE/semi-design/issues/2004)
+    - Fixed the problem that the closable parameter of Image does not take effect
+
 #### 🎉 2.50.1 (2024-01-04)
 - 【Fix】
     - Fix the indentation error problem when renderingFullLabel after Tree supports showLine（scope of impact: v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
@@ -187,6 +201,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
     - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
+
+#### 🎉 2.42.3 (2023-09-01)
+- 【Fix】
+    - Fix: Fix Table baseRow onMouseLeave error [#1794](https://github.com/DouyinFE/semi-design/pull/1794)
 
 #### 🎉 2.42.2 (2023-08-28)
 - 【Fix】

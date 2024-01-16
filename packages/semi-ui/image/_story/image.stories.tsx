@@ -73,6 +73,7 @@ export const BasicPreview = () => {
                             width={200}
                             alt={`lamp${index + 1}`}
                             data-test={'data-test'}
+                            onClick={()=>{}}
                         />
                 )})}
             </ImagePreview>
