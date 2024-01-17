@@ -67,7 +67,7 @@ export interface InputProps extends
     preventScroll?: boolean;
     /** internal prop, DatePicker use it */
     showClearIgnoreDisabled?: boolean;
-    onlyBorder: number
+    onlyBorder?: number
 }
 
 export interface InputState {
