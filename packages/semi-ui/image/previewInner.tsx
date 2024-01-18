@@ -273,7 +273,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleDownload();
     }
 
-    handlePreviewClose = (e: any) => {
+    handlePreviewClose = (e: React.MouseEvent<HTMLElement>) => {
         this.foundation.handlePreviewClose(e);
     }
 

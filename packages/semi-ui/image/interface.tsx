@@ -126,7 +126,7 @@ export interface HeaderProps {
     title?: string;
     titleStyle?: React.CSSProperties;
     className?: string;
-    onClose?: (e: any) => void
+    onClose?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
 export interface FooterProps extends SliderProps {
