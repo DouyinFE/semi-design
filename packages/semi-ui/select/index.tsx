@@ -26,8 +26,7 @@ import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
-import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
-import warning from '@douyinfe/semi-foundation/utils/warning';
+import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromConfigProvider } from '../_utils';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
@@ -313,7 +312,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         // tagClosable: PropTypes.bool,
     };
 
-    static defaultProps: Partial<SelectProps> = {
+    static __SemiComponentName__ = "Select";
+    
+    static defaultProps: Partial<SelectProps> = getDefaultPropsFromConfigProvider(Select.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
         borderless: false,
@@ -356,7 +357,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
         // renderCreateItem: (input) => input
-    };
+    })
 
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;

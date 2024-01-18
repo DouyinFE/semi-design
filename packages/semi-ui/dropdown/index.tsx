@@ -16,6 +16,7 @@ import DropdownTitle, { DropdownTitleProps } from './dropdownTitle';
 import DropdownContext, { DropdownContextType } from './context';
 import '@douyinfe/semi-foundation/dropdown/dropdown.scss';
 import { noop, get } from 'lodash';
+import { getDefaultPropsFromConfigProvider } from "../_utils";
 
 const positionSet = strings.POSITION_SET;
 const triggerSet = strings.TRIGGER_SET;
@@ -99,7 +100,9 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         zIndex: PropTypes.number,
     };
 
-    static defaultProps = {
+    static __SemiComponentName__ = "Dropdown";
+
+    static defaultProps = getDefaultPropsFromConfigProvider(Dropdown.__SemiComponentName__, {
         onVisibleChange: noop,
         prefixCls: cssClasses.PREFIX,
         zIndex: tooltipNumbers.DEFAULT_Z_INDEX,
@@ -110,7 +113,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         showTick: false,
         closeOnEsc: true,
         onEscKeyDown: noop,
-    };
+    });
 
     tooltipRef: React.RefObject<Tooltip>
 

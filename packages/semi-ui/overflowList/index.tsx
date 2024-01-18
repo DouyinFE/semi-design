@@ -10,7 +10,7 @@ import IntersectionObserver from './intersectionObserver';
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
-import { cloneDeep } from '../_utils';
+import { cloneDeep, getDefaultPropsFromConfigProvider } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -54,7 +54,9 @@ export interface OverflowListState {
 
 // reference to https://github.com/palantir/blueprint/blob/1aa71605/packages/core/src/components/overflow-list/overflowList.tsx#L34
 class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
-    static defaultProps = {
+    static __SemiComponentName__ = "OverflowList";
+
+    static defaultProps = getDefaultPropsFromConfigProvider(OverflowList.__SemiComponentName__, {
         collapseFrom: 'end',
         minVisibleItems: 0,
         overflowRenderer: (): ReactElement => null,
@@ -62,7 +64,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         threshold: 0.75,
         visibleItemRenderer: (): ReactElement => null,
         onOverflow: () => null,
-    };
+    })
     static propTypes = {
         // if render in scroll mode, key is required in items
         className: PropTypes.string,

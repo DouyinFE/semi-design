@@ -8,6 +8,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import BaseComponent from '../_base/baseComponent';
 import { AvatarProps } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
+import { getDefaultPropsFromConfigProvider } from "../_utils";
 
 const sizeSet = strings.SIZE;
 const shapeSet = strings.SHAPE;
@@ -23,7 +24,8 @@ export interface AvatarState {
 }
 
 export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
-    static defaultProps = {
+    static __SemiComponentName__ = "Avatar";
+    static defaultProps = getDefaultPropsFromConfigProvider(Avatar.__SemiComponentName__, {
         size: 'medium',
         color: 'grey',
         shape: 'circle',
@@ -31,7 +33,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         onClick: noop,
         onMouseEnter: noop,
         onMouseLeave: noop,
-    };
+    })
 
     static elementType: string;
     static propTypes = {

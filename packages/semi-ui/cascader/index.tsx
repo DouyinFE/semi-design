@@ -27,7 +27,7 @@ import Item, { CascaderData, Entities, Entity, Data, FilterRenderProps } from '.
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
-import { isSemiIcon } from '../_utils';
+import { getDefaultPropsFromConfigProvider, isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
 export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
@@ -100,6 +100,10 @@ const prefixcls = cssClasses.PREFIX;
 const resetkey = 0;
 
 class Cascader extends BaseComponent<CascaderProps, CascaderState> {
+
+    static __SemiComponentName__ = "Cascader";
+
+
     static contextType = ConfigContext;
     static propTypes = {
         'aria-labelledby': PropTypes.string,
@@ -181,7 +185,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         position: PropTypes.string
     };
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromConfigProvider(Cascader.__SemiComponentName__, {
         borderless: false,
         leafOnly: false,
         arrowIcon: <IconChevronDown />,
@@ -211,7 +215,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onListScroll: noop,
         enableLeafClick: false,
         'aria-label': 'Cascader',
-    };
+    })
 
     options: any;
     isEmpty: boolean;

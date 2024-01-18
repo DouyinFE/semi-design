@@ -15,7 +15,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '../_utils';
+import { getDefaultPropsFromConfigProvider, getScrollbarWidth } from '../_utils';
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -84,8 +84,9 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         fullScreen: PropTypes.bool,
     };
 
+    static __SemiComponentName__ = "Modal";
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromConfigProvider(Modal.__SemiComponentName__, {
         zIndex: 1000,
         motion: true,
         mask: true,
@@ -104,7 +105,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         keepDOM: false,
         lazyRender: true,
         fullScreen: false,
-    };
+    });
     static useModal = useModal;
     foundation: ModalFoundation;
 

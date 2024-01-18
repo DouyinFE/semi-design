@@ -14,7 +14,7 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '../_utils';
+import { getDefaultPropsFromConfigProvider, getScrollbarWidth } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -66,8 +66,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         keepDOM: PropTypes.bool,
         'aria-label': PropTypes.string,
     };
-
-    static defaultProps: SideSheetReactProps = {
+    static __SemiComponentName__ = "SideSheet";
+    static defaultProps: SideSheetReactProps = getDefaultPropsFromConfigProvider(SideSheet.__SemiComponentName__, {
         visible: false,
         motion: true,
         mask: true,
@@ -81,7 +81,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         closeOnEsc: false,
         afterVisibleChange: noop,
         keepDOM: false
-    };
+    });
     private _active: boolean;
 
     constructor(props: SideSheetReactProps) {
