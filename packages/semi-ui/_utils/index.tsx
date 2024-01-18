@@ -3,6 +3,7 @@ import { cloneDeepWith, set, get } from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { findAll } from '@douyinfe/semi-foundation/utils/getHighlight';
 import { isHTMLElement } from '@douyinfe/semi-foundation/utils/dom';
+import ConfigProvider from "../configProvider";
 /**
  * stop propagation
  *
@@ -202,4 +203,34 @@ export function getScrollbarWidth() {
     return 0;
 }
 
+
+export function getDefaultPropsFromConfigProvider(componentName: string, userProps: any = {}) {
+    const getFromProvider = ()=> ConfigProvider?.["overrideDefaultProps"]?.[componentName] || {};
+    return new Proxy({
+        ...userProps,
+    }, {
+        get(target, key, receiver) {
+            const defaultPropsFromProvider = getFromProvider();
+            if (key in userProps) {
+                return Reflect.get(target, key, receiver);
+            }
+            return defaultPropsFromProvider[key];
+        },
+        set(target, key, value, receiver) {
+            return Reflect.set(target, key, value, receiver);
+        },
+        ownKeys() {
+            const defaultPropsFromProvider = getFromProvider();
+            return Array.from(new Set([...Reflect.ownKeys(userProps), ...Object.keys(defaultPropsFromProvider)]));
+        },
+        getOwnPropertyDescriptor(target, key) {
+            const defaultPropsFromProvider = getFromProvider();
+            if (key in userProps) {
+                return Reflect.getOwnPropertyDescriptor(target, key);
+            } else {
+                return Reflect.getOwnPropertyDescriptor(defaultPropsFromProvider, key);
+            }
+        }
+    });
+}
 

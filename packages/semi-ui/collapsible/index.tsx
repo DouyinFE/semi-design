@@ -12,7 +12,7 @@ import { cssClasses } from "@douyinfe/semi-foundation/collapsible/constants";
 import { isEqual } from "lodash";
 import "@douyinfe/semi-foundation/collapsible/collapsible.scss";
 
-interface CollapsibleProps extends CollapsibleFoundationProps {
+export interface CollapsibleProps extends CollapsibleFoundationProps {
     motion?: boolean;
     children?: React.ReactNode;
     isOpen?: boolean;

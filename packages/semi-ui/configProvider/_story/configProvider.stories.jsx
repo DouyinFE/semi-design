@@ -4,6 +4,8 @@ import GetContainer from './GetPopupContainer';
 import RTLWrapper from './RTLDirection/RTLWrapper';
 import RTLTable from './RTLDirection/RTLTable';
 import RTLForm from './RTLDirection/RTLForm';
+import ConfigContext from "../context";
+import {Button, ConfigProvider} from "../../index";
 
 export default {
   title: 'ConfigProvider',
@@ -28,3 +30,17 @@ export const RTLFormDemo = () => (
     <RTLForm />
   </RTLWrapper>
 );
+
+ConfigProvider.overrideDefaultProps = {
+    Button: {
+    type: 'warning',
+  },
+}
+
+export const DefaultPropsDemo = ()=>{
+    return <div>
+        <ConfigProvider >
+            <Button>test</Button>
+        </ConfigProvider>
+    </div>
+}
