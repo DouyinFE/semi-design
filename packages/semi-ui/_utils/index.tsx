@@ -204,31 +204,31 @@ export function getScrollbarWidth() {
 }
 
 
-export function getDefaultPropsFromConfigProvider(componentName: string, userProps: any = {}) {
+export function getDefaultPropsFromConfigProvider(componentName: string, semiDefaultProps: any = {}) {
     const getFromProvider = ()=> ConfigProvider?.["overrideDefaultProps"]?.[componentName] || {};
     return new Proxy({
-        ...userProps,
+        ...semiDefaultProps,
     }, {
         get(target, key, receiver) {
             const defaultPropsFromProvider = getFromProvider();
-            if (key in userProps) {
-                return Reflect.get(target, key, receiver);
+            if (key in defaultPropsFromProvider) {
+                return defaultPropsFromProvider[key];
             }
-            return defaultPropsFromProvider[key];
+            return Reflect.get(target, key, receiver);
         },
         set(target, key, value, receiver) {
             return Reflect.set(target, key, value, receiver);
         },
         ownKeys() {
             const defaultPropsFromProvider = getFromProvider();
-            return Array.from(new Set([...Reflect.ownKeys(userProps), ...Object.keys(defaultPropsFromProvider)]));
+            return Array.from(new Set([...Reflect.ownKeys(semiDefaultProps), ...Object.keys(defaultPropsFromProvider)]));
         },
         getOwnPropertyDescriptor(target, key) {
             const defaultPropsFromProvider = getFromProvider();
-            if (key in userProps) {
-                return Reflect.getOwnPropertyDescriptor(target, key);
-            } else {
+            if (key in defaultPropsFromProvider) {
                 return Reflect.getOwnPropertyDescriptor(defaultPropsFromProvider, key);
+            } else {
+                return Reflect.getOwnPropertyDescriptor(target, key);
             }
         }
     });
