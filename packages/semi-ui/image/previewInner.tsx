@@ -273,8 +273,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleDownload();
     }
 
-    handlePreviewClose = () => {
-        this.foundation.handlePreviewClose();
+    handlePreviewClose = (e: MouseEvent) => {
+        this.foundation.handlePreviewClose(e);
     }
 
     handleAdjustRatio = (type: RatioType) => {
