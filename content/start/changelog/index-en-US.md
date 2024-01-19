@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - Fixed Table propTypes is removed in prod mode
+
 #### 🎉 2.51.2 (2024-01-19)
 - 【Fix】
     - Fixed TextArea autoSize is not work when textarea resize [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
