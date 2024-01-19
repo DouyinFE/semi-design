@@ -5,7 +5,8 @@ import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundati
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/textarea.scss';
-import { noop, omit, isFunction, isUndefined, isObject, throttle, DebouncedFunc } from 'lodash';
+import { noop, omit, isFunction, isUndefined, isObject, throttle } from 'lodash';
+import type { DebouncedFunc } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';
 import ResizeObserver from '../resizeObserver';
 
