@@ -932,6 +932,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const isControlled = this._isControlledComponent();
         const newState: Partial<BasicCascaderInnerData> = {};
         if (multiple) {
+            newState.isSearching = false;
             this._adapter.updateInputValue('');
             this._adapter.notifyOnSearch('');
             newState.checkedKeys = new Set([]);
