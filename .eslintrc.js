@@ -43,7 +43,9 @@ module.exports = {
                 'jsx-a11y/mouse-events-have-key-events': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
                 'space-before-blocks': ['error', 'always'],
-                'max-len': 'off'
+                'max-len': 'off',
+                'react/forbid-foreign-prop-types': ['error', { "allowInPropTypes": true }]
+
             },
             globals: {
                 "sinon": "readonly",
@@ -130,6 +132,7 @@ module.exports = {
                         }
                     }
                 ],
+                'react/forbid-foreign-prop-types': ['error', { "allowInPropTypes": true }]
             }
         },
     ],
