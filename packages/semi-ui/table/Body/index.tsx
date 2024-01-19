@@ -22,9 +22,9 @@ import Store from '@douyinfe/semi-foundation/utils/Store';
 import BaseComponent, { BaseProps } from '../../_base/baseComponent';
 import { logger } from '../utils';
 import ColGroup from '../ColGroup';
-import BaseRow from './BaseRow';
+import BaseRow, { baseRowPropTypes } from './BaseRow';
 import ExpandedRow from './ExpandedRow';
-import SectionRow from './SectionRow';
+import SectionRow, { sectionRowPropTypes } from './SectionRow';
 import TableHeader from '../TableHeader';
 import ConfigContext from '../../configProvider/context';
 import TableContext, { TableContextProps } from '../table-context';
@@ -74,7 +74,7 @@ export interface BodyProps extends BaseProps {
     renderExpandIcon: (record: Record<string, any>, isNested: boolean) => ReactNode | null;
     headerRef?: React.MutableRefObject<HTMLDivElement> | ((instance: any) => void);
     onScroll?: VirtualizedOnScroll;
-    keepDOM?: boolean;
+    keepDOM?: boolean
 }
 
 export interface BodyState {
@@ -457,7 +457,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
      */
     renderSectionRow = (props: RenderSectionRowProps = { groupKey: undefined }) => {
         const { dataSource, rowKey, group, groupKey, index } = props;
-        const sectionRowPickKeys = Object.keys(SectionRow.propTypes);
+        const sectionRowPickKeys = Object.keys(sectionRowPropTypes);
         const sectionRowProps: any = pick(props, sectionRowPickKeys);
 
         const { handleRowExpanded } = this.context;
@@ -543,7 +543,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             expandRowByClick,
         } = props;
 
-        const baseRowPickKeys = Object.keys(BaseRow.propTypes);
+        const baseRowPickKeys = Object.keys(baseRowPropTypes);
         const baseRowProps: Record<string, any> = pick(props, baseRowPickKeys);
 
         let key = getRecordKey(record, rowKey);
@@ -847,7 +847,7 @@ export interface RenderExpandedRowProps {
     virtualized?: Virtualized;
     level?: number;
     keepDOM?: boolean;
-    displayNone?: boolean;
+    displayNone?: boolean
 }
 
 export interface RenderSectionRowProps {
