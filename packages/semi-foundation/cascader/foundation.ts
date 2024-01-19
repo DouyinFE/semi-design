@@ -908,7 +908,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                     if (_notExist) {
                         return false;
                     }
-                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join();
+                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join('');
                     return filter(sugInput, data, filterTreeNode, false, filteredPath);
                 })
                 .filter(
