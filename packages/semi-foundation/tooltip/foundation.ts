@@ -570,6 +570,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         left = left - containerRect.left;
         top = top - containerRect.top;
 
+        if (Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1) {
+            left/= wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
+
+        if (Math.abs(wrapperRect?.height - this._adapter.getContainer()?.clientHeight) > 1) {
+            top/= wrapperRect.height/this._adapter.getContainer().clientHeight; 
+        }
+
         /**
          * container为body时，如果position不为relative或absolute，这时trigger计算出的top/left会根据html定位（initial containing block）
          * 此时如果body有margin，则计算出的位置相对于body会有问题 fix issue #1368
