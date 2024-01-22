@@ -182,7 +182,7 @@ import { IconCamera } from '@douyinfe/semi-icons';
                 shape: "circle",
                 bgColor:"#FE2C55", 
                 text: <IconPlus/>
-    }}
+            }}
 />
 ```
 
@@ -196,19 +196,19 @@ import { IconCamera } from '@douyinfe/semi-icons';
             text: "直播",
             gradientStart:"rgb(255,23,100)",
             gradientEnd:"rgb(237,52,148)"
-    }}>T</Avatar>
+        }}>T</Avatar>
 
-    <Avatar color="amber" size="large" topSlot={{
+        <Avatar color="amber" size="large" topSlot={{
             text: "直播",
             gradientStart:"rgb(255,23,100)",
             gradientEnd:"rgb(237,52,148)"
-    }}>T</Avatar>
+        }}>T</Avatar>
 
         <Avatar color="amber" size="extra-large" topSlot={{
             text: "直播",
             gradientStart:"rgb(255,23,100)",
             gradientEnd:"rgb(237,52,148)"
-    }}>T</Avatar>
+        }}>T</Avatar>
     
     </div>
 }
@@ -226,39 +226,39 @@ import { IconCamera } from '@douyinfe/semi-icons';
             shape: "square", 
             bgColor:'#FE2C55',
             text: "直播中"
-    }}>T</Avatar>
+        }}>T</Avatar>
 
-    <Avatar color="amber" size="large" bottomSlot={{
+        <Avatar color="amber" size="large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
             text: "直播中"
-    }}>T</Avatar>
+        }}>T</Avatar>
 
-      <Avatar color="amber" size="extra-large" bottomSlot={{
+        <Avatar color="amber" size="extra-large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
             text: "直播中"
-    }}>T</Avatar>
-    <br/>
-    <br/>
-    <br/>
-    <Avatar color="amber" bottomSlot={{
+        }}>T</Avatar>
+        <br/>
+        <br/>
+        <br/>
+        <Avatar color="amber" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
             text: <IconPlus/>
-    }}>T</Avatar>
+        }}>T</Avatar>
 
-    <Avatar color="amber" size="large" bottomSlot={{
+        <Avatar color="amber" size="large" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
             text: <IconPlus/>
-    }}>T</Avatar>
+        }}>T</Avatar>
 
-    <Avatar color="amber" size="extra-large" bottomSlot={{
+        <Avatar color="amber" size="extra-large" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
             text: <IconPlus/>
-    }}>T</Avatar>
+        }}>T</Avatar>
     </div>
 }
 ```
