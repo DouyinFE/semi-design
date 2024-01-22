@@ -405,6 +405,7 @@ Answers to some questions:
 | getValueLength    | Custom calculated character string length                                                                                                                                                     | (value: string) => number       |           |
 | hideSuffix        | Toggle whether to hide suffix if clear icon is shown，by default the two icon are side by side                                                                                                 | boolean                         | false     |
 | mode              | mode of input，optional: `password` **>= v1.3.0**                                                                                                                                              | string                          |           |
+| onlyBorder | Set the border width and keep only the border, suitable for simple scenes **>= v2.52.0**                                                                                                      | number | - |
 | prefix            | Prefix                                                                                                                                                                                        | ReactNode                       |           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | showClear         | Show clear button **>=1.0.0**                                                                                                                                                                 | boolean                         | false     |
@@ -422,7 +423,6 @@ Answers to some questions:
 | onKeyDown         | Callback invoked when keydown                                                                                                                                                                 | function(e:event)               |           |
 | onKeyPress        | Callback invoked when keypress                                                                                                                                                                | function(e:event)               |           |
 | onKeyUp           | Callback invoked when keyup                                                                                                                                                                   | function(e:event)               |           |
-| onlyBorder | Set the border width and keep only the border, suitable for simple scenes | number | - |
 ### TextArea
 
 > Other attributes are same with html `<textarea>`

@@ -39,24 +39,24 @@ export interface AvatarProps extends BaseProps {
     bottomSlot?: {
         render?: () => React.ReactNode;
         shape?: "circle"|"square";
-        content: React.ReactNode,
-        bgColor:string,
-        textColor:string
-        className:string
-        style?:CSSProperties
+        text: React.ReactNode;
+        bgColor: string;
+        textColor: string;
+        className: string;
+        style?: CSSProperties 
     };
     topSlot?: {
         render?: () => React.ReactNode;
         gradientStart?: string;
         gradientEnd?: string; 
-        content: React.ReactNode,
-        textColor:string
-        className:string
-        style?:CSSProperties
+        text: React.ReactNode;
+        textColor: string;
+        className: string;
+        style?: CSSProperties
     };
     border?: {
-        color?:string,
-        motion?:boolean
+        color?: string; 
+        motion?: boolean
     } & boolean;
     contentMotion?: boolean
 }
