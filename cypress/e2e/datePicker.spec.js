@@ -802,4 +802,27 @@ describe('DatePicker', () => {
             cy.get('.semi-datepicker-day-selected-end').contains("13");
         })
     });
+
+    it('month type after click clear button, restore to initial state', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--month-picker&viewMode=story');
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+
+        // click MonthPicker with controlledValue
+        cy.get('.semi-datepicker .semi-input').eq(4).click();
+        cy.get('.semi-datepicker .semi-input-clearbtn').click();
+        cy.get('.semi-scrolllist-item-sel').eq(0).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(1).contains(`${month}月`);
+
+        cy.get('body').click('right');
+        cy.get('.semi-datepicker .semi-input').eq(-1).click();
+        cy.get('.semi-datepicker .semi-input-clearbtn').click();
+        cy.get('.semi-scrolllist-item-sel').eq(0).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(2).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(1).contains(`${month}月`);
+        cy.get('.semi-scrolllist-item-sel').eq(3).contains(`${month+1}月`);
+    });
+
 });
