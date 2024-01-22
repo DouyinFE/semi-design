@@ -54,6 +54,18 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         railStyle: PropTypes.object,
         verticalReverse: PropTypes.bool,
         getAriaValueText: PropTypes.func,
+        handleDot: PropTypes.oneOfType([
+            PropTypes.shape({
+                size: PropTypes.string.isRequired,
+                color: PropTypes.string.isRequired,
+            }),
+            PropTypes.arrayOf(
+                PropTypes.shape({
+                    size: PropTypes.string.isRequired,
+                    color: PropTypes.string.isRequired,
+                })
+            ),
+        ]),
     } as any;
 
     static defaultProps: Partial<SliderProps> = {
@@ -371,7 +383,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     aria-valuenow={currentValue as number}
                     aria-valuemax={max}
                     aria-valuemin={min}
-                />
+                >
+                    {this.props.handleDot && <div className={cssClasses.HANDLE_DOT} style={{
+                        ...(this.props.handleDot?.size?{ width: this.props.handleDot.size, height: this.props.handleDot.size }:{}),
+                        ...(this.props.handleDot?.color?{ backgroundColor: this.props.handleDot.color }:{}),
+                    }}/>}
+                </span>
             </Tooltip>
         ) : (
             <React.Fragment>
@@ -427,7 +444,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         aria-valuenow={currentValue[0]}
                         aria-valuemax={currentValue[1]}
                         aria-valuemin={min}
-                    />
+                    >
+                        {this.props.handleDot?.[0] && <div className={cssClasses.HANDLE_DOT} style={{
+                            ...(this.props.handleDot[0]?.size?{ width: this.props.handleDot[0].size, height: this.props.handleDot[0].size }:{}),
+                            ...(this.props.handleDot[0]?.color?{ backgroundColor: this.props.handleDot[0].color }:{}),
+                        }}/>}
+                    </span>
                 </Tooltip>
                 <Tooltip
                     content={tipChildren.max}
@@ -481,7 +503,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         aria-valuenow={currentValue[1]}
                         aria-valuemax={max}
                         aria-valuemin={currentValue[0]}
-                    />
+                    >
+                        {this.props.handleDot?.[1] && <div className={cssClasses.HANDLE_DOT} style={{
+                            ...(this.props.handleDot[1]?.size?{ width: this.props.handleDot[1].size, height: this.props.handleDot[1].size }:{}),
+                            ...(this.props.handleDot[1]?.color?{ backgroundColor: this.props.handleDot[1].color }:{}),
+                        }}/>}
+                    </span> 
                 </Tooltip>
             </React.Fragment>
         );

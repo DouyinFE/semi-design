@@ -8,6 +8,7 @@ const cssClasses = {
     DOTS: `${BASE_CLASS_PREFIX}-slider-dots`,
     MARKS: `${BASE_CLASS_PREFIX}-slider-marks`,
     HANDLE: `${BASE_CLASS_PREFIX}-slider-handle`,
+    HANDLE_DOT: `${BASE_CLASS_PREFIX}-slider-handle-dot`,
 };
 
 const strings = {
