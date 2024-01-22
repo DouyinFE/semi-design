@@ -2,7 +2,7 @@ import React, { CSSProperties } from "react";
 import BaseComponent from "../_base/baseComponent";
 import { PreviewInnerProps, PreviewInnerStates } from "./interface";
 import PropTypes from "prop-types";
-import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
+import { cssClasses, numbers } from "@douyinfe/semi-foundation/image/constants";
 import cls from "classnames";
 import { isEqual, isFunction } from "lodash";
 import Portal from "../_portal";
@@ -72,7 +72,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         lazyLoad: false,
         preLoad: true,
         preLoadGap: 2,
-        zIndex: 1000,
+        zIndex: numbers.DEFAULT_Z_INDEX,
         maskClosable: true,
         viewerVisibleDelay: 10000,
         maxZoom: 5,
@@ -273,8 +273,8 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.foundation.handleDownload();
     }
 
-    handlePreviewClose = () => {
-        this.foundation.handlePreviewClose();
+    handlePreviewClose = (e: React.MouseEvent<HTMLElement>) => {
+        this.foundation.handlePreviewClose(e);
     }
 
     handleAdjustRatio = (type: RatioType) => {
@@ -449,6 +449,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                         ratio={ratio}
                         prevTip={prevTip}
                         nextTip={nextTip}
+                        zIndex={zIndex}
                         zoomInTip={zoomInTip}
                         zoomOutTip={zoomOutTip}
                         rotateTip={rotateTip}
