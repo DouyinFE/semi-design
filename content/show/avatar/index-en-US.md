@@ -177,14 +177,14 @@ import { IconCamera } from '@douyinfe/semi-icons';
             border={{color:"#FE2C55",motion:true}}
             contentMotion={true}
             topSlot={{
-        content: "LIVE",
-          gradientStart:"rgb(255,23,100)",
-         gradientEnd:"rgb(237,52,148)"
+                text: "LIVE", 
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
             }}
             bottomSlot={{
-             shape: "circle",
-             bgColor:"#FE2C55",
-        content: <IconPlus/>
+                shape: "circle",
+                bgColor:"#FE2C55",
+                text: <IconPlus/>
     }}
 />
 ```
@@ -196,21 +196,21 @@ import { IconCamera } from '@douyinfe/semi-icons';
     return <div>
 
         <Avatar color="amber" topSlot={{
-        content: "LIVE",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" topSlot={{
-        content: "LIVE",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
         <Avatar color="amber" size="extra-large" topSlot={{
-        content: "LIVE",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
     
     </div>
@@ -286,7 +286,8 @@ import { IconCamera } from '@douyinfe/semi-icons';
 ```
 
 ### Additional Animation
-Turn on additional animation effects for borders and content areas through `borderMotion` and `contentMotion`
+
+Turn on additional animation effects for borders and content areas through `border={motion:true}` and `contentMotion`
 
 ```jsx live=true
 

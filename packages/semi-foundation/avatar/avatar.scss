@@ -238,6 +238,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             color:$color-avatar-top_slot_text;
             font-weight: $font-weight-bold;
             &-content{
+                user-select: none;
                 position: relative;
                 line-height: normal;
                 &-small{
@@ -273,6 +274,7 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         cursor: pointer;
         bottom: $spacing-avatar_additional-borderGap + $width-avatar_additional-border;
         transform: translateY(50%);
+        user-select: none;
         &-shape_circle{
             display: flex;
             justify-content: center;

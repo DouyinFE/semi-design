@@ -174,14 +174,14 @@ import { IconCamera } from '@douyinfe/semi-icons';
             border={{color:"#FE2C55",motion:true}}
             contentMotion={true}
             topSlot={{
-        content: "直播",
-          gradientStart:"rgb(255,23,100)",
-         gradientEnd:"rgb(237,52,148)"
+                text: "直播",
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
             }}
             bottomSlot={{
-             shape: "circle",
-             bgColor:"#FE2C55",
-        content: <IconPlus/>
+                shape: "circle",
+                bgColor:"#FE2C55", 
+                text: <IconPlus/>
     }}
 />
 ```
@@ -193,21 +193,21 @@ import { IconCamera } from '@douyinfe/semi-icons';
     return <div>
 
         <Avatar color="amber" topSlot={{
-        content: "直播",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" topSlot={{
-        content: "直播",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
 
         <Avatar color="amber" size="extra-large" topSlot={{
-        content: "直播",
-        gradientStart:"rgb(255,23,100)",
-        gradientEnd:"rgb(237,52,148)"
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
     }}>T</Avatar>
     
     </div>
@@ -225,19 +225,19 @@ import { IconCamera } from '@douyinfe/semi-icons';
         <Avatar color="amber" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "直播中"
+            text: "直播中"
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "直播中"
+            text: "直播中"
     }}>T</Avatar>
 
       <Avatar color="amber" size="extra-large" bottomSlot={{
             shape: "square", 
             bgColor:'#FE2C55',
-            content: "直播中"
+            text: "直播中"
     }}>T</Avatar>
     <br/>
     <br/>
@@ -245,19 +245,19 @@ import { IconCamera } from '@douyinfe/semi-icons';
     <Avatar color="amber" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
-            content: <IconPlus/>
+            text: <IconPlus/>
     }}>T</Avatar>
 
     <Avatar color="amber" size="large" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
-            content: <IconPlus/>
+            text: <IconPlus/>
     }}>T</Avatar>
 
     <Avatar color="amber" size="extra-large" bottomSlot={{
             shape: "circle", 
             bgColor:'#FE2C55',
-            content: <IconPlus/>
+            text: <IconPlus/>
     }}>T</Avatar>
     </div>
 }
@@ -282,18 +282,18 @@ import { IconCamera } from '@douyinfe/semi-icons';
 ```
 
 ### 额外动效
-通过  borderMotion 和 contentMotion 开启边框和内容区域的额外动效
+通过  `border={motion:true}` 和 contentMotion 开启边框和内容区域的额外动效
 
 ```jsx live=true
 
 ()=>{
     return <div>
 
-        <Avatar color="amber" border={true} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}} style={{marginRight:'8px'}} contentMotion={true}>T</Avatar>
 
-        <Avatar color="amber" border={true}  size={"large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}}  size={"large"} style={{marginRight:'8px'}}  contentMotion={true}>T</Avatar>
 
-        <Avatar color="amber" border={true} size={"extra-large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+        <Avatar color="amber" border={{motion:true}} size={"extra-large"} style={{marginRight:'8px'}}  contentMotion={true}>T</Avatar>
     
     </div>
 }
