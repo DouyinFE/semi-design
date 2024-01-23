@@ -573,11 +573,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         left = left - containerRect.left;
         top = top - containerRect.top;
 
-        if (Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1) {
+        if (scaled) {
             left/= wrapperRect.width/this._adapter.getContainer().clientWidth;
         }
 
-        if (Math.abs(wrapperRect?.height - this._adapter.getContainer()?.clientHeight) > 1) {
+        if (scaled) {
             top/= wrapperRect.height/this._adapter.getContainer().clientHeight;
         }
 
