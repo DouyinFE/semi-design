@@ -139,11 +139,7 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
         const needDisabled = (year) => {
             if (panelType === right && currentYear[left]) {
-                if (currentMonth[left] <= currentMonth[right]) {
-                    return currentYear[left] > year;
-                } else {
-                    return currentYear[left] >= year;
-                }
+                return currentYear[left] > year;
             }
             return false;
         };

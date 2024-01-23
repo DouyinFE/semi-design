@@ -65,7 +65,7 @@ function Theme(props) {
                             loading && themeType === 'default'
                                 ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/5c4bb380-3245-11ec-ab65-77a60c02a0b5.svg" className={styles.frame3059} />
+                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/5c4bb380-3245-11ec-ab65-77a60c02a0b5.svg" className={styles.frame3059} alt='semi logo' />
                         }
                         <div className={styles.frame4155}>
                             <p className={styles.value}><span className={styles.value_c28b964d}>Semi Design </span><span className={styles.value_79ae18fb}>{_t("default", { }, "默认")}</span></p>
@@ -78,7 +78,7 @@ function Theme(props) {
                                 ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
                                 : <div className={classnames(styles.imageWrapper, styles.frame3059)}>
                                     {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                                    <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon_lark-logo_colorful.svg" />
+                                    <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon_lark-logo_colorful.svg" alt="lark logo"/>
                                 </div>
                         }
                         <div className={styles.frame4155}>
@@ -91,7 +91,7 @@ function Theme(props) {
                             loading && themeType === 'douyin'
                                 ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/douyin-logo.png" className={styles.frame3059} style={{ width: 30 }} />
+                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/douyin-logo.png" className={styles.frame3059} style={{ width: 30 }} alt="douyin creator logo"/>
                         }
                         
                         <div className={styles.frame4155}>
@@ -104,7 +104,7 @@ function Theme(props) {
                             loading && themeType === 'capCut'
                                 ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                : <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/capcut.svg" className={styles.frame3059} />
+                                : <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/capcut.svg" className={styles.frame3059} alt="jianying logo"/>
                         }
                         
                         <div className={styles.frame4155}>
@@ -117,7 +117,7 @@ function Theme(props) {
                             loading && themeType === 'huoshan'
                                 ? <Spin wrapperClassName={styles.loadingSpin}></Spin>
                                 // eslint-disable-next-line jsx-a11y/alt-text
-                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/5c4d8840-3245-11ec-b393-ab4adc2e449f.svg" className={styles.frame3059} />
+                                : <img src="https://lf9-static.semi.design/obj/semi-tos/images/5c4d8840-3245-11ec-b393-ab4adc2e449f.svg" className={styles.frame3059} alt="volcengine logo" />
                         }
                         
                         <div className={styles.frame4155}>

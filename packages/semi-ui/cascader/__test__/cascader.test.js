@@ -1257,7 +1257,7 @@ describe('Cascader', () => {
         const args = firstCall.args[0]; 
         /* check arguments of triggerRender */
         expect(args.value.size).toEqual(1);
-        expect(args.value).toEqual(new Set('0'));
+        expect(args.value).toEqual(new Set(['Asia']));
         cascaderAutoMerge.unmount();
 
         const spyTriggerRender2 = sinon.spy(() => <span>123</span>);
@@ -1272,7 +1272,7 @@ describe('Cascader', () => {
         const args2 = firstCall2.args[0]; 
         /* check arguments of triggerRender */
         expect(args2.value.size).toEqual(4);
-        expect(args2.value).toEqual(new Set(['0','0-0','0-0-1','0-0-0']));
+        expect(args2.value).toEqual(new Set(["Asia","Asia_SEMI_CASCADER_SPLIT_China","Asia_SEMI_CASCADER_SPLIT_China_SEMI_CASCADER_SPLIT_Beijing","Asia_SEMI_CASCADER_SPLIT_China_SEMI_CASCADER_SPLIT_Shanghai"]));
         cascaderNoAutoMerge.unmount();
     });
 
@@ -1369,4 +1369,17 @@ describe('Cascader', () => {
         r.close();
         expect(select.state().isOpen).toEqual(false);
     });
+
+    it('autoMerge false & value []', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            value: [],
+            placeholder: "autoMergeValue 为 false"
+        });
+
+        const placeholder = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection-placeholder`)
+        expect(placeholder.getDOMNode().textContent).toEqual('autoMergeValue 为 false');
+        cascader.unmount();
+    })
 });

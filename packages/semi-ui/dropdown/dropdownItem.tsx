@@ -127,7 +127,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         }
         return (
             <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown}
-                ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+                ref={ref => forwardRef(ref)} className={itemclass} style={style} {...this.getDataAttr(this.props)}>
                 {tick}
                 {iconContent}
                 {children}

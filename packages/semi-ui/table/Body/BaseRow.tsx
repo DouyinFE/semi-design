@@ -62,51 +62,56 @@ export interface BaseRowProps {
     virtualized?: Virtualized;
     visible: boolean; // required
     /** whether display none */
-    displayNone?: boolean;
+    displayNone?: boolean
 }
 
+/**
+ * avoid affected by https://www.npmjs.com/package/babel-plugin-transform-react-remove-prop-types
+ */
+export const baseRowPropTypes = {
+    anyColumnFixed: PropTypes.bool,
+    cellWidths: PropTypes.array.isRequired,
+    className: PropTypes.string,
+    columns: PropTypes.array.isRequired,
+    components: PropTypes.object.isRequired,
+    disabled: PropTypes.bool,
+    expandIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.node]),
+    expandableRow: PropTypes.bool,
+    expanded: PropTypes.bool,
+    displayNone: PropTypes.bool,
+    expandedRow: PropTypes.bool,
+    fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    hideExpandedColumn: PropTypes.bool,
+    hovered: PropTypes.bool.isRequired,
+    indent: PropTypes.number,
+    indentSize: PropTypes.number,
+    index: PropTypes.number,
+    isSection: PropTypes.bool,
+    level: PropTypes.number,
+    onDidUpdate: PropTypes.func,
+    onHover: PropTypes.func,
+    onRow: PropTypes.func,
+    onRowClick: PropTypes.func,
+    onRowContextMenu: PropTypes.func,
+    onRowDoubleClick: PropTypes.func,
+    onRowMouseEnter: PropTypes.func,
+    onRowMouseLeave: PropTypes.func,
+    prefixCls: PropTypes.string,
+    record: PropTypes.object,
+    renderExpandIcon: PropTypes.func,
+    replaceClassName: PropTypes.string,
+    rowExpandable: PropTypes.func,
+    rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // real key of the row
+    selected: PropTypes.bool,
+    store: PropTypes.object,
+    style: PropTypes.object,
+    virtualized: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    visible: PropTypes.bool.isRequired,
+};
+
 export default class TableRow extends BaseComponent<BaseRowProps, Record<string, any>> {
-    static propTypes = {
-        anyColumnFixed: PropTypes.bool,
-        cellWidths: PropTypes.array.isRequired,
-        className: PropTypes.string,
-        columns: PropTypes.array.isRequired,
-        components: PropTypes.object.isRequired,
-        disabled: PropTypes.bool,
-        expandIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.node]),
-        expandableRow: PropTypes.bool,
-        expanded: PropTypes.bool,
-        displayNone: PropTypes.bool,
-        expandedRow: PropTypes.bool,
-        fixed: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-        height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        hideExpandedColumn: PropTypes.bool,
-        hovered: PropTypes.bool.isRequired,
-        indent: PropTypes.number,
-        indentSize: PropTypes.number,
-        index: PropTypes.number,
-        isSection: PropTypes.bool,
-        level: PropTypes.number,
-        onDidUpdate: PropTypes.func,
-        onHover: PropTypes.func,
-        onRow: PropTypes.func,
-        onRowClick: PropTypes.func,
-        onRowContextMenu: PropTypes.func,
-        onRowDoubleClick: PropTypes.func,
-        onRowMouseEnter: PropTypes.func,
-        onRowMouseLeave: PropTypes.func,
-        prefixCls: PropTypes.string,
-        record: PropTypes.object,
-        renderExpandIcon: PropTypes.func,
-        replaceClassName: PropTypes.string,
-        rowExpandable: PropTypes.func,
-        rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // real key of the row
-        selected: PropTypes.bool,
-        store: PropTypes.object,
-        style: PropTypes.object,
-        virtualized: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-        visible: PropTypes.bool.isRequired,
-    };
+    static propTypes = baseRowPropTypes;
 
     static defaultProps = {
         columns: [] as [],

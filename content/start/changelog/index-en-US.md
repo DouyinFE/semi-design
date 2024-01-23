@@ -16,6 +16,77 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - Fixed Table propTypes is removed in prod mode
+
+#### 🎉 2.51.2 (2024-01-19)
+- 【Fix】
+    - Fixed TextArea autoSize is not work when textarea resize [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
+    - Fixed controlled DatePicker input value is wrong when type is dateTimeRange and needConfirm is opened [#2024](https://github.com/DouyinFE/semi-design/issues/2024)
+    - Fixed the problem of triggering onClose/onPreview twice when clicking the edge of the close button in the preview state in the ImagePreview component [#2027](https://github.com/DouyinFE/semi-design/pull/2027)
+
+#### 🎉 2.51.1 (2024-01-18)
+- 【Fix】
+    - Unloading the Modal directly when the Modal is not collapsed may cause the page to scroll abnormally. [#2023](https://github.com/DouyinFE/semi-design/pull/2023)
+
+#### 🎉 2.51.0 (2024-01-12)
+- 【Fix】
+    - Fixed the problem that when a TextArea with maxLength is input in Chinese, clicking outside triggers blur, and the echoed content does not comply with the maxLength setting  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)
+    - Fix typeError in Cascader when autoMergeValue is false and value is [] [#2017](https://github.com/DouyinFE/semi-design/pull/2017)
+- 【Style】
+    - The default zIndex value of ImagePreview's preview layer is adjusted from 1000 to 1070
+
+#### 🎉 2.51.0-beta.0 (2024-01-09)
+- 【Feat】
+    - Dropdown.Item supports transparent transmission of data-* attributes to dom
+    - ImagePreview adds previewCls and previewStyle for setting the preview style
+    - Image adds onClick API
+- 【Perf】
+    - Optimize Cascader's stuck problem when thousand-level leaf nodes are selected under multi-selection, leafOnly, searchable, and controlled conditions [#1999](https://github.com/DouyinFE/semi-design/pull/1999)
+- 【Fix】
+    - Fixed the problem that the table header is not selected when all rows of Table are selected and disabled [#2001](https://github.com/DouyinFE/semi-design/issues/2001)
+    - Fixed the issue where the controlled AutoComplete configured with onSelectWithObject reported an error when clicking the clear button [#2013](https://github.com/DouyinFE/semi-design/issues/2013)
+    - Fixed the problem of creating portal DOM node by default when Image is not displayed [#2004](https://github.com/DouyinFE/semi-design/issues/2004)
+    - Fixed the problem that the closable parameter of Image does not take effect
+
+#### 🎉 2.50.1 (2024-01-04)
+- 【Fix】
+    - Fix the indentation error problem when renderingFullLabel after Tree supports showLine（scope of impact: v2.50.0）[#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+    - After Tree supports showLine, the connection line and option text partially overlap in rtl mode (scope of impact: v2.50.0) [#2007](https://github.com/DouyinFE/semi-design/pull/2007)
+- 【Style】
+    - Fix the font-weight error of the active item in BreadCrumb(scope of impact: v2.47-2.50) [#2008](https://github.com/DouyinFE/semi-design/pull/2008)
+
+#### 🎉 2.50.0 (2024-01-02)
+- 【Fix】
+  - When opening a preview in ImagePreview and switching preview images, Zoom changes do not need to be exposed through onZoomIn/onZoomOut
+    callbacks  [#2000 ](https://github.com/DouyinFE/semi-design/issues/2000)
+  - Fixed the issue of unexpected onRotateLeft callback being triggered when switching images during image preview
+
+
+#### 🎉 2.50.0-beta.0 (2023-12-26)
+- 【Feat】
+    - Tree, TreeSelect add showLine api.  [#1801 ](https://github.com/DouyinFE/semi-design/issues/1801) [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+    - Table column support sortIcon
+- 【Style】
+    - Modify the CSS implementation of the indentation of each line of the Tree/TreeSelect option. There is no limit to the indentation level greater than 20 levels. [@Yan-XiaoMing](https://github.com/Yan-XiaoMing)
+- 【Fix】
+    - fix the problem that types of Id in Notification is not correct.
+    - 
+#### 🎉 2.49.2 (2023-12-26)
+- 【Fix】
+    - fix the problem of Select failing to select option after clicking outside when the selection is radio (scope of impact v2.49.0)
+    - Fixed the problem that showFilteredOnly does not take effect in TreeSelect controlled expandedKeys  [#1542 ](https://github.com/DouyinFE/semi-design/issues/1542)
+    - fixed the problem that when the DatePicker type is monthRange, the limited date range does not meet the expectations.
+    - Fixed vertical basic step style error when setting box-sizing to border-box globally.  [#1985 ](https://github.com/DouyinFE/semi-design/issues/1985)
+    - Remove the optional type setting of props of triggerRender of TreeSelect/Select  [#532 ](https://github.com/DouyinFE/semi-design/issues/532)
+    - Fixed an issue where `Notification.addNotice()` did not use the global configuration set via `Notification.config()` [@lideming](https://github.com/lideming)
+
+#### 🎉 2.49.0 (2023-12-15)
+- 【Fix】
+    - Image supports zooming via panel and mouse scrolling anywhere on the preview page [#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - The initial size of the Image preview has been adjusted. Before adjustment, the initial size of the preview is to fit the width and height of the page; after adjustment, if the width and height of the image are smaller than the width and height of the page, the initial width and height of the preview will be the same as the width and height of the image, otherwise the preview will be scaled to fit the width and height of the page.[#1890](https://github.com/DouyinFE/semi-design/pull/1890)
+    - fixed the problem that after selecting a radio option, clicking outside does not trigger the onblur event [#1977](https://github.com/DouyinFE/semi-design/pull/1977)
 
 #### 🎉 2.49.0-beta.0 (2023-12-11)
 - 【Feat】
@@ -150,6 +221,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - Fixed an issue where the Item click did not take effect in very few scenarios when nesting Dropdowns.
     - fixed resizable table onHeaderCell bug  [#1796](https://github.com/DouyinFE/semi-design/issues/1796)
+
+#### 🎉 2.42.3 (2023-09-01)
+- 【Fix】
+    - Fix: Fix Table baseRow onMouseLeave error [#1794](https://github.com/DouyinFE/semi-design/pull/1794)
 
 #### 🎉 2.42.2 (2023-08-28)
 - 【Fix】

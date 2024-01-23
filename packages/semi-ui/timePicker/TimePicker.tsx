@@ -82,7 +82,7 @@ export type TimePickerProps = {
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;
-    stopPropagation: boolean;
+    stopPropagation?: boolean;
     style?: React.CSSProperties;
     timeZone?: string | number;
     triggerRender?: (props?: any) => React.ReactNode;

@@ -69,7 +69,8 @@ export {
     FeatEtcGMT,
     FixDisabledDate,
     FeatInsetInputShowClear,
-    AutoSplitInput
+    AutoSplitInput,
+    FixNeedConfirmControlled
 } from './v2';
 
 
@@ -1165,3 +1166,7 @@ NeedConfirmDelete.storyName = "cashedSelectedValue return to last selected when 
   );
 };
 CashedSelectedValue.storyName = "cashedSelectedValue";
+
+export const Fix1982 = () => {
+  return <DatePicker type="monthRange" style={{ width: 200 }} />
+}

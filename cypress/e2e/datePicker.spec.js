@@ -802,4 +802,18 @@ describe('DatePicker', () => {
             cy.get('.semi-datepicker-day-selected-end').contains("13");
         })
     });
+
+    it('test split first inset input + dateTimeRange', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm-controlled&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-input').should('have.value', '2024-02-15 00:00:00');
+        cy.get('button').contains('确定').trigger('click');
+        cy.get('.semi-input').should('have.value', '');
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-input').eq(1).should('have.value', '2024-02-15 00:00:00');
+        cy.get('button').contains('确定').trigger('click');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+    });
 });

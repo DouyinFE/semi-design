@@ -99,4 +99,15 @@ describe('textarea', () => {
             });
         });
     });
+
+    it('autosize + textarea resize', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=input--text-auto-size-resize&viewMode=story');
+        cy.get('button').contains('width=100').trigger('click');
+        cy.wait(100);
+        cy.document().then(document => {
+            const textAreaDOM = document.querySelector(".semi-input-textarea");
+            const { scrollHeight, clientHeight } = textAreaDOM;
+            expect(scrollHeight).eq(clientHeight);
+        });
+    });
 });
