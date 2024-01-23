@@ -405,7 +405,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         // eslint-disable-next-line
         const position = props.position != null ? props.position : this.getProp('position');
         // eslint-disable-next-line
-        const SPACING = spacing != null ? spacing : this.getProp('spacing');
+        let SPACING = spacing != null ? spacing : this.getProp('spacing');
         const { arrowPointAtCenter, showArrow, arrowBounding } = this.getProps();
         const pointAtCenter = showArrow && arrowPointAtCenter;
 
@@ -439,7 +439,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
         
         const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
-
+        const scaled = Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1;
+        if (scaled) { 
+            SPACING = SPACING * wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
         switch (position) {
             case 'top':
                 // left = middleX;
