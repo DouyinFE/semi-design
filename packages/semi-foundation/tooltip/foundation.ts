@@ -574,11 +574,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         top = top - containerRect.top;
 
         if (scaled) {
-            left/= wrapperRect.width/this._adapter.getContainer().clientWidth;
+            left /= wrapperRect.width/this._adapter.getContainer().clientWidth;
         }
 
         if (scaled) {
-            top/= wrapperRect.height/this._adapter.getContainer().clientHeight;
+            top /= wrapperRect.height/this._adapter.getContainer().clientHeight;
         }
 
         /**
@@ -839,7 +839,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
-
             // 视口, 原空间与反向空间是否都不足判断
             // Viewport, whether the original space and the reverse space are insufficient to judge
             const isViewYOverFlow = this.isOverFlow(clientTop - marginTop, restClientBottom - marginBottom, wrapperRect.height + spacing);
