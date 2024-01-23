@@ -450,7 +450,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
         
         const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
-
+        const scaled = Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1;
+        if (scaled) {
+            SPACING = SPACING * wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
         switch (position) {
             case 'top':
                 // left = middleX;
@@ -575,7 +578,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
 
         if (Math.abs(wrapperRect?.height - this._adapter.getContainer()?.clientHeight) > 1) {
-            top/= wrapperRect.height/this._adapter.getContainer().clientHeight; 
+            top/= wrapperRect.height/this._adapter.getContainer().clientHeight;
         }
 
         /**
