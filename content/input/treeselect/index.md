@@ -1454,6 +1454,7 @@ function Demo() {
 | onSearch | 文本框值变化时回调。 入参 filteredExpandedKeys 表示因为搜索或 value / defaultValue 而展开的节点的 key, <br/>可以配合 expandedKeys 受控时使用。filteredExpandedKeys 在 2.6.0 中新增 |  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[])'>(sugInput, filteredExpandedKeys)=>void</ApiType>  |  |  |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值                                                                                                                     | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType> | - | - |
 | onVisibleChange     | 弹出层展示/隐藏时触发的回调                                                                                                                             | function(isVisible:boolean) |     |   1.4.0  |
+| onClear     | 点击清除按钮时触发的回调                                                                                                                             | (e: Event) => void |  -  |   -  |
 
 ### TreeNodeData
 
