@@ -816,4 +816,16 @@ describe('DatePicker', () => {
         cy.get('button').contains('确定').trigger('click');
         cy.get('.semi-input').eq(1).should('have.value', '');
     });
+
+    it('test DatePicker props value is NaN', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-na-n&viewMode=story');
+        cy.get('.semi-input').eq(0).should('have.value', '');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-button').contains('set NaN').click();
+        cy.get('.semi-input').eq(0).should('have.value', '');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+    });
 });
