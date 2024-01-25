@@ -5179,6 +5179,7 @@ type Filter = {
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
 | width | Custom list selection box width | string | number |  |
+| renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, index: number, originNode: JSX.Element }) => ReactNode |        |            |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
 | onSelectAll | The user manually clicks the callback of the header selection box, and all optional rows in the dataSource will be selected/unselected | (selected: boolean, selectedRows: RecordType[], changedRows: RecordType[]) => void |  |  |

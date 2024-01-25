@@ -839,11 +839,11 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
+    renderSelection = (record = {} as any, inHeader = false, index?: number): React.ReactNode => {
         const { rowSelection, allDisabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
-            const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled } = rowSelection;
+            const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled, renderCell } = rowSelection;
 
             if (inHeader) {
                 const columnKey = get(rowSelection, 'key', strings.DEFAULT_KEY_COLUMN_SELECTION);
@@ -867,21 +867,25 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 const key = this.foundation.getRecordKey(record);
                 const selected = selectedRowKeysSet.has(key);
                 const checkboxPropsFn = () => (typeof getCheckboxProps === 'function' ? getCheckboxProps(record) : {});
+                const originNode = <ColumnSelection
+                    aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
+                    getCheckboxProps={checkboxPropsFn}
+                    selected={selected}
+                    onChange={(status, e) => this.toggleSelectRow(status, key, e)}
+                />;
 
-                return (
-                    <ColumnSelection
-                        aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
-                        getCheckboxProps={checkboxPropsFn}
-                        selected={selected}
-                        onChange={(status, e) => this.toggleSelectRow(status, key, e)}
-                    />
-                );
+                return isFunction(renderCell) ? renderCell({
+                    selected,
+                    record,
+                    index,
+                    originNode
+                }) : originNode;
             }
         }
         return null;
     };
 
-    renderRowSelectionCallback = (text: string, record: RecordType = {} as RecordType) => this.renderSelection(record);
+    renderRowSelectionCallback = (text: string, record: RecordType = {} as RecordType, index: number) => this.renderSelection(record, false, index);
     renderTitleSelectionCallback = () => this.renderSelection(null, true);
 
     normalizeSelectionColumn = (props: { rowSelection?: TableStateRowSelection<RecordType>; prefixCls?: string } = {}) => {
