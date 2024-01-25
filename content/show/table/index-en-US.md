@@ -1318,6 +1318,172 @@ function App() {
 render(App);
 ```
 
+### Custom Filter Rendering
+
+Use `renderFilterDropdown` to customize the render filter panel. v2.52 supported.
+
+`renderFilterDropdown` is more flexible than `renderFilterDropdownItem`. You can store a temporary filter value into `selectedKeys` and then call `confirm` at the appropriate time, which is useful when the content of the input box changes frequently.
+
+The initial value of `selectedKeys` is `filteredValue` or `defaultFilteredValue`. After `confirm`, `filteredValue` will be modified and the `onChange` event will be triggered.
+
+```typescript
+type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
+interface RenderFilterDropdownProps {
+    /** temporary filteredValue  */
+    selectedKeys: any[];
+    /** set temporary filteredValue  */
+    setSelectedKeys: (selectedKeys: any[]) => void;
+    /** set selectedKeys to filteredValue  */
+    confirm: (props?: { closeDropdown?: boolean }) => void;
+    /** clear selectedKeys and filteredValue  */
+    clear: (props?: { closeDropdown?: boolean }) => void;
+    /** close dropdown  */
+    close: () => void;
+    /** column filters  */
+    filters?: RenderDropdownProps['filters']
+}
+```
+
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Avatar, Input, Button, Space } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+    const inputRef = useRef();
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+    const columns = [
+        {
+            title: 'Title',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            onFilter: (value, record) => record.name.includes(value),
+            renderFilterDropdown: (props) => {
+                console.log('renderFilterDropdown', props);
+                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+
+                const handleChange = (value) => {
+                    if (value) {
+                        setSelectedKeys([value]);
+                    } else {
+                        setSelectedKeys([]);
+                    }
+                };
+
+                return (
+                    <Space vertical align='start' style={{ padding: 8 }}>
+                        <Input ref={inputRef} value={selectedKeys[0]} onChange={handleChange}/>
+                        <Space>
+                            <Button onClick={() => confirm({ closeDropdown: true })}>Filter+Close</Button>
+                            <Button onClick={() => clear({ closeDropdown: true })}>Clear+Close</Button>
+                            <Button onClick={() => close()}>Close</Button>
+                        </Space>
+                    </Space>
+                );
+            },
+            onFilterDropdownVisibleChange: (visible) => {
+                console.log('inputRef', visible, inputRef);
+                if (inputRef.current && inputRef.current.focus) {
+                    inputRef.current.focus();
+                }
+            }
+        },
+        {
+            title: 'Size',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: 'Owner',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            onFilter: (value, record) => record.owner.includes(value),
+            defaultFilteredValue: ['Jiang Pengzhi'],
+            renderFilterDropdown: (props) => {
+                console.log('renderFilterDropdown', props);
+                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+
+                const handleChange = (value) => {
+                    if (value) {
+                        setSelectedKeys([value]);
+                    } else {
+                        setSelectedKeys([]);
+                    }
+                };
+
+                return (
+                    <Space vertical align='start' style={{ padding: 8 }}>
+                        <Input value={selectedKeys[0]} onChange={handleChange}/>
+                        <Space>
+                            <Button onClick={() => confirm({ closeDropdown: false })}>Filter+Close</Button>
+                            <Button onClick={() => clear({ closeDropdown: false })}>Clear+Close</Button>
+                            <Button onClick={() => close()}>Close</Button>
+                        </Space>
+                    </Space>
+                );
+            },
+        },
+        {
+            title: 'Update',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
+                owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 ### Custom Filter Item Rendering
 
 Since the **1.1.0** version, it is supported to pass in `renderFilterDropdownItem` to customize the rendering method of each filter item.
@@ -5142,6 +5308,7 @@ import { Table } from '@douyinfe/semi-ui';
 | fixed | Whether the column is fixed, optional true (equivalent to left) 'left' 'right' | boolean\|string | false |
 | key | The key required by React, if a unique dataIndex has been set, can ignore this property | string |  |
 | render | A rendering function that generates complex data, the parameters are the value of the current row, the current row data, the row index, and the table row / column merge can be set in return object | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => React\|object |  |
+| renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
