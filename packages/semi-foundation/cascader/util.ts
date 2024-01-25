@@ -31,10 +31,12 @@ function traverseDataNodes(treeNodes: any, callback: any) {
         // Process node if is not root
         if (node) {
             const key = parent ? `${parent.key}${VALUE_SPLIT}${node.value}` : node.value;
+            const pos = parent ? getPosition(parent.pos, ind) : `${ind}`;
             item = {
                 data: { ...node },
                 ind,
                 key,
+                pos,
                 level: parent ? parent.level + 1 : 0,
                 parentKey: parent ? parent.key : null,
                 path: parent ? [...parent.path, key] : [key],

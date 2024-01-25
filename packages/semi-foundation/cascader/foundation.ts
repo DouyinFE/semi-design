@@ -56,6 +56,8 @@ export interface BasicEntity {
     parentKey?: string;
     /* key path */
     path: Array<string>;
+    /* pos in treeData */
+    pos: string;
     /* value path */
     valuePath: Array<string>
 }

@@ -834,16 +834,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderCustomTrigger = () => {
         const { disabled, triggerRender, multiple } = this.props;
-        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys } = this.state;
+        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys, keyEntities } = this.state;
         let realValue;
         if (multiple) {
             if (this.mergeType === strings.NONE_MERGE_TYPE) {
-                realValue = checkedKeys;
+                realValue = new Set();
+                checkedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             } else {
-                realValue = resolvedCheckedKeys;
+                realValue = new Set();
+                resolvedCheckedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             }
         } else {
-            realValue = [...selectedKeys][0];
+            realValue = keyEntities[[...selectedKeys][0]]?.pos;
         }
         return (
             <Trigger
