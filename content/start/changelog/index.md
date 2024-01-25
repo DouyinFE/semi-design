@@ -13,6 +13,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - 修复 Table propTypes 被打包工具移除掉导致报错问题
+
+#### 🎉 2.51.2 (2024-01-19)
+- 【Fix】
+    - 修复 TextArea autosize 未监听文本域宽度变化 [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
+    - 修复受控 DatePicker dateTimeRange + needConfirm 时选择一个日期时输入框回显错误 [#2024](https://github.com/DouyinFE/semi-design/issues/2024)
+    - 修复 ImagePreview 组件在预览时点击关闭按钮边缘时触发 onClose/onPreview 两次问题 [#2027](https://github.com/DouyinFE/semi-design/pull/2027)
+
+#### 🎉 2.51.1 (2024-01-18)
+- 【Fix】
+    - 修复当 Modal 未收起时直接时直接卸载 Modal 导致页面可能滚动异常的问题 [#2023](https://github.com/DouyinFE/semi-design/pull/2023)
+
 #### 🎉 2.51.0 (2024-01-12)
 - 【Fix】
     - 修复有 maxLength的 TextArea 在中文输入时，点击外部触发 blur，回显内容不符合 maxLength 设置问题  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)

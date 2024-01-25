@@ -4969,53 +4969,53 @@ render(App);
 
 ## Table
 
-| Properties | Instructions | Type | Default | Version |
-| --- | --- | --- | --- | --- |
-| bordered | Whether to display outer and column borders | boolean | false |
-| className | Outermost style name | string |  |
-| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked | boolean |  | **0.29.0** |
-| columns | For a configuration description of the table column, see [Column](#Column) | Column [] | [] |
-| components | Override the elements of Table, such as table, body, row, td, th, etc. | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
-| dataSource | Data | RecordType[] | [] |
-| defaultExpandAllRows | All rows are expanded by default | boolean | false |
-| defaultExpandAllGroupRows | All grouped rows are expanded by default | boolean | false | **1.30.0** |
-| defaultExpandedRowKeys | Default expansion of row key array | Array <\*> | [] |
-| empty | Content displayed when there is no data | ReactNode | ReactNode | 'No data yet. ' |
-| expandCellFixed | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column | boolean\|string | false |
-| expandIcon | Custom expansion icon, hidden when it is `false` | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode |  |
-| expandedRowKeys | Expanded rows, the row expansion function will be controlled when this parameter is introduced. | (string \| number)[] |  |
-| expandedRowRender | Extra unfolding lines | (record: object, index: number, expanded: boolean) => ReactNode |  |
-| expandAllRows | All rows are expanded | boolean | false | **1.30.0** |
-| expandAllGroupRows | All grouped rows are expanded | boolean | false | **1.30.0** |
-| expandRowByClick | Expand row when click row | boolean | false | **1.31.0** |
-| footer | End of form | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
-| groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element | string\|number<br/>\|(record: any) => string\|number |  | **0.29.0** |
-| hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on | boolean | true |
-| indentSize | indent size of TableCell | number | 20 |
-| keepDOM | Whether to not destroy the collapsed DOM when folding a row | boolean | false |
-| loading | Table is loading or not | boolean | false |
-| pagination | Paging component configuration | boolean\|TablePaginationProps | true |
-| prefixCls | Style name prefix | string |  |
-| renderGroupSection | Header rendering method | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
-| renderPagination | Customize the rendering method of pagination. | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
+| Properties | Instructions                                                                                                              | Type | Default | Version |
+| --- |---------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
+| bordered | Whether to display outer and column borders                                                                               | boolean | false |
+| className | Outermost style name                                                                                                      | string |  |
+| clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked                                                   | boolean |  | **0.29.0** |
+| columns | For a configuration description of the table column, see [Column](#Column)                                                | Column [] | [] |
+| components | Override the elements of Table, such as table, body, row, td, th, etc.                                                    | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
+| dataSource | Data, Each item needs to have a key, or specify rowKey, see the beginning of the document                                                                                                                      | RecordType[] | [] |
+| defaultExpandAllRows | All rows are expanded by default                                                                                          | boolean | false |
+| defaultExpandAllGroupRows | All grouped rows are expanded by default                                                                                  | boolean | false | **1.30.0** |
+| defaultExpandedRowKeys | Default expansion of row key array                                                                                        | Array <\*> | [] |
+| empty | Content displayed when there is no data                                                                                   | ReactNode | ReactNode | 'No data yet. ' |
+| expandCellFixed | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column                     | boolean\|string | false |
+| expandIcon | Custom expansion icon, hidden when it is `false`                                                                          | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode |  |
+| expandedRowKeys | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string \| number)[] |  |
+| expandedRowRender | Extra unfolding lines                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode |  |
+| expandAllRows | All rows are expanded                                                                                                     | boolean | false | **1.30.0** |
+| expandAllGroupRows | All grouped rows are expanded                                                                                             | boolean | false | **1.30.0** |
+| expandRowByClick | Expand row when click row                                                                                                 | boolean | false | **1.31.0** |
+| footer | End of form                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: object) => string\|ReactNode |  |
+| groupBy | Grouping basis, generally a method of a key name or a return value of a string or number in the dataSource element        | string\|number<br/>\|(record: any) => string\|number |  | **0.29.0** |
+| hideExpandedColumn | Whether to hide the expansion button column and turn off the rendering of the expansion button when it is turned on       | boolean | true |
+| indentSize | indent size of TableCell                                                                                                  | number | 20 |
+| keepDOM | Whether to not destroy the collapsed DOM when folding a row                                                               | boolean | false |
+| loading | Table is loading or not                                                                                                   | boolean | false |
+| pagination | Paging component configuration                                                                                            | boolean\|TablePaginationProps | true |
+| prefixCls | Style name prefix                                                                                                         | string |  |
+| renderGroupSection | Header rendering method                                                                                                   | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
+| renderPagination | Customize the rendering method of pagination.                                                                             | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
 | resizable | Whether to turn on the telescopic column function, the column that needs to be telescopic must provide the value of width | boolean\|[Resizable](#Resizable) | false |
-| rowExpandable | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false | (record: RecordType): => boolean | () => true | **0.27.0** |
-| rowKey | The value of the table row key, which can be a string or a function. | string \| (record: RecordType) => string | 'key' |
-| rowSelection | See [rowSelection](#rowSelection) | object | null |
-| scroll | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll) | object | - |
-| showHeader | Does it show the header? | boolean | true |
-| size | Table size, will effect the `padding` of the rows | "default"\|"middle"\|"small" | "default" | **1.0.0** |
-| sticky | fixed header | boolean \| { top: number } | false | **2.21.0** |
-| title | Table Title | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode |  |
-| virtualized | Virtualization settings | Virtualized | false | **0.33.0** |
-| virtualized.itemSize | Row height | number\|(index: number) => number | 56 | **0.33.0** |
-| virtualized.onScroll | Virtualization scroll callback method | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
-| onChange | Trigger when paging, sorting, filtering changes | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
-| onExpand | Trigger when clicking on the row expansion icon | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | The third parameter DOMEvent requires version **>=0.28.0** |
-| onExpandedRowsChange | Triggers when unfolding row changes | (rows: RecordType[]) => void |  |
-| onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone | (record: RecordType, index: number) => object |  | **0.29.0** |
-| onHeaderRow | Set the header row property, and the returned object is merged to the header line | (columns: Column[], index: number) => object |  |
-| onRow | Set the row property, and the returned object is merged to the table row | (record: RecordType, index: number) => object |  |
+| rowExpandable | Whether the row can be expanded, turning off the rendering of the expandable button when the value is false               | (record: RecordType): => boolean | () => true | **0.27.0** |
+| rowKey | The value of the table row key, which can be a string or a function.                                                      | string \| (record: RecordType) => string | 'key' |
+| rowSelection | See [rowSelection](#rowSelection)                                                                                         | object | null |
+| scroll | Whether the table is scrollable, configure the width or height of the scroll area, see [scroll](#scroll)                  | object | - |
+| showHeader | Does it show the header?                                                                                                  | boolean | true |
+| size | Table size, will effect the `padding` of the rows                                                                         | "default"\|"middle"\|"small" | "default" | **1.0.0** |
+| sticky | fixed header                                                                                                              | boolean \| { top: number } | false | **2.21.0** |
+| title | Table Title                                                                                                               | string<br/>\|ReactNode<br/>\|(pageData: RecordType[]) => string\|ReactNode |  |
+| virtualized | Virtualization settings                                                                                                   | Virtualized | false | **0.33.0** |
+| virtualized.itemSize | Row height                                                                                                                | number\|(index: number) => number | 56 | **0.33.0** |
+| virtualized.onScroll | Virtualization scroll callback method                                                                                     | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
+| onChange | Trigger when paging, sorting, filtering changes                                                                           | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
+| onExpand | Trigger when clicking on the row expansion icon                                                                           | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | The third parameter DOMEvent requires version **>=0.28.0** |
+| onExpandedRowsChange | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void |  |
+| onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | **0.29.0** |
+| onHeaderRow | Set the header row property, and the returned object is merged to the header line                                         | (columns: Column[], index: number) => object |  |
+| onRow | Set the row property, and the returned object is merged to the table row                                                  | (record: RecordType, index: number) => object |  |
 
 Some of the type definitions used above:
 
