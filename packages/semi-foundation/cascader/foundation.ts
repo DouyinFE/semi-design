@@ -15,7 +15,8 @@ import {
     normalizedArr,
     isValid,
     calcMergeType,
-    getKeysByValuePath
+    getKeysByValuePath,
+    getKeyByPos
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
@@ -1040,5 +1041,22 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         !isEmpty(removedItem) &&
         !removedItem.data.disabled &&
         this._handleMultipleSelect(removedItem);
+    }
+
+    handleTagRemoveByKey = (key: string) => {
+        const { keyEntities } = this.getStates();
+        const { disabled } = this.getProps();
+        if (disabled) {
+            /* istanbul ignore next */
+            return;
+        }
+        const removedItem = keyEntities[key] ?? {};
+        !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+    }
+
+    handleTagRemoveInTrigger = (pos: string) => {
+        const { treeData } = this.getStates();
+        const key = getKeyByPos(pos, treeData);
+        this.handleTagRemoveByKey(key);
     }
 }

@@ -76,6 +76,17 @@ export function getValuePathByKey(key: string) {
     return key.split(VALUE_SPLIT);
 }
 
+export function getKeyByPos(pos: string, treeData: any) {
+    const posArr = pos.split('-').map(item => Number(item));
+    let resultData = treeData;
+    let valuePath = [];
+    posArr.forEach((item, index) => {
+        resultData = index === 0 ? resultData[item] : resultData?.children?.[item];
+        valuePath.push(resultData?.value);
+    });
+    return getKeyByValuePath(valuePath);
+}
+
 export function convertDataToEntities(dataNodes: any) {
     const keyEntities: any = {};
 
