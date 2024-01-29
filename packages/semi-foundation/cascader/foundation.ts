@@ -1,7 +1,6 @@
 import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
-    filter,
     findAncestorKeys,
     calcCheckedKeysForUnchecked,
     calcCheckedKeysForChecked,
@@ -11,6 +10,7 @@ import {
 } from '../tree/treeUtil';
 import { Motion } from '../utils/type';
 import {
+    filter,
     convertDataToEntities,
     normalizedArr,
     isValid,
@@ -908,8 +908,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                     if (_notExist) {
                         return false;
                     }
-                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join('');
-                    return filter(sugInput, data, filterTreeNode, false, filteredPath);
+                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp);
+                    return filter(sugInput, data, filterTreeNode, filteredPath);
                 })
                 .filter(
                     item => (filterTreeNode && !filterLeafOnly) ||

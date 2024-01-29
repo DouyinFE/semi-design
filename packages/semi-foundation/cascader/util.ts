@@ -22,6 +22,36 @@ export function normalizedArr(val: any) {
 }
 
 /**
+ * @returns whether option includes sugInput.
+ * When filterTreeNode is a function,returns the result of filterTreeNode which called with (sugInput, target, option).
+ */
+export function filter(sugInput: string, option: any, filterTreeNode: any, filteredPath?: string[]) {
+    if (!filterTreeNode) {
+        return true;
+    }
+    let filterFn = filterTreeNode;
+    let target: string;
+    if (typeof filterTreeNode === 'boolean') {
+        filterFn = (targetVal: string, val: string) => {
+            const input = targetVal.toLowerCase();
+            return val
+                .toLowerCase()
+                .includes(input);
+        };
+        // 当 filterTreeNode 是 bool 类型时，由 Cascader 内部判断是否符合筛选条件，使用 join('') 修复搜索英文逗号导致所有数据被匹配问题
+        // When the type of of filterTreeNode is bool, Cascader internally determines whether it meets the filtering conditions.
+        // Use join('') to fix the problem that searching for English commas causes all data to be matched.
+        target = filteredPath.join('');
+    } else {
+        // 当 filterTreeNode 为函数类型时，由用户判断是否符合筛选条件，使用 join(), 和原来保持一致
+        // When the type of of filterTreeNode is function, the user determines whether it meets the filtering conditions, 
+        // uses join() to be consistent with the previous version.
+        target = filteredPath.join();
+    }
+    return filterFn(sugInput, target, option);
+}
+
+/**
  * Traverse all the data by `treeData`.
  */
 function traverseDataNodes(treeNodes: any, callback: any) {
