@@ -1029,20 +1029,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.notifyListScroll(e, { panelIndex: ind, activeNode: data });
     }
 
-    handleTagRemove(e: any, tagValuePath: string[]) {
-        const { keyEntities } = this.getStates();
-        const { disabled } = this.getProps();
-        if (disabled) {
-            /* istanbul ignore next */
-            return;
-        }
-        const removedItem = (Object.values(keyEntities) as BasicEntity[])
-            .filter(item => isEqual(item.valuePath, tagValuePath))[0];
-        !isEmpty(removedItem) &&
-        !removedItem.data.disabled &&
-        this._handleMultipleSelect(removedItem);
-    }
-
     handleTagRemoveByKey = (key: string) => {
         const { keyEntities } = this.getStates();
         const { disabled } = this.getProps();
