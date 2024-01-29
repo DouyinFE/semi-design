@@ -1328,24 +1328,24 @@ render(App);
 
 使用 `renderFilterDropdown` 自定义渲染筛选器面板。v2.52 支持。
 
-与 `renderFilterDropdownItem` 相比 `renderFilterDropdown` 更加灵活。你可以将一个临时筛选值存储到 `selectedKeys`，然后在合适的时机调用 `confirm`，在输入框的内容频繁变更时比较有用。
+你可以在用户输入筛选值的时候调用 `setTempFilteredValue` 存储筛选值，在筛选值输入完毕后调用 `confirm` 触发真正的筛选。也可以通过 `confirm({ filteredValue })` 直接筛选。
 
-`selectedKeys` 的初始值为 `filteredValue` 或 `defaultFilteredValue`，`confirm` 后会修改 `filteredValue` 并触发 `onChange` 事件。
+设置 `tempFilteredValue` 的原因是在需要存储临时筛选值的场景，不需要自己声明一个 state 保存这个临时筛选值。
 
 ```typescript
 type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
 interface RenderFilterDropdownProps {
-    /** temporary filteredValue  */
-    selectedKeys: any[];
-    /** set temporary filteredValue  */
-    setSelectedKeys: (selectedKeys: any[]) => void;
-    /** set selectedKeys to filteredValue  */
-    confirm: (props?: { closeDropdown?: boolean }) => void;
-    /** clear selectedKeys and filteredValue  */
+    /** 临时筛选值，初始值为 `filteredValue` 或 `defaultFilteredValue`  */
+    tempFilteredValue: any[];
+    /** 设置临时筛选值  */
+    setTempFilteredValue: (tempFilteredValue: any[]) => void;
+    /** `confirm` 默认会将 `tempFilteredValue` 赋值给 `filteredValue` 并触发 `onChange` 事件。你也可以通过传入 `filteredValue` 直接设置筛选值  */
+    confirm: (props?: { closeDropdown?: boolean; filteredValue?: any[] }) => void;
+    /** 清除筛选值、临时筛选值  */
     clear: (props?: { closeDropdown?: boolean }) => void;
-    /** close dropdown  */
+    /** 关闭 dropdown  */
     close: () => void;
-    /** column filters  */
+    /** 筛选器配置项，如不需要可以不传  */
     filters?: RenderDropdownProps['filters']
 }
 ```
@@ -1379,19 +1379,18 @@ function App() {
             onFilter: (value, record) => record.name.includes(value),
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
-                const handleChange = (value) => {
-                    if (value) {
-                        setSelectedKeys([value]);
-                    } else {
-                        setSelectedKeys([]);
-                    }
+                const handleChange = value => {
+                    const filteredValue = value ? [value] : [];
+                    setTempFilteredValue(filteredValue);
+                    // 你也可以在 input value 变化时直接筛选
+                    // confirm({ filteredValue });
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input ref={inputRef} value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: true })}>筛选+关闭</Button>
                             <Button onClick={() => clear({ closeDropdown: true })}>清除+关闭</Button>
@@ -1430,19 +1429,19 @@ function App() {
             defaultFilteredValue: ['姜鹏志'],
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
                 const handleChange = (value) => {
                     if (value) {
-                        setSelectedKeys([value]);
+                        setTempFilteredValue([value]);
                     } else {
-                        setSelectedKeys([]);
+                        setTempFilteredValue([]);
                     }
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: false })}>筛选后不关闭</Button>
                             <Button onClick={() => clear({ closeDropdown: false })}>清除后不关闭</Button>

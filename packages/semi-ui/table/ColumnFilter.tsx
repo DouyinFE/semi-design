@@ -29,7 +29,7 @@ function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode 
         renderFilterDropdownItem,
     } = props ?? {};
 
-    const renderFilterDropdownProps: RenderFilterDropdownProps = pick(props, ['selectedKeys', 'setSelectedKeys', 'confirm', 'clear', 'close', 'filters']);
+    const renderFilterDropdownProps: RenderFilterDropdownProps = pick(props, ['tempFilteredValue', 'setTempFilteredValue', 'confirm', 'clear', 'close', 'filters']);
     const render = typeof renderFilterDropdown === 'function' ? renderFilterDropdown(renderFilterDropdownProps) : (
         <Dropdown.Menu>
             {Array.isArray(filters) &&
@@ -149,7 +149,7 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     const isFilterDropdownVisibleControlled = typeof filterDropdownVisible !== 'undefined';
     const isCustomFilterDropdown = typeof renderFilterDropdown === 'function';
     const isCustomDropdownVisible = !isFilterDropdownVisibleControlled && isCustomFilterDropdown;
-    const [selectedKeys, setSelectedKeys] = useState<any[]>(filteredValue);
+    const [tempFilteredValue, setTempFilteredValue] = useState<any[]>(filteredValue);
     const dropdownVisibleInitValue = isCustomDropdownVisible ? false : filterDropdownVisible;
     const [dropdownVisible, setDropdownVisible] = useState<boolean | undefined>(dropdownVisibleInitValue);
 
@@ -160,25 +160,28 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     }, [filterDropdownVisible]);
 
     useEffect(() => {
-        setSelectedKeys(filteredValue);
+        setTempFilteredValue(filteredValue);
     }, [filteredValue]);
 
-    const confirm = (props: { closeDropdown?: boolean } = {}) => {
-        onSelect({ filteredValue: selectedKeys });
+    const confirm: RenderFilterDropdownProps['confirm'] = (props = {}) => {
+        const newFilteredValue = props?.filteredValue || tempFilteredValue;
+        if (!isEqual(newFilteredValue, filteredValue)) {
+            onSelect({ filteredValue: newFilteredValue });
+        }
         if (props.closeDropdown) {
             setDropdownVisible(false);
         }
     };
 
-    const clear = (props: { closeDropdown?: boolean } = {}) => {
-        setSelectedKeys([]);
+    const clear: RenderFilterDropdownProps['clear'] = (props: { closeDropdown?: boolean } = {}) => {
+        setTempFilteredValue([]);
         onSelect({ filteredValue: [] });
         if (props.closeDropdown) {
             setDropdownVisible(false);
         }
     };
 
-    const close = () => {
+    const close: RenderFilterDropdownProps['close'] = () => {
         setDropdownVisible(false);
     };
 
@@ -190,8 +193,8 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     };
 
     const renderFilterDropdownProps: RenderFilterDropdownProps = {
-        selectedKeys,
-        setSelectedKeys,
+        tempFilteredValue,
+        setTempFilteredValue,
         confirm,
         clear,
         close
@@ -269,12 +272,12 @@ export interface OnSelectData {
 
 export interface RenderFilterDropdownProps {
     /** temporary filteredValue  */
-    selectedKeys: any[];
+    tempFilteredValue: any[];
     /** set temporary filteredValue  */
-    setSelectedKeys: (selectedKeys: any[]) => void;
-    /** set selectedKeys to filteredValue  */
-    confirm: (props?: { closeDropdown?: boolean }) => void;
-    /** clear selectedKeys and filteredValue  */
+    setTempFilteredValue: (tempFilteredValue: any[]) => void;
+    /** set tempFilteredValue to filteredValue. You can also pass filteredValue to directly set the filteredValue  */
+    confirm: (props?: { closeDropdown?: boolean; filteredValue?: any[] }) => void;
+    /** clear tempFilteredValue and filteredValue  */
     clear: (props?: { closeDropdown?: boolean }) => void;
     /** close dropdown  */
     close: () => void;

@@ -29,19 +29,18 @@ export default function App() {
             onFilter: (value, record) => record.name.includes(value),
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
                 const handleChange = (value: any) => {
-                    if (value) {
-                        setSelectedKeys([value]);
-                    } else {
-                        setSelectedKeys([]);
-                    }
+                    const filteredValue = value ? [value] : [];
+                    setTempFilteredValue(filteredValue);
+                    // 你也可以在 input value 变化时直接筛选
+                    // confirm({ filteredValue });
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input ref={inputRef} value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: true })}>筛选+关闭</Button>
                             <Button onClick={() => clear({ closeDropdown: true })}>清除+关闭</Button>
@@ -78,19 +77,19 @@ export default function App() {
             defaultFilteredValue: ['姜鹏志'],
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
                 const handleChange = (value: any) => {
                     if (value) {
-                        setSelectedKeys([value]);
+                        setTempFilteredValue([value]);
                     } else {
-                        setSelectedKeys([]);
+                        setTempFilteredValue([]);
                     }
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: false })}>筛选后不关闭</Button>
                             <Button onClick={() => clear({ closeDropdown: false })}>清除后不关闭</Button>

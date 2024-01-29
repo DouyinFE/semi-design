@@ -1322,25 +1322,25 @@ render(App);
 
 Use `renderFilterDropdown` to customize the render filter panel. v2.52 supported.
 
-`renderFilterDropdown` is more flexible than `renderFilterDropdownItem`. You can store a temporary filter value into `selectedKeys` and then call `confirm` at the appropriate time, which is useful when the content of the input box changes frequently.
+You can call `setTempFilteredValue` to store the filter value when the user enters the filter value, and call `confirm` to trigger the actual filtering after the filter value is entered. You can also filter directly through `confirm({ filteredValue })`.
 
-The initial value of `selectedKeys` is `filteredValue` or `defaultFilteredValue`. After `confirm`, `filteredValue` will be modified and the `onChange` event will be triggered.
+The reason for setting `tempFilteredValue` is that in scenarios where temporary filtered values need to be stored, there is no need to declare a state to save this temporary filtered value.
 
 ```typescript
 type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
 interface RenderFilterDropdownProps {
-    /** temporary filteredValue  */
-    selectedKeys: any[];
-    /** set temporary filteredValue  */
-    setSelectedKeys: (selectedKeys: any[]) => void;
-    /** set selectedKeys to filteredValue  */
-    confirm: (props?: { closeDropdown?: boolean }) => void;
-    /** clear selectedKeys and filteredValue  */
-    clear: (props?: { closeDropdown?: boolean }) => void;
-    /** close dropdown  */
-    close: () => void;
-    /** column filters  */
-    filters?: RenderDropdownProps['filters']
+     /** Temporary filter value, the initial value is `filteredValue` or `defaultFilteredValue` */
+     tempFilteredValue: any[];
+     /** Set temporary filter value */
+     setTempFilteredValue: (tempFilteredValue: any[]) => void;
+     /** `confirm` will assign `tempFilteredValue` to `filteredValue` by default and trigger the `onChange` event. You can also set the filter value directly by passing in `filteredValue` */
+     confirm: (props?: { closeDropdown?: boolean; filteredValue?: any[] }) => void;
+     /** Clear filter values and temporary filter values */
+     clear: (props?: { closeDropdown?: boolean }) => void;
+     /** Close dropdown */
+     close: () => void;
+     /** Filter configuration items, do not pass if not required */
+     filters?: RenderDropdownProps['filters']
 }
 ```
 
@@ -1373,19 +1373,18 @@ function App() {
             onFilter: (value, record) => record.name.includes(value),
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
-                const handleChange = (value) => {
-                    if (value) {
-                        setSelectedKeys([value]);
-                    } else {
-                        setSelectedKeys([]);
-                    }
+                const handleChange = value => {
+                    const filteredValue = value ? [value] : [];
+                    setTempFilteredValue(filteredValue);
+                    // You can also filter directly when the input value changes
+                    // confirm({ filteredValue });
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input ref={inputRef} value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: true })}>Filter+Close</Button>
                             <Button onClick={() => clear({ closeDropdown: true })}>Clear+Close</Button>
@@ -1424,19 +1423,19 @@ function App() {
             defaultFilteredValue: ['Jiang Pengzhi'],
             renderFilterDropdown: (props) => {
                 console.log('renderFilterDropdown', props);
-                const { selectedKeys, setSelectedKeys, confirm, clear, close } = props;
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
 
                 const handleChange = (value) => {
                     if (value) {
-                        setSelectedKeys([value]);
+                        setTempFilteredValue([value]);
                     } else {
-                        setSelectedKeys([]);
+                        setTempFilteredValue([]);
                     }
                 };
 
                 return (
                     <Space vertical align='start' style={{ padding: 8 }}>
-                        <Input value={selectedKeys[0]} onChange={handleChange}/>
+                        <Input value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
                             <Button onClick={() => confirm({ closeDropdown: false })}>Filter+Close</Button>
                             <Button onClick={() => clear({ closeDropdown: false })}>Clear+Close</Button>
