@@ -109,7 +109,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     foundation: ModalFoundation;
 
     private readonly modalRef: LegacyRef<ModalContent>;
-    private bodyOverflow: string;
+    private bodyOverflow: string|null = null;
     private scrollBarWidth: number;
     private originBodyWidth: string;
     private _haveRendered: boolean;
@@ -122,7 +122,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
-        this.bodyOverflow = '';
+
         this.scrollBarWidth = 0;
         this.originBodyWidth = '100%';
 
@@ -142,7 +142,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
