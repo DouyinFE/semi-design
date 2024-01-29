@@ -879,8 +879,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 return isFunction(renderCell)
                     ? renderCell({
                         selected: allIsSelected,
-                        record: record,
-                        index,
+                        record,
                         originNode,
                         inHeader,
                         disabled,

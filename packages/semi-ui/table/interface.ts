@@ -244,11 +244,11 @@ export interface RowSelectionProps<RecordType> {
 export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
     selected: boolean;
     record: RecordType;
-    index: number;
     originNode: JSX.Element;
     inHeader: boolean;
     disabled: boolean;
     indeterminate: boolean;
+    index?: number;
     selectRow?: (selected: boolean, e: Event) => void;
     selectAll?: (selected: boolean, e: Event) => void
 }) => ReactNode;
