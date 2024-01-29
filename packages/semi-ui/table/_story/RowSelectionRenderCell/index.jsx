@@ -2,37 +2,42 @@ import { Table, Tooltip } from '@douyinfe/semi-ui';
 import React, { useMemo, useState } from 'react';
 
 function App() {
-    const defaultSelectedRowKeys = useMemo(() => ['2', '3'], []);
+    const defaultSelectedRowKeys = useMemo(() => ['3'], []);
     const [selectedRowKeys, setSelectedRowKeys] = useState(defaultSelectedRowKeys);
+    const [headerOrigin, setHeaderOrigin] = useState(false);
+    const [rowOrigin, setRowOrigin] = useState(false);
 
-    const columns = useMemo(() => [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            render: text => <span>{text}</span>,
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-        },
-        {
-            render: () => (
-                <input
-                    type="checkbox"
-                    onClick={(...args) => {
-                        console.log('onClick: ', ...args);
-                    }}
-                    onChange={(...args) => {
-                        console.log('onChange: ', ...args);
-                    }}
-                />
-            ),
-        },
-    ], []);
+    const columns = useMemo(
+        () => [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                render: text => <span>{text}</span>,
+            },
+            {
+                title: 'Age',
+                dataIndex: 'age',
+            },
+            {
+                title: 'Address',
+                dataIndex: 'address',
+            },
+            {
+                render: () => (
+                    <input
+                        type="checkbox"
+                        onClick={(...args) => {
+                            console.log('onClick: ', ...args);
+                        }}
+                        onChange={(...args) => {
+                            console.log('onChange: ', ...args);
+                        }}
+                    />
+                ),
+            },
+        ],
+        []
+    );
 
     const data = useMemo(() => {
         const _data = [];
@@ -51,8 +56,43 @@ function App() {
     }, []);
 
     const rowSelection = {
-        renderCell: ({ selected, record, index, originNode }) => {
-            if (record.age < 2000) {
+        renderCell: ({ selected, record, index, originNode, inHeader, disabled, indeterminate, selectRow, selectAll }) => {
+            console.log('selected', selected);
+            console.log('index', index);
+            console.log('inHeader', inHeader);
+            console.log('disabled', disabled);
+            console.log('indeterminate', indeterminate);
+
+            if (inHeader && headerOrigin) {
+                return (
+                    <Tooltip content="自定义表头 renderCell，我是表头">
+                        <div>{originNode}</div>
+                    </Tooltip>
+                );
+            }
+
+            if (inHeader && !headerOrigin) {
+                return (
+                    <Tooltip content="自定义表头 renderCell，我是表头，不使用 originNode 控制选中">
+                        <div onClick={e => selectAll && selectAll(!selected, e)}>222</div>
+                    </Tooltip>
+                );
+            }
+
+            if (record.age === 2000 && !rowOrigin) {
+                return (
+                    <Tooltip content="自定义 renderCell, 不使用 originNode 控制选中">
+                        <div
+                            style={{ color: selected ? 'red' : 'black' }}
+                            onClick={e => selectRow && selectRow(!selected, e)}
+                        >
+                            111
+                        </div>
+                    </Tooltip>
+                );
+            }
+
+            if (record.age > 2000) {
                 return (
                     <Tooltip content="自定义 renderCell">
                         <div>{originNode}</div>
@@ -75,7 +115,7 @@ function App() {
             );
         },
         getCheckboxProps: record => ({
-            disabled: record.age < 2000,
+            // disabled: record.age < 2000,
             name: record.name,
             onClick: (...args) => {
                 console.log('Clicked checkbox: ', ...args);
@@ -84,13 +124,14 @@ function App() {
         onSelect: (record, selected) => {
             console.log('onSelect: ', record, selected);
         },
-        disabled: true,
         selectedRowKeys,
         defaultSelectedRowKeys,
     };
 
     return (
         <div>
+            <button onClick={() => setHeaderOrigin(!headerOrigin)}>表头{headerOrigin ? '不使用' : '使用'} originNode</button>
+            <button onClick={() => setRowOrigin(!rowOrigin)}>选择行{ rowOrigin ? '不使用' : '使用' } originNode</button>
             <Table rowKey={record => record.key} columns={columns} dataSource={data} rowSelection={rowSelection} />
         </div>
     );

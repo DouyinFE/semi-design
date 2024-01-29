@@ -245,7 +245,12 @@ export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
     selected: boolean;
     record: RecordType;
     index: number;
-    originNode: JSX.Element
+    originNode: JSX.Element;
+    inHeader: boolean;
+    disabled: boolean;
+    indeterminate: boolean;
+    selectRow?: (selected: boolean, e: Event) => void;
+    selectAll?: (selected: boolean, e: Event) => void
 }) => ReactNode;
 export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
