@@ -669,6 +669,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         | 'notifySearch'
         | 'cacheFlattenNodes'
         | 'notifyLoad'
+        | 'notifyClear'
         > = {
             updateState: states => {
                 this.setState({ ...states } as TreeSelectState);
@@ -685,6 +686,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifyLoad: (newLoadedKeys, data) => {
                 const { onLoad } = this.props;
                 isFunction(onLoad) && onLoad(newLoadedKeys, data);
+            },
+            notifyClear: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => {
+                this.props.onClear && this.props.onClear(e);
             }
         };
         return {
@@ -987,18 +991,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     handleClear = (e: React.MouseEvent) => {
         e && e.stopPropagation();
         this.foundation.handleClear(e);
-
-        const { onClear } = this.props; 
-        isFunction(onClear) && onClear(e);
     };
 
     /* istanbul ignore next */
     handleClearEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
         e && e.stopPropagation();
         this.foundation.handleClearEnterPress(e);
-
-        const { onClear } = this.props; 
-        isFunction(onClear) && onClear(e);
     };
 
     handleMouseOver = (e: React.MouseEvent) => {
