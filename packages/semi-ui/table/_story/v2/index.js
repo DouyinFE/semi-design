@@ -29,3 +29,4 @@ export { default as KeepDOM } from './KeepDOM';
 export { default as SortIcon } from './SortIcon';
 export { default as FixedAllDisabledAndSelected } from './FixedAllDisabledAndSelected';
 export { default as FeatRenderFilterDropdown } from './FeatRenderFilterDropdown';
+export { default as InputFilter } from './InputFilter';
