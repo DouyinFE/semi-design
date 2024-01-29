@@ -107,7 +107,8 @@ export {
     ShowHeader,
     KeepDOM,
     SortIcon,
-    FixedAllDisabledAndSelected
+    FixedAllDisabledAndSelected,
+    FixedRowSelectionHiddenResizable
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 
