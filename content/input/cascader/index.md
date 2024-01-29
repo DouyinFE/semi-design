@@ -1666,7 +1666,7 @@ interface TriggerRenderProps {
     disabled: boolean;
     /**
      * 已选中的 node 在 treeData 中的层级位置，如下例子，
-     * 当选中浙江省-杭州市-萧山区时，此处 value 为 '0-0-0'
+     * 当选中浙江省-杭州市-萧山区时，此处 value 为 '0-0-1'
      */
     value?: string | Set<string>;
     /* 当前 Input 框的输入值 */
