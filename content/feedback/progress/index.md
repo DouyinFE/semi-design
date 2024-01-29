@@ -408,26 +408,27 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 
 ## API 参考
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 用于提升可访问性<br/>**v2.2.0 后提供** | string |  |
-| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)属性，表明某些元素的 id 是当前元素的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
-| aria-valuetext | [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-valuetext_attribute)属性，用于提升可访问性<br/>**v2.2.0 后提供** | string |  |  |
-| className | 样式类名 | string |  |
-| direction | 条状进度条方向 `horizontal`、`vertical` | string | 'horizontal' |
-| format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心 | (percent: number) => ReactNode | (percent) => percent + '%' |
-| id | id 标识<br/>**v2.2.0 后提供** | string |  |
-| orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供** | string | 'var(--semi-color-fill-0)' |
-| percent | 进度百分比 | number |  |
-| showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本 | boolean | false |
-| size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效) | string | 'default' |
-| stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
-| strokeGradient | 是否自动生成渐变色补齐区间颜色，需要 `stroke` 设置至少一个颜色区间 | boolean | false |
-| strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
-| strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |
-| style | 样式 | CSSProperties |  |
-| type | 类型，可选`line`、`circle` | string | 'line' |
-| width | 环形进度条宽度 | number | size='default'时为 72，'small'为 24 |
+| 属性 | 说明                                                                                                                                                                                                             | 类型                                                  | 默认值 |
+| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------| --- |
+| aria-label | [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)属性，用来给当前元素加上的标签描述, 用于提升可访问性<br/>**v2.2.0 后提供**                                     | string                                              |  |
+| aria-labelledby | [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)属性，表明某些元素的 id 是当前元素的标签。它被用来确定控件或控件组与它们标签之间的联系, 提升可访问性<br/>**v2.2.0 后提供** | string                                              |  |  |
+| aria-valuetext | [aria-valuetext](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-valuetext_attribute)属性，用于提升可访问性<br/>**v2.2.0 后提供**                                             | string                                              |  |  |
+| className | 样式类名                                                                                                                                                                                                           | string                                              |  |
+| direction | 条状进度条方向 `horizontal`、`vertical`                                                                                                                                                                                | string                                              | 'horizontal' |
+| format | 格式化函数，入参为当前百分比，return 的结果将会直接渲染在圆形进度条中心                                                                                                                                                                        | (percent: number) => ReactNode                      | (percent) => percent + '%' |
+| id | id 标识<br/>**v2.2.0 后提供**                                                                                                                                                                                       | string                                              |  |
+| orbitStroke | 进度条轨道填充色<br/>**v1.0.0 后提供**                                                                                                                                                                                    | string                                              | 'var(--semi-color-fill-0)' |
+| percent | 进度百分比                                                                                                                                                                                                          | number                                              |  |
+| showInfo | 环形进度条是否显示中间文本，条状进度条后右侧是否显示文本                                                                                                                                                                                   | boolean                                             | false |
+| size | 尺寸,可选`default`、`small`(仅 type=circle 生效)、`large`(仅 type=line 生效)                                                                                                                                               | string                                              | 'default' |
+| stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'`                                     | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
+| strokeGradient | 是否自动生成渐变色补齐区间颜色，需要 `stroke` 设置至少一个颜色区间                                                                                                                                                                         | boolean                                             | false |
+| strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效)                                                                                                                                                                    | string                                              | 'round' |
+| strokeHeight | type 为`line`时，该属性控制进度条高度;  >= 2.52.0                                                                                                                                                                           | number string                                       | 4 |
+| strokeWidth | type 为`circle`时，该属性控制进度条宽度                                                                                                                                                                                     | number                                         | 4 |
+| style | 样式                                                                                                                                                                                                             | CSSProperties                                       |  |
+| type | 类型，可选`line`、`circle`                                                                                                                                                                                           | string                                              | 'line' |
+| width | 环形进度条宽度                                                                                                                                                                                                        | number                                              | size='default'时为 72，'small'为 24 |
 
 ## Accessibility
 

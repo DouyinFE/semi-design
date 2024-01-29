@@ -1,4 +1,4 @@
-import React, { ReactNode, Component } from 'react';
+import React, { ReactNode, Component, CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/progress/constants';
@@ -26,7 +26,8 @@ export interface ProgressProps {
     stroke?: string | StrokeArr;
     strokeGradient?: boolean;
     strokeLinecap?: 'round' | 'square';
-    strokeWidth?: number;
+    strokeWidth?: number|string;
+    strokeHeight?: number;
     style?: React.CSSProperties;
     type?: 'line' | 'circle';
     width?: number
@@ -63,6 +64,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         strokeGradient: PropTypes.bool,
         strokeLinecap: PropTypes.oneOf(strings.strokeLineCap),
         strokeWidth: PropTypes.number,
+        strokeHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style: PropTypes.object,
         type: PropTypes.oneOf(strings.types),
         width: PropTypes.number,
@@ -267,6 +269,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const {
             className,
             style,
+            strokeHeight,
             stroke,
             strokeGradient,
             direction,
@@ -308,7 +311,13 @@ class Progress extends Component<ProgressProps, ProgressState> {
         }
 
         const text = format(percNumber);
-
+        const strokeStyle: CSSProperties = {};
+        if (orbitStroke) {
+            strokeStyle.backgroundColor = orbitStroke;
+        }
+        if (strokeHeight !== undefined) {
+            strokeStyle.height = strokeHeight;
+        } 
         return (
             <div
                 id={id}
@@ -325,7 +334,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
             >
                 <div
                     className={progressTrackCls}
-                    style={orbitStroke ? { backgroundColor: orbitStroke } : {}}
+                    style={strokeStyle}
                     aria-hidden
                 >
                     <div className={innerCls} style={innerStyle} aria-hidden />
