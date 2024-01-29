@@ -693,7 +693,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     getCurrentPageData = () => {
         const pageData = this.foundation.getCurrentPageData();
-        const retObj = ['dataSource', 'groups'].reduce((result, key) => {
+        const retObj: Pick<BasePageData<RecordType>, 'dataSource' | 'groups'> = ['dataSource', 'groups'].reduce((result, key) => {
             if (pageData[key]) {
                 result[key] = pageData[key];
             }
