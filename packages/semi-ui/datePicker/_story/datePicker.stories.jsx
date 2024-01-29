@@ -70,7 +70,8 @@ export {
     FixDisabledDate,
     FeatInsetInputShowClear,
     AutoSplitInput,
-    FixNeedConfirmControlled
+    FixNeedConfirmControlled,
+    PresetsFunctionType
 } from './v2';
 
 

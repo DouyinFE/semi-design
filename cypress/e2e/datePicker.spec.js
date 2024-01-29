@@ -816,4 +816,12 @@ describe('DatePicker', () => {
         cy.get('button').contains('确定').trigger('click');
         cy.get('.semi-input').eq(1).should('have.value', '');
     });
+
+    it('presets start and end support function type', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--presets-function-type&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('button').contains('动态时间').click();
+        cy.get('.semi-input').eq(0).should('have.value', '2024-01-24');
+        cy.get('.semi-input').eq(1).should('have.value', '2024-02-26');
+    });
 });

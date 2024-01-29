@@ -880,7 +880,7 @@ function Demo() {
 | placeholder | 输入框提示文字                                                                                              | string\|string[] | 'Select date' |  |
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考)                                     | string | 'bottomLeft' |  |
 | prefix | 前缀内容                                                                                                 | string\|ReactNode |  |  |
-| presets | 日期时间快捷方式                                                                                             |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType> | [] |  |
+| presets | 日期时间快捷方式, start 和 end 在 v2.52 版本支持函数类型                                                                                            |  <ApiType detail='type PresetType = { start?: BaseValueType \| (() => BaseValueType); end?: BaseValueType \| (() => BaseValueType); text?: string }; type PresetsType = Array<PresetType \| (() => PresetType)>;'>Array</ApiType> | [] |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                               | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom'                                                    | string |  'bottom' | **2.18.0** |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | **1.31.0** |
