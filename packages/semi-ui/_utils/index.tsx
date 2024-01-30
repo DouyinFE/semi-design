@@ -24,7 +24,9 @@ export function stopPropagation(e: React.MouseEvent | React.FocusEvent<HTMLEleme
  * 
  * skip clone function and react element
  */
-export function cloneDeep(value: any, customizer?: (value: any) => void) {
+export function cloneDeep<T>(value: T): T;
+export function cloneDeep<T>(value: T, customizer: (value: any) => any): any;
+export function cloneDeep(value: any, customizer?: (value: any) => any) {
     return cloneDeepWith(value, v => {
         if (typeof customizer === 'function') {
             return customizer(v);

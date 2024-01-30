@@ -245,9 +245,21 @@ export interface RowSelectionProps<RecordType> {
     width?: string | number;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
-    onSelectAll?: RowSelectionOnSelectAll<RecordType>
+    onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    renderCell?: RowSelectionRenderCell<RecordType>
 }
 
+export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
+    selected: boolean;
+    record: RecordType;
+    originNode: JSX.Element;
+    inHeader: boolean;
+    disabled: boolean;
+    indeterminate: boolean;
+    index?: number;
+    selectRow?: (selected: boolean, e: Event) => void;
+    selectAll?: (selected: boolean, e: Event) => void
+}) => ReactNode;
 export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
 export type RowSelectionOnSelect<RecordType> = (
