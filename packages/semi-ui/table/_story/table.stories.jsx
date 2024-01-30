@@ -108,7 +108,9 @@ export {
     ShowHeader,
     KeepDOM,
     SortIcon,
-    FixedAllDisabledAndSelected
+    FixedAllDisabledAndSelected,
+    FeatRenderFilterDropdown,
+    InputFilter
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

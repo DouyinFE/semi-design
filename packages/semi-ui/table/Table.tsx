@@ -1007,7 +1007,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
         const { prefixCls } = this.props;
-        if (column && (column.sorter || column.filters || column.useFullRender)) {
+        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender)) {
             let hasSorterOrFilter = false;
             const { dataIndex, title: rawTitle, useFullRender } = column;
             const curQuery = this.foundation.getQuery(dataIndex);
@@ -1054,11 +1054,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateFilteredValue = get(curQuery, 'filteredValue');
             const defaultFilteredValue = get(curQuery, 'defaultFilteredValue');
             const filteredValue = stateFilteredValue ? stateFilteredValue : defaultFilteredValue;
-            if ((Array.isArray(column.filters) && column.filters.length) || isValidElement(column.filterDropdown)) {
+            if (
+                (Array.isArray(column.filters) && column.filters.length) ||
+                isValidElement(column.filterDropdown) ||
+                typeof column.renderFilterDropdown === 'function'
+            ) {
+
                 const filter = (
                     <ColumnFilter
                         key={strings.DEFAULT_KEY_COLUMN_FILTER}
-                        {...curQuery}
+                        {...omit(curQuery, 'children')}
                         filteredValue={filteredValue}
                         onFilterDropdownVisibleChange={(visible: boolean) =>
                             this.foundation.toggleShowFilter(dataIndex, visible)
