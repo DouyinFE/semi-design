@@ -5178,7 +5178,7 @@ type Filter = {
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
-| renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, index: number, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**      |
+| renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**      |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |
 | onSelect | Callback when the user manually clicks the selection box of a row | (record: RecordType, selected: boolean, selectedRows: RecordType[], nativeEvent: MouseEvent) => void |  |  |
