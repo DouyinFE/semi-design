@@ -69,7 +69,9 @@ export {
     FeatEtcGMT,
     FixDisabledDate,
     FeatInsetInputShowClear,
-    AutoSplitInput
+    AutoSplitInput,
+    FixNeedConfirmControlled,
+    PresetsFunctionType
 } from './v2';
 
 

@@ -16,6 +16,26 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - Fixed Table propTypes is removed in prod mode
+
+#### 🎉 2.51.2 (2024-01-19)
+- 【Fix】
+    - Fixed TextArea autoSize is not work when textarea resize [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
+    - Fixed controlled DatePicker input value is wrong when type is dateTimeRange and needConfirm is opened [#2024](https://github.com/DouyinFE/semi-design/issues/2024)
+    - Fixed the problem of triggering onClose/onPreview twice when clicking the edge of the close button in the preview state in the ImagePreview component [#2027](https://github.com/DouyinFE/semi-design/pull/2027)
+
+#### 🎉 2.51.1 (2024-01-18)
+- 【Fix】
+    - Unloading the Modal directly when the Modal is not collapsed may cause the page to scroll abnormally. [#2023](https://github.com/DouyinFE/semi-design/pull/2023)
+
+#### 🎉 2.51.0 (2024-01-12)
+- 【Fix】
+    - Fixed the problem that when a TextArea with maxLength is input in Chinese, clicking outside triggers blur, and the echoed content does not comply with the maxLength setting  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)
+    - Fix typeError in Cascader when autoMergeValue is false and value is [] [#2017](https://github.com/DouyinFE/semi-design/pull/2017)
+- 【Style】
+    - The default zIndex value of ImagePreview's preview layer is adjusted from 1000 to 1070
 
 #### 🎉 2.51.0-beta.0 (2024-01-09)
 - 【Feat】

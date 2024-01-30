@@ -4,4 +4,8 @@ const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-image`,
 } as const;
 
-export { cssClasses };
+const numbers = {
+    DEFAULT_Z_INDEX: 1070,
+};
+
+export { cssClasses, numbers };

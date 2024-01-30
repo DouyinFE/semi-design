@@ -560,8 +560,7 @@ describe(`Table`, () => {
         demo.find(`.${BASE_CLASS_PREFIX}-dropdown .${BASE_CLASS_PREFIX}-dropdown-item`)
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
-            .simulate('mousedown', {
-                button:0,
+            .simulate('click', {
                 nativeEvent: null,
             });
         expect(onChange.callCount).toBe(++onChangeCalledCount); // click first filter again
@@ -569,8 +568,7 @@ describe(`Table`, () => {
         demo.find(`.${BASE_CLASS_PREFIX}-dropdown .${BASE_CLASS_PREFIX}-dropdown-item`)
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
-            .simulate('mousedown', {
-                button:0,
+            .simulate('click', {
                 nativeEvent: null,
             });
         expect(onChange.callCount).toBe(++onChangeCalledCount); // to page 2
@@ -630,8 +628,7 @@ describe(`Table`, () => {
         demo.find(`.${BASE_CLASS_PREFIX}-dropdown .${BASE_CLASS_PREFIX}-dropdown-item`)
             .at(0)
             .find(`.${BASE_CLASS_PREFIX}-checkbox`)
-            .simulate('mousedown', {
-                button:0,
+            .simulate('click', {
                 nativeEvent: null,
             });
         const nameColList = demo.find('.semi-table-tbody .name-col');
@@ -2167,14 +2164,7 @@ describe(`Table`, () => {
         const tableNode = mount(<Table columns={columns} dataSource={data} onChange={onChange}/>);
         tableNode.find('.semi-table-column-filter').simulate('click');
         const filterNode = Array.from(document.querySelectorAll('.semi-checkbox-addon')).filter(node => node.textContent === 'Semi Design 设计稿');
-
-        const mousedownEvent = new MouseEvent('mousedown', {
-            bubbles: true,
-            cancelable: true,
-            button: 0,
-        });
-        filterNode[0].dispatchEvent(mousedownEvent);
-
+        filterNode[0].click();
         expect(onChange.calledOnce).toBe(true);
         const arg = onChange.getCall(0).args[0];
         expect(arg.sorter.defaultSortOrder).toBe(defaultSortOrder);

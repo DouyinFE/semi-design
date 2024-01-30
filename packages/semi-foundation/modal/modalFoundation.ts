@@ -112,6 +112,10 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
         this._adapter.notifyClose();
     }
 
+    enabledBodyScroll() {
+        this._adapter.enabledBodyScroll();
+    }
+
     // afterClose() {
     //     this._adapter.notifyClose();
     // }
