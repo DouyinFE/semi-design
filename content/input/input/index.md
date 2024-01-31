@@ -417,7 +417,6 @@ import { Input, Typography, Form, TextArea, Button } from '@douyinfe/semi-ui';
 | getValueLength    | 自定义计算字符串长度                                     | (value: string) => number       |      |
 | hideSuffix        | 清除按钮与后缀标签并存时隐藏后缀标签，默认为false两者并列                | boolean                         | false     |
 | mode              | 输入框的模式，可选值password **>=v1.3.0**                | string                          |           |
-| onlyBorder | 设置边框宽度，只保留边框，适合简约场景 **>=2.52.0**               | number | - |
 | prefix            | 前缀标签                                           | ReactNode                       |           |
 | preventScroll     | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法         | boolean                         |  |  |
 | showClear         | 输入框有内容且 hover 或 focus 时展示清除按钮 **>=1.0.0**      | boolean                         | false     |
