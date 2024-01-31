@@ -13,6 +13,20 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.52.0-beta.0 (2024-01-31)
+- 【Fix】
+    - 修复 Table getCurrentPageData 的类型  [@marshcat0](https://github.com/marshcat0)
+    - 修复 Dropdown 点击子菜单事件 onClick 函数执行时机过早的问题，可能导致用户在 onClick 函数内无法 Focus Dropdown 外部元素并触发外部元素的 Blur，影响范围，2.43.0-beta.0 ~ 2.50.0-beta.0。
+- 【Feat】
+    - Avatar 新增 `border` `bottomSlot` `topSlot` 用于控制边框，添加顶部和底部额外内容，新增 `contentMotion` 和 border `motion` 用于开启额外动效。
+    - Modal 配置项新增 `footerFill` API，用于控制 Modal 默认底部按钮是否撑满排列
+    - Slider 新增 `handleDot`，用于控制滑块内部是否展示圆点
+    - Table 支持使用 renderFilterDropdown 自定义筛选器 dropdown 内容  [#2015](https://github.com/DouyinFE/semi-design/issues/2015)
+    - Table 组件 rowSelection 新增 renderCell 渲染选择框  [@changlin2569](https://github.com/changlin2569)
+    - TreeSelect 组件支持 onClear API  [#1331 ](https://github.com/DouyinFE/semi-design/issues/1331) [@changlin2569](https://github.com/changlin2569)
+    - DatePicker presets start 和 end 支持函数类型  [#2038](https://github.com/DouyinFE/semi-design/issues/2038)
+
+
 #### 🎉 2.51.3 (2024-01-19)
 - 【Fix】
     - 修复 Table propTypes 被打包工具移除掉导致报错问题

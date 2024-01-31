@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.52.0-beta.0 (2024-01-31)
+- 【Fix】
+  - fix Table getCurrentPageData type  [@marshcat0](https://github.com/marshcat0)
+  - Fixed the problem that the onClick function of the Dropdown click submenu event is executed too early, which may cause the user to be unable to focus on the Dropdown external element and trigger the Blur of the external element within the onClick function. The scope of impact is 2.43.0-beta.0 ~ 2.50.0-beta .0.
+- 【Feat】
+  - Avatar adds `border` `bottomSlot` `topSlot` to control the border and add additional top and bottom content, and adds `contentMotion` and border `motion` to enable additional motion effects.
+  - Added `footerFill` API to the Modal configuration item, which is used to control whether the default bottom buttons of Modal are fully arranged.
+  - Slider add `handleDot` api to whether to show the dot inside the slider handle.
+  - Table support renderFilterDropdown  [#2015](https://github.com/DouyinFE/semi-design/issues/2015)
+  - RowSelection of Table component adds renderCell to render selection  [@changlin2569](https://github.com/changlin2569)
+  - TreeSelect component support onClear API  [#1331 ](https://github.com/DouyinFE/semi-design/issues/1331) [@changlin2569](https://github.com/changlin2569)
+  - DatePicker support presets start and end function type  [#2038](https://github.com/DouyinFE/semi-design/issues/2038)
+
+
 #### 🎉 2.51.3 (2024-01-19)
 - 【Fix】
     - Fixed Table propTypes is removed in prod mode
