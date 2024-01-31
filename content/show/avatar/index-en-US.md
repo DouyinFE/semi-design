@@ -165,6 +165,151 @@ import { IconCamera } from '@douyinfe/semi-icons';
 };
 ```
 
+
+### Top and Bottom Slot
+
+```jsx live=true
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+<Avatar
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+            style={{ margin: 4 }}
+            size="large"
+            border={{color:"#FE2C55",motion:true}}
+            contentMotion={true}
+            topSlot={{
+                text: "LIVE", 
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
+            }}
+            bottomSlot={{
+                shape: "circle",
+                bgColor:"#FE2C55",
+                text: <IconPlus/>
+            }}
+/>
+```
+
+#### Top
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" topSlot={{
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" topSlot={{
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" topSlot={{
+            text: "LIVE",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
+#### Bottom
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+        }}>T</Avatar>
+        
+        <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            content: "LIVE"
+        }}>T</Avatar>
+        
+        <br/>
+        <br/>
+        <br/>
+        <Avatar color="amber" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            content: <IconPlus/>
+        }}>T</Avatar>
+    </div>
+}
+
+```
+
+### Additional border
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+### Additional Animation
+
+Turn on additional animation effects for borders and content areas through `border={motion:true}` and `contentMotion`
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true}  size={"large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={true} size={"extra-large"} style={{marginRight:'8px'}} borderMotion={true} contentMotion={true}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
 ### AvatarGroup
 
 You can use `AvatarGroup` component to display avatars as a group.
@@ -280,23 +425,28 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 
 ### Avatar
 
-| Properties   | Instructions                                                                                                                                                                              | type           | Default  |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | -------- |
-| alt          | Defines an alternative text description of the image.                                                                                                                                       | string         | -        |
-| className    | Class name                                                                                                                                                                                | string         | -        |
-| color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string         | `grey`   |
-| gap          | Pixel size of the distance between the left and right sides of the character avatar | number                                     | 3        |
-| hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode     | -        |
-| imgAttr | Native html img attributes **>=1.5.0**| React.ImgHTMLAttributes<HTMLImageElement\> | - |
-| shape        | Shape of the avatar, one of `circle`, `square`                                                                                                                                            | string         | `circle` |
-| size         | Size of the avatar, one of `extra-extra-small`,`extra-small`, `small`, `default`, `medium`, `large`, `extra-large`                                                                                                       | string         | `medium` |
-| src          | Resource address for imgage avatars                                                                                                                                                       | string         | -        |
-| srcSet       | Set the image avatar responsive resource address                                                                                                                                          | string         | -        |
-| style        | Style name                                                                                                                                                                                | CSSProperties         | -        |
-| onClick      | Click the callback of the avatar.                                                                                                                                                         | (e: Event) => void       | -        |
-| onError      | Image load failed event, returning false closes the default fallback behavior of the component                                                                                            | (e: Event) = > boolean | -        |
-| onMouseEnter | Callback to onMouseEnter event                                                                                                                                                            | (e: Event) => void       | -        |
-| onMouseLeave | Callback to onMouseLeave event                                                                                                                                                            | (e: Event) => void       | -        |
+| Properties   | Instructions                                                                                                                                                                              | type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Default  |
+| ------------ |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------- |
+| alt          | Defines an alternative text description of the image.                                                                                                                                     | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -        |
+| border | additional border（>=2.52.0）                                                                                                                                                               | {color?:string //color, motion?:boolean // has animation} or boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | - |
+| bottomSlot | bottom Slot config （>= 2.52.0 ）                                                                                                                                                           | {<br/><div style={{width:20,display:'inline-block'}}/>render?: () => React.ReactNode //Full control the rendering,<br/><div style={{width:20,display:'inline-block'}}/>shape?: "circle" or "square" // slot shape,<br/><div style={{width:20,display:'inline-block'}}/>content: React.ReactNode // slot content,<br/><div style={{width:20,display:'inline-block'}}/>bgColor:string // slot background <br/><div style={{width:20,display:'inline-block'}}/>textColor:string // text color <br/><div style={{width:20,display:'inline-block'}}/>className:string <br/><div style={{width:20,display:'inline-block'}}/>style?:CSSProperties<br/>}                                    | - |
+| className    | Class name                                                                                                                                                                                | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -        |
+| color        | Color of the avatar, one of `amber`, `blue`, `cyan`, `green`, `grey`, `indigo`, `light-blue`, `light-green`, `lime`, `orange`, `pink`, `rain`, `red`, `teal`, `violet`, `yellow`, `white` | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `grey`   |
+| contentMotion | avatar content area animation （>=2.xx.0）                                                                                                                                                  | boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | - |
+| gap          | Pixel size of the distance between the left and right sides of the character avatar                                                                                                       | number                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 3        |
+| hoverMask    | Avatar content overlay when hover                                                                                                                                                         | ReactNode                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | -        |
+| imgAttr | Native html img attributes **>=1.5.0**                                                                                                                                                    | React.ImgHTMLAttributes<HTMLImageElement\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | - |
+| shape        | Shape of the avatar, one of `circle`, `square`                                                                                                                                            | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `circle` |
+| size         | Size of the avatar, one of `extra-extra-small`,`extra-small`, `small`, `default`, `medium`, `large`, `extra-large`                                                                        | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `medium` |
+| src          | Resource address for imgage avatars                                                                                                                                                       | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -        |
+| srcSet       | Set the image avatar responsive resource address                                                                                                                                          | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -        |
+| style        | Style name                                                                                                                                                                                | CSSProperties                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | -        |
+| topSlot | top Slot config （>= 2.52.0 ）                                                                                                                                                              | {<br/><div style={{width:20,display:'inline-block'}}/>render?: () => React.ReactNode //Full control the rendering,<br/> <div style={{width:20,display:'inline-block'}}/>gradientStart?: string // Top background gradient starting color <br/> <div style={{width:20,display:'inline-block'}}/>gradientEnd?: string // Top background gradient ending color<br/> <div style={{width:20,display:'inline-block'}}/>content: React.ReactNode <br/> <div style={{width:20,display:'inline-block'}}/>textColor:string //text color <br/> <div style={{width:20,display:'inline-block'}}/>className:string<br/><div style={{width:20,display:'inline-block'}}/>style?:CSSProperties<br/>} | - |
+| onClick      | Click the callback of the avatar.                                                                                                                                                         | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | -        |
+| onError      | Image load failed event, returning false closes the default fallback behavior of the component                                                                                            | (e: Event) = > boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | -        |
+| onMouseEnter | Callback to onMouseEnter event                                                                                                                                                            | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | -        |
+| onMouseLeave | Callback to onMouseLeave event                                                                                                                                                            | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | -        |
+
 
 ### AvatarGroup
 
