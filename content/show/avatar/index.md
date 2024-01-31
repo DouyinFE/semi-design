@@ -166,6 +166,9 @@ import { IconCamera } from '@douyinfe/semi-icons';
 ### 顶部和底部 Slot
 
 ```jsx live=true
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
  <Avatar
             alt="beautiful cat"
             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"

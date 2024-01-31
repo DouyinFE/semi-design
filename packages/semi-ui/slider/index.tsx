@@ -56,13 +56,13 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         getAriaValueText: PropTypes.func,
         handleDot: PropTypes.oneOfType([
             PropTypes.shape({
-                size: PropTypes.string.isRequired,
-                color: PropTypes.string.isRequired,
+                size: PropTypes.string,
+                color: PropTypes.string,
             }),
             PropTypes.arrayOf(
                 PropTypes.shape({
-                    size: PropTypes.string.isRequired,
-                    color: PropTypes.string.isRequired,
+                    size: PropTypes.string,
+                    color: PropTypes.string,
                 })
             ),
         ]),
