@@ -424,7 +424,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | stroke | 进度条填充色，类型为 `Array<{percent:number; color:string }>` 时，`color` 参数支持颜色类型：`'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
 | strokeGradient | 是否自动生成渐变色补齐区间颜色，需要 `stroke` 设置至少一个颜色区间 | boolean | false |
 | strokeLinecap | 圆角`round`/方角`square`(仅在 type='circle'模式下生效) | string | 'round' |
-| strokeWidth | type 为`line`时，该属性控制进度条高度; type 为`circle`时，该属性控制进度条宽度 | number | 4 |
+| strokeWidth | type 为`circle`时，该属性控制进度条宽度 | number | 4 |
 | style | 样式 | CSSProperties |  |
 | type | 类型，可选`line`、`circle` | string | 'line' |
 | width | 环形进度条宽度 | number | size='default'时为 72，'small'为 24 |
