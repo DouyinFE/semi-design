@@ -6,6 +6,7 @@ import RTLTable from './RTLDirection/RTLTable';
 import RTLForm from './RTLDirection/RTLForm';
 import ConfigContext from '../context';
 import { Button, ConfigProvider, Select, Tooltip, } from '../../index';
+import semiGlobal from "../../_utils/semi-global";
 
 export default {
     title: 'ConfigProvider',
@@ -28,7 +29,7 @@ export const RTLFormDemo = () => (
     </RTLWrapper>
 );
 
-ConfigProvider.overrideDefaultProps = {
+semiGlobal.config.overrideDefaultProps = {
     Button: {
         type: 'warning',
     },
@@ -38,7 +39,8 @@ ConfigProvider.overrideDefaultProps = {
     },
     Tooltip: {
         zIndex: 2001,
-        getPopupContainer: () => document.querySelector('#popupContainer')
+        getPopupContainer: () => document.querySelector('#popupContainer'),
+        trigger:"click"
     },
 };
 

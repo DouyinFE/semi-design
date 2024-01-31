@@ -3,7 +3,7 @@ import { cloneDeepWith, set, get } from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { findAll } from '@douyinfe/semi-foundation/utils/getHighlight';
 import { isHTMLElement } from '@douyinfe/semi-foundation/utils/dom';
-import ConfigProvider from "../configProvider";
+import semiGlobal from "./semi-global";
 /**
  * stop propagation
  *
@@ -203,9 +203,8 @@ export function getScrollbarWidth() {
     return 0;
 }
 
-
 export function getDefaultPropsFromConfigProvider(componentName: string, semiDefaultProps: any = {}) {
-    const getFromProvider = ()=> ConfigProvider?.["overrideDefaultProps"]?.[componentName] || {};
+    const getFromProvider = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
     return new Proxy({
         ...semiDefaultProps,
     }, {
