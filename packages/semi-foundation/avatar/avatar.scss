@@ -242,23 +242,23 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
                 position: relative;
                 line-height: normal;
                 &-small{
-                    font-size: $font-avatar_top_slot-small; 
+                    font-size: $font-avatar_top_slot-small-fontSize;
                     margin-top: $spacing-avatar-top_slot_small-content-marginTop;
                 }
                 &-default{
-                    font-size: $font-avatar_top_slot-default;
+                    font-size: $font-avatar_top_slot-default-fontSize;
                     margin-top: $spacing-avatar-top_slot_default-content-marginTop;
                 }
                 &-medium{
-                    font-size: $font-avatar_top_slot-medium;
+                    font-size: $font-avatar_top_slot-medium-fontSize;
                     margin-top: $spacing-avatar-top_slot_medium-content-marginTop;
                 }
                 &-large{
-                    font-size: $font-avatar_top_slot-large;
+                    font-size: $font-avatar_top_slot-large-fontSize;
                     margin-top: $spacing-avatar-top_slot_large-content-marginTop;
                 }
                 &-extra-large{
-                    font-size: $font-avatar_top_slot-extra_large;
+                    font-size: $font-avatar_top_slot-extra_large-fontSize;
                     margin-top: $spacing-avatar-top_slot_extra_large-content-marginTop;
                 }
             }
@@ -286,28 +286,28 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         &-shape_circle-small{
             width:$width-avatar-bottom_slot_circle_small;
             height:$width-avatar-bottom_slot_circle_small;
-            font-size: $font-avatar_bottom_slot-small;
+            font-size: $font-avatar_bottom_slot-small-fontSize;
         }
         &-shape_circle-default{
             width:$width-avatar-bottom_slot_circle_default;
             height:$width-avatar-bottom_slot_circle_default;
-            font-size: $font-avatar_bottom_slot-default;
+            font-size: $font-avatar_bottom_slot-default-fontSize;
         }
         &-shape_circle-medium{
             width:$width-avatar-bottom_slot_circle_medium;
             height:$width-avatar-bottom_slot_circle_medium;
-            font-size: $font-avatar_bottom_slot-medium;
+            font-size: $font-avatar_bottom_slot-medium-fontSize;
         }
         &-shape_circle-large{
             width:$width-avatar-bottom_slot_circle_large;
             height:$width-avatar-bottom_slot_circle_large;
-            font-size: $font-avatar_bottom_slot-large;
+            font-size: $font-avatar_bottom_slot-large-fontSize;
         }
 
         &-shape_circle-extra-large{
             width:$width-avatar-bottom_slot_circle_extra_large;
             height:$width-avatar-bottom_slot_circle_extra_large;
-            font-size: $font-avatar_bottom_slot-extra_large; 
+            font-size: $font-avatar_bottom_slot-extra_large-fontSize;
         }
 
 
@@ -325,26 +325,26 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
         }
 
         &-shape_square-small{
-            font-size: $font-avatar_bottom_slot-small;
+            font-size: $font-avatar_bottom_slot-small-fontSize;
             border-width: $width-avatar-bottom_slot_square_small-border;
         }
         &-shape_square-default{
-            font-size: $font-avatar_bottom_slot-default;
+            font-size: $font-avatar_bottom_slot-default-fontSize;
             border-width: $width-avatar-bottom_slot_square_default-border;
 
         }
         &-shape_square-medium{
-            font-size: $font-avatar_bottom_slot-medium;
+            font-size: $font-avatar_bottom_slot-medium-fontSize;
             border-width: $width-avatar-bottom_slot_square_medium-border;
 
         }
         &-shape_square-large{
-          font-size: $font-avatar_bottom_slot-large;
+          font-size: $font-avatar_bottom_slot-large-fontSize;
             border-width: $width-avatar-bottom_slot_square_large-border;
         }
 
         &-shape_square-extra-large{
-            font-size: $font-avatar_bottom_slot-extra_large;
+            font-size: $font-avatar_bottom_slot-extra_large-fontSize;
               border-width: $width-avatar-bottom_slot_square_extra_large-border;
           }
     }
