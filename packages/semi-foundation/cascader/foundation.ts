@@ -15,7 +15,8 @@ import {
     normalizedArr,
     isValid,
     calcMergeType,
-    getKeysByValuePath
+    getKeysByValuePath,
+    getKeyByPos
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
@@ -56,6 +57,8 @@ export interface BasicEntity {
     parentKey?: string;
     /* key path */
     path: Array<string>;
+    /* pos in treeData */
+    pos: string;
     /* value path */
     valuePath: Array<string>
 }
@@ -1026,17 +1029,20 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.notifyListScroll(e, { panelIndex: ind, activeNode: data });
     }
 
-    handleTagRemove(e: any, tagValuePath: string[]) {
+    handleTagRemoveByKey = (key: string) => {
         const { keyEntities } = this.getStates();
         const { disabled } = this.getProps();
         if (disabled) {
             /* istanbul ignore next */
             return;
         }
-        const removedItem = (Object.values(keyEntities) as BasicEntity[])
-            .filter(item => isEqual(item.valuePath, tagValuePath))[0];
-        !isEmpty(removedItem) &&
-        !removedItem.data.disabled &&
-        this._handleMultipleSelect(removedItem);
+        const removedItem = keyEntities[key] ?? {};
+        !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+    }
+
+    handleTagRemoveInTrigger = (pos: string) => {
+        const { treeData } = this.getStates();
+        const key = getKeyByPos(pos, treeData);
+        this.handleTagRemoveByKey(key);
     }
 }

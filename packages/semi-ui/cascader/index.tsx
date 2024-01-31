@@ -17,7 +17,7 @@ import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/con
 import { isSet, isEqual, isString, isEmpty, isFunction, isNumber, noop, flatten, isObject } from 'lodash';
 import '@douyinfe/semi-foundation/cascader/cascader.scss';
 import { IconClear, IconChevronDown } from '@douyinfe/semi-icons';
-import { convertDataToEntities, calcMergeType, getKeyByValuePath } from '@douyinfe/semi-foundation/cascader/util';
+import { convertDataToEntities, calcMergeType, getKeyByValuePath, getKeyByPos } from '@douyinfe/semi-foundation/cascader/util';
 import { calcCheckedKeys, normalizeKeyList, calcDisabledKeys } from '@douyinfe/semi-foundation/tree/treeUtil';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
@@ -514,13 +514,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.handleInputChange(value);
     };
 
-    handleTagRemove = (e: any, tagValuePath: Array<string | number>) => {
-        this.foundation.handleTagRemove(e, tagValuePath);
-    };
+    handleTagRemoveInTrigger = (pos: string) => {
+        this.foundation.handleTagRemoveInTrigger(pos);
+    }
 
-    handleRemoveByKey = (key) => {
-        const { keyEntities } = this.state;
-        this.handleTagRemove(null, keyEntities[key].valuePath);
+    handleTagClose = (tagChildren: React.ReactNode, e: React.MouseEvent<HTMLElement>, tagKey: string | number) => {
+        // When value has not changed, prevent clicking tag closeBtn to close tag
+        e.preventDefault();
+        this.foundation.handleTagRemoveByKey(tagKey);
     }
 
     renderTagItem = (nodeKey: string, idx: number) => {
@@ -542,13 +543,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                         size={size === 'default' ? 'large' : size}
                         key={`tag-${nodeKey}-${idx}`}
                         color="white"
+                        tagKey={nodeKey}
                         className={tagCls}
                         closable
-                        onClose={(tagChildren, e) => {
-                            // When value has not changed, prevent clicking tag closeBtn to close tag
-                            e.preventDefault();
-                            this.handleTagRemove(e, keyEntities[nodeKey].valuePath);
-                        }}
+                        onClose={this.handleTagClose}
                     >
                         {keyEntities[nodeKey].data[displayProp]}
                     </Tag>
@@ -556,6 +554,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             }
         }
         return null;
+    };
+
+    onRemoveInTagInput = (v: string) => {
+        this.foundation.handleTagRemoveByKey(v);
     };
 
     renderTagInput() {
@@ -573,11 +575,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 showRestTagsPopover={showRestTagsPopover}
                 restTagsPopoverProps={restTagsPopoverProps}
                 maxTagCount={maxTagCount}
-                renderTagItem={(value, index) => this.renderTagItem(value, index)}
+                renderTagItem={this.renderTagItem}
                 inputValue={inputValue}
                 onInputChange={this.handleInputChange}
                 // TODO Modify logic, not modify type
-                onRemove={v => this.handleTagRemove(null, (v as unknown) as (string | number)[])}
+                onRemove={this.onRemoveInTagInput}
                 placeholder={placeholder}
                 expandRestTagsOnClick={false}
             />
@@ -834,16 +836,18 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderCustomTrigger = () => {
         const { disabled, triggerRender, multiple } = this.props;
-        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys } = this.state;
+        const { selectedKeys, inputValue, inputPlaceHolder, resolvedCheckedKeys, checkedKeys, keyEntities } = this.state;
         let realValue;
         if (multiple) {
             if (this.mergeType === strings.NONE_MERGE_TYPE) {
-                realValue = checkedKeys;
+                realValue = new Set();
+                checkedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             } else {
-                realValue = resolvedCheckedKeys;
+                realValue = new Set();
+                resolvedCheckedKeys.forEach(key => { realValue.add(keyEntities[key]?.pos); });
             }
         } else {
-            realValue = [...selectedKeys][0];
+            realValue = keyEntities[[...selectedKeys][0]]?.pos;
         }
         return (
             <Trigger
@@ -857,7 +861,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 componentName={'Cascader'}
                 componentProps={{ ...this.props }}
                 onSearch={this.handleInputChange}
-                onRemove={this.handleRemoveByKey}
+                onRemove={this.handleTagRemoveInTrigger}
             />
         );
     };
