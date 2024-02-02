@@ -1010,3 +1010,12 @@ export const forwardRefFocus = () => {
     </div>
   </>
 )};
+
+export const TextAreaAutosizeScrollbar = () => {
+  const defaultValue = "a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def a bc def a bc def a bc def g a bc def a bc def";
+  return (
+    <div style={{ width: 200, maxHeight: 300, overflowY: 'auto' }}>
+      <TextArea autosize defaultValue={defaultValue} />
+    </div>
+  )
+};

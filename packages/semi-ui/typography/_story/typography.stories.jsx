@@ -4,11 +4,6 @@ import withPropsCombinations from 'react-storybook-addon-props-combinations';
 import Icon from '../../icons';
 import Typography from '../index';
 import { IconLink, IconTick, IconSetting } from '@douyinfe/semi-icons';
-<<<<<<< HEAD
-=======
-import {HugeData} from "./HugeData";
-import { Tooltip } from '@douyinfe/semi-ui'
->>>>>>> 0348353f (feat: typography support custom tooltip component (#1874))
 
 export default {
   title: 'Typography'
@@ -826,9 +821,9 @@ export const JsEllipsisNoTooltip = () => (
   </Title>
 )
 
-export const HugeDataDemo = () => {
-    return <HugeData/>
-}
+// export const HugeDataDemo = () => {
+//     return <HugeData/>
+// }
 
 export const CustomTooltip = () => {
   const customRenderTooltip = useCallback((content, children) => {

@@ -171,14 +171,13 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         }
     }
 
-    resizeTextarea = (cb?: any) => {
+    resizeTextarea = () => {
         const { height } = this.getStates();
         const { rows } = this.getProps();
         const node = this._adapter.getRef();
         const nodeSizingData = getSizingData(node);
 
         if (!nodeSizingData) {
-            cb && cb();
             return;
         }
 
@@ -194,8 +193,6 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
             node.style.height = `${newHeight}px`;
             return;
         }
-
-        cb && cb();
     };
 
     // e: MouseEvent
