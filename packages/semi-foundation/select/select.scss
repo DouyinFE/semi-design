@@ -59,12 +59,12 @@ $overflowList: #{$prefix}-overflow-list;
 
     &-open,
     &-focus {
-        border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        border: $width-select-border-focus solid $color-select_default-border-focus;
         outline: 0;
 
         &:hover {
             background-color: $color-select-bg-default;
-            border: $border-thickness-control-focus solid $color-select_default-border-focus;
+            border: $width-select-border-hover solid $color-select_default-border-focus;
         }
 
         // when click the trigger, trigger get the focus state, active style should take effect
@@ -126,7 +126,7 @@ $overflowList: #{$prefix}-overflow-list;
         &:focus {
             // border: $border-thickness-control-focus solid $color-select_default-border-focus;
             // when select is disabled, the border should not have active color
-            border: $border-thickness-control-focus solid transparent;
+            border: $width-select-border-focus solid transparent;
         }
 
         .#{$module}-selection,
