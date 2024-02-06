@@ -13,6 +13,24 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.52.0 (2024-02-06)
+- 【Fix】
+  - 修复 Select 点击清除按钮以后，点击外部不触发 onBlur 问题  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
+  - 修复 preloadGapImage [@nekocode](https://github.com/nekocode)
+  - 修复 timepicker value 传入 undefined 时类型错误的问题
+  - 修复 Cascader 在搜索内容为英文逗号时选项面板显示全部选项问题
+  - 修复多选，showClear 的 Cascader 在点击清除按钮后，选项面板没有从搜索状态切换到普通状态问题
+  - 修复 Select 部分 border width token 不正确的问题
+  - 修复 Cascader 在 keyEntities 中的 key 生成规则变化后，triggerRender 的参数中的value 参数和原来不一致问题（影响范围 2.51.0~2.51.3）
+  - 修复当浮层组件的 popupCountainer 或其父级缩放后，定位不准确的问题
+  - 修复 resizable Table 行选择隐藏时多出来一列  [#2036](https://github.com/DouyinFE/semi-design/issues/2036)
+  - 修复 Datepicker 点击清除按钮后，面板年月值不会还原到初始状态问题
+  - 修复 DatePicker prop value 传入非法值 NaN 触发无限更新问题  [#1846](https://github.com/DouyinFE/semi-design/issues/1846)
+  - 修复 Select 的 renderOptionItem 入参中没有 Option 的 className 的问题
+  - 修复 modal 在不打开直接卸载时候，会将 body 上原有的 overflow: hidden 删除的问题(影响范围 2.51.0~2.51.3)
+- 【Chore】
+  - Form withField 引入 utility-types 的类型声明从import 改为 import type，对使用方无影响
+
 #### 🎉 2.52.0-beta.0 (2024-01-31)
 - 【Fix】
     - 修复 Table getCurrentPageData 的类型  [@marshcat0](https://github.com/marshcat0)
