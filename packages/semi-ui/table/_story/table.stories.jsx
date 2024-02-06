@@ -110,7 +110,7 @@ export {
     SortIcon,
     FixedAllDisabledAndSelected,
     FeatRenderFilterDropdown,
-    InputFilter
+    InputFilter,
     FixedAllDisabledAndSelected,
     FixedRowSelectionHiddenResizable
 } from './v2';
