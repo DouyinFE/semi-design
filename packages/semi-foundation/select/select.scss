@@ -124,7 +124,6 @@ $overflowList: #{$prefix}-overflow-list;
         }
 
         &:focus {
-            // border: $border-thickness-control-focus solid $color-select_default-border-focus;
             // when select is disabled, the border should not have active color
             border: $width-select-border-focus solid transparent;
         }
