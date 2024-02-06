@@ -4977,56 +4977,56 @@ render(App);
 
 ## Table
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| bordered | 是否展示外边框和列边框 | boolean | false |
-| childrenRecordName | 树形表格 dataSource 中每行元素中表示子级数据的字段，默认为 children | string | 'children' |
-| className | 最外层样式名 | string |  |
-| clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起 | boolean |  | **0.29.0** |
-| columns | 表格列的配置描述，详见[Column](#Column) | Column[] | [] |
-| components | 覆盖 Table 的组成元素，如 table, body，row，td，th 等 | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
-| dataSource | 数据 | RecordType[] | [] |
-| defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效 | boolean | false |
-| defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效 | boolean | false | **1.30.0** |
-| defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效 | Array<\*> | [] |
+| 属性 | 说明                                                                  | 类型 | 默认值 | 版本 |
+| --- |---------------------------------------------------------------------| --- | --- | --- |
+| bordered | 是否展示外边框和列边框                                                         | boolean | false |
+| childrenRecordName | 树形表格 dataSource 中每行元素中表示子级数据的字段，默认为 children                        | string | 'children' |
+| className | 最外层样式名                                                              | string |  |
+| clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起                                                   | boolean |  | **0.29.0** |
+| columns | 表格列的配置描述，详见[Column](#Column)                                        | Column[] | [] |
+| components | 覆盖 Table 的组成元素，如 table, body，row，td，th 等                            | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
+| dataSource | 数据, 每项需要有key，或者指定 rowKey，见文档开头                                      | RecordType[] | [] |
+| defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效                                                | boolean | false |
+| defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效                                                | boolean | false | **1.30.0** |
+| defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效                                           | Array<\*> | [] |
 | direction | RTL、LTR 方向，默认值等于 ConfigProvider direction，可在此单独配置 Table 的 direction | 'ltr' \| 'rtl' |  | **2.31.0** |
-| empty | 无数据时展示的内容 | ReactNode | '暂无数据' |
-| expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同 | boolean\|string | false |
-| expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染 | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
-| expandedRowKeys | 展开的行，传入此参数时行展开功能将受控 | (string \| number)[] |  |
-| expandedRowRender | 额外的展开行 | (record: object, index: number, expanded: boolean) => ReactNode |  |
-| expandAllRows | 是否展开所有行 | boolean | false | **1.30.0** |
-| expandAllGroupRows | 是否展开分组行 | boolean | false | **1.30.0** |
-| expandRowByClick | 点击行时是否展开可展开行 | boolean | false | **1.31.0** |
-| footer | 表格尾部 | ReactNode<br/>\|(pageData: object) => ReactNode |  |
-| getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效 | (ref: React.RefObject) => void |  | **1.20.0** |
-| groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法 | string\|number<br/>\|(record: RecordType) => string\|number |  | **0.29.0** |
-| hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染 | boolean | true |
-| indentSize | 树形结构 TableCell 的缩进大小 | number | 20 |
-| keepDOM | 折叠行时是否不销毁被折叠的 DOM | boolean | false |
-| loading | 页面是否加载中 | boolean | false |
-| pagination | 分页组件配置 | boolean\|TablePaginationProps | true |
-| prefixCls | 样式名前缀 | string |  |
-| renderGroupSection | 表头渲染方法 | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
-| renderPagination | 自定义分页器渲染方法 | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
-| resizable | 是否开启伸缩列功能，需要进行伸缩的列必须要提供 width 的值 | boolean\|[Resizable](#Resizable) | false |
-| rowExpandable | 传入该参数时，Table 作行渲染时会调用该函数，返回值用于判断该行是否可展开，返回值为 false 时关闭可展开按钮的渲染 | (record: object) => boolean |  | **0.27.0** |
-| rowKey | 表格行 key 的取值，可以是字符串或一个函数 | string<br/>\|(record: RecordType) => string | 'key' |
-| rowSelection | 表格行是否可选择，详见 [rowSelection](#rowSelection) | object | - |
-| scroll | 表格是否可滚动，配置滚动区域的宽或高，详见 [scroll](#scroll) | object | - |
-| showHeader | 是否显示表头 | boolean | true |
-| size | 表格尺寸，影响表格行 `padding` | "default"\|"middle"\|"small" | "default" | **1.0.0** |
-| sticky | 固定表头 | boolean \| { top: number } | false | **2.21.0** |
-| title | 表格标题 | ReactNode<br/>\|(pageData: RecordType[]) => ReactNode |  |
-| virtualized | 虚拟化配置 | Virtualized | false | **0.33.0** |
-| virtualized.itemSize | 每行的高度 | number\|(index: number) => number | 56 | **0.33.0** |
-| virtualized.onScroll | 虚拟化滚动回调方法 | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
-| onChange | 分页、排序、筛选变化时触发 | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
-| onExpand | 点击行展开图标时进行触发 | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | 第三个参数 DOMEvent 需版本 **>=0.28.0** |
-| onExpandedRowsChange | 展开的行变化时触发 | (rows: RecordType[]) => void |  |
-| onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性 | (record: RecordType, index: number) => object |  | **0.29.0** |
-| onHeaderRow | 设置头部行属性，返回的对象会被合并传给表头行 | (columns: Column[], index: number) => object |  |
-| onRow | 设置行属性，返回的对象会被合并传给表格行 | (record: RecordType, index: number) => object |  |
+| empty | 无数据时展示的内容                                                           | ReactNode | '暂无数据' |
+| expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同                                  | boolean\|string | false |
+| expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染                                           | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
+| expandedRowKeys | 展开的行，传入此参数时行展开功能将受控                                                 | (string \| number)[] |  |
+| expandedRowRender | 额外的展开行                                                              | (record: object, index: number, expanded: boolean) => ReactNode |  |
+| expandAllRows | 是否展开所有行                                                             | boolean | false | **1.30.0** |
+| expandAllGroupRows | 是否展开分组行                                                             | boolean | false | **1.30.0** |
+| expandRowByClick | 点击行时是否展开可展开行                                                        | boolean | false | **1.31.0** |
+| footer | 表格尾部                                                                | ReactNode<br/>\|(pageData: object) => ReactNode |  |
+| getVirtualizedListRef | 返回虚拟化表格所用 VariableSizeList 的 ref，仅在配置 virtualized 时有效               | (ref: React.RefObject) => void |  | **1.20.0** |
+| groupBy | 分组依据，一般为 dataSource 元素中某个键名或者返回值为字符串、数字的一个方法                        | string\|number<br/>\|(record: RecordType) => string\|number |  | **0.29.0** |
+| hideExpandedColumn | 当表格可展开时，展开按钮默认会与第一列文案渲染在同一个单元格内，设为 false 时默认将展开按钮单独作为一列渲染           | boolean | true |
+| indentSize | 树形结构 TableCell 的缩进大小                                                | number | 20 |
+| keepDOM | 折叠行时是否不销毁被折叠的 DOM                                                   | boolean | false |
+| loading | 页面是否加载中                                                             | boolean | false |
+| pagination | 分页组件配置                                                              | boolean\|TablePaginationProps | true |
+| prefixCls | 样式名前缀                                                               | string |  |
+| renderGroupSection | 表头渲染方法                                                              | (groupKey?: string \| number, group?: string[] \| number[]) => ReactNode |  | **0.29.0** |
+| renderPagination | 自定义分页器渲染方法                                                          | (paginationProps?: TablePaginationProps) => ReactNode |  | **1.13.0** |
+| resizable | 是否开启伸缩列功能，需要进行伸缩的列必须要提供 width 的值                                    | boolean\|[Resizable](#Resizable) | false |
+| rowExpandable | 传入该参数时，Table 作行渲染时会调用该函数，返回值用于判断该行是否可展开，返回值为 false 时关闭可展开按钮的渲染      | (record: object) => boolean |  | **0.27.0** |
+| rowKey | 表格行 key 的取值，可以是字符串或一个函数                                             | string<br/>\|(record: RecordType) => string | 'key' |
+| rowSelection | 表格行是否可选择，详见 [rowSelection](#rowSelection)                           | object | - |
+| scroll | 表格是否可滚动，配置滚动区域的宽或高，详见 [scroll](#scroll)                             | object | - |
+| showHeader | 是否显示表头                                                              | boolean | true |
+| size | 表格尺寸，影响表格行 `padding`                                                | "default"\|"middle"\|"small" | "default" | **1.0.0** |
+| sticky | 固定表头                                                                | boolean \| { top: number } | false | **2.21.0** |
+| title | 表格标题                                                                | ReactNode<br/>\|(pageData: RecordType[]) => ReactNode |  |
+| virtualized | 虚拟化配置                                                               | Virtualized | false | **0.33.0** |
+| virtualized.itemSize | 每行的高度                                                               | number\|(index: number) => number | 56 | **0.33.0** |
+| virtualized.onScroll | 虚拟化滚动回调方法                                                           | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
+| onChange | 分页、排序、筛选变化时触发                                                       | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
+| onExpand | 点击行展开图标时进行触发                                                        | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | 第三个参数 DOMEvent 需版本 **>=0.28.0** |
+| onExpandedRowsChange | 展开的行变化时触发                                                           | (rows: RecordType[]) => void |  |
+| onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | **0.29.0** |
+| onHeaderRow | 设置头部行属性，返回的对象会被合并传给表头行                                              | (columns: Column[], index: number) => object |  |
+| onRow | 设置行属性，返回的对象会被合并传给表格行                                                | (record: RecordType, index: number) => object |  |
 
 一些上面用到的类型定义：
 

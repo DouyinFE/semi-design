@@ -176,6 +176,12 @@ const AppLayout = ({ type, location, children }) => {
         sideNavStyle.marginTop = 92;
     }
 
+    useEffect(() => {
+        setTimeout(()=>{
+            console.clear();
+        }, 1000);
+    }, []);
+
     // TODO import semi common footer
     return (
         <>

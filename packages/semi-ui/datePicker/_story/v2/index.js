@@ -28,3 +28,4 @@ export { default as FeatYearScrollRange } from './FeatYearScrollRange';
 export { default as FeatInsetInputShowClear } from './FeatInsetInputShowClear';
 export { default as AutoSplitInput } from './AutoSplitInput';
 export { default as FixNeedConfirmControlled } from './FixNeedConfirmControlled';
+export { default as FixedNaN } from './FixedNaN';

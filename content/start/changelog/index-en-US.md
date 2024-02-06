@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.51.4 (2024-01-31)
+- 【Fix】
+    - Fixed the problem that after Cascader's key generation rules in keyEntities changed, the value parameter in triggerRender's parameters was inconsistent with the original one (Affected Scope 2.51.0~2.51.3) [#2051](https://github.com/DouyinFE/semi-design/pull/2051)
+
 #### 🎉 2.51.3 (2024-01-19)
 - 【Fix】
     - Fixed Table propTypes is removed in prod mode

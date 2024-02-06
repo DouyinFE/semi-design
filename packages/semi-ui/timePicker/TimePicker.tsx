@@ -29,7 +29,7 @@ export interface Panel {
     panelFooter?: React.ReactNode | React.ReactNode[]
 }
 
-export type BaseValueType = string | number | Date;
+export type BaseValueType = string | number | Date | undefined;
 
 export type Type = 'time' | 'timeRange';
 
