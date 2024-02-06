@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 70
+order: 71
 category: 反馈类
 title: Progress 进度条
 icon: doc-progress
