@@ -254,4 +254,37 @@ describe('table', () => {
         cy.get('.semi-button').eq(0).click();
         cy.get('.semi-table-column-selection').should('exist');
     });
+
+    it('test renderFilterDropdown', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--feat-render-filter-dropdown&viewMode=story');
+
+        // 测试第一个筛选器
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-input').type('12');
+        cy.get('.semi-button').contains('筛选+关闭').click();
+        cy.get('.semi-table-tbody .semi-table-row').should('have.length', 1);
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-button').contains('清除+关闭').click();
+        cy.get('.semi-table-tbody .semi-table-row').should('have.length', 10);
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-button').contains('直接关闭').click();
+        cy.get('.semi-dropdown').should('not.exist');
+
+        // 测试第二个筛选器
+        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.get('.semi-input').should('have.value', '姜鹏志');
+        cy.get('.semi-button').contains('清除后不关闭').click();
+        cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 46 条');
+        cy.get('.semi-dropdown').should('exist');
+        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.get('.semi-input').type('郝宣');
+        cy.get('.semi-button').contains('筛选后不关闭').click();
+        cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 23 条');
+        cy.get('.semi-dropdown').should('exist');
+        cy.get('.semi-button').contains('直接关闭').click();
+        cy.get('.semi-dropdown').should('not.exist');
+    });
 });

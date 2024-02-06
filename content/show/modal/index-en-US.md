@@ -73,6 +73,52 @@ class modalDemo extends React.Component {
 
 ```
 
+### Bottom Button Fill up
+
+Set `footerFill` to true to make the bottom buttons of the Modal footer fill up the arrangement.
+
+```jsx live=true
+import React from 'react';
+import { Modal, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+        console.log('Ok button clicked');
+    };
+    const handleCancel = () => {
+        setVisible(false);
+        console.log('Cancel button clicked');
+    };
+    const handleAfterClose = () => {
+        console.log('After Close callback executed');
+    };
+
+    return (
+        <>
+            <Button onClick={showDialog}>Open Modal</Button>
+            <Modal
+                title="Basic Modal"
+                visible={visible}
+                onOk={handleOk}
+                afterClose={handleAfterClose} //>=1.16.0
+                onCancel={handleCancel}
+                closeOnEsc={true}
+                footerFill={true}
+            >
+                This is the content of a basic modal.
+                <br />
+                More content...
+            </Modal>
+        </>
+    );
+};
+```
+
 ### Mask Closable
 
 You can set `maskClosable={false}` to prevent modal from closing when clicking on the mask.
@@ -574,6 +620,7 @@ function Demo(props = {}) {
 | confirmLoading    | Toggle loading state of confirm button                                                                                                                                                        | boolean | false   |
 | content            | Content                                                                                                                                                                                       | ReactNode  | -      |
 | footer            | Footer                                                                                                                                                                                        | ReactNode | -       |
+|footerFill| Is the bottom button full (>= 2.xx.0 ) | boolean | false | 
 | fullScreen        | Is modal FullScreen（will override width and height） <br/>**>= v1.18.0**                                                                                                                       | boolean     | false      |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.  <br/>** >= v0.33.0 **                                                       | () => HTMLElement |() => document.body |   
 | hasCancel        | Toggle whether to show cancal button                                                                                                                                                          | boolean | true      |

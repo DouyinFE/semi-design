@@ -47,6 +47,7 @@ import ExpandAllGroupRows from './ExpandAllGroupRows';
 import ExpandRowByClick from './ExpandRowByClick';
 import FixAllColumnsWithoutWidth from './FixAllColumnsWithoutWidth';
 import HugeData from "./HugeData"
+import RowSelectionRenderCell from './RowSelectionRenderCell';
 
 export default {
   title: 'Table'
@@ -107,6 +108,9 @@ export {
     ShowHeader,
     KeepDOM,
     SortIcon,
+    FixedAllDisabledAndSelected,
+    FeatRenderFilterDropdown,
+    InputFilter
     FixedAllDisabledAndSelected,
     FixedRowSelectionHiddenResizable
 } from './v2';
@@ -632,4 +636,10 @@ export const RenderPaginationDemo = () => <RenderPagination />;
 export const HugeDataDemo = ()=><HugeData/>
 HugeDataDemo.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+export const _RowSelectionRenderCell = () => <RowSelectionRenderCell />;
+
+_RowSelectionRenderCell.story = {
+  name: 'RowSelection RenderCell',
 };

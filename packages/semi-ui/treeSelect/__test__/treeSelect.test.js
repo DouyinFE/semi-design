@@ -595,6 +595,27 @@ describe('TreeSelect', () => {
         expect(treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection`).getDOMNode().textContent).toEqual('亚洲');
     });
 
+    it('onClear', () => {
+        let spyOnClear = sinon.spy(() => { });
+        let treeSelect = getTreeSelect({
+            defaultExpandAll: true,
+            onClear: spyOnClear,
+            showClear: true,
+        });
+
+        let nodeBeijing = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-3`).at(0);
+        // select beijing
+        nodeBeijing.simulate('click');
+
+        let nodeSelectTree = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select.${BASE_CLASS_PREFIX}-tree-select-single`).at(0);
+        nodeSelectTree.simulate('mouseenter');
+
+        let nodeClearIcon = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-clearbtn`).at(0);
+        nodeClearIcon.simulate('click');
+
+        expect(spyOnClear.calledOnce).toBe(true);
+    })
+
     it('onChange + value not changed', () => {
         let spyOnSelect = sinon.spy(() => { });
         let spyOnChange = sinon.spy(() => { });

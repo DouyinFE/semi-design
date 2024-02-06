@@ -46,9 +46,10 @@ export type DisabledDateOptions = {
      */
     rangeInputFocus?: 'rangeStart' | 'rangeEnd' | false
 };
+
 export type PresetType = {
-    start?: string | Date | number;
-    end?: string | Date | number;
+    start?: BaseValueType | (() => BaseValueType);
+    end?: BaseValueType | (() => BaseValueType);
     text?: string
 };
 
@@ -1068,18 +1069,20 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     handlePresetClick(item: PresetType, e: any) {
         const { type, timeZone } = this.getProps();
         const prevTimeZone = this.getState('prevTimezone');
+        const start = typeof item.start === 'function' ? item.start() : item.start;
+        const end = typeof item.end === 'function' ? item.end() : item.end;
 
         let value;
         switch (type) {
             case 'month':
             case 'dateTime':
             case 'date':
-                value = this.parseWithTimezone([item.start], timeZone, prevTimeZone);
+                value = this.parseWithTimezone([start], timeZone, prevTimeZone);
                 this.handleSelectedChange(value);
                 break;
             case 'dateTimeRange':
             case 'dateRange':
-                value = this.parseWithTimezone([item.start, item.end], timeZone, prevTimeZone);
+                value = this.parseWithTimezone([start, end], timeZone, prevTimeZone);
                 this.handleSelectedChange(value, { needCheckFocusRecord: false });
                 break;
             default:

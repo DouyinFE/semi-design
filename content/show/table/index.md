@@ -1324,6 +1324,294 @@ function App() {
 render(App);
 ```
 
+### 自定义表头筛选
+
+如果你需要将筛选器输入框展示在表头，可在 `title` 传入 ReactNode，配合 `filteredValue` 使用。
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Avatar, Input, Space } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+    const [filteredValue, setFilteredValue] = useState([]);
+    const compositionRef = useRef({ isComposition: false });
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+
+    const handleChange = (value) => {
+        if (compositionRef.current.isComposition) {
+            return;
+        }
+        const newFilteredValue = value ? [value] : [];
+        setFilteredValue(newFilteredValue);
+    };
+    const handleCompositionStart = () => {
+        compositionRef.current.isComposition = true;
+    };
+
+    const handleCompositionEnd = (event) => {
+        compositionRef.current.isComposition = false;
+        const value = event.target.value;
+        const newFilteredValue = value ? [value] : [];
+        setFilteredValue(newFilteredValue);
+    };
+
+
+    const columns = [
+        {
+            title: (
+                <Space>
+                    <span>标题</span>
+                    <Input
+                        placeholder="请输入筛选值"
+                        style={{ width: 200 }}
+                        onCompositionStart={handleCompositionStart}
+                        onCompositionEnd={handleCompositionEnd}
+                        onChange={handleChange}
+                        showClear 
+                    />
+                </Space>
+            ),
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            onFilter: (value, record) => record.name.includes(value),
+            filteredValue,
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 首页${i}.fig`,
+                owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                size: randomNumber,
+                updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
+### 自定义筛选器
+
+使用 `renderFilterDropdown` 自定义渲染筛选器面板。v2.52 支持。
+
+你可以在用户输入筛选值的时候调用 `setTempFilteredValue` 存储筛选值，在筛选值输入完毕后调用 `confirm` 触发真正的筛选。也可以通过 `confirm({ filteredValue })` 直接筛选。
+
+设置 `tempFilteredValue` 的原因是在需要存储临时筛选值的场景，不需要自己声明一个 state 保存这个临时筛选值。
+
+```typescript
+type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
+interface RenderFilterDropdownProps {
+    /** 临时筛选值，初始值为 `filteredValue` 或 `defaultFilteredValue`  */
+    tempFilteredValue: any[];
+    /** 设置临时筛选值  */
+    setTempFilteredValue: (tempFilteredValue: any[]) => void;
+    /** `confirm` 默认会将 `tempFilteredValue` 赋值给 `filteredValue` 并触发 `onChange` 事件。你也可以通过传入 `filteredValue` 直接设置筛选值  */
+    confirm: (props?: { closeDropdown?: boolean; filteredValue?: any[] }) => void;
+    /** 清除筛选值、临时筛选值  */
+    clear: (props?: { closeDropdown?: boolean }) => void;
+    /** 关闭 dropdown  */
+    close: () => void;
+    /** 筛选器配置项，如不需要可以不传  */
+    filters?: RenderDropdownProps['filters']
+}
+```
+
+
+```jsx live=true noInline=true dir="column"
+import React, { useState, useEffect, useRef } from 'react';
+import { Table, Avatar, Input, Button, Space } from '@douyinfe/semi-ui';
+import * as dateFns from 'date-fns';
+
+function App() {
+    const [dataSource, setData] = useState([]);
+    const inputRef = useRef();
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
+
+    const columns = [
+        {
+            title: '标题',
+            dataIndex: 'name',
+            width: 400,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            onFilter: (value, record) => record.name.includes(value),
+            renderFilterDropdown: (props) => {
+                console.log('renderFilterDropdown', props);
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
+
+                const handleChange = value => {
+                    const filteredValue = value ? [value] : [];
+                    setTempFilteredValue(filteredValue);
+                    // 你也可以在 input value 变化时直接筛选
+                    // confirm({ filteredValue });
+                };
+
+                return (
+                    <Space vertical align='start' style={{ padding: 8 }}>
+                        <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
+                        <Space>
+                            <Button onClick={() => confirm({ closeDropdown: true })}>筛选+关闭</Button>
+                            <Button onClick={() => clear({ closeDropdown: true })}>清除+关闭</Button>
+                            <Button onClick={() => close()}>直接关闭</Button>
+                        </Space>
+                    </Space>
+                );
+            },
+            onFilterDropdownVisibleChange: (visible) => {
+                console.log('inputRef', visible, inputRef);
+                if (inputRef.current && inputRef.current.focus) {
+                    inputRef.current.focus();
+                }
+            }
+        },
+        {
+            title: '大小',
+            dataIndex: 'size',
+            sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+            render: text => `${text} KB`,
+        },
+        {
+            title: '所有者',
+            dataIndex: 'owner',
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                            {typeof text === 'string' && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+            onFilter: (value, record) => record.owner.includes(value),
+            defaultFilteredValue: ['姜鹏志'],
+            renderFilterDropdown: (props) => {
+                console.log('renderFilterDropdown', props);
+                const { tempFilteredValue, setTempFilteredValue, confirm, clear, close } = props;
+
+                const handleChange = (value) => {
+                    if (value) {
+                        setTempFilteredValue([value]);
+                    } else {
+                        setTempFilteredValue([]);
+                    }
+                };
+
+                return (
+                    <Space vertical align='start' style={{ padding: 8 }}>
+                        <Input value={tempFilteredValue[0]} onChange={handleChange}/>
+                        <Space>
+                            <Button onClick={() => confirm({ closeDropdown: false })}>筛选后不关闭</Button>
+                            <Button onClick={() => clear({ closeDropdown: false })}>清除后不关闭</Button>
+                            <Button onClick={() => close()}>直接关闭</Button>
+                        </Space>
+                    </Space>
+                );
+            },
+        },
+        {
+            title: '更新日期',
+            dataIndex: 'updateTime',
+            sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+            render: value => {
+                return dateFns.format(new Date(value), 'yyyy-MM-dd');
+            },
+        },
+    ];
+
+    const getData = () => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            const isSemiDesign = i % 2 === 0;
+            const randomNumber = (i * 1000) % 199;
+            data.push({
+                key: '' + i,
+                name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
+                owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                size: randomNumber,
+                updateTime: new Date().valueOf() + randomNumber * DAY,
+                avatarBg: isSemiDesign ? 'grey' : 'red',
+            });
+        }
+        return data;
+    };
+
+    useEffect(() => {
+        const data = getData();
+        setData(data);
+    }, []);
+
+    return <Table columns={columns} dataSource={dataSource} />;
+}
+
+render(App);
+```
+
 
 
 ### 自定义筛选项渲染
@@ -5158,6 +5446,7 @@ import { Table } from '@douyinfe/semi-ui';
 | fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
+| renderFilterDropdown | 自定义筛选器 dropdown 面板，用法详见[自定义筛选器](#自定义筛选器) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
@@ -5195,6 +5484,7 @@ type Filter = {
 | fixed            | 把选择框列固定在左边                                                                                         | boolean                                                                                              | false  |            |
 | getCheckboxProps | 选择框的默认属性配置                                                                                         | (record: RecordType) => object                                                                       |        |            |
 | hidden           | 是否隐藏选择列                                                                                               | boolean                                                                                              | false  | **0.34.0** |
+| renderCell         | 自定义渲染勾选框                                                                                 | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**     |
 | selectedRowKeys  | 指定选中项的 key 数组，需要和 onChange 进行配合                                                               | string[]                                                                                             |        |            |
 | width            | 自定义列表选择框宽度                                                                                         | string\|number                                                                                       |        |            |
 | onChange         | 选中项发生变化时的回调。第一个参数会保存上次选中的 row keys，即使你做了分页受控或更新了 dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void                            |        |            |
