@@ -890,10 +890,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     showClearBtn = () => {
         const { showClear, disabled, multiple } = this.props;
-        const { selectedKeys, isOpen, isHovering, checkedKeys } = this.state;
+        const { selectedKeys, isOpen, isHovering, checkedKeys, inputValue } = this.state;
         const hasValue = selectedKeys.size;
         const multipleWithHaveValue = multiple && checkedKeys.size;
-        return showClear && (hasValue || multipleWithHaveValue) && !disabled && (isOpen || isHovering);
+        return showClear && (inputValue || hasValue || multipleWithHaveValue) && !disabled && (isOpen || isHovering);
     };
 
     renderClearBtn = () => {
