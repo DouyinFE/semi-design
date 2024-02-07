@@ -4,7 +4,7 @@ import { PresetPosition } from './foundation';
 import { ArrayElement } from '../utils/type';
 import { strings } from './constants';
 import { PanelType } from './monthsGridFoundation';
-import { cloneDeep } from 'lodash';
+import copy from 'fast-copy';
 
 type Type = ArrayElement<typeof strings.TYPE_SET>;
 
@@ -76,7 +76,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         const left = strings.PANEL_TYPE_LEFT;
         const right = strings.PANEL_TYPE_RIGHT;
 
-        const year = cloneDeep(currentYear);
+        const year = copy(currentYear);
         year[panelType] = item.value;
 
         // make sure the right panel time is always less than the left panel time
@@ -102,7 +102,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         const left = strings.PANEL_TYPE_LEFT;
         const right = strings.PANEL_TYPE_RIGHT;
 
-        const month = cloneDeep(currentMonth);
+        const month = copy(currentMonth);
         month[panelType] = item.month;
 
         // make sure the right panel time is always less than the left panel time
@@ -132,7 +132,7 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
                 validMonth = months.slice(0, currentIndex).find(({ month }) => !disabledDate(setMonth(currentDate, month - 1)));
             }
             if (validMonth) {
-                const month = cloneDeep(currentMonth);
+                const month = copy(currentMonth);
                 month[panelType] = validMonth.month;
 
                 // change year and month same time
