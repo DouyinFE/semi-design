@@ -203,7 +203,7 @@ export function getScrollbarWidth() {
     return 0;
 }
 
-export function getDefaultPropsFromConfigProvider(componentName: string, semiDefaultProps: any = {}) {
+export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefaultProps: any = {}) {
     const getFromProvider = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
     return new Proxy({
         ...semiDefaultProps,

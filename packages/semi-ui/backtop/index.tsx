@@ -8,7 +8,7 @@ import BackTopFoundation, { BackTopAdapter } from '@douyinfe/semi-foundation/bac
 import '@douyinfe/semi-foundation/backtop/backtop.scss';
 import IconButton from '../iconButton';
 import { IconChevronUp } from '@douyinfe/semi-icons';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -33,7 +33,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
 
     static __SemiComponentName__ = "BackTop";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(BackTop.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(BackTop.__SemiComponentName__, {
         visibilityHeight: 400,
         target: getDefaultTarget,
         duration: 450,

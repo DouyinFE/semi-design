@@ -2,7 +2,7 @@ import React from 'react';
 
 import BaseButton, { ButtonProps as BaseButtonProps } from './Button';
 import IconButton, { IconButtonProps } from '../iconButton';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export type { ButtonProps as BaseButtonProps, HtmlType, Size, Theme, Type } from './Button';
 
@@ -24,7 +24,7 @@ class Button extends React.PureComponent<ButtonProps> {
         super(props);
     }
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Button.__SemiComponentName__)
+    static defaultProps = getDefaultPropsFromGlobalConfig(Button.__SemiComponentName__)
     render() {
         const props = { ...this.props };
         const hasIcon = Boolean(props.icon); 

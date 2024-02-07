@@ -14,7 +14,7 @@ import '@douyinfe/semi-foundation/collapse/collapse.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { isEqual } from 'lodash';
 import CollapseContext from './collapse-context';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export type { CollapsePanelProps } from './item';
 
@@ -49,7 +49,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
 
     static __SemiComponentName__ = "Collapse";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Collapse.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Collapse.__SemiComponentName__, {
         defaultActiveKey: '',
         clickHeaderToExpand: true,
         onChange: noop,

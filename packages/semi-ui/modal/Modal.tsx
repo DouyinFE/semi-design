@@ -15,7 +15,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
-import { getDefaultPropsFromConfigProvider, getScrollbarWidth } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -86,7 +86,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     static __SemiComponentName__ = "Modal";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Modal.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Modal.__SemiComponentName__, {
         zIndex: 1000,
         motion: true,
         mask: true,

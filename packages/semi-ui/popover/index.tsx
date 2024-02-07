@@ -11,7 +11,7 @@ import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
@@ -93,7 +93,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
     };
     static __SemiComponentName__ = "Popover";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Popover.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Popover.__SemiComponentName__, {
         arrowBounding: numbers.ARROW_BOUNDING,
         showArrow: false,
         autoAdjustOverflow: true,

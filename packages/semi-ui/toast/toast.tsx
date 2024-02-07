@@ -8,7 +8,7 @@ import BaseComponent from '../_base/baseComponent';
 import Button from '../iconButton/index';
 import { IconClose, IconAlertTriangle, IconInfoCircle, IconTickCircle, IconAlertCircle } from '@douyinfe/semi-icons';
 import { noop } from 'lodash';
-import { getDefaultPropsFromConfigProvider, isSemiIcon } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -47,7 +47,7 @@ class Toast extends BaseComponent<ToastReactProps, ToastState> {
         direction: PropTypes.oneOf(strings.directions),
     };
     static __SemiComponentName__ = "Toast";
-    static defaultProps = getDefaultPropsFromConfigProvider(Toast.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Toast.__SemiComponentName__, {
         onClose: noop,
         content: '',
         close: noop,

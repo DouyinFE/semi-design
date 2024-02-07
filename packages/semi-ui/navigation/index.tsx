@@ -14,7 +14,7 @@ import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
@@ -156,7 +156,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
         getPopupContainer: PropTypes.func,
     };
     static __SemiComponentName__ = "Navigation";
-    static defaultProps = getDefaultPropsFromConfigProvider(Nav.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Nav.__SemiComponentName__, {
         subNavCloseDelay: numbers.DEFAULT_SUBNAV_CLOSE_DELAY,
         subNavOpenDelay: numbers.DEFAULT_SUBNAV_OPEN_DELAY,
         tooltipHideDelay: numbers.DEFAULT_TOOLTIP_HIDE_DELAY,

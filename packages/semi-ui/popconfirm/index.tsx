@@ -14,7 +14,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface PopconfirmProps extends PopoverProps {
     cancelText?: string;
@@ -83,7 +83,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
 
     static __SemiComponentName__ = "Popconfirm";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Popconfirm.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Popconfirm.__SemiComponentName__, {
         stopPropagation: true,
         trigger: 'click',
         // position: 'bottomLeft',

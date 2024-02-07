@@ -27,7 +27,7 @@ import Item, { CascaderData, Entities, Entity, Data, FilterRenderProps } from '.
 import Trigger from '../trigger';
 import Tag from '../tag';
 import TagInput from '../tagInput';
-import { getDefaultPropsFromConfigProvider, isSemiIcon } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
 import { Position } from '../tooltip/index';
 
 export type { CascaderType, ShowNextType } from '@douyinfe/semi-foundation/cascader/foundation';
@@ -185,7 +185,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         position: PropTypes.string
     };
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Cascader.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Cascader.__SemiComponentName__, {
         borderless: false,
         leafOnly: false,
         arrowIcon: <IconChevronDown />,

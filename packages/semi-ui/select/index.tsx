@@ -26,7 +26,7 @@ import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
-import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromConfigProvider } from '../_utils';
+import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromGlobalConfig } from '../_utils';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
@@ -314,7 +314,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     static __SemiComponentName__ = "Select";
     
-    static defaultProps: Partial<SelectProps> = getDefaultPropsFromConfigProvider(Select.__SemiComponentName__, {
+    static defaultProps: Partial<SelectProps> = getDefaultPropsFromGlobalConfig(Select.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
         borderless: false,

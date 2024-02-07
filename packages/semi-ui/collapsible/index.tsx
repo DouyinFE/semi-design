@@ -11,7 +11,7 @@ import cls from "classnames";
 import { cssClasses } from "@douyinfe/semi-foundation/collapsible/constants";
 import { isEqual } from "lodash";
 import "@douyinfe/semi-foundation/collapsible/collapsible.scss";
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface CollapsibleProps extends CollapsibleFoundationProps {
     motion?: boolean;
@@ -37,7 +37,7 @@ interface CollapsibleState extends CollapsibleFoundationState {
 class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     static __SemiComponentName__ = "Collapsible";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Collapsible.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Collapsible.__SemiComponentName__, {
         isOpen: false,
         duration: 250,
         motion: true,

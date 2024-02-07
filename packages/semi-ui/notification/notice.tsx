@@ -10,7 +10,7 @@ import NotificationFoundation, {
 } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 import Button from '../iconButton';
 import BaseComponent from '../_base/baseComponent';
-import { getDefaultPropsFromConfigProvider, isSemiIcon } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
 import { noop } from 'lodash';
 import { IconAlertCircle, IconAlertTriangle, IconClose, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
@@ -50,7 +50,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
 
     static __SemiComponentName__ = "Notification";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(Notice.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Notice.__SemiComponentName__, {
         duration,
         id: '',
         close: noop,

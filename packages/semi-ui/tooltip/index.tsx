@@ -20,7 +20,7 @@ import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { isHTMLElement } from '../_base/reactUtils';
-import { getActiveElement, getDefaultPropsFromConfigProvider, getFocusableElements, stopPropagation } from '../_utils';
+import { getActiveElement, getDefaultPropsFromGlobalConfig, getFocusableElements, stopPropagation } from '../_utils';
 import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
@@ -151,7 +151,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         keepDOM: PropTypes.bool,
     };
     static __SemiComponentName__ = "Tooltip";
-    static defaultProps = getDefaultPropsFromConfigProvider(Tooltip.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Tooltip.__SemiComponentName__, {
         arrowBounding: numbers.ARROW_BOUNDING,
         autoAdjustOverflow: true,
         arrowPointAtCenter: true,

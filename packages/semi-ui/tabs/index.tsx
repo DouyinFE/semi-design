@@ -13,7 +13,7 @@ import TabPane from './TabPane';
 import TabItem from './TabItem';
 import TabsContext from './tabs-context';
 import { PlainTab, TabBarProps, TabsProps } from './interface';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon'];
 
@@ -54,7 +54,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         preventScroll: PropTypes.bool,
     };
     static __SemiComponentName__ = "Tabs";
-    static defaultProps: TabsProps = getDefaultPropsFromConfigProvider(Tabs.__SemiComponentName__, {
+    static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
         children: [],
         collapsible: false,
         keepDOM: true,

@@ -10,7 +10,7 @@ import IntersectionObserver from './intersectionObserver';
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
-import { cloneDeep, getDefaultPropsFromConfigProvider } from '../_utils';
+import { cloneDeep, getDefaultPropsFromGlobalConfig } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -56,7 +56,7 @@ export interface OverflowListState {
 class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
     static __SemiComponentName__ = "OverflowList";
 
-    static defaultProps = getDefaultPropsFromConfigProvider(OverflowList.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(OverflowList.__SemiComponentName__, {
         collapseFrom: 'end',
         minVisibleItems: 0,
         overflowRenderer: (): ReactElement => null,

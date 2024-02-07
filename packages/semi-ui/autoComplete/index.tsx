@@ -18,7 +18,7 @@ import Option from './option';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import '@douyinfe/semi-foundation/autoComplete/autoComplete.scss';
 import ReactDOM from 'react-dom';
-import { getDefaultPropsFromConfigProvider } from "../_utils";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 const prefixCls = cssClasses.PREFIX;
 const sizeSet = strings.SIZE;
@@ -169,7 +169,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
 
     static __SemiComponentName__ = "AutoComplete";
     
-    static defaultProps = getDefaultPropsFromConfigProvider(AutoComplete.__SemiComponentName__, {
+    static defaultProps = getDefaultPropsFromGlobalConfig(AutoComplete.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
         zIndex: popoverNumbers.DEFAULT_Z_INDEX,
