@@ -802,4 +802,60 @@ describe('DatePicker', () => {
             cy.get('.semi-datepicker-day-selected-end').contains("13");
         })
     });
+
+    it('month type after click clear button, restore to initial state', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--month-picker&viewMode=story');
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+
+        // click MonthPicker with controlledValue
+        cy.get('.semi-datepicker .semi-input').eq(4).click();
+        cy.get('.semi-datepicker .semi-input-clearbtn').click();
+        cy.get('.semi-scrolllist-item-sel').eq(0).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(1).contains(`${month}月`);
+
+        cy.get('body').click('right');
+        cy.get('.semi-datepicker .semi-input').eq(-1).click();
+        cy.get('.semi-datepicker .semi-input-clearbtn').click();
+        cy.get('.semi-scrolllist-item-sel').eq(0).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(2).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(1).contains(`${month}月`);
+        cy.get('.semi-scrolllist-item-sel').eq(3).contains(`${month+1}月`);
+    });
+
+    it('test split first inset input + dateTimeRange', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fix-need-confirm-controlled&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-input').should('have.value', '2024-02-15 00:00:00');
+        cy.get('button').contains('确定').trigger('click');
+        cy.get('.semi-input').should('have.value', '');
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-input').eq(1).should('have.value', '2024-02-15 00:00:00');
+        cy.get('button').contains('确定').trigger('click');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+    });
+
+    it('test DatePicker props value is NaN', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-na-n&viewMode=story');
+        cy.get('.semi-input').eq(0).should('have.value', '');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-datepicker-day').contains('15').trigger('click');
+        cy.get('.semi-button').contains('set NaN').click();
+        cy.get('.semi-input').eq(0).should('have.value', '');
+        cy.get('.semi-input').eq(1).should('have.value', '');
+    });
+
+    it('presets start and end support function type', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--presets-function-type&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('button').contains('动态时间').click();
+        cy.get('.semi-input').eq(0).should('have.value', '2024-01-24');
+        cy.get('.semi-input').eq(1).should('have.value', '2024-02-26');
+    });
 });

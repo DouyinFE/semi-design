@@ -69,6 +69,10 @@ $module: #{$prefix}-breadcrumb;
             color: $color-breadcrumb_active-text-active;
             cursor: default;
         }
+
+        .#{$prefix}-typography {
+            font-weight: $font-breadcrumb_active-fontWeight;
+        }
     }
 
     &-item-icon {

@@ -194,13 +194,13 @@ class NotificationList extends BaseComponent<NotificationListProps, Notification
 
     has = (id: string) => this.foundation.has(id);
 
-    remove = (id: string | number) => {
+    remove = (id: string) => {
         this.foundation.removeNotice(String(id));
     };
 
 
 
-    update = (id: string|number, opts: NoticeProps)=>{
+    update = (id: string, opts: NoticeProps)=>{
         return this.foundation.update(id, opts);
     }
 

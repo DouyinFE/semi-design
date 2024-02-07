@@ -70,7 +70,11 @@ $module: #{$prefix}-modal;
         padding: $spacing-modal_content-paddingY $spacing-modal_content-paddingX;
         background-clip: padding-box;
         overflow: hidden;
-        @include shadow-elevated;
+        box-shadow: $shadow-modal_content;
+    }
+
+    &-footerfill{
+        display: flex;
     }
 
     &-content-fullScreen {

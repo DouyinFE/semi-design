@@ -47,7 +47,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         forwardRef: PropTypes.func,
         type: PropTypes.oneOf(strings.ITEM_TYPE),
         active: PropTypes.bool,
-        icon: PropTypes.node
+        icon: PropTypes.node,
     };
 
     static contextType = DropdownContext;
@@ -93,9 +93,10 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         const events = {};
         if (!disabled) {
             ['onClick', 'onMouseEnter', 'onMouseLeave', 'onContextMenu'].forEach(eventName => {
-                if (eventName === "onClick") {
-                    events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>)=>{
-                        if (e.button===0) { 
+                const isInAnotherDropdown = this.context.level !== 1;
+                if (isInAnotherDropdown && eventName === "onClick") {
+                    events["onMouseDown"] = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+                        if (e.button === 0) {
                             this.props[eventName]?.(e);
                         }
                     };
@@ -126,7 +127,7 @@ class DropdownItem extends BaseComponent<DropdownItemProps> {
         }
         return (
             <li role="menuitem" tabIndex={-1} aria-disabled={disabled} {...events} onKeyDown={onKeyDown}
-                ref={ref => forwardRef(ref)} className={itemclass} style={style}>
+                ref={ref => forwardRef(ref)} className={itemclass} style={style} {...this.getDataAttr(this.props)}>
                 {tick}
                 {iconContent}
                 {children}

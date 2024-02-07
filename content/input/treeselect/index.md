@@ -1431,6 +1431,7 @@ function Demo() {
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                          | string | `dropdown` | 1.29.0 |
 | showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                                    | boolean | false |  |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                                           | boolean | false | 0.32.0 |
+| showLine | 选项面板中选项显示连接线 | boolean | false | 2.50.0 |
 | showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                           | boolean | false | 2.22.0 |
 | showSearchClear | 是否显示搜索框的清除按钮                                                                                                                               | boolean | true | 0.35.0 |
 | size | 选择框大小，可选 `large`，`small`，`default`                                                                                                         | string | `default` | - |
@@ -1447,6 +1448,7 @@ function Demo() {
 | onBlur | 失去焦点时的回调                                                                                                                                   | function(event) | - | - |
 | onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值及节点属性；如果是通过tag关闭，event参数为null                                                                              | Function | - | - |
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型Function(node\|node[], e) 此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。    | boolean | false | 1.0.0 |
+| onClear     | 点击清除按钮时触发的回调                                                                                                                             | (e: Event) => void |  -  |   2.52.0  |
 | onExpand | 展示节点时调用                                                                                                                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType> | - | - |
 | onFocus | 聚焦时的回调                                                                                                                                     | function(event) | - | - |
 | onLoad | 节点加载完毕时触发的回调                                                                                                                               | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> |- |  1.32.0|

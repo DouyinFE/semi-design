@@ -79,6 +79,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         searchStyle: PropTypes.object,
         selectedKey: PropTypes.string,
         showFilteredOnly: PropTypes.bool,
+        showLine: PropTypes.bool,
         style: PropTypes.object,
         treeData: PropTypes.arrayOf(
             PropTypes.shape({
@@ -133,6 +134,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         motion: true,
         leafOnly: false,
         showFilteredOnly: false,
+        showLine: false,
         expandAction: false,
         disableStrictly: false,
         draggable: false,
@@ -661,11 +663,11 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         if (!treeNodeProps) {
             return null;
         }
-        const { keyMaps } = this.props;
-        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon']);
+        const { keyMaps, showLine } = this.props;
+        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon', 'isEnd']);
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
-        return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={isEmpty(style) ? {} : style} />;
+        return <TreeNode {...treeNodeProps} {...data} {...props} showLine={showLine} data={data} style={isEmpty(style) ? {} : style} />;
     };
 
     itemKey = (index: number, data: KeyEntity) => {
@@ -729,7 +731,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             filteredKeys,
             dragOverNodeKey,
             dropPosition,
-            checkedKeys, 
+            checkedKeys,
             realCheckedKeys,
         } = this.state;
 
@@ -743,6 +745,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             directory,
             multiple,
             showFilteredOnly,
+            showLine,
             motion,
             expandAction,
             loadData,
@@ -807,10 +810,10 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                 <div aria-label={this.props['aria-label']} className={wrapperCls} style={style} {...this.getDataAttr(rest)}>
                     {filterTreeNode ? this.renderInput() : null}
                     <div className={listCls} {...ariaAttr}>
-                        {noData ? this.renderEmpty() : (multiple ? 
+                        {noData ? this.renderEmpty() : (multiple ?
                             (<CheckboxGroup value={Array.from(checkRelation === 'related' ? checkedKeys : realCheckedKeys)}>
                                 {this.renderNodeList()}
-                            </CheckboxGroup>) : 
+                            </CheckboxGroup>) :
                             this.renderNodeList()
                         )}
                     </div>

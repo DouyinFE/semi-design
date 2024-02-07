@@ -450,7 +450,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
         
         const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
-
+        const scaled = Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1;
+        if (scaled) {
+            SPACING = SPACING * wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
         switch (position) {
             case 'top':
                 // left = middleX;
@@ -569,6 +572,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         // Calculate container positioning relative to window
         left = left - containerRect.left;
         top = top - containerRect.top;
+
+        if (scaled) {
+            left /= wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
+
+        if (scaled) {
+            top /= wrapperRect.height/this._adapter.getContainer().clientHeight;
+        }
 
         /**
          * container为body时，如果position不为relative或absolute，这时trigger计算出的top/left会根据html定位（initial containing block）
@@ -828,7 +839,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
-
             // 视口, 原空间与反向空间是否都不足判断
             // Viewport, whether the original space and the reverse space are insufficient to judge
             const isViewYOverFlow = this.isOverFlow(clientTop - marginTop, restClientBottom - marginBottom, wrapperRect.height + spacing);

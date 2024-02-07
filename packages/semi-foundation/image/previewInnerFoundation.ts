@@ -127,7 +127,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             couldClose = false;
         }
         if (couldClose && maskClosable) {
-            this.handlePreviewClose();
+            this._adapter.notifyVisibleChange(false);
         }
     }
 
@@ -166,7 +166,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             direction,
             rotation: 0,
         } as any);
-        this._adapter.notifyRotateChange(0);
     }
 
     handleDownload = () => {
@@ -178,9 +177,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
 
-    handlePreviewClose = () => {
+    handlePreviewClose = (e: any) => {
         this._adapter.notifyVisibleChange(false);
         this._adapter.notifyClose();
+        handlePrevent(e);
     }
 
     handleAdjustRatio = (type: RatioType) => {
@@ -199,10 +199,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyRotateChange(newRotation);
     }
 
-    handleZoomImage = (newZoom: number) => {
+    handleZoomImage = (newZoom: number, notify: boolean = true) => {
         const { zoom } = this.getStates();
         if (zoom !== newZoom) {
-            this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
             this.setState({
                 zoom: newZoom,
             } as any);
@@ -226,6 +226,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
 
         const preloadImages = getPreloadImagArr(imgSrc, currentIndex, preLoadGap, infinite);
+        if (preloadImages.length === 0) {
+            return;
+        }
+
         const Img = new Image();
         let index = 0;
         function callback(e: any) {

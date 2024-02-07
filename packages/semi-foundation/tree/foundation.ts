@@ -42,7 +42,8 @@ export interface BasicTreeNodeProps {
     directory?: boolean;
     selectedKey?: string;
     motionKey?: string[] | string;
-    eventKey?: string
+    eventKey?: string;
+    showLine?: boolean
 }
 
 export interface BasicTreeNodeData {
@@ -236,6 +237,7 @@ export interface BasicTreeProps {
     searchStyle?: any;
     showClear?: boolean;
     showFilteredOnly?: boolean;
+    showLine?: boolean;
     style?: any;
     treeData?: BasicTreeNodeData[];
     treeDataSimpleJson?: TreeDataSimpleJson;

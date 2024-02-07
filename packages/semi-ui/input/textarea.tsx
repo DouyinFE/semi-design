@@ -5,8 +5,10 @@ import TextAreaFoundation from '@douyinfe/semi-foundation/input/textareaFoundati
 import { cssClasses } from '@douyinfe/semi-foundation/input/constants';
 import BaseComponent, { ValidateStatus } from '../_base/baseComponent';
 import '@douyinfe/semi-foundation/input/textarea.scss';
-import { noop, omit, isFunction, isUndefined, isObject } from 'lodash';
+import { noop, omit, isFunction, isUndefined, isObject, throttle } from 'lodash';
+import type { DebouncedFunc } from 'lodash';
 import { IconClear } from '@douyinfe/semi-icons';
+import ResizeObserver from '../resizeObserver';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -20,15 +22,14 @@ type OmitTextareaAttr =
     | 'onKeyDown'
     | 'onKeyPress'
     | 'onKeyUp'
-    | 'onResize'
+    | 'onResize';
 
 export type AutosizeRow = {
     minRows?: number;
     maxRows?: number
-}
+};
 
-export interface TextAreaProps extends
-    Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
+export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, OmitTextareaAttr> {
     autosize?: boolean | AutosizeRow;
     borderless?: boolean;
     placeholder?: string;
@@ -53,7 +54,7 @@ export interface TextAreaProps extends
     onKeyPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onEnterPress?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-    onResize?: (data: {height: number}) => void;
+    onResize?: (data: { height: number }) => void;
     getValueLength?: (value: string) => number;
     forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null
 }
@@ -107,9 +108,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
     focusing: boolean;
     libRef: React.RefObject<HTMLInputElement>;
-    _resizeLock: boolean;
-    _resizeListener: any;
     foundation: TextAreaFoundation;
+    throttledResizeTextarea: DebouncedFunc<typeof this.foundation.resizeTextarea>;
 
     constructor(props: TextAreaProps) {
         super(props);
@@ -124,17 +124,18 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         this.foundation = new TextAreaFoundation(this.adapter);
 
         this.libRef = React.createRef<HTMLInputElement>();
-        this._resizeLock = false;
+        this.throttledResizeTextarea = throttle(this.foundation.resizeTextarea, 10);
     }
 
     get adapter() {
         return {
             ...super.adapter,
-            setValue: (value: string) => this.setState({ value }, () => {
-                if (this.props.autosize) {
-                    this.foundation.resizeTextarea();
-                }
-            }),
+            setValue: (value: string) =>
+                this.setState({ value }, () => {
+                    if (this.props.autosize) {
+                        this.foundation.resizeTextarea();
+                    }
+                }),
             getRef: () => this.libRef.current,
             toggleFocusing: (focusing: boolean) => this.setState({ isFocus: focusing }),
             toggleHovering: (hovering: boolean) => this.setState({ isHover: hovering }),
@@ -169,35 +170,18 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         return willUpdateStates;
     }
 
-    componentDidMount() {
-        this.foundation.init();
-        this._resizeListener = null;
-        if (this.props.autosize) {
-            // Working around Firefox bug which runs resize listeners even when other JS is running at the same moment
-            // causing competing rerenders (due to setState in the listener) in React.
-            // More can be found here - facebook/react#6324
-            // // Reference to https://github.com/andreypopp/react-textarea-autosize/
-            this._resizeListener = () => {
-                if (this._resizeLock) {
-                    return;
-                }
-                this._resizeLock = true;
-                this.foundation.resizeTextarea(() => {
-                    this._resizeLock = false;
-                });
-            };
-            window.addEventListener('resize', this._resizeListener);
+    componentWillUnmount(): void {
+        if (this.throttledResizeTextarea) {
+            this.throttledResizeTextarea?.cancel?.();
+            this.throttledResizeTextarea = null;
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-        this._resizeListener && window.removeEventListener('resize', this._resizeListener);
-    }
-
     componentDidUpdate(prevProps: TextAreaProps, prevState: TextAreaState) {
-
-        if ((this.props.value !== prevProps.value || this.props.placeholder !== prevProps.placeholder) && this.props.autosize) {
+        if (
+            (this.props.value !== prevProps.value || this.props.placeholder !== prevProps.placeholder) &&
+            this.props.autosize
+        ) {
             this.foundation.resizeTextarea();
         }
     }
@@ -215,10 +199,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         if (showClear) {
             return (
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                <div
-                    className={clearCls}
-                    onClick={this.handleClear}
-                >
+                <div className={clearCls} onClick={this.handleClear}>
                     <IconClear />
                 </div>
             );
@@ -227,25 +208,21 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     }
 
     renderCounter() {
-        let counter: React.ReactNode,
-            current: number,
-            total: number,
-            countCls: string;
+        let counter: React.ReactNode, current: number, total: number, countCls: string;
         const { showCounter, maxCount, getValueLength } = this.props;
         if (showCounter || maxCount) {
             const { value } = this.state;
             // eslint-disable-next-line no-nested-ternary
-            current = value ? isFunction(getValueLength) ? getValueLength(value) : value.length : 0;
+            current = value ? (isFunction(getValueLength) ? getValueLength(value) : value.length) : 0;
             total = maxCount || null;
-            countCls = cls(
-                `${prefixCls}-textarea-counter`,
-                {
-                    [`${prefixCls}-textarea-counter-exceed`]: current > total
-                }
-            );
+            countCls = cls(`${prefixCls}-textarea-counter`, {
+                [`${prefixCls}-textarea-counter-exceed`]: current > total,
+            });
             counter = (
                 <div className={countCls}>
-                    {current}{total ? '/' : null}{total}
+                    {current}
+                    {total ? '/' : null}
+                    {total}
                 </div>
             );
         } else {
@@ -289,28 +266,21 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             ...rest
         } = this.props;
         const { isFocus, value, minLength: stateMinLength } = this.state;
-        const wrapperCls = cls(
-            className,
-            `${prefixCls}-textarea-wrapper`,
-            {
-                [`${prefixCls}-textarea-borderless`]: borderless,
-                [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
-                [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
-                [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),
-                [`${prefixCls}-textarea-wrapper-focus`]: isFocus,
-                // [`${prefixCls}-textarea-wrapper-resize`]: !autosize && resize,
-            }
-        );
+        const wrapperCls = cls(className, `${prefixCls}-textarea-wrapper`, {
+            [`${prefixCls}-textarea-borderless`]: borderless,
+            [`${prefixCls}-textarea-wrapper-disabled`]: disabled,
+            [`${prefixCls}-textarea-wrapper-readonly`]: readonly,
+            [`${prefixCls}-textarea-wrapper-${validateStatus}`]: Boolean(validateStatus),
+            [`${prefixCls}-textarea-wrapper-focus`]: isFocus,
+            // [`${prefixCls}-textarea-wrapper-resize`]: !autosize && resize,
+        });
         // const ref = this.props.forwardRef || this.textAreaRef;
-        const itemCls = cls(
-            `${prefixCls}-textarea`,
-            {
-                [`${prefixCls}-textarea-disabled`]: disabled,
-                [`${prefixCls}-textarea-readonly`]: readonly,
-                [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
-                [`${prefixCls}-textarea-showClear`]: showClear,
-            }
-        );
+        const itemCls = cls(`${prefixCls}-textarea`, {
+            [`${prefixCls}-textarea-disabled`]: disabled,
+            [`${prefixCls}-textarea-readonly`]: readonly,
+            [`${prefixCls}-textarea-autosize`]: isObject(autosize) ? isUndefined(autosize?.maxRows) : autosize,
+            [`${prefixCls}-textarea-showClear`]: showClear,
+        });
         const itemProps = {
             ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
             autoFocus: autoFocus || this.props['autofocus'],
@@ -338,7 +308,13 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 onMouseEnter={e => this.foundation.handleMouseEnter(e)}
                 onMouseLeave={e => this.foundation.handleMouseLeave(e)}
             >
-                <textarea {...itemProps} ref={this.setRef} />
+                {autosize ? (
+                    <ResizeObserver onResize={this.throttledResizeTextarea}>
+                        <textarea {...itemProps} ref={this.setRef} />
+                    </ResizeObserver>
+                ) : (
+                    <textarea {...itemProps} ref={this.setRef} />
+                )}
                 {this.renderClearBtn()}
                 {this.renderCounter()}
             </div>
@@ -346,6 +322,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
     }
 }
 
-const ForwardTextarea = React.forwardRef<HTMLTextAreaElement, Omit<TextAreaProps, 'forwardRef'>>((props, ref) => <TextArea {...props} forwardRef={ref} />);
+const ForwardTextarea = React.forwardRef<HTMLTextAreaElement, Omit<TextAreaProps, 'forwardRef'>>((props, ref) => (
+    <TextArea {...props} forwardRef={ref} />
+));
 
 export default ForwardTextarea;

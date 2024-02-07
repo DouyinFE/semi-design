@@ -189,6 +189,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     closeMenu: (cb?: () => void) => void;
     getTriggerWidth: () => boolean | number;
     setOptionWrapperWidth: (width: null | number) => void;
+    notifyClear: (e: any) => void;
     notifyChange: BasicOnChangeWithBasic;
     notifyChangeWithObject: BasicOnChangeWithObject;
     notifyExpand: (expandedKeys: Set<string>, expandedOtherProps: BasicExpandedOtherProps) => void;
@@ -538,6 +539,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 }
             }
         }
+        this._adapter.notifyClear(e);
     }
 
     /**

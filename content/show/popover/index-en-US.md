@@ -474,27 +474,36 @@ import { Popover, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
     return (
-        <Popover
-            content={
-                <article style={{ padding: 4 }}>
-                    Hi ByteDancer, this is a popover.
-                    <br /> We have 2 lines.
-                </article>
-            }
-            trigger="custom"
-            position='right'
-            visible
-            showArrow
-            style={{
-                backgroundColor: 'rgba(var(--semi-blue-4),1)',
-                borderColor: 'rgba(var(--semi-blue-4),1)',
-                color: 'var(--semi-color-white)',
-                borderWidth: 1,
-                borderStyle: 'solid',
-            }}
-        >
-            <Tag>Click here</Tag>
-        </Popover>
+        <div id='popup-parent' style={{ position: 'relative' }}>
+            <Popover
+                content={
+                    <article style={{ padding: 4 }}>
+                        Hi, Semi UI Popover.
+                    </article>
+                }
+                getPopupContainer={() => document.querySelector('#popup-parent')}
+                trigger='custom'
+                visible
+                position='right'
+                showArrow
+                style={{
+                    backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                    borderColor: 'rgba(var(--semi-blue-4),1)',
+                    color: 'var(--semi-color-white)',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                }}
+            >
+                <Tag
+                    style={{
+                        backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                        color: 'var(--semi-color-white)'
+                    }}
+                >
+                    Colorful Popover
+                </Tag>
+            </Popover>
+        </div>
     );
 }
 ```
@@ -549,7 +558,7 @@ Please refer to [Use with Tooltip/Popconfirm](/en-US/show/tooltip#%E6%90%AD%E9%8
 | returnFocusOnClose | After pressing the Esc key, whether the focus returns to the trigger, it only takes effect when the trigger is set to hover, focus, click, etc                                                                                                | boolean | true | **2.8.0** |
 | visible | Display popup or not                                                                                                                                                                                                                          | boolean |  |
 | position | Directions, optional values: `top`, `topLeft`, `topRight`, `left`, `leftTop`, `leftBottom`, `right`, `rightTop`, `rightBottom`, `bottom`, `bottomLeft`, `bottomRight`                                                                         | string | "bottom" |
-| spacing | The distance between the out layer and the children element, in px                                                                                                                                                                            | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 4(while showArrow=false) 10(while showArrow=true) |  |
+| spacing | The distance between the out layer and the children element, in px. object type props supported after v2.45                                                                                                                                                                            | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 4(while showArrow=false) 10(while showArrow=true) |  |
 | showArrow | Display little arrow or not                                                                                                                                                                                                                   | boolean |  |
 | trigger | Trigger mode, optional value: `hover`, `focus`, `click`, `custom`                                                                                                                                                                             | string | 'hover' |
 | stopPropagation | Whether to prevent click events on the bomb layer from bubbling                                                                                                                                                                               | boolean | false | **0.34.0** |

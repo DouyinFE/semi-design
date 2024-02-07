@@ -3416,80 +3416,49 @@ export const TestOptionKey = () => {
 }
 
 export const AllCaseOfBlur = () => {
+
+  const BaseSelect = (props) => {
+    return (
+       <Select defaultValue="abc" style={{ width: 120 }} {...props} >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying" disabled>
+            剪映
+        </Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    )
+  }
   return (
     <div>
       <h3>单选</h3>
       <Divider margin='12px' />
       <h5>默认配置</h5>
-      <Select defaultValue="abc" style={{ width: 120 }} onBlur={()=>{console.log('single default onBlur')}} >
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="singleDefault" onBlur={()=>{console.log('single default onBlur')}} />
       <br />
       <h5>filter</h5>
-      <Select defaultValue="abc" style={{ width: 120 }} filter onBlur={()=>{console.log('single filter onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="singleFilter" filter onBlur={()=>{console.log('single filter onBlur')}} />
       <br />
       <h5>autoFocus</h5>
-      <Select defaultValue="abc" style={{ width: 120 }} autoFocus onBlur={()=>{console.log('single autoFocus onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="singleAutoFocus" autoFocus onBlur={()=>{console.log('single autoFocus onBlur')}} />
       <br />
       <h5>clickToHide</h5>
-      <Select defaultValue="abc" style={{ width: 120 }} clickToHide onBlur={()=>{console.log('single clickToHide onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="singleClickToHide" clickToHide onBlur={()=>{console.log('single clickToHide onBlur')}} />
       <br />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="singleShowClear" showClear onBlur={()=>{console.log('single showClear onBlur')}} />
+
       <h3>多选</h3>
       <Divider margin='12px' />
       <h5>默认配置</h5>
-      <Select defaultValue="abc" style={{ width: 220 }} multiple onBlur={()=>{console.log('multiple default onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="multipleDefault" multiple onBlur={()=>{console.log('multiple default onBlur')}} />
       <br />
       <h5>filter</h5>
-      <Select defaultValue="abc" style={{ width: 220 }} multiple filter onBlur={()=>{console.log('multiple filter onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="multipleFilter" multiple filter onBlur={()=>{console.log('multiple filter onBlur')}} />
       <h5>clickToHide</h5>
-      <Select defaultValue="abc" style={{ width: 120 }} multiple clickToHide onBlur={()=>{console.log('multiple clickToHide onBlur')}}>
-        <Select.Option value="abc">抖音</Select.Option>
-        <Select.Option value="ulikecam">轻颜相机</Select.Option>
-        <Select.Option value="jianying" disabled>
-            剪映
-        </Select.Option>
-        <Select.Option value="xigua">西瓜视频</Select.Option>
-      </Select>
+      <BaseSelect data-cy="multipleClickToHide" multiple clickToHide onBlur={()=>{console.log('multiple clickToHide onBlur')}} />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="multipleShowClear" multiple showClear onBlur={()=>{console.log('multiple showClear onBlur')}} />
       <br />
       <br />
     </div>
