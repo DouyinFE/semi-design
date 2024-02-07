@@ -179,6 +179,11 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     }
 
+    componentWillUnmount() {
+        if (this.props.visible) {
+            super.componentWillUnmount();
+        }
+    }
 
     handleCancel = (e: React.MouseEvent) => {
         this.foundation.handleCancel(e);
