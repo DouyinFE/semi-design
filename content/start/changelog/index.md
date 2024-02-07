@@ -16,12 +16,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.52.0 (2024-02-06)
 - 【Fix】
   - 修复 Select 点击清除按钮以后，点击外部不触发 onBlur 问题  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
-  - 修复 preloadGapImage [@nekocode](https://github.com/nekocode)
-  - 修复 timepicker value 传入 undefined 时类型错误的问题
+  - 修复 Image 在特殊情况下会向 undefined 地址请求的问题 [#2063](https://github.com/DouyinFE/semi-design/issues/2063) [@nekocode](https://github.com/nekocode)
+  -  修复 timepicker value 传入 undefined 时类型错误的问题 [#2066](https://github.com/DouyinFE/semi-design/issues/2066)
   - 修复 Cascader 在搜索内容为英文逗号时选项面板显示全部选项问题
   - 修复多选，showClear 的 Cascader 在点击清除按钮后，选项面板没有从搜索状态切换到普通状态问题
   - 修复 Select 部分 border width token 不正确的问题
-  - 修复 Cascader 在 keyEntities 中的 key 生成规则变化后，triggerRender 的参数中的value 参数和原来不一致问题（影响范围 2.51.0~2.51.3）
   - 修复当浮层组件的 popupCountainer 或其父级缩放后，定位不准确的问题
   - 修复 resizable Table 行选择隐藏时多出来一列  [#2036](https://github.com/DouyinFE/semi-design/issues/2036)
   - 修复 Datepicker 点击清除按钮后，面板年月值不会还原到初始状态问题
