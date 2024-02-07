@@ -61,7 +61,6 @@ export default class ReactIntersectionObserver extends React.PureComponent<React
     }
 
     componentWillUnmount(): void {
-        super.componentWillUnmount();
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;

@@ -53,7 +53,6 @@ export default class SideSheetContent extends React.PureComponent<SideSheetConte
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount();
         clearTimeout(this.timeoutId);
     }
 

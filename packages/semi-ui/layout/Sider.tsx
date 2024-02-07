@@ -91,7 +91,6 @@ class Sider extends React.PureComponent<SiderProps> {
     }
 
     componentWillUnmount(): void {
-        super.componentWillUnmount();
         this.unRegisters.forEach(unRegister => unRegister());
 
         if (this.context.siderHook) {

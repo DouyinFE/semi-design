@@ -105,7 +105,6 @@ class Row extends React.Component<RowProps, RowState> {
     }
 
     componentWillUnmount() {
-        super.componentWillUnmount();
         this.unRegisters.forEach(unRegister => unRegister());
     }
 
