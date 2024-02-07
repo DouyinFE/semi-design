@@ -3,6 +3,7 @@ import { cloneDeepWith, set, get } from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import { findAll } from '@douyinfe/semi-foundation/utils/getHighlight';
 import { isHTMLElement } from '@douyinfe/semi-foundation/utils/dom';
+import semiGlobal from "./semi-global";
 /**
  * stop propagation
  *
@@ -221,4 +222,33 @@ export function getScrollbarWidth() {
     return 0;
 }
 
+export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefaultProps: any = {}) {
+    const getFromGlobalConfig = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
+    return new Proxy({
+        ...semiDefaultProps,
+    }, {
+        get(target, key, receiver) {
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            if (key in defaultPropsFromGlobal) {
+                return defaultPropsFromGlobal[key];
+            }
+            return Reflect.get(target, key, receiver);
+        },
+        set(target, key, value, receiver) {
+            return Reflect.set(target, key, value, receiver);
+        },
+        ownKeys() {
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            return Array.from(new Set([...Reflect.ownKeys(semiDefaultProps), ...Object.keys(defaultPropsFromGlobal)]));
+        },
+        getOwnPropertyDescriptor(target, key) {
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            if (key in defaultPropsFromGlobal) {
+                return Reflect.getOwnPropertyDescriptor(defaultPropsFromGlobal, key);
+            } else {
+                return Reflect.getOwnPropertyDescriptor(target, key);
+            }
+        }
+    });
+}
 
