@@ -204,14 +204,14 @@ export function getScrollbarWidth() {
 }
 
 export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefaultProps: any = {}) {
-    const getFromProvider = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
+    const getFromGlobalConfig = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
     return new Proxy({
         ...semiDefaultProps,
     }, {
         get(target, key, receiver) {
-            const defaultPropsFromProvider = getFromProvider();
-            if (key in defaultPropsFromProvider) {
-                return defaultPropsFromProvider[key];
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            if (key in defaultPropsFromGlobal) {
+                return defaultPropsFromGlobal[key];
             }
             return Reflect.get(target, key, receiver);
         },
@@ -219,13 +219,13 @@ export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefau
             return Reflect.set(target, key, value, receiver);
         },
         ownKeys() {
-            const defaultPropsFromProvider = getFromProvider();
-            return Array.from(new Set([...Reflect.ownKeys(semiDefaultProps), ...Object.keys(defaultPropsFromProvider)]));
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            return Array.from(new Set([...Reflect.ownKeys(semiDefaultProps), ...Object.keys(defaultPropsFromGlobal)]));
         },
         getOwnPropertyDescriptor(target, key) {
-            const defaultPropsFromProvider = getFromProvider();
-            if (key in defaultPropsFromProvider) {
-                return Reflect.getOwnPropertyDescriptor(defaultPropsFromProvider, key);
+            const defaultPropsFromGlobal = getFromGlobalConfig();
+            if (key in defaultPropsFromGlobal) {
+                return Reflect.getOwnPropertyDescriptor(defaultPropsFromGlobal, key);
             } else {
                 return Reflect.getOwnPropertyDescriptor(target, key);
             }
