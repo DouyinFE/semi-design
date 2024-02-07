@@ -1,11 +1,11 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Tree } from '../../index';
 import TreeSelect from '../index';
-import { flattenDeep, cloneDeep } from 'lodash';
+import { flattenDeep } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
-import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
-import { node } from 'prop-types';
+import copy from 'fast-copy';
+
 const TreeNode = TreeSelect.TreeNode;
 const { Title } = Typography;
 
@@ -2566,7 +2566,7 @@ export const KeyMaps = () => {
   }, []);
 
   const normalExpand = useCallback((expandedKeys, {expanded, node}) => {
-    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+    console.log('onExpanded', expandedKeys, expanded, copy(node));
   }, []);
 
   const keyMaps = useMemo(() => {
@@ -2647,7 +2647,7 @@ export const KeyMaps = () => {
           multiple
           expandedKeys={expandKeys}
           onExpand={(expandedKeys, {expanded, node}) => {
-            console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+            console.log('onExpanded', expandedKeys, expanded, copy(node));
             setExpandedKeys(expandedKeys);
           }}
         />
