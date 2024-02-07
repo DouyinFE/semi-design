@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -2207,11 +2207,13 @@ const BlurDemo = () => {
   const onBlur = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onBlur');
   };
 
   const onFocus = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onFocus');
   };
 
   return (
@@ -2224,6 +2226,24 @@ const BlurDemo = () => {
         }}
         onBlur={onBlur}
         onFocus={onFocus}
+      >
+        <Select.Option value="zhongguo">China</Select.Option>
+        <Select.Option value="hanguo">Korea</Select.Option>
+        <Select.Option value="deguo">Germany</Select.Option>
+        <Select.Option value="faguo">France</Select.Option>
+      </Select>
+      <br />
+      <br />
+      <br />
+      <Select
+        filter
+        placeholder="多选"
+        style={{
+          width: 180,
+        }}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        multiple
       >
         <Select.Option value="zhongguo">China</Select.Option>
         <Select.Option value="hanguo">Korea</Select.Option>
@@ -3393,4 +3413,54 @@ export const TestOptionKey = () => {
     ]}>
     </Select>
   </>
+}
+
+export const AllCaseOfBlur = () => {
+
+  const BaseSelect = (props) => {
+    return (
+       <Select defaultValue="abc" style={{ width: 120 }} {...props} >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying" disabled>
+            剪映
+        </Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    )
+  }
+  return (
+    <div>
+      <h3>单选</h3>
+      <Divider margin='12px' />
+      <h5>默认配置</h5>
+      <BaseSelect data-cy="singleDefault" onBlur={()=>{console.log('single default onBlur')}} />
+      <br />
+      <h5>filter</h5>
+      <BaseSelect data-cy="singleFilter" filter onBlur={()=>{console.log('single filter onBlur')}} />
+      <br />
+      <h5>autoFocus</h5>
+      <BaseSelect data-cy="singleAutoFocus" autoFocus onBlur={()=>{console.log('single autoFocus onBlur')}} />
+      <br />
+      <h5>clickToHide</h5>
+      <BaseSelect data-cy="singleClickToHide" clickToHide onBlur={()=>{console.log('single clickToHide onBlur')}} />
+      <br />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="singleShowClear" showClear onBlur={()=>{console.log('single showClear onBlur')}} />
+
+      <h3>多选</h3>
+      <Divider margin='12px' />
+      <h5>默认配置</h5>
+      <BaseSelect data-cy="multipleDefault" multiple onBlur={()=>{console.log('multiple default onBlur')}} />
+      <br />
+      <h5>filter</h5>
+      <BaseSelect data-cy="multipleFilter" multiple filter onBlur={()=>{console.log('multiple filter onBlur')}} />
+      <h5>clickToHide</h5>
+      <BaseSelect data-cy="multipleClickToHide" multiple clickToHide onBlur={()=>{console.log('multiple clickToHide onBlur')}} />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="multipleShowClear" multiple showClear onBlur={()=>{console.log('multiple showClear onBlur')}} />
+      <br />
+      <br />
+    </div>
+  )
 }

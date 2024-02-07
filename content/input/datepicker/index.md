@@ -880,7 +880,7 @@ function Demo() {
 | placeholder | 输入框提示文字                                                                                              | string\|string[] | 'Select date' |  |
 | position | 浮层位置，可选值同[Popover#API 参考·position 参数](/zh-CN/show/popover#API参考)                                     | string | 'bottomLeft' |  |
 | prefix | 前缀内容                                                                                                 | string\|ReactNode |  |  |
-| presets | 日期时间快捷方式                                                                                             |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType> | [] |  |
+| presets | 日期时间快捷方式, start 和 end 在 v2.52 版本支持函数类型                                                                                            |  <ApiType detail='type PresetType = { start?: BaseValueType \| (() => BaseValueType); end?: BaseValueType \| (() => BaseValueType); text?: string }; type PresetsType = Array<PresetType \| (() => PresetType)>;'>Array</ApiType> | [] |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                               | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom'                                                    | string |  'bottom' | **2.18.0** |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | **1.31.0** |
@@ -892,7 +892,7 @@ function Demo() {
 | startDateOffset | type 为 dateRange 时，设置单击选择范围的开始日期                                                                     | <ApiType detail='(selectedDate?: Date) => Date '>(selectedDate) => Date </ApiType>| - | **1.10.0** |
 | startYear | 滚轮的开始年                                                                                               | number | 当前年前 100 年 | **2.36.0** |
 | endYear | 滚轮的结束年，结束年需要大于开始年                                                                                    | number | 当前年后 100 年 | **2.36.0** |
-| stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                      | boolean | false |  |
+| stopPropagation | 是否阻止弹出层上的点击事件冒泡                                                                                      | boolean | true |  |
 | style | 自定义样式                                                                                                | CSSProperties |  |  |
 | syncSwitchMonth | 在范围选择的场景中，支持同步切换双面板的月份                                                                               | boolean | false | **1.28.0** |
 | timePickerOpts | 其他可以透传给时间选择器的参数，详见 [TimePicker·API 参考](/zh-CN/input/timepicker#API_参考)                               |  | object | **1.1.0** |
@@ -1009,13 +1009,15 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 -   `"m"` ：分钟
 -   `"s"` ：秒
 
-默认的日期时间会格式化为：
+下面以 `new Date('2023-12-09 08:08:00')` 和 `[new Date('2023-12-09 08:08:00'), new Date('2023-12-10 10:08:00')]` 为例说明不同 `format` 值对展示值的影响：
 
--   `"date"`（日期）：`"yyyy-MM-dd"`
--   `"dateTime"`（日期时间）：`"yyyy-MM-dd HH:mm:ss"`
--   `"month"`（年月）：`"yyyy-MM"`
--   `"dateRange"`（日期范围）：`"yyyy-MM-dd ~ yyyy-MM-dd"`
--   `"dateTimeRange"`（日期时间范围）：`"yyyy-MM-dd HH:mm:ss ~ yyyy-MM-dd HH:mm:ss"`
+| 类型 | format | 展示值 |  
+| --- | --- |  --- | 
+| date | yyyy-MM-dd | 2023-12-09 |
+| dateTime | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08:00 |
+| month | yyyy-MM | 2023-12 |
+| dateRange | yyyy-MM-dd | 2023-12-09 ～ 2023-12-10 |
+| dateTimeRange | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08 ～ 2023-12-10 10:08 |
 
 多个日期或时间默认使用 `","` （英文逗号）分隔。
 

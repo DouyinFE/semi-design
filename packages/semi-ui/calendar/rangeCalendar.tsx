@@ -130,7 +130,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         const { parsedEvents } = this.state;
         const events = parsedEvents.day;
         const { week } = this.RangeData;
-        const { markWeekend, dateGridRender } = this.props;
+        const { markWeekend, dateGridRender, minEventHeight } = this.props;
         const inner = week.map(day => {
             const dateString = day.date.toString();
             const dayEvents = events.has(dateString) ? events.get(dateString) : [];
@@ -145,6 +145,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
                     showCurrTime={this.props.showCurrTime}
                     isWeekend={markWeekend && day.isWeekend}
                     dateGridRender={dateGridRender}
+                    minEventHeight={minEventHeight}
                 />
             );
         });
@@ -217,7 +218,7 @@ export default class RangeCalendar extends BaseComponent<RangeCalendarProps, Ran
         const { allDay } = this.state.parsedEvents;
         const parsed = this.foundation.parseRangeAllDayEvents(allDay);
         const style = allDayEventsRender ? null : {
-            height: `${calcRowHeight(parsed) }em`
+            height: `${calcRowHeight(parsed)}em`
         };
         const { markWeekend } = this.props;
         const { week } = this.RangeData;

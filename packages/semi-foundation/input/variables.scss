@@ -13,6 +13,8 @@ $color-input_default-bg-focus: var(--semi-color-fill-0); // 输入框背景颜�
 $color-input_default-border-focus: var(--semi-color-focus-border); // 输入框描边颜色 - 选中
 $color-input_icon-outline: var(--semi-color-primary-light-active); // 输入框 icon outline 颜色
 
+$color-input_default-bg-focus-hover: $color-input_default-bg-focus; // 输入框背景颜色 - 选中悬浮
+
 // error
 $color-input_danger-bg-default: var(--semi-color-danger-light-default); // 错误输入框背景颜色 - 默认
 $color-input_danger-border-default: var(--semi-color-danger-light-default); // 错误输入框描边颜色 - 默认
@@ -56,6 +58,9 @@ $color-input_counter-text-default: var(--semi-color-text-2); // 多行文本字�
 $color-input_counter_danger-text-default: var(--semi-color-danger); // 多行文本字数统计文字颜色 - 未超限
 
 $color-input_group-border-default: var(--semi-color-border); // 输入框组合分割线颜色
+
+$color_input-default-border-only_border-default: var(--semi-color-border); // 只有描边的输入框描边颜色 - 默认
+$color_input-default-border-only_border-hover: var(--semi-color-border); // 只有描边的输入框描边颜色 - 默认
 
 $height-input_large: $height-control-large - 2px; // 输入框高度 & 行高 - 大尺寸
 $height-input_small: $height-control-small - 2px; // 输入框高度 & 行高 - 小尺寸

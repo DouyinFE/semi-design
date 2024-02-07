@@ -48,6 +48,7 @@ function Pro(props) {
                 <img
                     src="https://lf9-static.semi.design/obj/semi-tos/images/homepage-pro-code.jpg"
                     className={styles.syntaxHighlighter}
+                    alt="d2c demo code"
                 />
                 <div className={styles.rectangle1080}></div>
                 <div className={styles.frame14295}>
@@ -56,11 +57,13 @@ function Pro(props) {
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5de23960-3242-11ec-8b14-8fb159794ae4.png"
                             className={styles.chromeStandart}
+                            alt="figma design file demo"
                         />
                         {/* eslint-disable-next-line */}
                         <img
                             src="https://lf9-static.semi.design/obj/semi-tos/images/5ddb0d70-3242-11ec-adec-e911cea4cf98.png"
                             className={styles.chromeStandart_2167fd7e}
+                            alt="figma design file demo"
                         />
                         <div className={styles.chromeStandart_07210c83}>
                             <Component></Component>

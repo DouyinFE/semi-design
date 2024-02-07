@@ -1,6 +1,8 @@
+import { handlePrevent } from "../utils/a11y";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import KeyCode from "../utils/keyCode";
 import { getPreloadImagArr, downloadImage, isTargetEmit } from "./utils";
+import { isUndefined, throttle } from "lodash";
 
 export type RatioType = "adaptation" | "realSize";
 export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -14,15 +16,10 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     notifyDownload: (src: string, index: number) => void;
     registerKeyDownListener: () => void;
     unregisterKeyDownListener: () => void;
-    getMouseActiveTime: () => number;
-    getStopTiming: () => boolean;
-    setStopTiming: (value: boolean) => void;
-    getStartMouseDown: () => {x: number; y: number};
-    setStartMouseDown: (x: number, y: number) => void;
-    setMouseActiveTime: (time: number) => void;
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
-    getSetDownloadFunc: () => (src: string) => string
+    getSetDownloadFunc: () => (src: string) => string;
+    isValidTarget: (e: any) => boolean
 }
 
 
@@ -34,50 +31,94 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
+    _timer = null;
+    _startMouseDown = { x: 0, y: 0 };
+
     beforeShow() {
         this._adapter.registerKeyDownListener();
         this._adapter.disabledBodyScroll();
+        this.updateTimer();
     }
 
     afterHide() {
         this._adapter.unregisterKeyDownListener();
         this._adapter.enabledBodyScroll();
+        this.clearTimer();
     }
 
     handleViewVisibleChange = () => {
-        const nowTime = new Date().getTime();
-        const mouseActiveTime = this._adapter.getMouseActiveTime();
-        const stopTiming = this._adapter.getStopTiming();
-        const { viewerVisibleDelay } = this.getProps();
         const { viewerVisible } = this.getStates();
-        if (nowTime - mouseActiveTime > viewerVisibleDelay && !stopTiming) {
-            viewerVisible && this.setState({
+        if (viewerVisible) {
+            this.setState({
                 viewerVisible: false,
             } as any);
+            this.clearTimer();
         }
     }
 
-    handleMouseMoveEvent = (e: any, event: string) => {
-        const isTarget = isTargetEmit(e, STOP_CLOSE_TARGET);
-        if (isTarget && event === "over") {
-            this._adapter.setStopTiming(true);
-        } else if (isTarget && event === "out") {
-            this._adapter.setStopTiming(false);
+    handleMouseMove = (e) => {
+        this._persistEvent(e);
+        this.mouseMoveHandler(e);
+    }
+    
+    mouseMoveHandler = throttle((e: any) => {
+        const { viewerVisible } = this.getStates();
+        const isValidTarget = this._adapter.isValidTarget(e);
+        if (isValidTarget) {
+            if (!viewerVisible) {
+                this.setState({
+                    viewerVisible: true,
+                } as any);
+            }
+            this.updateTimer();
+        } else {
+            this.clearTimer();
+        }
+    }, 50);
+
+    updateTimer = () => {
+        const { viewerVisibleDelay } = this.getProps();
+        this.clearTimer();
+        this._timer = setTimeout(this.handleViewVisibleChange, viewerVisibleDelay);
+    }
+
+    clearTimer = () => {
+        if (this._timer) {
+            clearTimeout(this._timer);
+            this._timer = null;
         }
     }
 
-    handleMouseMove = (e: any) => {
-        this._adapter.setMouseActiveTime(new Date().getTime());
-        this.setState({
-            viewerVisible: true,
-        } as any);
+    handleWheel = (e: any) => {
+        this.onWheel(e);
+        handlePrevent(e);
     }
+
+    onWheel = (e: any): void => {
+        const { zoomStep, maxZoom, minZoom } = this.getProps();
+        const { zoom: currZoom } = this.getStates();
+        let _zoom: number;
+        if (e.deltaY < 0) {
+            /* zoom in */
+            if (currZoom + zoomStep <= maxZoom) {
+                _zoom = Number((currZoom + zoomStep).toFixed(2));
+            }
+        } else if (e.deltaY > 0) {
+            /* zoom out */
+            if (currZoom - zoomStep >= minZoom) {
+                _zoom = Number((currZoom - zoomStep).toFixed(2));
+            }
+        }
+        if (!isUndefined(_zoom)) {
+            this.handleZoomImage(_zoom);
+        }
+    };
 
     handleMouseUp = (e: any) => {
         const { maskClosable } = this.getProps();
         let couldClose = !isTargetEmit(e, NOT_CLOSE_TARGETS);
         const { clientX, clientY } = e;
-        const { x, y } = this._adapter.getStartMouseDown();
+        const { x, y } = this._startMouseDown;
         // 对鼠标移动做容错处理，当 x 和 y 方向在 mouseUp 的时候移动距离都小于等于 5px 时候就可以关闭预览
         // Error-tolerant processing of mouse movement, when the movement distance in the x and y directions is less than or equal to 5px in mouseUp, the preview can be closed
         // 不做容错处理的话，直接用 clientX !== x || y !== clientY 做判断，鼠标在用户点击时候无意识的轻微移动无法关闭预览，不符合用户预期
@@ -86,13 +127,13 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             couldClose = false;
         }
         if (couldClose && maskClosable) {
-            this.handlePreviewClose();
+            this._adapter.notifyVisibleChange(false);
         }
     }
 
     handleMouseDown = (e: any) => {
         const { clientX, clientY } = e;
-        this._adapter.setStartMouseDown(clientX, clientY);
+        this._startMouseDown = { x: clientX, y: clientY } ;
     }
 
     handleKeyDown = (e: any) => {
@@ -125,7 +166,6 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             direction,
             rotation: 0,
         } as any);
-        this._adapter.notifyRotateChange(0);
     }
 
     handleDownload = () => {
@@ -137,9 +177,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
 
-    handlePreviewClose = () => {
+    handlePreviewClose = (e: any) => {
         this._adapter.notifyVisibleChange(false);
         this._adapter.notifyClose();
+        handlePrevent(e);
     }
 
     handleAdjustRatio = (type: RatioType) => {
@@ -158,12 +199,14 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyRotateChange(newRotation);
     }
 
-    handleZoomImage = (newZoom: number) => {
+    handleZoomImage = (newZoom: number, notify: boolean = true) => {
         const { zoom } = this.getStates();
-        this._adapter.notifyZoom(newZoom, newZoom > zoom);
-        this.setState({
-            zoom: newZoom,
-        } as any);
+        if (zoom !== newZoom) {
+            notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            this.setState({
+                zoom: newZoom,
+            } as any);
+        }
     }
 
     // 当 visible 改变之后，预览组件完成首张图片加载后，启动预加载
@@ -183,6 +226,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
 
         const preloadImages = getPreloadImagArr(imgSrc, currentIndex, preLoadGap, infinite);
+        if (preloadImages.length === 0) {
+            return;
+        }
+
         const Img = new Image();
         let index = 0;
         function callback(e: any) {
