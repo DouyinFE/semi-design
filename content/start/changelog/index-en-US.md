@@ -19,12 +19,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.52.0 (2024-02-06)
 - 【Fix】
   - fix the problem that onBlur is not triggered when clicking outside the Select button after clicking the clear button.  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
-  - fix preloadGapImage [@nekocode](https://github.com/nekocode)
-  - fix timepicker value props give undefined cause type error.
+  - fix Image request undefined url in some case. [#2063](https://github.com/DouyinFE/semi-design/issues/2063) [@nekocode](https://github.com/nekocode)
+  - fix timepicker value props give undefined cause type error. [#2066](https://github.com/DouyinFE/semi-design/issues/2066)
   - Fixed the issue where Cascader's options panel displays all options when search content is English commas
   - Fixed the problem of multi-selection and showClear's Cascader. After clicking the clear button, the options panel did not switch from the search state to the normal state.
   - Fix the issue of incorrect border width token in Select part
-  - Fixed the problem that after Cascader's key generation rules in keyEntities changed, the value parameter in triggerRender's parameters was inconsistent with the original one (Affected Scope 2.51.0~2.51.3)
   - Fix the problem of inaccurate positioning when the popupCountainer of the floating layer component or its parent is scaled
   - fixed rowSelection hidden bug in resizable Table  [#2036](https://github.com/DouyinFE/semi-design/issues/2036)
   - fix the problem that after clicking the clear button in Datepicker, the year and month values of the panel would not be restored to the initial state.
