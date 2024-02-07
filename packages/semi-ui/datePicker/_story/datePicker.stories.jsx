@@ -71,7 +71,8 @@ export {
     FeatInsetInputShowClear,
     AutoSplitInput,
     FixNeedConfirmControlled,
-    FixedNaN
+    FixedNaN,
+    PresetsFunctionType
 } from './v2';
 
 
