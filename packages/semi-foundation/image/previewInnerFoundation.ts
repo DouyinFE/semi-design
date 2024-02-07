@@ -127,7 +127,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             couldClose = false;
         }
         if (couldClose && maskClosable) {
-            this.handlePreviewClose();
+            this._adapter.notifyVisibleChange(false);
         }
     }
 
@@ -177,9 +177,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
 
-    handlePreviewClose = () => {
+    handlePreviewClose = (e: any) => {
         this._adapter.notifyVisibleChange(false);
         this._adapter.notifyClose();
+        handlePrevent(e);
     }
 
     handleAdjustRatio = (type: RatioType) => {
@@ -225,6 +226,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
 
         const preloadImages = getPreloadImagArr(imgSrc, currentIndex, preLoadGap, infinite);
+        if (preloadImages.length === 0) {
+            return;
+        }
+
         const Img = new Image();
         let index = 0;
         function callback(e: any) {

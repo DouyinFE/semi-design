@@ -12,9 +12,9 @@ import ErrorMessage from '../errorMessage';
 import { isElement } from '../../_base/reactUtils';
 import Label from '../label';
 import { Col } from '../../grid';
-import { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
-import { CommonFieldProps, CommonexcludeType } from '../interface';
-import { Subtract } from 'utility-types';
+import type { CallOpts, WithFieldOption } from '@douyinfe/semi-foundation/form/interface';
+import type { CommonFieldProps, CommonexcludeType } from '../interface';
+import type { Subtract } from 'utility-types';
 import { noop } from "lodash";
 
 const prefix = cssClasses.PREFIX;

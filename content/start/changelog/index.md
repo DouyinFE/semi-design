@@ -13,6 +13,63 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.52.0 (2024-02-06)
+- 【Fix】
+  - 修复 Select 点击清除按钮以后，点击外部不触发 onBlur 问题  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
+  - 修复 preloadGapImage [@nekocode](https://github.com/nekocode)
+  - 修复 timepicker value 传入 undefined 时类型错误的问题
+  - 修复 Cascader 在搜索内容为英文逗号时选项面板显示全部选项问题
+  - 修复多选，showClear 的 Cascader 在点击清除按钮后，选项面板没有从搜索状态切换到普通状态问题
+  - 修复 Select 部分 border width token 不正确的问题
+  - 修复 Cascader 在 keyEntities 中的 key 生成规则变化后，triggerRender 的参数中的value 参数和原来不一致问题（影响范围 2.51.0~2.51.3）
+  - 修复当浮层组件的 popupCountainer 或其父级缩放后，定位不准确的问题
+  - 修复 resizable Table 行选择隐藏时多出来一列  [#2036](https://github.com/DouyinFE/semi-design/issues/2036)
+  - 修复 Datepicker 点击清除按钮后，面板年月值不会还原到初始状态问题
+  - 修复 DatePicker prop value 传入非法值 NaN 触发无限更新问题  [#1846](https://github.com/DouyinFE/semi-design/issues/1846)
+  - 修复 Select 的 renderOptionItem 入参中没有 Option 的 className 的问题
+  - 修复 modal 在不打开直接卸载时候，会将 body 上原有的 overflow: hidden 删除的问题(影响范围 2.51.0~2.51.3)
+- 【Chore】
+  - Form withField 引入 utility-types 的类型声明从import 改为 import type，对使用方无影响
+
+#### 🎉 2.52.0-beta.0 (2024-01-31)
+- 【Fix】
+    - 修复 Table getCurrentPageData 的类型  [@marshcat0](https://github.com/marshcat0)
+    - 修复 Dropdown 点击子菜单事件 onClick 函数执行时机过早的问题，可能导致用户在 onClick 函数内无法 Focus Dropdown 外部元素并触发外部元素的 Blur，影响范围，2.43.0-beta.0 ~ 2.50.0-beta.0。
+- 【Feat】
+    - Avatar 新增 `border` `bottomSlot` `topSlot` 用于控制边框，添加顶部和底部额外内容，新增 `contentMotion` 和 border `motion` 用于开启额外动效。
+    - Modal 配置项新增 `footerFill` API，用于控制 Modal 默认底部按钮是否撑满排列
+    - Slider 新增 `handleDot`，用于控制滑块内部是否展示圆点
+    - Table 支持使用 renderFilterDropdown 自定义筛选器 dropdown 内容  [#2015](https://github.com/DouyinFE/semi-design/issues/2015)
+    - Table 组件 rowSelection 新增 renderCell 渲染选择框  [@changlin2569](https://github.com/changlin2569)
+    - TreeSelect 组件支持 onClear API  [#1331 ](https://github.com/DouyinFE/semi-design/issues/1331) [@changlin2569](https://github.com/changlin2569)
+    - DatePicker presets start 和 end 支持函数类型  [#2038](https://github.com/DouyinFE/semi-design/issues/2038)
+
+
+#### 🎉 2.51.4 (2024-01-31)
+- 【Fix】
+    - 修复 Cascader 在 keyEntities 中的 key 生成规则变化后，triggerRender 的参数中的value 参数和原来不一致问题（影响范围 2.51.0~2.51.3）[#2051](https://github.com/DouyinFE/semi-design/pull/2051)
+
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - 修复 Table propTypes 被打包工具移除掉导致报错问题
+
+#### 🎉 2.51.2 (2024-01-19)
+- 【Fix】
+    - 修复 TextArea autosize 未监听文本域宽度变化 [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
+    - 修复受控 DatePicker dateTimeRange + needConfirm 时选择一个日期时输入框回显错误 [#2024](https://github.com/DouyinFE/semi-design/issues/2024)
+    - 修复 ImagePreview 组件在预览时点击关闭按钮边缘时触发 onClose/onPreview 两次问题 [#2027](https://github.com/DouyinFE/semi-design/pull/2027)
+
+#### 🎉 2.51.1 (2024-01-18)
+- 【Fix】
+    - 修复当 Modal 未收起时直接时直接卸载 Modal 导致页面可能滚动异常的问题 [#2023](https://github.com/DouyinFE/semi-design/pull/2023)
+
+#### 🎉 2.51.0 (2024-01-12)
+- 【Fix】
+    - 修复有 maxLength的 TextArea 在中文输入时，点击外部触发 blur，回显内容不符合 maxLength 设置问题  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)
+    - 修复 Cascader 中 autoMergeValue 为 false， value 为 [] 时的 typeError [#2017](https://github.com/DouyinFE/semi-design/pull/2017)
+- 【Style】
+    - ImagePreview 预览层的默认 zIndex 从 1000 调整为 1070
+
 #### 🎉 2.51.0-beta.0 (2024-01-09)
 - 【Feat】
     - Dropdown.Item 支持透传 data-* 属性到 dom

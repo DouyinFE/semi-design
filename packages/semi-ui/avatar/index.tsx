@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/avatar/constants';
@@ -9,6 +9,8 @@ import BaseComponent from '../_base/baseComponent';
 import { AvatarProps } from './interface';
 import { handlePrevent } from '@douyinfe/semi-foundation/utils/a11y';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
+import TopSlotSvg from "./TopSlotSvg";
+
 
 const sizeSet = strings.SIZE;
 const shapeSet = strings.SHAPE;
@@ -16,6 +18,7 @@ const colorSet = strings.COLOR;
 const prefixCls = cssClasses.PREFIX;
 
 export * from './interface';
+
 export interface AvatarState {
     isImgExist: boolean;
     hoverContent: React.ReactNode;
@@ -53,10 +56,37 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
+        bottomSlot: PropTypes.shape({
+            render: PropTypes.func,
+            shape: PropTypes.oneOf(['circle', 'square']),
+            text: PropTypes.node,
+            bgColor: PropTypes.string,
+            textColor: PropTypes.string,
+            className: PropTypes.string,
+            style: PropTypes.object,
+        }),
+        topSlot: PropTypes.shape({
+            render: PropTypes.func,
+            gradientStart: PropTypes.string,
+            gradientEnd: PropTypes.string,
+            text: PropTypes.node,
+            textColor: PropTypes.string,
+            className: PropTypes.string,
+            style: PropTypes.object,
+        }),
+        border: PropTypes.oneOfType([
+            PropTypes.shape({
+                color: PropTypes.string,
+                motion: PropTypes.bool,
+            }),
+            PropTypes.bool,
+        ]),
+        contentMotion: PropTypes.bool,
     };
 
     foundation!: AvatarFoundation;
     avatarRef: React.RefObject<HTMLElement | null>;
+
     constructor(props: AvatarProps) {
         super(props);
         this.state = {
@@ -159,7 +189,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 break;
         }
     }
-    
+
     handleFocusVisible = (event: React.FocusEvent) => {
         this.foundation.handleFocusVisible(event);
     }
@@ -174,14 +204,14 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         let content = children;
         const clickable = onClick !== noop;
         const isImg = src && isImgExist;
-        const a11yFocusProps = { 
-            tabIndex: 0, 
+        const a11yFocusProps = {
+            tabIndex: 0,
             onKeyDown: this.handleKeyDown,
             onFocus: this.handleFocusVisible,
             onBlur: this.handleBlur,
         };
         if (isImg) {
-            const finalAlt = clickable ? `clickable Avatar: ${alt}` : alt; 
+            const finalAlt = clickable ? `clickable Avatar: ${alt}` : alt;
             const imgBasicProps = {
                 src,
                 srcSet,
@@ -197,7 +227,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             );
         } else if (typeof children === 'string') {
             const tempAlt = alt ?? children;
-            const finalAlt = clickable ? `clickable Avatar: ${tempAlt}` : tempAlt; 
+            const finalAlt = clickable ? `clickable Avatar: ${tempAlt}` : tempAlt;
             const props = {
                 role: 'img',
                 'aria-label': finalAlt,
@@ -220,8 +250,91 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         return content;
     }
 
+
+    renderBottomSlot = () => {
+        if (!this.props.bottomSlot) {
+            return null;
+        }
+
+        if (this.props.bottomSlot.render) {
+            return this.props.bottomSlot.render();
+        }
+
+        const renderContent = this.props.bottomSlot.render ?? (() => {
+            const style: CSSProperties = {};
+            if (this.props.bottomSlot.bgColor) {
+                style['backgroundColor'] = this.props.bottomSlot.bgColor;
+            }
+            if (this.props.bottomSlot.textColor) {
+                style['color'] = this.props.bottomSlot.textColor;
+            }
+            return <span style={style}
+                className={cls(`${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}`, `${prefixCls}-bottom_slot-shape_${this.props.bottomSlot.shape}-${this.props.size}`, this.props.bottomSlot.className ?? "")}>
+                {this.props.bottomSlot.text}
+            </span>;
+        });
+
+        return <div className={cls([`${prefixCls}-bottom_slot`])} style={this.props.bottomSlot.style ?? {}}>
+            {renderContent()}
+        </div>;
+
+    }
+
+
+    renderTopSlot = () => {
+
+        if (!this.props.topSlot) {
+            return null;
+        }
+
+        if (this.props.topSlot.render) {
+            return this.props.topSlot.render();
+        }
+
+        const textStyle: CSSProperties = {};
+        if (this.props.topSlot.textColor) {
+            textStyle['color'] = this.props.topSlot.textColor;
+        } 
+        return <div style={this.props.topSlot.style ?? {}}
+            className={cls([`${prefixCls}-top_slot-wrapper`, this.props.topSlot.className ?? "", {
+                [`${prefixCls}-animated`]: this.props.contentMotion,
+            }])}>
+            <div className={cls([`${prefixCls}-top_slot-bg`, `${prefixCls}-top_slot-bg-${this.props.size}`])}>
+                <div
+                    className={cls([`${prefixCls}-top_slot-bg-svg`, `${prefixCls}-top_slot-bg-svg-${this.props.size}`])}>
+                    <TopSlotSvg gradientStart={this.props.topSlot.gradientStart ?? "var(--semi-color-primary)"}
+                        gradientEnd={this.props.topSlot.gradientEnd ?? "var(--semi-color-primary)"}/>
+                </div>
+            </div>
+            <div className={cls([`${prefixCls}-top_slot`])}>
+                <div
+                    style={textStyle}
+                    className={cls([`${prefixCls}-top_slot-content`, `${prefixCls}-top_slot-content-${this.props.size}`])}>{this.props.topSlot.text}</div>
+            </div>
+        </div>;
+    }
+
     render() {
-        const { shape, children, size, color, className, hoverMask, onClick, imgAttr, src, srcSet, style, alt, gap, ...others } = this.props;
+        const {
+            shape,
+            children,
+            size,
+            color,
+            className,
+            hoverMask,
+            onClick,
+            imgAttr,
+            src,
+            srcSet,
+            style,
+            alt,
+            gap,
+            bottomSlot,
+            topSlot,
+            border,
+            contentMotion,
+            ...others
+        } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
         const isImg = src && isImgExist;
         const avatarCls = cls(
@@ -232,27 +345,67 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 [`${prefixCls}-${color}`]: color && !isImg,
                 [`${prefixCls}-img`]: isImg,
                 [`${prefixCls}-focus`]: focusVisible,
+                [`${prefixCls}-animated`]: contentMotion,
             },
             className
         );
 
-        const hoverRender = hoverContent ? (<div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
-        
-        return (
-            <span
-                {...(others as any)}
-                style={style}
-                className={avatarCls}
-                onClick={onClick as any}
-                onMouseEnter={this.onEnter as any}
-                onMouseLeave={this.onLeave as any}
-                role='listitem'
-                ref={this.avatarRef}
-            >
-                {this.getContent()}
-                {hoverRender}
-            </span>
-        );
+        const hoverRender = hoverContent ? (
+            <div className={`${prefixCls}-hover`} x-semi-prop="hoverContent">{hoverContent}</div>) : null;
+
+        let avatar = <span
+            {...(others as any)}
+            style={(border || bottomSlot || topSlot || border) ? {} : style}
+            className={avatarCls}
+            onClick={onClick as any}
+            onMouseEnter={this.onEnter as any}
+            onMouseLeave={this.onLeave as any}
+            role='listitem'
+            ref={this.avatarRef}>
+            {this.getContent()}
+            {hoverRender}
+        </span>;
+
+
+        if (border) {
+            const borderStyle: CSSProperties = {};
+            if (border?.color) {
+                borderStyle['borderColor'] = border.color;
+            }
+            avatar = <div style={{ position: "relative", ...style }}>
+                {avatar}
+                <span style={borderStyle} className={cls([
+                    `${prefixCls}-additionalBorder`,
+                    `${prefixCls}-additionalBorder-${size}`,
+                    {
+                        [`${prefixCls}-${shape}`]: shape,
+                    },
+                ])}>
+                </span>
+                {
+                    this.props.border?.motion && <span style={borderStyle} className={cls([
+                        `${prefixCls}-additionalBorder`,
+                        `${prefixCls}-additionalBorder-${size}`,
+                        {
+                            [`${prefixCls}-${shape}`]: shape,
+                            [`${prefixCls}-additionalBorder-animated`]: this.props.border?.motion,
+                        },
+                    ])}/>
+                }
+            </div>;
+
+        }
+
+
+        if (bottomSlot || topSlot || border) {
+            return <span className={cls([`${prefixCls}-wrapper`])} style={style}>
+                {avatar}
+                {topSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
+                {bottomSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
+            </span>;
+        } else {
+            return avatar;
+        }
     }
 }
 Avatar.elementType = 'Avatar';

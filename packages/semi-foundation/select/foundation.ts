@@ -1022,6 +1022,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (filter) {
             this.clearInput(e);
         }
+        // after click showClear button, the select need to be focused
+        this.focus();
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();

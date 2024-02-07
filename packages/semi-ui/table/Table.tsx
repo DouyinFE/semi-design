@@ -693,7 +693,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
 
     getCurrentPageData = () => {
         const pageData = this.foundation.getCurrentPageData();
-        const retObj = ['dataSource', 'groups'].reduce((result, key) => {
+        const retObj: Pick<BasePageData<RecordType>, 'dataSource' | 'groups'> = ['dataSource', 'groups'].reduce((result, key) => {
             if (pageData[key]) {
                 result[key] = pageData[key];
             }
@@ -839,36 +839,59 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
         }
     };
 
-    renderSelection = (record = {} as any, inHeader = false): React.ReactNode => {
+    renderSelection = (record = {} as any, inHeader = false, index?: number): React.ReactNode => {
         const { rowSelection, allDisabledRowKeysSet } = this.state;
 
         if (rowSelection && typeof rowSelection === 'object') {
-            const { selectedRowKeys = [], selectedRowKeysSet = new Set(), getCheckboxProps, disabled } = rowSelection;
+            const {
+                selectedRowKeys = [],
+                selectedRowKeysSet = new Set(),
+                getCheckboxProps,
+                disabled,
+                renderCell,
+            } = rowSelection;
+
+            const allRowKeys = this.cachedFilteredSortedRowKeys;
+            const allRowKeysSet = this.cachedFilteredSortedRowKeysSet;
+            const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, allDisabledRowKeysSet, allRowKeys);
+            const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
+            const indeterminate = hasRowSelected && !allIsSelected;
 
             if (inHeader) {
                 const columnKey = get(rowSelection, 'key', strings.DEFAULT_KEY_COLUMN_SELECTION);
-                const allRowKeys = this.cachedFilteredSortedRowKeys;
-                const allRowKeysSet = this.cachedFilteredSortedRowKeysSet;
-                const allIsSelected = this.foundation.allIsSelected(selectedRowKeysSet, allDisabledRowKeysSet, allRowKeys);
-                const hasRowSelected = this.foundation.hasRowSelected(selectedRowKeys, allRowKeysSet);
-                return (
+
+                const originNode = (
                     <ColumnSelection
                         aria-label={`${allIsSelected ? 'Deselect' : 'Select'} all rows`}
                         disabled={disabled}
                         key={columnKey}
                         selected={allIsSelected}
-                        indeterminate={hasRowSelected && !allIsSelected}
+                        indeterminate={indeterminate}
                         onChange={(selected, e) => {
                             this.toggleSelectAllRow(selected, e);
                         }}
                     />
                 );
+
+                const selectAll = (selected: boolean, e: Event) =>
+                    this.toggleSelectAllRow(selected, e as TableSelectionCellEvent);
+
+                return isFunction(renderCell)
+                    ? renderCell({
+                        selected: allIsSelected,
+                        record,
+                        originNode,
+                        inHeader,
+                        disabled,
+                        indeterminate,
+                        selectAll,
+                    })
+                    : originNode;
             } else {
                 const key = this.foundation.getRecordKey(record);
                 const selected = selectedRowKeysSet.has(key);
                 const checkboxPropsFn = () => (typeof getCheckboxProps === 'function' ? getCheckboxProps(record) : {});
-
-                return (
+                const originNode = (
                     <ColumnSelection
                         aria-label={`${selected ? 'Deselect' : 'Select'} this row`}
                         getCheckboxProps={checkboxPropsFn}
@@ -876,13 +899,28 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         onChange={(status, e) => this.toggleSelectRow(status, key, e)}
                     />
                 );
+                const selectRow = (selected: boolean, e: Event) =>
+                    this.toggleSelectRow(selected, key, e as TableSelectionCellEvent);
+
+                return isFunction(renderCell)
+                    ? renderCell({
+                        selected,
+                        record,
+                        index,
+                        originNode,
+                        inHeader: false,
+                        disabled,
+                        indeterminate,
+                        selectRow,
+                    })
+                    : originNode;
             }
         }
         return null;
     };
 
-    renderRowSelectionCallback = (text: string, record: RecordType = {} as RecordType) => this.renderSelection(record);
-    renderTitleSelectionCallback = () => this.renderSelection(null, true);
+    renderRowSelectionCallback = (text: string, record: RecordType = {} as RecordType, index: number) => this.renderSelection(record, false, index);
+    renderTitleSelectionCallback = () => this.renderSelection(undefined, true);
 
     normalizeSelectionColumn = (props: { rowSelection?: TableStateRowSelection<RecordType>; prefixCls?: string } = {}) => {
         const { rowSelection, prefixCls } = props;
@@ -969,7 +1007,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
       */
     addFnsInColumn = (column: ColumnProps = {}) => {
         const { prefixCls } = this.props;
-        if (column && (column.sorter || column.filters || column.useFullRender)) {
+        if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender)) {
             let hasSorterOrFilter = false;
             const { dataIndex, title: rawTitle, useFullRender } = column;
             const curQuery = this.foundation.getQuery(dataIndex);
@@ -1016,11 +1054,16 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateFilteredValue = get(curQuery, 'filteredValue');
             const defaultFilteredValue = get(curQuery, 'defaultFilteredValue');
             const filteredValue = stateFilteredValue ? stateFilteredValue : defaultFilteredValue;
-            if ((Array.isArray(column.filters) && column.filters.length) || isValidElement(column.filterDropdown)) {
+            if (
+                (Array.isArray(column.filters) && column.filters.length) ||
+                isValidElement(column.filterDropdown) ||
+                typeof column.renderFilterDropdown === 'function'
+            ) {
+
                 const filter = (
                     <ColumnFilter
                         key={strings.DEFAULT_KEY_COLUMN_FILTER}
-                        {...curQuery}
+                        {...omit(curQuery, 'children')}
                         filteredValue={filteredValue}
                         onFilterDropdownVisibleChange={(visible: boolean) =>
                             this.foundation.toggleShowFilter(dataIndex, visible)

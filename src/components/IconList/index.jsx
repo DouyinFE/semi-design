@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Tabs, TabPane, Input } from '@douyinfe/semi-ui';
+import { Tabs, TabPane, Input, Typography } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { groupBy, toPairs, sortBy } from 'lodash-es';
 import { FormattedMessage } from 'react-intl';
@@ -75,11 +75,12 @@ const IconList = props => {
                 <img style={{ marginRight: 8, marginLeft: 24 }} src={`https://badgen.net/badge/%40douyinfe%2Fsemi-icons-lab/${pkgJson.version}?color=cyan`} alt="" />
                 <img src={`https://badgen.net/badge/count/${iconLabData.length}/cyan`} alt="" />
             </div>
-            <Tabs keepDOM tabBarExtraContent={<Input suffix={<IconSearch />} showClear onEnterPress={e => search(e.target.value)} onClear={() => search('')} />}>
+            <Tabs keepDOM>
                 <TabPane tab={_t('icon.list.tab.fill')} itemKey="fill"><IconCategory groups={fillGroups} pkgType='default' /></TabPane>
                 <TabPane tab={_t('icon.list.tab.stroked')} itemKey="stroked"><IconCategory groups={strokedGroups} pkgType='default' /></TabPane>
-                <TabPane tab={_t('icon.list.tab.lab')} itemKey="lab"><IconCategory groups={labGroups} pkgType='lab' /></TabPane>
             </Tabs>
+            <Typography.Title heading={2}>{_t('icon.list.tab.lab')}</Typography.Title>
+            <IconCategory groups={labGroups} pkgType='lab' />
         </div>
     );
 };

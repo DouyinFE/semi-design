@@ -18,6 +18,7 @@ import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFou
 import type { MonthsGridFoundationProps } from './monthsGridFoundation';
 import type { WeekStartNumber } from './_utils/getMonthTable';
 import isValidTimeZone from './_utils/isValidTimeZone';
+import warning from '../utils/warning';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
@@ -45,9 +46,10 @@ export type DisabledDateOptions = {
      */
     rangeInputFocus?: 'rangeStart' | 'rangeEnd' | false
 };
+
 export type PresetType = {
-    start?: string | Date | number;
-    end?: string | Date | number;
+    start?: BaseValueType | (() => BaseValueType);
+    end?: BaseValueType | (() => BaseValueType);
     text?: string
 };
 
@@ -291,6 +293,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                         parsedV = zonedTimeToUtc(parsedV, prevTimeZone);
                     }
                     result.push(isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone) : parsedV);
+                } else {
+                    warning(true, `[Semi DatePicker] value cannot be parsed, value: ${String(v)}`);
                 }
             }
         }
@@ -994,26 +998,15 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
              * 受控时如果输入不完整，由于没有触发 notifyChange
              * 需要组件内更新一下输入框的值，否则会出现选了一个日期但是输入框没有回显日期的问题 #1357
              */
-            if (!this._adapter.needConfirm() || fromPreset) {
-                if (isRangeTypeAndInputIncomplete) {
-                    // do not change value when selected value is incomplete
-                    this._adapter.updateInputValue(inputValue);
-                    this._adapter.updateInsetInputValue(insetInputValue);
-                    return;
-                } else {
-                    if (!controlled || fromPreset) {
-                        this._updateValueAndInput(dates, true, inputValue);
-                        this._adapter.updateInsetInputValue(insetInputValue);
-                    }
-                }
-            }
-            if (!controlled && this._adapter.needConfirm()) {
-                // select date only change inputValue when needConfirm is true
+            if (isRangeTypeAndInputIncomplete) {
+                // do not change value when selected value is incomplete
                 this._adapter.updateInputValue(inputValue);
                 this._adapter.updateInsetInputValue(insetInputValue);
-                // if inputValue is not complete, don't notifyChange
-                if (isRangeTypeAndInputIncomplete) {
-                    return;
+                return;
+            } else {
+                if (!controlled || fromPreset) {
+                    this._updateValueAndInput(dates, true, inputValue);
+                    this._adapter.updateInsetInputValue(insetInputValue);
                 }
             }
             if (!isEqual(value, stateValue)) {
@@ -1076,18 +1069,20 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     handlePresetClick(item: PresetType, e: any) {
         const { type, timeZone } = this.getProps();
         const prevTimeZone = this.getState('prevTimezone');
+        const start = typeof item.start === 'function' ? item.start() : item.start;
+        const end = typeof item.end === 'function' ? item.end() : item.end;
 
         let value;
         switch (type) {
             case 'month':
             case 'dateTime':
             case 'date':
-                value = this.parseWithTimezone([item.start], timeZone, prevTimeZone);
+                value = this.parseWithTimezone([start], timeZone, prevTimeZone);
                 this.handleSelectedChange(value);
                 break;
             case 'dateTimeRange':
             case 'dateRange':
-                value = this.parseWithTimezone([item.start, item.end], timeZone, prevTimeZone);
+                value = this.parseWithTimezone([start, end], timeZone, prevTimeZone);
                 this.handleSelectedChange(value, { needCheckFocusRecord: false });
                 break;
             default:

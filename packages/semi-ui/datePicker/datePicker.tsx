@@ -407,7 +407,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     componentDidUpdate(prevProps: DatePickerProps) {
-        if (prevProps.value !== this.props.value) {
+        if (!isEqual(prevProps.value, this.props.value)) {
             this.foundation.initFromProps({
                 ...this.props,
             });

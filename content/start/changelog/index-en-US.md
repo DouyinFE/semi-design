@@ -16,6 +16,62 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.52.0 (2024-02-06)
+- 【Fix】
+  - fix the problem that onBlur is not triggered when clicking outside the Select button after clicking the clear button.  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
+  - fix preloadGapImage [@nekocode](https://github.com/nekocode)
+  - fix timepicker value props give undefined cause type error.
+  - Fixed the issue where Cascader's options panel displays all options when search content is English commas
+  - Fixed the problem of multi-selection and showClear's Cascader. After clicking the clear button, the options panel did not switch from the search state to the normal state.
+  - Fix the issue of incorrect border width token in Select part
+  - Fixed the problem that after Cascader's key generation rules in keyEntities changed, the value parameter in triggerRender's parameters was inconsistent with the original one (Affected Scope 2.51.0~2.51.3)
+  - Fix the problem of inaccurate positioning when the popupCountainer of the floating layer component or its parent is scaled
+  - fixed rowSelection hidden bug in resizable Table  [#2036](https://github.com/DouyinFE/semi-design/issues/2036)
+  - fix the problem that after clicking the clear button in Datepicker, the year and month values of the panel would not be restored to the initial state.
+  - Fix infinite update bug triggered by passing illegal value NaN in DatePicker prop value  [#1846](https://github.com/DouyinFE/semi-design/issues/1846)
+  - Fix the problem that there is no className of Option in the renderOptionItem input parameter of Select
+  - Fixed the issue where the original overflow: hidden on the body will be deleted when modal is uninstalled without opening it. (version range 2.51.0~2.51.3)
+- 【Chore】
+  - Form withField introduces the type declaration of utility-types from import to import type (which has no impact)
+
+#### 🎉 2.52.0-beta.0 (2024-01-31)
+- 【Fix】
+  - fix Table getCurrentPageData type  [@marshcat0](https://github.com/marshcat0)
+  - Fixed the problem that the onClick function of the Dropdown click submenu event is executed too early, which may cause the user to be unable to focus on the Dropdown external element and trigger the Blur of the external element within the onClick function. The scope of impact is 2.43.0-beta.0 ~ 2.50.0-beta .0.
+- 【Feat】
+  - Avatar adds `border` `bottomSlot` `topSlot` to control the border and add additional top and bottom content, and adds `contentMotion` and border `motion` to enable additional motion effects.
+  - Added `footerFill` API to the Modal configuration item, which is used to control whether the default bottom buttons of Modal are fully arranged.
+  - Slider add `handleDot` api to whether to show the dot inside the slider handle.
+  - Table support renderFilterDropdown  [#2015](https://github.com/DouyinFE/semi-design/issues/2015)
+  - RowSelection of Table component adds renderCell to render selection  [@changlin2569](https://github.com/changlin2569)
+  - TreeSelect component support onClear API  [#1331 ](https://github.com/DouyinFE/semi-design/issues/1331) [@changlin2569](https://github.com/changlin2569)
+  - DatePicker support presets start and end function type  [#2038](https://github.com/DouyinFE/semi-design/issues/2038)
+
+
+#### 🎉 2.51.4 (2024-01-31)
+- 【Fix】
+    - Fixed the problem that after Cascader's key generation rules in keyEntities changed, the value parameter in triggerRender's parameters was inconsistent with the original one (Affected Scope 2.51.0~2.51.3) [#2051](https://github.com/DouyinFE/semi-design/pull/2051)
+
+#### 🎉 2.51.3 (2024-01-19)
+- 【Fix】
+    - Fixed Table propTypes is removed in prod mode
+
+#### 🎉 2.51.2 (2024-01-19)
+- 【Fix】
+    - Fixed TextArea autoSize is not work when textarea resize [#2026](https://github.com/DouyinFE/semi-design/issues/2026)
+    - Fixed controlled DatePicker input value is wrong when type is dateTimeRange and needConfirm is opened [#2024](https://github.com/DouyinFE/semi-design/issues/2024)
+    - Fixed the problem of triggering onClose/onPreview twice when clicking the edge of the close button in the preview state in the ImagePreview component [#2027](https://github.com/DouyinFE/semi-design/pull/2027)
+
+#### 🎉 2.51.1 (2024-01-18)
+- 【Fix】
+    - Unloading the Modal directly when the Modal is not collapsed may cause the page to scroll abnormally. [#2023](https://github.com/DouyinFE/semi-design/pull/2023)
+
+#### 🎉 2.51.0 (2024-01-12)
+- 【Fix】
+    - Fixed the problem that when a TextArea with maxLength is input in Chinese, clicking outside triggers blur, and the echoed content does not comply with the maxLength setting  [#2005](https://github.com/DouyinFE/semi-design/issues/2005)
+    - Fix typeError in Cascader when autoMergeValue is false and value is [] [#2017](https://github.com/DouyinFE/semi-design/pull/2017)
+- 【Style】
+    - The default zIndex value of ImagePreview's preview layer is adjusted from 1000 to 1070
 
 #### 🎉 2.51.0-beta.0 (2024-01-09)
 - 【Feat】

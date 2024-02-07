@@ -149,7 +149,8 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onBlur?: (e: React.MouseEvent) => void;
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;
-    onVisibleChange?: (isVisible: boolean) => void
+    onVisibleChange?: (isVisible: boolean) => void;
+    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export type OverrideCommonState =
@@ -204,6 +205,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         virtualize: PropTypes.object,
         treeNodeFilterProp: PropTypes.string,
         onChange: PropTypes.func,
+        onClear: PropTypes.func,
         onSearch: PropTypes.func,
         onSelect: PropTypes.func,
         onExpand: PropTypes.func,
@@ -667,6 +669,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         | 'notifySearch'
         | 'cacheFlattenNodes'
         | 'notifyLoad'
+        | 'notifyClear'
         > = {
             updateState: states => {
                 this.setState({ ...states } as TreeSelectState);
@@ -683,6 +686,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifyLoad: (newLoadedKeys, data) => {
                 const { onLoad } = this.props;
                 isFunction(onLoad) && onLoad(newLoadedKeys, data);
+            },
+            notifyClear: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => {
+                this.props.onClear && this.props.onClear(e);
             }
         };
         return {

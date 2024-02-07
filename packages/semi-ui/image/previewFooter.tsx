@@ -116,9 +116,9 @@ export default class Footer extends BaseComponent<FooterProps> {
     // According to showTooltip in props, decide whether to use Tooltip to pack a layer
     // 根据 props 中的 showTooltip 决定是否使用 Tooltip 包一层
     getFinalIconElement = (element: ReactNode, content: ReactNode, key: string) => {
-        const { showTooltip } = this.props;
+        const { showTooltip, zIndex } = this.props;
         return showTooltip ? (
-            <Tooltip content={content} key={`tooltip-${key}`}>
+            <Tooltip content={content} key={`tooltip-${key}`} zIndex={zIndex + 1}>
                 {element}
             </Tooltip>
         ): element;

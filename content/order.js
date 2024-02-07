@@ -15,10 +15,10 @@ const order = [
     'icon',
     'layout',
     'tokens',
+    'button',
     'space',
     'typography',
     'autocomplete',
-    'button',
     'cascader',
     'checkbox',
     'datepicker',
@@ -65,6 +65,7 @@ const order = [
     'tag',
     'timeline',
     'tooltip',
+    'chart',
     'banner',
     'notification',
     'popconfirm',
@@ -74,7 +75,6 @@ const order = [
     'toast',
     'configprovider',
     'locale',
-    'chart',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

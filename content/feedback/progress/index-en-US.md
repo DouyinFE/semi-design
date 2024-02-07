@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 70
+order: 71
 category: Feedback
 title: Progress
 subTitle: Progress
@@ -403,7 +403,7 @@ import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
 | stroke | Fill color of progress bar, When of type `Array<{percent:number; color:string }>`, the `color` parameter supports the color types: `'Hex'` &#124; `'Hsl'` &#124; `'Hsla'` &#124; `'Rgb'` &#124; `'Rgba'` &#124; `'Semi Design Tokens'` | string &#124; Array<{percent:number; color:string }> | 'var(--semi-color-success)' |
 | strokeGradient | Whether to automatically generate gradient colors to fill color intervals, requires `stroke` to set at least one color interval | boolean | false |
 | strokeLinecap | round corner `round`/square corner `square` (only effective in type='circle' mode) | string | 'round' |
-| strokeWidth | When type is `line`, this property controls the height of the progress bar; when type is `circle`, this property controls the width of the progress bar | number | 4 |
+| strokeWidth |when type is `circle`, this property controls the width of the progress bar | number | 4 |
 | style | style | CSSProperties |  |
 | type | type, optional `line`, `circle` | string | 'line' |
 | width | Width of circular progress bar | number | 72 when size='default', 24 for 'small' |
