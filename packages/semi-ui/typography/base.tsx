@@ -195,6 +195,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     componentDidMount() {
         if (this.props.ellipsis) {
+            // runAfterTicks: make sure start observer on the next tick
             this.onResize().then(()=>runAfterTicks(()=>this.observerTakingEffect = true, 1));
         }
     }
