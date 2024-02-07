@@ -31,6 +31,7 @@ export interface TableExpandedRowProps {
     store?: Store;
     style?: React.CSSProperties;
     virtualized?: Virtualized
+    displayNone?: boolean;
 }
 
 /**
@@ -85,6 +86,7 @@ export default class TableExpandedRow extends PureComponent<TableExpandedRowProp
             virtualized,
             indentSize,
             cellWidths,
+            displayNone
         } = this.props;
         const { tableWidth, anyColumnFixed, getCellWidths } = this.context;
         const cell: ExpandedRowRenderReturnType = expandedRowRender(record, index, expanded);
@@ -147,6 +149,7 @@ export default class TableExpandedRow extends PureComponent<TableExpandedRowProp
                 virtualized={virtualized}
                 indentSize={indentSize}
                 cellWidths={baseRowCellWidths}
+                displayNone={displayNone}
             />
         );
     }

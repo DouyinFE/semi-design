@@ -15,7 +15,7 @@ import { Locale } from '../locale/interface';
 import useModal from './useModal';
 import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
 
 export const destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
@@ -82,10 +82,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         lazyRender: PropTypes.bool,
         direction: PropTypes.oneOf(strings.directions),
         fullScreen: PropTypes.bool,
+        footerFill: PropTypes.bool,
     };
 
+    static __SemiComponentName__ = "Modal";
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Modal.__SemiComponentName__, {
         zIndex: 1000,
         motion: true,
         mask: true,
@@ -104,12 +106,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         keepDOM: false,
         lazyRender: true,
         fullScreen: false,
-    };
+    });
     static useModal = useModal;
     foundation: ModalFoundation;
 
     private readonly modalRef: LegacyRef<ModalContent>;
-    private bodyOverflow: string;
+    private bodyOverflow: string|null = null;
     private scrollBarWidth: number;
     private originBodyWidth: string;
     private _haveRendered: boolean;
@@ -122,7 +124,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
-        this.bodyOverflow = '';
+
         this.scrollBarWidth = 0;
         this.originBodyWidth = '100%';
 
@@ -142,7 +144,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
@@ -240,7 +242,13 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         }
     }
 
-
+    componentWillUnmount() {
+        if (this.props.visible) {
+            super.componentWillUnmount();
+        } else {
+            this.foundation.enabledBodyScroll();
+        }
+    }
 
     handleCancel = (e: React.MouseEvent) => {
         this.foundation.handleCancel(e);
@@ -263,6 +271,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             confirmLoading,
             cancelLoading,
             hasCancel,
+            footerFill,
         } = this.props;
         const getCancelButton = (locale: Locale['Modal']) => {
             if (!hasCancel) {
@@ -274,6 +283,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         onClick={this.handleCancel}
                         loading={cancelLoading === undefined ? this.state.onCancelReturnPromiseStatus === "pending" : cancelLoading}
                         type="tertiary"
+                        block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
                         x-semi-children-alias="cancelText"
@@ -287,12 +297,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         return (
             <LocaleConsumer componentName="Modal">
                 {(locale: Locale['Modal'], localeCode: Locale['code']) => (
-                    <div>
+                    <div className={cls({
+                        [`${cssClasses.DIALOG}-footerfill`]: footerFill
+                    })}>
                         {getCancelButton(locale)}
                         <Button
                             aria-label="confirm"
                             type={okType}
                             theme="solid"
+                            block={footerFill}
                             loading={confirmLoading === undefined ? this.state.onOKReturnPromiseStatus === "pending" : confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}

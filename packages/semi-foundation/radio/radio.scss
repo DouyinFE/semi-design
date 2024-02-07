@@ -8,6 +8,7 @@ $inner-width: $width-icon-medium;
 .#{$module} {
     @include box-sizing;
     @include font-size-regular;
+    position: relative;
     display: inline-flex;
     column-gap: $spacing-radio_addon-paddingLeft;
     transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,

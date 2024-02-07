@@ -720,3 +720,60 @@ export const Fix1892 = () => {
             </>
         );
     }
+// When event start and end are very close, the event dom structure exists and has a minimum height
+export const DayEventMinHeight = () => {
+
+  const [mode, setMode] = useState('day');
+
+  const dailyEventStyle = {
+    borderRadius: '3px',
+    boxSizing: 'border-box',
+    border: 'var(--semi-color-primary) 1px solid',
+    padding: '10px',
+    backgroundColor: 'var(--semi-color-primary-light-default)',
+    height: '100%',
+    overflow: 'hidden',
+  };  
+
+  const events = [
+    {
+      key: '1',
+      start: new Date(2019, 6, 23, 8, 22, 0),
+      end: new Date(2019, 6, 23, 8, 23, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:32</div>,
+    },
+    {
+      key: '2',
+      start: new Date(2019, 6, 23, 8, 50, 0),
+      end: new Date(2019, 6, 23, 9, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:50</div>,
+    },
+    {
+      key: '3',
+      start: new Date(2019, 6, 23, 9, 50, 0),
+      end: new Date(2019, 6, 23, 11, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 9:50</div>,
+    },
+  ];
+
+  const displayValue = new Date(2019, 6, 23, 8, 32, 0);
+
+  return (
+    <>
+      <RadioGroup onChange={e => {setMode(e.target.value)}} value={mode}>
+        <Radio value={'day'}>日视图</Radio>
+        <Radio value={'week'}>周视图</Radio>
+        <Radio value={'range'}>多日视图</Radio>
+      </RadioGroup>
+      <br />
+      <br />
+      <Calendar
+        height={400}
+        mode={mode}
+        displayValue={displayValue}
+        events={events}
+        minEventHeight={50}
+        range={mode === 'range' ? [new Date(2019, 6, 23), new Date(2019, 6, 26)] : []}></Calendar>
+    </>
+  )
+} 

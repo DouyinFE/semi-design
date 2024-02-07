@@ -80,6 +80,94 @@ describe('Select', () => {
         cy.get('.semi-select-option').eq(3).should('have.text', 'Xigua');
     });
 
+    it('blur trigger by mouse click after select option', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--all-case-of-blur', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
+        cy.viewport(1000, 1000);
+
+        cy.get('[data-cy=singleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
+        cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
+
+        cy.get('[data-cy=singleFilter]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
+
+        cy.get('[data-cy=singleClickToHide]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
+
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
+
+        cy.get('[data-cy=multipleFilter]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
+
+        cy.get('[data-cy=multipleClickToHide]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
+       
+    });
+
+    it('blur trigger by mouse click without select option', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--all-case-of-blur', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
+        cy.viewport(1000, 1000);
+
+        cy.get('[data-cy=singleDefault]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
+        cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
+
+        cy.get('[data-cy=singleFilter]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
+
+        cy.get('[data-cy=singleClickToHide]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
+
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
+
+        cy.get('[data-cy=multipleFilter]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
+
+        cy.get('[data-cy=multipleClickToHide]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
+
+    });
+
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 

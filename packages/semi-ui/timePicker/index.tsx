@@ -6,6 +6,7 @@ import { get } from 'lodash';
 import { Locale } from '../locale/interface';
 import type { ValidateStatus } from '../_base/baseComponent';
 import type { ScrollItemProps } from '../scrollList/scrollItem';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export type { TimeInputProps } from './TimeInput';
 export type { TimePickerProps } from './TimePicker';
@@ -18,7 +19,8 @@ export type LocalePickerProps = BasePickerProps;
 
 export default class LocaleTimePicker extends React.PureComponent<LocalePickerProps> {
     static propTypes = BaseTimePicker.propTypes;
-    static defaultProps = BaseTimePicker.defaultProps;
+    static __SemiComponentName__ = "TimePicker";
+    static defaultProps = getDefaultPropsFromGlobalConfig(LocaleTimePicker.__SemiComponentName__, BaseTimePicker.defaultProps);
 
     render() {
         const { type } = this.props;

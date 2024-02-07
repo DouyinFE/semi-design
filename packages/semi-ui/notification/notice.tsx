@@ -10,7 +10,7 @@ import NotificationFoundation, {
 } from '@douyinfe/semi-foundation/notification/notificationFoundation';
 import Button from '../iconButton';
 import BaseComponent from '../_base/baseComponent';
-import { isSemiIcon } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, isSemiIcon } from '../_utils';
 import { noop } from 'lodash';
 import { IconAlertCircle, IconAlertTriangle, IconClose, IconInfoCircle, IconTickCircle } from '@douyinfe/semi-icons';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
@@ -33,7 +33,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
     static contextType = ConfigContext;
     static propTypes = {
         duration: PropTypes.number,
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        id: PropTypes.string,
         title: PropTypes.node,
         content: PropTypes.node, // strings、numbers、array、element
         type: PropTypes.oneOf(types),
@@ -48,7 +48,9 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
         direction: PropTypes.oneOf(directions),
     };
 
-    static defaultProps = {
+    static __SemiComponentName__ = "Notification";
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(Notice.__SemiComponentName__, {
         duration,
         id: '',
         close: noop,
@@ -59,7 +61,7 @@ class Notice extends BaseComponent<NoticeReactProps, NoticeState> {
         title: '',
         showClose: true,
         theme: 'normal',
-    };
+    });
 
     get adapter(): NoticeAdapter {
         return {

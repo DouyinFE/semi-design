@@ -48,11 +48,21 @@ const srcList2 = [
     "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag8.png",
 ];
 
+const srcList3 = [
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag1.png",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/small-size.jpeg",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag3.png",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/beach.jpeg",
+    "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/imag5.png",
+    'https://lf3-static.bytednsdoc.com/obj/eden-cn/9130eh7pltbfnuhog/200100.jpeg',
+];
+
 export const basicImage = () => {
     const [escOut, setEscOut] = useState(true);
     const [disableDownload, setDisableDownload] = useState(false);
     const [maskClosable, setMaskClosable] = useState(true);
     const [preview, setPreview] = useState(true);
+    const [closable, setClosable] = useState(true);
 
     const itemStyle = { display: 'flex', alignItems: 'center', flexShrink: 0, width: 'fit-content', margin: '10px 20px 0 0' };
     const menuStyle = { marginBottom: 20, display: 'flex', flexWrap: 'wrap' };
@@ -72,6 +82,10 @@ export const basicImage = () => {
                 <span >是否禁用下载：</span>
                 <Switch checked={disableDownload} checkedText="是" uncheckedText="否" onChange={setDisableDownload}/>
             </div>
+            <div style={itemStyle} id='closable'>
+                <span>是否显示预览关闭按钮：</span>
+                <Switch checked={closable} checkedText="是" uncheckedText="否" onChange={setClosable} />
+            </div>
             <div style={itemStyle} id='maskClosable'>
                 <span >点击遮罩层是否关闭预览：</span>
                 <Switch checked={maskClosable} checkedText="是" uncheckedText="否" onChange={setMaskClosable}/>
@@ -84,7 +98,8 @@ export const basicImage = () => {
             preview={preview ? {
                 closeOnEsc: escOut,
                 disableDownload,
-                maskClosable
+                maskClosable,
+                closable
             } : false}
         />
     </>
@@ -400,6 +415,7 @@ export const GridImage= () => {
             infinite={infinite}
         >
             <Row style={{ width: 800 }}>
+                {/* {srcList3.map((src, index) => { */}
                 {srcList2.map((src, index) => {
                     return (
                         <Col span={6} style={{ height: 200 }} key={`col${index}`}>
@@ -717,5 +733,40 @@ export const SmallHeightImage = () => {
             height={10}
             src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
         />
+    </>
+}
+
+export const previewClsAndPreviewStyle = () => {
+   return <>
+        <span>1.previewCls为 test-preview， previewStyle 的 background 为 lightblue </span>
+        <br />
+        <Image 
+            width={360}
+            height={200}
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+            preview={{
+                previewCls: 'test-preview',
+                previewStyle: { background: 'lightblue' }
+            }}
+        />
+        <br />
+        <span>2.previewCls为 test-imagePreview， previewStyle 的 background 为 lightgreen </span>
+        <br />
+        <ImagePreview
+            previewCls='test-imagePreview'
+            previewStyle={{ background: 'lightgreen' }}
+        >
+            {srcList1.map((src, index) => {
+                return (
+                    <Image 
+                        key={index} 
+                        src={src} 
+                        width={200} 
+                        alt={`lamp${index + 1}`} 
+                        style={{ marginRight: 5 }}
+                    />
+                );
+            })}
+        </ImagePreview> 
     </>
 }

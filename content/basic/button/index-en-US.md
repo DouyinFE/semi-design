@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 20
+order: 17
 category: Input
 title:  Button
 subTitle: Button

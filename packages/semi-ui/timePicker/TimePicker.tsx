@@ -29,7 +29,7 @@ export interface Panel {
     panelFooter?: React.ReactNode | React.ReactNode[]
 }
 
-export type BaseValueType = string | number | Date;
+export type BaseValueType = string | number | Date | undefined;
 
 export type Type = 'time' | 'timeRange';
 
@@ -82,7 +82,7 @@ export type TimePickerProps = {
     secondStep?: number;
     showClear?: boolean;
     size?: InputSize;
-    stopPropagation: boolean;
+    stopPropagation?: boolean;
     style?: React.CSSProperties;
     timeZone?: string | number;
     triggerRender?: (props?: any) => React.ReactNode;

@@ -38,7 +38,7 @@ function Banner() {
                             </defs>
                         </svg>
                         <a style={{ position: 'absolute', height: 'fit-content', left: 224, top: -26 }} href={"https://www.rspack.dev"} aria-label={"rspack"} target={"_blank"} rel="noreferrer">
-                            <img style={{ width: "60px", position: "relative", left: "-18px" }} src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/rspack.png"}/>
+                            <img style={{ width: "60px", position: "relative", left: "-18px" }} alt='rspack logo' src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/rspack.png"}/>
                         </a>
                         <svg aria-label={"remix"} style={{ position: 'relative', top: "-16px", left: "304px", transform: 'scale(1.3)' }} height="24" viewBox="0 0 350 165" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><title>Remix Logo</title>
                             <path fillRule="evenodd" clipRule="evenodd" d="M133.85 124.16C135.3 142.762 135.3 151.482 135.3 161H92.2283C92.2283 158.927 92.2653 157.03 92.3028 155.107C92.4195 149.128 92.5411 142.894 91.5717 130.304C90.2905 111.872 82.3473 107.776 67.7419 107.776H54.8021H0V74.24H69.7918C88.2407 74.24 97.4651 68.632 97.4651 53.784C97.4651 40.728 88.2407 32.816 69.7918 32.816H0V0H77.4788C119.245 0 140 19.712 140 51.2C140 74.752 125.395 90.112 105.665 92.672C122.32 96 132.057 105.472 133.85 124.16Z" fill="currentColor"></path>

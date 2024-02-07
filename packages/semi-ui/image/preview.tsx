@@ -10,6 +10,7 @@ import { cssClasses } from "@douyinfe/semi-foundation/image/constants";
 import { isObject, isEqual } from "lodash";
 import "@douyinfe/semi-foundation/image/image.scss";
 import cls from "classnames";
+import { omit } from "lodash";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -39,6 +40,8 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         lazyLoadMargin: PropTypes.string,
         preLoad: PropTypes.bool,
         preLoadGap: PropTypes.number,
+        previewCls: PropTypes.string,
+        previewStyle: PropTypes.object,
         disableDownload: PropTypes.bool,
         zIndex: PropTypes.number,
         renderHeader: PropTypes.func,
@@ -60,6 +63,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
         src: [],
         lazyLoad: true,
         lazyLoadMargin: "0px 100px 100px 0px",
+        closable: true
     };
 
     get adapter() {
@@ -194,6 +198,11 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
 
     render() {
         const { src, className, style, lazyLoad, setDownloadName, ...restProps } = this.props;
+        const previewInnerProps = { 
+            ...omit(restProps, ['previewCls', 'previewStyle']), 
+            className: restProps?.previewCls, 
+            style: restProps?.previewStyle 
+        };
         const { currentIndex, visible } = this.state;
         const { srcListInChildren, newChildren, titles } = this.loopImageIndex();
         const srcArr = Array.isArray(src) ? src : (typeof src === "string" ? [src] : []);
@@ -217,7 +226,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
                     {newChildren}
                 </div>
                 <PreviewInner
-                    {...restProps}
+                    {...previewInnerProps}
                     ref={this.previewRef}
                     src={finalSrcList}
                     currentIndex={currentIndex}

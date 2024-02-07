@@ -150,6 +150,7 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
 'keyEntities'
 | 'treeData'
 | 'flattenNodes'
+| 'cachedFlattenNodes'
 | 'selectedKeys'
 | 'checkedKeys'
 | 'halfCheckedKeys'
@@ -188,6 +189,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     closeMenu: (cb?: () => void) => void;
     getTriggerWidth: () => boolean | number;
     setOptionWrapperWidth: (width: null | number) => void;
+    notifyClear: (e: any) => void;
     notifyChange: BasicOnChangeWithBasic;
     notifyChangeWithObject: BasicOnChangeWithObject;
     notifyExpand: (expandedKeys: Set<string>, expandedOtherProps: BasicExpandedOtherProps) => void;
@@ -346,9 +348,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const isSearching = Boolean(inputValue);
         const treeNodeProps: BasicTreeNodeProps = {
             eventKey: key,
-            expanded: isSearching && !this._isExpandControlled()
-                ? filteredExpandedKeys.has(key)
-                : expandedKeys.has(key),
+            expanded: isSearching ? filteredExpandedKeys.has(key) : expandedKeys.has(key),
             selected: selectedKeys.includes(key),
             checked: realChecked,
             halfChecked: realHalfChecked,
@@ -442,6 +442,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             this.handlerTriggerBlur(e);
             this.close(e);
         });
+    }
+
+    clearInputValue = () => {
+        const { inputValue } = this.getStates();
+        inputValue && this._adapter.updateInputValue('');
     }
 
     // Scenes that may trigger focus:
@@ -544,6 +549,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 }
             }
         }
+        this._adapter.notifyClear(e);
     }
 
     /**
@@ -597,8 +603,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const newFlattenNodes = flattenTreeData(treeData, newExpandedKeys, keyMaps);
 
         this._adapter.updateState({
-            expandedKeys: isExpandControlled ? expandedKeys : newExpandedKeys,
-            flattenNodes: isExpandControlled ? flattenNodes : newFlattenNodes,
+            expandedKeys: newExpandedKeys,
+            flattenNodes: newFlattenNodes,
             inputValue: '',
             motionKeys: new Set([]),
             filteredKeys: new Set([]),
@@ -637,8 +643,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const newFilteredExpandedKeys = new Set(expandedOptsKeys);
         this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys));
         this._adapter.updateState({
-            expandedKeys: this._isExpandControlled() ? expandedKeys : newExpandedKeys,
-            flattenNodes: this._isExpandControlled() ? flattenNodes : newFlattenNodes,
+            expandedKeys: newExpandedKeys,
+            flattenNodes: newFlattenNodes,
             motionKeys: new Set([]),
             filteredKeys: new Set(filteredOptsKeys),
             filteredExpandedKeys: newFilteredExpandedKeys,
@@ -808,7 +814,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
 
         const isExpandControlled = this._isExpandControlled();
-        if (isSearching && !isExpandControlled) {
+        if (isSearching) {
             this.handleNodeExpandInSearch(e, treeNode);
             return;
         }

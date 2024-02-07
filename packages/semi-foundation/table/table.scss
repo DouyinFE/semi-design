@@ -296,6 +296,9 @@ $module: #{$prefix}-table;
                         background-color: $color-table_row_expanded-bg-default;
                     }
                 }
+                &-hidden {
+                    display: none;
+                }
             }
 
             & > .#{$module}-cell-fixed {
@@ -428,7 +431,6 @@ $module: #{$prefix}-table;
         }
 
         &-sorter {
-            margin-left: $spacing-table_column_sorter-marginLeft;
             display: inline-block;
             width: $width-table_column_sorter-icon;
             height: $height-table_column_sorter-icon;
@@ -437,6 +439,7 @@ $module: #{$prefix}-table;
 
             &-wrapper {
                 display: flex;
+                gap: $spacing-table_column_sorter-marginLeft;
                 align-items: center;
                 cursor: pointer;
                 overflow: hidden;

@@ -182,23 +182,58 @@ const ScrollDemo = function ScrollDemo(props = {}) {
   );
 };
 
+export const ScaleContainerTooltip = () => {
+
+    return <div>
+        <div id={"scaleContainer"} style={{border: '1px solid red', width: 400, height: 400, transform:'scale(1.5)',transformOrigin:'left'}}>
+            <Tooltip
+                content={
+                    <article>
+                        <p>hi bytedance</p>
+                        <p>hi bytedance</p>
+                    </article>
+                }
+                trigger={'click'}
+                getPopupContainer={()=>document.querySelector("#scaleContainer")}
+            >
+                <Tag style={{'margin': '90px 90px'}}>Tooltip 跟着缩放</Tag>
+            </Tooltip>
+        </div>
+
+        <div  style={{border: '1px solid red', width: 400, height: 400, scale: '1.5',marginTop:500,transformOrigin:'left'}}>
+            <Tooltip
+                content={
+                    <article>
+                        <p>hi bytedance</p>
+                        <p>hi bytedance</p>
+                    </article>
+                }
+                trigger={'click'}
+            >
+                <Tag style={{'margin': '90px 90px'}}>Tooltip 不跟着缩放</Tag>
+            </Tooltip>
+        </div>
+
+    </div>
+}
+
 export const TooltipOnVisibleChange = () => {
-  const [visible, setVisible] = useState(true);
-  return (
-    <div className="demo">
-      <div>
-        <label>受控</label>
-        <Tooltip
-          content={
-            <article>
-              <p>hi bytedance</p>
-              <p>hi bytedance</p>
-            </article>
-          }
-          position="top"
-          onVisibleChange={setVisible}
-          trigger="click"
-          visible={visible}
+    const [visible, setVisible] = useState(true);
+    return (
+        <div className="demo">
+            <div>
+                <label>受控</label>
+                <Tooltip
+                    content={
+                        <article>
+                            <p>hi bytedance</p>
+                            <p>hi bytedance</p>
+                        </article>
+                    }
+                    position="top"
+                    onVisibleChange={setVisible}
+                    trigger="click"
+                    visible={visible}
         >
           <Tag>demo</Tag>
         </Tooltip>

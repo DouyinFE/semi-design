@@ -1,7 +1,7 @@
-> A repack plugin for Semi Design to custom theme、replace prefix and so on.
+> A rspack plugin for Semi Design to custom theme、replace prefix and so on.
 
 ## Introduction
-The plugin is designed for Semi Design, support webpack4 and webpack5, provides two major abilities:
+The plugin is designed for Semi Design, support rspack, provides two major abilities:
 - Custom theme
 - Replace prefix of CSS selector 
 
@@ -29,7 +29,7 @@ Priority from low to high.
 In order to use the npm package, you need to customize the theme through [Semi Design System](https://semi.design/dsm/).After finishing the customization, Semi DSM will generate a npm package for you, and then you can use it like this.
 
 ``` js
-// webpack.config.js
+// rspack.config.js
 const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
@@ -53,9 +53,9 @@ You can check which tokens can be customized on the [Semi WebSite](https://semi.
 $font-size-small: 16px;
 
 ```
-- step2: config webpack
+- step2: config rspack
 ``` js
-// webpack.config.js
+// rspack.config.js
 const path = require('path');
 const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
@@ -71,7 +71,7 @@ module.exports = {
 
 #### Through parameters
 ``` js
-// webpack.config.js
+// rspack.config.js
 const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
@@ -90,7 +90,7 @@ module.exports = {
 The CSS selectors used by Semi Design is prefixed with semi by default(e.g, `.semi-button`).You can replace the prefix through this plugin.
 
 ``` js
-// webpack.config.js
+// rspack.config.js
 const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
 
 module.exports = {
@@ -148,13 +148,13 @@ In the compilation phase, whether to exclude css references.Used to solve the pr
 
 Type: `String`
 
-The path of webpack loader that extract css.
+The path of webpack/rspack loader that extract css.
 
 ##### options.extractCssOptions.loaderOptions
 
 Type: `Object`
 
-The options of webpack loader that extract css.
+The options of webpack/rspack loader that extract css.
 
 #### options.overrideStylesheetLoaders
 

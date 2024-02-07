@@ -47,8 +47,8 @@ export const _Input = () => (
       width: 200,
     }}
   >
-    <Input />
-    <Input validateStatus="warning" />
+      <Input onlyBorder={2} size={"large"} />
+      <Input validateStatus="warning" />
     <Input validateStatus="error" />
     <br />
     <br />
@@ -1015,3 +1015,19 @@ export const forwardRefFocus = () => {
     </div>
   </>
 )};
+
+export const TextAutoSizeResize = () => {
+  const [width, setWidth] = useState(800);
+
+  return (
+    <div>
+      <Space style={{ marginBottom: 20 }}>
+        <Button onClick={() => setWidth(100)}>width=100</Button>
+        <Button onClick={() => setWidth(1000)}>width=1000</Button>
+      </Space>
+      <div style={{ width, maxWidth: '100%' }}>
+        <TextArea autosize defaultValue='semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design ' />
+      </div>
+    </div>
+  )
+};

@@ -56,7 +56,6 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
             const mergedKey = treeNode[realKeyName];
-
             const otherData = {};
             if (keyMaps) {
                 Object.entries(omit(keyMaps, 'children')).forEach(([key, value]) => {
@@ -74,6 +73,7 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
                 children: null,
                 data: treeNode,
                 _innerDataTag: true,
+                isEnd: [...(parent ? parent.isEnd : []), index === list.length - 1],
             };
             const isBooleanFilteredShownKeys = typeof filteredShownKeys === 'boolean';
             if (!filterSearch || (!isBooleanFilteredShownKeys && filteredShownKeys.has(mergedKey))) {
@@ -340,7 +340,7 @@ export function calcCheckedKeys(values: any, keyEntities: KeyEntities) {
     let halfCheckedKeys = new Set([]);
     let visited: any[] = [];
 
-    const levelMap: {[key: number]: string[]} = getSortedKeyList(keyList, keyEntities);
+    const levelMap: { [key: number]: string[] } = getSortedKeyList(keyList, keyEntities);
 
     const calcCurrLevel = (node: any) => {
         const { key, parent, level } = node;
@@ -422,14 +422,13 @@ export function calcMotionKeys(oldKeySet: Set<string>, newKeySet: Set<string>, k
 /**
  * @returns whether option includes sugInput.
  * When filterTreeNode is a function,returns the result of filterTreeNode which called with (sugInput, target, option).
- * The filteredPath parameter will only be passed in when the Cascader calls the filter function
  */
-export function filter(sugInput: string, option: any, filterTreeNode: any, filterProps: any, filteredPath?: string) {
+export function filter(sugInput: string, option: any, filterTreeNode: any, filterProps: any) {
     if (!filterTreeNode) {
         return true;
     }
     let filterFn = filterTreeNode;
-    let target = filteredPath ?? option;
+    let target = option;
     if (typeof filterTreeNode === 'boolean') {
         filterFn = (targetVal: string, val: any) => {
             const input = targetVal.toLowerCase();
