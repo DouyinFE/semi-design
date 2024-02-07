@@ -50,7 +50,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         eventName: SemiUsedEvent
     }>
     static initEventListener = () => {
-        if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]' && !isInited) {
+        if (!isInited) {
             Object.values(SemiUsedEvent).forEach((eventName) => {
                 [[BaseComponent.windowEventWeakMap, window], [BaseComponent.documentEventWeakMap, document]].forEach(([eventWeakMap, target])=>{
                     eventWeakMap[eventName] = [];
