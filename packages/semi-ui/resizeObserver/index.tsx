@@ -2,7 +2,6 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import ResizeObserver from 'resize-observer-polyfill';
 
 /** A parallel type to `ResizeObserverEntry` (from resize-observer-polyfill). */
 export interface ResizeEntry {
