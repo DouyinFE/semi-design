@@ -247,6 +247,14 @@ describe('table', () => {
         cy.get('.semi-table-thead .semi-checkbox-checked').should('exist')
     });
 
+    it('test hidden rowSelection in resizable Table', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-row-selection-hidden-resizable&viewMode=story');
+        cy.get('.semi-button').eq(0).click();
+        cy.get('.semi-table-column-selection').should('not.exist');
+        cy.get('.semi-button').eq(0).click();
+        cy.get('.semi-table-column-selection').should('exist');
+    });
+
     it('test renderFilterDropdown', () => {
         cy.visit('http://localhost:6006/iframe.html?args=&id=table--feat-render-filter-dropdown&viewMode=story');
 

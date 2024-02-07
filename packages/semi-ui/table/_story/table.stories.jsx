@@ -110,7 +110,8 @@ export {
     SortIcon,
     FixedAllDisabledAndSelected,
     FeatRenderFilterDropdown,
-    InputFilter
+    InputFilter,
+    FixedRowSelectionHiddenResizable
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

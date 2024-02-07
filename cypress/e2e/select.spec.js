@@ -89,33 +89,38 @@ describe('Select', () => {
 
         cy.viewport(1000, 1000);
 
-        cy.get('.semi-select-selection').eq(0).click();
+        cy.get('[data-cy=singleDefault]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
         cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
 
-        cy.get('.semi-select-selection').eq(1).click();
+        cy.get('[data-cy=singleFilter]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
 
-        cy.get('.semi-select-selection').eq(3).click();
+        cy.get('[data-cy=singleClickToHide]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
 
-        cy.get('.semi-select-selection').eq(4).click();
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
 
-        cy.get('.semi-select-selection').eq(5).click();
+        cy.get('[data-cy=multipleFilter]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
 
-        cy.get('.semi-select-selection').eq(6).click();
+        cy.get('[data-cy=multipleClickToHide]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
@@ -131,29 +136,33 @@ describe('Select', () => {
 
         cy.viewport(1000, 1000);
 
-        cy.get('.semi-select-selection').eq(0).click();
+        cy.get('[data-cy=singleDefault]').click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
         cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
 
-        cy.get('.semi-select-selection').eq(1).click();
+        cy.get('[data-cy=singleFilter]').click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
 
-        cy.get('.semi-select-selection').eq(3).click();
+        cy.get('[data-cy=singleClickToHide]').click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
 
-        cy.get('.semi-select-selection').eq(4).click();
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
         cy.get('.semi-select-option').eq(1).click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
 
-        cy.get('.semi-select-selection').eq(5).click();
+        cy.get('[data-cy=multipleFilter]').click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
 
-        cy.get('.semi-select-selection').eq(6).click();
+        cy.get('[data-cy=multipleClickToHide]').click();
         cy.root().click('right');
         cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
 

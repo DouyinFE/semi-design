@@ -5,7 +5,7 @@ import React from 'react';
 
 
 const TopSlotSvg = ({ gradientStart, gradientEnd }: {gradientStart: string;gradientEnd: string})=> {
-    const id = getUuidShort()
+    const id = getUuidShort();
     return <svg xmlns="http://www.w3.org/2000/svg" width="51" height="52" viewBox="0 0 51 52" fill="none">
         <g filter="url(#filter0_d_6_2)">
             <path

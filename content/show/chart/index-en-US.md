@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 76
+order: 67
 category: Other
 title: VChart
 icon: doc-vchart

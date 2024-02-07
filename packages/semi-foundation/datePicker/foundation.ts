@@ -18,6 +18,7 @@ import type { Type, DateInputFoundationProps, InsetInputValue } from './inputFou
 import type { MonthsGridFoundationProps } from './monthsGridFoundation';
 import type { WeekStartNumber } from './_utils/getMonthTable';
 import isValidTimeZone from './_utils/isValidTimeZone';
+import warning from '../utils/warning';
 
 export type ValidateStatus = ArrayElement<typeof strings.STATUS>;
 export type InputSize = ArrayElement<typeof strings.SIZE_SET>;
@@ -292,6 +293,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
                         parsedV = zonedTimeToUtc(parsedV, prevTimeZone);
                     }
                     result.push(isValidTimeZone(timeZone) ? utcToZonedTime(parsedV, timeZone) : parsedV);
+                } else {
+                    warning(true, `[Semi DatePicker] value cannot be parsed, value: ${String(v)}`);
                 }
             }
         }

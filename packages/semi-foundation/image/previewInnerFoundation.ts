@@ -226,6 +226,10 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
 
         const preloadImages = getPreloadImagArr(imgSrc, currentIndex, preLoadGap, infinite);
+        if (preloadImages.length === 0) {
+            return;
+        }
+
         const Img = new Image();
         let index = 0;
         function callback(e: any) {
