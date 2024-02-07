@@ -142,7 +142,6 @@ class Progress extends Component<ProgressProps, ProgressState> {
     }
 
     componentWillUnmount(): void {
-        super.componentWillUnmount();
         this.animation && this.animation.destroy();
         this._mounted = false;
     }

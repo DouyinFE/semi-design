@@ -36,6 +36,8 @@ type SemiEventTarget = typeof window | typeof document;
 
 type Callback = (e: Event) => void
 
+let isInited = false;
+
 // eslint-disable-next-line
 export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Component<P, S> {
     static propTypes = {};
@@ -48,18 +50,22 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         eventName: SemiUsedEvent
     }>
     static initEventListener = () => {
-        Object.values(SemiUsedEvent).forEach((eventName) => {
-            [[BaseComponent.windowEventWeakMap, window], [BaseComponent.documentEventWeakMap, document]].forEach(([eventWeakMap, target])=>{
-                eventWeakMap[eventName] = [];
-                (target as SemiEventTarget).addEventListener(eventName, (e) => {
-                    eventWeakMap[eventName]?.forEach((ref: WeakRef<Callback & {_function?: Callback}>) => {
-                        const cb = ref.deref();  
-                        cb?._function(e);
+        if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]' && !isInited) {
+            Object.values(SemiUsedEvent).forEach((eventName) => {
+                [[BaseComponent.windowEventWeakMap, window], [BaseComponent.documentEventWeakMap, document]].forEach(([eventWeakMap, target])=>{
+                    eventWeakMap[eventName] = [];
+                    (target as SemiEventTarget).addEventListener(eventName, (e) => {
+                        eventWeakMap[eventName]?.forEach((ref: WeakRef<Callback & {_function?: Callback}>) => {
+                            const cb = ref.deref();
+                            cb?._function(e);
+                        });
                     });
                 });
             });
-        });
-        BaseComponent.finalizationRegistry = new FinalizationRegistry(BaseComponent.onEventCallbackGC);
+            BaseComponent.finalizationRegistry = new FinalizationRegistry(BaseComponent.onEventCallbackGC);
+            isInited = true;
+        }
+
     }
 
     static onEventCallbackGC = ({ target, weakRef, eventName }: {
@@ -139,6 +145,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
     }
 
     hookedAddEventListener = (target: SemiEventTarget, eventName: SemiUsedEvent, callback: (Callback) & {_function?: Callback}) => {
+        BaseComponent.initEventListener();
         let eventWeakMap: Record<string, WeakRef<(e: Event) => void>[]>;
         if (target === window) {
             eventWeakMap = BaseComponent.windowEventWeakMap;
@@ -159,8 +166,4 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         });
     }
 
-}
-
-if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
-    BaseComponent.initEventListener();
 }
