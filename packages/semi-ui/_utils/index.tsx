@@ -198,6 +198,23 @@ export function getFocusableElements(node: HTMLElement) {
     return focusableElements;
 }
 
+
+
+export async function runAfterTicks(func: (...args: any) => any, numberOfTicks: number) {
+    if (numberOfTicks===0) {
+        await func();
+        return;
+    } else {
+        await new Promise<void>(resolve=>{
+            setTimeout(async ()=>{
+                await runAfterTicks(func, numberOfTicks-1);
+                resolve();
+            }, 0);
+        });
+        return;
+    }
+}
+
 export function getScrollbarWidth() {
     if (globalThis && Object.prototype.toString.call(globalThis) === '[object Window]') {
         return window.innerWidth - document.documentElement.clientWidth;
