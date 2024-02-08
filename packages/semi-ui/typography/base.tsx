@@ -1,5 +1,4 @@
 import React, { Component, CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/constants';
@@ -13,8 +12,8 @@ import getRenderText from './util';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import LocaleConsumer from '../locale/localeConsumer';
-import { Locale } from '../locale/interface';
-import { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
+import type { Locale } from '../locale/interface';
+import type { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
 import { CopyableConfig, LinkType } from './title';
 import { BaseProps } from '../_base/baseComponent';
 import { isSemiIcon, runAfterTicks } from '../_utils';

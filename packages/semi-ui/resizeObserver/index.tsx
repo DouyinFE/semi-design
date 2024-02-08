@@ -79,7 +79,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
 
     handleResizeEventTriggered = (entries: ResizeEntry[])=>{
-        if (this.props.observerProperty===ObserverProperty.All) {
+        if (this.props.observerProperty === ObserverProperty.All) {
             this.props.onResize(entries);
         } else {
             const finalEntries: ResizeEntry[] = [];
