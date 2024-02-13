@@ -138,6 +138,28 @@ import { Descriptions } from '@douyinfe/semi-ui';
 };
 ```
 
+### 设置布局模式
+
+可以通过 `layout` 设置布局模式，支持横向布局 `horizontal` 和纵向布局 `vertical`。默认为 `vertical`。
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions } from '@douyinfe/semi-ui';
+const data = [
+    { key: '火山号', value: '123456789' },
+    { key: '主播类型(签约)', value: '自由（普通）主播' },
+    { key: '安全等级', value: '3级' },
+    { key: '垂类标签', value: '新闻博主' },
+    { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值，需要自动换行显示', span: 3 },
+];
+
+() => {
+    return (
+        <Descriptions layout='horizontal' align='left' data={data} />
+    );
+};
+```
+
 ## API 参考
 
 ### Descriptions
@@ -150,6 +172,8 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | row       | 是否双行显示                                                     | boolean    | `false`  |
 | size      | 设置双行显示时的列表的大小，可选 `small`、 `medium`、 `large`    | string     | `medium` |
 | style     | 列表的样式                                                       | CSSProperties     | 无       |
+| layout    | 列表布局模式                                            | string        | `vertical` |
+| column    | 横向布局下的总列数                                         | number        | 3          |
 
 ### DataItem
 
@@ -158,6 +182,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | key    | 键值        | ReactNode           | -      |
 | value  | 属性值                           | ReactNode \| (() => ReactNode) | -      |
 | hidden | 该数据是否需要展示 **v>=1.12.0** | boolean                     | -      |
+| span   | 单元格应跨越的列数                 | number      | 1                 |
 
 ### DescriptionItem
 
@@ -169,6 +194,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | hidden    | 该数据是否需要展示        | boolean           | -      |
 | className | 类名                      | string            | -     |
 | style     | 列表的样式                | CSSProperties            | -     |
+| span   | 单元格应跨越的列数                 | number      | 1                 |
 
 
 
