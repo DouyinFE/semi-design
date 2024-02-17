@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import ConfigContext, { ContextValue } from '../configProvider/context';
-import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/popover/constants';
 import Tooltip, { ArrowBounding, Position, TooltipProps, Trigger, RenderContentProps } from '../tooltip/index';
 import Arrow from './Arrow';
 import '@douyinfe/semi-foundation/popover/popover.scss';
@@ -11,6 +10,8 @@ import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import { cssClasses, strings, numbers } from '@douyinfe/semi-foundation/popover/constants';
+
 export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
@@ -49,7 +50,8 @@ export interface PopoverProps extends BaseProps {
     clickToHide?: TooltipProps['clickToHide'];
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    exist?: boolean
 }
 
 export interface PopoverState {
@@ -89,6 +91,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         prefixCls: PropTypes.string,
         guardFocus: PropTypes.bool,
         disableArrowKeyDown: PropTypes.bool,
+        exist: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -107,7 +110,8 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         closeOnEsc: true,
         returnFocusOnClose: true,
         guardFocus: true,
-        disableFocusListener: true
+        disableFocusListener: true,
+        exist: true
     };
 
     context: ContextValue;
@@ -158,6 +162,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
             position,
             style,
             trigger,
+            exist,
             ...attr
         } = this.props;
         let { spacing } = this.props;
@@ -191,6 +196,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
                 showArrow={arrow}
                 arrowBounding={arrowBounding}
                 role={role}
+                exist={exist}
             >
                 {children}
             </Tooltip>

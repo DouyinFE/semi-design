@@ -83,7 +83,8 @@ export interface TooltipProps extends BaseProps {
     preventScroll?: boolean;
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    exist?: boolean;
 }
 
 interface TooltipState {
@@ -149,6 +150,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
         keepDOM: PropTypes.bool,
+        exist: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -176,7 +178,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
-        keepDOM: false
+        keepDOM: false,
+        exist: true,
     };
 
     eventManager: Event;
@@ -602,7 +605,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             id,
             isPositionUpdated
         } = this.state;
-        const { prefixCls, content, showArrow, style, motion, role, zIndex } = this.props;
+        const { prefixCls, content, showArrow, style, motion, role, zIndex, exist } = this.props;
         const contentNode = this.renderContentNode(content);
         const { className: propClassName } = this.props;
         const direction = this.context.direction;
@@ -655,7 +658,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
 
         return (
-            <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
+            exist && <Portal getPopupContainer={this.props.getPopupContainer} style={{ zIndex }}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                 <div
                     // listen keyboard event, don't move tabIndex -1
