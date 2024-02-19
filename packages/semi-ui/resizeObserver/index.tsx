@@ -31,15 +31,18 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     constructor(props: ReactResizeObserverProps) {
         super(props);
-        this.observer = new ResizeObserver(props.onResize);
+        if (globalThis['ResizeObserver']) {
+            this.observer = new ResizeObserver(props.onResize);
+        }
+        
     }
 
     componentDidMount() {
-        this.observeElement();
+        this.observeElement?.();
     }
 
     componentDidUpdate(prevProps: ReactResizeObserverProps) {
-        this.observeElement(this.props.observeParent !== prevProps.observeParent);
+        this.observeElement?.(this.props.observeParent !== prevProps.observeParent);
     }
 
     componentWillUnmount() {
