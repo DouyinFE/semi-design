@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.53.2 (2024-02-19)
+- 【Fix】
+  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1, 2.53.0-beta.0)
+
+#### 🎉 2.53.1 (2024-02-18)
+- 【Fix】
+  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+- 【Chore】
+  - remove ResizeObserver polyfill
+
 #### 🎉 2.52.0 (2024-02-06)
 - 【Fix】
   - fix the problem that onBlur is not triggered when clicking outside the Select button after clicking the clear button.  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
