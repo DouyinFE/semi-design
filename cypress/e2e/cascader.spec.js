@@ -114,7 +114,7 @@ describe('cascader', () => {
         cy.get('input').should('have.value', '');
     });
 
-    it.only('value type number', () => {
+    it('value type number', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--number-value&args=&viewMode=story');
         cy.get('.semi-cascader-selection').click();
         cy.get('.semi-checkbox.semi-checkbox-checked').eq(0).should('exist');
