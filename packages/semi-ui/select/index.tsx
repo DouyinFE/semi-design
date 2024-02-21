@@ -452,10 +452,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
-                    // let isInPanel = optionsDom && optionsDom.contains(e.target);
-                    // let isInTrigger = triggerDom && triggerDom.contains(e.target);
-                    if (optionsDom && !optionsDom.contains(e.target as Node) &&
-                        triggerDom && !triggerDom.contains(e.target as Node)) {
+                    const target = e.target as Element;
+                    const isInPanel = optionsDom && optionsDom.contains(target);
+                    const isInTrigger = triggerDom && triggerDom.contains(target);
+                    const path = (e as any).composedPath && (e as any).composedPath() || [target];
+                    const isClickInside = path.includes(triggerDom) || path.includes(optionsDom);
+
+                    if (!isInPanel && !isInTrigger && !isClickInside) {
                         cb(e);
                     }
                 };

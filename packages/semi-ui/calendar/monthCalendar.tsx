@@ -87,7 +87,12 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
                 const clickOutsideHandler = (e: MouseEvent) => {
                     const cardInstance = this.cardRef && this.cardRef.get(key);
                     const cardDom = ReactDOM.findDOMNode(cardInstance);
-                    if (cardDom && !cardDom.contains(e.target as any)) {
+                    const target = e.target as Element;
+
+                    const path = e.composedPath && e.composedPath() || [target];
+                    const isClickInside = path.includes(cardDom);
+
+                    if (cardDom && !cardDom.contains(target) && !isClickInside) {
                         cb();
                     }
                 };

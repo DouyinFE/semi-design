@@ -253,7 +253,10 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 const clickOutsideHandler = (e: Event) => {
                     const tagInputDom = this.tagInputRef && this.tagInputRef.current;
                     const target = e.target as Element;
-                    if (tagInputDom && !tagInputDom.contains(target)) {
+                    const path = e.composedPath && e.composedPath() || [target];
+                    const isClickInside = path.includes(tagInputDom);
+
+                    if (tagInputDom && !tagInputDom.contains(target) && !isClickInside) {
                         cb(e);
                     }
                 };

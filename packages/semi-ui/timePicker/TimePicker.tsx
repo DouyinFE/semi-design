@@ -250,12 +250,16 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 }
                 this.clickOutSideHandler = e => {
                     const panel = this.savePanelRef && this.savePanelRef.current;
-                    const isInPanel = e.target && panel && panel.contains(e.target as Node);
+                    const target = e.target as Element;
+                    const isInPanel = target && panel && panel.contains(target);
+                    const path = e.composedPath && e.composedPath() || [target];
+                    const isClickInside = path.includes(panel);
+
                     const isInTimepicker =
                         this.timePickerRef &&
                         this.timePickerRef.current &&
-                        this.timePickerRef.current.contains(e.target as Node);
-                    if (!isInTimepicker && !isInPanel) {
+                        this.timePickerRef.current.contains(target);
+                    if (!isInTimepicker && !isInPanel && !isClickInside) {
                         const clickedOutside = true;
                         this.foundation.handlePanelClose(clickedOutside, e);
                     }
