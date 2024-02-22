@@ -113,4 +113,11 @@ describe('cascader', () => {
         // value change should not effect input value
         cy.get('input').should('have.value', '');
     });
+
+    it('value type number', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--number-value&args=&viewMode=story');
+        cy.get('.semi-cascader-selection').click();
+        cy.get('.semi-checkbox.semi-checkbox-checked').eq(0).should('exist');
+    });
+    
 });
