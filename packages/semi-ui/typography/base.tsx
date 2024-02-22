@@ -257,10 +257,30 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         const updateOverflow =
             rows <= 1 ?
-                this.wrapperRef.current.scrollWidth > this.wrapperRef.current.offsetWidth :
+                this.compareSingleRow() :
                 this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
         return updateOverflow;
     };
+
+    /**
+     * 通过将 content 给到 Range 对象，借助 Range 的 getBoundingClientRect 拿到 content 的准确 width
+     * 不受 css ellipsis 与否的影响
+     * By giving the content to the Range object, get the exact width of the content with the help of Range's getBoundingClientRect
+     * Not affected by css ellipsis or not
+     * https://github.com/DouyinFE/semi-design/issues/1731
+     */
+    compareSingleRow = () => {
+        const containerNode = this.wrapperRef.current;
+        const containerWidth = containerNode.getBoundingClientRect().width;
+        const childNodes = Array.from(containerNode.childNodes) as Node[];
+        const range = document.createRange();
+        const contentWidth = childNodes.reduce((acc: number, node: Node) => {
+            range.selectNodeContents(node as Node);
+            return acc + (range?.getBoundingClientRect()?.width ?? 0);
+        }, 0);
+        range.detach();
+        return contentWidth > containerWidth;
+    }
 
     showTooltip = () => {
         const { isOverflowed, isTruncated, expanded } = this.state;

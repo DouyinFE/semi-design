@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import withPropsCombinations from 'react-storybook-addon-props-combinations';
 
 import Icon from '../../icons';
@@ -881,3 +881,20 @@ export const GlobalEllipsisPopoverCls = () => (
     测试 showTooltip 中的 type 为 popover 时，传入的类名称正确
   </Title>
 )
+
+export const SingleRowCssEllipsisAccurate = () => {
+  const { Text } = Typography;
+  return (
+    <div>
+      <p>文本截断，hover 展示 tooltip 正常</p>
+      <Text
+        style={{ width: 171 }}
+        ellipsis={{
+          showTooltip: true,
+        }}
+      >
+        Latin America-巴西-圣保罗
+      </Text>
+    </div>
+  );
+}
