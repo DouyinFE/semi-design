@@ -270,13 +270,16 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
      * https://github.com/DouyinFE/semi-design/issues/1731
      */
     compareSingleRow = () => {
+        if (!(document && document.createRange)) {
+            return false;
+        }
         const containerNode = this.wrapperRef.current;
         const containerWidth = containerNode.getBoundingClientRect().width;
         const childNodes = Array.from(containerNode.childNodes) as Node[];
         const range = document.createRange();
         const contentWidth = childNodes.reduce((acc: number, node: Node) => {
             range.selectNodeContents(node as Node);
-            return acc + (range?.getBoundingClientRect()?.width ?? 0);
+            return acc + (range.getBoundingClientRect().width ?? 0);
         }, 0);
         range.detach();
         return contentWidth > containerWidth;
