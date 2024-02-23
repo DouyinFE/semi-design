@@ -12,26 +12,24 @@ export const isTargetEmit = (event, targetClasses): boolean => {
     return isTarget;
 };
 
-export const downloadImage = (src: string, filename: string): void => {
-    const image = new Image();
-    image.src = src;
-    image.crossOrigin = "anonymous";
-    image.onload = (e): void => {
-        const eleLink = document.createElement("a");
-        eleLink.download = filename;
-        eleLink.style.display = "none";
-        eleLink.download = filename;
-        eleLink.href = src;
-        const canvas = document.createElement("canvas");
-        canvas.width = image.width;
-        canvas.height = image.height;
-        const context = canvas.getContext("2d");
-        context.drawImage(image, 0, 0, image.width, image.height);
-        eleLink.href = canvas.toDataURL("image/jpeg");
-        document.body.appendChild(eleLink);
-        eleLink.click();
-        document.body.removeChild(eleLink);
-    };
+export const downloadImage = async (src: string, filename: string, downloadErrorCb: (src: string) => void ) => {
+    try {
+        const response = await fetch(src);
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(url);
+            link.remove();
+        } else {
+            downloadErrorCb(src);
+        }
+    } catch (error) {
+        downloadErrorCb(src);
+    }
 };
 
 export const crossMerge = (leftArr = [], rightArr = []) => {

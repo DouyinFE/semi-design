@@ -14,6 +14,7 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     notifyRatioChange: (type: RatioType) => void;
     notifyRotateChange: (angle: number) => void;
     notifyDownload: (src: string, index: number) => void;
+    notifyDownloadError: (src: string) => void;
     registerKeyDownListener: () => void;
     unregisterKeyDownListener: () => void;
     disabledBodyScroll: () => void;
@@ -173,7 +174,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const setDownloadName = this._adapter.getSetDownloadFunc();
         const downloadSrc = imgSrc[currentIndex];
         const downloadName = setDownloadName ? setDownloadName(downloadSrc) : downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1).split('?')[0];
-        downloadImage(downloadSrc, downloadName);
+        downloadImage(downloadSrc, downloadName, this._adapter.notifyDownloadError);
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
 
