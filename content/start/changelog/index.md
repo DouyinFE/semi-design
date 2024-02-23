@@ -13,6 +13,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.53.0 (2024-02-23)
+- 【Fix】
+  - 修复 Sidesheet Portal 在 visible 不显示的时候仍然挂载的问题
+  - 修复 TagInput 的 onKeyDown 参数类型定义错误问题
+  - 修复 Cascader 的 treeData 中 value 类型为 number 则面板未显示选中问题（影响范围 v2.51.0-v2.52.2)
+  - 修复 ResizeObsever 在非浏览器环境不存在的问题。问题影响范围(2.52.1,2.53.0-beta.0)
+  - 修复 vite 上使用主题报错的问题，问题影响范围 (2.52.0)
+- 【Docs】
+  - 修复 Tabs 组件文档中的 tabPosition 参数类型错误 [@miyuesc](https://github.com/miyuesc)
+- 【Chore】
+  - 去除 ResizeObserver polyfill
+
 ####  🎉 2.52.3 (2024-02-22)
 - 【Fix】
     - 修复 Cascader 的 treeData 中 value 类型为 number 则面板未显示选中问题（影响范围 v2.51.0-v2.52.2)

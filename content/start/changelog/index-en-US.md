@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.53.0 (2024-02-23)
+- 【Fix】
+  - Fixed the issue where Sidesheet Portal is still mounted when visible is not displayed
+  - Fix the problem of incorrect definition of onKeyDown parameter type of TagInput
+  - fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
+  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1,2.53.0-beta.0)
+  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+- 【Docs】
+  - Fix tabPosition parameter type error in Tabs component documentation [@miyuesc](https://github.com/miyuesc)
+- 【Chore】
+  - remove ResizeObserver polyfill
+
 ####  🎉 2.52.3 (2024-02-22)
 - 【Fix】
     - Fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
