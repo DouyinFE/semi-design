@@ -972,7 +972,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.20.0-beta.0 (2022-09-19)
 
 - 【New Component】
-   - 新增 Image 组件（新增了基础 sass、全局 sass 变量，使用自定义主题的需要重新发布） [#344](https://github.com/DouyinFE/semi-design/issues/344) 
+   - 新增 Image 组件（新增了基础 sass、全局 sass 变量，使用自定义主题的需要重新发布）[#344](https://github.com/DouyinFE/semi-design/issues/344) 
 - 【Feat】
     - Tag 新增 shape 选择，可选 square、circle [#89](https://github.com/DouyinFE/semi-design/issues/89)
     - Progress 支持根据进度自动填充渐变颜色，根据进度预设自动切换颜色 [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
@@ -1258,7 +1258,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.10.0-beta.0 (2022-04-29)
 - 【New Component】
-    - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+    - 新组件轮播图 Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)
 - 【Fix】
     - 修复 Cascader 在多选时，设定 displayProp 非value/label时候出错问题
 - 【Feat】
@@ -1285,7 +1285,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
 - 【New Component】
-    - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+    - 新增分割线 Divider 组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
 - 【Feat】
     - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
