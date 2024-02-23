@@ -1,6 +1,8 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings } from './constants';
-import { noop, get, cloneDeep } from 'lodash';
+import { noop, get } from 'lodash';
+import copy from 'fast-copy';
+
 const Boundary = strings.BOUNDARY_MAP;
 const OverflowDirection = strings.OVERFLOW_DIR;
 
@@ -42,7 +44,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
     }
 
     handleIntersect(entries: Array<IntersectionObserverEntry>): void {
-        const visibleState = cloneDeep(this.getState('visibleState'));
+        const visibleState = copy(this.getState('visibleState'));
 
         const res = {};
         entries.forEach(entry => {
@@ -75,7 +77,7 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
 
     getReversedItems = ()=>{
         const { items } = this.getProps();
-        return cloneDeep(items).reverse();
+        return copy(items).reverse();
     }
     handleCollapseOverflow() {
         const { minVisibleItems, collapseFrom } = this.getProps();
