@@ -82,7 +82,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
 
     handleResizeEventTriggered = (entries: ResizeEntry[])=>{
         if (this.props.observerProperty === ObserverProperty.All) {
-            this.props.onResize(entries);
+            this.props.onResize?.(entries);
         } else {
             const finalEntries: ResizeEntry[] = [];
             for (const entry of entries) {
@@ -97,7 +97,7 @@ export default class ReactResizeObserver extends BaseComponent<ReactResizeObserv
                 }
             }
             if (finalEntries.length>0) {
-                this.props.onResize(finalEntries);
+                this.props.onResize?.(finalEntries);
             }
         }
     }
