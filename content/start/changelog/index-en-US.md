@@ -15,9 +15,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.53.2 (2024-02-26)
+- 【Fix】
+  - fix the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
+  
 #### 🎉 2.53.1 (2024-02-26)
 - 【Fix】
     - the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations
+    - fix Badge component proptypes check error when type is success
 
 #### 🎉 2.53.0 (2024-02-23)
 - 【Fix】

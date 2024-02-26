@@ -13,9 +13,14 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.53.2 (2024-02-26)
+- 【Fix】
+    - 修复 React ResizeObserver 里访问空元素的错误 [@nekocode](https://github.com/nekocode)
+
 #### 🎉 2.53.1 (2024-02-26)
 - 【Fix】
     - 修复 TimePicker 中同时使用 timeZone 和 disabledHours 时显示值不符合预期问题
+    - 修复badge组件在type为success时proptypes检查错误
   
 #### 🎉 2.53.0 (2024-02-23)
 - 【Fix】
