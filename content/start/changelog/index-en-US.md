@@ -15,6 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.53.1 (2024-02-26)
+- 【Fix】
+    - the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations
 
 #### 🎉 2.53.0 (2024-02-23)
 - 【Fix】
