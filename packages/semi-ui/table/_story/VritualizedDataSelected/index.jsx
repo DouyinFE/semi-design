@@ -3,6 +3,7 @@ import React, { useMemo, useState, useCallback, useEffect, useRef } from 'react'
 import * as _ from 'lodash';
 import { IconEdit } from '@douyinfe/semi-icons';
 import testJson from '../data/big2.json';
+import copy from 'fast-copy';
 
 const getKey = (record, rowKey) => (typeof rowKey === 'function' ? rowKey(rowKey) : _.get(record, rowKey));
 
@@ -52,7 +53,7 @@ function ChildrenDataSelectedDemo(props = {}) {
     const [data, setData] = useState([]);
 
     const getTableData = () => {
-        const tableData = _.cloneDeep(testJson.data);
+        const tableData = copy(testJson.data);
         const allKeys = [];
         for (let i = 0, len = tableData.length; i < len; ++i) {
             const key = `${i}`;
@@ -145,7 +146,7 @@ function ChildrenDataSelectedDemo(props = {}) {
     };
 
     const onChangeOne = (recordKey, text, e) => {
-        const tableData = _.cloneDeep(data);
+        const tableData = copy(data);
         // const tableData = data;
         const findRecord = _.get(tableData, recordKey);
         const findCheckBox = _.find(findRecord[authPoint], item => {
@@ -159,11 +160,11 @@ function ChildrenDataSelectedDemo(props = {}) {
             indeterminate: someSelected,
         };
         setData(tableData);
-        // setData(_.cloneDeep(tableData));
+        // setData(copy(tableData));
     };
 
     const onChangeAll = (recordKey, e) => {
-        const tableData = _.cloneDeep(data);
+        const tableData = copy(data);
         const findRecord = _.get(tableData, recordKey);
         findRecord.checkAll = {
             checked: findRecord[authPoint] && findRecord[authPoint].length && e.target.checked,

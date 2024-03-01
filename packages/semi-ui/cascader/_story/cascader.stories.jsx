@@ -2323,3 +2323,53 @@ export const AutoMergeFalse = () => {
       />
   );
 }
+
+export const NumberValue = () => {
+  const [value, setValue] = useState([[ 39 ]]);
+  const onChange = useCallback((val) => {
+    console.log('onChange', val);
+    setValue(val);
+  }, []);
+  const treeData = useMemo(() => [
+      {
+          "label": "奖励",
+          "value": 2,
+          "children": [
+              {
+                  "label": "短期项目激励",
+                  "value": 3
+              },
+              {
+                  "label": "专项激励",
+                  "value": 8
+              }
+          ]
+      },
+      {
+          "label": "补结",
+          "value": 39,
+          "children": []
+      },
+      {
+          "label": "补扣",
+          "value": 40,
+          "children": [
+              {
+                  "label": "A",
+                  "value": 100
+              }
+          ]
+      }
+  ]);
+
+  return (
+      <Cascader
+          multiple
+          onChange={onChange}
+          value={value}
+          style={{ width: 300 }}
+          treeData={treeData}
+          placeholder="请选择所在地区"
+      />
+  );
+};

@@ -1,7 +1,8 @@
 import AsyncValidator from 'async-validator';
-import { cloneDeep, toPath, isUndefined } from 'lodash';
+import { toPath, isUndefined } from 'lodash';
 import { FieldValidateTriggerType, BasicTriggerType, ComponentProps, WithFieldOption } from './interface';
 import { strings } from './constants';
+import copy from 'fast-copy';
 
 /**
  * 
@@ -172,7 +173,7 @@ export function mergeProps(props: any) {
     delete rest.checked;
 
     if (typeof initValue !== 'undefined') {
-        initValue = cloneDeep(initValue);
+        initValue = copy(initValue);
     }
 
     const required = isRequired(rules);

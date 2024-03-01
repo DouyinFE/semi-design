@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Button } from '@douyinfe/semi-ui';
-import { cloneDeep } from 'lodash';
+import copy from 'fast-copy';
 
 export default class FilterWithNewDataTable extends React.Component {
     constructor(p) {
@@ -83,7 +83,7 @@ export default class FilterWithNewDataTable extends React.Component {
         return (
             <div>
                 <Button onClick={() => {
-                    let _new = cloneDeep(this.state);
+                    let _new = copy(this.state);
                     _new.sortData = [];
                     _new.sortData.push({
                         key: '5',

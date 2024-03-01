@@ -14,6 +14,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import LocaleConsumer from '../locale/localeConsumer';
 import { Locale as LocaleObject } from '../locale/interface';
 import '@douyinfe/semi-foundation/popconfirm/popconfirm.scss';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface PopconfirmProps extends PopoverProps {
     cancelText?: string;
@@ -80,7 +81,9 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         position: PropTypes.string,
     };
 
-    static defaultProps = {
+    static __SemiComponentName__ = "Popconfirm";
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(Popconfirm.__SemiComponentName__, {
         stopPropagation: true,
         trigger: 'click',
         // position: 'bottomLeft',
@@ -95,7 +98,7 @@ export default class Popconfirm extends BaseComponent<PopconfirmProps, Popconfir
         onCancel: noop,
         onConfirm: noop,
         onClickOutSide: noop,
-    };
+    });
 
     footerRef: React.RefObject<HTMLDivElement | null>;
     popoverRef: React.RefObject<Popover | null>;

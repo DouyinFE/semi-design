@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     findAncestorKeys,
@@ -315,14 +315,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const isDisabled = findAncestorKeys([key], keyEntities, true)
             .some(item => keyEntities[item].data.disabled);
         return isDisabled;
-    }
-
-    getCopyFromState(items: string | string[]) {
-        const res: Partial<BasicCascaderInnerData> = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res;
     }
 
     // prop: is array, return all data
@@ -681,8 +673,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleNodeLoad(item: BasicEntity | BasicData) {
         const { data, key } = item;
-        const prevLoadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
-        const prevLoadedKeys = cloneDeep(this._adapter.getLoadedKeyRefValue());
+        const prevLoadingKeys = new Set(this._adapter.getLoadingKeyRefValue());
+        const prevLoadedKeys = new Set(this._adapter.getLoadedKeyRefValue());
         const newLoadedKeys = prevLoadedKeys.add(key);
         const newLoadingKeys = new Set([...prevLoadingKeys]);
         newLoadingKeys.delete(key);
@@ -702,7 +694,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateStates({ loading: false });
         if (!data.isLeaf && !data.children && this.getProp('loadData')) {
             const loadedKeys = this._adapter.getLoadedKeyRefValue();
-            const loadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
+            const loadingKeys = new Set(this._adapter.getLoadingKeyRefValue());
             if (loadedKeys.has(key) || loadingKeys.has(key)) {
                 return;
             }
@@ -844,7 +836,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some(key => disabledKeys.has(key));
         if (!hasDisabled) {
@@ -893,7 +885,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
      */
     calcCheckedKeys(key: string, curCheckedStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const { checkedKeys, halfCheckedKeys } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         return curCheckedStatus ?
             calcCheckedKeysForChecked(key, keyEntities, checkedKeys, halfCheckedKeys) :
             calcCheckedKeysForUnchecked(key, keyEntities, checkedKeys, halfCheckedKeys);
