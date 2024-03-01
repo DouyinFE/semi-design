@@ -124,11 +124,11 @@ semiGlobal.config.overrideDefaultProps = {
     },
     Select: {
         zIndex: 2000,
-        getPopupContainer: () => document.querySelector('#popupContainer')
+        getPopupContainer: () => document.querySelector('#popupContainer') ?? document.body
     },
     Tooltip: {
         zIndex: 2001,
-        getPopupContainer: () => document.querySelector('#popupContainer'),
+        getPopupContainer: () => document.querySelector('#popupContainer') ?? document.body,
         trigger:"click"
     },
 };

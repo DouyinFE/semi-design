@@ -1,0 +1,23 @@
+@supports not (color: revert) {
+    .#{$module}-content{
+        margin-left: $spacing-radio_addon-paddingLeft;
+        .#{$module}-addon:not(:last-child){
+            margin-bottom: $spacing-radio_content-rowGap;
+        }
+    }
+
+    .#{$module}Group{
+        &-vertical{
+            .#{$module}:not(:last-child){
+                margin-bottom: $spacing-radio_group_vertical-marginBottom;
+            }
+        }
+
+
+        &-horizontal{
+            .#{$module}:not(:last-child){
+                margin-right: $spacing-radio_group_horizontal-marginRight;
+            }
+        }
+    }
+}

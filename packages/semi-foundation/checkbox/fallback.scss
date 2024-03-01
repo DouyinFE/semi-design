@@ -1,0 +1,21 @@
+@supports not (color: revert) {
+    .#{$module}-content{
+        margin-left: $spacing-checkbox_label-paddingLeft;
+
+        .#{$module}-extra{
+            margin-top: $spacing-checkbox_extra-marginTop;
+        }
+    }
+
+    .#{$module}Group-horizontal{
+        .#{$module}{
+            margin-right: $spacing-checkbox_group_horizontal-marginRight;
+        }
+    }
+
+    .#{$module}Group-vertical{
+        &>.#{$module}{
+            margin-bottom: $spacing-checkbox_group_vertical_item-marginBottom;
+        }
+    }
+}
