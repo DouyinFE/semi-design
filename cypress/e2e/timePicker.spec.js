@@ -61,4 +61,13 @@ describe('timePicker', () => {
         cy.get('body').click('right');
         cy.get('.semi-input-default').eq(1).should('have.value', '10:24:18');
     });
+
+    it('timezone + disabledHours', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=timepicker--fix-2082&args=&viewMode=story');
+        cy.get('.semi-input-default').eq(0).click();
+        cy.get('.semi-timepicker-panel-list-hour').eq(0).contains('07').click({ force: true });
+        cy.get('.semi-timepicker-panel-list-minute').eq(0).contains('10').click({ force: true });
+        cy.get('body').click('right');
+        cy.get('.semi-input-default').eq(0).should('have.value', '07:10');
+    });
 });

@@ -13,6 +13,41 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.53.2 (2024-02-26)
+- 【Fix】
+    - 修复 React ResizeObserver 里访问空元素的错误 [@nekocode](https://github.com/nekocode)
+
+#### 🎉 2.53.1 (2024-02-26)
+- 【Fix】
+    - 修复 TimePicker 中同时使用 timeZone 和 disabledHours 时显示值不符合预期问题
+    - 修复badge组件在type为success时proptypes检查错误
+  
+#### 🎉 2.53.0 (2024-02-23)
+- 【Fix】
+  - 修复 Sidesheet Portal 在 visible 不显示的时候仍然挂载的问题
+  - 修复 TagInput 的 onKeyDown 参数类型定义错误问题
+  - 修复 Cascader 的 treeData 中 value 类型为 number 则面板未显示选中问题（影响范围 v2.51.0-v2.52.2)
+  - 修复 ResizeObsever 在非浏览器环境不存在的问题。问题影响范围(2.52.1,2.53.0-beta.0)
+  - 修复 vite 上使用主题报错的问题，问题影响范围 (2.52.0)
+- 【Docs】
+  - 修复 Tabs 组件文档中的 tabPosition 参数类型错误 [@miyuesc](https://github.com/miyuesc)
+- 【Chore】
+  - 去除 ResizeObserver polyfill
+
+####  🎉 2.52.3 (2024-02-22)
+- 【Fix】
+    - 修复 Cascader 的 treeData 中 value 类型为 number 则面板未显示选中问题（影响范围 v2.51.0-v2.52.2)
+
+#### 🎉 2.52.2 (2024-02-19)
+- 【Fix】
+  - 修复 ResizeObsever 在非浏览器环境不存在的问题。问题影响范围 (2.52.1, 2.53.0-beta.0)
+
+#### 🎉 2.52.1 (2024-02-18)
+- 【Fix】
+  - 修复 vite 上使用主题报错的问题，问题影响范围 (2.52.0)
+- 【Chore】
+  - 去除 ResizeObserver polyfill
+
 #### 🎉 2.53.0-beta.0 (2024-02-08)
 - 【Perf】
     - 提升 Typography 开启 Ellipsis 下 性能，减少 render 和计算次数 [#1970](https://github.com/DouyinFE/semi-design/pull/1970)
@@ -966,7 +1001,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 #### 🎉 2.20.0-beta.0 (2022-09-19)
 
 - 【New Component】
-   - 新增 Image 组件（新增了基础 sass、全局 sass 变量，使用自定义主题的需要重新发布） [#344](https://github.com/DouyinFE/semi-design/issues/344) 
+   - 新增 Image 组件（新增了基础 sass、全局 sass 变量，使用自定义主题的需要重新发布）[#344](https://github.com/DouyinFE/semi-design/issues/344) 
 - 【Feat】
     - Tag 新增 shape 选择，可选 square、circle [#89](https://github.com/DouyinFE/semi-design/issues/89)
     - Progress 支持根据进度自动填充渐变颜色，根据进度预设自动切换颜色 [#1092](https://github.com/DouyinFE/semi-design/issues/1092) [@uiuing](https://github.com/uiuing)
@@ -1252,7 +1287,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.10.0-beta.0 (2022-04-29)
 - 【New Component】
-    - 新组件轮播图  [#678](https://github.com/DouyinFE/semi-design/issues/678)
+    - 新组件轮播图 Carousel  [#678](https://github.com/DouyinFE/semi-design/issues/678)
 - 【Fix】
     - 修复 Cascader 在多选时，设定 displayProp 非value/label时候出错问题
 - 【Feat】
@@ -1279,7 +1314,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.9.0-beta.0 (2022-04-18)
 - 【New Component】
-    - 新增分割线组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
+    - 新增分割线 Divider 组件 [#721](https://github.com/DouyinFE/semi-design/issues/721) [@ZeroCodeLin](https://github.com/ZeroCodeLin)
 - 【Feat】
     - Description 组件的 data 键值支持传入 ReactNode [#734](https://github.com/DouyinFE/semi-design/issues/734) [@oddguan](https://github.com/oddguan)
 - 【Fix】
