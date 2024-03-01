@@ -180,7 +180,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             copied: false,
             // ellipsis
             // if text is overflow in container
-            isOverflowed: true,
+            isOverflowed: false,
             ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
