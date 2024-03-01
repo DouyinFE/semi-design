@@ -14,7 +14,7 @@ import SideSheetFoundation, {
 } from '@douyinfe/semi-foundation/sideSheet/sideSheetFoundation';
 import '@douyinfe/semi-foundation/sideSheet/sideSheet.scss';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '../_utils';
+import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
 
 const prefixCls = cssClasses.PREFIX;
 const defaultWidthList = strings.WIDTH;
@@ -66,8 +66,8 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         keepDOM: PropTypes.bool,
         'aria-label': PropTypes.string,
     };
-
-    static defaultProps: SideSheetReactProps = {
+    static __SemiComponentName__ = "SideSheet";
+    static defaultProps: SideSheetReactProps = getDefaultPropsFromGlobalConfig(SideSheet.__SemiComponentName__, {
         visible: false,
         motion: true,
         mask: true,
@@ -81,7 +81,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         closeOnEsc: false,
         afterVisibleChange: noop,
         keepDOM: false
-    };
+    });
     private _active: boolean;
 
     constructor(props: SideSheetReactProps) {
@@ -214,6 +214,15 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             keepDOM,
             ...props
         } = this.props;
+        let wrapperStyle: CSSProperties = {
+            zIndex,
+        };
+        if (getPopupContainer) {
+            wrapperStyle = {
+                zIndex,
+                position: 'static',
+            };
+        }
         const { direction } = this.context;
         const isVertical = placement === 'left' || placement === 'right';
         const isHorizontal = placement === 'top' || placement === 'bottom';
@@ -252,16 +261,19 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                         onAnimationEnd={this.updateState /* for no mask case*/}
                     >
                         {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
-                            return shouldRender ? <SideSheetContent
-                                {...contentProps}
-                                maskExtraProps={maskAnimationEventsNeedBind}
-                                wrapperExtraProps={animationEventsNeedBind}
-                                dialogClassName={animationClassName}
-                                maskClassName={maskAnimationClassName}
-                                maskStyle={{ ...maskStyle }}
-                                style={{ ...animationStyle, ...style }}>
-                                {children}
-                            </SideSheetContent> : <></>;
+                            return shouldRender ?<Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
+                                <SideSheetContent
+                                    {...contentProps}
+                                    maskExtraProps={maskAnimationEventsNeedBind}
+                                    wrapperExtraProps={animationEventsNeedBind}
+                                    dialogClassName={animationClassName}
+                                    maskClassName={maskAnimationClassName}
+                                    maskStyle={{ ...maskStyle }}
+                                    style={{ ...animationStyle, ...style }}>
+                                    {children}
+                                </SideSheetContent>
+                            </Portal>:<></>; 
+
                         }}
                     </CSSAnimation>;
 
@@ -274,21 +286,10 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         const {
             zIndex,
             getPopupContainer,
+            visible
         } = this.props;
-        let wrapperStyle: CSSProperties = {
-            zIndex,
-        };
-        if (getPopupContainer) {
-            wrapperStyle = {
-                zIndex,
-                position: 'static',
-            };
-        }
-        return (
-            <Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
-                {this.renderContent()}
-            </Portal>
-        );
+
+        return this.renderContent();
     }
 }
 

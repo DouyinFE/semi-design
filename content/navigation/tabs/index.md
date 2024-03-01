@@ -574,7 +574,7 @@ style | 样式对象 | CSSProperties | 无 |
 tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode | 无 |
 tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[] | 无 |
 tabPaneMotion | 是否使用动画切换 tabs | boolean | true |
-tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | boolean | `top` |
+tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | string | `top` |
 type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
 onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 onTabClick | 单击事件 | function(key: string, e: Event) | 无 |

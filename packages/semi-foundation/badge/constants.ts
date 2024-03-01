@@ -7,7 +7,7 @@ const cssClasses = {
 };
 
 const strings = {
-    TYPE_SET: ['primary', 'secondary', 'tertiary', 'warning', 'danger'],
+    TYPE_SET: ['success', 'primary', 'secondary', 'tertiary', 'warning', 'danger'],
     THEME_SET: ['solid', 'light', 'inverted'],
     POS_SET: ['leftTop', 'leftBottom', 'rightTop', 'rightBottom'],
 };

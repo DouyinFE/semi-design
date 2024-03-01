@@ -29,6 +29,7 @@ import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import { InsetInputValue, InsetInputChangeProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface DatePickerProps extends DatePickerFoundationProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
@@ -154,8 +155,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         yearAndMonthOpts: PropTypes.object,
         onClickOutSide: PropTypes.func,
     };
-
-    static defaultProps = {
+    static __SemiComponentName__ = "DatePicker";
+    static defaultProps = getDefaultPropsFromGlobalConfig(DatePicker.__SemiComponentName__, {
         onChangeWithDateFirst: true,
         borderless: false,
         autoAdjustOverflow: true,
@@ -193,7 +194,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         rangeSeparator: strings.DEFAULT_SEPARATOR_RANGE,
         insetInput: false,
         onClickOutSide: noop,
-    };
+    });
 
     triggerElRef: React.MutableRefObject<HTMLElement>;
     panelRef: React.RefObject<HTMLDivElement>;
