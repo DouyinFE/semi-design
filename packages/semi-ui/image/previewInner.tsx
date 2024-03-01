@@ -139,6 +139,10 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 const { onDownload } = this.props;
                 isFunction(onDownload) && onDownload(src, index);
             },
+            notifyDownloadError: (src: string) => {
+                const { onDownloadError } = this.props;
+                isFunction(onDownloadError) && onDownloadError(src);
+            },
             registerKeyDownListener: () => {
                 window && window.addEventListener("keydown", this.handleKeyDown);
             },
