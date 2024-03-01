@@ -63,6 +63,7 @@ describe('Toast - 2', () => {
     });
 
     it('set global config', () => {
+        Toast.destroyAll();
         Toast.config({
             theme: 'light',
             duration: 0,
