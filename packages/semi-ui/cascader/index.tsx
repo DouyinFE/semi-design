@@ -87,7 +87,8 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    position?: Position
+    position?: Position;
+    searchRender?: boolean
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
@@ -182,7 +183,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
-        position: PropTypes.string
+        position: PropTypes.string,
+        searchRender: PropTypes.bool,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Cascader.__SemiComponentName__, {
@@ -215,6 +217,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onListScroll: noop,
         enableLeafClick: false,
         'aria-label': 'Cascader',
+        searchRender: true,
     })
 
     options: any;
@@ -514,6 +517,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         }
     }
 
+    // ref method
+    search = (value: string) => {
+        this.handleInputChange(value);
+    };
+
     handleInputChange = (value: string) => {
         this.foundation.handleInputChange(value);
     };
@@ -783,9 +791,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderSelectContent = () => {
-        const { placeholder, filterTreeNode, multiple } = this.props;
+        const { placeholder, filterTreeNode, multiple, searchRender } = this.props;
         const { checkedKeys } = this.state;
-        const searchable = Boolean(filterTreeNode);
+        const searchable = Boolean(filterTreeNode) && searchRender;
 
         if (!searchable) {
             if (multiple) {

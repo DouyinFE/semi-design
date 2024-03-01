@@ -1855,6 +1855,7 @@ function Demo() {
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean | - | 2.15.0 |
 |restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                            |PopoverProps   | {}  |1.28.0|
 | searchPlaceholder  | Placeholder for search input                                                                                                                                                                                                                  | string | - | -  |
+| searchRender         | Whether to display the search input box | boolean | true | 2.54.0 |
 | separator  | Custom separator, including: the separator of the content displayed in the dropdown during search and displayed in the Trigger during single selection                                                                                        | string| ` / ` | 2.2.0 |
 | showClear | Toggle whether to show clear button                                                                                                                                                                                                           | boolean  | false | 0.35.0 |
 | showNext| Set the way to expand the Dropdown submenu, one of: `click`、`hover`                                                                                                                                                                           | string |`click`|1.29.0|
@@ -1905,6 +1906,7 @@ Some internal methods provided by Select can be accessed through ref:
 | open        | Manually open dropdown list     | v2.30.0 |
 | focus       | Manually focus                  | v2.34.0 |
 | blur        | Manually blur                   | v2.34.0 |
+| search(value: string) | To manually trigger the search, you need to set filterTreeNode to enable search, and searchRender to false to not display the search box in the trigger.  | v2.54.0 |
 
 ## Accessibility
 
