@@ -287,4 +287,9 @@ describe('table', () => {
         cy.get('.semi-button').contains('直接关闭').click();
         cy.get('.semi-dropdown').should('not.exist');
     });
+
+    it('test expandedRowKeys with defaultExpandGroupKeys', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-default-expanded-grouped-rows&viewMode=story');
+        cy.get('.semi-table-tbody tr').eq(1).should('have.class', 'semi-table-row-expanded');
+    });
 });
