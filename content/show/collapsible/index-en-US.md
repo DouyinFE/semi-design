@@ -184,6 +184,7 @@ import { Collapsible, Button } from '@douyinfe/semi-ui';
 | duration | Time of animation execution                                                                                | number | 250 | - |
 | isOpen | Toggle whether to expand the content area                                                                  | boolean | `false` | - |
 | keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default                                         | boolean | `false` | 0.25.0 |
+| lazyRender | Used with keepDOM, when true, the component will not be rendered when mounting                                         | boolean | `true` | 2.24 |
 | motion | Toggle whether to turn on animation                                                                        | Motion | `true` | - |
 | onMotionEnd | Animation end callback                                                                                     | () => void | - | - |
 | reCalcKey | When reCalcKey changes, the height of children will be reset. Used for optimize dynamic content rendering. | number \| string | - | 1.5.0 |
