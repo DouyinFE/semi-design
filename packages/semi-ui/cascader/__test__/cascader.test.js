@@ -1245,6 +1245,23 @@ describe('Cascader', () => {
         cascader.unmount();
     });
 
+    it('search ref method', () => {
+        let r;
+        const cascader = render({
+            ref: (ref) => { r = ref },
+            filterTreeNode: true,
+            searchPosition: 'custom',
+            defaultOpen: true,
+        });
+        r.search('北京');
+        expect(cascader.state().inputValue).toEqual('北京');
+        expect(
+            document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-option-label-highlight`)[0]
+            .textContent
+        ).toEqual('北京');
+        cascader.unmount();
+    });
+
     it('triggerRender', () => {
         const spyTriggerRender = sinon.spy(() => <span>123</span>);
         const cascaderAutoMerge = render({

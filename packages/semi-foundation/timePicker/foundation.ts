@@ -202,8 +202,8 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
         const { value, timeZone, __prevTimeZone } = props;
         
         let dates = this.parseValue(value);
-        const invalid = this.validateDates(dates);
 
+        let invalid = dates.some(d => isNaN(Number(d)));
         if (!invalid) {
             if (this.isValidTimeZone(timeZone)) {
                 dates = dates.map(date =>
@@ -213,6 +213,9 @@ class TimePickerFoundation<P = Record<string, any>, S = Record<string, any>> ext
                     )
                 );
             }
+            invalid = dates.some(d =>
+                this.isDisabledHMS({ hours: d.getHours(), minutes: d.getMinutes(), seconds: d.getSeconds() })
+            );
         }
         const inputValue = this.formatValue(dates);
 

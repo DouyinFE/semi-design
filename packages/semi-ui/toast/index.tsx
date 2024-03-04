@@ -202,6 +202,9 @@ const createBaseToast = () => class ToastList extends BaseComponent<ToastListPro
             }
         });
 
+        if (typeof opts.theme === 'string' && strings.themes.includes(opts.theme)) {
+            ToastList.defaultOpts.theme = opts.theme;
+        }
         if (typeof opts.zIndex === 'number') {
             ToastList.defaultOpts.zIndex = opts.zIndex;
         }
