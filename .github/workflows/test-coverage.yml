@@ -58,9 +58,9 @@ jobs:
         needs: [jest, cypress]
         steps:
             - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
-                  node-version: '16'
+                  node-version: '20'
             - name: Download Jest coverage
               uses: actions/download-artifact@v3
               with:
