@@ -180,11 +180,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             copied: false,
             // ellipsis
             // if text is overflow in container
-            isOverflowed: true,
+            isOverflowed: false,
             ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
-            isTruncated: true,
+            isTruncated: false,
             prevChildren: null,
         };
         this.wrapperRef = React.createRef();
@@ -206,10 +206,10 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         if (props.ellipsis && prevChildren !== props.children) {
             // reset ellipsis state if children update
-            newState.isOverflowed = true;
+            newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
             newState.expanded = false;
-            newState.isTruncated = true;
+            newState.isTruncated = false;
         }
         return newState;
     }
