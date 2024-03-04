@@ -25,6 +25,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - ImagePreview adds onDownLoadError callback API [#2093](https://github.com/DouyinFE/semi-design/pull/2093)
 - 【Fix】
     - Fixed the problem that Table expandedRowKeys and defaultExpandAllGroupRows do not take effect when used at the same time [#2085](https://github.com/DouyinFE/semi-design/issues/2085)
+    - Fixed the problem of Typography's Ellipsis function flickering on first hover in some special scenarios [#2107](https://github.com/DouyinFE/semi-design/pull/2107)
+
 
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】

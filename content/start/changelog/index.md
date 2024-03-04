@@ -22,6 +22,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - ImagePreview 增加 onDownLoadError 回调 API [#2093](https://github.com/DouyinFE/semi-design/pull/2093)
 - 【Fix】
     - 修复 Table expandedRowKeys 与 defaultExpandAllGroupRows 同时使用时未生效问题 [#2085](https://github.com/DouyinFE/semi-design/issues/2085)
+    - 修复在某些特殊场景下 Typography 的 Ellipsis 功能在第一次 hover 时候闪烁的问题 [#2107](https://github.com/DouyinFE/semi-design/pull/2107)
 
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】
