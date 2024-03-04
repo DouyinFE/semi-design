@@ -1658,8 +1658,9 @@ const NestArrayFieldDemo = () => {
             initValues={initValue}
             labelPosition="left"
             style={{ textAlign: "left" }}
+            allowEmpty
         >
-            <ArrayField field="group" allowEmpty>
+            <ArrayField field="group" >
                 {({ add, arrayFields, addWithInitValue }) => (
                     <React.Fragment>
                         <Button
