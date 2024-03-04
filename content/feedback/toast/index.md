@@ -54,8 +54,28 @@ render(Demo);
 ```
 
 <Notice>
-如果你的网站中存在同时弹出多个 Toast 的场景，例如请求失败拦截器，推荐使用下方的堆叠功能。
+如果你在请求拦截器等场景中，使用 Toast 来做请求状态结果提示，你可能会在短时间内弹出多个 Toast ，该类场景我们更推荐使用你开启堆叠功能，防止同一时间展示过多元素对用户造成干扰
 </Notice>
+
+### 堆叠样式
+可以通过 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开，该 API在 v2.42.0 后支持
+
+```jsx live=true
+import { Toast, Typography, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const opts = {
+        content: 'Hi, Bytedance dance dance',
+        duration: 10,
+        stack: true,
+    };
+    
+    return <Button onClick={() => {
+         Toast.info(opts)
+    }}>Click multiple times</Button>
+}
+
+```
 
 ### 其他提示类型
 
@@ -127,27 +147,7 @@ function Demo() {
 render(Demo);
 ```
 
-### 堆叠样式
-可以通过 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开。 （>=2.42.0）
 
-```jsx live=true
-import { Toast, Typography, Button } from '@douyinfe/semi-ui';
-
-()=>{
-    
-    const opts = {
-        content: 'Hi, Bytedance dance dance',
-        duration: 10,
-        stack: true,
-    };
-
-    
-    return <Button onClick={() => {
-         Toast.info(opts)
-    }}>Click multiple times</Button>
-}
-
-```
 
 ### 链接文本
 
@@ -425,7 +425,8 @@ HookToast ( >= 1.2.0 )：
 
 ## API 参考
 
-组件提供的静态方法，使用方式和参数如下：展示：可以直接传入 `options` 对象或 `string`，返回值为`toastId`：`const toastId = Toast.info({ /*...options*/ })`
+组件提供的静态方法，使用方式和参数如下：展示：可以直接传入 `options` 对象或 `string`，返回值为`toastId`：  
+`const toastId = Toast.info({ /*...options*/ })`
 
 -   `Toast.info(options || string)`
 -   `Toast.error(options || string)`
