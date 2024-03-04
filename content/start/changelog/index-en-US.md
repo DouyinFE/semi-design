@@ -16,38 +16,43 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.54.0-beta.0 (2024-03-04)
+- 【Feat】
+    - Toast component supports theme global configuration [@LonelySnowman](https://github.com/LonelySnowman) [#2099](https://github.com/DouyinFE/semi-design/issues/2099)
+    - Collapsible adds lazyRender API [@changlin2569](https://github.com/changlin2569) [#2100](https://github.com/DouyinFE/semi-design/issues/2100)
+    - Descriptions component supports horizontal layout [@LonelySnowman](https://github.com/LonelySnowman) [#1534](https://github.com/DouyinFE/semi-design/issues/1534) 
+    - Cascader supports calling the search method through ref  [#2098](https://github.com/DouyinFE/semi-design/issues/2098)
+    - ImagePreview adds onDownLoadError callback API [#2093](https://github.com/DouyinFE/semi-design/pull/2093)
+- 【Fix】
+    - Fixed the problem that Table expandedRowKeys and defaultExpandAllGroupRows do not take effect when used at the same time [#2085](https://github.com/DouyinFE/semi-design/issues/2085)
+
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】
-  - fix the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
+  - Fixed the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
   
 #### 🎉 2.53.1 (2024-02-26)
 - 【Fix】
-    - the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations
-    - fix Badge component proptypes check error when type is success
+    - Fixed the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations [#2083](https://github.com/DouyinFE/semi-design/pull/2083)
+    - Fixed Badge component prop-types check error when type is success [@matozz](https://github.com/matozz) [#2091](https://github.com/DouyinFE/semi-design/pull/2091)
 
 #### 🎉 2.53.0 (2024-02-23)
 - 【Fix】
-  - Fixed the issue where Sidesheet Portal is still mounted when visible is not displayed
-  - Fix the problem of incorrect definition of onKeyDown parameter type of TagInput
-  - fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
-  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1,2.53.0-beta.0)
-  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+  - Fixed the issue where Sidesheet Portal is still mounted when visible is not displayed [#2094](https://github.com/DouyinFE/semi-design/pull/2094)
+  - Fixed the problem of incorrect definition of onKeyDown parameter type of TagInput
 - 【Docs】
-  - Fix tabPosition parameter type error in Tabs component documentation [@miyuesc](https://github.com/miyuesc)
-- 【Chore】
-  - remove ResizeObserver polyfill
+  - Fixed tabPosition parameter type error in Tabs component documentation [@miyuesc](https://github.com/miyuesc) [#2090](https://github.com/DouyinFE/semi-design/pull/2090)
 
 ####  🎉 2.52.3 (2024-02-22)
 - 【Fix】
-    - Fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
+    - Fixed the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected version range v2.51.0-v2.53.2)
 
 #### 🎉 2.52.2 (2024-02-19)
 - 【Fix】
-  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1, 2.53.0-beta.0)
+  - Fixed the problem that ResizeObsever does not exist in non-browser environments. (Affected version range 2.52.1, 2.53.0-beta.0)
 
 #### 🎉 2.52.1 (2024-02-18)
 - 【Fix】
-  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+  - Fixed the problem of using themes on vite to report errors (Affected version range 2.52.0)
 - 【Chore】
   - remove ResizeObserver polyfill
 
