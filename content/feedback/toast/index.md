@@ -53,6 +53,10 @@ function Demo() {
 render(Demo);
 ```
 
+<Notice>
+如果你的网站中存在同时弹出多个 Toast 的场景，例如请求失败拦截器，推荐使用下方的堆叠功能。
+</Notice>
+
 ### 其他提示类型
 
 包括成功、失败、警告
@@ -381,48 +385,14 @@ function Demo(props = {}) {
 render(Demo);
 ```
 
-## API 参考
-
-组件提供的静态方法，使用方式和参数如下：展示：可以直接传入 `options` 对象或 `string`，返回值为`toastId`：`const toastId = Toast.info({ /*...options*/ })`
-
--   `Toast.info(options || string)`
--   `Toast.error(options || string)`
--   `Toast.warning(options || string)`
--   `Toast.success(options || string)`
--   `Toast.close(toastId)` 手动关闭 （ `toastId` 为展示方法的返回值）
--   `Toast.config(config)` 全局配置在调用前提前配置，全局一次生效 ( >= 0.25.0 )
-
-**以下API无需调用额外的 ToastFactory.create(config) 创建新 Toast 即能生效设置**
-
-| 属性 | 说明                        | 类型 | 默认值 | 版本     |
-| --- |---------------------------| --- | --- |--------|
-| content | 提示内容                      | ReactNode | '' |        |
-| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭  | number | 3 |        |
-| icon | 自定义图标                     | ReactNode |  | 0.25.0 |
-| showClose | 是否展示关闭按钮                  | boolean | true | 0.25.0 |
-| textMaxWidth | 内容的最大宽度                   | number \| string | 450 | 0.25.0 |
-| theme | 填充样式，支持 `light`, `normal` | string | `normal` | 1.0.0  |
-| onClose | toast 关闭的回调函数             | () => void |  |        |
-| stack | 是否堆叠 Toast                | boolean | false | 2.42.0 |
-
-**若未在 Toast.config(config) 中特别声明，以下API需要调用额外的 ToastFactory.create(config) 创建新 Toast 生效设置**
-
-| 属性 | 说明                                                                                        | 类型 | 默认值 | 版本 |
-| --- |-------------------------------------------------------------------------------------------| --- | --- | --- |
-| bottom | 弹出位置 bottom                                                                               | number \| string | - | 0.25.0 |
-| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。  `position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
-| left | 弹出位置 left                                                                                 | number \| string | - | 0.25.0 |
-| right | 弹出位置 right                                                                                | number \| string | - | 0.25.0 |
-| top | 弹出位置 top                                                                                  | number \| string | - | 0.25.0 |
-| zIndex | 弹层 z-index 值                                                                              | number | 1010 |  |
-
+### 创建不同配置 Toast
 
 -   `ToastFactory.create(config) => Toast`  
     如果您的应用中需要使用不同 config 的 Toast，可以使用 ToastFactory.create(config)创建新的 Toast (>= 1.23):
 
 ```jsx live=true noInline=true
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
+import { Button, ToastFactory } from '@douyinfe/semi-ui';
 
 function Demo() {
     const ToastInCustomContainer = ToastFactory.create({
@@ -451,6 +421,47 @@ HookToast ( >= 1.2.0 )：
 
 -   `Toast.useToast()`  
     当你需要使用 Context 时，可以通过 Toast.useToast 创建一个 contextHolder 插入相应的节点中。此时通过 hooks 创建的 Toast 将会得到 contextHolder 所在位置的所有上下文。创建的 toast 对象拥有与以下方法：`info`, `success`, `warning`, `error`, `close`。
+
+
+## API 参考
+
+组件提供的静态方法，使用方式和参数如下：展示：可以直接传入 `options` 对象或 `string`，返回值为`toastId`：`const toastId = Toast.info({ /*...options*/ })`
+
+-   `Toast.info(options || string)`
+-   `Toast.error(options || string)`
+-   `Toast.warning(options || string)`
+-   `Toast.success(options || string)`
+-   `Toast.close(toastId)` 手动关闭 （ `toastId` 为展示方法的返回值）
+-   `Toast.config(config)` 全局配置在调用前提前配置，全局一次生效 ( >= 0.25.0 )
+
+## Options
+
+**Toast Options 支持以下 API 及 Config 中的 API**
+
+| 属性           | 说明            | 类型            | 默认值 | 版本     |
+|--------------|---------------|---------------| --- |--------|
+| content      | 提示内容          | ReactNode     | '' |        |
+| icon         | 自定义图标         | ReactNode     |  | 0.25.0 |
+| showClose    | 是否展示关闭按钮      | boolean       | true | 0.25.0 |
+| textMaxWidth | 内容的最大宽度       | number \      | string | 450 | 0.25.0 |
+| onClose      | toast 关闭的回调函数 | () => void    |  |        |
+| stack        | 是否堆叠 Toast    | boolean       | false | 2.42.0 |
+| id           | 自定义 ToastId   | number        |  |  |
+
+## Config
+
+**以下 API 支持全局配置，用于更改当前 Toast 的默认配置**
+
+| 属性 | 说明                                                                                        | 类型 | 默认值 | 版本 |
+| --- |-------------------------------------------------------------------------------------------| --- | --- | --- |
+| bottom | 弹出位置 bottom                                                                               | number \| string | - | 0.25.0 |
+| left | 弹出位置 left                                                                                 | number \| string | - | 0.25.0 |
+| right | 弹出位置 right                                                                                | number \| string | - | 0.25.0 |
+| top | 弹出位置 top                                                                                  | number \| string | - | 0.25.0 |
+| zIndex | 弹层 z-index 值                                                                              | number | 1010 |  |
+| theme | 填充样式，支持 `light`, `normal` | string | `normal` | 1.0.0  |
+| duration | 自动关闭的延时，单位 s，设为 0 时不自动关闭  | number | 3 |        |
+| getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 container 和 内部的 .semi-toast-wrapper 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。  `position: relative` | () => HTMLElement \| null | () => document.body | 0.34.0 |
 
 ## Accessibility
 

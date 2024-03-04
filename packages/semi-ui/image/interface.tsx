@@ -75,6 +75,7 @@ export interface PreviewProps extends BaseProps {
     onRatioChange?: (type: RatioType) => void;
     onRotateLeft?: (angle: number) => void;
     onDownload?: (src: string, index: number) => void;
+    onDownloadError?: (src: string) => void;
     setDownloadName?: (src: string) => string
 }
 

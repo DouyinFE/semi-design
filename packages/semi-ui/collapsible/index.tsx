@@ -19,6 +19,7 @@ export interface CollapsibleProps extends CollapsibleFoundationProps {
     isOpen?: boolean;
     duration?: number;
     keepDOM?: boolean;
+    lazyRender?: boolean;
     className?: string;
     style?: React.CSSProperties;
     collapseHeight?: number;
@@ -42,6 +43,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         duration: 250,
         motion: true,
         keepDOM: false,
+        lazyRender: true,
         collapseHeight: 0,
         fade: false
     }) 
@@ -157,9 +159,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     isChildrenInRenderTree = () => {
         if (this.domRef.current) {
             return this.domRef.current.offsetHeight > 0;
-        } else {
-            return false;
         }
+        return false;
     }
 
     render() {
@@ -173,6 +174,9 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, {
             [`${cssClasses.PREFIX}-transition`]: this.props.motion && this.state.isTransitioning
         }, this.props.className);
+
+        const shouldRender = (this.props.keepDOM && !this.props.lazyRender) || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen;
+
         return (
             <div
                 className={wrapperCls}
@@ -193,7 +197,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                     id={this.props.id}
                 >
                     {
-                        (this.props.keepDOM || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen) && this.props.children
+                        shouldRender && this.props.children
                     }
                 </div>
             </div>
