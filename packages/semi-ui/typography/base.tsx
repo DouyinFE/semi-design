@@ -184,7 +184,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
-            isTruncated: true,
+            isTruncated: false,
             prevChildren: null,
         };
         this.wrapperRef = React.createRef();
@@ -209,7 +209,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             newState.isOverflowed = true;
             newState.ellipsisContent = props.children;
             newState.expanded = false;
-            newState.isTruncated = true;
+            newState.isTruncated = false;
         }
         return newState;
     }
