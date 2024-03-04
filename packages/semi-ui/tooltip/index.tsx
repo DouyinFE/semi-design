@@ -527,6 +527,15 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 this.props.visible ? this.foundation.show() : this.foundation.hide();
             }
         }
+
+        if (prevProps.exist !== this.props.exist) {
+            if (this.props.exist) {
+                this.foundation._bindEvent();
+            } else {
+                this.foundation.unBindEvent();
+            }
+        }
+
         if (!isEqual(prevProps.rePosKey, this.props.rePosKey)) {
             this.rePosition();
         }
