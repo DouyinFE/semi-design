@@ -391,7 +391,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             cacheValue = this._getCacheValue(keyEntities);
         }
 
-        const selectedValue = !this._isControlledComponent() ? cacheValue : (value ?? []);
+        const selectedValue = !this._isControlledComponent() ? cacheValue : (isUndefined(value) ? [] : value);
         if (isValid(selectedValue)) {
             this.updateSelectedKey(selectedValue, keyEntities);
         } else {
