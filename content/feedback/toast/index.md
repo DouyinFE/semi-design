@@ -53,6 +53,10 @@ function Demo() {
 render(Demo);
 ```
 
+<Notice>
+如果你的网站中存在同时弹出多个 Toast 的场景，例如请求失败拦截器，推荐使用下方的堆叠功能。
+</Notice>
+
 ### 其他提示类型
 
 包括成功、失败、警告
@@ -388,7 +392,7 @@ render(Demo);
 
 ```jsx live=true noInline=true
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
+import { Button, ToastFactory } from '@douyinfe/semi-ui';
 
 function Demo() {
     const ToastInCustomContainer = ToastFactory.create({

@@ -52,6 +52,10 @@ function Demo() {
 render(Demo);
 ```
 
+<Notice>
+If there are scenarios in your website where multiple Toasts pop up at the same time, such as a request failure interceptor, it is recommended to use the stacking function below.
+</Notice>
+
 ### Other Types
 
 Use different methods to show different Toast including success, warning, error and info.
@@ -388,7 +392,7 @@ render(Demo);
 
 ```jsx live=true noInline=true
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
+import { Button, ToastFactory } from '@douyinfe/semi-ui';
 
 function Demo() {
     const ToastInCustomContainer = ToastFactory.create({
