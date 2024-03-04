@@ -8,7 +8,7 @@ import { isPlainObject } from 'lodash';
 import DescriptionsContext, { DescriptionsAlign, DescriptionLayout } from './descriptions-context';
 import Item from './item';
 import DescriptionsFoundation, { DescriptionsAdapter } from "@douyinfe/semi-foundation/descriptions/foundation";
-import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
+import BaseComponent from '../_base/baseComponent';
 
 export type { DescriptionsItemProps } from './item';
 export type DescriptionsSize = 'small' | 'medium' | 'large';
@@ -63,14 +63,16 @@ class Descriptions extends BaseComponent<DescriptionsProps> {
         layout: 'vertical',
         column: 3,
     };
-    foundation!: DescriptionsFoundation;
-    get adapter(): DescriptionsAdapter<DescriptionsProps> {
-        return { ...super.adapter };
-    }
+
+    foundation: DescriptionsFoundation;
 
     constructor(props: DescriptionsProps) {
         super(props);
         this.foundation = new DescriptionsFoundation<DescriptionsProps>(this.adapter);
+    }
+
+    get adapter(): DescriptionsAdapter<DescriptionsProps> {
+        return { ...super.adapter };
     }
 
     renderChildrenList = () => {
@@ -99,7 +101,8 @@ class Descriptions extends BaseComponent<DescriptionsProps> {
             [`${prefixCls}-${align}`]: !row,
             [`${prefixCls}-double`]: row,
             [`${prefixCls}-double-${size}`]: row,
-            [`${prefixCls}-horizontal`]: layout === 'horizontal'
+            [`${prefixCls}-horizontal`]: layout === 'horizontal',
+            [`${prefixCls}-vertical`]: layout === 'vertical'
         });
 
         return (
