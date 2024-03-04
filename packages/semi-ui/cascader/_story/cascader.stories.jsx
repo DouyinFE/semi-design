@@ -2373,3 +2373,27 @@ export const NumberValue = () => {
       />
   );
 };
+
+export const SearchInTopSlot = () => {
+  const cascaderRef = useRef();
+
+  const handleInputChange = useCallback((value) => {
+    cascaderRef.current.search(value);
+  }, [cascaderRef]);
+
+  const topSlot = useMemo(() => {
+    return <Input prefix="搜索" onChange={handleInputChange} style={{width: '100%'}}/>
+  }, [handleInputChange]);
+
+  return (
+      <Cascader
+          filterTreeNode
+          searchPosition={"custom"}
+          ref={cascaderRef}
+          style={{ width: 300 }}
+          treeData={treeData2}
+          topSlot={topSlot}
+          placeholder="请选择所在地区"
+      />
+  );
+}
