@@ -111,7 +111,9 @@ export {
     FixedAllDisabledAndSelected,
     FeatRenderFilterDropdown,
     InputFilter,
-    FixedRowSelectionHiddenResizable
+    FixedRowSelectionHiddenResizable,
+    FixedExpandGroupRow,
+    FixedDefaultExpandedGroupedRows
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

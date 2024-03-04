@@ -31,3 +31,5 @@ export { default as FixedAllDisabledAndSelected } from './FixedAllDisabledAndSel
 export { default as FixedRowSelectionHiddenResizable } from './FixedRowSelectionHiddenResizable';
 export { default as FeatRenderFilterDropdown } from './FeatRenderFilterDropdown';
 export { default as InputFilter } from './InputFilter';
+export { default as FixedExpandGroupRow } from './FixedExpandGroupRow';
+export { default as FixedDefaultExpandedGroupedRows } from './FixedExpandGroupRow/defaultExpandedGroupedRows';
