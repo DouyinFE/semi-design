@@ -1838,6 +1838,7 @@ function Demo() {
 | preventScroll        | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                              | boolean                                                                                   | -                              | 2.15.0 |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                                            | PopoverProps                                                                              | {}                             | 1.28.0 |
 | searchPlaceholder    | 搜索框默认文字                                                                                                                                             | string                                                                                    | -                              | -      |
+| searchPosition | 设置搜索框的位置，可选: `trigger`、`custom` | string| `trigger` | 2.54.0 |
 | separator            | 自定义分隔符，包括：搜索时显示在下拉框的内容以及单选时回显到 Trigger 的内容的分隔符                                                                                                      | string                                                                                    | `/`                            | 2.2.0  |
 | showClear            | 是否展示清除按钮                                                                                                                                            | boolean                                                                                   | false                          | 0.35.0 |
 | showNext             | 设置展开 Dropdown 子菜单的方式，可选: `click`、`hover`                                                                                                            | string                                                                                    | `click`                        | 1.29.0 |
@@ -1889,6 +1890,7 @@ function Demo() {
 | open        | 调用时可以手动展开下拉列表          | v2.30.0 |
 | focus       | 调用时可以手动聚焦                 | v2.34.0 |
 | blur        | 调用时可以手动失焦                 | v2.34.0 |
+| search(value: string) | 手动触发搜索，需同时设置 filterTreeNode 开启搜索，searchPosition 为 `custom` 自定义展示搜素框  | v2.54.0 |
 
 ## Accessibility
 

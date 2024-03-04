@@ -214,6 +214,15 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
             keepDOM,
             ...props
         } = this.props;
+        let wrapperStyle: CSSProperties = {
+            zIndex,
+        };
+        if (getPopupContainer) {
+            wrapperStyle = {
+                zIndex,
+                position: 'static',
+            };
+        }
         const { direction } = this.context;
         const isVertical = placement === 'left' || placement === 'right';
         const isHorizontal = placement === 'top' || placement === 'bottom';
@@ -252,16 +261,19 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
                         onAnimationEnd={this.updateState /* for no mask case*/}
                     >
                         {({ animationClassName, animationStyle, animationEventsNeedBind }) => {
-                            return shouldRender ? <SideSheetContent
-                                {...contentProps}
-                                maskExtraProps={maskAnimationEventsNeedBind}
-                                wrapperExtraProps={animationEventsNeedBind}
-                                dialogClassName={animationClassName}
-                                maskClassName={maskAnimationClassName}
-                                maskStyle={{ ...maskStyle }}
-                                style={{ ...animationStyle, ...style }}>
-                                {children}
-                            </SideSheetContent> : <></>;
+                            return shouldRender ?<Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
+                                <SideSheetContent
+                                    {...contentProps}
+                                    maskExtraProps={maskAnimationEventsNeedBind}
+                                    wrapperExtraProps={animationEventsNeedBind}
+                                    dialogClassName={animationClassName}
+                                    maskClassName={maskAnimationClassName}
+                                    maskStyle={{ ...maskStyle }}
+                                    style={{ ...animationStyle, ...style }}>
+                                    {children}
+                                </SideSheetContent>
+                            </Portal>:<></>; 
+
                         }}
                     </CSSAnimation>;
 
@@ -274,21 +286,10 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
         const {
             zIndex,
             getPopupContainer,
+            visible
         } = this.props;
-        let wrapperStyle: CSSProperties = {
-            zIndex,
-        };
-        if (getPopupContainer) {
-            wrapperStyle = {
-                zIndex,
-                position: 'static',
-            };
-        }
-        return (
-            <Portal getPopupContainer={getPopupContainer} style={wrapperStyle}>
-                {this.renderContent()}
-            </Portal>
-        );
+
+        return this.renderContent();
     }
 }
 
