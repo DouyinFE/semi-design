@@ -206,7 +206,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         if (props.ellipsis && prevChildren !== props.children) {
             // reset ellipsis state if children update
-            newState.isOverflowed = true;
+            newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
             newState.expanded = false;
             newState.isTruncated = false;
