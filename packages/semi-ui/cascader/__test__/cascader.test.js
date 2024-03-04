@@ -1250,7 +1250,7 @@ describe('Cascader', () => {
         const cascader = render({
             ref: (ref) => { r = ref },
             filterTreeNode: true,
-            searchRender: false,
+            searchPosition: 'custom',
             defaultOpen: true,
         });
         r.search('北京');

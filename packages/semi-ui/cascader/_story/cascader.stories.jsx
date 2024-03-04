@@ -2388,7 +2388,7 @@ export const SearchInTopSlot = () => {
   return (
       <Cascader
           filterTreeNode
-          searchRender={false}
+          searchPosition={"custom"}
           ref={cascaderRef}
           style={{ width: 300 }}
           treeData={treeData2}
