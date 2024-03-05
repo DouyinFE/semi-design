@@ -369,8 +369,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         if (border) {
             const borderStyle: CSSProperties = {};
-            if (border?.color) {
-                borderStyle['borderColor'] = border.color;
+            if (typeof border ==='object' && border?.color) {
+                borderStyle['borderColor'] = border?.color;
             }
             avatar = <div style={{ position: "relative", ...style }}>
                 {avatar}
@@ -383,12 +383,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 ])}>
                 </span>
                 {
-                    this.props.border?.motion && <span style={borderStyle} className={cls([
+                    (typeof this.props.border === 'object' && this.props.border.motion) && <span style={borderStyle} className={cls([
                         `${prefixCls}-additionalBorder`,
                         `${prefixCls}-additionalBorder-${size}`,
                         {
                             [`${prefixCls}-${shape}`]: shape,
-                            [`${prefixCls}-additionalBorder-animated`]: this.props.border?.motion,
+                            [`${prefixCls}-additionalBorder-animated`]: typeof this.props.border === 'object' && this.props.border?.motion,
                         },
                     ])}/>
                 }
