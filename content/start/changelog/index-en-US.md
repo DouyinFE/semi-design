@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.53.3 (2024-02-26)
+- 【Fix】
+  - Fix Avatar border type error
+
+
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】
   - fix the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
