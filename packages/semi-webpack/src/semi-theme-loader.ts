@@ -17,6 +17,17 @@ export default function SemiThemeLoader(source: string) {
     }
 
 
+
+    let customStr = `@import "~${theme}/scss/custom.scss"`;
+    try {
+        resolve.sync(this.context, `~${theme}/scss/custom.scss`);
+    } catch (e) {
+        customStr = ""; // fallback to empty string
+    }
+
+
+
+
     const shouldInject = source.includes('semi-base');
 
     let fileStr = source;
@@ -55,7 +66,7 @@ export default function SemiThemeLoader(source: string) {
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
     if (shouldInject) {
-        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
