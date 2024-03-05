@@ -291,7 +291,14 @@ function Demo() {
 render(Demo);
 ```
 
-### useToast Hooks
+### Destroy all
+
+Globally Destroy (>= 0.25.0):
+
+-   `Toast.destroyAll()`
+
+
+### Consume Context
 
 You could use `Toast.useToast` to create a `contextHolder` that could access context. Created toast will be inserted to where contextHolder is placed.
 
@@ -328,64 +335,12 @@ function Demo(props = {}) {
 render(Demo);
 ```
 
-You could also use `ReactDOM.createPortal` to insert toast in a Portal.
-
-```jsx live=true noInline=true
-import React, { useRef } from 'react';
-import { Toast, Button } from '@douyinfe/semi-ui';
-
-const ReachableContext = React.createContext();
-
-const useCreatePortalInBody = () => {
-    const wrapperRef = useRef(null);
-    if (wrapperRef.current === null && typeof document !== 'undefined') {
-        const div = document.createElement('div');
-        wrapperRef.current = div;
-    }
-    useLayoutEffect(() => {
-        const wrapper = wrapperRef.current;
-        if (!wrapper || typeof document === 'undefined') {
-            return;
-        }
-        document.querySelector('.article-wrapper').appendChild(wrapper);
-        return () => {
-            document.querySelector('.article-wrapper').appendChild(wrapper);
-        };
-    }, []);
-    return children => wrapperRef.current && ReactDOM.createPortal(children, wrapperRef.current);
-};
-
-function Demo(props = {}) {
-    const [toast, contextHolder] = Toast.useToast();
-    const createBodyPortal = useCreatePortalInBody();
-    const config = {
-        duration: 3,
-        title: 'This is a success message',
-        content: <ReachableContext.Consumer>{name => `ReachableContext: ${name}`}</ReachableContext.Consumer>,
-    };
-
-    return (
-        <ReachableContext.Provider value="Light">
-            <div>
-                <Button
-                    onClick={() => {
-                        toast.success(config);
-                    }}
-                >
-                    Hook Toast
-                </Button>
-            </div>
-            {createBodyPortal(
-                <div style={{ position: 'fixed', top: 0, left: '50%', zIndex: 10000 }}>{contextHolder}</div>
-            )}
-        </ReachableContext.Provider>
-    );
-}
-
-render(Demo);
-```
 
 ### Create Toast with different configurations
+
+<Notice>
+Commonly used to override global configuration
+</Notice>
 
 -   `ToastFactory.create(config) => Toast`  
     If you need Toast with different configs in your application, you can use ToastFactory.create(config)to create a new Toast (>= 1.23):
@@ -417,7 +372,7 @@ Globally Destroy (>= 0.25.0):
 
 -   `Toast.destroyAll()`
 
-HookToast
+Consume Context
 
 -   `Toast.useToast` **v>=1.2.0**  
     When you need access Context, you could use `Toast.useToast` to create a `contextHolder` and insert to corresponding DOM tree. Toast created by hooks will be able to access the context where `contextHolder` is inserted. Hook toast has following methods: `info`, `success`, `warning`, `error`, `close`.
@@ -427,12 +382,19 @@ HookToast
 
 The static methods provided are as follows: Display: You can pass in `options` object or string directly. Methods return the value of `toastId`: `const toastId = Toast.info({ /*...options*/ })`
 
+**The global configuration is set before any method call, and takes effect only once (>= 0.25.0)**
+-   `Toast.config(config)`
+
+** Show Toast Directly
+
 -   `Toast.info(options || string)`
 -   `Toast.error(options || string)`
 -   `Toast.warning(options || string)`
 -   `Toast.success(options || string)`
--   `Toast.close(toastId)`  Close Manually ( `toastId` is the return value of the display methods)
--   `Toast.config(config)`  The global configuration is set before any method call, and takes effect only once (>= 0.25.0)
+
+**`info` `error` `warning` `success` return the `toastId`, can be used for manually closing **
+- `Toast.close(toastId)`  Close Manually 
+
 
 ## Options
 
@@ -459,7 +421,7 @@ The static methods provided are as follows: Display: You can pass in `options` o
 | right | Pop-up position right                                                                                                                                       | number \| string | - | 0.25.0 |
 | top | Pop-up position top                                                                                                                                         | number \| string | - | 0.25.0 |
 | zIndex | Z-index value                                                                                                                                               | number | 1010 |  |
-| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 1.0.0   |
+| theme | Style of background fill, one of `light`, `normal` | string | `normal` | 2.54.0   |
 | duration | Automatic close delay, no auto-close when set to 0 | number | 3 |         |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set container and inner .semi-toast-wrapper  'position: relative`   This will change the DOM tree position, but not the view's rendering position.  | () => HTMLElement \| null | () => document.body | 0.34.0 |
 ## Accessibility
