@@ -1,5 +1,7 @@
 import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
+import path from 'path';
+import * as fs from 'fs';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
@@ -13,19 +15,31 @@ export default function SemiThemeLoader(source: string) {
     try {
         resolve.sync(this.context, `${theme}/scss/animation.scss`);
     } catch (e) {
-        animationStr = ""; // fallback to empty string
+        animationStr = ''; // fallback to empty string
     }
 
 
-
-    let customStr = `@import "~${theme}/scss/custom.scss"`;
+    let customStr = '';
     try {
-        resolve.sync(this.context, `~${theme}/scss/custom.scss`);
+        const customScssPath = resolve.sync(this.context, `${theme}/scss/custom.scss`);
+        if (customScssPath) {
+            customStr = fs.readFileSync(customScssPath, 'utf-8');
+            const componentName = path.basename(this.context);
+            const matched = Array.from(customStr.matchAll(/\$\w+-([a-zA-Z]+)[\w-_]+/g));
+            const collectedLackVariables: string[] = [];
+            matched.forEach(([variable, variableBelongComponent])=>{
+                if (variableBelongComponent.toLowerCase()!==componentName.toLowerCase()) {
+                    collectedLackVariables.push(variable);
+                }
+            });
+            customStr = `${collectedLackVariables.map(variable=>{
+                return `${variable}:null;`;
+            }).join("\n")}\n`+`@import "~${theme}/scss/custom.scss";\n`;
+        }
+
     } catch (e) {
-        customStr = ""; // fallback to empty string
+        customStr = ''; // fallback to empty string
     }
-
-
 
 
     const shouldInject = source.includes('semi-base');
@@ -38,7 +52,7 @@ export default function SemiThemeLoader(source: string) {
     } catch (e) {
     }
 
-    if (query.include || query.variables || componentVariables) {
+    if (query.include || query.variables || componentVariables || customStr) {
         let localImport = '';
         if (componentVariables) {
             localImport += `\n@import "~${theme}/scss/local.scss";`;
@@ -57,6 +71,10 @@ export default function SemiThemeLoader(source: string) {
                 fileStr = fileSplit.join('');
             }
         } catch (error) {
+        }
+
+        if (customStr) {
+            fileStr += `\n${customStr}`;
         }
     }
 

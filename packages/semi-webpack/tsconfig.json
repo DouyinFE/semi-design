@@ -6,7 +6,7 @@
         "sourceMap": true,
         "allowJs": true,
         "module": "commonjs",
-        "lib": ["es7", "dom"],
+        "lib": ["es2020", "dom"],
         "moduleResolution": "node",
         "declaration": true,
         "noImplicitAny": true,
