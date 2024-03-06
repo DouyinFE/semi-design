@@ -66,7 +66,8 @@ export interface InputProps extends
     forwardRef?: ((instance: any) => void) | React.MutableRefObject<any> | null;
     preventScroll?: boolean;
     /** internal prop, DatePicker use it */
-    showClearIgnoreDisabled?: boolean
+    showClearIgnoreDisabled?: boolean;
+    onlyBorder?: number
 }
 
 export interface InputState {
@@ -451,6 +452,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             preventScroll,
             borderless,
             showClearIgnoreDisabled,
+            onlyBorder,
             ...rest
         } = this.props;
         const { value, isFocus, minLength: stateMinLength } = this.state;
@@ -476,7 +478,8 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${wrapperPrefix}-modebtn`]: mode === 'password',
             [`${wrapperPrefix}-hidden`]: type === 'hidden',
             [`${wrapperPrefix}-${size}`]: size,
-            [`${prefixCls}-borderless`]: borderless
+            [`${prefixCls}-borderless`]: borderless,
+            [`${prefixCls}-only_border`]: onlyBorder!==undefined && onlyBorder!==null,
         });
         const inputCls = cls(prefixCls, {
             [`${prefixCls}-${size}`]: size,
@@ -511,11 +514,20 @@ class Input extends BaseComponent<InputProps, InputState> {
         if (validateStatus === 'error') {
             inputProps['aria-invalid'] = 'true';
         }
+
+        let wrapperStyle = { ...style };
+        if (onlyBorder!==undefined) {
+            wrapperStyle = {
+                borderWidth: onlyBorder,
+                ...style
+            };
+        }
+
         return (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
             <div
                 className={wrapperCls}
-                style={style}
+                style={wrapperStyle}
                 onMouseEnter={e => this.handleMouseOver(e)}
                 onMouseLeave={e => this.handleMouseLeave(e)}
                 onClick={e => this.handleClick(e)}

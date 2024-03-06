@@ -132,7 +132,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
         const { parsedEvents } = this.state;
         const events = parsedEvents.day;
         const { week } = this.weeklyData;
-        const { markWeekend, dateGridRender } = this.props;
+        const { markWeekend, dateGridRender, minEventHeight } = this.props;
         const inner = week.map(day => {
             const dateString = day.date.toString();
             const dayEvents = events.has(dateString) ? events.get(dateString) : [];
@@ -147,6 +147,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
                     showCurrTime={this.props.showCurrTime}
                     isWeekend={markWeekend && day.isWeekend}
                     dateGridRender={dateGridRender}
+                    minEventHeight={minEventHeight}
                 />
             );
         });

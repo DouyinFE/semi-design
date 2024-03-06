@@ -73,10 +73,6 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
             sticky
         } = this.props;
 
-        if (!showHeader) {
-            return null;
-        }
-
         const Table = get(components, 'header.outer', 'table') as unknown as typeof React.Component;
         const x = get(scroll, 'x');
         const headStyle: Partial<React.CSSProperties> = {};
@@ -97,6 +93,7 @@ class HeadTable extends React.PureComponent<HeadTableProps> {
 
         const headTableCls = classnames(`${prefixCls}-header`, {
             [`${prefixCls}-header-sticky`]: sticky,
+            [`${prefixCls}-header-hidden`]: !showHeader,
         });
 
         const stickyTop = get(sticky, 'top', 0);

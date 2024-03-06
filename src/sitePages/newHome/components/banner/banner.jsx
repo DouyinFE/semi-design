@@ -15,10 +15,10 @@ function Banner() {
                 <p className={styles.subtitle}>{_t("home_banner_description")}</p>
                 <OperateButton />
                 <div className={styles.frameworksWrapper}>
-                    {getLocale()!=="zh-CN" && <div style={{ display: "flex", alignItems: 'center', marginBottom: "12px", position: 'relative', top: 0 }}>
-                        <Typography.Text type={"tertiary"} style={{ fontSize: '20px', fontWeight: '300' }}>Compatible
-                            with</Typography.Text>
-                    </div>}
+                    <div style={{ display: "flex", alignItems: 'center', marginBottom: "12px", position: 'relative', top: 0 }}>
+                        {getLocale()!=="zh-CN" && <Typography.Text type={"tertiary"} style={{ fontSize: '20px', fontWeight: '300' }}>Compatible
+                            with</Typography.Text>}
+                    </div>
                     <div style={{ display: 'flex', position: 'relative', top: 30 }}>
                         <svg style={{ transform: 'scale(0.8)', color: "var(--react-logo-color)", position: 'absolute', left: -220, top: -22 }} width="100%" height="100%" viewBox="-10.5 -9.45 21 18.9" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-4 mb-3 text-link dark:text-link-dark w-24 lg:w-28 self-center text-sm me-0 flex origin-center transition-all ease-in-out"><circle cx="0" cy="0" r="2" fill="currentColor"></circle><g stroke="currentColor" strokeWidth="1" fill="none"><ellipse rx="10" ry="4.5"></ellipse><ellipse rx="10" ry="4.5" transform="rotate(60)"></ellipse><ellipse rx="10" ry="4.5" transform="rotate(120)"></ellipse></g></svg>
                         <svg style={{ transform: "scale(0.1) translate(-1470px, -2640px)", position: 'absolute' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 876"><path d="m704.9 641.7-305.1 172.6v-134.4l190.1-104.6zm20.9-18.9v-360.9l-111.6 64.5v232zm-657.9 18.9 305.1 172.6v-134.4l-190.2-104.6zm-20.9-18.9v-360.9l111.6 64.5v232zm13.1-384.3 312.9-177v129.9l-200.5 110.3-1.6.9zm652.6 0-312.9-177v129.9l200.5 110.2 1.6.9z" fill="#8ed6fb"/><path d="m373 649.3-187.6-103.2v-204.3l187.6 108.3zm26.8 0 187.6-103.1v-204.4l-187.6 108.3zm-201.7-331.1 188.3-103.5 188.3 103.5-188.3 108.7z" fill="#1c78c0"/></svg>
@@ -38,7 +38,7 @@ function Banner() {
                             </defs>
                         </svg>
                         <a style={{ position: 'absolute', height: 'fit-content', left: 224, top: -26 }} href={"https://www.rspack.dev"} aria-label={"rspack"} target={"_blank"} rel="noreferrer">
-                            <img style={{ width: "60px", position: "relative", left: "-18px" }} src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/rspack.png"}/>
+                            <img style={{ width: "60px", position: "relative", left: "-18px" }} alt='rspack logo' src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/rspack.png"}/>
                         </a>
                         <svg aria-label={"remix"} style={{ position: 'relative', top: "-16px", left: "304px", transform: 'scale(1.3)' }} height="24" viewBox="0 0 350 165" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><title>Remix Logo</title>
                             <path fillRule="evenodd" clipRule="evenodd" d="M133.85 124.16C135.3 142.762 135.3 151.482 135.3 161H92.2283C92.2283 158.927 92.2653 157.03 92.3028 155.107C92.4195 149.128 92.5411 142.894 91.5717 130.304C90.2905 111.872 82.3473 107.776 67.7419 107.776H54.8021H0V74.24H69.7918C88.2407 74.24 97.4651 68.632 97.4651 53.784C97.4651 40.728 88.2407 32.816 69.7918 32.816H0V0H77.4788C119.245 0 140 19.712 140 51.2C140 74.752 125.395 90.112 105.665 92.672C122.32 96 132.057 105.472 133.85 124.16Z" fill="currentColor"></path>

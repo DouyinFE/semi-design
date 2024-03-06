@@ -1,8 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
-export interface PreviewFooterAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    setStartMouseOffset: (time: number) => void
-}
+export interface PreviewFooterAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S>{}
 
 export default class PreviewFooterFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewFooterAdapter<P, S>, P, S> {
     
@@ -24,7 +22,6 @@ export default class PreviewFooterFoundation<P = Record<string, any>, S = Record
         } else {
             onZoomOut(Number((value / 100).toFixed(2)));
         }
-        this._adapter.setStartMouseOffset(value);
     };
 
     handleRatioClick = (): void => {

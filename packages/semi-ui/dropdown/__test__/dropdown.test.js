@@ -223,11 +223,12 @@ describe('Dropdown', () => {
         let DD = getDD(props);
         let targetItem = DD.find('li.test');
         let event = {
+            button:0,
             target: {
                 value: 'B1',
             },
         };
-        targetItem.simulate('mousedown', event);
+        targetItem.simulate('click', event);
         expect(spyItemCLick.calledOnce).toEqual(true);
         expect(spyItemCLick.calledWithMatch(event)).toEqual(true);
     });

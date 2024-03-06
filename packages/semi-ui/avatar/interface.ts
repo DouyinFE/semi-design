@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { BaseProps } from '../_base/baseComponent';
 
 export type AvatarShape = 'circle' | 'square';
@@ -30,11 +30,35 @@ export interface AvatarProps extends BaseProps {
     src?: string;
     srcSet?: string;
     alt?: string;
+    gap?: number;
     onError?: React.MouseEventHandler;
     onClick?: React.MouseEventHandler;
     onMouseEnter?: React.MouseEventHandler;
     onMouseLeave?: React.MouseEventHandler;
-    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>
+    imgAttr?: React.ImgHTMLAttributes<HTMLImageElement>;
+    bottomSlot?: {
+        render?: () => React.ReactNode;
+        shape?: "circle"|"square";
+        text: React.ReactNode;
+        bgColor: string;
+        textColor: string;
+        className: string;
+        style?: CSSProperties 
+    };
+    topSlot?: {
+        render?: () => React.ReactNode;
+        gradientStart?: string;
+        gradientEnd?: string; 
+        text: React.ReactNode;
+        textColor: string;
+        className: string;
+        style?: CSSProperties
+    };
+    border?: {
+        color?: string; 
+        motion?: boolean
+    } | boolean;
+    contentMotion?: boolean
 }
 
 export type AvatarGroupShape = 'circle' | 'square';

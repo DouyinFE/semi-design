@@ -1,16 +1,8 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
-import { handlePrevent } from "../utils/a11y";
-import { throttle, isUndefined } from "lodash";
 
 export interface PreviewImageAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getOriginImageSize: () => { originImageWidth: number; originImageHeight: number }; 
-    setOriginImageSize: (size: { originImageWidth: number; originImageHeight: number }) => void;
     getContainer: () => HTMLDivElement;
     getImage: () => HTMLImageElement;
-    getMouseMove: () => boolean;
-    setStartMouseMove: (move: boolean) => void;
-    getMouseOffset: () => { x: number; y: number };
-    setStartMouseOffset: (offset: { x: number; y: number }) => void;
     setLoading: (loading: boolean) => void;
     setImageCursor: (canDrag: boolean) => void
 }
@@ -46,6 +38,10 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
+    startMouseOffset = { x: 0, y: 0 };
+    originImageWidth = null;
+    originImageHeight = null;
+
     _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
 
     _getImageBounds = (): DOMRect => {
@@ -77,25 +73,22 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleWindowResize = (): void => {
-        const { ratio, setRatio } = this.getProps();
-        const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
-        if (originImageWidth && originImageHeight) {
-            if (ratio !== "adaptation") {
-                setRatio("adaptation");
-            } else {
-                this.handleResizeImage();
-            } 
+        if (this.originImageWidth && this.originImageHeight) {
+            this.handleResizeImage();
         }
     };
 
     handleLoad = (e: any): void => {
         if (e.target) {
-            const { width: w, height: h } = e.target as any;
-            this._adapter.setOriginImageSize({ originImageWidth: w, originImageHeight: h });
+            const { naturalWidth: w, naturalHeight: h } = e.target as any;
+            this.originImageHeight = h;
+            this.originImageWidth = w;
             this.setState({
                 loading: false,
             } as any);
-            this.handleResizeImage();
+            // 图片初次加载，计算 zoom，zoom 改变不需要通过回调透出
+            // When the image is loaded for the first time, zoom is calculated, and zoom changes do not need to be exposed through callbacks.
+            this.handleResizeImage(false);
         }
         const { src, onLoad } = this.getProps();
         onLoad && onLoad(src);
@@ -109,21 +102,52 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         onError && onError(src);
     }
 
-    handleResizeImage = () => {
+    handleResizeImage = (notify: boolean = true) => {
         const horizontal = !this._isImageVertical();
-        const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
-        const imgWidth = horizontal ? originImageWidth : originImageHeight;
-        const imgHeight = horizontal ? originImageHeight : originImageWidth;
-        const { onZoom } = this.getProps();
+        const { currZoom } = this.getStates();
+        const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
+        const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
+        const { onZoom, setRatio, ratio } = this.getProps();
         const containerDOM = this._adapter.getContainer();
         if (containerDOM) {
             const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
             const reservedWidth = containerWidth - 80;
             const reservedHeight = containerHeight - 80;
-            const _zoom = Number(
-                Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
-            );
-            onZoom(_zoom);
+            let _zoom = 1;
+            if (imgWidth > reservedWidth || imgHeight > reservedHeight) {
+                _zoom = Number(
+                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
+                );
+            }
+            if (currZoom === _zoom) {
+                this.calculatePreviewImage(_zoom, null);
+            } else {
+                onZoom(_zoom, notify);
+            }
+        }
+    }
+
+    handleRatioChange = () => {
+        if (this.originImageWidth && this.originImageHeight) {
+            const { currZoom } = this.getStates();
+            const { ratio, onZoom } = this.getProps();
+            let _zoom: number;
+            if (ratio === 'adaptation') {
+                const horizontal = !this._isImageVertical();
+                const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
+                const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
+                const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+                const reservedWidth = containerWidth - 80;
+                const reservedHeight = containerHeight - 80;
+                _zoom = Number(
+                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
+                );
+            } else {
+                _zoom = 1;
+            }
+            if (currZoom !== _zoom) {
+                onZoom(_zoom);
+            }
         }
     }
 
@@ -137,33 +161,6 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             return true;
         }
     };
-
-    // e: WheelEvent<HTMLImageElement>
-    handleWheel = (e: any) => {
-        this.onWheel(e);
-        handlePrevent(e);
-    }
-
-    // e: WheelEvent<HTMLImageElement>
-    onWheel = throttle((e: any): void => {
-        const { onZoom, zoomStep, maxZoom, minZoom } = this.getProps();
-        const { currZoom } = this.getStates();
-        let _zoom: number;
-        if (e.deltaY < 0) {
-            /* zoom in */
-            if (currZoom + zoomStep <= maxZoom) {
-                _zoom = Number((currZoom + zoomStep).toFixed(2));
-            }
-        } else if (e.deltaY > 0) {
-            /* zoom out */
-            if (currZoom - zoomStep >= minZoom) {
-                _zoom = Number((currZoom - zoomStep).toFixed(2));
-            }
-        }
-        if (!isUndefined(_zoom)) {
-            onZoom(_zoom);
-        }
-    }, 50);
 
     calcCanDragDirection = (): DragDirection => {
         const { width, height } = this.getStates();
@@ -181,14 +178,13 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    handleZoomChange = (newZoom: number, e: any): void => {
+    calculatePreviewImage = (newZoom: number, e: any): void => {
         const imageDOM = this._adapter.getImage();
-        const { originImageWidth, originImageHeight } = this._adapter.getOriginImageSize();
         const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
         const canDrag = canDragVertical || canDragHorizontal;
         const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-        const newWidth = Math.floor(originImageWidth * newZoom);
-        const newHeight = Math.floor(originImageHeight * newZoom);
+        const newWidth = Math.floor(this.originImageWidth * newZoom);
+        const newHeight = Math.floor(this.originImageHeight * newZoom);
 
         // debugger;
         let _offset;
@@ -242,15 +238,15 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
     handleMoveImage = (e: any): void => {
         const { offset, width, height } = this.getStates();
-        const startMouseMove = this._adapter.getMouseMove();
-        const startMouseOffset = this._adapter.getMouseOffset();
         const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
-        if (startMouseMove && (canDragVertical || canDragHorizontal)) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+        const mouseLeftPress = e.buttons === 1;
+        if (mouseLeftPress && (canDragVertical || canDragHorizontal)) {
             const { clientX, clientY } = e;
             const { left: containerLeft, top: containerTop } = this._getContainerBounds();
             const { left: extremeLeft, top: extremeTop } = this.calcExtremeBounds();
-            let newX = canDragHorizontal ? clientX - containerLeft - startMouseOffset.x : offset.x;
-            let newY = canDragVertical ? clientY - containerTop - startMouseOffset.y : offset.y;
+            let newX = canDragHorizontal ? clientX - containerLeft - this.startMouseOffset.x : offset.x;
+            let newY = canDragVertical ? clientY - containerTop - this.startMouseOffset.y : offset.y;
             if (canDragHorizontal) {
                 newX = newX > 0 ? 0 : newX < extremeLeft ? extremeLeft : newX;
             }
@@ -270,11 +266,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     };
 
     handleImageMouseDown = (e: any): void => {
-        this._adapter.setStartMouseOffset(this._getOffset(e));
-        this._adapter.setStartMouseMove(true);
+        this.startMouseOffset = this._getOffset(e);
     };
 
-    handleImageMouseUp = (): void => {
-        this._adapter.setStartMouseMove(false);
-    };
 }

@@ -1,7 +1,6 @@
-import { isEqual, get, difference, isUndefined, assign, cloneDeep, isEmpty, isNumber, includes, isFunction } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
-    filter,
     findAncestorKeys,
     calcCheckedKeysForUnchecked,
     calcCheckedKeysForChecked,
@@ -11,11 +10,13 @@ import {
 } from '../tree/treeUtil';
 import { Motion } from '../utils/type';
 import {
+    filter,
     convertDataToEntities,
-    findKeysForValues,
     normalizedArr,
     isValid,
-    calcMergeType
+    calcMergeType,
+    getKeysByValuePath,
+    getKeyByPos
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
@@ -56,6 +57,8 @@ export interface BasicEntity {
     parentKey?: string;
     /* key path */
     path: Array<string>;
+    /* pos in treeData */
+    pos: string;
     /* value path */
     valuePath: Array<string>
 }
@@ -314,14 +317,6 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         return isDisabled;
     }
 
-    getCopyFromState(items: string | string[]) {
-        const res: Partial<BasicCascaderInnerData> = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res;
-    }
-
     // prop: is array, return all data
     getItemPropPath(selectedKey: string, prop: string | any[], keyEntities?: BasicEntities) {
         const searchMap = keyEntities || this.getState('keyEntities');
@@ -439,14 +434,14 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const loadingKeys = this._adapter.getLoadingKeyRefValue();
         const filterable = this._isFilterable();
         const loadingActive = [...activeKeys].filter(i => loadingKeys.has(i));
-
-        const valuePath = onChangeWithObject ? normalizedArr(value).map(i => i.value) : normalizedArr(value);
-        const selectedKeys = findKeysForValues(valuePath, keyEntities);
+        const normalizedValue = normalizedArr(value);
+        const valuePath = onChangeWithObject && isObject(normalizedValue[0]) ? normalizedValue.map(i => i.value) : normalizedValue;
+        const selectedKeys = getKeysByValuePath(valuePath);
         let updateStates: Partial<BasicCascaderInnerData> = {};
 
-        if (selectedKeys.length) {
-            const selectedKey = selectedKeys[0];
-            const selectedItem = keyEntities[selectedKey];
+        const selectedKey = selectedKeys.length > 0 ? selectedKeys[0] : undefined;
+        const selectedItem = selectedKey ? keyEntities[selectedKey] : undefined;
+        if (selectedItem) {
             /**
              * When changeOnSelect is turned on, or the target option is a leaf option,
              * the option is considered to be selected, even if the option is disabled
@@ -678,8 +673,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     handleNodeLoad(item: BasicEntity | BasicData) {
         const { data, key } = item;
-        const prevLoadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
-        const prevLoadedKeys = cloneDeep(this._adapter.getLoadedKeyRefValue());
+        const prevLoadingKeys = new Set(this._adapter.getLoadingKeyRefValue());
+        const prevLoadedKeys = new Set(this._adapter.getLoadedKeyRefValue());
         const newLoadedKeys = prevLoadedKeys.add(key);
         const newLoadingKeys = new Set([...prevLoadingKeys]);
         newLoadingKeys.delete(key);
@@ -699,7 +694,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.updateStates({ loading: false });
         if (!data.isLeaf && !data.children && this.getProp('loadData')) {
             const loadedKeys = this._adapter.getLoadedKeyRefValue();
-            const loadingKeys = cloneDeep(this._adapter.getLoadingKeyRefValue());
+            const loadingKeys = new Set(this._adapter.getLoadingKeyRefValue());
             if (loadedKeys.has(key) || loadingKeys.has(key)) {
                 return;
             }
@@ -841,7 +836,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
 
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some(key => disabledKeys.has(key));
         if (!hasDisabled) {
@@ -874,10 +869,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const { keyEntities } = this.getStates();
         const values: (string | number)[] = [];
         keys.forEach(key => {
-            if (!isEmpty(keyEntities) && !isEmpty(keyEntities[key])) {
-                const valueItem = keyEntities[key].data.value;
-                values.push(valueItem);
-            }
+            const valueItem = keyEntities[key]?.data?.value;
+            valueItem !== undefined && values.push(valueItem);
         });
         const formatValue: number | string | Array<string | number> = values.length === 1 ?
             values[0] :
@@ -892,7 +885,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
      */
     calcCheckedKeys(key: string, curCheckedStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const { checkedKeys, halfCheckedKeys } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         return curCheckedStatus ?
             calcCheckedKeysForChecked(key, keyEntities, checkedKeys, halfCheckedKeys) :
             calcCheckedKeysForUnchecked(key, keyEntities, checkedKeys, halfCheckedKeys);
@@ -910,8 +904,8 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
                     if (_notExist) {
                         return false;
                     }
-                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp).join();
-                    return filter(sugInput, data, filterTreeNode, false, filteredPath);
+                    const filteredPath = this.getItemPropPath(key, treeNodeFilterProp);
+                    return filter(sugInput, data, filterTreeNode, filteredPath);
                 })
                 .filter(
                     item => (filterTreeNode && !filterLeafOnly) ||
@@ -934,6 +928,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         const isControlled = this._isControlledComponent();
         const newState: Partial<BasicCascaderInnerData> = {};
         if (multiple) {
+            newState.isSearching = false;
             this._adapter.updateInputValue('');
             this._adapter.notifyOnSearch('');
             newState.checkedKeys = new Set([]);
@@ -1028,17 +1023,20 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         this._adapter.notifyListScroll(e, { panelIndex: ind, activeNode: data });
     }
 
-    handleTagRemove(e: any, tagValuePath: string[]) {
+    handleTagRemoveByKey = (key: string) => {
         const { keyEntities } = this.getStates();
         const { disabled } = this.getProps();
         if (disabled) {
             /* istanbul ignore next */
             return;
         }
-        const removedItem = (Object.values(keyEntities) as BasicEntity[])
-            .filter(item => isEqual(item.valuePath, tagValuePath))[0];
-        !isEmpty(removedItem) &&
-        !removedItem.data.disabled &&
-        this._handleMultipleSelect(removedItem);
+        const removedItem = keyEntities[key] ?? {};
+        !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+    }
+
+    handleTagRemoveInTrigger = (pos: string) => {
+        const { treeData } = this.getStates();
+        const key = getKeyByPos(pos, treeData);
+        this.handleTagRemoveByKey(key);
     }
 }

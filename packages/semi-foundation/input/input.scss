@@ -85,7 +85,7 @@ $module: #{$prefix}-input;
         border: $color-input_default-border-focus solid $width-input_wrapper_focus-border;
 
         &:hover {
-            background-color: $color-input_default-bg-focus;
+            background-color: $color-input_default-bg-focus-hover;
             border-color: $color-input_default-border-focus;
         }
 
@@ -225,7 +225,6 @@ $module: #{$prefix}-input;
 
             &:not(:last-child) {
                 border-right-style: none;
-                border-radius: 0;
             }
         }
     }
@@ -691,7 +690,18 @@ $module: #{$prefix}-input;
     }
 }
 
+.#{$module}-only_border{
+    background: transparent;
+    &:hover{
+        background: transparent;
+        border-color: $color_input-default-border-only_border-hover;
+    }
+    &:focus-within{
+        background: transparent;
+    }
+    border-color: $color_input-default-border-only_border-default;
 
+}
 
 .#{$module}-borderless{
 
@@ -712,8 +722,6 @@ $module: #{$prefix}-input;
     &.#{$module}-wrapper-warning:not(:focus-within){
         border-color: $color-input_warning-border-focus;
     }
-
-
 
 
 }

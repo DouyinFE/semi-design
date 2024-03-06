@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree
  */
 
-import { isUndefined, difference, pick, cloneDeep, get } from 'lodash';
+import { isUndefined, difference, pick, get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -22,7 +22,8 @@ import {
     calcDropActualPosition
 } from './treeUtil';
 
-export { KeyMapProps } from './treeUtil';
+import type { KeyMapProps } from './treeUtil';
+export type { KeyMapProps };
 
 export interface BasicTreeNodeProps {
     [x: string]: any;
@@ -41,7 +42,8 @@ export interface BasicTreeNodeProps {
     directory?: boolean;
     selectedKey?: string;
     motionKey?: string[] | string;
-    eventKey?: string
+    eventKey?: string;
+    showLine?: boolean
 }
 
 export interface BasicTreeNodeData {
@@ -235,6 +237,7 @@ export interface BasicTreeProps {
     searchStyle?: any;
     showClear?: boolean;
     showFilteredOnly?: boolean;
+    showLine?: boolean;
     style?: any;
     treeData?: BasicTreeNodeData[];
     treeDataSimpleJson?: TreeDataSimpleJson;
@@ -354,14 +357,6 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const { inputValue } = this.getStates();
         const { showFilteredOnly } = this.getProps();
         return Boolean(inputValue) && showFilteredOnly;
-    }
-
-    getCopyFromState(items: string[] | string) {
-        const res: Partial<BasicTreeInnerData> = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res;
     }
 
     getTreeNodeProps(key: string) {
@@ -525,7 +520,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     }
 
     handleSingleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        let { selectedKeys } = this.getCopyFromState('selectedKeys');
+        let selectedKeys = [...this.getState('selectedKeys')];
         const { selected, eventKey, data } = treeNode;
         const targetSelected = !selected;
 
@@ -546,7 +541,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     calcCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const { checkedKeys, halfCheckedKeys } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         return targetStatus ?
             calcCheckedKeysForChecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys) :
             calcCheckedKeysForUnchecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys);
@@ -579,7 +575,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     */
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some((key: string) => disabledKeys.has(key));
         // If none of the descendant nodes are disabled, follow the normal logic
@@ -636,7 +632,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const isSearching = Boolean(inputValue);
         const showFilteredOnly = this._showFilteredOnly();
         const expandedStateKey = isSearching ? 'filteredExpandedKeys' : 'expandedKeys';
-        const expandedKeys = this.getCopyFromState(expandedStateKey)[expandedStateKey];
+        const expandedKeys = new Set(this.getState(expandedStateKey)) as Set<string>;
 
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
@@ -694,10 +690,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
         // Process the loaded data
         loadData(data).then(() => {
-            const {
-                loadedKeys: prevLoadedKeys,
-                loadingKeys: prevLoadingKeys
-            } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+            const prevLoadedKeys = new Set(this.getState('loadedKeys')) as Set<string>;
+            const prevLoadingKeys = new Set(this.getState('loadingKeys')) as Set<string>;
             const newLoadedKeys = prevLoadedKeys.add(key);
             const newLoadingKeys = new Set([...prevLoadingKeys]);
             newLoadingKeys.delete(key);

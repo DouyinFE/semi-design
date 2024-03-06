@@ -58,8 +58,18 @@ $module: #{$prefix}-slider;
         cursor: pointer;
         transition: background-color $transition_duration_slider_handle-bg $transition_function-slider-handle-bg $transition_delay-slider_handle-bg;
         transform: $transform_scale-slider_handle translateX(-50%) translateY($spacing-slider_handle-translateY);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         &:focus-visible {
             outline: $width-slider_handle-focus solid $color-slider_handle-focus;
+        }
+
+        &-dot{
+            background:$color-slider_handle_dot;
+            width:$width-slider_handle_dot;
+            height: $width-slider_handle_dot;
+            border-radius: var(--semi-border-radius-circle);
         }
     }
 

@@ -352,6 +352,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             const newOptions = this._filterOption(options, sugInput).filter(item => !item._inputCreateOnly);
             this._adapter.updateOptions(newOptions);
             this.toggle2SearchInput(true);
+        } else {
+            // whether it is a filter or not, isFocus is guaranteed to be true when open
+            this._adapter.updateFocusState(true);
         }
         this._adapter.openMenu();
         this._setDropdownWidth();
@@ -383,8 +386,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._adapter.setIsFocusInContainer(false);
         // this.unBindKeyBoardEvent();
         // this._notifyBlur(e);
-        this._adapter.unregisterClickOutsideHandler();
         // this._adapter.updateFocusState(false);
+        this._adapter.unregisterClickOutsideHandler();
 
         const isFilterable = this._isFilterable();
         if (isFilterable) {
@@ -1019,6 +1022,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (filter) {
             this.clearInput(e);
         }
+        // after click showClear button, the select need to be focused
+        this.focus();
         this.clearSelected();
         // prevent this click open dropdown
         e.stopPropagation();
@@ -1053,13 +1058,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleTriggerBlur(e: FocusEvent) {
-        this._adapter.updateFocusState(false);
         const { filter, autoFocus } = this.getProps();
         const { isOpen, isFocus } = this.getStates();
         // Under normal circumstances, blur will be accompanied by clickOutsideHandler, so the notify of blur can be called uniformly in clickOutsideHandler
         // But when autoFocus or the panel is close, because clickOutsideHandler is not register or unregister, you need to listen for the trigger's blur and trigger the notify callback
         if (isFocus && !isOpen) {
             this._notifyBlur(e);
+            this._adapter.updateFocusState(false);
         }
     }
 

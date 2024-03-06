@@ -69,7 +69,10 @@ export {
     FeatEtcGMT,
     FixDisabledDate,
     FeatInsetInputShowClear,
-    AutoSplitInput
+    AutoSplitInput,
+    FixNeedConfirmControlled,
+    FixedNaN,
+    PresetsFunctionType
 } from './v2';
 
 
@@ -484,8 +487,12 @@ export const YearPicker = () => (
 export const MonthPicker = () => {
   const Demo = () => {
     const [controlledValue, setControlledValue] = useState('2019-09');
+    const [controlledRangeValue, setControlledRangeValue] = useState(['2019-09', '2019-10']);
+
 
     const _setControlledValue = value => setControlledValue(value);
+    const _setControlledRangeValue = value => setControlledRangeValue(value);
+
 
     return (
       <>
@@ -519,6 +526,17 @@ export const MonthPicker = () => {
         <div>
           <span>MonthPicker with controlledValue</span>
           <DatePicker type="month" value={controlledValue} onChange={_setControlledValue} />
+        </div>
+        <br />
+        <br />
+        <h3>monthRange</h3>
+        <div>
+          <span>MonthRange Picker</span>
+          <DatePicker type="monthRange"  />
+        </div>
+        <div>
+          <span>MonthRange Picker with controlledValue</span>
+          <DatePicker type="monthRange" value={controlledRangeValue} onChange={_setControlledRangeValue} />
         </div>
       </>
     );
@@ -1165,3 +1183,7 @@ NeedConfirmDelete.storyName = "cashedSelectedValue return to last selected when 
   );
 };
 CashedSelectedValue.storyName = "cashedSelectedValue";
+
+export const Fix1982 = () => {
+  return <DatePicker type="monthRange" style={{ width: 200 }} />
+}

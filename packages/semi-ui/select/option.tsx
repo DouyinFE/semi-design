@@ -126,6 +126,7 @@ class Option extends PureComponent<OptionProps> {
                 inputValue,
                 onMouseEnter: (e: React.MouseEvent) => onMouseEnter(e),
                 onClick: (e: React.MouseEvent) => this.onClick({ value, label, children, ...rest }, e),
+                className,
                 ...rest
             });
         }

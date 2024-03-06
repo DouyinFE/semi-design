@@ -2,9 +2,11 @@ import fs from 'fs-extra';
 import path from 'path';
 import os from 'os';
 import generateScssMap from './generateSCSSMap';
-import { cloneDeep, omit } from 'lodash';
+import { omit } from 'lodash';
+import copy from 'fast-copy';
 
-const lodash = { cloneDeep, omit };
+
+const lodash = { omit };
 
 const writeComponentScss = (scssMap: { [p: string]: { [p: string]: string } }, tempDir: string) => {
     for (const componentName of Object.keys(scssMap)) {
@@ -28,7 +30,7 @@ const writeThemeScss = (scssMap: (ReturnType<typeof generateScssMap>)['theme'], 
 };
 
 const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) => {
-    const scssMap = lodash.cloneDeep(scssMapOrigin);
+    const scssMap = copy(scssMapOrigin);
 
     //----- generate entry -----
     let compilerEntryContent = '';

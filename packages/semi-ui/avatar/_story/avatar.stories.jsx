@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { Avatar,Popover, AvatarGroup, RadioGroup, Radio } from '../../index';
+import { Input } from '../../input'
+import {IconPlus} from "@douyinfe/semi-icons";
 
 export default {
   title: 'Avatar',
@@ -36,6 +38,125 @@ export const Basic = () => (
   </div>
 );
 
+export const BottomSolt = () => (
+    <div>
+        <div>
+            <Avatar shape="circle" border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
+            <Avatar shape="circle" size={'large'} border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
+            <Avatar shape="circle" size={'small'} border={true} bottomSlot={{
+                shape:'circle',
+                content:<IconPlus/>
+            }}>U</Avatar>
+            <Avatar shape="circle" bottomSlot={{
+                shape:'square',
+                content: "直播中"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"large"} bottomSlot={{
+                shape:'square',
+                content: "直播中"
+            }}>U</Avatar>
+            <Avatar shape="circle" bottomSlot={{
+                shape:'rect',
+                content: "直播中",
+                render:()=>{
+                    return "test"
+                }
+            }}>U</Avatar>
+        </div>
+    </div>
+);
+
+export const TopSolt = () => (
+    <div>
+        <div>
+            <Avatar shape="circle"  size={"extra-extra-small"}  border={true} topSlot={{
+                content:"直播",
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
+            }}>U</Avatar>
+            <Avatar shape="circle"  size={"extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"medium"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"large"} borderMotion={true} border={true} topSlot={{
+                content:"直播"
+            }} bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }} contentMotion={true}>U</Avatar>
+            <br/>
+            <Avatar shape="square"  size={"extra-extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square"  size={"extra-small"}  border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"medium"} border={true} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"large"} borderMotion={true} border={true} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }}>U</Avatar>
+            <br/>
+            <Avatar shape="circle"  size={"extra-extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle"  size={"extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"medium"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="circle" size={"large"} borderMotion={true} border={false} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }}>U</Avatar>
+            <br/>
+            <Avatar shape="square"  size={"extra-extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square"  size={"extra-small"}  border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"default"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"medium"} border={false} topSlot={{
+                content:"直播"
+            }}>U</Avatar>
+            <Avatar shape="square" size={"large"} borderMotion={true} border={false} topSlot={{
+                content:"直播"
+            }}  bottomSlot={{
+                content:"T",
+                shape:"circle"
+            }}>U</Avatar>
+        </div>
+    </div>
+);
+
+
 export const CustomAvatar = () => (
   <div>
     <Avatar>U</Avatar>
@@ -55,7 +176,7 @@ export const GroupSize = () => (
   <div>
     <p>medium</p>
     <AvatarGroup>
-      <Avatar color="red">LL</Avatar>
+      <Avatar color="red" topSlot={{content:"T"}} bottomSlot={{content:"T"}}>LL</Avatar>
       <Avatar>CX</Avatar>
       <Avatar size="default">CX</Avatar>
       <Avatar color="amber">RM</Avatar>
@@ -245,4 +366,27 @@ export const srcChange = () => {
       />
     </>
   )
+}
+
+export const adaptLength = () => {
+    const [string, setString] = useState("Semi")
+    return (
+        <div>
+            <div>
+                <span></span>
+                <div style={{width: "300px", display: "flex", alignItems: "center"}}>
+                    <span>Content:</span>
+                    <Input value={string} onChange={(value)=>{ setString(value) }}></Input>
+                </div>
+            </div>
+            <div>
+                <Avatar>{string}</Avatar>
+                <Avatar gap={10}>{string}</Avatar>
+            </div>
+            <div>
+                <Avatar size="large">{string}</Avatar>
+                <Avatar size="large" gap={10}>{string}</Avatar>
+            </div>
+        </div>
+    );
 }

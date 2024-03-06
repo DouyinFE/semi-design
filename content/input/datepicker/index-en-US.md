@@ -915,7 +915,7 @@ function Demo() {
 | placeholder        | Input box prompts text                                                                                                                                                                                                                        | string\|string[]                                                                                                                                                                                                    | 'Select date'                                                                         |                           |
 | position           | Floating layer position, optional value with [Popover #API Reference · position](/en-US/show/popover#API%20Reference)                                                                                                                         | string                                                                                                                                                                                                    | 'bottomLeft'                                                                          |                           |
 | prefix             | Prefix content                                                                                                                                                                                                                                | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
-| presets            | Date Time Shortcut                                                                                                                                                                                                                            |  <ApiType detail='Array< { start: BaseValueType, end :BaseValueType, text: string } \| () => { start:B aseValueType, end: BaseValueType, text: string }>'>Array</ApiType>                                  | []                                                                                    |                           |
+| presets            | Date Time Shortcut, start and end support function type after v2.52                                                                                                                                                                                                                            |  <ApiType detail='type PresetType = { start?: BaseValueType \| (() => BaseValueType); end?: BaseValueType \| (() => BaseValueType); text?: string }; type PresetsType = Array<PresetType \| (() => PresetType)>;'>Array</ApiType>                                  | []                                                                                    |                           |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean |  |  |
 | presetPosition     | Date time shortcut panel position, optional 'left', 'right', 'top', 'bottom'                                                                                                                                                                  | 'bottom' | **2.18.0** |
 | rangeSeparator     | Custom range type picker separator of input trigger                                                                                                                                                                                           | string | '~' | **1.31.0** 
@@ -927,6 +927,7 @@ function Demo() {
 | startDateOffset    | When type is dateRange, set the start date of the selected range                                                                                                                                                                              | (selectedDate?: Date) => Date;                                                                                                                                                                            | -                                                                                     | **1.10.0**                |
 | startYear | start year of the year scroll panel                                                                                                                                                                                                           | number | 100 years before current year | **2.36.0** |
 | endYear | end year of the year scroll panel                                                                                                                                                                                                             | number | 100 years after current year | **2.36.0** |
+| stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | |
 | syncSwitchMonth    | In the scene of range, it supports synchronous switching of the month of the dual panel                                                                                                                                                       |boolean|false|**1.28.0**|
 | timePickerOpts     | For other parameters that can be transparently passed to the time selector, see [TimePicker·API Reference](/en-US/input/timepicker#API%20Reference)                                                                                           |                                                                                                                                                                                                           | object                                                                                | **1.1.0**                 |
 | topSlot            | Render the top extra area                                                                                                                                                                                                                     | ReactNode                                                                                                                                                                                                 |                                                | **1.22.0**                   |
@@ -1029,13 +1030,16 @@ Adopted in the semi-ui component library [date-fns(v2.9.0)](https://date-fns.org
 -   `"m"`: minutes
 -   `"s"`: seconds
 
-The default date time is formatted to:
+The following uses `new Date('2023-12-09 08:08:00')` or `[new Date('2023-12-09 08:08:00'), new Date('2023-12-10 10 :08:00')]` as `value` to explain the impact of different types and different `format` values on the displayed value:
 
--   `"date"`(date): `"yyyy-mm-dd`
--   `"dateTime"`(date and time)`"yyyy-mm-dd HH:mm:ss"`
--   `"month"`(month): `"yyyy-MM"`
--   `"dateRange"`(Date Range): `"yyyy-mm-dd ~ yyyy-mm-dd"`
--   `"dateTimeRange"`(Date and Time Range): `"yyyy-mm-dd HH:mm:ss ~ yyyy-mm-dd HH:mm:ss"`
+| type | format | display value |
+| --- | --- | --- |
+| date | yyyy-MM-dd | 2023-12-09 |
+| dateTime | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08:00 |
+| month | yyyy-MM | 2023-12 |
+| dateRange | yyyy-MM-dd | 2023-12-09 ~ 2023-12-10 |
+| dateTimeRange | yyyy-MM-dd HH:mm:ss | 2023-12-09 08:08 ~ 2023-12-10 10:08 |
+
 
 Multiple dates or times are used by default `","` (English comma) separated.
 

@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import TimePickerPanel from '../index';
-import { TimePicker as BasicTimePicker, Button, Form } from '../../index';
+import { TimePicker as BasicTimePicker, Button, Form, Popover, ConfigProvider } from '../../index';
 import { strings } from '@douyinfe/semi-foundation/timePicker/constants';
 import { get } from 'lodash';
 
@@ -335,4 +335,43 @@ export const Fix1716 = () => {
 
 Fix1716.story = {
   name: 'Fix 1716',
+};
+
+export const StopPropagation = () => {
+  return (
+    <Popover 
+      content={
+        <div style={{ padding: 12 }}>
+          <TimePicker insetLabel="每天" style={{ width: '100%' }} stopPropagation={true} />
+        </div>
+      }
+      trigger="click"
+    >
+        <Button>click me</Button>
+    </Popover>
+  );
+}
+export const Fix1953 = () => {
+  return (
+    <TimePicker format={'HH'} defaultValue={'10'}/>
+  );
+};
+
+export const Fix2082 = () => {
+  const [date, setDate] = useState(new Date());
+    return ( 
+        <ConfigProvider timeZone={10}>
+            <div style={{ width: 300 }}>
+                <h5 style={{ margin: 10 }}>TimePicker:</h5>
+                <TimePicker  
+                  disabledHours={v => [5]}   
+                  format="HH:mm" 
+                  value={date} 
+                  onChange={(date, dateString) => {
+                    console.log('日期', date);
+                    setDate(date)} }
+                />
+            </div>
+        </ConfigProvider>
+    );
 };

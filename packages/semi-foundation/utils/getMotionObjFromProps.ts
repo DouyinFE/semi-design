@@ -1,6 +1,7 @@
 import { MotionObject } from "./type";
-import { cloneDeep, isObject } from 'lodash';
+import { isObject } from 'lodash';
 import warning from './warning';
+import copy from "fast-copy";
 
 export interface MergeMotionProps {
     [x: string]: any;
@@ -37,7 +38,7 @@ export default function getMotionObjFromProps(props: MergeMotionProps) {
     let motion: MotionObject = {};
 
     if (isObject(motionProp)) {
-        motion = cloneDeep(motionProp);
+        motion = copy(motionProp);
         for (const key of Object.keys(motionProp)) {
             const handler = motionProp[key];
             if (typeof handler === 'function') {

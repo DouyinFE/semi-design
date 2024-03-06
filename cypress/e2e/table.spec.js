@@ -206,4 +206,90 @@ describe('table', () => {
         cy.get('.semi-table-tbody .semi-table-row').eq(4).should('contain.text', '未知');
         cy.get('.semi-table-tbody .semi-table-row').eq(5).should('contain.text', '未知');
     });
+
+    it('test given pageSize + showSizeChanger', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-pagination&viewMode=story');
+        cy.get('.semi-page-switch').eq(0).click();
+        cy.get('.semi-select-option').eq(0).click();
+        cy.wait(500);
+        cy.get('.semi-page-item').eq(4).click();
+        cy.get('.semi-table-pagination-info').should('contain.text', '显示第 31 条-第 40 条，共 46 条')
+        cy.get('.semi-page-item-active').eq(0).should('contain.text', '4');
+        cy.get('.semi-page-item').eq(5).click();
+        cy.get('.semi-table-pagination-info').should('contain.text', '显示第 41 条-第 46 条，共 46 条')
+        cy.get('.semi-page-item-active').eq(0).should('contain.text', '5');
+    })
+
+    it('test virtualized showHeader false', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--show-header&viewMode=story');
+        cy.get('.semi-table-header').should('have.length', 1);
+        cy.window().then(window => {
+            const header = window.document.querySelector('.semi-table-header');
+            const style = window.getComputedStyle(header);
+            expect(style.height).eq('0px');
+        });
+    })
+
+    it('test keepDOM', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--keep-dom&viewMode=story');
+        cy.get('[data-cy=expand] .semi-table-row-hidden').should('have.length', 3);
+        cy.get('[data-cy=tree] .semi-table-row-hidden').should('have.length', 5);
+        cy.get('[data-cy=tree] .semi-table-expand-icon').eq(0).click();
+        cy.get('[data-cy=tree] .semi-table-row-hidden').should('have.length', 3);
+        cy.get('[data-cy=section] .semi-table-row-hidden').should('have.length', 10);
+        cy.get('[data-cy=section] .semi-table-expand-icon').eq(0).click({ force: true });
+        cy.get('[data-cy=section] .semi-table-row-hidden').should('have.length', 7);
+    });
+
+    it('test header selected status when all rows are disabled and selected ', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-all-disabled-and-selected&viewMode=story');
+        cy.get('button').contains('点击全选').click();
+        cy.get('.semi-table-thead .semi-checkbox-checked').should('exist')
+    });
+
+    it('test hidden rowSelection in resizable Table', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-row-selection-hidden-resizable&viewMode=story');
+        cy.get('.semi-button').eq(0).click();
+        cy.get('.semi-table-column-selection').should('not.exist');
+        cy.get('.semi-button').eq(0).click();
+        cy.get('.semi-table-column-selection').should('exist');
+    });
+
+    it('test renderFilterDropdown', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--feat-render-filter-dropdown&viewMode=story');
+
+        // 测试第一个筛选器
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-input').type('12');
+        cy.get('.semi-button').contains('筛选+关闭').click();
+        cy.get('.semi-table-tbody .semi-table-row').should('have.length', 1);
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-button').contains('清除+关闭').click();
+        cy.get('.semi-table-tbody .semi-table-row').should('have.length', 10);
+        cy.get('.semi-table-column-filter').eq(0).click();
+        cy.get('.semi-input').should('be.focused');
+        cy.get('.semi-button').contains('直接关闭').click();
+        cy.get('.semi-dropdown').should('not.exist');
+
+        // 测试第二个筛选器
+        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.get('.semi-input').should('have.value', '姜鹏志');
+        cy.get('.semi-button').contains('清除后不关闭').click();
+        cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 46 条');
+        cy.get('.semi-dropdown').should('exist');
+        cy.get('.semi-table-column-filter').eq(1).click();
+        cy.get('.semi-input').type('郝宣');
+        cy.get('.semi-button').contains('筛选后不关闭').click();
+        cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 23 条');
+        cy.get('.semi-dropdown').should('exist');
+        cy.get('.semi-button').contains('直接关闭').click();
+        cy.get('.semi-dropdown').should('not.exist');
+    });
+
+    it('test expandedRowKeys with defaultExpandGroupKeys', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-default-expanded-grouped-rows&viewMode=story');
+        cy.get('.semi-table-tbody tr').eq(1).should('have.class', 'semi-table-row-expanded');
+    });
 });
