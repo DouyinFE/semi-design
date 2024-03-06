@@ -1,7 +1,5 @@
 import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
-import path from 'path';
-import * as fs from 'fs';
 import componentVariablePathList from './componentName';
 
 export default function SemiThemeLoader(source: string) {
