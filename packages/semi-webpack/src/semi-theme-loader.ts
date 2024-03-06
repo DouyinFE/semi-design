@@ -2,6 +2,7 @@ import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
 import path from 'path';
 import * as fs from 'fs';
+import componentVariablePathList from './componentName';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
@@ -19,27 +20,6 @@ export default function SemiThemeLoader(source: string) {
     }
 
 
-    let customStr = '';
-    try {
-        const customScssPath = resolve.sync(this.context, `${theme}/scss/custom.scss`);
-        if (customScssPath) {
-            customStr = fs.readFileSync(customScssPath, 'utf-8');
-            const componentName = path.basename(this.context);
-            const matched = Array.from(customStr.matchAll(/\$\w+-([a-zA-Z]+)[\w-_]+/g));
-            const collectedLackVariables: string[] = [];
-            matched.forEach(([variable, variableBelongComponent])=>{
-                if (variableBelongComponent.toLowerCase()!==componentName.toLowerCase()) {
-                    collectedLackVariables.push(variable);
-                }
-            });
-            customStr = `${collectedLackVariables.map(variable=>{
-                return `${variable}:null;`;
-            }).join("\n")}\n`+`@import "~${theme}/scss/custom.scss";\n`;
-        }
-
-    } catch (e) {
-        customStr = ''; // fallback to empty string
-    }
 
 
     const shouldInject = source.includes('semi-base');
@@ -52,7 +32,7 @@ export default function SemiThemeLoader(source: string) {
     } catch (e) {
     }
 
-    if (query.include || query.variables || componentVariables || customStr) {
+    if (query.include || query.variables || componentVariables) {
         let localImport = '';
         if (componentVariables) {
             localImport += `\n@import "~${theme}/scss/local.scss";`;
@@ -73,10 +53,8 @@ export default function SemiThemeLoader(source: string) {
         } catch (error) {
         }
 
-        if (customStr) {
-            fileStr += `\n${customStr}`;
-        }
     }
+
 
     // inject prefix
     const prefixCls = query.prefixCls || 'semi';
@@ -84,6 +62,27 @@ export default function SemiThemeLoader(source: string) {
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
     if (shouldInject) {
+
+        const customStr = (()=>{
+            let customStr = '';
+            try {
+                const collectAllVariablesPath: string[]= [
+                    ...componentVariablePathList
+                ];
+                if (componentVariables) {
+                    collectAllVariablesPath.push(`${theme}/scss/local.scss`);
+                }
+                collectAllVariablesPath.push(`${theme}/scss/custom.scss`);
+                customStr=collectAllVariablesPath.map(p=>{
+                    return `@import "~${p}";`;
+                }).join("\n")+"\n"+customStr;
+
+            } catch (e) {
+                customStr = ''; // fallback to empty string
+            }
+            return customStr;
+        })();
+
         return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
