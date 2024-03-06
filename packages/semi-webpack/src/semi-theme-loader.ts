@@ -20,8 +20,6 @@ export default function SemiThemeLoader(source: string) {
     }
 
 
-
-
     const shouldInject = source.includes('semi-base');
 
     let fileStr = source;
@@ -63,24 +61,24 @@ export default function SemiThemeLoader(source: string) {
 
     if (shouldInject) {
 
-        const customStr = (()=>{
+        const customStr = (() => {
             let customStr = '';
             try {
-                const collectAllVariablesPath: string[]= [
-                    ...componentVariablePathList
+                const collectAllVariablesPath: string[] = [
+                    ...componentVariablePathList,
                 ];
                 if (componentVariables) {
                     collectAllVariablesPath.push(`${theme}/scss/local.scss`);
                 }
                 collectAllVariablesPath.push(`${theme}/scss/custom.scss`);
-                customStr=collectAllVariablesPath.map(p=>{
+                customStr = collectAllVariablesPath.map(p => {
                     return `@import "~${p}";`;
-                }).join("\n")+"\n"+customStr;
+                }).join('\n') + '\n' + customStr;
 
             } catch (e) {
                 customStr = ''; // fallback to empty string
             }
-            return customStr;
+            return `body:not(:not(body)){${customStr}};`;
         })();
 
         return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
