@@ -222,6 +222,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
             this.foundation.handleItemsChange(false);
             if (this.props.selectedKeys && !isEqual(prevProps.selectedKeys, this.props.selectedKeys)) {
                 this.adapter.updateSelectedKeys(this.props.selectedKeys);
+                const willOpenKeys = this.foundation.getWillOpenKeys(this.state.itemKeysMap);
+                this.adapter.updateOpenKeys(willOpenKeys);
             }
 
             if (this.props.openKeys && !isEqual(prevProps.openKeys, this.props.openKeys)) {
