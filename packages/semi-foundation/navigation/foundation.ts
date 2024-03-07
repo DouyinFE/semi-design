@@ -39,7 +39,7 @@ export interface NavigationAdapter<P = Record<string, any>, S = Record<string, a
     setItemKeysMap(map: { [key: string]: (string | number)[] }): void;
     addSelectedKeys(...keys: (string | number)[]): void;
     removeSelectedKeys(...keys: (string | number)[]): void;
-    updateSelectedKeys(keys: (string | number)[]): void;
+    updateSelectedKeys(keys: (string | number)[], includeParentKeys?: boolean): void;
     updateOpenKeys(keys: (string | number)[]): void;
     addOpenKeys(...keys: (string | number)[]): void;
     removeOpenKeys(...keys: (string | number)[]): void;
@@ -129,7 +129,8 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                 items: formattedItems,
             };
         } else {
-            this._adapter.updateSelectedKeys(willSelectedKeys);
+            // already include parentSelectKeys, set second parameter to false
+            this._adapter.updateSelectedKeys(willSelectedKeys, false);
             this._adapter.setItemKeysMap(itemKeysMap);
             this._adapter.updateOpenKeys(willOpenKeys);
             this._adapter.updateItems(formattedItems);
