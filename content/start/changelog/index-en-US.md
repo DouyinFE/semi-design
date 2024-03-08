@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.54.0 (2024-03-08)
+- 【Fix】
+    - Fix the problem that the width occupied by the expand button is not taken into account in js truncation calculation, The scope of impact is 2.54.0-beta.0.
+- 【Chore】
+  - Upload adds FileItemStatus TS interface export
+
 #### 🎉 2.54.0-beta.0 (2024-03-04)
 - 【Feat】
     - Toast component supports theme global configuration [@LonelySnowman](https://github.com/LonelySnowman) [#2099](https://github.com/DouyinFE/semi-design/issues/2099)
