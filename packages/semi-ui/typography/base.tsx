@@ -209,7 +209,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
             newState.expanded = false;
-            newState.isTruncated = false;
+            newState.isTruncated = true;
         }
         return newState;
     }
@@ -271,7 +271,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     showTooltip = () => {
         const { isOverflowed, isTruncated, expanded } = this.state;
         const { showTooltip, expandable, expandText } = this.getEllipsisOpt();
-        const overflowed = !expanded && (isOverflowed || isTruncated);
+        const canUseCSSEllipsis = this.canUseCSSEllipsis();
+        // If the css is truncated, use isOverflowed to judge. If the css is truncated, use isTruncated to judge.
+        const overflowed = !expanded && (canUseCSSEllipsis ? isOverflowed : isTruncated);
         const noExpandText = !expandable && isUndefined(expandText);
         const show = noExpandText && overflowed && showTooltip;
         if (!show) {
