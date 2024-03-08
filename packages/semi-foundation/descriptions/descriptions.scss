@@ -151,6 +151,20 @@ $module: #{$prefix}-descriptions;
             }
         }
     }
+
+    &-horizontal {
+        table {
+            table-layout: fixed;
+        }
+        table, tbody {
+            width: 100%;
+        }
+    }
+
+    &-horizontal &-item {
+        flex: 0;
+    }
+
 }
 
 @import "./rtl.scss";

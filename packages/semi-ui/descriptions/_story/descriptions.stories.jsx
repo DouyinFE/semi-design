@@ -46,6 +46,14 @@ let data4 = [
     { key: '7天留存', value: '103.4M' },
 ];
 
+let data5 = [
+    { key: '火山号', value: '123456789' },
+    { key: '主播类型(签约)', value: '自由（普通）主播' },
+    { key: '安全等级', value: '3级' },
+    { key: '垂类标签', value: '新闻博主' },
+    { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值，需要自动换行显示', span: 3 },
+];
+
 export const DescriptionsDefault = () => (
   <div>
     <Descriptions data={data} />
@@ -142,4 +150,23 @@ export const DescriptionsKeyIsNode = () => {
       </div>
     </>
   );
+};
+
+export const DescriptionsLayout = () => {
+    return <>
+        <div>data 传入的写法</div>
+        <Descriptions layout='horizontal' row size='large' data={data} />
+        <Descriptions layout='horizontal' align='left' data={data5} />
+        <div>jsx 传入的写法</div>
+        <Descriptions layout='horizontal' align='left'>
+            <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+            <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+            <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+        <Descriptions layout='horizontal' align='plain'>
+            <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
+            <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
+            <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+        </Descriptions>
+    </>
 };
