@@ -1,4 +1,5 @@
 const componentVariablePathList: string[] = [
+    '@douyinfe/semi-foundation/tooltip/variables.scss',
     '@douyinfe/semi-foundation/anchor/variables.scss',
     '@douyinfe/semi-foundation/autoComplete/variables.scss',
     '@douyinfe/semi-foundation/avatar/variables.scss',
@@ -51,7 +52,6 @@ const componentVariablePathList: string[] = [
     '@douyinfe/semi-foundation/timePicker/variables.scss',
     '@douyinfe/semi-foundation/timeline/variables.scss',
     '@douyinfe/semi-foundation/toast/variables.scss',
-    '@douyinfe/semi-foundation/tooltip/variables.scss',
     '@douyinfe/semi-foundation/transfer/variables.scss',
     '@douyinfe/semi-foundation/tree/variables.scss',
     '@douyinfe/semi-foundation/treeSelect/variables.scss',
