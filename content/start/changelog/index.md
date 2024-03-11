@@ -13,6 +13,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.54.0 (2024-03-08)
+- 【Fix】
+  - 修复 js 截断计算中没有将展开按钮占据的宽度计算在内问题 (影响范围 v2.54.0-beta.0)
+- 【Chore】
+  - Upload 增加 FileItemStatus TS interface 导出
+
 #### 🎉 2.54.0-beta.0 (2024-03-04)
 - 【Feat】
     - Toast 组件支持 theme 全局配置 [@LonelySnowman](https://github.com/LonelySnowman) [#2099](https://github.com/DouyinFE/semi-design/issues/2099)
@@ -23,6 +30,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
     - 修复 Table expandedRowKeys 与 defaultExpandAllGroupRows 同时使用时未生效问题 [#2085](https://github.com/DouyinFE/semi-design/issues/2085)
     - 修复在某些特殊场景下 Typography 的 Ellipsis 功能在第一次 hover 时候闪烁的问题 [#2107](https://github.com/DouyinFE/semi-design/pull/2107)
+
+#### 🎉 2.53.3 (2024-02-26)
+- 【Fix】
+  - 修复 Avatar border 类型错误的问题
 
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】
