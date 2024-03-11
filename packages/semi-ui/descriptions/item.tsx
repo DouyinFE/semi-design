@@ -43,7 +43,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
             <span className={valCls}>
                 {typeof children === 'function' ? children() : children}
             </span>
-        </td>
+        </td>;
         const alignItem = <>
             <th className={`${prefixCls}-item ${prefixCls}-item-th`}>
                 <span className={keyCls}>
@@ -55,7 +55,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
                     {typeof children === 'function' ? children() : children}
                 </span>
             </td>
-        </>
+        </>;
         const item = align === 'plain' ?
             (
                 <tr className={className} style={style} {...getDataAttr(rest)}>
@@ -67,7 +67,7 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
                     {alignItem}
                 </tr>
             );
-        const horizontalItem = align === 'plain' ? plainItem : alignItem
+        const horizontalItem = align === 'plain' ? plainItem : alignItem;
         return layout === 'horizontal' ? horizontalItem : item;
     }
 }
