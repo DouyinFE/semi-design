@@ -64,6 +64,9 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
         const customStr = (() => {
             let customStr = '';
             try {
+                if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
+                    return '';
+                }
                 const collectAllVariablesPath: string[] = [
                     ...componentVariablePathList,
                 ];
