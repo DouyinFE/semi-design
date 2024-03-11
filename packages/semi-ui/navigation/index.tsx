@@ -177,6 +177,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
     });
 
     itemsChanged: boolean;
+    foundation: NavigationFoundation;
     constructor(props: NavProps) {
         super(props);
         this.foundation = new NavigationFoundation(this.adapter);
