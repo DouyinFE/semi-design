@@ -213,6 +213,8 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
     foundation: TimePickerFoundation;
     timePickerRef: React.MutableRefObject<HTMLDivElement>;
     savePanelRef: React.RefObject<HTMLDivElement>;
+    customTriggerRef: React.RefObject<HTMLDivElement>;
+    useCustomTrigger: boolean;
 
     clickOutSideHandler: (e: MouseEvent) => void;
 
@@ -236,6 +238,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         this.foundation = new TimePickerFoundation(this.adapter);
         this.timePickerRef = React.createRef();
         this.savePanelRef = React.createRef();
+        this.useCustomTrigger = typeof this.props.triggerRender === 'function';
     }
 
     get adapter(): TimePickerAdapter<TimePickerProps, TimePickerState> {
@@ -250,10 +253,11 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 }
                 this.clickOutSideHandler = e => {
                     const panel = this.savePanelRef && this.savePanelRef.current;
+                    const customTriggerRef = this.customTriggerRef && this.customTriggerRef.current;
                     const target = e.target as Element;
                     const isInPanel = target && panel && panel.contains(target);
                     const path = e.composedPath && e.composedPath() || [target];
-                    const isClickInside = path.includes(panel);
+                    const isClickInside = path.includes(panel) || (this.useCustomTrigger && path.includes(customTriggerRef));
 
                     const isInTimepicker =
                         this.timePickerRef &&
@@ -482,7 +486,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         } = this.props;
         const format = this.foundation.getDefaultFormatIfNeed();
         const position = this.foundation.getPosition();
-        const useCustomTrigger = typeof triggerRender === 'function';
 
         const { open, inputValue, invalid, value } = this.state;
         const popupClassName = this.getPopupClassName();
@@ -518,7 +521,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
         const outerProps = {} as { onClick: () => void };
 
-        if (useCustomTrigger) {
+        if (this.useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
 
@@ -544,17 +547,19 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     autoAdjustOverflow={autoAdjustOverflow}
                     stopPropagation={stopPropagation}
                 >
-                    {useCustomTrigger ? (
-                        <Trigger
-                            triggerRender={triggerRender}
-                            disabled={disabled}
-                            value={value}
-                            inputValue={inputValue}
-                            onChange={this.handleInput}
-                            placeholder={placeholder}
-                            componentName={'TimePicker'}
-                            componentProps={{ ...this.props }}
-                        />
+                    {this.useCustomTrigger ? (
+                        <div ref={this.customTriggerRef}>
+                            <Trigger
+                                triggerRender={triggerRender}
+                                disabled={disabled}
+                                value={value}
+                                inputValue={inputValue}
+                                onChange={this.handleInput}
+                                placeholder={placeholder}
+                                componentName={'TimePicker'}
+                                componentProps={{ ...this.props }}
+                            />
+                        </div>
                     ) : (
                         <span className={headerPrefix}>
                             <TimeInput {...inputProps} />

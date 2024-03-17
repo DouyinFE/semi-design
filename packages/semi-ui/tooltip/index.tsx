@@ -356,7 +356,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     if (
                         (el && !(el as any).contains(target) && popupEl && !(popupEl as any).contains(target)) ||
                         (this.props.clickTriggerToHide && el && (el as any).contains(target)) && 
-                        !isClickInside
+                        (!isClickInside || this.props.clickTriggerToHide)
                     ) {
                         this.props.onClickOutSide(e);
                         cb();
