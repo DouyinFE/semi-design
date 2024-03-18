@@ -114,7 +114,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      * @param {*} lifecycle
      * @returns
      */
-    init(lifecycle: string) {
+    init(lifecycle?: string) {
         const { defaultSelectedKeys, selectedKeys } = this.getProps();
         let willSelectedKeys = selectedKeys || defaultSelectedKeys || [];
         const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState();
@@ -168,6 +168,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      */
     getWillOpenKeys(itemKeysMap: ItemKey2ParentKeysMap) {
         const { defaultOpenKeys, openKeys, defaultSelectedKeys, selectedKeys, mode } = this.getProps();
+        const { openKeys: stateOpenKeys = [] } = this.getStates();
 
         let willOpenKeys = openKeys || defaultOpenKeys || [];
         if (
@@ -175,12 +176,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
             Array.isArray(openKeys)) && mode === strings.MODE_VERTICAL && (Array.isArray(defaultSelectedKeys) || Array.isArray(selectedKeys))
         ) {
             const currentSelectedKeys = Array.isArray(selectedKeys) ? selectedKeys : defaultSelectedKeys;
-            willOpenKeys = this.getShouldOpenKeys(itemKeysMap, currentSelectedKeys);
+            willOpenKeys = stateOpenKeys.concat(this.getShouldOpenKeys(itemKeysMap, currentSelectedKeys));
+            willOpenKeys = Array.from(new Set(willOpenKeys));
         }
         return [...willOpenKeys];
     }
 
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: (string | number)[] = []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
@@ -200,7 +202,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
 
     destroy() {}
 
-    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, ...itemKeys: (string | number)[]) {
+    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, itemKeys: (string | number)[]) {
         const _itemKeysMap = isNullOrUndefined(itemKeysMap) ? this.getState('itemKeysMap') : itemKeysMap;
         // console.log(itemKeysMap);
 
