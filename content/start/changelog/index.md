@@ -13,7 +13,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-
+#### 🎉 2.54.1 (2024-03-11)
+- 【Fix】
+    - 修复 Navigation 组件在 react 17 下 selectedKeys 未生效问题
+    - 修复 Navigation 组件 openKeys 在 selectedKeys 更新后未生效问题
+  
 #### 🎉 2.54.0 (2024-03-08)
 - 【Fix】
   - 修复 js 截断计算中没有将展开按钮占据的宽度计算在内问题 (影响范围 v2.54.0-beta.0)

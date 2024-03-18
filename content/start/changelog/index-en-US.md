@@ -15,7 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.54.1 (2024-03-11)
+- 【Fix】
+    - fixed Navigation component selectedKeys bug in react 17
+    - fixed Navigation component openKeys does not work after selectedKeys is updated
+  
 #### 🎉 2.54.0 (2024-03-08)
 - 【Fix】
     - Fix the problem that the width occupied by the expand button is not taken into account in js truncation calculation, The scope of impact is 2.54.0-beta.0.
