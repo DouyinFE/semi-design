@@ -22,7 +22,7 @@ export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProp
     };
 
     componentDidMount() {
-        const addClassName = ()=>{
+        const addClassName = () => {
             const buttons = this.containerRef.current.querySelectorAll('button');
             const firstButton = buttons[0];
             const lastButton = buttons[buttons.length - 1];
@@ -36,9 +36,9 @@ export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProp
         };
         if (this.containerRef.current) {
             addClassName();
-            const mutationObserver = new MutationObserver((mutations, observer)=>{
+            const mutationObserver = new MutationObserver((mutations, observer) => {
                 for (const mutation of mutations) {
-                    if ((mutation.type === "attributes" && mutation.attributeName === "class") || (mutation.type==='childList' && Array.from( mutation.addedNodes).some(node=>node.nodeName==='BUTTON'))) {
+                    if ((mutation.type === 'attributes' && mutation.attributeName === 'class') || (mutation.type === 'childList' && Array.from(mutation.addedNodes).some(node => node.nodeName === 'BUTTON'))) {
                         addClassName();
                     }
                 }
@@ -47,7 +47,7 @@ export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProp
             this.mutationObserver = mutationObserver;
         }
     }
-    
+
     componentWillUnmount() {
         super.componentWillUnmount();
         this.mutationObserver?.disconnect();
