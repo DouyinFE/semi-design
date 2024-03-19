@@ -13,6 +13,8 @@ import DisabledNav from './DisabledNav';
 import Button from '../../button';
 import GetPopupNav from './Popup';
 import CustomArrowIcon from './CustomIcon';
+import FixedSelectedKeys from './FixedSelectedKeys';
+import FixedOpenKeys from './FixedOpenKeys';
 
 import {
   IconMail,
@@ -35,6 +37,11 @@ import {
 
 export default {
   title: 'Navigation'
+}
+
+export {
+  FixedSelectedKeys,
+  FixedOpenKeys
 }
 
 export const Default = () => {

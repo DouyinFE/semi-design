@@ -34,10 +34,6 @@ import type { SortableTransition } from '@dnd-kit/sortable/dist/hooks/types';
 import { isNull } from 'lodash';
 
 const defaultPrefix = 'semi-sortable';
-const defaultConstraint = {
-    delay: 150,
-    tolerance: 5,
-};
 
 interface OnSortEndProps {
     oldIndex: number;
@@ -91,13 +87,16 @@ function DefaultContainer(props) {
     return <div style={{ overflow: 'auto' }} {...props}></div>;
 }
 
+const defaultKeyBoardOptions = {
+    coordinateGetter: sortableKeyboardCoordinates,
+};
+
 export function Sortable({
     items,
     onSortEnd,
     adjustScale,
     renderItem,
     transition,
-    activationConstraint = defaultConstraint,
     collisionDetection = closestCenter,
     strategy = rectSortingStrategy,
     useDragOverlay = true,
@@ -108,15 +107,9 @@ export function Sortable({
 
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const sensors = useSensors(
-        useSensor(MouseSensor, {
-            activationConstraint, 
-        }),
-        useSensor(TouchSensor, {
-            activationConstraint,
-        }),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
+        useSensor(MouseSensor),
+        useSensor(TouchSensor),
+        useSensor(KeyboardSensor, defaultKeyBoardOptions)
     );
     const getIndex = useCallback((id: UniqueIdentifier) => items.indexOf(id), [items]);
     const activeIndex = useMemo(() => activeId ? getIndex(activeId) : -1, [getIndex, activeId]);
@@ -235,14 +228,16 @@ export function SortableItem({
         }
     );
 
-    const wrapperStyle = (!isNull(animation)) ? {
-        transform: cssDndKit.Transform.toString({
-            ...transform,
-            scaleX: 1,
-            scaleY: 1,
-        }),
-        transition: transition,
-    } : undefined;
+    const wrapperStyle = useMemo(() => {
+        return (!isNull(animation)) ? {
+            transform: cssDndKit.Transform.toString({
+                ...transform,
+                scaleX: 1,
+                scaleY: 1,
+            }),
+            transition: transition,
+        } : undefined;
+    }, [animation, transform, transition]);
 
     return <div 
         ref={setNodeRef}

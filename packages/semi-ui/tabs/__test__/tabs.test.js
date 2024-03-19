@@ -11,7 +11,7 @@ let ACTIVE = `.${BASE_CLASS_PREFIX}-tabs-tab-active`;
 
 function getTabs(tabProps, tabPaneProps = defaultTabPane) {
     let tabPane = tabPaneProps.map(pane => {
-        return <TabPane {...pane}></TabPane>
+        return <TabPane {...pane} key={pane.itemKey}></TabPane>
     });
     return <Tabs {...tabProps}>
         {tabPane}
@@ -204,5 +204,12 @@ describe('Tabs', () => {
 
         expect(demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).length).toEqual(2)
         expect(demo.find(`.${BASE_CLASS_PREFIX}-tabs-tab`).at(0).hasClass(`${BASE_CLASS_PREFIX}-tabs-tab-active`)).toEqual(true);
+    });
+
+    it('tabbar renders correctly on the first render', () => {
+        let props = {};
+        const tabs = render(getTabs(props));
+        expect(tabs.text()).toContain('titleA');
+        expect(tabs.text()).toContain('titleB');
     });
 })
