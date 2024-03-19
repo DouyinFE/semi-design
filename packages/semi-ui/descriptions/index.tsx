@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { isValidElement } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { strings, cssClasses } from '@douyinfe/semi-foundation/descriptions/constants';
@@ -72,7 +72,23 @@ class Descriptions extends BaseComponent<DescriptionsProps> {
     }
 
     get adapter(): DescriptionsAdapter<DescriptionsProps> {
-        return { ...super.adapter };
+        return {
+            ...super.adapter,
+            getColumns: ()=>{
+                if (this.props.data?.length) {
+                    return this.props.data;
+                }
+                if (this.props.children) {
+                    return React.Children.toArray(this.props.children)?.map(item => {
+                        return isValidElement(item)?({
+                            value: item.props.children,
+                            ...item.props,
+                        }):[];
+                    });
+                }
+                return [];
+            }
+        };
     }
 
     renderChildrenList = () => {

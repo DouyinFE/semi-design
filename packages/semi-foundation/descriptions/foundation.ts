@@ -1,6 +1,8 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
-export interface DescriptionsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {}
+export interface DescriptionsAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+    getColumns: () => any[]
+}
 
 export default class DescriptionsFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<DescriptionsAdapter<P, S>, P, S> {
     constructor(adapter: DescriptionsAdapter<P, S>) {
@@ -9,16 +11,7 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
 
     getHorizontalList() {
         const { column, data, children } = this.getProps();
-        let columns;
-        if (data?.length) {
-            columns = data || [];
-        } else {
-            columns =
-                children?.map(item => ({
-                    value: item.props.children,
-                    ...item.props,
-                })) || [];
-        }
+        const columns = this._adapter.getColumns();
         const horizontalList = [];
         const curSpan = { totalSpan: 0, itemList: [] };
         for (const item of columns) {
@@ -30,7 +23,19 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
                 curSpan.totalSpan = 0;
             }
         }
-        if (curSpan.itemList.length != 0) horizontalList.push(curSpan.itemList);
+        if (curSpan.itemList.length != 0) {
+            const lastSpan = curSpan.itemList[curSpan.itemList.length - 1];
+            if (isNaN(lastSpan.span)) {
+                let total = 0;
+                curSpan.itemList.forEach(item=>{
+                    return total += !isNaN(item.span)?item.span:1;
+                });
+                if (total < column) {
+                    lastSpan.span = column - total + 1;
+                }
+            }
+            horizontalList.push(curSpan.itemList);
+        }
         return horizontalList;
     }
 }
