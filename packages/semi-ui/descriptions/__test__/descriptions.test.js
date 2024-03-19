@@ -194,7 +194,7 @@ describe('Descriptions', () => {
 
     it('Descriptions layout horizontal', () => {
         const desc = mount(
-            <Descriptions layout='horizontal' align='left'>
+            <Descriptions layout='horizontal' align='left' column={4}>
                 <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
                 <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
                 <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
@@ -222,6 +222,12 @@ describe('Descriptions', () => {
                 .getDOMNode()
                 .textContent
         ).toEqual('1,480,000');
+
+        let totalSpan = ths.length
+        tds.forEach(item=>{
+            totalSpan += +item.getAttribute('colspan')
+        })
+        expect(totalSpan).toEqual(8);
         desc.unmount();
     });
 })
