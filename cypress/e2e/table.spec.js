@@ -292,4 +292,9 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fixed-default-expanded-grouped-rows&viewMode=story');
         cy.get('.semi-table-tbody tr').eq(1).should('have.class', 'semi-table-row-expanded');
     });
+
+    it('test header rowSelection is not selected when dataSource is empty', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--fixed-row-selection-empty&viewMode=story');
+        cy.get('.semi-table-thead .semi-checkbox-unChecked').should('exist');
+    });
 });
