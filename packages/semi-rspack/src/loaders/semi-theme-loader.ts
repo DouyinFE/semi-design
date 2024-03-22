@@ -1,5 +1,6 @@
 import { LoaderContext } from 'webpack';
 import resolve from 'enhanced-resolve';
+import componentVariablePathList from '../componentName';
 
 export interface SemiThemeLoaderOptions {
     prefixCls: string;
@@ -59,7 +60,31 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
     if (shouldInject) {
-        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+
+        const customStr = (() => {
+            let customStr = '';
+            try {
+                if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
+                    return '';
+                }
+                const collectAllVariablesPath: string[] = [
+                    ...componentVariablePathList,
+                ];
+                if (componentVariables) {
+                    collectAllVariablesPath.push(`${theme}/scss/local.scss`);
+                }
+                collectAllVariablesPath.push(`${theme}/scss/custom.scss`);
+                customStr = collectAllVariablesPath.map(p => {
+                    return `@import "~${p}";`;
+                }).join('\n') + '\n' + customStr;
+
+            } catch (e) {
+                customStr = ''; // fallback to empty string
+            }
+            return `body:not(:not(body)){${customStr}};`;
+        })();
+
+        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
         return `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
