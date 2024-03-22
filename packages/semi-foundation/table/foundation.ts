@@ -988,7 +988,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             }
             return true;
         } else {
-            const isAllSelected = allKeys.every(rowKey => selectedRowKeysSet.has(rowKey));
+            const isAllSelected = allKeys.length && allKeys.every(rowKey => selectedRowKeysSet.has(rowKey));
             return isAllSelected || false;
         }
     }
