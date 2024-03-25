@@ -373,7 +373,7 @@ class I18nDemo extends React.Component {
                     <h5>List - Empty</h5>
                     <List header={<div>List</div>} dataSource={[]}/>
                     <h5>Calendar</h5>
-                    <Calendar mode='month' />
+                    <Calendar mode='month' displayValue={new Date('2024-02-01')} />
                     <h5>Typography - Copyable</h5>
                     <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
                     <h5>Typography - Collapsible</h5>

@@ -1247,6 +1247,7 @@ export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>
 
 PreviewFallback.story = {
   name: 'preview other type',
+  delay: 300
 };
 
 
