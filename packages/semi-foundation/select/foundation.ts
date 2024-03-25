@@ -300,11 +300,12 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                         const option = selectedOptionList[indexInSelectedList];
                         if (onChangeWithObject) {
                             // Although the value is the same and can be found in selections, it cannot ensure that other items remain unchanged. A comparison is made.
-                            const optionCompare = { ...propValue[i] as any };
+                            // https://github.com/DouyinFE/semi-design/pull/2139
+                            const optionCompare = { ...(propValue[i] as any) };
                             if (isEqual(optionCompare, option)) {
                                 selections.set(option.label, option);
                             } else {
-                                selections.set(optionCompare.label, { ...optionCompare });
+                                selections.set(optionCompare.label, optionCompare);
                             }
                         } else {
                             selections.set(option.label, option);

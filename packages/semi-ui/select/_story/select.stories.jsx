@@ -3473,23 +3473,21 @@ export const UpdateOtherKeyNotInList = () => {
       otherProps: 'AA-OtherProps',
     },
   ]);
-  useEffect(() => {
-    setTimeout(
-      () =>
-        setV([
-          {
-            label: 'AA-Label-2',
-            value: 'AA',
-            otherProps: 'AA-OtherProps-2',
-          },
-        ]),
-      2000,
-    );
-  }, []);
+
+  const change = () => {
+    setV([
+      {
+        label: 'AA-Label-2',
+        value: 'AA',
+        otherProps: 'AA-OtherProps-2',
+      },
+    ])
+  }
+
   const renderSelectedItem = (optionNode) => {
     const { label, otherProps } = optionNode;
     const content = (
-      <div>
+      <div className='render-content'>
         {label}-{otherProps}
       </div>
     );
@@ -3499,14 +3497,17 @@ export const UpdateOtherKeyNotInList = () => {
     };
   };
   return (
-    <Select
-      value={v}
-      onChange={setV}
-      filter
-      multiple
-      renderSelectedItem={renderSelectedItem}
-      onChangeWithObject
-      style={{ width: 320 }}
-    />
+    <>
+      <Select
+        value={v}
+        onChange={setV}
+        filter
+        multiple
+        renderSelectedItem={renderSelectedItem}
+        onChangeWithObject
+        style={{ width: 320 }}
+      />
+      <Button id='change' onClick={() => change()}>change</Button>
+    </>
   );
 };
