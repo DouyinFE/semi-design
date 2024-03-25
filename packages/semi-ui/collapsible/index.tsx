@@ -43,13 +43,14 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         duration: 250,
         motion: true,
         keepDOM: false,
-        lazyRender: true,
+        lazyRender: false,
         collapseHeight: 0,
         fade: false
     }) 
     public foundation: CollapsibleFoundation;
     private domRef = React.createRef<HTMLDivElement>();
     private resizeObserver: ResizeObserver | null;
+    private hasRendered: boolean = false;
 
     constructor(props: CollapsibleProps) {
         super(props);
@@ -175,7 +176,12 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
             [`${cssClasses.PREFIX}-transition`]: this.props.motion && this.state.isTransitioning
         }, this.props.className);
 
-        const shouldRender = (this.props.keepDOM && !this.props.lazyRender) || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen;
+        const shouldRender = (this.props.keepDOM && (this.props.lazyRender ? this.hasRendered : true)) || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen;
+
+        if (shouldRender && !this.hasRendered) {
+            this.hasRendered = true;
+        }
+
 
         return (
             <div
