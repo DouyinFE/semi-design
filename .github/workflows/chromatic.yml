@@ -30,9 +30,9 @@ jobs:
         # Job steps
         steps:
             - uses: actions/checkout@v1
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v4
               with:
-                  node-version: '16'
+                  node-version: '20'
             - name: Install dependencies
               run: npx lerna@^6 bootstrap
             - name: Pre-build libs
