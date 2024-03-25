@@ -17,7 +17,7 @@ describe('collapsible', () => {
     });
 
     it('keepDOM = true', async () => {
-        let component = getCollapsible({ keepDOM: true, motion: false });
+        let component = getCollapsible({ keepDOM: true, motion: false, lazyRender:true });
         let collapsible = mount(component, { attachTo: document.getElementById('container') })
         expect(collapsible.exists(`.collapsible-test-content`)).toEqual(false);
         // set true
