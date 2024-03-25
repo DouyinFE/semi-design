@@ -17,7 +17,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 
-#### 🎉 2.55.0-beta.0 (2024-03-22)
+#### 🎉 2.55.0 (2024-03-22)
 - 【Fix】
   - Fix the problem that the Table header selection state is incorrectly selected when the data is empty (affects v2.51 ~ v2.54)  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
   - Fix the problem of Split Button losing style when children Button className changes
