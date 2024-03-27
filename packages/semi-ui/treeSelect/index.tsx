@@ -638,9 +638,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
-
                     const path = e.composedPath && e.composedPath() || [target];
-                    const isClickInside = path.includes(triggerDom) || path.includes(optionsDom);
 
                     if (
                         optionsDom &&
@@ -650,7 +648,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                         ) &&
                         triggerDom &&
                         !triggerDom.contains(target) &&
-                        !isClickInside
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }

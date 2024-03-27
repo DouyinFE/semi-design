@@ -213,7 +213,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
     foundation: TimePickerFoundation;
     timePickerRef: React.MutableRefObject<HTMLDivElement>;
     savePanelRef: React.RefObject<HTMLDivElement>;
-    customTriggerRef: React.RefObject<HTMLDivElement>;
     useCustomTrigger: boolean;
 
     clickOutSideHandler: (e: MouseEvent) => void;
@@ -253,19 +252,15 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 }
                 this.clickOutSideHandler = e => {
                     const panel = this.savePanelRef && this.savePanelRef.current;
-                    const customTriggerRef = this.customTriggerRef && this.customTriggerRef.current;
+                    const trigger = this.timePickerRef && this.timePickerRef.current;
                     const target = e.target as Element;
-                    const isInPanel = target && panel && panel.contains(target);
                     const path = e.composedPath && e.composedPath() || [target];
-                    const isClickInside = path.includes(panel) || (this.useCustomTrigger && path.includes(customTriggerRef));
 
-                    const isInTimepicker =
-                        this.timePickerRef &&
-                        this.timePickerRef.current &&
-                        this.timePickerRef.current.contains(target);
-                    if (!isInTimepicker && !isInPanel && !isClickInside) {
-                        const clickedOutside = true;
-                        this.foundation.handlePanelClose(clickedOutside, e);
+                    if (!(panel && panel.contains(target)) &&
+                        !(trigger && trigger.contains(target)) &&
+                        !(path.includes(trigger) || path.includes(panel))
+                    ) {
+                        this.foundation.handlePanelClose(true, e);
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
@@ -548,18 +543,16 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     stopPropagation={stopPropagation}
                 >
                     {this.useCustomTrigger ? (
-                        <div ref={this.customTriggerRef}>
-                            <Trigger
-                                triggerRender={triggerRender}
-                                disabled={disabled}
-                                value={value}
-                                inputValue={inputValue}
-                                onChange={this.handleInput}
-                                placeholder={placeholder}
-                                componentName={'TimePicker'}
-                                componentProps={{ ...this.props }}
-                            />
-                        </div>
+                        <Trigger
+                            triggerRender={triggerRender}
+                            disabled={disabled}
+                            value={value}
+                            inputValue={inputValue}
+                            onChange={this.handleInput}
+                            placeholder={placeholder}
+                            componentName={'TimePicker'}
+                            componentProps={{ ...this.props }}
+                        />
                     ) : (
                         <span className={headerPrefix}>
                             <TimeInput {...inputProps} />

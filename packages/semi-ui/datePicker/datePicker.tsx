@@ -258,18 +258,14 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     const triggerEl = this.triggerElRef && this.triggerElRef.current;
                     const panelEl = this.panelRef && this.panelRef.current;
                     const target = e.target as Element;
-                    const isInTrigger = triggerEl && triggerEl.contains(target);
-                    const isInPanel = panelEl && panelEl.contains(target);
                     const path = e.composedPath && e.composedPath() || [target];
-                    const isClickInside = path.includes(triggerEl) || path.includes(panelEl);
-                    const clickOutSide = !isInTrigger && !isInPanel && this._mounted && !isClickInside;
-
-                    if (this.adapter.needConfirm()) {
-                        clickOutSide && this.props.onClickOutSide();
-                        return;
-                    } else {
-                        if (clickOutSide) {
-                            this.props.onClickOutSide();
+                    if (
+                        !(triggerEl && triggerEl.contains(target)) &&
+                        !(panelEl && panelEl.contains(target)) &&
+                        !(path.includes(triggerEl) || path.includes(panelEl))
+                    ) {
+                        this.props.onClickOutSide();
+                        if (!this.adapter.needConfirm()) {
                             this.foundation.closePanel(e);
                         }
                     }

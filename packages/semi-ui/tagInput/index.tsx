@@ -254,9 +254,7 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                     const tagInputDom = this.tagInputRef && this.tagInputRef.current;
                     const target = e.target as Element;
                     const path = e.composedPath && e.composedPath() || [target];
-                    const isClickInside = path.includes(tagInputDom);
-
-                    if (tagInputDom && !tagInputDom.contains(target) && !isClickInside) {
+                    if (tagInputDom && !tagInputDom.contains(target) && !path.includes(tagInputDom)) {
                         cb(e);
                     }
                 };
