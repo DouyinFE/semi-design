@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColorPicker } from '../../index';
+import ColorPicker from '../index';
 
 export default {
   title: 'ColorPicker',

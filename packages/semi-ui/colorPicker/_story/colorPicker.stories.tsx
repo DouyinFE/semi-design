@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorPicker } from '../../index';
+import ColorPicker from '../index';
 import { storiesOf } from '@storybook/react';
 
 

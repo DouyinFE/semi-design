@@ -145,18 +145,23 @@ export const hsvaStringToHsva = (hsvString: string): HsvaColor => {
 export const hsvStringToHsva = hsvaStringToHsva;
 
 export const rgbaStringToHsva = (rgbaString: string): HsvaColor => {
+    return rgbaToHsva(rgbaStringToRgba(rgbaString));
+};
+
+export const rgbaStringToRgba = (rgbaString: string):RgbaColor=>{
     const matcher = /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
     const match = matcher.exec(rgbaString);
 
-    if (!match) return { h: 0, s: 0, v: 0, a: 1 };
+    if (!match) return { r: 0, g: 0, b: 0, a: 1 };
 
-    return rgbaToHsva({
+    return {
         r: Number(match[1]) / (match[2] ? 100 / 255 : 1),
         g: Number(match[3]) / (match[4] ? 100 / 255 : 1),
         b: Number(match[5]) / (match[6] ? 100 / 255 : 1),
         a: match[7] === undefined ? 1 : Number(match[7]) / (match[8] ? 100 : 1),
-    });
-};
+    }
+}
+
 
 export const rgbStringToHsva = rgbaStringToHsva;
 
