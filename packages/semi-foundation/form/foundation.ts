@@ -4,9 +4,7 @@ import isPromise from '../utils/isPromise';
 import { isValid } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
 import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
-
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
-import isObject from 'utils/isObject';
 
 export type { BaseFormAdapter };
 
@@ -177,9 +175,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             // FIX: after validateFields function if got {}, maybePromisedErrors is always be true
             // FIX: checks type of 'maybePromisedErrors' or keys‘s length
             // ⬇️ addon：maybePromisedErrors check either true
-            isObject(maybePromisedErrors) && Object.keys(maybePromisedErrors).length === 0 && (maybePromisedErrors = null)
-
-            if (!maybePromisedErrors) {
+            if (!maybePromisedErrors || ObjectUtil.empty(maybePromisedErrors)) {
                 const _values = this._adapter.cloneDeep(values);
                 resolve(_values);
                 this.injectErrorToField({});
@@ -187,9 +183,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 maybePromisedErrors.then(
                     (result: any) => {
                         // validate success，clear error
-                        // ⬇️ addon：error results check either true
-                        isObject(result) && Object.keys(result).length === 0 && (result = null)
-                        if (!result) {
+                        // ⬇ addon：error results check either true
+                        if (!result || ObjectUtil.empty(result)) {
                             const _values = this._adapter.cloneDeep(values);
                             resolve(_values);
                             this.injectErrorToField({});
