@@ -449,12 +449,22 @@ export const RadioGroupButtonStyle = () => {
           <Radio value={3}>hotsoon</Radio>
           <Radio value={4}>toutiao</Radio>
         </RadioGroup>
-        <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3} name="demo-radio-button-3">
-          <Radio value={1}>semi</Radio>
-          <Radio value={2}>pipixia</Radio>
-          <Radio value={3}>hotsoon</Radio>
-          <Radio value={4}>toutiao</Radio>
-        </RadioGroup>
+        <div style={{ overflow: 'hidden' }}>
+          <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3} name="demo-radio-button-3">
+            <Radio value={1}>semi</Radio>
+            <Radio value={2}>pipixia</Radio>
+            <Radio value={3}>hotsoon</Radio>
+            <Radio value={4}>toutiao</Radio>
+          </RadioGroup>
+        </div>
+        <Form>
+          <Form.RadioGroup label="Form Field" field="demo" type="button" name="demo-radio-button-4">
+            <Form.Radio value={1}>semi</Form.Radio>
+            <Form.Radio value={2}>pipixia</Form.Radio>
+            <Form.Radio value={3}>hotsoon</Form.Radio>
+            <Form.Radio value={4}>toutiao</Form.Radio>
+          </Form.RadioGroup>
+        </Form>
       </Space>
     );
   };

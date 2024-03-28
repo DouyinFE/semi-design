@@ -171,6 +171,11 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
+        // no need to adjust height for button radio, already 32px
+        .#{$buttonRadioGroup} {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         .#{$field}-label-with-extra {
             display: flex;
             align-items: center;
