@@ -4,7 +4,6 @@ import isPromise from '../utils/isPromise';
 import { isValid } from './utils';
 import { isUndefined, isFunction, toPath } from 'lodash';
 import scrollIntoView, { Options as ScrollIntoViewOptions } from 'scroll-into-view-if-needed';
-
 import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, ComponentProps, setValuesConfig, ArrayFieldStaff } from './interface';
 
 export type { BaseFormAdapter };
@@ -173,7 +172,10 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 // error throw by sync validate directly
                 maybePromisedErrors = errors;
             }
-            if (!maybePromisedErrors) {
+            // FIX: after validateFields function if got {}, maybePromisedErrors is always be true
+            // FIX: checks type of 'maybePromisedErrors' or keys‘s length
+            // ⬇️ addon：maybePromisedErrors check either true
+            if (!maybePromisedErrors || ObjectUtil.empty(maybePromisedErrors)) {
                 const _values = this._adapter.cloneDeep(values);
                 resolve(_values);
                 this.injectErrorToField({});
@@ -181,7 +183,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 maybePromisedErrors.then(
                     (result: any) => {
                         // validate success，clear error
-                        if (!result) {
+                        // ⬇ addon：error results check either true
+                        if (!result || ObjectUtil.empty(result)) {
                             const _values = this._adapter.cloneDeep(values);
                             resolve(_values);
                             this.injectErrorToField({});
