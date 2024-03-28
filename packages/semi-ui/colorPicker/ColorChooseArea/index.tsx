@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/types";
 import { hsvaToHslString, hsvaToRgba } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
-import "@douyinfe/semi-foundation/colorPicker/index.scss";
 const round = (number: number, digits = 0, base = Math.pow(10, digits)): number => {
     return Math.round(base * number) / base;
 };

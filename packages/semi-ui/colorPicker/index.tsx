@@ -5,11 +5,13 @@ import Button from "../button";
 import { PopoverProps } from '@douyinfe/semi-ui/popover';
 import ColorChooseArea from './ColorChooseArea';
 import { ColorPickerAdapter } from '@douyinfe/semi-foundation/colorPicker/foundation';
-import { HsvaColor, RgbaColor } from '@douyinfe/semi-foundation/colorPicker/types';
 import AlphaSlider from './AlphaSlider';
 import ColorSlider from './ColorSlider';
 import DataPart from './DataPart';
-import { IconEyedropper,IconEyeOpened } from '@douyinfe/semi-icons';
+import { IconEyedropper, IconEyeOpened } from '@douyinfe/semi-icons';
+import cls from 'classnames';
+import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss"
+import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 
 
 export interface ColorPickerReactProps extends ColorPickerProps{
@@ -33,11 +35,18 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
         super(props);
         this.foundation = new ColorPickerFoundation(this.adapter);
         const initValue = (props.value ?? props.defaultValue);
-        const currentColorRGBA = initValue?ColorPickerFoundation.transValueToRGBA(initValue):{ r: 50, g: 50, b: 50, a: 1 };
         this.state = {
-            currentColor: currentColorRGBA,
-            currentColorHSVA: ColorPickerFoundation.rgbaToHsva(currentColorRGBA),
+            currentColor: initValue,
         };
+    }
+
+    static defaultProps = {
+        defaultValue:{
+            hsva: { h: 0, s: 0, v: 0, a: 1 },
+            rgba: { r: 0, g: 0, b: 0, a: 1 },
+            hex: '#000000'
+        },
+        defaultFormat:'rgba'
     }
 
     get adapter(): ColorPickerAdapter<ColorPickerReactProps, ColorPickerReactState> {
@@ -47,17 +56,17 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
                 this.props.onChange?.(value);
             },
             notifyAlphaChangeByHandle: (newAlpha)=>{
-                this.foundation.handleChangeRGBA( { ...this.getCurrentColor(), a: newAlpha.a });
+                this.foundation.handleChangeA(this.getCurrentColor(), newAlpha.a);
             },
             notifyColorChangeByHandle: ({ h })=>{
-                this.foundation.handleChangeHSVA({ ...ColorPickerFoundation.rgbaToHsva(this.getCurrentColor()), h });
+                this.foundation.handleChangeH(this.getCurrentColor(), h);
             }
         };
     }
     
 
     getCurrentColor = ()=>{
-        return this.props.value ? (this.props.value.value as RgbaColor) : this.state.currentColor;
+        return this.props.value ? (this.props.value) : this.state.currentColor;
     }
 
     handlePickValueWithStraw = async ()=>{
@@ -70,11 +79,10 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
             const result = await eyeDropper.open();
             const color = result['sRGBHex'];
             if (color.startsWith("#")) {
-                const rgba = ColorPickerFoundation.hexToRgba(color);
-                this.foundation.handleChangeRGBA(rgba);
+                this.foundation.handleChange(color, 'hex');
             } else if (color.startsWith('rgba')) {
                 const rgba = ColorPickerFoundation.rgbaStringToRgba(color);
-                this.foundation.handleChangeRGBA(rgba)
+                this.foundation.handleChange(rgba, 'rgba');
             }
         } catch (e) {
 
@@ -83,26 +91,25 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
 
 
     render() {
-        if (this.props.value && this.props.value.format!=='rgba') {
-            throw "[semi] Error: value must be passed in rgba format when using controlled mode, because rbg->hsv->rgb is lossless.You can use the util method exported by ColorPicker Class.";
-        }
+        // const {className:userClassName} = this.props;
+        // const className = cls(`${cssClasses.PREFIX}`, userClassName)
         const currentColor = this.getCurrentColor();
-        return <div className={'colorPicker'}>
+        return <div className={"className"}>
 
-            <ColorChooseArea hsva={this.state.currentColorHSVA} foundation={this.foundation} onChange={({ s, v }) => {
-                this.foundation.handleChangeHSVA( { ...this.state.currentColorHSVA, s, v });
+            <ColorChooseArea hsva={this.state.currentColor.hsva} foundation={this.foundation} onChange={({ s, v }) => {
+                this.foundation.handleChange( { s, v, a: this.state.currentColor.hsva.a, h: this.state.currentColor.hsva.h }, 'hsva');
             }} handleSize={20} width={this.props.width ?? 280} height={this.props.height ?? 280}/>
             <ColorSlider width={this.props.width ?? 280}
                 height={10}
                 handleSize={18}
-                hue={ColorPickerFoundation.rgbaToHsva(currentColor).h}
+                hue={currentColor.hsva.h}
                 className={'colorSliderWrapper'}
                 foundation={this.foundation}
             />
             <AlphaSlider width={this.props.width ?? 280}
                 height={10}
                 handleSize={18}
-                hsva={ColorPickerFoundation.rgbaToHsva(currentColor)}
+                hsva={currentColor.hsva}
                 className={'alphaSliderWrapper'}
                 foundation={this.foundation}
             />
