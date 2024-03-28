@@ -88,9 +88,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     componentDidUpdate(prevProps: MonthProps, prevState: MonthState) {
         if (prevProps.month !== this.props.month) {

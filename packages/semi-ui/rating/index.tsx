@@ -197,9 +197,6 @@ export default class Rating extends BaseComponent<RatingProps, RatingState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     onHover = (event: React.MouseEvent, index: number) => {
         this.foundation.handleHover(event, index);

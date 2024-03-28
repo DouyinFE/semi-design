@@ -120,9 +120,7 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     formatText(value: ValueType) {
         return value && (value as BaseValueType[]).length ? this.foundation.formatShowText(value as BaseValueType[]) : '';

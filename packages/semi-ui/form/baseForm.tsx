@@ -153,9 +153,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     get adapter(): BaseFormAdapter<BaseFormProps<Values>, BaseFormState, Values> {
         return {

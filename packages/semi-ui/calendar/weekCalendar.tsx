@@ -115,9 +115,7 @@ export default class WeekCalendar extends BaseComponent<WeekCalendarProps, WeekC
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
 
     checkWeekend = (val: Date) => this.foundation.checkWeekend(val);

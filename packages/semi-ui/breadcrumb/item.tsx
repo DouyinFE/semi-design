@@ -79,9 +79,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     renderIcon = () => {
         const iconType = this.props.icon;

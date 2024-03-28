@@ -458,7 +458,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     componentWillUnmount() {
         this.mounted = false;
-        this.foundation.destroy();
+        super.componentWillUnmount();
     }
 
     /**

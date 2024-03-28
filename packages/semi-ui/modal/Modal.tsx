@@ -243,7 +243,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
 
     componentWillUnmount() {
         if (this.props.visible) {
-            this.foundation.destroy();
+            super.componentWillUnmount();
         } else {
             this.foundation.enabledBodyScroll();
         }
