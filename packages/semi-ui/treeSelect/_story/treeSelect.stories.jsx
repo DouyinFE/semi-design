@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Tree } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep } from 'lodash';
@@ -2683,5 +2684,25 @@ export const Issue1542 = () => {
           onSearch={onSearch}
       />
     </>  
+  );
+};
+
+class WebComponentWrapper extends HTMLElement {
+  constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+      ReactDOM.render(<_TreeSelect />, this.shadowRoot);
+  }
+}
+
+customElements.define('my-web-component', WebComponentWrapper);
+
+export const WebCompTestOutside = () => {
+
+  return (
+    <my-web-component></my-web-component>
   );
 };
