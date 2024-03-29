@@ -123,6 +123,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
             expandIconPosition,
             activeSet,
             motion,
+            lazyRender
         } = this.context;
         const active = activeSet.has(itemKey);
         const itemCls = cls(className, {
@@ -155,6 +156,7 @@ export default class CollapsePanel extends PureComponent<CollapsePanelProps> {
                 {
                     children && (
                         <Collapsible
+                            lazyRender={lazyRender}
                             isOpen={active} keepDOM={keepDOM} motion={motion}
                             onMotionEnd={this.props.onMotionEnd}
                             reCalcKey={reCalcKey}>
