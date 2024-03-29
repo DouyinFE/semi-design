@@ -65,12 +65,28 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
             }
         }
     }
+
+    //---- inject custom file custom.scss to component's variables.scss -----
+    const customScssRaw = scssMap.theme['custom.scss'];
+    let allCustomRaw = '';
+    if (customScssRaw) {
+        for (const componentName of Object.keys(scssMap['components'])) {
+            if (scssMap['components'][componentName]['variables.scss']) {
+                allCustomRaw+= scssMap['components'][componentName]['variables.scss']+'\n';
+            }
+        }
+        allCustomRaw+= themeLocalRaw || "";
+        allCustomRaw+="\n";
+        allCustomRaw+=customScssRaw+"\n";
+        scssMap.theme['index.scss'] += '\n'+allCustomRaw;
+    }
+
     //----- inject end -----
 
     return {
         ...{
             components: scssMap['components'],
-            theme: lodash.omit(scssMap['theme'], 'local.scss')
+            theme: lodash.omit(scssMap['theme'], 'local.scss', 'custom.scss')
         },
         index: compilerEntryContent
     };
