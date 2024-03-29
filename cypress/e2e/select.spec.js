@@ -168,6 +168,16 @@ describe('Select', () => {
 
     });
 
+    it('Fixed PR-2139', () => {
+        // 1.Select multi-select turns on onChangWithObject and value is controlled
+        // 2. The current value does not exist in optionList
+        // 3. The problem that rendering is not re - executed after updating other attributes in value(such as label, or any other Key)
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--update-other-key-not-in-list');
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-AA-OtherProps')
+        cy.get('#change').eq(0).click();
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-2-AA-OtherProps-2')
+
+    });
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
