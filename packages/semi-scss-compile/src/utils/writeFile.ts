@@ -70,7 +70,14 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
     const customScssRaw = scssMap.theme['custom.scss'];
     let allCustomRaw = '';
     if (customScssRaw) {
-        for (const componentName of Object.keys(scssMap['components'])) {
+        const componentNames = Object.keys(scssMap['components']);
+        const orderList = ['tooltip', 'anchor', 'autoComplete', 'avatar', 'backtop', 'badge', 'banner', 'breadcrumb', 'button', 'calendar', 'card', 'carousel', 'cascader', 'checkbox', 'collapse', 'collapsible', 'datePicker', 'descriptions', 'divider', 'dropdown', 'empty', 'form', 'grid', 'highlight', 'image', 'input', 'inputNumber', 'list', 'modal', 'navigation', 'notification', 'pagination', 'popconfirm', 'popover', 'progress', 'radio', 'rating', 'scrollList', 'select', 'sideSheet', 'skeleton', 'slider', 'space', 'spin', 'steps', 'switch', 'table', 'tabs', 'tag', 'tagInput', 'timePicker', 'timeline', 'toast', 'transfer', 'tree', 'treeSelect', 'typography', 'upload'];
+
+        componentNames.sort((a,b)=>{
+            return orderList.indexOf(a) - orderList.indexOf(b);
+        });
+
+        for (const componentName of componentNames) {
             if (scssMap['components'][componentName]['variables.scss']) {
                 allCustomRaw+= scssMap['components'][componentName]['variables.scss']+'\n';
             }

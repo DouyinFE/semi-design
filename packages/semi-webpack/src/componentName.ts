@@ -59,4 +59,5 @@ const componentVariablePathList: string[] = [
     '@douyinfe/semi-foundation/upload/variables.scss'
 ];
 
+
 export default componentVariablePathList;
