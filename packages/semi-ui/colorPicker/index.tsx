@@ -91,10 +91,10 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
 
 
     render() {
-        // const {className:userClassName} = this.props;
-        // const className = cls(`${cssClasses.PREFIX}`, userClassName)
+        const {className:userClassName} = this.props;
+        const className = cls(`${cssClasses.PREFIX}`, userClassName)
         const currentColor = this.getCurrentColor();
-        return <div className={"className"}>
+        return <div className={className}>
 
             <ColorChooseArea hsva={this.state.currentColor.hsva} foundation={this.foundation} onChange={({ s, v }) => {
                 this.foundation.handleChange( { s, v, a: this.state.currentColor.hsva.a, h: this.state.currentColor.hsva.h }, 'hsva');
