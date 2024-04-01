@@ -84,7 +84,7 @@ const preProcessScssMap = (scssMapOrigin: ReturnType<typeof generateScssMap>) =>
         }
         allCustomRaw+= themeLocalRaw || "";
         allCustomRaw+="\n";
-        allCustomRaw+=customScssRaw+"\n";
+        allCustomRaw+=`body:not(:not(body)){${customScssRaw}};`+"\n";
         scssMap.theme['index.scss'] += '\n'+allCustomRaw;
     }
 
