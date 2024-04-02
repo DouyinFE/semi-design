@@ -445,7 +445,7 @@ export const RadioGroupButtonStyle = () => {
     
     const rowStyle = { marginBottom: 12 }
 
-    const type = 'card';
+    const type = 'button';
 
     return (
       <Row>
