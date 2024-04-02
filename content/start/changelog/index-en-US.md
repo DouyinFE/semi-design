@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.55.5 (2024-04-02)
+- 【Fix】
+  - Fixed a type error caused by value not being in treeData when checkRelation in the Tree component is unRelated.
+  - Fix type error in controlled Cascader where value is not in TreeData
+  - Fixed the problem of slider tooltip not automatically hiding when the mouse is moved in some scenarios (Affected version 2.49.0 ~ 2.55.4)
+
 #### 🎉 2.55.3 (2024-04-01)
 - 【Fix】
   - Fixed the problem that when onChangWithObject is turned on for Select multi-selection and value is controlled, the current value does not exist in the optionList, and the rendering is not re-executed after updating other properties in the value.
