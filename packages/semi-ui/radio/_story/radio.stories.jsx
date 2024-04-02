@@ -538,19 +538,19 @@ export const RadioGroupCardStyle = () => (
     <RadioGroup type="card" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
@@ -561,21 +561,21 @@ export const RadioGroupCardStyle = () => (
     <RadioGroup type="card" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
@@ -601,17 +601,17 @@ export const RadioGroupCardStyle = () => (
     <RadioGroup type="card" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
     </RadioGroup>
@@ -637,19 +637,19 @@ export const RadioGroupCardStyle = () => (
     <RadioGroup direction="vertical" type="card" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
@@ -660,21 +660,21 @@ export const RadioGroupCardStyle = () => (
     <RadioGroup direction="vertical" type="card" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
@@ -735,19 +735,19 @@ export const RadioGroupPureCardStyle = () => (
     <RadioGroup type="pureCard" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
@@ -758,21 +758,21 @@ export const RadioGroupPureCardStyle = () => (
     <RadioGroup type="pureCard" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
@@ -798,17 +798,17 @@ export const RadioGroupPureCardStyle = () => (
     <RadioGroup type="pureCard" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Radio>
     </RadioGroup>
@@ -834,19 +834,19 @@ export const RadioGroupPureCardStyle = () => (
     <RadioGroup direction="vertical" type="pureCard" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Radio>
@@ -857,21 +857,21 @@ export const RadioGroupPureCardStyle = () => (
     <RadioGroup direction="vertical" type="pureCard" defaultValue={1}>
       <Radio
         value={1}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={2}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Radio>
       <Radio
         value={3}
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
