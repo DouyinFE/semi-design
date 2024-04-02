@@ -435,27 +435,51 @@ export const RadioGroupButtonStyle = () => {
     const onChange3 = e => {
       setValue3(e.target.value);
     };
+
+    const options = [
+      { label: 'semi', value: 1 },
+      { label: 'design', value: 2 },
+      { label: 'designToCode', value: 3 },
+      { label: 'dsm', value: 4 },
+    ];
+    
+    const rowStyle = { marginBottom: 12 }
+
+    const type = 'button';
+
     return (
-      <Space vertical spacing="loose" align="start">
-        <RadioGroup type="button" buttonSize="small" onChange={onChange1} value={value1} name="demo-radio-button-1">
-          <Radio value={1}>semi</Radio>
-          <Radio value={2}>pipixia</Radio>
-          <Radio value={3}>hotsoon</Radio>
-          <Radio value={4}>toutiao</Radio>
-        </RadioGroup>
-        <RadioGroup type="button" buttonSize="middle" onChange={onChange2} value={value2} name="demo-radio-button-2">
-          <Radio value={1}>semi</Radio>
-          <Radio value={2}>pipixia</Radio>
-          <Radio value={3}>hotsoon</Radio>
-          <Radio value={4}>toutiao</Radio>
-        </RadioGroup>
-        <RadioGroup type="button" buttonSize="large" onChange={onChange3} value={value3} name="demo-radio-button-3">
-          <Radio value={1}>semi</Radio>
-          <Radio value={2}>pipixia</Radio>
-          <Radio value={3}>hotsoon</Radio>
-          <Radio value={4}>toutiao</Radio>
-        </RadioGroup>
-      </Space>
+      <Row>
+        {/* default button radio */}
+        <Col span={12}>
+            <div style={rowStyle}>
+              <RadioGroup type={type} buttonSize="small" onChange={onChange1} options={options} value={value1} name="demo-radio-button-1" />
+            </div>
+            <div style={rowStyle}>
+              <RadioGroup type={type} buttonSize="middle" onChange={onChange2} options={options} value={value2} name="demo-radio-button-2" />
+            </div>
+            <div style={rowStyle}>
+              <RadioGroup type={type} buttonSize="large" onChange={onChange3} options={options}  value={value3} name="demo-radio-button-3" />
+            </div>
+        </Col>
+
+        {/* form radio button */}
+        <Col span={12}>
+            <Form>
+                <div style={rowStyle}>
+                  <Form.RadioGroup field='test1' type={type} buttonSize="small" onChange={onChange1} options={options}  value={value1} name="demo-radio-button-1">
+                  </Form.RadioGroup>
+                </div>
+                <div style={rowStyle}>
+                  <Form.RadioGroup field='test2' type={type} buttonSize="middle" onChange={onChange2} options={options}  value={value2} name="demo-radio-button-2">
+                  </Form.RadioGroup>
+                </div>
+                <div style={rowStyle}>
+                  <Form.RadioGroup field='test3' type={type} buttonSize="large" onChange={onChange3} options={options}  value={value3} name="demo-radio-button-3">
+                  </Form.RadioGroup>
+                </div>
+            </Form>
+        </Col>
+      </Row>
     );
   };
 
