@@ -612,19 +612,19 @@ export const CheckboxGroupCardStyle = () => (
     <CheckboxGroup key={getUuidShort({ prefix: '' })} aria-label='group demo' type="card" direction="horizontal" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
@@ -635,21 +635,21 @@ export const CheckboxGroupCardStyle = () => (
     <CheckboxGroup key={getUuidShort({ prefix: '' })} aria-label='group demo' type="card" direction="horizontal" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
@@ -676,19 +676,19 @@ export const CheckboxGroupCardStyle = () => (
       <Checkbox
         value="1"
         aria-label='checkbox demo'
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
       <Checkbox
         value="2"
         aria-label='checkbox demo'
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
       <Checkbox
         value="3"
         aria-label='checkbox demo'
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
     </CheckboxGroup>
@@ -714,19 +714,19 @@ export const CheckboxGroupCardStyle = () => (
     <CheckboxGroup key={getUuidShort({ prefix: '' })} aria-label='group demo' direction="vertical" type="card" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
@@ -737,21 +737,21 @@ export const CheckboxGroupCardStyle = () => (
     <CheckboxGroup key={getUuidShort({ prefix: '' })} aria-label='group demo' direction="vertical" type="card" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
@@ -808,19 +808,19 @@ export const CheckboxGroupPureCardStyle = () => (
     <CheckboxGroup type="pureCard" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
@@ -831,21 +831,21 @@ export const CheckboxGroupPureCardStyle = () => (
     <CheckboxGroup type="pureCard" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 180 }}
       >
         多选框标题
@@ -871,17 +871,17 @@ export const CheckboxGroupPureCardStyle = () => (
     <CheckboxGroup type="pureCard" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       ></Checkbox>
     </CheckboxGroup>
@@ -907,19 +907,19 @@ export const CheckboxGroupPureCardStyle = () => (
     <CheckboxGroup direction="vertical" type="pureCard" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
       >
         多选框标题
       </Checkbox>
@@ -930,21 +930,21 @@ export const CheckboxGroupPureCardStyle = () => (
     <CheckboxGroup direction="vertical" type="pureCard" defaultValue={['1']}>
       <Checkbox
         value="1"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="2"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
       </Checkbox>
       <Checkbox
         value="3"
-        extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统"
+        extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统"
         style={{ width: 380 }}
       >
         多选框标题
