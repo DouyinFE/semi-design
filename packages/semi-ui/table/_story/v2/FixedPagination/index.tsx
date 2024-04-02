@@ -95,3 +95,7 @@ export default function App() {
         <Table columns={columns} dataSource={dataSource} pagination={pagination} />
     </div>);
 }
+
+App.parameters = {
+    chromatic: { disableSnapshot: true },
+};

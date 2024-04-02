@@ -15,6 +15,30 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - Fixed the problem that when onChangWithObject is turned on for Select multi-selection and value is controlled, the current value does not exist in the optionList, and the rendering is not re-executed after updating other properties in the value.
+
+
+#### 🎉 2.55.1 (2024-03-25)
+- 【Fix】
+  - Fix: Fix collapse & collapsible keepDOM failure problem (affects versions 2.54.0-beta.0 ~ 2.55.0)
+  - Fix: Correct the default value of lazyRender for collapse, from true set in 2.54.0 to a more appropriate false, keeping the use cases where lazyRender is not set consistent with the behavior before 2.54 (affects versions 2.54.0-beta.0 ~ 2.55.0 )
+
+#### 🎉 2.55.0 (2024-03-22)
+- 【Fix】
+  - Fix the problem that the Table header selection state is incorrectly selected when the data is empty (affects v2.51 ~ v2.54)  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
+  - Fix the problem of Split Button losing style when children Button className changes
+
+#### 🎉 2.55.0-beta.0 (2024-03-18)
+- 【Fix】
+    - fix TabBar rendering as empty in SSR [@nekocode](https://github.com/nekocode)
+    - Fixed the problem that Transfer failed to drag during fast drag due to Sortable's default drag sensing delay time being too long.
+    - Fixed the problem of openKeys not saving the last state after Nav changed selectedKeys (Affects v2.54.1)  [#2115](https://github.com/DouyinFE/semi-design/issues/2115)
+- 【Chore】
+    - Upgraded webpack and rspack build plug-ins to support consuming custom css configuration configured in Semi DSM, which can be used to aggregate overridden CSS or any css unrelated to Semi components into theme package styles
+  
 #### 🎉 2.54.1 (2024-03-11)
 - 【Fix】
     - fixed Navigation component selectedKeys bug in react 17

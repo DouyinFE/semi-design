@@ -14,6 +14,7 @@ import Button from '../../button';
 import GetPopupNav from './Popup';
 import CustomArrowIcon from './CustomIcon';
 import FixedSelectedKeys from './FixedSelectedKeys';
+import FixedOpenKeys from './FixedOpenKeys';
 
 import {
   IconMail,
@@ -40,6 +41,7 @@ export default {
 
 export {
   FixedSelectedKeys,
+  FixedOpenKeys
 }
 
 export const Default = () => {

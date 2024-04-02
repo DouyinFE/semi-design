@@ -13,6 +13,28 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - 修复 Select 多选开启 onChangWithObject 且 value 受控，当前value 并不存在于 optionList 中，更新了 value中的其他属性后渲染未重新执行的问题
+
+#### 🎉 2.55.1 (2024-03-25)
+- 【Fix】
+  - Fix: 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）
+  - Fix：修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）
+
+#### 🎉 2.55.0 (2024-03-22)
+- 【Fix】
+  - 修复 Table 表头选择状态在数据为空时错误被选中问题（影响 v2.51 ~ v2.54版本）  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
+  - 修复 Split Button 在 children Button className 变化时丢失样式的问题
+
+#### 🎉 2.55.0-beta.0 (2024-03-18)
+- 【Fix】
+    - 修复 TabBar 在 SSR 时渲染为空 [@nekocode](https://github.com/nekocode)
+    - 修复由于 Sortable 的默认拖拽感应延迟时间过长导致 Transfer 在快速拖动时拖拽不成功问题
+    - 修复 Nav 在 selectedKeys 变化后 openKeys 未保存上一次状态问题（影响 v2.54.1）[#2115](https://github.com/DouyinFE/semi-design/issues/2115)
+- 【Chore】
+    - 升级 webpack、rspack构建插件，支持消费在 Semi DSM 中配置的自定义 css 配置，可用于将覆写的 CSS 或任意与 Semi 组件无关的 css 聚进主题包样式
+
 #### 🎉 2.54.1 (2024-03-11)
 - 【Fix】
     - 修复 Navigation 组件在 react 17 下 selectedKeys 未生效问题
