@@ -807,4 +807,18 @@ describe('Tree', () => {
         const nodeZhongguo = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
         expect(nodeZhongguo.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
     });
+
+    it('value not in treeData', () => {
+        const spyOnChange = sinon.spy(() => {});
+        let tree = getTree({
+            multiple: true,
+            defaultValue: ['fish'],
+            onChange: spyOnChange,
+            defaultExpandAll: true,
+        });
+        let nodeYazhou = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);;
+        nodeYazhou.simulate('click');
+        expect(spyOnChange.calledWithMatch(['fish', 'Yazhou'])).toEqual(true);
+        tree.unmount();
+    })
 })
