@@ -550,7 +550,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     onHandleLeave = () => {
         // this._adapter.setEventDefault(e);
         const disabled = this._adapter.getState('disabled');
-        if (!disabled && this.getStates()['focusPos'] === "") {
+        const isDrag = this._adapter.getState('isDrag');
+        if (!disabled && !isDrag) {
             this._adapter.onHandleLeave();
         }
     };
