@@ -23,6 +23,7 @@ const generateOption = (child: React.ReactElement, parent: any, index: number, n
     // no need to determine whether the key exists in child
     // Even if the user does not explicitly declare it, React will always generate a key.
     option._keyInJsx = newKey || child.key;
+    console.log(option);
     
     return option;
 };

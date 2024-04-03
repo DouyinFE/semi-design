@@ -206,7 +206,8 @@ export interface SelectState {
     isFocusInContainer: boolean;
     isFullTags: boolean;
     // The number of really-hidden items when maxTagCount is set
-    overflowItemCount: number
+    overflowItemCount: number;
+    isFlexListWrap: boolean
 }
 
 // Notes: Use the label of the option as the identifier, that is, the option in Select, the value is allowed to be the same, but the label must be unique
@@ -388,7 +389,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             isHovering: false,
             isFocusInContainer: false,
             isFullTags: false,
-            overflowItemCount: 0
+            overflowItemCount: 0,
+            isFlexListWrap: false,
         };
         /* Generate random string */
         this.selectOptionListID = '';
@@ -478,6 +480,27 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 delete option._parentGroup;
                 this.props.onDeselect(value, option);
             },
+            getSelectionsDOM: () => {
+                return document.querySelector(`.${prefixcls}-content-wrapper`);
+            },
+            checkFlexWrap: (container: Element) => {
+                // In the case of multi select filter, the input height is different when wrapping or not, so we need to rely on offsetTop to make a judgment
+                // 多选filter 情况下，selection 的 flex 容器是否换行时子元素的input需要设置不同高度。而是否换行，需要依靠offsetTop做判断. 高度可能随 design token配置有所不同，所以也无法依靠固定数值做判断
+                let hasWrapped = false;
+                const children = container.children;
+                let lastOffsetTop = children[0].offsetTop;
+
+                for (let i = 1; i < children.length; i++) {
+                    if (children[i].offsetTop > lastOffsetTop) {
+                        hasWrapped = true;
+                        break;
+                    }
+                }
+                return hasWrapped;
+            },
+            updateSelectionWrap: (wrap) => {
+                this.setState({ isFlexListWrap: wrap });
+            }
         };
         return {
             ...super.adapter,
@@ -1175,7 +1198,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
         let { renderSelectedItem } = this.props;
         const { placeholder, maxTagCount, expandRestTagsOnClick, ellipsisTrigger } = this.props;
-        const { inputValue, isOpen } = this.state;
+        const { inputValue, isOpen, isFlexListWrap } = this.state;
 
         const selectedItems = [...selections];
 
@@ -1188,6 +1211,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
         const contentWrapperCls = cls({
             [`${prefixcls}-content-wrapper`]: true,
+            [`${prefixcls}-content-wrapper-wrap`]: isFlexListWrap,
             [`${prefixcls}-content-wrapper-one-line`]: maxTagCount && !isOpen,
             [`${prefixcls}-content-wrapper-empty`]: !selectedItems.length,
         });

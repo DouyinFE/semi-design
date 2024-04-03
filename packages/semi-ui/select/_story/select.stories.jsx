@@ -874,7 +874,7 @@ export const SelectFilterMultiple = () => (
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
     </Select>
-    <Select
+    {/* <Select
       filter
       multiple={true}
       maxTagCount={3}
@@ -892,7 +892,7 @@ export const SelectFilterMultiple = () => (
       <Option value={6}>opt6</Option>
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
-    </Select>
+    </Select> */}
   </>
 );
 

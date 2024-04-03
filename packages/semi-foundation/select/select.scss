@@ -208,6 +208,15 @@ $overflowList: #{$prefix}-overflow-list;
         align-items: center;
         height: 100%;
 
+        &-wrap {
+            .#{$prefix}-input-wrapper {
+                line-height: unset;
+                .#{$prefix}-input {
+                    // height: unset;
+                }
+            }
+        }
+
         &-collapse {
             display: inline-flex;
             flex-shrink: 0;
