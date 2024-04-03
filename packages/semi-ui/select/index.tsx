@@ -525,8 +525,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             setOptionWrapperWidth: (width: number) => {
                 this.setState({ dropdownMinWidth: width });
             },
-            updateSelection: (selections: Map<OptionProps['label'], any>, cb?: () => void) => {
-                this.setState({ selections }, cb);
+            updateSelection: (selections: Map<OptionProps['label'], any>) => {
+                this.setState({ selections });
             },
             // clone Map, important!!!, prevent unexpected modify on state
             getSelections: () => new Map(this.state.selections),

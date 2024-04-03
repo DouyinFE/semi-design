@@ -17,7 +17,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     updateOptions(options: BasicOptionProps[]): void;
     rePositionDropdown(): void;
     updateFocusIndex(index: number): void;
-    updateSelection(selection: Map<any, any>, cb?: () => void): void;
+    updateSelection(selection: Map<any, any>): void;
     openMenu(): void;
     notifyDropdownVisibleChange(visible: boolean): void;
     registerClickOutsideHandler(event: any): void;
@@ -484,11 +484,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             }
         } else {
             // Uncontrolled components, update ui
-            this._adapter.updateSelection(selections, () => {
-                // 需要在 updateSelection 的回调里做判断，因为需要确保它已经渲染完新的tag了，才能判断是否已换行
-                if (this._isFilterable()) {
-                }
-            });
+            this._adapter.updateSelection(selections);
             this.updateOverflowItemCount(selections.size);
             // In multi-select mode, the drop-down pop-up layer is repositioned every time the value is changed, because the height selection of the selection box may have changed
             this._adapter.rePositionDropdown();
