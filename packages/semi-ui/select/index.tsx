@@ -488,10 +488,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 // 多选filter 情况下，selection 的 flex 容器是否换行时子元素的input需要设置不同高度。而是否换行，需要依靠offsetTop做判断. 高度可能随 design token配置有所不同，所以也无法依靠固定数值做判断
                 let hasWrapped = false;
                 const children = container.children;
-                let lastOffsetTop = children[0].offsetTop;
+                let lastOffsetTop = (children[0] as HTMLDivElement).offsetTop;
 
                 for (let i = 1; i < children.length; i++) {
-                    if (children[i].offsetTop > lastOffsetTop) {
+                    let currentChild = children[i] as HTMLDivElement;
+                    if (currentChild.offsetTop > lastOffsetTop) {
                         hasWrapped = true;
                         break;
                     }
@@ -548,8 +549,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             setOptionWrapperWidth: (width: number) => {
                 this.setState({ dropdownMinWidth: width });
             },
-            updateSelection: (selections: Map<OptionProps['label'], any>) => {
-                this.setState({ selections });
+            updateSelection: (selections: Map<OptionProps['label'], any>, cb?: () => void) => {
+                this.setState({ selections }, cb);
             },
             // clone Map, important!!!, prevent unexpected modify on state
             getSelections: () => new Map(this.state.selections),

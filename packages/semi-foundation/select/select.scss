@@ -402,13 +402,23 @@ $overflowList: #{$prefix}-overflow-list;
         overflow: hidden;
         position: relative;
 
+        &-wrap {
+            .#{$prefix}-input-wrapper {
+                height: 24px;
+                line-height: 24px;
+                .#{$prefix}-input-default {
+                    height: 24px;
+                }
+            }
+        }
+ 
         &-empty {
             .#{$prefix}-input-wrapper {
                 position: absolute;
                 top: 0;
                 left: 0;
                 height: 100%;
-                width: 100%;
+                // width: 100%; // no need to set width here, will calcuate inline style by js
             }
         }
     }

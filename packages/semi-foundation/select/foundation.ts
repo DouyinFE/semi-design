@@ -17,7 +17,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     updateOptions(options: BasicOptionProps[]): void;
     rePositionDropdown(): void;
     updateFocusIndex(index: number): void;
-    updateSelection(selection: Map<any, any>): void;
+    updateSelection(selection: Map<any, any>, cb?: () => void): void;
     openMenu(): void;
     notifyDropdownVisibleChange(visible: boolean): void;
     registerClickOutsideHandler(event: any): void;
@@ -395,10 +395,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     _checkInputIsWrap() {
         let dom = this._adapter.getSelectionsDOM();
-        console.log(dom);
         if (dom !== null) {
             let isFlexWrap = this._adapter.checkFlexWrap(dom);
-            console.log(isFlexWrap);
             this._adapter.updateSelectionWrap(isFlexWrap);
         }
     }
@@ -494,12 +492,16 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                 if (autoClearSearchValue) {
                     this.clearInput(event);
                 }
-                this._checkInputIsWrap();
                 this.focusInput();
             }
         } else {
             // Uncontrolled components, update ui
-            this._adapter.updateSelection(selections);
+            this._adapter.updateSelection(selections, () => {
+                // 需要在 updateSelection 的回调里做判断，因为需要确保它已经渲染完新的tag了，才能判断是否已换行
+                if (this._isFilterable()) {
+                    this._checkInputIsWrap();
+                }
+            });
             this.updateOverflowItemCount(selections.size);
             // In multi-select mode, the drop-down pop-up layer is repositioned every time the value is changed, because the height selection of the selection box may have changed
             this._adapter.rePositionDropdown();
@@ -513,7 +515,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                     const sugInput = '';
                     options = this._filterOption(options, sugInput);
                 }
-                this._checkInputIsWrap();
                 this.focusInput();
             }
             this.updateOptionsActiveStatus(selections, options);
