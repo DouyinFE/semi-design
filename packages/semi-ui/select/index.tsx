@@ -388,7 +388,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             isHovering: false,
             isFocusInContainer: false,
             isFullTags: false,
-            overflowItemCount: 0,
+            overflowItemCount: 0
         };
         /* Generate random string */
         this.selectOptionListID = '';
@@ -477,7 +477,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             notifyDeselect: (value: OptionProps['value'], option: OptionProps) => {
                 delete option._parentGroup;
                 this.props.onDeselect(value, option);
-            }
+            },
         };
         return {
             ...super.adapter,

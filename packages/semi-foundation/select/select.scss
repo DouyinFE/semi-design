@@ -208,13 +208,6 @@ $overflowList: #{$prefix}-overflow-list;
         align-items: center;
         height: 100%;
 
-        &-wrap {
-            .#{$prefix}-input-wrapper {
-                .#{$prefix}-input {
-                }
-            }
-        }
-
         &-collapse {
             display: inline-flex;
             flex-shrink: 0;
@@ -399,15 +392,6 @@ $overflowList: #{$prefix}-overflow-list;
         height: 100%;
         overflow: hidden;
         position: relative;
-
-        .#{$prefix}-input-wrapper {
-            height: 24px;
-            line-height: 24px;
-            .#{$prefix}-input-default {
-                height: 24px;
-            }
-        }
- 
         &-empty {
             .#{$prefix}-input-wrapper {
                 position: absolute;
@@ -417,8 +401,14 @@ $overflowList: #{$prefix}-overflow-list;
                 // width: 100%; // no need to set width here, will calcuate inline style by js
             }
         }
+        .#{$prefix}-input-wrapper {
+            height: $height-select_multiple_input_default;
+            line-height: $height-select_multiple_input_default;
+            .#{$prefix}-input-default {
+                height: $height-select_multiple_input_default;
+            }
+        }
     }
-
     .#{$prefix}-input-wrapper {
         // position: absolute;
         // top: 0;
@@ -438,6 +428,26 @@ $overflowList: #{$prefix}-overflow-list;
         padding-right: 0;
     }
 }
+
+.#{$multiple}.#{$filterable}.#{$module}-large {
+    .#{$prefix}-input-wrapper-large {
+        height: $height-select_multiple_input_large;
+        line-height: $height-select_multiple_input_large;
+        .#{$prefix}-input-large {
+            height: $height-select_multiple_input_large
+        }
+    }
+}
+.#{$multiple}.#{$filterable}.#{$module}-small {
+    .#{$prefix}-input-wrapper {
+        height: $height-select_multiple_input_small;
+        line-height: $height-select_multiple_input_small;
+        .#{$prefix}-input-small {
+            height: $height-select_multiple_input_small;
+        }
+    }
+}
+
 
 .#{$module}-option-list-wrapper {
     padding-top: $spacing-select_option_list-paddingTop;
