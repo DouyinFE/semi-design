@@ -392,18 +392,23 @@ $overflowList: #{$prefix}-overflow-list;
         height: 100%;
         overflow: hidden;
         position: relative;
-
         &-empty {
             .#{$prefix}-input-wrapper {
                 position: absolute;
                 top: 0;
                 left: 0;
                 height: 100%;
-                width: 100%;
+                // width: 100%; // no need to set width here, will calcuate inline style by js
+            }
+        }
+        .#{$prefix}-input-wrapper {
+            height: $height-select_multiple_input_default;
+            line-height: $height-select_multiple_input_default;
+            .#{$prefix}-input-default {
+                height: $height-select_multiple_input_default;
             }
         }
     }
-
     .#{$prefix}-input-wrapper {
         // position: absolute;
         // top: 0;
@@ -423,6 +428,26 @@ $overflowList: #{$prefix}-overflow-list;
         padding-right: 0;
     }
 }
+
+.#{$multiple}.#{$filterable}.#{$module}-large {
+    .#{$prefix}-input-wrapper-large {
+        height: $height-select_multiple_input_large;
+        line-height: $height-select_multiple_input_large;
+        .#{$prefix}-input-large {
+            height: $height-select_multiple_input_large
+        }
+    }
+}
+.#{$multiple}.#{$filterable}.#{$module}-small {
+    .#{$prefix}-input-wrapper {
+        height: $height-select_multiple_input_small;
+        line-height: $height-select_multiple_input_small;
+        .#{$prefix}-input-small {
+            height: $height-select_multiple_input_small;
+        }
+    }
+}
+
 
 .#{$module}-option-list-wrapper {
     padding-top: $spacing-select_option_list-paddingTop;
