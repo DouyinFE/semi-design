@@ -14,24 +14,39 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.56.0-beta.0 (2024-04-03)
+- 【Feat】
+    - WebComponent 场景支持：clickOutSide 增加对 Shadow DOM 场景的支持，涉及组件包括 AutoComplete、Calendar、Cascader、DatePicker、Select、TagInput、TimePicker、Tooltip、TreeSelect  [#1381](https://github.com/DouyinFE/semi-design/issues/1381) [@changlin2569](https://github.com/changlin2569) [#2084](https://github.com/DouyinFE/semi-design/pull/2084)
+    - WebComponent 场景支持：通过 :host, :host-context 伪类选择器将 css variable 注入 shadow dom，保障 Shadow DOM 下的 Semi 组件样式正确  [#2142](https://github.com/DouyinFE/semi-design/issues/2142) [#2122](https://github.com/DouyinFE/semi-design/pull/2122)
+    - Backtop 点击增加 throttle，防止duration内重复触发 [@OnlyWick](https://github.com/OnlyWick) [#2125](https://github.com/DouyinFE/semi-design/pull/2125)
+- 【Fix】
+    - 修复 Typography 单行 css 省略的精确性问题  [#1731](https://github.com/DouyinFE/semi-design/issues/1731) [#2089](https://github.com/DouyinFE/semi-design/pull/2089)
+    - 修复 Select 多选且 filter 开启的情况下，选择多行后，最后一行的标签垂直间隔于其他行不同的问题 [#1667](https://github.com/DouyinFE/semi-design/issues/1667)
+- 【Style】
+    - 修复 Form.RadioGroup 在 type=button/card 时与普通 RadioGroup的高度不一致的样式问题  [@nekocode](https://github.com/nekocode) [#1954](https://github.com/DouyinFE/semi-design/issues/1954) [#2149](https://github.com/DouyinFE/semi-design/pull/2149)
+    - 修复 RadioGroup 在父级若有 overflow:hidden 的情况下选中后样式不对的问题 [@nekocode](https://github.com/nekocode) [#2126](https://github.com/DouyinFE/semi-design/issues/2126) [#2149](https://github.com/DouyinFE/semi-design/pull/2149)
+- 【Design token】
+    - Select 增加 `$height-select_multiple_input_small`、`$height-select_multiple_input_default`、`$height-select_multiple_input_large` 三个 token 可用于指定开启搜索时的 input 的高度 [#2151](https://github.com/DouyinFE/semi-design/pull/2151)
+
+
 #### 🎉 2.55.5 (2024-04-02)
 - 【Fix】
-  - 修复 Tree 组件中 checkRelation 为 unRelated 时，由于 value 不在 treeData 中导致的类型错误
-  - 修复受控 Cascader 中 value 不在 TreeData 内时的类型错误
-  - 修复 slider 在一些场景下 tooltip 在 鼠标移走时不自动隐藏的问题 （影响范围 2.49.0 ~ 2.55.4 ）
+  - 修复 Tree 组件中 checkRelation 为 unRelated 时，由于 value 不在 treeData 中导致的类型错误 [#2147](https://github.com/DouyinFE/semi-design/pull/2147)
+  - 修复受控 Cascader 中 value 不在 TreeData 内时的类型错误 [#2146](https://github.com/DouyinFE/semi-design/pull/2146)
+  - 修复 Slider 在一些场景下 tooltip 在 鼠标移走时不自动隐藏的问题 （影响范围 2.49.0 ~ 2.55.4 ）[#2148](https://github.com/DouyinFE/semi-design/pull/2148)
 
 #### 🎉 2.55.3 (2024-04-01)
 - 【Fix】
-  - 修复 Select 多选开启 onChangWithObject 且 value 受控，当前value 并不存在于 optionList 中，更新了 value中的其他属性后渲染未重新执行的问题
+  - 修复 Select 多选开启 onChangWithObject 且 value 受控，当前value 并不存在于 optionList 中，更新了 value中的其他属性后渲染未重新执行的问题 [#2139](https://github.com/DouyinFE/semi-design/pull/2139)
 
 #### 🎉 2.55.1 (2024-03-25)
 - 【Fix】
-  - Fix: 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）
-  - Fix：修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）
+  - Fix: 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+  - Fix：修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
 
 #### 🎉 2.55.0 (2024-03-22)
 - 【Fix】
-  - 修复 Table 表头选择状态在数据为空时错误被选中问题（影响 v2.51 ~ v2.54版本）  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
+  - 修复 Table 表头选择状态在数据为空时错误被选中问题（影响 v2.51 ~ v2.54版本）[#2128](https://github.com/DouyinFE/semi-design/issues/2128)
   - 修复 Split Button 在 children Button className 变化时丢失样式的问题
 
 #### 🎉 2.55.0-beta.0 (2024-03-18)
