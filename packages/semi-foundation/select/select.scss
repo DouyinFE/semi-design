@@ -210,9 +210,7 @@ $overflowList: #{$prefix}-overflow-list;
 
         &-wrap {
             .#{$prefix}-input-wrapper {
-                line-height: unset;
                 .#{$prefix}-input {
-                    // height: unset;
                 }
             }
         }
@@ -402,13 +400,11 @@ $overflowList: #{$prefix}-overflow-list;
         overflow: hidden;
         position: relative;
 
-        &-wrap {
-            .#{$prefix}-input-wrapper {
+        .#{$prefix}-input-wrapper {
+            height: 24px;
+            line-height: 24px;
+            .#{$prefix}-input-default {
                 height: 24px;
-                line-height: 24px;
-                .#{$prefix}-input-default {
-                    height: 24px;
-                }
             }
         }
  

@@ -23,11 +23,9 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     registerClickOutsideHandler(event: any): void;
     toggleInputShow(show: boolean, cb: () => void): void;
     closeMenu(): void;
-    checkFlexWrap(domNode: Element): boolean;
     notifyCreate(option: BasicOptionProps): void;
     getMaxLimit(): number;
     getSelections(): Map<any, any>;
-    getSelectionsDOM(): Element | null;
     notifyMaxLimit(arg: BasicOptionProps): void;
     notifyClear(): void;
     updateInputValue(inputValue: string): void;
@@ -46,7 +44,6 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     updateHovering(isHover: boolean): void;
     updateScrollTop(index?: number): void;
     updateOverflowItemCount(count: number): void;
-    updateSelectionWrap(flex: boolean): void;
     getContainer(): any;
     getFocusableElements(node: any): any[];
     getActiveElement(): any;
@@ -386,18 +383,9 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     toggle2SearchInput(isShow: boolean) {
         if (isShow) {
             this._adapter.toggleInputShow(isShow, () => this.focusInput());
-            this._checkInputIsWrap();
         } else {
             // only when choose the option and close the panel, the input can be hide
             this._adapter.toggleInputShow(isShow, () => undefined);
-        }
-    }
-
-    _checkInputIsWrap() {
-        let dom = this._adapter.getSelectionsDOM();
-        if (dom !== null) {
-            let isFlexWrap = this._adapter.checkFlexWrap(dom);
-            this._adapter.updateSelectionWrap(isFlexWrap);
         }
     }
 
@@ -499,7 +487,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._adapter.updateSelection(selections, () => {
                 // 需要在 updateSelection 的回调里做判断，因为需要确保它已经渲染完新的tag了，才能判断是否已换行
                 if (this._isFilterable()) {
-                    this._checkInputIsWrap();
                 }
             });
             this.updateOverflowItemCount(selections.size);
