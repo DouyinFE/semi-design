@@ -3464,3 +3464,50 @@ export const AllCaseOfBlur = () => {
     </div>
   )
 }
+
+export const UpdateOtherKeyNotInList = () => {
+  const [v, setV] = useState([
+    {
+      label: 'AA-Label',
+      value: 'AA',
+      otherProps: 'AA-OtherProps',
+    },
+  ]);
+
+  const change = () => {
+    setV([
+      {
+        label: 'AA-Label-2',
+        value: 'AA',
+        otherProps: 'AA-OtherProps-2',
+      },
+    ])
+  }
+
+  const renderSelectedItem = (optionNode) => {
+    const { label, otherProps } = optionNode;
+    const content = (
+      <div className='render-content'>
+        {label}-{otherProps}
+      </div>
+    );
+    return {
+      isRenderInTag: false,
+      content,
+    };
+  };
+  return (
+    <>
+      <Select
+        value={v}
+        onChange={setV}
+        filter
+        multiple
+        renderSelectedItem={renderSelectedItem}
+        onChangeWithObject
+        style={{ width: 320 }}
+      />
+      <Button id='change' onClick={() => change()}>change</Button>
+    </>
+  );
+};

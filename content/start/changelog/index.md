@@ -13,7 +13,23 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.55.0-beta.0 (2024-03-22)
+
+#### 🎉 2.55.5 (2024-04-02)
+- 【Fix】
+  - 修复 Tree 组件中 checkRelation 为 unRelated 时，由于 value 不在 treeData 中导致的类型错误
+  - 修复受控 Cascader 中 value 不在 TreeData 内时的类型错误
+  - 修复 slider 在一些场景下 tooltip 在 鼠标移走时不自动隐藏的问题 （影响范围 2.49.0 ~ 2.55.4 ）
+
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - 修复 Select 多选开启 onChangWithObject 且 value 受控，当前value 并不存在于 optionList 中，更新了 value中的其他属性后渲染未重新执行的问题
+
+#### 🎉 2.55.1 (2024-03-25)
+- 【Fix】
+  - Fix: 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）
+  - Fix：修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）
+
+#### 🎉 2.55.0 (2024-03-22)
 - 【Fix】
   - 修复 Table 表头选择状态在数据为空时错误被选中问题（影响 v2.51 ~ v2.54版本）  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
   - 修复 Split Button 在 children Button className 变化时丢失样式的问题

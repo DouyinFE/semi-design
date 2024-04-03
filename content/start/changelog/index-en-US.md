@@ -16,8 +16,23 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.55.5 (2024-04-02)
+- 【Fix】
+  - Fixed a type error caused by value not being in treeData when checkRelation in the Tree component is unRelated.
+  - Fix type error in controlled Cascader where value is not in TreeData
+  - Fixed the problem of slider tooltip not automatically hiding when the mouse is moved in some scenarios (Affected version 2.49.0 ~ 2.55.4)
 
-#### 🎉 2.55.0-beta.0 (2024-03-22)
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - Fixed the problem that when onChangWithObject is turned on for Select multi-selection and value is controlled, the current value does not exist in the optionList, and the rendering is not re-executed after updating other properties in the value.
+
+
+#### 🎉 2.55.1 (2024-03-25)
+- 【Fix】
+  - Fix: Fix collapse & collapsible keepDOM failure problem (affects versions 2.54.0-beta.0 ~ 2.55.0)
+  - Fix: Correct the default value of lazyRender for collapse, from true set in 2.54.0 to a more appropriate false, keeping the use cases where lazyRender is not set consistent with the behavior before 2.54 (affects versions 2.54.0-beta.0 ~ 2.55.0 )
+
+#### 🎉 2.55.0 (2024-03-22)
 - 【Fix】
   - Fix the problem that the Table header selection state is incorrectly selected when the data is empty (affects v2.51 ~ v2.54)  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
   - Fix the problem of Split Button losing style when children Button className changes

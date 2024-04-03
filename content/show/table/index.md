@@ -257,9 +257,9 @@ render(App);
 -   点击行的选择框会选中当前行。它的回调函数为 `onSelect`；
 
 <Notice title='注意事项'>
-    请务必为 dataSource 中每行数据提供一个与其他行值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名。
+    <div>1. 请务必为 `dataSource` 中每行数据提供一个与其他行值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名。</div>
+    <div>2. 如你遇见在第二页点击行选择后，回到第一页问题，请检查组件渲染是否触发了 `dataSource` 更新（浅对比）。`dataSource` 更新后，非受控的翻页器会回到第一页。请将 `dataSource` 放在 state 内。</div>
 </Notice>
-
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -267,7 +267,9 @@ import { Table, Avatar } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
-    const columns = [
+    const [selectedKeys, setSelectedKeys] = useState([]);
+
+    const columns = useMemo(() => [
         {
             title: '标题',
             dataIndex: 'name',
@@ -315,8 +317,9 @@ function App() {
                 return <IconMore />;
             },
         },
-    ];
-    const data = [
+    ], []);
+
+    const data = useMemo(() => [
         {
             key: '1',
             name: 'Semi Design 设计稿.fig',
@@ -371,7 +374,8 @@ function App() {
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
         },
-    ];
+    ], []);
+
     const rowSelection = {
         getCheckboxProps: record => ({
             disabled: record.name === '设计文档', // Column configuration not to be checked
@@ -385,6 +389,7 @@ function App() {
         },
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            setSelectedKeys(selectedRowKeys);
         },
     };
 
@@ -1083,7 +1088,8 @@ render(App);
 表格内部集成了过滤器和排序控件，用户可以通过在 Column 中传入 `filters` 以及 `onFilter` 开启表头的过滤器控件展示，传入 `sorter` 开启表头的排序控件的展示。
 
 <Notice title='注意事项'>
- 请为 `dataSource` 中的每个数据项提供一个与其他数据项值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名，表格的行选择、展开等绝大多数行操作功能都会使用到。
+    <div>1. 请为 `dataSource` 中的每个数据项提供一个与其他数据项值不同的 `key`，或者使用 `rowKey` 参数指定一个作为主键的属性名，表格的行选择、展开等绝大多数行操作功能都会使用到。</div>
+    <div>2. 排序和筛选列必须设置独立的 `dataIndex`</div>
 </Notice>
 
 ```jsx live=true noInline=true dir="column"
@@ -5273,7 +5279,7 @@ render(App);
 | clickGroupedRowToExpand | 点击分组表头行时分组内容展开或收起                                                   | boolean |  | **0.29.0** |
 | columns | 表格列的配置描述，详见[Column](#Column)                                        | Column[] | [] |
 | components | 覆盖 Table 的组成元素，如 table, body，row，td，th 等                            | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
-| dataSource | 数据, 每项需要有key，或者指定 rowKey，见文档开头                                      | RecordType[] | [] |
+| dataSource | 数据。**请为每一条数据分配一个独立的 key，或使用 rowKey 指定一个作为主键的属性名**                                    | RecordType[] | [] |
 | defaultExpandAllRows | 默认是否展开所有行，动态加载数据时不生效                                                | boolean | false |
 | defaultExpandAllGroupRows | 默认是否展开分组行，动态加载数据时不生效                                                | boolean | false | **1.30.0** |
 | defaultExpandedRowKeys | 默认展开的行 key 数组，，动态加载数据时不生效                                           | Array<\*> | [] |
@@ -5282,7 +5288,7 @@ render(App);
 | expandCellFixed | 展开图标所在列是否固定，与 Column 中的 fixed 取值相同                                  | boolean\|string | false |
 | expandIcon | 自定义展开按钮，传 `false` 关闭默认的渲染                                           | boolean \| ReactNode<br/> \| (expanded: boolean) => ReactNode |  |
 | expandedRowKeys | 展开的行，传入此参数时行展开功能将受控                                                 | (string \| number)[] |  |
-| expandedRowRender | 额外的展开行                                                              | (record: object, index: number, expanded: boolean) => ReactNode |  |
+| expandedRowRender | 额外的展开行。**请为每一条数据分配一个独立的 key，或使用 rowKey 指定一个作为主键的属性名**                                                               | (record: object, index: number, expanded: boolean) => ReactNode |  |
 | expandAllRows | 是否展开所有行                                                             | boolean | false | **1.30.0** |
 | expandAllGroupRows | 是否展开分组行                                                             | boolean | false | **1.30.0** |
 | expandRowByClick | 点击行时是否展开可展开行                                                        | boolean | false | **1.31.0** |
@@ -5431,7 +5437,7 @@ import { Table } from '@douyinfe/semi-ui';
 | className | 列样式名 | string |  |
 | children | 表头合并时用于子列的设置 | Column[] |  |
 | colSpan | 表头列合并,设置为 0 时，不渲染 | number |  |
-| dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传 | string |  |
+| dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传，且需要保持不重复 | string |  |
 | defaultFilteredValue | 筛选的默认值，值为已筛选的 value 数组 | any[] |  | **2.5.0** |
 | defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
 | ellipsis | 文本缩略，开启后 table-layout 会自动切换为 fixed | boolean\| { showTitle: boolean } | false | **2.34.0** |
@@ -5442,7 +5448,7 @@ import { Table } from '@douyinfe/semi-ui';
 | filterIcon | 自定义 filter 图标 | boolean\|ReactNode\|(filtered: boolean) => ReactNode |  |
 | filterMultiple | 是否多选 | boolean | true |
 | filteredValue | 筛选的受控属性，外界可用此控制列的筛选状态，值为已筛选的 value 数组 | any[] |  |
-| filters | 表头的筛选菜单项 | Filter[] |  |
+| filters | 表头的筛选菜单项。 | Filter[] |  |
 | fixed | 列是否固定，可选 true(等效于 left) 'left' 'right'，在 RTL 时会自动切换 | boolean\|string | false |
 | key | React 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性 | string |  |
 | render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并 | (text: any, record: RecordType, index: number, { expandIcon?: ReactNode, selection?: ReactNode, indentText?: ReactNode }) => object\|ReactNode |  |
@@ -5451,13 +5457,13 @@ import { Table } from '@douyinfe/semi-ui';
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
-| sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
+| sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true。**必须给排序列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon | 自定义 sort 图标，返回的节点控制了整个排序按钮，包含升序和降序。需根据 sortOrder 控制高亮行为 | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
 | useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | 本地模式下，确定筛选的运行函数 | (filteredValue: any, record: RecordType) => boolean |  |
+| onFilter | 本地模式下，确定筛选的运行函数。**必须给筛选列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | 自定义筛选菜单可见变化时回调 | (visible: boolean) => void |  |
 | onHeaderCell | 设置头部单元格属性 | (column: RecordType, columnIndex: number) => object |  |
 
@@ -5601,6 +5607,39 @@ function Demo() {
 <DesignToken/>
 
 ## FAQ
+
+- **点击第二页的行选择按钮，会跳转到第一页？**
+
+    Table 的 dataSource 更新后，会将页码重置到初始态。请检查数据源是否在组件渲染时发生了变化。
+
+    ```typescript
+    function App() {
+        const [dataSource, setDataSource] = useState([]);
+
+        useEffect(() => {
+            // ✅ 正确
+            const getData = () => {
+                // fetch data
+                const newData = fetch(/**/);
+                // set data
+                setDataSource(dataSource);
+            };
+
+            getData();
+        }, []);
+
+        // ❌ 错误
+        const data = [];
+
+        return <Table dataSource={data} columns={[/*...*/]} />;
+    }
+    ```
+
+-   **筛选后的数据条数不对？**
+
+    请检查你的筛选列和数据源是否配置正确。
+
+    筛选列需设置独立的 dataIndex，同时 dataSource 需要设置独立的 key，请参考 dataSource API。否则筛选功能无法正常工作。
 
 -   **表格数据为何没有更新？**  
 

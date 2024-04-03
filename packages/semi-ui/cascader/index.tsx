@@ -453,7 +453,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 formatItem.length > 0 && (formatValuePath.push(formatItem));
             });
             // formatKeys is used to save key of value
-            const formatKeys = formatValuePath.map(v => getKeyByValuePath(v));
+            const formatKeys = formatValuePath.reduce((acc, cur) => { 
+                const key = getKeyByValuePath(cur);
+                keyEntities[key] && acc.push(key);
+                return acc;
+            }, []) as string[];
             return formatKeys;
         };
         const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
@@ -541,11 +545,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     renderTagItem = (nodeKey: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
-        const isDsiabled =
-            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
+
         if (keyEntities[nodeKey]) {
+            const isDisabled =
+            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
             const tagCls = cls(`${prefixcls}-selection-tag`, {
-                [`${prefixcls}-selection-tag-disabled`]: isDsiabled,
+                [`${prefixcls}-selection-tag-disabled`]: isDisabled,
             });
             // custom render tags
             if (isFunction(displayRender)) {

@@ -1399,4 +1399,18 @@ describe('Cascader', () => {
         expect(placeholder.getDOMNode().textContent).toEqual('autoMergeValue 为 false');
         cascader.unmount();
     })
+
+    it('value not in TreeData', () => {
+        const cascader = render({
+            multiple: true,
+            value: [ "value", "notIn",  "treeData"],
+            placeholder: "value not in treeData, show placeholder",
+            autoMergeValue: false,
+            filterTreeNode: true,
+        });
+
+        const placeholder = cascader.find(`.${BASE_CLASS_PREFIX}-input`)
+        expect(placeholder.getDOMNode().placeholder).toEqual('value not in treeData, show placeholder');
+        cascader.unmount();
+    })
 });

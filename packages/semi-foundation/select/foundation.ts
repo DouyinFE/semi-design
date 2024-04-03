@@ -298,7 +298,18 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
                     const indexInSelectedList = selectedOptionList.findIndex(option => option.value === selectedValue);
                     if (indexInSelectedList !== -1) {
                         const option = selectedOptionList[indexInSelectedList];
-                        selections.set(option.label, option);
+                        if (onChangeWithObject) {
+                            // Although the value is the same and can be found in selections, it cannot ensure that other items remain unchanged. A comparison is made.
+                            // https://github.com/DouyinFE/semi-design/pull/2139
+                            const optionCompare = { ...(propValue[i] as any) };
+                            if (isEqual(optionCompare, option)) {
+                                selections.set(option.label, option);
+                            } else {
+                                selections.set(optionCompare.label, optionCompare);
+                            }
+                        } else {
+                            selections.set(option.label, option);
+                        }
                     } else {
                         // The current value does not exist in the current optionList or the list before the change. Construct an option and update it to the selection
                         let optionNotExist = { value: selectedValue, label: selectedValue, _notExist: true };
