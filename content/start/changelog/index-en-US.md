@@ -16,6 +16,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.56.0-beta.0 (2024-04-03)
+- 【Feat】
+    - WebComponent Support：clickOutSide add support for Shadow DOM scenarios，involving components: AutoComplete、Calendar、Cascader、DatePicker、Select、TagInput、TimePicker、Tooltip、TreeSelect  [#1381](https://github.com/DouyinFE/semi-design/issues/1381) [@changlin2569](https://github.com/changlin2569) [#2084](https://github.com/DouyinFE/semi-design/pull/2084)
+    - WebComponent Support：Inject the css variable into the shadow dom through the :host, :host-context pseudo-class selectors to ensure that the Semi component style under the shadow dom is correct. [#2142](https://github.com/DouyinFE/semi-design/issues/2142) [#2122](https://github.com/DouyinFE/semi-design/pull/2122)
+    - Backtop click to increase throttle to prevent repeated triggering within duration. [@OnlyWick](https://github.com/OnlyWick)
+- 【Fix】
+    - Fixed Typography single-line css omission accuracy issue  [#1731](https://github.com/DouyinFE/semi-design/issues/1731) 
+    - Fixed the issue where the label of the last row is vertically spaced differently from other rows after selecting multiple rows when Select is multi-selected and filter is turned on. [#1667](https://github.com/DouyinFE/semi-design/issues/1667)
+- 【Style】
+    - Fixed the style issue where the height of Form.RadioGroup is inconsistent with that of the normal RadioGroup when type=button/card  [@nekocode](https://github.com/nekocode) [#1954](https://github.com/DouyinFE/semi-design/issues/1954) [#2149](https://github.com/DouyinFE/semi-design/pull/2149)
+    - Fixed the style issue where the style of RadioGroup is incorrect after being selected if the parent has overflow:hidden [@nekocode](https://github.com/nekocode) [#2126](https://github.com/DouyinFE/semi-design/issues/2126) [#2149](https://github.com/DouyinFE/semi-design/pull/2149)
+- 【Design token】
+    - Select add `$height-select_multiple_input_small`、`$height-select_multiple_input_default`、`$height-select_multiple_input_large`  used to specify the height of the input when searching is enabled [#2151](https://github.com/DouyinFE/semi-design/pull/2151)
+
+
 #### 🎉 2.55.5 (2024-04-02)
 - 【Fix】
   - Fixed a type error caused by value not being in treeData when checkRelation in the Tree component is unRelated.
