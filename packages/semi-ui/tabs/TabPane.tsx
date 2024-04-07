@@ -57,7 +57,7 @@ class TabPane extends PureComponent<TabPaneProps> {
 
     render(): ReactNode {
         const { tabPaneMotion: motion, tabPosition, prevActiveKey } = this.context;
-        const { className, style, children, itemKey, tabIndex, ...restProps } = this.props;
+        const { className, style, children, itemKey, tabIndex, contentClassName, ...restProps } = this.props;
         const active = this.context.activeKey === itemKey;
         const classNames = cls(className, {
             [cssClasses.TABS_PANE_INACTIVE]: !active,
@@ -103,10 +103,10 @@ class TabPane extends PureComponent<TabPaneProps> {
                     {
                         ({ animationClassName, animationEventsNeedBind }) => {
                             return <div
-                                className={cls(cssClasses.TABS_PANE_MOTION_OVERLAY, animationClassName)}
+                                className={cls(cssClasses.TABS_PANE_MOTION_OVERLAY, animationClassName, contentClassName)}
                                 x-semi-prop="children"
                                 {...animationEventsNeedBind}
-                            > 
+                            >
                                 {shouldRender ? children : null}
                             </div>;
                         }
