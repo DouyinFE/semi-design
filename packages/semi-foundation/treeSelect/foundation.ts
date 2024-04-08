@@ -139,7 +139,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     getPopupContainer?: () => HTMLElement;
     // triggerRender?: (props: BasicTriggerRenderProps) => any;
     onBlur?: (e: any) => void;
-    onSearch?: (sunInput: string, filteredExpandedKeys: string[]) => void;
+    onSearch?: (sunInput: string, filteredExpandedKeys: string[], filteredNodes: BasicTreeNodeData[]) => void;
     onChange?: BasicOnChange;
     onFocus?: (e: any) => void;
     onVisibleChange?: (isVisible: boolean) => void;
@@ -183,7 +183,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     rePositionDropdown: () => void;
     updateState: (states: Partial<BasicTreeSelectInnerData>) => void;
     notifySelect: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
-    notifySearch: (input: string, filteredExpandedKeys: string[]) => void;
+    notifySearch: (input: string, filteredExpandedKeys: string[], filteredNodes: BasicTreeNodeData[]) => void;
     cacheFlattenNodes: (bool: boolean) => void;
     openMenu: () => void;
     closeMenu: (cb?: () => void) => void;
@@ -613,6 +613,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, keyMaps } = this.getProps();
         const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const newExpandedKeys: Set<string> = new Set(expandedKeys);
+        let filteredNodes: BasicTreeNodeData[] = [];
         let filteredOptsKeys: string[] = [];
         let expandedOptsKeys = [];
         let newFlattenNodes = [];
@@ -622,19 +623,20 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             expandedOptsKeys.forEach(item => newExpandedKeys.add(item));
             newFlattenNodes = flattenTreeData(treeData, newExpandedKeys, keyMaps);
         } else {
-            filteredOptsKeys = Object.values(keyEntities)
+            const filteredOpts = Object.values(keyEntities)
                 .filter((item: BasicKeyEntity) => {
                     const { data } = item;
                     return filter(sugInput, data, filterTreeNode, realFilterProp);
-                })
-                .map((item: BasicKeyEntity) => item.key);
+                });
+            filteredNodes = filteredOpts.map((item: BasicKeyEntity) => item.data);
+            filteredOptsKeys = filteredOpts.map((item: BasicKeyEntity) => item.key);
             expandedOptsKeys = findAncestorKeys(filteredOptsKeys, keyEntities, false);
             const shownChildKeys = findDescendantKeys(filteredOptsKeys, keyEntities, true);
             filteredShownKeys = new Set([...shownChildKeys, ...expandedOptsKeys]);
             newFlattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), keyMaps, showFilteredOnly && filteredShownKeys);
         }
         const newFilteredExpandedKeys = new Set(expandedOptsKeys);
-        this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys));
+        this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys), filteredNodes);
         this._adapter.updateState({
             expandedKeys: newExpandedKeys,
             flattenNodes: newFlattenNodes,

@@ -878,7 +878,9 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### 开启搜索的展开受控
-传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.6.0） 来实现展开受控时的搜索展开效果。
+传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。
+你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.6.0） 来实现展开受控时的搜索展开效果。
+如果你想获得搜索后的节点列表并做些什么，可以利用 `onSearch` 的入参 `filteredNodes` (version: >= x.x.x)。
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
@@ -932,8 +934,9 @@ import { TreeSelect } from '@douyinfe/semi-ui';
             onExpand={expandedKeys => {
                 setExpandedKeys(expandedKeys);
             }}
-            onSearch={(inputValue, filteredExpandedKeys) => {
+            onSearch={(inputValue, filteredExpandedKeys, filteredNodes) => {
                 setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
+                console.log({ filteredNodes });
             }}
         />
     );
@@ -1452,7 +1455,7 @@ function Demo() {
 | onExpand | 展示节点时调用                                                                                                                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType> | - | - |
 | onFocus | 聚焦时的回调                                                                                                                                     | function(event) | - | - |
 | onLoad | 节点加载完毕时触发的回调                                                                                                                               | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> |- |  1.32.0|
-| onSearch | 文本框值变化时回调。 入参 filteredExpandedKeys 表示因为搜索或 value / defaultValue 而展开的节点的 key, <br/>可以配合 expandedKeys 受控时使用。filteredExpandedKeys 在 2.6.0 中新增 |  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[])'>(sugInput, filteredExpandedKeys)=>void</ApiType>  |  |  |
+| onSearch | 文本框值变化时回调。 <br/>入参 filteredExpandedKeys 表示因为搜索或 value / defaultValue 而展开的节点的 key, 可以配合 expandedKeys 受控时使用。filteredExpandedKeys 在 2.6.0 中新增；<br/>入参 filteredNodes 表示搜索后展示的节点列表。filteredNodes 在 x.x.x 中新增|  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])'>(sugInput, filteredExpandedKeys, filteredNodes)=>void</ApiType>  |  |  |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值                                                                                                                     | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType> | - | - |
 | onVisibleChange     | 弹出层展示/隐藏时触发的回调                                                                                                                             | function(isVisible:boolean) |     |   1.4.0  |
 
