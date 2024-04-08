@@ -31,7 +31,9 @@ const PageAnchor = props => {
             }
             if (Array.isArray(anchorItem.items) && anchorItem.items.length > 0) {
                 if (['Voice and Tone', '语法', 'Grammar and Mechanics',
-                    'Installing and Using VChart', '安装和使用 VChart'].includes(anchorItem.title)) {
+                    'Installing and Using VChart', '安装和使用',
+                    '常用图表类型示例',
+                ].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}
@@ -39,7 +41,7 @@ const PageAnchor = props => {
                     > 
                         {makeAnchor(anchorItem.items)}
                     </Anchor.Link>);
-                } else if (['与其他方案的差异', 'Comparisons', '配置 VChart 主题', 'Configuring VChart Theme'].includes(anchorItem.title)) {
+                } else if (['与其他方案的差异', 'Comparisons', '配置图表主题', 'Configuring VChart Theme'].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}
