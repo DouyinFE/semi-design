@@ -918,9 +918,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### Controlled Expansion with Search
-When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`.
-You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled.
-If you want to acquire a list of nodes after the search and do something, you can use the parameter `filteredNodes` (version: >= x.x.x) of `onSearch`.
+When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`. You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled. If you want to acquire a list of nodes after the search and do something, you can use the parameter `filteredNodes` (version: >= x.x.x) of `onSearch`.
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
@@ -1427,7 +1425,7 @@ function Demo() {
 | expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false | 1.30.0 |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | 0.32.0 |
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
-| filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\|(inputValue: string, treeNodeString: TreeNodeString, data?: TreeNodeData) => boolean | false       | -       |
+| filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false       | -       |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |
 | insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
 | labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  
@@ -1474,8 +1472,8 @@ function Demo() {
 | onClear     | Callback triggered when clear button is clicked   | (e: Event) => void |  -  |   2.52.0  |
 | onExpand                 | Callback function when expand or collapse a node                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType>             | -           | -       |
 | onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - | 1.32.0|
-| onSearch                 | Callback function when search value changes. `filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**. <br/>`filteredNodes` represents the list of nodes displayed after the search. **filteredNodes is supported in x.x.x**      | <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])'>(sugInput, filteredExpandedKeys, filteredNodes)=>void</ApiType>                                      | -           |     |
-| onSelect                 | Callback function when selected, return the key property of data                    | function(selectedKey:string, selected: bool, selectedNode: TreeNodeData)                      | -           | -       |
+| onSearch                 | Callback function when search value changes. <br/><br/>`filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**. <br/><br/>`filteredNodes` represents the list of nodes displayed after the search. **filteredNodes is supported in x.x.x**       | function(input: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])                                        | -           |     |
+| onSelect                 | Callback function when selected, return the key property of data                    | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType>                      | -           | -       |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 
 ### TreeNodeData
