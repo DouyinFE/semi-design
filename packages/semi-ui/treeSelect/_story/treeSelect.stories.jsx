@@ -1,10 +1,6 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
-<<<<<<< HEAD
 import ReactDOM from 'react-dom';
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Tree } from '../../index';
-=======
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Space } from '../../index';
->>>>>>> 188a64d9 (feat: TreeSelect's onSearch method add filteredNodes which represents the list of nodes displayed after the search)
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch } from '../../index';
 import TreeSelect from '../index';
 import { flattenDeep, without } from 'lodash';
 import CustomTrigger from './CustomTrigger';
@@ -2711,143 +2707,51 @@ export const WebCompTestOutside = () => {
   );
 };
 
-export const SelectAll = () => {
+export const CustomSelectAll = () => {
   const [value, setValue] = useState([]);
   const [filteredNodes, setFilteredNodes] = useState([])
   const treeData = treeDataEn;
   const onSearch = useCallback((inputValue, filteredExpandedKeys, _filteredNodes) => {
     setFilteredNodes(_filteredNodes)
   }, []);
+
   const handleOnChange = useCallback((value) => {
     setValue(value);
   }, [])
 
-  // 打平treeData
-  const flattedTreeNodes = useMemo(() => {
-    const nodes = [];
-    if (!treeData?.length) {
-        return;
-    }
-    const stack = [...treeData];
-    let level = 0;
-    while (stack.length) {
-        const length = stack.length;
-        for (let i = 0; i < length; i++) {
-            const node = stack.shift();
-            const children = node.children;
-            nodes.push({ ...node, level });
-            if (children?.length) {
-              stack.push(...children.map(c => ({...c, parent: node})));
-            }
-        }
-        level++;
-    }
-    return nodes;
-  }, [treeData])
-
-  // // 是否全选
+  // 是否全选
   const allSelected = useMemo(() => {
     if (!filteredNodes.length) {
       return false;
     }
-    const optionValues = flattedTreeNodes
-      .filter(i => filteredNodes.find(node => node.value === i.value))
-      .map(i => i.value);
+    const optionValues = filteredNodes.map(i => i.value);
     return !without(optionValues, ...value).length;
-  }, [flattedTreeNodes, filteredNodes, value]);
-
-  // const invertSelectDisabled = !value.length;
+  }, [filteredNodes, value]);
 
   const handleOnAllSelect = useCallback(() => {
-    const optionValues = flattedTreeNodes
-      .filter(i => filteredNodes.find(node => node.value === i.value))
-      .map(i => i.value);
+    const optionValues = filteredNodes.map(i => i.value);
     handleOnChange(allSelected ? [] : optionValues);
-  }, [allSelected, handleOnChange, flattedTreeNodes, filteredNodes]);
-  // const handleOnInvertSelect = useCallback(() => {
-  //   const optionValues = flattedTreeNodes
-  //     .filter(i => i.level === 0)
-  //     .map(i => i.value);
-  //   const notSelectedValues = optionValues.filter(
-  //       v => !value.includes(v),
-  //   );
-  //   handleOnChange(notSelectedValues);
-  // }, [handleOnChange, flattedTreeNodes, value]);
+  }, [allSelected, handleOnChange, filteredNodes]);
+ 
   const outerBottomSlot = useMemo(() => {
     if (!filteredNodes.length) {
       // 未筛选状态下不展示按钮
       return null;
     }
     return (
-        <Space
-            spacing={0}
-            vertical={true}
-            align="start"
-            style={{ width: '100%' }}>
-            <Space style={{
-              boxSizing: 'border-box',
-              width: '100%',
-              borderTop: '1px solid var(--semi-color-border)',
-              padding: '8px 12px 4px'
-            }}>
-                <Typography.Text
-                    link={true}
-                    onClick={handleOnAllSelect}>
-                    {allSelected ? '取消全选' : '全选'}
-                </Typography.Text>
-                {/* <Typography.Text
-                    link={!invertSelectDisabled}
-                    strong={true}
-                    type={
-                        invertSelectDisabled
-                            ? 'tertiary'
-                            : 'primary'
-                    }
-                    disabled={invertSelectDisabled}
-                    onClick={
-                        invertSelectDisabled
-                            ? undefined
-                            : handleOnInvertSelect
-                    }>
-                    反选
-                </Typography.Text> */}
-            </Space>
-        </Space>
+        <div style={{ padding: '5px 20px', borderTop: '1px solid var(--semi-color-border)'}}>
+          <Typography.Text link={true} onClick={handleOnAllSelect}>
+            {allSelected ? '取消全选' : '全选'}
+          </Typography.Text>
+        </div> 
     );
-  }, [
-      allSelected,
-      handleOnAllSelect,
-      filteredNodes,
-      // invertSelectDisabled,
-      // handleOnInvertSelect,
-  ]);
-
-  const renderTrigger = useCallback((props) => {
-    const { value, onSearch, onRemove, inputValue } = props;
-    const tagInputValue = value.map(item => item.key);
-    const renderTagInMultiple = (key) => {
-        const label = value.find(item => item.key === key).label;
-        const onCloseTag = (value, e, tagKey) => {
-            onRemove(tagKey);
-        };
-        return <Tag color='white' style={{ marginLeft: 2 }} tagKey={key} key={key} onClose={onCloseTag} closable>{label}</Tag>;
-    };
-    return (
-        <TagInput
-          showClear
-          inputValue={inputValue}
-          value={tagInputValue}
-          onChange={setValue}
-          onInputChange={onSearch}
-          renderTagItem={renderTagInMultiple}
-        />
-    );
-}, []);
+  }, [allSelected, handleOnAllSelect, filteredNodes]);
 
   return (
     <>
+      <span>本用例借助 onSearch 的第三个参数_filteredNodes 自定义搜索全选功能 </span>
+      <br />
       <TreeSelect
-          triggerRender={renderTrigger}
           multiple
           style={{ width: 300 }}
           dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -2855,7 +2759,6 @@ export const SelectAll = () => {
           filterTreeNode
           searchPosition='trigger'
           showFilteredOnly
-          // expandedKeys={expandedKeys}
           onSearch={onSearch}
           onChange={handleOnChange}
           value={value}

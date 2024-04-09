@@ -274,6 +274,8 @@ Use `filterTreeNode` to support search input. By default it searches the `label`
 
 You could also use `showFilteredOnly` if you prefer to display filtered results only.
 
+If you want to get specific information about the search results, you can use the `onSearch` callback function. See the API list for the specific parameters of the function.
+
 ```jsx live=true
 import React from 'react';
 import { TreeSelect, Switch } from '@douyinfe/semi-ui';
@@ -285,9 +287,13 @@ class Demo extends React.Component {
             showFilteredOnly: false,
         };
         this.onChange = this.onChange.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
     onChange(showFilteredOnly) {
         this.setState({ showFilteredOnly });
+    }
+    onSearch(inputValue, filteredExpandedKeys, filteredNodes) {
+        console.log('onSearch', inputValue, filteredExpandedKeys, filteredNodes);
     }
     render() {
         const treeData = [
@@ -364,6 +370,7 @@ class Demo extends React.Component {
                     showFilteredOnly={showFilteredOnly}
                     placeholder="Single Searchable TreeSelect"
                     searchPlaceholder="Start searching"
+                    onSearch={this.onSearch}
                 />
                 <br/>
                 <br/>
@@ -377,6 +384,7 @@ class Demo extends React.Component {
                     showFilteredOnly={showFilteredOnly}
                     placeholder="Multiple Searchable TreeSelect"
                     searchPlaceholder="Start searching"
+                    onSearch={this.onSearch}
                 />
                 <br/>
                 <br/>
@@ -391,6 +399,7 @@ class Demo extends React.Component {
                     placeholder="search input autofocus"
                     searchPlaceholder="autofocus"
                     searchAutoFocus
+                    onSearch={this.onSearch}
                 />
             </>
         );
@@ -918,7 +927,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### Controlled Expansion with Search
-When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`. You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled. If you want to acquire a list of nodes after the search and do something, you can use the parameter `filteredNodes` (version: >= x.x.x) of `onSearch`.
+When `expandedKeys` is passed in, it is a controlled expansion component, which can be used with `onExpand`. When the expansion is controlled, if the `filterTreeNode` is turned on and the search is performed, the node will no longer be automatically expanded. At this time, the expansion of the node is completely controlled by the `expandedKeys`. You can use the parameter `filteredExpandedKeys` (version: >= 2.6.0) of `onSearch` to realize the search expansion effect when the expansion is controlled.
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
@@ -967,7 +976,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
             onExpand={expandedKeys => setExpandedKeys(expandedKeys)}
             onSearch={(inputValue, filteredExpandedKeys, filteredNodes) => {
                 setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
-                console.log({ filteredNodes });
             }}
         />
     );
@@ -1472,7 +1480,7 @@ function Demo() {
 | onClear     | Callback triggered when clear button is clicked   | (e: Event) => void |  -  |   2.52.0  |
 | onExpand                 | Callback function when expand or collapse a node                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType>             | -           | -       |
 | onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - | 1.32.0|
-| onSearch                 | Callback function when search value changes. <br/><br/>`filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**. <br/><br/>`filteredNodes` represents the list of nodes displayed after the search. **filteredNodes is supported in x.x.x**       | function(input: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])                                        | -           |     |
+| onSearch                 | Callback function when search value changes. <br/>`filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**. <br/>`filteredNodes` represents the nodes hit by the search. **filteredNodes is supported in 2.57.0**       | function(input: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])                                        | -           |     |
 | onSelect                 | Callback function when selected, return the key property of data                    | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType>                      | -           | -       |
 | onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
 
