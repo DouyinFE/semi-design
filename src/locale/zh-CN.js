@@ -96,7 +96,7 @@ const appLocale = {
         "feature_title": "先进的开发者体验",
         "feature_subtitle": "开箱即用的底层能力支持，为开发者节省精力，避免重造",
         "feature_FA": "易于贡献的 FA 架构",
-        "feature_FA_description": "Semi 基于 FA 架构设计，主逻辑抽象为 Foundation 包，源码清晰已读，易于迁移到其他框架",
+        "feature_FA_description": "Semi 基于 FA 架构设计，主逻辑抽象为 Foundation 包，源码清晰易读，易于迁移到其他框架",
         "feature_a11y": "A11y 无障碍友好",
         "feature_a11y_description": "Semi 遵循 W3C 标准为所有组件提供键盘交互、焦点管理和语义化支持",
         "feature_language": "国际化与多语言",
