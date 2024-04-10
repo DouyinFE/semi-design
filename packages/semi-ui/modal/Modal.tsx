@@ -338,6 +338,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            modalContentClass,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -399,6 +400,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         ref={this.modalRef}
                                         footer={renderFooter}
                                         onClose={this.handleCancel}
+                                        modalContentClass={modalContentClass}
 
                                     /></Portal> : <></>;
                                 }

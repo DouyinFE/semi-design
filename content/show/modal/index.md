@@ -669,6 +669,7 @@ function Demo(props = {}) {
 | cancelText | 取消按钮的文字 | string | 无 |
 | centered | 是否居中显示 | boolean | false |
 | className | 可用于设置样式类名 | string | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | closable | 是否显示右上角的关闭按钮 | boolean | true |
 | confirmLoading | 确认按钮 loading | boolean | false |
 | content | 对话框内容 | ReactNode | 无 |
