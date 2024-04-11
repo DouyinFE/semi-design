@@ -54,7 +54,6 @@ import './toUEDUtils/toUED.scss';
 import { debounce } from 'lodash';
 import StickyHeaderTable from '../demos/StickyHeaderTable';
 import { useIsIde } from '../components/useIde';
-import Charts from '../components/VChartDemo';
 
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
@@ -153,10 +152,6 @@ const code = ({ ...props }) => {
 
     if (props.className === 'language-overview') {
         return <ComponentOverview code={props.children} />;
-    }
-
-    if (props.className === 'language-chart') {
-        return <Charts code={props.children} zh={props.zh} />;
     }
 
     const scope = {
