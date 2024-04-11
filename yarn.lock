@@ -5840,7 +5840,7 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@visactor/react-vchart@^1.10.2":
+"@visactor/react-vchart@^1.10.4":
   version "1.10.4"
   resolved "https://registry.yarnpkg.com/@visactor/react-vchart/-/react-vchart-1.10.4.tgz#ffa77f639269f872443034c27e289557e0693b00"
   integrity sha512-krmEyY+GXBAbrJ6HGOyhEtnz+R7K9szcfJHVGygs9fOPb779ym/1H1oeuzpC5rOUB5RgRK/fmCVDRlW7U7tgkA==
@@ -5852,17 +5852,17 @@
     "@visactor/vutils" "~0.18.1"
     react-is "^18.2.0"
 
-"@visactor/vchart-semi-theme@^1.10.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@visactor/vchart-semi-theme/-/vchart-semi-theme-1.10.2.tgz#a677374642bb8cef5111390c7eed4dd25bed4a7a"
-  integrity sha512-HhoEYmQVtHh1bnGZxDdbUZwh0Rm+6zut1QKukHXXgrDBDF+pInozAnzR8KFjA92r8OG/pSwBBBbnmvNxmYCyLw==
+"@visactor/vchart-semi-theme@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart-semi-theme/-/vchart-semi-theme-1.10.4.tgz#bb30f6e12dc8eaf0cec98dfdd8421a43140a1694"
+  integrity sha512-weNpB2o1JPwVfyNdj/V5EuGDwn/KF+8JNOO2sPzCBKXN0JzIlAfiRQ+HcEim+vcXyowGoPff29gQCGNLJ3LwOA==
   dependencies:
-    "@visactor/vchart-theme-utils" "1.10.2"
+    "@visactor/vchart-theme-utils" "1.10.4"
 
-"@visactor/vchart-theme-utils@1.10.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@visactor/vchart-theme-utils/-/vchart-theme-utils-1.10.2.tgz#bb209314054a2502e5d019c7c81557d769217cb6"
-  integrity sha512-Tit5qWAiKnIcajh5LB7Z9A77WZfoAw4ZdJICoYu+RfAX63fK4JV59PYqjoLOyZLZ9HrNujw1qGjmD8z+AmnpuQ==
+"@visactor/vchart-theme-utils@1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart-theme-utils/-/vchart-theme-utils-1.10.4.tgz#130de9a04503b3b2b5d3b79f2478ac9499a8eef7"
+  integrity sha512-fiXwbIH3Bc2ieCkqHKHJvYayvlJjm/inGP2OayVLhbv4bDt3Smj6QWiLGQVPaFgBCMGdaauMbJpSwBLEDimkdw==
 
 "@visactor/vchart@1.10.4":
   version "1.10.4"

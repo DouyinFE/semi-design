@@ -8,9 +8,11 @@ dir: column
 brief: 开箱即用的多端图表库。
 ---
 
-对于数据可视化场景，我们推荐使用 [VChart](https://visactor.io/vchart)。VChart 是字节跳动开源可视化解决方案 [VisActor](https://visactor.io) 的核心图表组件库，支持多种图表，简单易用，功能强大。<br />
-基于 VChart，我们定制了一套符合 Semi 风格的图表库，延续 Semi 品牌感；直接和 Semi design token 挂钩，可拓展性强；默认样式经过多方验证，可读性和精确性高。<br />
-为了帮助设计师进行图表选择，我们对常用的 11 种图表进行了深度解析，并归纳出图表选用方案，更多请看：[图表选用规范](https://bytedance.sg.larkoffice.com/docx/N10zdVn7AovY2kxFj8ulPiFYgUh)。
+对于数据可视化场景，我们推荐使用 [VChart](https://visactor.io/vchart)。VChart 是字节跳动开源可视化解决方案 [VisActor](https://visactor.io) 的核心图表组件库，支持多种图表，简单易用，功能强大。在基于 Semi 的项目中使用 VChart 图表库具有以下优势：
+
+- 🧩 开箱即用：简单配置及初始化即可使用
+- 🎨 风格统一：基于 VChart 定制了符合 Semi 风格的图表库样式，直接和 Semi Design Token 挂钩；默认样式经过多方验证，可读性和精确性高；支持用户自定义图表样式
+- 🌗 响应式：支持监听页面上的亮暗模式变化，自动对页面上的 VChart 图表进行热更新，同步换肤
 
 
 ## 安装和使用
@@ -27,7 +29,7 @@ npm i @visactor/react-vchart
 yarn add @visactor/react-vchart
 ```
 
-此外，还需安装 `@visactor/vchart-semi-theme` 来适配 Semi 默认主题或用户自定义主题。
+此外，还需安装 `@visactor/vchart-semi-theme` 来适配 Semi 默认主题或通过 Semi DSM 发布的自定义主题。
 
 ```bash
 # npm
@@ -39,7 +41,7 @@ yarn add @visactor/vchart-semi-theme
 
 ### 2、使用
 
-Semi 自 v2.47.0 版本增加了相应的 design token 用于实现 VChart 对 Semi 主题/用户自定义主题的适配。因此对于 v2.47.0及以上版本，只需要在全局执行一次 `initVChartSemiTheme` 方法进行初始化。该语句通常可以放在 React 项目的入口文件中。如：
+Semi 自 v2.47.0 版本增加相关的 Design Token 用于实现 VChart 对 Semi 主题或通过 Semi DSM 发布的自定义主题的适配。因此对于 v2.47.0 及以上版本，只需要在全局执行一次 `initVChartSemiTheme` 方法进行初始化。该语句通常可以放在 React 项目的入口文件中。如：
 
 ```javascript
 //index.jsx
@@ -65,15 +67,19 @@ interface IInitVChartSemiThemeOption {
 }
 ```
 
-对于 v2.47.0 以下版本的 Semi，可以借助 `@visactor/vchart-semi-theme` 中的内置主题包样式默认值进行使用
+对于 v2.47.0 以下版本的 Semi，虽然没有相应的 Design Token，但是可以借助 `@visactor/vchart-semi-theme` 中的内置主题包样式默认值。<strong>注意：此使用方式不支持明暗模式自动切换，用户可按需设置当前图表模式</strong>，代码示例如下：
 
 ```js
-import ttPlatformLight from '@visactor/vchart-tt-platform-theme/public/semiLight.json';
+import semiDesignLight from '@visactor/vchart-semi-theme/public/semiDesignLight.json';
+import semiDesignDark from '@visactor/vchart-semi-theme/public/semiDesignDark.json';
 import VChart from '@visactor/vchart';
 // register the theme
-VChart.ThemeManager.registerTheme('semiLight', semiLight);
-// apply the theme
-VChart.ThemeManager.setCurrentTheme('semiLight');
+VChart.ThemeManager.registerTheme('semiDesignLight', semiDesignLight);
+VChart.ThemeManager.registerTheme('semiDesignDark', semiDesignDark);
+// apply the light theme
+VChart.ThemeManager.setCurrentTheme('semiDesignLight');
+// apply the dark theme
+VChart.ThemeManager.setCurrentTheme('semiDesignDark');
 ```
 
 >主题包的更多信息见 [@visactor/vchart-semi-theme](https://www.npmjs.com/package/@visactor/vchart-semi-theme) <br />
@@ -570,12 +576,11 @@ const donutChart = {
   },
   legends: {
     visible: true,
+    orient: 'right'
   },
 }
 
 const donutWithIndicator = {
-  outerRadius: 0.8,
-  innerRadius: 0.5,
   title: {
     visible: true,
     text: 'Donut chart with indicator',
@@ -835,7 +840,6 @@ const groupSpec = {
   valueField: 'value',
   seriesField: 'type',
   stack: true,
-  outerRadius: 0.8,
   area: { visible: true },
   legends: { visible: true, orient: 'right'}
 }
@@ -1006,39 +1010,39 @@ function App() {
 render(App);
 ```
 
-## 配置图表主题
+## 设计规范
 
-VChart 支持对图表主题的整体配置和复用，详见 [VChart 主题概念和设计规范](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)。 主题配置中最主要的是色板的配置。VChart 支持的色板分为两大类，数据色板和语义色板。VChart 通过 `@visactor/vchart-semi-theme` 获取 Semi 主题/用户自定义主题中的 token，并映射到 VChart 主题的数据色板和语义色板中，从而实现和 Semi 默认主题/用户自定义主题的适配。基于 Semi 的项目如果想要配置 VCharts 主题，可以通过 [DSM](https://semi.design/dsm/) 设置数据色板和语义色板相应的 token。
+### 选用指南
 
-### 数据色板
+为了帮助设计师进行图表选择，我们对常用的 11 种图表进行了深度解析，并归纳出图表选用方案，见[图表选用规范](https://bytedance.sg.larkoffice.com/docx/N10zdVn7AovY2kxFj8ulPiFYgUh)。
 
-数据色板是在图表中用于区分数据组的离散色板，也通常用于区分图例项。如以下图表中不同数据组的色板，在颜色队列中按顺序取色：
 
-![demo](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/data-chart-example.png)
+### 颜色规范
 
-VChart 数据色板也可以是动态的、渐进式的。在一般情况下，色板会根据数据项数量的范围来动态调整。数据组不超过 10 个时，采用 10 色的色板；数据组超过 10 个时，采用 20 色的色板。如果数据组超过 20 个，则会从第 1 个色值开始重复应用色板颜色。
+`@visactor/vchart-semi-theme` 中定义了 20 个离散数据色板的色值。色值从已有的 Semi 色板中按照分裂互补配色和暗亮交替的原则进行排序。对于离散数据色板，Semi Design 侧已声明了 20 个 Token，如果需要自定义离散数据色板，用户可以在 [DSM](https://semi.design/dsm) 自定义主题时配置这些 Token。
 
 ![数据色板](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/data-chart.png)
 
-Semi Design 为 VChart 声明了数据色板对应的 20 个 token， 详见下表。用户可以在 DSM 自定义主题时配置这些 token，来自定义 VChart 的数据色板。
-
-<DesignToken componentName='global' reg={/--semi-color-data/} hasTab={false}/>
-
-<Notice title='Note'>
-    在 @visactor/vchart-semi-theme 1.10.2 版本前，其中的名称为 --semi-color-data-n(n 为 0, 2, 4, 6, 8, 10, 12, 14, 16, 18)的 token 值作为 10 色的色板。
-    在 @visactor/vchart-semi-theme 1.10.2 版本后，其中的名称为 --semi-color-data-n(n 从 0 到 9)的 token 作为 10 色的色板。
-</Notice>
-
-### 语义色板
-
-语义色板中主要定义了图表组件的公共样式，比如背景色、边框、滑块、弹层、字体、字色等。`@visactor/vchart-semi-theme` 也会自动在页面环境爬取当前 Semi 主题的类似场景的 token 值来自动生成 VChart 图表主题。在 DSM 配置主题的用户，<strong>通常无需额外考虑此部分的配置</strong>。
-
-更多信息可以参阅以下两篇文档：
+在 VChart 中，还有许多应用于图表组件的语义颜色，比如背景色、边框、滑块、弹层、字体、字色等。`@visactor/vchart-semi-theme` 会读取 body 上的 Semi CSS Variables 的 Token 值来自动生成 VChart 图表主题，<strong>通常无需额外考虑此部分的规范</strong>。如果需要了解详细的语义颜色映射关系可以参阅以下两篇文档：
 
 - [VChart 主题概念和设计规范](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Concept_and_Design_Rules)
 - [VChart 扩展主题包](https://visactor.io/vchart/guide/tutorial_docs/Theme/Theme_Extension)
 
-联系 VChart：
+## Design Token
 
-```chartcontact
-```
+Semi Design 为 VChart 声明的 20 个 Token 详见下表。
+
+<DesignToken componentName='global' reg={/--semi-color-data/} />
+
+<Notice title='Note'>
+    在 @visactor/vchart-semi-theme 1.10.2 版本前，其中的名称为 --semi-color-data-n(n 为 0, 2, 4, 6, 8, 10, 12, 14, 16, 18)的 Token 值作为 10 色的色板。
+    在 @visactor/vchart-semi-theme 1.10.2 版本后，其中的名称为 --semi-color-data-n(n 从 0 到 9)的 Token 作为 10 色的色板。
+</Notice>
+
+
+
+使用问题咨询/建议，可加入 VChart 用户群进行反馈
+<ChartContact
+  name1="微信号"
+  name2="飞书用户群"
+></ChartContact>
