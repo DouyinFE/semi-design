@@ -100,6 +100,9 @@ VChart 支持多种不同的图表类型，包括<strong>组合图、折线图�
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
+import { initVChartSemiTheme } from '@visactor/vchart-semi-theme';
+
+initVChartSemiTheme();
 
 const commonSpec = {
   type: 'bar',
