@@ -1,9 +1,7 @@
 import { ro } from 'date-fns/locale';
+import { Locale } from '../interface';
 
-/**
- * [i18n-Romanian]
- */
-export default {
+const local: Locale = {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
@@ -169,3 +167,6 @@ export default {
         originTip: 'Afișaj implicit',
     },
 };
+
+// [i18n-Romanian] 罗马尼亚语
+export default local;
