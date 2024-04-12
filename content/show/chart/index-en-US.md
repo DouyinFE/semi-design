@@ -92,7 +92,7 @@ For drawing charts and more detailed instructions, please refer to [VChart tutor
 
 VChart is built on the visual grammar library VGrammar and the rendering engine VRender. It provides not only data presentation capabilities but also supports animated storytelling, rich interactivity, and customizable chart styles. The user-friendly configuration greatly reduces the learning curve.
 
-VChart supports various different chart types, allowing users to visualize abstract data through simple configuration, including combination chart, line chart, area chart, bar/column chart, pie/doughnut chart, scatter plot, heat map, histogram, box plot, waterfall chart, progress bar, funnel chart, time series chart, interval column chart, interval area chart, word cloud, dashboard, treemap, Sankey diagram, rose chart, radar chart, map, Circle Packing, sunburst diagram, etc. For detailed chart examples, please refer to [VChart Examples](https://visactor.io/vchart/example). Below are some showcases of VChart with Semi Design's default theme.
+VChart supports various different chart types, allowing users to visualize abstract data through simple configuration, including <strong>combination chart, line chart, area chart, bar/column chart, pie/doughnut chart, scatter plot, heat map, histogram, box plot, waterfall chart, progress bar, funnel chart, time series chart, interval column chart, interval area chart, word cloud, dashboard, treemap, Sankey diagram, rose chart, radar chart, map, circle packing, sunburst diagram</strong>, etc. For detailed chart examples, please refer to [VChart Examples](https://visactor.io/vchart/example). Below are some showcases of VChart with Semi Design's default theme.
 
 ### Bar chart
 
@@ -605,7 +605,7 @@ const donutWithIndicator = {
             const value = data['type'];
             return value ? value : null;
           }
-          return '总和';
+          return 'Sum';
         }
       }
     },

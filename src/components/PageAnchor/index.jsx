@@ -42,7 +42,7 @@ const PageAnchor = props => {
                     > 
                         {makeAnchor(anchorItem.items)}
                     </Anchor.Link>);
-                } else if (['与其他方案的差异', 'Comparisons', '配置图表主题', 'Configuring VChart Theme'].includes(anchorItem.title)) {
+                } else if (['与其他方案的差异', 'Comparisons'].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}
