@@ -105,6 +105,7 @@ const local: Locale = {
     },
     Tree: {
         emptyText: 'Nici un rezultat',
+        searchPlaceholder: 'Căutare',
     },
     Cascader: {
         emptyText: 'Nici un rezultat',
