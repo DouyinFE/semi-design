@@ -18,6 +18,7 @@ import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
 import SEO from 'components/seo';
 import DesignToken from 'components/DesignToken';
+import ChartContact from '../components/ChartContact';
 import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
 import { get, isString, capitalize, noop } from 'lodash-es';
@@ -53,7 +54,6 @@ import './toUEDUtils/toUED.scss';
 import { debounce } from 'lodash';
 import StickyHeaderTable from '../demos/StickyHeaderTable';
 import { useIsIde } from '../components/useIde';
-import Charts from '../components/VChartDemo';
 
 const Text = ({ lang, letterSpacing, size, lineHeight, text }) => {
     letterSpacing = letterSpacing || 'auto';
@@ -117,7 +117,8 @@ const SemiComponents = {
     Card,
     Space,
     Avatar,
-    IconPlus
+    IconPlus,
+    ChartContact
 };
 
 const pre = ({ ...props }) => {
@@ -151,17 +152,6 @@ const code = ({ ...props }) => {
 
     if (props.className === 'language-overview') {
         return <ComponentOverview code={props.children} />;
-    }
-
-    if (props.className === 'language-chart') {
-        return <Charts code={props.children} zh={props.zh} />;
-    }
-
-    if (props.className === 'language-chartcontact') {
-        return <>
-        <img src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/contact_wechat.jpeg'} style={{width:250, height:250}}/>
-        <img src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/contact_lark.jpeg'} style={{width:250, height:250}}/>
-     </>;
     }
 
     const scope = {
