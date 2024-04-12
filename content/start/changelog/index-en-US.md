@@ -22,8 +22,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fix the display exception and omission exception when the Typography component is omitted by js and children is a template string  [#2167 ](https://github.com/DouyinFE/semi-design/issues/2167)
     - Fixed Select filter height not as expected when empty.  (Affected version v2.56.0-beta.0)
     - fix Typography single-line css omission accuracy issue  [#1731 ](https://github.com/DouyinFE/semi-design/issues/1731)
-- 【Docs】
-    - Data visualization documentation updates
 
 #### 🎉 2.56.0-beta.0 (2024-04-03)
 - 【Feat】

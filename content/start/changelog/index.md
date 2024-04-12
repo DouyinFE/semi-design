@@ -19,8 +19,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复使用 js 省略的 Typography 组件，children 为 模版字符串时的显示异常及省略异常  [#2167 ](https://github.com/DouyinFE/semi-design/issues/2167) [#2169](https://github.com/DouyinFE/semi-design/pull/2169)
     - 修复 Select filter 在未选中任何项时，高度不正确的问题。(影响版本 v2.56.0-beta.0) [#2159](https://github.com/DouyinFE/semi-design/pull/2159)
     - 修复 Typography 单行 css 省略的精确性问题  [#1731 ](https://github.com/DouyinFE/semi-design/issues/1731) [#2089](https://github.com/DouyinFE/semi-design/pull/2089)
-- 【Docs】
-    - 数据可视化文档更新 [#2165](https://github.com/DouyinFE/semi-design/pull/2165)
 
 #### 🎉 2.56.0-beta.0 (2024-04-03)
 - 【Feat】
