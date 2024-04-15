@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.56.1 (2024-04-15)
+- 【Design Token】
+  - Button Add `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
+
+
+
 #### 🎉 2.56.0 (2024-04-12)
 - 【Fix】
     - fix the problem of inconsistency between Locale ro language type definition and other languages

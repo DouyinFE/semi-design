@@ -13,6 +13,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.56.1 (2024-04-15)
+- 【Design Token】
+  - Button 增加 `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
+
+
 #### 🎉 2.56.0 (2024-04-12)
 - 【Fix】
     - 修复 Locale ro 语言类型定义与其他语言不一致问题 [#2157](https://github.com/DouyinFE/semi-design/pull/2157)
@@ -31,7 +36,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Style】
     - 修复 Form.RadioGroup 在 type=button/card 时与普通 RadioGroup的高度不一致的样式问题  [@nekocode](https://github.com/nekocode) [#1954](https://github.com/DouyinFE/semi-design/issues/1954)
     - 修复 RadioGroup 在父级若有 overflow:hidden 的情况下选中后样式不对的问题 [@nekocode](https://github.com/nekocode) [#2126](https://github.com/DouyinFE/semi-design/issues/2126)
-- 【Design token】
+- 【Design Token】
     - Select 增加 `$height-select_multiple_input_small`、`$height-select_multiple_input_default`、`$height-select_multiple_input_large` 三个 token 可用于指定开启搜索时的 input 的高度 [#2151](https://github.com/DouyinFE/semi-design/pull/2151)
 
 
