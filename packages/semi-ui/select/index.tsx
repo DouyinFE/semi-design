@@ -435,6 +435,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             toggleInputShow: (showInput: boolean, cb: (...args: any) => void) => {
                 this.setState({ showInput }, () => {
+                    if (!showInput) {
+                        debugger;
+                    }
                     cb();
                 });
             },
