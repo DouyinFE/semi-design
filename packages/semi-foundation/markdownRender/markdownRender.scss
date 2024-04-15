@@ -1,0 +1,9 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-markdownRender;
+
+.#{$module} {
+    ul,li {
+        color:var(--semi-color-text-0)
+    }
+}
