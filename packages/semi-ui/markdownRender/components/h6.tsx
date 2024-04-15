@@ -1,7 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 import { PropsWithChildren } from 'react';
-import Typography from '../../typography';
+import Typography, { TitleProps } from '../../typography';
+import { omit } from 'lodash';
 
-export default (props:PropsWithChildren<{}>)=>{
-    return <Typography.Title heading={6} {...props}/>
-}
+export default (props: PropsWithChildren<TitleProps>)=>{
+    return <Typography.Title heading={6} {...omit(props, "children")}/>;
+};

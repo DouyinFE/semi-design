@@ -1,8 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 import { PropsWithChildren } from 'react';
-import { Typography } from '@douyinfe/semi-ui/index';
+import Typography, { TextProps } from "../../typography";
 
-export default (props:PropsWithChildren<{}>)=>{
-    console.log(props);
-    return <Typography.Text link={{...props}} {...props}/>
-}
+import { omit } from 'lodash';
+
+export default (props: PropsWithChildren<TextProps>)=>{
+    return <Typography.Text link={{ ...props }} {...omit(props, 'children')}/>;
+};

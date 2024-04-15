@@ -1,48 +1,35 @@
-import * as React from 'react'
+import * as React from 'react';
 import { PropsWithChildren } from 'react';
-import Typography from '@douyinfe/semi-ui/typography';
-import { get } from 'lodash-es';
+import { get } from 'lodash';
+import Table, { TableProps } from '../../table';
+import { omit } from 'lodash';
 
 
 
-export default (props:PropsWithChildren<{}>)=>{
+export default (props: PropsWithChildren<TableProps>)=>{
 
-    console.log(props);
-
-    const {children} = props;
+    const { children } = props;
     const toArray = value => Array.isArray(value) ? value : [value];
     const columnsFiber = toArray(get(children[0], 'props.children.props.children'));
     const dataFiber = toArray(get(children[1], 'props.children'));
-    const getColumnsFromFiber = columnsFiber => {
-        const columnsTitle = columnsFiber.map(column => get(column, 'props.children'));
-        const columns = columnsTitle.map((title, index) => ({ title, dataIndex: `col-${index}` }));
-        return columns;
-    }
-    const getDataFromFiber = dataFiber => {
-        const dataSource = dataFiber.map((rowFiber, rowIndex) => {
-            const row = toArray(get(rowFiber, 'props.children'));
-            const record = {};
-            row.forEach((colFiber, colIndex) => {
-                const colContent = get(colFiber, 'props.children');
-                record[`col-${colIndex}`] = colContent;
-            });
-            return { key: `row-${rowIndex}`, ...record };
-        })
-        return dataSource;
-    }
 
-    let data:any = {}
-
-
-
-    try {
-        const columns = getColumnsFromFiber(columnsFiber);
-        const dataSource = getDataFromFiber(dataFiber);
-        console.log(columns,dataSource);
-    } catch (error) {
-
+    const titles: string[] = columnsFiber.map(item=>item?.props?.children || "");
+    const tableDataSource: any[] = [];
+    for (let i=0;i<dataFiber.length;i++) {
+        let item: Record<string, string> = {
+            key: String(i)
+        };
+        dataFiber[i].props.children.forEach((child, index)=>{
+            item[titles[index]] = child?.props?.children ?? "";
+        });
+        tableDataSource.push(item);
     }
 
 
-    return <table>{props.children}</table>
-}
+    return <Table dataSource={tableDataSource} columns={titles.map(title=>{
+        return {
+            title,
+            dataIndex: title
+        };
+    })} {...omit(props, 'children')}/>;
+};

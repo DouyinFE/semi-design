@@ -1,8 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 import { PropsWithChildren } from 'react';
-import Image from '../../image';
-import {IconUploadError} from "@douyinfe/semi-icons"
+import Image, { ImageProps } from '../../image';
+import { IconUploadError } from "@douyinfe/semi-icons";
+import { omit } from 'lodash';
 
-export default (props:PropsWithChildren<{}>)=>{
-    return <Image  fallback={<IconUploadError />} {...props}/>
-}
+export default (props: PropsWithChildren<ImageProps>)=>{
+    return <Image fallback={<IconUploadError />} width={"50%"} {...omit(props, 'children')}/>;
+};

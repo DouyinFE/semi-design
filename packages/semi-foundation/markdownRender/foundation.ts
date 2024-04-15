@@ -1,10 +1,9 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { CompileOptions, evaluate, compile, EvaluateOptions, evaluateSync, RunOptions } from '@mdx-js/mdx';
-import { JSXElementConstructor } from 'react';
 import { MDXProps } from 'mdx/types';
 import remarkGfm from 'remark-gfm';
 export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getRuntime:()=>any
+    getRuntime: () => any
 
 }
 
@@ -12,57 +11,57 @@ export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<stri
 
 
 export interface MarkdownRenderBaseProps{
-    mdxRaw:string;
+    mdxRaw: string;
     components: MDXProps['components']
 }
 
 
 export interface MarkdownRenderBaseState{
-    MDXContentComponent: JSXElementConstructor<MDXProps>
+    MDXContentComponent: any
 }
 
-class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter>{
+class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
 
     private getOptions = ()=>{
         return {
-            evaluateOptions:{
-                remarkPlugins:[remarkGfm]
+            evaluateOptions: {
+                remarkPlugins: [remarkGfm]
             },
-            compileOptions:{
+            compileOptions: {
 
             },
-            runOptions:{
+            runOptions: {
             }
         } as {
-            evaluateOptions:EvaluateOptions,
-            compileOptions:CompileOptions,
-            runOptions:RunOptions
-        }
+            evaluateOptions: EvaluateOptions;
+            compileOptions: CompileOptions;
+            runOptions: RunOptions
+        };
     }
 
-    compile = async (mdxRaw:string)=>{
-        return await compile(mdxRaw,this.getOptions().compileOptions);
+    compile = async (mdxRaw: string)=>{
+        return await compile(mdxRaw, this.getOptions().compileOptions);
     }
 
-    evaluate = async (mdxRaw:string)=>{
-        return (await evaluate(mdxRaw,{
+    evaluate = async (mdxRaw: string)=>{
+        return (await evaluate(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,
             ...this._adapter.getRuntime()
         })).default;
     }
 
-    evaluateSync = (mdxRaw:string)=>{
-        return ( evaluateSync(mdxRaw,{
+    evaluateSync = (mdxRaw: string)=>{
+        return ( evaluateSync(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,
             ...this._adapter.getRuntime()
-        })).default
+        })).default;
     }
 
 
 
 }
 
-export default MarkdownRenderFoundation
+export default MarkdownRenderFoundation;
 
