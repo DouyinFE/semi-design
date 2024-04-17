@@ -75,7 +75,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         }
         const { onNodeCheck } = this.context;
         e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
+        e.nativeEvent?.stopImmediatePropagation?.();
         onNodeCheck(e, this.props);
     };
 

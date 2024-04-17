@@ -6,7 +6,8 @@ const cssClasses = {
 
 const strings = {
     ALIGN_SET: ['left', 'justify', 'plain', 'center'],
-    SIZE_SET: ['small', 'medium', 'large']
+    SIZE_SET: ['small', 'medium', 'large'],
+    LAYOUT_SET: ['horizontal', 'vertical']
 };
 
 const numbers = {};

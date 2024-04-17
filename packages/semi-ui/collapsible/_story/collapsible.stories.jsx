@@ -81,7 +81,7 @@ class DemoDOM extends React.Component {
     return (
       <div>
         <Button onClick={() => this.toggle()}>显示更多</Button>
-        <Collapsible keepDOM isOpen={isOpen}>
+        <Collapsible keepDOM lazyRender={!!this.props.lazyRender} isOpen={isOpen}>
           {collapsed}
         </Collapsible>
       </div>
@@ -90,6 +90,8 @@ class DemoDOM extends React.Component {
 }
 
 export const KeepDom = () => <DemoDOM />;
+
+export const LazyRender = () => <DemoDOM lazyRender={true} />;
 
 class DefaultOpen extends React.Component {
   state = {

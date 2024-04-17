@@ -17,10 +17,10 @@ const getTokenCategory = codeLine => {
 const codeLineSplit = codeLine => {
     const [key, value, comment] = codeLine.split(/:|\/\/|\/\*/).map(code => code.trim()).filter(code => code);
     let category = getTokenCategory(codeLine);
-    if (category==='transition'){
+    if (category==='transition') {
         category = "animation";
     }
-    return { key, value: lodash.trimEnd(value, ';'), comment:comment && comment.replace("ignore-semi-css-trans", ""), category: category, raw: codeLine };
+    return { key, value: lodash.trimEnd(value, ';'), comment: comment && comment.replace("ignore-semi-css-trans", ""), category: category, raw: codeLine };
 };
 
 const getGlobalDesignToken = () => {
@@ -95,7 +95,7 @@ const getGlobalDesignToken = () => {
             token.category="animation";
             return token;
         });
-    return { global: globalScssContent, palette: paletteContent, normal: normalContent, animation:animationContent };
+    return { global: globalScssContent, palette: paletteContent, normal: normalContent, animation: animationContent };
 };
 
 // 官网组件 design token 注入
@@ -111,7 +111,7 @@ async function main() {
             componentVariablesMap[dirname.toLowerCase()] = scssCodeLineList.map(codeLine => codeLineSplit(codeLine));
         }
         const animationSCSSPath = path.join(semiUIDir, dirname, 'animation.scss');
-        if (fs.existsSync(animationSCSSPath)){
+        if (fs.existsSync(animationSCSSPath)) {
             const raw = fs.readFileSync(animationSCSSPath, { encoding: 'utf-8' });
             const scssCodeLineList = raw.split('\n').filter(codeLine => codeLine && !isComment(codeLine));
             animationVariablesMap[dirname.toLowerCase()] = scssCodeLineList.map(codeLine => codeLineSplit(codeLine));

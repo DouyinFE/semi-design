@@ -160,3 +160,9 @@ $width-button-border: $border-thickness; // 按钮描边宽度
 $radius-button: var(--semi-border-radius-small); // 按钮圆角大小
 $radius-button_group: $radius-button; // 按钮组圆角大小
 $width-button-outline: 2px; // 按钮轮廓宽度
+
+
+$radius-splitButtonGroup_first_topLeft: var(--semi-border-radius-small); // split button 左上圆角
+$radius-splitButtonGroup_first_bottomLeft:var(--semi-border-radius-small); // split button 左下圆角
+$radius-splitButtonGroup_last_topRight:var(--semi-border-radius-small); // split button 右上圆角
+$radius-splitButtonGroup_last_bottomRight:var(--semi-border-radius-small); // split button 右下圆角

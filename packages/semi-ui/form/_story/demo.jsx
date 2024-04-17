@@ -351,10 +351,10 @@ class BasicDemoWithInit extends Component {
                     </Col>
                 </Row>
                 <Form.CheckboxGroup field="cardCheckbox" label='卡片选择' style={{ width: '90%' }} type='card' initValue={['1', '3']} direction={'horizontal'} aria-label="CheckboxGroup 示例">
-                    <Form.Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+                    <Form.Checkbox value={'1'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
                         单选框标题
                     </Form.Checkbox>
-                    <Form.Checkbox value={'2'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
+                    <Form.Checkbox value={'2'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{width:280}}>
                         单选框标题
                     </Form.Checkbox>
                 </Form.CheckboxGroup>

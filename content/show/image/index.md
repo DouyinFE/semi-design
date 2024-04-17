@@ -505,6 +505,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | onChange          | 切换图片触发的事件                                                                                                                                        | (index: number) => void | - | |
 | onClose           | 点击关闭按钮时的回调函数                                                                                                                                     | () => void | - | |
 | onDownload        | 图片下载回调函数                                                                                                                                         | (src: string, index: number) => void | - | |
+| onDownloadError     | 图片下载错误回调函数                                                                                                                                | (src: string) => void | - | v2.54.0 |
 | onRotateLeft      | 旋转图片的回调                                                                                                                                          | (angle: number) => void | - | |
 | onNext            | 向后切换图片的回调                                                                                                                                        | (index: number) => void | - | |
 | onPrev            | 向前切换图片的回调                                                                                                                                        | (index: number) => void | - | |

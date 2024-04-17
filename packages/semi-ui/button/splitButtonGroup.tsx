@@ -14,21 +14,43 @@ export interface SplitButtonGroupProps extends BaseProps {
 export default class SplitButtonGroup extends BaseComponent<SplitButtonGroupProps> {
 
     containerRef: React.RefObject<HTMLDivElement> = React.createRef();
-
+    mutationObserver: MutationObserver | null = null;
     static propTypes = {
         style: PropTypes.object,
         className: PropTypes.string,
         'aria-label': PropTypes.string,
     };
 
-    componentDidMount() { 
-        if (this.containerRef.current) {
+    componentDidMount() {
+        const addClassName = () => {
             const buttons = this.containerRef.current.querySelectorAll('button');
             const firstButton = buttons[0];
             const lastButton = buttons[buttons.length - 1];
-            firstButton?.classList.add(`${prefixCls}-first`);
-            lastButton?.classList.add(`${prefixCls}-last`);
+            if (!firstButton?.classList.contains(`${prefixCls}-first`)) {
+                firstButton?.classList.add(`${prefixCls}-first`);
+            }
+            if (!lastButton?.classList.contains(`${prefixCls}-last`)) {
+                lastButton?.classList.add(`${prefixCls}-last`);
+            }
+
+        };
+        if (this.containerRef.current) {
+            addClassName();
+            const mutationObserver = new MutationObserver((mutations, observer) => {
+                for (const mutation of mutations) {
+                    if ((mutation.type === 'attributes' && mutation.attributeName === 'class') || (mutation.type === 'childList' && Array.from(mutation.addedNodes).some(node => node.nodeName === 'BUTTON'))) {
+                        addClassName();
+                    }
+                }
+            });
+            mutationObserver.observe(this.containerRef.current, { attributes: true, childList: true, subtree: true });
+            this.mutationObserver = mutationObserver;
         }
+    }
+
+    componentWillUnmount() {
+        super.componentWillUnmount();
+        this.mutationObserver?.disconnect();
     }
 
     render() {

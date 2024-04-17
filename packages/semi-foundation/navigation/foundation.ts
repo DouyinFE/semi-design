@@ -39,7 +39,7 @@ export interface NavigationAdapter<P = Record<string, any>, S = Record<string, a
     setItemKeysMap(map: { [key: string]: (string | number)[] }): void;
     addSelectedKeys(...keys: (string | number)[]): void;
     removeSelectedKeys(...keys: (string | number)[]): void;
-    updateSelectedKeys(keys: (string | number)[]): void;
+    updateSelectedKeys(keys: (string | number)[], includeParentKeys?: boolean): void;
     updateOpenKeys(keys: (string | number)[]): void;
     addOpenKeys(...keys: (string | number)[]): void;
     removeOpenKeys(...keys: (string | number)[]): void;
@@ -114,7 +114,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      * @param {*} lifecycle
      * @returns
      */
-    init(lifecycle: string) {
+    init(lifecycle?: string) {
         const { defaultSelectedKeys, selectedKeys } = this.getProps();
         let willSelectedKeys = selectedKeys || defaultSelectedKeys || [];
         const { itemKeysMap, willOpenKeys, formattedItems } = this.getCalcState();
@@ -129,7 +129,8 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                 items: formattedItems,
             };
         } else {
-            this._adapter.updateSelectedKeys(willSelectedKeys);
+            // already include parentSelectKeys, set second parameter to false
+            this._adapter.updateSelectedKeys(willSelectedKeys, false);
             this._adapter.setItemKeysMap(itemKeysMap);
             this._adapter.updateOpenKeys(willOpenKeys);
             this._adapter.updateItems(formattedItems);
@@ -167,6 +168,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
      */
     getWillOpenKeys(itemKeysMap: ItemKey2ParentKeysMap) {
         const { defaultOpenKeys, openKeys, defaultSelectedKeys, selectedKeys, mode } = this.getProps();
+        const { openKeys: stateOpenKeys = [] } = this.getStates();
 
         let willOpenKeys = openKeys || defaultOpenKeys || [];
         if (
@@ -174,12 +176,13 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
             Array.isArray(openKeys)) && mode === strings.MODE_VERTICAL && (Array.isArray(defaultSelectedKeys) || Array.isArray(selectedKeys))
         ) {
             const currentSelectedKeys = Array.isArray(selectedKeys) ? selectedKeys : defaultSelectedKeys;
-            willOpenKeys = this.getShouldOpenKeys(itemKeysMap, currentSelectedKeys);
+            willOpenKeys = stateOpenKeys.concat(this.getShouldOpenKeys(itemKeysMap, currentSelectedKeys));
+            willOpenKeys = Array.from(new Set(willOpenKeys));
         }
         return [...willOpenKeys];
     }
 
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: string | number[]= []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: (string | number)[] = []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
@@ -199,7 +202,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
 
     destroy() {}
 
-    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, ...itemKeys: (string | number)[]) {
+    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, itemKeys: (string | number)[]) {
         const _itemKeysMap = isNullOrUndefined(itemKeysMap) ? this.getState('itemKeysMap') : itemKeysMap;
         // console.log(itemKeysMap);
 

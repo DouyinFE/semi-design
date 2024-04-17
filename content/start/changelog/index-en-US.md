@@ -121,43 +121,117 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.56.1 (2024-04-15)
+- 【Design Token】
+  - Button Add `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
+
+
+
+#### 🎉 2.56.0 (2024-04-12)
+- 【Fix】
+    - fix the problem of inconsistency between Locale ro language type definition and other languages
+    - Fix the display exception and omission exception when the Typography component is omitted by js and children is a template string  [#2167 ](https://github.com/DouyinFE/semi-design/issues/2167)
+    - Fixed Select filter height not as expected when empty.  (Affected version v2.56.0-beta.0)
+    - fix Typography single-line css omission accuracy issue  [#1731 ](https://github.com/DouyinFE/semi-design/issues/1731)
+
+#### 🎉 2.56.0-beta.0 (2024-04-03)
+- 【Feat】
+    - WebComponent Support：clickOutSide add support for Shadow DOM scenarios，involving components: AutoComplete、Calendar、Cascader、DatePicker、Select、TagInput、TimePicker、Tooltip、TreeSelect [@changlin2569](https://github.com/changlin2569)  [#1381](https://github.com/DouyinFE/semi-design/issues/1381) 
+    - WebComponent Support：Inject the css variable into the shadow dom through the :host, :host-context pseudo-class selectors to ensure that the Semi component style under the shadow dom is correct. [#2142](https://github.com/DouyinFE/semi-design/issues/2142) 
+    - Backtop click to increase throttle to prevent repeated triggering within duration. [@OnlyWick](https://github.com/OnlyWick)
+- 【Fix】
+    - Fixed Typography single-line css omission accuracy issue  [#1731](https://github.com/DouyinFE/semi-design/issues/1731) 
+    - Fixed the issue where the label of the last row is vertically spaced differently from other rows after selecting multiple rows when Select is multi-selected and filter is turned on. [#1667](https://github.com/DouyinFE/semi-design/issues/1667)
+- 【Style】
+    - Fixed the style issue where the height of Form.RadioGroup is inconsistent with that of the normal RadioGroup when type=button/card  [@nekocode](https://github.com/nekocode) [#1954](https://github.com/DouyinFE/semi-design/issues/1954) 
+    - Fixed the style issue where the style of RadioGroup is incorrect after being selected if the parent has overflow:hidden [@nekocode](https://github.com/nekocode) [#2126](https://github.com/DouyinFE/semi-design/issues/2126) 
+- 【Design token】
+    - Select add `$height-select_multiple_input_small`、`$height-select_multiple_input_default`、`$height-select_multiple_input_large`  used to specify the height of the input when searching is enabled [#2151](https://github.com/DouyinFE/semi-design/pull/2151)
+
+
+#### 🎉 2.55.5 (2024-04-02)
+- 【Fix】
+  - Fixed a type error caused by value not being in treeData when checkRelation in the Tree component is unRelated. [#2147](https://github.com/DouyinFE/semi-design/pull/2147)
+  - Fix type error in controlled Cascader where value is not in TreeData [#2146](https://github.com/DouyinFE/semi-design/pull/2146)
+  - Fixed the problem of slider tooltip not automatically hiding when the mouse is moved in some scenarios (Affected version 2.49.0 ~ 2.55.4) [#2148](https://github.com/DouyinFE/semi-design/pull/2148)
+
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - Fixed the problem that when onChangWithObject is turned on for Select multi-selection and value is controlled, the current value does not exist in the optionList, and the rendering is not re-executed after updating other properties in the value. [#2139](https://github.com/DouyinFE/semi-design/pull/2139)
+
+
+#### 🎉 2.55.1 (2024-03-25)
+- 【Fix】
+  - Fix: Fix collapse & collapsible keepDOM failure problem (affects versions 2.54.0-beta.0 ~ 2.55.0) [#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+  - Fix: Correct the default value of lazyRender for collapse, from true set in 2.54.0 to a more appropriate false, keeping the use cases where lazyRender is not set consistent with the behavior before 2.54 (affects versions 2.54.0-beta.0 ~ 2.55.0) [#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+
+#### 🎉 2.55.0 (2024-03-22)
+- 【Fix】
+  - Fix the problem that the Table header selection state is incorrectly selected when the data is empty (affects v2.51 ~ v2.54)  [#2128](https://github.com/DouyinFE/semi-design/issues/2128)
+  - Fix the problem of Split Button losing style when children Button className changes
+
+#### 🎉 2.55.0-beta.0 (2024-03-18)
+- 【Fix】
+    - fix TabBar rendering as empty in SSR [@nekocode](https://github.com/nekocode)
+    - Fixed the problem that Transfer failed to drag during fast drag due to Sortable's default drag sensing delay time being too long.
+    - Fixed the problem of openKeys not saving the last state after Nav changed selectedKeys (Affects v2.54.1)  [#2115](https://github.com/DouyinFE/semi-design/issues/2115)
+- 【Chore】
+    - Upgraded webpack and rspack build plug-ins to support consuming custom css configuration configured in Semi DSM, which can be used to aggregate overridden CSS or any css unrelated to Semi components into theme package styles
+  
+#### 🎉 2.54.1 (2024-03-11)
+- 【Fix】
+    - fixed Navigation component selectedKeys bug in react 17
+    - fixed Navigation component openKeys does not work after selectedKeys is updated
+  
+#### 🎉 2.54.0 (2024-03-08)
+- 【Fix】
+    - Fix the problem that the width occupied by the expand button is not taken into account in js truncation calculation, The scope of impact is 2.54.0-beta.0.
+- 【Chore】
+  - Upload adds FileItemStatus TS interface export
+
+#### 🎉 2.54.0-beta.0 (2024-03-04)
+- 【Feat】
+    - Toast component supports theme global configuration [@LonelySnowman](https://github.com/LonelySnowman) [#2099](https://github.com/DouyinFE/semi-design/issues/2099)
+    - Collapsible adds lazyRender API [@changlin2569](https://github.com/changlin2569) [#2100](https://github.com/DouyinFE/semi-design/issues/2100)
+    - Descriptions component supports horizontal layout [@LonelySnowman](https://github.com/LonelySnowman) [#1534](https://github.com/DouyinFE/semi-design/issues/1534) 
+    - Cascader supports calling the search method through ref  [#2098](https://github.com/DouyinFE/semi-design/issues/2098)
+    - ImagePreview adds onDownLoadError callback API [#2093](https://github.com/DouyinFE/semi-design/pull/2093)
+- 【Fix】
+    - Fixed the problem that Table expandedRowKeys and defaultExpandAllGroupRows do not take effect when used at the same time [#2085](https://github.com/DouyinFE/semi-design/issues/2085)
+    - Fixed the problem of Typography's Ellipsis function flickering on first hover in some special scenarios [#2107](https://github.com/DouyinFE/semi-design/pull/2107)
+
+
 #### 🎉 2.53.3 (2024-02-26)
 - 【Fix】
   - Fix Avatar border type error
 
-
 #### 🎉 2.53.2 (2024-02-26)
 - 【Fix】
-  - fix the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
+  - Fixed the error accessing empty element in React ResizeObserver [@nekocode](https://github.com/nekocode)
   
 #### 🎉 2.53.1 (2024-02-26)
 - 【Fix】
-    - the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations
-    - fix Badge component proptypes check error when type is success
+    - Fixed the problem that when using timeZone and disabledHours at the same time in TimePicker, the displayed value does not meet the expectations [#2083](https://github.com/DouyinFE/semi-design/pull/2083)
+    - Fixed Badge component prop-types check error when type is success [@matozz](https://github.com/matozz) [#2091](https://github.com/DouyinFE/semi-design/pull/2091)
 
 #### 🎉 2.53.0 (2024-02-23)
 - 【Fix】
-  - Fixed the issue where Sidesheet Portal is still mounted when visible is not displayed
-  - Fix the problem of incorrect definition of onKeyDown parameter type of TagInput
-  - fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
-  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1,2.53.0-beta.0)
-  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+  - Fixed the issue where Sidesheet Portal is still mounted when visible is not displayed [#2094](https://github.com/DouyinFE/semi-design/pull/2094)
+  - Fixed the problem of incorrect definition of onKeyDown parameter type of TagInput
 - 【Docs】
-  - Fix tabPosition parameter type error in Tabs component documentation [@miyuesc](https://github.com/miyuesc)
-- 【Chore】
-  - remove ResizeObserver polyfill
+  - Fixed tabPosition parameter type error in Tabs component documentation [@miyuesc](https://github.com/miyuesc) [#2090](https://github.com/DouyinFE/semi-design/pull/2090)
 
 ####  🎉 2.52.3 (2024-02-22)
 - 【Fix】
-    - Fix the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected range v2.51.0-v2.53.2)
+    - Fixed the problem that the panel does not display the selection if the value type is number in Cascader's treeData (Affected version range v2.51.0-v2.53.2)
 
 #### 🎉 2.52.2 (2024-02-19)
 - 【Fix】
-  - Fix the problem that ResizeObsever does not exist in non-browser environments. Problem impact scope (2.52.1, 2.53.0-beta.0)
+  - Fixed the problem that ResizeObsever does not exist in non-browser environments. (Affected version range 2.52.1, 2.53.0-beta.0)
 
 #### 🎉 2.52.1 (2024-02-18)
 - 【Fix】
-  - Fixed the problem of using themes on vite to report errors, the scope of the problem is (2.52.0)
+  - Fixed the problem of using themes on vite to report errors (Affected version range 2.52.0)
 - 【Chore】
   - remove ResizeObserver polyfill
 
