@@ -5,5 +5,5 @@ import Typography, { TextProps } from "../../typography";
 import { omit } from 'lodash';
 
 export default (props: PropsWithChildren<TextProps>)=>{
-    return <Typography.Text link={{ ...props }} {...omit(props, 'children')}/>;
+    return <Typography.Text link={{ ...props }} {...props}/>;
 };

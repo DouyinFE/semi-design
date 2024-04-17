@@ -4,5 +4,5 @@ import Typography, { TitleProps } from '../../typography';
 import { omit } from 'lodash';
 
 export default (props: PropsWithChildren<TitleProps>)=>{
-    return <Typography.Title heading={6} {...omit(props, "children")}/>;
+    return <Typography.Title heading={6} {...props}/>;
 };

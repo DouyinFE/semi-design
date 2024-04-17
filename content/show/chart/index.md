@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 67
+order: 68
 category: 其他
 title:  VChart 图表
 icon: doc-vchart
