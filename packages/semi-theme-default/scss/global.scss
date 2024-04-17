@@ -1,6 +1,6 @@
 @import "./_palette.scss";
 
-body, body[theme-mode="dark"] .semi-always-light {
+body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-light {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(var(--semi-white), 1); // 浅色模式下深色背景内容Inverse
@@ -125,7 +125,7 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-color-data-19: rgba(188, 198, 255, 1); //vchart 数据色板颜色 - 19
 }
 
-body[theme-mode="dark"], body .semi-always-dark {
+body[theme-mode="dark"], body .semi-always-dark, :host-context(body[theme-mode="dark"]), :host .semi-always-dark {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(228, 231, 245, 1);
