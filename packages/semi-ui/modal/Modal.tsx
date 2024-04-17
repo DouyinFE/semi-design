@@ -285,6 +285,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        style={{
+                            marginLeft: "unset",
+                            ...this.props.cancelButtonProps?.style
+                        }}
                         x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
