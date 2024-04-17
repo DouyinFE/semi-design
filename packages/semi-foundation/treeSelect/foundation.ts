@@ -601,6 +601,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             filteredExpandedKeys: new Set(expandedOptsKeys),
             filteredShownKeys: new Set([])
         });
+        this._adapter.rePositionDropdown();
     }
 
     handleInputChange(sugInput: string) {
@@ -640,6 +641,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             filteredExpandedKeys: newFilteredExpandedKeys,
             filteredShownKeys,
         });
+        this._adapter.rePositionDropdown();
     }
 
     handleNodeSelect(e: any, treeNode: BasicTreeNodeProps) {
@@ -871,7 +873,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
      * When the search box is on the trigger, the focus event processing method
      */
     handleInputTriggerFocus() {
-        this.clearInput();
+        const inputValue = this.getState('inputValue');
+        inputValue && this.clearInput();
         this._adapter.updateState({
             inputTriggerFocus: true
         });
