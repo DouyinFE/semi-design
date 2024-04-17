@@ -121,6 +121,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.56.2 (2024-04-17)
+- 【Design Token】
+  - Button change splitButton radius token name to `$radius-button_splitButtonGroup_first_topLeft`、`$radius-button_splitButtonGroup_first_bottomLeft`、`$radius-button_splitButtonGroup_last_topRight`、`$radius-button_splitButtonGroup_last_bottomRight` Token
+
+
 #### 🎉 2.56.1 (2024-04-15)
 - 【Design Token】
   - Button Add `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
