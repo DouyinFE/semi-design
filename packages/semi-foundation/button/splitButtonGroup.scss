@@ -12,13 +12,13 @@ $icon: #{$module}-with-icon;
         margin-right: 1px;
 
         &-first {
-            border-top-left-radius: var(--semi-border-radius-small);
-            border-bottom-left-radius: var(--semi-border-radius-small);
+            border-top-left-radius: $radius-button_splitButtonGroup_first_topLeft;
+            border-bottom-left-radius: $radius-button_splitButtonGroup_first_bottomLeft;
         }
 
         &-last {
-            border-top-right-radius: var(--semi-border-radius-small);
-            border-bottom-right-radius: var(--semi-border-radius-small);
+            border-top-right-radius: $radius-button_splitButtonGroup_last_topRight;
+            border-bottom-right-radius: $radius-button_splitButtonGroup_last_bottomRight;
             margin-right: unset;
         }
     }
