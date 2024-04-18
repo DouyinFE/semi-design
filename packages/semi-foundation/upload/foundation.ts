@@ -107,7 +107,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     destroy() {
         const { disabled, addOnPasting } = this.getProps();
         this.releaseMemory();
-        if (addOnPasting && !disabled) {
+        if (!disabled) {
             this.unbindPastingHandler();
         }
     }
