@@ -8,7 +8,8 @@ dir: column
 brief: 开箱即用的多端图表库。
 ---
 
-对于数据可视化场景，我们推荐使用 [VChart](https://visactor.io/vchart)。VChart 是字节跳动开源可视化解决方案 [VisActor](https://visactor.io) 的核心图表组件库，支持多种图表，简单易用，功能强大。在基于 Semi 的项目中使用 VChart 图表库具有以下优势：
+对于数据可视化场景，我们推荐使用 [VChart](https://visactor.io/vchart)。VChart 是字节跳动开源可视化解决方案 [VisActor](https://visactor.io) 的核心图表组件库，支持多种图表，简单易用，功能强大。<br />
+基于 VChart，我们定制了一套符合 Semi 风格的图表库，优势如下：
 
 - 🧩 开箱即用：简单配置及初始化即可使用
 - 🎨 风格统一：基于 VChart 定制了符合 Semi 风格的图表库样式，直接和 Semi Design Token 挂钩；默认样式经过多方验证，可读性和精确性高；支持用户自定义图表样式
@@ -96,7 +97,7 @@ VChart 支持多种不同的图表类型，包括<strong>组合图、折线图�
 
 <h4>基础柱状图</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -165,7 +166,7 @@ render(App);
 
 <h4>分组柱状图</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -244,7 +245,7 @@ render(App);
 
 <h4>堆叠柱状图</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -319,7 +320,7 @@ render(App);
 
 <h4>百分比堆叠柱状图</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -374,12 +375,14 @@ function App() {
   const onChange = useCallback((e) => setDirection(e.target.value), []);
   const spec = useMemo(() => {
     const isVertical = direction === 'vertical';
-    return {
+    const spec = {
       ...commonSpec,
       xField: isVertical ? 'State' : 'Population',
       yField: isVertical ? 'Population' : 'State',
       direction: direction,
     };
+    spec.axes[0].orient = isVertical ? 'left': 'top';
+    return spec;
   }, [direction]);
   return (
     <>
@@ -403,7 +406,7 @@ render(App);
 
 ### 折线图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -464,7 +467,7 @@ render(App);
 
 ### 面积图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from "react";
 import { VChart } from "@visactor/react-vchart";
 
@@ -538,7 +541,7 @@ render(App);
 
 ### 饼图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -638,13 +641,14 @@ function App() {
         <Radio value={'donut'}>饼图</Radio>
         <Radio value={'donutWithIndicator'}>带指标卡饼图</Radio>
       </RadioGroup>
-      <div style={{ height: 440 }}>
+      <div style={{ display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
         <VChart
             spec={{
                 ...commonSpec,
                 ...(type === 'donut' ? donutChart : donutWithIndicator),
             }}
             option={{ mode: "desktop-browser" }}
+            style={{ height: 440, width:680 }}
         />
       </div>
     </>
@@ -654,9 +658,9 @@ function App() {
 render(App);
 ```
 
-### 漏斗图
+<!-- ### 漏斗图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -769,11 +773,11 @@ function App() {
 }
 
 render(App);
-```
+``` -->
 
 ### 雷达图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -871,7 +875,7 @@ render(App);
 
 ### 散点图
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from "react";
 import { VChart } from "@visactor/react-vchart";
 
@@ -1019,10 +1023,33 @@ render(App);
 
 为了帮助设计师进行图表选择，我们对常用的 11 种图表进行了深度解析，并归纳出图表选用方案，见[图表选用规范](https://bytedance.sg.larkoffice.com/docx/N10zdVn7AovY2kxFj8ulPiFYgUh)。
 
-
 ### 颜色规范
 
-`@visactor/vchart-semi-theme` 中定义了 20 个离散数据色板的色值。色值从已有的 Semi 色板中按照分裂互补配色和暗亮交替的原则进行排序。对于离散数据色板，Semi Design 侧已声明了 20 个 Token，如果需要自定义离散数据色板，用户可以在 [DSM](https://semi.design/dsm) 自定义主题时配置这些 Token。
+`@visactor/vchart-semi-theme` 中定义了 20 个离散数据色板的色值。色值从已有的 Semi 色板中按照分裂互补配色和暗亮交替的原则进行排序。对于离散数据色板，Semi Design 侧已声明了 20 个 Token，如果需要自定义离散数据色板，用户可以在 [DSM](https://semi.design/dsm) 自定义主题时配置这些 Token。色值的具体生成步骤如下：
+
+<h4>Step1: 遵从分裂互补取色，生成初版色稿</h4>
+
+我们参考了经典配色理论，采用<strong>分裂互补</strong>取色原则，按照三个一组的方式进行取色。
+
+![分裂取色](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/slitColor.png)
+
+<h4>Step2: 基线矫正，降低歧义提升对比</h4>
+
+1. 规避红绿等易引起歧义的色彩。
+2. 为保证区分度， 增强色彩对比，相邻颜色按照“<strong>暗-亮-暗-亮</strong>”的节奏进行灰度调整。
+
+![基线矫正](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/betterColor.png)
+
+
+<h4>Step3: 感性调整，提升视觉美学</h4>
+
+为了让色彩体系更加和谐，在科学理论支撑之外，还需在真实业务场景下进行美学修正。
+
+![视觉美学](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/beautyColor.png)
+
+<h4>Step4: 色板延展，适应广泛场景</h4>
+
+在 10 色色板的基础上，我们拓展到 20 色色板以适应更为广泛的业务场景。
 
 ![数据色板](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/data-chart.png)
 
@@ -1035,7 +1062,7 @@ render(App);
 
 Semi Design 为 VChart 声明的 20 个 Token 详见下表。
 
-<DesignToken componentName='global' reg={/--semi-color-data/} />
+<DesignToken componentName='global' reg={/--semi-color-data/} sameWidth={true}/>
 
 <Notice title='Note'>
     在 @visactor/vchart-semi-theme 1.10.2 版本前，其中的名称为 --semi-color-data-n(n 为 0, 2, 4, 6, 8, 10, 12, 14, 16, 18)的 Token 值作为 10 色的色板。

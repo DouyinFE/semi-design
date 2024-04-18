@@ -176,6 +176,10 @@ const code = ({ ...props }) => {
 
     newProps.lineNumber = false;
 
+    if (props.half) {
+        newProps.width = '50%';
+    }
+
     const Placeholder = () => (
         <>
             <Skeleton

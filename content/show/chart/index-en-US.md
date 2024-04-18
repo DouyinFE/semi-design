@@ -8,9 +8,9 @@ dir: column
 brief: Out-of-the-box multi-terminal charting library.
 ---
 
-VisActor is an open-source visualization solution by ByteDance, and we recommend using its core chart component library called [VChart](https://visactor.io/vchart) for data visualization scenarios. It supports various types of charts, making it simple to use while offering powerful functionality.
+[VisActor](https://visactor.io) is an open-source visualization solution by ByteDance, and we recommend using its core chart component library called [VChart](https://visactor.io/vchart) for data visualization scenarios. It supports various types of charts, making it simple to use while offering powerful functionality.
 
-When using VChart in projects based on Semi, you'll benefit from the following advantages:
+Based on VChart, we have developed a customized chart library that adheres to the Semi style. The advantages are as follows:
 
 - 🧩 Out-of-the-box experience: It provides easy configuration and initialization, allowing you to start using it quickly.
 - 🎨 Consistent style: VChart has been customized to match the Semi design style. It is directly integrated with Semi Design Tokens. The default styles have undergone extensive verification, ensuring high readability and precision. Additionally, it supports user-defined chart styles.
@@ -98,10 +98,13 @@ VChart supports various different chart types, allowing users to visualize abstr
 
 <h4>Basic bar chart</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
+import { initVChartSemiTheme } from '@visactor/vchart-semi-theme';
+
+initVChartSemiTheme();
 
 const commonSpec = {
   type: 'bar',
@@ -164,7 +167,7 @@ render(App);
 
 <h4>Grouped bar chart</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -243,7 +246,7 @@ render(App);
 
 <h4>Stacked bar chart</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -318,7 +321,7 @@ render(App);
 
 <h4>Percentage stacked bar chart</h4>
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -373,12 +376,14 @@ function App() {
   const onChange = useCallback((e) => setDirection(e.target.value), []);
   const spec = useMemo(() => {
     const isVertical = direction === 'vertical';
-    return {
+     const spec = {
       ...commonSpec,
       xField: isVertical ? 'State' : 'Population',
       yField: isVertical ? 'Population' : 'State',
       direction: direction,
     };
+    spec.axes[0].orient = isVertical ? 'left': 'top';
+    return spec;
   }, [direction]);
   return (
     <>
@@ -402,7 +407,7 @@ render(App);
 
 ### Line chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -463,7 +468,7 @@ render(App);
 
 ### Area chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from "react";
 import { VChart } from "@visactor/react-vchart";
 
@@ -537,7 +542,7 @@ render(App);
 
 ### Pie Chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="column" noInline=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -632,18 +637,19 @@ function App() {
   const [type, setType] = useState('donut');
   const onChange = useCallback((e) => setType(e.target.value), []);
   return (
-    <>
+     <>
       <RadioGroup onChange={onChange} value={type} >
-        <Radio value={'donut'}>Donut chart</Radio>
-        <Radio value={'donutWithIndicator'}>Donut chart with indicator</Radio>
+        <Radio value={'donut'}>饼图</Radio>
+        <Radio value={'donutWithIndicator'}>带指标卡饼图</Radio>
       </RadioGroup>
-      <div style={{ height: 440 }}>
+      <div style={{ display: 'flex', alignItem: 'center', justifyContent: 'center'}}>
         <VChart
             spec={{
                 ...commonSpec,
                 ...(type === 'donut' ? donutChart : donutWithIndicator),
             }}
             option={{ mode: "desktop-browser" }}
+            style={{ height: 440, width:680 }}
         />
       </div>
     </>
@@ -653,9 +659,9 @@ function App() {
 render(App);
 ```
 
-### Funnel chart
+<!-- ### Funnel chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -768,11 +774,11 @@ function App() {
 }
 
 render(App);
-```
+``` -->
 
 ### Radar chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React, { useState, useCallback } from "react";
 import { VChart } from "@visactor/react-vchart";
 import { Radio, RadioGroup } from '@douyinfe/semi-ui';
@@ -870,7 +876,7 @@ render(App);
 
 ### Scatter chart
 
-```jsx live=true dir="row" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from "react";
 import { VChart } from "@visactor/react-vchart";
 
@@ -1020,7 +1026,31 @@ In order to assist designers in selecting charts, we have conducted in-depth ana
 
 ### Color Specifications
 
-`@visactor/vchart-semi-theme` defines color values for 20 discrete data palettes. The color values are sorted based on the principles of split complementary color schemes and alternating dark and light tones from the existing Semi color palette. For discrete data palettes, Semi Design has declared 20 tokens. If users need to customize the discrete data palettes, they can configure these tokens in the [DSM](https://semi.design/dsm)  when customizing the theme.
+`@visactor/vchart-semi-theme` defines color values for 20 discrete data palettes. The color values are sorted based on the principles of split complementary color schemes and alternating dark and light tones from the existing Semi color palette. For discrete data palettes, Semi Design has declared 20 tokens. If users need to customize the discrete data palettes, they can configure these tokens in the [DSM](https://semi.design/dsm)  when customizing the theme. The specific steps for generating color values are as follows:
+
+<h4>Step1: Follow the split complementary color, generate the first version of the color palette</h4>
+
+We refer to the classic color scheme theory and adopt the principle of <strong>split complementary</strong> color picking, and color picking is carried out in a group of three.
+
+![分裂取色](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/slitColor.png)
+
+<h4>Step2: base line correction, reduce ambiguity and improve contrast</h4>
+
+1. Avoid ambiguous colors such as red and green.
+2. To ensure discrimination and enhance color contrast, adjacent colors are adjusted to canary release according to the rhythm of "<strong>dark-light-dark-light</strong>".
+
+![基线矫正](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/betterColor.png)
+
+
+<h4>Step3: Sensible adjustment to enhance visual aesthetics</h4>
+
+In order to make the color system more harmonious, in addition to scientific theoretical support, aesthetic corrections need to be made in real business scenarios.
+
+![视觉美学](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/beautyColor.png)
+
+<h4>Step4: Expand the color palette to adapt to a wide range of scenarios</h4>
+
+Based on the 10-color palette, we have expanded to 20-color palettes to adapt to a wider range of business scenarios.
 
 ![Data Palettes](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/data-chart.png)
 
@@ -1033,7 +1063,7 @@ In VChart, there are various semantic colors applied to chart components, such a
 
 Semi Design has declared 20 tokens for VChart, as shown in the table below.
 
-<DesignToken componentName='global' reg={/--semi-color-data/} />
+<DesignToken componentName='global' reg={/--semi-color-data/} sameWidth={true}/>
 
 <Notice title='Note'>
 Prior to version 1.10.2 of @visactor/vchart-semi-theme, the tokens with names --semi-color-data-n (where n is 0, 2, 4, 6, 8, 10, 12, 14, 16, 18) were used as a 10-color palette.
