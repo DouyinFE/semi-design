@@ -1034,7 +1034,7 @@ We refer to the classic color scheme theory and adopt the principle of <strong>s
 
 ![分裂取色](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/vchart/slitColor.png)
 
-<h4>Step2: base line correction, reduce ambiguity and improve contrast</h4>
+<h4>Step2: Base line correction, reduce ambiguity and improve contrast</h4>
 
 1. Avoid ambiguous colors such as red and green.
 2. To ensure discrimination and enhance color contrast, adjacent colors are adjusted to canary release according to the rhythm of "<strong>dark-light-dark-light</strong>".
