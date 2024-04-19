@@ -613,7 +613,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             getValue: (field?: string) => this.getValue(field, { needClone: true }),
             getValues: () => this.getValue(undefined, { needClone: true }),
             getFormState: () => this.getFormState(true),
-            getFormProps: () => this.getFormProps(),
+            getFormProps: (props?: Array<string>) => this.getFormProps(props),
             getInitValue: (field: string) => this.getInitValue(field),
             getInitValues: () => this.getInitValues(),
             getTouched: (field?: string) => this.getTouched(field),
