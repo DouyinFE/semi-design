@@ -391,7 +391,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={animationClassName}
+                                        contentClassName={`${animationClassName} ${modalContentClass}`}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}
@@ -400,7 +400,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         ref={this.modalRef}
                                         footer={renderFooter}
                                         onClose={this.handleCancel}
-                                        modalContentClass={modalContentClass}
 
                                     /></Portal> : <></>;
                                 }
