@@ -543,7 +543,6 @@ activeKey | The itemKey value of the currently active tab page | string | None |
 className | class name | string | None |
 collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
 contentStyle | The outer style object of the content area | CSSProperties | None |
-contentClassName | Content area outer class name(supported after V2.57.0) | string | None |
 defaultActiveKey | Initialize the key value of the selected tab page | string | '1' |
 keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
 lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
@@ -551,7 +550,6 @@ renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defa
 preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |
 style | style object | CSSProperties | None |
-tabBarClassName | Tab bar class name | CSSProperties | None |
 tabBarExtraContent | Used to extend the content of the tab bar | ReactNode | None |
 tabList | An array of tab page objects that supports itemKey (corresponding to activeKey, tab (tab page text) and icon (tab page icon) | TabPane[] | None |
 tabPaneMotion | Whether to use animation to switch tabs | boolean | true |
@@ -570,7 +568,6 @@ disabled | Whether the tab bar is disabled | boolean | None |
 icon | Tab bar icon | ReactNode | None |
 itemKey | corresponding to `activeKey` | string | None |
 style | style object | CSSProperties | None |
-contentClassName | Content area outer class name (supported after V2.57.0) | string | None |
 tab | Tab page bar display text | ReactNode | None |
 closable | whether user can close the tab **>=2.1.0** | boolean | false |
 
