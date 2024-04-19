@@ -227,3 +227,6 @@ export {
     IconVersionTwo,
     IconWheelChair
 } from '@douyinfe/semi-icons-lab';
+
+export { VChart } from "@visactor/react-vchart";
+export { initVChartSemiTheme } from '@visactor/vchart-semi-theme';
