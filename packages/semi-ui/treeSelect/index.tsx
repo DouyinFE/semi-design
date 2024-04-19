@@ -316,6 +316,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onMotionEnd: any;
     treeSelectID: string;
     context: ContextValue;
+    clearInputFlag: boolean;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -353,6 +354,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
+        this.clearInputFlag = false;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
         this.onMotionEnd = () => {
@@ -765,6 +767,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             },
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
+            },
+            setClearInputFlag: (flag: boolean) => {
+                this.clearInputFlag = flag;
+            },
+            getClearInputFlag: () => {
+                return this.clearInputFlag;
             }
         };
     }
@@ -1400,28 +1408,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return key;
     };
 
-    /* Event handler function after popover is closed */
-    handlePopoverClose = isVisible => {
-        const { filterTreeNode, searchAutoFocus, searchPosition } = this.props;
-        // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
-        // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
-        if (isVisible === false && filterTreeNode) {
-            this.foundation.clearInputValue();
-        }
-        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
-            this.foundation.focusInput(true);
-        }
+    /* Event handler function after popover visible change */
+    handlePopoverVisibleChange = isVisible => {
+        this.foundation.handlePopoverVisibleChange(isVisible);
     }
 
     afterClose = () => {
-        // flattenNode 的变化将导致弹出层面板中的选项数目变化
-        // 在弹层完全收起之后，再通过 clearInput 重新计算 state 中的 expandedKey， flattenNode
-        // 防止在弹出层未收起时弹层面板中选项数目变化导致视觉上出现弹层闪动问题
-        // Changes to flattenNode will cause the number of options in the popup panel to change
-        // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
-        // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
-        const { filterTreeNode } = this.props;
-        filterTreeNode && this.foundation.clearInput();
+        this.foundation.handleAfterClose();
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
@@ -1605,7 +1598,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                onVisibleChange={this.handlePopoverClose}
+                onVisibleChange={this.handlePopoverVisibleChange}
                 afterClose={this.afterClose}
             >
                 {selection}
