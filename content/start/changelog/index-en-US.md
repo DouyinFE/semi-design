@@ -16,6 +16,34 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.56.3 (2024-04-19)
+- 【Fix】
+    - Fixed the issue where the Cancel button has a left margin after Modal footerFill is opened.[#2177](https://github.com/DouyinFE/semi-design/pull/2177)
+    - Fix abnormal expansion status of TreeSelect which is single selection, searchable,  loaded data from remote [#2178](https://github.com/DouyinFE/semi-design/issues/2178)
+    - Fixed the problem that after Upload switches addOnPasting to false, paste upload is still triggered.[#2176](https://github.com/DouyinFE/semi-design/pull/2176)
+    - Fixed the problem that TreeSelect options changed after searching and the panel position was not automatically adjusted.[#2181](https://github.com/DouyinFE/semi-design/pull/2181)
+    - Modify inaccurate expressions in locale vi-VN translation [@ruaruababa](https://github.com/ruaruababa)[#2154](https://github.com/DouyinFE/semi-design/pull/2154)
+- 【Docs】
+    - Data visualization documentation updates
+
+#### 🎉 2.56.2 (2024-04-17)
+- 【Design Token】
+  - Button change splitButton radius token name to `$radius-button_splitButtonGroup_first_topLeft`、`$radius-button_splitButtonGroup_first_bottomLeft`、`$radius-button_splitButtonGroup_last_topRight`、`$radius-button_splitButtonGroup_last_bottomRight` Token
+
+
+#### 🎉 2.56.1 (2024-04-15)
+- 【Design Token】
+  - Button Add `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
+
+
+
+#### 🎉 2.56.0 (2024-04-12)
+- 【Fix】
+    - fix the problem of inconsistency between Locale ro language type definition and other languages
+    - Fix the display exception and omission exception when the Typography component is omitted by js and children is a template string  [#2167 ](https://github.com/DouyinFE/semi-design/issues/2167)
+    - Fixed Select filter height not as expected when empty.  (Affected version v2.56.0-beta.0)
+    - fix Typography single-line css omission accuracy issue  [#1731 ](https://github.com/DouyinFE/semi-design/issues/1731)
+
 #### 🎉 2.56.0-beta.0 (2024-04-03)
 - 【Feat】
     - WebComponent Support：clickOutSide add support for Shadow DOM scenarios，involving components: AutoComplete、Calendar、Cascader、DatePicker、Select、TagInput、TimePicker、Tooltip、TreeSelect [@changlin2569](https://github.com/changlin2569)  [#1381](https://github.com/DouyinFE/semi-design/issues/1381) 

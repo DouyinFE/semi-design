@@ -460,9 +460,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             }, []) as string[];
             return formatKeys;
         };
-        const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
-        const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
         if (multiple) {
+            const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
+            const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
             // when value and treedata need updated
             if (needUpdateTreeData || needUpdateValue) {
                 // update state.keyEntities
@@ -513,8 +513,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     componentDidUpdate(prevProps: CascaderProps) {
+        if (this.props.multiple) {
+            return;
+        }
         let isOptionsChanged = false;
-        if (!isEqual(prevProps.treeData, this.props.treeData) && !this.props.multiple) {
+        if (!isEqual(prevProps.treeData, this.props.treeData)) {
             isOptionsChanged = true;
             this.foundation.collectOptions();
         }
