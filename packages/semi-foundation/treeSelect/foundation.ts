@@ -200,8 +200,8 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     updateInputFocus: (bool: boolean) => void;
     updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
     updateIsFocus: (bool: boolean) => void;
-    setClearInputSign: (sign: boolean) => void;
-    getClearInputSign: () => boolean
+    setClearInputFlag: (flag: boolean) => void;
+    getClearInputFlag: () => boolean
 }
 
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
@@ -889,7 +889,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
         // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
         if (isVisible === false && filterTreeNode) {
-            inputValue && this._adapter.setClearInputSign(true);
+            inputValue && this._adapter.setClearInputFlag(true);
             this.clearInputValue(); 
         }
         if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
@@ -905,7 +905,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
         // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
         const { filterTreeNode } = this.getProps();
-        const shouldClear = this._adapter.getClearInputSign();
+        const shouldClear = this._adapter.getClearInputFlag();
         filterTreeNode && shouldClear && this.clearInput();
     }
 }

@@ -316,7 +316,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onMotionEnd: any;
     treeSelectID: string;
     context: ContextValue;
-    clearInputSign: boolean;
+    clearInputFlag: boolean;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -354,7 +354,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
-        this.clearInputSign = false;
+        this.clearInputFlag = false;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
         this.onMotionEnd = () => {
@@ -768,11 +768,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
             },
-            setClearInputSign: (sign: boolean) => {
-                this.clearInputSign = sign;
+            setClearInputFlag: (flag: boolean) => {
+                this.clearInputFlag = flag;
             },
-            getClearInputSign: () => {
-                return this.clearInputSign;
+            getClearInputFlag: () => {
+                return this.clearInputFlag;
             }
         };
     }
