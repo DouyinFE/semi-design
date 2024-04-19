@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.56.3 (2024-04-19)
+- 【Fix】
+    - 修复 Modal footerFill 打开后，取消按钮带有左边距的问题 [#2177](https://github.com/DouyinFE/semi-design/pull/2177)
+    - 修复单选，可搜索，远程加载的 TreeSelect 在选择选项后，选项展开状态异常问题 [#2178](https://github.com/DouyinFE/semi-design/issues/2178) [#2179](https://github.com/DouyinFE/semi-design/pull/2179)
+    - 修复 Upload 将 addOnPasting 切换为 false 后，粘贴上传依然触发的问题 [#2176](https://github.com/DouyinFE/semi-design/pull/2176)
+    - 修复 TreeSelect 在搜索后选项变化，面板位置未自动调整问题 [#2181](https://github.com/DouyinFE/semi-design/pull/2181)
+    - 修改 locale 越南语翻译中不准确的表达 [@ruaruababa](https://github.com/ruaruababa) [#2154](https://github.com/DouyinFE/semi-design/pull/2154)
+- 【Docs】
+    - 数据可视化文档更新 [#2182](https://github.com/DouyinFE/semi-design/pull/2182)
+
 #### 🎉 2.56.2 (2024-04-17)
 - 【Design Token】
   - Button 修改 splitButton radius token 名称为 `$radius-button_splitButtonGroup_first_topLeft`、`$radius-button_splitButtonGroup_first_bottomLeft`、`$radius-button_splitButtonGroup_last_topRight`、`$radius-button_splitButtonGroup_last_bottomRight` Token
