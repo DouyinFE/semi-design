@@ -564,7 +564,7 @@ activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
 className | 类名 | string | 无 |
 collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
 contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |
-contentClassName | 内容区域外层类名 | string | 无 |
+contentClassName | 内容区域外层类名(V2.57.0 后支持) | string | 无 |
 defaultActiveKey | 初始化选中的 tab 页的 key 值 | string | '1' |
 keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1.0.0** | boolean | true |
 lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0** | boolean | false |
@@ -587,7 +587,7 @@ onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** |  function(tabKey: st
 属性      | 说明             | 类型               | 默认值 |
 --------- | ---------------- | ------------------ | ------ |
 className | 类名             | string             | 无     |
-contentClassName  | 内容区域外层类名 | string | 无 |
+contentClassName  | 内容区域外层类名(V2.57.0 后支持)  | string | 无 |
 disabled  | 标签页栏是否禁用 | boolean            | 无     |
 icon      | 标签页栏 icon    | ReactNode | 无     |
 itemKey   | 对应 `activeKey` | string             | 无     |
