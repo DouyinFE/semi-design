@@ -564,7 +564,6 @@ activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
 className | 类名 | string | 无 |
 collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
 contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |
-contentClassName | 内容区域外层类名 | string | 无 |
 defaultActiveKey | 初始化选中的 tab 页的 key 值 | string | '1' |
 keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1.0.0** | boolean | true |
 lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0** | boolean | false |
@@ -573,7 +572,6 @@ preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素�
 size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string | `large` |
 style | 样式对象 | CSSProperties | 无 |
 tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode | 无 |
-tabBarClassName | 标签栏类名 | CSSProperties | 无 |
 tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[] | 无 |
 tabPaneMotion | 是否使用动画切换 tabs | boolean | true |
 tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | string | `top` |
@@ -587,7 +585,6 @@ onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** |  function(tabKey: st
 属性      | 说明             | 类型               | 默认值 |
 --------- | ---------------- | ------------------ | ------ |
 className | 类名             | string             | 无     |
-contentClassName  | 内容区域外层类名 | string | 无 |
 disabled  | 标签页栏是否禁用 | boolean            | 无     |
 icon      | 标签页栏 icon    | ReactNode | 无     |
 itemKey   | 对应 `activeKey` | string             | 无     |

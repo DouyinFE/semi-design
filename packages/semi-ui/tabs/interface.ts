@@ -21,7 +21,6 @@ export interface TabsProps {
     className?: string;
     collapsible?: boolean;
     contentStyle?: CSSProperties;
-    contentClassName?: string;
     defaultActiveKey?: string;
     keepDOM?: boolean;
     lazyRender?: boolean;
@@ -68,8 +67,7 @@ export interface TabPaneProps {
     style?: CSSProperties;
     tab?: ReactNode;
     closable?: boolean;
-    tabIndex?: number;
-    contentClassName?: string
+    tabIndex?: number
 }
 
 export interface TabPaneTransitionProps {

@@ -242,7 +242,6 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             className,
             collapsible,
             contentStyle,
-            contentClassName,
             keepDOM,
             lazyRender,
             renderTabBar,
@@ -265,7 +264,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         const tabContentCls = cls({
             [cssClasses.TABS_CONTENT]: true,
             [`${cssClasses.TABS_CONTENT}-${tabPosition}`]: tabPosition,
-        }, contentClassName);
+        });
 
         const tabBarProps = {
             activeKey,
