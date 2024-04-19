@@ -146,9 +146,20 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select-selection').eq(0).trigger('click');
         cy.wait(1000);
         // 此时展开项目由选中项和原来的 state 中的 expandedKeys 决定
-        cy.get('.semi-tree-option').should('have.length', 4);
+        cy.get('.semi-tree-option').should('have.length', 2);
         cy.get('.semi-icon-tree_triangle_down').eq(0).trigger('click');
-        cy.get('.semi-tree-option').should('have.length', 6);
+        cy.get('.semi-tree-option').should('have.length', 4);
     });
+
+    it.only('filterTreeNode + loadData', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--load-data');
+        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        cy.wait(1000);
+        cy.get('.semi-tree-option').eq(0).trigger('click');
+        cy.get('.semi-tree-option-list').should('not.exist');
+        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        cy.wait(1000);
+        cy.get('.semi-tree-option.semi-tree-option-level-1.semi-tree-option-selected.semi-tree-option-collapsed').should('exist');
+    })
 });
 

@@ -107,7 +107,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     destroy() {
         const { disabled, addOnPasting } = this.getProps();
         this.releaseMemory();
-        if (addOnPasting && !disabled) {
+        if (!disabled) {
             this.unbindPastingHandler();
         }
     }
@@ -884,31 +884,31 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     handlePasting(e: any) {
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
+        const { addOnPasting } = this.getProps();
 
-        if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
-            // https://github.com/microsoft/TypeScript/issues/33923
-            const permissionName = "clipboard-read" as PermissionName;
-            // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
-            navigator.permissions
-                .query({ name: permissionName })
-                .then(result => {
-                    console.log(result);
-                    if (result.state === 'granted' || result.state === 'prompt') {
-                        // user has authorized or will authorize
-                        navigator.clipboard
-                            .read()
-                            .then(clipboardItems => {
+        if (addOnPasting) {
+            if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
+                // https://github.com/microsoft/TypeScript/issues/33923
+                const permissionName = 'clipboard-read' as PermissionName;
+                // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
+                navigator.permissions
+                    .query({ name: permissionName })
+                    .then(result => {
+                        if (result.state === 'granted' || result.state === 'prompt') {
+                            // user has authorized or will authorize
+                            navigator.clipboard.read().then(clipboardItems => {
                                 // Process the data read from the pasteboard
                                 // Check the returned data type to determine if it is image data, and process accordingly
                                 this.readFileFromClipboard(clipboardItems);
                             });
-                    } else {
-                        this._adapter.notifyPastingError(result);
-                    }
-                })
-                .catch(error => {
-                    this._adapter.notifyPastingError(error);
-                });
+                        } else {
+                            this._adapter.notifyPastingError(result);
+                        }
+                    })
+                    .catch(error => {
+                        this._adapter.notifyPastingError(error);
+                    });
+            }
         }
     }
 
