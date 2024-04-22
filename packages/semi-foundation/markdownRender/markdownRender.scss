@@ -5,7 +5,7 @@ $module: #{$prefix}-markdownRender;
 .#{$module} {
 
     ul,li {
-        color:var(--semi-color-text-0)
+        color:$color-markdownRender_component_list
     }
 
     &-component-image{
@@ -19,7 +19,7 @@ $module: #{$prefix}-markdownRender;
         &-alt{
             margin-top: $spacing-markdownRender_component_image_alt-marginTop;
             text-align: center;
-            color:var(--semi-color-tertiary)
+            color:$color-markdownRender_component_image_alt;
         }
     }
 
