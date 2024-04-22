@@ -383,7 +383,7 @@ function Demo(props = {}) {
 |------------|-------------------------------------------------------------------------------------------------------------------|---------------|---------|
 | direction  | Sets the direction of the text                                                                                    | `ltr`\| `rtl` | `ltr`   |
 | getPopupContainer | Specifies the parent DOM, and the bullet layer will be rendered to the DOM, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.  | function():HTMLElement | () => document.body    |
-| locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider`  | object         |         |
+| locale     | Multi-language configuration, same as the [usage](/en-US/other/locale) of `locale` parameter in `LocaleProvider`(If `locale` is configured in `ConfigProvider` and `LocaleProvider` at the same time, the former has higher priority than the latter)  | object         |         |
 | timeZone   | [Time zone identifier](#Time_Zone_Identifier)                                                                     | string\|number |         |
 
 
