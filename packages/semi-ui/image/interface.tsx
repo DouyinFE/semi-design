@@ -25,7 +25,9 @@ export interface ImageProps extends BaseProps{
     crossOrigin?: "anonymous"| "use-credentials";
     children?: ReactNode;
     imageID?: number;
-    setDownloadName?: (src: string) => string
+    setDownloadName?: (src: string) => string;
+    imgStyle?: React.CSSProperties;
+    imgCls?: string
 }
 
 export interface PreviewProps extends BaseProps {
