@@ -208,29 +208,31 @@ export interface Data {
     key?: string | number
 }
 
+export type TableComponent<P> = React.ComponentType<P> | React.ForwardRefExoticComponent<P> | keyof React.ReactHTML;
+
 export interface TableComponents {
-    table?: ReactNode;
+    table?: TableComponent<any>;
     header?: {
-        outer?: ReactNode;
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode
+        outer?: TableComponent<any>;
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>
     };
     body?: {
-        outer?: ReactNode;
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode;
+        outer?: TableComponent<any>;
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>;
         colgroup?: {
-            wrapper?: ReactNode;
-            col?: ReactNode
+            wrapper?: TableComponent<any>;
+            col?: TableComponent<any>
         }
     };
     footer?: {
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode;
-        outer?: ReactNode
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>;
+        outer?: TableComponent<any>
     }
 }
 

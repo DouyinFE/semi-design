@@ -46,6 +46,7 @@
         "node": ">= 16.0.0"
     },
     "dependencies": {
+        "@dnd-kit/modifiers": "^7.0.0",
         "@douyinfe/semi-site-banner": "^0.1.3",
         "@douyinfe/semi-site-doc-style": "0.0.1",
         "@douyinfe/semi-site-header": "^0.0.29",
