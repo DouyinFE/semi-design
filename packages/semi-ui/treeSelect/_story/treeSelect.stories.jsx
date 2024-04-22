@@ -2313,6 +2313,7 @@ export const triggerRenderAddMethod = () => {
       />
       <br />
       <TreeSelect
+          defaultExpandAll
           triggerRender={renderTrigger3}
           filterTreeNode
           searchPosition="trigger"
