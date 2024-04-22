@@ -5,8 +5,10 @@ import MarkdownRenderFoundation, {
     MarkdownRenderBaseProps,
     MarkdownRenderBaseState,
 } from '@douyinfe/semi-foundation/markdownRender/foundation';
+import "@douyinfe/semi-foundation/markdownRender/markdownRender.scss";
 import { CSSProperties } from 'react';
 import * as runtime from 'react/jsx-runtime';
+import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';
 
 export interface MarkdownRenderProps extends MarkdownRenderBaseProps{
     style?: CSSProperties;
@@ -48,7 +50,9 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
 
     render() {
         const ComponentConstructor = this.state.MDXContentComponent;
-        return <ComponentConstructor components={this.props.components} />;
+        return <div className={`${cssClasses.PREFIX}`}>
+            <ComponentConstructor components={this.props.components} />
+        </div>;
     }
 
 
