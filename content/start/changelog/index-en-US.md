@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.57.0-beta.0 (2024-04-22)
+
+- 【Fix】
+  - Fixed the issue where the text would flash once after selecting Option in the controlled and filter-enabled mode during Select radio selection and then corrected.
+- 【Feat】
+  - Modal support modalContentClass to set content 的 props [#2162](https://github.com/DouyinFE/semi-design/pull/2162) [@18852819321](https://github.com/18852819321)
+  - TreeSelect's onSearch method add `filteredNodes` which represents the list of nodes displayed after the search [@Hokori23](https://github.com/Hokori23)
+  - Form's formApi add getFormProps function
+
 #### 🎉 2.56.3 (2024-04-19)
 - 【Fix】
     - Fixed the issue where the Cancel button has a left margin after Modal footerFill is opened.[#2177](https://github.com/DouyinFE/semi-design/pull/2177)
