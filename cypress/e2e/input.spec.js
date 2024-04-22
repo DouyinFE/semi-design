@@ -65,4 +65,15 @@ describe('input', () => {
         cy.get('body').click();
         cy.get('.semi-input-wrapper').eq(2).children('input').should('not.be.focused');
     });
+
+    it('input autofocus should focus to text end', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=input--fix-input-auto-focus&viewMode=story');
+        cy.wait(300);
+        cy.window().then(window => {
+            const inputStr = window.document.body.querySelector('.semi-input').value.length;
+            const count = inputStr.length;
+            cy.get('div[data-cy=start]').should('contain.text', inputStr);
+            cy.get('div[data-cy=end]').should('contain.text', inputStr);
+        });
+    });
 });

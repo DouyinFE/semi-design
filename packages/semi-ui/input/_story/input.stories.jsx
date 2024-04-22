@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import GraphemeSplitter from 'grapheme-splitter';
 import { isFunction, isString } from 'lodash';
 
@@ -1031,3 +1031,40 @@ export const TextAutoSizeResize = () => {
     </div>
   )
 };
+
+export const FixInputAutoFocus = () => {
+  const longStr = 'semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design';
+  const inputRef = useRef();
+  const [selection, setSelection] = useState();
+  useEffect(() => {
+    const start = inputRef.current.selectionStart;
+    const end = inputRef.current.selectionEnd;
+    setSelection({ start, end, length: longStr.length });
+  }, []);
+  return (
+    <div>
+      <Input ref={inputRef} style={{ width: 200 }} autoFocus defaultValue={longStr} />
+      <div data-cy="start">start: {selection?.start}</div>
+      <div data-cy="end">end: {selection?.end}</div>
+    </div>
+  )
+};
+
+export const FixTextAreaAutoFocus = () => {
+  const inputRef = useRef();
+  const [selection, setSelection] = useState();
+  useEffect(() => {
+    const start = inputRef.current.selectionStart;
+    const end = inputRef.current.selectionEnd;
+    setSelection({ start, end });
+  }, []);
+  const longStr = 'semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design semi design';
+  return (
+    <div>
+      <TextArea ref={inputRef} style={{ width: 200 }} autoFocus defaultValue={longStr} />
+      <div data-cy="start">start: {selection?.start}</div>
+      <div data-cy="end">end: {selection?.end}</div>
+    </div>
+  )
+};
+
