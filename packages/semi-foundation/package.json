@@ -1,12 +1,14 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.56.3",
+    "version": "2.56.4-alpha.5",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
+        "@douyinfe/semi-animation": "2.56.4-alpha.5",
+        "@mdx-js/mdx": "^3.0.1",
         "prismjs": "^1.29.0",
         "@douyinfe/semi-animation": "2.56.3",
         "async-validator": "^3.5.0",
@@ -16,6 +18,7 @@
         "fast-copy": "^3.0.1 ",
         "lodash": "^4.17.21",
         "memoize-one": "^5.2.1",
+        "remark-gfm": "^4.0.0",
         "scroll-into-view-if-needed": "^2.2.24"
     },
     "keywords": [],
@@ -31,6 +34,7 @@
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@types/lodash": "^4.14.176",
+        "@types/mdx": "^2.0.13",
         "babel-plugin-lodash": "^3.3.4",
         "del": "^6.0.0",
         "gulp": "^4.0.2",
