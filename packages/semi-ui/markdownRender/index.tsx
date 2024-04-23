@@ -17,8 +17,6 @@ export interface MarkdownRenderState extends MarkdownRenderBaseState{
 
 }
 
-
-
 class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderState> {
 
     foundation = new MarkdownRenderFoundation(this.adapter)
@@ -31,7 +29,7 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     }
 
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
-        if (prevProps.mdxRaw!==this.props.mdxRaw) {
+        if (prevProps.mdxRaw !== this.props.mdxRaw) {
             this.setState({ MDXContentComponent: this.foundation.evaluateSync(this.props.mdxRaw) });
         }
     }
@@ -43,15 +41,10 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
         };
     }
 
-
-
-
     render() {
         const ComponentConstructor = this.state.MDXContentComponent;
         return <ComponentConstructor components={this.props.components} />;
     }
-
-
 }
 
 
