@@ -7,5 +7,6 @@ export { default as h6 } from "./h6";
 export { default as a } from "./a";
 export { default as img } from "./img";
 export { default as table } from "./table";
+export { default as p } from "./p";
 
 
