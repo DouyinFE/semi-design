@@ -12,7 +12,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';
 import * as SemiMarkdownComponents from "./components";
 import cls from "classnames";
 import PropTypes from 'prop-types';
-import { getDefaultPropsFromGlobalConfig } from '@douyinfe/semi-ui/_utils';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 export interface MarkdownRenderProps extends MarkdownRenderBaseProps{
     style?: CSSProperties;
     className?: string
