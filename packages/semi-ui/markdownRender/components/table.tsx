@@ -6,7 +6,7 @@ import { omit } from 'lodash';
 
 
 
-export default (props: PropsWithChildren<TableProps>)=>{
+const table = (props: PropsWithChildren<TableProps>)=>{
 
     const { children } = props;
     const toArray = value => Array.isArray(value) ? value : [value];
@@ -33,3 +33,5 @@ export default (props: PropsWithChildren<TableProps>)=>{
         };
     })} {...omit(props, 'children')}/>;
 };
+
+export default table;

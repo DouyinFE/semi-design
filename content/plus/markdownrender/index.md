@@ -28,7 +28,6 @@ Semi 提供的 MarkdownRender 组件支持渲染 Markdown 和 MDX，无需特别
 
 ```jsx
 import { MarkdownRender } from '@douyinfe/semi-ui';
-import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components"
 ```
 
 
@@ -36,21 +35,50 @@ import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/compon
 ### 基本用法
 导入 MarkdownRender 后，直接传入 Markdown 或 MDX 纯文本即可。
 
-引入 SemiMarkdownComponents 并传入 MarkdownRender，文档中的基础元素例如文本、标题、超链接、图片、表格等会使用 Semi 组件渲染，这些文档元素并非所有人都需要，因此为了减少包体积，需要手动引入。
+注意因为 `<` `{` 等符号是合法的 JSX 符号会被判定为代码，无法直接渲染，需要使用 `\` 转义，如果你只需要渲染纯 Markdown，参考下方仅渲染 Markdown 一节。
+
 ```jsx live=true dir="column"
 import { MarkdownRender } from '@douyinfe/semi-ui';
-import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components"
 
 
 function Demo(){
-    return <MarkdownRender components={SemiMarkdownComponents} mdxRaw={`
-# 1号标题
-## 2号标题
-### 3号标题
+    return <MarkdownRender raw={`
+## 
 
-正文内容是普通的文本，也可以**加粗**~~删除线~~和<u>下划线</u> [超链接](https://semi.design) 等 Markdown 与 HTML 的基本语法所支持的富文本
+正文内容是普通的文本，也可以**加粗**~~删除线~~和<u>下划线</u> [超链接](https://semi.design) 等 Markdown 与 HTML 的基本语法所支持的富文本，也支持 emoji 🍰
 
-#### 列表语法支持
+
+部分符号需要转义 \\{\\} \\<\\> ...
+
+<br/>
+<br/>
+---
+#### Semi Design DSM
+[Semi DSM](https://semi.design/dsm) 是 Semi Design 提供的设计系统管理工具（Design System Management），支持全局、组件级别的样式定制，并在 Figma 和前端代码之间保持同步  
+适用于各种规模的团队，无论你是需要简化工作流程，提高团队协作，还是增加生产力，我们都有适合你的功能
+
+##### 中大型企业
+- 多达 3000+ Design Token，深入每一处细节的定制可能，色彩，阴影，边距，圆角，动效，渲染结构均可自由定制，告别 ~~CSS 硬编码~~
+- 功能强大，经过抖音内部数千项目验证过的 UI lib，轻松应对各类复杂场景
+- A11y 无障碍友好，国际化功能完备
+- 面向社区建设，完全开源，无使用限制
+- 从 designOps 到 devOps，自动化工作流，Figma UI Kit 一键刷入主题，生成 Style Guideline，研发一行 npm 代码配置接入
+
+##### 初创企业
+- 无需从 0 到 1 投入大量研发资源，快速复用开源社区优秀方案, 低成本快速定制具备品牌特色的设计系统。
+- 一键支持暗色模式生成，支持根据品牌色快速生成包含 320 个全色阶、兼容深/浅两种模式的色彩系统，并支持动态切换
+- 不断进化，DSM + Semi Design 组件由<u>抖音前端架构团队</u>专业维护，已稳定迭代五年+，值得信赖
+
+##### 自由设计师/个人开发者
+- 低成本快速创建风格各异的设计系统，更少时间，更快交付
+- 研发接入友好，无需反复沟通，交付npm包产物，一键完成代码接入
+
+
+![DSM](https://semi.design/dsm_manual/content/introduction/start/start-intro.png)
+
+---
+
+#### MarkdownRender 渲染列表语法
 - 好好地吃饭
 - 好好地睡觉
 - 好好地游玩
@@ -59,8 +87,6 @@ function Demo(){
 - 好好地吵架
 - 过着平凡普通的每日 
 
-![Colorful World](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg)
-    
 | 支持 | Markdown 表格 |  c |  d  |
 | - | :- | -: | :-: |
 | 1 | 2 | 3 | 4 |
@@ -81,15 +107,14 @@ function Demo(){
 
 ```jsx live=true
 import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
-import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components"
 
 
 function Demo() {
-    const components ={...SemiMarkdownComponents};
+    const components = {}
     
     components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
     
-    return <MarkdownRender mdxRaw={`# 主色标题`} components={components} />
+    return <MarkdownRender raw={`# 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
 }
 
 
@@ -97,7 +122,22 @@ function Demo() {
 
 可以覆盖的基本元素 tag 支持 `a blockquote br code em h1 h2 h3 h4 h5 hr img li ol p pre strong ul table`
 
+### 仅纯 Markdown
+当你渲染的 Markdown 仅仅是纯 markdown，不包含任何 JSX 代码时，可传入 `format="md"` 来开启仅 Markdown 模式，在这种模式下无需转义特殊字符
 
+```jsx live=true
+import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
+
+
+function Demo() {
+    const components ={};
+    
+    components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    
+    return <MarkdownRender raw={`无需转义的符号{}<> ...`} format="md" components={components} />
+}
+
+```
 
 ### 添加自定义组件
 
@@ -110,24 +150,23 @@ function Demo() {
 
 ```jsx live=true
 import { Button, MarkdownRender, Typography } from '@douyinfe/semi-ui';
-import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components"
-
 
 function Demo() {
-    const components = { ...SemiMarkdownComponents };
+    const components = {};
 
     components['MyButton'] = ({ children,onClick }) => {
         return <Button type={"primary"} onClick={onClick} style={{marginBottom:"12px"}}> {children} </Button>
     }
 
     return <MarkdownRender 
-        mdxRaw={`
+        raw={`
 #### 下面是一个渲染在 Markdown 中的按钮
 <MyButton onClick={()=>alert("点击了 MyButton")}>MyButton 点我</MyButton>
 
 直接在 Markdown 中书写 JSX 即可
-        `} 
-        components={components} />
+        `}
+        components={components}
+        />
 }
 
 
@@ -136,10 +175,11 @@ function Demo() {
 
 ### MarkdownRender
 
-| 属性         | 说明                         | 类型                                    | 默认值 |
-|------------|----------------------------|---------------------------------------| --- |
-| mdxRaw     | Markdown 或 MDX 的纯文本        | string                                | - |
-| components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | - |
+| 属性         | 说明                         | 类型                                    | 默认值   |
+|------------|----------------------------|---------------------------------------|-------|
+| components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | -     |
+| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
+| format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                           | 'mdx' |
 
 ## 设计变量
 

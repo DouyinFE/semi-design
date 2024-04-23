@@ -9,7 +9,10 @@ import "@douyinfe/semi-foundation/markdownRender/markdownRender.scss";
 import { CSSProperties } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';
-
+import * as SemiMarkdownComponents from "./components";
+import cls from "classnames";
+import PropTypes from 'prop-types';
+import { getDefaultPropsFromGlobalConfig } from '@douyinfe/semi-ui/_utils';
 export interface MarkdownRenderProps extends MarkdownRenderBaseProps{
     style?: CSSProperties;
     className?: string
@@ -26,13 +29,26 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     constructor(props: MarkdownRenderProps) {
         super(props);
         this.state = {
-            MDXContentComponent: this.foundation.evaluateSync(this.props.mdxRaw)
+            MDXContentComponent: this.foundation.evaluateSync(this.props.raw)
         };
     }
 
+    static propTypes = {
+        className: PropTypes.string,
+        style: PropTypes.object,
+        format: PropTypes.string,
+        components: PropTypes.any,
+        raw: PropTypes.string
+    }
+
+    static __SemiComponentName__ = "MarkdownRender";
+    static defaultProps = getDefaultPropsFromGlobalConfig(MarkdownRender.__SemiComponentName__, {
+        format: "mdx"
+    })
+
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
-        if (prevProps.mdxRaw !== this.props.mdxRaw) {
-            this.setState({ MDXContentComponent: this.foundation.evaluateSync(this.props.mdxRaw) });
+        if (prevProps.raw !== this.props.raw) {
+            this.setState({ MDXContentComponent: this.foundation.evaluateSync(this.props.raw) });
         }
     }
 
@@ -45,8 +61,8 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
 
     render() {
         const ComponentConstructor = this.state.MDXContentComponent;
-        return <div className={`${cssClasses.PREFIX}`}>
-            <ComponentConstructor components={this.props.components} />
+        return <div className={cls(cssClasses.PREFIX, this.props.className)} style={this.props.style}>
+            <ComponentConstructor components={{ ...SemiMarkdownComponents, ...this.props.components }} />
         </div>;
     }
 }

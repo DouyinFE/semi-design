@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { PropsWithChildren } from 'react';
 import Typography, { TitleProps } from '../../typography';
-import { omit } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/markdownRender/constants';
 
-export default (props: PropsWithChildren<TitleProps>)=>{
+const h3 = (props: PropsWithChildren<TitleProps>)=>{
     return <Typography.Title heading={3} className={`${cssClasses.PREFIX}-component-header`} {...props}/>;
 };
+
+export default h3;

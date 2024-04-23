@@ -11,8 +11,9 @@ export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<stri
 
 
 export interface MarkdownRenderBaseProps{
-    mdxRaw: string;
-    components: MDXProps['components']
+    raw: string;
+    components: MDXProps['components'];
+    format: "md"|"mdx"
 }
 
 
@@ -25,10 +26,11 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
     private getOptions = ()=>{
         return {
             evaluateOptions: {
-                remarkPlugins: [remarkGfm]
+                remarkPlugins: [remarkGfm],
+                format: this.getProp("format")
             },
             compileOptions: {
-
+                format: this.getProp("format")
             },
             runOptions: {
             }
