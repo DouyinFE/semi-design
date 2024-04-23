@@ -2286,9 +2286,17 @@ export const triggerRenderAddMethod = () => {
     <>
       <TreeSelect
           triggerRender={renderTrigger1}
+          treeData={treeData}
+          placeholder='Single, Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger1}
           multiple
           treeData={treeData}
-          placeholder='Custom Trigger'
+          placeholder='Multiple, custom Trigger'
           onChange={onValueChange}
           style={{ width: 300 }}
       />
@@ -2305,12 +2313,26 @@ export const triggerRenderAddMethod = () => {
       />
       <br />
       <TreeSelect
+          defaultExpandAll
           triggerRender={renderTrigger3}
           filterTreeNode
           searchPosition="trigger"
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+       <TreeSelect
+          defaultExpandAll
+          checkRelation={'unRelated'} 
+          triggerRender={renderTrigger3}
+          filterTreeNode
+          searchPosition="trigger"
+          multiple
+          treeData={treeData}
+          placeholder='multiple, checkRelation = unRelated'
           onChange={onValueChange}
           style={{ width: 300 }}
       />
