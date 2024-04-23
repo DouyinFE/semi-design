@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import CodeHighlightFoundation, {
     CodeHighlightAdapter,
@@ -6,14 +6,14 @@ import CodeHighlightFoundation, {
     CodeHighlightBaseState,
 } from '@douyinfe/semi-foundation/codeHighlight';
 import { CSSProperties } from 'react';
-import "@douyinfe/semi-foundation/codeHighlight/codeHighlight.scss"
-
-
+import "@douyinfe/semi-foundation/codeHighlight/codeHighlight.scss";
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
+import PropTypes from 'prop-types';
 
 
 interface CodeHighlightProps extends CodeHighlightBaseProps{
-    className?:string
-    style?:CSSProperties
+    className?: string;
+    style?: CSSProperties
 }
 
 
@@ -22,44 +22,55 @@ interface CodeHighlightState extends CodeHighlightBaseState{
 }
 
 
-class CodeHighlight extends BaseComponent<CodeHighlightProps,CodeHighlightState>{
+class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState> {
 
-    preWrapperRef = React.createRef<HTMLPreElement>()
+    codeRef = React.createRef<HTMLElement>()
     foundation = new CodeHighlightFoundation(this.adapter)
     static __SemiComponentName__ = "CodeHighlight";
 
-    constructor(props:CodeHighlightProps) {
+    static propTypes = {
+        className: PropTypes.string,
+        style: PropTypes.any,
+        code: PropTypes.string,
+        language: PropTypes.string,
+        lineNumber: PropTypes.bool,
+    }
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(CodeHighlight.__SemiComponentName__, {
+        lineNumber: true
+    })
+
+    constructor(props: CodeHighlightProps) {
         super(props);
         this.state = {
 
-        }
+        };
 
     }
 
-    get adapter():CodeHighlightAdapter{
+    get adapter(): CodeHighlightAdapter<CodeHighlightProps, CodeHighlightState> {
         return {
             ...super.adapter
-        }
+        };
     }
 
     componentDidMount() {
         super.componentDidMount();
-        if(this.preWrapperRef.current){
-            this.foundation.highlightCode(this.preWrapperRef.current,this.props.language)
+        if (this.codeRef.current) {
+            this.foundation.highlightCode(this.codeRef.current, this.props.language);
         }
 
     }
 
     render() {
-       return <pre ref={this.preWrapperRef}>
-           <code>
-            {this.props.code}
-        </code>
-       </pre>
-
+        return <pre>
+            <code ref={this.codeRef}>
+                {this.props.code}
+            </code>
+        </pre>;
     }
 
 
 }
 
-export default CodeHighlight
+export default CodeHighlight;

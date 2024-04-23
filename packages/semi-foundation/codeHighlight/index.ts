@@ -1,12 +1,15 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import Prism, { Grammar } from 'prismjs';
-import cls from "classnames"
+import Prism from 'prismjs';
+import cls from "classnames";
+import "prismjs/plugins/line-numbers/prism-line-numbers.min.js"
+import "prismjs/plugins/line-numbers/prism-line-numbers.min.css";
 
 Prism.manual = true;
 
 export interface CodeHighlightBaseProps{
-    code:string
-    language:string
+    code:string;
+    language:string;
+    lineNumber:boolean;
 }
 
 export interface CodeHighlightBaseState{
@@ -25,11 +28,13 @@ class CodeHighlightFoundation <P = Record<string, any>, S = Record<string, any>>
 
 
     highlightCode =  (ele:HTMLElement,language:string)=>{
-
         let className = ele.className;
         const languageClassName = `language-${language}`;
         if(!className.includes(languageClassName)){
             className = cls(className,languageClassName);
+        }
+        if(this.getProp("lineNumber")){
+            className = cls(className,"line-numbers")
         }
         ele.className = className;
         Prism.highlightElement(ele,false);

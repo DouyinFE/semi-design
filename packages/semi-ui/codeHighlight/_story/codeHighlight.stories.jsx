@@ -1,6 +1,6 @@
 import * as React from 'react'
 import CodeHighlight from '../index';
-
+import "prismjs/themes/prism.min.css";
 export default {
     title: 'CodeHighlightBasic',
 }
