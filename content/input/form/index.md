@@ -2107,6 +2107,7 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 
 | Function      | 说明                                                                                                                                                                                                                             | example                                                                                                             |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------|
+| getFormProps  | 获取 Form 组件上当前所有props的值，例如可用于读取 disabled 等。v 2.57.0 后提供                                                    | formApi.getProps(propNames?: string[])                                                                                              |
 | getFormState  | 获取 FormState                                                                                                                                                                                                                   | formApi.getFormState()                                                                                              |
 | submitForm    | 可手动触发 submit 提交操作                                                                                                                                                                                                       | formApi.submitForm()                                                                                                |
 | reset         | 可手动对 form 进行重置                                                                                                                                                                                                           | formApi.reset(fields?: Array <string\>)                                                                             |
@@ -2130,6 +2131,23 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 -   通过 [render props 方式声明表单](#支持的其他写法)，formApi 会作为参数注入
 -   通过 [useFormApi](#useFormApi) hook
 -   通过 [withFormApi](#HOC-withFormApi) HOC
+
+```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
+() => {
+    // 函数式组件通过useRef存储formApi
+    const api = useRef();
+
+    return (
+        <Form getFormApi={formApi => api.current = formApi}>
+            <Form.Input field='a' />
+            <Button onClick={()=>{console.log(api);}}>log</Button>
+        </Form>
+    );
+};
+```
 
 ```jsx
 import React from 'react';
@@ -2168,22 +2186,6 @@ class FormApiDemo extends React.Component {
 }
 ```
 
-```jsx
-import React from 'react';
-import { Form, Button } from '@douyinfe/semi-ui';
-
-() => {
-    // 函数式组件通过useRef存储formApi
-    const api = useRef();
-
-    return (
-        <Form getFormApi={formApi => api.current = formApi}>
-            <Form.Input field='a' />
-            <Button onClick={()=>{console.log(api);}}>log</Button>
-        </Form>
-    );
-};
-```
 
 ## Field Props
 

@@ -682,8 +682,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: (input, filteredExpandedKeys) => {
-                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
+            notifySearch: (input, filteredExpandedKeys, filteredNodes) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys, filteredNodes);
             },
             cacheFlattenNodes: bool => {
                 this.setState({ cachedFlattenNodes: bool ? cloneDeep(this.state.flattenNodes) : undefined });
