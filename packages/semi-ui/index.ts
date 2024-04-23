@@ -103,3 +103,4 @@ export { default as Image } from './image';
 export { Preview as ImagePreview } from './image';
 
 export { default as MarkdownRender } from "./markdownRender";
+export {default as CodeHighlight} from "./codeHighlight"
