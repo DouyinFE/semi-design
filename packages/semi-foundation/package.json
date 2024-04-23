@@ -28,6 +28,7 @@
     ],
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
     "devDependencies": {
+        "@types/mdx": "^2.0.13",
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@types/lodash": "^4.14.176",
