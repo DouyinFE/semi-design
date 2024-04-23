@@ -1,0 +1,18 @@
+@import './variables.scss';
+
+$module: #{$prefix}-codeHighlight;
+
+body{
+    display: none;
+}
+
+body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-light {
+    @import "prismjs/themes/prism.min.css";
+
+}
+
+
+
+body[theme-mode="dark"], body .semi-always-dark, :host-context(body[theme-mode="dark"]), :host .semi-always-dark {
+    @import "prismjs/themes/prism-dark.min.css";
+}

@@ -1,13 +1,12 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import Prism, { Grammar } from 'prismjs';
+import cls from "classnames"
 
 Prism.manual = true;
 
 export interface CodeHighlightBaseProps{
     code:string
     language:string
-    lightTheme:any
-    darkTheme:any
 }
 
 export interface CodeHighlightBaseState{
@@ -25,9 +24,15 @@ class CodeHighlightFoundation <P = Record<string, any>, S = Record<string, any>>
     }
 
 
-    highlightCode = (code:string,grammar:Grammar,language:string)=>{
-        const html = Prism.highlight(code,grammar,language);
-        return html
+    highlightCode =  (ele:HTMLElement,language:string)=>{
+
+        let className = ele.className;
+        const languageClassName = `language-${language}`;
+        if(!className.includes(languageClassName)){
+            className = cls(className,languageClassName);
+        }
+        ele.className = className;
+        Prism.highlightElement(ele,false);
     }
 
 }
