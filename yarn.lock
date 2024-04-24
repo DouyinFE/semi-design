@@ -1648,10 +1648,10 @@
     prop-types "^15.7.2"
     tslib "^2.3.1"
 
-"@douyinfe/semi-site-doc-style@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
-  integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
+"@douyinfe/semi-site-doc-style@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.2.tgz#950d62149dc576fb6007c54b6fce3d34ab06215a"
+  integrity sha512-oJwFxaE1fMQGJ+WewY6nM0zjZI/IlC82UsqbFDfbHHSmRh0BqninqjFEf+KXptMdvxCYfmK3cQywJo2XP/T+yQ==
 
 "@douyinfe/semi-site-header@^0.0.29":
   version "0.0.29"

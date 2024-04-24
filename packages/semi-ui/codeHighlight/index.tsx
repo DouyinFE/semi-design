@@ -63,7 +63,7 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
     }
 
     render() {
-        return <pre>
+        return <pre className={this.props.className} style={this.props.style}>
             <code ref={this.codeRef}>
                 {this.props.code}
             </code>

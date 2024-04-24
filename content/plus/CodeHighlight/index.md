@@ -24,16 +24,48 @@ import "prismjs/themes/prism.min.css";  // 手动引入高亮主题
 
 ### 基本用法
 
-```jsx live=true
+```jsx live=true dir=column
 
 function Demo() {
 
-    return <CodeHighlight language={"javascript"} code={
-        `import * as React from 'react"
-const Test = ()=>{
-return <div>test</div>
-}
+    return <CodeHighlight 
+        className="codeHighlightDemo" // 用于防止 Semi 文档站样式影响 Demo 展示效果，实际项目不需要该 ClassName
+        language={"javascript"} code={
         `
+import * as React from 'react"
+const Test = ()=>{
+    const handleClick = ()=>{
+        alert("Click")
+    }
+    return <div onClick={handleClick}>test</div>
+}`
+    }/>
+}
+
+```
+
+**CSS**
+
+```jsx live=true dir=column
+
+function Demo() {
+
+    return <CodeHighlight 
+        className="codeHighlightDemo" // 用于防止 Semi 文档站样式影响 Demo 展示效果，实际项目不需要该 ClassName
+        language={"css"} code={
+        `.grid {
+    .semi-row,
+    .semi-row-flex {
+        text-align: center;
+        .semi-col {
+            min-height: 30px;
+            line-height: 30px;
+            background: var(--semi-color-primary-light-default);
+            outline: 1px solid var(--semi-color-primary-light-active);
+        }
+    }
+}
+`
     }/>
 }
 
