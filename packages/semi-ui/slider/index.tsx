@@ -528,8 +528,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 left: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
             } :
             {
-                height: range ? `${(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
-                top: range ? `${minPercent * 100}%` : 0,
+                height: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
+                top: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
             };
         trackStyle = included ? trackStyle : {};
         return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -621,7 +621,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             [`${prefixCls}`]: !vertical,
             [cssClasses.VERTICAL]: vertical,
         });
-        const ariaLabel = range ? `Range: ${this._getAriaValueText(currentValue[0], 0)} to ${this._getAriaValueText(currentValue[1], 1)}` : undefined;
+        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort() : currentValue;
+        const ariaLabel = range ? `Range: ${this._getAriaValueText(fixedCurrentValue[0], 0)} to ${this._getAriaValueText(fixedCurrentValue[1], 1)}` : undefined;
         const slider = (
             <div
                 className={wrapperClass}
