@@ -173,13 +173,15 @@ function Demo() {
 ```
 
 
-### MarkdownRender
+### API
 
 | 属性         | 说明                         | 类型                                    | 默认值   |
 |------------|----------------------------|---------------------------------------|-------|
+| className | 类名    | string | -   |
 | components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | -     |
-| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
 | format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                           | 'mdx' |
+| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
+| style | 样式 | CSSProperties | - |
 
 ## 设计变量
 

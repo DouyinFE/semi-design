@@ -134,12 +134,15 @@ Just write JSX directly in Markdown
 ```
 
 
-### MarkdownRender
+### API
 
-| PROPERTIES         | INSTRUCTIONS                         | TYPE                                    | DEFAULT |
-|------------|----------------------------|---------------------------------------| --- |
-| mdxRaw     | Plain text in Markdown or MDX        | string                                | - |
-| components | Used to cover Markdown elements and also add custom components | Record<string, JSXElementConstructor> | - |
+| Properties | Description | Type | Default Value |
+|------------|-----------------------------|------ ------------------------|-------|
+| className | class name | string | - |
+| components | Used to override Markdown elements and add custom components | Record<string, JSXElementConstructor> | - |
+| format | The incoming raw type, whether it is pure Markdown | 'md'\|'mdx' | 'mdx' |
+| raw | plain text in Markdown or MDX | string | - |
+| style | style | CSSProperties | - |
 
 ## Design Token
 

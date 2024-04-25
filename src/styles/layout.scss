@@ -32,7 +32,7 @@ body[theme-mode="dark"] {
     }
 }
 
-.markdown > pre {
+pre:not(.codeHighlightDemo),code:not(.codeHighlightDemo *) {
     font-family: Inconsolata, monospace;
     background-color: var(--semi-color-fill-1);
     margin-left: 4px;
