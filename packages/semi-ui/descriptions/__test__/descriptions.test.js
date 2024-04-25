@@ -197,7 +197,7 @@ describe('Descriptions', () => {
             <Descriptions layout='horizontal' align='left' column={4}>
                 <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
                 <Descriptions.Item itemKey="7天留存">98%</Descriptions.Item>
-                <Descriptions.Item itemKey="认证状态">未认证</Descriptions.Item>
+                <Descriptions.Item itemKey="认证状态" span={4}>未认证</Descriptions.Item>
             </Descriptions>, {
                 attachTo: document.getElementById('container'),
             });
@@ -206,7 +206,7 @@ describe('Descriptions', () => {
         const ths = document.querySelectorAll('td');
         expect(ths.length).toEqual(3);
         const trs = document.querySelectorAll('tr');
-        expect(trs.length).toEqual(1);
+        expect(trs.length).toEqual(2);
         expect(desc.exists(`.${BASE_CLASS_PREFIX}-descriptions-horizontal`)).toEqual(true);
         expect(
             desc
@@ -227,7 +227,7 @@ describe('Descriptions', () => {
         tds.forEach(item=>{
             totalSpan += +item.getAttribute('colspan')
         })
-        expect(totalSpan).toEqual(8);
+        expect(totalSpan).toEqual(8 * 2);
         desc.unmount();
     });
 })

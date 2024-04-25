@@ -10,19 +10,26 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
     }
 
     getHorizontalList() {
-        const { column, data, children } = this.getProps();
+        const { column } = this.getProps();
         const columns = this._adapter.getColumns();
         const horizontalList = [];
         const curSpan = { totalSpan: 0, itemList: [] };
         for (const item of columns) {
             curSpan.totalSpan += item.span || 1;
-            curSpan.itemList.push(item);
-            if (curSpan.totalSpan >= column) {
+            if (curSpan.totalSpan > column) {
+                if (curSpan.itemList.length < column) {
+                    const lastSpan = curSpan.itemList[curSpan.itemList.length - 1];
+                    if (isNaN(lastSpan.span)) {
+                        lastSpan.span = column - curSpan.itemList.length + (lastSpan.span || 1);
+                    }
+                }
                 horizontalList.push(curSpan.itemList);
                 curSpan.itemList = [];
-                curSpan.totalSpan = 0;
+                curSpan.totalSpan = item.span || 1;
             }
+            curSpan.itemList.push(item);
         }
+
         if (curSpan.itemList.length != 0) {
             const lastSpan = curSpan.itemList[curSpan.itemList.length - 1];
             if (isNaN(lastSpan.span)) {
