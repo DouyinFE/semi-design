@@ -147,6 +147,7 @@ function withField<
         const [cursor, setCursor, getCursor] = useStateWithGetter(0);
         const [status, setStatus] = useState(validateStatus); // use props.validateStatus to init
 
+        const isUnmounted = useRef(false);
         const rulesRef = useRef(rules);
         const validateRef = useRef(validate);
         const validatePromise = useRef<Promise<any> | null>(null);
@@ -159,6 +160,9 @@ function withField<
         };
 
         const updateError = (errors: any, callOpts?: CallOpts) => {
+            if (isUnmounted.current) {
+                return;
+            }
             if (errors === getError()) {
                 // When the inspection result is unchanged, no need to update, saving a forceUpdate overhead
                 // When errors is an array, deepEqual is not used, and it is always treated as a need to update
@@ -214,7 +218,7 @@ function withField<
                         (errors, fields) => {}
                     )
                     .then(res => {
-                        if (validatePromise.current !== rootPromise) {
+                        if (isUnmounted.current || validatePromise.current !== rootPromise) {
                             return;
                         }
                         // validation passed
@@ -223,7 +227,7 @@ function withField<
                         resolve({});
                     })
                     .catch(err => {
-                        if (validatePromise.current !== rootPromise) {
+                        if (isUnmounted.current || validatePromise.current !== rootPromise) {
                             return;
                         }
                         let { errors, fields } = err;
@@ -270,7 +274,7 @@ function withField<
                 } else if (isPromise(maybePromisedErrors)) {
                     maybePromisedErrors.then((result: any) => {
                         // If the async validate is outdated (a newer validate occurs), the result should be discarded
-                        if (validatePromise.current !== rootPromise) {
+                        if (isUnmounted.current || validatePromise.current !== rootPromise) {
                             return;
                         }
 
@@ -408,11 +412,14 @@ function withField<
             validateRef.current = validate;
         }, [rules, validate]);
 
-        // exec validate once when trigger inlcude 'mount'
         useIsomorphicEffect(() => {
+            // exec validate once when trigger include 'mount'
             if (validateOnMount) {
                 fieldValidate(value);
             }
+            return () => {
+                isUnmounted.current = true;
+            };
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
 
