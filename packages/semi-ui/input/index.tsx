@@ -157,9 +157,10 @@ class Input extends BaseComponent<InputProps, InputState> {
 
     constructor(props: InputProps) {
         super(props);
+        const initValue = 'value' in props ? props.value : props.defaultValue;
         this.state = {
-            value: '',
-            cachedValue: null, // Cache current props.value value
+            value: initValue,
+            cachedValue: props.value, // Cache current props.value value
             disabled: false,
             props: {},
             isFocus: false,
@@ -223,7 +224,6 @@ class Input extends BaseComponent<InputProps, InputState> {
     componentDidMount(): void {
         // autofocus is changed from the original support of input to the support of manually calling the focus method,
         // so that preventScroll can still take effect under the setting of autofocus
-        this.foundation.init();
         const { disabled, autoFocus, preventScroll } = this.props;
         if (!disabled && (autoFocus || this.props['autofocus'])) {
             this.inputRef.current.focus({ preventScroll });

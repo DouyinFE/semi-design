@@ -40,10 +40,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
         super({ ...InputFoundation.inputDefaultAdapter, ...adapter });
     }
 
-    init() {
-        this._setInitValue();
-    }
-
     destroy() {
         if (this._timer) {
             clearTimeout(this._timer);
@@ -52,16 +48,6 @@ class InputFoundation extends BaseFoundation<InputAdapter> {
     }
 
     setDisable() {}
-
-    _setInitValue() {
-        const { defaultValue, value } = this.getProps();
-        let v = defaultValue;
-        if (this._isControlledComponent()) {
-            v = value;
-        }
-        this._adapter.setValue(v);
-    // this.checkAllowClear(v);
-    }
 
     setValue(value: any) {
         this._adapter.setValue(value);

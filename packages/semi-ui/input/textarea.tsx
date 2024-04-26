@@ -113,12 +113,14 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
 
     constructor(props: TextAreaProps) {
         super(props);
+        const initValue = 'value' in props ? props.value : props.defaultValue;
         this.state = {
-            value: '',
+            value: initValue,
             isFocus: false,
             isHover: false,
             height: 0,
             minLength: props.minLength,
+            cachedValue: props.value,
         };
         this.focusing = false;
         this.foundation = new TextAreaFoundation(this.adapter);
