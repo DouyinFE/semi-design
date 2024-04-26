@@ -640,6 +640,7 @@ function Demo(props = {}) {
 | mask | 是否显示遮罩                                                                                                    | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
 | maskStyle | 遮罩的样式                                                                                                     | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | motion | 动画效果开关                                                                                                    | boolean | true |
 | okButtonProps | 确认按钮的 props                                                                                               | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字                                                                                                   | string | 无 |
@@ -680,6 +681,7 @@ function Demo(props = {}) {
 | mask | 是否显示遮罩 | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框 | boolean | true |
 | maskStyle | 遮罩的样式 | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | okButtonProps | 确认按钮的 props | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字 | string | 无 |
 | okType | 确认按钮的类型 | string | primary |

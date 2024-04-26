@@ -22,6 +22,7 @@ export interface ModalProps {
     cancelText?: string;
     centered?: boolean;
     className?: string;
+    modalContentClass?: string;
     closable?: boolean;
     confirmLoading?: boolean;
     cancelLoading?: boolean;

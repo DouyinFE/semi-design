@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider, RadioGroup } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -1253,6 +1253,7 @@ RenderSelectedItem.parameters =  {
 };
 
 const ControlledSelect = () => {
+  const [filter, setFilter] = useState(true);
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1260,9 +1261,22 @@ const ControlledSelect = () => {
   const [value5, setValue5] = useState();
   return (
     <>
+      <RadioGroup
+        type='button'
+        defaultValue={false}
+        onChange={e => setFilter(e.target.value)}
+        options={[
+          { value: true, label: 'Filter enable' },
+          { value: false, label: 'Filter disable' },
+        ]}
+      >
+      </RadioGroup>
+      <br />
+      <br />
       <span>value + onChange</span>
       <Select
         value={value}
+        filter={filter}
         onChange={setValue}
         style={{
           width: 200,
@@ -1278,6 +1292,7 @@ const ControlledSelect = () => {
       <span>只传value，不传onChange</span>
       <Select
         value={value2}
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -1293,6 +1308,7 @@ const ControlledSelect = () => {
       <Select
         value={value3}
         onChange={setValue3}
+        filter={filter}
         multiple
         style={{
           width: 200,
@@ -1312,6 +1328,7 @@ const ControlledSelect = () => {
       <Select
         value={value4}
         multiple
+        filter={filter}
         style={{
           width: 200,
         }}
