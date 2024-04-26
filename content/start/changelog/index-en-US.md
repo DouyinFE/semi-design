@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+- #### 🎉 2.57.0 (2024-04-26)
+- 【Fix】
+    - Fixed the issue where the asynchronous verification results will still be written to formState after Field is uninstalled [@sylingd](https://github.com/sylingd) [#2206](https://github.com/DouyinFE/semi-design/pull/2206)
+    - Fixed the problem of TreeSelect controlled value, defaultExpandedKeys is set, and when loading treeData remotely, defaultExpandedKeys does not take effect (affects version 2.49.2-2.56.3) [#2191](https://github.com/DouyinFE/semi-design/pull/2191)
+    - Remove invalid css rules in Banner `.semi-banner-content` [#2204](https://github.com/DouyinFE/semi-design/pull/2204)
+    - Fixed the problem that when the Tooltip is mounted, if the Cursor is already on the trigger's dom, and React reuses the trigger dom as the children of the tooltip, the tooltip will not be displayed [#2199](https://github.com/DouyinFE/semi-design/pull/2199)
+    - Fixed the problem that the selected items are not exposed through triggerRender in TreeSelect when multi-select, custom trigger, and checkRelation is unRelated  [#2188](https://github.com/DouyinFE/semi-design/issues/2188)
+    - Fixed the issue where the autoFocus cursor does not scroll to the end when setting defaultValue in Input and TextArea in the case of long text [#2193](https://github.com/DouyinFE/semi-design/issues/2193)
+- 【Design Token】
+    - Checkbox add `$color-checkbox_cardType-border-default` [#2208](https://github.com/DouyinFE/semi-design/pull/2208)
+
+
 #### 🎉 2.57.0-beta.0 (2024-04-22)
 
 - 【Fix】
