@@ -391,11 +391,14 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
 
+        // Perform type conversion on children to prevent component crash due to non-string type of children
+        // https://github.com/DouyinFE/semi-design/issues/2167
+        const realChildren = Array.isArray(children) ? children.join('') : String(children);
+
         const content = getRenderText(
             this.wrapperRef.current,
             rows,
-            // Perform type conversion on children to prevent component crash due to non-string type of children
-            String(children),
+            realChildren,
             extraNode,
             ELLIPSIS_STR,
             suffix,
@@ -405,7 +408,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             this.setState({
                 isOverflowed: false,
                 ellipsisContent: content,
-                isTruncated: children !== content,
+                isTruncated: realChildren !== content,
             }, resolve);
         });
 

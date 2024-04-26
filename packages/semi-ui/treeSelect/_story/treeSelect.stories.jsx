@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
-import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch, Tree } from '../../index';
+import ReactDOM from 'react-dom';
+import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch } from '../../index';
 import TreeSelect from '../index';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, without } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
 import copy from 'fast-copy';
@@ -2681,6 +2682,88 @@ export const Issue1542 = () => {
           expandedKeys={expandedKeys}
           onExpand={onExpand}
           onSearch={onSearch}
+      />
+    </>  
+  );
+};
+
+class WebComponentWrapper extends HTMLElement {
+  constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+      ReactDOM.render(<_TreeSelect />, this.shadowRoot);
+  }
+}
+
+customElements.define('my-web-component', WebComponentWrapper);
+
+export const WebCompTestOutside = () => {
+
+  return (
+    <my-web-component></my-web-component>
+  );
+};
+
+export const CustomSelectAll = () => {
+  const [value, setValue] = useState([]);
+  const [filteredNodes, setFilteredNodes] = useState([])
+  const treeData = treeDataEn;
+  const onSearch = useCallback((inputValue, filteredExpandedKeys, _filteredNodes) => {
+    setFilteredNodes(_filteredNodes)
+  }, []);
+
+  const handleOnChange = useCallback((value) => {
+    setValue(value);
+  }, [])
+
+  // 是否全选
+  const allSelected = useMemo(() => {
+    if (!filteredNodes.length) {
+      return false;
+    }
+    const optionValues = filteredNodes.map(i => i.value);
+    return !without(optionValues, ...value).length;
+  }, [filteredNodes, value]);
+
+  const handleOnAllSelect = useCallback(() => {
+    const optionValues = filteredNodes.map(i => i.value);
+    handleOnChange(allSelected ? [] : optionValues);
+  }, [allSelected, handleOnChange, filteredNodes]);
+ 
+  const outerBottomSlot = useMemo(() => {
+    if (!filteredNodes.length) {
+      // 未筛选状态下不展示按钮
+      return null;
+    }
+    return (
+        <div style={{ padding: '5px 20px', borderTop: '1px solid var(--semi-color-border)'}}>
+          <Typography.Text link={true} onClick={handleOnAllSelect}>
+            {allSelected ? '取消全选' : '全选'}
+          </Typography.Text>
+        </div> 
+    );
+  }, [allSelected, handleOnAllSelect, filteredNodes]);
+
+  return (
+    <>
+      <span>本用例借助 onSearch 的第三个参数_filteredNodes 自定义搜索全选功能 </span>
+      <br />
+      <TreeSelect
+          multiple
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData}
+          filterTreeNode
+          searchPosition='trigger'
+          showFilteredOnly
+          onSearch={onSearch}
+          onChange={handleOnChange}
+          value={value}
+          showClear
+          outerBottomSlot={outerBottomSlot}
       />
     </>  
   );

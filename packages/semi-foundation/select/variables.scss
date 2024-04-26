@@ -65,7 +65,12 @@ $width-select_arrow: 32px; // 选择器输入框下拉箭头宽度
 $width-select_arrow_empty: 12px; // 选择器输入框下拉箭头为空时（有suffix icon）宽度
 $width-select_clear-icon: 32px; // 选择器输入框清空按钮宽度
 $width-select_group_top-border: $border-thickness-control; // 选择器菜单分组标题描边宽度
-$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2px; // 多项选择器标签组最小宽度
+$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2px; // 多项选择器标签组最小高度
+
+$height-select_multiple_input_small: 20px; // 小尺寸多项选择器输入框Input框高度
+$height-select_multiple_input_default: 24px; // 默认多项选择器输入框Input框高度
+$height-select_multiple_input_large: 24px; // 大尺寸多项选择器输入框Input框高度
+
 $width-select-border-hover: $width-select-border;  // 选择器输入框描边宽度 - 悬浮
 $width-select-border-focus: $width-select-border-hover; // 选择器输入框描边宽度 - 按下
 $width-select-border-active: $width-select-border-focus; // 选择器输入框描边宽度 - 选中

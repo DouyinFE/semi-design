@@ -9,7 +9,8 @@ interface Props {
     isColorPalette?: boolean;
     reg?: RegExp;
     isAnimation?: boolean;
-    hasTab?: boolean
+    hasTab?: boolean;
+    sameWidth?: boolean
 }
 
 interface Token {
@@ -60,7 +61,7 @@ const JumpLink = ({ value, availableKeySet }: { value: string; availableKeySet: 
     }
 };
 
-const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light' }: { mode?: 'light' | 'dark'; tokenList: TokenMayWithColor[]; designToken: DesignToken; currentTab?: string }): React.ReactElement => {
+const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light', sameWidth }: { mode?: 'light' | 'dark'; tokenList: TokenMayWithColor[]; designToken: DesignToken; currentTab?: string; sameWidth?: boolean }): React.ReactElement => {
     const intl = useIntl();
     const globalTokenJumpAvailableSet = useMemo(() => {
         const global = designToken?.global;
@@ -87,16 +88,19 @@ const TokenTable = ({ tokenList, designToken, currentTab, mode = 'light' }: { mo
                     return <div data-token={lodash.trim(text, '$')} style={{ fontWeight: 600 }}>{text}</div>;
                 }
 
-            }
+            },
+            width: sameWidth ? '33%': 'undefined'
         },
         {
             title: intl.formatMessage({ id: 'designToken.defaultValue' }),
             dataIndex: 'value',
-            render: (text: string): React.ReactElement => <JumpLink availableKeySet={globalTokenJumpAvailableSet} value={text} />
+            render: (text: string): React.ReactElement => <JumpLink availableKeySet={globalTokenJumpAvailableSet} value={text} />,
+            width: sameWidth ? '33%': 'undefined'
         },
         {
             title: intl.formatMessage({ id: 'designToken.usage' }),
             dataIndex: 'comment',
+            width: sameWidth ? '33%': 'undefined',
             render: (text: string): React.ReactElement =>
                 <div>{text || intl.formatMessage({ id: 'designToken.WIP' })}</div>
         },
@@ -129,7 +133,7 @@ const TokenTab = ({ designToken, componentName }: { designToken: DesignToken; co
     );
 };
 
-const GlobalTokenTab = ({ designToken, isColorPalette = false, reg, hasTab: hasTabInProps = true }: { designToken: DesignToken; isColorPalette?: boolean; reg: RegExp; hasTab?: boolean }): React.ReactElement => {
+const GlobalTokenTab = ({ designToken, isColorPalette = false, reg, hasTab: hasTabInProps = true, sameWidth }: { designToken: DesignToken; isColorPalette?: boolean; reg: RegExp; hasTab?: boolean; sameWidth?: boolean }): React.ReactElement => {
     const { global, palette, normal } = designToken.global;
     const [currentTab, setCurrentTab] = useState<'light' | 'dark'>('light');
     const [hasTab, setHasTab] = useState(true);
@@ -155,7 +159,7 @@ const GlobalTokenTab = ({ designToken, isColorPalette = false, reg, hasTab: hasT
         <>
             {hasTab && hasTabInProps? (
                 <Tabs defaultActiveKey={'light'} tabList={[{ tab: 'Light', itemKey: 'light' }, { tab: 'Dark', itemKey: 'dark' }]} onChange={(key: typeof currentTab): void => setCurrentTab(key)}>
-                    <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />
+                    <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} sameWidth={sameWidth}/>
                 </Tabs>
             ) : <TokenTable designToken={designToken} tokenList={tokenList} mode={currentTab} />}
         </>
@@ -229,7 +233,7 @@ const DesignToken = (props: Props): React.ReactElement => {
     return (
         <div>
             {designToken && componentName && !props.isAnimation && (props.componentName === 'global' ?
-                <GlobalTokenTab designToken={designToken} reg={props.reg} isColorPalette={props.isColorPalette} hasTab={props?.hasTab}/> :
+                <GlobalTokenTab designToken={designToken} reg={props.reg} isColorPalette={props.isColorPalette} hasTab={props?.hasTab} sameWidth={props?.sameWidth}/> :
                 <TokenTab designToken={designToken} componentName={componentName} />)}
 
             {

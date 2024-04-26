@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider, RadioGroup } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -855,7 +855,27 @@ SelectFilterSingle.story = {
 };
 
 export const SelectFilterMultiple = () => (
-  <>
+  <Space>
+    <Select
+      filter
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      size='small'
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
     <Select
       filter
       multiple={true}
@@ -866,13 +886,34 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
       <Option value={6}>opt6</Option>
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
+    <Select
+      filter
+      size='large'
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
     </Select>
     <Select
       filter
@@ -885,7 +926,6 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
@@ -893,7 +933,7 @@ export const SelectFilterMultiple = () => (
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
     </Select>
-  </>
+  </Space>
 );
 
 SelectFilterMultiple.story = {
@@ -1213,6 +1253,7 @@ RenderSelectedItem.parameters =  {
 };
 
 const ControlledSelect = () => {
+  const [filter, setFilter] = useState(true);
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1220,9 +1261,22 @@ const ControlledSelect = () => {
   const [value5, setValue5] = useState();
   return (
     <>
+      <RadioGroup
+        type='button'
+        defaultValue={false}
+        onChange={e => setFilter(e.target.value)}
+        options={[
+          { value: true, label: 'Filter enable' },
+          { value: false, label: 'Filter disable' },
+        ]}
+      >
+      </RadioGroup>
+      <br />
+      <br />
       <span>value + onChange</span>
       <Select
         value={value}
+        filter={filter}
         onChange={setValue}
         style={{
           width: 200,
@@ -1238,6 +1292,7 @@ const ControlledSelect = () => {
       <span>只传value，不传onChange</span>
       <Select
         value={value2}
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -1253,6 +1308,7 @@ const ControlledSelect = () => {
       <Select
         value={value3}
         onChange={setValue3}
+        filter={filter}
         multiple
         style={{
           width: 200,
@@ -1272,6 +1328,7 @@ const ControlledSelect = () => {
       <Select
         value={value4}
         multiple
+        filter={filter}
         style={{
           width: 200,
         }}

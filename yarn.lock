@@ -5840,52 +5840,59 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
-"@visactor/react-vchart@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@visactor/react-vchart/-/react-vchart-1.7.2.tgz#c5525713571d67f8ecc23721bc4e7abd531625de"
-  integrity sha512-VB3lnB8/NPCxCzDsCvjeRwK57mhu8/W6z63voJExkbsPH7/NVk0G/Jvh/6Qag792S3d0w3Kr3g8dA2ftm6QikA==
+"@visactor/react-vchart@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/react-vchart/-/react-vchart-1.10.4.tgz#ffa77f639269f872443034c27e289557e0693b00"
+  integrity sha512-krmEyY+GXBAbrJ6HGOyhEtnz+R7K9szcfJHVGygs9fOPb779ym/1H1oeuzpC5rOUB5RgRK/fmCVDRlW7U7tgkA==
   dependencies:
-    "@visactor/vchart" "1.7.2"
-    "@visactor/vgrammar-core" "~0.9.4"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vchart" "1.10.4"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vutils" "~0.18.1"
     react-is "^18.2.0"
 
-"@visactor/vchart-semi-theme@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@visactor/vchart-semi-theme/-/vchart-semi-theme-1.7.2.tgz#a7371d4275226ed9046d30c285771a4d7a374083"
-  integrity sha512-ypqWX71Q+nnPH38WdWCJJBSkKSBBPqb8EGmchJB3pRjUTQvhT+Rom5iaFylq9+GStFE6Cgfm34Y61T4yd9hQvQ==
-
-"@visactor/vchart@1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@visactor/vchart/-/vchart-1.7.2.tgz#b918802166b6174341b4edcd92440ba579c14aa2"
-  integrity sha512-ndNZSK/A0XQHrpbZZpYSH3cEeMynyXrSWbuknszojtjLuO21UlVe6pV03a5oKIAcnuQvzkOSHS276sFe0cXUbg==
+"@visactor/vchart-semi-theme@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart-semi-theme/-/vchart-semi-theme-1.10.4.tgz#bb30f6e12dc8eaf0cec98dfdd8421a43140a1694"
+  integrity sha512-weNpB2o1JPwVfyNdj/V5EuGDwn/KF+8JNOO2sPzCBKXN0JzIlAfiRQ+HcEim+vcXyowGoPff29gQCGNLJ3LwOA==
   dependencies:
-    "@visactor/vdataset" "~0.16.18"
-    "@visactor/vgrammar-core" "~0.9.4"
-    "@visactor/vgrammar-hierarchy" "~0.9.4"
-    "@visactor/vgrammar-projection" "~0.9.4"
-    "@visactor/vgrammar-sankey" "~0.9.4"
-    "@visactor/vgrammar-util" "~0.9.4"
-    "@visactor/vgrammar-wordcloud" "~0.9.4"
-    "@visactor/vgrammar-wordcloud-shape" "~0.9.4"
-    "@visactor/vrender-components" "~0.16.17"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vscale" "~0.16.18"
-    "@visactor/vutils" "~0.16.18"
-    "@visactor/vutils-extension" "1.7.2"
+    "@visactor/vchart-theme-utils" "1.10.4"
 
-"@visactor/vdataset@~0.16.18":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vdataset/-/vdataset-0.16.18.tgz#2c8d7e83c5b8a217f568143d0cbbae367dfe6f56"
-  integrity sha512-Ex3tRykogiIcr9KXTSMxcUAXXIBbZnOqM66s/8akydngOTKo+QXn85hKEoPClMES43U0dHt/026P10E2/GEG5Q==
+"@visactor/vchart-theme-utils@1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart-theme-utils/-/vchart-theme-utils-1.10.4.tgz#130de9a04503b3b2b5d3b79f2478ac9499a8eef7"
+  integrity sha512-fiXwbIH3Bc2ieCkqHKHJvYayvlJjm/inGP2OayVLhbv4bDt3Smj6QWiLGQVPaFgBCMGdaauMbJpSwBLEDimkdw==
+
+"@visactor/vchart@1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vchart/-/vchart-1.10.4.tgz#eb56f2814f0725c226afc531c8ed806ecdcaf649"
+  integrity sha512-vKX+y0H/fvWcOsKqxgFThkGQ220cKDod4vuFURo4osR9frnRqjXtrXi5RT6gYpjveDDVMKHy9wD2T898d9IIug==
+  dependencies:
+    "@visactor/vdataset" "~0.18.1"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-hierarchy" "0.12.8"
+    "@visactor/vgrammar-projection" "0.12.8"
+    "@visactor/vgrammar-sankey" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vgrammar-wordcloud" "0.12.8"
+    "@visactor/vgrammar-wordcloud-shape" "0.12.8"
+    "@visactor/vrender-components" "0.18.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vscale" "~0.18.1"
+    "@visactor/vutils" "~0.18.1"
+    "@visactor/vutils-extension" "1.10.4"
+
+"@visactor/vdataset@~0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@visactor/vdataset/-/vdataset-0.18.1.tgz#a202af859c7b6111cf9174e657ae25f1c6b2f585"
+  integrity sha512-ByrBt2kgLvYRve+Q+9oo3Ibav5WVSyWPuxdDJHK7kDTJGtTuV8z4qKcqArB86PcAOJS1s5L0TtHlV4Femm2xoA==
   dependencies:
     "@turf/flatten" "^6.5.0"
     "@turf/helpers" "^6.5.0"
     "@turf/rewind" "^6.5.0"
-    "@visactor/vutils" "0.16.18"
+    "@visactor/vutils" "0.18.1"
     d3-dsv "^2.0.0"
     d3-geo "^1.12.1"
     d3-hexbin "^0.2.2"
@@ -5900,139 +5907,157 @@
     simplify-geojson "^1.0.4"
     topojson-client "^3.1.0"
 
-"@visactor/vgrammar-coordinate@0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-coordinate/-/vgrammar-coordinate-0.9.4.tgz#4f4e6bafcd2c5118f837b9cff7fc7b27f9bd0b20"
-  integrity sha512-Lhzs1SpBM/Uw7EVMDlObD9wwhK/WTFvRagphwb9KwC4aRAeotI1lCsH647gr6rOGoEV5s3j1jhqQ9han/l+ygA==
+"@visactor/vgrammar-coordinate@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-coordinate/-/vgrammar-coordinate-0.12.8.tgz#30f1e24f611c7500f5f692c2ffbfc80d7fe5e91d"
+  integrity sha512-e4/Qc6xVkzDFbPShQ9T7kNa16vELfrE6iwzP5sFHiHOxp3U5nRajYffPK4SSAS6/my9sGplhKK4HC2gpasd0EQ==
   dependencies:
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-core@0.9.4", "@visactor/vgrammar-core@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-core/-/vgrammar-core-0.9.4.tgz#89098b2ae912bb4e5830a875012e3a094535e4c3"
-  integrity sha512-b1FqHG8AVOQlsPYNLYdYlhxJh12WHhSBMTdSevfGVbVgn/qB4hBG1my+yugf0uwEIiwushJBVvs7yVuTmhZrSg==
+"@visactor/vgrammar-core@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-core/-/vgrammar-core-0.12.8.tgz#11a105a39091a4946c46b0eef4de49d4bd343b25"
+  integrity sha512-RcvLxYcYK9xJC/vs2IndsVdmtOevqOJ3NWsinO4AGfed/AzWxXKxVTQ30XhylBtOSF3nz8fLdg8vRP8pZYjtng==
   dependencies:
-    "@visactor/vdataset" "~0.16.18"
-    "@visactor/vgrammar-coordinate" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vrender-components" "~0.16.17"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vscale" "~0.16.18"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vdataset" "~0.18.1"
+    "@visactor/vgrammar-coordinate" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vrender-components" "0.18.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vscale" "~0.18.1"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-hierarchy@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-hierarchy/-/vgrammar-hierarchy-0.9.4.tgz#7ff12236c2f42516b3a43de6292499d38ba36e3f"
-  integrity sha512-mYHABCa68dM+kBZtFq+hdrRD7y4HnsTLbjonMO2iaOlhviGypoSr6fnebtgsTgs7MZiFegHdCAHJDAi/pVbLSw==
+"@visactor/vgrammar-hierarchy@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-hierarchy/-/vgrammar-hierarchy-0.12.8.tgz#a6b15f8a4f508490c4b4482153881b32e0ac8960"
+  integrity sha512-NNYrYRAqa0iGlMdpZPK1yexdmTE2HCmPzz52CotoopLVzzrJ1L7LqO4fTUwT21nZAMsQ2iPHh4AX1bwdQ2IRCQ==
   dependencies:
-    "@visactor/vgrammar-core" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-projection@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-projection/-/vgrammar-projection-0.9.4.tgz#d9dd80f3ff07e88bdc16d3e7a8867cc0388f513e"
-  integrity sha512-sC82dOByPBWipsOfkfCnYDGUvHutaHyDa92TqWE+NoQKEZcWZJrzau49FN61qfDNNbkWstgO0hy0NubuH8807Q==
+"@visactor/vgrammar-projection@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-projection/-/vgrammar-projection-0.12.8.tgz#c1f5e72830ae5e5d197189a165175f41adbde42e"
+  integrity sha512-sDrsMoTticsopUQ4Rtn0uywY6JdCEgF1fresAGOTmLCGPy1AYXNIKXQIi2DYxmNsUb+XUWJNOaml+lHX5YeBbQ==
   dependencies:
-    "@visactor/vgrammar-core" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vutils" "~0.18.1"
     d3-geo "^1.12.1"
 
-"@visactor/vgrammar-sankey@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-sankey/-/vgrammar-sankey-0.9.4.tgz#ce74ea8e31e652c74e3382346d68357eb6aa8811"
-  integrity sha512-tO38gWS0SSJBU3qILscBPITqub95NbK9up+nvWjZgwqOoj1N4/NPqpAvFwxOg4EF7g48saC5QJvt4gyQWikIKg==
+"@visactor/vgrammar-sankey@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-sankey/-/vgrammar-sankey-0.12.8.tgz#f229184a783448256b3b5a2818715fbbfc8202a8"
+  integrity sha512-+Cf8pb8HKcRk/06t+DNbf+EPjPmRdTLI0LefY+QzViWu7+tzEJCH7B79Y4o1pXF4ECWKCx3poiMp8+3I1FWrig==
   dependencies:
-    "@visactor/vgrammar-core" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-util@0.9.4", "@visactor/vgrammar-util@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-util/-/vgrammar-util-0.9.4.tgz#8177ee1363fb3d33b6fd7e27cc1e5d4401100b76"
-  integrity sha512-i+74qgnEjqdNceLf7qFtiqwhU8Dw5VrG5C7dwG7JF+lBIvLqDvQQ+8m3g0oUW0UfvgDu+9qcPCSht4uXqoM04Q==
+"@visactor/vgrammar-util@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-util/-/vgrammar-util-0.12.8.tgz#f403caea572657491f6c1dba9caed41217099b2a"
+  integrity sha512-To1YW+oL/zhiIPzRcgjt1TrrSOyKT/kaDh1Agn8w1NpRcac2LZ930QTm9QPAeMHMZC9HjuT8UnJC9GeHbhVlNw==
   dependencies:
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-wordcloud-shape@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-wordcloud-shape/-/vgrammar-wordcloud-shape-0.9.4.tgz#7178d80f922c2f4cd2dd63e530a79a28fed81a4d"
-  integrity sha512-VhG8BnUtBwzJ5PMpT0wql8ymaVhXzLo3h7+5IljfaV1cUTV3f+sAbyPZziYVsbxmPOyJZNNbhMcEHNTexayMnw==
+"@visactor/vgrammar-wordcloud-shape@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-wordcloud-shape/-/vgrammar-wordcloud-shape-0.12.8.tgz#55efc1bb114968b8e2db2eaadd85d61df20b2dcc"
+  integrity sha512-GaLLEHz/Ru+AyctmD3HcqGbxE+mQsncEY8VQH6F+jf3n0sFZpphWptbSL2Ld2RCf3oo7XERMEPki954XHfuL0A==
   dependencies:
-    "@visactor/vgrammar-core" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vscale" "~0.16.18"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vscale" "~0.18.1"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vgrammar-wordcloud@~0.9.4":
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-wordcloud/-/vgrammar-wordcloud-0.9.4.tgz#e8d832694f4990913573b9b48d0b6afe36a758bf"
-  integrity sha512-v5geBndJaJQnGbm4kmVl1pQlcRPd6atIq1aTBKLOFpzFK30c0/VFqLy6E3fMrZ7DB2DfoOn5rU3EYq/hllUkzA==
+"@visactor/vgrammar-wordcloud@0.12.8":
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vgrammar-wordcloud/-/vgrammar-wordcloud-0.12.8.tgz#91631f8145ef2036dcc7816ba26e3e119d4e3ef5"
+  integrity sha512-WhZCaUc1C0xW5caMHuFsuRPI5Q+4JPkoQdkgNfw1HkJ0oPZUuqnpj++j4h2w+B87yFZ9pAbvyp2VeKZh6Avj2w==
   dependencies:
-    "@visactor/vgrammar-core" "0.9.4"
-    "@visactor/vgrammar-util" "0.9.4"
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vgrammar-core" "0.12.8"
+    "@visactor/vgrammar-util" "0.12.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vrender-components@~0.16.17":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vrender-components/-/vrender-components-0.16.18.tgz#927a689f96550a684e837b03ab59a7258e1bd008"
-  integrity sha512-3lmXBd4No08yH7y5f0xzI/xb8gRdoy3ZBVQPP+8S+ttfi2PpZ42Q/URhxIurSSKEDnA8vGloou17iDj4cShq4w==
+"@visactor/vrender-components@0.18.8":
+  version "0.18.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-components/-/vrender-components-0.18.8.tgz#4339222951d6374d12c1e27609b8c75dd8309dda"
+  integrity sha512-/P7MSXIYFzg++zw/jg+Fqogknp17BJWhaoVrCBIZgF45O+qGkCbxZGa2kMR4dGs05lqLvb6/Zle8D3g3Pr2/qg==
   dependencies:
-    "@visactor/vrender-core" "0.16.18"
-    "@visactor/vrender-kits" "0.16.18"
-    "@visactor/vscale" "~0.16.18"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vscale" "~0.17.3"
+    "@visactor/vutils" "~0.18.1"
 
-"@visactor/vrender-core@0.16.18", "@visactor/vrender-core@~0.16.17":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vrender-core/-/vrender-core-0.16.18.tgz#384bd6d8af1f2c63d232ef7ea60b7600a89d16d1"
-  integrity sha512-+OPmG/l1Eq0O3g0cSH5fUNVDxb9SfaimXd9qH48kTyN636nFY11PqW5eu3kgg+oi+0T1L73Ic2RRMhET7zGUQw==
+"@visactor/vrender-core@0.18.8":
+  version "0.18.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-core/-/vrender-core-0.18.8.tgz#3c7bd365413db0ee43b9a56d543bc9dc36b6df44"
+  integrity sha512-b3NgF89qsX1DvYAAR/YUIWqZVjjyXt5HF5+xfNh1VGhti6l8CLCa70Hxkg2Hnw3RBVP+o9t2T54U+Mwjg7RBuQ==
   dependencies:
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vutils" "~0.18.1"
     color-convert "2.0.1"
 
-"@visactor/vrender-kits@0.16.18", "@visactor/vrender-kits@~0.16.17":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vrender-kits/-/vrender-kits-0.16.18.tgz#fcae127ade1bd23b507849ac4cf2573f39cebcc2"
-  integrity sha512-L+vO7ddhx1tdfBRZlwp4ahYLfYwBizNeCVhNI8aND7nDuPyUGB00xg+C816yFRnP/ZTfZ4xh22R+YbF67MYfoQ==
+"@visactor/vrender-kits@0.18.8":
+  version "0.18.8"
+  resolved "https://registry.yarnpkg.com/@visactor/vrender-kits/-/vrender-kits-0.18.8.tgz#8e09daaa07f9d9fc2df7f5fecf4f7a6378d179d1"
+  integrity sha512-cJppsZOuFB2BPFKn5Lq3uXDZ0SBQErMblwXdeL70f25MDgv1+FZm+TDoHjo9452rA7nHGSM4GaKoN47gb7HhIg==
   dependencies:
     "@resvg/resvg-js" "2.4.1"
-    "@visactor/vrender-core" "0.16.18"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vutils" "~0.18.1"
     roughjs "4.5.2"
 
-"@visactor/vscale@~0.16.18":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vscale/-/vscale-0.16.18.tgz#7f871877296851554e4d8206d0c835dfa94084f4"
-  integrity sha512-ManadKP48XzZ3IWIOGqIL4Z0G56u73mZ4TQ/m/SvheL63FEfC9NvbcbsMr0VPgabEvOSM4+5F9L6BaABXDBN2A==
+"@visactor/vscale@~0.17.3":
+  version "0.17.5"
+  resolved "https://registry.yarnpkg.com/@visactor/vscale/-/vscale-0.17.5.tgz#0e0247844f3b237b6ad6ca010dc8953bd2b576e6"
+  integrity sha512-2dkS1IlAJ/IdTp8JElbctOOv6lkHKBKPDm8KvwBo0NuGWQeYAebSeyN3QCdwKbj76gMlCub4zc+xWrS5YiA2zA==
   dependencies:
-    "@visactor/vutils" "0.16.18"
+    "@visactor/vutils" "0.17.5"
 
-"@visactor/vutils-extension@1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@visactor/vutils-extension/-/vutils-extension-1.7.2.tgz#d35af7b92d0bb1501f732a935698a51f3538c710"
-  integrity sha512-A7jkqnkLTiRYhF2ODpvHdJZBEcuYcRjMQjiExhXyiPhcgm/DcgJwE0a6eHnPeo36hH0jeC3PMYwAKcmhFHofSA==
+"@visactor/vscale@~0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@visactor/vscale/-/vscale-0.18.1.tgz#4eef978d9c9ccc668c22c60295b175a4d344f6c4"
+  integrity sha512-0wpd0avbFLvuDKNHt2PxdKdqLSU9+zUkM6GJYWbXsUUYOiKaFkt2xTkdwUHKq66v23C7Iy14Pm7VVr0wVgflbA==
   dependencies:
-    "@visactor/vrender-core" "~0.16.17"
-    "@visactor/vrender-kits" "~0.16.17"
-    "@visactor/vscale" "~0.16.18"
-    "@visactor/vutils" "~0.16.18"
+    "@visactor/vutils" "0.18.1"
 
-"@visactor/vutils@0.16.18", "@visactor/vutils@~0.16.18":
-  version "0.16.18"
-  resolved "https://registry.yarnpkg.com/@visactor/vutils/-/vutils-0.16.18.tgz#69cf24fcf93ea511b789b6e84401b8e2a99c8d97"
-  integrity sha512-7AjMDKZq+482oFxnYY4bihFhlK3JqEhCu6R/HQnnX6IufTxqCH3OQAvphE/kbt8w9Iuwhx5o/caBOUMt3J2KRA==
+"@visactor/vutils-extension@1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@visactor/vutils-extension/-/vutils-extension-1.10.4.tgz#37ce3bdc0d898c240fdeb05c56fbb9cd3b969349"
+  integrity sha512-1qoZ+oEz+Ms3/iQrx8AudWi58IFPqjxcRE72Vam5xZN5jxrIdbQftN3BAvmQrcjteDMeSS1HgE0j/mUnxxDR8A==
+  dependencies:
+    "@visactor/vdataset" "~0.18.1"
+    "@visactor/vrender-components" "0.18.8"
+    "@visactor/vrender-core" "0.18.8"
+    "@visactor/vrender-kits" "0.18.8"
+    "@visactor/vscale" "~0.18.1"
+    "@visactor/vutils" "~0.18.1"
+
+"@visactor/vutils@0.17.5":
+  version "0.17.5"
+  resolved "https://registry.yarnpkg.com/@visactor/vutils/-/vutils-0.17.5.tgz#443bf7e58394912c4eb86ca9b46f527ede7bac32"
+  integrity sha512-HFN6Pk1Wc1RK842g02MeKOlvdri5L7/nqxMVTqxIvi0XMhHXpmoqN4+/9H+h8LmJpVohyrI/MT85TRBV/rManw==
+  dependencies:
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
+    eventemitter3 "^4.0.7"
+
+"@visactor/vutils@0.18.1", "@visactor/vutils@~0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@visactor/vutils/-/vutils-0.18.1.tgz#47314cb7ac9bae42a4b50c9da995c19033a06720"
+  integrity sha512-XGq9a85HrVP3Rbby1qO2/JS9GewJtZv6y35Xujcb2ZGLEjnpCK61Y1OXwSC5SZOKmtsH4SjYMf5czlnNhQ3GeA==
   dependencies:
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
@@ -24125,7 +24150,7 @@ string-similarity@^1.2.2:
     lodash.map "^4.6.0"
     lodash.maxby "^4.6.0"
 
-"string-width-cjs@npm:string-width@^4.2.0", "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
   version "4.2.3"
   resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -24142,6 +24167,15 @@ string-width@^1.0.1, string-width@^1.0.2:
     code-point-at "^1.0.0"
     is-fullwidth-code-point "^1.0.0"
     strip-ansi "^3.0.0"
+
+"string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.2, string-width@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
 
 string-width@^2.0.0, string-width@^2.1.0:
   version "2.1.1"
@@ -24265,7 +24299,7 @@ stringify-object@^3.3.0:
     is-obj "^1.0.1"
     is-regexp "^1.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -24292,6 +24326,13 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-ansi@^7.0.1:
   version "7.0.1"
@@ -26740,7 +26781,7 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -26770,6 +26811,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
