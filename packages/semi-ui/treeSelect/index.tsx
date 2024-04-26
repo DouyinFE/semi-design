@@ -1067,9 +1067,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
             borderless,
+            checkRelation,
             ...rest
         } = this.props;
-        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -1104,9 +1105,19 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 },
                 className
             );
-        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true) : selectedKeys;
-        const inner = useCustomTrigger ? (
-            <Trigger
+        let inner: React.ReactNode | React.ReactNode[];
+        if (useCustomTrigger) {
+            let triggerRenderKeys = [];
+            if (multiple) {
+                if (checkRelation === 'related') {
+                    triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
+                } else if (checkRelation === 'unRelated') {
+                    triggerRenderKeys = [...realCheckedKeys];
+                }
+            } else {
+                triggerRenderKeys = selectedKeys;
+            }
+            inner = <Trigger
                 inputValue={inputValue}
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
@@ -1117,9 +1128,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentProps={{ ...this.props }}
                 onSearch={this.search}
                 onRemove={this.removeTag}
-            />
-        ) : (
-            [
+            />;
+        } else {
+            inner = [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
                     <div className={`${prefixcls}-selection`}>{this.renderSelectContent()}</div>
@@ -1133,8 +1144,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     }
                 </Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-            ]
-        );
+            ];
+        }
         const tabIndex = disabled ? null : 0;
         /**
          * Reasons for disabling the a11y eslint rule:
