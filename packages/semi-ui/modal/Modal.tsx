@@ -285,6 +285,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        style={{
+                            ...footerFill ? { marginLeft: "unset" }:{},
+                            ...this.props.cancelButtonProps?.style
+                        }}
                         x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
@@ -338,6 +342,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            modalContentClass,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -390,7 +395,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={animationClassName}
+                                        contentClassName={`${animationClassName} ${modalContentClass}`}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}

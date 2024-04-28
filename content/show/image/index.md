@@ -471,6 +471,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | crossOrigin       | 透传给原生 img 标签的 crossorigin         | 'anonymous'｜'use-credentials'| - | |
 | fallback          | 加载失败容错地址或者自定义加载失败时的显示内容 | ReactNode  | - | |
 | height            | 图片显示高度                             | number            | - | |
+| imgCls            | 自定义样式类名，透传给 img 节点              | string            | - | |
+| imgStyle          | 自定义样式，透传给 img 节点                | CSSProperties     | - | |
 | onClick           | 点击图片的回调                            | (event: any) => void | - | |
 | onError           | 加载错误回调                              | (event: Event) => void | - | |
 | onLoad            | 加载成功回调                              | (event: Event) => void | - | |

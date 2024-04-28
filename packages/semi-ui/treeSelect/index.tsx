@@ -316,6 +316,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onMotionEnd: any;
     treeSelectID: string;
     context: ContextValue;
+    clearInputFlag: boolean;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -353,6 +354,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
+        this.clearInputFlag = false;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
         this.onMotionEnd = () => {
@@ -444,21 +446,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     props.multiple,
                     valueEntities
                 );
-            } else if ((!isExpandControlled && needUpdateTreeData) && props.value) {
-                // 当 treeData 已经设置具体的值，并且设置了 props.loadData ，则认为 treeData 的更新是因为 loadData 导致的
-                // 如果是因为 loadData 导致 treeData改变， 此时在这里重新计算 key 会导致为未选中的展开项目被收起
-                // 所以此时不需要重新计算 expandedKeys，因为在点击展开按钮时候已经把被展开的项添加到 expandedKeys 中
-                // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
-                // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
-                // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
-                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
-                    newState.expandedKeys = calcExpandedKeysForValues(
-                        props.value,
-                        keyEntities,
-                        props.multiple,
-                        valueEntities
-                    );
-                }
             }
 
             if (!newState.expandedKeys) {
@@ -680,8 +667,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: (input, filteredExpandedKeys) => {
-                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
+            notifySearch: (input, filteredExpandedKeys, filteredNodes) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys, filteredNodes);
             },
             cacheFlattenNodes: bool => {
                 this.setState({ cachedFlattenNodes: bool ? cloneDeep(this.state.flattenNodes) : undefined });
@@ -765,6 +752,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             },
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
+            },
+            setClearInputFlag: (flag: boolean) => {
+                this.clearInputFlag = flag;
+            },
+            getClearInputFlag: () => {
+                return this.clearInputFlag;
             }
         };
     }
@@ -1074,9 +1067,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
             borderless,
+            checkRelation,
             ...rest
         } = this.props;
-        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -1111,9 +1105,19 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 },
                 className
             );
-        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true) : selectedKeys;
-        const inner = useCustomTrigger ? (
-            <Trigger
+        let inner: React.ReactNode | React.ReactNode[];
+        if (useCustomTrigger) {
+            let triggerRenderKeys = [];
+            if (multiple) {
+                if (checkRelation === 'related') {
+                    triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
+                } else if (checkRelation === 'unRelated') {
+                    triggerRenderKeys = [...realCheckedKeys];
+                }
+            } else {
+                triggerRenderKeys = selectedKeys;
+            }
+            inner = <Trigger
                 inputValue={inputValue}
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
@@ -1124,9 +1128,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentProps={{ ...this.props }}
                 onSearch={this.search}
                 onRemove={this.removeTag}
-            />
-        ) : (
-            [
+            />;
+        } else {
+            inner = [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
                     <div className={`${prefixcls}-selection`}>{this.renderSelectContent()}</div>
@@ -1140,8 +1144,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     }
                 </Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-            ]
-        );
+            ];
+        }
         const tabIndex = disabled ? null : 0;
         /**
          * Reasons for disabling the a11y eslint rule:
@@ -1400,28 +1404,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return key;
     };
 
-    /* Event handler function after popover is closed */
-    handlePopoverClose = isVisible => {
-        const { filterTreeNode, searchAutoFocus, searchPosition } = this.props;
-        // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
-        // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
-        if (isVisible === false && filterTreeNode) {
-            this.foundation.clearInputValue();
-        }
-        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
-            this.foundation.focusInput(true);
-        }
+    /* Event handler function after popover visible change */
+    handlePopoverVisibleChange = isVisible => {
+        this.foundation.handlePopoverVisibleChange(isVisible);
     }
 
     afterClose = () => {
-        // flattenNode 的变化将导致弹出层面板中的选项数目变化
-        // 在弹层完全收起之后，再通过 clearInput 重新计算 state 中的 expandedKey， flattenNode
-        // 防止在弹出层未收起时弹层面板中选项数目变化导致视觉上出现弹层闪动问题
-        // Changes to flattenNode will cause the number of options in the popup panel to change
-        // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
-        // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
-        const { filterTreeNode } = this.props;
-        filterTreeNode && this.foundation.clearInput();
+        this.foundation.handleAfterClose();
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
@@ -1605,7 +1594,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                onVisibleChange={this.handlePopoverClose}
+                onVisibleChange={this.handlePopoverVisibleChange}
                 afterClose={this.afterClose}
             >
                 {selection}

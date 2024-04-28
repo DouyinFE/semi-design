@@ -1,5 +1,5 @@
-import React, { isValidElement, cloneElement, CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
+import React, { isValidElement, cloneElement, CSSProperties, ReactInstance } from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
@@ -20,7 +20,13 @@ import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { isHTMLElement } from '../_base/reactUtils';
-import { getActiveElement, getDefaultPropsFromGlobalConfig, getFocusableElements, stopPropagation } from '../_utils';
+import {
+    getActiveElement,
+    getDefaultPropsFromGlobalConfig,
+    getFocusableElements,
+    runAfterTicks,
+    stopPropagation,
+} from '../_utils';
 import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
@@ -459,6 +465,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = true;
         this.getPopupContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         this.foundation.init();
+        runAfterTicks(()=>{
+            let triggerEle = this.triggerEl.current;
+            if (triggerEle) {
+                if (!(triggerEle instanceof HTMLElement)) {
+                    triggerEle = findDOMNode(triggerEle as ReactInstance);
+                }
+            }
+            this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
+        }, 1);
+
     }
 
     componentWillUnmount() {

@@ -13,6 +13,37 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+- #### 🎉 2.57.0 (2024-04-26)
+- 【Fix】
+    - 修复 Field卸载后，异步校验的结果仍然会写至formState的问题 [@sylingd](https://github.com/sylingd) [#2206](https://github.com/DouyinFE/semi-design/pull/2206)
+    - 修复 TreeSelect 受控 value，设置了 defaultExpandedKeys，远程加载 treeData时，defaultExpandedKeys 未生效问题（影响版本 2.49.2-2.56.3） [#2191](https://github.com/DouyinFE/semi-design/pull/2191)
+    - 修复 TreeSelect 在多选，自定义 trigger，checkRelation 为 unRelated情况下，选中项未通过 triggerRender 透出问题  [#2188](https://github.com/DouyinFE/semi-design/issues/2188)
+    - 修复 Tooltip 在挂载时，如果 Cursor 已经在 trigger 的 dom 上，且 React 复用了 trigger dom 作为 tooltip 的 children，tooltip 不会展示的问题 [#2199](https://github.com/DouyinFE/semi-design/pull/2199)
+    - 修复 Input 和 TextArea 设置 defaultValue 在长文本情况下，autoFocus 光标未滚动到末尾的问题  [#2193](https://github.com/DouyinFE/semi-design/issues/2193)
+    - 移除 Banner `.semi-banner-content` 中无效的css规则 [#2204](https://github.com/DouyinFE/semi-design/pull/2204)
+- 【Design Token】
+    - Checkbox 新增 `$color-checkbox_cardType-border-default` [#2208](https://github.com/DouyinFE/semi-design/pull/2208)
+
+
+#### 🎉 2.57.0-beta.0 (2024-04-22)
+- 【Feat】
+  - Modal 支持 modalContentClass 来设置 content 的 props [#2162](https://github.com/DouyinFE/semi-design/pull/2162) [@18852819321](https://github.com/18852819321)
+  - 给树形选择器TreeSelect的onSearch方法添加了`filteredNodes`入参，用来获取筛选后的节点列表 [@Hokori23](https://github.com/Hokori23) [#2155](https://github.com/DouyinFE/semi-design/pull/2155)
+  - Form 组件 FormApi 增加 getFormProps，可在 formApi中读取组件的 props如 disabled、trigger 等属性 [#2184](https://github.com/DouyinFE/semi-design/pull/2184)
+- 【Fix】
+  - 修复 Select 单选时，受控且filter开启模式下，选择Option后文本会闪烁一次后更正的问题 [#2170](https://github.com/DouyinFE/semi-design/pull/2170)
+
+#### 🎉 2.56.3 (2024-04-19)
+- 【Fix】
+    - 修复 Modal footerFill 打开后，取消按钮带有左边距的问题 [#2177](https://github.com/DouyinFE/semi-design/pull/2177)
+    - 修复单选，可搜索，远程加载的 TreeSelect 在选择选项后，选项展开状态异常问题 [#2178](https://github.com/DouyinFE/semi-design/issues/2178) [#2179](https://github.com/DouyinFE/semi-design/pull/2179)
+    - 修复 Upload 将 addOnPasting 切换为 false 后，粘贴上传依然触发的问题 [#2176](https://github.com/DouyinFE/semi-design/pull/2176)
+    - 修复 TreeSelect 在搜索后选项变化，面板位置未自动调整问题 [#2181](https://github.com/DouyinFE/semi-design/pull/2181)
+    - 修改 locale 越南语翻译中不准确的表达 [@ruaruababa](https://github.com/ruaruababa) [#2154](https://github.com/DouyinFE/semi-design/pull/2154)
+- 【Docs】
+    - 数据可视化文档更新 [#2182](https://github.com/DouyinFE/semi-design/pull/2182)
+
 #### 🎉 2.56.2 (2024-04-17)
 - 【Design Token】
   - Button 修改 splitButton radius token 名称为 `$radius-button_splitButtonGroup_first_topLeft`、`$radius-button_splitButtonGroup_first_bottomLeft`、`$radius-button_splitButtonGroup_last_topRight`、`$radius-button_splitButtonGroup_last_bottomRight` Token
@@ -57,8 +88,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.55.1 (2024-03-25)
 - 【Fix】
-  - Fix: 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
-  - Fix：修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+  - 修复 collapse & collapsible keepDOM 失效的问题 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+  - 修正 collapse 的 lazyRender 默认值，由 2.54.0 设置的 true 改为更合适的 false，保持未设置 lazyRender的用例与 2.54前行为的一致性 （影响版本 2.54.0-beta.0 ~ 2.55.0）[#2140](https://github.com/DouyinFE/semi-design/pull/2140)
 
 #### 🎉 2.55.0 (2024-03-22)
 - 【Fix】
