@@ -1,0 +1,128 @@
+import * as React from 'react';
+import PinCodeFoundation, {
+    PinCodeAdapter,
+    PinCodeBaseProps,
+    PinCodeBaseState,
+} from '@douyinfe/semi-foundation/pincode/foundation';
+import BaseComponent from '@douyinfe/semi-ui/_base/baseComponent';
+import { CSSProperties, ReactElement } from 'react';
+import { getDefaultPropsFromGlobalConfig } from '@douyinfe/semi-ui/_utils';
+import PropTypes from 'prop-types';
+
+import Input from '../input';
+import { cssClasses } from '@douyinfe/semi-foundation/pincode/constants';
+import "@douyinfe/semi-foundation/pincode/pincode.scss";
+
+
+export interface PinCodeProps extends PinCodeBaseProps{
+    className?: string;
+    style?: CSSProperties
+}
+
+export interface PinCodeState extends PinCodeBaseState{
+
+}
+
+class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
+
+    static __SemiComponentName__ = "PinCode";
+
+    static propTypes = {
+        value: PropTypes.string,
+        format: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.func]),
+        onChange: PropTypes.func,
+        defaultValue: PropTypes.string,
+        count: PropTypes.number,
+        className: PropTypes.string,
+        style: PropTypes.object,
+        autoFocus: PropTypes.bool
+    };
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(PinCode.__SemiComponentName__, {
+        count: 6,
+        format: "number",
+        autoFocus: true,
+    })
+
+    inputDOMList: HTMLInputElement[] = []
+    foundation: PinCodeFoundation
+    constructor(props: PinCodeProps) {
+        super(props);
+        this.foundation = new PinCodeFoundation(this.adapter);
+        this.state = {
+            valueList: this.props.value ? this.props.value.split(""):[],
+            currentActiveIndex: this.props.activeIndex ?? 0
+        };
+    }
+
+    componentDidUpdate(prevProps: Readonly<PinCodeProps>, prevState: Readonly<PinCodeState>, snapshot?: any) {
+        if (prevProps.activeIndex!==this.props.activeIndex) {
+            this.setState({
+                currentActiveIndex: this.props.activeIndex
+            });
+            this.inputDOMList[this.props.activeIndex]?.focus?.();
+        }
+        if (prevProps.value!==this.props.value) {
+            this.setState({ valueList: this.props.value.split("") });
+        }
+    }
+
+    get adapter(): PinCodeAdapter<PinCodeProps, PinCodeState> {
+        return {
+            ...super.adapter,
+            onCurrentIndexChange: (i)=>{
+                if (this.props.activeIndex!==undefined) {
+                    this.props.onActiveIndexChange?.(i);
+                } else {
+                    this.setState({ currentActiveIndex: i });
+                }
+            },
+            changeValueList: (values: string[])=>{
+                if (this.props.value) {
+                    this.props.onChange?.(values.join(""));
+                } else {
+                    this.setState({ valueList: values });
+                }
+             
+            },
+            changeSpecificInputFocusState: (index, state)=>{
+                if (state==="focus") {
+                    this.inputDOMList[index]?.focus?.();
+                } else if (state==="blur") {
+                    this.inputDOMList[index]?.blur?.();
+                }
+            }
+        };
+    }
+
+
+
+    renderSingleInput = (index: number)=>{
+        return <Input
+            ref={dom=>this.inputDOMList[index] = dom}
+            key={`input-${index}`}
+            autoFocus={this.props.autoFocus && index===0}
+            value={this.state.valueList[index]}
+            onChange={v=>{
+                const userInputChar = v[v.length-1]
+                if (this.foundation.validateValue(userInputChar)) {
+                    this.foundation.completeSingleInput(index,userInputChar);
+                }
+            }}/>;
+    }
+
+
+    render() {
+        const inputElements: ReactElement[] = [];
+        for (let i=0;i<this.props.count;i++) {
+            inputElements.push(this.renderSingleInput(i));
+        }
+        return <div className={`${cssClasses.PREFIX}-wrapper`}>
+            {inputElements}
+        </div>;
+    }
+
+
+}
+
+export default PinCode;

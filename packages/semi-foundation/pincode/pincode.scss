@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-pincode;
+
+
+
+.#{$module} {
+    &-wrapper{
+        display: flex;
+    }
+
+}
