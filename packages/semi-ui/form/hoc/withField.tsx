@@ -413,6 +413,7 @@ function withField<
         }, [rules, validate]);
 
         useIsomorphicEffect(() => {
+            isUnmounted.current = false;
             // exec validate once when trigger include 'mount'
             if (validateOnMount) {
                 fieldValidate(value);
