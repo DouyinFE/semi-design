@@ -9,7 +9,7 @@ export interface PinCodeBaseProps{
     defaultValue?: string;
     count?: number;
     autoFocus?: boolean;
-    onComplete?: (value: string) => void;
+    onComplete?: (value: string) => void
 }
 
 export interface PinCodeBaseState{

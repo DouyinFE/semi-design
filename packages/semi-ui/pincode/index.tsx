@@ -4,9 +4,9 @@ import PinCodeFoundation, {
     PinCodeBaseProps,
     PinCodeBaseState,
 } from '@douyinfe/semi-foundation/pincode/foundation';
-import BaseComponent from '@douyinfe/semi-ui/_base/baseComponent';
+import BaseComponent from '../_base/baseComponent';
 import { CSSProperties, ReactElement } from 'react';
-import { getDefaultPropsFromGlobalConfig } from '@douyinfe/semi-ui/_utils';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import PropTypes from 'prop-types';
 
 import Input, { InputProps } from '../input';
@@ -17,8 +17,8 @@ import cls from 'classnames';
 
 export interface PinCodeProps extends PinCodeBaseProps{
     className?: string;
-    style?: CSSProperties,
-    size?:InputProps['size']
+    style?: CSSProperties;
+    size?: InputProps['size']
 }
 
 export interface PinCodeState extends PinCodeBaseState{
@@ -54,7 +54,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         this.foundation = new PinCodeFoundation(this.adapter);
         this.state = {
             valueList: (this.props.value || this.props.defaultValue) && (this.props.value || this.props.defaultValue).split("") || [],
-            currentActiveIndex:  0
+            currentActiveIndex: 0
         };
     }
 
@@ -90,14 +90,14 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     }
 
 
-    focus = (index:number)=>{
+    focus = (index: number)=>{
         const inputDOM = this.inputDOMList[index];
         inputDOM?.focus();
-        inputDOM?.setSelectionRange(1,1)
+        inputDOM?.setSelectionRange(1, 1);
     }
 
-    blur = (index:number)=>{
-        this.inputDOMList[index]?.blur()
+    blur = (index: number)=>{
+        this.inputDOMList[index]?.blur();
     }
 
 
@@ -111,7 +111,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             onChange={v=>{
                 const userInputChar = v[v.length-1];
                 if (this.foundation.validateValue(userInputChar)) {
-                    this.foundation.completeSingleInput(index,userInputChar);
+                    this.foundation.completeSingleInput(index, userInputChar);
                 }
             }}/>;
     }
@@ -122,7 +122,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         for (let i=0;i<this.props.count;i++) {
             inputElements.push(this.renderSingleInput(i));
         }
-        return <div className={cls(`${cssClasses.PREFIX}-wrapper`,this.props.className)} style={this.props.style}>
+        return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style}>
             {inputElements}
         </div>;
     }
