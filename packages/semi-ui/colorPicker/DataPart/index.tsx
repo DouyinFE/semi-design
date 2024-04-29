@@ -9,6 +9,7 @@ import split from "@douyinfe/semi-foundation/colorPicker/utils/split";
 import ColorPickerFoundation, { ColorPickerProps } from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { isEqual } from 'lodash';
 import { IconEyedropper } from '@douyinfe/semi-icons';
+import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 
 
 
@@ -105,6 +106,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
             } else if (color.startsWith('rgba')) {
                 console.log("color",color);
                 const rgba = ColorPickerFoundation.rgbaStringToRgba(color);
+                rgba.a = 1;
                 this.props.foundation.handleChange(rgba, 'rgba');
             }
         } catch (e) {
@@ -117,12 +119,12 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
 
     render() {
         const rgba = this.props.currentColor.rgba;
-        return <div className={'dataPart'} style={{ width: this.props.width }}>
-            <div className={'colorDemoBlock'} style={{ minWidth: 20, minHeight: 20, backgroundColor:
+        return <div className={`${cssClasses.PREFIX}-dataPart`} style={{ width: this.props.width }}>
+            <div className={`${cssClasses.PREFIX}-colorDemoBlock`} style={{ minWidth: 20, minHeight: 20, backgroundColor:
                     `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})` }}>
             </div>
-            <InputGroup size={'small'} className={'inputGroup'} >
-                <Input className={'colorPickerInput'}
+            <InputGroup size={'small'} className={`${cssClasses.PREFIX}-inputGroup`} >
+                <Input className={`${cssClasses.PREFIX}-colorPickerInput`}
                     value={this.state.inputValue}
                     onChange={(v)=>{
                         const value = this.getValueByInputValue(v);
@@ -137,7 +139,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                     this.props.alpha && <InputNumber
                         min={0}
                         max={100}
-                        className={'colorPickerInputNumber'}
+                        className={`${cssClasses.PREFIX}-colorPickerInputNumber`}
                         value={Number(Math.round(this.props.currentColor.rgba.a*100))}
                         onNumberChange={v=>{
                             if (this.state.format==='rgba') {
@@ -151,9 +153,9 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                                 this.handleChange(rgba);
                             }
                         }}
-                        suffix={<span className={'inputNumberSuffix'}>%</span>} hideButtons={true} />
+                        suffix={<span className={`${cssClasses.PREFIX}-inputNumberSuffix`}>%</span>} hideButtons={true} />
                 }
-                <Select className={'formatSelect'}
+                <Select className={`${cssClasses.PREFIX}-formatSelect`}
                     size={'small'}
                     value={this.state.format}
                     onSelect={v=>this.setState({ format: v as DataPartState['format'] })}

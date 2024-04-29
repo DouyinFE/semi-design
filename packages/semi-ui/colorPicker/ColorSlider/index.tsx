@@ -1,5 +1,7 @@
 import React, { CSSProperties } from 'react';
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
+import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
+import cls from 'classnames';
 
 interface ColorSliderProps{
     width: number;
@@ -60,7 +62,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
 
 
     render() {
-        return <div className={'colorSlider ' + (this.props.className ?? '')} ref={this.ref}
+        return <div className={cls(`${cssClasses.PREFIX}-colorSlider`,this.props.className)} ref={this.ref}
             onMouseDown={this.handleClick}
             style={{
                 width: this.props.width,
@@ -68,7 +70,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
                 ...this.props.style
             }}>
 
-            <div className={'handle'}
+            <div className={`${cssClasses.PREFIX}-handle`}
                 style={{
                     width: this.props.handleSize,
                     height: this.props.handleSize,

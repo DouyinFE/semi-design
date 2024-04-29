@@ -3,6 +3,7 @@ import { hsvaToHslaString, hsvaToRgbaString } from "@douyinfe/semi-foundation/co
 import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
 import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/types";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
+import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 
 interface AlphaSliderProps {
     width: number;
@@ -68,7 +69,7 @@ class ColorSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
         const colorTo = hsvaToHslaString({ ...this.props.hsva, a: 1 });
 
         const alphaSliderBackground = `linear-gradient(90deg, ${colorFrom}, ${colorTo})`;
-        return <div className={'alphaSlider '+(this.props.className ?? '')} ref={this.ref}
+        return <div className={`${cssClasses.PREFIX}-alphaSlider`} ref={this.ref}
             aria-label="Alpha"
             aria-valuetext={`${round(this.props.hsva.a * 100)}%`}
             onMouseDown={this.handleClick}
@@ -77,8 +78,8 @@ class ColorSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
                 height: this.props.height,
                 ...this.props.style
             }}>
-            <div className={'alphaSliderInner'} style={{ background: alphaSliderBackground }}>
-                <div className={'alphaHandle'}
+            <div className={`${cssClasses.PREFIX}-alphaSliderInner`} style={{ background: alphaSliderBackground }}>
+                <div className={`${cssClasses.PREFIX}-alphaHandle`}
                     style={{
                         width: this.props.handleSize,
                         height: this.props.handleSize,

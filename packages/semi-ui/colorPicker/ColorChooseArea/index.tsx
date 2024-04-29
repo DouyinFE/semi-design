@@ -2,6 +2,8 @@ import React, { CSSProperties } from 'react';
 import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/types";
 import { hsvaToHslString, hsvaToRgba } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
+import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
+import cls from 'classnames';
 const round = (number: number, digits = 0, base = Math.pow(10, digits)): number => {
     return Math.round(base * number) / base;
 };
@@ -90,7 +92,7 @@ class ColorChooseArea extends React.Component<ColorChooseAreaProps, ColorChooseA
     render() {
         const areaBgStyle = hsvaToHslString({ h: this.props.hsva.h, s: 100, v: 100, a: 1 });
         const currentColor = hsvaToRgba(this.props.hsva);
-        return <div className={'colorChooseArea '+(this.props.className ?? '')}
+        return <div className={cls(`${cssClasses.PREFIX}-colorChooseArea`,this.props.className )}
             style={{
                 backgroundColor: areaBgStyle,
                 width: this.props.width, height: this.props.height,
@@ -102,7 +104,7 @@ class ColorChooseArea extends React.Component<ColorChooseAreaProps, ColorChooseA
             onMouseDown={this.handleClick}
             aria-valuetext={`Saturation ${round(this.props.hsva.s)}%, Brightness ${round(this.props.hsva.v)}%`}
         >
-            <div className={'handle'}
+            <div className={`${cssClasses.PREFIX}-handle`}
                 style={{
                     width: this.props.handleSize,
                     height: this.props.handleSize,
