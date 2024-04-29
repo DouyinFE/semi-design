@@ -8,9 +8,15 @@ export default {
 
 export const PinCodeBasic = () => (
     <>
-      <PinCode onComplete={v=>alert(v)} onChange={v=>{
+      <PinCode size={'small'} onComplete={v=>alert(v)} onChange={v=>{
           console.log(v)
       }}/>
+        <PinCode size={'default'} onComplete={v=>alert(v)} onChange={v=>{
+            console.log(v)
+        }}/>
+        <PinCode size={'large'} onComplete={v=>alert(v)} onChange={v=>{
+            console.log(v)
+        }}/>
     </>
 );
 

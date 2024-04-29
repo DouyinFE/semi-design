@@ -9,14 +9,15 @@ import { CSSProperties, ReactElement } from 'react';
 import { getDefaultPropsFromGlobalConfig } from '@douyinfe/semi-ui/_utils';
 import PropTypes from 'prop-types';
 
-import Input from '../input';
+import Input, { InputProps } from '../input';
 import { cssClasses } from '@douyinfe/semi-foundation/pincode/constants';
 import "@douyinfe/semi-foundation/pincode/pincode.scss";
 
 
 export interface PinCodeProps extends PinCodeBaseProps{
     className?: string;
-    style?: CSSProperties
+    style?: CSSProperties,
+    size?:InputProps['size']
 }
 
 export interface PinCodeState extends PinCodeBaseState{
@@ -70,7 +71,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     get adapter(): PinCodeAdapter<PinCodeProps, PinCodeState> {
         return {
             ...super.adapter,
-            onCurrentIndexChange: (i)=>{
+            onCurrentActiveIndexChange: (i)=>{
                 if (this.props.activeIndex!==undefined) {
                     this.props.onActiveIndexChange?.(i);
                 } else {
@@ -103,8 +104,9 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             key={`input-${index}`}
             autoFocus={this.props.autoFocus && index===0}
             value={this.state.valueList[index]}
+            size={this.props.size}
             onChange={v=>{
-                const userInputChar = v[v.length-1]
+                const userInputChar = v[v.length-1];
                 if (this.foundation.validateValue(userInputChar)) {
                     this.foundation.completeSingleInput(index,userInputChar);
                 }
