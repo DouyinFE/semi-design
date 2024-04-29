@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import Input, { InputProps } from '../input';
 import { cssClasses } from '@douyinfe/semi-foundation/pincode/constants';
 import "@douyinfe/semi-foundation/pincode/pincode.scss";
+import cls from 'classnames';
 
 
 export interface PinCodeProps extends PinCodeBaseProps{
@@ -36,7 +37,8 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         count: PropTypes.number,
         className: PropTypes.string,
         style: PropTypes.object,
-        autoFocus: PropTypes.bool
+        autoFocus: PropTypes.bool,
+        onComplete: PropTypes.func,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(PinCode.__SemiComponentName__, {
@@ -51,18 +53,13 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         super(props);
         this.foundation = new PinCodeFoundation(this.adapter);
         this.state = {
-            valueList: this.props.value ? this.props.value.split(""):[],
-            currentActiveIndex: this.props.activeIndex ?? 0
+            valueList: (this.props.value || this.props.defaultValue) && (this.props.value || this.props.defaultValue).split("") || [],
+            currentActiveIndex:  0
         };
     }
 
     componentDidUpdate(prevProps: Readonly<PinCodeProps>, prevState: Readonly<PinCodeState>, snapshot?: any) {
-        if (prevProps.activeIndex!==this.props.activeIndex) {
-            this.setState({
-                currentActiveIndex: this.props.activeIndex
-            });
-            this.inputDOMList[this.props.activeIndex]?.focus?.();
-        }
+
         if (prevProps.value!==this.props.value) {
             this.setState({ valueList: this.props.value.split("") });
         }
@@ -72,11 +69,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         return {
             ...super.adapter,
             onCurrentActiveIndexChange: (i)=>{
-                if (this.props.activeIndex!==undefined) {
-                    this.props.onActiveIndexChange?.(i);
-                } else {
-                    this.setState({ currentActiveIndex: i });
-                }
+                this.setState({ currentActiveIndex: i });
             },
             changeValueList: (values: string[])=>{
                 if (this.props.value) {
@@ -90,12 +83,22 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
                 if (state==="focus") {
                     this.inputDOMList[index]?.focus?.();
                 } else if (state==="blur") {
-                    this.inputDOMList[index]?.blur?.();
+                    this.inputDOMList[index]?.blur?.(); 
                 }
             }
         };
     }
 
+
+    focus = (index:number)=>{
+        const inputDOM = this.inputDOMList[index];
+        inputDOM?.focus();
+        inputDOM?.setSelectionRange(1,1)
+    }
+
+    blur = (index:number)=>{
+        this.inputDOMList[index]?.blur()
+    }
 
 
     renderSingleInput = (index: number)=>{
@@ -119,7 +122,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
         for (let i=0;i<this.props.count;i++) {
             inputElements.push(this.renderSingleInput(i));
         }
-        return <div className={`${cssClasses.PREFIX}-wrapper`}>
+        return <div className={cls(`${cssClasses.PREFIX}-wrapper`,this.props.className)} style={this.props.style}>
             {inputElements}
         </div>;
     }

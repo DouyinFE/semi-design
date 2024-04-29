@@ -10,8 +10,6 @@ export interface PinCodeBaseProps{
     count?: number;
     autoFocus?: boolean;
     onComplete?: (value: string) => void;
-    activeIndex?: number;
-    onActiveIndexChange?: (index: number) => void
 }
 
 export interface PinCodeBaseState{
