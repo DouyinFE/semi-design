@@ -40,14 +40,12 @@ $module: #{$prefix}-colorPicker;
 
 
 
-    @mixin rectBg{
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
-    }
-
     .alphaSlider{
         position: relative;
         cursor: pointer;
-        @include rectBg;
+        margin-top: 6px;
+        border-radius: var(--semi-border-radius-full);
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
 
 
         .alphaSliderInner{
@@ -57,7 +55,7 @@ $module: #{$prefix}-colorPicker;
         }
 
         .alphaHandle{
-            @include rectBg;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
             border-radius: 99999px;
             border: 2px solid var(--semi-color-white);
             position: absolute;
@@ -71,6 +69,8 @@ $module: #{$prefix}-colorPicker;
     .colorSlider{
         position: relative;
         cursor: pointer;
+        margin-top: 6px;
+        border-radius: var(--semi-border-radius-full);
         background: linear-gradient(
                         to right,
                         #f00 0%,
@@ -86,33 +86,30 @@ $module: #{$prefix}-colorPicker;
 
 
     .dataPart{
+        margin-top: 8px;
         display: flex;
         align-items: center;
-
         .colorDemoBlock{
             border-radius: 4px;
         }
-
         .inputGroup{
             margin-left: 4px;
             width: 100%;
+            flex:1;
             flex-wrap: nowrap;
             .colorPickerInput{
-
+                flex: 1;
             }
             .colorPickerInputNumber{
-                width: 100px;
+                width: 60px;
                 .inputNumberSuffix{
                     font-size: 14px;
                     padding: 0 4px;
                 }
-
             }
-
         }
         .formatSelect{
-            margin-left: 4px;
-            width: 80px;
+            width: 76px;
         }
     }
 

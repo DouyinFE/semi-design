@@ -1,5 +1,4 @@
 import React, { CSSProperties } from 'react';
-import { hsvaToHslString } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 
 interface ColorSliderProps{

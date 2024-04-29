@@ -10,7 +10,7 @@ export const Size = () => {
 
   return (
       <div>
-            <ColorPicker/>
+            <ColorPicker alpha={true}/>
       </div>
   );
 };

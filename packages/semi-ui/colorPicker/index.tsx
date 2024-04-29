@@ -1,16 +1,14 @@
 import React, { CSSProperties } from 'react';
 import ColorPickerFoundation, { ColorPickerProps, ColorPickerState } from '@douyinfe/semi-foundation/colorPicker/foundation';
-import { BaseComponent } from '@douyinfe/semi-ui';
-import Button from "../button";
-import { PopoverProps } from '@douyinfe/semi-ui/popover';
+import BaseComponent from '../_base/baseComponent';
+import PopoverProps from '../popover';
 import ColorChooseArea from './ColorChooseArea';
 import { ColorPickerAdapter } from '@douyinfe/semi-foundation/colorPicker/foundation';
 import AlphaSlider from './AlphaSlider';
 import ColorSlider from './ColorSlider';
 import DataPart from './DataPart';
-import { IconEyedropper, IconEyeOpened } from '@douyinfe/semi-icons';
 import cls from 'classnames';
-import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss"
+import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss";
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 
 
@@ -41,12 +39,12 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
     }
 
     static defaultProps = {
-        defaultValue:{
+        defaultValue: {
             hsva: { h: 0, s: 0, v: 0, a: 1 },
             rgba: { r: 0, g: 0, b: 0, a: 1 },
             hex: '#000000'
         },
-        defaultFormat:'rgba'
+        defaultFormat: 'rgba'
     }
 
     get adapter(): ColorPickerAdapter<ColorPickerReactProps, ColorPickerReactState> {
@@ -69,30 +67,10 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
         return this.props.value ? (this.props.value) : this.state.currentColor;
     }
 
-    handlePickValueWithStraw = async ()=>{
-        if (!window['EyeDropper']) {
-            return;
-        }
-        const eyeDropper = new EyeDropper();
-
-        try {
-            const result = await eyeDropper.open();
-            const color = result['sRGBHex'];
-            if (color.startsWith("#")) {
-                this.foundation.handleChange(color, 'hex');
-            } else if (color.startsWith('rgba')) {
-                const rgba = ColorPickerFoundation.rgbaStringToRgba(color);
-                this.foundation.handleChange(rgba, 'rgba');
-            }
-        } catch (e) {
-
-        }
-    }
-
 
     render() {
-        const {className:userClassName} = this.props;
-        const className = cls(`${cssClasses.PREFIX}`, userClassName)
+        const { className: userClassName } = this.props;
+        const className = cls(`${cssClasses.PREFIX}`, userClassName);
         const currentColor = this.getCurrentColor();
         return <div className={className}>
 
@@ -117,8 +95,8 @@ class ColorPicker extends BaseComponent<ColorPickerReactProps, ColorPickerReactS
                 alpha={this.props.alpha}
                 width={this.props.width ?? 280 }
                 foundation={this.foundation}
-                defaultFormat={this.props.defaultFormat} />
-            <Button onClick={this.handlePickValueWithStraw} icon={<IconEyedropper />}></Button>
+                defaultFormat={this.props.defaultFormat}/>
+
         </div>;
     }
 }
