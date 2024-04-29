@@ -16,10 +16,64 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.56.3 (2024-04-19)
+- 【Fix】
+    - Fixed the issue where the Cancel button has a left margin after Modal footerFill is opened.[#2177](https://github.com/DouyinFE/semi-design/pull/2177)
+    - Fix abnormal expansion status of TreeSelect which is single selection, searchable,  loaded data from remote [#2178](https://github.com/DouyinFE/semi-design/issues/2178)
+    - Fixed the problem that after Upload switches addOnPasting to false, paste upload is still triggered.[#2176](https://github.com/DouyinFE/semi-design/pull/2176)
+    - Fixed the problem that TreeSelect options changed after searching and the panel position was not automatically adjusted.[#2181](https://github.com/DouyinFE/semi-design/pull/2181)
+    - Modify inaccurate expressions in locale vi-VN translation [@ruaruababa](https://github.com/ruaruababa)[#2154](https://github.com/DouyinFE/semi-design/pull/2154)
+- 【Docs】
+    - Data visualization documentation updates
+
+#### 🎉 2.56.2 (2024-04-17)
+- 【Design Token】
+  - Button change splitButton radius token name to `$radius-button_splitButtonGroup_first_topLeft`、`$radius-button_splitButtonGroup_first_bottomLeft`、`$radius-button_splitButtonGroup_last_topRight`、`$radius-button_splitButtonGroup_last_bottomRight` Token
+
+
+#### 🎉 2.56.1 (2024-04-15)
+- 【Design Token】
+  - Button Add `$radius-splitButtonGroup_first_topLeft`、`$radius-splitButtonGroup_first_bottomLeft`、`$radius-splitButtonGroup_last_topRight`、`$radius-splitButtonGroup_last_bottomRight` Token
+
+
+
+#### 🎉 2.56.0 (2024-04-12)
+- 【Fix】
+    - fix the problem of inconsistency between Locale ro language type definition and other languages
+    - Fix the display exception and omission exception when the Typography component is omitted by js and children is a template string  [#2167 ](https://github.com/DouyinFE/semi-design/issues/2167)
+    - Fixed Select filter height not as expected when empty.  (Affected version v2.56.0-beta.0)
+    - fix Typography single-line css omission accuracy issue  [#1731 ](https://github.com/DouyinFE/semi-design/issues/1731)
+
+#### 🎉 2.56.0-beta.0 (2024-04-03)
+- 【Feat】
+    - WebComponent Support：clickOutSide add support for Shadow DOM scenarios，involving components: AutoComplete、Calendar、Cascader、DatePicker、Select、TagInput、TimePicker、Tooltip、TreeSelect [@changlin2569](https://github.com/changlin2569)  [#1381](https://github.com/DouyinFE/semi-design/issues/1381) 
+    - WebComponent Support：Inject the css variable into the shadow dom through the :host, :host-context pseudo-class selectors to ensure that the Semi component style under the shadow dom is correct. [#2142](https://github.com/DouyinFE/semi-design/issues/2142) 
+    - Backtop click to increase throttle to prevent repeated triggering within duration. [@OnlyWick](https://github.com/OnlyWick)
+- 【Fix】
+    - Fixed Typography single-line css omission accuracy issue  [#1731](https://github.com/DouyinFE/semi-design/issues/1731) 
+    - Fixed the issue where the label of the last row is vertically spaced differently from other rows after selecting multiple rows when Select is multi-selected and filter is turned on. [#1667](https://github.com/DouyinFE/semi-design/issues/1667)
+- 【Style】
+    - Fixed the style issue where the height of Form.RadioGroup is inconsistent with that of the normal RadioGroup when type=button/card  [@nekocode](https://github.com/nekocode) [#1954](https://github.com/DouyinFE/semi-design/issues/1954) 
+    - Fixed the style issue where the style of RadioGroup is incorrect after being selected if the parent has overflow:hidden [@nekocode](https://github.com/nekocode) [#2126](https://github.com/DouyinFE/semi-design/issues/2126) 
+- 【Design token】
+    - Select add `$height-select_multiple_input_small`、`$height-select_multiple_input_default`、`$height-select_multiple_input_large`  used to specify the height of the input when searching is enabled [#2151](https://github.com/DouyinFE/semi-design/pull/2151)
+
+
+#### 🎉 2.55.5 (2024-04-02)
+- 【Fix】
+  - Fixed a type error caused by value not being in treeData when checkRelation in the Tree component is unRelated. [#2147](https://github.com/DouyinFE/semi-design/pull/2147)
+  - Fix type error in controlled Cascader where value is not in TreeData [#2146](https://github.com/DouyinFE/semi-design/pull/2146)
+  - Fixed the problem of slider tooltip not automatically hiding when the mouse is moved in some scenarios (Affected version 2.49.0 ~ 2.55.4) [#2148](https://github.com/DouyinFE/semi-design/pull/2148)
+
+#### 🎉 2.55.3 (2024-04-01)
+- 【Fix】
+  - Fixed the problem that when onChangWithObject is turned on for Select multi-selection and value is controlled, the current value does not exist in the optionList, and the rendering is not re-executed after updating other properties in the value. [#2139](https://github.com/DouyinFE/semi-design/pull/2139)
+
+
 #### 🎉 2.55.1 (2024-03-25)
 - 【Fix】
-  - Fix: Fix collapse & collapsible keepDOM failure problem (affects versions 2.54.0-beta.0 ~ 2.55.0)
-  - Fix: Correct the default value of lazyRender for collapse, from true set in 2.54.0 to a more appropriate false, keeping the use cases where lazyRender is not set consistent with the behavior before 2.54 (affects versions 2.54.0-beta.0 ~ 2.55.0 )
+  - Fix: Fix collapse & collapsible keepDOM failure problem (affects versions 2.54.0-beta.0 ~ 2.55.0) [#2140](https://github.com/DouyinFE/semi-design/pull/2140)
+  - Fix: Correct the default value of lazyRender for collapse, from true set in 2.54.0 to a more appropriate false, keeping the use cases where lazyRender is not set consistent with the behavior before 2.54 (affects versions 2.54.0-beta.0 ~ 2.55.0) [#2140](https://github.com/DouyinFE/semi-design/pull/2140)
 
 #### 🎉 2.55.0 (2024-03-22)
 - 【Fix】

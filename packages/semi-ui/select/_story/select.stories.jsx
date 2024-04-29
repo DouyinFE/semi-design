@@ -855,7 +855,27 @@ SelectFilterSingle.story = {
 };
 
 export const SelectFilterMultiple = () => (
-  <>
+  <Space>
+    <Select
+      filter
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      size='small'
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
     <Select
       filter
       multiple={true}
@@ -866,13 +886,34 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
       <Option value={6}>opt6</Option>
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
+    <Select
+      filter
+      size='large'
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
     </Select>
     <Select
       filter
@@ -885,7 +926,6 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
@@ -893,7 +933,7 @@ export const SelectFilterMultiple = () => (
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
     </Select>
-  </>
+  </Space>
 );
 
 SelectFilterMultiple.story = {
@@ -3464,3 +3504,50 @@ export const AllCaseOfBlur = () => {
     </div>
   )
 }
+
+export const UpdateOtherKeyNotInList = () => {
+  const [v, setV] = useState([
+    {
+      label: 'AA-Label',
+      value: 'AA',
+      otherProps: 'AA-OtherProps',
+    },
+  ]);
+
+  const change = () => {
+    setV([
+      {
+        label: 'AA-Label-2',
+        value: 'AA',
+        otherProps: 'AA-OtherProps-2',
+      },
+    ])
+  }
+
+  const renderSelectedItem = (optionNode) => {
+    const { label, otherProps } = optionNode;
+    const content = (
+      <div className='render-content'>
+        {label}-{otherProps}
+      </div>
+    );
+    return {
+      isRenderInTag: false,
+      content,
+    };
+  };
+  return (
+    <>
+      <Select
+        value={v}
+        onChange={setV}
+        filter
+        multiple
+        renderSelectedItem={renderSelectedItem}
+        onChangeWithObject
+        style={{ width: 320 }}
+      />
+      <Button id='change' onClick={() => change()}>change</Button>
+    </>
+  );
+};

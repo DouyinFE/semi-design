@@ -313,11 +313,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
                     if (
                         optionsDom &&
                         (!optionsDom.contains(target) || !optionsDom.contains(target.parentNode)) &&
                         triggerDom &&
-                        !triggerDom.contains(target)
+                        !triggerDom.contains(target) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }
@@ -451,12 +453,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 formatItem.length > 0 && (formatValuePath.push(formatItem));
             });
             // formatKeys is used to save key of value
-            const formatKeys = formatValuePath.map(v => getKeyByValuePath(v));
+            const formatKeys = formatValuePath.reduce((acc, cur) => { 
+                const key = getKeyByValuePath(cur);
+                keyEntities[key] && acc.push(key);
+                return acc;
+            }, []) as string[];
             return formatKeys;
         };
-        const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
-        const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
         if (multiple) {
+            const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
+            const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
             // when value and treedata need updated
             if (needUpdateTreeData || needUpdateValue) {
                 // update state.keyEntities
@@ -507,8 +513,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     componentDidUpdate(prevProps: CascaderProps) {
+        if (this.props.multiple) {
+            return;
+        }
         let isOptionsChanged = false;
-        if (!isEqual(prevProps.treeData, this.props.treeData) && !this.props.multiple) {
+        if (!isEqual(prevProps.treeData, this.props.treeData)) {
             isOptionsChanged = true;
             this.foundation.collectOptions();
         }
@@ -539,11 +548,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     renderTagItem = (nodeKey: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
-        const isDsiabled =
-            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
+
         if (keyEntities[nodeKey]) {
+            const isDisabled =
+            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
             const tagCls = cls(`${prefixcls}-selection-tag`, {
-                [`${prefixcls}-selection-tag-disabled`]: isDsiabled,
+                [`${prefixcls}-selection-tag-disabled`]: isDisabled,
             });
             // custom render tags
             if (isFunction(displayRender)) {
