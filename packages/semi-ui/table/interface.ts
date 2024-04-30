@@ -190,7 +190,7 @@ export interface OnRowReturnObject extends Omit<React.DetailedHTMLProps<React.HT
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void
 }
-export interface OnGroupedRowReturnObject extends Omit<React.HTMLAttributes<HTMLTableRowElement>, 'className'> {
+export interface OnGroupedRowReturnObject extends React.HTMLAttributes<HTMLTableRowElement> {
     [x: string]: any;
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void

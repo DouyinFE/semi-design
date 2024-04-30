@@ -114,7 +114,8 @@ export {
     FixedRowSelectionHiddenResizable,
     FixedExpandGroupRow,
     FixedDefaultExpandedGroupedRows,
-    FixedRowSelectionEmpty
+    FixedRowSelectionEmpty,
+    FixedOnGroupedRowClassName
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 
