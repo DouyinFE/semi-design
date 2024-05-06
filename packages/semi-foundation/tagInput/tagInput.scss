@@ -255,6 +255,15 @@ $module: #{$prefix}-tagInput;
         }
     }
 
+    &-inset-label {
+        margin-right: $spacing-tagInput_insetLabel-marginRight;
+        font-weight: $font-tagInput_insetLabel-fontWeight;
+        @include font-size-regular;
+        color: $color-tagInput_prefix-text-default;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
     &-prefix,
     &-suffix {
         @include all-center;
@@ -278,6 +287,12 @@ $module: #{$prefix}-tagInput;
     &-suffix {
         &-text {
             color: $color-tagInput_suffix-default;
+        }
+    }
+
+    &-with-prefix {
+        .#{$prefix}-input {
+            padding-left: 0;
         }
     }
 
