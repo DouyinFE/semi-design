@@ -24,7 +24,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - fixed TagInput insetLabel style not align with other component such as Input、Select [#2216](https://github.com/DouyinFE/semi-design/pull/2216)
 - 【Design token】
     - TagInput add Tokens：$color-tagInput_prefix-text-default、$spacing-tagInput_insetLabel-marginRight、$font-tagInput_insetLabel-fontWeight [#2216](https://github.com/DouyinFE/semi-design/pull/2216)
-    - Checkbox add $color-checkbox_cardType-border-default token [#2208](https://github.com/DouyinFE/semi-design/pull/2208)
 - 【Fix】
     - Fixed Table header text-align bug in RTL mode  [#2172](https://github.com/DouyinFE/semi-design/issues/2172)
     - Fixed Table onGroupedRow className not work bug  [#2185](https://github.com/DouyinFE/semi-design/issues/2185)

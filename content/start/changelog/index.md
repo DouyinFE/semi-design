@@ -23,7 +23,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Design token】
     - TagInput 增加 $color-tagInput_prefix-text-default、$spacing-tagInput_insetLabel-marginRight、$font-tagInput_insetLabel-fontWeight 三个 Token
   [#2216](https://github.com/DouyinFE/semi-design/pull/2216)
-    - Checkbox 新增 $color-checkbox_cardType-border-default token [#2208](https://github.com/DouyinFE/semi-design/pull/2208)
 - 【Fix】
     - 修复 Table 表头 text-align 在 RTL 模式下对齐不正确的问题 [#2172](https://github.com/DouyinFE/semi-design/issues/2172)
     - 修复 Table onGroupedRow className 不生效问题 [#2185](https://github.com/DouyinFE/semi-design/issues/2185) 
