@@ -356,9 +356,9 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         const baseRowStyle = { ...style, ...customStyle };
 
         const rowCls =
-            typeof replaceClassName === 'string' && replaceClassName.length ?
-                replaceClassName :
-                classnames(
+            typeof replaceClassName === 'string' && replaceClassName.length
+                ? classnames(replaceClassName, customClassName)
+                : classnames(
                     className,
                     `${prefixCls}-row`,
                     {
