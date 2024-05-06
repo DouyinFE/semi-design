@@ -18,6 +18,7 @@ const order = [
     'button',
     'space',
     'typography',
+    "markdownrender",
     'autocomplete',
     'cascader',
     'checkbox',
