@@ -4,14 +4,14 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 import { flattenColumns } from '@douyinfe/semi-foundation/table/utils';
-import { ColumnProps } from './interface';
+import { ColumnProps, TableComponents } from './interface';
 
 export interface ColGroupProps {
     columns?: ColumnProps[];
     prefixCls?: string;
     className?: string;
     style?: React.CSSProperties;
-    components?: Record<string, any>
+    components?: TableComponents['body']
 }
 
 export default class ColGroup extends React.PureComponent<ColGroupProps> {
