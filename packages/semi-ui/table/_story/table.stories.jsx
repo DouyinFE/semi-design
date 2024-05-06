@@ -72,7 +72,7 @@ export { default as VirtualizedDynamicData } from './VirtualizedDynamicData';
 export { default as MassiveColumns } from './MassiveColumns';
 export { default as ControlledPagination } from './ControlledPagination';
 export { default as FulldRenderDemo } from './FullRender';
-export { RTLAlignScrollBar, ColumnAlign, Direction  } from './RTL';
+export { RTLAlignScrollBar, ColumnAlign, Direction, ColumnAlignWithSorter  } from './RTL';
 export { default as JSXAsyncData } from './JSXAsyncData';
 export { default as ScrollBar } from './ScrollBar';
 export { default as TableSpan } from './TableSpan';
@@ -116,6 +116,7 @@ export {
     FixedDefaultExpandedGroupedRows,
     FixedRowSelectionEmpty,
     DndKitDrag
+    FixedOnGroupedRowClassName
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
 

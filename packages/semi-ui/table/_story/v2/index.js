@@ -35,3 +35,4 @@ export { default as FixedExpandGroupRow } from './FixedExpandGroupRow';
 export { default as FixedDefaultExpandedGroupedRows } from './FixedExpandGroupRow/defaultExpandedGroupedRows';
 export { default as FixedRowSelectionEmpty } from './FixedRowSelectionEmpty';
 export { default as DndKitDrag } from './DndKitDrag';
+export { default as FixedOnGroupedRowClassName } from './FixedOnGroupedRowClassName';

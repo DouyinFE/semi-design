@@ -38,6 +38,8 @@ $color-checkbox_checked-bg-disabled: var(--semi-color-primary-disabled); // 选�
 $color-checkbox_checked-icon-disabled: var(--semi-color-white); // 选框禁用态对勾颜色
 $color-checkbox_primary-outline-focus: var(--semi-color-primary-light-active); // 复选框轮廓-聚焦颜色
 
+$color-checkbox_cardType-border-default: transparent; // 卡片复选框默认边框颜色
+
 $size-checkbox_inner-shadow: $border-thickness-control; // 选框内描边宽度
 $width-checkbox_inner: $width-icon-medium; // 选框对勾 icon 宽度
 $height-checkbox_inner: 20px; // 选框对勾 icon 高度
