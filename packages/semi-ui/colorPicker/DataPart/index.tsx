@@ -104,7 +104,6 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
             if (color.startsWith("#")) {
                 this.props.foundation.handleChange(color, 'hex');
             } else if (color.startsWith('rgba')) {
-                console.log("color",color);
                 const rgba = ColorPickerFoundation.rgbaStringToRgba(color);
                 rgba.a = 1;
                 this.props.foundation.handleChange(rgba, 'rgba');
@@ -162,7 +161,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                     optionList={['hex', 'rgba', 'hsva'].map(type=>({ label: type, value: type }))}/>
             </InputGroup>
 
-            <Button type={'tertiary'} theme={"borderless"} size={'small'} onClick={this.handlePickValueWithStraw} icon={<IconEyedropper />}/>
+            <Button type={'tertiary'} theme={"light"} size={'small'} onClick={this.handlePickValueWithStraw} icon={<IconEyedropper />}/>
 
         </div>;
     }

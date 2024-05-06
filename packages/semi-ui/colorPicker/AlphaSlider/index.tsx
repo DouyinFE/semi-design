@@ -45,7 +45,7 @@ class ColorSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
         window.addEventListener('mouseup', this.handleMouseUp);
     }
 
-    setHandlePositionByMousePosition = (e: MouseEvent) => {
+    setHandlePositionByMousePosition = (e: MouseEvent|React.MouseEvent) => {
         const mousePosition = e.clientX - this.ref.current.getBoundingClientRect().x;
         const handlePosition = this.props.foundation.getAlphaHandlePositionByMousePosition(mousePosition, this.props.width, this.props.handleSize);
         this.props.foundation.handleAlphaChangeByHandle({ a: Number((Math.min(Math.max( mousePosition/this.props.width, 0), 1)).toFixed(2)) });

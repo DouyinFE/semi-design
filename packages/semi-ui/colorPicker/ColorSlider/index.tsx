@@ -62,7 +62,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
 
 
     render() {
-        return <div className={cls(`${cssClasses.PREFIX}-colorSlider`,this.props.className)} ref={this.ref}
+        return <div className={cls(`${cssClasses.PREFIX}-colorSlider`, this.props.className)} ref={this.ref}
             onMouseDown={this.handleClick}
             style={{
                 width: this.props.width,

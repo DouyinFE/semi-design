@@ -67,7 +67,7 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
             h: newH
         };
         const rgba = hsvaToRgba(hsva);
-        const hex = hsvaToHex(hsva)
+        const hex = hsvaToHex(hsva);
 
         currentColor = {
             rgba,
@@ -89,11 +89,11 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         const rgba = {
             ...currentColor.rgba,
             a: newAlpha
-        }
+        };
         const hex = rgbaToHex(rgba);
         currentColor = {
             rgba,
-            hex: alpha ? hex : hex.slice(0,7),
+            hex: alpha ? hex : hex.slice(0, 7),
             hsva: {
                 ...currentColor.hsva,
                 a: newAlpha
@@ -110,14 +110,14 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         if (format==='hsva') {
             currentColor = {
                 hsva: color as HsvaColor,
-                rgba: ColorPickerFoundation.hsvaToRgba(color),
-                hex: ColorPickerFoundation.hsvaToHex(color)
+                rgba: ColorPickerFoundation.hsvaToRgba(color as HsvaColor),
+                hex: ColorPickerFoundation.hsvaToHex(color as HsvaColor)
             };
         } else if (format==='rgba') {
             currentColor = {
                 rgba: color as RgbaColor,
-                hsva: ColorPickerFoundation.rgbaToHsva(color),
-                hex: ColorPickerFoundation.rgbaToHex(color)
+                hsva: ColorPickerFoundation.rgbaToHsva(color as RgbaColor),
+                hex: ColorPickerFoundation.rgbaToHex(color as RgbaColor)
             };
         } else if (format==='hex') {
             currentColor = {

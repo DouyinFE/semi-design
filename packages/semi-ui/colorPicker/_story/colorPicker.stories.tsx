@@ -7,6 +7,8 @@ const stories = storiesOf('ColorPicker', module);
 
 stories.add('不同大小', () => (
   <div>
-      <ColorPicker/>
+      <ColorPicker alpha={false} onChange={(v)=>{
+          console.log(v)
+      }}/>
   </div>
 ));

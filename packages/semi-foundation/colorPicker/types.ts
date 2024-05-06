@@ -1,42 +1,42 @@
 export interface HsvColor {
     h: number;
     s: number;
-    v: number;
+    v: number
 }
 
 export interface HsvaColor extends HsvColor {
-    a: number;
+    a: number
 }
 
 
 export interface RgbColor {
     r: number;
     g: number;
-    b: number;
+    b: number
 }
 
 export interface RgbaColor extends RgbColor {
-    a: number;
+    a: number
 }
 
 export interface HslColor {
     h: number;
     s: number;
-    l: number;
+    l: number
 }
 
 export interface HslaColor extends HslColor {
-    a: number;
+    a: number
 }
 
 export interface HsvColor {
     h: number;
     s: number;
-    v: number;
+    v: number
 }
 
 export interface HsvaColor extends HsvColor {
-    a: number;
+    a: number
 }
 
 export type ObjectColor = RgbColor | HslColor | HsvColor | RgbaColor | HslaColor | HsvaColor;
@@ -47,5 +47,5 @@ export interface ColorModel<T extends AnyColor> {
     defaultColor: T;
     toHsva: (defaultColor: T) => HsvaColor;
     fromHsva: (hsva: HsvaColor) => T;
-    equal: (first: T, second: T) => boolean;
+    equal: (first: T, second: T) => boolean
 }

@@ -148,7 +148,7 @@ export const rgbaStringToHsva = (rgbaString: string): HsvaColor => {
     return rgbaToHsva(rgbaStringToRgba(rgbaString));
 };
 
-export const rgbaStringToRgba = (rgbaString: string):RgbaColor=>{
+export const rgbaStringToRgba = (rgbaString: string): RgbaColor=>{
     const matcher = /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
     const match = matcher.exec(rgbaString);
 
@@ -159,8 +159,8 @@ export const rgbaStringToRgba = (rgbaString: string):RgbaColor=>{
         g: Number(match[3]) / (match[4] ? 100 / 255 : 1),
         b: Number(match[5]) / (match[6] ? 100 / 255 : 1),
         a: match[7] === undefined ? 1 : Number(match[7]) / (match[8] ? 100 : 1),
-    }
-}
+    };
+};
 
 
 export const rgbStringToHsva = rgbaStringToHsva;
