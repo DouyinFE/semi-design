@@ -179,6 +179,69 @@ const specialTreeData = [
     },
 ];
 
+const treeDataEnNA = {
+    label: 'North America',
+    value: 'North America',
+    key: '1',
+    children: [
+        {
+            label: 'United States',
+            value: 'United States',
+            key: '1-0'
+        },
+        {
+            label: 'Canada',
+            value: 'Canada',
+            key: '1-1'
+        }
+    ]
+}
+
+const treeDataEn = [
+    {
+        label: 'Asia',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: 'China',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        label: 'Beijing',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        label: 'Shanghai',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                    {
+                        label: 'Chengdu',
+                        value: 'Chengdu',
+                        key: '0-0-2',
+                    },
+                ],
+            },
+            {
+                label: 'Japan',
+                value: 'Japan',
+                key: '0-1',
+                children: [
+                    {
+                        label: 'Osaka',
+                        value: 'Osaka',
+                        key: '0-1-0'
+                    }
+                ]
+            },
+        ],
+    },
+    treeDataEnNA
+];
+
 const defaultKeyMaps = {
     value: 'value1',
     key: 'key1',
@@ -1222,5 +1285,27 @@ describe('TreeSelect', () => {
         })).toEqual(true);
         let selectContentNode = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-select-selection-content`)
         expect(selectContentNode.instance().textContent).toEqual('上海');
+    });
+
+    it('onSearch + filteredNodes', () => {
+        let spyOnSearch = sinon.spy(() => { });
+        console.log('treeDataEn', treeDataEn);
+        let treeSelect = getTreeSelect({
+            filterTreeNode: true,
+            treeData: treeDataEn,
+            onSearch: spyOnSearch
+        });
+        const searchWrapper = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-search-wrapper`);
+        let searchValue = 'o';
+        let event = { target: { value: searchValue } };
+        searchWrapper.find('input').simulate('change', event);
+        const firstCall = spyOnSearch.getCall(0);
+        const args = firstCall.args;
+        expect(args[0]).toEqual(searchValue);
+        expect(args[1]).toEqual(['0-1', '0']);
+        expect(args[2]).toEqual([
+            treeDataEnNA,
+            { "label": "Osaka", "value": "Osaka", "key": "0-1-0" }
+        ]);
     });
 })
