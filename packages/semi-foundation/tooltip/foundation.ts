@@ -189,6 +189,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
+    updateStateIfCursorOnTrigger = (trigger: HTMLElement)=>{
+        if (trigger?.matches?.(":hover")) {
+            const eventNames = this._adapter.getEventName();
+            const triggerEventSet = this.getState("triggerEventSet");
+            triggerEventSet[eventNames.mouseEnter]?.();
+        }
+    }
+
     _generateEvent(types: ArrayElement<typeof strings.TRIGGER_SET>) {
         const eventNames = this._adapter.getEventName();
         const triggerEventSet = {
@@ -646,6 +654,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         return style;
     }
+
 
     /**
      * 耦合的东西比较多，稍微罗列一下：
