@@ -16,6 +16,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.58.0-beta.0 (2024-05-06)
+- 【Feat】
+    - Nav.Item support pass data-* attribute to dom [@meixg](https://github.com/meixg)[#2217](https://github.com/DouyinFE/semi-design/pull/2217)
+    - Table compatible with dnd-kit and update sorting demo in dnd-kit [#997](https://github.com/DouyinFE/semi-design/issues/997) 
+- 【Style】
+    - fixed TagInput insetLabel style not align with other component such as Input、Select [#2216](https://github.com/DouyinFE/semi-design/pull/2216)
+- 【Design token】
+    - TagInput add Tokens：$color-tagInput_prefix-text-default、$spacing-tagInput_insetLabel-marginRight、$font-tagInput_insetLabel-fontWeight [#2216](https://github.com/DouyinFE/semi-design/pull/2216)
+    - Checkbox add $color-checkbox_cardType-border-default token [#2208](https://github.com/DouyinFE/semi-design/pull/2208)
+- 【Fix】
+    - Fixed Table header text-align bug in RTL mode  [#2172](https://github.com/DouyinFE/semi-design/issues/2172)
+    - Fixed Table onGroupedRow className not work bug  [#2185](https://github.com/DouyinFE/semi-design/issues/2185)
 
 - #### 🎉 2.57.0 (2024-04-26)
 - 【Fix】
