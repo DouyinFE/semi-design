@@ -457,6 +457,7 @@ export const PrefixSuffix = () => (
     <br />
     <br />
     <TagInput style={style} prefix="Prefix" showClear />
+    <TagInput style={style} insetLabel="insetLabel" showClear />
     <br />
     <br />
     <TagInput style={style} suffix={<IconGift />} />
