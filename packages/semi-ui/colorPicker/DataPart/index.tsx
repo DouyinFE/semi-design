@@ -19,7 +19,8 @@ interface DataPartProps {
     defaultFormat: 'hex'|'rgba'|'hsva';
     width: number;
     alpha?: boolean;
-    foundation: ColorPickerFoundation
+    foundation: ColorPickerFoundation,
+    eyeDropper:boolean
 
 }
 
@@ -161,7 +162,8 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                     optionList={['hex', 'rgba', 'hsva'].map(type=>({ label: type, value: type }))}/>
             </InputGroup>
 
-            <Button type={'tertiary'} theme={"light"} size={'small'} onClick={this.handlePickValueWithStraw} icon={<IconEyedropper />}/>
+            {this.props.eyeDropper && <Button type={'tertiary'} theme={'light'} size={'small'} onClick={this.handlePickValueWithStraw}
+                     icon={<IconEyedropper />} />}
 
         </div>;
     }

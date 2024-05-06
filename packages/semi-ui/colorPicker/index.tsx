@@ -11,6 +11,13 @@ import cls from 'classnames';
 import "@douyinfe/semi-foundation/colorPicker/colorPicker.scss";
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 import Popover from '../popover';
+import Button from '../button';
+import {
+    hexToHsva,
+    hexToRgba, hsvaStringToHsva, hsvaToHex, hsvaToRgba,
+    rgbaStringToHsva,
+    rgbaStringToRgba, rgbaToHex, rgbStringToHsva, rgbStringToRgba,
+} from '@douyinfe/semi-foundation/colorPicker/utils/convert';
 
 
 export interface ColorPickerReactProps extends ColorPickerProps{
@@ -42,11 +49,12 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
 
     static defaultProps = {
         defaultValue: {
-            hsva: { h: 0, s: 0, v: 0, a: 1 },
-            rgba: { r: 0, g: 0, b: 0, a: 1 },
-            hex: '#000000'
+            hsva: { h: 176, s: 71, v: 77, a: 1 },
+            rgba: { r: 57, g: 197, b: 187, a: 1 },
+            hex: '#39c5bb'
         },
-        defaultFormat: 'rgba'
+        eyeDropper: true,
+        defaultFormat: 'hex'
     }
 
     get adapter(): ColorPickerAdapter<ColorPickerReactProps, ColorPickerReactState> {
@@ -65,7 +73,38 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
     }
 
     static colorStringToValue = (raw: string)=>{
-
+        if (raw.startsWith("#")) {
+            return {
+                hsva: hexToHsva(raw),
+                rgba: hexToRgba(raw),
+                hex: raw
+            };
+        } else if (raw.startsWith('rgba')) {
+            const rgba = rgbaStringToRgba(raw);
+            return {
+                hsva: rgbaStringToHsva(raw),
+                rgba: rgba,
+                hex: rgbaToHex(rgba)
+            };
+        } else if (raw.startsWith("rgb")) {
+            const rgba = rgbStringToRgba(raw);
+            return {
+                hsva: rgbStringToHsva(raw),
+                rgba: rgba,
+                hex: rgbaToHex(rgba)
+            };
+        } else if (raw.startsWith("hsv")) {
+            const hsva = hsvaStringToHsva(raw);
+            const rgba = hsvaToRgba(hsva);
+            const hex = hsvaToHex(hsva);
+            return {
+                hsva,
+                rgba,
+                hex
+            };
+        } else {
+            throw new Error("Semi ColorPicker: error on static colorStringToValue method, input value is invalid: "+raw);
+        }
     }
 
     getCurrentColor = ()=>{
@@ -89,14 +128,15 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
                 className={'colorSliderWrapper'}
                 foundation={this.foundation}
             />
-            <AlphaSlider width={this.props.width ?? 280}
+            {this.props.alpha && <AlphaSlider width={this.props.width ?? 280}
                 height={10}
                 handleSize={18}
                 hsva={currentColor.hsva}
                 className={'alphaSliderWrapper'}
                 foundation={this.foundation}
-            />
+            />}
             <DataPart currentColor={currentColor}
+                eyeDropper={this.props.eyeDropper}
                 alpha={this.props.alpha}
                 width={this.props.width ?? 280 }
                 foundation={this.foundation}
@@ -108,7 +148,7 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
     render() {
         if (this.props.usePopover) {
             return <Popover {...this.props.popoverProps} className={cls(`${cssClasses.PREFIX}-popover`, this.props.popoverProps?.className)} content={this.renderPicker()}>
-                {this.props.children}
+                {this.props.children ?? <div style={{ backgroundColor: this.state.currentColor.hex }} className={cls(`${cssClasses.PREFIX}-popover-defaultChildren`)}></div>}
             </Popover>;
         } else {
             return this.renderPicker();

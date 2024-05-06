@@ -5,12 +5,13 @@ $radius-colorPicker-bottomRight:0px; // 圆角 - 右下
 $radius-colorPicker-handle:var(--semi-border-radius-full); // 圆角 - 拖拽把手
 $radius-colorPicker-alphaSliderInner:4px; // 圆角 - 透明度 Slider
 $radius-colorPicker-demoBlock: 4px; // 圆角 - 颜色手动输入区域左侧当前选中颜色色块
-
+$radius-colorPicker-defaultTrigger:4px; // 默认 trigger 圆角
 
 
 $width-colorPicker_handle-border: 2px; // 把手宽度
-$width-colorPicker-colorPickerInputNumber:60px; // 数组输入器宽度
-$width-colorPicker-formatSelect:76px; // 格式选择下拉 Select 宽度
+$width-colorPicker-colorPickerInputNumber:58px; // 数组输入器宽度
+$width-colorPicker-formatSelect:80px; // 格式选择下拉 Select 宽度
+$width-colorPicker-defaultTrigger: 24px; // 默认 trigger 大小
 
 $color-colorPicker_handle-border:var(--semi-color-white); // 把手边框颜色
 
@@ -24,3 +25,4 @@ $spacing-colorPicker_dataPart-marginTop:8px; // 颜色手动输入区域 上边�
 
 
 $font-colorPicker_inputNumberSuffix-fontSize:14px; // 颜色手动输入区域百分比字体大小
+

@@ -4,6 +4,10 @@ import { RgbaColor, RgbColor, HslaColor, HslColor, HsvaColor, HsvColor } from ".
  * Valid CSS <angle> units.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/angle
  */
+
+/**
+ *  Referrer from https://github.com/web-padawan/vanilla-colorful/blob/master/src/lib/utils/convert.ts
+ */
 const angleUnits: Record<string, number> = {
     grad: 360 / 400,
     turn: 360,
@@ -161,7 +165,7 @@ export const rgbaStringToRgba = (rgbaString: string): RgbaColor=>{
         a: match[7] === undefined ? 1 : Number(match[7]) / (match[8] ? 100 : 1),
     };
 };
-
+export const rgbStringToRgba = rgbaStringToRgba;
 
 export const rgbStringToHsva = rgbaStringToHsva;
 

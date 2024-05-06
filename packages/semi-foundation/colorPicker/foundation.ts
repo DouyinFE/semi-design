@@ -18,6 +18,7 @@ type Value = {
     hex: string
 }
 export interface ColorPickerProps {
+    eyeDropper?:boolean,
     defaultValue?: Value;
     value?: Value;
     onChange: (value: Value) => void;
