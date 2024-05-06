@@ -117,6 +117,7 @@ module.exports = {
                 'object-curly-spacing': ['error', 'always'],
                 'prefer-const': 'off',
                 'semi-design/no-import': 'error',
+                "space-infix-ops": ["error", { "int32Hint": false }],
                 'space-before-blocks': ['error', 'always'],
                 "@typescript-eslint/type-annotation-spacing": ['error', {"after": true}],
                 "@typescript-eslint/member-delimiter-style": [

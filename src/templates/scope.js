@@ -36,7 +36,7 @@ import fr from '@douyinfe/semi-ui/locale/source/fr';
 import ro from '@douyinfe/semi-ui/locale/source/ro';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import GraphemeSplitter from 'grapheme-splitter';
-
+export * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components";
 export * from '@douyinfe/semi-ui';
 export * from '@douyinfe/semi-foundation/utils';
 export * from '@douyinfe/semi-icons';
