@@ -136,6 +136,7 @@ const appLocale = {
         // page seven: Web application
         "application_title": "Build State of the Art Apps",
         "application_subtitle": "Modern design vibes compile with next-gen OS and browsers",
+        "coze": "Coze is a one-stop AI chat bot development platform. Regardless of your programming skills, Coze allows you to swiftly create a wide range of chat bots powered by AI, capable of handling everything from simple questions to complex conversations. Furthermore, you can publish your bots to various applications, fostering dynamic interaction with users on those applications.",
         "feishu_program": "Feishu project is a single product released by Feishu in the spring of 2022. It supports large teams to disassemble and visualize complex project processes, visually present collaboration standards, and allow members to clarify their responsibilities and easily grasp upstream and downstream information.",
         "douyin_creator": "Douyin Creation Service Platform is an exclusive service platform for Douyin creators. It supports two login methods for users as creators and management agencies, and provides a variety of functions to help users operate efficiently.",
         "anyweb": "Anyweb is a free website builder that makes it easy to create professional websites. With no programming skills required, you can set up custom websites quickly and easily with the Anyweb drag-and-drop editor.",

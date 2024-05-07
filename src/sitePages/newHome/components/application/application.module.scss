@@ -48,23 +48,32 @@
     border-radius: 24px;
 }
 
+// meego
 .imgBg0 {
-    background-color: rgba(237, 239, 248, 1);
+    background-color: rgba(var(--semi-violet-0));
 }
 
+// douyin-creator
 .imgBg1 {
     background-color: rgba(var(--semi-pink-0));
 }
 
+// coze
 .imgBg2 {
+    background-color: rgba(var(--semi-light-green-0));
+}
+
+// anyweb
+.imgBg3 {
     background-color: rgba(var(--semi-grey-1));
 }
 
-.imgBg3 {
-    background-color: rgba(var(--semi-violet-0));
+.imgBg4 {
+    background-color: rgba(237, 239, 248, 1);
 }
 
-.imgBg4 {
+// capcut
+.imgBg5 {
     background-color: rgba(var(--semi-amber-1));
 }
 
