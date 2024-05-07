@@ -3493,7 +3493,7 @@ The CSS style definition used in this example:
 
 ### Drag Sorting
 
-Use [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) with the [`components`](https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200) API to easily implement drag-and-drop sorting. Supported in version 2.57
+Use [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) with the [`components`](https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200) API to easily implement drag-and-drop sorting. Supported in version 2.58
 
 ```jsx live=true dir="column" noInline=true hideInDSM
 import React, { useEffect, useMemo, useState } from 'react';
