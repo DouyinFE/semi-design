@@ -107,7 +107,9 @@ async function importSemiComponentStyle(componentsStr, root, cb){
     style.innerHTML = css;
     root.prepend(style);
   });
-  cb();
+  if(typeof cb === 'function') {
+    cb();
+  }
 }
   `;
     return importFuncName;
