@@ -90,6 +90,12 @@ gulp.task('compileScss', function compileScss() {
         .pipe(gulp.dest('lib/cjs'));
 });
 
+gulp.task('json', function compileJson() {
+    return gulp.src(['**/*.json', '!**/node_modules/**/*.*', '!**/_story/**/*.*'])
+        .pipe(gulp.dest('lib/es'))
+        .pipe(gulp.dest('lib/cjs'));
+});
+
 function moveScss(isESM) {
     const moduleTarget = isESM ? 'es' : 'cjs';
     const targetDir = isESM ? 'lib/es' : 'lib/cjs';
@@ -111,6 +117,7 @@ gulp.task('compileLib',
         [
             'cleanLib',
             'compileScss',
+            'json',
             gulp.parallel('moveScssForESM', 'moveScssForCJS'),
             gulp.parallel('compileTSXForESM', 'compileTSXForCJS')
         ]

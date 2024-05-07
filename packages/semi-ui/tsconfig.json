@@ -26,7 +26,8 @@
         "skipLibCheck": true,
         "declaration": true,
         "strictNullChecks": false,
-        "strict": true
+        "strict": true,
+        "resolveJsonModule": true
     },
     "include": ["**/*.tsx", "**/*.ts"],
     "exclude": ["node_modules", "packages/rollup-plugin-semi-svg"]
