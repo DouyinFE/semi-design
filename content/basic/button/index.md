@@ -470,25 +470,25 @@ function SplitButtonDemo(){
 
 ### Button
 
-| 属性                | 说明                                                                                                       | 类型                            | 默认值    |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- | --------- |
-| aria-label          | 按钮的标签                                                                                       | string                            | -    |
-| block               | 将按钮设置为块级按钮                                                                                       | bool                            | false     |
-| className           | 类名                                                                                                       | string                          |           |
-| disabled            | 禁用状态                                                                                                   | boolean                         | false     |
-| htmlType           | 设置 `button` 原生的 `type` 值，可选值：`button`、`reset`、`submit`                                        | string                          | "button"  |
-| icon                | 图标                                                                                                       | ReactNode               |           |
-| iconPosition        | 图标位置，可选值：`left`\|`right`                                                                          | string                          | `left`    |
-| loading             | 加载状态                                                                                                   | boolean                         | false     |
+| 属性                | 说明                                                                                                          | 类型                            | 默认值    |
+| ------------------- |-------------------------------------------------------------------------------------------------------------| ------------------------------- | --------- |
+| aria-label          | 按钮的标签                                                                                                       | string                            | -    |
+| block               | 将按钮设置为块级按钮                                                                                                  | bool                            | false     |
+| className           | 类名                                                                                                          | string                          |           |
+| disabled            | 禁用状态                                                                                                        | boolean                         | false     |
+| htmlType           | 设置 `button` 原生的 `type` 值，可选值：`button`、`reset`、`submit`                                                      | string                          | "button"  |
+| icon                | 图标                                                                                                          | ReactNode               |           |
+| iconPosition        | 图标位置，可选值：`left`\|`right`                                                                                    | string                          | `left`    |
+| loading             | 加载状态                                                                                                        | boolean                         | false     |
 | noHorizontalPadding | 设置水平方向是否去掉内边距，只对设置了 icon 的 Button 有效。可选值：`true`（等效于 \["left", "right"\]），"left"，"right"，\["left", "right"\] | boolean\|string\|Array<string\> | false     |
-| size                | 按钮大小，可选值：`large`、`default`、`small`                                                              | string                          | "default" |
-| style               | 自定义样式                                                                                                 | CSSProperties                          |           |
-| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）                     | string                          | "light"   |
-| type                | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger`                                     | string                          | "primary" |
-| onClick             | 单击事件                                                                                                   | function(MouseEvent)                        |           |
-| onMouseDown             | 鼠标按下事件                                                                                                   | function(MouseEvent)                        |           |
-| onMouseEnter             | 鼠标移入事件                                                                                                   | function(MouseEvent)                        |           |
-| onMouseLeave             | 鼠标移出事件                                                                                                   | function(MouseEvent)                        |           |
+| size                | 按钮大小，可选值：`large`、`default`、`small`                                                                          | string                          | "default" |
+| style               | 自定义样式                                                                                                       | CSSProperties                          |           |
+| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`onlyBorder`(边框模式)                                | string                          | "light"   |
+| type                | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger`                                                 | string                          | "primary" |
+| onClick             | 单击事件                                                                                                        | function(MouseEvent)                        |           |
+| onMouseDown             | 鼠标按下事件                                                                                                      | function(MouseEvent)                        |           |
+| onMouseEnter             | 鼠标移入事件                                                                                                      | function(MouseEvent)                        |           |
+| onMouseLeave             | 鼠标移出事件                                                                                                      | function(MouseEvent)                        |           |
 
 ### ButtonGroup
 
@@ -499,7 +499,7 @@ function SplitButtonDemo(){
 | disabled   | 禁用状态     | boolean | false | |
 | size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
 | style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
-| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色） | string | "light"   | |
+| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`onlyBorder`(边框模式)   | string | "light"   | |
 | type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" | |
 
 ### SplitButtonGroup **V1.12.0新增**
