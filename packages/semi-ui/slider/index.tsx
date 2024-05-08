@@ -132,11 +132,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             getSliderLengths: () => {
                 if (this.sliderEl && this.sliderEl.current) {
                     const rect = this.sliderEl.current.getBoundingClientRect();
-                    const offsetParentRect = this.sliderEl.current.offsetParent?.getBoundingClientRect();
-
                     const offset = {
-                        x: offsetParentRect ? (rect.left - offsetParentRect.left): this.sliderEl.current.offsetLeft,
-                        y: offsetParentRect ? (rect.top - offsetParentRect.top) : this.sliderEl.current.offsetTop,
+                        x: this.sliderEl.current.offsetLeft,
+                        y: this.sliderEl.current.offsetTop,
                     };
                     return {
                         sliderX: offset.x,

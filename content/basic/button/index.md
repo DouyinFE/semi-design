@@ -80,6 +80,7 @@ function ButtonDemo() {
 -   `light`：浅色背景
 -   `solid`：深色背景
 -   `borderless`：无背景
+-   `onlyBorder`: 边框模式
 
 默认的主题为 `light`
 
@@ -137,6 +138,27 @@ function ButtonDemo() {
             <Button theme='borderless' type='tertiary' style={{ marginRight: 8 }}>第三</Button>
             <Button theme='borderless' type='warning' style={{ marginRight: 8 }}>警告</Button>
             <Button theme='borderless' type='danger' style={{ marginRight: 8 }}>危险</Button>
+        </>
+    );
+}
+
+```
+
+
+#### 边框模式
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Button } from '@douyinfe/semi-ui';
+
+function ButtonDemo() {
+    return (
+        <>
+            <Button theme='onlyBorder' type='primary' style={{ marginRight: 8 }}>主要</Button>
+            <Button theme='onlyBorder' type='secondary' style={{ marginRight: 8 }}>次要</Button>
+            <Button theme='onlyBorder' type='tertiary' style={{ marginRight: 8 }}>第三</Button>
+            <Button theme='onlyBorder' type='warning' style={{ marginRight: 8 }}>警告</Button>
+            <Button theme='onlyBorder' type='danger' style={{ marginRight: 8 }}>危险</Button>
         </>
     );
 }
