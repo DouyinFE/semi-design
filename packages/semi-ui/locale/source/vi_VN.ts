@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'Xác nhận',
         cancel: 'Huỷ bỏ',
     },
+    Tabs: {
+        more: "Hơn"
+    },
     TimePicker: {
         placeholder: {
             time: 'Chọn thời gian',

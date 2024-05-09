@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '확인',
         cancel: '취소',
     },
+    Tabs: {
+        more: "더"
+    },
     TimePicker: {
         placeholder: {
             time: '시간 선택',

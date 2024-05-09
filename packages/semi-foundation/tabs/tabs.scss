@@ -11,6 +11,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
     box-sizing: border-box;
     position: relative;
 
+
     &-left {
         display: flex;
         flex-direction: row;
@@ -28,6 +29,24 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         &-extra {
             padding: $spacing-tabs_bar_extra-paddingY $spacing-tabs_bar_extra-paddingX;
+        }
+
+        &-more-trigger{
+            display: inline-block;
+            cursor: pointer;
+            color: var(--semi-color-text-2);
+
+            &-line{
+                padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
+            }
+
+            &-card{
+                padding: $spacing-tabs_bar_card_tab-paddingY $spacing-tabs_bar_card_tab-paddingX;
+            }
+
+            &-button{
+                padding: $spacing-tabs_bar_button_tab-paddingY $spacing-tabs_bar_button_tab-paddingX;
+            }
         }
 
         .#{$module}-tab {

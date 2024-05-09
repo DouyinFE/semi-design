@@ -48,7 +48,7 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
 
     const renderIcon = useCallback(
         (icon: ReactNode) => (
-            <span>
+            <span className={`${cssClasses.TABS_BAR}-icon`}>
                 {icon}
             </span>
         ), []);

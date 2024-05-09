@@ -52,6 +52,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         type: PropTypes.oneOf(strings.TYPE_MAP),
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
+        more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     };
     static __SemiComponentName__ = "Tabs";
     static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
@@ -253,6 +254,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPaneMotion,
             tabPosition,
             type,
+            more,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -278,7 +280,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPosition,
             type,
             deleteTabItem: this.deleteTabItem,
-            handleKeyDown: this.foundation.handleKeyDown
+            handleKeyDown: this.foundation.handleKeyDown,
+            more,
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;
