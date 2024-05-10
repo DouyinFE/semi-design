@@ -103,3 +103,9 @@ export default function App() {
         </div>
     );
 }
+
+App.parameters = {
+    chromatic: {
+        disableSnapshot: true,
+    },
+};
