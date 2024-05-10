@@ -112,7 +112,7 @@ export default class SemiWebpackPlugin {
             const scssLoader = require.resolve('sass-loader');
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');
-            const extraCssLoader = path.join(__dirname, 'semi-extract-css-loader');
+            const extraCssLoader = path.join(__dirname, 'semi-extract-css-content-loader');
             const rawLoader = require.resolve('raw-loader');
             const semiSemiLoaderOptions = typeof this.options.theme === 'object' ? { ...this.options.theme, cssLayer: this.options.cssLayer } : {
                 name: this.options.theme,

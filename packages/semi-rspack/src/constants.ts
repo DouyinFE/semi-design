@@ -8,6 +8,6 @@ export const OMIT_CSS_LOADER = path.resolve(__dirname, './loaders/semi-omit-css-
 
 export const PREFIX_LOADER = path.resolve(__dirname, './loaders/semi-prefix-loader');
 
-export const EXTRACT_CSS_LOADER = path.resolve(__dirname, './loaders/semi-extract-css-loader');
+export const EXTRACT_CSS_LOADER = path.resolve(__dirname, './loaders/semi-extract-css-content-loader');
 
 export const WEB_COMPONENT_LOADER = path.resolve(__dirname, './loaders/semi-web-component-loader');
