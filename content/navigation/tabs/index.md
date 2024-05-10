@@ -205,6 +205,52 @@ import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 );
 ```
 
+### 更多选项收入 More 展示 
+
+
+支持将多余 Tab 合并为 ”更多“ 下拉菜单，`more` 传入数字即可，数字表示收入下拉菜单的 Tab 数量。
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+function Demo(){
+  return (
+          <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                      Content of card tab {i}
+                    </TabPane>
+            ))}
+          </Tabs>
+  );
+}
+```
+
+也支持高级配置，向 `more` 传入对象，内可传入 
+
+- `count`: 表示收入下拉菜单的 Tab 数量
+- `render`: 自定义 Trigger 的渲染函数，返回的 ReactNode 会被渲染为下拉菜单的 Trigger
+- `dropdownProps`: 传入 DropDown Props，会被透传到下拉菜单，如果需要自定义下拉菜单，使用 dropdownProps 中的 render 方法
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+function Demo(){
+  return (
+          <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                      Content of card tab {i}
+                    </TabPane>
+            ))}
+          </Tabs>
+  );
+}
+```
+
+
 ### 垂直的标签栏
 
 支持水平和垂直两种模式， `tabPosition='left|top'`
@@ -525,7 +571,7 @@ import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             tabList: [
@@ -535,7 +581,7 @@ class App extends React.Component {
             ]
         };
     }
-    close(key){
+    close(key) {
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
@@ -558,27 +604,28 @@ class App extends React.Component {
 
 ### Tab
 
-属性 | 说明 | 类型 | 默认值 |
---- | --- | --- | --- |
-activeKey | 当前激活的 tab 页的 itemKey 值 | string | 无 |
-className | 类名 | string | 无 |
-collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
-contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |
-defaultActiveKey | 初始化选中的 tab 页的 key 值 | string | '1' |
-keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1.0.0** | boolean | true |
-lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0** | boolean | false |
-renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
-preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
-size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string | `large` |
-style | 样式对象 | CSSProperties | 无 |
-tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode | 无 |
-tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[] | 无 |
-tabPaneMotion | 是否使用动画切换 tabs | boolean | true |
-tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | string | `top` |
-type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
-onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
-onTabClick | 单击事件 | function(key: string, e: Event) | 无 |
-onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** |  function(tabKey: string) | 无
+属性 | 说明 | 类型                                                                        | 默认值     |
+--- | --- |---------------------------------------------------------------------------|---------|
+activeKey | 当前激活的 tab 页的 itemKey 值 | string                                                                    | 无       |
+className | 类名 | string                                                                    | 无       |
+collapsible | 折叠的 Tabs，**>=1.1.0** | boolean                                                                   | false   |
+contentStyle | 内容区域外层样式对象 | CSSProperties                                                             | 无       |
+defaultActiveKey | 初始化选中的 tab 页的 key 值 | string                                                                    | '1'     |
+keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1.0.0** | boolean                                                                   | true    |
+lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0** | boolean                                                                   | false   |
+more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -       |                                                              
+renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | 无       |
+preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean                                                                   |         |  |
+size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string                                                                    | `large` |
+style | 样式对象 | CSSProperties                                                             | 无       |
+tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode                                                                 | 无       |
+tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[]                                                                 | 无       |
+tabPaneMotion | 是否使用动画切换 tabs | boolean                                                                   | true    |
+tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | string                                                                    | `top`   |
+type | 标签栏的样式，可选`line`、 `card`、 `button` | string                                                                    | `line`  |
+onChange | 切换 tab 页时的回调函数 | function(activeKey: string)                                               | 无       |
+onTabClick | 单击事件 | function(key: string, e: Event)                                           | 无       |
+onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** | function(tabKey: string)                                                  | 无       
 
 ### TabPane
 
