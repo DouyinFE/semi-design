@@ -221,26 +221,25 @@ class App extends React.Component {
 ```
 
 
-### More with Dropdown
+### More with Dropdown （>=v2.59.0）
 
 Supports merging redundant tabs into a `more` drop-down menu. Just pass in a number for `more`. The number represents the number of tabs included in the drop-down menu.
+
 
 ```jsx live=true dir=column
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+function Demo(){
+  return (
+          <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                     <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
-                        Content of card tab {i}
+                      Content of card tab {i}
                     </TabPane>
-                ))}
-            </Tabs>
-        );
-    }
+            ))}
+          </Tabs>
+  );
 }
 ```
 
@@ -254,18 +253,16 @@ Advanced configuration is also supported, passing the object to `more`, and it c
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+function Demo(){
+  return (
+          <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                     <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
-                        Content of card tab {i}
+                      Content of card tab {i}
                     </TabPane>
-                ))}
-            </Tabs>
-        );
-    }
+            ))}
+          </Tabs>
+  );
 }
 ```
 

@@ -205,7 +205,7 @@ import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 );
 ```
 
-### 展示下拉菜单
+### 更多选项收入 More 展示 （>=v2.59.0）
 
 支持将多余 Tab 合并为 ”更多“ 下拉菜单，`more` 传入数字即可，数字表示收入下拉菜单的 Tab 数量
 
@@ -213,18 +213,16 @@ import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+function Demo(){
+  return (
+          <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                     <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
-                        Content of card tab {i}
+                      Content of card tab {i}
                     </TabPane>
-                ))}
-            </Tabs>
-        );
-    }
+            ))}
+          </Tabs>
+  );
 }
 ```
 
@@ -238,18 +236,16 @@ class App extends React.Component {
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
-class App extends React.Component {
-    render() {
-        return (
-            <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+function Demo(){
+  return (
+          <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                     <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
-                        Content of card tab {i}
+                      Content of card tab {i}
                     </TabPane>
-                ))}
-            </Tabs>
-        );
-    }
+            ))}
+          </Tabs>
+  );
 }
 ```
 

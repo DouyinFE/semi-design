@@ -36,6 +36,21 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
             cursor: pointer;
             color: var(--semi-color-text-2);
 
+            &-content{
+                display: flex;
+                align-content: center;
+
+                &-icon:not(:not(&-icon)){ // increase priority
+                    margin-top: $spacing-tabs_tab-more_trigger_icon-marginTop;
+                    margin-bottom: $spacing-tabs_tab-more_trigger_icon-marginBottom;
+                    margin-left: $spacing-tabs_tab-more_trigger_icon-marginLeft;
+                    margin-right: $spacing-tabs_tab-more_trigger_icon-marginRight;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
             &-line{
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
             }

@@ -8,10 +8,9 @@ import Dropdown, { DropdownProps } from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
 import { isEmpty, pick } from 'lodash';
-import { IconChevronRight, IconChevronLeft } from '@douyinfe/semi-icons';
+import { IconChevronRight, IconChevronLeft, IconChevronDown } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import TabItem from './TabItem';
-import { IconChevronDown } from "@douyinfe/semi-icons";
 import { Locale } from "../locale/interface";
 import LocaleConsumer from "../locale/localeConsumer";
 
@@ -231,27 +230,28 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         })}>
             <LocaleConsumer componentName="Tabs">
                 {(locale: Locale['Tabs'], localeCode: Locale['code']) => (
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div className={`${cssClasses.TABS_BAR}-more-trigger-content`}>
                         <div>{locale.more}</div>
-                        <IconChevronDown style={{ margin: '0 8px', flexShrink: 0 }}/>
+                        <IconChevronDown className={`${cssClasses.TABS_BAR}-more-trigger-content-icon`}/>
                     </div>
                 )}
             </LocaleConsumer>
         </div>;
         let keepCount: number;
         if (typeof more === "number") {
-            keepCount = list.length - more;
+            keepCount = list.length - Math.min(more, list.length);
             tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
         } else if (typeof more === 'object') {
-            keepCount = list.length - more.count;
+            keepCount = list.length - Math.min(more.count, list.length);
             tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
             if (more.render) {
                 moreTrigger = more.render();
             }
 
         } else if (more !== undefined) {
-            throw new Error("Semi Tabs: invalid tab props format: more");
+            throw new Error("[Semi Tabs]: invalid tab props format: more");
         }
+
         return <>
             {tabElements}
             {this.renderMoreDropdown(list.slice(keepCount), more?.['dropdownProps'], moreTrigger)}
