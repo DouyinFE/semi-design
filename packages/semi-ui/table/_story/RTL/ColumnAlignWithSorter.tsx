@@ -16,4 +16,10 @@ function App() {
     );
 }
 
+App.parameters = {
+    chromatic: {
+        delay: 3000,
+    },
+};
+
 export default App;

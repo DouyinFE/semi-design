@@ -13,6 +13,9 @@ export interface Locale {
         confirm: string;
         cancel: string
     };
+    Tabs: {
+        more: string
+    };
     TimePicker: {
         placeholder: {
             time: string;
