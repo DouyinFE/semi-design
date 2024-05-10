@@ -205,9 +205,10 @@ import { IconFile, IconGlobe, IconHelpCircle } from '@douyinfe/semi-icons';
 );
 ```
 
-### 更多选项收入 More 展示 （>=v2.59.0）
+### 更多选项收入 More 展示 
 
-支持将多余 Tab 合并为 ”更多“ 下拉菜单，`more` 传入数字即可，数字表示收入下拉菜单的 Tab 数量
+
+支持将多余 Tab 合并为 ”更多“ 下拉菜单，`more` 传入数字即可，数字表示收入下拉菜单的 Tab 数量。**（>=v2.59.0）**
 
 ```jsx live=true dir=column
 import React from 'react';
