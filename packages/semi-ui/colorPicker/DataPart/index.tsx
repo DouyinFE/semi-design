@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { HsvaColor, RgbaColor } from '@douyinfe/semi-foundation/colorPicker/types';
+import { HsvaColor, RgbaColor } from '@douyinfe/semi-foundation/colorPicker/interface';
 import Input from "../../input";
 import InputGroup from "../../input/inputGroup";
 import InputNumber from "../../inputNumber";

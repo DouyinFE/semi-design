@@ -1,4 +1,4 @@
-import { HsvaColor, RgbaColor } from './types';
+import { HsvaColor, RgbaColor } from './interface';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     hexToHsva,
@@ -18,7 +18,7 @@ type Value = {
     hex: string
 }
 export interface ColorPickerProps {
-    eyeDropper?:boolean,
+    eyeDropper?: boolean;
     defaultValue?: Value;
     value?: Value;
     onChange: (value: Value) => void;
@@ -34,10 +34,7 @@ export interface ColorPickerState {
 
 
 export interface ColorPickerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    notifyChange: (value: Value) => void;
-
-    notifyAlphaChangeByHandle: (newAlpha: { a: number }) => void;
-    notifyColorChangeByHandle: (newHue: { h: number }) => void
+    notifyChange: (value: Value) => void
 }
 
 
@@ -105,22 +102,29 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
 
     }
 
+    getCurrentColor = ()=>{
+
+        const value = this.getProp("value");
+        const currentColor = this.getState("currentColor");
+        return value || currentColor;
+    }
+
     handleChange = (color: HsvaColor|RgbaColor|string, format: 'hex'|'rgba'|'hsva')=>{
         let currentColor;
 
-        if (format==='hsva') {
+        if (format === 'hsva') {
             currentColor = {
                 hsva: color as HsvaColor,
                 rgba: ColorPickerFoundation.hsvaToRgba(color as HsvaColor),
                 hex: ColorPickerFoundation.hsvaToHex(color as HsvaColor)
             };
-        } else if (format==='rgba') {
+        } else if (format === 'rgba') {
             currentColor = {
                 rgba: color as RgbaColor,
                 hsva: ColorPickerFoundation.rgbaToHsva(color as RgbaColor),
                 hex: ColorPickerFoundation.rgbaToHex(color as RgbaColor)
             };
-        } else if (format==='hex') {
+        } else if (format === 'hex') {
             currentColor = {
                 hex: color as string,
                 hsva: ColorPickerFoundation.hexToHsva(color as string),
@@ -136,17 +140,17 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
 
 
     handleAlphaChangeByHandle = (newAlpha: {a: number})=>{
-        this._adapter.notifyAlphaChangeByHandle(newAlpha);
+        this.handleChangeA(this.getCurrentColor(), newAlpha.a);
     }
 
     handleColorChangeByHandle = (newHue: {h: number})=>{
-        this._adapter.notifyColorChangeByHandle(newHue);
+        this.handleChangeH(this.getCurrentColor(), newHue.h);
     }
 
 
     getHandlePositionByHSVA = (hsva: HsvaColor, { width, height }: {width: number;height: number}, handleSize: number)=>{
 
-        const defaultColorPosition = { x: hsva.s/100 * width, y: (1 - hsva.v/100) * height };
+        const defaultColorPosition = { x: hsva.s / 100 * width, y: (1 - hsva.v / 100) * height };
         return { x: defaultColorPosition.x - handleSize / 2, y: defaultColorPosition.y - handleSize / 2 };
     }
 
@@ -160,8 +164,8 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         }
 
         const handlePosition = {
-            x: mousePosition.x - handleSize/2,
-            y: mousePosition.y - handleSize/2
+            x: mousePosition.x - handleSize / 2,
+            y: mousePosition.y - handleSize / 2
         };
 
         return handlePosition;
@@ -176,11 +180,11 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
     }
 
     getColorHandlePositionByMousePosition = (mousePosition: number, width: number, handleSize: number)=>{
-        if (mousePosition<0 || mousePosition > width) {
+        if (mousePosition < 0 || mousePosition > width) {
             return null;
         }
 
-        return mousePosition - handleSize/2;
+        return mousePosition - handleSize / 2;
     }
 
 

@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/types";
+import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/interface";
 import { hsvaToHslString, hsvaToRgba } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';

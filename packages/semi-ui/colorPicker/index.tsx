@@ -62,12 +62,6 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
             ...super.adapter,
             notifyChange: (value)=>{
                 this.props.onChange?.(value);
-            },
-            notifyAlphaChangeByHandle: (newAlpha)=>{
-                this.foundation.handleChangeA(this.getCurrentColor(), newAlpha.a);
-            },
-            notifyColorChangeByHandle: ({ h })=>{
-                this.foundation.handleChangeH(this.getCurrentColor(), h);
             }
         };
     }
@@ -103,19 +97,16 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
                 hex
             };
         } else {
-            throw new Error("Semi ColorPicker: error on static colorStringToValue method, input value is invalid: "+raw);
+            throw new Error("Semi ColorPicker: error on static colorStringToValue method, input value is invalid: " + raw);
         }
     }
 
-    getCurrentColor = ()=>{
-        return this.props.value ? (this.props.value) : this.state.currentColor;
-    }
 
 
     renderPicker() {
         const { className: userClassName } = this.props;
         const className = cls(`${cssClasses.PREFIX}`, userClassName);
-        const currentColor = this.getCurrentColor();
+        const currentColor = this.foundation.getCurrentColor();
         return <div className={className}>
             {this.props.topSlot}
             <ColorChooseArea hsva={this.state.currentColor.hsva} foundation={this.foundation} onChange={({ s, v }) => {

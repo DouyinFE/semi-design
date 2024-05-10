@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { hsvaToHslaString, hsvaToRgbaString } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
-import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/types";
+import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/interface";
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 
@@ -21,7 +21,7 @@ interface AlphaSliderState {
     isHandleGrabbing: boolean
 }
 
-class ColorSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
+class AlphaSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
     private ref: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
@@ -98,4 +98,4 @@ class ColorSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
 
 }
 
-export default ColorSlider;
+export default AlphaSlider;

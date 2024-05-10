@@ -1,5 +1,5 @@
 import { round } from "./round";
-import { RgbaColor, RgbColor, HslaColor, HslColor, HsvaColor, HsvColor } from "../types";
+import { RgbaColor, RgbColor, HslaColor, HslColor, HsvaColor, HsvColor } from "../interface";
 /**
  * Valid CSS <angle> units.
  * https://developer.mozilla.org/en-US/docs/Web/CSS/angle

@@ -30,7 +30,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
     }
 
     componentDidUpdate(prevProps: Readonly<ColorSliderProps>, prevState: Readonly<ColorSliderState>, snapshot?: any) {
-        if (prevProps.hue!==this.props.hue) {
+        if (prevProps.hue !== this.props.hue) {
             this.setState({ handlePosition: this.props.hue/360 * this.props.width - this.props.handleSize/2 });
         }
     }
