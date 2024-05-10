@@ -27,7 +27,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 () => {
     const [width, setWidth] = useState(100);
     const renderOverflow = items => {
-        return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+        return items.length ? <Tag style={{ flex: '0 0 auto', fontVariantNumeric: 'tabular-nums' }}>+{items.length}</Tag> : null;
     };
     const renderItem = (item, ind) => {
         return (
@@ -72,7 +72,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 () => {
     const [width, setWidth] = useState(100);
     const renderOverflow = items => {
-        return items.length ? <Tag style={{ marginRight: 8, flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+        return items.length ? <Tag style={{ marginRight: 8, flex: '0 0 auto', fontVariantNumeric: 'tabular-nums' }}>+{items.length}</Tag> : null;
     };
     const renderItem = (item, ind) => {
         return (
@@ -122,7 +122,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 () => {
     const [width, setWidth] = useState(100);
     const renderOverflow = items => {
-        return items.length ? <Tag style={{ flex: '0 0 auto' }}>+{items.length}</Tag> : null;
+        return items.length ? <Tag style={{ flex: '0 0 auto', fontVariantNumeric: 'tabular-nums' }}>+{items.length}</Tag> : null;
     };
     const renderItem = (item, ind) => {
         return (
@@ -172,7 +172,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 () => {
     const [width, setWidth] = useState(100);
     const renderOverflow = items => {
-        return items.map(item => <Tag style={{ marginRight: 8, marginLeft: 8, flex: '0 0 auto' }} key={item.key}>+{item.length}</Tag>);
+        return items.map(item => <Tag style={{ marginRight: 8, marginLeft: 8, flex: '0 0 auto', fontVariantNumeric: 'tabular-nums' }} key={item.key}>+{item.length}</Tag>);
     };
     const renderItem = (item, ind) => {
         return (

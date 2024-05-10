@@ -81,6 +81,7 @@ The themes currently available are:
 -   `light`: light background
 -   `solid`: dark background
 -   `borderless`: no background
+-   `outline`: border mode
 
 The default theme is `light`
 
@@ -158,6 +159,39 @@ import { Button } from '@douyinfe/semi-ui';
 
 function ButtonDemo() {
     const themes = [['borderless', 'borderless']];
+    const types = [['primary', 'primary'], ['secondary', 'secondary'], ['tertiary', 'tertiary'], ['warning', 'warning'], ['danger', 'danger']];
+
+    return (
+        <div>{
+            themes.map((theme, idxTheme) => (
+                <div key={idxTheme}>
+                    <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }}>
+                        {types.map((type, idxType) => (
+                            <li key={'' + idxTheme + idxType} style={{ margin: 10 }}>
+                                <Button
+                                    theme={theme[0]}
+                                    type={type[0]}
+                                >
+                                    {theme[1]} {type[1]}
+                                </Button>
+                            </li>)
+                        )}
+                    </ul>
+                </div>))
+        }
+        </div>
+    );
+}
+```
+
+#### Border Mode
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Button } from '@douyinfe/semi-ui';
+
+function ButtonDemo() {
+    const themes = [['outline', 'outline']];
     const types = [['primary', 'primary'], ['secondary', 'secondary'], ['tertiary', 'tertiary'], ['warning', 'warning'], ['danger', 'danger']];
 
     return (
@@ -488,37 +522,37 @@ function SplitButtonDemo(){
 
 ### Button
 
-| Properties          | Instructions                                                                                                                                      | Type                             | Default   |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | --------- |
-| aria-label          | Label of the button                                                                                       | string                            | -    |
-| block               | Set the button to the block level button                                                                                                          | boolean                          | false     |
-| className           | Class name                                                                                                                                        | string                           |           |
-| disabled            | Prohibited status                                                                                                                                 | boolean                          | false     |
-| htmlType           | Set the `button` native `type` value, optional values: `"button"`, `"reset"`, `"submit"`                                                          | string                           | "button"  |
-| icon                | Icon                                                                                                                                              | ReactNode              |           |
-| iconPosition        | Icon location, optional value: `"left"`\|`"right"`                                                                                                | string                           | `"left"`  |
-| loading             | Loading state                                                                                                                                     | boolean                          | false     |
+| Properties          | Instructions                                                                                                                                                                              | Type                             | Default   |
+| ------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------------------------------- | --------- |
+| aria-label          | Label of the button                                                                                                                                                                       | string                            | -    |
+| block               | Set the button to the block level button                                                                                                                                                  | boolean                          | false     |
+| className           | Class name                                                                                                                                                                                | string                           |           |
+| disabled            | Prohibited status                                                                                                                                                                         | boolean                          | false     |
+| htmlType           | Set the `button` native `type` value, optional values: `"button"`, `"reset"`, `"submit"`                                                                                                  | string                           | "button"  |
+| icon                | Icon                                                                                                                                                                                      | ReactNode              |           |
+| iconPosition        | Icon location, optional value: `"left"`\|`"right"`                                                                                                                                        | string                           | `"left"`  |
+| loading             | Loading state                                                                                                                                                                             | boolean                          | false     |
 | noHorizontalPadding | Set whether to remove the inner margin in the horizontal direction, only valid for iconButton, optional: `true` (equivalent to \["left", "right"\]), "left", "right", \["left", "right"\] | boolean\|string\| Array<string\> | false     |
-| size                | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                      | string                           | "default" |
-| style               | Custom style                                                                                                                                      | CSSProperties                           |           |
-| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color)         | string                           | "light"   |
-| type                | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                               | string                           | "primary" |
-| onClick             | Click event                                                                                                                                       | Function(MouseEvent)                         |           |
-| onMouseDown             | Mouse down                                                                                                   | Function(MouseEvent)                        |           |
-| onMouseEnter             | Mouse Enter                                                                                                   | Function(MouseEvent)                        |           |
-| onMouseLeave             | Mouse Leave                                                                                                   | Function(MouseEvent)                        |           |
+| size                | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                                                              | string                           | "default" |
+| style               | Custom style                                                                                                                                                                              | CSSProperties                           |           |
+| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color), `"outline"`(Border Mode)                    | string                           | "light"   |
+| type                | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                                                                   | string                           | "primary" |
+| onClick             | Click event                                                                                                                                                                               | Function(MouseEvent)                         |           |
+| onMouseDown             | Mouse down                                                                                                                                                                                | Function(MouseEvent)                        |           |
+| onMouseEnter             | Mouse Enter                                                                                                                                                                               | Function(MouseEvent)                        |           |
+| onMouseLeave             | Mouse Leave                                                                                                                                                                               | Function(MouseEvent)                        |           |
 
 ### ButtonGroup
 
-| Properties | Instructions                | Type    | Default   | Version |
-| ---------- | ----------------------------| ------- | --------- |---------|
-| aria-label | Label of the button group   | string  | - | |
-| className  | Custom class name           | string   | - | |
-| disabled   | Disabled status             | boolean | false | |
-| size       | Button size, optional value: `"large"`,`"default"`,`"small"` | string  | "default" |
-| style      | Custom style                | CSSProperties   | - | 2.20.0 |
-| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color) | string | "light"  | |
-| type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"` | string  | "primary" |
+| Properties | Instructions                                                                                                                                     | Type    | Default   | Version |
+| ---------- |--------------------------------------------------------------------------------------------------------------------------------------------------| ------- | --------- |---------|
+| aria-label | Label of the button group                                                                                                                        | string  | - | |
+| className  | Custom class name                                                                                                                                | string   | - | |
+| disabled   | Disabled status                                                                                                                                  | boolean | false | |
+| size       | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                     | string  | "default" |
+| style      | Custom style                                                                                                                                     | CSSProperties   | - | 2.20.0 |
+| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color),`"outline"`(Border Mode)   | string | "light"  | |
+| type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                          | string  | "primary" |
 
 ### SplitButtonGroup **V1.12.0**
 | Properties   | Instructions                     | Type     | Default   |
