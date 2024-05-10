@@ -80,7 +80,7 @@ function ButtonDemo() {
 -   `light`：浅色背景
 -   `solid`：深色背景
 -   `borderless`：无背景
--   `onlyBorder`: 边框模式
+-   `outline`: 边框模式
 
 默认的主题为 `light`
 
@@ -154,11 +154,11 @@ import { Button } from '@douyinfe/semi-ui';
 function ButtonDemo() {
     return (
         <>
-            <Button theme='onlyBorder' type='primary' style={{ marginRight: 8 }}>主要</Button>
-            <Button theme='onlyBorder' type='secondary' style={{ marginRight: 8 }}>次要</Button>
-            <Button theme='onlyBorder' type='tertiary' style={{ marginRight: 8 }}>第三</Button>
-            <Button theme='onlyBorder' type='warning' style={{ marginRight: 8 }}>警告</Button>
-            <Button theme='onlyBorder' type='danger' style={{ marginRight: 8 }}>危险</Button>
+            <Button theme='outline' type='primary' style={{ marginRight: 8 }}>主要</Button>
+            <Button theme='outline' type='secondary' style={{ marginRight: 8 }}>次要</Button>
+            <Button theme='outline' type='tertiary' style={{ marginRight: 8 }}>第三</Button>
+            <Button theme='outline' type='warning' style={{ marginRight: 8 }}>警告</Button>
+            <Button theme='outline' type='danger' style={{ marginRight: 8 }}>危险</Button>
         </>
     );
 }
@@ -483,7 +483,7 @@ function SplitButtonDemo(){
 | noHorizontalPadding | 设置水平方向是否去掉内边距，只对设置了 icon 的 Button 有效。可选值：`true`（等效于 \["left", "right"\]），"left"，"right"，\["left", "right"\] | boolean\|string\|Array<string\> | false     |
 | size                | 按钮大小，可选值：`large`、`default`、`small`                                                                          | string                          | "default" |
 | style               | 自定义样式                                                                                                       | CSSProperties                          |           |
-| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`onlyBorder`(边框模式)                                | string                          | "light"   |
+| theme               | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`outline`(边框模式)                                | string                          | "light"   |
 | type                | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger`                                                 | string                          | "primary" |
 | onClick             | 单击事件                                                                                                        | function(MouseEvent)                        |           |
 | onMouseDown             | 鼠标按下事件                                                                                                      | function(MouseEvent)                        |           |
@@ -499,7 +499,7 @@ function SplitButtonDemo(){
 | disabled   | 禁用状态     | boolean | false | |
 | size       | 按钮大小，可选值：`large`、`default`、`small` | string  | "default" | |
 | style      | 自定义样式   | CSSProperties   | - | 2.20.0 |
-| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`onlyBorder`(边框模式)   | string | "light"   | |
+| theme      | 按钮主题，可选值：`solid`（有背景色）、 `borderless`（无背景色）、 `light`（浅背景色）、`outline`(边框模式)   | string | "light"   | |
 | type     | 类型，可选值：`primary`、`secondary`、`tertiary`、`warning`、 `danger` | string  | "primary" | |
 
 ### SplitButtonGroup **V1.12.0新增**

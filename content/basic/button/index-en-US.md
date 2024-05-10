@@ -81,7 +81,7 @@ The themes currently available are:
 -   `light`: light background
 -   `solid`: dark background
 -   `borderless`: no background
--   `onlyBorder`: border mode
+-   `outline`: border mode
 
 The default theme is `light`
 
@@ -191,7 +191,7 @@ import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
 
 function ButtonDemo() {
-    const themes = [['onlyBorder', 'onlyBorder']];
+    const themes = [['outline', 'outline']];
     const types = [['primary', 'primary'], ['secondary', 'secondary'], ['tertiary', 'tertiary'], ['warning', 'warning'], ['danger', 'danger']];
 
     return (
@@ -535,7 +535,7 @@ function SplitButtonDemo(){
 | noHorizontalPadding | Set whether to remove the inner margin in the horizontal direction, only valid for iconButton, optional: `true` (equivalent to \["left", "right"\]), "left", "right", \["left", "right"\] | boolean\|string\| Array<string\> | false     |
 | size                | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                                                              | string                           | "default" |
 | style               | Custom style                                                                                                                                                                              | CSSProperties                           |           |
-| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color), `"onlyBorder"`(Border Mode)                    | string                           | "light"   |
+| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color), `"outline"`(Border Mode)                    | string                           | "light"   |
 | type                | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                                                                   | string                           | "primary" |
 | onClick             | Click event                                                                                                                                                                               | Function(MouseEvent)                         |           |
 | onMouseDown             | Mouse down                                                                                                                                                                                | Function(MouseEvent)                        |           |
@@ -551,7 +551,7 @@ function SplitButtonDemo(){
 | disabled   | Disabled status                                                                                                                                  | boolean | false | |
 | size       | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                     | string  | "default" |
 | style      | Custom style                                                                                                                                     | CSSProperties   | - | 2.20.0 |
-| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color),`"onlyBorder"`(Border Mode)   | string | "light"  | |
+| theme      | Button theme, optional values: `"solid"` (with background color), `"borderless"` (without background color), `"light"` (light background color),`"outline"`(Border Mode)   | string | "light"  | |
 | type       | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                          | string  | "primary" |
 
 ### SplitButtonGroup **V1.12.0**
