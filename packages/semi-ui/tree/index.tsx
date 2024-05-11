@@ -53,6 +53,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
 
     static propTypes = {
         blockNode: PropTypes.bool,
+        bothParents: PropTypes.bool,
         className: PropTypes.string,
         showClear: PropTypes.bool,
         defaultExpandAll: PropTypes.bool,

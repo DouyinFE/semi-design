@@ -2287,6 +2287,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | autoExpandParent | 是否自动展开父节点，默认为 false，当组件初次挂载时为 true | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | 是否允许拖拽到节点上时自动展开改节点 | boolean | true | 1.8.0 | 
 | blockNode | 行显示节点 | boolean | true | - |
+| bothParents | 多选时，显示所有选中节点(包括父节点) | boolean | false | - |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 类名 | string | - | - |
 | defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`/`treeDataSimpleJson`)发生改变，这个 api 是无法影响节点的默认展开情况的，如果有这个需要可以使用 `expandAll` | boolean | false | - |
