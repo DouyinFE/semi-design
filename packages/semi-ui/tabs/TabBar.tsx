@@ -4,13 +4,15 @@ import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import OverflowList from '../overflowList';
-import Dropdown from '../dropdown';
+import Dropdown, { DropdownProps } from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
 import { isEmpty, pick } from 'lodash';
-import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
+import { IconChevronRight, IconChevronLeft, IconChevronDown } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import TabItem from './TabItem';
+import { Locale } from "../locale/interface";
+import LocaleConsumer from "../locale/localeConsumer";
 
 export interface TabBarState {
     endInd: number;
@@ -37,7 +39,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
         closable: PropTypes.bool,
-        deleteTabItem: PropTypes.func
+        deleteTabItem: PropTypes.func,
+        more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     };
 
     constructor(props: TabBarProps) {
@@ -104,7 +107,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         return (
             <TabItem
                 {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
-                key={this._getItemKey(panel.itemKey)} 
+                key={this._getItemKey(panel.itemKey)}
                 selected={isSelected}
                 size={size}
                 type={type}
@@ -195,7 +198,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
-        const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
+        const icon = ind === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
         const pos = ind === 0 ? 'start' : 'end';
         return this.renderCollapse(item, icon, pos);
     });
@@ -218,8 +221,63 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
+    renderWithMoreTrigger = (): ReactNode => {
+        const { list, more } = this.props;
+        let tabElements: ReactNode[] = [];
+        let moreTrigger: ReactNode = <div className={cls({
+            [`${cssClasses.TABS_BAR}-more-trigger`]: true,
+            [`${cssClasses.TABS_BAR}-more-trigger-${this.props.type}`]: true
+        })}>
+            <LocaleConsumer componentName="Tabs">
+                {(locale: Locale['Tabs'], localeCode: Locale['code']) => (
+                    <div className={`${cssClasses.TABS_BAR}-more-trigger-content`}>
+                        <div>{locale.more}</div>
+                        <IconChevronDown className={`${cssClasses.TABS_BAR}-more-trigger-content-icon`}/>
+                    </div>
+                )}
+            </LocaleConsumer>
+        </div>;
+        let keepCount: number;
+        if (typeof more === "number") {
+            keepCount = list.length - Math.min(more, list.length);
+            tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
+        } else if (typeof more === 'object') {
+            keepCount = list.length - Math.min(more.count, list.length);
+            tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
+            if (more.render) {
+                moreTrigger = more.render();
+            }
+
+        } else if (more !== undefined) {
+            throw new Error("[Semi Tabs]: invalid tab props format: more");
+        }
+
+        return <>
+            {tabElements}
+            {this.renderMoreDropdown(list.slice(keepCount), more?.['dropdownProps'], moreTrigger)}
+        </>;
+    }
+
+    renderMoreDropdown = (panels: PlainTab[], dropDownProps: DropdownProps, trigger: ReactNode): ReactNode => {
+
+        return <Dropdown trigger={'hover'} showTick position={'bottomLeft'}
+            className={`${cssClasses.TABS_BAR}-more-dropdown-${this.props.type}`}
+            clickToHide={true}
+            menu={panels.map(panel => ({
+                node: 'item',
+                name: panel.tab as string,
+                icon: panel.icon,
+                onClick: (e) => this.props.onTabClick(panel.itemKey, e),
+                active: this.props.activeKey === panel.itemKey
+            }))}
+            {...dropDownProps}
+        >
+            {trigger}
+        </Dropdown>;
+    }
+
     render(): ReactNode {
-        const { type, style, className, list, tabPosition, collapsible, ...restProps } = this.props;
+        const { type, style, className, list, tabPosition, more, collapsible, ...restProps } = this.props;
         const classNames = cls(className, {
             [cssClasses.TABS_BAR]: true,
             [cssClasses.TABS_BAR_LINE]: type === 'line',
@@ -230,10 +288,11 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         });
 
         const extra = this.renderExtra();
-        const contents = collapsible ? this.renderCollapsedTab() : this.renderTabComponents(list);
+        const contents = collapsible ? this.renderCollapsedTab() : (more ? this.renderWithMoreTrigger() : this.renderTabComponents(list));
 
         return (
-            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
+            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"}
+                className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
                 {contents}
                 {extra}
             </div>

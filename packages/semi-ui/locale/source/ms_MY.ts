@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'Sahkan',
         cancel: 'Batal',
     },
+    Tabs: {
+        more: "Lagi"
+    },
     TimePicker: {
         placeholder: {
             time: 'Pilih masa',

@@ -11,6 +11,7 @@ $color-button_primary-bg-active: var(--semi-color-primary-active); // 主要按�
 $color-button_primary-border-active: var(--semi-color-primary-active); // 主要按钮描边颜色 - 按下
 $color-button_primary-text-active: rgba(var(--semi-white), 1); // 主要按钮文字颜色 - 按下
 $color-button_primary-outline-focus: var(--semi-color-primary-light-active); // 主要按钮轮廓 - 聚焦
+$color-button_primary_outline-border-default: var(--semi-color-border); // 边框模式下 primary 边框颜色
 
 $color-button_primary_borderless-text-default: var(--semi-color-primary); // 主要按钮无边框文字颜色
 
@@ -26,6 +27,7 @@ $color-button_secondary-text-hover: rgba(var(--semi-white), 1); // 次要按钮�
 $color-button_secondary-bg-active: var(--semi-color-secondary-active); // 次要按钮背景颜色 - 按下
 $color-button_secondary-border-active: var(--semi-color-secondary-active); // 次要按钮描边颜色 - 按下
 $color-button_secondary-text-active: rgba(var(--semi-white), 1); // 次要按钮文字颜色 - 按下
+$color-button_secondary_outline-border-default: var(--semi-color-border); // 边框模式下 secondary 边框颜色
 
 $color-button_secondary_borderless-text-default: var(--semi-color-secondary); // 次要按钮无边框文字颜色
 
@@ -42,6 +44,7 @@ $color-button_danger-bg-active: var(--semi-color-danger-active); // 危险按钮
 $color-button_danger-border-active: var(--semi-color-danger-active); // 危险按钮描边颜色 - 按下
 $color-button_danger-text-active: rgba(var(--semi-white), 1); // 危险按钮文字颜色 - 按下
 $color-button_danger-outline-focus: var(--semi-color-danger-light-active); // 危险按钮轮廓 - 聚焦
+$color-button_danger_outline-border-default: var(--semi-color-danger); // 边框模式下 danger 边框颜色
 
 $color-button_danger_borderless-text-default: var(--semi-color-danger); // 危险按钮无边框文字颜色
 
@@ -58,7 +61,7 @@ $color-button_warning-bg-active: var(--semi-color-warning-active); // 警告按�
 $color-button_warning-border-active: var(--semi-color-warning-active); // 警告按钮描边颜色 - 按下
 $color-button_warning-text-active: rgba(var(--semi-white), 1); // 警告按钮文字颜色 - 按下
 $color-button_warning-outline-focus: var(--semi-color-warning-light-active); // 警告按钮轮廓 - 聚焦
-
+$color-button_warning_outline-border-default: var(--semi-color-warning); // 边框模式下 warning 边框颜色
 $color-button_warning_borderless-text-default: var(--semi-color-warning); // 警告按钮无边框文字颜色
 
 // tertiary
@@ -73,7 +76,7 @@ $color-button_tertiary-text-hover: rgba(var(--semi-white), 1); // 第三按钮�
 $color-button_tertiary-bg-active: var(--semi-color-tertiary-active); // 第三按钮背景颜色 - 按下
 $color-button_tertiary-border-active: var(--semi-color-tertiary-active); // 第三按钮描边颜色 - 按下
 $color-button_tertiary-text-active: rgba(var(--semi-white), 1); // 第三按钮文字颜色 - 按下
-
+$color-button_tertiary_outline-border-default: var(--semi-color-border); // 边框模式下 danger 边框颜色
 $color-button_tertiary_solid-text-default: var(--semi-color-text-1); // 浅色第三按钮文字颜色
 
 // disabled
@@ -87,7 +90,7 @@ $color-button_disabled_secondary-bg-default: $color-button_disabled-bg-default; 
 $color-button_disabled_danger-bg-default: $color-button_disabled-bg-default; // 禁用 danger 按钮背景颜色
 $color-button_disabled_warning-bg-default: $color-button_disabled-bg-default; // 禁用 warning 按钮背景颜色
 $color-button_disabled_tertiary-bg-default: $color-button_disabled-bg-default; // 禁用 tertiary 按钮背景颜色
-
+$color-button_disabled_outline-border-default: var(--semi-color-border); // 边框模式下 disable 边框颜色
 
 
 // light
@@ -113,6 +116,12 @@ $color-button_borderless-border-default: transparent; // 无背景按钮描边�
 $color-button_borderless-border-hover: $color-button_borderless-border-default; // 无背景按钮描边颜色 - 悬浮
 $color-button_borderless-border-active: $color-button_borderless-border-hover; // 无背景按钮描边颜色 - 按下
 $width-button_borderless-border: 0; // 无背景按钮描边宽度
+
+
+// outline
+$width-button_outline-border: 1px; // 边框模式按钮边框宽度
+$color-button_outline-bg-hover: var(--semi-color-fill-0); // 边框模式按钮背景颜色 - 悬浮
+$color-button_outline-bg-active: var(--semi-color-fill-1); // 边框模式按钮背景颜色 - 按下
 
 // buttongroup
 
@@ -163,6 +172,6 @@ $width-button-outline: 2px; // 按钮轮廓宽度
 
 
 $radius-button_splitButtonGroup_first_topLeft: var(--semi-border-radius-small); // split button 左上圆角
-$radius-button_splitButtonGroup_first_bottomLeft:var(--semi-border-radius-small); // split button 左下圆角
-$radius-button_splitButtonGroup_last_topRight:var(--semi-border-radius-small); // split button 右上圆角
-$radius-button_splitButtonGroup_last_bottomRight:var(--semi-border-radius-small); // split button 右下圆角
+$radius-button_splitButtonGroup_first_bottomLeft: var(--semi-border-radius-small); // split button 左下圆角
+$radius-button_splitButtonGroup_last_topRight: var(--semi-border-radius-small); // split button 右上圆角
+$radius-button_splitButtonGroup_last_bottomRight: var(--semi-border-radius-small); // split button 右下圆角
