@@ -224,7 +224,7 @@ class App extends React.Component {
 ### More with Dropdown 
 
 
-Supports merging redundant tabs into a `more` drop-down menu. Just pass in a number for `more`. The number represents the number of tabs included in the drop-down menu. 
+Supports merging redundant tabs into a `more` drop-down menu. Just pass in a number for `more`. The number represents the number of tabs included in the drop-down menu. **（>=v2.59.0）**
 
 
 ```jsx live=true dir=column
