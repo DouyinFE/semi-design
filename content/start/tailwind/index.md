@@ -40,7 +40,7 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 例如在 1 的前提下，对 Button 组件设置 padding，会出现失效的情况。
 
 如果是2，因为 Tailwind 优先级较高，其对浏览器默认样式覆盖的 Preflight 会同时覆盖掉 Semi 的样式。
-例如在 2 的前提下，light 的 Button 的 背景色会被覆盖为 transparent，导致样式表现异常。
+例如在 2 的前提下，light 的 Button 的背景色会被覆盖为 transparent，导致样式表现异常。
 
 
 #### 解决方案
