@@ -46,7 +46,7 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 #### 解决方案
 无论 Tailwind 和 组件库哪一方优先级高，都会出现问题，因此解决方式在于正确处理 Tailwind 样式中 Preflight 和用户需要的原子类的优先级相对于组件库优先级的关系。
 
-** 1. 开启 Semi 插件 **
+** 1. 开启 Semi 插件 (>= 2.59.0) **
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
@@ -81,6 +81,12 @@ Tailwind 入口的 CSS 通常是包含了下面三行的文件
 ```
 
 并在项目的 JS 入口文件（即 App.tsx 或 index.js）处**最上方** import 上面修改的文件。（通常一个 Tailwind 项目对于上面文件的 import 已经处理好，只要将该 import 语句提到所有 import 语句前即可）
+
+
+<Notice title="兼容低版本浏览器">
+CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https://caniuse.com/?search=CSS%20Cascade%20Layers">(兼容性表格)</a>，如果你的网站需要低版本浏览器访问，需要添加 CSS Layer 的 Polyfill，请参考此 Polyfill 的 <a target="_blank" href="https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers#how-it-works">PostCSS 插件文档</a>
+</Notice>
+
 
 #### 原理
 通过 CSS Layer 特性，实现不同来源的样式的优先级设置。
