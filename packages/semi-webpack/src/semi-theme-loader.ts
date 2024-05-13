@@ -58,7 +58,7 @@ export default function SemiThemeLoader(source: string) {
 
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
-    let finalCSS:string = "";
+    let finalCSS: string = "";
     if (shouldInject) {
 
         const customStr = (() => {
@@ -89,7 +89,7 @@ export default function SemiThemeLoader(source: string) {
         finalCSS = `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
 
-    if(cssLayer){
+    if (cssLayer) {
         finalCSS = `@layer semi{${finalCSS}}`;
     }
     return finalCSS;
