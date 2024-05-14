@@ -7,6 +7,7 @@ const order = [
     'accessibility',
     'overview',
     'faq',
+    "tailwind",
     'content-guidelines',
     'changelog',
     'update-to-v2',

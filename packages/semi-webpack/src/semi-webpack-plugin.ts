@@ -13,6 +13,7 @@ export interface ExtractCssOptions {
 }
 export interface SemiWebpackPluginOptions {
     theme?: string | SemiThemeOptions;
+    cssLayer?: boolean;
     prefixCls?: string;
     variables?: {[key: string]: string | number};
     include?: string;
@@ -42,31 +43,30 @@ export default class SemiWebpackPlugin {
         if (!NormalModule) NormalModule = require('webpack/lib/NormalModule');
 
         compiler.hooks.compilation.tap('SemiPlugin', (compilation: any) => {
-            if (this.options.theme || this.options.prefixCls || this.options.omitCss) {
-                if (NormalModule.getCompilationHooks) {
-                    NormalModule.getCompilationHooks(compilation).loader.tap('SemiPlugin', (context: any, module: any) => {
-                        if (this.options.omitCss) {
-                            this.omitCss(module);
-                            return;
-                        }
-                        this.customTheme(module);
-                        if (this.options.prefixCls) {
-                            this.customPrefix(module, this.options.prefixCls);
-                        }
-                    });
-                } else {
-                    compilation.hooks.normalModuleLoader.tap('SemiPlugin', (context: any, module: any) => {
-                        if (this.options.omitCss) {
-                            this.omitCss(module);
-                            return;
-                        }
-                        this.customTheme(module);
-                        if (this.options.prefixCls) {
-                            this.customPrefix(module, this.options.prefixCls);
-                        }
-                    });
-                }
+            if (NormalModule.getCompilationHooks) {
+                NormalModule.getCompilationHooks(compilation).loader.tap('SemiPlugin', (context: any, module: any) => {
+                    if (this.options.omitCss) {
+                        this.omitCss(module);
+                        return;
+                    }
+                    this.customTheme(module);
+                    if (this.options.prefixCls) {
+                        this.customPrefix(module, this.options.prefixCls);
+                    }
+                });
+            } else {
+                compilation.hooks.normalModuleLoader.tap('SemiPlugin', (context: any, module: any) => {
+                    if (this.options.omitCss) {
+                        this.omitCss(module);
+                        return;
+                    }
+                    this.customTheme(module);
+                    if (this.options.prefixCls) {
+                        this.customPrefix(module, this.options.prefixCls);
+                    }
+                });
             }
+
         });
     }
 
@@ -92,8 +92,9 @@ export default class SemiWebpackPlugin {
             const scssLoader = require.resolve('sass-loader');
             const cssLoader = require.resolve('css-loader');
             const styleLoader = require.resolve('style-loader');
-            const semiSemiLoaderOptions = typeof this.options.theme === 'object' ? this.options.theme : {
-                name: this.options.theme
+            const semiSemiLoaderOptions = typeof this.options.theme === 'object' ? { ...this.options.theme, cssLayer: this.options.cssLayer } : {
+                name: this.options.theme,
+                cssLayer: this.options.cssLayer
             };
             if (!this.hasSemiThemeLoader(module.loaders)) {
                 const lastLoader = this.options.extractCssOptions ? {
