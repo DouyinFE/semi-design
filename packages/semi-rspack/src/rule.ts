@@ -22,6 +22,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         prefixCls: opts.prefixCls,
         variables: stringifyVariableRecord(opts.variables),
         include: opts.include,
+        cssLayer: opts.cssLayer
     };
     return {
         test: /@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/,

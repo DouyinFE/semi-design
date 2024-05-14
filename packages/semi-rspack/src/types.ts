@@ -1,5 +1,6 @@
 export interface SemiWebpackPluginOptions {
     theme?: SemiThemeOptions | SemiThemeOptions['name'];
+    cssLayer?: boolean;
     prefixCls?: string;
     variables?: Record<string, string | number>;
     include?: string;
@@ -7,5 +8,5 @@ export interface SemiWebpackPluginOptions {
 }
 
 export interface SemiThemeOptions {
-    name?: string
+    name?: string;
 }
