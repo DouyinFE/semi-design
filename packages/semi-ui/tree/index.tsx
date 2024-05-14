@@ -52,8 +52,8 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     static contextType = ConfigContext;
 
     static propTypes = {
+        autoMergeValue: PropTypes.bool,
         blockNode: PropTypes.bool,
-        bothParents: PropTypes.bool,
         className: PropTypes.string,
         showClear: PropTypes.bool,
         defaultExpandAll: PropTypes.bool,

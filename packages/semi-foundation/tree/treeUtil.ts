@@ -454,23 +454,27 @@ export function normalizedArr(val: any) {
 
 // flag is used to determine whether to return when the key does not belong to the keys in keyEntities
 // export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false) {
-export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false, flag?: boolean) {
+export function normalizeKeyList(keyList: any, keyEntities: KeyEntities, leafOnly = false, autoMergeValue = false, flag?: boolean) {
     const res: string[] = [];
     const keyListSet = new Set(keyList);
     if (!leafOnly) {
-        keyList.forEach((key: string) => {
-            if (!keyEntities[key]) {
-                if (flag) {
-                    res.push(key);
+        if (!autoMergeValue) {
+            keyList.forEach((key: string) => {
+                if (!keyEntities[key]) {
+                    if (flag) {
+                        res.push(key);
+                    }
+                    return;
                 }
-                return;
-            }
-            const { parent } = keyEntities[key];
-            if (parent && keyListSet.has(parent.key)) {
-                return;
-            }
-            res.push(key);
-        });
+                const { parent } = keyEntities[key];
+                if (parent && keyListSet.has(parent.key)) {
+                    return;
+                }
+                res.push(key);
+            });
+        } else {
+            return keyList;
+        }
     } else {
         keyList.forEach(key => {
             if (keyEntities[key] && !isValid(keyEntities[key].children)) {

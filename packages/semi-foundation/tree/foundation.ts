@@ -456,11 +456,11 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let value;
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
+            keyList = normalizeKeyList(key, keyEntities, leafOnly, autoMergeValue, true);
         } else if (checkRelation === 'unRelated') {
             keyList = key;
         }
