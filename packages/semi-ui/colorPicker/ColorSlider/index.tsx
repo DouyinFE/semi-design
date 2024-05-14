@@ -43,7 +43,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
 
     setHandlePositionByMousePosition = (e: MouseEvent)=>{
         const mousePosition = e.clientX - this.ref.current.getBoundingClientRect().x;
-        this.props.foundation.handleColorChangeByHandle({ h: Math.round(Math.min(Math.max(mousePosition/this.props.width, 0), 1) * 360) });
+        this.props.foundation.handleColorChangeByHandle({ h: Math.round(Math.min(Math.max(mousePosition / this.props.width, 0), 1) * 360) });
         const handlePosition = this.props.foundation.getColorHandlePositionByMousePosition(mousePosition, this.props.width, this.props.handleSize);
         this.setState({ handlePosition });
     }

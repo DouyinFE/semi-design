@@ -1,69 +1,57 @@
-import React, { CSSProperties } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { hsvaToHslaString, hsvaToRgbaString } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
-import { HsvaColor } from "@douyinfe/semi-foundation/colorPicker/interface";
-import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
+import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
+import AlphaSliderFoundation, {
+    AlphaSliderAdapter,
+    AlphaSliderProps,
+    AlphaSliderState
+} from "@douyinfe/semi-foundation/colorPicker/AlphaSliderFoundation";
 
-interface AlphaSliderProps {
-    width: number;
-    height: number;
-    hsva: HsvaColor;
-    handleSize: number;
-    className?: string;
-    style?: CSSProperties;
-    foundation: ColorPickerFoundation
 
-}
 
-interface AlphaSliderState {
-    handlePosition: number;
-    isHandleGrabbing: boolean
-}
-
-class AlphaSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
+class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, AlphaSliderState> {
     private ref: React.RefObject<HTMLDivElement>;
 
     constructor(props) {
         super(props);
+        this.foundation = new AlphaSliderFoundation(this.adapter);
         this.state = {
-            handlePosition: props.hsva.a * props.width - props.handleSize/2,
+            handlePosition: props.hsva.a * props.width - props.handleSize / 2,
             isHandleGrabbing: false
         };
         this.ref = React.createRef<HTMLDivElement>();
     }
 
+    get adapter(): AlphaSliderAdapter<AlphaSliderProps, AlphaSliderState> {
+        return {
+            ...super.adapter,
+            handleMouseDown: (e: any) => {
+                this.setState({ isHandleGrabbing: true });
+                window.addEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+                window.addEventListener('mouseup', this.foundation.handleMouseUp);
+            },
+            handleMouseUp: (e: MouseEvent) => {
+                this.setState({ isHandleGrabbing: false });
+                window.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+                window.removeEventListener('mouseup', this.foundation.handleMouseUp);
+            },
+            getColorPickerFoundation: ()=>this.props.foundation,
+            getDOM: ()=>this.ref.current
+        };
+    }
+
     componentDidUpdate(prevProps: Readonly<AlphaSliderProps>, prevState: Readonly<AlphaSliderState>, snapshot?: any) {
-        if (prevProps.hsva.a!==this.props.hsva.a) {
-            this.setState({ handlePosition: this.props.hsva.a * this.props.width - this.props.handleSize/2 });
+        if (prevProps.hsva.a !== this.props.hsva.a) {
+            this.setState({ handlePosition: this.props.hsva.a * this.props.width - this.props.handleSize / 2 });
         }
     }
 
-    handleHandleMouseDown = (e: React.MouseEvent) => {
-        this.setState({ isHandleGrabbing: true });
-        window.addEventListener('mousemove', this.setHandlePositionByMousePosition);
-        window.addEventListener('mouseup', this.handleMouseUp);
-    }
-
-    setHandlePositionByMousePosition = (e: MouseEvent|React.MouseEvent) => {
-        const mousePosition = e.clientX - this.ref.current.getBoundingClientRect().x;
-        const handlePosition = this.props.foundation.getAlphaHandlePositionByMousePosition(mousePosition, this.props.width, this.props.handleSize);
-        this.props.foundation.handleAlphaChangeByHandle({ a: Number((Math.min(Math.max( mousePosition/this.props.width, 0), 1)).toFixed(2)) });
-        this.setState({ handlePosition });
-    }
-
-    handleMouseUp = (e: MouseEvent) => {
-        this.setState({ isHandleGrabbing: false });
-        window.removeEventListener('mouseup', this.handleMouseUp);
-        window.removeEventListener('mousemove', this.setHandlePositionByMousePosition);
-    }
-
     handleClick = (e: React.MouseEvent)=>{
-        this.setHandlePositionByMousePosition(e);
-        this.handleHandleMouseDown(e);
+        this.foundation.setHandlePositionByMousePosition(e);
+        this.foundation.handleMouseDown(e);
     }
-
-
     render() {
         const colorFrom = hsvaToHslaString({ ...this.props.hsva, a: 0 });
         const colorTo = hsvaToHslaString({ ...this.props.hsva, a: 1 });
@@ -88,7 +76,7 @@ class AlphaSlider extends React.Component<AlphaSliderProps, AlphaSliderState> {
                         transform: `translateY(-50%)`,
                         backgroundColor: hsvaToRgbaString(this.props.hsva)
                     }}
-                    onMouseDown={(e) => this.handleHandleMouseDown(e)}>
+                    onMouseDown={(e) => this.foundation.handleMouseDown(e)}>
                 </div>
             </div>
 
