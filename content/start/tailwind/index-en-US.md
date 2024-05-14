@@ -1,113 +1,113 @@
 ---
 category: 开始
-title: TailwindCSS 混用
+title: With TailwindCSS 
 icon: doc-tailwind
-localeCode: zh-CN
+localeCode: en-US
 order: 9
-brief: 更优雅地使用 TailwindCSS 与 Semi
+brief: Use TailwindCSS and Semi more elegantly
 ---
 
 
-# 注意
+# Notice
 
 <br/>
 
-本页将提供 TailwindCSS 等原子类样式库与 Semi 共同使用时遇到的一些问题的最佳实践。
+This page will provide best practices for some issues encountered when using atomic style libraries such as TailwindCSS with Semi.
 
-这些问题在其他组件库与 Tailwind 共同使用时候也会经常遇到，但 Semi 提供了官方解决方案，建议按照本文说明，正确配置项目。
+These problems are often encountered when other component libraries are used with Tailwind, but Semi provides official solutions. It is recommended to follow the instructions in this article to configure the project correctly.
 
-<Notice title="注意">
-Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运行，如果你没有使用 Tailwind 等原子类库，请直接关闭此页即可。
+<Notice title="Note">
+Semi does not rely on any third-party style libraries and can run without installing Tailwind. If you do not use atomic libraries such as Tailwind, please close this page directly.
 </Notice>
 
+### 1. Solve the problem of style override priority
+
+#### Problem performance
+
+There is no effect or component library style exception when using some atomic classes in components.
+
+#### Cause Analysis
+When using Tailwind, Tailwind modifies the dom style through className, which also affects the Semi component library. At the same time, Tailwind enables [Preflight](https://tailwindcss.com/docs/preflight) by default to reset the browser's default style.
+
+At this time, depending on the configuration of your project and the import of the entry, there are two possibilities:
+
+1. Tailwind is introduced before Semi style, and Semi has higher priority
+2. Semi style was introduced before Tailwind, and Tailwind has a higher priority.
+
+If it is 1, it will appear that when Tailwind adds certain atomic classes, if the component style has defined a certain css attribute, the priority of the atomic class is lower than that of Semi, and the atomic class becomes invalid.
+For example, under the premise of 1, setting padding on the Button component will cause failure.
+
+If it is 2, because Tailwind has a higher priority, its Preflight overwriting the browser's default style will also override Semi's style.
+For example, under the premise of 2, the background color of the light Button will be overwritten as transparent, causing the style to behave abnormally.
 
 
-### 1. 解决样式覆盖优先级问题
+#### Solution
+No matter which side of Tailwind or the component library has higher priority, problems will occur, so the solution lies in correctly handling the relationship between the priority of Preflight and the atomic classes required by users in the Tailwind style relative to the priority of the component library.
 
-#### 问题表现
-
-在组件中使用部分原子类时没有效果 或 组件库样式异常。
-
-#### 原因分析
-使用 Tailwind 时，Tailwind 通过 className 对 dom 进行样式修改，同样作用于 Semi 组件库。同时 Tailwind 默认开启了 [Preflight](https://tailwindcss.com/docs/preflight) 来重置浏览器默认样式。
-
-此时根据你项目的配置和入口的 import，有两种可能：
-
-1. Tailwind 比 Semi 的样式先引入，Semi 优先级更高
-2. Semi 样式 比 Tailwind 先引入，Tailwind 优先级更高
-
-如果是 1，则会出现 Tailwind 在添加某些原子类时，如果组件样式已经定义了某个 css 属性，原子类的优先级比 Semi 优先级低，此时原子类失效。
-例如在 1 的前提下，对 Button 组件设置 padding，会出现失效的情况。
-
-如果是2，因为 Tailwind 优先级较高，其对浏览器默认样式覆盖的 Preflight 会同时覆盖掉 Semi 的样式。
-例如在 2 的前提下，light 的 Button 的背景色会被覆盖为 transparent，导致样式表现异常。
-
-
-#### 解决方案
-无论 Tailwind 和 组件库哪一方优先级高，都会出现问题，因此解决方式在于正确处理 Tailwind 样式中 Preflight 和用户需要的原子类的优先级相对于组件库优先级的关系。
-
-** 1. 开启 Semi 插件 (>= 2.59.0) **
+** 1. Enable Semi plugin (>= 2.59.0) **
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
-** 2. 在项目中引入插件并开启 cssLayer **
+** 2. Introduce the plug-in into the project and enable cssLayer **
 ```js
 new SemiWebpackPlugin({
-    cssLayer:true,
-    /* ...options */
+     cssLayer:true,
+     /* ...options */
 });
 ```
-** 3. 修改 Tailwind 入口配置**
+** 3. Modify Tailwind entry configuration**
 
-Tailwind 入口的 CSS 通常是包含了下面三行的文件
+The CSS of Tailwind entry is usually a file containing the following three lines
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
 
-将其修改为（直接复制）
+Modify it to (copy directly):
 ```css
 @layer tailwind-base,semi,components,utils;
 @layer tailwind-base{
-    @tailwind base;
+     @tailwind base;
 }
 @layer tailwind-components{
-    @tailwind components;
+     @tailwind components;
 }
 @layer tailwind-utils {
-    @tailwind utilities;
+     @tailwind utilities;
 }
 ```
 
-并在项目的 JS 入口文件（即 App.tsx 或 index.js）处**最上方** import 上面修改的文件。（通常一个 Tailwind 项目对于上面文件的 import 已经处理好，只要将该 import 语句提到所有 import 语句前即可）
+And import the above modified file at the **top** of the project's JS entry file (i.e. App.tsx or index.js). (Usually a Tailwind project has already processed the import of the above files, just put the import statement before all import statements)
 
 
-<Notice title="兼容低版本浏览器">
-CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https://caniuse.com/?search=CSS%20Cascade%20Layers">(兼容性表格)</a>，如果你的网站需要低版本浏览器访问，需要添加 CSS Layer 的 Polyfill，请参考此 Polyfill 的 <a target="_blank" href="https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers">PostCSS 插件文档</a>
+<Notice title="Compatible with lower version browsers">
+CSS Layer requires a browser version higher than Chromium 99 <a target="_blank" href="https://caniuse.com/?search=CSS%20Cascade%20Layers">(compatibility table)</a>, if you The website requires a lower version browser to access and needs to add CSS Layer Polyfill. Please refer to this Polyfill's <a target="_blank" href="https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-cascade-layers">PostCSS plugin documentation</a>
 </Notice>
 
 
-#### 原理
-通过 CSS Layer 特性，实现不同来源的样式的优先级设置。
+#### Principle
+Through the CSS Layer feature, priority setting of styles from different sources is achieved.
 
-开启插件后，所有的 Semi 样式都会被 `@layer {xxxx}` 包裹。另外，我们也手动设置了项目中的 Tailwind 的各种类型的样式的 Layer。
+After enabling the plugin, all Semi styles will be wrapped by `@layer {xxxx}`. In addition, we also manually set the layers of various types of Tailwind styles in the project.
 
-另外，我们配置了各种 Layer 的优先级顺序：
+In addition, we configured the priority order of various Layers:
 ```css
 @layer tailwind-base,semi,components,utils;
 ```
-上述 CSS 的含义为， base （含 Preflight）优先级最低，Semi 次之，用户设置的原子类样式（padding-[xxx] 等）优先级最高，这样即可解决上面遇到的问题。
+The meaning of the above CSS is that base (including Preflight) has the lowest priority, followed by Semi. The atomic class styles set by the user (padding-[xxx], etc.) have the highest priority, which can solve the above problems.
 
 
-### 2.解决在 Tailwind 原子类中使用 Semi Token 的问题 (可选)
+### 2. Solve the problem of using Semi Token in Tailwind atomic class (optional)
 
-Tailwind 支持用户配置自己的 Token 来实现主题。同时 Semi 也提供了自己的主题方案与对应 Token
-如果想在项目中直接使用 Semi Token，例如将一个 span 的文字颜色设置为 `--semi-color-text-0` 来实现亮暗色的颜色自动切换与主题保持一致，需要单独设置 css `color: var(--semi-color-text-0)`，很不方便。
+Tailwind supports users to configure their own Token to implement themes. At the same time, Semi also provides its own theme solution and corresponding Token
+If you want to use Semi Token directly in the project, for example, set the text color of a span to `--semi-color-text-0` to automatically switch between light and dark colors to be consistent with the theme, you need to set the css `color separately: var(--semi-color-text-0)`, very inconvenient.
 
-Semi 提供了 Tailwind 的主题配置文件，用于将 Semi 的 Token 映射为原子类 Token，上述需求可以直接给 span 设置 `text-semi-color-text-0` 即可。
+Semi provides Tailwind's theme configuration file, which is used to map Semi's Token to atomic Token. For the above requirements, you can directly set `text-semi-color-text-0` for span.
 
-在 Tailwind 配置中(即 `tainwind.config.js`)配置以下内容即可:
+Just configure the following content in the Tailwind configuration (i.e. `tainwind.config.js`):
+
+
 
 ```js
 module.export = {
