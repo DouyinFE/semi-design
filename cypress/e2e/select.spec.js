@@ -80,6 +80,104 @@ describe('Select', () => {
         cy.get('.semi-select-option').eq(3).should('have.text', 'Xigua');
     });
 
+    it('blur trigger by mouse click after select option', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--all-case-of-blur', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
+        cy.viewport(1000, 1000);
+
+        cy.get('[data-cy=singleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
+        cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
+
+        cy.get('[data-cy=singleFilter]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
+
+        cy.get('[data-cy=singleClickToHide]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
+
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
+
+        cy.get('[data-cy=multipleFilter]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
+
+        cy.get('[data-cy=multipleClickToHide]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
+       
+    });
+
+    it('blur trigger by mouse click without select option', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--all-case-of-blur', {
+            onBeforeLoad(win) {
+                cy.stub(win.console, 'log').as('consoleLog');
+            },
+        });
+
+        cy.viewport(1000, 1000);
+
+        cy.get('[data-cy=singleDefault]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single autoFocus onBlur');
+        cy.get('@consoleLog').should('be.calledWith', 'single default onBlur');
+
+        cy.get('[data-cy=singleFilter]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single filter onBlur');
+
+        cy.get('[data-cy=singleClickToHide]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single clickToHide onBlur');
+
+        cy.get('[data-cy=singleShowClear]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'single showClear onBlur');
+
+        cy.get('[data-cy=multipleDefault]').click();
+        cy.get('.semi-select-option').eq(1).click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple default onBlur');
+
+        cy.get('[data-cy=multipleFilter]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple filter onBlur');
+
+        cy.get('[data-cy=multipleClickToHide]').click();
+        cy.root().click('right');
+        cy.get('@consoleLog').should('be.calledWith', 'multiple clickToHide onBlur');
+
+    });
+
+    it('Fixed PR-2139', () => {
+        // 1.Select multi-select turns on onChangWithObject and value is controlled
+        // 2. The current value does not exist in optionList
+        // 3. The problem that rendering is not re - executed after updating other attributes in value(such as label, or any other Key)
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--update-other-key-not-in-list');
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-AA-OtherProps')
+        cy.get('#change').eq(0).click();
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-2-AA-OtherProps-2')
+
+    });
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 

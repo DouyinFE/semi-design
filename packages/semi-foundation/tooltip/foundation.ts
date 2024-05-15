@@ -189,6 +189,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
+    updateStateIfCursorOnTrigger = (trigger: HTMLElement)=>{
+        if (trigger?.matches?.(":hover")) {
+            const eventNames = this._adapter.getEventName();
+            const triggerEventSet = this.getState("triggerEventSet");
+            triggerEventSet[eventNames.mouseEnter]?.();
+        }
+    }
+
     _generateEvent(types: ArrayElement<typeof strings.TRIGGER_SET>) {
         const eventNames = this._adapter.getEventName();
         const triggerEventSet = {
@@ -450,7 +458,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const isTriggerNearTop = middleY - containerRect.top < containerRect.bottom - middleY;
         
         const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
-
+        const scaled = Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1;
+        if (scaled) {
+            SPACING = SPACING * wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
         switch (position) {
             case 'top':
                 // left = middleX;
@@ -570,6 +581,14 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         left = left - containerRect.left;
         top = top - containerRect.top;
 
+        if (scaled) {
+            left /= wrapperRect.width/this._adapter.getContainer().clientWidth;
+        }
+
+        if (scaled) {
+            top /= wrapperRect.height/this._adapter.getContainer().clientHeight;
+        }
+
         /**
          * container为body时，如果position不为relative或absolute，这时trigger计算出的top/left会根据html定位（initial containing block）
          * 此时如果body有margin，则计算出的位置相对于body会有问题 fix issue #1368
@@ -635,6 +654,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         return style;
     }
+
 
     /**
      * 耦合的东西比较多，稍微罗列一下：
@@ -828,7 +848,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
             const halfHeight = triggerRect.height / 2;
             const halfWidth = triggerRect.width / 2;
-
             // 视口, 原空间与反向空间是否都不足判断
             // Viewport, whether the original space and the reverse space are insufficient to judge
             const isViewYOverFlow = this.isOverFlow(clientTop - marginTop, restClientBottom - marginBottom, wrapperRect.height + spacing);

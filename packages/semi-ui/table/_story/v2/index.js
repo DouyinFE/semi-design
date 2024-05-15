@@ -25,3 +25,13 @@ export { default as FixedResizableRowSelection } from './FixedResizableRowSelect
 export { default as SorterSortOrder } from './SorterSortOrder';
 export { default as FixedPagination } from './FixedPagination';
 export { default as ShowHeader } from './ShowHeader';
+export { default as KeepDOM } from './KeepDOM';
+export { default as SortIcon } from './SortIcon';
+export { default as FixedAllDisabledAndSelected } from './FixedAllDisabledAndSelected';
+export { default as FixedRowSelectionHiddenResizable } from './FixedRowSelectionHiddenResizable';
+export { default as FeatRenderFilterDropdown } from './FeatRenderFilterDropdown';
+export { default as InputFilter } from './InputFilter';
+export { default as FixedExpandGroupRow } from './FixedExpandGroupRow';
+export { default as FixedDefaultExpandedGroupedRows } from './FixedExpandGroupRow/defaultExpandedGroupedRows';
+export { default as FixedRowSelectionEmpty } from './FixedRowSelectionEmpty';
+export { default as FixedOnGroupedRowClassName } from './FixedOnGroupedRowClassName';

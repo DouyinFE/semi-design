@@ -163,6 +163,147 @@ import { IconCamera } from '@douyinfe/semi-icons';
 };
 ```
 
+### 顶部和底部 Slot
+
+```jsx live=true
+import React from 'react';
+import { Avatar } from '@douyinfe/semi-ui';
+
+ <Avatar
+            alt="beautiful cat"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png"
+            style={{ margin: 4 }}
+            size="large"
+            border={{color:"#FE2C55",motion:true}}
+            contentMotion={true}
+            topSlot={{
+                text: "直播",
+                gradientStart:"rgb(255,23,100)",
+                gradientEnd:"rgb(237,52,148)"
+            }}
+            bottomSlot={{
+                shape: "circle",
+                bgColor:"#FE2C55", 
+                text: <IconPlus/>
+            }}
+/>
+```
+
+#### 顶部
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" topSlot={{
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" topSlot={{
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" topSlot={{
+            text: "直播",
+            gradientStart:"rgb(255,23,100)",
+            gradientEnd:"rgb(237,52,148)"
+        }}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
+#### 底部
+
+```jsx live=true
+()=>{
+    return <div>
+
+        <Avatar color="amber" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            text: "直播中"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            text: "直播中"
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "square", 
+            bgColor:'#FE2C55',
+            text: "直播中"
+        }}>T</Avatar>
+        <br/>
+        <br/>
+        <br/>
+        <Avatar color="amber" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            text: <IconPlus/>
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            text: <IconPlus/>
+        }}>T</Avatar>
+
+        <Avatar color="amber" size="extra-large" bottomSlot={{
+            shape: "circle", 
+            bgColor:'#FE2C55',
+            text: <IconPlus/>
+        }}>T</Avatar>
+    </div>
+}
+```
+
+### 额外边框
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+
+        <Avatar color="amber" border={true} style={{marginRight:'8px'}}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+### 额外动效
+通过  `border={motion:true}` 和 contentMotion 开启边框和内容区域的额外动效
+
+```jsx live=true
+
+()=>{
+    return <div>
+
+        <Avatar color="amber" border={{motion:true}} style={{marginRight:'8px'}} contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={{motion:true}}  size={"large"} style={{marginRight:'8px'}}  contentMotion={true}>T</Avatar>
+
+        <Avatar color="amber" border={{motion:true}} size={"extra-large"} style={{marginRight:'8px'}}  contentMotion={true}>T</Avatar>
+    
+    </div>
+}
+
+```
+
+
 ### 头像组
 
 可以通过 AvatarGroup 将 `avatar` 显示为组。
@@ -279,23 +420,29 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 
 ### Avatar
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| alt | 图像的替代文本描述 | string | - |
-| className | 类名 | string | - |
-| color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string | `grey` |
-| hoverMask | hover 时头像内容覆盖层 | ReactNode | - |
-| gap | 字符头像距离左右两侧的像素大小 | number| 3 |
-| imgAttr | 原生 img 属性 **>=1.5.0** | React.ImgHTMLAttributes<HTMLImageElement\> | - |
-| shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
-| size | 设置头像的大小，支持 `extra-extra-small`、`extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
-| src | 图片类头像的资源地址 | string | - |
-| srcSet | 设置图片类头像响应式资源地址 | string | - |
-| style | 样式名 | CSSProperties | - |
-| onClick | 单击头像的回调 | (e: Event) => void | - |
-| onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为 | (e: Event) => boolean | - |
-| onMouseEnter | MouseEnter 事件的回调 | (e: Event) => void | - |
-| onMouseLeave | MouseLeave 事件的回调 | (e: Event) => void | - |
+| 属性 | 说明                                                                                                                                                                | 类型                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 默认值 |
+| --- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- |
+| alt | 图像的替代文本描述                                                                                                                                                         | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | - |
+| border | 额外边框 （>=2.52.0）                                                                                                                                                   | {color?:string //颜色, motion?:boolean //是否开启动画} or boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | - |
+| bottomSlot | 底部 Slot 配置 （>= 2.52.0 ）                                                                                                                                           | {<br/><div style={{width:20,display:'inline-block'}}/>render?: () => React.ReactNode //完全控制渲染,<br/> <div style={{width:20,display:'inline-block'}}/>shape?: "circle" or "square" // Slot 形状,<br/> <div style={{width:20,display:'inline-block'}}/>content: React.ReactNode // Slot 内容,<br/> <div style={{width:20,display:'inline-block'}}/>bgColor:string // Slot 背景色 <br/> <div style={{width:20,display:'inline-block'}}/>textColor:string // 文字颜色 <br/> <div style={{width:20,display:'inline-block'}}/>className:string <br/> <div style={{width:20,display:'inline-block'}}/>style?:CSSProperties<br/>} | - |
+| className | 类名                                                                                                                                                                | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | - |
+| color | 指定头像的颜色，支持 `amber`、 `blue`、 `cyan`、 `green`、 `grey`、 `indigo`、 `light-blue`、 `light-green`、 `lime`、 `orange`、 `pink`、 `purple`、 `red`、 `teal`、 `violet`、 `yellow` | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `grey` |
+| contentMotion | 头像内容区域动效 （>=2.xx.0）                                                                                                                                               | boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | - |
+| hoverMask | hover 时头像内容覆盖层                                                                                                                                                    | ReactNode                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | - |
+| gap | 字符头像距离左右两侧的像素大小                                                                                                                                                   | number                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | 3 |
+| imgAttr | 原生 img 属性 **>=1.5.0**                                                                                                                                             | React.ImgHTMLAttributes<HTMLImageElement\>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | - |
+| shape | 指定头像的形状，支持 `circle`、`square`                                                                                                                                      | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `circle` |
+| size | 设置头像的大小，支持 `extra-extra-small`、`extra-small`、`small`、`default`、`medium`、`large`、`extra-large`                                                                     | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `medium` |
+| src | 图片类头像的资源地址                                                                                                                                                        | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | - |
+| srcSet | 设置图片类头像响应式资源地址                                                                                                                                                    | string                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | - |
+| style | 样式名                                                                                                                                                               | CSSProperties                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | - |
+| topSlot | 顶部 Slot 配置 （>= 2.52.0 ）                                                                                                                                           | {<br/> <div style={{width:20,display:'inline-block'}}/>render?: () => React.ReactNode //完全控制渲染,<br/> <div style={{width:20,display:'inline-block'}}/>gradientStart?: string // 顶部背景渐变起始色<br/> <div style={{width:20,display:'inline-block'}}/>gradientEnd?: string // 顶部背景渐变结束色<br/> <div style={{width:20,display:'inline-block'}}/>content: React.ReactNode <br/> <div style={{width:20,display:'inline-block'}}/>textColor:string //文字颜色 <br/> <div style={{width:20,display:'inline-block'}}/>className:string<br/><div style={{width:20,display:'inline-block'}}/>style?:CSSProperties<br/>}             | - |
+| onClick | 单击头像的回调                                                                                                                                                           | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | - |
+| onError | 图片加载失败的事件，返回 false 会关闭组件默认的 fallback 行为                                                                                                                           | (e: Event) => boolean                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | - |
+| onMouseEnter | MouseEnter 事件的回调                                                                                                                                                  | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | - |
+| onMouseLeave | MouseLeave 事件的回调                                                                                                                                                  | (e: Event) => void                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | - |
+
+
 
 ### AvatarGroup
 

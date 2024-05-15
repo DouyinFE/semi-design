@@ -457,34 +457,38 @@ import { Popover, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
     return (
-        <Popover
-            content={
-                <article style={{ padding: 4 }}>
-                    Hi ByteDancer, this is a popover.
-                </article>
-            }
-            position='right'
-            showArrow
-            style={{
-                backgroundColor: 'rgba(var(--semi-blue-4),1)',
-                borderColor: 'rgba(var(--semi-blue-4),1)',
-                color: 'var(--semi-color-white)',
-                borderWidth: 1,
-                borderStyle: 'solid',
-            }}
-        >
-            <Tag
+        <div id='popup-parent' style={{ position: 'relative' }}>
+            <Popover
+                content={
+                    <article style={{ padding: 4 }}>
+                        Hi, Semi UI Popover.
+                    </article>
+                }
+                getPopupContainer={() => document.querySelector('#popup-parent')}
+                trigger='custom'
+                visible
+                position='right'
+                showArrow
                 style={{
                     backgroundColor: 'rgba(var(--semi-blue-4),1)',
-                    color: 'var(--semi-color-white)'
+                    borderColor: 'rgba(var(--semi-blue-4),1)',
+                    color: 'var(--semi-color-white)',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
                 }}
             >
-                点击此处
-            </Tag>
-        </Popover>
+                <Tag
+                    style={{
+                        backgroundColor: 'rgba(var(--semi-blue-4),1)',
+                        color: 'var(--semi-color-white)'
+                    }}
+                >
+                    Colorful Popover
+                </Tag>
+            </Popover>
+        </div>
     );
 }
-
 ```
 
 ### 初始化弹出层焦点位置
@@ -539,7 +543,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | rePosKey           | 可以更新该项值手动触发弹出层的重新定位                                                                                                         | string\|number             |            |             |
 | returnFocusOnClose | 按下 Esc 键后，焦点是否回到 trigger 上，设置 trigger 为 hover, focus, click 时生效 | boolean | true  | **2.8.0**  |
 | position           | 方向，可选值：`top`,`topLeft`,`topRight`,`left`,`leftTop`,`leftBottom`,`right`,`rightTop`,`rightBottom`,`bottom`,`bottomLeft`,`bottomRight` | string                     | "bottom"                                    |            |
-| spacing            | 弹出层与 children 元素的距离，单位 px                                                                                                       | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>                       | 4(showArrow=false 时) 10(showArrow=true 时) |            |
+| spacing            | 弹出层与 children 元素的距离，单位 px（object类型自 v2.45后支持）                                                                                                       | number｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>                       | 4(showArrow=false 时) 10(showArrow=true 时) |            |
 | showArrow          | 是否显示“小三角”                                                                                                                            | boolean                    |                                             |            |
 | stopPropagation    | 是否阻止弹出层上的点击事件冒泡                                                                                                              | boolean                    | false                                       | **0.34.0** |
 | trigger            | 触发方式，可选值：`hover`, `focus`, `click`, `custom`, `contextMenu`（v2.42支持）                                                          | string                     | 'hover'                                     |            |

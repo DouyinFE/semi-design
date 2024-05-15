@@ -25,6 +25,7 @@ import {
     calcDisabledKeys,
     normalizeValue,
     updateKeys,
+    filterTreeData
 } from '@douyinfe/semi-foundation/tree/treeUtil';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/treeSelect/constants';
 import { numbers as popoverNumbers } from '@douyinfe/semi-foundation/popover/constants';
@@ -94,7 +95,8 @@ export type OverrideCommonProps =
     | 'treeData'
     | 'value'
     | 'onExpand'
-    | 'keyMaps';
+    | 'keyMaps'
+    | 'showLine';
 
 /**
 * Type definition description:
@@ -143,11 +145,12 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
     getPopupContainer?: () => HTMLElement;
-    triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
+    triggerRender?: (props: TriggerRenderProps) => React.ReactNode;
     onBlur?: (e: React.MouseEvent) => void;
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;
-    onVisibleChange?: (isVisible: boolean) => void
+    onVisibleChange?: (isVisible: boolean) => void;
+    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export type OverrideCommonState =
@@ -202,6 +205,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         virtualize: PropTypes.object,
         treeNodeFilterProp: PropTypes.string,
         onChange: PropTypes.func,
+        onClear: PropTypes.func,
         onSearch: PropTypes.func,
         onSelect: PropTypes.func,
         onExpand: PropTypes.func,
@@ -215,6 +219,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         showSearchClear: PropTypes.bool,
         autoAdjustOverflow: PropTypes.bool,
         showFilteredOnly: PropTypes.bool,
+        showLine: PropTypes.bool,
         motionExpand: PropTypes.bool,
         emptyContent: PropTypes.node,
         keyMaps: PropTypes.object,
@@ -305,12 +310,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     triggerRef: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
     clickOutsideHandler: any;
-    _flattenNodes: TreeState['flattenNodes'];
+    // _flattenNodes: TreeState['flattenNodes'];
     onNodeClick: any;
     onNodeDoubleClick: any;
     onMotionEnd: any;
     treeSelectID: string;
     context: ContextValue;
+    clearInputFlag: boolean;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -325,6 +331,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             keyEntities: {},
             treeData: [],
             flattenNodes: [],
+            cachedFlattenNodes: undefined,
             selectedKeys: [],
             checkedKeys: new Set(),
             halfCheckedKeys: new Set(),
@@ -347,6 +354,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
+        this.clearInputFlag = false;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
         this.onMotionEnd = () => {
@@ -371,7 +379,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         };
         const needUpdateTreeData = needUpdate('treeData');
         const needUpdateExpandedKeys = needUpdate('expandedKeys');
-
+        const isExpandControlled = 'expandedKeys' in props;
+        const isSearching = Boolean(props.filterTreeNode && prevState.inputValue && prevState.inputValue.length);
         // TreeNode
         if (needUpdateTreeData) {
             treeData = props.treeData;
@@ -397,50 +406,120 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             }
         }
         const expandAllWhenDataChange = needUpdateTreeData && props.expandAll;
-        // expandedKeys
-        if (needUpdateExpandedKeys || (prevProps && needUpdate('autoExpandParent'))) {
-            newState.expandedKeys = calcExpandedKeys(
-                props.expandedKeys,
-                keyEntities,
-                props.autoExpandParent || !prevProps
-            );
-            // only show animation when treeData does not change
-            if (prevProps && props.motion && !treeData) {
-                const { motionKeys, motionType } = calcMotionKeys(
-                    prevState.expandedKeys,
-                    newState.expandedKeys,
-                    keyEntities
+        if (!isSearching) {
+            // expandedKeys
+            if (needUpdateExpandedKeys || (prevProps && needUpdate('autoExpandParent'))) {
+                newState.expandedKeys = calcExpandedKeys(
+                    props.expandedKeys,
+                    keyEntities,
+                    props.autoExpandParent || !prevProps
                 );
-                newState.motionKeys = new Set(motionKeys);
-                newState.motionType = motionType;
+                // only show animation when treeData does not change
+                if (prevProps && props.motion && !treeData) {
+                    const { motionKeys, motionType } = calcMotionKeys(
+                        prevState.expandedKeys,
+                        newState.expandedKeys,
+                        keyEntities
+                    );
+                    newState.motionKeys = new Set(motionKeys);
+                    newState.motionType = motionType;
+                    if (motionType === 'hide') {
+                        // cache flatten nodes: expandedKeys changed may not be triggered by interaction
+                        newState.cachedFlattenNodes = cloneDeep(prevState.flattenNodes);
+                    }
+                }
+            } else if ((!prevProps && (props.defaultExpandAll || props.expandAll)) || expandAllWhenDataChange) {
+                newState.expandedKeys = new Set(Object.keys(keyEntities));
+            } else if (!prevProps && props.defaultExpandedKeys) {
+                newState.expandedKeys = calcExpandedKeys(props.defaultExpandedKeys, keyEntities);
+            } else if (!prevProps && props.defaultValue) {
+                newState.expandedKeys = calcExpandedKeysForValues(
+                    normalizeValue(props.defaultValue, withObject, keyMaps),
+                    keyEntities,
+                    props.multiple,
+                    valueEntities
+                );
+            } else if (!prevProps && props.value) {
+                newState.expandedKeys = calcExpandedKeysForValues(
+                    normalizeValue(props.value, withObject, keyMaps),
+                    keyEntities,
+                    props.multiple,
+                    valueEntities
+                );
             }
-        } else if ((!prevProps && (props.defaultExpandAll || props.expandAll)) || expandAllWhenDataChange) {
-            newState.expandedKeys = new Set(Object.keys(keyEntities));
-        } else if (!prevProps && props.defaultExpandedKeys) {
-            newState.expandedKeys = calcExpandedKeys(props.defaultExpandedKeys, keyEntities);
-        } else if (!prevProps && props.defaultValue) {
-            newState.expandedKeys = calcExpandedKeysForValues(
-                normalizeValue(props.defaultValue, withObject, keyMaps),
-                keyEntities,
-                props.multiple,
-                valueEntities
-            );
-        } else if (!prevProps && props.value) {
-            newState.expandedKeys = calcExpandedKeysForValues(
-                normalizeValue(props.value, withObject, keyMaps),
-                keyEntities,
-                props.multiple,
-                valueEntities
-            );
-        }
-        // flattenNodes
-        if (treeData || needUpdateExpandedKeys) {
-            const flattenNodes = flattenTreeData(
-                treeData || prevState.treeData,
-                newState.expandedKeys || prevState.expandedKeys,
-                keyMaps,
-            );
-            newState.flattenNodes = flattenNodes;
+
+            if (!newState.expandedKeys) {
+                delete newState.expandedKeys;
+            }
+
+            if (treeData || newState.expandedKeys) {
+                const flattenNodes = flattenTreeData(
+                    treeData || prevState.treeData,
+                    newState.expandedKeys || prevState.expandedKeys,
+                    keyMaps
+                );
+                newState.flattenNodes = flattenNodes;
+            }
+        } else {
+            let filteredState;
+            // treeData changed while searching
+            if (treeData) {
+                // Get filter data
+                filteredState = filterTreeData({
+                    treeData,
+                    inputValue: prevState.inputValue,
+                    filterTreeNode: props.filterTreeNode,
+                    filterProps: props.treeNodeFilterProp,
+                    showFilteredOnly: props.showFilteredOnly,
+                    keyEntities: newState.keyEntities,
+                    prevExpandedKeys: [...prevState.filteredExpandedKeys],
+                    keyMaps: keyMaps
+                });
+                newState.flattenNodes = filteredState.flattenNodes;
+                newState.motionKeys = new Set([]);
+                newState.filteredKeys = filteredState.filteredKeys;
+                newState.filteredShownKeys = filteredState.filteredShownKeys;
+                newState.filteredExpandedKeys = filteredState.filteredExpandedKeys;
+            }
+
+            // expandedKeys changed while searching
+            if (props.expandedKeys) {
+                newState.filteredExpandedKeys = calcExpandedKeys(
+                    props.expandedKeys,
+                    keyEntities,
+                    props.autoExpandParent || !prevProps
+                );
+
+                if (prevProps && props.motion) {
+                    const prevKeys = prevState ? prevState.filteredExpandedKeys : new Set([]);
+                    // only show animation when treeData does not change
+                    if (!treeData) {
+                        const motionResult = calcMotionKeys(
+                            prevKeys,
+                            newState.filteredExpandedKeys,
+                            keyEntities
+                        );
+
+                        let { motionKeys } = motionResult;
+                        const { motionType } = motionResult;
+                        if (props.showFilteredOnly) {
+                            motionKeys = motionKeys.filter(key => prevState.filteredShownKeys.has(key));
+                        }
+                        if (motionType === 'hide') {
+                            // cache flatten nodes: expandedKeys changed may not be triggered by interaction
+                            newState.cachedFlattenNodes = cloneDeep(prevState.flattenNodes);
+                        }
+                        newState.motionKeys = new Set(motionKeys);
+                        newState.motionType = motionType;
+                    }
+                }
+                newState.flattenNodes = flattenTreeData(
+                    treeData || prevState.treeData,
+                    newState.filteredExpandedKeys || prevState.filteredExpandedKeys,
+                    keyMaps,
+                    props.showFilteredOnly && prevState.filteredShownKeys
+                );
+            }
         }
 
         // selectedKeys: single mode controlled
@@ -546,6 +625,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
+
                     if (
                         optionsDom &&
                         (
@@ -553,7 +634,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                             !optionsDom.contains(target.parentNode)
                         ) &&
                         triggerDom &&
-                        !triggerDom.contains(target)
+                        !triggerDom.contains(target) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }
@@ -577,6 +659,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         | 'notifySearch'
         | 'cacheFlattenNodes'
         | 'notifyLoad'
+        | 'notifyClear'
         > = {
             updateState: states => {
                 this.setState({ ...states } as TreeSelectState);
@@ -584,15 +667,18 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: (input, filteredExpandedKeys) => {
-                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
+            notifySearch: (input, filteredExpandedKeys, filteredNodes) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys, filteredNodes);
             },
             cacheFlattenNodes: bool => {
-                this._flattenNodes = bool ? cloneDeep(this.state.flattenNodes) : null;
+                this.setState({ cachedFlattenNodes: bool ? cloneDeep(this.state.flattenNodes) : undefined });
             },
             notifyLoad: (newLoadedKeys, data) => {
                 const { onLoad } = this.props;
                 isFunction(onLoad) && onLoad(newLoadedKeys, data);
+            },
+            notifyClear: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => {
+                this.props.onClear && this.props.onClear(e);
             }
         };
         return {
@@ -666,6 +752,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             },
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
+            },
+            setClearInputFlag: (flag: boolean) => {
+                this.clearInputFlag = flag;
+            },
+            getClearInputFlag: () => {
+                return this.clearInputFlag;
             }
         };
     }
@@ -975,9 +1067,10 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
             borderless,
+            checkRelation,
             ...rest
         } = this.props;
-        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -1012,9 +1105,19 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 },
                 className
             );
-        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true) : selectedKeys;
-        const inner = useCustomTrigger ? (
-            <Trigger
+        let inner: React.ReactNode | React.ReactNode[];
+        if (useCustomTrigger) {
+            let triggerRenderKeys = [];
+            if (multiple) {
+                if (checkRelation === 'related') {
+                    triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
+                } else if (checkRelation === 'unRelated') {
+                    triggerRenderKeys = [...realCheckedKeys];
+                }
+            } else {
+                triggerRenderKeys = selectedKeys;
+            }
+            inner = <Trigger
                 inputValue={inputValue}
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
@@ -1025,9 +1128,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentProps={{ ...this.props }}
                 onSearch={this.search}
                 onRemove={this.removeTag}
-            />
-        ) : (
-            [
+            />;
+        } else {
+            inner = [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
                     <div className={`${prefixcls}-selection`}>{this.renderSelectContent()}</div>
@@ -1041,8 +1144,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     }
                 </Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-            ]
-        );
+            ];
+        }
         const tabIndex = disabled ? null : 0;
         /**
          * Reasons for disabling the a11y eslint rule:
@@ -1301,28 +1404,27 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return key;
     };
 
-    /* Event handler function after popover is closed */
-    handlePopoverClose = isVisible => {
-        const { filterTreeNode, searchAutoFocus, searchPosition } = this.props;
-        if (isVisible === false && Boolean(filterTreeNode)) {
-            this.foundation.clearInput();
-        }
-        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
-            this.foundation.focusInput(true);
-        }
+    /* Event handler function after popover visible change */
+    handlePopoverVisibleChange = isVisible => {
+        this.foundation.handlePopoverVisibleChange(isVisible);
+    }
+
+    afterClose = () => {
+        this.foundation.handleAfterClose();
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
         const { data, key } = treeNode;
         const treeNodeProps = this.foundation.getTreeNodeProps(key);
+        const { showLine } = this.props;
         if (!treeNodeProps) {
             return null;
         }
-        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon']);
+        const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon', 'isEnd']);
         const { keyMaps } = this.props;
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
-        return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={style} />;
+        return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={style} showLine={showLine}/>;
     };
 
     itemKey = (index: number, data: Record<string, any>) => {
@@ -1334,7 +1436,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     };
 
     renderNodeList = () => {
-        const { flattenNodes, motionKeys, motionType, filteredKeys } = this.state;
+        const { flattenNodes, cachedFlattenNodes, motionKeys, motionType, filteredKeys } = this.state;
         const { direction } = this.context;
         const { virtualize, motionExpand } = this.props;
         const isExpandControlled = 'expandedKeys' in this.props;
@@ -1342,7 +1444,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             return (
                 <NodeList
                     flattenNodes={flattenNodes}
-                    flattenList={this._flattenNodes}
+                    flattenList={cachedFlattenNodes}
                     motionKeys={motionExpand ? motionKeys : new Set([])}
                     motionType={motionType}
                     // When motionKeys is empty, but filteredKeys is not empty (that is, the search hits), this situation should be distinguished from ordinary motionKeys
@@ -1492,7 +1594,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                onVisibleChange={this.handlePopoverClose}
+                onVisibleChange={this.handlePopoverVisibleChange}
+                afterClose={this.afterClose}
             >
                 {selection}
             </Popover>

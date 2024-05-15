@@ -8,6 +8,7 @@ $inner-width: $width-icon-medium;
 .#{$module} {
     @include box-sizing;
     @include font-size-regular;
+    position: relative;
     display: inline-flex;
     column-gap: $spacing-radio_addon-paddingLeft;
     transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
@@ -334,6 +335,7 @@ $inner-width: $width-icon-medium;
         left: 0;
         width: 100%;
         height: 100%;
+        margin-top: 0; // when type= button/card/pureCard, reset margin
         z-index: -1;
         opacity: 0;
     }

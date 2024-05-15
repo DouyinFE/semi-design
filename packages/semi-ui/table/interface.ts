@@ -1,13 +1,12 @@
 import React, { ReactNode, MutableRefObject } from 'react';
 
-import { BaseProps } from '../_base/baseComponent';
-import { PaginationProps } from '../pagination';
-import { CheckboxProps } from '../checkbox';
-import { DropdownProps } from '../dropdown';
-import { Locale } from '../locale/interface';
-import { ArrayElement } from '../_base/base';
+import type { BaseProps } from '../_base/baseComponent';
+import type { PaginationProps } from '../pagination';
+import type { CheckboxProps } from '../checkbox';
+import type { Locale } from '../locale/interface';
+import type { ArrayElement } from '../_base/base';
 import { strings } from '@douyinfe/semi-foundation/table/constants';
-import {
+import type {
     BaseRowKeyType,
     BaseSortOrder,
     BaseGroupBy,
@@ -21,7 +20,8 @@ import {
     BaseIncludeGroupRecord,
     BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
-import { ScrollDirection, CSSDirection } from 'react-window';
+import type { ScrollDirection, CSSDirection } from 'react-window';
+import type { ColumnFilterProps } from './ColumnFilter';
 
 export interface TableProps<RecordType extends Record<string, any> = any> extends BaseProps {
     bordered?: boolean;
@@ -49,6 +49,7 @@ export interface TableProps<RecordType extends Record<string, any> = any> extend
     hideExpandedColumn?: boolean;
     id?: string;
     indentSize?: number;
+    keepDOM?: boolean;
     loading?: boolean;
     pagination?: TablePagination;
     prefixCls?: string;
@@ -80,28 +81,37 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     children?: Array<ColumnProps<RecordType>>;
     className?: string;
     colSpan?: number;
+    /** use `dataIndex` to get current column data item from record. If you use `sorter` or `onFilter`, a unique `dataIndex` is required  */
     dataIndex?: string;
     defaultFilteredValue?: any[];
     defaultSortOrder?: SortOrder;
     filterChildrenRecord?: boolean;
-    filterDropdown?: React.ReactNode;
-    filterDropdownProps?: DropdownProps;
+    filterDropdown?: ColumnFilterProps['filterDropdown'];
+    /** render filter Dropdown panel content  */
+    renderFilterDropdown?: ColumnFilterProps['renderFilterDropdown'];
+    /** filter Dropdown props  */
+    filterDropdownProps?: ColumnFilterProps['filterDropdownProps'];
     filterDropdownVisible?: boolean;
     filterIcon?: FilterIcon;
     filterMultiple?: boolean;
     filteredValue?: any[];
+    /** `filters` is not required if you use `renderFilterDropdown`  */
     filters?: Filter[];
     fixed?: Fixed;
+    /** the key required by React. If you have already set the `dataIndex`, the key does not need to be set again.  */
     key?: string | number;
     render?: ColumnRender<RecordType>;
     renderFilterDropdownItem?: RenderFilterDropdownItem;
     sortChildrenRecord?: boolean;
     sortOrder?: SortOrder;
+    /** enable sorting, `dataIndex` is required at the same time  */
     sorter?: Sorter<RecordType>;
+    sortIcon?: SortIcon;
     title?: ColumnTitle;
     useFullRender?: boolean;
     width?: string | number;
     onCell?: OnCell<RecordType>;
+    /** enable filtering, `dataIndex` is required at the same time  */
     onFilter?: OnFilter<RecordType>;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     onHeaderCell?: OnHeaderCell<RecordType>;
@@ -111,6 +121,7 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
 
 export type Align = BaseAlign;
 export type SortOrder = BaseSortOrder;
+export type SortIcon = (props: { sortOrder: SortOrder }) => ReactNode;
 export type FilterIcon = boolean | React.ReactNode | FilterIconRenderFunction;
 export interface Filter extends BaseFilter {
     value?: any;
@@ -179,7 +190,7 @@ export interface OnRowReturnObject extends Omit<React.DetailedHTMLProps<React.HT
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void
 }
-export interface OnGroupedRowReturnObject extends Omit<React.HTMLAttributes<HTMLTableRowElement>, 'className'> {
+export interface OnGroupedRowReturnObject extends React.HTMLAttributes<HTMLTableRowElement> {
     [x: string]: any;
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void
@@ -234,9 +245,21 @@ export interface RowSelectionProps<RecordType> {
     width?: string | number;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
-    onSelectAll?: RowSelectionOnSelectAll<RecordType>
+    onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    renderCell?: RowSelectionRenderCell<RecordType>
 }
 
+export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
+    selected: boolean;
+    record: RecordType;
+    originNode: JSX.Element;
+    inHeader: boolean;
+    disabled: boolean;
+    indeterminate: boolean;
+    index?: number;
+    selectRow?: (selected: boolean, e: Event) => void;
+    selectAll?: (selected: boolean, e: Event) => void
+}) => ReactNode;
 export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
 export type RowSelectionOnSelect<RecordType> = (

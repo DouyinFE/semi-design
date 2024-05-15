@@ -11,13 +11,15 @@ import cls from "classnames";
 import { cssClasses } from "@douyinfe/semi-foundation/collapsible/constants";
 import { isEqual } from "lodash";
 import "@douyinfe/semi-foundation/collapsible/collapsible.scss";
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
-interface CollapsibleProps extends CollapsibleFoundationProps {
+export interface CollapsibleProps extends CollapsibleFoundationProps {
     motion?: boolean;
     children?: React.ReactNode;
     isOpen?: boolean;
     duration?: number;
     keepDOM?: boolean;
+    lazyRender?: boolean;
     className?: string;
     style?: React.CSSProperties;
     collapseHeight?: number;
@@ -34,17 +36,21 @@ interface CollapsibleState extends CollapsibleFoundationState {
 }
 
 class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
-    static defaultProps = {
+    static __SemiComponentName__ = "Collapsible";
+
+    static defaultProps = getDefaultPropsFromGlobalConfig(Collapsible.__SemiComponentName__, {
         isOpen: false,
         duration: 250,
         motion: true,
         keepDOM: false,
+        lazyRender: false,
         collapseHeight: 0,
         fade: false
-    };
+    }) 
     public foundation: CollapsibleFoundation;
     private domRef = React.createRef<HTMLDivElement>();
     private resizeObserver: ResizeObserver | null;
+    private hasBeenRendered: boolean = false;
 
     constructor(props: CollapsibleProps) {
         super(props);
@@ -154,9 +160,8 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
     isChildrenInRenderTree = () => {
         if (this.domRef.current) {
             return this.domRef.current.offsetHeight > 0;
-        } else {
-            return false;
         }
+        return false;
     }
 
     render() {
@@ -170,6 +175,16 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
         const wrapperCls = cls(`${cssClasses.PREFIX}-wrapper`, {
             [`${cssClasses.PREFIX}-transition`]: this.props.motion && this.state.isTransitioning
         }, this.props.className);
+
+        const shouldRender = (this.props.keepDOM &&
+            (this.props.lazyRender ? this.hasBeenRendered : true)) ||
+            this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen;
+
+        if (shouldRender && !this.hasBeenRendered) {
+            this.hasBeenRendered = true;
+        }
+
+
         return (
             <div
                 className={wrapperCls}
@@ -190,7 +205,7 @@ class Collapsible extends BaseComponent<CollapsibleProps, CollapsibleState> {
                     id={this.props.id}
                 >
                     {
-                        (this.props.keepDOM || this.props.collapseHeight !== 0 || this.state.visible || this.props.isOpen) && this.props.children
+                        shouldRender && this.props.children
                     }
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Blocks from '@douyinfe/semi-site-markdown-blocks';
 import '@douyinfe/semi-site-markdown-blocks/dist/index.css';
 import SearchAllInOne from '../components/SearchAllInOne';
-import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty, Image, Card, Space } from '@douyinfe/semi-ui';
+import { Icon, Row, Col, Tag, Tooltip, Popover, Checkbox, Button, Radio, Avatar,Skeleton, Toast, Table, CheckboxGroup, Descriptions, Dropdown, Form, Typography, Empty, Image, Card, Space } from '@douyinfe/semi-ui';
 import { IllustrationNoAccess, IllustrationNoAccessDark } from '@douyinfe/semi-illustrations';
 import NotificationCard from '../../packages/semi-ui/notification/notice';
 import ToastCard from '../../packages/semi-ui/toast/toast';
@@ -18,6 +18,7 @@ import PageAnchor from 'components/PageAnchor';
 import PrevAndNext from 'components/PrevAndNext';
 import SEO from 'components/seo';
 import DesignToken from 'components/DesignToken';
+import ChartContact from '../components/ChartContact';
 import { makeAnchorId } from '../utils';
 import ComponentOverview from 'components/ComponentOverview';
 import { get, isString, capitalize, noop } from 'lodash-es';
@@ -44,7 +45,7 @@ import '../styles/docDemo.scss';
 import '../styles/index.scss';
 import '../styles/doc.scss';
 import cls from 'classnames';
-import { IconLink, IconFile, IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconLink, IconFile, IconHelpCircle,IconPlus } from '@douyinfe/semi-icons';
 import { Switch, TabPane, Tabs } from '../../packages/semi-ui';
 import DesignPageAnchor from 'components/DesignPageAnchor';
 import transContent, { getAnotherSideUrl, isHaveUedDocs, isJumpToDesignSite } from './toUEDUtils/toUED';
@@ -114,7 +115,10 @@ const SemiComponents = {
     Button,
     Image,
     Card,
-    Space
+    Space,
+    Avatar,
+    IconPlus,
+    ChartContact
 };
 
 const pre = ({ ...props }) => {
@@ -128,6 +132,14 @@ const pre = ({ ...props }) => {
 
     if (props.children.props.className === 'language-overview') {
         return <Blocks.pre className={'pre-overview gatsby-overview'} {...props} />;
+    }
+
+    if (props.children.props.className === 'language-chart') {
+        return <Blocks.pre className={'pre-chart gatsby-overview'} {...props} />;
+    }
+
+    if (props.children.props.className === 'language-chartcontact') {
+        return <Blocks.pre className={'pre-chartcontact gatsby-overview'} {...props} />;
     }
 
     return <Blocks.pre {...props} />;
@@ -163,6 +175,10 @@ const code = ({ ...props }) => {
     }
 
     newProps.lineNumber = false;
+
+    if (props.half) {
+        newProps.width = '50%';
+    }
 
     const Placeholder = () => (
         <>
@@ -477,7 +493,7 @@ const components = {
             const columns = getColumnsFromFiber(columnsFiber);
             const dataSource = getDataFromFiber(dataFiber);
             let firstColumnTitle = columns[0].title;
-            if (firstColumnTitle.includes('推荐用法') || firstColumnTitle.includes('Recommended usage')) {
+            if (['推荐用法', 'Recommended usage', '20 色色板对应 Token', 'Tokens for 20-color palette' ].includes(firstColumnTitle)) {
                 tableCls = 'md markdown gatsby-table same-every-column';
             }
         } catch (error) {

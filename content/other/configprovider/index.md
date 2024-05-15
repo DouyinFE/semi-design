@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 74
+order: 75
 category: 其他
 title:  ConfigProvider 全局配置
 icon: doc-configprovider
@@ -385,7 +385,7 @@ function Demo(props = {}) {
 |-------------------|-----------------------------------------------------------------|------------------------|---------------------|
 | direction         | 设置文本的方向                                                         | `ltr`\| `rtl`          | `ltr`               |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。            | function():HTMLElement | () => document.body |
-| locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用) | object                 |                     |
+| locale            | 多语言配置，同`LocaleProvider`中`locale`参数的[用法](/zh-CN/other/locale#使用)（如果同时在`ConfigProvider`和`LocaleProvider`中配置`locale`，前者优先级高于后者） | object                 |                     |
 | timeZone          | [时区标识](#时区标识)                                                   | string\|number         |                     |
 
 

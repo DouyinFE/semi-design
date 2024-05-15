@@ -1,5 +1,4 @@
 import React, { Component, CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/typography/constants';
@@ -13,12 +12,12 @@ import getRenderText from './util';
 import warning from '@douyinfe/semi-foundation/utils/warning';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
 import LocaleConsumer from '../locale/localeConsumer';
-import { Locale } from '../locale/interface';
-import { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
+import type { Locale } from '../locale/interface';
+import type { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, TypographyBaseType } from './interface';
 import { CopyableConfig, LinkType } from './title';
 import { BaseProps } from '../_base/baseComponent';
-import { isSemiIcon } from '../_utils';
-import ResizeObserver from '../resizeObserver';
+import { isSemiIcon, runAfterTicks } from '../_utils';
+import ResizeObserver, { ObserverProperty, ResizeEntry } from '../resizeObserver';
 
 export interface BaseTypographyProps extends BaseProps {
     copyable?: CopyableConfig | boolean;
@@ -172,6 +171,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     rafId: ReturnType<typeof requestAnimationFrame>;
     expandStr: string;
     collapseStr: string;
+    observerTakingEffect: boolean = false
 
     constructor(props: BaseTypographyProps) {
         super(props);
@@ -180,11 +180,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             copied: false,
             // ellipsis
             // if text is overflow in container
-            isOverflowed: true,
+            isOverflowed: false,
             ellipsisContent: props.children,
             expanded: false,
             // if text is truncated with js
-            isTruncated: true,
+            isTruncated: false,
             prevChildren: null,
         };
         this.wrapperRef = React.createRef();
@@ -194,7 +194,8 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     componentDidMount() {
         if (this.props.ellipsis) {
-            this.onResize();
+            // runAfterTicks: make sure start observer on the next tick
+            this.onResize().then(()=>runAfterTicks(()=>this.observerTakingEffect = true, 1));
         }
     }
 
@@ -205,7 +206,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
         if (props.ellipsis && prevChildren !== props.children) {
             // reset ellipsis state if children update
-            newState.isOverflowed = true;
+            newState.isOverflowed = false;
             newState.ellipsisContent = props.children;
             newState.expanded = false;
             newState.isTruncated = true;
@@ -229,11 +230,16 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
     }
 
-    onResize = () => {
+    onResize = async (entries?: ResizeEntry[]) => {
         if (this.rafId) {
             window.cancelAnimationFrame(this.rafId);
         }
-        this.rafId = window.requestAnimationFrame(this.getEllipsisState.bind(this));
+        return new Promise<void>(resolve => {
+            this.rafId = window.requestAnimationFrame(async ()=>{
+                await this.getEllipsisState();
+                resolve();
+            });
+        });
     };
 
     // if it needs to use js overflowed:
@@ -257,15 +263,40 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         }
         const updateOverflow =
             rows <= 1 ?
-                this.wrapperRef.current.scrollWidth > this.wrapperRef.current.offsetWidth :
+                this.compareSingleRow() :
                 this.wrapperRef.current.scrollHeight > this.wrapperRef.current.offsetHeight;
         return updateOverflow;
     };
 
+    /**
+     * 通过将 content 给到 Range 对象，借助 Range 的 getBoundingClientRect 拿到 content 的准确 width
+     * 不受 css ellipsis 与否的影响
+     * By giving the content to the Range object, get the exact width of the content with the help of Range's getBoundingClientRect
+     * Not affected by css ellipsis or not
+     * https://github.com/DouyinFE/semi-design/issues/1731
+     */
+    compareSingleRow = () => {
+        if (!(document && document.createRange)) {
+            return false;
+        }
+        const containerNode = this.wrapperRef.current;
+        const containerWidth = containerNode.getBoundingClientRect().width;
+        const childNodes = Array.from(containerNode.childNodes) as Node[];
+        const range = document.createRange();
+        const contentWidth = childNodes.reduce((acc: number, node: Node) => {
+            range.selectNodeContents(node as Node);
+            return acc + (range.getBoundingClientRect().width ?? 0);
+        }, 0);
+        range.detach();
+        return contentWidth > containerWidth;
+    }
+
     showTooltip = () => {
         const { isOverflowed, isTruncated, expanded } = this.state;
         const { showTooltip, expandable, expandText } = this.getEllipsisOpt();
-        const overflowed = !expanded && (isOverflowed || isTruncated);
+        const canUseCSSEllipsis = this.canUseCSSEllipsis();
+        // If the css is truncated, use isOverflowed to judge. If the css is truncated, use isTruncated to judge.
+        const overflowed = !expanded && (canUseCSSEllipsis ? isOverflowed : isTruncated);
         const noExpandText = !expandable && isUndefined(expandText);
         const show = noExpandText && overflowed && showTooltip;
         if (!show) {
@@ -299,25 +330,51 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         return defaultOpts;
     };
 
-    getEllipsisState() {
+    onHover = ()=>{
+        const canUseCSSEllipsis = this.canUseCSSEllipsis();
+        if (canUseCSSEllipsis) {
+            const { rows, suffix, pos } = this.getEllipsisOpt();
+            const updateOverflow = this.shouldTruncated(rows);
+            // isOverflowed needs to be updated to show tooltip when using css ellipsis
+            this.setState({
+                isOverflowed: updateOverflow,
+                isTruncated: false
+            });
+
+            return undefined;
+        }
+    }
+
+    getEllipsisState = async ()=> {
         const { rows, suffix, pos } = this.getEllipsisOpt();
         const { children } = this.props;
         // wait until element mounted
         if (!this.wrapperRef || !this.wrapperRef.current) {
-            this.onResize();
-            return false;
+            await this.onResize();
+            return;
         }
         const { expanded } = this.state;
         const canUseCSSEllipsis = this.canUseCSSEllipsis();
-        
+        if (canUseCSSEllipsis) {
+            // const updateOverflow = this.shouldTruncated(rows);
+            // // isOverflowed needs to be updated to show tooltip when using css ellipsis
+            // this.setState({
+            //     isOverflowed: updateOverflow,
+            //     isTruncated: false
+            // });
+
+            return ;
+        }
 
         // If children is null, css/js truncated flag isTruncate is false
         if (isNull(children)) {
-            this.setState({
-                isTruncated: false,
-                isOverflowed: false
-            });
-            return undefined;
+            return new Promise<void>(resolve=>{
+                this.setState({
+                    isTruncated: false,
+                    isOverflowed: false
+                }, resolve);
+            }); 
+
         }
 
         // Currently only text truncation is supported, if there is non-text, 
@@ -328,38 +385,33 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         );
 
         if (!rows || rows < 0 || expanded) {
-            return undefined;
+            return;
         }
 
-        if (canUseCSSEllipsis) {
-            const updateOverflow = this.shouldTruncated(rows);
-            // isOverflowed needs to be updated to show tooltip when using css ellipsis
-            this.setState({
-                isOverflowed: updateOverflow,
-                isTruncated: false
-            });
-
-            return undefined;
-        }
 
         const extraNode = { expand: this.expandRef.current, copy: this.copyRef && this.copyRef.current };
+
+        // Perform type conversion on children to prevent component crash due to non-string type of children
+        // https://github.com/DouyinFE/semi-design/issues/2167
+        const realChildren = Array.isArray(children) ? children.join('') : String(children);
 
         const content = getRenderText(
             this.wrapperRef.current,
             rows,
-            // Perform type conversion on children to prevent component crash due to non-string type of children
-            String(children),
+            realChildren,
             extraNode,
             ELLIPSIS_STR,
             suffix,
             pos
         );
-        this.setState({
-            isOverflowed: false,
-            ellipsisContent: content,
-            isTruncated: children !== content,
+        return new Promise<void>(resolve=>{
+            this.setState({
+                isOverflowed: false,
+                ellipsisContent: content,
+                isTruncated: realChildren !== content,
+            }, resolve);
         });
-        return undefined;
+
     }
 
     /**
@@ -501,14 +553,14 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const { isTruncated, expanded, ellipsisContent } = this.state;
         if (expanded || !isTruncated) {
             return (
-                <>
+                <span onMouseEnter={this.onHover}>
                     {children}
                     {suffix && suffix.length ? suffix : null}
-                </>
+                </span>
             );
         }
         return (
-            <span>
+            <span onMouseEnter={this.onHover}>
                 {ellipsisContent}
                 {/* {ELLIPSIS_STR} */}
                 {suffix}
@@ -687,7 +739,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         );
         if (this.props.ellipsis) {
             return (
-                <ResizeObserver onResize={this.onResize} observeParent>
+                <ResizeObserver onResize={(...args)=>{
+                    if (this.observerTakingEffect) {
+                        this.onResize(...args);
+                    }
+                }} observeParent observerProperty={ObserverProperty.Width}>
                     {content}
                 </ResizeObserver>
             );

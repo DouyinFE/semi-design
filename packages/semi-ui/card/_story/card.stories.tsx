@@ -39,7 +39,7 @@ stories.add('default', () => (
           />
         }
       >
-        Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。
+        Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统。
       </Card>
       <Card
         style={{ width: 300 }}
@@ -68,7 +68,7 @@ stories.add('default', () => (
           />
         }
       >
-        Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。
+        Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统。
       </Card>
       <Card
         style={{ width: 300 }}
@@ -97,7 +97,7 @@ stories.add('default', () => (
           />
         }
       >
-        Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统。
+        Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统。
       </Card>
     </CardGroup>
 ))

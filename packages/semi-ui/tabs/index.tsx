@@ -13,6 +13,7 @@ import TabPane from './TabPane';
 import TabItem from './TabItem';
 import TabsContext from './tabs-context';
 import { PlainTab, TabBarProps, TabsProps } from './interface';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 const panePickKeys = ['className', 'style', 'disabled', 'itemKey', 'tab', 'icon'];
 
@@ -52,8 +53,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
     };
-
-    static defaultProps: TabsProps = {
+    static __SemiComponentName__ = "Tabs";
+    static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
         children: [],
         collapsible: false,
         keepDOM: true,
@@ -65,7 +66,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPosition: 'top',
         type: 'line',
         onTabClose: () => undefined
-    };
+    });
 
     contentRef: RefObject<HTMLDivElement>;
     contentHeight: string;
@@ -76,7 +77,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         this.foundation = new TabsFoundation(this.adapter);
         this.state = {
             activeKey: this.foundation.getDefaultActiveKey(),
-            panes: [],
+            panes: this.getPanes(),
             prevActiveKey: null,
             forceDisableMotion: false
         };
@@ -88,38 +89,16 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         return {
             ...super.adapter,
             collectPane: (): void => {
-                const { tabList, children } = this.props;
-                if (Array.isArray(tabList) && tabList.length) {
-                    this.setState({ panes: tabList });
-                    return;
-                }
-                const panes = React.Children.map(children, (child: any) => {
-                    if (child) {
-                        const { tab, icon, disabled, itemKey, closable } = child.props;
-                        return { tab, icon, disabled, itemKey, closable };
-                    }
-                    return undefined;
-                });
+                const panes = this.getPanes();
                 this.setState({ panes });
             },
             collectActiveKey: (): void => {
-                let panes = [];
                 const { tabList, children, activeKey: propsActiveKey } = this.props;
                 if (typeof propsActiveKey !== 'undefined') {
                     return;
                 }
                 const { activeKey } = this.state;
-                if (Array.isArray(tabList) && tabList.length) {
-                    panes = tabList;
-                } else {
-                    panes = React.Children.map(children, (child: any) => {
-                        if (child) {
-                            const { tab, icon, disabled, itemKey, closable } = child.props;
-                            return { tab, icon, disabled, itemKey, closable };
-                        }
-                        return undefined;
-                    });
-                }
+                const panes = this.getPanes();
                 if (panes.findIndex(p => p.itemKey === activeKey) === -1) {
                     if (panes.length > 0) {
                         this.setState({ activeKey: panes[0].itemKey });
@@ -204,6 +183,20 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
 
     setContentRef: RefCallback<HTMLDivElement> = ref => {
         this.contentRef = { current: ref };
+    };
+
+    getPanes = (): PlainTab[] => {
+        const { tabList, children } = this.props;
+        if (Array.isArray(tabList) && tabList.length) {
+            return tabList;
+        }
+        return React.Children.map(children, (child: any) => {
+            if (child) {
+                const { tab, icon, disabled, itemKey, closable } = child.props;
+                return { tab, icon, disabled, itemKey, closable };
+            }
+            return undefined;
+        });
     };
 
     onTabClick = (activeKey: string, event: MouseEvent<HTMLDivElement>): void => {

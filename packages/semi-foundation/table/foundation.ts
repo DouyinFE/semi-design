@@ -204,6 +204,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         } else if (defaultExpandAllGroupRows || expandAllGroupRows) {
             this._addNoDuplicatedItemsToArr(
                 expandedRowKeys,
+                propExpandedRowKeys,
                 groups && isMap(groups) && groups.size ? Array.from(groups.keys()) : []
             );
         } else if (Array.isArray(defaultExpandedRowKeys) && defaultExpandedRowKeys.length) {
@@ -563,10 +564,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
 
     /**
      * Add non-repeating elements to the array itself
-     * @param {Array} srcArr
-     * @param {Object} objArrs
      */
-    _addNoDuplicatedItemsToArr(srcArr: any[] = [], ...objArrs: any[]) {
+    _addNoDuplicatedItemsToArr(srcArr: any[] = [], ...objArrs: any[][]) {
         for (const objArr of objArrs) {
             if (Array.isArray(objArr)) {
                 for (const item of objArr) {
@@ -989,7 +988,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             }
             return true;
         } else {
-            return false;
+            const isAllSelected = allKeys.length && allKeys.every(rowKey => selectedRowKeysSet.has(rowKey));
+            return isAllSelected || false;
         }
     }
 

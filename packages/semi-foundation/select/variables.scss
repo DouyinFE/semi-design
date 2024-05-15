@@ -6,7 +6,8 @@ $color-select-bg-focus: var(--semi-color-fill-0); // 选择器输入框背景色
 $color-select-border-default: transparent; // 选择器输入框描边颜色
 $color-select-border-hover: $color-select-border-default;  // 选择器输入框描边颜色 - 悬浮
 $color-select-border-active: var(--semi-color-focus-border); // 选择器输入框描边颜色 - 按下态
-$color-select-border-focus: $color-select-border-active;// 选择器输入框描边颜色 - 悬停态
+$color-select-border-focus: $color-select-border-active;// 选择器输入框描边颜色 - 选中态
+
 $color-select_warning-bg-default: var(--semi-color-warning-light-default); // 警示选择器输入框背景色 - 默认态
 $color-select_warning-border-default: var(--semi-color-warning-light-default); // 警示选择器输入框描边颜色 - 默认态
 $color-select_warning-bg-hover: var(--semi-color-warning-light-hover); // 警示选择器输入框背景色 - 悬停态
@@ -15,6 +16,7 @@ $color-select_warning-bg-focus: var(--semi-color-warning-light-default); // 警�
 $color-select_warning-border-focus: var(--semi-color-warning); // 警示选择器输入框描边颜色 - 选中态
 $color-select_warning-bg-active: var(--semi-color-warning-light-active); // 警示选择器输入框背景色 - 按下态
 $color-select_warning-border-active: var(--semi-color-warning-light-active); // 警示选择器输入框描边颜色 - 按下态
+
 $color-select_danger-bg-default: var(--semi-color-danger-light-default); // 报错选择器输入框背景色 - 默认态
 $color-select_danger-border-default: var(--semi-color-danger-light-default); // 报错选择器输入框描边颜色 - 默认态
 $color-select_danger-bg-hover: var(--semi-color-danger-light-hover); // 报错选择器输入框背景色 - 悬停态
@@ -23,7 +25,9 @@ $color-select_danger-bg-focus: var(--semi-color-danger-light-default); // 报错
 $color-select_danger-border-focus: var(--semi-color-danger); // 报错选择器输入框描边颜色 - 选中态
 $color-select_danger-bg-active: var(--semi-color-danger-light-active); // 报错选择器输入框背景色 - 按下态
 $color-select_danger-border-active: var(--semi-color-danger-light-active); // 报错选择器输入框描边颜色 - 按下态
-$color-select_default-border-focus: var(--semi-color-focus-border); // 选择器输入框描边颜色 - 选中态
+
+$color-select_default-border-focus: var(--semi-color-focus-border); // 默认选择器输入框描边颜色 - 选中态
+
 $color-select_main-text-default: var(--semi-color-text-0); // 选择器输入框回填内容文本颜色
 $color-select-icon-default: var(--semi-color-text-2); // 选择器输入框图标颜色
 $color-select_clearBtn-text-default: var(--semi-color-text-2); // 选择器输入框清空按钮颜色 - 默认态
@@ -34,6 +38,7 @@ $color-select_input_disabled-border: var(--semi-color-border); // 禁用选择�
 $color-select_input_disabled-text: var(--semi-color-disabled-text); // 禁用选择器输入框回填内容文字颜色
 $color-select_input_disabled-bg-hover: var(--semi-color-disabled-fill); // 选择器输入框回填内容文字颜色 - 悬停态
 $color-select_input_placeholder-text: var(--semi-color-text-2); // 选择器输入框占位文本文字颜色
+
 $color-select_option_main-text: var(--semi-color-text-0); // 选择器菜单选项文本颜色
 $color-select_option_keyword-text: var(--semi-color-primary); // 选择器菜单选项匹配搜索结果文本颜色
 $color-select_option-bg-default: transparent; // 选择器菜单选项背景颜色 - 默认态
@@ -60,7 +65,12 @@ $width-select_arrow: 32px; // 选择器输入框下拉箭头宽度
 $width-select_arrow_empty: 12px; // 选择器输入框下拉箭头为空时（有suffix icon）宽度
 $width-select_clear-icon: 32px; // 选择器输入框清空按钮宽度
 $width-select_group_top-border: $border-thickness-control; // 选择器菜单分组标题描边宽度
-$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2px; // 多项选择器标签组最小宽度
+$height-select_multiple_content_wrapper-minHeight: $height-select_default - 2px; // 多项选择器标签组最小高度
+
+$height-select_multiple_input_small: 20px; // 小尺寸多项选择器输入框Input框高度
+$height-select_multiple_input_default: 24px; // 默认多项选择器输入框Input框高度
+$height-select_multiple_input_large: 24px; // 大尺寸多项选择器输入框Input框高度
+
 $width-select-border-hover: $width-select-border;  // 选择器输入框描边宽度 - 悬浮
 $width-select-border-focus: $width-select-border-hover; // 选择器输入框描边宽度 - 按下
 $width-select-border-active: $width-select-border-focus; // 选择器输入框描边宽度 - 选中
@@ -86,10 +96,6 @@ $spacing-select_option-paddingLeft: $spacing-base-tight; // 选择器菜单项�
 $spacing-select_option-paddingRight: $spacing-base-tight; // 选择器菜单项右侧内边距
 $spacing-select_option-paddingTop: $spacing-tight; // 选择器菜单项顶部内边距
 $spacing-select_option-paddingBottom: $spacing-tight; // 选择器菜单项底部内边距
-
-
-// $spacing-select_option_first-marginTop: $spacing-extra-tight; // 选择器第一个菜单项顶部外边距
-// $spacing-select_option_last-marginBottom: $spacing-extra-tight; // 选择器最后一个菜单项顶部外边距
 
 
 $spacing-select_tag-marginTop: $spacing-super-tight - 1px; // 多项选择器标签顶部外边距

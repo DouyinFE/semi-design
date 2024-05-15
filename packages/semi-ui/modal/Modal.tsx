@@ -1,23 +1,23 @@
-import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/modal/constants';
-import Button from '../button';
-import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
-import ModalContent from './ModalContent';
-import Portal from '../_portal';
-import LocaleConsumer from '../locale/localeConsumer';
-import cls from 'classnames';
-import PropTypes from 'prop-types';
-import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/modal/modal.scss';
+import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
+import cls from 'classnames';
+import { noop } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import BaseComponent from '../_base/baseComponent';
-import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
-import { Locale } from '../locale/interface';
-import useModal from './useModal';
-import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
-import { getScrollbarWidth } from '../_utils';
+import Portal from '../_portal';
+import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
+import Button from '../button';
+import { ButtonProps } from '../button/Button';
+import { Locale } from '../locale/interface';
+import LocaleConsumer from '../locale/localeConsumer';
+import ModalContent from './ModalContent';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
+import useModal from './useModal';
 
-export const destroyFns: any[] = [];
+export let destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 export type Directions = 'ltr' | 'rtl';
 export type { ModalState };
@@ -75,17 +75,19 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         getPopupContainer: PropTypes.func,
         getContainerContext: PropTypes.func,
         maskFixed: PropTypes.bool,
-        closeIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        closeIcon: PropTypes.node,
         closeOnEsc: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
         keepDOM: PropTypes.bool,
         lazyRender: PropTypes.bool,
         direction: PropTypes.oneOf(strings.directions),
         fullScreen: PropTypes.bool,
+        footerFill: PropTypes.bool,
     };
 
+    static __SemiComponentName__ = "Modal";
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Modal.__SemiComponentName__, {
         zIndex: 1000,
         motion: true,
         mask: true,
@@ -104,12 +106,12 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         keepDOM: false,
         lazyRender: true,
         fullScreen: false,
-    };
+    });
     static useModal = useModal;
     foundation: ModalFoundation;
 
     private readonly modalRef: LegacyRef<ModalContent>;
-    private bodyOverflow: string;
+    private bodyOverflow: string|null = null;
     private scrollBarWidth: number;
     private originBodyWidth: string;
     private _haveRendered: boolean;
@@ -122,7 +124,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         };
         this.foundation = new ModalFoundation(this.adapter);
         this.modalRef = React.createRef();
-        this.bodyOverflow = '';
+
         this.scrollBarWidth = 0;
         this.originBodyWidth = '100%';
 
@@ -142,7 +144,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
@@ -210,14 +212,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     };
 
     static destroyAll = function destroyAllFn() {
-        while (destroyFns.length) {
-            const close = destroyFns.pop();
+        for (let i = 0, len = destroyFns.length; i < len; i++) {
+            const close = destroyFns[i];
             if (close) {
                 close();
             }
         }
+        destroyFns = [];
     };
-
 
     componentDidMount() {
 
@@ -227,7 +229,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.beforeShow();
         }
     }
-
 
     componentDidUpdate(prevProps: ModalReactProps, prevState: ModalState, snapshot: any) {
         // hide => show
@@ -243,6 +244,8 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     componentWillUnmount() {
         if (this.props.visible) {
             this.foundation.destroy();
+        } else {
+            this.foundation.enabledBodyScroll();
         }
     }
 
@@ -267,6 +270,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             confirmLoading,
             cancelLoading,
             hasCancel,
+            footerFill,
         } = this.props;
         const getCancelButton = (locale: Locale['Modal']) => {
             if (!hasCancel) {
@@ -278,8 +282,13 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         onClick={this.handleCancel}
                         loading={cancelLoading === undefined ? this.state.onCancelReturnPromiseStatus === "pending" : cancelLoading}
                         type="tertiary"
+                        block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        style={{
+                            ...footerFill ? { marginLeft: "unset" }:{},
+                            ...this.props.cancelButtonProps?.style
+                        }}
                         x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
@@ -291,12 +300,15 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         return (
             <LocaleConsumer componentName="Modal">
                 {(locale: Locale['Modal'], localeCode: Locale['code']) => (
-                    <div>
+                    <div className={cls({
+                        [`${cssClasses.DIALOG}-footerfill`]: footerFill
+                    })}>
                         {getCancelButton(locale)}
                         <Button
                             aria-label="confirm"
                             type={okType}
                             theme="solid"
+                            block={footerFill}
                             loading={confirmLoading === undefined ? this.state.onOKReturnPromiseStatus === "pending" : confirmLoading}
                             onClick={this.handleOk}
                             {...this.props.okButtonProps}
@@ -330,6 +342,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            modalContentClass,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -382,7 +395,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={animationClassName}
+                                        contentClassName={`${animationClassName} ${modalContentClass}`}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}

@@ -1245,6 +1245,23 @@ describe('Cascader', () => {
         cascader.unmount();
     });
 
+    it('search ref method', () => {
+        let r;
+        const cascader = render({
+            ref: (ref) => { r = ref },
+            filterTreeNode: true,
+            searchPosition: 'custom',
+            defaultOpen: true,
+        });
+        r.search('北京');
+        expect(cascader.state().inputValue).toEqual('北京');
+        expect(
+            document.querySelectorAll(`.${BASE_CLASS_PREFIX}-cascader-option-label-highlight`)[0]
+            .textContent
+        ).toEqual('北京');
+        cascader.unmount();
+    });
+
     it('triggerRender', () => {
         const spyTriggerRender = sinon.spy(() => <span>123</span>);
         const cascaderAutoMerge = render({
@@ -1369,4 +1386,31 @@ describe('Cascader', () => {
         r.close();
         expect(select.state().isOpen).toEqual(false);
     });
+
+    it('autoMerge false & value []', () => {
+        const cascader = render({
+            multiple: true,
+            autoMergeValue: false,
+            value: [],
+            placeholder: "autoMergeValue 为 false"
+        });
+
+        const placeholder = cascader.find(`.${BASE_CLASS_PREFIX}-cascader-selection-placeholder`)
+        expect(placeholder.getDOMNode().textContent).toEqual('autoMergeValue 为 false');
+        cascader.unmount();
+    })
+
+    it('value not in TreeData', () => {
+        const cascader = render({
+            multiple: true,
+            value: [ "value", "notIn",  "treeData"],
+            placeholder: "value not in treeData, show placeholder",
+            autoMergeValue: false,
+            filterTreeNode: true,
+        });
+
+        const placeholder = cascader.find(`.${BASE_CLASS_PREFIX}-input`)
+        expect(placeholder.getDOMNode().placeholder).toEqual('value not in treeData, show placeholder');
+        cascader.unmount();
+    })
 });

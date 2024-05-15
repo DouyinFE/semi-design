@@ -265,6 +265,9 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 通过设置 `filterTreeNode` 属性可支持搜索功能。默认对 `label` 值进行搜索，可通过 `treeNodeFilterProp` 更改。
 
 如果只希望展示过滤后的结果，可以设置 `showFilteredOnly` 。
+
+如果想要获取搜索结果的具体信息，可使用 `onSearch` 回调函数，函数具体参数见 API 列表。
+
 ```jsx live=true
 import React from 'react';
 import { TreeSelect, Switch } from '@douyinfe/semi-ui';
@@ -275,9 +278,13 @@ class Demo extends React.Component {
             showFilteredOnly: false,
         };
         this.onChange = this.onChange.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
     onChange(showFilteredOnly) {
         this.setState({ showFilteredOnly });
+    }
+    onSearch(inputValue, filteredExpandedKeys, filteredNodes) {
+        console.log('onSearch', inputValue, filteredExpandedKeys, filteredNodes);
     }
     render() {
         const treeData = [
@@ -353,6 +360,7 @@ class Demo extends React.Component {
                     filterTreeNode
                     showFilteredOnly={showFilteredOnly}
                     placeholder="单选可搜索的"
+                    onSearch={this.onSearch}
                 />
                 <br/>
                 <br/>
@@ -366,6 +374,7 @@ class Demo extends React.Component {
                     showFilteredOnly={showFilteredOnly}
                     placeholder="多选可搜索的"
                     searchPlaceholder="请输入关键字开始搜索"
+                    onSearch={this.onSearch}
                 />
                 <br/>
                 <br/>
@@ -380,6 +389,7 @@ class Demo extends React.Component {
                     placeholder="搜索框autofocus"
                     searchPlaceholder="autofocus"
                     searchAutoFocus
+                    onSearch={this.onSearch}
                 />
             </>
         );
@@ -878,7 +888,8 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### 开启搜索的展开受控
-传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.6.0） 来实现展开受控时的搜索展开效果。
+传入 `expandedKeys` 时即为展开受控组件，可以配合 `onExpand` 使用。当展开受控时，如果开启 `filterTreeNode` 并进行搜索是不会再自动展开节点的，此时，节点的展开完全由 `expandedKeys` 来控制。
+你可以利用 `onSearch` 的入参 `filteredExpandedKeys`（version: >= 2.6.0） 来实现展开受控时的搜索展开效果。
 
 ```jsx live=true hideInDSM
 import React, { useState } from 'react';
@@ -932,7 +943,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
             onExpand={expandedKeys => {
                 setExpandedKeys(expandedKeys);
             }}
-            onSearch={(inputValue, filteredExpandedKeys) => {
+            onSearch={(inputValue, filteredExpandedKeys, filteredNodes) => {
                 setExpandedKeys([...filteredExpandedKeys, ...expandedKeys]);
             }}
         />
@@ -1431,6 +1442,7 @@ function Demo() {
 | searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                          | string | `dropdown` | 1.29.0 |
 | showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                                    | boolean | false |  |
 | showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                                           | boolean | false | 0.32.0 |
+| showLine | 选项面板中选项显示连接线 | boolean | false | 2.50.0 |
 | showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                           | boolean | false | 2.22.0 |
 | showSearchClear | 是否显示搜索框的清除按钮                                                                                                                               | boolean | true | 0.35.0 |
 | size | 选择框大小，可选 `large`，`small`，`default`                                                                                                         | string | `default` | - |
@@ -1447,10 +1459,11 @@ function Demo() {
 | onBlur | 失去焦点时的回调                                                                                                                                   | function(event) | - | - |
 | onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值及节点属性；如果是通过tag关闭，event参数为null                                                                              | Function | - | - |
 | onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型Function(node\|node[], e) 此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。    | boolean | false | 1.0.0 |
+| onClear     | 点击清除按钮时触发的回调                                                                                                                             | (e: Event) => void |  -  |   2.52.0  |
 | onExpand | 展示节点时调用                                                                                                                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType> | - | - |
 | onFocus | 聚焦时的回调                                                                                                                                     | function(event) | - | - |
 | onLoad | 节点加载完毕时触发的回调                                                                                                                               | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> |- |  1.32.0|
-| onSearch | 文本框值变化时回调。 入参 filteredExpandedKeys 表示因为搜索或 value / defaultValue 而展开的节点的 key, <br/>可以配合 expandedKeys 受控时使用。filteredExpandedKeys 在 2.6.0 中新增 |  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[])'>(sugInput, filteredExpandedKeys)=>void</ApiType>  |  |  |
+| onSearch | 文本框值变化时回调。 <br/>入参 `filteredExpandedKeys` 表示因为搜索或 value / defaultValue 而展开的节点的 key, 可以配合 expandedKeys 受控时使用。**filteredExpandedKeys 在 2.6.0 中新增**；<br/>入参 `filteredNodes` 是搜索命中的节点。**filteredNodes 在 2.57.0 中新增**|  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])'>(sugInput, filteredExpandedKeys, filteredNodes)=>void</ApiType>  |  |  |
 | onSelect | 被选中时调用，返回值为当前事件选项的key值                                                                                                                     | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType> | - | - |
 | onVisibleChange     | 弹出层展示/隐藏时触发的回调                                                                                                                             | function(isVisible:boolean) |     |   1.4.0  |
 

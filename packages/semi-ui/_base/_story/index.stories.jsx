@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { Button, Typography, Card, Tooltip, Tag, Avatar, Rating, Nav, Layout } from '../../index';
+import {Button, Typography, Card, Tooltip, Tag, Avatar, Rating, Nav, Layout, ConfigProvider, Select} from '../../index';
 import { IconHelpCircle, IconUser, IconStar, IconSetting } from '@douyinfe/semi-icons';
 import './index.scss';
+import semiGlobal from "../../_utils/semi-global";
 
 export default {
   title: 'Base',
@@ -60,7 +61,7 @@ export const TestAlwaysDarkLight = () => {
               style={{ maxWidth: 360, marginRight: 12 }}
               headerExtraContent={<Text link>更多</Text>}
             >
-              Semi Design 是由互娱社区前端团队与 UED
+              Semi Design 是由抖音前端团队与 UED
               团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
               Web 应用。
               <Tooltip content={'hi bytedance'}>
@@ -113,4 +114,40 @@ export const TestAlwaysDarkLight = () => {
   }
 
   return <Demo />;
+};
+
+
+
+semiGlobal.config.overrideDefaultProps = {
+    Button: {
+        type: 'warning',
+    },
+    Select: {
+        zIndex: 2000,
+        // getPopupContainer: () => document.querySelector('#popupContainer')
+    },
+    Tooltip: {
+        zIndex: 2001,
+        // getPopupContainer: () => document.querySelector('#popupContainer'),
+        trigger:"click"
+    },
+};
+
+export const DefaultPropsDemo = () => {
+    return (
+        <div>
+            <ConfigProvider>
+                <div style={{ position: 'relative'}} id='popupContainer'></div>
+                <Tooltip content="zindex 2001">
+                    <Button>test</Button>
+                </Tooltip>
+                <Select
+                    optionList={[
+                        { value: 1, label: 1 },
+                        { value: 2, label: 2 },
+                    ]}
+                ></Select>
+            </ConfigProvider>
+        </div>
+    );
 };

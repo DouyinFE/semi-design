@@ -17,7 +17,7 @@ const makeAnchorOfToken = data => {
 
 const PageAnchor = props => {
     const { data = [], slug } = props;
-    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started', 'design-to-code'].some(item => slug.includes(item));
+    const skipCondition = ['accessibility', 'dark-mode', 'customize-theme', 'content-guidelines', 'getting-started', 'design-to-code', 'chart'].some(item => slug.includes(item));
 
     let flag = false;
     const makeAnchor = data => {
@@ -30,7 +30,11 @@ const PageAnchor = props => {
                 continue;
             }
             if (Array.isArray(anchorItem.items) && anchorItem.items.length > 0) {
-                if (['Voice and Tone', '语法', 'Grammar and Mechanics'].includes(anchorItem.title)) {
+                if (['Voice and Tone', '语法', 'Grammar and Mechanics',
+                    'Installation and Usage', '安装和使用',
+                    'Common Chart Types Examples', '常用图表类型示例', 
+                    '设计规范', 'Design Guidelines'
+                ].includes(anchorItem.title)) {
                     anchorList.push(<Anchor.Link
                         href={`#${makeAnchorId(anchorItem.title)}`}
                         title={anchorItem.title}

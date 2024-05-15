@@ -553,7 +553,7 @@ style | style object | CSSProperties | None |
 tabBarExtraContent | Used to extend the content of the tab bar | ReactNode | None |
 tabList | An array of tab page objects that supports itemKey (corresponding to activeKey, tab (tab page text) and icon (tab page icon) | TabPane[] | None |
 tabPaneMotion | Whether to use animation to switch tabs | boolean | true |
-tabPosition | The position of the tab, support `top` (horizontal), `left` (vertical), **>=1.0.0** | boolean | `top` |
+tabPosition | The position of the tab, support `top` (horizontal), `left` (vertical), **>=1.0.0** | string | `top` |
 type | The style of the label bar, optional `line`, `card`, `button` | string | `line` |
 onChange | Callback function when switching tab pages | function(activeKey: string) | None |
 onTabClick | Click event | function(key: string, e: Event) | None |

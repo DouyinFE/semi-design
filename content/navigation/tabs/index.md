@@ -37,7 +37,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
             <TabPane tab="文档" itemKey="1">
                 <h3>文档</h3>
                 <p style={{ lineHeight: 1.8 }}>
-                    Semi Design 是由互娱社区前端团队与 UED
+                    Semi Design 是由抖音前端团队与 UED
                     团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
                     Web 应用。
                 </p>
@@ -260,7 +260,7 @@ class App extends React.Component {
                         <div style={{ padding: '0 24px' }}>
                             <h3>文档</h3>
                             <p style={{ lineHeight: 1.8 }}>
-                                Semi Design 是由互娱社区前端团队与 UED
+                                Semi Design 是由抖音前端团队与 UED
                                 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
                                 Web 应用。
                             </p>
@@ -574,7 +574,7 @@ style | 样式对象 | CSSProperties | 无 |
 tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode | 无 |
 tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[] | 无 |
 tabPaneMotion | 是否使用动画切换 tabs | boolean | true |
-tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | boolean | `top` |
+tabPosition | tab 的位置，支持`top`(水平), `left`(垂直)，**>=1.0.0** | string | `top` |
 type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
 onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 onTabClick | 单击事件 | function(key: string, e: Event) | 无 |

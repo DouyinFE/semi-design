@@ -10,7 +10,7 @@ import { PreviewContext, PreviewContextProps } from "./previewContext";
 import ImageFoundation, { ImageAdapter } from "@douyinfe/semi-foundation/image/imageFoundation";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
-import { isBoolean, isObject, isUndefined } from "lodash";
+import { isBoolean, isObject, isUndefined, omit } from "lodash";
 import Skeleton from "../skeleton";
 import "@douyinfe/semi-foundation/image/image.scss";
 
@@ -31,6 +31,7 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
         preview: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
         onLoad: PropTypes.func,
         onError: PropTypes.func,
+        onClick: PropTypes.func,
         crossOrigin: PropTypes.string,
         imageID: PropTypes.number,
     }
@@ -173,13 +174,20 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
 
     render() {
         const { src, loadStatus, previewVisible } = this.state;
-        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview, fallback, placeholder, imageID, setDownloadName, ...restProps } = this.props;
+        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview, 
+            fallback, placeholder, imageID, setDownloadName, imgCls, imgStyle,
+            ...restProps 
+        } = this.props;
         const outerStyle = Object.assign({ width, height }, style);
         const outerCls = cls(prefixCls, className);
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
         const showPreviewCursor = preview && loadStatus === "success";
         const previewSrc = isObject(preview) ? ((preview as any).src ?? src) : src;
-        const previewProps = isObject(preview) ? preview : {};
+        const previewProps = isObject(preview) && canPreview ? { 
+            ...omit(preview, ['className', 'style', 'previewCls', 'previewStyle']), 
+            className: preview?.previewCls, 
+            style: preview?.previewStyle 
+        }: {} as any;
         return ( 
             <div
                 style={outerStyle}
@@ -192,9 +200,11 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                     src={this.isInGroup() && this.isLazyLoad() ? undefined : src}
                     data-src={src}
                     alt={alt}
+                    style={imgStyle}
                     className={cls(`${prefixCls}-img`, {
                         [`${prefixCls}-img-preview`]: showPreviewCursor,
                         [`${prefixCls}-img-error`]: loadStatus === "error",
+                        [imgCls]: Boolean(imgCls),
                     })}
                     width={width}
                     height={height}

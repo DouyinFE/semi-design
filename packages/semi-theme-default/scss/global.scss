@@ -1,6 +1,6 @@
 @import "./_palette.scss";
 
-body, body[theme-mode="dark"] .semi-always-light {
+body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-light {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(var(--semi-white), 1); // 浅色模式下深色背景内容Inverse
@@ -103,29 +103,29 @@ body, body[theme-mode="dark"] .semi-always-light {
     --semi-border-radius-full: 9999px; // 用于创建全尺寸圆角，如胶囊标签等
     --semi-color-highlight-bg: rgba(var(--semi-yellow-4), 1); // 高亮文本背景色
     --semi-color-highlight: rgba(var(--semi-black), 1); // 高亮文本色
-    --semi-color-data-0:rgba(22, 100, 255, 1); //vchart 数据色板颜色 - 0
-    --semi-color-data-1:rgba(178, 207, 255, 1); //vchart 数据色板颜色 - 1
-    --semi-color-data-2:rgba(26, 198, 255, 1); //vchart 数据色板颜色 - 2
-    --semi-color-data-3:rgba(148, 239, 255, 1); //vchart 数据色板颜色 - 3
-    --semi-color-data-4:rgba(255, 138, 0, 1); //vchart 数据色板颜色 - 4
-    --semi-color-data-5:rgba(255, 206, 122, 1); //vchart 数据色板颜色 - 5
-    --semi-color-data-6:rgba(60, 199, 128, 1); //vchart 数据色板颜色 - 6
-    --semi-color-data-7:rgba(185, 237, 205, 1); //vchart 数据色板颜色 - 7
-    --semi-color-data-8:rgba(116, 66, 212, 1); //vchart 数据色板颜色 - 8
-    --semi-color-data-9:rgba(221, 197, 250, 1); //vchart 数据色板颜色 - 9
-    --semi-color-data-10:rgba(255, 196, 0, 1); //vchart 数据色板颜色 - 10
-    --semi-color-data-11:rgba(250, 232, 120, 1); //vchart 数据色板颜色 - 11
-    --semi-color-data-12:rgba(48, 77, 119, 1); //vchart 数据色板颜色 - 12
-    --semi-color-data-13:rgba(139, 149, 158, 1); //vchart 数据色板颜色 - 13
-    --semi-color-data-14:rgba(180, 141, 235, 1); //vchart 数据色板颜色 - 14
-    --semi-color-data-15:rgba(239, 227, 255, 1); //vchart 数据色板颜色 - 15
-    --semi-color-data-16:rgba(0, 148, 136, 1); //vchart 数据色板颜色 - 16
-    --semi-color-data-17:rgba(89, 186, 168, 1); //vchart 数据色板颜色 - 17
-    --semi-color-data-18:rgba(255, 125, 218, 1); //vchart 数据色板颜色 - 18
-    --semi-color-data-19:rgba(255, 207, 238, 1); //vchart 数据色板颜色 - 19
+    --semi-color-data-0: rgba(87, 105, 255, 1); //vchart 数据色板颜色 - 0
+    --semi-color-data-1: rgba(142, 212, 231, 1); //vchart 数据色板颜色 - 1
+    --semi-color-data-2: rgba(245, 135, 0, 1); //vchart 数据色板颜色 - 2
+    --semi-color-data-3: rgba(220, 183, 252, 1); //vchart 数据色板颜色 - 3
+    --semi-color-data-4: rgba(74, 156, 247, 1); //vchart 数据色板颜色 - 4
+    --semi-color-data-5: rgba(243, 204, 53, 1); //vchart 数据色板颜色 - 5
+    --semi-color-data-6: rgba(254, 128, 144, 1); //vchart 数据色板颜色 - 6
+    --semi-color-data-7: rgba(139, 215, 210, 1); //vchart 数据色板颜色 - 7
+    --semi-color-data-8: rgba(131, 176, 35, 1); //vchart 数据色板颜色 - 8
+    --semi-color-data-9: rgba(233, 165, 229, 1); //vchart 数据色板颜色 - 9
+    --semi-color-data-10: rgba(48, 167, 206, 1); //vchart 数据色板颜色 - 10
+    --semi-color-data-11: rgba(249, 192, 100, 1); //vchart 数据色板颜色 - 11
+    --semi-color-data-12: rgba(177, 113, 249, 1); //vchart 数据色板颜色 - 12
+    --semi-color-data-13: rgba(119, 182, 249, 1); //vchart 数据色板颜色 - 13
+    --semi-color-data-14: rgba(200, 143, 2, 1); //vchart 数据色板颜色 - 14
+    --semi-color-data-15: rgba(255, 170, 178, 1); //vchart 数据色板颜色 - 15
+    --semi-color-data-16: rgba(51, 176, 171, 1); //vchart 数据色板颜色 - 16
+    --semi-color-data-17: rgba(182, 215, 129, 1); //vchart 数据色板颜色 - 17
+    --semi-color-data-18: rgba(212, 88, 212, 1); //vchart 数据色板颜色 - 18
+    --semi-color-data-19: rgba(188, 198, 255, 1); //vchart 数据色板颜色 - 19
 }
 
-body[theme-mode="dark"], body .semi-always-dark {
+body[theme-mode="dark"], body .semi-always-dark, :host-context(body[theme-mode="dark"]), :host .semi-always-dark {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     --semi-color-white: rgba(228, 231, 245, 1);
@@ -213,24 +213,24 @@ body[theme-mode="dark"], body .semi-always-dark {
     --semi-border-radius-full: 9999px;
     --semi-color-highlight-bg: rgba(var(--semi-yellow-2), 1); // 高亮文本背景色
     --semi-color-highlight: rgba(var(--semi-white), 1); // 高亮文本色
-    --semi-color-data-0:rgba(22, 100, 255, 1); //vchart 数据色板颜色 - 0
-    --semi-color-data-1:rgba(178, 207, 255, 1); //vchart 数据色板颜色 - 1
-    --semi-color-data-2:rgba(26, 198, 255, 1); //vchart 数据色板颜色 - 2
-    --semi-color-data-3:rgba(148, 239, 255, 1); //vchart 数据色板颜色 - 3
-    --semi-color-data-4:rgba(255, 138, 0, 1); //vchart 数据色板颜色 - 4
-    --semi-color-data-5:rgba(255, 206, 122, 1); //vchart 数据色板颜色 - 5
-    --semi-color-data-6:rgba(60, 199, 128, 1); //vchart 数据色板颜色 - 6
-    --semi-color-data-7:rgba(185, 237, 205, 1); //vchart 数据色板颜色 - 7
-    --semi-color-data-8:rgba(116, 66, 212, 1); //vchart 数据色板颜色 - 8
-    --semi-color-data-9:rgba(221, 197, 250, 1); //vchart 数据色板颜色 - 9
-    --semi-color-data-10:rgba(255, 196, 0, 1); //vchart 数据色板颜色 - 10
-    --semi-color-data-11:rgba(250, 232, 120, 1); //vchart 数据色板颜色 - 11
-    --semi-color-data-12:rgba(48, 77, 119, 1); //vchart 数据色板颜色 - 12
-    --semi-color-data-13:rgba(139, 149, 158, 1); //vchart 数据色板颜色 - 13
-    --semi-color-data-14:rgba(180, 141, 235, 1); //vchart 数据色板颜色 - 14
-    --semi-color-data-15:rgba(239, 227, 255, 1); //vchart 数据色板颜色 - 15
-    --semi-color-data-16:rgba(0, 148, 136, 1); //vchart 数据色板颜色 - 16
-    --semi-color-data-17:rgba(89, 186, 168, 1); //vchart 数据色板颜色 - 17
-    --semi-color-data-18:rgba(255, 125, 218, 1); //vchart 数据色板颜色 - 18
-    --semi-color-data-19:rgba(255, 207, 238, 1); //vchart 数据色板颜色 - 19
+    --semi-color-data-0: rgba(94, 109, 194, 1); //vchart 数据色板颜色 - 0
+    --semi-color-data-1: rgba(8, 104, 120, 1); //vchart 数据色板颜色 - 1
+    --semi-color-data-2: rgba(250, 173, 63, 1); //vchart 数据色板颜色 - 2
+    --semi-color-data-3: rgba(76, 43, 156, 1); //vchart 数据色板颜色 - 3
+    --semi-color-data-4: rgba(16, 125, 248, 1); //vchart 数据色板颜色 - 4
+    --semi-color-data-5: rgba(248, 202, 16, 1); //vchart 数据色板颜色 - 5
+    --semi-color-data-6: rgba(195, 30, 87, 1); //vchart 数据色板颜色 - 6
+    --semi-color-data-7: rgba(5, 119, 115, 1); //vchart 数据色板颜色 - 7
+    --semi-color-data-8: rgba(154, 207, 13, 1); //vchart 数据色板颜色 - 8
+    --semi-color-data-9: rgba(117, 29, 138, 1); //vchart 数据色板颜色 - 9
+    --semi-color-data-10: rgba(16, 162, 180, 1); //vchart 数据色板颜色 - 10
+    --semi-color-data-11: rgba(208, 110, 11, 1); //vchart 数据色板颜色 - 11
+    --semi-color-data-12: rgba(113, 66, 197, 1); //vchart 数据色板颜色 - 12
+    --semi-color-data-13: rgba(7, 100, 212, 1); //vchart 数据色板颜色 - 13
+    --semi-color-data-14: rgba(251, 232, 110, 1); //vchart 数据色板颜色 - 14
+    --semi-color-data-15: rgba(160, 19, 73, 1); //vchart 数据色板颜色 - 15
+    --semi-color-data-16: rgba(11, 179, 167, 1); //vchart 数据色板颜色 - 16
+    --semi-color-data-17: rgba(98, 138, 6, 1); //vchart 数据色板颜色 - 17
+    --semi-color-data-18: rgba(162, 48, 179, 1); //vchart 数据色板颜色 - 18
+    --semi-color-data-19: rgba(40, 51, 138, 1); //vchart 数据色板颜色 - 19
 }

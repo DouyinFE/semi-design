@@ -9,7 +9,8 @@ export interface CollapseContextType{
     keepDOM: boolean;
     expandIconPosition: 'left' | 'right';
     onClick: (activeKey: string, e: React.MouseEvent) => void;
-    motion: boolean
+    motion: boolean;
+    lazyRender: boolean
 }
 
 

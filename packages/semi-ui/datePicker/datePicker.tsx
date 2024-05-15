@@ -29,6 +29,7 @@ import { Locale } from '../locale/interface';
 import { TimePickerProps } from '../timePicker/TimePicker';
 import { ScrollItemProps } from '../scrollList/scrollItem';
 import { InsetInputValue, InsetInputChangeProps } from '@douyinfe/semi-foundation/datePicker/inputFoundation';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export interface DatePickerProps extends DatePickerFoundationProps {
     'aria-describedby'?: React.AriaAttributes['aria-describedby'];
@@ -154,8 +155,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         yearAndMonthOpts: PropTypes.object,
         onClickOutSide: PropTypes.func,
     };
-
-    static defaultProps = {
+    static __SemiComponentName__ = "DatePicker";
+    static defaultProps = getDefaultPropsFromGlobalConfig(DatePicker.__SemiComponentName__, {
         onChangeWithDateFirst: true,
         borderless: false,
         autoAdjustOverflow: true,
@@ -193,7 +194,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         rangeSeparator: strings.DEFAULT_SEPARATOR_RANGE,
         insetInput: false,
         onClickOutSide: noop,
-    };
+    });
 
     triggerElRef: React.MutableRefObject<HTMLElement>;
     panelRef: React.RefObject<HTMLDivElement>;
@@ -257,15 +258,15 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 this.clickOutSideHandler = e => {
                     const triggerEl = this.triggerElRef && this.triggerElRef.current;
                     const panelEl = this.panelRef && this.panelRef.current;
-                    const isInTrigger = triggerEl && triggerEl.contains(e.target as Node);
-                    const isInPanel = panelEl && panelEl.contains(e.target as Node);
-                    const clickOutSide = !isInTrigger && !isInPanel && this._mounted;
-                    if (this.adapter.needConfirm()) {
-                        clickOutSide && this.props.onClickOutSide();
-                        return;
-                    } else {
-                        if (clickOutSide) {
-                            this.props.onClickOutSide();
+                    const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
+                    if (
+                        !(triggerEl && triggerEl.contains(target)) &&
+                        !(panelEl && panelEl.contains(target)) &&
+                        !(path.includes(triggerEl) || path.includes(panelEl))
+                    ) {
+                        this.props.onClickOutSide();
+                        if (!this.adapter.needConfirm()) {
                             this.foundation.closePanel(e);
                         }
                     }
@@ -406,7 +407,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     }
 
     componentDidUpdate(prevProps: DatePickerProps) {
-        if (prevProps.value !== this.props.value) {
+        if (!isEqual(prevProps.value, this.props.value)) {
             this.foundation.initFromProps({
                 ...this.props,
             });

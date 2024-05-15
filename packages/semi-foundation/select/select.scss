@@ -59,12 +59,12 @@ $overflowList: #{$prefix}-overflow-list;
 
     &-open,
     &-focus {
-        border: $border-thickness-control-focus solid $color-select_default-border-focus;
+        border: $width-select-border-focus solid $color-select_default-border-focus;
         outline: 0;
 
         &:hover {
             background-color: $color-select-bg-default;
-            border: $border-thickness-control-focus solid $color-select_default-border-focus;
+            border: $width-select-border-hover solid $color-select_default-border-focus;
         }
 
         // when click the trigger, trigger get the focus state, active style should take effect
@@ -124,9 +124,8 @@ $overflowList: #{$prefix}-overflow-list;
         }
 
         &:focus {
-            // border: $border-thickness-control-focus solid $color-select_default-border-focus;
             // when select is disabled, the border should not have active color
-            border: $border-thickness-control-focus solid transparent;
+            border: $width-select-border-focus solid transparent;
         }
 
         .#{$module}-selection,
@@ -394,17 +393,29 @@ $overflowList: #{$prefix}-overflow-list;
         overflow: hidden;
         position: relative;
 
+        &:not(.#{$module}-content-wrapper-empty) {
+            .#{$prefix}-input-wrapper {
+                height: $height-select_multiple_input_default;
+                line-height: $height-select_multiple_input_default;
+                .#{$prefix}-input-default {
+                    height: $height-select_multiple_input_default;
+                }
+            }
+        }
+
         &-empty {
             .#{$prefix}-input-wrapper {
                 position: absolute;
                 top: 0;
                 left: 0;
                 height: 100%;
-                width: 100%;
+                .#{$prefix}-input-default {
+                    height: 100%;
+                }
+                // width: 100%; // no need to set width here, will calcuate inline style by js
             }
         }
     }
-
     .#{$prefix}-input-wrapper {
         // position: absolute;
         // top: 0;
@@ -424,6 +435,35 @@ $overflowList: #{$prefix}-overflow-list;
         padding-right: 0;
     }
 }
+
+.#{$multiple}.#{$filterable}.#{$module}-large {
+    .#{$module}-content-wrapper {
+        &:not(.#{$module}-content-wrapper-empty) {
+            .#{$prefix}-input-wrapper-large {
+                height: $height-select_multiple_input_large;
+                line-height: $height-select_multiple_input_large;
+                .#{$prefix}-input-large {
+                    height: $height-select_multiple_input_large
+                }
+            }
+        }
+    }
+}
+
+.#{$multiple}.#{$filterable}.#{$module}-small {
+    .#{$module}-content-wrapper {
+        &:not(.#{$module}-content-wrapper-empty) {
+            .#{$prefix}-input-wrapper {
+                height: $height-select_multiple_input_small;
+                line-height: $height-select_multiple_input_small;
+                .#{$prefix}-input-small {
+                    height: $height-select_multiple_input_small;
+                }
+            }
+        }
+    }
+}
+
 
 .#{$module}-option-list-wrapper {
     padding-top: $spacing-select_option_list-paddingTop;

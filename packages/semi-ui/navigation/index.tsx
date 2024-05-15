@@ -14,6 +14,7 @@ import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
@@ -154,8 +155,8 @@ class Nav extends BaseComponent<NavProps, NavState> {
         limitIndent: PropTypes.bool,
         getPopupContainer: PropTypes.func,
     };
-
-    static defaultProps = {
+    static __SemiComponentName__ = "Navigation";
+    static defaultProps = getDefaultPropsFromGlobalConfig(Nav.__SemiComponentName__, {
         subNavCloseDelay: numbers.DEFAULT_SUBNAV_CLOSE_DELAY,
         subNavOpenDelay: numbers.DEFAULT_SUBNAV_OPEN_DELAY,
         tooltipHideDelay: numbers.DEFAULT_TOOLTIP_HIDE_DELAY,
@@ -173,9 +174,10 @@ class Nav extends BaseComponent<NavProps, NavState> {
         // defaultOpenKeys: [],
         // defaultSelectedKeys: [],
         // items: [],
-    };
+    });
 
     itemsChanged: boolean;
+    foundation: NavigationFoundation;
     constructor(props: NavProps) {
         super(props);
         this.foundation = new NavigationFoundation(this.adapter);
@@ -214,24 +216,19 @@ class Nav extends BaseComponent<NavProps, NavState> {
         // override BaseComponent
     }
 
-    componentDidUpdate(prevProps: NavProps, prevState: NavState) {
+    componentDidUpdate(prevProps: NavProps) {
         if (prevProps.items !== this.props.items || prevProps.children !== this.props.children) {
             this.foundation.init();
         } else {
             this.foundation.handleItemsChange(false);
-            const { selectedKeys } = this.state;
-
             if (this.props.selectedKeys && !isEqual(prevProps.selectedKeys, this.props.selectedKeys)) {
                 this.adapter.updateSelectedKeys(this.props.selectedKeys);
+                const willOpenKeys = this.foundation.getWillOpenKeys(this.state.itemKeysMap);
+                this.adapter.updateOpenKeys(willOpenKeys);
             }
 
             if (this.props.openKeys && !isEqual(prevProps.openKeys, this.props.openKeys)) {
                 this.adapter.updateOpenKeys(this.props.openKeys);
-            }
-
-            if (!isEqual(selectedKeys, prevState.selectedKeys)) {
-                const parentSelectKeys = this.foundation.selectLevelZeroParentKeys(null, ...selectedKeys);
-                this.adapter.addSelectedKeys(...parentSelectKeys);
             }
         }
     }
@@ -247,7 +244,17 @@ class Nav extends BaseComponent<NavProps, NavState> {
             setItemKeysMap: itemKeysMap => this.setState({ itemKeysMap: { ...itemKeysMap } }),
             addSelectedKeys: createAddKeysFn(this, 'selectedKeys'),
             removeSelectedKeys: createRemoveKeysFn(this, 'selectedKeys'),
-            updateSelectedKeys: selectedKeys => this.setState({ selectedKeys: [...selectedKeys] }),
+            /**
+             * when `includeParentKeys` is `true`, select a nested nav item will select parent nav sub
+             */
+            updateSelectedKeys: (selectedKeys: (string | number)[], includeParentKeys = true) => {
+                let willUpdateSelectedKeys = selectedKeys;
+                if (includeParentKeys) {
+                    const parentSelectKeys = this.foundation.selectLevelZeroParentKeys(null, selectedKeys);
+                    willUpdateSelectedKeys = Array.from(new Set(selectedKeys.concat(parentSelectKeys)));
+                }
+                this.setState({ selectedKeys: willUpdateSelectedKeys });
+            },
             updateOpenKeys: openKeys => this.setState({ openKeys: [...openKeys] }),
             addOpenKeys: createAddKeysFn(this, 'openKeys'),
             removeOpenKeys: createRemoveKeysFn(this, 'openKeys'),

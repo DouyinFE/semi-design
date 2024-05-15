@@ -122,7 +122,7 @@ describe('image', () => {
         // 图片拖动策略是图片只能够拖动到图片边缘和容器边缘重合，因此预期top和left都为 0px
         cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 0, clientY: 0 });
         cy.wait(200);
-        cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100 }).trigger('mouseup');
+        cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100, buttons: 1 });
         cy.wait(200);
         cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '0px');
         cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '0px');
@@ -558,5 +558,18 @@ describe('image', () => {
                         expect(imgTop).to.equal(divTop); 
                     });
             });
+    });
+
+    // API：previewCls， previewStyle，测试 preview 的 className 和 style 是否生效
+    it("previewCls & previewStyle", () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=image--preview-cls-and-preview-style&args=&viewMode=storyi');
+        cy.wait(4000);
+        cy.get('.semi-image-img-preview').eq(0).click();
+        cy.get('.semi-image-preview').eq(0).should('have.class', 'test-preview');
+        cy.get('.semi-image-preview').eq(0).should('have.attr', 'style').should('contain', 'background: lightblue;');
+        cy.get('.semi-image-preview').click();
+        cy.get('.semi-image-img-preview').eq(1).click();
+        cy.get('.semi-image-preview').eq(0).should('have.class', 'test-imagePreview');
+        cy.get('.semi-image-preview').eq(0).should('have.attr', 'style').should('contain', 'background: lightgreen;');
     });
 });

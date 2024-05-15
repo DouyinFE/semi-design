@@ -1,4 +1,4 @@
-import { isNumber, isFunction, get, isUndefined, isString, cloneDeep, isEmpty, difference } from 'lodash';
+import { isNumber, isFunction, get, isUndefined, isString, isEmpty, difference } from 'lodash';
 import { strings } from '../treeSelect/constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
@@ -139,7 +139,7 @@ export interface BasicTreeSelectProps extends Pick<BasicTreeProps,
     getPopupContainer?: () => HTMLElement;
     // triggerRender?: (props: BasicTriggerRenderProps) => any;
     onBlur?: (e: any) => void;
-    onSearch?: (sunInput: string, filteredExpandedKeys: string[]) => void;
+    onSearch?: (sunInput: string, filteredExpandedKeys: string[], filteredNodes: BasicTreeNodeData[]) => void;
     onChange?: BasicOnChange;
     onFocus?: (e: any) => void;
     onVisibleChange?: (isVisible: boolean) => void;
@@ -150,6 +150,7 @@ export interface BasicTreeSelectInnerData extends Pick<BasicTreeInnerData,
 'keyEntities'
 | 'treeData'
 | 'flattenNodes'
+| 'cachedFlattenNodes'
 | 'selectedKeys'
 | 'checkedKeys'
 | 'halfCheckedKeys'
@@ -182,12 +183,13 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     rePositionDropdown: () => void;
     updateState: (states: Partial<BasicTreeSelectInnerData>) => void;
     notifySelect: (selectedKey: string, selected: boolean, selectedNode: BasicTreeNodeData) => void;
-    notifySearch: (input: string, filteredExpandedKeys: string[]) => void;
+    notifySearch: (input: string, filteredExpandedKeys: string[], filteredNodes: BasicTreeNodeData[]) => void;
     cacheFlattenNodes: (bool: boolean) => void;
     openMenu: () => void;
     closeMenu: (cb?: () => void) => void;
     getTriggerWidth: () => boolean | number;
     setOptionWrapperWidth: (width: null | number) => void;
+    notifyClear: (e: any) => void;
     notifyChange: BasicOnChangeWithBasic;
     notifyChangeWithObject: BasicOnChangeWithObject;
     notifyExpand: (expandedKeys: Set<string>, expandedOtherProps: BasicExpandedOtherProps) => void;
@@ -197,7 +199,9 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     notifyLoad: (newLoadedKeys: Set<string>, data: BasicTreeNodeData) => void;
     updateInputFocus: (bool: boolean) => void;
     updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
-    updateIsFocus: (bool: boolean) => void
+    updateIsFocus: (bool: boolean) => void;
+    setClearInputFlag: (flag: boolean) => void;
+    getClearInputFlag: () => boolean
 }
 
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
@@ -304,14 +308,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    getCopyFromState(items: string | string[]) {
-        const res = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res as BasicTreeInnerData;
-    }
-
     getTreeNodeProps(key: string) {
         const {
             expandedKeys = new Set([]),
@@ -346,9 +342,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const isSearching = Boolean(inputValue);
         const treeNodeProps: BasicTreeNodeProps = {
             eventKey: key,
-            expanded: isSearching && !this._isExpandControlled()
-                ? filteredExpandedKeys.has(key)
-                : expandedKeys.has(key),
+            expanded: isSearching ? filteredExpandedKeys.has(key) : expandedKeys.has(key),
             selected: selectedKeys.includes(key),
             checked: realChecked,
             halfChecked: realHalfChecked,
@@ -375,10 +369,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             return {};
         }
         loadData(data).then(() => {
-            const {
-                loadedKeys: prevLoadedKeys,
-                loadingKeys: prevLoadingKeys
-            } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+            const prevLoadedKeys = new Set(this.getState('loadedKeys')) as Set<string>;
+            const prevLoadingKeys = new Set(this.getState('loadingKeys')) as Set<string>;
             const newLoadedKeys: Set<string> = prevLoadedKeys.add(key);
             const newLoadingKeys: Set<string> = new Set([...prevLoadingKeys]);
             newLoadingKeys.delete(key);
@@ -442,6 +434,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
             this.handlerTriggerBlur(e);
             this.close(e);
         });
+    }
+
+    clearInputValue = () => {
+        const { inputValue } = this.getStates();
+        inputValue && this._adapter.updateInputValue('');
     }
 
     // Scenes that may trigger focus:
@@ -544,6 +541,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
                 }
             }
         }
+        this._adapter.notifyClear(e);
     }
 
     /**
@@ -592,19 +590,20 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { keyMaps } = this.getProps();
         const newExpandedKeys: Set<string> = new Set(expandedKeys);
         const isExpandControlled = this._isExpandControlled();
-        const expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities);
+        const expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities, false);
         expandedOptsKeys.forEach(item => newExpandedKeys.add(item));
         const newFlattenNodes = flattenTreeData(treeData, newExpandedKeys, keyMaps);
 
         this._adapter.updateState({
-            expandedKeys: isExpandControlled ? expandedKeys : newExpandedKeys,
-            flattenNodes: isExpandControlled ? flattenNodes : newFlattenNodes,
+            expandedKeys: newExpandedKeys,
+            flattenNodes: newFlattenNodes,
             inputValue: '',
             motionKeys: new Set([]),
             filteredKeys: new Set([]),
             filteredExpandedKeys: new Set(expandedOptsKeys),
             filteredShownKeys: new Set([])
         });
+        this._adapter.rePositionDropdown();
     }
 
     handleInputChange(sugInput: string) {
@@ -614,36 +613,39 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { showFilteredOnly, filterTreeNode, treeNodeFilterProp, keyMaps } = this.getProps();
         const realFilterProp = treeNodeFilterProp !== 'label' ? treeNodeFilterProp : get(keyMaps, 'label', 'label');
         const newExpandedKeys: Set<string> = new Set(expandedKeys);
+        let filteredNodes: BasicTreeNodeData[] = [];
         let filteredOptsKeys: string[] = [];
         let expandedOptsKeys = [];
         let newFlattenNodes = [];
         let filteredShownKeys = new Set([]);
         if (!sugInput) {
-            expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities);
+            expandedOptsKeys = findAncestorKeys(selectedKeys, keyEntities, false);
             expandedOptsKeys.forEach(item => newExpandedKeys.add(item));
             newFlattenNodes = flattenTreeData(treeData, newExpandedKeys, keyMaps);
         } else {
-            filteredOptsKeys = Object.values(keyEntities)
+            const filteredOpts = Object.values(keyEntities)
                 .filter((item: BasicKeyEntity) => {
                     const { data } = item;
                     return filter(sugInput, data, filterTreeNode, realFilterProp);
-                })
-                .map((item: BasicKeyEntity) => item.key);
+                });
+            filteredNodes = filteredOpts.map((item: BasicKeyEntity) => item.data);
+            filteredOptsKeys = filteredOpts.map((item: BasicKeyEntity) => item.key);
             expandedOptsKeys = findAncestorKeys(filteredOptsKeys, keyEntities, false);
             const shownChildKeys = findDescendantKeys(filteredOptsKeys, keyEntities, true);
             filteredShownKeys = new Set([...shownChildKeys, ...expandedOptsKeys]);
             newFlattenNodes = flattenTreeData(treeData, new Set(expandedOptsKeys), keyMaps, showFilteredOnly && filteredShownKeys);
         }
         const newFilteredExpandedKeys = new Set(expandedOptsKeys);
-        this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys));
+        this._adapter.notifySearch(sugInput, Array.from(newFilteredExpandedKeys), filteredNodes);
         this._adapter.updateState({
-            expandedKeys: this._isExpandControlled() ? expandedKeys : newExpandedKeys,
-            flattenNodes: this._isExpandControlled() ? flattenNodes : newFlattenNodes,
+            expandedKeys: newExpandedKeys,
+            flattenNodes: newFlattenNodes,
             motionKeys: new Set([]),
             filteredKeys: new Set(filteredOptsKeys),
             filteredExpandedKeys: newFilteredExpandedKeys,
             filteredShownKeys,
         });
+        this._adapter.rePositionDropdown();
     }
 
     handleNodeSelect(e: any, treeNode: BasicTreeNodeProps) {
@@ -659,7 +661,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleSingleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        let { selectedKeys } = this.getCopyFromState('selectedKeys');
+        let selectedKeys = [...this.getState('selectedKeys')];
         const { clickToHide } = this.getProps();
         const { selected, eventKey, data } = treeNode;
         this._adapter.notifySelect(eventKey, true, data);
@@ -679,10 +681,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     calcCheckedKeys(eventKey: BasicTreeNodeProps['eventKey'], targetStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const {
-            checkedKeys,
-            halfCheckedKeys
-        } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         if (targetStatus) {
             return calcCheckedKeysForChecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys);
         } else {
@@ -732,7 +732,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some(key => disabledKeys.has(key));
         if (!hasDisabled) {
@@ -763,7 +763,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const { treeData, filteredShownKeys, keyEntities, keyMaps } = this.getStates();
         const showFilteredOnly = this._showFilteredOnly();
         // clone otherwise will be modified unexpectedly
-        const { filteredExpandedKeys } = this.getCopyFromState('filteredExpandedKeys');
+        const filteredExpandedKeys = new Set(this.getState('filteredExpandedKeys')) as Set<string>;
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
 
@@ -808,14 +808,14 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
 
         const isExpandControlled = this._isExpandControlled();
-        if (isSearching && !isExpandControlled) {
+        if (isSearching) {
             this.handleNodeExpandInSearch(e, treeNode);
             return;
         }
 
         const { treeData } = this.getStates();
         // clone otherwise will be modified unexpectedly
-        const { expandedKeys } = this.getCopyFromState('expandedKeys');
+        const expandedKeys = new Set(this.getState('expandedKeys')) as Set<string>;
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
         if (!expanded) {
@@ -877,7 +877,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
      * When the search box is on the trigger, the focus event processing method
      */
     handleInputTriggerFocus() {
-        this.clearInput();
+        const inputValue = this.getState('inputValue');
+        inputValue && this.clearInput();
         this._adapter.updateState({
             inputTriggerFocus: true
         });
@@ -885,5 +886,31 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     setLoadKeys(data: BasicTreeNodeData, resolve: (value?: any) => void) {
         this._adapter.updateLoadKeys(data, resolve);
+    }
+
+    handlePopoverVisibleChange(isVisible: boolean) {
+        const { filterTreeNode, searchAutoFocus, searchPosition } = this.getProps();
+        const inputValue = this.getState('inputValue');
+        // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
+        // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
+        if (isVisible === false && filterTreeNode) {
+            inputValue && this._adapter.setClearInputFlag(true);
+            this.clearInputValue(); 
+        }
+        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
+            this.focusInput(true);
+        }
+    }
+
+    handleAfterClose() {
+        // flattenNode 的变化将导致弹出层面板中的选项数目变化
+        // 在弹层完全收起之后，再通过 clearInput 重新计算 state 中的 expandedKey， flattenNode
+        // 防止在弹出层未收起时弹层面板中选项数目变化导致视觉上出现弹层闪动问题
+        // Changes to flattenNode will cause the number of options in the popup panel to change
+        // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
+        // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
+        const { filterTreeNode } = this.getProps();
+        const shouldClear = this._adapter.getClearInputFlag();
+        filterTreeNode && shouldClear && this.clearInput();
     }
 }

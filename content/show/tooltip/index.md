@@ -353,7 +353,7 @@ function Demo() {
                 ellipsis={{ rows: 3, showTooltip: { type: 'popover', opts: { style: { width: 300 } } } }}
                 style={{ width: 300 }}
             >
-                多行截断，展示 Popover：Semi Design 是由互娱社区前端团队与 UED
+                多行截断，展示 Popover：Semi Design 是由抖音前端团队与 UED
                 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
                 Web 应用。
             </Paragraph>
@@ -385,7 +385,7 @@ function Demo() {
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                               | boolean |  |  |
 | rePosKey | 可以更新该项值手动触发弹出层的重新定位                                                                                                                                  | string\|number |  |  |
 | style    | 弹出层的内联样式                                                                                                                                             | object |  |  |
-| spacing | 弹出层与 `children` 元素的距离，单位 px                                                                                                                          | number ｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 8 |  |
+| spacing | 弹出层与 `children` 元素的距离，单位 px（object类型自 v2.45后支持）                                                                                                                     | number ｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 8 |  |
 | showArrow | 是否显示箭头三角形                                                                                                                                            | boolean | true |  |
 | stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false | **0.34.0** |
 | transformFromCenter | 是否从包裹的元素水平或垂直中心处变换，该参数仅影响动效变换的 `transform-origin`，一般无需改动                                                                                             | boolean | true |  |

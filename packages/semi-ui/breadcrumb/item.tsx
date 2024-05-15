@@ -46,7 +46,7 @@ export default class BreadcrumbItem extends BaseComponent<BreadcrumbItemProps, B
         children: propTypes.node,
         active: propTypes.bool,
         shouldRenderSeparator: propTypes.bool,
-        icon: propTypes.oneOfType([propTypes.string, propTypes.node]),
+        icon: propTypes.node,
         separator: propTypes.node,
         noLink: propTypes.bool,
     };

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider, RadioGroup } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -855,7 +855,27 @@ SelectFilterSingle.story = {
 };
 
 export const SelectFilterMultiple = () => (
-  <>
+  <Space>
+    <Select
+      filter
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      size='small'
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
     <Select
       filter
       multiple={true}
@@ -866,13 +886,34 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
       <Option value={6}>opt6</Option>
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
+    </Select>
+    <Select
+      filter
+      size='large'
+      multiple={true}
+      style={{
+        width: '250px',
+      }}
+      placeholder="fefe"
+    >
+      <Option value={1}>opt1</Option>
+      <Option value={2}>opt2</Option>
+      <Option value={3}>opt3</Option>
+      <Option value={4}>opt4</Option>
+      <Option value={5}>opt5</Option>
+      <Option value={6}>opt6</Option>
+      <Option value={7}>opt7</Option>
+      <Option value={8}>opt8</Option>
+      <Option value={9}>opt9</Option>
+      <Option value={10}>opt10</Option>
     </Select>
     <Select
       filter
@@ -885,7 +926,6 @@ export const SelectFilterMultiple = () => (
     >
       <Option value={1}>opt1</Option>
       <Option value={2}>opt2</Option>
-      <Option value={3}>opt22</Option>
       <Option value={3}>opt3</Option>
       <Option value={4}>opt4</Option>
       <Option value={5}>opt5</Option>
@@ -893,7 +933,7 @@ export const SelectFilterMultiple = () => (
       <Option value={7}>opt7</Option>
       <Option value={8}>opt8</Option>
     </Select>
-  </>
+  </Space>
 );
 
 SelectFilterMultiple.story = {
@@ -1213,6 +1253,7 @@ RenderSelectedItem.parameters =  {
 };
 
 const ControlledSelect = () => {
+  const [filter, setFilter] = useState(true);
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1220,9 +1261,22 @@ const ControlledSelect = () => {
   const [value5, setValue5] = useState();
   return (
     <>
+      <RadioGroup
+        type='button'
+        defaultValue={false}
+        onChange={e => setFilter(e.target.value)}
+        options={[
+          { value: true, label: 'Filter enable' },
+          { value: false, label: 'Filter disable' },
+        ]}
+      >
+      </RadioGroup>
+      <br />
+      <br />
       <span>value + onChange</span>
       <Select
         value={value}
+        filter={filter}
         onChange={setValue}
         style={{
           width: 200,
@@ -1238,6 +1292,7 @@ const ControlledSelect = () => {
       <span>只传value，不传onChange</span>
       <Select
         value={value2}
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -1253,6 +1308,7 @@ const ControlledSelect = () => {
       <Select
         value={value3}
         onChange={setValue3}
+        filter={filter}
         multiple
         style={{
           width: 200,
@@ -1272,6 +1328,7 @@ const ControlledSelect = () => {
       <Select
         value={value4}
         multiple
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -2207,11 +2264,13 @@ const BlurDemo = () => {
   const onBlur = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onBlur');
   };
 
   const onFocus = (value, e) => {
     console.log(value);
     console.log(e);
+    console.log('onFocus');
   };
 
   return (
@@ -2224,6 +2283,24 @@ const BlurDemo = () => {
         }}
         onBlur={onBlur}
         onFocus={onFocus}
+      >
+        <Select.Option value="zhongguo">China</Select.Option>
+        <Select.Option value="hanguo">Korea</Select.Option>
+        <Select.Option value="deguo">Germany</Select.Option>
+        <Select.Option value="faguo">France</Select.Option>
+      </Select>
+      <br />
+      <br />
+      <br />
+      <Select
+        filter
+        placeholder="多选"
+        style={{
+          width: 180,
+        }}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        multiple
       >
         <Select.Option value="zhongguo">China</Select.Option>
         <Select.Option value="hanguo">Korea</Select.Option>
@@ -3394,3 +3471,100 @@ export const TestOptionKey = () => {
     </Select>
   </>
 }
+
+export const AllCaseOfBlur = () => {
+
+  const BaseSelect = (props) => {
+    return (
+       <Select defaultValue="abc" style={{ width: 120 }} {...props} >
+        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="ulikecam">轻颜相机</Select.Option>
+        <Select.Option value="jianying" disabled>
+            剪映
+        </Select.Option>
+        <Select.Option value="xigua">西瓜视频</Select.Option>
+      </Select>
+    )
+  }
+  return (
+    <div>
+      <h3>单选</h3>
+      <Divider margin='12px' />
+      <h5>默认配置</h5>
+      <BaseSelect data-cy="singleDefault" onBlur={()=>{console.log('single default onBlur')}} />
+      <br />
+      <h5>filter</h5>
+      <BaseSelect data-cy="singleFilter" filter onBlur={()=>{console.log('single filter onBlur')}} />
+      <br />
+      <h5>autoFocus</h5>
+      <BaseSelect data-cy="singleAutoFocus" autoFocus onBlur={()=>{console.log('single autoFocus onBlur')}} />
+      <br />
+      <h5>clickToHide</h5>
+      <BaseSelect data-cy="singleClickToHide" clickToHide onBlur={()=>{console.log('single clickToHide onBlur')}} />
+      <br />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="singleShowClear" showClear onBlur={()=>{console.log('single showClear onBlur')}} />
+
+      <h3>多选</h3>
+      <Divider margin='12px' />
+      <h5>默认配置</h5>
+      <BaseSelect data-cy="multipleDefault" multiple onBlur={()=>{console.log('multiple default onBlur')}} />
+      <br />
+      <h5>filter</h5>
+      <BaseSelect data-cy="multipleFilter" multiple filter onBlur={()=>{console.log('multiple filter onBlur')}} />
+      <h5>clickToHide</h5>
+      <BaseSelect data-cy="multipleClickToHide" multiple clickToHide onBlur={()=>{console.log('multiple clickToHide onBlur')}} />
+      <h5>showClear</h5>
+      <BaseSelect data-cy="multipleShowClear" multiple showClear onBlur={()=>{console.log('multiple showClear onBlur')}} />
+      <br />
+      <br />
+    </div>
+  )
+}
+
+export const UpdateOtherKeyNotInList = () => {
+  const [v, setV] = useState([
+    {
+      label: 'AA-Label',
+      value: 'AA',
+      otherProps: 'AA-OtherProps',
+    },
+  ]);
+
+  const change = () => {
+    setV([
+      {
+        label: 'AA-Label-2',
+        value: 'AA',
+        otherProps: 'AA-OtherProps-2',
+      },
+    ])
+  }
+
+  const renderSelectedItem = (optionNode) => {
+    const { label, otherProps } = optionNode;
+    const content = (
+      <div className='render-content'>
+        {label}-{otherProps}
+      </div>
+    );
+    return {
+      isRenderInTag: false,
+      content,
+    };
+  };
+  return (
+    <>
+      <Select
+        value={v}
+        onChange={setV}
+        filter
+        multiple
+        renderSelectedItem={renderSelectedItem}
+        onChangeWithObject
+        style={{ width: 320 }}
+      />
+      <Button id='change' onClick={() => change()}>change</Button>
+    </>
+  );
+};

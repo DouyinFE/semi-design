@@ -26,8 +26,7 @@ import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
 import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
-import { isSemiIcon, getFocusableElements, getActiveElement } from '../_utils';
-import warning from '@douyinfe/semi-foundation/utils/warning';
+import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromGlobalConfig } from '../_utils';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 import '@douyinfe/semi-foundation/select/select.scss';
@@ -170,7 +169,7 @@ export type SelectProps = {
     onDeselect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     onSelect?: (value: SelectProps['value'], option: Record<string, any>) => void;
     allowCreate?: boolean;
-    triggerRender?: (props?: TriggerRenderProps) => React.ReactNode;
+    triggerRender?: (props: TriggerRenderProps) => React.ReactNode;
     onClear?: () => void;
     virtualize?: virtualListProps;
     onFocus?: (e: React.FocusEvent) => void;
@@ -313,7 +312,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         // tagClosable: PropTypes.bool,
     };
 
-    static defaultProps: Partial<SelectProps> = {
+    static __SemiComponentName__ = "Select";
+    
+    static defaultProps: Partial<SelectProps> = getDefaultPropsFromGlobalConfig(Select.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
         borderless: false,
@@ -356,7 +357,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         // renderSelectedItem: (optionNode) => optionNode.label,
         // The default creator rendering is related to i18, so it is not declared here
         // renderCreateItem: (input) => input
-    };
+    })
 
     inputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
@@ -452,10 +453,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     const optionInstance = this.optionsRef && this.optionsRef.current;
                     const triggerDom = (this.triggerRef && this.triggerRef.current) as Element;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance as ReactInstance);
-                    // let isInPanel = optionsDom && optionsDom.contains(e.target);
-                    // let isInTrigger = triggerDom && triggerDom.contains(e.target);
-                    if (optionsDom && !optionsDom.contains(e.target as Node) &&
-                        triggerDom && !triggerDom.contains(e.target as Node)) {
+                    const target = e.target as Element;
+                    const path = (e as any).composedPath && (e as any).composedPath() || [target];
+
+                    if (!(optionsDom && optionsDom.contains(target)) &&
+                        !(triggerDom && triggerDom.contains(target)) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
+                    ) {
                         cb(e);
                     }
                 };

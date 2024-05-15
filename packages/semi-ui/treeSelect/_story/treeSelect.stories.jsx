@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useRef, useCallback, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, TagInput, Switch } from '../../index';
 import TreeSelect from '../index';
-import { flattenDeep, cloneDeep } from 'lodash';
+import { flattenDeep, without } from 'lodash';
 import CustomTrigger from './CustomTrigger';
 import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
-import { setFocusToPreviousMenuItem } from '@douyinfe/semi-foundation/utils/a11y';
-import { node } from 'prop-types';
+import copy from 'fast-copy';
+
 const TreeNode = TreeSelect.TreeNode;
 const { Title } = Typography;
 
@@ -279,6 +280,67 @@ const specialTreeData = [
       },
     ],
   },
+];
+
+const treeDataEn = [
+  {
+      label: 'Asia',
+      value: 'Asia',
+      key: '0',
+      children: [
+          {
+              label: 'China',
+              value: 'China',
+              key: '0-0',
+              children: [
+                  {
+                      label: 'Beijing',
+                      value: 'Beijing',
+                      key: '0-0-0',
+                  },
+                  {
+                      label: 'Shanghai',
+                      value: 'Shanghai',
+                      key: '0-0-1',
+                  },
+                  {
+                      label: 'Chengdu',
+                      value: 'Chengdu',
+                      key: '0-0-2',
+                  },
+              ],
+          },
+          {
+              label: 'Japan',
+              value: 'Japan',
+              key: '0-1',
+              children: [
+                  {
+                      label: 'Osaka',
+                      value: 'Osaka',
+                      key: '0-1-0'
+                  }
+              ]
+          },
+      ],
+  },
+  {
+      label: 'North America',
+      value: 'North America',
+      key: '1',
+      children: [
+          {
+              label: 'United States',
+              value: 'United States',
+              key: '1-0'
+          },
+          {
+              label: 'Canada',
+              value: 'Canada',
+              key: '1-1'
+          }
+      ]
+  }
 ];
 
 export const TreeSelectWrapper = () => (
@@ -1382,66 +1444,7 @@ DisabledStrictly.story = {
 
 
 export const CheckRelationDemo = () => {
-  const treeData = [
-    {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
-            {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: 'Chengdu',
-                        value: 'Chengdu',
-                        key: '0-0-2',
-                    },
-                ],
-            },
-            {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
-    }
-  ];
+  const treeData = treeDataEn;
   const [value, setValue] = useState('China');
   const [value2, setValue2] = useState();
   const [value3, setValue3] = useState();
@@ -2283,9 +2286,17 @@ export const triggerRenderAddMethod = () => {
     <>
       <TreeSelect
           triggerRender={renderTrigger1}
+          treeData={treeData}
+          placeholder='Single, Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+      <TreeSelect
+          triggerRender={renderTrigger1}
           multiple
           treeData={treeData}
-          placeholder='Custom Trigger'
+          placeholder='Multiple, custom Trigger'
           onChange={onValueChange}
           style={{ width: 300 }}
       />
@@ -2302,12 +2313,26 @@ export const triggerRenderAddMethod = () => {
       />
       <br />
       <TreeSelect
+          defaultExpandAll
           triggerRender={renderTrigger3}
           filterTreeNode
           searchPosition="trigger"
           multiple
           treeData={treeData}
           placeholder='Custom Trigger'
+          onChange={onValueChange}
+          style={{ width: 300 }}
+      />
+      <br />
+       <TreeSelect
+          defaultExpandAll
+          checkRelation={'unRelated'} 
+          triggerRender={renderTrigger3}
+          filterTreeNode
+          searchPosition="trigger"
+          multiple
+          treeData={treeData}
+          placeholder='multiple, checkRelation = unRelated'
           onChange={onValueChange}
           style={{ width: 300 }}
       />
@@ -2564,7 +2589,7 @@ export const KeyMaps = () => {
   }, []);
 
   const normalExpand = useCallback((expandedKeys, {expanded, node}) => {
-    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+    console.log('onExpanded', expandedKeys, expanded, copy(node));
   }, []);
 
   const keyMaps = useMemo(() => {
@@ -2645,7 +2670,7 @@ export const KeyMaps = () => {
           multiple
           expandedKeys={expandKeys}
           onExpand={(expandedKeys, {expanded, node}) => {
-            console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+            console.log('onExpanded', expandedKeys, expanded, copy(node));
             setExpandedKeys(expandedKeys);
           }}
         />
@@ -2653,3 +2678,115 @@ export const KeyMaps = () => {
     </> 
   );
 }
+
+export const Issue1542 = () => {
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const treeData = treeDataEn;
+  const onExpand = useCallback((expandedKeys) => {
+    setExpandedKeys(expandedKeys);
+  }, [expandedKeys]);
+
+  const onSearch = useCallback((inputValue, filteredExpandedKeys) => {
+    const set = new Set([...filteredExpandedKeys, ...expandedKeys]);
+    setExpandedKeys(Array.from(set));
+  }, [setExpandedKeys]);
+
+  return (
+    <>
+      <TreeSelect
+          // multiple
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData}
+          filterTreeNode
+          searchPosition='trigger'
+          showFilteredOnly
+          expandedKeys={expandedKeys}
+          onExpand={onExpand}
+          onSearch={onSearch}
+      />
+    </>  
+  );
+};
+
+class WebComponentWrapper extends HTMLElement {
+  constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+      ReactDOM.render(<_TreeSelect />, this.shadowRoot);
+  }
+}
+
+customElements.define('my-web-component', WebComponentWrapper);
+
+export const WebCompTestOutside = () => {
+
+  return (
+    <my-web-component></my-web-component>
+  );
+};
+
+export const CustomSelectAll = () => {
+  const [value, setValue] = useState([]);
+  const [filteredNodes, setFilteredNodes] = useState([])
+  const treeData = treeDataEn;
+  const onSearch = useCallback((inputValue, filteredExpandedKeys, _filteredNodes) => {
+    setFilteredNodes(_filteredNodes)
+  }, []);
+
+  const handleOnChange = useCallback((value) => {
+    setValue(value);
+  }, [])
+
+  // 是否全选
+  const allSelected = useMemo(() => {
+    if (!filteredNodes.length) {
+      return false;
+    }
+    const optionValues = filteredNodes.map(i => i.value);
+    return !without(optionValues, ...value).length;
+  }, [filteredNodes, value]);
+
+  const handleOnAllSelect = useCallback(() => {
+    const optionValues = filteredNodes.map(i => i.value);
+    handleOnChange(allSelected ? [] : optionValues);
+  }, [allSelected, handleOnChange, filteredNodes]);
+ 
+  const outerBottomSlot = useMemo(() => {
+    if (!filteredNodes.length) {
+      // 未筛选状态下不展示按钮
+      return null;
+    }
+    return (
+        <div style={{ padding: '5px 20px', borderTop: '1px solid var(--semi-color-border)'}}>
+          <Typography.Text link={true} onClick={handleOnAllSelect}>
+            {allSelected ? '取消全选' : '全选'}
+          </Typography.Text>
+        </div> 
+    );
+  }, [allSelected, handleOnAllSelect, filteredNodes]);
+
+  return (
+    <>
+      <span>本用例借助 onSearch 的第三个参数_filteredNodes 自定义搜索全选功能 </span>
+      <br />
+      <TreeSelect
+          multiple
+          style={{ width: 300 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData}
+          filterTreeNode
+          searchPosition='trigger'
+          showFilteredOnly
+          onSearch={onSearch}
+          onChange={handleOnChange}
+          value={value}
+          showClear
+          outerBottomSlot={outerBottomSlot}
+      />
+    </>  
+  );
+};

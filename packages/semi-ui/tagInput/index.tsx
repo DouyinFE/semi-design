@@ -56,7 +56,7 @@ export interface TagInputProps {
     onFocus?: (e: React.MouseEvent<HTMLInputElement>) => void;
     onInputChange?: (value: string, e: React.MouseEvent<HTMLInputElement>) => void;
     onInputExceed?: ((value: string) => void);
-    onKeyDown?: (e: React.MouseEvent<HTMLInputElement>) => void;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     onRemove?: (removedValue: string, idx: number) => void;
     placeholder?: string;
     insetLabel?: React.ReactNode;
@@ -253,7 +253,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
                 const clickOutsideHandler = (e: Event) => {
                     const tagInputDom = this.tagInputRef && this.tagInputRef.current;
                     const target = e.target as Element;
-                    if (tagInputDom && !tagInputDom.contains(target)) {
+                    const path = e.composedPath && e.composedPath() || [target];
+                    if (tagInputDom && !tagInputDom.contains(target) && !path.includes(tagInputDom)) {
                         cb(e);
                     }
                 };
@@ -564,6 +565,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             disabled,
             placeholder,
             validateStatus,
+            prefix,
+            insetLabel,
+            suffix,
             ...rest
         } = this.props;
 
@@ -583,6 +587,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-warning`]: validateStatus === 'warning',
             [`${prefixCls}-small`]: size === 'small',
             [`${prefixCls}-large`]: size === 'large',
+            [`${prefixCls}-with-prefix`]: !!prefix || !!insetLabel,
+            [`${prefixCls}-with-suffix`]: !!suffix,
         });
 
         const inputCls = cls(`${prefixCls}-wrapper-input`, `${prefixCls}-wrapper-input-${size}`);

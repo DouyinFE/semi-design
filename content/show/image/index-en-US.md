@@ -469,7 +469,10 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | className        | custom style class name              | string            | - | |
 | crossOrigin      | Passthrough to the crossorigin of the native img tag | 'anonymous' \| 'use-credentials' |-| |
 | fallback         | Custom loading failed display content | ReactNode  | - | |
+| imgCls           | Custom style class name, transparently passed to img node | string            | - | |
+| imgStyle         | Custom styles, transparently passed to img node | CSSProperties     | - | |
 | height           | Image display height                 | number            | - | |
+| onClick          | Click callback on image              | (event: Event) => void | - | |
 | onError          | Load error callback                  | (event: Event) => void | - | |
 | onLoad           | Load success callback                | (event: Event) => void | - | |
 | placeholder      | Placeholder content when the image is not loaded | ReactNode | - | |
@@ -502,6 +505,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | onChange         | Event triggered by switching pictures                                                                                                                                    | (index: number) => void | - | |
 | onClose          | The callback function when the close button is clicked                                                                                                                   | () => void | - | |
 | onDownload       | Image download callback function                                                                                                                                         | (src: string, index: number) => void | - | |
+| onDownloadError     | Image download error callback                                                                                                                                | (src: string) => void | - | v2.54.0 |
 | onRotateLeft     | Callback for rotating the image                                                                                                                                          | (angle: number) => void | - | |
 | onNext           | Callback for switching pictures backwards                                                                                                                                | (index: number) => void | - | |
 | onPrev           | Callback for switching the picture forward                                                                                                                               | (index: number) => void | - | |
@@ -511,6 +515,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | preLoad          | Whether to enable preloading                                                                                                                                             | boolean | true | |
 | preLoadGap       | Preloaded step size                                                                                                                                                      | number         | 2 | |
 | previewTitle     | Custom preview title                                                                                                                                                     | ReactNode      | - | |
+| previewCls        | Custom preview style class name                                                                                                                                       | string           | - | |
+| previewStyle        | Custom preview style                                                                                                                                       | object           | - | |
 | prevTip          | Previous operation button prompt                                                                                                                                         | string  | "Previous" | |
 | renderHeader     | Custom render preview top info                                                                                                                                           |(info: reactNode) => ReactNode  | - | |
 | renderPreviewMenu | Custom render preview bottom menu information                                                                                                                            | (props: MenuProps) => ReactNode; | - | |

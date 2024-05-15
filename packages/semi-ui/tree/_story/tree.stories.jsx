@@ -1,11 +1,13 @@
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
-import { cloneDeep, difference, isEqual } from 'lodash';
+import { difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
-import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography} from '../../index';
+import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography } from '../../index';
 import BigTree from './BigData';
 import testData from './data';
+import copy from 'fast-copy';
+
 const TreeNode = Tree.TreeNode;
 const { Title } = Typography;
 
@@ -643,7 +645,7 @@ class TagSideSheet2 extends React.Component {
   }
 
   transLabel(list) {
-    // list = cloneDeep(list);
+    // list = copy(list);
     list.forEach(item => {
       item.label = this.renderLabel(item);
       // item.key += Math.random().toString().slice(0, 5);
@@ -653,7 +655,7 @@ class TagSideSheet2 extends React.Component {
 
   render() {
     const { tagList = [] } = this.state;
-    const transformedTags = this.transLabel(cloneDeep(tagList));
+    const transformedTags = this.transLabel(copy(tagList));
     console.log('transformedTags', transformedTags, treeDataTest);
     return <Tree treeData={transformedTags} />;
   }
@@ -1421,7 +1423,7 @@ const LoadingTreeDemo = () => {
     });
   }
 
-  return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} />;
+  return <Tree loadData={onLoadData} treeData={copy(treeData)} />;
 };
 
 export const Loading = () => (
@@ -1462,7 +1464,7 @@ const LoadingWithSearch = () => {
     });
   }
 
-  return <Tree loadData={onLoadData} treeData={cloneDeep(treeData)} filterTreeNode />;
+  return <Tree loadData={onLoadData} treeData={copy(treeData)} filterTreeNode />;
 };
 
 export const _LoadingWithSearch = () => (
@@ -1813,7 +1815,7 @@ const ActionTree = () => {
   const remove = key => {
     let ind = data[0].children.findIndex(item => item.key === key);
     if (ind >= 0) {
-      let items = cloneDeep(data);
+      let items = copy(data);
       items[0].children.splice(ind, 1);
       setData(items);
     }
@@ -1821,7 +1823,7 @@ const ActionTree = () => {
 
   return (
     <Tree
-      treeData={cloneDeep(data)}
+      treeData={copy(data)}
       renderLabel={(label, data) => (
         <div>
           {label}
@@ -1872,8 +1874,8 @@ const MutipleHLTree = () => {
       backgroundColor: selected.has(key)
         ? 'rgba(var(--semi-blue-0), 1)'
         : selectedThroughParent.has(key)
-        ? 'rgba(var(--semi-blue-0), .5)'
-        : 'transparent',
+          ? 'rgba(var(--semi-blue-0), .5)'
+          : 'transparent',
     };
     return (
       <li className={className} role="treeitem" onClick={onClick} style={style}>
@@ -1981,6 +1983,7 @@ const DnDTree = () => {
   ];
 
   const [treeData, setTreeData] = useState(initialData);
+  const [showLine, setShowLine] = useState(false);
 
   // const [expandedKeys, setExpandedKeys] = useState(['zhongguo']);
 
@@ -2041,14 +2044,23 @@ const DnDTree = () => {
     setTreeData(data);
   }
 
+  const onSwitchChange = useCallback((value) => {
+    setShowLine(value);
+  }, []);
+
   return (
-    <Tree
-      treeData={treeData}
-      draggable
-      //expandedKeys={expandedKeys}
-      onDragEnter={onDragEnter}
-      onDrop={onDrop}
-    />
+    <>
+      <Switch onChange={onSwitchChange}/>
+      <Tree
+        treeData={treeData}
+        draggable
+        showLine={showLine}
+        //expandedKeys={expandedKeys}
+        onDragEnter={onDragEnter}
+        onDrop={onDrop}
+      />
+    </>
+    
   );
 };
 
@@ -2199,8 +2211,8 @@ export const RenderFullLabelWithDraggable = () => {
       backgroundColor: selected.has(key)
         ? 'rgba(var(--semi-blue-0), 1)'
         : selectedThroughParent.has(key)
-        ? 'rgba(var(--semi-blue-0), .5)'
-        : 'transparent',
+          ? 'rgba(var(--semi-blue-0), .5)'
+          : 'transparent',
     };
     return (
       <li className={className} role="treeitem" onClick={onClick} style={style}>
@@ -2236,62 +2248,62 @@ RenderFullLabelWithDraggable.story = {
 export const CheckRelationDemo = () => {
   const treeData = [
     {
-        label: 'Asia',
-        value: 'Asia',
-        key: '0',
-        children: [
+      label: 'Asia',
+      value: 'Asia',
+      key: '0',
+      children: [
+        {
+          label: 'China',
+          value: 'China',
+          key: '0-0',
+          children: [
             {
-                label: 'China',
-                value: 'China',
-                key: '0-0',
-                children: [
-                    {
-                        label: 'Beijing',
-                        value: 'Beijing',
-                        key: '0-0-0',
-                    },
-                    {
-                        label: 'Shanghai',
-                        value: 'Shanghai',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: 'Chengdu',
-                        value: 'Chengdu',
-                        key: '0-0-2',
-                    },
-                ],
+              label: 'Beijing',
+              value: 'Beijing',
+              key: '0-0-0',
             },
             {
-                label: 'Japan',
-                value: 'Japan',
-                key: '0-1',
-                children: [
-                    {
-                        label: 'Osaka',
-                        value: 'Osaka',
-                        key: '0-1-0'
-                    }
-                ]
+              label: 'Shanghai',
+              value: 'Shanghai',
+              key: '0-0-1',
             },
-        ],
+            {
+              label: 'Chengdu',
+              value: 'Chengdu',
+              key: '0-0-2',
+            },
+          ],
+        },
+        {
+          label: 'Japan',
+          value: 'Japan',
+          key: '0-1',
+          children: [
+            {
+              label: 'Osaka',
+              value: 'Osaka',
+              key: '0-1-0'
+            }
+          ]
+        },
+      ],
     },
     {
-        label: 'North America',
-        value: 'North America',
-        key: '1',
-        children: [
-            {
-                label: 'United States',
-                value: 'United States',
-                key: '1-0'
-            },
-            {
-                label: 'Canada',
-                value: 'Canada',
-                key: '1-1'
-            }
-        ]
+      label: 'North America',
+      value: 'North America',
+      key: '1',
+      children: [
+        {
+          label: 'United States',
+          value: 'United States',
+          key: '1-0'
+        },
+        {
+          label: 'Canada',
+          value: 'Canada',
+          key: '1-1'
+        }
+      ]
     }
   ];
   const [value, setValue] = useState('China');
@@ -2396,7 +2408,7 @@ export const CheckRelationDemo = () => {
         checkRelation='unRelated'
         defaultExpandAll
         style={style}
-        onSelect={(value,status,node)=>console.log('select', value, status, node)}
+        onSelect={(value, status, node) => console.log('select', value, status, node)}
       />
     </>
   );
@@ -2404,240 +2416,250 @@ export const CheckRelationDemo = () => {
 
 export const ValueImpactExpansionWithDynamicTreeData = () => {
   const json = {
-      "Node0": { 
-          "Child Node0-0": '0-0', 
-          "Child Node0-1": '0-1', 
-      },
-      "Node1": { 
-          "Child Node1-0": '1-0', 
-          "Child Node1-1": '1-1', 
-      }
+    "Node0": {
+      "Child Node0-0": '0-0',
+      "Child Node0-1": '0-1',
+    },
+    "Node1": {
+      "Child Node1-0": '1-0',
+      "Child Node1-1": '1-1',
+    }
   }
   const json2 = {
-      "Updated Node0": { 
-          "Updated Child Node0-0": {
-              'Updated Child Node0-0-0':'0-0'
-          }, 
-          "Updated Child Node0-1": '0-1', 
+    "Updated Node0": {
+      "Updated Child Node0-0": {
+        'Updated Child Node0-0-0': '0-0'
       },
-      "Updated Node1": { 
-          "Updated Child Node1-0": '1-0', 
-          "Updated Child Node1-1": '1-1', 
-      }
+      "Updated Child Node0-1": '0-1',
+    },
+    "Updated Node1": {
+      "Updated Child Node1-0": '1-0',
+      "Updated Child Node1-1": '1-1',
+    }
   }
   const style = {
-      width: 260,
-      height: 420,
-      border: '1px solid var(--color-border)'
+    width: 260,
+    height: 420,
+    border: '1px solid var(--color-border)'
   }
   const [value, setValue] = useState('0-0')
   const [tree, setTree] = useState(json);
   const handleValueButtonClick = () => {
-      if (value === '0-0') {
-          setValue('1-0');
-      } else {
-          setValue('0-0');
-      }
+    if (value === '0-0') {
+      setValue('1-0');
+    } else {
+      setValue('0-0');
+    }
   }
   const handleTreeDataButtonClick = () => {
-      if(isEqual(tree, json)){
-          setTree(json2);
-      } else {
-          setTree(json);
-      }
+    if (isEqual(tree, json)) {
+      setTree(json2);
+    } else {
+      setTree(json);
+    }
   }
-  return (  
+  return (
     <>
       <div>value 受控时，当 treeData/treeDataSimpleJson 改变时，应该根据 value 自动展开</div>
-      <Tree 
-          value={value}
-          treeDataSimpleJson={tree} 
-          style={style}
-          onChange={v => setValue(v)}
+      <Tree
+        value={value}
+        treeDataSimpleJson={tree}
+        style={style}
+        onChange={v => setValue(v)}
       />
       <Space>
-          <Button onClick={handleValueButtonClick}>改变 value</Button>
-          <Button onClick={handleTreeDataButtonClick}>改变 TreeData</Button>    
+        <Button onClick={handleValueButtonClick}>改变 value</Button>
+        <Button onClick={handleTreeDataButtonClick}>改变 TreeData</Button>
       </Space>
     </>
   )
 }
 
 class DemoV extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            gData: [],
-            total: 0,
-            align: 'center',
-            scrollKey: '',
-            expandAll: false,
-        };
-        this.onGen = this.onGen.bind(this);
-        this.onScroll = this.onScroll.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
-        this.onInputBlur = this.onInputBlur.bind(this);
-        this.onSelectChange = this.onSelectChange.bind(this);
-        this.treeRef = React.createRef();
-    }
-
-    generateData(x = 5, y = 4, z = 3, gData = []) {
-        // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
-        function _loop(_level, _preKey, _tns) {
-            const preKey = _preKey || '0';
-            const tns = _tns || gData;
-
-            const children = [];
-            for (let i = 0; i < x; i++) {
-                const key = `${preKey}-${i}`;
-                tns.push({ label: `${key}-标签`, key: `${key}-key`, value: `${key}-value` });
-                if (i < y) {
-                    children.push(key);
-                }
-            }
-            if (_level < 0) {
-                return tns;
-            }
-            const __level = _level - 1;
-            children.forEach((key, index) => {
-                tns[index].children = [];
-                return _loop(__level, key, tns[index].children);
-            });
-
-            return null;
-        }
-        _loop(z);
-
-        function calcTotal(x, y, z) {
-            const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
-            return rec(z + 1);
-        }
-        return { gData, total: calcTotal(x, y, z) };
-    }
-
-    onGen() {
-        const { gData, total } = this.generateData();
-        this.setState({
-            gData,
-            total
-        });
+  constructor() {
+    super();
+    this.state = {
+      gData: [],
+      total: 0,
+      align: 'center',
+      scrollKey: '',
+      expandAll: false,
+      showLine: false,
     };
+    this.onGen = this.onGen.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    this.treeRef = React.createRef();
+  }
 
-    onScroll(scrollKey, align) {
-      this.treeRef?.current.scrollTo({ key: scrollKey, align});
-    }
+  generateData(x = 5, y = 4, z = 3, gData = []) {
+    // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
+    function _loop(_level, _preKey, _tns) {
+      const preKey = _preKey || '0';
+      const tns = _tns || gData;
 
-    onInputChange(value) {
-      this.setState({
-        scrollKey: value,
-      })
-    }
+      const children = [];
+      for (let i = 0; i < x; i++) {
+        const key = `${preKey}-${i}`;
+        tns.push({ label: `${key}-标签`, key: `${key}-key`, value: `${key}-value` });
+        if (i < y) {
+          children.push(key);
+        }
+      }
+      if (_level < 0) {
+        return tns;
+      }
+      const __level = _level - 1;
+      children.forEach((key, index) => {
+        tns[index].children = [];
+        return _loop(__level, key, tns[index].children);
+      });
 
-    onInputBlur(e) {
-      const { value } = e.target;
-      this.onScroll(value, this.state.align);
+      return null;
     }
+    _loop(z);
 
-    onSelectChange(align){
-      this.setState({
-        align: align,
-      })
-      this.onScroll(this.state.scrollKey, align);
+    function calcTotal(x, y, z) {
+      const rec = n => (n >= 0 ? x * y ** n-- + rec(n) : 0);
+      return rec(z + 1);
     }
+    return { gData, total: calcTotal(x, y, z) };
+  }
 
-    render() {
-        const style = {
-            width: 260,
-            border: '1px solid var(--semi-color-border)'
-        };
-        return (
-            <div style={{ padding: '0 20px' }}>
-                <Button onClick={this.onGen}>生成数据: </Button>
-                <span>共 {this.state.total} 个节点</span>
-                <br/>
-                <br/>
-                <div style={{ display: 'flex', alignItems: 'center', }}>
-                  <span>defaultExpandAll</span>
-                  <Switch onChange={(value) => {
-                      this.setState({
-                        expandAll: value,
-                      })
-                  }}/>
-                </div>
-                <br/>
-                <span>跳转的key：</span>
-                <Input
-                  placeholder={'格式：x-x-key'} 
-                  style={{ width: 180, marginRight: 20 }} 
-                  onChange={this.onInputChange}
-                  onBlur={this.onInputBlur}
-                ></Input>
-                <span>scroll align：</span>
-                <Select 
-                  defaultValue='center'
-                  style={{ width: 180 }} 
-                  optionList={['center', 'start', 'end', 'smart', 'auto'].map(item => ({
-                    value: item,
-                    label: item,
-                  }))}
-                  onChange={this.onSelectChange}
-                >
-                </Select>
-                <br />
-                <br />
-                {this.state.gData.length ? (
-                    <Tree
-                        key={`key-${this.state.expandAll}`}
-                        ref={this.treeRef}
-                        defaultExpandAll={this.state.expandAll}
-                        treeData={this.state.gData}
-                        filterTreeNode
-                        showFilteredOnly
-                        style={style}
-                        virtualize={{
-                            // if set height for tree, it will fill 100%
-                            height: 300,
-                            itemSize: 28,
-                        }}
-                    />
-                ) : null}
-            </div>
-        );
-    }
+  onGen() {
+    const { gData, total } = this.generateData();
+    this.setState({
+      gData,
+      total
+    });
+  };
+
+  onScroll(scrollKey, align) {
+    this.treeRef?.current.scrollTo({ key: scrollKey, align });
+  }
+
+  onInputChange(value) {
+    this.setState({
+      scrollKey: value,
+    })
+  }
+
+  onInputBlur(e) {
+    const { value } = e.target;
+    this.onScroll(value, this.state.align);
+  }
+
+  onSelectChange(align) {
+    this.setState({
+      align: align,
+    })
+    this.onScroll(this.state.scrollKey, align);
+  }
+
+  render() {
+    const style = {
+      width: 260,
+      border: '1px solid var(--semi-color-border)'
+    };
+    return (
+      <div style={{ padding: '0 20px' }}>
+        <Button onClick={this.onGen}>生成数据: </Button>
+        <span>共 {this.state.total} 个节点</span>
+        <br />
+        <br />
+        <div style={{ display: 'flex', alignItems: 'center', }}>
+          <span>defaultExpandAll</span>
+          <Switch onChange={(value) => {
+            this.setState({
+              expandAll: value,
+            })
+          }} />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', }}>
+          <span>showLine</span>
+          <Switch onChange={(value) => {
+            this.setState({
+              showLine: value,
+            })
+          }} />
+        </div>
+        <br />
+        <span>跳转的key：</span>
+        <Input
+          placeholder={'格式：x-x-key'}
+          style={{ width: 180, marginRight: 20 }}
+          onChange={this.onInputChange}
+          onBlur={this.onInputBlur}
+        ></Input>
+        <span>scroll align：</span>
+        <Select
+          defaultValue='center'
+          style={{ width: 180 }}
+          optionList={['center', 'start', 'end', 'smart', 'auto'].map(item => ({
+            value: item,
+            label: item,
+          }))}
+          onChange={this.onSelectChange}
+        >
+        </Select>
+        <br />
+        <br />
+        {this.state.gData.length ? (
+          <Tree
+            key={`key-${this.state.expandAll}`}
+            ref={this.treeRef}
+            defaultExpandAll={this.state.expandAll}
+            showLine={this.state.showLine}
+            treeData={this.state.gData}
+            filterTreeNode
+            showFilteredOnly
+            style={style}
+            virtualize={{
+              // if set height for tree, it will fill 100%
+              height: 300,
+              itemSize: 28,
+            }}
+          />
+        ) : null}
+      </div>
+    );
+  }
 }
 
 export const issue1124 = () => {
   const [v, setV] = useState(['1']);
-  const initialData = [ 
-      {
-          label: 'Expand to load',
-          value: '0',
-          key: '0',
-      },
-      {
-          label: 'Expand to load',
-          value: '1',
-          key: '1',
-      },
-      {
-          label: 'Leaf Node',
-          value: '2',
-          key: '2',
-          isLeaf: true,
-      },
+  const initialData = [
+    {
+      label: 'Expand to load',
+      value: '0',
+      key: '0',
+    },
+    {
+      label: 'Expand to load',
+      value: '1',
+      key: '1',
+    },
+    {
+      label: 'Leaf Node',
+      value: '2',
+      key: '2',
+      isLeaf: true,
+    },
   ];
   const [treeData, setTreeData] = useState(initialData);
 
   function updateTreeData(list, key, children) {
-      return list.map(node => {
-          if (node.key === key) {
-              return { ...node, children };
-          }
-          if (node.children) {
-              return { ...node, children: updateTreeData(node.children, key, children) };
-          }
-          return node;
-      });
+    return list.map(node => {
+      if (node.key === key) {
+        return { ...node, children };
+      }
+      if (node.children) {
+        return { ...node, children: updateTreeData(node.children, key, children) };
+      }
+      return node;
+    });
   }
 
   const onChange = (value) => {
@@ -2645,38 +2667,38 @@ export const issue1124 = () => {
   }
 
   function onLoadData({ key, children }) {
-      return new Promise(resolve => {
-          if (children) {
-              resolve();
-              return;
-          }
-          setTimeout(() => {
-              setTreeData(origin =>
-                  updateTreeData(origin, key, [
-                      {
-                          label: `Child Node${key}-0`,
-                          key: `${key}-0`,
-                          value: `${key}-0`,
-                      },
-                      {
-                          label: `Child Node${key}-1`,
-                          key: `${key}-1`,
-                          value: `${key}-1`,
-                      },
-                  ]),
-              );
-              resolve();
-          }, 1000);
-      });
+    return new Promise(resolve => {
+      if (children) {
+        resolve();
+        return;
+      }
+      setTimeout(() => {
+        setTreeData(origin =>
+          updateTreeData(origin, key, [
+            {
+              label: `Child Node${key}-0`,
+              key: `${key}-0`,
+              value: `${key}-0`,
+            },
+            {
+              label: `Child Node${key}-1`,
+              key: `${key}-1`,
+              value: `${key}-1`,
+            },
+          ]),
+        );
+        resolve();
+      }, 1000);
+    });
   }
   return (
-      <Tree 
-          onChange={onChange}
-          loadData={onLoadData}
-          treeData={[...treeData]}
-          value={v}
-          multiple
-      />
+    <Tree
+      onChange={onChange}
+      loadData={onLoadData}
+      treeData={[...treeData]}
+      value={v}
+      multiple
+    />
   );
 }
 
@@ -2692,126 +2714,126 @@ export const SearchableAndExpandedKeys = () => {
   const [expandedKeys3, setExpandedKeys3] = useState([]);
   const [expandedKeys4, setExpandedKeys4] = useState([]);
   return (
-      <>
-          <Title heading={6}>expandedKeys 受控</Title>
-          <Tree
-              style={{ width: 300, marginBottom: 30 }}
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={treeData1}
-              expandedKeys={expandedKeys1}
-              defaultValue='beijing'
-              onExpand={v => {
-                  console.log('onExpand value: ', v);
-                  setExpandedKeys1(v);
-              }}
-          />
-          <Title heading={6}>expandedKeys 受控 + 开启搜索</Title>
-          <Tree
-              style={{ width: 300, marginBottom: 30 }}
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={treeData1}
-              filterTreeNode
-              defaultValue='beijing'
-              expandedKeys={expandedKeys2}
-              onExpand={v => {
-                  console.log('onExpand value: ', v);
-                  setExpandedKeys2(v);
-              }}
-          />
-          <Title heading={6}>expandedKeys 受控 + 开启搜索 + 搜索时更新 expandedKeys</Title>
-          <Tree
-              style={{ width: 300, marginBottom: 30 }}
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={treeData1}
-              filterTreeNode
-              expandedKeys={expandedKeys3}
-              defaultValue='beijing'
-              onExpand={v => {
-                  console.log('onExpand value: ', v);
-                  setExpandedKeys3(v)
-              }}
-              onSearch={(input, filterExpandedKeys) => {
-                  console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
-                  setExpandedKeys3(filterExpandedKeys);
-              }}
-          />
-          <Title heading={6}>expandedKeys 受控 + 开启搜索 + showFilteredOnly + 搜索时更新 expandedKeys</Title>
-          <Tree
-              style={{ width: 300, marginBottom: 30 }}
-              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-              treeData={treeData1}
-              filterTreeNode
-              showFilteredOnly
-              expandedKeys={expandedKeys4}
-              defaultValue='beijing'
-              onExpand={v => {
-                  console.log('onExpand value: ', v);
-                  setExpandedKeys4(v)
-              }}
-              onSearch={(input, filterExpandedKeys) => {
-                  console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
-                  setExpandedKeys4(filterExpandedKeys);
-              }}
-          />
-      </>
+    <>
+      <Title heading={6}>expandedKeys 受控</Title>
+      <Tree
+        style={{ width: 300, marginBottom: 30 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData1}
+        expandedKeys={expandedKeys1}
+        defaultValue='beijing'
+        onExpand={v => {
+          console.log('onExpand value: ', v);
+          setExpandedKeys1(v);
+        }}
+      />
+      <Title heading={6}>expandedKeys 受控 + 开启搜索</Title>
+      <Tree
+        style={{ width: 300, marginBottom: 30 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData1}
+        filterTreeNode
+        defaultValue='beijing'
+        expandedKeys={expandedKeys2}
+        onExpand={v => {
+          console.log('onExpand value: ', v);
+          setExpandedKeys2(v);
+        }}
+      />
+      <Title heading={6}>expandedKeys 受控 + 开启搜索 + 搜索时更新 expandedKeys</Title>
+      <Tree
+        style={{ width: 300, marginBottom: 30 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData1}
+        filterTreeNode
+        expandedKeys={expandedKeys3}
+        defaultValue='beijing'
+        onExpand={v => {
+          console.log('onExpand value: ', v);
+          setExpandedKeys3(v)
+        }}
+        onSearch={(input, filterExpandedKeys) => {
+          console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
+          setExpandedKeys3(filterExpandedKeys);
+        }}
+      />
+      <Title heading={6}>expandedKeys 受控 + 开启搜索 + showFilteredOnly + 搜索时更新 expandedKeys</Title>
+      <Tree
+        style={{ width: 300, marginBottom: 30 }}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        treeData={treeData1}
+        filterTreeNode
+        showFilteredOnly
+        expandedKeys={expandedKeys4}
+        defaultValue='beijing'
+        onExpand={v => {
+          console.log('onExpand value: ', v);
+          setExpandedKeys4(v)
+        }}
+        onSearch={(input, filterExpandedKeys) => {
+          console.log('onExpand filterExpandedKeys: ', filterExpandedKeys);
+          setExpandedKeys4(filterExpandedKeys);
+        }}
+      />
+    </>
   )
 }
 
 export const UnRelatedAndAsyncLoad = () => {
   const initialData = [
-      {
-          label: 'Expand to load0',
-          value: '0',
-          key: '0',
-      },
-      {
-          label: 'Expand to load1',
-          value: '1',
-          key: '1',
-      },
-      {
-          label: 'Leaf Node',
-          value: '2',
-          key: '2',
-          isLeaf: true,
-      },
+    {
+      label: 'Expand to load0',
+      value: '0',
+      key: '0',
+    },
+    {
+      label: 'Expand to load1',
+      value: '1',
+      key: '1',
+    },
+    {
+      label: 'Leaf Node',
+      value: '2',
+      key: '2',
+      isLeaf: true,
+    },
   ];
   const [treeData, setTreeData] = useState(initialData);
 
   function updateTreeData(list, key, children) {
-      return list.map(node => {
-          if (node.key === key) {
-              return { ...node, children };
-          }
-          if (node.children) {
-              return { ...node, children: updateTreeData(node.children, key, children) };
-          }
-          return node;
-      });
+    return list.map(node => {
+      if (node.key === key) {
+        return { ...node, children };
+      }
+      if (node.children) {
+        return { ...node, children: updateTreeData(node.children, key, children) };
+      }
+      return node;
+    });
   }
 
   function onLoadData({ key, children }) {
-      return new Promise(resolve => {
-          if (children) {
-              resolve();
-              return;
-          }
-          setTimeout(() => {
-              setTreeData(origin =>
-                  updateTreeData(origin, key, [
-                      {
-                          label: `Child Node${key}-0`,
-                          key: `${key}-0`,
-                      },
-                      {
-                          label: `Child Node${key}-1`,
-                          key: `${key}-1`,
-                      },
-                  ]),
-              );
-              resolve();
-          }, 1000);
-      });
+    return new Promise(resolve => {
+      if (children) {
+        resolve();
+        return;
+      }
+      setTimeout(() => {
+        setTreeData(origin =>
+          updateTreeData(origin, key, [
+            {
+              label: `Child Node${key}-0`,
+              key: `${key}-0`,
+            },
+            {
+              label: `Child Node${key}-1`,
+              key: `${key}-1`,
+            },
+          ]),
+        );
+        resolve();
+      }, 1000);
+    });
   }
   return (
     <>
@@ -2861,7 +2883,7 @@ export const ChangeTreeData = () => {
     return constructLargeData();
   }, []);
 
-  const treeData2 =  useMemo(() => {
+  const treeData2 = useMemo(() => {
     return constructLargeData();
   }, []);
 
@@ -2873,12 +2895,12 @@ export const ChangeTreeData = () => {
 
   return <>
     <Button onClick={onButtonClick}>点击修改TreeData</Button>
-    <br/><br/>
+    <br /><br />
     <Tree
-        treeData={sign ? treeData1 : treeData2}
-        style={{ width: 300 }}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        placeholder="请选择"
+      treeData={sign ? treeData1 : treeData2}
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      placeholder="请选择"
     />
   </>
 }
@@ -2903,10 +2925,11 @@ export const KeyMaps = () => {
     console.log('onChange', value);
   }, []);
 
-  const normalExpanded = useCallback((expandedKeys, {expanded, node}) => {
+  const normalExpanded = useCallback((expandedKeys, { expanded, node }) => {
     console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+
   }, []);
-  
+
   const normalSearch = useCallback((input, filteredExpandedKeys) => {
     console.log('onSearch', input, filteredExpandedKeys);
   }, []);
@@ -2982,11 +3005,83 @@ export const KeyMaps = () => {
           {...regularTreeProps}
           multiple
           expandedKeys={expandKeys}
-          onExpand={(expandedKeys, {expanded, node}) => {
+          onExpand={(expandedKeys, { expanded, node }) => {
             setExpandedKeys(expandedKeys);
           }}
         />
       </div>
-    </> 
+    </>
   );
 }
+
+
+export const ShowLine = () => {
+  const [showLine,setShowLine] = useState(true);
+  return (
+    <div>
+    <h2>showLine
+      <Switch checked={showLine} onChange={(checked)=>{setShowLine(checked)}}/>
+    </h2>
+    <h2>单选</h2>
+    <Tree
+      showLine={showLine}
+      treeData={treeDataWithoutValue}
+      value="meiguo"
+      defaultExpandAll
+      onChange={(...args) => console.log(args)}
+    />
+    <h2>多选</h2>
+    <Tree
+      showLine={showLine}
+      treeData={[
+        {
+          label: 'Asia',
+          value: 'Asia',
+          key: '0',
+          children: [
+            {
+              label: 'China',
+              value: 'China',
+              key: '0-0',
+              disabled: true,
+              children: [
+                {
+                  label: 'Beijing',
+                  value: 'Beijing',
+                  key: '0-0-0',
+                },
+                {
+                  label: 'Shanghai',
+                  value: 'Shanghai',
+                  key: '0-0-1',
+                  disabled: true,
+                },
+              ],
+            },
+            {
+              label: 'Japan',
+              value: 'Japan',
+              key: '0-1',
+              children: [
+                {
+                  label: 'Osaka',
+                  value: 'Osaka',
+                  key: '0-1-0',
+                },
+              ],
+            },
+          ],
+        },
+      ]}
+      defaultValue="Shanghai"
+      multiple
+      defaultExpandAll
+      disableStrictly
+    />
+  </div>
+  )
+}
+
+ShowLine.story = {
+  name: 'show line',
+};

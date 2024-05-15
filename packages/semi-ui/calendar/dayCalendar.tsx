@@ -31,6 +31,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
         mode: PropTypes.string,
         renderTimeDisplay: PropTypes.func,
         markWeekend: PropTypes.bool,
+        minEventHeight: PropTypes.number,
         scrollTop: PropTypes.number,
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -154,7 +155,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
     };
 
     render() {
-        const { dateGridRender, displayValue, showCurrTime, renderTimeDisplay, markWeekend, className, height, width, style, header } = this.props;
+        const { dateGridRender, displayValue, showCurrTime, renderTimeDisplay, markWeekend, className, height, width, style, header, minEventHeight } = this.props;
         const dayCls = cls(prefixCls, className);
         const dayStyle = {
             height,
@@ -182,6 +183,7 @@ export default class DayCalendar extends BaseComponent<DayCalendarProps, DayCale
                             handleClick={this.handleClick}
                             showCurrTime={showCurrTime}
                             isWeekend={this.isWeekend}
+                            minEventHeight={minEventHeight}
                             dateGridRender={dateGridRender}
                         />
                     </div>

@@ -303,6 +303,7 @@ class Demo extends React.Component {
 | bodyStyle | Content style                                                                                                              | CSSProperties | - | - |
 | className | Class name                                                                                                                 | string | - | - |
 | closable | Toggle whether to show close button                                                                                        | boolean | true | - |
+| closeIcon         | Icon for close button                                                                                              | ReactNode | <IconClose /\>    | - |
 | closeOnEsc | oggle whether to allow close modal by keyboard event Esc                                                                   | boolean | false | 1.0.0 |
 | disableScroll | Toggle whether to add `overflow: hidden` to document.body element. Only works when not setting `getPopupContainer`         | boolean | true | - |
 | footer | Footer                                                                                                                     | ReactNode | null | 1.3.0 |

@@ -1,12 +1,11 @@
-import React, { isValidElement } from 'react';
+import React, { isValidElement, useEffect, useState } from 'react';
 import cls from 'classnames';
-import { noop } from 'lodash';
+import { isEqual, noop, pick } from 'lodash';
 import { IconFilter } from '@douyinfe/semi-icons';
 
 import { cssClasses } from '@douyinfe/semi-foundation/table/constants';
 
 import Dropdown, { DropdownProps } from '../dropdown';
-import { Trigger, Position } from '../tooltip';
 import { Radio } from '../radio';
 import { Checkbox } from '../checkbox';
 import {
@@ -16,7 +15,7 @@ import {
     RenderFilterDropdownItem
 } from './interface';
 
-function renderDropdown(props: RenderDropdownProps = {}, nestedElem: React.ReactNode = null, level = 0) {
+function renderDropdown(props: RenderDropdownProps, nestedElem: React.ReactNode = null, level = 0) {
     const {
         filterMultiple = true,
         filters = [],
@@ -26,95 +25,99 @@ function renderDropdown(props: RenderDropdownProps = {}, nestedElem: React.React
         onFilterDropdownVisibleChange = noop,
         trigger = 'click',
         position = 'bottom',
+        renderFilterDropdown,
         renderFilterDropdownItem,
-    } = props;
+    } = props ?? {};
+
+    const renderFilterDropdownProps: RenderFilterDropdownProps = pick(props, ['tempFilteredValue', 'setTempFilteredValue', 'confirm', 'clear', 'close', 'filters']);
+    const render = typeof renderFilterDropdown === 'function' ? renderFilterDropdown(renderFilterDropdownProps) : (
+        <Dropdown.Menu>
+            {Array.isArray(filters) &&
+                filters.map((filter, index) => {
+                    const changeFn = (e: React.MouseEvent<HTMLLIElement>) => {
+                        const domEvent = e && e.nativeEvent;
+                        if (domEvent) {
+                            // Block this event to prevent the pop-up layer from closing
+                            domEvent.stopImmediatePropagation();
+
+                            // Prevent bubbling and default events to prevent label click events from triggering twice
+                            domEvent.stopPropagation();
+                            domEvent.preventDefault();
+                        }
+                        let values = [...filteredValue];
+
+                        const included = values.includes(filter.value);
+                        const idx = values.indexOf(filter.value);
+
+                        if (idx > -1) {
+                            values.splice(idx, 1);
+                        } else if (filterMultiple) {
+                            values.push(filter.value);
+                        } else {
+                            values = [filter.value];
+                        }
+                        return onSelect({
+                            value: filter.value,
+                            filteredValue: values,
+                            included: !included,
+                            domEvent,
+                        });
+                    };
+
+                    const checked = filteredValue.includes(filter.value);
+                    const { text } = filter;
+                    const { value } = filter;
+                    const key = `${level}_${index}`;
+
+                    const dropdownItem =
+                        typeof renderFilterDropdownItem === 'function' ?
+                            renderFilterDropdownItem({
+                                onChange: changeFn,
+                                filterMultiple,
+                                value,
+                                text,
+                                checked,
+                                filteredValue,
+                                level,
+                            }) :
+                            null;
+
+                    let item =
+                        dropdownItem && React.isValidElement(dropdownItem) ? (
+                            React.cloneElement(dropdownItem, { key })
+                        ) : (
+                            <Dropdown.Item key={key} onClick={changeFn}>
+                                {filterMultiple ? (
+                                    <Checkbox checked={checked}>{text}</Checkbox>
+                                ) : (
+                                    <Radio checked={checked}>{text}</Radio>
+                                )}
+                            </Dropdown.Item>
+                        );
+
+                    if (Array.isArray(filter.children) && filter.children.length) {
+                        const childrenDropdownProps = {
+                            ...props,
+                            filters: filter.children,
+                            trigger: 'hover' as const,
+                            position: 'right' as const,
+                        };
+
+                        delete childrenDropdownProps.filterDropdownVisible;
+
+                        item = renderDropdown(childrenDropdownProps, item, level + 1);
+                    }
+                    return item;
+                })}
+        </Dropdown.Menu>
+    );
 
     const dropdownProps: DropdownProps = {
         ...props,
         onVisibleChange: (visible: boolean) => onFilterDropdownVisibleChange(visible),
         trigger,
         position,
-        render: (
-            <Dropdown.Menu>
-                {Array.isArray(filters) &&
-                    filters.map((filter, index) => {
-                        const changeFn = (e: React.MouseEvent<HTMLLIElement>) => {
-                            const domEvent = e && e.nativeEvent;
-                            if (domEvent) {
-                                // Block this event to prevent the pop-up layer from closing
-                                domEvent.stopImmediatePropagation();
-
-                                // Prevent bubbling and default events to prevent label click events from triggering twice
-                                domEvent.stopPropagation();
-                                domEvent.preventDefault();
-                            }
-                            let values = [...filteredValue];
-
-                            const included = values.includes(filter.value);
-                            const idx = values.indexOf(filter.value);
-
-                            if (idx > -1) {
-                                values.splice(idx, 1);
-                            } else if (filterMultiple) {
-                                values.push(filter.value);
-                            } else {
-                                values = [filter.value];
-                            }
-                            return onSelect({
-                                value: filter.value,
-                                filteredValue: values,
-                                included: !included,
-                                domEvent,
-                            });
-                        };
-
-                        const checked = filteredValue.includes(filter.value);
-                        const { text } = filter;
-                        const { value } = filter;
-                        const key = `${level}_${index}`;
-
-                        const dropdownItem =
-                            typeof renderFilterDropdownItem === 'function' ?
-                                renderFilterDropdownItem({
-                                    onChange: changeFn,
-                                    filterMultiple,
-                                    value,
-                                    text,
-                                    checked,
-                                    filteredValue,
-                                    level,
-                                }) :
-                                null;
-
-                        let item =
-                            dropdownItem && React.isValidElement(dropdownItem) ? (
-                                React.cloneElement(dropdownItem, { key })
-                            ) : (
-                                <Dropdown.Item key={key} onClick={changeFn}>
-                                    {filterMultiple ? (
-                                        <Checkbox checked={checked}>{text}</Checkbox>
-                                    ) : (
-                                        <Radio checked={checked}>{text}</Radio>
-                                    )}
-                                </Dropdown.Item>
-                            );
-
-                        if (Array.isArray(filter.children) && filter.children.length) {
-                            const childrenDropdownProps = {
-                                ...props,
-                                filters: filter.children,
-                                trigger: 'hover' as const,
-                                position: 'right' as const,
-                            };
-
-                            delete childrenDropdownProps.filterDropdownVisible;
-
-                            item = renderDropdown(childrenDropdownProps, item, level + 1);
-                        }
-                        return item;
-                    })}
-            </Dropdown.Menu>
-        ),
+        render,
     };
 
     if (filterDropdownVisible != null) {
@@ -128,26 +131,74 @@ function renderDropdown(props: RenderDropdownProps = {}, nestedElem: React.React
     );
 }
 
-export interface ColumnFilterProps {
-    prefixCls?: string;
-    filteredValue?: any[];
-    filterIcon?: FilterIcon;
-    filterDropdown?: React.ReactElement;
-    renderFilterDropdown?: (props: RenderDropdownProps, options: { iconElem: React.ReactNode }) => React.ReactElement;
-    filterDropdownProps?: DropdownProps;
-    onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
-    onSelect?: (data: OnSelectData) => void
-}
-
 export default function ColumnFilter(props: ColumnFilterProps = {}): React.ReactElement {
     const {
         prefixCls = cssClasses.PREFIX,
         filteredValue,
         filterIcon = 'filter',
-        renderFilterDropdown,
         filterDropdownProps,
+        onSelect,
+        filterDropdownVisible,
+        renderFilterDropdown,
+        onFilterDropdownVisibleChange
     } = props;
     let { filterDropdown = null } = props;
+
+    
+    // custom filter related status
+    const isFilterDropdownVisibleControlled = typeof filterDropdownVisible !== 'undefined';
+    const isCustomFilterDropdown = typeof renderFilterDropdown === 'function';
+    const isCustomDropdownVisible = !isFilterDropdownVisibleControlled && isCustomFilterDropdown;
+    const [tempFilteredValue, setTempFilteredValue] = useState<any[]>(filteredValue);
+    const dropdownVisibleInitValue = isCustomDropdownVisible ? false : filterDropdownVisible;
+    const [dropdownVisible, setDropdownVisible] = useState<boolean | undefined>(dropdownVisibleInitValue);
+
+    useEffect(() => {
+        if (typeof filterDropdownVisible !== 'undefined') {
+            setDropdownVisible(filterDropdownVisible);
+        }
+    }, [filterDropdownVisible]);
+
+    useEffect(() => {
+        setTempFilteredValue(filteredValue);
+    }, [filteredValue]);
+
+    const confirm: RenderFilterDropdownProps['confirm'] = (props = {}) => {
+        const newFilteredValue = props?.filteredValue || tempFilteredValue;
+        if (!isEqual(newFilteredValue, filteredValue)) {
+            onSelect({ filteredValue: newFilteredValue });
+        }
+        if (props.closeDropdown) {
+            setDropdownVisible(false);
+        }
+    };
+
+    const clear: RenderFilterDropdownProps['clear'] = (props: { closeDropdown?: boolean } = {}) => {
+        setTempFilteredValue([]);
+        onSelect({ filteredValue: [] });
+        if (props.closeDropdown) {
+            setDropdownVisible(false);
+        }
+    };
+
+    const close: RenderFilterDropdownProps['close'] = () => {
+        setDropdownVisible(false);
+    };
+
+    const handleFilterDropdownVisibleChange = (visible: boolean) => {
+        if (isCustomDropdownVisible) {
+            setDropdownVisible(visible);
+        }
+        onFilterDropdownVisibleChange(visible);
+    };
+
+    const renderFilterDropdownProps: RenderFilterDropdownProps = {
+        tempFilteredValue,
+        setTempFilteredValue,
+        confirm,
+        clear,
+        close
+    };
 
     const finalCls = cls(`${prefixCls}-column-filter`, {
         on: Array.isArray(filteredValue) && filteredValue.length,
@@ -177,32 +228,59 @@ export default function ColumnFilter(props: ColumnFilterProps = {}): React.React
     const renderProps = {
         ...props,
         ...filterDropdownProps,
+        ...renderFilterDropdownProps,
+        filterDropdownVisible: isFilterDropdownVisibleControlled ? filterDropdownVisible : dropdownVisible,
+        onFilterDropdownVisibleChange: handleFilterDropdownVisibleChange,
     };
 
     filterDropdown = React.isValidElement<ColumnFilterProps>(filterDropdown) ?
         filterDropdown :
-        typeof renderFilterDropdown === 'function' ?
-            renderFilterDropdown(renderProps, { iconElem }) :
-            renderDropdown(renderProps, iconElem);
+        renderDropdown(renderProps, iconElem);
 
     return filterDropdown;
 }
 
-export interface OnSelectData {
-    value: any;
-    filteredValue: any;
-    included: boolean;
-    domEvent: React.MouseEvent<HTMLElement>
+export interface ColumnFilterProps extends Omit<RenderDropdownProps, keyof RenderFilterDropdownProps> {
+    prefixCls?: string;
+    filteredValue?: any[];
+    filterIcon?: FilterIcon;
+    filterDropdown?: React.ReactElement;
+    filterDropdownProps?: FilterDropdownProps;
+    filters?: Filter[]
 }
 
-export interface RenderDropdownProps {
+export interface RenderDropdownProps extends FilterDropdownProps, RenderFilterDropdownProps {
     filterMultiple?: boolean;
     filters?: Filter[];
     filteredValue?: any[];
     filterDropdownVisible?: boolean;
     onSelect?: (data: OnSelectData) => void;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
-    trigger?: Trigger;
-    position?: Position;
+    renderFilterDropdown?: (props?: RenderFilterDropdownProps) => React.ReactNode;
     renderFilterDropdownItem?: RenderFilterDropdownItem
+}
+
+export interface FilterDropdownProps extends Omit<DropdownProps, 'render' | 'onVisibleChange'> {}
+
+export interface OnSelectData {
+    value?: any;
+    /** only this value is used now  */
+    filteredValue: any;
+    included?: boolean;
+    domEvent?: React.MouseEvent<HTMLElement>
+}
+
+export interface RenderFilterDropdownProps {
+    /** temporary filteredValue  */
+    tempFilteredValue: any[];
+    /** set temporary filteredValue  */
+    setTempFilteredValue: (tempFilteredValue: any[]) => void;
+    /** set tempFilteredValue to filteredValue. You can also pass filteredValue to directly set the filteredValue  */
+    confirm: (props?: { closeDropdown?: boolean; filteredValue?: any[] }) => void;
+    /** clear tempFilteredValue and filteredValue  */
+    clear: (props?: { closeDropdown?: boolean }) => void;
+    /** close dropdown  */
+    close: () => void;
+    /** column filters  */
+    filters?: RenderDropdownProps['filters']
 }

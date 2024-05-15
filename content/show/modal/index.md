@@ -58,6 +58,52 @@ import { Modal, Button } from '@douyinfe/semi-ui';
 };
 ```
 
+### 底部撑满
+
+设置 footerFill 为 true 可使 Modal footer 底部按钮撑满排列
+
+```jsx live=true
+import React from 'react';
+import { Modal, Button } from '@douyinfe/semi-ui';
+
+() => {
+    const [visible, setVisible] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+        console.log('Ok button clicked');
+    };
+    const handleCancel = () => {
+        setVisible(false);
+        console.log('Cancel button clicked');
+    };
+    const handleAfterClose = () => {
+        console.log('After Close callback executed');
+    };
+
+    return (
+        <>
+            <Button onClick={showDialog}>打开弹窗</Button>
+            <Modal
+                title="基本对话框"
+                visible={visible}
+                onOk={handleOk}
+                afterClose={handleAfterClose} //>=1.16.0
+                onCancel={handleCancel}
+                closeOnEsc={true}
+                footerFill={true}
+            >
+                This is the content of a basic modal.
+                <br />
+                More content...
+            </Modal>
+        </>
+    );
+};
+```
+
 ### 点击遮罩层不可关闭
 
 修改 `maskClosable` 为 `false` 则不可通过点击遮罩层来关闭对话框。
@@ -314,7 +360,7 @@ class modalDemo extends React.Component {
                     bodyStyle={{ overflow: 'auto', height: 200 }}
                 >
                     <p style={{ lineHeight: 1.8 }}>
-                        Semi Design 是由互娱社区前端团队与 UED
+                        Semi Design 是由抖音前端团队与 UED
                         团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
                         Web 应用。
                     </p>
@@ -594,6 +640,7 @@ function Demo(props = {}) {
 | mask | 是否显示遮罩                                                                                                    | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
 | maskStyle | 遮罩的样式                                                                                                     | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | motion | 动画效果开关                                                                                                    | boolean | true |
 | okButtonProps | 确认按钮的 props                                                                                               | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字                                                                                                   | string | 无 |
@@ -627,12 +674,14 @@ function Demo(props = {}) {
 | confirmLoading | 确认按钮 loading | boolean | false |
 | content | 对话框内容 | ReactNode | 无 |
 | footer | 对话框底部 | ReactNode | 无 |
+| footerFill| 底部按钮是否撑满 (>= 2.xx.0 ) | boolean | false | 
 | header | 对话框头部 | ReactNode | 无 |
 | height | 高度 | number | 无 |
 | icon | 自定义 icon | ReactNode | - |
 | mask | 是否显示遮罩 | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框 | boolean | true |
 | maskStyle | 遮罩的样式 | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | okButtonProps | 确认按钮的 props | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字 | string | 无 |
 | okType | 确认按钮的类型 | string | primary |

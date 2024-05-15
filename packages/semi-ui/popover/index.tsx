@@ -11,6 +11,7 @@ import { isFunction, noop } from 'lodash';
 
 import type { ArrowProps } from './Arrow';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import { getDefaultPropsFromGlobalConfig } from "../_utils";
 export type { ArrowProps };
 declare interface ArrowStyle {
     borderColor?: string;
@@ -90,8 +91,9 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         guardFocus: PropTypes.bool,
         disableArrowKeyDown: PropTypes.bool,
     };
+    static __SemiComponentName__ = "Popover";
 
-    static defaultProps = {
+    static defaultProps = getDefaultPropsFromGlobalConfig(Popover.__SemiComponentName__, {
         arrowBounding: numbers.ARROW_BOUNDING,
         showArrow: false,
         autoAdjustOverflow: true,
@@ -108,7 +110,7 @@ class Popover extends React.PureComponent<PopoverProps, PopoverState> {
         returnFocusOnClose: true,
         guardFocus: true,
         disableFocusListener: true
-    };
+    })
 
     context: ContextValue;
     tooltipRef: React.RefObject<Tooltip | null>;

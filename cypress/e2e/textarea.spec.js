@@ -99,4 +99,21 @@ describe('textarea', () => {
             });
         });
     });
+
+    it('autosize + textarea resize', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=input--text-auto-size-resize&viewMode=story');
+        cy.get('button').contains('width=100').trigger('click');
+        cy.wait(100);
+        cy.document().then(document => {
+            const textAreaDOM = document.querySelector(".semi-input-textarea");
+            const { scrollHeight, clientHeight } = textAreaDOM;
+            expect(scrollHeight).eq(clientHeight);
+        });
+    });
+
+    it('textarea autofocus should focus to text end', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=input--fix-text-area-auto-focus&viewMode=story');
+        cy.get('div[data-cy=start]').should('contain.text', 0);
+        cy.get('div[data-cy=end]').should('contain.text', 0);
+    });
 });

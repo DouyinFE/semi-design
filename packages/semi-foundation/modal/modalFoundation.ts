@@ -22,6 +22,7 @@ export interface ModalProps {
     cancelText?: string;
     centered?: boolean;
     className?: string;
+    modalContentClass?: string;
     closable?: boolean;
     confirmLoading?: boolean;
     cancelLoading?: boolean;
@@ -54,7 +55,8 @@ export interface ModalProps {
     keepDOM?: boolean;
     direction?: any;
     fullScreen?: boolean;
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    footerFill?: boolean
 }
 
 export interface ModalState {
@@ -109,6 +111,10 @@ export default class ModalFoundation extends BaseFoundation<ModalAdapter> {
     afterHide() {
         this._adapter.enabledBodyScroll();
         this._adapter.notifyClose();
+    }
+
+    enabledBodyScroll() {
+        this._adapter.enabledBodyScroll();
     }
 
     // afterClose() {

@@ -3,7 +3,7 @@
  * https://github.com/react-component/tree
  */
 
-import { isUndefined, difference, pick, cloneDeep, get } from 'lodash';
+import { isUndefined, difference, pick, get } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -42,7 +42,8 @@ export interface BasicTreeNodeProps {
     directory?: boolean;
     selectedKey?: string;
     motionKey?: string[] | string;
-    eventKey?: string
+    eventKey?: string;
+    showLine?: boolean
 }
 
 export interface BasicTreeNodeData {
@@ -236,6 +237,7 @@ export interface BasicTreeProps {
     searchStyle?: any;
     showClear?: boolean;
     showFilteredOnly?: boolean;
+    showLine?: boolean;
     style?: any;
     treeData?: BasicTreeNodeData[];
     treeDataSimpleJson?: TreeDataSimpleJson;
@@ -357,14 +359,6 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         return Boolean(inputValue) && showFilteredOnly;
     }
 
-    getCopyFromState(items: string[] | string) {
-        const res: Partial<BasicTreeInnerData> = {};
-        normalizedArr(items).forEach(key => {
-            res[key] = cloneDeep(this.getState(key));
-        });
-        return res;
-    }
-
     getTreeNodeProps(key: string) {
         const {
             expandedKeys = new Set([]),
@@ -426,20 +420,55 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         this._adapter.notifyChange(value as BasicValue);
     }
 
+    constructDataForValue(value: string) {
+        const { keyMaps } = this.getProps();
+        const keyName = get(keyMaps, 'key', 'key');
+        const labelName = get(keyMaps, 'label', 'label');
+        return {
+            [keyName]: value,
+            [labelName]: value
+        };    
+    }
+
+    findDataForValue(findValue: string) {
+        const { value, defaultValue, keyMaps } = this.getProps();
+        const realValueName = get(keyMaps, 'value', 'value');
+        const realKeyName = get(keyMaps, 'key', 'key');
+        let valueArr = [];
+        if (value) {
+            valueArr = Array.isArray(value) ? value : [value];
+        } else if (defaultValue) {
+            valueArr = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+        }
+        return valueArr.find(item => {
+            return item[realValueName] === findValue || item[realKeyName] === findValue;
+        });
+    }
+
+    getDataForKeyNotInKeyEntities(value: string) {
+        const { onChangeWithObject } = this.getProps();
+        if (onChangeWithObject) {
+            return this.findDataForValue(value);
+        } else {
+            return this.constructDataForValue(value);
+        }
+    }
+
     notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
         const { leafOnly, checkRelation, keyMaps } = this.getProps();
         let value;
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly);
+            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
         } else if (checkRelation === 'unRelated') {
             keyList = key;
         }
+        const nodes = keyList.map(key => keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         if (this.getProp('onChangeWithObject')) {
-            value = keyList.map((itemKey: string) => keyEntities[itemKey].data);
+            value = nodes;
         } else {
-            value = getValueOrKey(keyList.map((itemKey: string) => keyEntities[itemKey].data), keyMaps);
+            value = getValueOrKey(nodes, keyMaps);
         }
         this._adapter.notifyChange(value);
     }
@@ -526,7 +555,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     }
 
     handleSingleSelect(e: any, treeNode: BasicTreeNodeProps) {
-        let { selectedKeys } = this.getCopyFromState('selectedKeys');
+        let selectedKeys = [...this.getState('selectedKeys')];
         const { selected, eventKey, data } = treeNode;
         const targetSelected = !selected;
 
@@ -547,7 +576,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     calcCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities } = this.getStates();
-        const { checkedKeys, halfCheckedKeys } = this.getCopyFromState(['checkedKeys', 'halfCheckedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys')) as Set<string>;
+        const halfCheckedKeys = new Set(this.getState('halfCheckedKeys')) as Set<string>;
         return targetStatus ?
             calcCheckedKeysForChecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys) :
             calcCheckedKeysForUnchecked(eventKey, keyEntities, checkedKeys, halfCheckedKeys);
@@ -580,7 +610,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     */
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
         const { keyEntities, disabledKeys } = this.getStates();
-        const { checkedKeys } = this.getCopyFromState(['checkedKeys']);
+        const checkedKeys = new Set(this.getState('checkedKeys'));
         const descendantKeys = normalizeKeyList(findDescendantKeys([eventKey], keyEntities, false), keyEntities, true);
         const hasDisabled = descendantKeys.some((key: string) => disabledKeys.has(key));
         // If none of the descendant nodes are disabled, follow the normal logic
@@ -590,7 +620,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const nonDisabled = descendantKeys.filter((key: string) => !disabledKeys.has(key));
         const newCheckedKeys = targetStatus ?
             [...nonDisabled, ...checkedKeys] :
-            difference(normalizeKeyList([...checkedKeys], keyEntities, true), nonDisabled);
+            difference(normalizeKeyList([...checkedKeys], keyEntities, true, true), nonDisabled);
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 
@@ -637,7 +667,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const isSearching = Boolean(inputValue);
         const showFilteredOnly = this._showFilteredOnly();
         const expandedStateKey = isSearching ? 'filteredExpandedKeys' : 'expandedKeys';
-        const expandedKeys = this.getCopyFromState(expandedStateKey)[expandedStateKey];
+        const expandedKeys = new Set(this.getState(expandedStateKey)) as Set<string>;
 
         let motionType = 'show';
         const { eventKey, expanded, data } = treeNode;
@@ -695,10 +725,8 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
         // Process the loaded data
         loadData(data).then(() => {
-            const {
-                loadedKeys: prevLoadedKeys,
-                loadingKeys: prevLoadingKeys
-            } = this.getCopyFromState(['loadedKeys', 'loadingKeys']);
+            const prevLoadedKeys = new Set(this.getState('loadedKeys')) as Set<string>;
+            const prevLoadingKeys = new Set(this.getState('loadingKeys')) as Set<string>;
             const newLoadedKeys = prevLoadedKeys.add(key);
             const newLoadingKeys = new Set([...prevLoadingKeys]);
             newLoadingKeys.delete(key);

@@ -52,7 +52,7 @@ const ResizableTable = (props: TableProps = {}, ref: React.MutableRefObject<Tabl
         newColumns.unshift({ key: strings.DEFAULT_KEY_COLUMN_EXPAND, width: numbers.DEFAULT_WIDTH_COLUMN_EXPAND });
     }
 
-    if (props.rowSelection && !find(rawColumns, item => item.key === strings.DEFAULT_KEY_COLUMN_SELECTION)) {
+    if (props.rowSelection && !get(props.rowSelection, 'hidden') && !find(rawColumns, item => item.key === strings.DEFAULT_KEY_COLUMN_SELECTION)) {
         newColumns.unshift({
             width: get(props, 'rowSelection.width', numbers.DEFAULT_WIDTH_COLUMN_SELECTION),
             key: strings.DEFAULT_KEY_COLUMN_SELECTION,
