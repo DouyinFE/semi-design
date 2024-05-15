@@ -2288,7 +2288,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
 | filterTreeNode      | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean)  | false   | - |
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 
-| icon       | Icon | ReactNode         | -       | - |
+| icon       | Icon | ReactNode \|(props: TreeNodeProps) => ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | 1.18.0 |
 | loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNodeData) => Promise< void > |-| 1.0.0|

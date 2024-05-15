@@ -10,7 +10,7 @@ import {
 
 export interface TreeContextValue {
     treeDisabled?: boolean;
-    treeIcon?: ReactNode;
+    treeIcon?: ReactNode | ((props: TreeNodeProps) => ReactNode);
     motion?: boolean;
     motionKeys?: Set<string>;
     motionType?: string;
