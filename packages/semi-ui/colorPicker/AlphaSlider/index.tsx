@@ -1,15 +1,22 @@
-import React, { PropsWithChildren } from 'react';
+import React, { CSSProperties, PropsWithChildren } from 'react';
 import { hsvaToHslaString, hsvaToRgbaString } from "@douyinfe/semi-foundation/colorPicker/utils/convert";
 import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
-import BaseComponent from "@douyinfe/semi-ui/_base/baseComponent";
+import BaseComponent from "../../_base/baseComponent";
 import AlphaSliderFoundation, {
     AlphaSliderAdapter,
-    AlphaSliderProps,
-    AlphaSliderState
+    AlphaSliderBaseProps,
+    AlphaSliderBaseState
 } from "@douyinfe/semi-foundation/colorPicker/AlphaSliderFoundation";
 
+export interface AlphaSliderProps extends AlphaSliderBaseProps{
+    className?: string;
+    style?: CSSProperties
+}
 
+export interface AlphaSliderState extends AlphaSliderBaseState{
+
+}
 
 class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, AlphaSliderState> {
     private ref: React.RefObject<HTMLDivElement>;
@@ -42,7 +49,7 @@ class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, Alp
         };
     }
 
-    componentDidUpdate(prevProps: Readonly<AlphaSliderProps>, prevState: Readonly<AlphaSliderState>, snapshot?: any) {
+    componentDidUpdate(prevProps: Readonly<AlphaSliderBaseProps>, prevState: Readonly<AlphaSliderBaseState>, snapshot?: any) {
         if (prevProps.hsva.a !== this.props.hsva.a) {
             this.setState({ handlePosition: this.props.hsva.a * this.props.width - this.props.handleSize / 2 });
         }

@@ -2,21 +2,21 @@ import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import ColorPickerFoundation, { ColorPickerAdapter, ColorPickerProps, ColorPickerState } from "./foundation";
 import { HsvaColor } from "./interface";
 
-export interface AlphaSliderBaseProps {
+export interface ColorSliderBaseProps {
     width: number;
     height: number;
-    hsva: HsvaColor;
+    hue: number;
     handleSize: number;
     foundation: ColorPickerFoundation
 }
 
-export interface AlphaSliderBaseState {
+export interface ColorSliderBaseState {
     handlePosition: number;
     isHandleGrabbing: boolean
 }
 
 
-export interface AlphaSliderAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export interface ColorSliderAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     handleMouseDown: (e: any) => void;
     handleMouseUp: (e: any) => void;
     getColorPickerFoundation: () => ColorPickerFoundation;
@@ -24,9 +24,9 @@ export interface AlphaSliderAdapter<P = Record<string, any>, S = Record<string, 
 }
 
 
-class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSliderBaseProps, AlphaSliderBaseState>, AlphaSliderBaseProps, AlphaSliderBaseState> {
+class ColorSliderFoundation extends BaseFoundation<ColorSliderAdapter<ColorSliderBaseProps, ColorSliderBaseState>, ColorSliderBaseProps, ColorSliderBaseState> {
 
-    constructor(adapter: AlphaSliderAdapter<AlphaSliderBaseProps, AlphaSliderBaseState>) {
+    constructor(adapter: ColorSliderAdapter<ColorSliderBaseProps, ColorSliderBaseState>) {
         super({
             ...adapter
         });
@@ -50,8 +50,8 @@ class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSlide
         const { width, handleSize } = this._adapter.getProps();
         const colorPickerFoundation = this._adapter.getColorPickerFoundation();
         const mousePosition = e.clientX - rect.x;
-        const handlePosition = colorPickerFoundation.getAlphaHandlePositionByMousePosition(mousePosition, width, handleSize);
-        colorPickerFoundation.handleAlphaChangeByHandle({ a: Number((Math.min(Math.max( mousePosition / width, 0), 1)).toFixed(2)) });
+        colorPickerFoundation.handleColorChangeByHandle({ h: Math.round(Math.min(Math.max(mousePosition / width, 0), 1) * 360) });
+        const handlePosition = colorPickerFoundation.getColorHandlePositionByMousePosition(mousePosition, width, handleSize);
         this.setState({ handlePosition });
     }
 
@@ -59,4 +59,4 @@ class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSlide
 }
 
 
-export default AlphaSliderFoundation;
+export default ColorSliderFoundation;

@@ -19,8 +19,8 @@ interface DataPartProps {
     defaultFormat: 'hex'|'rgba'|'hsva';
     width: number;
     alpha?: boolean;
-    foundation: ColorPickerFoundation,
-    eyeDropper:boolean
+    foundation: ColorPickerFoundation;
+    eyeDropper: boolean
 
 }
 
@@ -45,7 +45,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
     }
 
     componentDidUpdate(prevProps: Readonly<DataPartProps>, prevState: Readonly<DataPartState>, snapshot?: any) {
-        if (!isEqual(prevProps.currentColor, this.props.currentColor)|| prevState.format !== this.state.format) {
+        if (!isEqual(prevProps.currentColor, this.props.currentColor) || prevState.format !== this.state.format) {
             this.setState({ inputValue: this.getInputValue() });
         }
 
@@ -70,20 +70,20 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
     }
 
     getValueByInputValue = (value: string)=>{
-        if (this.state.format==='rgba') {
+        if (this.state.format === 'rgba') {
             const result = split(value, this.state.format);
             if (result) {
                 return result as RgbaColor;
             }
 
-        } else if (this.state.format==='hsva') {
+        } else if (this.state.format === 'hsva') {
             const result = split(value, this.state.format);
             if (result) {
                 return result as HsvaColor;
             }
-        } else if (this.state.format==='hex') {
+        } else if (this.state.format === 'hex') {
             if (!value.startsWith('#')) {
-                value = '#'+value;
+                value = '#' + value;
             }
             if (/#[\d\w]{6,8}/.test(value)) {
                 return value;
@@ -140,16 +140,16 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                         min={0}
                         max={100}
                         className={`${cssClasses.PREFIX}-colorPickerInputNumber`}
-                        value={Number(Math.round(this.props.currentColor.rgba.a*100))}
+                        value={Number(Math.round(this.props.currentColor.rgba.a * 100))}
                         onNumberChange={v=>{
-                            if (this.state.format==='rgba') {
-                                this.handleChange({ ...this.props.currentColor.rgba, a: Number((v/100).toFixed(2)) });
-                            } else if (this.state.format==='hex') {
-                                const rgba = { ...this.props.currentColor.rgba, a: Number((v/100).toFixed(2)) };
+                            if (this.state.format === 'rgba') {
+                                this.handleChange({ ...this.props.currentColor.rgba, a: Number((v / 100).toFixed(2)) });
+                            } else if (this.state.format === 'hex') {
+                                const rgba = { ...this.props.currentColor.rgba, a: Number((v / 100).toFixed(2)) };
                                 const hex = ColorPickerFoundation.rgbaToHex(rgba);
                                 this.handleChange(hex);
-                            } else if (this.state.format==='hsva') {
-                                const rgba = { ...this.props.currentColor.hsva, a: Number((v/100).toFixed(2)) };
+                            } else if (this.state.format === 'hsva') {
+                                const rgba = { ...this.props.currentColor.hsva, a: Number((v / 100).toFixed(2)) };
                                 this.handleChange(rgba);
                             }
                         }}
@@ -163,7 +163,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
             </InputGroup>
 
             {this.props.eyeDropper && <Button type={'tertiary'} theme={'light'} size={'small'} onClick={this.handlePickValueWithStraw}
-                     icon={<IconEyedropper />} />}
+                icon={<IconEyedropper />} />}
 
         </div>;
     }

@@ -1,62 +1,64 @@
-import React, { CSSProperties } from 'react';
+import React, {CSSProperties, PropsWithChildren} from 'react';
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 import cls from 'classnames';
+import ColorSliderFoundation, {
+    ColorSliderAdapter,
+    ColorSliderBaseProps,
+    ColorSliderBaseState
+} from "@douyinfe/semi-foundation/colorPicker/ColorSliderFoundation";
+import BaseComponent from "../../_base/baseComponent";
 
-interface ColorSliderProps{
-    width: number;
-    height: number;
-    hue: number;
-    handleSize: number;
+interface ColorSliderProps extends ColorSliderBaseProps{
     className?: string;
-    style?: CSSProperties;
-    foundation: ColorPickerFoundation
+    style?: CSSProperties
 }
 
-interface ColorSliderState{
-    handlePosition: number;
-    isHandleGrabbing: boolean
+interface ColorSliderState extends ColorSliderBaseState{
+   
 }
 
-class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
+class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, ColorSliderState> {
     private readonly ref: React.RefObject<HTMLDivElement>;
     constructor(props: ColorSliderProps) {
         super(props);
-        this.state={
-            handlePosition: props.hue/360 * props.width - props.handleSize/2,
+        this.foundation = new ColorSliderFoundation(this.adapter);
+        this.state = {
+            handlePosition: props.hue / 360 * props.width - props.handleSize / 2,
             isHandleGrabbing: false
         };
         this.ref = React.createRef<HTMLDivElement>();
     }
 
+    get adapter(): ColorSliderAdapter<ColorSliderProps, ColorSliderState> {
+        return {
+            ...super.adapter,
+            handleMouseDown: (e: any) => {
+                this.setState({ isHandleGrabbing: true });
+                window.addEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+                window.addEventListener('mouseup', this.foundation.handleMouseUp);
+            },
+            handleMouseUp: (e: MouseEvent) => {
+                this.setState({ isHandleGrabbing: false });
+                window.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
+                window.removeEventListener('mouseup', this.foundation.handleMouseUp);
+            },
+            getColorPickerFoundation: ()=>this.props.foundation,
+            getDOM: ()=>this.ref.current
+        };
+    }
+
     componentDidUpdate(prevProps: Readonly<ColorSliderProps>, prevState: Readonly<ColorSliderState>, snapshot?: any) {
         if (prevProps.hue !== this.props.hue) {
-            this.setState({ handlePosition: this.props.hue/360 * this.props.width - this.props.handleSize/2 });
+            this.setState({ handlePosition: this.props.hue / 360 * this.props.width - this.props.handleSize / 2 });
         }
     }
 
-    handleHandleMouseDown = (e: React.MouseEvent)=>{
-        this.setState({ isHandleGrabbing: true });
-        window.addEventListener('mousemove', this.setHandlePositionByMousePosition);
-        window.addEventListener('mouseup', this.handleMouseUp);
-    }
 
-    setHandlePositionByMousePosition = (e: MouseEvent)=>{
-        const mousePosition = e.clientX - this.ref.current.getBoundingClientRect().x;
-        this.props.foundation.handleColorChangeByHandle({ h: Math.round(Math.min(Math.max(mousePosition / this.props.width, 0), 1) * 360) });
-        const handlePosition = this.props.foundation.getColorHandlePositionByMousePosition(mousePosition, this.props.width, this.props.handleSize);
-        this.setState({ handlePosition });
-    }
-
-    handleMouseUp = (e: MouseEvent)=>{
-        this.setState({ isHandleGrabbing: false });
-        window.removeEventListener('mouseup', this.handleMouseUp);
-        window.removeEventListener('mousemove', this.setHandlePositionByMousePosition);
-    }
 
     handleClick = (e: React.MouseEvent)=>{
-        this.setHandlePositionByMousePosition(e);
-        this.handleHandleMouseDown(e);
+        this.foundation.setHandlePositionByMousePosition(e);
+        this.foundation.handleMouseDown(e);
     }
 
 
@@ -79,7 +81,7 @@ class ColorSlider extends React.Component<ColorSliderProps, ColorSliderState> {
                     transform: `translateY(-50%)`,
                     backgroundColor: ColorPickerFoundation.hsvaToHslString({ h: this.props.hue, s: 100, v: 100, a: 1 })
                 }}
-                onMouseDown={(e) => this.handleHandleMouseDown(e)}>
+                onMouseDown={(e) => this.foundation.handleMouseDown(e)}>
             </div>
 
         </div>;

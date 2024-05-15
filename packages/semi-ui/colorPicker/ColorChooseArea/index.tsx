@@ -38,7 +38,7 @@ class ColorChooseArea extends React.Component<ColorChooseAreaProps, ColorChooseA
     }
 
     componentDidUpdate(prevProps: Readonly<ColorChooseAreaProps>, prevState: Readonly<ColorChooseAreaState>, snapshot?: any) {
-        if (JSON.stringify(prevProps.hsva)!==JSON.stringify(this.props.hsva)) {
+        if (JSON.stringify(prevProps.hsva) !== JSON.stringify(this.props.hsva)) {
             this.setState({ handlePosition: this.getHandlePositionByHSVA() });
         }
     }
