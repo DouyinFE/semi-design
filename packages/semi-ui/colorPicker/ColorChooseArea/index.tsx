@@ -8,10 +8,9 @@ import ColorChooseAreaFoundation, {
     ColorChooseAreaBaseState
 } from "@douyinfe/semi-foundation/colorPicker/ColorChooseAreaFoundation";
 import BaseComponent from "../../_base/baseComponent";
+import { round } from "@douyinfe/semi-foundation/colorPicker/utils/round";
 
-const round = (number: number, digits = 0, base = Math.pow(10, digits)): number => {
-    return Math.round(base * number) / base;
-};
+
 
 
 export interface ColorChooseAreaProps extends ColorChooseAreaBaseProps{

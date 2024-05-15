@@ -67,14 +67,14 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         const rgba = hsvaToRgba(hsva);
         const hex = hsvaToHex(hsva);
 
-        currentColor = {
+        const newCurrentColor = {
             rgba,
             hsva,
             hex
         };
 
-        this._adapter.notifyChange(currentColor);
-        this._adapter.setState({ currentColor: currentColor });
+        this._adapter.notifyChange(newCurrentColor);
+        this._adapter.setState({ currentColor: newCurrentColor });
 
     }
 
