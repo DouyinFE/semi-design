@@ -30,6 +30,7 @@ const ComponentCard = props => {
             }
         `)
     );
+
     const enName = props.name ? props.name.trim().split(' ')[0] : '';
     const locale = intl.locale;
     let lowerCaseEnName = enName.slice(0, 1).toLowerCase() + enName.slice(1);
@@ -42,6 +43,14 @@ const ComponentCard = props => {
     if (lowerCaseEnName === 'localeProvider') {
         lowerCaseEnName = 'locale';
     }
+
+    // chart在导航栏中的标题并非是组件名称，较特殊，此处单独处理
+    if (props.name.trim() === 'VChart 图表') {
+        url = '/' + data['Data Visualization 数据可视化'];
+    } else if (props.name.trim() === 'VChart') {
+        url = '/' + data['Data Visualization'];
+    }
+
     const [inDarkmode, _setInDarkmode] = useState(false);
     const ref = useRef({ inDarkmode: false });
     const setInDarkmode = inDarkmode => {

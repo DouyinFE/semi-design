@@ -22,6 +22,9 @@ const local: Locale = {
         confirm: 'Potwierdź',
         cancel: 'Anuluj',
     },
+    Tabs: {
+        more: "Więcej"
+    },
     TimePicker: {
         placeholder: {
             time: 'Wybierz czas',

@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '確定',
         cancel: '取消',
     },
+    Tabs: {
+        more: "更多"
+    },
     TimePicker: {
         placeholder: {
             time: '請選擇時間',

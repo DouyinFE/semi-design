@@ -67,6 +67,7 @@ Collapsible 折叠,
 Descriptions 描述列表,
 Dropdown 下拉框,
 Empty 空状态,
+Highlight 高亮文本,
 Image 图片,
 List 列表,
 Modal 模态对话框,
@@ -78,7 +79,7 @@ Table 表格,
 Tag 标签,
 Timeline 时间轴,
 Tooltip 工具提示,
-Highlight 高亮文本
+VChart 图表
 ```
 
 ## 反馈类
@@ -98,5 +99,4 @@ Toast 提示
 ```overview
 ConfigProvider 全局配置,
 LocaleProvider 多语言,
-VChart 图表
 ```
