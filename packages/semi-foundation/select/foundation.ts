@@ -70,7 +70,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         this._setDropdownWidth();
         const isDefaultOpen = this.getProp('defaultOpen');
         const isOpen = this.getProp('open');
-        const originalOptions = this._collectOptions();
+        const originalOptions = this._collectOptions(false);
         this._setDefaultSelection(originalOptions);
 
         if (isDefaultOpen || isOpen) {
@@ -124,11 +124,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
-    _collectOptions() {
+    _collectOptions(needReposition = true) {
         const originalOptions = this._adapter.getOptionsFromChildren();
         this._adapter.updateOptions(originalOptions);
         // Reposition the drop-down layer
-        this._adapter.rePositionDropdown();
+        if (needReposition) {
+            this._adapter.rePositionDropdown();
+        }
         return originalOptions;
     }
 
