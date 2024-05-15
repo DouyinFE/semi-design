@@ -17,11 +17,11 @@ import DataPartFoundation, {
 } from "@douyinfe/semi-foundation/colorPicker/DataPartFoundation";
 
 
-interface DataPartProps extends DataPartBaseProps {
+export interface DataPartProps extends DataPartBaseProps {
 
 }
 
-interface DataPartState extends DataPartBaseState {
+export interface DataPartState extends DataPartBaseState {
 
 }
 

@@ -14,12 +14,12 @@ const round = (number: number, digits = 0, base = Math.pow(10, digits)): number 
 };
 
 
-interface ColorChooseAreaProps extends ColorChooseAreaBaseProps{
+export interface ColorChooseAreaProps extends ColorChooseAreaBaseProps{
     className?: string;
     style?: CSSProperties
 }
 
-interface ColorChooseAreaState extends ColorChooseAreaBaseState{
+export interface ColorChooseAreaState extends ColorChooseAreaBaseState{
 
 }
 

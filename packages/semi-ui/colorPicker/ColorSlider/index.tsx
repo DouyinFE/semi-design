@@ -9,12 +9,12 @@ import ColorSliderFoundation, {
 } from "@douyinfe/semi-foundation/colorPicker/ColorSliderFoundation";
 import BaseComponent from "../../_base/baseComponent";
 
-interface ColorSliderProps extends ColorSliderBaseProps {
+export interface ColorSliderProps extends ColorSliderBaseProps {
     className?: string;
     style?: CSSProperties
 }
 
-interface ColorSliderState extends ColorSliderBaseState {
+export interface ColorSliderState extends ColorSliderBaseState {
 
 }
 

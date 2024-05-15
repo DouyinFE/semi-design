@@ -6,7 +6,7 @@ import ColorPickerFoundation, {
 import BaseComponent from '../_base/baseComponent';
 import { PopoverProps } from '../popover';
 import ColorChooseArea from './ColorChooseArea';
-import { ColorPickerAdapter } from '@douyinfe/semi-foundation/colorPicker/foundation';
+import { ColorPickerAdapter,Value } from '@douyinfe/semi-foundation/colorPicker/foundation';
 import AlphaSlider from './AlphaSlider';
 import ColorSlider from './ColorSlider';
 import DataPart from './DataPart';
@@ -20,6 +20,8 @@ import {
     rgbaStringToHsva,
     rgbaStringToRgba, rgbaToHex, rgbStringToHsva, rgbStringToRgba,
 } from '@douyinfe/semi-foundation/colorPicker/utils/convert';
+
+
 
 
 export interface ColorPickerReactProps extends ColorPickerProps {
@@ -156,5 +158,7 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
     }
 }
 
+export type { Value };
+export * from "@douyinfe/semi-foundation/colorPicker/interface";
 
 export default ColorPicker;

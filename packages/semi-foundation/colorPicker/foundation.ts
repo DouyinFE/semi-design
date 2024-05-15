@@ -12,7 +12,7 @@ import {
 } from './utils/convert';
 
 
-type Value = {
+export type Value = {
     hsva: HsvaColor;
     rgba: RgbaColor;
     hex: string
