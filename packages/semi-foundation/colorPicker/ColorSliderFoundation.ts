@@ -1,6 +1,6 @@
-import BaseFoundation, { DefaultAdapter } from "../base/foundation";
-import ColorPickerFoundation, { ColorPickerAdapter, ColorPickerProps, ColorPickerState } from "./foundation";
-import { HsvaColor } from "./interface";
+import BaseFoundation, {DefaultAdapter} from "../base/foundation";
+import ColorPickerFoundation, {ColorPickerAdapter, ColorPickerProps, ColorPickerState} from "./foundation";
+import {HsvaColor} from "./interface";
 
 export interface ColorSliderBaseProps {
     width: number;
@@ -32,27 +32,27 @@ class ColorSliderFoundation extends BaseFoundation<ColorSliderAdapter<ColorSlide
         });
     }
 
-    handleMouseDown = (e: any)=>{
+    handleMouseDown = (e: any) => {
         this._adapter.handleMouseDown(e);
     }
 
 
-    handleMouseUp = (e: any)=>{
+    handleMouseUp = (e: any) => {
         this._adapter.handleMouseUp(e);
     }
 
 
-    setHandlePositionByMousePosition = (e: MouseEvent)=>{
+    setHandlePositionByMousePosition = (e: MouseEvent) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;
         }
-        const { width, handleSize } = this._adapter.getProps();
+        const {width, handleSize} = this._adapter.getProps();
         const colorPickerFoundation = this._adapter.getColorPickerFoundation();
         const mousePosition = e.clientX - rect.x;
-        colorPickerFoundation.handleColorChangeByHandle({ h: Math.round(Math.min(Math.max(mousePosition / width, 0), 1) * 360) });
+        colorPickerFoundation.handleColorChangeByHandle({h: Math.round(Math.min(Math.max(mousePosition / width, 0), 1) * 360)});
         const handlePosition = colorPickerFoundation.getColorHandlePositionByMousePosition(mousePosition, width, handleSize);
-        this.setState({ handlePosition });
+        this.setState({handlePosition});
     }
 
 
