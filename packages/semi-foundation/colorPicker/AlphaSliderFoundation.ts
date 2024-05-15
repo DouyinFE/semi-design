@@ -32,17 +32,17 @@ class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSlide
         });
     }
 
-    handleMouseDown = (e: any)=>{
+    handleMouseDown = (e: any) => {
         this._adapter.handleMouseDown(e);
     }
 
 
-    handleMouseUp = (e: any)=>{
+    handleMouseUp = (e: any) => {
         this._adapter.handleMouseUp(e);
     }
 
 
-    setHandlePositionByMousePosition = (e: MouseEvent)=>{
+    setHandlePositionByMousePosition = (e: MouseEvent) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;
@@ -51,7 +51,7 @@ class AlphaSliderFoundation extends BaseFoundation<AlphaSliderAdapter<AlphaSlide
         const colorPickerFoundation = this._adapter.getColorPickerFoundation();
         const mousePosition = e.clientX - rect.x;
         const handlePosition = colorPickerFoundation.getAlphaHandlePositionByMousePosition(mousePosition, width, handleSize);
-        colorPickerFoundation.handleAlphaChangeByHandle({ a: Number((Math.min(Math.max( mousePosition / width, 0), 1)).toFixed(2)) });
+        colorPickerFoundation.handleAlphaChangeByHandle({ a: Number((Math.min(Math.max(mousePosition / width, 0), 1)).toFixed(2)) });
         this.setState({ handlePosition });
     }
 

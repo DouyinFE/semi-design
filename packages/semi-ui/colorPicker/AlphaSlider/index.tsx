@@ -9,12 +9,12 @@ import AlphaSliderFoundation, {
     AlphaSliderBaseState
 } from "@douyinfe/semi-foundation/colorPicker/AlphaSliderFoundation";
 
-export interface AlphaSliderProps extends AlphaSliderBaseProps{
+export interface AlphaSliderProps extends AlphaSliderBaseProps {
     className?: string;
     style?: CSSProperties
 }
 
-export interface AlphaSliderState extends AlphaSliderBaseState{
+export interface AlphaSliderState extends AlphaSliderBaseState {
 
 }
 
@@ -44,8 +44,8 @@ class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, Alp
                 window.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
                 window.removeEventListener('mouseup', this.foundation.handleMouseUp);
             },
-            getColorPickerFoundation: ()=>this.props.foundation,
-            getDOM: ()=>this.ref.current
+            getColorPickerFoundation: () => this.props.foundation,
+            getDOM: () => this.ref.current
         };
     }
 
@@ -55,10 +55,11 @@ class AlphaSlider extends BaseComponent<PropsWithChildren<AlphaSliderProps>, Alp
         }
     }
 
-    handleClick = (e: React.MouseEvent)=>{
+    handleClick = (e: React.MouseEvent) => {
         this.foundation.setHandlePositionByMousePosition(e);
         this.foundation.handleMouseDown(e);
     }
+
     render() {
         const colorFrom = hsvaToHslaString({ ...this.props.hsva, a: 0 });
         const colorTo = hsvaToHslaString({ ...this.props.hsva, a: 1 });

@@ -1,7 +1,7 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import ColorPickerFoundation from "./foundation";
 import { HsvaColor } from "./interface";
-import React, { CSSProperties } from "react";
+
 
 export interface ColorChooseAreaBaseProps {
     hsva: HsvaColor;
@@ -22,8 +22,8 @@ export interface ColorChooseAreaAdapter<P = Record<string, any>, S = Record<stri
     getColorPickerFoundation: () => ColorPickerFoundation;
     handleMouseDown: (e: any) => void;
     handleMouseUp: (e: any) => void;
-    getDOM: () => HTMLDivElement
-    onChange:(newColor: { s: number; v: number }) => void;
+    getDOM: () => HTMLDivElement;
+    onChange: (newColor: { s: number; v: number }) => void
 }
 
 
@@ -35,23 +35,26 @@ class ColorChooseAreaFoundation extends BaseFoundation<ColorChooseAreaAdapter<Co
         });
     }
 
-    getHandlePositionByHSVA = ()=>{
+    getHandlePositionByHSVA = () => {
         const { hsva, width, height, handleSize } = this.getProps();
 
-        return this._adapter.getColorPickerFoundation().getHandlePositionByHSVA(hsva, { width: width, height: height }, handleSize);
+        return this._adapter.getColorPickerFoundation().getHandlePositionByHSVA(hsva, {
+            width: width,
+            height: height
+        }, handleSize);
 
     }
 
-    handleMouseDown=(e: any)=>{
+    handleMouseDown = (e: any) => {
         this._adapter.handleMouseDown(e);
     }
 
-    handleMouseUp=(e: any)=>{
+    handleMouseUp = (e: any) => {
         this._adapter.handleMouseUp(e);
     }
 
 
-    setHandlePositionByMousePosition = (e: globalThis.MouseEvent|React.MouseEvent) => {
+    setHandlePositionByMousePosition = (e: globalThis.MouseEvent) => {
         const rect = this._adapter.getDOM()?.getBoundingClientRect();
         if (!rect) {
             return;
@@ -62,7 +65,10 @@ class ColorChooseAreaFoundation extends BaseFoundation<ColorChooseAreaAdapter<Co
         };
         const { width, height, handleSize } = this.getProps();
         const colorPickerFoundation = this._adapter.getColorPickerFoundation();
-        const handlePosition = colorPickerFoundation.getHandlePositionByMousePosition(mousePosition, { width, height }, handleSize);
+        const handlePosition = colorPickerFoundation.getHandlePositionByMousePosition(mousePosition, {
+            width,
+            height
+        }, handleSize);
         if (handlePosition) {
             this.setState({ handlePosition });
             this._adapter.onChange({
@@ -72,8 +78,6 @@ class ColorChooseAreaFoundation extends BaseFoundation<ColorChooseAreaAdapter<Co
         }
 
     }
-
-
 
 
 }

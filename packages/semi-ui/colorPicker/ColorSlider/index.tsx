@@ -1,4 +1,4 @@
-import React, {CSSProperties, PropsWithChildren} from 'react';
+import React, { CSSProperties, PropsWithChildren } from 'react';
 import ColorPickerFoundation from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
 import cls from 'classnames';
@@ -9,17 +9,18 @@ import ColorSliderFoundation, {
 } from "@douyinfe/semi-foundation/colorPicker/ColorSliderFoundation";
 import BaseComponent from "../../_base/baseComponent";
 
-interface ColorSliderProps extends ColorSliderBaseProps{
+interface ColorSliderProps extends ColorSliderBaseProps {
     className?: string;
     style?: CSSProperties
 }
 
-interface ColorSliderState extends ColorSliderBaseState{
-   
+interface ColorSliderState extends ColorSliderBaseState {
+
 }
 
 class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, ColorSliderState> {
     private readonly ref: React.RefObject<HTMLDivElement>;
+
     constructor(props: ColorSliderProps) {
         super(props);
         this.foundation = new ColorSliderFoundation(this.adapter);
@@ -43,8 +44,8 @@ class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, Col
                 window.removeEventListener('mousemove', this.foundation.setHandlePositionByMousePosition);
                 window.removeEventListener('mouseup', this.foundation.handleMouseUp);
             },
-            getColorPickerFoundation: ()=>this.props.foundation,
-            getDOM: ()=>this.ref.current
+            getColorPickerFoundation: () => this.props.foundation,
+            getDOM: () => this.ref.current
         };
     }
 
@@ -55,12 +56,10 @@ class ColorSlider extends BaseComponent<PropsWithChildren<ColorSliderProps>, Col
     }
 
 
-
-    handleClick = (e: React.MouseEvent)=>{
+    handleClick = (e: React.MouseEvent) => {
         this.foundation.setHandlePositionByMousePosition(e);
         this.foundation.handleMouseDown(e);
     }
-
 
 
     render() {

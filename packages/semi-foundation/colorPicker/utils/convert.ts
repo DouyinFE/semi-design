@@ -19,10 +19,10 @@ export const hexToHsva = (hex: string): HsvaColor => rgbaToHsva(hexToRgba(hex));
 export const hexToRgba = (hex: string): RgbaColor => {
     if (hex[0] === "#") hex = hex.substring(1);
 
-    const hexToPercent = (str: string)=>{
+    const hexToPercent = (str: string) => {
         const decimal = parseInt(str, 16);
         if (!isNaN(decimal)) {
-            const percent = decimal/255;
+            const percent = decimal / 255;
             return percent;
         }
         return 1;
@@ -152,7 +152,7 @@ export const rgbaStringToHsva = (rgbaString: string): HsvaColor => {
     return rgbaToHsva(rgbaStringToRgba(rgbaString));
 };
 
-export const rgbaStringToRgba = (rgbaString: string): RgbaColor=>{
+export const rgbaStringToRgba = (rgbaString: string): RgbaColor => {
     const matcher = /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
     const match = matcher.exec(rgbaString);
 
@@ -176,15 +176,15 @@ const format = (number: number) => {
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
     const percentToHex = (p) => {
-    //const percent = Math.max(0, Math.min(100, p)); // bound percent from 0 to 100
+        //const percent = Math.max(0, Math.min(100, p)); // bound percent from 0 to 100
         const intValue = Math.round(p / 100 * 255); // map percent to nearest integer (0 - 255)
         const hexValue = intValue.toString(16); // get hexadecimal representation
         return hexValue.padStart(2, '0').toLowerCase(); // format with leading 0 and upper case characters
     };
-    if (a===undefined || a===1) {
+    if (a === undefined || a === 1) {
         return "#" + format(r) + format(g) + format(b);
     } else {
-        return "#" + format(r) + format(g) + format(b) + percentToHex(a*100);
+        return "#" + format(r) + format(g) + format(b) + percentToHex(a * 100);
     }
 
 };

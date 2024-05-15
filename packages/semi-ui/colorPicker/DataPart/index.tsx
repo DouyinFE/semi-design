@@ -1,133 +1,79 @@
-import React, { ReactNode } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { HsvaColor, RgbaColor } from '@douyinfe/semi-foundation/colorPicker/interface';
 import Input from "../../input";
 import InputGroup from "../../input/inputGroup";
 import InputNumber from "../../inputNumber";
 import Select from "../../select";
 import Button from "../../button";
-import split from "@douyinfe/semi-foundation/colorPicker/utils/split";
 import ColorPickerFoundation, { ColorPickerProps } from '@douyinfe/semi-foundation/colorPicker/foundation';
 import { isEqual } from 'lodash';
 import { IconEyedropper } from '@douyinfe/semi-icons';
 import { cssClasses } from '@douyinfe/semi-foundation/colorPicker/constants';
+import BaseComponent from "../../_base/baseComponent";
+import DataPartFoundation, {
+    DataPartAdapter,
+    DataPartBaseProps,
+    DataPartBaseState
+} from "@douyinfe/semi-foundation/colorPicker/DataPartFoundation";
 
 
-
-type Value = ColorPickerProps['value']
-interface DataPartProps {
-    currentColor: Value;
-    defaultFormat: 'hex'|'rgba'|'hsva';
-    width: number;
-    alpha?: boolean;
-    foundation: ColorPickerFoundation;
-    eyeDropper: boolean
+interface DataPartProps extends DataPartBaseProps {
 
 }
 
-interface DataPartState{
-    format: 'hex'|'rgba'|'hsva';
-    inputValue: string
+interface DataPartState extends DataPartBaseState {
+
 }
 
 
-class DataPart extends React.Component<DataPartProps, DataPartState> {
+class DataPart extends BaseComponent<PropsWithChildren<DataPartProps>, DataPartState> {
 
     constructor(props: DataPartProps) {
         super(props);
+        this.foundation = new DataPartFoundation(this.adapter);
         this.state = {
             format: this.props.defaultFormat,
             inputValue: ''
         };
     }
 
+    get adapter(): DataPartAdapter<DataPartBaseProps, DataPartBaseState> {
+        return {
+            ...super.adapter,
+
+            getColorPickerFoundation: () => this.props.foundation,
+        };
+    }
+
     componentDidMount() {
-        this.setState({ inputValue: this.getInputValue() });
+        this.setState({ inputValue: this.foundation.getInputValue() });
     }
 
     componentDidUpdate(prevProps: Readonly<DataPartProps>, prevState: Readonly<DataPartState>, snapshot?: any) {
         if (!isEqual(prevProps.currentColor, this.props.currentColor) || prevState.format !== this.state.format) {
-            this.setState({ inputValue: this.getInputValue() });
-        }
-
-    }
-
-    getInputValue = ()=>{
-        const rgba = this.props.currentColor.rgba;
-        const hsva = this.props.currentColor.hsva;
-        const hex = this.props.currentColor.hex;
-        if (this.state.format === 'rgba') {
-            return `${rgba.r},${rgba.g},${rgba.b}`;
-        } else if (this.state.format === 'hsva') {
-            return `${hsva.h},${hsva.s},${hsva.v}`;
-        } else {
-            return hex.slice(0, 7);
+            this.setState({ inputValue: this.foundation.getInputValue() });
         }
     }
 
 
-    handleChange = (newColor: RgbaColor|HsvaColor|string)=>{
+    handleChange = (newColor: RgbaColor | HsvaColor | string) => {
         this.props.foundation.handleChange(newColor, this.state.format);
     }
-
-    getValueByInputValue = (value: string)=>{
-        if (this.state.format === 'rgba') {
-            const result = split(value, this.state.format);
-            if (result) {
-                return result as RgbaColor;
-            }
-
-        } else if (this.state.format === 'hsva') {
-            const result = split(value, this.state.format);
-            if (result) {
-                return result as HsvaColor;
-            }
-        } else if (this.state.format === 'hex') {
-            if (!value.startsWith('#')) {
-                value = '#' + value;
-            }
-            if (/#[\d\w]{6,8}/.test(value)) {
-                return value;
-            }
-        }
-        return false;
-    }
-
-    handlePickValueWithStraw = async ()=>{
-        if (!window['EyeDropper']) {
-            return;
-        }
-        //@ts-ignore
-        const eyeDropper = new EyeDropper();
-
-        try {
-            const result = await eyeDropper.open();
-            const color = result['sRGBHex'];
-            if (color.startsWith("#")) {
-                this.props.foundation.handleChange(color, 'hex');
-            } else if (color.startsWith('rgba')) {
-                const rgba = ColorPickerFoundation.rgbaStringToRgba(color);
-                rgba.a = 1;
-                this.props.foundation.handleChange(rgba, 'rgba');
-            }
-        } catch (e) {
-
-        }
-    }
-
-
 
 
     render() {
         const rgba = this.props.currentColor.rgba;
         return <div className={`${cssClasses.PREFIX}-dataPart`} style={{ width: this.props.width }}>
-            <div className={`${cssClasses.PREFIX}-colorDemoBlock`} style={{ minWidth: 20, minHeight: 20, backgroundColor:
-                    `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})` }}>
+            <div className={`${cssClasses.PREFIX}-colorDemoBlock`} style={{
+                minWidth: 20, minHeight: 20, backgroundColor:
+                    `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
+            }}>
             </div>
-            <InputGroup size={'small'} className={`${cssClasses.PREFIX}-inputGroup`} >
+            <InputGroup size={'small'} className={`${cssClasses.PREFIX}-inputGroup`}>
                 <Input className={`${cssClasses.PREFIX}-colorPickerInput`}
                     value={this.state.inputValue}
-                    onChange={(v)=>{
-                        const value = this.getValueByInputValue(v);
+                    onChange={(v) => {
+                        const value = this.foundation.getValueByInputValue(v);
                         if (value) {
                             this.handleChange(value);
                         }
@@ -141,7 +87,7 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                         max={100}
                         className={`${cssClasses.PREFIX}-colorPickerInputNumber`}
                         value={Number(Math.round(this.props.currentColor.rgba.a * 100))}
-                        onNumberChange={v=>{
+                        onNumberChange={v => {
                             if (this.state.format === 'rgba') {
                                 this.handleChange({ ...this.props.currentColor.rgba, a: Number((v / 100).toFixed(2)) });
                             } else if (this.state.format === 'hex') {
@@ -153,17 +99,18 @@ class DataPart extends React.Component<DataPartProps, DataPartState> {
                                 this.handleChange(rgba);
                             }
                         }}
-                        suffix={<span className={`${cssClasses.PREFIX}-inputNumberSuffix`}>%</span>} hideButtons={true} />
+                        suffix={<span className={`${cssClasses.PREFIX}-inputNumberSuffix`}>%</span>} hideButtons={true}/>
                 }
                 <Select className={`${cssClasses.PREFIX}-formatSelect`}
                     size={'small'}
                     value={this.state.format}
-                    onSelect={v=>this.setState({ format: v as DataPartState['format'] })}
-                    optionList={['hex', 'rgba', 'hsva'].map(type=>({ label: type, value: type }))}/>
+                    onSelect={v => this.setState({ format: v as DataPartState['format'] })}
+                    optionList={['hex', 'rgba', 'hsva'].map(type => ({ label: type, value: type }))}/>
             </InputGroup>
 
-            {this.props.eyeDropper && <Button type={'tertiary'} theme={'light'} size={'small'} onClick={this.handlePickValueWithStraw}
-                icon={<IconEyedropper />} />}
+            {this.props.eyeDropper && <Button type={'tertiary'} theme={'light'} size={'small'}
+                onClick={this.foundation.handlePickValueWithStraw}
+                icon={<IconEyedropper/>}/>}
 
         </div>;
     }
