@@ -17,14 +17,17 @@ export default class DescriptionsFoundation<P = Record<string, any>, S = Record<
         }
         const lastSpan = itemRow[itemRow.length - 1];
         // 如果用户设置了span就跳过
-        if (!lastSpan.span || isNaN(lastSpan.span)) {
-            let total = 0;
-            itemRow.forEach((item: { span: number })=>{
-                return total += !isNaN(item.span)?item.span:1;
-            });
-            if (total < maxColumnPerLine) {
-                lastSpan.span = maxColumnPerLine - total + 1;
-            }
+        if (lastSpan.span && !isNaN(lastSpan.span)) {
+            return;
+        }
+
+        let total = 0;
+        itemRow.forEach((item: { span: number })=>{
+            return total += !isNaN(item.span)?item.span:1;
+        });
+
+        if (total < maxColumnPerLine) {
+            lastSpan.span = maxColumnPerLine - total + 1;
         }
     }
 
