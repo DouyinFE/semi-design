@@ -515,7 +515,7 @@ $spCol: var(--semi-color-primary);
  * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
-
+// 隔离官网 prism 与 codeHighlight 组件的 prism
 code[class*="language-"],
 pre[class*="language-"] {
     color: black;

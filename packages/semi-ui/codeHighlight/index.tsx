@@ -11,13 +11,13 @@ import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import PropTypes from 'prop-types';
 
 
-interface CodeHighlightProps extends CodeHighlightBaseProps{
+interface CodeHighlightProps extends CodeHighlightBaseProps {
     className?: string;
     style?: CSSProperties
 }
 
 
-interface CodeHighlightState extends CodeHighlightBaseState{
+interface CodeHighlightState extends CodeHighlightBaseState {
 
 }
 
@@ -42,9 +42,7 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
 
     constructor(props: CodeHighlightProps) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
 
     }
 
@@ -59,7 +57,12 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
         if (this.codeRef.current) {
             this.foundation.highlightCode(this.codeRef.current, this.props.language);
         }
+    }
 
+    componentDidUpdate(prevProps: Readonly<CodeHighlightProps>, prevState: Readonly<CodeHighlightState>, snapshot?: any) {
+        if (this.codeRef.current && prevProps.code !== this.props.code || this.props.language !== this.props.language) {
+            this.foundation.highlightCode(this.codeRef.current, this.props.language);
+        }
     }
 
     render() {

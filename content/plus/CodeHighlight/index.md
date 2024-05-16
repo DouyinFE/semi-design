@@ -128,13 +128,13 @@ function Demo() {
 
 ### API
 
-| 属性        | 说明    | 类型     | 默认值 |
-|-----------|-------|--------|-----|
-| className | 类名    | string | -   |
-| code      | 代码纯文本 | string | -   |
-| language  | 语言类型  | string | -   |
-|lineNumber | 是佛开启行数显示 | boolean | true |
-| style | 样式 | CSSProperties | - |
+| 属性        | 说明       | 类型     | 默认值 |
+|-----------|----------|--------|-----|
+| className | 类名       | string | -   |
+| code      | 代码纯文本    | string | -   |
+| language  | 语言类型     | string | -   |
+|lineNumber | 是否开启行数显示 | boolean | true |
+| style | 样式       | CSSProperties | - |
 
 ## 设计变量
 

@@ -6,13 +6,13 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.min.css";
 
 Prism.manual = true;
 
-export interface CodeHighlightBaseProps{
+export interface CodeHighlightBaseProps {
     code: string;
     language: string;
     lineNumber: boolean
 }
 
-export interface CodeHighlightBaseState{
+export interface CodeHighlightBaseState {
 
 }
 
@@ -21,13 +21,13 @@ export interface CodeHighlightAdapter<P = Record<string, any>, S = Record<string
 }
 
 
-class CodeHighlightFoundation <P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CodeHighlightAdapter<P, S>, P, S> {
+class CodeHighlightFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CodeHighlightAdapter<P, S>, P, S> {
     constructor(adapter: CodeHighlightAdapter<P, S>) {
         super({ ...adapter });
     }
 
 
-    highlightCode = (ele: HTMLElement, language: string)=>{
+    highlightCode = (ele: HTMLElement, language: string) => {
         let className = ele.className;
         const languageClassName = `language-${language}`;
         if (!className.includes(languageClassName)) {
