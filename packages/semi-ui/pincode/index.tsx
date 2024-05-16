@@ -15,13 +15,13 @@ import "@douyinfe/semi-foundation/pincode/pincode.scss";
 import cls from 'classnames';
 
 
-export interface PinCodeProps extends PinCodeBaseProps{
+export interface PinCodeProps extends PinCodeBaseProps {
     className?: string;
     style?: CSSProperties;
     size?: InputProps['size']
 }
 
-export interface PinCodeState extends PinCodeBaseState{
+export interface PinCodeState extends PinCodeBaseState {
 
 }
 
@@ -49,6 +49,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
 
     inputDOMList: HTMLInputElement[] = []
     foundation: PinCodeFoundation
+
     constructor(props: PinCodeProps) {
         super(props);
         this.foundation = new PinCodeFoundation(this.adapter);
@@ -60,56 +61,55 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
 
     componentDidUpdate(prevProps: Readonly<PinCodeProps>, prevState: Readonly<PinCodeState>, snapshot?: any) {
 
-        if (prevProps.value!==this.props.value) {
-            this.setState({ valueList: this.props.value.split("") });
+        if (prevProps.value !== this.props.value) {
+            this.foundation.updateValueList(this.props.value.split(""));
         }
     }
 
     get adapter(): PinCodeAdapter<PinCodeProps, PinCodeState> {
         return {
             ...super.adapter,
-            onCurrentActiveIndexChange: (i)=>{
+            onCurrentActiveIndexChange: (i) => {
                 this.setState({ currentActiveIndex: i });
             },
-            changeValueList: (values: string[])=>{
-                if (this.props.value) {
-                    this.props.onChange?.(values.join(""));
-                } else {
-                    this.setState({ valueList: values });
-                }
-             
+            notifyValueChange: (values: string[]) => {
+                this.props.onChange?.(values.join(""));
             },
-            changeSpecificInputFocusState: (index, state)=>{
-                if (state==="focus") {
+
+            changeSpecificInputFocusState: (index, state) => {
+                if (state === "focus") {
                     this.inputDOMList[index]?.focus?.();
-                } else if (state==="blur") {
-                    this.inputDOMList[index]?.blur?.(); 
+                } else if (state === "blur") {
+                    this.inputDOMList[index]?.blur?.();
                 }
+            },
+            updateValueList: (valueList: PinCodeState['valueList']) => {
+                this.setState({ valueList });
             }
         };
     }
 
 
-    focus = (index: number)=>{
+    focus = (index: number) => {
         const inputDOM = this.inputDOMList[index];
         inputDOM?.focus();
         inputDOM?.setSelectionRange(1, 1);
     }
 
-    blur = (index: number)=>{
+    blur = (index: number) => {
         this.inputDOMList[index]?.blur();
     }
 
 
-    renderSingleInput = (index: number)=>{
+    renderSingleInput = (index: number) => {
         return <Input
-            ref={dom=>this.inputDOMList[index] = dom}
+            ref={dom => this.inputDOMList[index] = dom}
             key={`input-${index}`}
-            autoFocus={this.props.autoFocus && index===0}
+            autoFocus={this.props.autoFocus && index === 0}
             value={this.state.valueList[index]}
             size={this.props.size}
-            onChange={v=>{
-                const userInputChar = v[v.length-1];
+            onChange={v => {
+                const userInputChar = v[v.length - 1];
                 if (this.foundation.validateValue(userInputChar)) {
                     this.foundation.completeSingleInput(index, userInputChar);
                 }
@@ -119,7 +119,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
 
     render() {
         const inputElements: ReactElement[] = [];
-        for (let i=0;i<this.props.count;i++) {
+        for (let i = 0; i < this.props.count; i++) {
             inputElements.push(this.renderSingleInput(i));
         }
         return <div className={cls(`${cssClasses.PREFIX}-wrapper`, this.props.className)} style={this.props.style}>

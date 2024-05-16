@@ -1,4 +1,3 @@
-import Pagination from '../../pagination';
 import React,{useState} from 'react';
 import PinCode from '../index';
 
