@@ -1003,3 +1003,39 @@ export const IconStyle = () => {
     </Tabs>
   )
 }
+
+export const Fix2239 = () => {
+  const [activeKey, setActiveKey] = useState('tab-0')
+  
+  return (
+    <div>
+      The overflow tab will also 'scrollIntoView' when the 'activeKey' changes.
+      <Tabs
+        style={{
+          width: '500px',
+          margin: '20px',
+        }}
+        type="card"
+        activeKey={activeKey}
+        collapsible
+        onChange={(e) => {
+          setActiveKey(e)
+        }}
+      >
+        {[...Array(10).keys()].map(i => (
+          <TabPane tab={`Tab-${i}`} itemKey={`tab-${i}`} key={i}>content of tab {i}</TabPane>
+        ))}
+      </Tabs>
+      <Button onClick={() => { setActiveKey('tab-0') }}>
+        To Tab-0
+      </Button>
+      <Button onClick={() => { setActiveKey('tab-7') }}>
+        To Tab-7
+      </Button>
+    </div>
+  );
+}
+
+Fix2239.story = {
+  name: 'Fix 2239',
+};
