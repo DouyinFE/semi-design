@@ -58,6 +58,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             uuid: getUuidv4(),
         });
     }
+    
+    componentDidUpdate(prevProps) {
+        if (prevProps.activeKey !== this.props.activeKey) {
+            if (this.props.collapsible) {
+                this.scrollActiveTabItemIntoView()
+            }
+        }
+    }
 
     renderIcon(icon: ReactNode): ReactNode {
         return (
@@ -89,11 +97,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     handleItemClick = (itemKey: string, e: MouseEvent<Element>): void => {
         this.props.onTabClick(itemKey, e);
-        if (this.props.collapsible) {
-            const key = this._getItemKey(itemKey);
-            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-            tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-        }
     };
 
     handleKeyDown = (event: React.KeyboardEvent, itemKey: string, closable: boolean) => {
@@ -119,6 +122,16 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
+    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest') => {
+        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+        tabItem?.scrollIntoView({ behavior: 'smooth', block: logicalPosition, inline: logicalPosition });
+    }
+
+    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
+        const key = this._getItemKey(this.props.activeKey);
+        this.scrollTabItemIntoViewByKey(key, logicalPosition)
+    }
+
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
 
     handleArrowClick = (items: Array<OverflowItem>, pos: 'start' | 'end'): void => {
@@ -127,8 +140,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             return;
         }
         const key = this._getItemKey(lastItem.itemKey);
-        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        this.scrollTabItemIntoViewByKey(key)
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
