@@ -898,3 +898,12 @@ export const SingleRowCssEllipsisAccurate = () => {
     </div>
   );
 }
+
+export const InheritSize = () => {
+  const { Text } = Typography;
+  return (
+    <Text size="small">这是一段文本，样式为 small
+      <Text link size="inherit">这是一段链接，设置 size 为 inherit 继承外部样式设置</Text>
+    </Text>
+  )
+}
