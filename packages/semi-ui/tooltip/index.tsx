@@ -245,7 +245,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     {
                         isInsert: true,
                         transitionState: 'enter',
-                        containerStyle: { ...this.state.containerStyle, ...containerStyle },
+                        containerStyle: { ...this.state.containerStyle, ...containerStyle }
                     },
                     () => {
                         setTimeout(() => {
