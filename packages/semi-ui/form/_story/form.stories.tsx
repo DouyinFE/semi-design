@@ -164,16 +164,20 @@ interface FData {
     // [x: string]: any;
 }
 class Demo extends React.Component<IProps, IState> {
+
+    formApi: FormApi<FData>
+
     constructor(props:any) {
       super(props);
       this.state = { visible: false};
     }
 
-    getFormApi(formApi: FormApi<FData>) {
-        // this.formApi = formApi;
+    getFormApi(formApi) {
+        this.formApi = formApi;
     }
 
-    setData(formApi: FormApi<FData>) {
+    setData() {
+        const formApi = this.formApi;
         formApi.setValue('test3', 123);
         formApi.setValue('test8', 123);
         formApi.setValue('test4.event', 123);
