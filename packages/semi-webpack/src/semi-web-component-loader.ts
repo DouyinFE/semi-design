@@ -1,14 +1,5 @@
 const fs = require('fs');
-
-// 组件的依赖组件对应关系放在 @douyinfe/semi-ui/componentDependentTree.json 下
-// 在编译结果的 @douyinfe/semi-ui/es/componentDependentTree.json 中
-function getDependentComponentsTree() {
-    let uiPath = require.resolve('@douyinfe/semi-ui');
-    uiPath = uiPath.replace('cjs/index.js', '');
-    const jsonPath = uiPath + 'es/componentDependentTree.json';
-    const jsonContent = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-    return jsonContent;
-}
+import componentDependentTree from './componentDependentTree';
 
 function getAllComponents(components: string[]) {
     const originComponents = new Set(components);
@@ -35,8 +26,6 @@ function getAllComponents(components: string[]) {
         'Col': 'Grid',
     };
 
-    const componentDependencies = getDependentComponentsTree();
-
     Object.keys(specialCaseBefore).map(keyComponent => {
         if (originComponents.has(keyComponent)) {
             originComponents.delete(keyComponent);
@@ -47,7 +36,7 @@ function getAllComponents(components: string[]) {
     function getDependentComponents(components: string[]) {
         components.forEach((component) => {
             if (!resultComponents.has(component)) {
-                const dependents = componentDependencies[component];
+                const dependents = componentDependentTree[component];
                 dependents?.forEach((element: string) => {
                     getDependentComponents([element]);
                 });
