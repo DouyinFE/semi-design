@@ -258,6 +258,8 @@ function Demo() {
 
 Paragraph and Text component support two sizes, `small`(12px) and `normal`(14px). By default it is set to `normal`。
 
+When the paragraph component or text component are used nested, set the `size` property of the inner component to `inherit`, and the size of the inner component will inherit the size setting of the outer component.
+
 ```jsx live=true
 import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
@@ -275,6 +277,10 @@ function Demo() {
             <Paragraph size='small'>
                 {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </Paragraph>
+            <br />
+            <Text size="small">This is a Text, size is small
+                <Text link size="inherit">This is a Text，size is inherit, inherit parent's size</Text>
+            </Text>
         </div>
     );
 }
@@ -462,7 +468,7 @@ function Demo() {
 | icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         | 0.27.0  |
 | link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     | 0.27.0  |
 | mark       | Marked style                                                                                                                             | boolean                                               | false     | 0.27.0  |
-| size       | Size, one of `normal`，`small`                                                                                                            | string                                                | `normal`  | 0.27.0  |
+| size       | Size, one of `normal`, `small`, `inherit`                                                                                                          | string                                                | `normal`  | 0.27.0  |
 | strong     | Bold style                                                                                                                               | boolean                                               | false     | 0.27.0  |
 | type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
 | underline  | Underlined style                                                                                                                         | boolean                                               | false     | 0.27.0  |

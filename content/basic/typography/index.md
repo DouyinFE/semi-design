@@ -246,7 +246,10 @@ function Demo() {
 ```
 
 ### 文本大小
-段落组件和文本组件支持两种尺寸，`small`（12px） 和 `normal`（14px），默认为`normal`。
+段落组件和文本组件支持两种尺寸，`small`（12px） 和 `normal`（14px） 和 `inherit`，默认为`normal`。
+
+当段落组件或者文本组件嵌套使用时候，设置内层组件的 `size` 属性为 `inherit`，内层组件的 size 将继承外层组件的尺寸设置。
+
 ```jsx live=true
 import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
@@ -264,6 +267,10 @@ function Demo() {
             <Paragraph size='small'>
                 Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的 Web 应用。
             </Paragraph>
+            <br />
+            <Text size="small">这是一段文本，样式为 small
+                <Text link size="inherit">这是一段链接，设置 size 为 inherit 继承外部样式设置</Text>
+            </Text>
         </div>
     );
 }
@@ -461,7 +468,7 @@ function Demo() {
 | icon      | 前缀图标                                                                                                                                | ReactNode                         | -         | 0.27.0 |
 | link      | 是否为链接，传object时，属性将透传给a标签                                                                                               | boolean\|object                   | false     | 0.27.0 |
 | mark      | 添加标记样式                                                                                                                            | boolean                           | false     | 0.27.0 |
-| size      | 文本大小，可选`normal`，`small`                                                                                                         | string                            | `normal`  | 0.27.0 |
+| size      | 文本大小，可选`normal`，`small`，`inherit`                                                                                                         | string                            | `normal`  | 0.27.0 |
 | strong    | 是否加粗                                                                                                                                | boolean                           | false     | 0.27.0 |
 | type      | 文本类型，可选 `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                            | `primary` | 0.27.0 |
 | underline | 添加下划线样式                                                                                                                          | boolean                           | false     | 0.27.0 |
