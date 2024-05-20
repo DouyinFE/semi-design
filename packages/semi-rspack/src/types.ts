@@ -4,9 +4,10 @@ export interface SemiWebpackPluginOptions {
     prefixCls?: string;
     variables?: Record<string, string | number>;
     include?: string;
-    omitCss?: boolean
+    omitCss?: boolean;
+    webComponentPath?: boolean | RegExp
 }
 
 export interface SemiThemeOptions {
-    name?: string;
+    name?: string
 }
