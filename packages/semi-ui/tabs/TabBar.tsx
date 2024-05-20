@@ -144,13 +144,20 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
+        const arrowCls = cls({
+            [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
+            [`${cssClasses.TABS_BAR}-arrow`]: true,
+        });
+        
         if (isEmpty(items)) {
             return (
-                <Button
-                    disabled={true}
-                    icon={icon}
-                    theme="borderless"
-                />
+                <div role="presentation" className={arrowCls}>
+                    <Button
+                        disabled={true}
+                        icon={icon}
+                        theme="borderless"
+                    />
+                </div>
             );
         }
         const { dropdownClassName, dropdownStyle } = this.props;
@@ -174,11 +181,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 })}
             </Dropdown.Menu>
         );
-
-        const arrowCls = cls({
-            [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
-            [`${cssClasses.TABS_BAR}-arrow`]: true,
-        });
 
         const dropdownCls = cls(dropdownClassName, {
             [`${cssClasses.TABS_BAR}-dropdown`]: true,
