@@ -69,12 +69,12 @@ _Input.parameters = {
 
 export const InputAutofocus = () => (
   <div className="input">
-    <Input placeholder="ies input" autofocus />
+    <Input placeholder="ies input" autoFocus />
   </div>
 );
 
 InputAutofocus.story = {
-  name: 'Input autofocus',
+  name: 'Input autoFocus',
 };
 
 export const InputPlaceholder = () => (
@@ -117,7 +117,7 @@ export const InputPrefixSuffixDemo = () => (
     <Input prefix="search" showClear defaultValue="Semi Design" />
     <Input prefix={<span>pre</span>} showClear defaultValue="Semi Design" />
     <Input prefix={<span>pre</span>} showClear defaultValue="Semi Design" />
-    <Input suffix={<IconSearch />} autofocus showClear defaultValue="Semi Design"></Input>
+    <Input suffix={<IconSearch />} autoFocus showClear defaultValue="Semi Design"></Input>
     <Input suffix="Semi Design" showClear defaultValue="Semi Design"></Input>
     <Input
       suffix={
@@ -526,7 +526,7 @@ export const FixAddonBeforeShowClear = () => (
       style={{
         width: 300,
       }}
-      autofocus
+      autoFocus
       defaultValue="Semi Design"
       addonBefore="http://"
       showClear

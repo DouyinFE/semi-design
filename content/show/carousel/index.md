@@ -64,7 +64,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
             {
                 imgList.map((src, index) => {
                     return (
-                        <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                        <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                             <Space vertical align='start' spacing='medium' style={titleStyle}>
                                 {renderLogo()}
                                 <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -133,7 +133,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 {
                     imgList.map((src, index) => {
                         return (
-                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                 <Space vertical align='start' spacing='medium' style={titleStyle}>
                                     {renderLogo()}
                                     <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -217,7 +217,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 {
                     imgList.map((src, index) => {
                         return (
-                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                 <Space vertical align='start' spacing='medium' style={titleStyle}>
                                     {renderLogo()}
                                     <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -315,7 +315,7 @@ import { Carousel, RadioGroup, Radio, Space, Typography } from '@douyinfe/semi-u
                 {
                     imgList.map((src, index) => {
                         return (
-                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                 <Space vertical align='start' spacing='medium' style={titleStyle}>
                                     {renderLogo()}
                                     <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -411,7 +411,7 @@ class CarouselDemo extends React.Component {
                     {
                         this.imgList.map((src, index) => {
                             return (
-                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                     <Space vertical align='start' spacing='medium' style={titleStyle}>
                                         {this.renderLogo()}
                                         <Typography.Title heading={2} style={colorStyle}>{this.textList[index][0]}</Typography.Title>
@@ -480,7 +480,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
                 {
                     imgList.map((src, index) => {
                         return (
-                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                 <Space vertical align='start' spacing='medium' style={titleStyle}>
                                     {renderLogo()}
                                     <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -550,7 +550,7 @@ import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
                 {
                     imgList.map((src, index) => {
                         return (
-                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                            <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                 <Space vertical align='start' spacing='medium' style={titleStyle}>
                                     {renderLogo()}
                                     <Title heading={2} style={colorStyle}>{textList[index][0]}</Title>
@@ -627,7 +627,7 @@ class CarouselDemo extends React.Component {
                     {
                         this.imgList.map((src, index) => {
                             return (
-                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url(${src})` }}>
+                                <div key={index} style={{ backgroundSize: 'cover', backgroundImage: `url('${src}')` }}>
                                     <Space vertical align='start' spacing='medium' style={titleStyle}>
                                         {this.renderLogo()}
                                         <Typography.Title heading={2} style={colorStyle}>{this.textList[index][0]}</Typography.Title>
