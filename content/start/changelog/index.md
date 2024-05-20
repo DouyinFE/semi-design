@@ -13,6 +13,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.59.0-beta.0 (2024-05-20)
+- 【Feat】
+  - Typography 的 size API 支持 inherit 属性 [#2244](https://github.com/DouyinFE/semi-design/pull/2244)
+  - Tree 的 icon API 支持通过函数类型  [#2236 ](https://github.com/DouyinFE/semi-design/issues/2236) [#2237](https://github.com/DouyinFE/semi-design/pull/2237)
+  - 实现 webpack & rspack 插件用于对 web components中的 semi 组件进行样式插入 [#2221](https://github.com/DouyinFE/semi-design/pull/2221)
+  - 提供 TailwindCSS 混用时的最佳实践，解决一系列样式问题 [#2235](https://github.com/DouyinFE/semi-design/pull/2235)
+- 【Fix】
+  - 修复溢出的 tab 在 “activeKey” 变动后没有 "scrollIntoView" 的问题 [@l123wx](https://github.com/l123wx) [#2241](https://github.com/DouyinFE/semi-design/pull/2241)
+  - Slider 在特殊场景下触发事件时机异常的问题。 [@zzc6332](https://github.com/zzc6332) [#2186](https://github.com/DouyinFE/semi-design/pull/2186)
+  - 修复 Tree组件中 renderFulllabel 的透传的 className 样式受到 li 标签限制问题 [#2238](https://github.com/DouyinFE/semi-design/pull/2238)
+- 【Chore】
+  - WebpackPlugin 增加 cssLayer 配置项，允许用户自定义样式优先级顺序 [#2235](https://github.com/DouyinFE/semi-design/pull/2235)
+
+
 #### 🎉 2.58.0 (2024-05-11)
 - 【Feat】
     - Tabs 新增 more api，用于将一部分 tabs 收起到下拉菜单中 [#2226](https://github.com/DouyinFE/semi-design/pull/2226)
