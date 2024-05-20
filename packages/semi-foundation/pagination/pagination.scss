@@ -48,8 +48,6 @@ $module: #{$prefix}-page;
         transition: background-color $transition_duration-pagination_item-bg $transition_function-pagination_item-bg $transition_delay-pagination_item-bg,
         color $transition_duration-pagination_item-text $transition_function-pagination_item-text $transition_delay-pagination_item-text;
         transform:scale($transform_scale-pagination_item);
-        width: fit-content;
-        flex-shrink: 0;
 
         &:hover {
             border-color: $color-pagination_item-border-hover;
