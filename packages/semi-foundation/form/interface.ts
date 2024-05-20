@@ -40,20 +40,6 @@ type ExcludeStringNumberKeys<T> = {
     [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
 }
 
-// type FieldPath<T, K extends keyof T = keyof T> =
-//     K extends string
-//         ? (T[K] extends Record<string, any>
-//             ? `${K}.${FieldPath<T[K], keyof T[K]>}` | K
-//             : K)
-//         : never;
-
-// type FieldPath<T, K extends keyof T = keyof T> =
-//     K extends string
-//         ? (T[K] extends Record<string, any>
-//             ? `${K}.${FieldPath<ExcludeStringNumberKeys<T[K]>, keyof ExcludeStringNumberKeys<T[K]>>}` | K
-//             : K)
-//         : never;
-
 type CustomKeys<T> = { [K in keyof T]: string extends K ? never : number extends K ? never : K; } extends { [K in keyof T]: infer U } ? U : never;
 
 type FieldPath<T, K extends CustomKeys<T> = CustomKeys<T>> = K extends string ? T[K] extends Record<string, any> ? `${K}.${FieldPath<T[K], CustomKeys<T[K]>>}` | K : K : never;
@@ -64,7 +50,6 @@ export interface BaseFormApi<T extends object = any> {
     /** get value of field */
     getValue: <K extends keyof T>(field?: K) => T[K];
     /** set value of field */
-    // setValue: <K extends keyof T>(field: FieldPath<T, K> | FieldPath<K>, newFieldValue: any) => void;
     setValue: <K extends CustomKeys<T>>(field: FieldPath<T, K> | FieldPath<K>, newFieldValue: any) => void;
     // setValue: <K extends keyof T>(field: K, newFieldValue: T[K]) => void;
     /** get error of field */
