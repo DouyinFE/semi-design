@@ -168,6 +168,12 @@ const local: Locale = {
         adaptiveTip: '페이지에 맞게 조정',
         originTip: '원래 크기',
     },
+    Chat: {
+        deleteConfirm: '이 대화를 삭제하시겠습니까?',
+        clearContext: '컨텍스트가 지워졌습니다',
+        copySuccess: '복사 성공',
+        stop: '중지',
+    },
 };
 
 // [i18n-Korea]

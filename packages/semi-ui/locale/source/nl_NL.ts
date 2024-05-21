@@ -174,6 +174,12 @@ const local: Locale = {
         adaptiveTip: 'Adaptieve weergave',
         originTip: 'Standaardweergave',
     },
+    Chat: {
+        deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
+        clearContext: 'De context is gewist',
+        copySuccess: 'Succesvol gekopieerd',
+        stop: 'Stoppen',
+    },
 };
 
 export default local;

@@ -170,6 +170,12 @@ const local: Locale = {
         adaptiveTip: 'Адаптировать к странице',
         originTip: 'Исходный размер',
     },
+    Chat: {
+        deleteConfirm: 'Вы уверены, что хотите удалить эту сессию?',
+        clearContext: 'Контекст очищен',
+        copySuccess: 'Скопировано успешно',
+        stop: 'остановить',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

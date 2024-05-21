@@ -167,6 +167,12 @@ const local: Locale = {
         adaptiveTip: 'Adatta alla pagina',
         originTip: 'Formato originale',
     },
+    Chat: {
+        deleteConfirm: 'Sei sicuro di voler eliminare questa conversazione?',
+        clearContext: 'Il contesto è stato eliminato',
+        copySuccess: 'Copiato con successo',
+        stop: 'Fermare',
+    },
 };
 
 // [i18n-Italian]

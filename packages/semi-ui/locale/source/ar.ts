@@ -167,6 +167,12 @@ const local: Locale = {
         adaptiveTip: "التكيف مع الصفحة",
         originTip: "الحجم الأصلي",
     },
+    Chat: {
+        deleteConfirm: 'هل ترغب في حذف هذه الجلسة؟',
+        clearContext: 'تم مسح السياق',
+        copySuccess: 'تم النسخ بنجاح',
+        stop: 'توقف',
+    },
 };
 
 // [i18n-Arabic]

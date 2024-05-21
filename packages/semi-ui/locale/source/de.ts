@@ -167,6 +167,12 @@ const local: Locale = {
         adaptiveTip: 'An die Seite anpassen',
         originTip: 'Originalgröße',
     },
+    Chat: {
+        deleteConfirm: 'Möchten Sie diesen Chat wirklich löschen?',
+        clearContext: 'Der Kontext wurde gelöscht',
+        copySuccess: 'Erfolgreich kopiert',
+        stop: 'stoppen',
+    },
 };
 
 // [i18n-German]

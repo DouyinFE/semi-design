@@ -5,7 +5,6 @@ export default {
 }
 
 
-
 export const Basic = ()=>{
     return <MarkdownRender raw={"# Two 🍰 is: {Math.PI * 2}"} components={semiComponents}/>
 }
