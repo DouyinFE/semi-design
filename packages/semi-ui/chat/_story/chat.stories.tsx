@@ -7,7 +7,7 @@ import { initMessage, roleInfo, commonOuterStyle, hintsExample } from './constan
 
 const stories = storiesOf('Chat', module);
 
-stories.add('Markdown 渲染器', () => {
+stories.add('Chat 对话', () => {
     const [message, setMessage] = useState(initMessage);
     const [hints, setHints] = useState(hintsExample);
 

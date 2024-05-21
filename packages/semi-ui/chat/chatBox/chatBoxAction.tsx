@@ -162,14 +162,19 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
 
     render() {
         const { message = {}, lastChat } = this.props;
-        const { role, status } = message;
-        const showFeedback = role !== ROLE.USER;
+        const { role, status = MESSAGE_STATUS.COMPLETE } = message;
+        const complete = status === MESSAGE_STATUS.COMPLETE ;
+        const showFeedback = role !== ROLE.USER && complete;
         const showReset = lastChat && role === ROLE.ASSISTANT;
-        const finished = !(status && status !== MESSAGE_STATUS.COMPLETE);
-        const wrapCls = cls(PREFIX_CHAT_BOX_ACTION, { [`${PREFIX_CHAT_BOX_ACTION}-show`]: showReset && finished });
+        const finished = status !== MESSAGE_STATUS.LOADING && status !== MESSAGE_STATUS.INCOMPLETE;
+        const wrapCls = cls(PREFIX_CHAT_BOX_ACTION, { 
+            [`${PREFIX_CHAT_BOX_ACTION}-show`]: showReset && finished,
+            [`${PREFIX_CHAT_BOX_ACTION}-hidden`]: !finished,
+        });
         const { customRenderFunc } = this.props;
         if (customRenderFunc) {
-            const actionNodes = [this.copyNode()];
+            const actionNodes = [];
+            complete && actionNodes.push(this.copyNode());
             showFeedback && actionNodes.push(this.likeNode());
             showFeedback && actionNodes.push(this.dislikeNode());
             showReset && actionNodes.push(this.resetNode());
@@ -181,7 +186,7 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
             });
         }
         return <div className={wrapCls} >
-            {this.copyNode()}
+            {complete && this.copyNode()}
             {showFeedback && this.likeNode()}
             {showFeedback && this.dislikeNode()}
             {showReset && this.resetNode()}
