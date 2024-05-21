@@ -186,6 +186,10 @@ $module: #{$prefix}-chat;
             border-radius: $radius-chat_chatBox_content;
             background-color: $color-chat_chatBox_content_bg;
 
+            code {
+                white-space: pre-wrap;
+            }
+
             .#{$prefix}-typography { 
                 color: $color-chat_chatBox_content_text;
             }

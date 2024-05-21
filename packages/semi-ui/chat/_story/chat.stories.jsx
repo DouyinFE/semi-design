@@ -4,8 +4,7 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { Form, Button, Avatar, Dropdown } from '@douyinfe/semi-ui';
 import { IconUpload, IconForward, IconMoreStroked, IconArrowRight } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
-import * as semiComponents from '../../markdownRender/components/index';
-import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage } from './constant';
+import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode } from './constant';
 
 export default {
     title: 'Chat',
@@ -578,3 +577,12 @@ export const CustomRenderHint = () => {
     </div>
 }
 
+export const Code = () => {
+    return (
+        <div> 
+            test
+        <br />
+            <code> {semiCode}</code>
+        </div>
+    ) 
+}
