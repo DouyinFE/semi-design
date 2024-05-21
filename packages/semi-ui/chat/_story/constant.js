@@ -158,5 +158,6 @@ export {
     commonOuterStyle,
     hintsExample,
     infoWithAttachment,
-    simpleInitMessage
+    simpleInitMessage,
+    semiCode
 };
