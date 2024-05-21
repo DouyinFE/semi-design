@@ -397,15 +397,15 @@ export const MessageStatus = () => {
     const messages = [
         initMessage[1],
         {
+            ...initMessage[2],
+            content: '请求错误',
+            status: 'error'
+        },
+        {
             id: 'loading',
             role: 'assistant',
             status: 'loading'
         },
-        {
-            ...initMessage[2],
-            content: '请求错误',
-            status: 'error'
-        }
     ]
     return (<div
         style={{ height: 600}}
@@ -558,6 +558,10 @@ export const CustomRenderHint = () => {
         setHint([]);
     }, []);
 
+    const onClear = useCallback(() => {
+        setHint([]);
+    }, []);
+
     return <div
         style={{ height: 600}}
     >
@@ -569,6 +573,7 @@ export const CustomRenderHint = () => {
             hints={hint}
             roleConfig={roleInfo}
             renderHintBox={renderHintBox}
+            onClear={onClear}
         />
     </div>
 }

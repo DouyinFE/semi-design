@@ -103,7 +103,7 @@ $module: #{$prefix}-chat;
         column-gap: $spacing-chat_header-columnGap;
 
         &:hover {
-            .#{$module}-chatBox-action {
+            .#{$module}-chatBox-action:not(.#{$module}-chatBox-action-hidden) {
                 visibility: visible;
             }
         }
@@ -151,12 +151,12 @@ $module: #{$prefix}-chat;
                 transform: scaleY(-1);
             }
 
-            &-show  {
+            &:hover, &-show {
                 visibility: visible;
             }
 
-            &:hover {
-                visibility: visible;
+            &.#{$module}-chatBox-action-hidden, &:hover.#{$module}-chatBox-action-hidden {
+                visibility: hidden;
             }
 
             .#{$prefix}-button-borderless:not(.#{$prefix}-button-disabled):hover {
