@@ -297,4 +297,9 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?args=&id=table--fixed-row-selection-empty&viewMode=story');
         cy.get('.semi-table-thead .semi-checkbox-unChecked').should('exist');
     });
+
+    it('test onGroupedRow return object includes className', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-on-grouped-row-class-name&viewMode=story');
+        cy.get('tbody .semi-table-row-section').eq(0).should('have.class', 'test-group');
+    });
 });

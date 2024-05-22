@@ -163,7 +163,7 @@ body, body .semi-always-light, :host, :host .semi-always-light {
     --semi-yellow-9: 83,72,0;
 }
 
-body[theme-mode="dark"], body .semi-always-dark, :host-context(body[theme-mode="dark"]), :host .semi-always-dark {
+body[theme-mode="dark"], body .semi-always-dark, :host([theme-mode="dark"]), :host .semi-always-dark {
     --semi-red-0: 108,9,11;
     --semi-red-1: 144,17,16;
     --semi-red-2: 180,32,25;

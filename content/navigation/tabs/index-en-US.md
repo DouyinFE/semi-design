@@ -220,6 +220,53 @@ class App extends React.Component {
 }
 ```
 
+
+### More with Dropdown 
+
+
+Supports merging redundant tabs into a `more` drop-down menu. Just pass in a number for `more`. The number represents the number of tabs included in the drop-down menu. **（>=v2.59.0）**
+
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+function Demo(){
+  return (
+          <Tabs more={4} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                      Content of card tab {i}
+                    </TabPane>
+            ))}
+          </Tabs>
+  );
+}
+```
+
+Advanced configuration is also supported, passing the object to `more`, and it can be passed in
+
+- `count`: Represents the number of Tabs in the income drop-down menu
+- `render`: Customize the rendering function of Trigger. The returned ReactNode will be rendered as the Trigger of the drop-down menu.
+- `dropdownProps`: Incoming DropDown Props will be transparently transmitted to the drop-down menu. If you need to customize the drop-down menu, use the render method in dropdownProps
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+function Demo(){
+  return (
+          <Tabs more={{ count: 4, render: ()=>{return <div style={{ display: 'inline-block' }}>Click to show More</div>;}, dropdownProps: { trigger: "click" } }} style={{ width: '60%', margin: '20px' }} type="card">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                      Content of card tab {i}
+                    </TabPane>
+            ))}
+          </Tabs>
+  );
+}
+```
+
 ### Vertical mode
 
 Support two positions: `tabPosition='left|top'`
@@ -505,7 +552,7 @@ import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 class App extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             tabList: [
@@ -515,7 +562,7 @@ class App extends React.Component {
             ]
         };
     }
-    close(key){
+    close(key) {
         const newTabList = [...this.state.tabList];
         const closeIndex = newTabList.findIndex(t=>t.itemKey===key);
         newTabList.splice(closeIndex, 1);
@@ -546,6 +593,7 @@ contentStyle | The outer style object of the content area | CSSProperties | None
 defaultActiveKey | Initialize the key value of the selected tab page | string | '1' |
 keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
 lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
+more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -       |    
 renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
 preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |

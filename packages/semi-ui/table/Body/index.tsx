@@ -760,8 +760,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const tableStyle: {
             width?: string | number
         } = {};
-        const Table = get(components, 'body.outer', 'table') as unknown as typeof React.Component;
-        const BodyWrapper = (get(components, 'body.wrapper') || 'tbody') as unknown as typeof React.Component;
+        const Table = get(components, 'body.outer', 'table');
+        const BodyWrapper = get(components, 'body.wrapper') || 'tbody';
 
         if (y) {
             bodyStyle.maxHeight = y;

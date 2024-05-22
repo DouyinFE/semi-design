@@ -565,6 +565,9 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             disabled,
             placeholder,
             validateStatus,
+            prefix,
+            insetLabel,
+            suffix,
             ...rest
         } = this.props;
 
@@ -584,6 +587,8 @@ class TagInput extends BaseComponent<TagInputProps, TagInputState> {
             [`${prefixCls}-warning`]: validateStatus === 'warning',
             [`${prefixCls}-small`]: size === 'small',
             [`${prefixCls}-large`]: size === 'large',
+            [`${prefixCls}-with-prefix`]: !!prefix || !!insetLabel,
+            [`${prefixCls}-with-suffix`]: !!suffix,
         });
 
         const inputCls = cls(`${prefixCls}-wrapper-input`, `${prefixCls}-wrapper-input-${size}`);

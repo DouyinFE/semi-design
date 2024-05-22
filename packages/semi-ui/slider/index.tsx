@@ -47,7 +47,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         onMouseUp: PropTypes.func,
         tooltipOnMark: PropTypes.bool,
         tooltipVisible: PropTypes.bool,
-        showArrow: PropTypes.bool, 
+        showArrow: PropTypes.bool,
         style: PropTypes.object,
         className: PropTypes.string,
         showBoundary: PropTypes.bool,
@@ -77,7 +77,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         max: 100,
         min: 0,
         range: false, // Whether both sides
-        showArrow: true, 
+        showArrow: true,
         step: 1,
         tipFormatter: (value: tipFormatterBasicType | tipFormatterBasicType[]) => value,
         vertical: false,
@@ -132,9 +132,11 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             getSliderLengths: () => {
                 if (this.sliderEl && this.sliderEl.current) {
                     const rect = this.sliderEl.current.getBoundingClientRect();
+                    const offsetParentRect = this.sliderEl.current.offsetParent?.getBoundingClientRect();
+
                     const offset = {
-                        x: this.sliderEl.current.offsetLeft,
-                        y: this.sliderEl.current.offsetTop,
+                        x: offsetParentRect ? (rect.left - offsetParentRect.left): this.sliderEl.current.offsetLeft,
+                        y: offsetParentRect ? (rect.top - offsetParentRect.top) : this.sliderEl.current.offsetTop,
                     };
                     return {
                         sliderX: offset.x,
@@ -188,7 +190,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             transNewPropsToState<K extends keyof SliderState>(stateObj: Pick<SliderState, K>, callback = noop) {
                 this.setState(stateObj, callback);
             },
-            notifyChange: (cbValue: number | number[]) => this.props.onChange(cbValue),
+            notifyChange: (cbValue: number | number[]) => {
+                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort() : cbValue);
+            },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
             },
@@ -216,7 +220,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 }
 
                 const { value } = this.props;
-                
+
 
                 let finalOutPutValue = outPutValue;
                 if (finalOutPutValue === undefined) {
@@ -367,13 +371,13 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     onTouchEnd={e => {
                         this.foundation.onHandleUp(e);
                     }}
-                    onKeyDown={(e)=>{
+                    onKeyDown={(e) => {
                         this.foundation.handleKeyDown(e, 'min');
                     }}
                     onFocus={e => {
                         this.foundation.onFocus(e, 'min');
                     }}
-                    onBlur={(e) => { 
+                    onBlur={(e) => {
                         this.foundation.onBlur(e, 'min');
                     }}
                     role="slider"
@@ -385,14 +389,14 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                     aria-valuemin={min}
                 >
                     {this.props.handleDot && <div className={cssClasses.HANDLE_DOT} style={{
-                        ...(this.props.handleDot?.size?{ width: this.props.handleDot.size, height: this.props.handleDot.size }:{}),
-                        ...(this.props.handleDot?.color?{ backgroundColor: this.props.handleDot.color }:{}),
-                    }}/>}
+                        ...(this.props.handleDot?.size ? { width: this.props.handleDot.size, height: this.props.handleDot.size } : {}),
+                        ...(this.props.handleDot?.color ? { backgroundColor: this.props.handleDot.color } : {}),
+                    }} />}
                 </span>
             </Tooltip>
         ) : (
             <React.Fragment>
-                <Tooltip    
+                <Tooltip
                     content={tipChildren.min}
                     position="top"
                     trigger="custom"
@@ -428,13 +432,13 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
-                        onKeyDown={(e)=>{
+                        onKeyDown={(e) => {
                             this.foundation.handleKeyDown(e, 'min');
                         }}
                         onFocus={e => {
                             this.foundation.onFocus(e, 'min');
                         }}
-                        onBlur={(e) => { 
+                        onBlur={(e) => {
                             this.foundation.onBlur(e, 'min');
                         }}
                         role="slider"
@@ -446,9 +450,9 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         aria-valuemin={min}
                     >
                         {this.props.handleDot?.[0] && <div className={cssClasses.HANDLE_DOT} style={{
-                            ...(this.props.handleDot[0]?.size?{ width: this.props.handleDot[0].size, height: this.props.handleDot[0].size }:{}),
-                            ...(this.props.handleDot[0]?.color?{ backgroundColor: this.props.handleDot[0].color }:{}),
-                        }}/>}
+                            ...(this.props.handleDot[0]?.size ? { width: this.props.handleDot[0].size, height: this.props.handleDot[0].size } : {}),
+                            ...(this.props.handleDot[0]?.color ? { backgroundColor: this.props.handleDot[0].color } : {}),
+                        }} />}
                     </span>
                 </Tooltip>
                 <Tooltip
@@ -487,7 +491,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         onTouchEnd={e => {
                             this.foundation.onHandleUp(e);
                         }}
-                        onKeyDown={e =>{
+                        onKeyDown={e => {
                             this.foundation.handleKeyDown(e, 'max');
                         }}
                         onFocus={e => {
@@ -505,10 +509,10 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                         aria-valuemin={currentValue[0]}
                     >
                         {this.props.handleDot?.[1] && <div className={cssClasses.HANDLE_DOT} style={{
-                            ...(this.props.handleDot[1]?.size?{ width: this.props.handleDot[1].size, height: this.props.handleDot[1].size }:{}),
-                            ...(this.props.handleDot[1]?.color?{ backgroundColor: this.props.handleDot[1].color }:{}),
-                        }}/>}
-                    </span> 
+                            ...(this.props.handleDot[1]?.size ? { width: this.props.handleDot[1].size, height: this.props.handleDot[1].size } : {}),
+                            ...(this.props.handleDot[1]?.color ? { backgroundColor: this.props.handleDot[1].color } : {}),
+                        }} />}
+                    </span>
                 </Tooltip>
             </React.Fragment>
         );
@@ -522,12 +526,12 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
         const maxPercent = percentInfo.max;
         let trackStyle: CSSProperties = !vertical ?
             {
-                width: range ? `${(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
-                left: range ? `${minPercent * 100}%` : 0,
+                width: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
+                left: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
             } :
             {
-                height: range ? `${(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
-                top: range ? `${minPercent * 100}%` : 0,
+                height: range ? `${Math.abs(maxPercent - minPercent) * 100}%` : `${minPercent * 100}%`,
+                top: range ? `${Math.min(minPercent, maxPercent) * 100}%` : 0,
             };
         trackStyle = included ? trackStyle : {};
         return (// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -557,7 +561,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                                 style={{ [stylePos]: `calc(${markPercent * 100}% - 2px)` }}
                             />;
                         return activeResult ? (
-                            this.props.tooltipOnMark?<Tooltip content={marks[mark]}>{dotDOM}</Tooltip>:dotDOM
+                            this.props.tooltipOnMark ? <Tooltip content={marks[mark]}>{dotDOM}</Tooltip> : dotDOM
                         ) : null;
                     })}
                 </div>
@@ -619,7 +623,8 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
             [`${prefixCls}`]: !vertical,
             [cssClasses.VERTICAL]: vertical,
         });
-        const ariaLabel = range ? `Range: ${this._getAriaValueText(currentValue[0], 0)} to ${this._getAriaValueText(currentValue[1], 1)}` : undefined;
+        const fixedCurrentValue = Array.isArray(currentValue) ? [...currentValue].sort() : currentValue;
+        const ariaLabel = range ? `Range: ${this._getAriaValueText(fixedCurrentValue[0], 0)} to ${this._getAriaValueText(fixedCurrentValue[1], 1)}` : undefined;
         const slider = (
             <div
                 className={wrapperClass}

@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'Tamam',
         cancel: 'İptal'
     },
+    Tabs: {
+        more: "Daha"
+    },
     TimePicker: {
         placeholder: {
             time: 'Lütfen bir zaman seçin',

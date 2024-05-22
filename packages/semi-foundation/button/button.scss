@@ -45,7 +45,10 @@ $module: #{$prefix}-button;
 
         &-disabled {
             background-color: $color-button_disabled_danger-bg-default;
-
+            &.#{$module}-outline {
+                background-color: transparent;
+                border: $width-button_outline-border solid $color-button_disabled_outline-border-default;
+            }
             &.#{$module}-light {
                 background-color: $color-button_disabled_light_danger-bg-default;
             }
@@ -59,7 +62,14 @@ $module: #{$prefix}-button;
             background-color: $color-button_danger-bg-active;
         }
 
+        &.#{$module}-outline{
+            background-color: transparent;
+            border: $width-button_outline-border solid $color-button_danger_outline-border-default;
+        }
+
+
         &.#{$module}-light,
+        &.#{$module}-outline,
         &.#{$module}-borderless {
             color: $color-button_danger_borderless-text-default;
         }
@@ -78,7 +88,10 @@ $module: #{$prefix}-button;
 
         &-disabled {
             background-color: $color-button_disabled_warning-bg-default;
-
+            &.#{$module}-outline {
+                background-color: transparent;
+                border: $width-button_outline-border solid $color-button_disabled_outline-border-default;
+            }
             &.#{$module}-light {
                 background-color: $color-button_disabled_light_warning-bg-default;
             }
@@ -92,7 +105,13 @@ $module: #{$prefix}-button;
             background-color: $color-button_warning-bg-active;
         }
 
+        &.#{$module}-outline{
+            background-color: transparent;
+            border: $width-button_outline-border solid $color-button_warning_outline-border-default;
+        }
+
         &.#{$module}-light,
+        &.#{$module}-outline,
         &.#{$module}-borderless {
             color: $color-button_warning_borderless-text-default;
         }
@@ -111,7 +130,10 @@ $module: #{$prefix}-button;
 
         &-disabled {
             background-color: $color-button_disabled_tertiary-bg-default;
-
+            &.#{$module}-outline {
+                background-color: transparent;
+                border: $width-button_outline-border solid $color-button_disabled_outline-border-default;
+            }
             &.#{$module}-light {
                 background-color: $color-button_disabled_light_tertiary-bg-default;
             }
@@ -125,7 +147,13 @@ $module: #{$prefix}-button;
             background-color: $color-button_tertiary-bg-active;
         }
 
+        &.#{$module}-outline{
+            background-color: transparent;
+            border: $width-button_outline-border solid $color-button_tertiary_outline-border-default;
+        }
+
         &.#{$module}-light,
+        &.#{$module}-outline,
         &.#{$module}-borderless {
             color: $color-button_tertiary_solid-text-default;
         }
@@ -144,17 +172,29 @@ $module: #{$prefix}-button;
             &.#{$module}-light {
                 background: $color-button_disabled_light_primary-bg-default;
             }
+
+            &.#{$module}-outline {
+                background-color: transparent;
+                border: $width-button_outline-border solid $color-button_disabled_outline-border-default;
+            }
         }
 
-        &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
+        &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):hover {
             background-color: $color-button_primary-bg-hover;
         }
 
-        &:not(.#{$module}-borderless):not(.#{$module}-light):active {
+        &.#{$module}-outline{
+            background-color: transparent;
+            border: $width-button_outline-border solid $color-button_primary_outline-border-default;
+        }
+
+
+        &:not(.#{$module}-borderless):not(.#{$module}-light):not(.#{$module}-outline):active {
             background-color: $color-button_primary-bg-active;
         }
 
         &.#{$module}-light,
+        &.#{$module}-outline,
         &.#{$module}-borderless {
             color: $color-button_primary_borderless-text-default;
         }
@@ -171,9 +211,19 @@ $module: #{$prefix}-button;
         &-disabled {
             background-color: $color-button_disabled_secondary-bg-default;
 
+            &.#{$module}-outline {
+                background-color: transparent;
+                border: $width-button_outline-border solid $color-button_disabled_outline-border-default;
+            }
+
             &.#{$module}-light {
                 background-color: $color-button_disabled_light_secondary-bg-default;
             }
+        }
+
+        &.#{$module}-outline{
+            background-color: transparent;
+            border: $width-button_outline-border solid $color-button_secondary_outline-border-default;
         }
 
         &:hover {
@@ -185,6 +235,7 @@ $module: #{$prefix}-button;
         }
 
         &.#{$module}-light,
+        &.#{$module}-outline,
         &.#{$module}-borderless {
             color: $color-button_secondary_borderless-text-default;
         }
@@ -219,6 +270,18 @@ $module: #{$prefix}-button;
         &:not(.#{$module}-disabled):active {
             background-color: $color-button_borderless-bg-active;
             border: $width-button_borderless-border $color-button_borderless-border-active solid;
+        }
+    }
+
+    &-outline {
+        background-color: transparent;
+
+        &:not(.#{$module}-disabled):hover {
+            background-color: $color-button_outline-bg-hover;
+        }
+
+        &:not(.#{$module}-disabled):active {
+            background-color: $color-button_outline-bg-active;
         }
     }
 

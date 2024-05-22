@@ -1,6 +1,7 @@
 import React, { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
 import { Motion } from '../_base/base';
 import TabBar from './TabBar';
+import { DropdownProps } from "../dropdown";
 
 export type TabType = 'line' | 'card' | 'button';
 export type TabSize = 'small' | 'medium' | 'large';
@@ -37,7 +38,8 @@ export interface TabsProps {
     tabPosition?: TabPosition;
     type?: TabType;
     onTabClose?: (tabKey: string) => void;
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    more?: number | { count: number; render?: () => ReactNode; dropdownProps?: DropdownProps }
 }
 
 export interface TabBarProps {
@@ -55,7 +57,8 @@ export interface TabBarProps {
     dropdownStyle?: CSSProperties;
     closable?: boolean;
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
-    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void
+    handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
+    more?: TabsProps['more']
 }
 
 export interface TabPaneProps {
@@ -85,6 +88,6 @@ export interface TabContextValue {
     panes?: Array<PlainTab>;
     tabPaneMotion?: boolean;
     tabPosition?: TabPosition;
-    prevActiveKey?: string|null;
+    prevActiveKey?: string | null;
     forceDisableMotion?: boolean
 }

@@ -85,6 +85,11 @@ $font-tabs_bar_extra_large-lineHeight: $height-tabs_bar_extra_large; // 大尺�
 $height-tabs_bar_extra_small: 36px; // 小尺寸页签高度
 $font-tabs_bar_extra_small-lineHeight: $height-tabs_bar_extra_small; // 小尺寸页签文字行高
 
+$spacing-tabs_tab-more_trigger_icon-marginLeft: 8px;
+$spacing-tabs_tab-more_trigger_icon-marginRight: 8px;
+$spacing-tabs_tab-more_trigger_icon-marginTop: 0px;
+$spacing-tabs_tab-more_trigger_icon-marginBottom: 0px;
+
 $spacing-tabs_tab-pane_arrow: 8px; //滚动折叠箭头内边距
 $spacing-tabs_bar_extra-paddingY: 0px; // 附加操作垂直内边距
 $spacing-tabs_bar_extra-paddingX: 5px; // 附加操作水平内边距
@@ -138,4 +143,10 @@ $spacing-tabs_bar_button_tab-paddingX: $spacing-base-tight; // 按钮式页签�
 $radius-tabs_tab_card: var(--semi-border-radius-small) var(--semi-border-radius-small) 0 0; // 卡片式页签四向圆角
 $radius-tabs_tab_card_left: var(--semi-border-radius-small) 0 0 var(--semi-border-radius-small); // 垂直卡片式页签四向圆角
 $radius-tabs_tab_button: var(--semi-border-radius-small); // 按钮式页签圆角
+
+
+$font-tabs_bar_large-fontSize: $font-size-regular; // 大号模式 字体大小
+$font-tabs_bar_small-fontSize: $font-size-regular; // 小号模式 字体大小
+$font-tabs_bar_medium-fontSize: $font-size-regular; // 中等模式 字体大小
+
 
