@@ -67,7 +67,7 @@ export interface TreeProps extends BasicTreeProps {
     style?: React.CSSProperties;
     treeData?: TreeNodeData[];
     value?: Value;
-    icon?: ReactNode;
+    icon?: ReactNode | ((props: TreeNodeProps) => ReactNode);
     keyMaps?: KeyMapProps;
     loadData?: (treeNode?: TreeNodeData) => Promise<void>;
     onChange?: (value?: Value) => void;

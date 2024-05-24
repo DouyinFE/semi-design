@@ -4,7 +4,7 @@ title: Change Log
 subTitle: Change Log
 icon: doc-changelog
 localeCode: en-US
-order: 10
+order: 11
 brief: About Semi Design For React Optimization and Updat. We provide Changelog Diff between versions, you can call out the Diff control by hovering the version number. If you want to view the change history of a single component, you can view it through the Version Diff button of the corresponding component documentation
 ---
 
@@ -15,6 +15,27 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.59.1 (2024-05-24)
+- 【Chore】
+    - FormApi setValue update interface define, optimizing nested paths  [#1737 ](https://github.com/DouyinFE/semi-design/issues/1737)
+    - Remove inappropriate dependency declarations in `@douyinfe/semi-theme-default` [#2252](https://github.com/DouyinFE/semi-design/pull/2252)
+- 【Fix】
+    - Fixed the problem that the Form validate result cannot be returned normally in the dev environment when StrictMode is turn on [@nekocode](https://github.com/nekocode) [#2210](https://github.com/DouyinFE/semi-design/pull/2211)
+
+
+#### 🎉 2.59.0-beta.0 (2024-05-20)
+- 【Feat】
+  - Typography's size API supports inherit attribute
+  - Tree's icon API supports function types  [#2236 ](https://github.com/DouyinFE/semi-design/issues/2236)
+  - Implement Webpack & Rspack plugins for style insertion of semi components in web components
+  - Provide best practices when mixing TailwindCSS to solve a series of style problems.
+- 【Fix】
+  - Fixed the issue where the overflow tab did not scroll into view when the activeKey changed. [#2241](https://github.com/DouyinFE/semi-design/pull/2241)  [@l123wx](https://github.com/l123wx)
+  - Fixed Slider triggers events at abnormal timing in special scenarios [@zzc6332](https://github.com/zzc6332)
+  - Fixed the issue that the transparent className style of renderFulllabel in the Tree component is restricted by the li tag
+- 【Chore】
+  - WebpackPlugin add cssLayer config
 
 #### 🎉 2.58.1 (2024-05-22)
 - 【Design Token】

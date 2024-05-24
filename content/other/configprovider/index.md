@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 75
+order: 76
 category: 其他
 title:  ConfigProvider 全局配置
 icon: doc-configprovider
@@ -12,11 +12,13 @@ brief: 为组件提供统一的全局化配置。
 
 覆盖配置分为两种场景
 
-- 需要覆盖子组件配置时，使用 ConfigProvider
-- 需要全局修改组件 Props时，使用 semiGlobal
+- 需要覆盖多个组件公有 Props 配置（例如 timezone、rtl），使用 ConfigProvider
+- 当ConfigProvirder暴露参数未能满足，希望修改全局修改某个组件的 某类Props（例如期望将所有Button的 theme 都配置为 Solid 或所有 Popover的 zIndex），使用 semiGlobal
 
 
 ## ConfigProvider
+
+ConfigProvider 借助 React Context 机制实现，因此它能影响 React 节点树中的子组件
 
 ## 代码演示
 
@@ -429,32 +431,31 @@ module.exports = {
 
 ## semiGlobal
 
-你可以覆盖全局组件的默认 Props
+除了 ConfigProvider外，你还可以通过 semiGlobal 配置覆盖全局组件的默认 Props。该能力在 v2.59.0后提供    
 
-在 `semiGlobal.config.overrideDefaultProps` 可配置组件默认 Props，你需要将你的配置放到整个站点的入口处，即优先于所有 semi 组件执行。
+在 `semiGlobal.config.overrideDefaultProps` 可配置组件默认 Props，你需要将你的配置放到整个站点的入口处，即优先于所有 Semi 组件执行。
 
 <Notice title={"注意事项"}>
-semiGlobal 是单例模式，会影响整个站点，如果你只想覆盖某些地方的某些组件，建议不要使用 semiGlobal，而是将对应需要覆盖的组件封装一层并传入修改后的默认 props。
+semiGlobal 是单例模式，会影响整个站点，如果你只想覆盖某些地方的某些组件 Props ，建议不要使用 semiGlobal，而是将对应需要覆盖的组件封装一层并传入修改后的默认 props。
 </Notice>
 
 比如下方配置就是将所有的 Button 默认设置为 warning，Select 的 zIndex 默认设置为 2000 等
 
 ```js
-import { semiGlobal } from "@douiyinfe/semi-ui"
+import { semiGlobal } from "@douiyinfe/semi-ui";
 
 semiGlobal.config.overrideDefaultProps = {
-  Button: {
-    type: 'warning',
-  },
-  Select: {
-    zIndex: 2000,
-  },
-  Tooltip: {
-    zIndex: 2001,
-    trigger:"click"
-  },
+    Button: {
+        type: 'warning',
+    },
+    Select: {
+        zIndex: 2000,
+    },
+    Tooltip: {
+        zIndex: 2001,
+        trigger: 'click'
+    },
 };
-
 
 ```
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 75
+order: 76
 category: Other
 title: ConfigProvider
 icon: doc-configprovider
@@ -12,8 +12,8 @@ brief: Provide a unified global configuration for components.
 
 Coverage configuration is divided into two scenarios
 
-- When you need to override sub-component configuration, use ConfigProvider
-- When you need to globally modify component Props, use semiGlobal
+- When you need to override the public Props configuration of multiple components (such as `timezone`, `rtl`), use ConfigProvider
+- When the ConfigProvirder props are not met and you want to modify a certain type of Props of a certain component globally (for example, if you want to configure the `theme` of all `Buttons to `Solid` or the `zIndex` of all `Popover`), use semiGlobal
 
 
 ## ConfigProvider

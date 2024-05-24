@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 52
+order: 53
 category: 展示类
 title: Descriptions 描述列表
 icon: doc-descriptions
@@ -24,6 +24,7 @@ key、value 均支持 ReactNode 类型，你可以传入字符串或更高自由
 ```jsx live=true dir="column"
 import React from 'react';
 import { Descriptions, Tag } from '@douyinfe/semi-ui';
+import { IconArrowUp } from '@douyinfe/semi-icons';
 
 () => {
     const data = [
@@ -45,7 +46,7 @@ import { Descriptions, Tag } from '@douyinfe/semi-ui';
 ```jsx live=true dir="column"
 
 import React from 'react';
-import { Descriptions, Tag } from '@douyinfe/semi-ui';
+import { Descriptions, Tag, Card } from '@douyinfe/semi-ui';
 
 () => {
     const data = [
@@ -56,24 +57,28 @@ import { Descriptions, Tag } from '@douyinfe/semi-ui';
         { key: '认证状态', value: '未认证' },
     ];
     const style = {
-        boxShadow: 'var(--semi-shadow-elevated)',
-        backgroundColor: 'var(--semi-color-bg-2)',
-        borderRadius: '4px',
-        padding: '10px',
         margin: '10px',
-        width: '200px',
     };
     return (
         <>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                <Descriptions align="center" data={data} style={style} />
-                <Descriptions align="justify" data={data} style={style} />
-                <Descriptions align="left" data={data} style={style} />
-                <Descriptions align="plain" data={data} style={style} />
+                <Card shadows='always' style={style}>
+                    <Descriptions align="center" data={data} />
+                </Card>
+                <Card shadows='always' style={style}>
+                    <Descriptions align="justify" data={data} />
+                </Card>
+                <Card shadows='always' style={style}>
+                    <Descriptions align="left" data={data} />
+                </Card>
+                <Card shadows='always' style={style}>
+                    <Descriptions align="plain" data={data} />
+                </Card>
             </div>
         </>
     );
 };
+
 ```
 
 
@@ -102,13 +107,11 @@ import { Descriptions } from '@douyinfe/semi-ui';
 
 ### 设置布局模式
 
-可以通过 `layout` 设置布局模式（v2.54.0 后支持）, 默认为 `vertical`   
-支持横向布局 `horizontal` 和纵向布局 `vertical`   
-当设置 horizontal 时，可配合 column 指定每行最大列数
+可以通过 `layout` 设置布局模式（v2.54.0 后支持）, 默认为 `vertical` 纵向布局 。 
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Descriptions } from '@douyinfe/semi-ui';
+import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 
 () => {
     const data = [
@@ -116,20 +119,46 @@ import { Descriptions } from '@douyinfe/semi-ui';
         { key: '主播类型', value: '自由主播' },
         { key: '安全等级', value: '3级' },
         { key: '垂类标签', value: <Space>
-                <Tag size="small" shape='circle' color='amber'>互联网资讯</Tag>
-                <Tag size="small" shape='circle' color='violet'>编程</Tag>
-            </Space>
+            <Tag size="small" shape='circle' color='amber'>互联网资讯</Tag>
+            <Tag size="small" shape='circle' color='violet'>编程</Tag>
+        </Space>
         },
         { key: '作品数量', value: '88888888' },
         { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值', span: 3 },
     ];
     return (
         <> 
-            <Descriptions layout='horizontal' align='plain' data={data} column={4} />
+            <Descriptions layout='vertical' align='plain' data={data} column={4} />
         </>
     );
 };
 ```
+
+横向布局可设置 layout为 `horizontal` 。当设置 horizontal 时，可配合 column 指定每行最大列数
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        { key: '抖音号', value: 'SemiDesign' },
+        { key: '主播类型', value: '自由主播' },
+        { key: '安全等级', value: '3级' },
+        { key: '垂类标签', value: <Tag size="small" shape='circle' color='violet'>编程</Tag>},
+        { key: '作品数量', value: '88888888' },
+        { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值', span: 3 },
+        { key: '上次直播时间', value: '2024-05-01 12:00:00', span: 3 },
+    ];
+    return (
+        <> 
+            <Descriptions layout='horizontal' align='plain' data={data} column={5} />
+        </>
+    );
+};
+
+```
+
 
 ### 双行显示
 
