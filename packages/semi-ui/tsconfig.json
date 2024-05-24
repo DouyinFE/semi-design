@@ -16,7 +16,6 @@
             "@douyinfe/semi-theme-default/*": ["../semi-theme-default/*"],
             "@douyinfe/semi-icons": ["../semi-icons/src"]
         },
-        "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
