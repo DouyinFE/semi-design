@@ -478,7 +478,7 @@ class RaceAsyncDemo extends React.Component {
                 />
                 <Form.Input
                     field='nick'
-                    label='props.validate ract async validate'
+                    label='props.validate race async validate'
                     validate={this.asyncValidate}
                     trigger='blur'
                 />
