@@ -76,7 +76,7 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
         <Input size='default' showClear insetLabel />
         <FieldB insetLabel placeholder='fe' fieldClassName='fefe' field='custom' />
 
-        <Button onClick={() => formApi.setValue('fieldA', 'fe')}>set</Button>
+        {/* <Button onClick={() => formApi.setValue('fieldA', 'fe')}>set</Button> */}
         <Form.Select field='test' ref={ref}>
             <Form.Select.Option value="f1"></Form.Select.Option>
             <Form.Select.Option value="f2"></Form.Select.Option>
@@ -155,17 +155,36 @@ interface FData {
     test4: {
         event: string,
     },
+    test5: {
+        kkk: {
+            jjj: string
+        }
+    }
     testK: boolean;
     // [x: string]: any;
 }
 class Demo extends React.Component<IProps, IState> {
+
+    formApi: FormApi<FData>
+
     constructor(props:any) {
       super(props);
       this.state = { visible: false};
     }
 
-    getFormApi(formApi: FormApi<FData>) {
-        formApi.getValue()
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    setData() {
+        const formApi = this.formApi;
+        formApi.setValue('test3', 123);
+        formApi.setValue('test8', 123);
+        formApi.setValue('test4.event', 123);
+        formApi.setValue('test5.kkk', 123);
+        formApi.setValue('test5.kkk.jjj', 123);
+        formApi.setValue('test5.kkk.ppp', 123);
+        formApi.setValue('test4.5', 123);
     }
 
     render() {
