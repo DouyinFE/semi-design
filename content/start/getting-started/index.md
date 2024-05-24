@@ -22,7 +22,7 @@ pnpm add @douyinfe/semi-ui
 
 ## 2、使用组件
 
-在 Webpack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包    
+在 Webpack、Rspack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包    
 （字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi工程化 FAQ</a>）
 
 ```jsx

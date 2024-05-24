@@ -22,7 +22,7 @@ pnpm add @douyinfe/semi-ui
 ## 2. Use components in a modular way 💫
 
 `Semi` provides esm format dist, and the css of the component is only imported by the corresponding js.  
-When used in `Webpack`, `create-react-app` or `Vite` projects, there is no need to configure any compilation items.   
+When used in `Webpack`, `Rspack`, `create-react-app` or `Vite` projects, there is no need to configure any compilation items.   
 All related resources are packaged on-demand at build process. Tree shaking will work without additional configuration.
 
 ```jsx

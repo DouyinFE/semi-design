@@ -1,6 +1,6 @@
 ---
 category: 开始
-title: TailwindCSS 混用
+title: Tailwind 搭配使用
 icon: doc-tailwind
 localeCode: zh-CN
 order: 9
