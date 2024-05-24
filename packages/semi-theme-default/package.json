@@ -14,11 +14,5 @@
     "author": "huangzhijing.pixel@bytedance.com",
     "license": "MIT",
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
-    "dependencies": {
-        "glob": "^7.1.6"
-    },
-    "_unpkg": true,
-    "devDependencies": {
-        "path": "^0.12.7"
-    }
+    "_unpkg": true
 }
