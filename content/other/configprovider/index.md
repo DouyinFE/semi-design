@@ -8,6 +8,15 @@ dir: column
 brief: 为组件提供统一的全局化配置。
 ---
 
+## 使用场景
+
+覆盖配置分为两种场景
+
+- 需要覆盖子组件配置时，使用 ConfigProvider
+- 需要全局修改组件 Props时，使用 semiGlobal
+
+
+## ConfigProvider
 
 ## 代码演示
 
@@ -416,3 +425,36 @@ module.exports = {
 +    plugins: [new SemiWebpackPlugin({ prefixCls: 'imes' })],
 }
 ```
+
+
+## semiGlobal
+
+你可以覆盖全局组件的默认 Props
+
+在 `semiGlobal.config.overrideDefaultProps` 可配置组件默认 Props，你需要将你的配置放到整个站点的入口处，即优先于所有 semi 组件执行。
+
+<Notice title={"注意事项"}>
+semiGlobal 是单例模式，会影响整个站点，如果你只想覆盖某些地方的某些组件，建议不要使用 semiGlobal，而是将对应需要覆盖的组件封装一层并传入修改后的默认 props。
+</Notice>
+
+比如下方配置就是将所有的 Button 默认设置为 warning，Select 的 zIndex 默认设置为 2000 等
+
+```js
+import { semiGlobal } from "@douiyinfe/semi-ui"
+
+semiGlobal.config.overrideDefaultProps = {
+  Button: {
+    type: 'warning',
+  },
+  Select: {
+    zIndex: 2000,
+  },
+  Tooltip: {
+    zIndex: 2001,
+    trigger:"click"
+  },
+};
+
+
+```
+
