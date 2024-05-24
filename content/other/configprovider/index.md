@@ -12,8 +12,8 @@ brief: 为组件提供统一的全局化配置。
 
 覆盖配置分为两种场景
 
-- 需要覆盖多个组件公有 Props 配置（例如 timezone、rtl），使用 ConfigProvider
-- 当ConfigProvirder暴露参数未能满足，希望修改全局修改某个组件的 某类Props（例如期望将所有Button的 theme 都配置为 Solid 或所有 Popover的 zIndex），使用 semiGlobal
+- 需要覆盖多个组件公有 Props 配置（例如 `timezone`、`rtl`），使用 `ConfigProvider`
+- 当 `ConfigProvider` 暴露参数未能满足，希望修改全局修改某个组件的 某类 Props（例如期望将所有`Button`的 `theme` 都配置为 `solid` 或所有 `Popover`的 `zIndex`），使用 `semiGlobal`
 
 
 ## ConfigProvider
