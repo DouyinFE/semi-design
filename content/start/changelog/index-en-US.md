@@ -15,6 +15,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.58.1 (2024-05-22)
+- 【Design Token】
+  - Tabs add `$font-tabs_bar_large-fontSize` `$font-tabs_bar_medium-fontSize` `$font-tabs_bar_small-fontSize`
+
+
 #### 🎉 2.58.0 (2024-05-11)
 - 【Feat】
     - Tabs has added more API, which is used to collapse some tabs into drop-down menus.

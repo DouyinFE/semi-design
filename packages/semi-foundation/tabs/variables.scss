@@ -144,3 +144,9 @@ $radius-tabs_tab_card: var(--semi-border-radius-small) var(--semi-border-radius-
 $radius-tabs_tab_card_left: var(--semi-border-radius-small) 0 0 var(--semi-border-radius-small); // 垂直卡片式页签四向圆角
 $radius-tabs_tab_button: var(--semi-border-radius-small); // 按钮式页签圆角
 
+
+$font-tabs_bar_large-fontSize: $font-size-regular; // 大号模式 字体大小
+$font-tabs_bar_small-fontSize: $font-size-regular; // 小号模式 字体大小
+$font-tabs_bar_medium-fontSize: $font-size-regular; // 中等模式 字体大小
+
+
