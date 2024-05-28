@@ -620,6 +620,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
+                this.adapter.unregisterClickOutsideHandler();
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
@@ -644,6 +645,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 document.addEventListener('mousedown', clickOutsideHandler, false);
             },
             unregisterClickOutsideHandler: () => {
+                if (!this.clickOutsideHandler) {
+                    return;
+                }
                 document.removeEventListener('mousedown', this.clickOutsideHandler, false);
                 this.clickOutsideHandler = null;
             },
