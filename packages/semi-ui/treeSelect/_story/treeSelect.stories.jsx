@@ -541,6 +541,7 @@ export const Multiple = () => (
       multiple
       placeholder="Please select"
     />
+    <span id={'invisible-span'} style={{ width: 10, height: 10, position: 'fixed', top: 0, right: 0 }} />
   </div>
 );
 
