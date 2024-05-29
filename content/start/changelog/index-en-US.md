@@ -16,7 +16,21 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.59.1 (2024-05-24)
+
+#### 🎉 2.59.1 (2024-05-29)
+- 【Fix】
+    - Fixed the problem that the data-* attributes passed into Select Option did not render [#2258](https://github.com/DouyinFE/semi-design/pull/2258)
+    - Fixed the problem that Toast is not centered but aligned to the left when multiple toasts with different lengths [#2257](https://github.com/DouyinFE/semi-design/pull/2257)
+    - Fixed the problem that when TreeSelect is in defaultOpen mode, the pop-up layer cannot be closed when clicking outside. [#2254](https://github.com/DouyinFE/semi-design/pull/2254)
+    - Fixed the problem that Avatar cannot trigger onClick, onMouseEnter, and onMouseLeave events when the border/topSlot/bottomSlot API is set. [#2255](https://github.com/DouyinFE/semi-design/pull/2255)
+    - Fixed the problem that Badge className function aligns other components and acts on the outermost layer of DOM
+- 【Chore】
+    - Fixed the problem that when FormApi does not pass in generics, there will be a type error that string type cannot be assigned to never when calling setValue (affected scope, v2.59.0) [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
+    - Optimize FormApi getValue type hints for nested paths and align setValue behavior [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
+    - Fixed onBlur/onFocus type define error in TextArea [#2261](https://github.com/DouyinFE/semi-design/pull/2261)
+    - Fixed webComponentPath parameter type error in Semi webpack plugin [#2260](https://github.com/DouyinFE/semi-design/pull/2260)
+
+#### 🎉 2.59.0 (2024-05-24)
 - 【Chore】
     - FormApi setValue update interface define, optimizing nested paths  [#1737 ](https://github.com/DouyinFE/semi-design/issues/1737)
     - Remove inappropriate dependency declarations in `@douyinfe/semi-theme-default` [#2252](https://github.com/DouyinFE/semi-design/pull/2252)
@@ -30,6 +44,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - Tree's icon API supports function types  [#2236 ](https://github.com/DouyinFE/semi-design/issues/2236)
   - Implement Webpack & Rspack plugins for style insertion of semi components in web components
   - Provide best practices when mixing TailwindCSS to solve a series of style problems.
+  - Tabs has added more API, which is used to collapse some tabs into drop-down menus.
+  - Button adds outline border mode theme
 - 【Fix】
   - Fixed the issue where the overflow tab did not scroll into view when the activeKey changed. [#2241](https://github.com/DouyinFE/semi-design/pull/2241)  [@l123wx](https://github.com/l123wx)
   - Fixed Slider triggers events at abnormal timing in special scenarios [@zzc6332](https://github.com/zzc6332)
@@ -43,9 +59,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 
 #### 🎉 2.58.0 (2024-05-11)
-- 【Feat】
-    - Tabs has added more API, which is used to collapse some tabs into drop-down menus.
-    - Button adds outline border mode theme
 - 【Fix】
     - Fixed the problem that after adding the scale style to Slider, dragging is not normal and clicking on the track jumps abnormally.
     - Fix the style error in dark mode in safari/firefox browser (affected versions: 2.56.0-2.57.0)  [#2225 ](https://github.com/DouyinFE/semi-design/issues/2225)
@@ -62,7 +75,8 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed Table header text-align bug in RTL mode  [#2172](https://github.com/DouyinFE/semi-design/issues/2172)
     - Fixed Table onGroupedRow className not work bug  [#2185](https://github.com/DouyinFE/semi-design/issues/2185)
 
-- #### 🎉 2.57.0 (2024-04-26)
+
+#### 🎉 2.57.0 (2024-04-26)
 - 【Fix】
     - Fixed the issue where the asynchronous verification results will still be written to formState after Field is uninstalled [@sylingd](https://github.com/sylingd) [#2206](https://github.com/DouyinFE/semi-design/pull/2206)
     - Fixed the problem of TreeSelect controlled value, defaultExpandedKeys is set, and when loading treeData remotely, defaultExpandedKeys does not take effect (affects version 2.49.2-2.56.3) [#2191](https://github.com/DouyinFE/semi-design/pull/2191)
@@ -75,13 +89,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 
 #### 🎉 2.57.0-beta.0 (2024-04-22)
-
 - 【Fix】
-  - Fixed the issue where the text would flash once after selecting Option in the controlled and filter-enabled mode during Select radio selection and then corrected.
+    - Fixed the issue where the text would flash once after selecting Option in the controlled and filter-enabled mode during Select radio selection and then corrected.
 - 【Feat】
-  - Modal support modalContentClass to set content 的 props [#2162](https://github.com/DouyinFE/semi-design/pull/2162) [@18852819321](https://github.com/18852819321)
-  - TreeSelect's onSearch method add `filteredNodes` which represents the list of nodes displayed after the search [@Hokori23](https://github.com/Hokori23)
-  - Form's formApi add getFormProps function
+    - Modal support modalContentClass to set content 的 props [#2162](https://github.com/DouyinFE/semi-design/pull/2162) [@18852819321](https://github.com/18852819321)
+    - TreeSelect's onSearch method add `filteredNodes` which represents the list of nodes displayed after the search [@Hokori23](https://github.com/Hokori23)
+    - Form's formApi add getFormProps function
 
 #### 🎉 2.56.3 (2024-04-19)
 - 【Fix】

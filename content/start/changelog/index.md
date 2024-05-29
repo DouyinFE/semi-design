@@ -14,6 +14,19 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.59.1 (2024-05-29)
+- 【Fix】
+    - 修复 Select Option 传入 data-*属性未生效的问题 [#2258](https://github.com/DouyinFE/semi-design/pull/2258)
+    - 修复 Toast 在多条长度不同的 toast 弹出时，没有居中而是左对齐的问题 [#2257](https://github.com/DouyinFE/semi-design/pull/2257)
+    - 修复 TreeSelect 在 defaultOpen 模式时候，点击外部没有无法关闭弹出层问题 [#2254](https://github.com/DouyinFE/semi-design/pull/2254)
+    - 修复 Avatar 在设置了 border/topSlot/bottomSlot API 情况下，无法触发 onClick、onMouseEnter、onMouseLeave 事件问题 [#2255](https://github.com/DouyinFE/semi-design/pull/2255)
+    - 修复 Badge className 作用范围不正确的问题，功能对齐其他组件，作用于 DOM 最外层 
+- 【Chore】
+    - 修复 FormApi 在未传入泛型时，调用 setValue时会有 string类型不能赋值给 never 的类型报错问题（影响范围，v2.59.0） [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
+    - 优化 FormApi getValue 对于嵌套路径的类型提示，对齐 setValue 行为 [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
+    - 修复 TextArea 的 onBlur/onFocus 类型定义错误问题 [#2261](https://github.com/DouyinFE/semi-design/pull/2261)
+    - 修复 Semi Webpack plugin 中的 webcomponentPath 参数类型定义错误问题  [#2260](https://github.com/DouyinFE/semi-design/pull/2260)
+
 #### 🎉 2.59.0 (2024-05-24)
 - 【Chore】
     - Form组件 FormApi setValue 类型定义更新，优化嵌套路径的提示  [#1737](https://github.com/DouyinFE/semi-design/issues/1737)
@@ -27,6 +40,8 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Tree 的 icon API 支持函数类型  [#2236 ](https://github.com/DouyinFE/semi-design/issues/2236) [#2237](https://github.com/DouyinFE/semi-design/pull/2237)
   - 实现 Webpack & Rspack 插件用于对 web components中的 semi 组件进行样式插入 [#2221](https://github.com/DouyinFE/semi-design/pull/2221)
   - 提供 TailwindCSS 混用时的最佳实践，解决一系列样式问题 [#2235](https://github.com/DouyinFE/semi-design/pull/2235)
+  - Tabs 新增 more api，用于将一部分 tabs 收起到下拉菜单中 [#2226](https://github.com/DouyinFE/semi-design/pull/2226)
+  - Button 新增 outline 边框模式主题 [#2224](https://github.com/DouyinFE/semi-design/pull/2224)
 - 【Fix】
   - 修复溢出的 Tab 在 “activeKey” 变动后没有 "scrollIntoView" 的问题 [@l123wx](https://github.com/l123wx) [#2241](https://github.com/DouyinFE/semi-design/pull/2241)
   - 修复 Slider 在特殊场景下触发事件时机异常的问题 [@zzc6332](https://github.com/zzc6332) [#2186](https://github.com/DouyinFE/semi-design/pull/2186)
@@ -39,12 +54,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - Tabs 新增 `$font-tabs_bar_large-fontSize` `$font-tabs_bar_medium-fontSize` `$font-tabs_bar_small-fontSize`
 
 #### 🎉 2.58.0 (2024-05-11)
-- 【Feat】
-    - Tabs 新增 more api，用于将一部分 tabs 收起到下拉菜单中 [#2226](https://github.com/DouyinFE/semi-design/pull/2226)
-    - Button 新增 outline 边框模式主题 [#2224](https://github.com/DouyinFE/semi-design/pull/2224)
 - 【Fix】
     - 修复 Slider 在添加了 scale 样式后，拖拽不正常，点击轨道跳转不正常的问题 [#2223](https://github.com/DouyinFE/semi-design/pull/2223)
-    - 修复在 safari/ firefox 浏览器在暗色模式下的样式错误(影响版本：2.56.0-2.57.0)  [#2225 ](https://github.com/DouyinFE/semi-design/issues/2225) [#2229](https://github.com/DouyinFE/semi-design/pull/2229)
+    - 修复在 safari/ firefox 浏览器在暗色模式下的样式错误(影响版本：2.56.0-2.57.0)  [#2225](https://github.com/DouyinFE/semi-design/issues/2225) [#2229](https://github.com/DouyinFE/semi-design/pull/2229)
   
 #### 🎉 2.58.0-beta.0 (2024-05-06)
 - 【Feat】
