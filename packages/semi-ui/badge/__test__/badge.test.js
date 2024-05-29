@@ -21,7 +21,7 @@ describe('badge', () => {
         }
         let badge = getBadge(props);
         expect(badge.hasClass('test')).toEqual(true);
-        expect(badge.find('span.test')).toHaveStyle('color', 'red');
+        expect(badge.find('.test')).toHaveStyle('color', 'red');
         badge.unmount();
     });
 
