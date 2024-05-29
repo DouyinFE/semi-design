@@ -24,7 +24,9 @@ export interface BadgeProps {
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    contentClassName?: string
+
 }
 
 export default class Badge extends PureComponent<BadgeProps> {
@@ -42,6 +44,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
+        contentClassName: PropTypes.string,
     };
 
     static defaultProps = {
@@ -63,7 +66,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';
-        const wrapper = cls(className, {
+        const wrapper = cls(className, this.props.contentClassName, {
             [`${prefixCls}-${type}`]: !custom,
             [`${prefixCls}-${theme}`]: !custom,
             [`${prefixCls}-${position}`]: Boolean(position) && Boolean(children),

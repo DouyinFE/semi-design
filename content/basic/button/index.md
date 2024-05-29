@@ -475,6 +475,7 @@ function SplitButtonDemo(){
 | aria-label          | 按钮的标签                                                                                                       | string                            | -    |
 | block               | 将按钮设置为块级按钮                                                                                                  | bool                            | false     |
 | className           | 类名                                                                                                          | string                          |           |
+| contentClassName | 内容区域 className |  string | 无 |
 | disabled            | 禁用状态                                                                                                        | boolean                         | false     |
 | htmlType           | 设置 `button` 原生的 `type` 值，可选值：`button`、`reset`、`submit`                                                      | string                          | "button"  |
 | icon                | 图标                                                                                                          | ReactNode               |           |

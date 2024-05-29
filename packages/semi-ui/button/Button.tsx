@@ -5,6 +5,7 @@ import { cssClasses, strings } from '@douyinfe/semi-foundation/button/constants'
 import '@douyinfe/semi-foundation/button/button.scss';
 import { noop } from '@douyinfe/semi-foundation/utils/function';
 import { omit } from 'lodash';
+import cls from "classnames";
 
 const btnSizes = strings.sizes;
 const { htmlTypes, btnTypes } = strings;
@@ -34,7 +35,8 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     onMouseDown?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
-    'aria-label'?: React.AriaAttributes['aria-label']
+    'aria-label'?: React.AriaAttributes['aria-label'];
+    contentClassName?: string
 }
 
 // TODO: icon configuration
@@ -71,6 +73,7 @@ export default class Button extends PureComponent<ButtonProps> {
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         'aria-label': PropTypes.string,
+        contentClassName: PropTypes.string,
     };
 
     render() {
@@ -123,7 +126,7 @@ export default class Button extends PureComponent<ButtonProps> {
 
         return (
             <button {...baseProps} onClick={this.props.onClick} onMouseDown={this.props.onMouseDown} style={style}>
-                <span className={`${prefixCls}-content`} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
+                <span className={cls(`${prefixCls}-content`, this.props.contentClassName)} onClick={e => disabled && e.stopPropagation()} {...xSemiProps}>
                     {children}
                 </span>
             </button>
