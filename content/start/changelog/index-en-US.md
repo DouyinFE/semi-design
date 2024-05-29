@@ -24,6 +24,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that when TreeSelect is in defaultOpen mode, the pop-up layer cannot be closed when clicking outside. [#2254](https://github.com/DouyinFE/semi-design/pull/2254)
     - Fixed the problem that Avatar cannot trigger onClick, onMouseEnter, and onMouseLeave events when the border/topSlot/bottomSlot API is set. [#2255](https://github.com/DouyinFE/semi-design/pull/2255)
     - Fixed the problem that Badge className function aligns other components and acts on the outermost layer of DOM
+    - Revised Badge API definition, added a more semantic countStyle API, and made it consistent with the existing style API (the old API `props.style` can still be used, and the effect remains unchanged, but it is no longer recommended in the documentation)
 - 【Chore】
     - Fixed the problem that when FormApi does not pass in generics, there will be a type error that string type cannot be assigned to never when calling setValue (affected scope, v2.59.0) [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
     - Optimize FormApi getValue type hints for nested paths and align setValue behavior [#2259](https://github.com/DouyinFE/semi-design/pull/2259)

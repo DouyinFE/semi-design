@@ -25,7 +25,8 @@ export interface BadgeProps {
     onMouseLeave?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
     children?: React.ReactNode;
-    countClassName?: string
+    countClassName?: string;
+    countStyle?: React.CSSProperties;
 
 }
 
@@ -45,6 +46,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         countClassName: PropTypes.string,
+        countStyle: PropTypes.object,
     };
 
     static defaultProps = {
@@ -63,7 +65,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         const { direction } = this.context;
         // DefaultPosition here, static can't get this
         const defaultPosition = direction === 'rtl' ? 'leftTop' : 'rightTop';
-        const { count, dot, type, countClassName, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
+        const { count, dot, type, countClassName,countStyle, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';
         const wrapper = cls(countClassName, {
@@ -84,7 +86,7 @@ export default class Badge extends PureComponent<BadgeProps> {
         return (
             <span className={cls(prefixCls, className)} {...rest}>
                 {children}
-                <span className={wrapper} style={style} x-semi-prop="count">
+                <span className={wrapper} style={style || countStyle} x-semi-prop="count">
                     {dot ? null : content}
                 </span>
             </span>

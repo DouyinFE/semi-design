@@ -15,7 +15,7 @@ describe('badge', () => {
     it('badge with custom className & style', () => {
         let props = {
             className: 'test',
-            style: {
+            countStyle: {
                 color: 'red'
             }
         }

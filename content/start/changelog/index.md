@@ -21,6 +21,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 TreeSelect 在 defaultOpen 模式时候，点击外部没有无法关闭弹出层问题 [#2254](https://github.com/DouyinFE/semi-design/pull/2254)
     - 修复 Avatar 在设置了 border/topSlot/bottomSlot API 情况下，无法触发 onClick、onMouseEnter、onMouseLeave 事件问题 [#2255](https://github.com/DouyinFE/semi-design/pull/2255)
     - 修复 Badge className 作用范围不正确的问题，功能对齐其他组件，作用于 DOM 最外层 
+    - 修正 Badge API 定义，增加更语义的 countStyle API，作用与现有 style API 保持一致（旧 API props.style 仍可使用，效果不变，但不再于文档中推荐）
 - 【Chore】
     - 修复 FormApi 在未传入泛型时，调用 setValue时会有 string类型不能赋值给 never 的类型报错问题（影响范围，v2.59.0） [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
     - 优化 FormApi getValue 对于嵌套路径的类型提示，对齐 setValue 行为 [#2259](https://github.com/DouyinFE/semi-design/pull/2259)
