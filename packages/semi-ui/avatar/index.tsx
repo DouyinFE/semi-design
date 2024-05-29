@@ -336,6 +336,12 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             ...others
         } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
+        const shouldWrap = bottomSlot || topSlot || border;
+        const mouseEvent = {
+            onClick: onClick,
+            onMouseEnter: this.onEnter,
+            onMouseLeave: this.onLeave,
+        };
         const isImg = src && isImgExist;
         const avatarCls = cls(
             prefixCls,
@@ -355,11 +361,9 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         let avatar = <span
             {...(others as any)}
-            style={(border || bottomSlot || topSlot || border) ? {} : style}
+            style={shouldWrap ? {} : style}
             className={avatarCls}
-            onClick={onClick as any}
-            onMouseEnter={this.onEnter as any}
-            onMouseLeave={this.onLeave as any}
+            {...(shouldWrap ? {} : mouseEvent)}
             role='listitem'
             ref={this.avatarRef}>
             {this.getContent()}
@@ -397,8 +401,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
 
 
-        if (bottomSlot || topSlot || border) {
-            return <span className={cls([`${prefixCls}-wrapper`])} style={style}>
+        if (shouldWrap) {
+            return <span className={cls([`${prefixCls}-wrapper`])} style={style} {...mouseEvent}>
                 {avatar}
                 {topSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
                 {bottomSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}

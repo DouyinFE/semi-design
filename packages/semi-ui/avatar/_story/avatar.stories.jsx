@@ -43,27 +43,31 @@ export const BottomSolt = () => (
         <div>
             <Avatar shape="circle" border={true} bottomSlot={{
                 shape:'circle',
-                content:<IconPlus/>
-            }}>U</Avatar>
+                text:<IconPlus/>
+            }}
+            onClick={(e) => {console.log('on click')}}
+            onMouseEnter={(e) => {console.log('on mouse enter')}}
+            onMouseLeave={(e) => {console.log('onMouse leave')}}
+            >U</Avatar>
             <Avatar shape="circle" size={'large'} border={true} bottomSlot={{
                 shape:'circle',
-                content:<IconPlus/>
+                text:<IconPlus/>
             }}>U</Avatar>
             <Avatar shape="circle" size={'small'} border={true} bottomSlot={{
                 shape:'circle',
-                content:<IconPlus/>
+                text:<IconPlus/>
             }}>U</Avatar>
             <Avatar shape="circle" bottomSlot={{
                 shape:'square',
-                content: "直播中"
+                text: "直播中"
             }}>U</Avatar>
             <Avatar shape="circle" size={"large"} bottomSlot={{
                 shape:'square',
-                content: "直播中"
+                text: "直播中"
             }}>U</Avatar>
             <Avatar shape="circle" bottomSlot={{
                 shape:'rect',
-                content: "直播中",
+                text: "直播中",
                 render:()=>{
                     return "test"
                 }
@@ -76,80 +80,80 @@ export const TopSolt = () => (
     <div>
         <div>
             <Avatar shape="circle"  size={"extra-extra-small"}  border={true} topSlot={{
-                content:"直播",
+                text:"直播",
                 gradientStart:"rgb(255,23,100)",
                 gradientEnd:"rgb(237,52,148)"
             }}>U</Avatar>
             <Avatar shape="circle"  size={"extra-small"}  border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"default"} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="circle" size={"medium"} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="circle" size={"large"} borderMotion={true} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }} bottomSlot={{
-                content:"T",
+                text:"T",
                 shape:"circle"
             }} contentMotion={true}>U</Avatar>
             <br/>
             <Avatar shape="square"  size={"extra-extra-small"}  border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square"  size={"extra-small"}  border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"default"} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"medium"} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"large"} borderMotion={true} border={true} topSlot={{
-                content:"直播"
+                text:"直播"
             }}  bottomSlot={{
-                content:"T",
+                text:"T",
                 shape:"circle"
             }}>U</Avatar>
             <br/>
             <Avatar shape="circle"  size={"extra-extra-small"}  border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="circle"  size={"extra-small"}  border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"default"} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="circle" size={"medium"} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="circle" size={"large"} borderMotion={true} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}  bottomSlot={{
-                content:"T",
+                text:"T",
                 shape:"circle"
             }}>U</Avatar>
             <br/>
             <Avatar shape="square"  size={"extra-extra-small"}  border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square"  size={"extra-small"}  border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"default"} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"medium"} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}>U</Avatar>
             <Avatar shape="square" size={"large"} borderMotion={true} border={false} topSlot={{
-                content:"直播"
+                text:"直播"
             }}  bottomSlot={{
-                content:"T",
+                text:"T",
                 shape:"circle"
             }}>U</Avatar>
         </div>
@@ -176,7 +180,7 @@ export const GroupSize = () => (
   <div>
     <p>medium</p>
     <AvatarGroup>
-      <Avatar color="red" topSlot={{content:"T"}} bottomSlot={{content:"T"}}>LL</Avatar>
+      <Avatar color="red" topSlot={{text:"T"}} bottomSlot={{text:"T"}}>LL</Avatar>
       <Avatar>CX</Avatar>
       <Avatar size="default">CX</Avatar>
       <Avatar color="amber">RM</Avatar>

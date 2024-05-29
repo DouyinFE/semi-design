@@ -187,5 +187,12 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option').eq(0).trigger('click');
         cy.get('.semi-button-content-left').eq(0).contains('亚洲');
     })
+
+    it.only('default open', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--multiple')
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('#invisible-span').eq(0).trigger('mousedown');
+        cy.get('.semi-tree-select-popover').should('not.exist');
+    })
 });
 
