@@ -404,8 +404,8 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         if (shouldWrap) {
             return <span className={cls([`${prefixCls}-wrapper`])} style={style} {...mouseEvent}>
                 {avatar}
-                {topSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
-                {bottomSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
+                {topSlot && ["extra-small","small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
+                {bottomSlot && ["extra-small","small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
             </span>;
         } else {
             return avatar;
