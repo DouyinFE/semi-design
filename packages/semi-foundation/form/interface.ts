@@ -36,22 +36,38 @@ export interface setValuesConfig {
     isOverride: boolean
 }
 
-type ExcludeStringNumberKeys<T> = {
-    [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
-}
+// FieldPath 类型定义，用于生成对象字段的路径字符串
+export type FieldPath<T> = T extends object ? {
+    // 遍历对象的每个键 K
+    [K in keyof T]: T[K] extends object
+        // 如果键 K 对应的值是对象，则生成嵌套路径（递归调用 FieldPath）
+        ? `${string & K}.${FieldPath<T[K]>}` | `${string & K}`
+        // 否则，仅生成当前键的路径
+        : `${string & K}`;
+}[keyof T]
+    : never;
 
-type CustomKeys<T> = { [K in keyof T]: string extends K ? never : number extends K ? never : K; } extends { [K in keyof T]: infer U } ? U : never;
-
-type FieldPath<T, K extends CustomKeys<T> = CustomKeys<T>> = K extends string ? T[K] extends Record<string, any> ? `${K}.${FieldPath<T[K], CustomKeys<T[K]>>}` | K : K : never;
+// FieldPathValue 类型定义，用于从路径字符串中推导出实际的类型
+export type FieldPathValue<T, P extends FieldPath<T>> =
+  // 如果路径字符串 P 包含嵌套路径（使用模板字符串类型进行匹配）
+  P extends `${infer K}.${infer Rest}`
+      ? K extends keyof T
+          // 递归解析嵌套路径，逐层深入对象结构
+          ? Rest extends FieldPath<T[K]>
+              ? FieldPathValue<T[K], Rest>
+              : never
+          : never
+      // 如果路径字符串 P 是顶层键
+      : P extends keyof T
+          ? T[P]
+          : never;
 
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<T extends object = any> {
-// export interface BaseFormApi<T extends object = any> {
     /** get value of field */
-    getValue: <K extends keyof T>(field?: K) => T[K];
+    getValue: <P extends FieldPath<T>>(field?: P) => FieldPathValue<T, P>;
     /** set value of field */
-    setValue: <K extends CustomKeys<T>>(field: FieldPath<T, K> | FieldPath<K>, newFieldValue: any) => void;
-    // setValue: <K extends keyof T>(field: K, newFieldValue: T[K]) => void;
+    setValue: <K extends FieldPath<T>>(field: K, newFieldValue: any) => void;
     /** get error of field */
     getError: <K extends keyof T>(field: K) => any;
     /** set error of field */

@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Form, useFormState, useFormApi, withField, Input, Button, Upload, withFormApi, withFormState } from '../../index';
-import { values } from 'lodash';
 const stories = storiesOf('Form', module);
 import { FormApiContext } from '../context';
 
@@ -139,8 +138,6 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
 
 stories.add('Form', () => <Form>{Fields}</Form>);
 
-
-
 interface IProps {
     [x:string]: any;
 }
@@ -157,7 +154,7 @@ interface FData {
     },
     test5: {
         kkk: {
-            jjj: string
+            jjj: number
         }
     }
     testK: boolean;
@@ -178,13 +175,25 @@ class Demo extends React.Component<IProps, IState> {
 
     setData() {
         const formApi = this.formApi;
+        // set
         formApi.setValue('test3', 123);
-        formApi.setValue('test8', 123);
         formApi.setValue('test4.event', 123);
         formApi.setValue('test5.kkk', 123);
         formApi.setValue('test5.kkk.jjj', 123);
-        formApi.setValue('test5.kkk.ppp', 123);
-        formApi.setValue('test4.5', 123);
+        formApi.setValue('keyNotExist', 123);
+        formApi.setValue('test4.notExist', 123);
+        formApi.setValue('test5.kkk.notExist', 123);
+
+        // get
+        let test3 = formApi.getValue('test3');
+        let test4 = formApi.getValue('test4');
+        let test4event = formApi.getValue('test4.event');
+        let test5kkk = formApi.getValue('test5.kkk');
+        let test5kkkjjj = formApi.getValue('test5.kkk.jjj');
+
+        let a = formApi.getValue('keyNotExist');
+        let b = formApi.getValue('test5.kkk.notExist');
+        let c = formApi.getValue('test4.notExist');
     }
 
     render() {
@@ -203,6 +212,43 @@ class Demo extends React.Component<IProps, IState> {
     }
   }
 
+class WithoutGenericsType extends React.Component<IProps, IState> {
+
+    formApi: FormApi
+
+    constructor(props: any) {
+        super(props);
+    }
+
+    getFormApi(formApi) {
+        this.formApi = formApi;
+    }
+
+    setData() {
+        const formApi = this.formApi;
+        formApi.setValue('test3', 123);
+        formApi.setValue('test8', 123);
+        formApi.setValue('test4.event', 123);
+        formApi.setValue('test5.kkk', 123);
+        formApi.setValue('test5.kkk.jjj', 123);
+        formApi.setValue('test5.kkk.ppp', 123);
+        formApi.setValue('test4.5', 123);
+    }
+
+    render() {
+        return (
+            <>
+                <Form
+                    getFormApi={this.getFormApi}
+                    onSubmit={values => console.log(values.test2)}
+                    onChange={formState => formState.values.test}
+                    validateFields={values => ({ test4: 'test4 empty', test2: '' })}
+                >
+                </Form>
+            </>
+        );
+    }
+}
 
 
 stories.add('Form render', () => <Form render={({values, formApi, formState}) => <div></div>}></Form>);

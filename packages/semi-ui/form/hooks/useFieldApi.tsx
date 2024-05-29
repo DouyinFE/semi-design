@@ -9,7 +9,6 @@ const buildFieldApi = (formApi: FormApi, field: string) => ({
     getTouched: () => formApi.getTouched(field),
     setTouched: (isTouched: boolean) => formApi.setTouched(field, isTouched),
     getValue: () => formApi.getValue(field),
-    // @ts-ignore
     setValue: (value: any) => formApi.setValue(field, value),
 });
 
