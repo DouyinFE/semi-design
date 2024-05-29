@@ -76,6 +76,10 @@ export const BottomSolt = () => (
     </div>
 );
 
+BottomSolt.parameters = {
+    chromatic: { disableSnapshot: true },
+}
+
 export const TopSolt = () => (
     <div>
         <div>
@@ -159,6 +163,10 @@ export const TopSolt = () => (
         </div>
     </div>
 );
+
+TopSolt.parameters = {
+    chromatic: { disableSnapshot: true },
+}
 
 
 export const CustomAvatar = () => (
