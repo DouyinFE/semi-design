@@ -17,11 +17,12 @@ describe('badge', () => {
             className: 'test',
             countStyle: {
                 color: 'red'
-            }
+            },
+            count: 5
         }
         let badge = getBadge(props);
         expect(badge.hasClass('test')).toEqual(true);
-        expect(badge.find('.test')).toHaveStyle('color', 'red');
+        expect(badge.find('.test .semi-badge-count')).toHaveStyle('color', 'red');
         badge.unmount();
     });
 
