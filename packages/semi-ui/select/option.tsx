@@ -7,7 +7,8 @@ import LocaleConsumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';
 import { getHighLightTextHTML } from '../_utils/index';
 import { Locale } from '../locale/interface';
-import { BasicOptionProps } from '@douyinfe/semi-foundation/select/optionFoundation';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
+import type { BasicOptionProps } from '@douyinfe/semi-foundation/select/optionFoundation';
 
 export interface OptionProps extends BasicOptionProps {
     [x: string]: any;
@@ -151,6 +152,7 @@ class Option extends PureComponent<OptionProps> {
                 aria-selected={selected ? "true" : "false"}
                 aria-disabled={disabled ? "true" : "false"}
                 style={style}
+                {...getDataAttr(rest)}
             >
                 {showTick ? (
                     <div className={selectedIconClassName}>

@@ -24,7 +24,7 @@ class OptionGroup extends BaseComponent<OptionGroupProps> {
     };
 
     render() {
-        const { label, className, style } = this.props;
+        const { label, className, style, ...rest } = this.props;
         const groupCls = cls(className, {
             [prefixCls]: true,
         });
@@ -32,7 +32,7 @@ class OptionGroup extends BaseComponent<OptionGroupProps> {
             return null;
         }
         return (
-            <div className={groupCls} style={style}>
+            <div className={groupCls} style={style} {...this.getDataAttr(rest)}>
                 {label}
             </div>
         );
