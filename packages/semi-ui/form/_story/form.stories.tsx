@@ -154,7 +154,7 @@ interface FData {
     },
     test5: {
         kkk: {
-            jjj: string
+            jjj: number
         }
     }
     testK: boolean;
@@ -175,13 +175,25 @@ class Demo extends React.Component<IProps, IState> {
 
     setData() {
         const formApi = this.formApi;
+        // set
         formApi.setValue('test3', 123);
-        formApi.setValue('keyNotExist', 123);
         formApi.setValue('test4.event', 123);
         formApi.setValue('test5.kkk', 123);
         formApi.setValue('test5.kkk.jjj', 123);
+        formApi.setValue('keyNotExist', 123);
+        formApi.setValue('test4.notExist', 123);
         formApi.setValue('test5.kkk.notExist', 123);
-        formApi.setValue('test4.5', 123);
+
+        // get
+        let test3 = formApi.getValue('test3');
+        let test4 = formApi.getValue('test4');
+        let test4event = formApi.getValue('test4.event');
+        let test5kkk = formApi.getValue('test5.kkk');
+        let test5kkkjjj = formApi.getValue('test5.kkk.jjj');
+
+        let a = formApi.getValue('keyNotExist');
+        let b = formApi.getValue('test5.kkk.notExist');
+        let c = formApi.getValue('test4.notExist');
     }
 
     render() {
