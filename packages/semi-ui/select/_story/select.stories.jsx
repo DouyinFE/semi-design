@@ -123,11 +123,11 @@ const AutoFocusDemo = () => {
         onFocus={() => console.log('onFocus')}
         onBlur={() => console.log('onBlur')}
       >
-        <Option value="abc">抖音</Option>
-        <Option value="hotsoon">火山</Option>
-        <Option value="pipixia">皮皮虾</Option>
-        <Option value="duoshan">多闪</Option>
-        <Option value="xigua">西瓜视频</Option>
+        <Option value="abc" data-test-id='douyin' data-shortcut='dy'>抖音</Option>
+        <Option value="hotsoon" data-test-id='hotsoon'>火山</Option>
+        <Option value="capcut" data-test-id='capcut'>剪映</Option>
+        <Option value="duoshan" data-test-id='duoshan'>多闪</Option>
+        <Option value="xigua" data-test-id='xigua'>西瓜视频</Option>
       </Select>
       <div className="test-div">test-div</div>
     </>
@@ -2201,9 +2201,9 @@ class OptionGroupDemo extends React.Component {
 
   renderGroup(group, index) {
     const options = group.children.map(option => (
-      <Select.Option value={option.value} label={option.label} key={option.label} />
+      <Select.Option value={option.value} label={option.label} key={option.label} data-test-id={option.label} />
     ));
-    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label}>{options}</Select.OptGroup>;
+    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label} data-test-id={group.label}>{options}</Select.OptGroup>;
   }
 
   render() {
