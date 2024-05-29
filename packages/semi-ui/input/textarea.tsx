@@ -46,8 +46,8 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onChange?: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onBlur?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onFocus?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+    onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
     onInput?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onKeyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -145,8 +145,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 this.props.onChange(val, e);
             },
             notifyClear: (e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onClear(e),
-            notifyBlur: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onBlur(e),
-            notifyFocus: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onFocus(e),
+            notifyBlur: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onBlur(e),
+            notifyFocus: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onFocus(e),
             notifyKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 this.props.onKeyDown(e);
             },
