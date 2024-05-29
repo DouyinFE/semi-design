@@ -63,10 +63,10 @@ export default class Badge extends PureComponent<BadgeProps> {
         const { direction } = this.context;
         // DefaultPosition here, static can't get this
         const defaultPosition = direction === 'rtl' ? 'leftTop' : 'rightTop';
-        const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
+        const { count, dot, type, countClassName, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';
-        const wrapper = cls(this.props.countClassName, {
+        const wrapper = cls(countClassName, {
             [`${prefixCls}-${type}`]: !custom,
             [`${prefixCls}-${theme}`]: !custom,
             [`${prefixCls}-${position}`]: Boolean(position) && Boolean(children),
