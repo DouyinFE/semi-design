@@ -48,7 +48,7 @@ export type FieldPath<T> = T extends object ? {
     : never;
 
 // FieldPathValue 类型定义，用于从路径字符串中推导出实际的类型
-type FieldPathValue<T, P extends FieldPath<T>> =
+export type FieldPathValue<T, P extends FieldPath<T>> =
   // 如果路径字符串 P 包含嵌套路径（使用模板字符串类型进行匹配）
   P extends `${infer K}.${infer Rest}`
       ? K extends keyof T
