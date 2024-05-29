@@ -22,7 +22,7 @@ export interface SemiWebpackPluginOptions {
     webpackContext?: WebpackContext;
     extractCssOptions?: ExtractCssOptions;
     overrideStylesheetLoaders?: (loaders: any[]) => any[];
-    webComponentPath?: string | RegExp
+    webComponentPath?: boolean | RegExp
 }
 
 export interface SemiThemeOptions {

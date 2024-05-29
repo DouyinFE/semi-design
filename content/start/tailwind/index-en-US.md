@@ -48,7 +48,7 @@ No matter which side of Tailwind or the component library has higher priority, p
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
-** 2. Introduce the plug-in into the project and enable cssLayer **
+** 2. Introduce the plug-in into the project config (webpack.config.js or next.config.js ...) to enable semi webpack plugin cssLayer feature **
 ```js
 new SemiWebpackPlugin({
      cssLayer:true,

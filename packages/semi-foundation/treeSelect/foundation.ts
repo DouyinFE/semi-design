@@ -215,11 +215,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const triggerSearch = searchPosition === strings.SEARCH_POSITION_TRIGGER && filterTreeNode;
         const triggerSearchAutoFocus = searchAutoFocus && triggerSearch;
         this._setDropdownWidth();
-        const isOpen = (this.getProp('defaultOpen') || triggerSearchAutoFocus) && !this._isDisabled();
+        const able = !this._isDisabled();
+        const isOpen = (this.getProp('defaultOpen') || triggerSearchAutoFocus) && able;
         if (isOpen) {
             this.open();
+            this._registerClickOutsideHandler();
         }
-        if (triggerSearchAutoFocus) {
+        if (triggerSearchAutoFocus && able) {
             this.handleTriggerFocus(null);
         }
     }
@@ -429,7 +431,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    _registerClickOutsideHandler = (e) => {
+    _registerClickOutsideHandler = () => {
         this._adapter.registerClickOutsideHandler(e => {
             this.handlerTriggerBlur(e);
             this.close(e);
@@ -450,7 +452,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     handleTriggerFocus(e: any) {
         this._adapter.updateIsFocus(true);
         this._notifyFocus(e);
-        this._registerClickOutsideHandler(e);
+        this._registerClickOutsideHandler();
     }
 
     // Scenes that may trigger blur
@@ -462,6 +464,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handlerTriggerBlur(e) {
+        const isFocus = this.getState('isFocus');
+        if (!isFocus) {
+            return;
+        }
         this._adapter.updateIsFocus(false);
         this._notifyBlur(e);
         this._adapter.unregisterClickOutsideHandler();
