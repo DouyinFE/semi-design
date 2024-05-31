@@ -9,11 +9,14 @@ import { CSSProperties } from 'react';
 import "@douyinfe/semi-foundation/codeHighlight/codeHighlight.scss";
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
 import PropTypes from 'prop-types';
+import cls from "classnames";
+import { cssClasses } from "@douyinfe/semi-foundation/codeHighlight/constants";
 
 
 interface CodeHighlightProps extends CodeHighlightBaseProps {
     className?: string;
-    style?: CSSProperties
+    style?: CSSProperties;
+    defaultTheme?: boolean
 }
 
 
@@ -34,10 +37,12 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
         code: PropTypes.string,
         language: PropTypes.string,
         lineNumber: PropTypes.bool,
+        defaultTheme: PropTypes.bool,
     }
 
     static defaultProps = getDefaultPropsFromGlobalConfig(CodeHighlight.__SemiComponentName__, {
-        lineNumber: true
+        lineNumber: true,
+        defaultTheme: true
     })
 
     constructor(props: CodeHighlightProps) {
@@ -66,11 +71,13 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
     }
 
     render() {
-        return <pre className={this.props.className} style={this.props.style}>
-            <code ref={this.codeRef}>
-                {this.props.code}
-            </code>
-        </pre>;
+        return <div style={this.props.style} className={cls(this.props.className, cssClasses.PREFIX, { [`${cssClasses.PREFIX}-defaultTheme`]: this.props.defaultTheme })} {...this.getDataAttr(this.props)}>
+            <pre>
+                <code ref={this.codeRef}>
+                    {this.props.code}
+                </code>
+            </pre>
+        </div>;
     }
 
 

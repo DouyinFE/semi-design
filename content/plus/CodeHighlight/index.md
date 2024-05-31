@@ -20,21 +20,16 @@ Semi 代码高亮组件使用了 prismjs，支持297 种编程语言的高亮（
 
 ```jsx
 import { CodeHighlight } from '@douyinfe/semi-ui';
-import "prismjs/themes/prism.min.css";  // 手动引入高亮主题
 ```
-
-另有多个主题均在 node_modules 内 prismjs/themes 下。（如果你使用 pnpm，请自行查找具体安装路径或在项目中手动安装 prismjs）
 
 ### 基本用法
 
 ```jsx live=true dir=column
 import { CodeHighlight } from '@douyinfe/semi-ui';
-import "prismjs/themes/prism.min.css";
 
 function Demo() {
 
-    return <CodeHighlight 
-        className="codeHighlightDemo" // 用于防止 Semi 文档站样式影响 Demo 展示效果，实际项目不需要该 ClassName
+    return <CodeHighlight
         language={"javascript"} code={
         `
 import * as React from 'react"
@@ -53,12 +48,10 @@ const Test = ()=>{
 
 ```jsx live=true dir=column
 import { CodeHighlight } from '@douyinfe/semi-ui';
-import "prismjs/themes/prism.min.css";
 
 function Demo() {
 
-    return <CodeHighlight 
-        className="codeHighlightDemo" // 用于防止 Semi 文档站样式影响 Demo 展示效果，实际项目不需要该 ClassName
+    return <CodeHighlight
         language={"css"} code={
         `.grid {
     .semi-row,
@@ -92,12 +85,10 @@ import "prismjs/components/prism-vala.js"
 
 ```jsx live=true dir=column
 import { CodeHighlight } from '@douyinfe/semi-ui';
-import "prismjs/themes/prism.min.css";
 import "prismjs/components/prism-vala.js"
 
 function Demo() {
-    return <CodeHighlight 
-        className="codeHighlightDemo" // 用于防止 Semi 文档站样式影响 Demo 展示效果，实际项目不需要该 ClassName
+    return <CodeHighlight
         language={"vala"} code={
         `public class ExampleApp : Gtk.Application {
     public ExampleApp () {
@@ -126,15 +117,23 @@ function Demo() {
 ```
 
 
+### 自定义主题
+
+设置 `defaultTheme={false}` 关闭默认主题，然后手动将需要的主题的 css 文件拷贝并放入项目中引入即可。
+一些主题可在 node_modules 内 prismjs/themes 下找到，你也可以在网上搜索其他中意的主题。
+
+
+
 ### API
 
-| 属性        | 说明       | 类型     | 默认值 |
-|-----------|----------|--------|-----|
-| className | 类名       | string | -   |
-| code      | 代码纯文本    | string | -   |
-| language  | 语言类型     | string | -   |
-|lineNumber | 是否开启行数显示 | boolean | true |
-| style | 样式       | CSSProperties | - |
+| 属性        | 说明                        | 类型     | 默认值  |
+|-----------|---------------------------|--------|------|
+| className | 类名                        | string | -    |
+| code      | 代码纯文本                     | string | -    |
+| defaultTheme | 是否使用默认主题，添加自己的主题时设置 false | bool | true |
+| language  | 语言类型                      | string | -    |
+|lineNumber | 是否开启行数显示                  | boolean | true |
+| style | 样式                        | CSSProperties | -    |
 
 ## 设计变量
 

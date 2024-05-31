@@ -2,7 +2,6 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import Prism from 'prismjs';
 import cls from "classnames";
 import "prismjs/plugins/line-numbers/prism-line-numbers.min.js";
-import "prismjs/plugins/line-numbers/prism-line-numbers.min.css";
 
 Prism.manual = true;
 
