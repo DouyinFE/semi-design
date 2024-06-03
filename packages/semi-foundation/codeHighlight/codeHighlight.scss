@@ -44,7 +44,7 @@ $module: #{$prefix}-codeHighlight;
       padding: 1em;
       margin: .5em 0;
       overflow: auto;
-      background: #f9f7f9;
+      background: var(--semi-color-tertiary-light-default);
     }
 
     :not(pre)>code[class*="language-"] {
