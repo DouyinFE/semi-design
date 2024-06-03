@@ -47,7 +47,7 @@
     },
     "dependencies": {
         "@douyinfe/semi-site-banner": "^0.1.5",
-        "@douyinfe/semi-site-doc-style": "0.0.2",
+        "@douyinfe/semi-site-doc-style": "0.0.4",
         "@douyinfe/semi-site-header": "^0.0.29",
         "@douyinfe/semi-site-markdown-blocks": "^0.0.14",
         "@mdx-js/mdx": "1.6.22",
