@@ -50,7 +50,7 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
-** 2. 在项目中的配置文件中（webpack.config.js 或 next.config.js 等）引入Semi webpack 插件并开启 cssLayer **
+** 2. 在项目中的配置文件中（webpack.config.js 等）引入Semi webpack 插件并开启 cssLayer (使用非 webpack 构建的用户请参照原理自行对 semi 的 css 进行 layer 包裹) **
 ```js
 new SemiWebpackPlugin({
     cssLayer:true,
