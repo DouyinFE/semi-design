@@ -1532,10 +1532,24 @@
     "@douyinfe/semi-animation-styled" "2.23.2"
     classnames "^2.2.6"
 
+"@douyinfe/semi-animation-react@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-react/-/semi-animation-react-2.56.3.tgz#6d161426567b59097e66a0a7d319e14e5f74a8fc"
+  integrity sha512-www06W06X8W+Ou9V2Alfs+6LpKd9Ps3uPrrpIind77YWNDT2KIca36Lrk4l+dCjHc9DTTLnw3BLxXn1/O83Tuw==
+  dependencies:
+    "@douyinfe/semi-animation" "2.56.3"
+    "@douyinfe/semi-animation-styled" "2.56.3"
+    classnames "^2.2.6"
+
 "@douyinfe/semi-animation-styled@2.23.2":
   version "2.23.2"
   resolved "https://registry.npmjs.org/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.23.2.tgz#f18bc074515441c297cc636ed98521e249d093c9"
   integrity sha512-cKaA1yGHPF76Rx7EZDZicj+1oX1su2wnqb/UGFOTquAwqWmkTfgQ+EKxCd/N704WH+RtmGf4xbrJKpBvvcEdSQ==
+
+"@douyinfe/semi-animation-styled@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation-styled/-/semi-animation-styled-2.56.3.tgz#f8853b819404c521c01ca1ad6d725bc778b1ae0f"
+  integrity sha512-KA8lk+m6lJtsli0Nhd1KPo6fv7Bfmi56vUCJLeRwI28Svar2+6vIF0wAUCCszCFhvuPVPzQbl5S1s3erJnWseA==
 
 "@douyinfe/semi-animation@2.12.0":
   version "2.12.0"
@@ -1549,6 +1563,13 @@
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.33.1.tgz#cb5e2d45355212f7e1994671fe4acc6be12f6d26"
   integrity sha512-11L+NlecZ3Xdb9/sS6WJRsLpwsOv8jpxOivX0yRXdFKlP+lFYKnbM8klASFEJBce2/CywHw0ue65M/dkhoIIBw==
+  dependencies:
+    bezier-easing "^2.1.0"
+
+"@douyinfe/semi-animation@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-animation/-/semi-animation-2.56.3.tgz#e5eb82ae8581eb38554668aca24fd30d40f407c3"
+  integrity sha512-aRNoVpWgav6+zg5x1ITZE7ra8k+o6dbdJ4rmcr9J6BgnyEogx21wwNNgbcSymQKLI5CF1aWsORPbpGVgXt8J/w==
   dependencies:
     bezier-easing "^2.1.0"
 
@@ -1566,6 +1587,21 @@
     memoize-one "^5.2.1"
     scroll-into-view-if-needed "^2.2.24"
 
+"@douyinfe/semi-foundation@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-foundation/-/semi-foundation-2.56.3.tgz#387bbbe14c9b67b703be92d428a105fd0e7b9952"
+  integrity sha512-aqK7pVbK4BtnbwjSD5GBa/gF8PpJjnwVIsCYOM8INr4lqxi+w6nXCX3n1omlwWPKxC7/AxtL6cMw/FXeVJ9uRQ==
+  dependencies:
+    "@douyinfe/semi-animation" "2.56.3"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    date-fns "^2.29.3"
+    date-fns-tz "^1.3.8"
+    fast-copy "^3.0.1 "
+    lodash "^4.17.21"
+    memoize-one "^5.2.1"
+    scroll-into-view-if-needed "^2.2.24"
+
 "@douyinfe/semi-icons@2.33.1", "@douyinfe/semi-icons@latest":
   version "2.33.1"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.33.1.tgz#8e2871d9bc0ab7e12df74e3c71802d53d69b7425"
@@ -1573,10 +1609,22 @@
   dependencies:
     classnames "^2.2.6"
 
+"@douyinfe/semi-icons@2.56.3", "@douyinfe/semi-icons@^2.0.0":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-icons/-/semi-icons-2.56.3.tgz#2855e64866661bea94cd6ac7cd59beba8c8b6da6"
+  integrity sha512-6AH1q+wDO2xX62k2bzBDqYwao3Eis2h9q2t3CRQPkvwNIferx+MmBU9ZZkvR2Q2RewcQRVIi+dN9qX9TcWNsTA==
+  dependencies:
+    classnames "^2.2.6"
+
 "@douyinfe/semi-illustrations@2.33.1":
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.33.1.tgz#530ab851f4dc32a52221c4067c778c800b9b55d7"
   integrity sha512-tTTUN8QwnQiF++sk4VBNzfkG87aYZ4iUeqk2ys8/ymVUmCZQ7y46ys020GO1MfPHRR47OMFPI82FVcH1WQtE3g==
+
+"@douyinfe/semi-illustrations@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.56.3.tgz#8bd1ef6b6b5a610f0a9111000781ace28f3a0450"
+  integrity sha512-jHf09rWJ/Iktl4H+wpCcHXZ5/l97SfyZYvw9hSWZsmLSsW78mNV0Zu4wyM8c7/zhMbYxLmAeTSNZS1TFGPKkbw==
 
 "@douyinfe/semi-scss-compile@2.23.2":
   version "2.23.2"
@@ -1600,10 +1648,10 @@
     prop-types "^15.7.2"
     tslib "^2.3.1"
 
-"@douyinfe/semi-site-doc-style@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.1.tgz#c3c803014218ec00441dac32db9a875f6222ed0b"
-  integrity sha512-y7Jc1i9q/O2idfaqckSJvghpt4AboQJgZ4iTEK8UMqjQkyWmb5I/NRzVWjOP9S0LEbJNs76OKfZil7DwsOmY/A==
+"@douyinfe/semi-site-doc-style@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.4.tgz#465badb80f387c222f91488dbb868addc2d62470"
+  integrity sha512-t1GQqW1GsZHiHECCXQQAXkhErzUrlTfV7PjAmdMGB7wyh9yLYiwiwHW6Np1oh+yiSvJAd1lx5EPA2jHDo1SeNA==
 
 "@douyinfe/semi-site-header@^0.0.29":
   version "0.0.29"
@@ -1619,20 +1667,20 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.9.tgz#df0c02b0867b08e499143b26a189280c909bb438"
-  integrity sha512-mEKHb9LNlo5QjDK6Rw3RkjGBmE5Ivg5ChCAPeqtNsBkzNcF78D7SvrL5U8U6R/F4iIfTqw7gHfvuMte1L559iw==
+"@douyinfe/semi-site-markdown-blocks@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.14.tgz#ac657263b5546e6e7be1f4fd4af878af32377889"
+  integrity sha512-kbPe0xxdeDmikgQSW3ORNB47EpvszgIe6DBsDY/dwR6Y2nZv4bEURLdgEXhsZKauwhzB+BygP/wtV0qMlEp7/w==
   dependencies:
-    "@douyinfe/semi-site-playground" "0.0.9"
+    "@douyinfe/semi-site-playground" "0.0.13"
     classnames "^2.2.6"
     prism-react-renderer "^1.0.1"
     prop-types "^15.7.2"
 
-"@douyinfe/semi-site-playground@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npmjs.org/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.9.tgz#cb1362c636f73f7251c887a1e2b03e4e34153ee3"
-  integrity sha512-ojp5HQUN/2PD5CQEszUdU5oXsQIYUacZhbzfSw+Y7YdU1UPh/L31GmXfOjXccziIYZoqAyk6foqLIU1wtg+Ipw==
+"@douyinfe/semi-site-playground@0.0.13":
+  version "0.0.13"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-site-playground/-/semi-site-playground-0.0.13.tgz#70adad18d7a99944ad8529596c554ab49897ecf2"
+  integrity sha512-z5Kj53K1dM02oSuR7Ca10aVsoXo6q/E0UOX7VF2VBmi8vShknL1VRMXsxev20IFSVxZOXlAYGO4SkL1KqWxdSg==
   dependencies:
     "@douyinfe/semi-icons" "^2.0.0"
     "@douyinfe/semi-ui" "^2.0.0"
@@ -1650,6 +1698,40 @@
   integrity sha512-YptJl5aFiV6DVU7675DNQ2seA2FsXQ+kcx9GmPwonO7vUwY0syc05KuuNnR8dSZuDBI6mOzfQm/mw80RzkZ7pg==
   dependencies:
     glob "^7.1.6"
+
+"@douyinfe/semi-theme-default@2.56.3":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-theme-default/-/semi-theme-default-2.56.3.tgz#fc2ac74df82528499b0a929e874121ddfdf44a4b"
+  integrity sha512-T9dNTtvn9/nD0QDJupCrMEQlqpu/fv4XtjieyHZ2RTutHfhZPLRjwcqx9vOVmXmu2wb90GbME1BDWqS7gmyhIg==
+  dependencies:
+    glob "^7.1.6"
+
+"@douyinfe/semi-ui@^2.0.0":
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-ui/-/semi-ui-2.56.3.tgz#cff9d967c76e8de41fccfe34243bdb7d2cc9c52e"
+  integrity sha512-veU6Io+pi4enf5QQ52Wp2xbHP7VkNSLKv17IAz5HO9UINkc+ROeMGC/0J/u2xt5oW6FNv1zLoWqaAUYSl1fQjw==
+  dependencies:
+    "@dnd-kit/core" "^6.0.8"
+    "@dnd-kit/sortable" "^7.0.2"
+    "@dnd-kit/utilities" "^3.2.1"
+    "@douyinfe/semi-animation" "2.56.3"
+    "@douyinfe/semi-animation-react" "2.56.3"
+    "@douyinfe/semi-foundation" "2.56.3"
+    "@douyinfe/semi-icons" "2.56.3"
+    "@douyinfe/semi-illustrations" "2.56.3"
+    "@douyinfe/semi-theme-default" "2.56.3"
+    async-validator "^3.5.0"
+    classnames "^2.2.6"
+    copy-text-to-clipboard "^2.1.1"
+    date-fns "^2.29.3"
+    date-fns-tz "^1.3.8"
+    fast-copy "^3.0.1 "
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-resizable "^3.0.5"
+    react-window "^1.8.2"
+    scroll-into-view-if-needed "^2.2.24"
+    utility-types "^3.10.0"
 
 "@douyinfe/semi-ui@latest":
   version "2.33.1"
@@ -5513,6 +5595,11 @@
   version "1.0.1"
   resolved "https://registry.npmjs.org/@types/pretty-hrtime/-/pretty-hrtime-1.0.1.tgz#72a26101dc567b0d68fd956cf42314556e42d601"
   integrity sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==
+
+"@types/prismjs@^1.26.3":
+  version "1.26.3"
+  resolved "https://registry.npmjs.org/@types/prismjs/-/prismjs-1.26.3.tgz#47fe8e784c2dee24fe636cab82e090d3da9b7dec"
+  integrity sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==
 
 "@types/prop-types@*":
   version "15.7.5"
@@ -11738,6 +11825,11 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     resolve "^2.0.0-next.4"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.8"
+
+eslint-plugin-semi-design@^2.33.0:
+  version "2.56.3"
+  resolved "https://registry.npmjs.org/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.56.3.tgz#9da23941133dc5d36f5b331c423fce77252a158e"
+  integrity sha512-DzInwf/TC0/rjc3eJOkc9/p/FBxY2GcgMC6jpisxua9ryG5gyry7xhs75rVrLodw6zKVarpjALttenKHf1AqVA==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
@@ -21873,6 +21965,11 @@ prism-react-renderer@^1.0.1, prism-react-renderer@^1.2.1:
   version "1.3.5"
   resolved "https://registry.npmjs.org/prism-react-renderer/-/prism-react-renderer-1.3.5.tgz#786bb69aa6f73c32ba1ee813fbe17a0115435085"
   integrity sha512-IJ+MSwBWKG+SM3b2SUfdrhC+gu01QkV2KmRQgREThBfSQRoufqRfxfHUxpG1WcaFjP+kojcFyO9Qqtpgt3qLCg==
+
+prismjs@^1.29.0:
+  version "1.29.0"
+  resolved "https://registry.npmjs.org/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
+  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
 
 process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
   version "2.0.1"

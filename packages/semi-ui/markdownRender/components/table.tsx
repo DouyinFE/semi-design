@@ -15,7 +15,7 @@ const table = (props: PropsWithChildren<TableProps>)=>{
 
     const titles: string[] = columnsFiber.map(item=>item?.props?.children || "");
     const tableDataSource: any[] = [];
-    for (let i=0;i<dataFiber.length;i++) {
+    for (let i = 0;i < dataFiber.length;i++) {
         let item: Record<string, string> = {
             key: String(i)
         };
