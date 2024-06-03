@@ -8,5 +8,6 @@ export { default as a } from "./a";
 export { default as img } from "./img";
 export { default as table } from "./table";
 export { default as p } from "./p";
+export { default as code } from "./code";
 
 
