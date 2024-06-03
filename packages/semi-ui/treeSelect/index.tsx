@@ -877,7 +877,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 content: get(item, realLabelName, null)
             });
         const tagList: Array<React.ReactNode> = [];
-        console.log('triggerRenderKeys', triggerRenderKeys);
         triggerRenderKeys.forEach((key: TreeNodeData['key'], index) => {
             const item = (keyEntities[key] && keyEntities[key].key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
@@ -1109,7 +1108,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             if (!autoMergeValue) {
                 triggerRenderKeys =[...checkedKeys];
             } else if (checkRelation === 'related') {
-                console.log("checkedKeys", checkedKeys);
                 triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
             } else if (checkRelation === 'unRelated') {
                 triggerRenderKeys = [...realCheckedKeys];
