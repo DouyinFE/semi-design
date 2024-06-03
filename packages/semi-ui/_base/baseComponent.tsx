@@ -81,7 +81,7 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         return log(text, ...rest);
     }
 
-    getDataAttr(props?: any) {
+    getDataAttr(props: any = this.props) {
         return getDataAttr(props);
     }
 }
