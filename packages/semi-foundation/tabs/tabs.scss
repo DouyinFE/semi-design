@@ -264,7 +264,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         .#{$module}-bar-arrow-start {
             margin-right: $spacing-tabs_overflow_icon-marginRight;
-            & > .#{$prefix}-button[area-disabled=true] {
+            & > .#{$prefix}-button[aria-disabled=false] {
                 color: $color-tabs_tab-pane_arrow-text-default;
                 padding: $spacing-tabs_tab-pane_arrow;
                 border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
@@ -285,7 +285,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         .#{$module}-bar-arrow-end {
             margin-left: $spacing-tabs_overflow_icon-marginLeft;
-            & > .#{$prefix}-button {
+            & > .#{$prefix}-button[aria-disabled=false] {
                 color: $color-tabs_tab-pane_arrow-text-default;
                 padding: $spacing-tabs_tab-pane_arrow;
                 border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
