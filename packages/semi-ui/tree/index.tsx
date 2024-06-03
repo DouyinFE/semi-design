@@ -141,6 +141,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         draggable: false,
         autoExpandWhenDragEnter: true,
         checkRelation: 'related',
+        autoMergeValue: true,
     };
 
     static TreeNode: typeof TreeNode;

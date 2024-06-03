@@ -460,7 +460,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         let value;
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, autoMergeValue, true);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key;
         }

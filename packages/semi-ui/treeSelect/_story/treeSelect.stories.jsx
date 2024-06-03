@@ -2790,3 +2790,25 @@ export const CustomSelectAll = () => {
     </>  
   );
 };
+
+export const AutoMerge = () => {
+  const [value, setValue] = useState([]);
+
+  const onChange = useCallback((val) => {
+    console.log('onChange', val);
+    setValue(val);
+  }, []);
+
+  return (
+    <>
+      <TreeSelect
+        autoMergeValue={false}
+        style={{ width: 300}}
+        multiple
+        value={value}
+        onChange={onChange}
+        treeData={treeData1}
+      />
+    </>
+  )
+}
