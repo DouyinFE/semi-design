@@ -71,7 +71,7 @@ class CodeHighlight extends BaseComponent<CodeHighlightProps, CodeHighlightState
     }
 
     render() {
-        return <div style={this.props.style} className={cls(this.props.className, cssClasses.PREFIX, { [`${cssClasses.PREFIX}-defaultTheme`]: this.props.defaultTheme })} {...this.getDataAttr(this.props)}>
+        return <div style={this.props.style} className={cls(this.props.className, cssClasses.PREFIX, "semi-light-scrollbar", { [`${cssClasses.PREFIX}-defaultTheme`]: this.props.defaultTheme })} {...this.getDataAttr(this.props)}>
             <pre>
                 <code ref={this.codeRef}>
                     {this.props.code}
