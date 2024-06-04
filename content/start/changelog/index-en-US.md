@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.60.0-beta.0 (2024-06-04)
+- 【Fix】
+    - Fixed the problem that the text was slightly offset downwards when the input was in small size [@lmsccc](https://github.com/lmsccc)
+    - Fix the problem of incomplete tab display after scrollIntoView [@l123wx](https://github.com/l123wx) (https://github.com/DouyinFE/semi-design/pull/2247)
+- 【Style】
+    - Explicitly set the display attribute of the svg under Spin to inline to prevent the tailwind default svg setting from affecting Spin.
 
 #### 🎉 2.59.1 (2024-05-29)
 - 【Fix】
