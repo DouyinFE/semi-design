@@ -474,13 +474,10 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
     }
 
     notifyChange(key: string[] | string, e: any) {
-        const bothParents = this.getProp('bothParents');
         const isMultiple = this._isMultiple();
         const { keyMaps } = this.getProps();
         const { keyEntities } = this.getStates();
-        if (bothParents) {
-            this._adapter.notifyChange(key);
-        } else if (this.getProp('treeDataSimpleJson')) {
+        if (this.getProp('treeDataSimpleJson')) {
             this.notifyJsonChange(key, e);
         } else if (isMultiple) {
             this.notifyMultipleChange(key as string[], e);
