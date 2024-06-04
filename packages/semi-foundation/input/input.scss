@@ -61,7 +61,7 @@ $module: #{$prefix}-input;
 
     &-small {
         height: $height-input_wrapper_small;
-        @include font-size-header-6;
+        @include font-size-regular;
         line-height: $height-input_small;
     }
 
