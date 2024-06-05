@@ -47,7 +47,7 @@ stories.add('Text', () => (
         <br />
         <Text link={{ href: 'https://semi.design/' }}>打开网站</Text>
         <br />
-        <Text link ><Icon type="link" />网页链接</Text>
+        <Text link weight={700}><Icon type="link" />网页链接</Text>
     </div>
 ));
 
