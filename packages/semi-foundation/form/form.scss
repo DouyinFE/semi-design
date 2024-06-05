@@ -200,6 +200,10 @@ $rating: #{$prefix}-rating;
             display: flex;
             align-items: center;
         }
+        // labelAlign = right
+        .#{$field}-label-with-extra.#{$field}-label-right{
+            justify-content: flex-end;
+        }
         .#{$checkboxGroup},
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;
