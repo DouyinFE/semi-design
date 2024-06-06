@@ -4,6 +4,11 @@ $module: #{$prefix}-markdownRender;
 
 .#{$module} {
 
+    &-simple-code{
+        background: $color-markdownRender_simpleCode-bg;
+        color:$color-markdownRender_simpleCode-text;
+    }
+
     ul, li {
         color: $color-markdownRender_component_list
     }

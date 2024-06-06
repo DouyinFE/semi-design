@@ -142,6 +142,7 @@ function Demo() {
 ### 添加自定义组件
 
 通过传入自定义组件到 `components` Props，能够实现在 Markdown 中直接书写 JSX，组件会被渲染到最终页面上，支持 JS 事件。
+默认的 Markdown 组件可从 `MarkdownRender.defaultComponents` 中获取，可以用于二次封装。
 
 <Notice type="primary" title="注意事项">
   <div>注意尽量确保被渲染的 Markdown 内 JSX 代码可信，防止 XSS。</div>
@@ -165,7 +166,7 @@ function Demo() {
 
 直接在 Markdown 中书写 JSX 即可
         `}
-        components={components}
+        components={{...MarkdownRender.defaultComponents,...components}}
         />
 }
 

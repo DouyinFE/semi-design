@@ -102,6 +102,7 @@ Basic element tag support that can be overridden `a blockquote br code em h1 h2 
 ### Add custom components
 
 By passing in custom components to `components` Props, you can write JSX directly in Markdown, and the component will be rendered to the final page, supporting JS events.
+The default Markdown components can be obtained from `MarkdownRender.defaultComponents` and can be used for secondary packaging.
 
 <Notice type="primary" title="Note">
    <div>Try to ensure that the JSX code in the rendered Markdown is trustworthy to prevent XSS. </div>
@@ -126,8 +127,8 @@ function Demo() {
 <MyButton onClick={()=>alert("MyButton is clicked")}>MyButton click me</MyButton>
 
 Just write JSX directly in Markdown
-        `} 
-        components={components} />
+        `}
+        components={{...MarkdownRender.defaultComponents,...components}} />
 }
 
 

@@ -65,6 +65,8 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
             <ComponentConstructor components={{ ...SemiMarkdownComponents, ...this.props.components }} />
         </div>;
     }
+
+    static defaultComponents = SemiMarkdownComponents;
 }
 
 
