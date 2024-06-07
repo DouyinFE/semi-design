@@ -98,5 +98,5 @@ Toast 提示
 
 ```overview
 ConfigProvider 全局配置,
-LocaleProvider 多语言,
+LocaleProvider 多语言
 ```
