@@ -99,9 +99,10 @@ import { Transfer } from '@douyinfe/semi-ui';
 
 ### Custom filtering logic, custom option data rendering
 
-Use `filter` to customize the search logic. When it returns true, it means that the current item meets the filter rules and keeps the display of the current item in the list. If it returns false, it means it does not match, and the current item will be hidden.
-Using `renderSourceItem`, you can customize the rendering structure of each source data on the left
-Using `renderSelectedItem` you can customize the rendering structure of each selected item on the right
+Use `filter` to customize the search logic. When it returns true, it means that the current item meets the filter rules and keeps the display of the current item in the list. If it returns false, it means it does not match, and the current item will be hidden.  
+When type is `treeList`, if you need to customize search logic, you need to set `filter` to true and set a custom search function through `filterTreeNode` of `treeProps`.  
+Using `renderSourceItem`, you can customize the rendering structure of each source data on the left.  
+Using `renderSelectedItem` you can customize the rendering structure of each selected item on the right.
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1278,7 +1279,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | disabled | Whether to disable | boolean | false | |
 | draggable | Whether to enable drag sorting | boolean | false | |
 | emptyContent | Custom empty state prompt text, search is the text displayed when there are no search results, left is the text when there is no source data on the left, and right is the prompt text when no data is checked | {left: ReactNode; right: ReactNode; search: ReactNode;} | | |
-| filter | Custom filter logic, when false, the search box is not displayed | boolean \| (input:string, item: Item) => boolean | true | |
+| filter | Custom filter logic, when false, the search box is not displayed. When type is `treeList`, if you need to customize search logic, you need to set `filter` to true and set a custom search function through `filterTreeNode` of `treeProps`. | boolean \| (input:string, item: Item) => boolean | true | |
 | inputProps | Can be used to customize the search box Input, the configurable properties refer to the Input component, the value and onChange parameters will be used inside Transfer, users should not use them. If you want to search through external data, you can call the search method of Transfer | [InputProps](/en-US/input/input#Input) | | |
 | loading | Whether the left option is being loaded | boolean |-| |
 | onChange | The callback that is triggered when the selected value changes, and the callback is also triggered after the drag sort changes | (values: Array<string\|number>, items: Array<Item\>) => void | | |
