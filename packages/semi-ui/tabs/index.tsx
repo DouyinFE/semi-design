@@ -255,6 +255,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPosition,
             type,
             more,
+            overflowVisibleStateChange,
+            collapsibleWrapperStyle,
+            overflowItemRenderPosition,
+            renderOverflowItem,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -282,6 +286,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             deleteTabItem: this.deleteTabItem,
             handleKeyDown: this.foundation.handleKeyDown,
             more,
+            overflowVisibleStateChange,
+            collapsibleWrapperStyle,
+            overflowItemRenderPosition,
+            renderOverflowItem
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

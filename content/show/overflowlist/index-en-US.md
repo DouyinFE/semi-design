@@ -215,11 +215,12 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 
 ## API Reference
 
-| Properties | Instructions  | type                  | Default | version |
-| ---------- | ------------- | --------------------- | ------- | ------- |
-| className  | Class name.   | string                | -       | 1.1.0   |
-| renderMode | Render mode.  | `collapse`\| `scroll` | `true`  | -       |
-| style      | OverflowList style  | React.CSSProperties   | -       | 1.1.0   |
+| Properties | Instructions                           | type                  | Default | version |
+| ---------- |----------------------------------------| --------------------- | ------- | ------- |
+| className  | Class name.                            | string                | -       | 1.1.0   |
+| onVisibleStateChange | Hide and display state change callback | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
+| renderMode | Render mode.                           | `collapse`\| `scroll` | `true`  | -       |
+| style      | OverflowList style                     | React.CSSProperties   | -       | 1.1.0   |
 
 ### renderMode='collapse'
 
@@ -239,6 +240,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 | items | All items to display in the list. **Key is required.** | Record<string, any>[] | `true` | - |
 | onIntersect | Callback invoked when the overflowed items change. | ({[key: string]: [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)}) => void | - | 1.1.0 |
 | overflowRenderer | Callback invoked to render the overflowed items. | (overflowItems: Record<string, any>[]) => React.ReactNode[] | - | 1.1.0 |
+| overflowRenderDirection | Overflow item overall rendering position | "both" "start" 'end' | "both" | 2.61.0 |
 | threshold | At what percentage of the target's visibility the observer's callback should be executed. | number | 0.75 | 1.1.0 |
 | visibleItemRenderer | allback invoked to render each visible item. | (item: Record<string, any>, index: number) => React.ReactElement | - | 1.1.0 |
 | wrapperClassName | Scroll wrapper classname. | string | - | 1.1.0 |

@@ -584,28 +584,32 @@ class App extends React.Component {
 
 ### Tab
 
-Property | Description | Type | Default Value |
---- | --- | --- | --- |
-activeKey | The itemKey value of the currently active tab page | string | None |
-className | class name | string | None |
-collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
-contentStyle | The outer style object of the content area | CSSProperties | None |
-defaultActiveKey | Initialize the key value of the selected tab page | string | '1' |
-keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0** | boolean | true |
-lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
-more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -       |    
-renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
-preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |
-style | style object | CSSProperties | None |
-tabBarExtraContent | Used to extend the content of the tab bar | ReactNode | None |
-tabList | An array of tab page objects that supports itemKey (corresponding to activeKey, tab (tab page text) and icon (tab page icon) | TabPane[] | None |
-tabPaneMotion | Whether to use animation to switch tabs | boolean | true |
-tabPosition | The position of the tab, support `top` (horizontal), `left` (vertical), **>=1.0.0** | string | `top` |
-type | The style of the label bar, optional `line`, `card`, `button` | string | `line` |
-onChange | Callback function when switching tab pages | function(activeKey: string) | None |
-onTabClick | Click event | function(key: string, e: Event) | None |
-onTabClose | executed when tab closed by user, **>=2.1.0**  |  function(tabKey: string) | None
+Property | Description                                                                                                                                                                                   | Type                                                                      | Default Value |
+--- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|---------------|
+activeKey | The itemKey value of the currently active tab page                                                                                                                                            | string                                                                    | None          |
+className | class name                                                                                                                                                                                    | string                                                                    | None          |
+collapsible | collapsed Tabs, **>=1.1.0**                                                                                                                                                                   | boolean                                                                   | false         |
+collapsibleWrapperStyle | Overall scrolling area style **>=2.61.0**                                                                                                                                                     | style: CSSProperties                                                      | None          |
+contentStyle | The outer style object of the content area                                                                                                                                                    | CSSProperties                                                             | None          |
+defaultActiveKey | Initialize the key value of the selected tab page                                                                                                                                             | string                                                                    | '1'           |
+keepDOM | Whether to render the DOM structure of the hidden panel when using TabPane writing, **>=1.0.0**                                                                                               | boolean                                                                   | true          |
+lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0**                                                                                             | boolean                                                                   | false         |
+more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0**                                                                                                                              | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -             |    
+renderTabBar | Used for secondary packaging tab bar                                                                                                                                                          | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | None          |
+renderOverflowItem | Customize the overflow rendering                 **>=2.61.0**                                                                                                                                 | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | None             
+preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean                                                                   |               |  |
+size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs**                                                                              | string                                                                    | `large`       |
+style | style object                                                                                                                                                                                  | CSSProperties                                                             | None          |
+tabBarExtraContent | Used to extend the content of the tab bar                                                                                                                                                     | ReactNode                                                                 | None          |
+tabList | An array of tab page objects that supports itemKey (corresponding to activeKey, tab (tab page text) and icon (tab page icon)                                                                  | TabPane[]                                                                 | None          |
+tabPaneMotion | Whether to use animation to switch tabs                                                                                                                                                       | boolean                                                                   | true          |
+tabPosition | The position of the tab, support `top` (horizontal), `left` (vertical), **>=1.0.0**                                                                                                           | string                                                                    | `top`         |
+type | The style of the label bar, optional `line`, `card`, `button`                                                                                                                                 | string                                                                    | `line`        |
+onChange | Callback function when switching tab pages                                                                                                                                                    | function(activeKey: string)                                               | None          |
+onTabClick | Click event                                                                                                                                                                                   | function(key: string, e: Event)                                           | None          |
+onTabClose | executed when tab closed by user, **>=2.1.0**                                                                                                                                                 | function(tabKey: string)                                                  | None          
+overflowItemRenderPosition| Overflow item rendering position **>=2.61.0**                                                                                                                                                                          | "start" "end" "both"                                                      | 无             
+overflowVisibleStateChange| Overflow item status change callback  **>=2.61.0**                                                     | (visibleState:Record\<string,bool\>)=>void                                | None
 
 ### TabPane
 
