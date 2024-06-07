@@ -168,7 +168,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
     static Option = Option;
 
     static __SemiComponentName__ = "AutoComplete";
-    
+
     static defaultProps = getDefaultPropsFromGlobalConfig(AutoComplete.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
@@ -406,7 +406,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         const innerProps = {
             disabled,
             placeholder,
-            autofocus: autoFocus,
+            autoFocus: autoFocus,
             onChange: this.onSearch,
             onClear: this.onInputClear,
             'aria-label': this.props['aria-label'],
