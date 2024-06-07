@@ -15,6 +15,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.60.0 (2024-06-07)
+- 【Docs】
+    - update filter API defination In Tranfer
+- 【Fix】
+    - fixed the issue where AutoComplete throws a warning in the development environment due to autofocus spelling errors
+    - Fixed the problem that when Form labelAlign is set to right, the alignment style does not take effect when the label has extra
+
 
 #### 🎉 2.60.0-beta.0 (2024-06-04)
 - 【Fix】
