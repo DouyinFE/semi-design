@@ -336,6 +336,11 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             ...others
         } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
+        let customStyle :CSSProperties= {};
+        if(!strings.SIZE.includes(size)){
+            customStyle = {width:size,height:size}
+        }
+        customStyle = {...customStyle,...style}
         const shouldWrap = bottomSlot || topSlot || border;
         const mouseEvent = {
             onClick: onClick,
@@ -361,7 +366,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         let avatar = <span
             {...(others as any)}
-            style={shouldWrap ? {} : style}
+            style={shouldWrap ? {} : customStyle}
             className={avatarCls}
             {...(shouldWrap ? {} : mouseEvent)}
             role='listitem'
@@ -376,7 +381,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             if (typeof border ==='object' && border?.color) {
                 borderStyle['borderColor'] = border?.color;
             }
-            avatar = <div style={{ position: "relative", ...style }}>
+            avatar = <div style={{ position: "relative", ...customStyle }}>
                 {avatar}
                 <span style={borderStyle} className={cls([
                     `${prefixCls}-additionalBorder`,
@@ -402,7 +407,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
 
         if (shouldWrap) {
-            return <span className={cls([`${prefixCls}-wrapper`])} style={style} {...mouseEvent}>
+            return <span className={cls([`${prefixCls}-wrapper`])} style={customStyle} {...mouseEvent}>
                 {avatar}
                 {topSlot && ["extra-small","small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
                 {bottomSlot && ["extra-small","small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
