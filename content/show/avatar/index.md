@@ -17,7 +17,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 
 ### 尺寸
 
-可以通过 `size` 属性设置图标大小，支持``extra-extra-small`(20x20)，`extra-small`(24x24)，`small`(32x32)，`default`(40x40)，`medium`(48x48)，`large`(72x72)，`extra-large`(128x128)`。
+可以通过 `size` 属性设置图标大小，支持`extra-extra-small`，`extra-small`，`small`，`default`，`medium`，`large`，`extra-large`。
 
 ```jsx live=true
 import React from 'react';

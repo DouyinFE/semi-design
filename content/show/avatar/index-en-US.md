@@ -18,7 +18,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 ```
 ### Size
 
-You can change the size of the avatars with `size` property. The following sizes are supported:  `extra-extra-small`(20x20), `extra-small`(24x24),`small`(32x32), `default`(40x40), `medium`(48x48), `large`(72x72), `extra-large`(128 x 128).
+You can change the size of the avatars with `size` property. The following sizes are supported:  `extra-extra-small`, `extra-small`,`small`, `default`, `medium`, `large`, `extra-large`.
 
 ```jsx live=true
 import React from 'react';
