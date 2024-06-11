@@ -616,7 +616,7 @@ keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1
 lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0**                        | boolean                                                                   | false |
 more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0**                            | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -    |                                                              
 renderTabBar | 用于二次封装标签栏                                                   | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | 无    |
-renderOverflowItem | 自定义渲染溢出部分                 **>=2.61.0**                      | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | 无    
+renderOverflowItem | 自定义溢出项在外部如何渲染，默认为箭头按钮 hover 时展开溢出项                **>=2.61.0**                      | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | 无    
 preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                      | boolean                                                                   |      |  |
 size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string                                                                    | `large` |
 style | 样式对象                                                        | CSSProperties                                                             | 无    |
