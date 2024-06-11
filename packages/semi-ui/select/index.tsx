@@ -25,7 +25,7 @@ import Option, { OptionProps } from './option';
 import OptionGroup from './optionGroup';
 import Spin from '../spin';
 import Trigger from '../trigger';
-import { IconChevronDown, IconClear } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconClear, IconSearch } from '@douyinfe/semi-icons';
 import { isSemiIcon, getFocusableElements, getActiveElement, getDefaultPropsFromGlobalConfig } from '../_utils';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
@@ -33,6 +33,7 @@ import '@douyinfe/semi-foundation/select/select.scss';
 import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
 import type { Subtract } from 'utility-types';
+import { placeholder } from '@babel/types';
 
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';
@@ -151,6 +152,8 @@ export type SelectProps = {
     defaultActiveFirstOption?: boolean;
     onChangeWithObject?: boolean;
     suffix?: React.ReactNode;
+    searchPosition?: string;
+    searchPlaceholder?: string;
     prefix?: React.ReactNode;
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
@@ -269,6 +272,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         defaultActiveFirstOption: PropTypes.bool,
         triggerRender: PropTypes.func,
         stopPropagation: PropTypes.bool,
+        searchPosition: PropTypes.bool,
         // motion doesn't need to be exposed
         motion: PropTypes.bool,
 
@@ -345,6 +349,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
         showClear: false,
+        searchPosition: 'trigger',
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
@@ -360,6 +365,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     })
 
     inputRef: React.RefObject<HTMLInputElement>;
+    dropdownInputRef: React.RefObject<HTMLInputElement>;
     triggerRef: React.RefObject<HTMLDivElement>;
     optionContainerEl: React.RefObject<HTMLDivElement>;
     optionsRef: React.RefObject<any>;
@@ -395,6 +401,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         this.selectID = '';
         this.virtualizeListRef = React.createRef();
         this.inputRef = React.createRef();
+        this.dropdownInputRef = React.createRef(); // only work when searchPosition = 'dropdown'
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.optionContainerEl = React.createRef();
@@ -658,7 +665,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
     handleInputChange = (value: string, event: React.ChangeEvent<HTMLInputElement>) => this.foundation.handleInputChange(value, event);
 
-    renderInput() {
+    renderTriggerInput() {
         const { size, multiple, disabled, inputProps, filter } = this.props;
         const inputPropsCls = get(inputProps, 'className');
         const inputcls = cls(`${prefixcls}-input`, {
@@ -701,6 +708,50 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onBlur={e => this.foundation.handleInputBlur(e)}
                 {...selectInputProps}
             />
+        );
+    }
+
+    renderDropdownInput() {
+        const { size, multiple, disabled, inputProps, filter, searchPosition, searchPlaceholder } = this.props;
+        const { inputValue, focusIndex } = this.state;
+        const wrapperCls = cls(`${prefixcls}-dropdown-search-wrapper`, {
+
+        });
+        const inputPropsCls = get(inputProps, 'className');
+        const inputCls = cls(`${prefixcls}-dropdown-input`, {
+            [`${prefixcls}-dropdown-input-single`]: !multiple,
+            [`${prefixcls}-dropdown-input-multiple`]: multiple,
+        }, inputPropsCls);
+
+        const selectInputProps: Record<string, any> = {
+            value: inputValue,
+            disabled,
+            className: inputCls,
+            onChange: this.handleInputChange,
+            placeholder: searchPlaceholder,
+            ...inputProps,
+        };
+
+        return (
+            <div className={wrapperCls}>
+                <Input
+                    ref={this.dropdownInputRef}
+                    prefix={<IconSearch></IconSearch>}
+                    aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}` : ''}
+                    // onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                    //     // if multiple and filter, when use tab key to let select get focus
+                    //     // need to manual update state isFocus to let the focus style take effect
+                    //     if (multiple && Boolean(filter)) {
+                    //         this.setState({ isFocus: true });
+                    //     }
+                    //     // prevent event bubbling which will fire trigger onFocus event
+                    //     e.stopPropagation();
+                    //     // e.nativeEvent.stopImmediatePropagation();
+                    // }}
+                    // onBlur={e => this.foundation.handleInputBlur(e)}
+                    {...selectInputProps}
+                />
+            </div>
         );
     }
 
@@ -889,7 +940,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             loading,
             virtualize,
             multiple,
-            emptyContent
+            emptyContent,
+            searchPosition
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
@@ -922,6 +974,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
                 {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
+                {searchPosition === 'dropdown' ? this.renderDropdownInput() : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -939,7 +992,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     }
 
     renderSingleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
-        let { renderSelectedItem } = this.props;
+        let { renderSelectedItem, searchPosition } = this.props;
         const { placeholder } = this.props;
         const { showInput, inputValue } = this.state;
         let renderText: React.ReactNode = '';
@@ -955,11 +1008,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             renderText = (renderSelectedItem as RenderSingleSelectedItemFn)(selectedItem);
         }
 
+        const showInputInTrigger = searchPosition === 'trigger';
+
         const spanCls = cls({
             [`${prefixcls}-selection-text`]: true,
             [`${prefixcls}-selection-placeholder`]: !renderText && renderText !== 0,
-            [`${prefixcls}-selection-text-hide`]: inputValue && showInput, // show Input
-            [`${prefixcls}-selection-text-inactive`]: !inputValue && showInput, // Stack Input & RenderText(opacity 0.4)
+            [`${prefixcls}-selection-text-hide`]: inputValue && showInput && showInputInTrigger, // show Input
+            [`${prefixcls}-selection-text-inactive`]: !inputValue && showInput && showInputInTrigger, // Stack Input & RenderText(opacity 0.4)
         });
 
         const contentWrapperCls = `${prefixcls}-content-wrapper`;
@@ -971,7 +1026,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                             {renderText || renderText === 0 ? renderText : placeholder}
                         </span>
                     }
-                    {filterable && showInput ? this.renderInput() : null}
+                    {filterable && showInput && showInputInTrigger ? this.renderTriggerInput() : null}
                 </div>
             </>
         );
@@ -1176,7 +1231,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
 
 
     renderMultipleSelection(selections: Map<OptionProps['label'], any>, filterable: boolean) {
-        let { renderSelectedItem } = this.props;
+        let { renderSelectedItem, searchPosition } = this.props;
         const { placeholder, maxTagCount, expandRestTagsOnClick, ellipsisTrigger } = this.props;
         const { inputValue, isOpen } = this.state;
 
@@ -1209,12 +1264,13 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const tagContent = NotOneLine || (expandRestTagsOnClick && isOpen)
             ? selectedItems.map((item, i) => this.renderTag(item, i))
             : oneLineTags;
+        const showTriggerInput = searchPosition === 'trigger';
 
         return (
             <>
                 <div className={contentWrapperCls}>
                     {selectedItems && selectedItems.length ? tagContent : placeholderText}
-                    {!filterable ? null : this.renderInput()}
+                    {!filterable ? null : this.renderTriggerInput()}
                 </div>
             </>
         );

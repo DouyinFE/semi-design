@@ -548,4 +548,9 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 
+.#{$module}-dropdown-search-wrapper {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--semi-color-fill-0);
+}
+
     @import './rtl.scss';
