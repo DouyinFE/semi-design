@@ -272,7 +272,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         defaultActiveFirstOption: PropTypes.bool,
         triggerRender: PropTypes.func,
         stopPropagation: PropTypes.bool,
-        searchPosition: PropTypes.bool,
+        searchPosition: PropTypes.string,
         // motion doesn't need to be exposed
         motion: PropTypes.bool,
 

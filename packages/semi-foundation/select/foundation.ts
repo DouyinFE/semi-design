@@ -1056,6 +1056,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleKeyPress(e: KeyboardEvent) {
+        console.log('handleKeyPress');
         if (e && e.key === ENTER_KEY) {
             this.handleClick(e);
         }

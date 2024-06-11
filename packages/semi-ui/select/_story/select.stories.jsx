@@ -3570,28 +3570,29 @@ export const UpdateOtherKeyNotInList = () => {
 };
 
 export const SearchPosition = () => {
-  return (
-    <>
-      <Select
-        filter
-        searchPosition='dropdown'
-        onChangeWithObject
-        placeholder={'single searchPosition=dropdown'}
-        optionList={optionList}
-        searchPlaceholder='dropdown input place'
-        style={{ width: 320 }}
-      />
-      <Select
-        filter
-        multiple
-        placeholder={'multiple searchPosition=dropdown'}
-        searchPosition='dropdown'
-        onChangeWithObject
-        searchPlaceholder='dropdown input place'
-        optionList={optionList}
-        style={{ width: 320 }}
-      />
-
+  
+  return 
+    (
+      <>
+        <Select
+          filter
+          searchPosition='dropdown'
+          onChangeWithObject
+          placeholder={'single searchPosition=dropdown'}
+          optionList={optionList}
+          searchPlaceholder='dropdown input place'
+          style={{ width: 320 }}
+        />
+        <Select
+          filter
+          multiple
+          placeholder={'multiple searchPosition=dropdown'}
+          searchPosition='dropdown'
+          onChangeWithObject
+          searchPlaceholder='dropdown input place'
+          optionList={optionList}
+          style={{ width: 320 }}
+        />
     </>
-  )
+    )
 }
