@@ -58,11 +58,11 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             uuid: getUuidv4(),
         });
     }
-    
+
     componentDidUpdate(prevProps) {
         if (prevProps.activeKey !== this.props.activeKey) {
             if (this.props.collapsible) {
-                this.scrollActiveTabItemIntoView()
+                this.scrollActiveTabItemIntoView();
             }
         }
     }
@@ -106,7 +106,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem, handleKeyDown, tabPosition } = this.props;
         const isSelected = this._isActive(panel.itemKey);
-        
+
         return (
             <TabItem
                 {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
@@ -129,7 +129,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
         const key = this._getItemKey(this.props.activeKey);
-        this.scrollTabItemIntoViewByKey(key, logicalPosition)
+        this.scrollTabItemIntoViewByKey(key, logicalPosition);
     }
 
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
@@ -140,7 +140,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             return;
         }
         const key = this._getItemKey(lastItem.itemKey);
-        this.scrollTabItemIntoViewByKey(key)
+        this.scrollTabItemIntoViewByKey(key);
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
@@ -148,7 +148,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
             [`${cssClasses.TABS_BAR}-arrow`]: true,
         });
-        
+
         if (isEmpty(items)) {
             return (
                 <div role="presentation" className={arrowCls}>
@@ -160,7 +160,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 </div>
             );
         }
-        const { dropdownClassName, dropdownStyle } = this.props;
+        const { dropdownClassName, dropdownStyle, showRestInDropdown } = this.props;
         const { rePosKey } = this.state;
         const disabled = !items.length;
         const menu = (
@@ -187,32 +187,45 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         });
 
         return (
-            <Dropdown
-                className={dropdownCls}
-                clickToHide
-                clickTriggerToHide
-                key={`${rePosKey}-${pos}`}
-                position={pos === 'start' ? 'bottomLeft' : 'bottomRight'}
-                render={disabled ? null : menu}
-                showTick
-                style={dropdownStyle}
-                trigger={'hover'}
-                disableFocusListener // prevent the panel from popping up again after clicking
-            >
-                <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
-                    <Button
-                        disabled={disabled}
-                        icon={icon}
-                        // size="small"
-                        theme="borderless"
-                    />
-                </div>
-            </Dropdown>
+            <>
+                {showRestInDropdown ? (
+                    <Dropdown
+                        className={dropdownCls}
+                        clickToHide
+                        clickTriggerToHide
+                        key={`${rePosKey}-${pos}`}
+                        position={pos === 'start' ? 'bottomLeft' : 'bottomRight'}
+                        render={disabled ? null : menu}
+                        showTick
+                        style={dropdownStyle}
+                        trigger={'hover'}
+                        disableFocusListener // prevent the panel from popping up again after clicking
+                    >
+                        <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
+                            <Button
+                                disabled={disabled}
+                                icon={icon}
+                                // size="small"
+                                theme="borderless"
+                            />
+                        </div>
+                    </Dropdown>
+                ) : (
+                    <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
+                        <Button
+                            disabled={disabled}
+                            icon={icon}
+                            // size="small"
+                            theme="borderless"
+                        />
+                    </div>
+                )}
+            </>
         );
     };
 
     renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
-        const icon = ind === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
+        const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
         const pos = ind === 0 ? 'start' : 'end';
         return this.renderCollapse(item, icon, pos);
     });
@@ -246,7 +259,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 {(locale: Locale['Tabs'], localeCode: Locale['code']) => (
                     <div className={`${cssClasses.TABS_BAR}-more-trigger-content`}>
                         <div>{locale.more}</div>
-                        <IconChevronDown className={`${cssClasses.TABS_BAR}-more-trigger-content-icon`}/>
+                        <IconChevronDown className={`${cssClasses.TABS_BAR}-more-trigger-content-icon`} />
                     </div>
                 )}
             </LocaleConsumer>

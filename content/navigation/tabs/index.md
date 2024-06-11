@@ -616,6 +616,7 @@ lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.
 more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -       |                                                              
 renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | 无       |
 preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean                                                                   |         |  |
+showRestInDropdown | 是否将收起的 Tab 展示在下拉菜单中（仅当 collapsible 为 true 时生效） **>= 2.61.0** | boolean | true |
 size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string                                                                    | `large` |
 style | 样式对象 | CSSProperties                                                             | 无       |
 tabBarExtraContent | 用于扩展标签栏的内容 | ReactNode                                                                 | 无       |
