@@ -182,6 +182,16 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             </Dropdown.Menu>
         );
 
+        const button = (
+            <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
+                <Button
+                    disabled={disabled}
+                    icon={icon}
+                    theme="borderless"
+                />
+            </div>
+        );
+
         const dropdownCls = cls(dropdownClassName, {
             [`${cssClasses.TABS_BAR}-dropdown`]: true,
         });
@@ -201,25 +211,9 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                         trigger={'hover'}
                         disableFocusListener // prevent the panel from popping up again after clicking
                     >
-                        <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
-                            <Button
-                                disabled={disabled}
-                                icon={icon}
-                                // size="small"
-                                theme="borderless"
-                            />
-                        </div>
+                        {button}
                     </Dropdown>
-                ) : (
-                    <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
-                        <Button
-                            disabled={disabled}
-                            icon={icon}
-                            // size="small"
-                            theme="borderless"
-                        />
-                    </div>
-                )}
+                ) : (button)}
             </>
         );
     };
