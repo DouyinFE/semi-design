@@ -95,7 +95,7 @@ function Demo(){
 - 传入 "number" 只允许设置数字
 - 传入 “mixed” 允许数字和字母
 - 传入正则表达式，只允许输入可通过正则判定的字符
-- 传入函数，当函数返回 true 时，允许该字符被输入进 PinCode
+- 传入函数，验证码会在输入的时候以字符为单位被依次作为参数分别单独传入进行校验，当函数返回 true 时，允许该字符被输入进 PinCode
 
 ```jsx live=true
 import { PinCode, Button, Typography } from '@douyinfe/semi-ui';
@@ -160,18 +160,26 @@ function Demo(){
 
 ## API 参考
 
-| 属性           | 说明                                                                              | 类型                    | 默认值       |  版本|
-|--------------| --------------------------------------------------------------------------------- |-----------------------|-----------|------------- |
-| onChange     | 输入回调 | (value:string)=>void | |
-| onComplete | 输入完毕完整码回调 |  (value: string) => void | |
-| autoFocus | 是否自动聚焦到第一个元素 | boolean | true |
-| className    | 类名                                                                              | string                |           |
-| count        | 验证码位数 | number | 6         |
-| defaultValue | 输入框内容默认值                                       | ReactText                      |           |
-| format       | 验证码单个字符格式限制 | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number'  |
-| size         | 输入框大小，large、default、small                      | string                | 'default' |
-| style        | 样式                                                                              | object                |           |
-| value        | 输入框内容                                          | string                |           |
+| 属性           | 说明                        | 类型                                                     | 默认值       |  版本|
+|--------------|---------------------------|--------------------------------------------------------|-----------|------------- |
+| autoFocus | 是否自动聚焦到第一个元素              | boolean                                                | true |
+| className    | 类名                        | string                                                 |           |
+| count        | 验证码位数                     | number                                                 | 6         |
+| defaultValue | 输入框内容默认值                  | string                                                 |           |
+| disabled | 禁用                        | boolean | false |
+| format       | 验证码单个字符格式限制               | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number'  |
+| size         | 输入框大小，large、default、small | string                                                 | 'default' |
+| style        | 样式                        | object                                                 |           |
+| value        | 输入框内容                     | string                                                 |           |
+| onChange     | 输入回调                      | (value:string)=>void                                   | |
+| onComplete | 验证码所有位数输入完毕回调             | (value: string) => void                                | |
 
 
+## Methods
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+
+| 属性           | 说明                                                                              |
+|--------------| --------------------------------------------------------------------------------- |
+| focus        | 聚焦，入参为验证码第几位                                                           | 
+| blur        | 移出焦点，入参为验证码第几位                                          | string          |                
 

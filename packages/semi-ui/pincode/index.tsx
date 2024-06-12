@@ -108,6 +108,7 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             autoFocus={this.props.autoFocus && index === 0}
             value={this.state.valueList[index]}
             size={this.props.size}
+            disabled={this.props.disabled}
             onBlur={()=>this.foundation.handleCurrentActiveIndexChange(index, "blur")}
             onFocus={()=>this.foundation.handleCurrentActiveIndexChange(index, "focus")}
             onPaste={e=>this.foundation.handlePaste(e.nativeEvent, index)}

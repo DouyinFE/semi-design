@@ -2,6 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
 
 export interface PinCodeBaseProps {
+    disabled?: boolean;
     value?: string;
     format?: "number" | "mixed" | RegExp | ((value: string) => boolean);
     onChange: (value: string) => void;
