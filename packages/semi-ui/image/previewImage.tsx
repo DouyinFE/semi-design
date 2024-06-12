@@ -89,10 +89,6 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         if (srcChange) {
             this.foundation.setLoading(true);
         }
-        // If the incoming zoom changes, other content changes are determined based on the new zoom value
-        if (zoomChange) {
-            this.foundation.calculatePreviewImage(this.props.zoom, null);
-        }
         if (!zoomChange && !srcChange && prevProps) {
             if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
                 this.foundation.handleRatioChange();
@@ -120,8 +116,8 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleError(e);
     }
 
-    handleMoveImage = (e): void => {
-        this.foundation.handleMoveImage(e);
+    handleImageMove = (e): void => {
+        this.foundation.handleImageMove(e);
     };
 
     onImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
@@ -152,7 +148,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     alt="previewImag"
                     className={`${preViewImgPrefixCls}-img`}
                     key={src}
-                    onMouseMove={this.handleMoveImage}
+                    onMouseMove={this.handleImageMove}
                     onMouseDown={this.onImageMouseDown}
                     onContextMenu={this.handleRightClickImage}
                     onDragStart={(e): void => e.preventDefault()}

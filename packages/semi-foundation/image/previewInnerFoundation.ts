@@ -20,7 +20,8 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     getSetDownloadFunc: () => (src: string) => string;
-    isValidTarget: (e: any) => boolean
+    isValidTarget: (e: any) => boolean;
+    changeImageZoom: (zoom: number, e?: WheelEvent) => void
 }
 
 
@@ -90,12 +91,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
     }
 
-    handleWheel = (e: any) => {
+    handleWheel = (e: WheelEvent) => {
         this.onWheel(e);
         handlePrevent(e);
     }
 
-    onWheel = (e: any): void => {
+    onWheel = (e: WheelEvent): void => {
         const { zoomStep, maxZoom, minZoom } = this.getProps();
         const { zoom: currZoom } = this.getStates();
         let _zoom: number;
@@ -111,7 +112,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             }
         }
         if (!isUndefined(_zoom)) {
-            this.handleZoomImage(_zoom);
+            this.handleZoomImage(_zoom, true, e);
         }
     };
 
@@ -200,10 +201,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         this._adapter.notifyRotateChange(newRotation);
     }
 
-    handleZoomImage = (newZoom: number, notify: boolean = true) => {
+    handleZoomImage = (newZoom: number, notify: boolean = true, e?: WheelEvent) => {
         const { zoom } = this.getStates();
         if (zoom !== newZoom) {
             notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            
+            this._adapter.changeImageZoom(newZoom, e);
             this.setState({
                 zoom: newZoom,
             } as any);
