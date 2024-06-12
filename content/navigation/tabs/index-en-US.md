@@ -374,6 +374,68 @@ class App extends React.Component {
 }
 ```
 
+
+
+**Modify the scrolling rendering overflow item indicator**
+
+`renderOverflowItem` modifies the overflow item indicator, with the input parameters being the overflowed items and position
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+()=>{
+    const [activeKey,setActiveKey] = useState("item-1")
+    return  <Tabs style={{ width: '50%', margin: '20px' }} activeKey={activeKey}  type="card" collapsible renderOverflowItem={(items,pos)=>{
+      return <Dropdown render={
+        <Dropdown.Menu>
+          {items.map(item=>{
+            return  <Dropdown.Item onClick={()=>setActiveKey(item.itemKey)}>{item.itemKey}</Dropdown.Item>
+          })}
+        </Dropdown.Menu>
+      }>
+        <Button>
+          {pos}
+        </Button>
+      </Dropdown>
+    }}>
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+              <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                Content of card tab {i}
+              </TabPane>
+      ))}
+    </Tabs>
+}
+```
+
+
+
+
+
+**Modify overflow item indicator rendering position**
+
+Use `overflowItemRenderPosition` to modify the overflow indicator position, optional left both right
+
+```jsx live=true dir=column
+import React from 'react';
+import { Tabs, TabPane } from '@douyinfe/semi-ui';
+
+class App extends React.Component {
+    render() {
+        return (
+            <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible overflowItemRenderPosition={"end"} >
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                        Content of card tab {i}
+                    </TabPane>
+                ))}
+            </Tabs>
+        );
+    }
+}
+```
+
+
 ### Disable
 
 Disable one tab.
@@ -596,7 +658,7 @@ keepDOM | Whether to render the DOM structure of the hidden panel when using Tab
 lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0**                                                                                             | boolean                                                                   | false         |
 more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0**                                                                                                                              | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -             |    
 renderTabBar | Used for secondary packaging tab bar                                                                                                                                                          | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | None          |
-renderOverflowItem | Customize how overflow items are rendered externally. By default, the overflow items are expanded when the arrow button is hovered.                 **>=2.61.0**                                                                                                                                 | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | None             
+renderOverflowItem | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered.                 **>=2.61.0**                    | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | None             
 preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean                                                                   |               |  |
 size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs**                                                                              | string                                                                    | `large`       |
 style | style object                                                                                                                                                                                  | CSSProperties                                                             | None          |
@@ -608,8 +670,8 @@ type | The style of the label bar, optional `line`, `card`, `button`            
 onChange | Callback function when switching tab pages                                                                                                                                                    | function(activeKey: string)                                               | None          |
 onTabClick | Click event                                                                                                                                                                                   | function(key: string, e: Event)                                           | None          |
 onTabClose | executed when tab closed by user, **>=2.1.0**                                                                                                                                                 | function(tabKey: string)                                                  | None          
-overflowItemRenderPosition| Overflow item rendering position **>=2.61.0**                                                                                                                                                                          | "start" "end" "both"                                                      | 无             
-overflowVisibleStateChange| Overflow item status change callback  **>=2.61.0**                                                     | (visibleState:Record\<string,bool\>)=>void                                | None
+overflowItemRenderPosition| Overflow item indicator rendering position **>=2.61.0**                                                                                                                                       | "start" "end" "both"                                                      | 无             
+overflowVisibleStateChange| Overflow item switching change callback  **>=2.61.0**                                                                                                                                         | (visibleState:Record\<string,bool\>)=>void                                | None
 
 ### TabPane
 

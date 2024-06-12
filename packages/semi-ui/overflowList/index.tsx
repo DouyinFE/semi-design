@@ -149,7 +149,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
             ...super.adapter,
             updateVisibleState: (visibleState): void => {
                 this.setState({ visibleState }, ()=>{
-                    this.props.onVisibleStateChange(visibleState);
+                    this.props.onVisibleStateChange?.(visibleState);
                 });
             },
             updateStates: (states): void => {
@@ -286,8 +286,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                         list.unshift(overflow[0]);
                         list.push(overflow[1]);
                     } else if (this.props.overflowRenderDirection === "start") {
-                        list.unshift(overflow[0]);
                         list.unshift(overflow[1]);
+                        list.unshift(overflow[0]);
                     } else {
                         list.push(overflow[0]);
                         list.push(overflow[1]);
