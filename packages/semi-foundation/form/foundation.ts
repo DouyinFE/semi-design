@@ -9,6 +9,11 @@ import { BaseFormAdapter, FormState, CallOpts, FieldState, FieldStaff, Component
 
 export type { BaseFormAdapter };
 
+type ScrollToErrorOpts = {
+    field?: string;
+    index?: number;
+    scrollOpts?: ScrollIntoViewOptions
+}
 export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
     data: FormState;
@@ -72,6 +77,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this.getFormProps = this.getFormProps.bind(this);
         this.getFieldExist = this.getFieldExist.bind(this);
         this.scrollToField = this.scrollToField.bind(this);
+        this.scrollToError = this.scrollToError.bind(this);
     }
 
     init() {
@@ -130,7 +136,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         this._adapter.forceUpdate();
     }
 
-    // in order to slove byted-issue-289
+    // in order to solve bytedance internal issue-289
     registerArrayField(arrayFieldPath: string, val: any): void {
         this.updateArrayField(arrayFieldPath, {
             updateKey: new Date().valueOf(),
@@ -622,6 +628,7 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             submitForm: () => this.submit(),
             getFieldExist: (field: string) => this.getFieldExist(field),
             scrollToField: (field: string, scrollOpts?: ScrollIntoViewOptions) => this.scrollToField(field, scrollOpts),
+            scrollToError: (opts?: ScrollToErrorOpts) => this.scrollToError(opts),
         };
     }
 
@@ -701,8 +708,8 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const errorDOM = this._adapter.getAllErrorDOM();
         if (errorDOM && errorDOM.length) {
             try {
-                const fieldDom = errorDOM[0].parentNode.parentNode;
-                scrollIntoView(fieldDom as Element, scrollOpts);
+                const fieldDOM = errorDOM[0].parentNode.parentNode;
+                scrollIntoView(fieldDOM as Element, scrollOpts);
             } catch (error) {}
         }
     }
@@ -710,6 +717,36 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
     scrollToField(field: string, scrollOpts = { behavior: 'smooth', block: 'start' } as ScrollIntoViewOptions): void {
         if (this.getFieldExist(field)) {
             const fieldDOM = this._adapter.getFieldDOM(field);
+            scrollIntoView(fieldDOM as Element, scrollOpts);
+        }
+    }
+
+    scrollToError(config?: ScrollToErrorOpts): void { 
+        let scrollOpts: ScrollIntoViewOptions = config && config.scrollOpts ? config.scrollOpts : { behavior: 'smooth', block: 'start' };
+        let field = config && config.field;
+        let index = config && config.index;
+        let fieldDOM, errorDOM;
+        if (typeof index === 'number') {
+            const allErrorDOM = this._adapter.getAllErrorDOM();
+            let errorDOM = allErrorDOM[index];
+            if (errorDOM) {
+                fieldDOM = errorDOM.parentNode.parentNode;
+            }
+        } else if (field) {
+            // 如果指定了 field 则找对应 field 的 error dom
+            errorDOM = this._adapter.getFieldErrorDOM(field);
+            if (errorDOM) {
+                fieldDOM = errorDOM.parentNode.parentNode;
+            }
+        } else if (typeof field === 'undefined') {
+            // 如果未指定 field 则找所有error dom，且滚到第一个
+            let allErrorDOM = this._adapter.getAllErrorDOM();
+            if (allErrorDOM && allErrorDOM.length) {
+                fieldDOM = allErrorDOM[0].parentNode.parentNode;
+            }
+        }
+
+        if (fieldDOM) {
             scrollIntoView(fieldDOM as Element, scrollOpts);
         }
     }
