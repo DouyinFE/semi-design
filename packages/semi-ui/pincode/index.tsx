@@ -69,8 +69,8 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
     get adapter(): PinCodeAdapter<PinCodeProps, PinCodeState> {
         return {
             ...super.adapter,
-            onCurrentActiveIndexChange: (i) => {
-                this.setState({ currentActiveIndex: i });
+            onCurrentActiveIndexChange: async (i) => {
+                await this.setStateAsync({ currentActiveIndex: i });
             },
             notifyValueChange: (values: string[]) => {
                 this.props.onChange?.(values.join(""));
@@ -83,8 +83,8 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
                     this.inputDOMList[index]?.blur?.();
                 }
             },
-            updateValueList: (valueList: PinCodeState['valueList']) => {
-                this.setState({ valueList });
+            updateValueList: async (valueList: PinCodeState['valueList']) => {
+                await this.setStateAsync({ valueList });
             }
         };
     }
@@ -108,6 +108,12 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             autoFocus={this.props.autoFocus && index === 0}
             value={this.state.valueList[index]}
             size={this.props.size}
+            onBlur={()=>this.foundation.handleCurrentActiveIndexChange(index, "blur")}
+            onFocus={()=>this.foundation.handleCurrentActiveIndexChange(index, "focus")}
+            onPaste={e=>this.foundation.handlePaste(e.nativeEvent, index)}
+            onKeyDown={e=>{
+                this.foundation.handleKeyDownOnSingleInput(e.nativeEvent, index);
+            }}
             onChange={v => {
                 const userInputChar = v[v.length - 1];
                 if (this.foundation.validateValue(userInputChar)) {
