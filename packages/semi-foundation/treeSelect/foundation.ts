@@ -455,7 +455,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._registerClickOutsideHandler();
     }
 
-    onClickSearchItem = (e: any) => {
+    onClickSingleTriggerSearchItem = (e: any) => {
         this.focusInput(true);
     }
 
