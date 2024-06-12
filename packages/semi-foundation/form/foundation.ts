@@ -733,13 +733,13 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 fieldDOM = errorDOM.parentNode.parentNode;
             }
         } else if (field) {
-            // 如果指定了 field 则找对应 field 的 error dom
+            // If field is specified, find the error dom of the corresponding field
             errorDOM = this._adapter.getFieldErrorDOM(field);
             if (errorDOM) {
                 fieldDOM = errorDOM.parentNode.parentNode;
             }
         } else if (typeof field === 'undefined') {
-            // 如果未指定 field 则找所有error dom，且滚到第一个
+            // If field is not specified, find all error doms and scroll to the first one
             let allErrorDOM = this._adapter.getAllErrorDOM();
             if (allErrorDOM && allErrorDOM.length) {
                 fieldDOM = allErrorDOM[0].parentNode.parentNode;
