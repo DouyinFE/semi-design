@@ -25,7 +25,7 @@ class Lottie extends BaseComponent<LottieProps, LottieState> {
     container = React.createRef<HTMLDivElement>()
     foundation: LottieFoundation
 
-    static __SemiComponentName__ = "Button";
+    static __SemiComponentName__ = "Lottie";
 
     constructor(props: LottieProps) {
         super(props);
