@@ -3571,9 +3571,7 @@ export const UpdateOtherKeyNotInList = () => {
 
 export const SearchPosition = () => {
   
-  return 
-    (
-      <>
+  return (<>
         <Select
           filter
           searchPosition='dropdown'
@@ -3581,6 +3579,8 @@ export const SearchPosition = () => {
           placeholder={'single searchPosition=dropdown'}
           optionList={optionList}
           searchPlaceholder='dropdown input place'
+          showClear
+          autoFocus
           style={{ width: 320 }}
         />
         <Select
@@ -3589,10 +3589,11 @@ export const SearchPosition = () => {
           placeholder={'multiple searchPosition=dropdown'}
           searchPosition='dropdown'
           onChangeWithObject
+          showClear
           searchPlaceholder='dropdown input place'
           optionList={optionList}
           style={{ width: 320 }}
         />
     </>
-    )
+  )
 }

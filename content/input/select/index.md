@@ -699,6 +699,49 @@ import { Select } from '@douyinfe/semi-ui';
 );
 ```
 
+### 搜索框位置
+默认搜索框展示于 Select 的 Trigger 触发器上。通过 `searchPosition` 可以指定不同的位置，可选 `dropdown`、`trigger`。 在 v2.61.0后提供
+若希望定制位于 dropdown 中的 Input 搜索框的 placeholder，可以通过 `searchPlaceholder` 控制  
+
+```jsx live=true
+import React from 'react';
+import { Select } from '@douyinfe/semi-ui';
+
+() => (
+    <>
+        <Select
+            filter
+            searchPosition='dropdown'
+            style={{ width: 180 }}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的单选"
+        >
+            <Select.Option value="douyin">抖音</Select.Option>
+            <Select.Option value="ulikecam">轻颜相机</Select.Option>
+            <Select.Option value="jianying">剪映</Select.Option>
+            <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            filter
+            searchPosition='dropdown'
+            multiple
+            style={{ width: 300 }}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的多选"
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
+        </Select>
+    </>
+);
+```
+
 ### 远程搜索
 
 带有远程搜索，防抖请求，加载状态的多选示例  
@@ -1394,7 +1437,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | autoFocus | 初始渲染时是否自动 focus                                                                                                                       | boolean | false |
 | borderless        | 无边框模式  >=2.33.0                                                                                                                       | boolean                         |           |
 | className | 类名                                                                                                                                    | string |  |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode | 2.25.0  |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode |   | 2.25.0
 | clickToHide | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                  | boolean | false |
 | defaultValue | 初始选中的值                                                                                                                                | string\|number\|array |  |
 | defaultOpen | 是否默认展开下拉列表                                                                                                                            | boolean | false |

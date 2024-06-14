@@ -349,7 +349,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         defaultActiveFirstOption: true, // In order to meet the needs of A11y, change to true
         showArrow: true,
         showClear: false,
-        searchPosition: 'trigger',
+        searchPosition: strings.SEARCH_POSITION_TRIGGER,
         remote: false,
         autoAdjustOverflow: true,
         autoClearSearchValue: true,
@@ -451,6 +451,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     this.inputRef.current.focus({ preventScroll });
                 }
             },
+            focusDropdownInput: () => {
+                const { preventScroll } = this.props;
+                if (this.dropdownInputRef && this.dropdownInputRef.current) {
+                    this.dropdownInputRef.current.focus({ preventScroll });
+                }
+            }
         };
         const multipleAdapter = {
             notifyMaxLimit: (option: OptionProps) => this.props.onExceed(option),
@@ -522,8 +528,10 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             updateOptions: (options: OptionProps[]) => {
                 this.setState({ options });
             },
-            openMenu: () => {
-                this.setState({ isOpen: true });
+            openMenu: (cb?: () => void) => {
+                this.setState({ isOpen: true }, () => {
+                    cb?.();
+                });
             },
             closeMenu: () => {
                 this.setState({ isOpen: false });
@@ -730,6 +738,12 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             onChange: this.handleInputChange,
             placeholder: searchPlaceholder,
             ...inputProps,
+            /**
+             * When searchPosition is trigger, the keyboard events are bound to the outer trigger div, so there is no need to listen in input.
+             * When searchPosition is dropdown, the popup and the outer trigger div are not parent- child relationships,
+             * and bubbles cannot occur, so onKeydown needs to be listened in input.
+             *  */ 
+            onKeyDown: (e) => this.foundation._handleDropdownInputKeyDown(e)
         };
 
         return (
@@ -941,7 +955,8 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             virtualize,
             multiple,
             emptyContent,
-            searchPosition
+            searchPosition,
+            filter,
         } = this.props;
 
         // Do a filter first, instead of directly judging in forEach, so that the focusIndex can correspond to
@@ -974,7 +989,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 onKeyDown={e => this.foundation.handleContainerKeyDown(e)}
             >
                 {outerTopSlot ? <div className={`${prefixcls}-option-list-outer-top-slot`} onMouseEnter={() => this.foundation.handleSlotMouseEnter()}>{outerTopSlot}</div> : null}
-                {searchPosition === 'dropdown' ? this.renderDropdownInput() : null}
+                {searchPosition === strings.SEARCH_POSITION_DROPDOWN && filter ? this.renderDropdownInput() : null}
                 <div
                     style={{ maxHeight: `${maxHeight}px` }}
                     className={optionListCls}
@@ -1008,7 +1023,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             renderText = (renderSelectedItem as RenderSingleSelectedItemFn)(selectedItem);
         }
 
-        const showInputInTrigger = searchPosition === 'trigger';
+        const showInputInTrigger = searchPosition === strings.SEARCH_POSITION_TRIGGER;
 
         const spanCls = cls({
             [`${prefixcls}-selection-text`]: true,
@@ -1264,13 +1279,14 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const tagContent = NotOneLine || (expandRestTagsOnClick && isOpen)
             ? selectedItems.map((item, i) => this.renderTag(item, i))
             : oneLineTags;
-        const showTriggerInput = searchPosition === 'trigger';
+
+        const showTriggerInput = filterable && searchPosition === strings.SEARCH_POSITION_TRIGGER;
 
         return (
             <>
                 <div className={contentWrapperCls}>
                     {selectedItems && selectedItems.length ? tagContent : placeholderText}
-                    {!filterable ? null : this.renderTriggerInput()}
+                    {showTriggerInput ? this.renderTriggerInput() : null}
                 </div>
             </>
         );

@@ -6,6 +6,7 @@ import isNullOrUndefined from '../utils/isNullOrUndefined';
 import { BasicOptionProps } from './optionFoundation';
 import isEnterPress from '../utils/isEnterPress';
 import { handlePrevent } from '../utils/a11y';
+import { strings } from './constants';
 
 export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getTriggerWidth(): number;
@@ -18,7 +19,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     rePositionDropdown(): void;
     updateFocusIndex(index: number): void;
     updateSelection(selection: Map<any, any>): void;
-    openMenu(): void;
+    openMenu(cb?: () => void): void;
     notifyDropdownVisibleChange(visible: boolean): void;
     registerClickOutsideHandler(event: any): void;
     toggleInputShow(show: boolean, cb: () => void): void;
@@ -30,6 +31,7 @@ export interface SelectAdapter<P = Record<string, any>, S = Record<string, any>>
     notifyClear(): void;
     updateInputValue(inputValue: string): void;
     focusInput(): void;
+    focusDropdownInput(): void;
     notifySearch(inputValue: string, event?: any): void;
     registerKeyDown(handler: () => void): void;
     unregisterKeyDown(): void;
@@ -367,7 +369,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             // whether it is a filter or not, isFocus is guaranteed to be true when open
             this._adapter.updateFocusState(true);
         }
-        this._adapter.openMenu();
+        this._adapter.openMenu(() => {
+            const { searchPosition, autoFocus } = this.getProps();
+            // todo，需要放在 open的回调里，保证已展开
+            if (autoFocus && searchPosition === strings.SEARCH_POSITION_DROPDOWN) {
+                this._adapter.focusDropdownInput();
+            }
+        });
         this._setDropdownWidth();
         this._adapter.notifyDropdownVisibleChange(true);
 
@@ -378,6 +386,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
             this._notifyBlur(e);
             this._adapter.updateFocusState(false);
         });
+
     }
 
     toggle2SearchInput(isShow: boolean) {
@@ -711,6 +720,49 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     unBindKeyBoardEvent() {
         if (this._keydownHandler) {
             this._adapter.unregisterKeyDown();
+        }
+    }
+
+    _handleDropdownInputKeyDown(event: KeyboardEvent) {
+        const key = event.keyCode;
+        const { loading, filter, multiple, disabled } = this.getProps();
+        const { isOpen } = this.getStates();
+
+        if (loading || disabled) {
+            return;
+        }
+        switch (key) {
+            case KeyCode.UP:
+                // Prevent Input's cursor from following
+                // Prevent Input cursor from following
+                event.preventDefault();
+                this._handleArrowKeyDown(-1);
+                break;
+            case KeyCode.DOWN:
+                // Prevent Input's cursor from following
+                // Prevent Input cursor from following
+                event.preventDefault();
+                this._handleArrowKeyDown(1);
+                break;
+            case KeyCode.BACKSPACE:
+                this._handleBackspaceKeyDown();
+                break;
+            case KeyCode.ENTER:
+                // internal-issues:302
+                // prevent trigger form’s submit when use in form
+                handlePrevent(event);
+                this._handleEnterKeyDown(event);
+                break;
+            case KeyCode.ESC:
+                isOpen && this.close({ event: event });
+                filter && !multiple && this._focusTrigger();
+                break;
+            case KeyCode.TAB:
+                // check if slot have focusable element
+                this._handleTabKeyDown(event);
+                break;
+            default:
+                break;
         }
     }
 
