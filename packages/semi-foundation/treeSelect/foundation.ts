@@ -455,6 +455,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._registerClickOutsideHandler();
     }
 
+    onClickSingleTriggerSearchItem = (e: any) => {
+        this.focusInput(true);
+    }
+
     // Scenes that may trigger blur
     //  1、clickOutSide
     //  2、click option / press enter, and then select complete（when multiple is false

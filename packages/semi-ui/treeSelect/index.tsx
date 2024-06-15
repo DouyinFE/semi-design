@@ -931,7 +931,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-selection-TriggerSearchItem-disabled`]: disabled,
         });
         return (
-            <span className={spanCls}>
+            <span className={spanCls} onClick={this.foundation.onClickSingleTriggerSearchItem}>
                 {renderText ? renderText : placeholder}
             </span>
         );
@@ -944,8 +944,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const { inputValue } = this.state;
         return (
             <>
-                {!inputValue && this.renderSingleTriggerSearchItem()}
                 {this.renderInput()}
+                {!inputValue && this.renderSingleTriggerSearchItem()}
             </>
         );
     };
