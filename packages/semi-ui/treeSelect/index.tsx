@@ -150,7 +150,8 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;
     onVisibleChange?: (isVisible: boolean) => void;
-    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void
+    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void;
+    autoMergeValue?: boolean
 }
 
 export type OverrideCommonState =
@@ -271,6 +272,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         restTagsPopoverProps: PropTypes.object,
         preventScroll: PropTypes.bool,
         clickTriggerToHide: PropTypes.bool,
+        autoMergeValue: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -304,6 +306,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
         clickTriggerToHide: true,
+        autoMergeValue: true,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -859,15 +862,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return showClear && (this.hasValue() || triggerSearchHasInputValue) && !disabled && (isOpen || isHovering);
     };
 
-    renderTagList = () => {
-        const { checkedKeys, keyEntities, disabledKeys, realCheckedKeys } = this.state;
+    renderTagList = (triggerRenderKeys: string[]) => {
+        const { keyEntities, disabledKeys } = this.state;
         const {
             treeNodeLabelProp,
             leafOnly,
             disabled,
             disableStrictly,
             size,
-            checkRelation,
             renderSelectedItem: propRenderSelectedItem,
             keyMaps
         } = this.props;
@@ -878,14 +880,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 isRenderInTag: true,
                 content: get(item, realLabelName, null)
             });
-        let renderKeys = [];
-        if (checkRelation === 'related') {
-            renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
-        } else if (checkRelation === 'unRelated' && Object.keys(keyEntities).length > 0) {
-            renderKeys = [...realCheckedKeys];
-        }
         const tagList: Array<React.ReactNode> = [];
-        renderKeys.forEach((key: TreeNodeData['key'], index) => {
+        triggerRenderKeys.forEach((key: TreeNodeData['key'], index) => {
             const item = (keyEntities[key] && keyEntities[key].key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
                 if (e && typeof e.preventDefault === 'function') {
@@ -950,7 +946,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         );
     };
 
-    renderSelectContent = () => {
+    renderSelectContent = (triggerRenderKeys: string[]) => {
         const {
             multiple,
             placeholder,
@@ -963,7 +959,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
         if (isTriggerPositionSearch) {
-            return multiple ? this.renderTagInput() : this.renderSingleTriggerSearch();
+            return multiple ? this.renderTagInput(triggerRenderKeys) : this.renderSingleTriggerSearch();
         }
         // searchPosition = dropdown and single seleciton
         if (!multiple || !this.hasValue()) {
@@ -974,7 +970,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             return <span className={spanCls}>{renderText ? renderText : placeholder}</span>;
         }
         // searchPosition = dropdown and multiple seleciton
-        const tagList = this.renderTagList();
+        const tagList = this.renderTagList(triggerRenderKeys);
         // mode=custom to return tagList directly
         return (
             <TagGroup<'custom'>
@@ -1071,6 +1067,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
             borderless,
+            autoMergeValue,
             checkRelation,
             ...rest
         } = this.props;
@@ -1110,17 +1107,19 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 className
             );
         let inner: React.ReactNode | React.ReactNode[];
-        if (useCustomTrigger) {
-            let triggerRenderKeys = [];
-            if (multiple) {
-                if (checkRelation === 'related') {
-                    triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
-                } else if (checkRelation === 'unRelated') {
-                    triggerRenderKeys = [...realCheckedKeys];
-                }
-            } else {
-                triggerRenderKeys = selectedKeys;
+        let triggerRenderKeys = [];
+        if (multiple) {
+            if (!autoMergeValue) {
+                triggerRenderKeys =[...checkedKeys];
+            } else if (checkRelation === 'related') {
+                triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
+            } else if (checkRelation === 'unRelated') {
+                triggerRenderKeys = [...realCheckedKeys];
             }
+        } else {
+            triggerRenderKeys = selectedKeys;
+        }
+        if (useCustomTrigger) {
             inner = <Trigger
                 inputValue={inputValue}
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
@@ -1137,7 +1136,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             inner = [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
-                    <div className={`${prefixcls}-selection`}>{this.renderSelectContent()}</div>
+                    <div className={`${prefixcls}-selection`}>{this.renderSelectContent(triggerRenderKeys)}</div>
                 </Fragment>,
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key={'clearBtn'}>
@@ -1238,15 +1237,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         );
     };
 
-    renderTagInput = () => {
+    renderTagInput = (triggerRenderKeys: string[]) => {
         const {
-            leafOnly,
             disabled,
             size,
             searchAutoFocus,
             placeholder,
             maxTagCount,
-            checkRelation,
             showRestTagsPopover,
             restTagsPopoverProps,
             searchPosition,
@@ -1254,17 +1251,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             preventScroll
         } = this.props;
         const {
-            keyEntities,
-            checkedKeys,
             inputValue,
-            realCheckedKeys,
         } = this.state;
-        let keyList = [];
-        if (checkRelation === 'related') {
-            keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly, true);
-        } else if (checkRelation === 'unRelated') {
-            keyList = [...realCheckedKeys];
-        }
         // auto focus search input divide into two parts
         // 1. filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER
         //    Implemented by passing autofocus to the underlying input's autofocus
@@ -1280,7 +1268,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 onInputChange={v => this.search(v)}
                 ref={this.tagInputRef}
                 placeholder={placeholder}
-                value={keyList}
+                value={triggerRenderKeys}
                 inputValue={inputValue}
                 size={size}
                 showRestTagsPopover={showRestTagsPopover}
