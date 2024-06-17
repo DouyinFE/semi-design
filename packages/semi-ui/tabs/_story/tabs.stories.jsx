@@ -1039,3 +1039,23 @@ export const Fix2239 = () => {
 Fix2239.story = {
   name: 'Fix 2239',
 };
+
+export const ShowRestInDropdownDemo = () => {
+  return (
+    <Tabs
+      style={{
+        width: '60%',
+        margin: '20px',
+      }}
+      type="card"
+      collapsible
+      showRestInDropdown={false}
+    >
+      {[...Array(30).keys()].map(i => (
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={`${i}`}>
+          Content of card tab {i}
+        </TabPane>
+      ))}
+    </Tabs>
+  )
+}

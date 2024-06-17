@@ -28,6 +28,7 @@ export interface TabsProps {
     onChange?: (activeKey: string) => void;
     onTabClick?: (activeKey: string, e: MouseEvent<Element>) => void;
     renderTabBar?: (tabBarProps: TabBarProps, defaultTabBar: typeof TabBar) => ReactNode;
+    showRestInDropdown?: boolean;
     size?: TabSize;
     style?: CSSProperties;
     tabBarClassName?: string;
@@ -48,6 +49,7 @@ export interface TabBarProps {
     collapsible?: boolean;
     list?: Array<PlainTab>;
     onTabClick?: (activeKey: string, event: MouseEvent<Element>) => void;
+    showRestInDropdown?: boolean;
     size?: TabSize;
     style?: CSSProperties;
     tabBarExtraContent?: ReactNode;

@@ -596,6 +596,7 @@ lazyRender | Lazy rendering, only when the panel is activated will it be rendere
 more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -       |    
 renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
 preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
+showRestInDropdown | Whether to display the collapsed Tab in the drop-down menu (only effective when collapsible is true) **>= 2.61.0** | boolean | true |
 size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |
 style | style object | CSSProperties | None |
 tabBarExtraContent | Used to extend the content of the tab bar | ReactNode | None |
