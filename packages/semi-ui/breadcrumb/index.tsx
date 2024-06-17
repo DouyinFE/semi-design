@@ -13,6 +13,7 @@ import BreadcrumbItem, { RouteProps, BreadcrumbItemInfo } from './item';
 import BreadContext, { BreadContextType } from './bread-context';
 import { TooltipProps } from '../tooltip';
 import { IconMore } from '@douyinfe/semi-icons';
+import PropTypes from "prop-types";
 
 const clsPrefix = cssClasses.PREFIX;
 
@@ -53,6 +54,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
     static propTypes = {
+        activeIndex: PropTypes.number,
         routes: propTypes.array,
         onClick: propTypes.func,
         separator: propTypes.node,
@@ -199,7 +201,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                     <BreadcrumbItem
                         {...route}
                         key={key}
-                        active={idx === items.length - 1}
+                        active={this.props.activeIndex !== undefined ? this.props.activeIndex===idx : idx === items.length - 1}
                         route={route._origin}
                         shouldRenderSeparator={!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
                     >
@@ -252,8 +254,8 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
 
                     return React.cloneElement(item, {
                         key: `${idx}-item`,
-                        active: idx === items.length - 1,
-                        shouldRenderSeparator: !(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)
+                        active: this.props.activeIndex !== undefined ? this.props.activeIndex === idx : idx === items.length - 1,
+                        shouldRenderSeparator: (idx !== items.length - 1) && (!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea))
                     });
                 })
             );
