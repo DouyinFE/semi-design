@@ -44,7 +44,11 @@ export default class Event {
         if (!this._eventMap.has(event)) {
             return false;
         }
-        this._eventMap.get(event).forEach(callback => callback(...args));
+        const callbacks = this._eventMap.get(event);
+        // Reverse order for avoiding someone writing  the logic of deleting callback in callbacks into his or her callback code, for example the once func above
+        for (let i= callbacks.length - 1; i>=0; i--) {
+            callbacks[i](...args);
+        }
         return true;
     }
 }
