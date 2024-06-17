@@ -165,6 +165,7 @@ $module: #{$prefix}-tree-select;
             
             &-placeholder {
                 opacity: .6;
+                z-index: -1;
             }
 
             &-disabled {

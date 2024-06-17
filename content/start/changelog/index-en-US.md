@@ -248,6 +248,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.52.0 (2024-02-06)
 - 【Fix】
+  - Add overflow-y:auto to Dropdown to prevent incorrect styling when setting border-radius
   - Fixed the problem that onBlur is not triggered when clicking outside the Select button after clicking the clear button.  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
   - Fixed Image request undefined url in some case. [#2063](https://github.com/DouyinFE/semi-design/issues/2063) [@nekocode](https://github.com/nekocode)
   - Fixed timepicker value props give undefined cause type error. [#2066](https://github.com/DouyinFE/semi-design/issues/2066)
