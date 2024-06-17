@@ -21,15 +21,14 @@ Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获�
 
 - 无需关心动画容器的创建与销毁
 - 无需关心动画本身的生命周期
-- JSX 语法更易和 React 技术栈站点相容
-- 企业级质量保障
+- 更易和 React 项目结合使用
 
 ## 代码演示
 
 ### 如何引入
 
 ```jsx
-import { Lottie } from "@douyinfe/semi-ui
+import { Lottie } from "@douyinfe/semi-ui";
 ```
 
 
@@ -42,12 +41,13 @@ import { Lottie } from "@douyinfe/semi-ui
 向 `params` props 里传入 path= 你的 lottie json 的 URL 即可
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui"
-()=>{
+import { Lottie } from "@douyinfe/semi-ui";
+import React from "react";
+() => {
     const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
 
-    return <Lottie params={{path:jsonURL}} width={"300px"}/>
-}
+    return <Lottie params={{ path: jsonURL }} width={"300px"} />;
+};
 
 ```
 
@@ -56,20 +56,22 @@ import { Lottie } from "@douyinfe/semi-ui"
 向 `params` props 里传入 animationData= 你的 lottie json 对象即可 (下方 Demo 请求 JSON 是仅作为演示，实际项目中 json 应当被手动 import，而不是通过网络请求获取，这样 JSON 动画资源才会被打包进网站代码)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui"
-()=>{
+import { Lottie } from "@douyinfe/semi-ui";
+import React from "react";
+
+() => {
     const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
-    const [data,setData] = useState("");
+    const [data, setData] = useState("");
 
     useEffect(() => {
         fetch(jsonURL)
             .then(resp=>resp.json())
-            .then(setData)
+            .then(setData);
        
     }, []);
 
-    return <Lottie params={{animationData:data}} width={"300px"}/>
-}
+    return <Lottie params={{ animationData: data }} width={"300px"} />;
+};
 
 ```
 
@@ -79,7 +81,7 @@ import { Lottie } from "@douyinfe/semi-ui"
 
 常用参数
 
-```js
+```json
 //params
 {
     container: element, // 渲染容器，不传则由 Semi Lottie 组件自动配置并生成
@@ -100,13 +102,14 @@ import { Lottie } from "@douyinfe/semi-ui"
 关于动画实例上含有的方法，更多信息可以参考 `lottie-web` [文档](https://github.com/airbnb/lottie-web?tab=readme-ov-file#usage)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui"
-()=>{
+import { Lottie } from "@douyinfe/semi-ui";
+import React from "react";
+
+() => {
     const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
 
-    return <Lottie  getAnimationInstance={(animation )=>{console.log(animation)}} params={{path:jsonURL}} width={"300px"}/>
-}
-
+    return <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />;
+};
 ```
 
 ### 获取全局 Lottie
@@ -117,14 +120,16 @@ import { Lottie } from "@douyinfe/semi-ui"
 
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui"
+import { Lottie } from "@douyinfe/semi-ui";
+import React from "react";
+
 ()=>{
     const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
     
-    console.log("lottie",Lottie.getLottie())
+    console.log("lottie", Lottie.getLottie());
     
-    return <Lottie getLottie={lottie=>console.log("lottie",lottie)} params={{path:jsonURL}} width={"300px"} />
-}
+    return <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />;
+};
 
 ```
 
