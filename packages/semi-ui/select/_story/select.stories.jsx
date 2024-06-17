@@ -3591,6 +3591,7 @@ export const SearchPosition = () => {
           onChangeWithObject
           showClear
           searchPlaceholder='dropdown input place'
+          autoClearSearchValue={false}
           optionList={optionList}
           style={{ width: 320 }}
         />

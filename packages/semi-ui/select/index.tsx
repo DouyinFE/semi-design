@@ -33,7 +33,6 @@ import '@douyinfe/semi-foundation/select/select.scss';
 import type { Locale } from '../locale/interface';
 import type { Position, TooltipProps } from '../tooltip';
 import type { Subtract } from 'utility-types';
-import { placeholder } from '@babel/types';
 
 export type { OptionProps } from './option';
 export type { OptionGroupProps } from './optionGroup';

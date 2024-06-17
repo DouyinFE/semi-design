@@ -702,6 +702,7 @@ import { Select } from '@douyinfe/semi-ui';
 ### 搜索框位置
 默认搜索框展示于 Select 的 Trigger 触发器上。通过 `searchPosition` 可以指定不同的位置，可选 `dropdown`、`trigger`。 在 v2.61.0后提供
 若希望定制位于 dropdown 中的 Input 搜索框的 placeholder，可以通过 `searchPlaceholder` 控制  
+若 `searchPosition` 值为 `dropdown`，当showClear=true 时，点击输入框的清空按钮，将同时清空已选项以及搜索框中的文本
 
 ```jsx live=true
 import React from 'react';

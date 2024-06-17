@@ -371,7 +371,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
         this._adapter.openMenu(() => {
             const { searchPosition, autoFocus } = this.getProps();
-            // todo，需要放在 open的回调里，保证已展开
             if (autoFocus && searchPosition === strings.SEARCH_POSITION_DROPDOWN) {
                 this._adapter.focusDropdownInput();
             }
@@ -1108,7 +1107,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleKeyPress(e: KeyboardEvent) {
-        console.log('handleKeyPress');
         if (e && e.key === ENTER_KEY) {
             this.handleClick(e);
         }
