@@ -203,7 +203,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                         key={key}
                         active={this.props.activeIndex !== undefined ? this.props.activeIndex===idx : idx === items.length - 1}
                         route={route._origin}
-                        shouldRenderSeparator={!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
+                        shouldRenderSeparator={ (idx !== items.length - 1) && !(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
                     >
                         {renderItem ? renderItem(route._origin) : route.name}
                     </BreadcrumbItem>
