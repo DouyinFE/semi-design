@@ -69,11 +69,15 @@ import {
 } from './Performance/performanceDemo';
 import { SetValuesDemo, SetValuesWithArrayField } from './FormApi/setValuesDemo';
 import { SetValueUsingParentPath } from './FormApi/formApiDemo';
+import { ScrollToErrorDemo } from './FormApi/scrollToError';
 import { FieldPathWithArrayDemo } from './Debug/bugDemo';
 import ChildDidMount from './Debug/childDidMount';
 
 export { default as FormSubmit } from './FormSubmit';
 export { default as TabelForm } from './TableDemo';
+
+export const ScrollToError = () => <ScrollToErrorDemo></ScrollToErrorDemo>
+// export { default as ScrollToError } from './FormApi/scrollToError'
 
 const {
   Input,

@@ -36,7 +36,9 @@ export interface OverflowListProps {
     visibleItemRenderer?: (item: OverflowItem, index: number) => ReactElement;
     wrapperClassName?: string;
     wrapperStyle?: CSSProperties;
-    itemKey?: Key | ((item: OverflowItem) => Key)
+    itemKey?: Key | ((item: OverflowItem) => Key);
+    onVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
+    overflowRenderDirection?: "both"|"start"|'end' // used in tabs, not exposed to user
 }
 
 export interface OverflowListState {
@@ -66,6 +68,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         threshold: 0.75,
         visibleItemRenderer: (): ReactElement => null,
         onOverflow: () => null,
+        overflowRenderDirection: "both",
     })
     static propTypes = {
         // if render in scroll mode, key is required in items
@@ -83,6 +86,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         visibleItemRenderer: PropTypes.func,
         wrapperClassName: PropTypes.string,
         wrapperStyle: PropTypes.object,
+        collapseMask: PropTypes.object,
+        overflowRenderDirection: PropTypes.string,
     };
 
     constructor(props: OverflowListProps) {
@@ -145,7 +150,9 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         return {
             ...super.adapter,
             updateVisibleState: (visibleState): void => {
-                this.setState({ visibleState });
+                this.setState({ visibleState }, ()=>{
+                    this.props.onVisibleStateChange?.(visibleState);
+                });
             },
             updateStates: (states): void => {
                 this.setState({ ...states });
@@ -259,9 +266,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         }
         const inner =
             renderMode === RenderMode.SCROLL ?
-                [
-                    overflow[0],
-                    <div
+                (()=>{
+                    const list = [<div
                         className={cls(wrapperClassName, `${prefixCls}-scroll-wrapper`)}
                         ref={(ref): void => {
                             this.scroller = ref;
@@ -277,9 +283,19 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                                 key,
                             });
                         })}
-                    </div>,
-                    overflow[1],
-                ] :
+                    </div>];
+                    if (this.props.overflowRenderDirection === "both") {
+                        list.unshift(overflow[0]);
+                        list.push(overflow[1]);
+                    } else if (this.props.overflowRenderDirection === "start") {
+                        list.unshift(overflow[1]);
+                        list.unshift(overflow[0]);
+                    } else {
+                        list.push(overflow[0]);
+                        list.push(overflow[1]);
+                    }
+                    return list;
+                })() :
                 [
                     collapseFrom === Boundary.START ? overflow : null,
                     visible.map((item, idx) => {

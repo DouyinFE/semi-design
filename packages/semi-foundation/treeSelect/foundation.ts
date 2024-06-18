@@ -399,10 +399,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     _notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }
