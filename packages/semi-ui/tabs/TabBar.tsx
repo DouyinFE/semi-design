@@ -230,7 +230,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             <OverflowList
                 items={renderedList}
                 overflowRenderDirection={this.props.arrowRenderPosition}
-                wrapperStyle={this.props.collapsibleWrapperStyle}
+                wrapperStyle={this.props.visibleTabsStyle}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"
                 className={`${cssClasses.TABS_BAR}-overflow-list`}

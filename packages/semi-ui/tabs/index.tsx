@@ -259,7 +259,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             type,
             more,
             overflowVisibleStateChange,
-            collapsibleWrapperStyle,
+            visibleTabsStyle,
             arrowRenderPosition,
             renderArrow,
             ...restProps
@@ -290,7 +290,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             handleKeyDown: this.foundation.handleKeyDown,
             more,
             overflowVisibleStateChange,
-            collapsibleWrapperStyle,
+            visibleTabsStyle,
             arrowRenderPosition,
             renderArrow
         } as TabBarProps;

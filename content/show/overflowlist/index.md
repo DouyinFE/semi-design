@@ -217,7 +217,6 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 | 属性       | 说明     | 类型                                              | 默认值        | 版本     |
 | ---------- | -------- |-------------------------------------------------|------------|--------|
 | className  | 类名     | string                                          | -          | 1.1.0  |
-| onVisibleStateChange | 隐藏显示状态变化回调 | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
 | renderMode | 渲染模式 | `collapse`\| `scroll`                           | `collapse` | 1.1.0  |
 | style      | OverflowList的样式 | React.CSSProperties                             | -          | 1.1.0  |
 
@@ -238,6 +237,7 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 | --- | --- |------------------------------------------------------------------------------------------------------------------------------------| --- | --- |
 | items | 渲染项目，**要求必含 key 项** | Record<string, any>[]                                                                                                              | - | 1.1.0 |
 | onIntersect | 溢出回调 | ({[key: string]: [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)}) => void | - | 1.1.0 |
+| onVisibleStateChange | 隐藏显示状态变化回调 | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
 | overflowRenderer | 溢出项的自定义渲染函数 | (overflowItems: Record<string, any>[]) => React.ReactNode[]                                                                        | - | 1.1.0 |
 | threshold | 触发溢出回调的阈值 | number                                                                                                                             | 0.75 | 1.1.0 |
 | visibleItemRenderer | 展示项的自定义渲染函数 | (item: Record<string, any>, index: number) => React.ReactElement                                                                   | - | 1.1.0 |

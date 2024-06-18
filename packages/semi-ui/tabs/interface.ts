@@ -42,7 +42,7 @@ export interface TabsProps {
     preventScroll?: boolean;
     more?: number | { count: number; render?: () => ReactNode; dropdownProps?: DropdownProps };
     overflowVisibleStateChange?: TabBarProps["overflowVisibleStateChange"];
-    collapsibleWrapperStyle?: TabBarProps['collapsibleWrapperStyle'];
+    visibleTabsStyle?: TabBarProps['visibleTabsStyle'];
     arrowRenderPosition?: TabBarProps['arrowRenderPosition'];
     renderArrow?: TabBarProps['renderArrow']
 }
@@ -65,7 +65,7 @@ export interface TabBarProps {
     handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
     more?: TabsProps['more'];
     overflowVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
-    collapsibleWrapperStyle?: CSSProperties;
+    visibleTabsStyle?: CSSProperties;
     arrowRenderPosition?: OverflowListProps['overflowRenderDirection'];
     renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void) => ReactNode
 

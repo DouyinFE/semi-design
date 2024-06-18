@@ -688,7 +688,7 @@ class App extends React.Component {
 activeKey | 当前激活的 tab 页的 itemKey 值                                            | string                                                                            | 无    |
 className | 类名                                                                | string                                                                            | 无    |
 collapsible | 折叠的 Tabs，**>=1.1.0**                                              | boolean                                                                           | false |
-collapsibleWrapperStyle | 整体滚动区域 Style **>=2.61.0**                                         | style: CSSProperties                                                              | 无 |
+visibleTabsStyle | 整体滚动区域 Style **>=2.61.0**                                         | style: CSSProperties                                                              | 无 |
 contentStyle | 内容区域外层样式对象                                                        | CSSProperties                                                                     | 无    |
 defaultActiveKey | 初始化选中的 tab 页的 key 值                                               | string                                                                            | '1'  |
 keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1.0.0**                        | boolean                                                                           | true |
