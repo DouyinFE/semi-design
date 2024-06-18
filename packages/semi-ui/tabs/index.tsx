@@ -41,6 +41,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onChange: PropTypes.func,
         onTabClick: PropTypes.func,
         renderTabBar: PropTypes.func,
+        showRestInDropdown: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
         style: PropTypes.object,
         tabBarClassName: PropTypes.string,
@@ -66,7 +67,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
-        onTabClose: () => undefined
+        onTabClose: () => undefined,
+        showRestInDropdown: true
     });
 
     contentRef: RefObject<HTMLDivElement>;
@@ -246,6 +248,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             keepDOM,
             lazyRender,
             renderTabBar,
+            showRestInDropdown,
             size,
             style,
             tabBarClassName,
@@ -274,6 +277,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             collapsible,
             list: panes,
             onTabClick: this.onTabClick,
+            showRestInDropdown,
             size,
             style: tabBarStyle,
             tabBarExtraContent,

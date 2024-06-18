@@ -1655,4 +1655,4 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 3,4,44,54,58,62,72
 ``` -->
 ## 相关物料
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>

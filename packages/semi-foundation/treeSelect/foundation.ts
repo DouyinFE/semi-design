@@ -399,10 +399,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     _notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }
@@ -453,6 +453,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         this._adapter.updateIsFocus(true);
         this._notifyFocus(e);
         this._registerClickOutsideHandler();
+    }
+
+    onClickSingleTriggerSearchItem = (e: any) => {
+        this.focusInput(true);
     }
 
     // Scenes that may trigger blur

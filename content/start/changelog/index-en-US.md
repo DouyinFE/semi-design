@@ -15,7 +15,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.60.0 (2024-06-07)
+- 【Docs】
+    - update filter API defination In Tranfer
+- 【Fix】
+    - fixed the issue where AutoComplete throws a warning in the development environment due to autofocus spelling errors
+    - Fixed the problem that when Form labelAlign is set to right, the alignment style does not take effect when the label has extra
 
+
+#### 🎉 2.60.0-beta.0 (2024-06-04)
+- 【Fix】
+    - Fixed the problem that the text was slightly offset downwards when the input was in small size [@lmsccc](https://github.com/lmsccc)
+    - Fix the problem of incomplete tab display after scrollIntoView [@l123wx](https://github.com/l123wx) (https://github.com/DouyinFE/semi-design/pull/2247)
+- 【Style】
+    - Explicitly set the display attribute of the svg under Spin to inline to prevent the tailwind default svg setting from affecting Spin.
 
 #### 🎉 2.59.1 (2024-05-29)
 - 【Fix】
@@ -235,6 +248,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.52.0 (2024-02-06)
 - 【Fix】
+  - Add overflow-y:auto to Dropdown to prevent incorrect styling when setting border-radius
   - Fixed the problem that onBlur is not triggered when clicking outside the Select button after clicking the clear button.  [#1989](https://github.com/DouyinFE/semi-design/issues/1989)
   - Fixed Image request undefined url in some case. [#2063](https://github.com/DouyinFE/semi-design/issues/2063) [@nekocode](https://github.com/nekocode)
   - Fixed timepicker value props give undefined cause type error. [#2066](https://github.com/DouyinFE/semi-design/issues/2066)

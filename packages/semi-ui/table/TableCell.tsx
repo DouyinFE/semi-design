@@ -5,7 +5,7 @@ import { get, noop, set, omit, isEqual, merge } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation/table/cellFoundation';
-import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
+import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle, getRTLFlexAlign } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Context, { TableContextProps } from './table-context';
@@ -202,7 +202,8 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
 
         if (column.align) {
             const textAlign = getRTLAlign(column.align, direction);
-            tdProps.style = { ...tdProps.style, textAlign };
+            const justifyContent = getRTLFlexAlign(column.align, direction);
+            tdProps.style = { ...tdProps.style, textAlign, justifyContent };
         }
 
         return { tdProps, customCellProps };
