@@ -36,7 +36,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
 
 
     handleCurrentActiveIndexChange = (index: number, state: "focus"|"blur")=>{
-        if (state==="focus") {
+        if (state === "focus") {
             this._adapter.onCurrentActiveIndexChange(index);
         }
     }
@@ -86,7 +86,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
     handlePaste = async (e: ClipboardEvent, startInputIndex: number)=>{
         const textWillPaste = e.clipboardData.getData("text");
         const count = this.getProp("count");
-        for (let i = startInputIndex, charIndex=0;i<count&&charIndex<textWillPaste.length;i++, charIndex++) {
+        for (let i = startInputIndex, charIndex = 0;i < count && charIndex < textWillPaste.length;i++, charIndex++) {
             const currentChar = textWillPaste[charIndex];
             if (this.validateValue(currentChar)) {
                 await this.completeSingleInput(i, currentChar);
@@ -99,21 +99,21 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
 
     handleKeyDownOnSingleInput = (e: KeyboardEvent, index: number)=>{
         const valueList = [...this.getState("valueList")];
-        if (e.key==="Backspace") {
+        if (e.key === "Backspace") {
             valueList[index] = "";
             this.updateValueList(valueList);
-            this._adapter.changeSpecificInputFocusState(Math.max(0, index-1), "focus");
+            this._adapter.changeSpecificInputFocusState(Math.max(0, index - 1), "focus");
             e.preventDefault();
-        } else if (e.key==="Delete") {
+        } else if (e.key === "Delete") {
             valueList[index] = "";
             this.updateValueList(valueList);
-            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length-1, index+1), "focus");
+            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length - 1, index + 1), "focus");
             e.preventDefault();
-        } else if (e.key==="ArrowLeft") {
-            this._adapter.changeSpecificInputFocusState(Math.max(0, index-1), "focus");
+        } else if (e.key === "ArrowLeft") {
+            this._adapter.changeSpecificInputFocusState(Math.max(0, index - 1), "focus");
             e.preventDefault();
-        } else if (e.key==="ArrowRight") {
-            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length-1, index+1), "focus");
+        } else if (e.key === "ArrowRight") {
+            this._adapter.changeSpecificInputFocusState(Math.min(valueList.length - 1, index + 1), "focus");
             e.preventDefault();
         }
 

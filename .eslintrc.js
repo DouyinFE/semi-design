@@ -43,9 +43,9 @@ module.exports = {
                 'jsx-a11y/mouse-events-have-key-events': ['warn'],
                 'object-curly-spacing': ['error', 'always'],
                 'space-before-blocks': ['error', 'always'],
+                "space-infix-ops": "error",
                 'max-len': 'off',
                 'react/forbid-foreign-prop-types': ['error', { "allowInPropTypes": true }]
-
             },
             globals: {
                 "sinon": "readonly",
@@ -118,6 +118,7 @@ module.exports = {
                 'prefer-const': 'off',
                 'semi-design/no-import': 'error',
                 'space-before-blocks': ['error', 'always'],
+                "space-infix-ops": "error",
                 "@typescript-eslint/type-annotation-spacing": ['error', {"after": true}],
                 "@typescript-eslint/member-delimiter-style": [
                     "error",
