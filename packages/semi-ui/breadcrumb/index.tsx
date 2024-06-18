@@ -13,7 +13,6 @@ import BreadcrumbItem, { RouteProps, BreadcrumbItemInfo } from './item';
 import BreadContext, { BreadContextType } from './bread-context';
 import { TooltipProps } from '../tooltip';
 import { IconMore } from '@douyinfe/semi-icons';
-import PropTypes from "prop-types";
 
 const clsPrefix = cssClasses.PREFIX;
 
@@ -42,6 +41,7 @@ export interface BreadcrumbProps extends BaseProps {
     /* Style type for ellipsis area */
     moreType?: MoreType;
     'aria-label'?: React.AriaAttributes['aria-label']
+    activeIndex?: number
 }
 
 interface BreadcrumbState {
@@ -54,7 +54,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
     static propTypes = {
-        activeIndex: PropTypes.number,
+        activeIndex: propTypes.number,
         routes: propTypes.array,
         onClick: propTypes.func,
         separator: propTypes.node,
