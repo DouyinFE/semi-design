@@ -620,7 +620,9 @@ import { Select } from '@douyinfe/semi-ui';
 ### Search position
 The default search input is displayed on the Select Trigger. You can specify different positions through `searchPosition`, and you can choose `dropdown` or `trigger`. Available after `v2.61.0`  
 If you want to customize the placeholder of the Input search box in the dropdown, you can control it through `searchPlaceholder`  
-If the `searchPosition` is `dropdown`, when `showClear=true`, clicking the clear button of the input will clear the selected items and the text in the search input at the same time  
+If the `searchPosition` is `trigger`, when `showClear=true`, clicking the clear button of the input will clear the selected items and the search text in the input at the same time   
+If the `searchPosition` is `dropdown`, when `showClear=true`, clicking the clear button of the trigger will clear the selected items,  clicking the clear button in the dropdown input will clear search text  
+
 
 ```jsx live=true
 import React from 'react';

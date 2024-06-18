@@ -1054,8 +1054,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     handleClearClick(e: MouseEvent) {
-        const { filter } = this.getProps();
-        if (filter) {
+        const { filter, searchPosition } = this.getProps();
+        if (filter && searchPosition === strings.SEARCH_POSITION_TRIGGER) {
             this.clearInput(e);
         }
         // after click showClear button, the select need to be focused

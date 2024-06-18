@@ -736,6 +736,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             className: inputCls,
             onChange: this.handleInputChange,
             placeholder: searchPlaceholder,
+            showClear: true,
             ...inputProps,
             /**
              * When searchPosition is trigger, the keyboard events are bound to the outer trigger div, so there is no need to listen in input.
