@@ -176,6 +176,8 @@ const local: Locale = {
         clearContext: 'コンテキストを削除しました',
         copySuccess: '正常にコピーされました',
         stop: 'とめる',
+        copy: 'コピー',
+        copied: 'コピーしました',
     },
 };
 

@@ -175,6 +175,8 @@ const local: Locale = {
         clearContext: 'Der Kontext wurde gelöscht',
         copySuccess: 'Erfolgreich kopiert',
         stop: 'stoppen',
+        copy: 'Kopieren',
+        copied: 'Kopiert',
     },
 };
 

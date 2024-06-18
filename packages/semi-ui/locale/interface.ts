@@ -173,6 +173,8 @@ export interface Locale {
         deleteConfirm: string;
         clearContext: string;
         copySuccess: string;
-        stop: string
+        stop: string;
+        copy: string;
+        copied: string
     }
 }

@@ -175,6 +175,8 @@ const local: Locale = {
         clearContext: 'Contextul a fost șters',
         copySuccess: 'Copiere reușită',
         stop: 'Oprire',
+        copy: 'Copiază',
+        copied: 'Copiat',
     },
 };
 

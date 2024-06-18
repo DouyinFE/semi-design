@@ -178,6 +178,8 @@ const local: Locale = {
         clearContext: 'Ngữ cảnh đã được xóa',
         copySuccess: 'Sao chép thành công',
         stop: 'Dừng',
+        copy: 'Sao chép',
+        copied: 'Đã sao chép',
     }, 
 };
 

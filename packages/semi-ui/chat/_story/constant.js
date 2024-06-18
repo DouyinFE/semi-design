@@ -1,4 +1,4 @@
-const semiCode = "下是一个 Semi 代码的使用示例：\n```jsx \nimport React from 'react';\nimport { Button } from 'semi-design';\nconst MyComponent = () => {\n  const handleClick = () => {\n  console.log('Button clicked');\n};\n  return (\n    <div>\n      <h1>Hello, Semi Design!</h1>\n      <Button onClick={handleClick}>Click me</Button>\n    </div>\n  );\n};\nexport default MyComponent;\n```";
+const semiCode = "以下是一个 Semi 代码的使用示例：\n```jsx \nimport React from 'react';\nimport { Button } from 'semi-design';\nconst MyComponent = () => {\n  const handleClick = () => {\n  console.log('Button clicked');\n};\n  return (\n    <div>\n      <h1>Hello, Semi Design!</h1>\n      <Button onClick={handleClick}>Click me</Button>\n    </div>\n  );\n};\nexport default MyComponent;\n```";
 const semiInfo = `
 Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案，Semi Design从字节跳动各业务线的复杂场景中提炼而来，目前已经支撑了近千个平台产品，服务了内外部超过10万用户[[1]](https://semi.design/zh-CN/start/introduction)。
 

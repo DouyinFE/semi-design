@@ -37,6 +37,7 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
     }
 
     copySuccessNode: ReactNode;
+    foundation: ChatBoxActionFoundation;
 
     constructor(props: ChatBoxProps) {
         super(props);

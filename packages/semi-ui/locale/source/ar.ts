@@ -175,6 +175,8 @@ const local: Locale = {
         clearContext: 'تم مسح السياق',
         copySuccess: 'تم النسخ بنجاح',
         stop: 'توقف',
+        copy: 'نسخ',
+        copied: 'نسخ',
     },
 };
 

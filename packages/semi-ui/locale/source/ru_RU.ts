@@ -178,6 +178,8 @@ const local: Locale = {
         clearContext: 'Контекст очищен',
         copySuccess: 'Скопировано успешно',
         stop: 'остановить',
+        copy: 'Копировать',
+        copied: 'Скопировано',
     },
 };
 

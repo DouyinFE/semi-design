@@ -176,6 +176,8 @@ const local: Locale = {
         clearContext: '컨텍스트가 지워졌습니다',
         copySuccess: '복사 성공',
         stop: '중지',
+        copy: '복사',
+        copied: '복사했습니다',
     },
 };
 

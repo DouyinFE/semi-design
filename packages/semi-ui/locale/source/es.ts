@@ -180,6 +180,8 @@ const locale: Locale = {
         clearContext: 'El contexto ha sido eliminado',
         copySuccess: 'Copiado exitosamente',
         stop: 'Detener',
+        copy: 'Copiar',
+        copied: 'Copiado',
     },
 };
 

@@ -176,6 +176,8 @@ const local: Locale = {
         clearContext: '上下文已清除',
         copySuccess: '复制成功',
         stop: '停止',
+        copy: '复制',
+        copied: '复制成功',
     },
 };
 

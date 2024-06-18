@@ -179,6 +179,8 @@ const local: Locale = {
         clearContext: 'ล้างความเข้าใจเรียบร้อยแล้ว',
         copySuccess: 'คัดลอกสำเร็จ',
         stop: 'หยุด',
+        copy: 'สำเนา"',
+        copied: 'คัดลอกสำเร็จ',
     },
 };
 
