@@ -713,7 +713,8 @@ import { Select } from '@douyinfe/semi-ui';
         <Select
             filter
             searchPosition='dropdown'
-            style={{ width: 180 }}
+            style={{ width: 200 }}
+            defaultValue={'ulikecam'}
             placeholder='我的搜索框在下拉菜单中'
             searchPlaceholder="带搜索功能的单选"
         >
@@ -729,6 +730,7 @@ import { Select } from '@douyinfe/semi-ui';
             searchPosition='dropdown'
             multiple
             style={{ width: 300 }}
+            defaultValue={['semi-1']}
             placeholder='我的搜索框在下拉菜单中'
             searchPlaceholder="带搜索功能的多选"
             autoClearSearchValue={false}
@@ -747,7 +749,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 带有远程搜索，防抖请求，加载状态的多选示例  
 通过`filter`开启搜索能力  
-将`remote`设置为 true 关闭对当前数据的筛选过滤(在 v0.24.0 后提供)  
+将`remote`设置为 true 关闭对当前数据的筛选过滤
 通过动态更新`optionList`更新下拉菜单中的备选项  
 使用受控的 value 属性
 
@@ -1165,7 +1167,8 @@ class VirtualizeDemo extends React.Component {
 
 ### 自定义触发器
 
-如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示
+如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示  
+如果想保留搜索筛选能力，又不希望自己渲染 Input 相关的结构，可以同时通过 searchPosition='dropdown'，将默认的搜索框置于下拉列表中
 
 triggerRender 入参如下
 
@@ -1274,6 +1277,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 optionList={list}
                 onChange={value => setValList(value)}
                 multiple
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240 }}
             ></Select>
             <br />
@@ -1284,6 +1289,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 onChange={value => setVal(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240, marginTop: 20, outline: 0 }}
             ></Select>
         </div>
@@ -1474,6 +1481,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                  | function(props) 入参详见 Demo |  |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                              | PopoverProps | {} | 2.22.0 |
 | remote | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                      | boolean | false |
+| searchPosition | filter开启时，搜索框的位置，默认在 trigger中，可以通过设为 'dropdown' 将搜索框置于下拉列表顶部。搭配 triggerRender 使用可以实现更高自由度的交互   | string | 'trigger' | 2.61.0
 | size | 大小，可选值 `default`/`small`/`large`                                                                                                      | string | 'default' |
 | style | 样式                                                                                                                                    | object |  |
 | stopPropagation | 是否阻止浮层上的点击事件冒泡                                                                                                                        | boolean | true |  |

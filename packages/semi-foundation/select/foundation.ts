@@ -722,49 +722,8 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         }
     }
 
-    _handleDropdownInputKeyDown(event: KeyboardEvent) {
-        const key = event.keyCode;
-        const { loading, filter, multiple, disabled } = this.getProps();
-        const { isOpen } = this.getStates();
-
-        if (loading || disabled) {
-            return;
-        }
-        switch (key) {
-            case KeyCode.UP:
-                // Prevent Input's cursor from following
-                // Prevent Input cursor from following
-                event.preventDefault();
-                this._handleArrowKeyDown(-1);
-                break;
-            case KeyCode.DOWN:
-                // Prevent Input's cursor from following
-                // Prevent Input cursor from following
-                event.preventDefault();
-                this._handleArrowKeyDown(1);
-                break;
-            case KeyCode.BACKSPACE:
-                this._handleBackspaceKeyDown();
-                break;
-            case KeyCode.ENTER:
-                // internal-issues:302
-                // prevent trigger form’s submit when use in form
-                handlePrevent(event);
-                this._handleEnterKeyDown(event);
-                break;
-            case KeyCode.ESC:
-                isOpen && this.close({ event: event });
-                filter && !multiple && this._focusTrigger();
-                break;
-            case KeyCode.TAB:
-                // check if slot have focusable element
-                this._handleTabKeyDown(event);
-                break;
-            default:
-                break;
-        }
-    }
-
+    // When searchPosition is trigger, the keyboard events bind to the outer trigger div
+    // When searchPosition is dropdown, the popup and the outer trigger div are not parent- child relationships, keyboard events bind to the dorpdown input
     _handleKeyDown(event: KeyboardEvent) {
         const key = event.keyCode;
         const { loading, filter, multiple, disabled } = this.getProps();

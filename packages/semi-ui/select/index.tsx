@@ -742,7 +742,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
              * When searchPosition is dropdown, the popup and the outer trigger div are not parent- child relationships,
              * and bubbles cannot occur, so onKeydown needs to be listened in input.
              *  */ 
-            onKeyDown: (e) => this.foundation._handleDropdownInputKeyDown(e)
+            onKeyDown: (e) => this.foundation._handleKeyDown(e)
         };
 
         return (
