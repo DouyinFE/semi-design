@@ -32,6 +32,7 @@ class Lottie extends BaseComponent<LottieProps, LottieState> {
         this.foundation = new LottieFoundation(this.adapter);
     }
 
+    static getLottie = LottieFoundation.getLottie
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Lottie.__SemiComponentName__)
     
@@ -102,7 +103,6 @@ class Lottie extends BaseComponent<LottieProps, LottieState> {
     }
 
 
-    static getLottie = LottieFoundation.getLottie
 
 }
 

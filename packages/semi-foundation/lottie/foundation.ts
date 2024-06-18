@@ -30,6 +30,10 @@ class LottieFoundation <P = Record<string, any>, S = Record<string, any>> extend
     }
 
 
+    static getLottie = ()=>{
+        return lottie;
+    }
+
     init(lifecycle?: any) {
         super.init(lifecycle);
         this.animation = lottie.loadAnimation(this._adapter.getLoadParams());
@@ -49,10 +53,6 @@ class LottieFoundation <P = Record<string, any>, S = Record<string, any>> extend
     }
 
 
-
-    static getLottie = ()=>{
-        return lottie;
-    }
 
 
 }
