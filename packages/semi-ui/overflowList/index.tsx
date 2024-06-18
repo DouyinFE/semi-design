@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, MutableRefObject, RefCallback, Key, ReactElement } from 'react';
+import React, { CSSProperties, ReactNode, MutableRefObject, RefCallback, ReactElement } from 'react';
 import cls from 'classnames';
 import BaseComponent from '../_base/baseComponent';
 import PropTypes from 'prop-types';
@@ -19,6 +19,8 @@ const RenderMode = strings.MODE_MAP;
 
 export type { ReactIntersectionObserverProps } from './intersectionObserver';
 export type OverflowItem = Record<string, any>;
+
+type Key = string|number
 
 export interface OverflowListProps {
     className?: string;
