@@ -187,6 +187,11 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleKeyDown(e: any) {
+        const { disabledEnterStartNewLine } = this.getProps();
+        if (disabledEnterStartNewLine && e.key === 'Enter' && !e.shiftKey) {
+            // Prevent default line wrapping behavior
+            e.preventDefault(); 
+        }
         this._adapter.notifyKeyDown(e);
         if (e.keyCode === 13) {
             this._adapter.notifyPressEnter(e);

@@ -168,6 +168,14 @@ const local: Locale = {
         adaptiveTip: '適應頁面',
         originTip: '原始尺寸',
     },
+    Chat: {
+        deleteConfirm: '確認刪除該對話嗎？',
+        clearContext: '上下文已清除',
+        copySuccess: '複製成功',
+        stop: '停止',
+        copy: '複制',
+        copied: '複制成功',
+    },
 };
 
 // 中文

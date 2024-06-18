@@ -168,6 +168,14 @@ const local: Locale = {
         adaptiveTip: 'ページに適応',
         originTip: '元のサイズ',
     },
+    Chat: {
+        deleteConfirm: 'このセッションを削除してもよろしいですか？',
+        clearContext: 'コンテキストを削除しました',
+        copySuccess: '正常にコピーされました',
+        stop: 'とめる',
+        copy: 'コピー',
+        copied: 'コピーしました',
+    },
 };
 
 // [i18n-Japan]

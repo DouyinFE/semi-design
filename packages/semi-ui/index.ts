@@ -104,3 +104,5 @@ export { Preview as ImagePreview } from './image';
 
 export { default as MarkdownRender } from "./markdownRender";
 export { default as CodeHighlight } from "./codeHighlight";
+
+export { default as Chat } from './chat';

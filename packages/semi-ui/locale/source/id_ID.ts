@@ -167,6 +167,14 @@ const local: Locale = {
         adaptiveTip: 'Beradaptasi dengan halaman',
         originTip: 'Ukuran asli',
     },
+    Chat: {
+        deleteConfirm: 'Apakah Anda yakin ingin menghapus sesi ini?？',
+        clearContext: 'Konteks telah dihapus',
+        copySuccess: 'Berhasil disalin',
+        stop: 'Berhenti',
+        copy: 'Salin',
+        copied: 'Disalin',
+    },
 };
 
 // [i18n-Indonesia(ID)]

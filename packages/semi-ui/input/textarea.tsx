@@ -56,7 +56,12 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onResize?: (data: { height: number }) => void;
     getValueLength?: (value: string) => number;
-    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null
+    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
+    /* Inner params for TextArea, Chat use it, 。
+       Used to disable line breaks by pressing the enter key。
+       Press enter + shift at the same time can start new line.
+    */
+    disabledEnterStartNewLine?: boolean
 }
 
 export interface TextAreaState {
@@ -85,6 +90,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onClear: PropTypes.func,
         onResize: PropTypes.func,
         getValueLength: PropTypes.func,
+        disabledEnterStartNewLine: PropTypes.bool,
         // TODO
         // resize: PropTypes.bool,
     };
@@ -282,7 +288,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-showClear`]: showClear,
         });
         const itemProps = {
-            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
+            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine'),
             autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,

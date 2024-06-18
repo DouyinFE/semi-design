@@ -171,6 +171,14 @@ const local: Locale = {
         adaptiveTip: 'ปรับให้เข้ากับหน้า',
         originTip: 'ขนาดเดิม',
     },
+    Chat: {
+        deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรือไม่?',
+        clearContext: 'ล้างความเข้าใจเรียบร้อยแล้ว',
+        copySuccess: 'คัดลอกสำเร็จ',
+        stop: 'หยุด',
+        copy: 'สำเนา"',
+        copied: 'คัดลอกสำเร็จ',
+    },
 };
 
 // [i18n-Thai]

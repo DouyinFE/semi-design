@@ -165,5 +165,13 @@ export interface Locale {
         downloadTip: string;
         adaptiveTip: string;
         originTip: string
+    };
+    Chat: {
+        deleteConfirm: string;
+        clearContext: string;
+        copySuccess: string;
+        stop: string;
+        copy: string;
+        copied: string
     }
 }
