@@ -374,6 +374,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                 i < 3 ? (content = restLeftPageList) : (content = restRightPageList);
                 return (
                     <Popover
+                        rePosKey={this.props.currentPage}
                         trigger="hover"
                         // onVisibleChange={visible=>this.handleRestHover(visible, i < 3 ? 'left' : 'right')}
                         content={this.renderRestPageList(content)}
