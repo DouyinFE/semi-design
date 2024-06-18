@@ -1,19 +1,16 @@
-import * as React from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
+import PropTypes from 'prop-types';
+import cls from 'classnames';
 import PinCodeFoundation, {
     PinCodeAdapter,
     PinCodeBaseProps,
     PinCodeBaseState,
 } from '@douyinfe/semi-foundation/pincode/foundation';
-import BaseComponent from '../_base/baseComponent';
-import { CSSProperties, ReactElement } from 'react';
-import { getDefaultPropsFromGlobalConfig } from '../_utils';
-import PropTypes from 'prop-types';
-
-import Input, { InputProps } from '../input';
 import { cssClasses } from '@douyinfe/semi-foundation/pincode/constants';
+import BaseComponent from '../_base/baseComponent';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
+import Input, { InputProps } from '../input';
 import "@douyinfe/semi-foundation/pincode/pincode.scss";
-import cls from 'classnames';
-
 
 export interface PinCodeProps extends PinCodeBaseProps {
     className?: string;
