@@ -51,7 +51,14 @@ let data5 = [
     { key: '主播类型(签约)', value: '自由（普通）主播' },
     { key: '安全等级', value: '3级' },
     { key: '垂类标签', value: '新闻博主' },
-    { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值，需要自动换行显示', span: 3 },
+    { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值，需要自动换行显示', span: 4 },
+];
+let data6 = [
+  { key: '火山号', value: '123456789' },
+  { key: '主播类型(签约)', value: '自由（普通）主播' },
+  { key: '安全等级', value: '3级' },
+  { key: '垂类标签', value: '新闻博主', span: 4 },
+  { key: '认证状态', value: '这是一个很长很长很长很长很长很长很长很长很长的值，需要自动换行显示' },
 ];
 
 export const DescriptionsDefault = () => (
@@ -156,7 +163,8 @@ export const DescriptionsLayout = () => {
     return <>
         <div>data 传入的写法</div>
         <Descriptions layout='horizontal' row size='large' data={data} />
-        <Descriptions layout='horizontal' align='left' data={data5} />
+        <Descriptions layout='horizontal' align='left' column={4} data={data5} />
+        <Descriptions layout='horizontal' align='left' column={4} data={data6} />
         <div>jsx 传入的写法</div>
         <Descriptions layout='horizontal' align='left'>
             <Descriptions.Item itemKey={<strong style={{ color: 'red' }}>实际用户数量</strong>}>1,480,000</Descriptions.Item>
