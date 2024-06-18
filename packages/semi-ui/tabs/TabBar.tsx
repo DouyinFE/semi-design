@@ -229,7 +229,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         return (
             <OverflowList
                 items={renderedList}
-                overflowRenderDirection={this.props.arrowRenderPosition}
+                overflowRenderDirection={this.props.arrowPosition}
                 wrapperStyle={this.props.visibleTabsStyle}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"
@@ -240,7 +240,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                     visibleMap.forEach((v, k )=>{
                         visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
                     });
-                    this.props.overflowVisibleStateChange?.(visibleMapWithItemKey);
+                    this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
                 }}
             />
 

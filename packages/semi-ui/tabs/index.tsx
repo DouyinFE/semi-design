@@ -53,7 +53,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-        arrowRenderPosition: PropTypes.string,
+        arrowPosition: PropTypes.string,
         renderArrow: PropTypes.func,
     };
     static __SemiComponentName__ = "Tabs";
@@ -68,7 +68,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
-        arrowRenderPosition: "both",
+        arrowPosition: "both",
         onTabClose: () => undefined
     });
 
@@ -258,9 +258,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPosition,
             type,
             more,
-            overflowVisibleStateChange,
+            onVisibleTabsChange,
             visibleTabsStyle,
-            arrowRenderPosition,
+            arrowPosition,
             renderArrow,
             ...restProps
         } = this.props;
@@ -289,9 +289,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             deleteTabItem: this.deleteTabItem,
             handleKeyDown: this.foundation.handleKeyDown,
             more,
-            overflowVisibleStateChange,
+            onVisibleTabsChange,
             visibleTabsStyle,
-            arrowRenderPosition,
+            arrowPosition,
             renderArrow
         } as TabBarProps;
 

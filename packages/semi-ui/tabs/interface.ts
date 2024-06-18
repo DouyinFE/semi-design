@@ -41,9 +41,9 @@ export interface TabsProps {
     onTabClose?: (tabKey: string) => void;
     preventScroll?: boolean;
     more?: number | { count: number; render?: () => ReactNode; dropdownProps?: DropdownProps };
-    overflowVisibleStateChange?: TabBarProps["overflowVisibleStateChange"];
+    onVisibleTabsChange?: TabBarProps["onVisibleTabsChange"];
     visibleTabsStyle?: TabBarProps['visibleTabsStyle'];
-    arrowRenderPosition?: TabBarProps['arrowRenderPosition'];
+    arrowPosition?: TabBarProps['arrowPosition'];
     renderArrow?: TabBarProps['renderArrow']
 }
 
@@ -64,9 +64,9 @@ export interface TabBarProps {
     deleteTabItem?: (tabKey: string, event: MouseEvent<Element>) => void;
     handleKeyDown?: (event: React.KeyboardEvent, itemKey: string, closable: boolean) => void;
     more?: TabsProps['more'];
-    overflowVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
+    onVisibleTabsChange?: (visibleState: Map<string, boolean>) => void;
     visibleTabsStyle?: CSSProperties;
-    arrowRenderPosition?: OverflowListProps['overflowRenderDirection'];
+    arrowPosition?: OverflowListProps['overflowRenderDirection'];
     renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void) => ReactNode
 
 }

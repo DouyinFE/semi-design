@@ -415,7 +415,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 **Modify Arrow rendering position**
 
-Use `arrowRenderPosition` to modify the overflow indicator position, optional start both end
+Use `arrowPosition` to modify the overflow indicator position, optional start both end
 
 ```jsx live=true dir=column
 import React from 'react';
@@ -425,21 +425,21 @@ class App extends React.Component {
   render() {
     return (
             <>
-              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"start"} >
+              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowPosition={"start"} >
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                         <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
                           Content of card tab {i}
                         </TabPane>
                 ))}
               </Tabs>
-              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"both"} >
+              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowPosition={"both"} >
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                         <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
                           Content of card tab {i}
                         </TabPane>
                 ))}
               </Tabs>
-              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"end"} >
+              <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowPosition={"end"} >
                 {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
                         <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
                           Content of card tab {i}
@@ -687,8 +687,8 @@ type | The style of the label bar, optional `line`, `card`, `button`            
 onChange | Callback function when switching tab pages                                                                                                                                                    | function(activeKey: string)                                                       | None          |
 onTabClick | Click event                                                                                                                                                                                   | function(key: string, e: Event)                                                   | None          |
 onTabClose | executed when tab closed by user, **>=2.1.0**                                                                                                                                                 | function(tabKey: string)                                                          | None          
-arrowRenderPosition| Arrow rendering position **>=2.61.0**                                                                                                                                       | "start" "end" "both"                                                              | 无             
-overflowVisibleStateChange| Overflow item switching change callback  **>=2.61.0**                                                                                                                                         | (visibleState:Record\<string,bool\>)=>void                                        | None
+arrowPosition| Arrow rendering position **>=2.61.0**                                                                                                                                       | "start" "end" "both"                                                              | 无             
+onVisibleTabsChange| Overflow item switching change callback  **>=2.61.0**                                                                                                                                         | (visibleState:Record\<string,bool\>)=>void                                        | None
 
 ### TabPane
 
