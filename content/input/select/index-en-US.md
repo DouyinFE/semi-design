@@ -1472,7 +1472,7 @@ Some internal methods provided by Select can be accessed through ref:
 <DesignToken/>
 
 ## Related Material
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>
 
 ## FAQ
 
