@@ -30,6 +30,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
   - OverflowList adds onVisibleStateChange in scroll mode to get non-hidden items when overflowing [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
   - Avatar size supports passing in legal width attribute values ​​such as "10px" [#2290](https://github.com/DouyinFE/semi-design/pull/2290)
 - 【Fix】
+  - Fix the problem of Tooltip not hide when cursor quickly moving [#2306](https://github.com/DouyinFE/semi-design/pull/2306)
   - Fixed the issue where the position of the drop-down menu in Pagination did not change due to position changes [2307](https://github.com/DouyinFE/semi-design/pull/2307)
   - Fixed ths issue that align not work when Table is virtualized [@icwoker](https://github.com/icwoker) [#2300](https://github.com/DouyinFE/semi-design/pull/2300)
   - Fixed the issue that the tooltip cannot be triggered when the selected item in the trigger wants to display the tooltip (for example, the label is ReactNode and there is a tooltip, or renderSelectedItem is used to customize the rendering of the selected item, which has a tooltip) in the single-select, searchable, search box in the trigger TreeSelect [#2291](https://github.com/DouyinFE/semi-design/issues/2291) [#2292](https://github.com/DouyinFE/semi-design/pull/2292)
