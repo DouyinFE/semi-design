@@ -15,6 +15,25 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.61.0-beta.0 (2024-06-18)
+- 【Feat】
+  - Breadcrumb supports controlling the current highlighted navigation item through activeIndex [#2301](https://github.com/DouyinFE/semi-design/pull/2301)
+  - Select supports searchPosition configuration [#2298](https://github.com/DouyinFE/semi-design/pull/2298)
+  - Form component formApi adds scrollToError to support manual scrolling to the validation error [#2294](https://github.com/DouyinFE/semi-design/pull/2294)
+  - Tree, TreeSelect add autoMergeValue API [@LuyangFE](https://github.com/LuyangFE) [#2233](https://github.com/DouyinFE/semi-design/pull/2233)
+  - Tabs adds arrowPosition to set the rendering position of the arrow switch in scroll collapse mode [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+  - Tabs adds renderArrow to customize the rendering of the arrow left and right switch in scroll collapse mode [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+  - Tabs adds visibleTabsStyle to set the scroll area style [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+  - Tabs adds onVisibleTabsChange to get unhidden items when tabs overflow [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+  - Tabs adds showRestInDropdown is used to control the visibility of the collapsible Tabs Dropdown panel [#2289](https://github.com/DouyinFE/semi-design/pull/2289)
+  - OverflowList adds onVisibleStateChange in scroll mode to get non-hidden items when overflowing [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+  - Avatar size supports passing in legal width attribute values ​​such as "10px" [#2290](https://github.com/DouyinFE/semi-design/pull/2290)
+- 【Fix】
+  - Fixed the issue where the position of the drop-down menu in Pagination did not change due to position changes [2307](https://github.com/DouyinFE/semi-design/pull/2307)
+  - Fixed ths issue that align not work when Table is virtualized [@icwoker](https://github.com/icwoker) [#2300](https://github.com/DouyinFE/semi-design/pull/2300)
+  - Fixed the issue that the tooltip cannot be triggered when the selected item in the trigger wants to display the tooltip (for example, the label is ReactNode and there is a tooltip, or renderSelectedItem is used to customize the rendering of the selected item, which has a tooltip) in the single-select, searchable, search box in the trigger TreeSelect [#2291](https://github.com/DouyinFE/semi-design/issues/2291) [#2292](https://github.com/DouyinFE/semi-design/pull/2292)
+
 #### 🎉 2.60.0 (2024-06-07)
 - 【Docs】
     - update filter API defination In Tranfer
