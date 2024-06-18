@@ -5,6 +5,7 @@ import MarkdownRender from '../../markdownRender';
 import { cssClasses, MESSAGE_STATUS } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
 import Attachment from '..//attachment';
+import { default as code } from './code';
 
 const { PREFIX_CHAT_BOX } = cssClasses;
 
@@ -36,7 +37,10 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
             return (<>
                 <MarkdownRender
                     raw={content}
-                    components={customMarkDownComponents}
+                    components={{
+                        'code': code,
+                        ...customMarkDownComponents
+                    } as any}
                 />
                 {attachment?.length ? <Attachment showClear={false} attachment={attachment} className={`${PREFIX_CHAT_BOX}-content-attachment`}/> : null}
             </>);

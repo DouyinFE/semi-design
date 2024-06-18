@@ -4,6 +4,8 @@ $radius-chat_inputBox_container: 16px; // 输入框容器圆角
 $radius-chat_attachment_img: 5px; // 附件图片圆角
 $radius-chat_attachment_file: 5px; // 附件文件圆角
 $radius-chat_hint_item: 12px; // 提示条圆角
+$radius-chat_chatBox_content_code: 10px; // 代码块圆角
+$radius-chat_chatBox_content_code_topSlot_copy: 10px; // 代码块顶部复制按钮圆角
 
 //color
 $color-chat_backBottom_icon: var(--semi-color-primary); // 返回按钮图标颜色
@@ -36,6 +38,10 @@ $color-chat_hint_content_text: var(--semi-color-text-1); // 提示条文字颜�
 $color-chat_hint_icon: var(--semi-color-text-2); // 提示条图标颜色
 $color-chat_chatBox_loading-bg: var(--semi-color-text-0); // 聊天内容加载图标圆圈颜色
 $color-chat_action_stop: var(--semi-color-text-1); // 停止生成按钮内容颜色
+$color-chat_chatBox_code_topSlot: rgba(var(--semi-white), 1);  // 代码块顶部字体颜
+$color-chat_chatBox_code_topSlot-bg: rgba(var(--semi-grey-4), 1); //代码块顶部背景色
+$color-chat_chatBox_code_topSlot_toCopy-bg-hover: rgba(var(--semi-grey-5), 1); // 代码块顶部复制按钮hover背景色
+$color-chat_chatBox_code_content: var(--semi-color-bg-0); // 代码块内容背景色
 
 // spacing
 $spacing-chat-marginY: 8px; // 最外层垂直外边距
@@ -70,6 +76,12 @@ $spacing-chat_attachment_file-padding: 5px;  // 附件文件内边距
 $spacing-chat_chatBox_loading_item-gap: 15px; // 聊天内容加载图标间距 
 $spacing-chat_divider-marginY: 12px; // 分割线上下外边距
 $spacing-chat_chatBox_content_attachment-marginTop: 8px; // 聊天框内容附件上下外间距
+$spacing-chat_chatBox_content_code-marginX: 8px; // 聊天框代码块上下外边距
+$spacing-chat_chatBox_content_code-marginY: 8px; // 聊天框代码块上下外边距
+$spacing-chat_chatBox_content_code_topSlot-paddingX: 5px; // 聊天框代码块顶部上下内边距
+$spacing-chat_chatBox_content_code_topSlot-paddingY: 8px; // 聊天框代码块顶部左右内边距
+$spacing-chat_chatBox_content_code_topSlot_copy-columnGap: 5px; // 聊天框代码块顶部复制按钮列间距: 
+$spacing-chat_chatBox_content_code_topSlot_copy-padding: 5px; // 聊天框代码块顶部复制按钮列间距: 
 
 $spacing-chat_hint-rowGap: 10px; // 提示条行间距
 $spacing-chat_hint-marginY: 8px; // 提示条顶部外边距
@@ -104,3 +116,5 @@ $font-chat_attachment_file_title-fontSize: $font-size-header-6; // 附件文件�
 $font-chat_attachment_file_metadata-fontSize: $font-size-regular; // 附件文件元数据字体大小
 $font-chat_hint_content-fontSize: $font-size-regular; // 提示条文字大小
 $font-chat_hint_icon: 20px; // 提示条图标大小
+$font-chat_chatBox_code_topSlot: 12px; // 代码块顶部字体大小
+$font-chat_chatBox_code_topSlot-lineHeight: 16px; //代码块顶部行高

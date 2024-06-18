@@ -179,6 +179,8 @@ const local: Locale = {
         clearContext: 'De context is gewist',
         copySuccess: 'Succesvol gekopieerd',
         stop: 'Stoppen',
+        copy: 'Kopiëren',
+        copied: 'Gekopieerd',
     },
 };
 

@@ -172,6 +172,8 @@ const local: Locale = {
         clearContext: 'Bağlam temizlendi',
         copySuccess: 'Başarıyla kopyalandı',
         stop: 'Durmak',
+        copy: 'Kopyala',
+        copied: 'Kopyalama başarılı',
     },
 };
 

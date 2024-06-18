@@ -172,6 +172,8 @@ const local: Locale = {
         clearContext: 'Konteks telah dibersihkan',
         copySuccess: 'Berjaya disalin',
         stop: 'Berhenti',
+        copy: 'Samin',
+        copied: 'Disalin',
     },
 };
 
