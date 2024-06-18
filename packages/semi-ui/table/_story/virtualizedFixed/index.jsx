@@ -15,6 +15,7 @@ const Demo = () => {
             width: 250,
             fixed: 'left',
             key: 'en_name',
+            align: 'right',
             render: (text, record, index, { expandIcon: realExpandIcon }) => {
                 return (
                     <>
