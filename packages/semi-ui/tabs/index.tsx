@@ -54,6 +54,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+        arrowPosition: PropTypes.string,
+        renderArrow: PropTypes.func,
     };
     static __SemiComponentName__ = "Tabs";
     static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
@@ -68,7 +70,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPosition: 'top',
         type: 'line',
         onTabClose: () => undefined,
-        showRestInDropdown: true
+        showRestInDropdown: true,
+        arrowPosition: "both",
     });
 
     contentRef: RefObject<HTMLDivElement>;
@@ -258,6 +261,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPosition,
             type,
             more,
+            onVisibleTabsChange,
+            visibleTabsStyle,
+            arrowPosition,
+            renderArrow,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -286,6 +293,10 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             deleteTabItem: this.deleteTabItem,
             handleKeyDown: this.foundation.handleKeyDown,
             more,
+            onVisibleTabsChange,
+            visibleTabsStyle,
+            arrowPosition,
+            renderArrow
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

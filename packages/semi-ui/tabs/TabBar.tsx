@@ -18,7 +18,8 @@ export interface TabBarState {
     endInd: number;
     rePosKey: number;
     startInd: number;
-    uuid: string
+    uuid: string;
+    currentVisibleItems: string[]
 }
 
 export interface OverflowItem extends PlainTab {
@@ -50,6 +51,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
             uuid: '',
+            currentVisibleItems: []
         };
     }
 
@@ -106,11 +108,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem, handleKeyDown, tabPosition } = this.props;
         const isSelected = this._isActive(panel.itemKey);
-
         return (
             <TabItem
                 {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
-                key={this._getItemKey(panel.itemKey)}
+                key={this._getBarItemKeyByItemKey(panel.itemKey)}
                 selected={isSelected}
                 size={size}
                 type={type}
@@ -128,7 +129,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     }
 
     scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
-        const key = this._getItemKey(this.props.activeKey);
+        const key = this._getBarItemKeyByItemKey(this.props.activeKey);
         this.scrollTabItemIntoViewByKey(key, logicalPosition);
     }
 
@@ -139,7 +140,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (!lastItem) {
             return;
         }
-        const key = this._getItemKey(lastItem.itemKey);
+        const key = this._getBarItemKeyByItemKey(lastItem.itemKey);
         this.scrollTabItemIntoViewByKey(key);
     };
 
@@ -218,9 +219,12 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
-    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
-        const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
-        const pos = ind === 0 ? 'start' : 'end';
+    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, index) => {
+        const pos = index === 0 ? 'start' : 'end';
+        if (this.props.renderArrow) {
+            return this.props.renderArrow(item, pos, ()=>this.handleArrowClick(item, pos));
+        }
+        const icon = index === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
         return this.renderCollapse(item, icon, pos);
     });
 
@@ -229,16 +233,26 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const { list } = this.props;
         const renderedList = list.map(item => {
             const { itemKey } = item;
-            return { key: this._getItemKey(itemKey), active: this._isActive(itemKey), ...item };
+            return { key: this._getBarItemKeyByItemKey(itemKey), active: this._isActive(itemKey), ...item };
         });
         return (
             <OverflowList
                 items={renderedList}
+                overflowRenderDirection={this.props.arrowPosition}
+                wrapperStyle={this.props.visibleTabsStyle}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"
                 className={`${cssClasses.TABS_BAR}-overflow-list`}
                 visibleItemRenderer={this.renderTabItem as any}
+                onVisibleStateChange={(visibleMap)=>{
+                    const visibleMapWithItemKey: Map<string, boolean> = new Map();
+                    visibleMap.forEach((v, k )=>{
+                        visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
+                    });
+                    this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
+                }}
             />
+
         );
     };
 
@@ -322,7 +336,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     private _isActive = (key: string): boolean => key === this.props.activeKey;
 
-    private _getItemKey = (key: string): string => `${key}-bar`;
+    private _getBarItemKeyByItemKey = (key: string): string => `${key}-bar`;
+    private _getItemKeyByBarItemKey = (key: string): string => key.replace(/-bar$/, "");
 }
 
 export default TabBar;
