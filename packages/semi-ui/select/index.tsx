@@ -752,17 +752,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     ref={this.dropdownInputRef}
                     prefix={<IconSearch></IconSearch>}
                     aria-activedescendant={focusIndex !== -1 ? `${this.selectID}-option-${focusIndex}` : ''}
-                    // onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-                    //     // if multiple and filter, when use tab key to let select get focus
-                    //     // need to manual update state isFocus to let the focus style take effect
-                    //     if (multiple && Boolean(filter)) {
-                    //         this.setState({ isFocus: true });
-                    //     }
-                    //     // prevent event bubbling which will fire trigger onFocus event
-                    //     e.stopPropagation();
-                    //     // e.nativeEvent.stopImmediatePropagation();
-                    // }}
-                    // onBlur={e => this.foundation.handleInputBlur(e)}
                     {...selectInputProps}
                 />
             </div>
