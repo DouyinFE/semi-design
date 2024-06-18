@@ -239,7 +239,6 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 | items | 渲染项目，**要求必含 key 项** | Record<string, any>[]                                                                                                              | - | 1.1.0 |
 | onIntersect | 溢出回调 | ({[key: string]: [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)}) => void | - | 1.1.0 |
 | overflowRenderer | 溢出项的自定义渲染函数 | (overflowItems: Record<string, any>[]) => React.ReactNode[]                                                                        | - | 1.1.0 |
-| overflowRenderDirection | 溢出项整体渲染位置 | "both" "start" 'end' | "both" | 2.61.0 |
 | threshold | 触发溢出回调的阈值 | number                                                                                                                             | 0.75 | 1.1.0 |
 | visibleItemRenderer | 展示项的自定义渲染函数 | (item: Record<string, any>, index: number) => React.ReactElement                                                                   | - | 1.1.0 |
 | wrapperClassName | 滚动 wrapper 的类名 | string                                                                                                                             | - | 1.1.0 |

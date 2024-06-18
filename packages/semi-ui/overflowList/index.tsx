@@ -36,7 +36,7 @@ export interface OverflowListProps {
     wrapperStyle?: CSSProperties;
     itemKey?: Key | ((item: OverflowItem) => Key);
     onVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
-    overflowRenderDirection?: "both"|"start"|'end'
+    overflowRenderDirection?: "both"|"start"|'end' // used in tabs, not exposed to user
 }
 
 export interface OverflowListState {

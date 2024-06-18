@@ -53,6 +53,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+        arrowRenderPosition: PropTypes.string,
+        renderArrow: PropTypes.func,
     };
     static __SemiComponentName__ = "Tabs";
     static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
@@ -66,6 +68,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
+        arrowRenderPosition: "both",
         onTabClose: () => undefined
     });
 
@@ -257,8 +260,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             more,
             overflowVisibleStateChange,
             collapsibleWrapperStyle,
-            overflowItemRenderPosition,
-            renderOverflowItem,
+            arrowRenderPosition,
+            renderArrow,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -288,8 +291,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             more,
             overflowVisibleStateChange,
             collapsibleWrapperStyle,
-            overflowItemRenderPosition,
-            renderOverflowItem
+            arrowRenderPosition,
+            renderArrow
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

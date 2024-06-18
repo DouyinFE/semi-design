@@ -43,8 +43,8 @@ export interface TabsProps {
     more?: number | { count: number; render?: () => ReactNode; dropdownProps?: DropdownProps };
     overflowVisibleStateChange?: TabBarProps["overflowVisibleStateChange"];
     collapsibleWrapperStyle?: TabBarProps['collapsibleWrapperStyle'];
-    overflowItemRenderPosition?: TabBarProps['overflowItemRenderPosition'];
-    renderOverflowItem?: TabBarProps['renderOverflowItem']
+    arrowRenderPosition?: TabBarProps['arrowRenderPosition'];
+    renderArrow?: TabBarProps['renderArrow']
 }
 
 export interface TabBarProps {
@@ -66,8 +66,8 @@ export interface TabBarProps {
     more?: TabsProps['more'];
     overflowVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
     collapsibleWrapperStyle?: CSSProperties;
-    overflowItemRenderPosition?: OverflowListProps['overflowRenderDirection'];
-    renderOverflowItem?: (items: OverflowItem[], pos: "start"|"end") => ReactNode
+    arrowRenderPosition?: OverflowListProps['overflowRenderDirection'];
+    renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void) => ReactNode
 
 }
 

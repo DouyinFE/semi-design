@@ -212,8 +212,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, index) => {
         const pos = index === 0 ? 'start' : 'end';
-        if (this.props.renderOverflowItem) {
-            return this.props.renderOverflowItem(item, pos);
+        if (this.props.renderArrow) {
+            return this.props.renderArrow(item, pos, ()=>this.handleArrowClick(item, pos));
         }
         const icon = index === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
         return this.renderCollapse(item, icon, pos);
@@ -229,7 +229,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         return (
             <OverflowList
                 items={renderedList}
-                overflowRenderDirection={this.props.overflowItemRenderPosition}
+                overflowRenderDirection={this.props.arrowRenderPosition}
                 wrapperStyle={this.props.collapsibleWrapperStyle}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"

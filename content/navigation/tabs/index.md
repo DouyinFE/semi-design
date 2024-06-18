@@ -405,27 +405,28 @@ class App extends React.Component {
 
 **修改滚动渲染溢出项指示器**
 
-`renderOverflowItem` 修改溢出项指示器，入参为溢出的 items 和 位置
+通过 renderArrow 修改滚动折叠模式下，左右切换箭头的渲染，入参为溢出的 items 和 位置
 
 ```jsx live=true dir="column"
 import React from 'react';
 import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 ()=>{
-    const [activeKey,setActiveKey] = useState("item-1")
-    return  <Tabs style={{ width: '50%', margin: '20px' }} activeKey={activeKey}  type="card" collapsible renderOverflowItem={(items,pos)=>{
-      return <Dropdown render={
-        <Dropdown.Menu>
-          {items.map(item=>{
-            return  <Dropdown.Item onClick={()=>setActiveKey(item.itemKey)}>{item.itemKey}</Dropdown.Item>
-          })}
-        </Dropdown.Menu>
+    const [activeKey,setActiveKey] = useState("Tab-0")
+    const renderArrow = (items,pos,handleArrowClick)=>{
+        const style = {width:32,height:32,display:"flex",justifyContent:'center',alignItems:'center',borderRadius:"100%",background:"#d7d7d7",color:"black",cursor:"pointer"}
+        return <Dropdown render={
+                    <Dropdown.Menu>
+                        {items.map(item=>{
+                            return  <Dropdown.Item onClick={()=>setActiveKey(item.itemKey)}>{item.itemKey}</Dropdown.Item>
+                        })}
+                    </Dropdown.Menu>
       }>
-        <Button>
-          {pos}
-        </Button>
+        {pos==="start" ? <div style={style} onClick={handleArrowClick}>←</div>:<div style={style} onClick={handleArrowClick}>→</div>}
       </Dropdown>
-    }}>
+    }
+  
+    return  <Tabs renderArrow={renderArrow} style={{ width: '50%', margin: '20px' }} activeKey={activeKey}  type="card" collapsible onChange={k=>setActiveKey(k)}>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
               <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
                 Content of card tab {i}
@@ -439,9 +440,9 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 
 
-**修改溢出项指示器渲染位置**
+**修改切换箭头的渲染位置**
 
-通过 `overflowItemRenderPosition` 来修改溢出指示器的位置，可选 left both right
+通过 `arrowRenderPosition` 来修改溢出指示器的位置，可选 start both end
 
 ```jsx live=true dir=column
 import React from 'react';
@@ -450,13 +451,29 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 class App extends React.Component {
     render() {
         return (
-            <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible overflowItemRenderPosition={"end"} >
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
-                    <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
-                        Content of card tab {i}
-                    </TabPane>
-                ))}
-            </Tabs>
+            <>
+                <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"start"} >
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                            Content of card tab {i}
+                        </TabPane>
+                    ))}
+                </Tabs>
+                <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"both"} >
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                            <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                              Content of card tab {i}
+                            </TabPane>
+                    ))}
+                </Tabs>
+                <Tabs style={{ width: '60%', margin: '20px' }} type="card" collapsible arrowRenderPosition={"end"} >
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+                            <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                              Content of card tab {i}
+                            </TabPane>
+                    ))}
+                  </Tabs>
+              </>
         );
     }
 }
@@ -678,7 +695,7 @@ keepDOM | 使用 TabPane 写法时是否渲染隐藏面板的 DOM 结构，**>=1
 lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中, **>=1.0.0**                              | boolean                                                                   | false |
 more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0**                                  | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | -    |                                                              
 renderTabBar | 用于二次封装标签栏                                                         | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode    | 无    |
-renderOverflowItem | 自定义溢出项指示器在外部如何渲染，默认为箭头按钮 hover 时展开溢出项                **>=2.61.0** | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | 无    
+renderArrow | 自定义溢出项指示器在外部如何渲染，默认为箭头按钮 hover 时展开溢出项                **>=2.61.0** | (items: OverflowItem[],pos:"start"\|"end")=> ReactNode                    | 无    
 preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                            | boolean                                                                   |      |  |
 size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs**     | string                                                                    | `large` |
 style | 样式对象                                                              | CSSProperties                                                             | 无    |
@@ -690,7 +707,7 @@ type | 标签栏的样式，可选`line`、 `card`、 `button`                  
 onChange | 切换 tab 页时的回调函数                                                    | function(activeKey: string)                                               | 无    |
 onTabClick | 单击事件                                                              | function(key: string, e: Event)                                           | 无    |
 onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0**                                        | function(tabKey: string)                                                  | 无    
-overflowItemRenderPosition| 溢出项指示器渲染位置 **>=2.61.0**                                           | "start" "end" "both"                                                      | 无    
+arrowRenderPosition| 溢出项指示器渲染位置 **>=2.61.0**                                           | "start" "end" "both"                                                      | 无    
 overflowVisibleStateChange| 溢出项切换变化回调                                                         | (visibleState:Record\<string,bool\>)=>void                                | 无
 
 ### TabPane
