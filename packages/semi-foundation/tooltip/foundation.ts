@@ -313,6 +313,16 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     show = () => {
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
+
+        /**
+         * If you emit an event in setState callback, you need to place the event listener function before setState to execute.
+         * This is to avoid event registration being executed later than setState callback when setState is executed in setTimeout.
+         * internal-issues:1402#note_38969412
+         */
+        this._adapter.on('portalInserted', () => {
+            this.calcPosition();
+        });
+
         if (trigger==="hover") {
             const checkTriggerIsHover = () => {
                 const triggerDOM = this._adapter.getTriggerDOM();
@@ -334,14 +344,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
         this.clearDelayTimer();
 
-        /**
-         * If you emit an event in setState callback, you need to place the event listener function before setState to execute.
-         * This is to avoid event registration being executed later than setState callback when setState is executed in setTimeout.
-         * internal-issues:1402#note_38969412
-         */
-        this._adapter.on('portalInserted', () => {
-            this.calcPosition();
-        });
+
 
         this._adapter.on('positionUpdated', () => {
             this._togglePortalVisible(true);
