@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring, max-lines-per-function, react/no-find-dom-node, max-len, @typescript-eslint/no-empty-function */
-import React, { isValidElement, cloneElement, CSSProperties } from 'react';
+import React, { isValidElement, cloneElement, CSSProperties, ReactInstance } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -449,6 +449,13 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             setId: () => {
                 this.setState({ id: getUuidShort() });
+            },
+            getTriggerDOM: ()=> {
+                if (this.triggerEl.current) {
+                    return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
+                } else {
+                    return null;
+                }
             }
         };
     }
