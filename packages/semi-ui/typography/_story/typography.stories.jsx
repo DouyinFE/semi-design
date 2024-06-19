@@ -907,3 +907,15 @@ export const InheritSize = () => {
     </Text>
   )
 }
+
+export const SizeAffectIcon = () => {
+  // 增加用例，观察 size 设置对 icon 大小的影响
+  return (
+      <>
+          <Text size="normal"  icon={<IconLink />} underline>带下划线的网页链接</Text> 
+          <br />   
+          <br />     
+          <Text size="small"  icon={<IconLink />} underline>带下划线的网页链接</Text>
+      </>
+  )
+}

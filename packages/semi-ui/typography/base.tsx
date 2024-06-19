@@ -626,7 +626,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const iconSize: Size = realSize === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
-                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { realSize: iconSize }) : icon}
+                {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
             </span>
         );
     }
