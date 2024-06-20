@@ -9,7 +9,7 @@ brief: Semi Web Components adaptation
 
 [Web components]((https://developer.mozilla.org/en-US/docs/Web/API/Web_components)) is a set of techniques for creating reusable custom elements that are compatible across browsers and frameworks , has good encapsulation and reusability, and is widely used in developing browser plug-ins and cross-frame components.
 
-More efficient custom element development can be achieved with the help of component libraries, but the [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM) technology in web component has Style isolation and DOM encapsulation features can cause some problems when using component library components. Most component libraries cannot work properly in the shadow DOM without additional adaptations. Generally speaking, there will be the following problems:
+More efficient custom element development can be achieved with the help of component libraries, but the [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM) technology in web component has <strong>style isolation</strong> and <strong>DOM encapsulation</strong> features can cause some problems when using component library components. Most component libraries cannot work properly in the shadow DOM without additional adaptations. Generally speaking, there will be the following problems:
 
 ## Problems
 

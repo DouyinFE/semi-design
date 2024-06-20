@@ -9,7 +9,7 @@ brief: Semi 适配 web components
 
 [Web components]((https://developer.mozilla.org/en-US/docs/Web/API/Web_components)) 是一套用于创建可重用自定义元素的技术，可实现跨浏览器和框架兼容，具备良好的封装性和可重用性，被广泛应用于开发浏览器插件、跨框架的组件中。
 
-借助组件库可实现更高效的自定义元素开发，但是 web component 中的 [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM) 技术具备的样式隔离和 DOM 封装特性会给组件库组件的使用带来一些问题。大多数组件库如果不做额外适配，都无法正常在 shadow DOM 内正常工作，一般来说会存在以下问题：
+借助组件库可实现更高效的自定义元素开发，但是 web component 中的 [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM) 技术具备的<strong>样式隔离</strong>和 <strong>DOM 封装</strong>特性会给组件库组件的使用带来一些问题。大多数组件库如果不做额外适配，都无法正常在 shadow DOM 内正常工作，一般来说会存在以下问题：
 
 ## 问题
 
