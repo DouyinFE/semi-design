@@ -187,6 +187,7 @@ describe('Select', () => {
         cy.wait(300);
         cy.get('[data-cy=a-1]').should('have.class', 'semi-select-option-selected');
         cy.get('[data-cy=a-2]').click();
+        cy.wait(500);
         cy.get('[data-cy=singleControl]').click();
         cy.wait(300);
         cy.get('[data-cy=a-2]').should('have.class', 'semi-select-option-selected');

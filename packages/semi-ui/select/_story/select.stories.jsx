@@ -3583,8 +3583,8 @@ export const ControledSameLabelInNode = () => {
             setValue(value)
         }}>
         <Select.OptGroup label="Asia">
-            <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1'></Select.Option>
-            <Select.Option value="a-2" label={<div>China</div>} className='a-2' data-cy='a-2'></Select.Option>
+            <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1' key={'a-1'}></Select.Option>
+            <Select.Option value="a-2" label={<div>China</div>} className='a-2' data-cy='a-2' key={'a-2'}></Select.Option>
             <Select.Option value="a-3" label={<div>Korea</div>} className='a-3'></Select.Option>
         </Select.OptGroup>
         <Select.OptGroup label="Europe">
