@@ -4,7 +4,7 @@ title: Web components 适配
 icon: doc-webcomponents
 localeCode: zh-CN
 order: 10
-brief: Best practices for using Semi ui in web components
+brief: Best practices for using Semi UI in web components
 ---
 
 [Web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) 是一套用于创建可重用自定义元素的技术，可实现跨浏览器和框架兼容，具备良好的封装性和可重用性，被广泛应用于开发浏览器插件、跨框架的组件中。
@@ -44,6 +44,8 @@ brief: Best practices for using Semi ui in web components
 </Notice>
 
 ** 1.开启 Semi 插件（>= 2.59.0) **
+
+（字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/docx/PqMwd7lFko6ECTxmmcFcnWIQnmg" target="_blank">插件配置</a>）
 
 webpack 项目：
 ```bash

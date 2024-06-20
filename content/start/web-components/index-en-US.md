@@ -4,7 +4,7 @@ title: Web Components
 icon: doc-webcomponents
 localeCode: en-US
 order: 10
-brief: Semi ui 在 web components 中使用的最佳实践
+brief: Semi UI 在 web components 中使用的最佳实践
 ---
 
 [Web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) is a set of techniques for creating reusable custom elements that are compatible across browsers and frameworks , has good encapsulation and reusability, and is widely used in developing browser plug-ins and cross-frame components.
@@ -43,6 +43,8 @@ In response to the above common problems, Semi UI has been adapted and transform
 </Notice>
 
 ** 1. Enable Semi plugin (>= 2.59.0); **
+
+(For ByteDance users, if you are using the company’s internal engineering solutions, please refer to the Lark documentation for configuration: <a href="https://bytedance.larkoffice.com/docx/PqMwd7lFko6ECTxmmcFcnWIQnmg" target="_blank">Plugin configuration</a>)
 
 For webpack project：
 
