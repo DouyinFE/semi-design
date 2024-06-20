@@ -3568,3 +3568,25 @@ export const UpdateOtherKeyNotInList = () => {
     </>
   );
 };
+
+
+export const ControledSameLabelInNode = () => {
+    const [value, setValue] = useState();
+    return <Select style={{ width: 180 }} 
+        value={value}
+        data-cy="singleControl"
+        onChange={(value) => {
+            setValue(value)
+            console.log('value', value)
+        }}>
+        <Select.OptGroup label="Asia">
+            <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1'></Select.Option>
+            <Select.Option value="a-2" label={<div>China</div>} className='a-2' data-cy='a-2'></Select.Option>
+            <Select.Option value="a-3" label={<div>Korea</div>} className='a-3'></Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label="Europe">
+            <Select.Option value="b-1" label={<div>Germany</div>}></Select.Option>
+            <Select.Option value="b-2" label={<div>France</div>}></Select.Option>
+        </Select.OptGroup>
+    </Select>
+}

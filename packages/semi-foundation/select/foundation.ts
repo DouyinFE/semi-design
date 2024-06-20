@@ -988,18 +988,21 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     }
 
     _diffSelections(selections: Map<any, any>, oldSelections: Map<any, any>, isMultiple: boolean) {
-        let diff = true;
+        let diffLabel = true, diffValue = true;
         if (!isMultiple) {
             const selectionProps = [...selections.values()];
             const oldSelectionProps = [...oldSelections.values()];
+            const optionValue = selectionProps[0] ? selectionProps[0].value : selectionProps[0];
+            const oldOptionValue = oldSelectionProps[0] ? oldSelectionProps[0].value : oldSelectionProps[0];
+            diffValue = !isEqual(optionValue, oldOptionValue);
             const optionLabel = selectionProps[0] ? selectionProps[0].label : selectionProps[0];
             const oldOptionLabel = oldSelectionProps[0] ? oldSelectionProps[0].label : oldSelectionProps[0];
-            diff = !isEqual(optionLabel, oldOptionLabel);
+            diffLabel = !isEqual(optionLabel, oldOptionLabel);
         } else {
             // When multiple selection, there is no scene where the value is different between the two operations
         }
-        return diff;
-    }
+        return diffValue || diffLabel;
+    } 
 
     // When onChangeWithObject is true, the onChange input parameter is not only value, but also label and other parameters
     _notifyChangeWithObject(selections: Map<any, any>) {

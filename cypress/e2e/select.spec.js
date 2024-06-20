@@ -178,6 +178,19 @@ describe('Select', () => {
         cy.get('.render-content').eq(0).should('have.text', 'AA-Label-2-AA-OtherProps-2')
 
     });
+
+    it('Controled mode, same label text in reactNode', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--controled-same-label-in-node');
+        cy.get('[data-cy=singleControl]').click();
+        cy.get('[data-cy=a-1]').click();
+        cy.get('[data-cy=singleControl]').click(); // show optionList again
+        cy.get('[data-cy=a-1]').should('have.class', 'semi-select-option-selected');
+
+        cy.get('[data-cy=singleControl]').click();
+        cy.get('[data-cy=a-2]').click();
+        cy.get('[data-cy=singleControl]').click(); // show optionList again
+        cy.get('[data-cy=a-2]').should('have.class', 'semi-select-option-selected');
+    });
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
