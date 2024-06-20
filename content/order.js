@@ -8,6 +8,7 @@ const order = [
     'overview',
     'faq',
     "tailwind",
+    "web-components",
     'content-guidelines',
     'changelog',
     'update-to-v2',
