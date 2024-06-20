@@ -74,6 +74,7 @@ import ChildDidMount from './Debug/childDidMount';
 
 export { default as FormSubmit } from './FormSubmit';
 export { default as TabelForm } from './TableDemo';
+export { default as RemountInit } from './ArrayField/remountInit'
 
 const {
   Input,
