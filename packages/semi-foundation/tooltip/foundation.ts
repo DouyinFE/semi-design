@@ -314,6 +314,17 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
 
+        const clickTriggerToHide = this.getProp('clickTriggerToHide');
+        const { visible, displayNone } = this.getStates();
+        if (displayNone) {
+            this.setDisplayNone(false);
+        } 
+        if (visible) {
+            return ;
+        }
+
+        this.clearDelayTimer();
+
         /**
          * If you emit an event in setState callback, you need to place the event listener function before setState to execute.
          * This is to avoid event registration being executed later than setState callback when setState is executed in setTimeout.
@@ -333,17 +344,6 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             };
             this._adapter.on('portalInserted', checkTriggerIsHover);
         }
-        const clickTriggerToHide = this.getProp('clickTriggerToHide');
-        const { visible, displayNone } = this.getStates();
-        if (displayNone) {
-            this.setDisplayNone(false);
-        } 
-        if (visible) {
-            return ;
-        }
-
-        this.clearDelayTimer();
-
 
 
         this._adapter.on('positionUpdated', () => {
