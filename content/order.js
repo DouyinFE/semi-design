@@ -19,6 +19,7 @@ const order = [
     'space',
     'typography',
     "markdownrender",
+    "lottie",
     'autocomplete',
     'cascader',
     'checkbox',

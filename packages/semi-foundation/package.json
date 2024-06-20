@@ -7,6 +7,7 @@
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
+        "lottie-web": "^5.12.2",
         "@douyinfe/semi-animation": "2.56.3",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
