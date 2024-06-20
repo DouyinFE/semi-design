@@ -63,7 +63,7 @@ describe('Select', () => {
         cy.get('.semi-select-option').should('have.text', 'Design');
     });
 
-    it('optionGroup without key setting, filter',  () => {
+    it('optionGroup without key setting, filter', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--select-option-group');
         cy.get('#without-key').eq(0).click();
         cy.get('#without-key .semi-input').eq(0).type('dou');
@@ -173,22 +173,22 @@ describe('Select', () => {
         // 2. The current value does not exist in optionList
         // 3. The problem that rendering is not re - executed after updating other attributes in value(such as label, or any other Key)
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--update-other-key-not-in-list');
-        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-AA-OtherProps')
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-AA-OtherProps');
         cy.get('#change').eq(0).click();
-        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-2-AA-OtherProps-2')
-
+        cy.get('.render-content').eq(0).should('have.text', 'AA-Label-2-AA-OtherProps-2');
     });
 
     it('Controled mode, same label text in reactNode', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--controled-same-label-in-node');
         cy.get('[data-cy=singleControl]').click();
         cy.get('[data-cy=a-1]').click();
+        cy.wait(300);
         cy.get('[data-cy=singleControl]').click(); // show optionList again
+        cy.wait(300);
         cy.get('[data-cy=a-1]').should('have.class', 'semi-select-option-selected');
-
-        cy.get('[data-cy=singleControl]').click();
         cy.get('[data-cy=a-2]').click();
-        cy.get('[data-cy=singleControl]').click(); // show optionList again
+        cy.get('[data-cy=singleControl]').click();
+        cy.wait(300);
         cy.get('[data-cy=a-2]').should('have.class', 'semi-select-option-selected');
     });
     // it('ellipsisTrigger', () => {

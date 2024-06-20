@@ -3574,10 +3574,13 @@ export const ControledSameLabelInNode = () => {
     const [value, setValue] = useState();
     return <Select style={{ width: 180 }} 
         value={value}
+        id='test'
+        // motion={false}
         data-cy="singleControl"
         onChange={(value) => {
+            console.log('change');
+            console.log(value)
             setValue(value)
-            console.log('value', value)
         }}>
         <Select.OptGroup label="Asia">
             <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1'></Select.Option>
