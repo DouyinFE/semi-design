@@ -313,16 +313,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     show = () => {
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
-        if (trigger==="hover") {
-            const checkTriggerIsHover = () => {
-                const triggerDOM = this._adapter.getTriggerDOM();
-                if (trigger && !triggerDOM.matches(":hover")) {
-                    this.hide();
-                }
-                this._adapter.off("portalInserted", checkTriggerIsHover);
-            };
-            this._adapter.on('portalInserted', checkTriggerIsHover);
-        }
+
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
         const { visible, displayNone } = this.getStates();
         if (displayNone) {
@@ -342,6 +333,18 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.on('portalInserted', () => {
             this.calcPosition();
         });
+
+        if (trigger==="hover") {
+            const checkTriggerIsHover = () => {
+                const triggerDOM = this._adapter.getTriggerDOM();
+                if (trigger && !triggerDOM.matches(":hover")) {
+                    this.hide();
+                }
+                this._adapter.off("portalInserted", checkTriggerIsHover);
+            };
+            this._adapter.on('portalInserted', checkTriggerIsHover);
+        }
+
 
         this._adapter.on('positionUpdated', () => {
             this._togglePortalVisible(true);

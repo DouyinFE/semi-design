@@ -1618,6 +1618,13 @@
   dependencies:
     classnames "^2.2.6"
 
+"@douyinfe/semi-icons@^2.0.0":
+  version "2.60.1"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.60.1.tgz#944de131585d4747f831cf4864ceb0d41d7d34c9"
+  integrity sha512-f6DxiYKUJaTaNnMFFIweQlKjTt5+m6SGZb09Z/2b9wtfqdulXTYMrmXXeQOzfLvTE4QFZb0CfR9DsCfiH6oyxQ==
+  dependencies:
+    classnames "^2.2.6"
+
 "@douyinfe/semi-illustrations@2.33.1":
   version "2.33.1"
   resolved "https://registry.npmjs.org/@douyinfe/semi-illustrations/-/semi-illustrations-2.33.1.tgz#530ab851f4dc32a52221c4067c778c800b9b55d7"
@@ -11745,6 +11752,11 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     resolve "^2.0.0-next.4"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.8"
+
+eslint-plugin-semi-design@^2.33.0:
+  version "2.60.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.60.1.tgz#f93c328835ba7379dd55e264852d6e67bcde20d0"
+  integrity sha512-7rUY4P7gUkhU7q/xdjMa+yrFPmO1y5yEUG1v+7MPfe4sP6uo8qtf96VrIhCN+OAeHvN6jlgEIpuoRBt4d/gJDA==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
