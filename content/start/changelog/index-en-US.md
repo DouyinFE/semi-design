@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.61.1 (2024-06-24)
+- 【Docs】
+  - Add web components adaptation docs  [#2313](https://github.com/DouyinFE/semi-design/pull/2313)
+
 #### 🎉 2.61.1 (2024-06-19)
 - 【Fix】
     - Fixed the problem in Typography that icon size and size settings are not consistent, affecting version 2.59.0-2.60.1 [#2308](https://github.com/DouyinFE/semi-design/pull/2308)
