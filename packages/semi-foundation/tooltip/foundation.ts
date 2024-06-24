@@ -29,7 +29,7 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     notifyVisibleChange(isVisible: any): void;
     getPopupContainerRect(): PopupContainerDOMRect;
     containerIsBody(): boolean;
-    off(arg0: string): void;
+    off(arg0: string, arg1?: () => void): void;
     canMotion(): boolean;
     registerScrollHandler(arg: () => Record<string, any>): void;
     unregisterScrollHandler(): void;
@@ -66,7 +66,8 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     setInitialFocus(): void;
     notifyEscKeydown(event: any): void;
     getTriggerNode(): any;
-    setId(): void
+    setId(): void;
+    getTriggerDOM(): HTMLElement|null
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
@@ -312,6 +313,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     show = () => {
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
+
         const clickTriggerToHide = this.getProp('clickTriggerToHide');
         const { visible, displayNone } = this.getStates();
         if (displayNone) {
@@ -331,6 +333,18 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         this._adapter.on('portalInserted', () => {
             this.calcPosition();
         });
+
+        if (trigger==="hover") {
+            const checkTriggerIsHover = () => {
+                const triggerDOM = this._adapter.getTriggerDOM();
+                if (trigger && !triggerDOM.matches(":hover")) {
+                    this.hide();
+                }
+                this._adapter.off("portalInserted", checkTriggerIsHover);
+            };
+            this._adapter.on('portalInserted', checkTriggerIsHover);
+        }
+
 
         this._adapter.on('positionUpdated', () => {
             this._togglePortalVisible(true);

@@ -100,4 +100,11 @@ describe('tabs', () => {
         cy.get('.semi-button-disabled').eq(0).should('exist');
         cy.get('.semi-tabs-bar-arrow .semi-button-primary').eq(0).should('exist');
     });
+
+    it('showRestInDropdown', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--show-rest-in-dropdown-demo&args=&viewMode=story');
+
+        cy.get('.semi-button').eq(1).trigger('mouseover');
+        cy.get('.semi-dropdown-content .semi-dropdown-item').should('not.exist');
+    });
 });

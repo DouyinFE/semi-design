@@ -548,4 +548,13 @@ $overflowList: #{$prefix}-overflow-list;
 }
 
 
-    @import './rtl.scss';
+.#{$module}-dropdown-search-wrapper {
+    padding-top: $spacing-select_dropdown_input_paddingTop;
+    padding-right: $spacing-select_dropdown_input_paddingRight;
+    padding-bottom: $spacing-select_dropdown_input_paddingBottom;
+    padding-top: $spacing-select_dropdown_input_paddingTop;
+    padding-left: $spacing-select_dropdown_input_paddingLeft;
+    border-bottom: 1px solid $color-select_dropdown_input-border;
+}
+
+@import './rtl.scss';
