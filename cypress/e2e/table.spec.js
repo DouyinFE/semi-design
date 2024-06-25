@@ -302,4 +302,10 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fixed-on-grouped-row-class-name&viewMode=story');
         cy.get('tbody .semi-table-row-section').eq(0).should('have.class', 'test-group');
     });
+
+    it('test rowSelection onCell and onHeaderCell', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--row-selection-on-cell&viewMode=story');
+        cy.get('.test-th').should('have.attr', 'style').should('contain', 'background: blue');
+        cy.get('.test-td').should('have.attr', 'style').should('contain', 'background: red');
+    });
 });
