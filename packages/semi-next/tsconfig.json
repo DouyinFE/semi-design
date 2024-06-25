@@ -10,7 +10,6 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "declaration": true,
-        "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,

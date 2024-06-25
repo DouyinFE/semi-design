@@ -22,6 +22,7 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
+    getFieldErrorDOM: (field: string) => Node;
     initFormId: () => void
 }
 
@@ -62,6 +63,12 @@ export type FieldPathValue<T, P extends FieldPath<T>> =
           ? T[P]
           : never;
 
+export type ScrollToErrorOptions<K> = {
+    field?: K;
+    index?: number;
+    scrollConfig?: ScrollIntoViewOptions
+}
+
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<T extends object = any> {
     /** get value of field */
@@ -91,7 +98,8 @@ export interface BaseFormApi<T extends object = any> {
     getValues: () => T;
     /** set value of multiple fields */
     setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void
+    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void;
+    scrollToError: <K extends keyof T>(config?: ScrollToErrorOptions<K>) => void
 }
 
 export interface CallOpts {

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 13
+order: 14
 category: 基础 
 title:  Divider 分割线 
 icon: doc-divider 

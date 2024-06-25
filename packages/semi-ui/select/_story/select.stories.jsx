@@ -3592,4 +3592,34 @@ export const ControledSameLabelInNode = () => {
             <Select.Option value="b-2" label={<div>France</div>}></Select.Option>
         </Select.OptGroup>
     </Select>
+
+
+export const SearchPosition = () => {
+  
+  return (<>
+        <Select
+          filter
+          searchPosition='dropdown'
+          onChangeWithObject
+          placeholder={'single searchPosition=dropdown'}
+          optionList={optionList}
+          searchPlaceholder='dropdown input place'
+          showClear
+          autoFocus
+          style={{ width: 320 }}
+        />
+        <Select
+          filter
+          multiple
+          placeholder={'multiple searchPosition=dropdown'}
+          searchPosition='dropdown'
+          onChangeWithObject
+          showClear
+          searchPlaceholder='dropdown input place'
+          autoClearSearchValue={false}
+          optionList={optionList}
+          style={{ width: 320 }}
+        />
+    </>
+  )
 }
