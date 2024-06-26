@@ -92,9 +92,7 @@ class Collapse extends BaseComponent<CollapseReactProps, CollapseState> {
         return state;
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     onChange = (activeKey: string, e: React.MouseEvent) => {
         this.foundation.handleChange(activeKey, e);

@@ -93,9 +93,6 @@ class Switch extends BaseComponent<SwitchProps, SwitchState> {
         }
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     get adapter(): SwitchAdapter<SwitchProps, SwitchState> {
         return {

@@ -148,6 +148,7 @@ export default class Preview extends BaseComponent<PreviewProps, PreviewState> {
             this.previewObserver.disconnect();
             this.previewObserver = null;
         }
+        super.componentWillUnmount();
     }
 
     handleVisibleChange = (newVisible: boolean) => {

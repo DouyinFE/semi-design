@@ -79,6 +79,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         window.removeEventListener("resize", this.onWindowResize);
     }
 

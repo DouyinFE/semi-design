@@ -162,7 +162,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                     headerDom && headerDom.contains(target) ||
                     footerDom && footerDom.contains(target) ||
                     leftIconDom && leftIconDom.contains(target) ||
-                    rightIconDom && rightIconDom.contains(target)  
+                    rightIconDom && rightIconDom.contains(target)
                 ) {
                     // Move in the operation area, return false
                     return false;
@@ -258,6 +258,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         this.foundation.clearTimer();
     }
 
@@ -324,12 +325,12 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
 
     // 为什么通过 addEventListener 注册 wheel 事件而不是使用 onWheel 事件？
     // 因为 Passive Event Listeners（https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#improving_scrolling_performance_with_passive_listeners）
-    // Passive Event Listeners 是一种优化技术，用于提高滚动性能。在默认情况下，浏览器会假设事件的监听器不会调用 
+    // Passive Event Listeners 是一种优化技术，用于提高滚动性能。在默认情况下，浏览器会假设事件的监听器不会调用
     // preventDefault() 方法来阻止事件的默认行为，从而允许进行一些优化操作，例如滚动平滑。
     // 对于 Image 而言，如果使用触控板，双指朝不同方向分开放大图片，则需要  preventDefault 防止页面整体放大。
     // Why register wheel event through addEventListener instead of using onWheel event？
-    // Because of Passive Event Listeners(an optimization technique used to improve scrolling performance. By default, 
-    // the browser will assume that event listeners will not call preventDefault() method to prevent the default behavior of the event, 
+    // Because of Passive Event Listeners(an optimization technique used to improve scrolling performance. By default,
+    // the browser will assume that event listeners will not call preventDefault() method to prevent the default behavior of the event,
     // allowing some optimization operations such as scroll smoothing.)
     // For Image, if we use the trackpad and spread your fingers in different directions to enlarge the image, we need to preventDefault
     // to prevent the page from being enlarged as a whole.
@@ -397,7 +398,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
             visible && <Portal
                 getPopupContainer={getPopupContainer}
                 style={wrapperStyle}
-            >  
+            >
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <div
                     className={previewWrapperCls}

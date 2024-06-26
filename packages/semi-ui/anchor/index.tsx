@@ -262,6 +262,7 @@ class Anchor extends BaseComponent<AnchorProps, AnchorState> {
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         this.scrollContainer.removeEventListener('scroll', this.handler);
         this.scrollContainer.removeEventListener('scroll', this.clickHandler);
     }

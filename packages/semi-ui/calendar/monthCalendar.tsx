@@ -142,9 +142,7 @@ export default class monthCalendar extends BaseComponent<MonthCalendarProps, Mon
         this.foundation.parseMonthlyEvents(itemLimit);
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     componentDidUpdate(prevProps: MonthCalendarProps, prevState: MonthCalendarState) {
         const prevEventKeys = prevState.cachedKeys;

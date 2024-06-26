@@ -123,9 +123,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     renderPopoverMore(restItem: Array<React.ReactNode>) {
         const { separator } = this.props;
