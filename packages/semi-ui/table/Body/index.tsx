@@ -147,15 +147,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         };
 
         this.listRef = React.createRef();
-        const { getVirtualizedListRef, flattenedColumns, getCellWidths } = context;
-        if (getVirtualizedListRef) {
-            if (props.virtualized) {
-                getVirtualizedListRef(this.listRef);
-            } else {
-                console.warn('getVirtualizedListRef only works with virtualized. ' +
-                    'See https://semi.design/en-US/show/table for more information.');
-            }
-        }
+        const { flattenedColumns, getCellWidths } = context;
         this.foundation = new BodyFoundation(this.adapter);
         this.flattenedColumns = flattenedColumns;
         this.cellWidths = getCellWidths(flattenedColumns);
@@ -243,6 +235,19 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             forwardedRef(node);
         } else if (forwardedRef && typeof forwardedRef === 'object') {
             forwardedRef.current = node;
+        }
+    };
+
+    setListRef = (listInstance: List) => {
+        this.listRef.current = listInstance;
+        const { getVirtualizedListRef } = this.context;
+        if (getVirtualizedListRef) {
+            if (this.props.virtualized) {
+                getVirtualizedListRef(this.listRef);
+            } else {
+                console.warn('getVirtualizedListRef only works with virtualized. ' +
+                    'See https://semi.design/en-US/show/table for more information.');
+            }
         }
     };
 
@@ -432,7 +437,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 initialScrollOffset={this.state.cache.virtualizedScrollTop}
                 onScroll={this.handleVirtualizedScroll}
                 onItemsRendered={this.onItemsRendered}
-                ref={this.listRef}
+                ref={this.setListRef}
                 className={wrapCls}
                 outerRef={this.forwardRef}
                 height={virtualizedData?.length ? y : 0}
