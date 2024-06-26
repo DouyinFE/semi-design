@@ -3,7 +3,7 @@ export { default as BaseFoundation } from "@douyinfe/semi-foundation/base/founda
 export { default as BaseComponent } from "./_base/baseComponent";
 export { default as Anchor } from './anchor';
 export { default as AutoComplete } from './autoComplete';
-export { default as Avatar } from './avatar';
+export { default as Avatar } from './avatar'; 
 export { default as AvatarGroup } from './avatar/avatarGroup';
 export { default as BackTop } from './backtop';
 export { default as Badge } from './badge';
@@ -101,6 +101,8 @@ export {
 
 export { default as Image } from './image';
 export { Preview as ImagePreview } from './image';
+
+export { default as PinCode } from "./pincode";
 
 export { default as MarkdownRender } from "./markdownRender";
 export { default as CodeHighlight } from "./codeHighlight";

@@ -84,4 +84,10 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
     getDataAttr(props: any = this.props) {
         return getDataAttr(props);
     }
+
+    setStateAsync = (state: Partial<S>)=>{
+        return new Promise<void>(resolve=>{
+            this.setState(state as any, resolve);
+        });
+    }
 }
