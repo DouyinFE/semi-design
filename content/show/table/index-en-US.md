@@ -5301,7 +5301,6 @@ interface TablePaginationProps extends PaginationProps {
     formatPageText?: FormatPageText;
 }
 
-type VirtualizedMode = 'list' | 'grid';
 type VirtualizedItemSizeFn = (index?: number) => number;
 type VirtualizedOnScrollArgs = {
     scrollDirection?: 'forward' | 'backward';
@@ -5313,7 +5312,6 @@ type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 type Virtualized =
     | boolean
     | {
-          mode?: VirtualizedMode;
           itemSize?: number | VirtualizedItemSizeFn;
           onScroll?: VirtualizedOnScroll;
       };

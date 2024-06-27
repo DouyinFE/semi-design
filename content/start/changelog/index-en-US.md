@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.61.1 (2024-06-24)
+#### 🎉 2.61.0 (2024-06-24)
 - 【Docs】
   - Add web components adaptation docs  [#2313](https://github.com/DouyinFE/semi-design/pull/2313)
 
