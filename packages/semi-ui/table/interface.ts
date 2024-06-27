@@ -321,13 +321,11 @@ export type VirtualizeItemSizeRow = {
     sectionRow?: boolean; 
     expandedRow?: boolean
 };
-export type VirtualizedMode = 'list' | 'grid';
 export type VirtualizedItemSizeFn = (index?: number, row?: VirtualizeItemSizeRow) => number;
 export type VirtualizedItemSize = number | VirtualizedItemSizeFn;
 export type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 export interface VirtualizedProps {
     [x: string]: any;
-    mode?: VirtualizedMode;
     itemSize?: VirtualizedItemSize;
     onScroll?: VirtualizedOnScroll
 }
