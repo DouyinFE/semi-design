@@ -169,6 +169,9 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 }
                 // Move in the preview area except the operation area, return true
                 return true;
+            },
+            changeImageZoom: (...args) => {
+                this.imageRef?.current && this.imageRef.current.foundation.changeZoom(...args)
             }
         };
 
@@ -178,6 +181,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
     foundation: PreviewInnerFoundation;
     imageWrapRef: React.RefObject<HTMLDivElement>;
     headerRef: React.RefObject<HTMLElement>;
+    imageRef: React.RefObject<PreviewImage>;
     footerRef: React.RefObject<HTMLElement>;
     leftIconRef: React.RefObject<HTMLDivElement>;
     rightIconRef: React.RefObject<HTMLDivElement>;
@@ -201,6 +205,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
         this.originBodyWidth = '100%';
         this.scrollBarWidth = 0;
         this.imageWrapRef = null;
+        this.imageRef = React.createRef<PreviewImage>();
         this.headerRef = React.createRef<HTMLElement>();
         this.footerRef= React.createRef<HTMLElement>();
         this.leftIconRef= React.createRef<HTMLDivElement>();
@@ -409,6 +414,7 @@ export default class PreviewInner extends BaseComponent<PreviewInnerProps, Previ
                 >
                     <Header ref={this.headerRef} className={cls(hideViewerCls)} onClose={this.handlePreviewClose} renderHeader={renderHeader} closable={closable}/>
                     <PreviewImage
+                        ref={this.imageRef}
                         src={imgSrc[currentIndex]}
                         onZoom={this.handleZoomImage}
                         disableDownload={disableDownload}

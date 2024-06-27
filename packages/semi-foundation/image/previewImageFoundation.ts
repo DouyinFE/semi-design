@@ -120,7 +120,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
                 );
             }
             if (currZoom === _zoom) {
-                this.calculatePreviewImage(_zoom, null);
+                this.changeZoom(_zoom);
             } else {
                 onZoom(_zoom, notify);
             }
@@ -162,10 +162,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
-    calcCanDragDirection = (): DragDirection => {
-        const { width, height } = this.getStates();
-        const { rotation } = this.getProps();
-        const { width: containerWidth, height: containerHeight } =this._getContainerBounds();
+    getCanDragDirection = (width: number, height: number): DragDirection => {
+        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
         let canDragHorizontal = width > containerWidth;
         let canDragVertical = height > containerHeight;
         if (this._isImageVertical()) {
@@ -178,52 +176,38 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    calculatePreviewImage = (newZoom: number, e: any): void => {
+    changeZoom = (newZoom: number, e?: WheelEvent): void => {
         const imageDOM = this._adapter.getImage();
-        const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
-        const canDrag = canDragVertical || canDragHorizontal;
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+        const { currZoom, left, top } = this.getStates();
+        const changeScale = newZoom / (currZoom || 1);
         const newWidth = Math.floor(this.originImageWidth * newZoom);
         const newHeight = Math.floor(this.originImageHeight * newZoom);
+        let newLeft = Math.floor(left * changeScale);
+        let newTop = Math.floor(top * changeScale);
 
-        // debugger;
-        let _offset;
-        const horizontal = !this._isImageVertical();
-        let newTop = 0;
-        let newLeft = 0;
-        if (horizontal) {
-            _offset = {
-                x: 0.5 * (containerWidth - newWidth),
-                y: 0.5 * (containerHeight - newHeight),
-            };
-           
-            newLeft = _offset.x;
-            newTop= _offset.y;
-        } else {
-            _offset = {
-                x: 0.5 * (containerWidth - newHeight),
-                y: 0.5 * (containerHeight - newWidth),
-            };
-            newLeft = _offset.x - (newWidth - newHeight) / 2;
-            newTop = _offset.y + (newWidth - newHeight) / 2;
+
+        if (e && imageDOM && e.target === imageDOM) {
+            newLeft = e.clientX - Math.floor(e.offsetX * changeScale);
+            newTop = e.clientY - Math.floor(e.offsetY * changeScale);
         }
-        
+
+        const position = this.getSafePosition(newWidth, newHeight, newLeft, newTop);
+
         this.setState({
+            ...position,
             width: newWidth,
             height: newHeight,
-            offset: _offset,
-            left: newLeft,
-            top: newTop,
             currZoom: newZoom,
         } as any);
         if (imageDOM) {
+            const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(newWidth, newHeight);
+            const canDrag = canDragVertical || canDragHorizontal;
+
             this._adapter.setImageCursor(canDrag);
         }
     };
 
-    calcExtremeBounds = (): ExtremeBounds => {
-        const { width, height } = this.getStates(); 
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+    getExtremeBounds = (width: number, height: number, containerWidth: number, containerHeight: number): ExtremeBounds => {
         let extremeLeft = containerWidth - width;
         let extremeTop = containerHeight - height;
         if (this._isImageVertical()) {
@@ -236,32 +220,50 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    handleMoveImage = (e: any): void => {
+    getSafePosition = (width: number, height: number, left: number, top: number) => {
+        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+        const { left: extremeLeft, top: extremeTop } = this.getExtremeBounds(width, height, containerWidth, containerHeight);
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
+
+        let newLeft = extremeLeft / 2,
+            newTop = extremeTop / 2;
+
+        if (canDragHorizontal) {
+            newLeft = left > 0 ? 0 : left < extremeLeft ? extremeLeft : left;
+        }
+
+        if (canDragVertical) {
+            newTop = top > 0 ? 0 : top < extremeTop ? extremeTop : top;
+        }
+
+        const _offset = {
+            x: newLeft,
+            y: newTop,
+        };
+
+        const isImageVertical = this._isImageVertical();
+
+        return {
+            offset: _offset,
+            left: isImageVertical ? _offset.x - (width - height) / 2 : _offset.x,
+            top: isImageVertical ? _offset.y + (width - height) / 2 : _offset.y,
+        };
+    }
+
+    handleImageMove = (e: any): void => {
         const { offset, width, height } = this.getStates();
-        const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
         const mouseLeftPress = e.buttons === 1;
         if (mouseLeftPress && (canDragVertical || canDragHorizontal)) {
             const { clientX, clientY } = e;
             const { left: containerLeft, top: containerTop } = this._getContainerBounds();
-            const { left: extremeLeft, top: extremeTop } = this.calcExtremeBounds();
             let newX = canDragHorizontal ? clientX - containerLeft - this.startMouseOffset.x : offset.x;
             let newY = canDragVertical ? clientY - containerTop - this.startMouseOffset.y : offset.y;
-            if (canDragHorizontal) {
-                newX = newX > 0 ? 0 : newX < extremeLeft ? extremeLeft : newX;
-            }
-            if (canDragVertical) {
-                newY = newY > 0 ? 0 : newY < extremeTop ? extremeTop : newY;
-            }
-            const _offset = {
-                x: newX,
-                y: newY,
-            };
-            this.setState({
-                offset: _offset,
-                left: this._isImageVertical() ? _offset.x - (width - height) / 2 : _offset.x,
-                top: this._isImageVertical() ? _offset.y + (width - height) / 2 : _offset.y,
-            } as any);
+            
+            const position = this.getSafePosition(width, height, newX, newY);
+
+            this.setState(position as any);
         }
     };
 
