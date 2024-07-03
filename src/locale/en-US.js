@@ -102,6 +102,8 @@ const appLocale = {
         "feature_live_code_description": "LiveCode allows you to instantly demonstrate your UI components using an online code editor",
         "feature_test": "Stable quality assurance",
         "feature_test_description": "Semi uses a variety of methods such as unit testing to ensure the stability and quality of components, and the code coverage rate reaches 90%",
+        "adapter_webComponents": "Easily compatible with web components",
+        "adapter_webComponents_description": "Provides a complete adaptation solution. All components can work normally in shadow DOM, which is more suitable for building SDKs, browser plugins and other scenarios that require DOM isolation.",
         "feature_SSR": "SSR support",
         "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js、Gatsby、Remix",
         "feature_D2C": "Design to code",

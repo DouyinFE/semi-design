@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 25
+order: 26
 category: Input
 title:  Form
 subTitle: Form
@@ -2123,7 +2123,8 @@ The table below describes the features available in the formApi.
 | setError      | Modify the error information of a field                                                                                                                                                                                                                                                                                            | formApi.setError(field: string, fieldErrorMessage: string)                                                                    |
 | getError      | Get Error Status of Field                                                                                                                                                                                                                                                                                                          | formApi.getError(field: string)                                                                                               |
 | getFieldExist | Get whether the field exists in the Form                                                                                                                                                                                                                                                                                           | formApi.getFieldExist(field: string)                                                                                          |
-| scrollToField | Scroll to field                                                                                                                                                                                                                                                                                                                    | formApi.scrollToField(field: string, scrollOpts: [object](<(https://github.com/stipsan/scroll-into-view-if-needed#options)>)) |
+| scrollToField | Scroll to the specified field, the second input parameter will be passed to scroll-into-view-if-needed | formApi.scrollToField(field: string, scrollOpts: [ScrollIntoViewOptions](https://github.com/stipsan/scroll-into-view-if-needed#options))                                                            |
+| scrollToError | Scroll to the field with validation error. You can pass a specified field or index. If you pass index, scroll to the index-th error DOM. If you do not pass any parameters, scroll to the first validation error position in the DOM tree. Available after v2.61.0  | formApi.scrollToError(<ApiType detail='{field?: string; index?: number; scrollOpts?: ScrollIntoViewOptions }'>ScrollToErrorOptions</ApiType>) 
 
 ### How to access formApi
 

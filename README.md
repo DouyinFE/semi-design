@@ -60,6 +60,7 @@ English | [简体中文](./README-zh_CN.md)
 - ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing.
 - 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute
 - 🥳 SSR (Server Side Rendering) Compatible. 
+- 📦 Easily compatible with web components, providing a complete adaptation solution, more suitable for building SDKs, browser plugins and other scenarios that require DOM isolation.
 
 # 🔥 Install
 

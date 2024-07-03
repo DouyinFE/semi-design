@@ -457,6 +457,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             setId: () => {
                 this.setState({ id: getUuidShort() });
+            },
+            getTriggerDOM: ()=>{
+                if (this.triggerEl.current) {
+                    return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
+                } else {
+                    return null;
+                }
+
             }
         };
     }
