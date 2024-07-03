@@ -3592,7 +3592,7 @@ export const ControledSameLabelInNode = () => {
             <Select.Option value="b-2" label={<div>France</div>}></Select.Option>
         </Select.OptGroup>
     </Select>
-
+}
 
 export const SearchPosition = () => {
   
