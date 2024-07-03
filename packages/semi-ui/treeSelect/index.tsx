@@ -815,7 +815,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} style={style}>
+            <div className={popoverCls} style={style} onKeyDown={this.foundation.handleKeyDown}>
                 {this.renderTree()}
             </div>
         );
@@ -1166,6 +1166,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 ref={this.triggerRef}
                 onClick={this.handleClick}
                 onKeyPress={this.handleSelectionEnterPress}
+                onKeyDown={this.foundation.handleKeyDown}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-label={this.props['aria-label']}

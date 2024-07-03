@@ -1,5 +1,5 @@
 import { isNumber, isFunction, get, isUndefined, isString, isEmpty, difference } from 'lodash';
-import { strings } from '../treeSelect/constants';
+import { ESCAPE_KEY_CODE, strings } from '../treeSelect/constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -308,6 +308,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         } else {
             return this.constructDataForValue(value);
         }
+    }
+
+    handleKeyDown = (e: any) => {
+        if (e.keyCode === ESCAPE_KEY_CODE) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
     }
 
     getTreeNodeProps(key: string) {
