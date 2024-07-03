@@ -16,7 +16,7 @@ export type ValidateStatus = ArrayElement<typeof VALIDATE_STATUS>;
 export interface BaseProps {
     style?: React.CSSProperties;
     className?: string;
-    children?: ReactNode | undefined | any;
+    children?: ReactNode | undefined | any
 }
 
 // eslint-disable-next-line
@@ -81,7 +81,13 @@ export default class BaseComponent<P extends BaseProps = {}, S = {}> extends Com
         return log(text, ...rest);
     }
 
-    getDataAttr(props?: any) {
+    getDataAttr(props: any = this.props) {
         return getDataAttr(props);
+    }
+
+    setStateAsync = (state: Partial<S>)=>{
+        return new Promise<void>(resolve=>{
+            this.setState(state as any, resolve);
+        });
     }
 }

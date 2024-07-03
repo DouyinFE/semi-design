@@ -20,6 +20,8 @@ const order = [
     'button',
     'space',
     'typography',
+    "markdownrender",
+    "lottie",
     'autocomplete',
     'cascader',
     'checkbox',
