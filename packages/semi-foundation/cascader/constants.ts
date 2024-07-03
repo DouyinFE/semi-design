@@ -29,3 +29,5 @@ export {
 };
 
 export const VALUE_SPLIT = '_SEMI_CASCADER_SPLIT_';
+
+export const ESCAPE_KEY_CODE = 27;

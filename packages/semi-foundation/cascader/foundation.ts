@@ -18,7 +18,7 @@ import {
     getKeysByValuePath,
     getKeyByPos
 } from './util';
-import { strings } from './constants';
+import { ESCAPE_KEY_CODE, strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
 
 export interface BasicData {
@@ -255,6 +255,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (isOpen && !this._isDisabled()) {
             this.open();
         }
+    }
+
+    handleKeyDown = (e) => {
+        if (e.keyCode  === ESCAPE_KEY_CODE) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
     }
 
     destroy() {
