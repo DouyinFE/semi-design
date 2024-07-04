@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 53
+order: 55
 category: 展示类
 title: Collapsible 折叠
 icon: doc-collapsible

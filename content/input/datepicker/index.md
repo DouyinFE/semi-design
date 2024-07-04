@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 27
 category: 输入类
 title: DatePicker 日期选择器
 icon: doc-datepicker

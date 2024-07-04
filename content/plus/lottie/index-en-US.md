@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 21
+order: 23
 category: Plus
 title: Lottie Animation
 icon: doc-configprovider

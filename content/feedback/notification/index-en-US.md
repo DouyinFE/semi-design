@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 71
+order: 73
 category: Feedback
 title:  Notification
 subTitle: Notification

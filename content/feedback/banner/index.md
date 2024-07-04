@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 70
+order: 72
 category: 反馈类
 title:  Banner 通知横幅
 icon: doc-banner

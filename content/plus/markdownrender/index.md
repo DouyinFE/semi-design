@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 22
 category: Plus
 title:  Markdown 渲染器
 icon: doc-configprovider

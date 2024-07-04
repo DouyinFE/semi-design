@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 22
+order: 24
 category: Input
 title: AutoComplete
 icon: doc-autocomplete
