@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 47
+order: 48
 category: 导航类
 title: Tabs 标签栏
 icon: doc-tabs

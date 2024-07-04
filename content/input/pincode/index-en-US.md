@@ -1,22 +1,23 @@
 ---
-localeCode: zh-CN
+localeCode: en-US
 order: 31
-category: 输入类
-title: PinCode 验证码输入
+category: Input
+title: PinCode
 icon: doc-input
 width: 60%
-brief: 用于便捷直观地输入验证码
+brief: For easy and intuitive verification code entry
 ---
 
-## 代码演示
+## Code demonstration
 
-### 如何引入
+### How to import
 
 ```jsx
 import { PinCode } from '@douyinfe/semi-ui';
 ```
 
-### 基本使用
+### Basic usage
+
 
 ```jsx live=true
 import { PinCode } from '@douyinfe/semi-ui';
@@ -56,9 +57,10 @@ function Demo() {
 }
 ```
 
-### 受控
+### Controlled
 
-使用 value 传入验证码字符串，配合 onChange 受控使用
+Use value to pass in the verification code string and use it with onChange for controlled use
+
 
 ```jsx live=true
 import React from 'react';
@@ -87,11 +89,13 @@ function Demo() {
 }
 ```
 
-### 限制验证码格式
 
-#### 设置位数
+### Limit verification code format
 
-通过 count 设置位数，默认 6 位，下方 Demo 设置为 4 位
+#### Set the number of digits
+
+Set the number of digits through count, the default is 6 digits, the demo below is set to 4 digits
+
 
 ```jsx live=true
 import React from 'react';
@@ -114,14 +118,17 @@ function Demo() {
 }
 ```
 
-#### 设置字符范围
 
-使用 format 控制可输入的字符范围
+#### Set character range
 
--   传入 "number" 只允许设置数字
--   传入 “mixed” 允许数字和字母
--   传入正则表达式，只允许输入可通过正则判定的字符
--   传入函数，验证码会在输入的时候以字符为单位被依次作为参数分别单独传入进行校验，当函数返回 true 时，允许该字符被输入进 PinCode
+Use format to control the character range that can be entered
+
+- Pass "number" to only allow numbers
+
+- Pass "mixed" to allow numbers and letters
+- Pass in a regular expression to only allow characters that can be judged by the regular expression
+- Pass in a function, and the verification code will be passed in as parameters in units of characters for verification when entering. When the function returns true, the character is allowed to be entered into the PinCode
+
 
 ```jsx live=true
 import React from 'react';
@@ -151,9 +158,11 @@ function Demo() {
 }
 ```
 
-### 手动聚焦失焦
+### Manual focus and blur
 
-使用 Ref 上方法 focus 与 blur，入参为对应 Input 的序号
+Use the focus and blur methods on Ref, and the input parameter is the serial number of the corresponding Input
+
+
 
 ```jsx live=true
 import React from 'react';
@@ -182,27 +191,27 @@ function Demo() {
 }
 ```
 
-## API 参考
+## API Reference
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
+| Property | Description | Type | Default value | Version |
 | --- | --- | --- | --- | --- |
-| autoFocus | 是否自动聚焦到第一个元素 | boolean | true |
-| className | 类名 | string |  |
-| count | 验证码位数 | number | 6 |
-| defaultValue | 输入框内容默认值 | string |  |
-| disabled | 禁用 | boolean | false |
-| format | 验证码单个字符格式限制 | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number' |
-| size | 输入框大小，large、default、small | string | 'default' |
-| style | 样式 | object |  |
-| value | 输入框内容 | string |  |
-| onChange | 输入回调 | (value:string)=>void |  |
-| onComplete | 验证码所有位数输入完毕回调 | (value: string) => void |  |
+| autoFocus | Whether to automatically focus on the first element | boolean | true |
+| className | Class name | string | |
+| count | Number of digits of verification code | number | 6 |
+| defaultValue | Default value of input box content | string | |
+| disabled | Disable | boolean | false |
+| format | Limitation of single character format of verification code | 'number'\| 'mixed‘ \| RegExp \| (char:string)=>boolean | 'number' |
+| size | Input box size, large, default, small | string | 'default' |
+| style | Style | object | |
+| value | Input box content | string | |
+| onChange | Input callback | (value:string)=>void | |
+| onComplete | Callback after all digits of verification code are entered | (value: string) => void | |
 
 ## Methods
 
-绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+Methods bound to component instances can be called through ref to implement certain special interactions
 
-| 属性  | 说明                         |
+| Attributes | Description |
 | ----- | ---------------------------- |
-| focus | 聚焦，入参为验证码第几位     |
-| blur  | 移出焦点，入参为验证码第几位 | string |
+| focus | Focus, the input parameter is the verification code number |
+| blur | Remove focus, the input parameter is the verification code number | string |

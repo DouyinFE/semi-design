@@ -29,6 +29,7 @@ const order = [
     'form',
     'input',
     'inputnumber',
+    'pincode',
     'radio',
     'rating',
     'select',
