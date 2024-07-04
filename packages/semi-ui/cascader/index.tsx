@@ -508,9 +508,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     componentDidUpdate(prevProps: CascaderProps) {
         if (this.props.multiple) {

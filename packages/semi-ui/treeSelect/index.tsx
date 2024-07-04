@@ -773,9 +773,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     renderSuffix = () => {
         const { suffix }: any = this.props;

@@ -187,9 +187,6 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
         this.foundation.init();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
 
     componentDidUpdate(prevProps: PaginationProps) {
         const pagerProps = {

@@ -61,9 +61,7 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
         this.foundation.initCurrTime();
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     get adapter(): CalendarAdapter<DayColProps, DayColState> {
         return {

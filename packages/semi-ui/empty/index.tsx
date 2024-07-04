@@ -57,6 +57,7 @@ export default class Empty extends BaseComponent<EmptyProps, EmptyState> {
     }
 
     componentWillUnmount(): void {
+        super.componentWillUnmount();
         this.observer && this.observer.disconnect();
     }
 

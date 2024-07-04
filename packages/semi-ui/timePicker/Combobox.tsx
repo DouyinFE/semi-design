@@ -92,13 +92,6 @@ class Combobox extends BaseComponent<ComboboxProps, ComboboxState> {
         }
     }
 
-    componentWillUnmount() {
-        // this.foundation.destroy();
-    }
-
-    componentDidMount() {
-        // this.foundation.init();
-    }
 
     cacheRefCurrent = (key: string, current: ScrollItem<FormatOptionReturn> | ScrollItem<AMPMOptionItem>) => {
         if (key && typeof key === 'string') {

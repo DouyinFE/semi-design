@@ -89,6 +89,7 @@ export default class Link extends BaseComponent<LinkProps, {}> {
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         this.handleRemoveLink();
     }
 

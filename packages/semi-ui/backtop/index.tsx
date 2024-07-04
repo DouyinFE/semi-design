@@ -64,9 +64,7 @@ export default class BackTop extends BaseComponent<BackTopProps, BackTopState> {
         this.handler = throttle(this.handleClick, this.props.duration ?? BackTop.defaultProps.duration);
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
+
 
     get adapter(): BackTopAdapter {
         return {

@@ -84,10 +84,6 @@ class Spin extends BaseComponent<SpinProps, SpinState> {
         };
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
-    }
-
     renderSpin() {
         const { indicator, tip } = this.props;
         const { loading } = this.state;

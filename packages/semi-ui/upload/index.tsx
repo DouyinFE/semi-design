@@ -336,9 +336,6 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         this.foundation.init();
     }
 
-    componentWillUnmount(): void {
-        this.foundation.destroy();
-    }
 
     onClick = (): void => {
         const { inputRef, props } = this;

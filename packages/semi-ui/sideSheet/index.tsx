@@ -181,7 +181,7 @@ export default class SideSheet extends BaseComponent<SideSheetReactProps, SideSh
 
     componentWillUnmount() {
         if (this.props.visible) {
-            this.foundation.destroy();
+            super.componentWillUnmount();
         }
     }
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import { cloneDeepWith, set, get } from 'lodash';
+import {cloneDeepWith, set, get} from 'lodash';
 import warning from '@douyinfe/semi-foundation/utils/warning';
-import { findAll } from '@douyinfe/semi-foundation/utils/getHighlight';
-import { isHTMLElement } from '@douyinfe/semi-foundation/utils/dom';
+import {findAll} from '@douyinfe/semi-foundation/utils/getHighlight';
+import {isHTMLElement} from '@douyinfe/semi-foundation/utils/dom';
 import semiGlobal from "./semi-global";
+
 /**
  * stop propagation
  *
@@ -22,7 +23,7 @@ export function stopPropagation(e: React.MouseEvent | React.FocusEvent<HTMLEleme
 
 /**
  * use in Table, Form, Navigation
- * 
+ *
  * skip clone function and react element
  */
 export function cloneDeep<T>(value: T): T;
@@ -81,16 +82,16 @@ export function cloneDeep(value: any, customizer?: (value: any) => any) {
  * @return  {Array<object>}
  */
 export const getHighLightTextHTML = ({
-    sourceString = '',
-    searchWords = [],
-    option = { autoEscape: true, caseSensitive: false }
-}: GetHighLightTextHTMLProps) => {
-    const chunks: HighLightTextHTMLChunk[] = findAll({ sourceString, searchWords, ...option });
+                                         sourceString = '',
+                                         searchWords = [],
+                                         option = {autoEscape: true, caseSensitive: false}
+                                     }: GetHighLightTextHTMLProps) => {
+    const chunks: HighLightTextHTMLChunk[] = findAll({sourceString, searchWords, ...option});
     const markEle = option.highlightTag || 'mark';
     const highlightClassName = option.highlightClassName || '';
     const highlightStyle = option.highlightStyle || {};
     return chunks.map((chunk: HighLightTextHTMLChunk, index: number) => {
-        const { end, start, highlight } = chunk;
+        const {end, start, highlight} = chunk;
         const text = sourceString.substr(start, end - start);
         if (highlight) {
             return React.createElement(
@@ -120,9 +121,14 @@ export interface RegisterMediaQueryOption {
  * @param {object} param param object
  * @returns function
  */
-export const registerMediaQuery = (media: string, { match, unmatch, callInInit = true }: RegisterMediaQueryOption): () => void => {
+export const registerMediaQuery = (media: string, {
+    match,
+    unmatch,
+    callInInit = true
+}: RegisterMediaQueryOption): () => void => {
     if (typeof window !== 'undefined') {
         const mediaQueryList = window.matchMedia(media);
+
         function handlerMediaChange(e: MediaQueryList | MediaQueryListEvent): void {
             if (e.matches) {
                 match && match(e);
@@ -130,6 +136,7 @@ export const registerMediaQuery = (media: string, { match, unmatch, callInInit =
                 unmatch && unmatch(e);
             }
         }
+
         callInInit && handlerMediaChange(mediaQueryList);
         if (Object.prototype.hasOwnProperty.call(mediaQueryList, 'addEventListener')) {
             mediaQueryList.addEventListener('change', handlerMediaChange);
@@ -140,6 +147,7 @@ export const registerMediaQuery = (media: string, { match, unmatch, callInInit =
     }
     return () => undefined;
 };
+
 export interface GetHighLightTextHTMLProps {
     sourceString?: string;
     searchWords?: string[];
@@ -223,7 +231,7 @@ export function getScrollbarWidth() {
 }
 
 export function getDefaultPropsFromGlobalConfig(componentName: string, semiDefaultProps: any = {}) {
-    const getFromGlobalConfig = ()=> semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
+    const getFromGlobalConfig = () => semiGlobal?.config?.overrideDefaultProps?.[componentName] || {};
     return new Proxy({
         ...semiDefaultProps,
     }, {

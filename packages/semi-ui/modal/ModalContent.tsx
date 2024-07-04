@@ -5,7 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
-import BaseComponent from '../_base/baseComponent';
+import BaseComponent, { SemiUsedEvent } from '../_base/baseComponent';
 import ModalContentFoundation, {
     ModalContentAdapter,
     ModalContentProps,
@@ -77,13 +77,11 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
             },
             addKeyDownEventListener: () => {
                 if (this.props.closeOnEsc) {
-                    document.addEventListener('keydown', this.foundation.handleKeyDown);
+                    this.hookedAddEventListener(document, SemiUsedEvent.KeyDown, this.foundation.handleKeyDown);
                 }
             },
             removeKeyDownEventListener: () => {
-                if (this.props.closeOnEsc) {
-                    document.removeEventListener('keydown', this.foundation.handleKeyDown);
-                }
+
             },
             getMouseState: () => this.state.dialogMouseDown,
             modalDialogFocus: () => {
@@ -123,8 +121,8 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
     }
 
     componentWillUnmount() {
+        super.componentWillUnmount();
         clearTimeout(this.timeoutId);
-        this.foundation.destroy();
     }
 
     onKeyDown = (e: React.MouseEvent) => {
