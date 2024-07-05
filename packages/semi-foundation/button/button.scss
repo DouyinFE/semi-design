@@ -390,7 +390,7 @@ $module: #{$prefix}-button;
 
             &-outline:not(:last-child) {
                border-right-color: transparent;
-               margin-right: -$width-button_outline-border;
+               margin-right: -1 * $width-button_outline-border;
             }
         }
 
