@@ -120,7 +120,7 @@ describe('cascader', () => {
         cy.get('.semi-checkbox.semi-checkbox-checked').eq(0).should('exist');
     });
 
-    it.only('esc close panel', () => {
+    it('esc close panel', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--searchable');
         cy.get('.semi-cascader-selection').eq(0).trigger('click');
         cy.get('.semi-input').type('中');
