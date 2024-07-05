@@ -194,5 +194,14 @@ describe('treeSelect', () => {
         cy.get('#invisible-span').eq(0).trigger('mousedown');
         cy.get('.semi-tree-select-popover').should('not.exist');
     })
+
+    it('esc close panel', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--search-position-in-trigger-and-virtualize');
+        cy.get('.semi-input').trigger('click');
+        cy.get('.semi-input').type('中');
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('.semi-input').type('{esc}', { force: true });
+        cy.get('.semi-tree-select-popover').should('not.exist');
+    })
 });
 

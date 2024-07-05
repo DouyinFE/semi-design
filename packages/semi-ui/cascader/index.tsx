@@ -699,7 +699,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const content = (
-            <div className={popoverCls} role="listbox" style={dropdownStyle}>
+            <div className={popoverCls} role="listbox" style={dropdownStyle} onKeyDown={this.foundation.handleKeyDown}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
@@ -1026,6 +1026,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 id={id}
+                onKeyDown={this.foundation.handleKeyDown}
                 {...mouseEvent}
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"
