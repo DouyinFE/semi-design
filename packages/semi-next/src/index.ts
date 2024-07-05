@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { NextConfig } from 'next';
+// import { NextConfig } from 'next';
 import SemiWebpackPlugin from '@douyinfe/semi-webpack-plugin';
 
 export interface SemiNextOptions {
@@ -7,10 +6,10 @@ export interface SemiNextOptions {
 }
 
 export default function(options: SemiNextOptions = {}) {
-    return (nextConfig: NextConfig = {}) => {
-        const actualConfig: NextConfig = {
+    return (nextConfig: any = {}) => {
+        const actualConfig: any = {
             ...nextConfig,
-            webpack(config, { isServer, webpack, ...rest }) {
+            webpack(config: any, { isServer, webpack, ...rest }: any) {
                 config.plugins.push(new SemiWebpackPlugin({
                     omitCss: options.omitCss === undefined ? true : options.omitCss,
                     webpackContext: {
