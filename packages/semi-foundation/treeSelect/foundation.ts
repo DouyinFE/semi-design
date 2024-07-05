@@ -1,5 +1,5 @@
 import { isNumber, isFunction, get, isUndefined, isString, isEmpty, difference } from 'lodash';
-import { ESCAPE_KEY_CODE, strings } from '../treeSelect/constants';
+import { strings } from '../treeSelect/constants';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     flattenTreeData,
@@ -24,6 +24,7 @@ import {
 } from '../tree/foundation';
 import { Motion } from '../utils/type';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 /* Here ValidateStatus is the same as ValidateStatus in baseComponent */
 export type ValidateStatus = 'error' | 'warning' | 'default';
@@ -311,7 +312,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handleKeyDown = (e: any) => {
-        if (e.keyCode === ESCAPE_KEY_CODE) {
+        if (e.key === ESC_KEY) {
             const isOpen = this.getState('isOpen');
             isOpen && this.close(e);
         } 
