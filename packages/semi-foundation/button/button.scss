@@ -387,6 +387,11 @@ $module: #{$prefix}-button;
                 border-top-right-radius: $radius-button_group;
                 border-bottom-right-radius: $radius-button_group;
             }
+
+            &-outline:not(:last-child) {
+               border-right-color: transparent;
+               margin-right: -1 * $width-button_outline-border;
+            }
         }
 
         &-line {
