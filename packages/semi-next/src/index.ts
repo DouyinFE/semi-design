@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextConfig } from 'next';
 import SemiWebpackPlugin from '@douyinfe/semi-webpack-plugin';
 
