@@ -116,7 +116,7 @@ import React from "react";
     const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
 
     return <div>
-        <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />;
+        <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />
     </div>
 };
 ```
@@ -138,7 +138,7 @@ import React from "react";
     console.log("lottie", Lottie.getLottie());
     
     return <div>
-        <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />;
+        <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />
     </div>
 };
 
