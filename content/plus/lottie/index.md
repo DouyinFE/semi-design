@@ -45,9 +45,9 @@ import { Lottie } from "@douyinfe/semi-ui";
 import React from "react";
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
+    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
 
-    return  <div style={{background:"#e2dfdf"}}>
+    return  <div>
             <Lottie params={{ path: jsonURL }} width={"300px"} />
         </div>;
 };
@@ -63,7 +63,7 @@ import { Lottie } from "@douyinfe/semi-ui";
 import React from "react";
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
+    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
     const [data, setData] = useState("");
 
     useEffect(() => {
@@ -73,7 +73,7 @@ import React from "react";
        
     }, []);
 
-    return <div style={{background:"#e2dfdf"}}>
+    return <div>
             <Lottie params={{ animationData: data }} width={"300px"} />
         </div>;
 };
@@ -111,9 +111,9 @@ import { Lottie } from "@douyinfe/semi-ui";
 import React from "react";
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
+    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
 
-    return <div style={{background:"#e2dfdf"}}>
+    return <div>
         <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />;
     </div>
 };
@@ -131,11 +131,11 @@ import { Lottie } from "@douyinfe/semi-ui";
 import React from "react";
 
 ()=>{
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/icon-click.json";
+    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
     
     console.log("lottie", Lottie.getLottie());
     
-    return <div style={{background:"#e2dfdf"}}>
+    return <div>
         <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />;
     </div>
 };

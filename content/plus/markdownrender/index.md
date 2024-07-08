@@ -105,16 +105,16 @@ function Demo(){
 
 比如，现在需要将所有1号标题的颜色设置成主色
 
-```jsx live=true
+```jsx live=true dir="column"
 import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 
 
 function Demo() {
     const components = {}
     
-    components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    components['h2'] = ({children}) => <Typography.Title heading={2} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
     
-    return <MarkdownRender raw={`# 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
+    return <MarkdownRender raw={`## 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
 }
 
 

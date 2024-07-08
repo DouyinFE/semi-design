@@ -17,11 +17,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.62.0-beta.0 (2024-07-05)
-- 【Feat】
-    - TreeSelect, Cascader supports closing the popup layer through the esc key
+- 【New Component】
     - Added new verification code input component pinCode for quickly and conveniently entering verification codes  [#2130 ](https://github.com/DouyinFE/semi-design/issues/2130)
     - Added Lottie component for convenient rendering of Lottie animations
     - Added CodeHighlight code highlighting component, used to highlight code displayed in web pages
+- 【Feat】
+    - TreeSelect, Cascader supports closing the popup layer through the esc key
 - 【Style】
     - Fix the problem of wrong style of ButtonGroup with theme as outline
 - 【Fix】

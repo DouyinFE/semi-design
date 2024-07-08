@@ -28,7 +28,8 @@ import { CodeHighlight } from '@douyinfe/semi-ui';
 function Demo() {
 
     return <CodeHighlight
-        language={"javascript"} code={
+        language={"javascript"} 
+        code={
         `
 import * as React from 'react"
 const Test = ()=>{
@@ -50,7 +51,8 @@ import { CodeHighlight } from '@douyinfe/semi-ui';
 function Demo() {
 
     return <CodeHighlight
-        language={"css"} code={
+        language={"css"} 
+        code={
         `.grid {
     .semi-row,
     .semi-row-flex {
@@ -86,7 +88,8 @@ import "prismjs/components/prism-vala.js"
 
 function Demo() {
     return <CodeHighlight
-        language={"vala"} code={
+        language={"vala"} 
+        code={
         `public class ExampleApp : Gtk.Application {
     public ExampleApp () {
         Object (application_id: "com.example.App");

@@ -17,7 +17,7 @@ The MarkdownRender component provided by Semi supports rendering Markdown and MD
 
 
 Usually used in the following scenarios:
-- Document station writing and rendering
+- Document site writing and rendering
 - Front-end rendering when the server dynamically generates rich text content
 - A light interactive website that focuses on content display
 
@@ -44,7 +44,7 @@ import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/compon
 
 
 function Demo(){
-    return <MarkdownRender components={SemiMarkdownComponents} mdxRaw={`
+    return <MarkdownRender components={SemiMarkdownComponents} raw={`
 # Title No. 1
 ## Title No. 2
 ### Title No. 3
@@ -79,7 +79,7 @@ You can arbitrarily replace the display effect of document elements in Markdown 
 
 For example, now you need to set the color of all headings No. 1 to the main color
 
-```jsx live=true
+```jsx live=true dir="column"
 import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components"
 
@@ -87,9 +87,9 @@ import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/compon
 function Demo() {
     const components ={...SemiMarkdownComponents};
     
-    components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    components['h2'] = ({children}) => <Typography.Title heading={2} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
     
-    return <MarkdownRender mdxRaw={`# Primary Color Title`} components={components} />
+    return <MarkdownRender raw={`## From Semi Design to Any Design, quickly define your design system and apply it in design drafts and codes`} components={components} />
 }
 
 
@@ -122,7 +122,7 @@ function Demo() {
     }
 
     return <MarkdownRender 
-        mdxRaw={`
+        raw={`
 #### Below is a button rendered in Markdown
 <MyButton onClick={()=>alert("MyButton is clicked")}>MyButton click me</MyButton>
 
