@@ -12,6 +12,8 @@ brief: For easy and intuitive verification code entry
 
 ### How to import
 
+PinCode supported from 2.62.0
+
 ```jsx
 import { PinCode } from '@douyinfe/semi-ui';
 ```

@@ -24,6 +24,8 @@ Semi 提供的 MarkdownRender 组件支持渲染 Markdown 和 MDX，无需特别
 
 ## 代码演示
 
+MarkdownRender 从 2.62.0 开始支持
+
 ### 如何引入
 
 ```jsx

@@ -24,6 +24,8 @@ Usually used in the following scenarios:
 
 ## Demos
 
+MarkdownRender supported from 2.62.0
+
 ### How to import
 
 ```jsx
@@ -103,8 +105,10 @@ function Demo() {
 
 Basic element tag support that can be overridden `a blockquote br code em h1 h2 h3 h4 h5 hr img li ol p pre strong ul table`
 
-### 仅纯 Markdown
+### Simple Markdown
 When the Markdown you render is just pure markdown without any JSX code, you can pass `format="md"` to enable Markdown-only mode. In this mode, you don't need to escape special characters.
+
+
 ```jsx live=true
 import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 

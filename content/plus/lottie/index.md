@@ -27,6 +27,8 @@ Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获�
 
 ### 如何引入
 
+Lottie 从 2.62.0 开始支持
+
 ```jsx
 import { Lottie } from "@douyinfe/semi-ui";
 ```

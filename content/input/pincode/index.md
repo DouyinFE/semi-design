@@ -12,6 +12,8 @@ brief: 用于便捷直观地输入验证码
 
 ### 如何引入
 
+PinCode 从 2.62.0 开始支持
+
 ```jsx
 import { PinCode } from '@douyinfe/semi-ui';
 ```

@@ -26,6 +26,8 @@ Compared to using `lottie-web` directly, use the Semi Lottie component
 
 ### How to import
 
+Lottie component supported from 2.62.0
+
 ```jsx
 import { Lottie } from "@douyinfe/semi-ui";
 ```
