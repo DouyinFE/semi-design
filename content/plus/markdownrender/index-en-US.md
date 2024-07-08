@@ -44,24 +44,30 @@ import * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/compon
 
 
 function Demo(){
-    return <MarkdownRender components={SemiMarkdownComponents} raw={`
-# Title No. 1
-## Title No. 2
-### Title No. 3
+    return <MarkdownRender components={SemiMarkdownComponents}
+                           raw={`
+#### Semi Design DSM
+[Semi DSM](https://semi.design/dsm) is a design system management tool provided by Semi Design. It supports global and component-level style customization and keeps synchronization between Figma and front-end code.
+Suitable for teams of all sizes. Whether you need to simplify workflow, improve team collaboration, or increase productivity, we have features suitable for you.
 
-The main text content is ordinary text, and it can also be **bold**~~strikethrough~~ and <u>underline</u> [Hyperlink](https://semi.design) etc. Basic syntax of Markdown and HTML Supported rich text
+##### Medium and large enterprises
+- Up to 3000+ Design Tokens, in-depth customization of every detail, color, shadow, margin, rounded corners, dynamic effects, rendering structure can be customized freely, say goodbye to ~~CSS hard coding~~
+- Powerful, UI lib verified by thousands of projects in Douyin, easy to deal with various complex scenarios
+- A11y barrier-free and friendly, with complete international functions
+- Community-oriented, completely open source, no usage restrictions
+- From designOps to devOps, automated workflow, Figma UI Kit one-click brush into the theme, generate Style Guideline, develop a line of npm code configuration access
 
-#### List syntax support
-- Eat well
-- sleep well
-- Have fun
-- Study hard
-- have a good chat
-- Have a good argument
-- Live an ordinary day
+##### Startups
+- No need to invest a lot of R&D resources from 0 to 1, quickly reuse excellent solutions from the open source community, and quickly customize a design system with brand characteristics at low cost.
+- One-click support for dark mode generation, support for quickly generating a color system containing 320 full color levels and compatible with dark/light modes based on brand colors, and support dynamic switching
+- Continuously evolving, DSM + Semi Design components are professionally maintained by the <u>TikTok front-end architecture team</u>, and have been stable for more than five years, and are trustworthy
 
-![Colorful World](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg)
-    
+##### Freelance designer/individual developer
+- Quickly create design systems of different styles at low cost, less time, faster delivery
+- Friendly R&D access, no need for repeated communication, deliver npm package products, and complete code access with one click
+
+![DSM](https://semi.design/dsm_manual/content/introduction/start/start-intro.png)
+
 | Support | Markdown tables | c | d |
 | - | :- | -: | :-: |
 | 1 | 2 | 3 | 4 |
@@ -97,7 +103,21 @@ function Demo() {
 
 Basic element tag support that can be overridden `a blockquote br code em h1 h2 h3 h4 h5 hr img li ol p pre strong ul table`
 
+### 仅纯 Markdown
+When the Markdown you render is just pure markdown without any JSX code, you can pass `format="md"` to enable Markdown-only mode. In this mode, you don't need to escape special characters.
+```jsx live=true
+import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 
+
+function Demo() {
+    const components ={};
+    
+    components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    
+    return <MarkdownRender raw={`Symbols that do not need to be escaped{}<> ...`} format="md" components={components} />
+}
+
+```
 
 ### Add custom components
 
