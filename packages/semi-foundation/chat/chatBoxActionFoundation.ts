@@ -1,7 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 
 export interface ChatBoxActionAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    setVisible: (visible: boolean) => void;
     notifyDeleteMessage: () => void;
     notifyMessageCopy: () => void;
     copyToClipboardAndToast: () => void;
@@ -13,14 +12,6 @@ export interface ChatBoxActionAdapter<P = Record<string, any>, S = Record<string
 export default class ChatBoxActionFoundation <P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ChatBoxActionAdapter<P, S>, P, S> {
     constructor(adapter: ChatBoxActionAdapter<P, S>) {
         super({ ...adapter });
-    }
-
-    closeDeleteModal = () => {
-        this._adapter.setVisible(false);
-    }
-
-    showDeleteModal = () => {
-        this._adapter.setVisible(true);
     }
 
     deleteMessage = () => {

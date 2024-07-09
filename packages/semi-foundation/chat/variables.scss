@@ -8,7 +8,6 @@ $radius-chat_chatBox_content_code: 10px; // 代码块圆角
 $radius-chat_chatBox_content_code_topSlot_copy: 10px; // 代码块顶部复制按钮圆角
 
 //color
-$color-chat_backBottom_icon: var(--semi-color-primary); // 返回按钮图标颜色
 $color-chat_action-content-bg: var(--semi-color-bg-0); // 返回按钮/停止生成内容按钮背景颜色
 $color-chat_action_content-border: var(--semi-color-border); // 返回按钮/停止生成按钮描边颜色
 $color-chat_divider: var(--semi-color-text-2); // 分割线颜色
@@ -19,6 +18,7 @@ $color-chat_chatBox_action-bg-hover: transparent; // 聊天框操作区域按钮
 $color-chat_chatBox_content_text: var(--semi-color-text-0); // 聊天框内容文字颜色
 $color-chat_chatBox_content_bg: var(--semi-color-fill-0); // 聊天框内容背景颜色
 $color-chat_chatBox_content_user-bg: var(--semi-color-primary); // 聊天框内容用户背景颜色
+$color-chat_chatBox_content_user-text: var(--semi-color-white); // 聊天框内容用户文字颜色
 $color-chat_chatBox_content_error-bg: var(--semi-color-danger-hover); // 聊天框内容错误背景颜色
 $color-chat_chatBox_content_error-text: var(--semi-color-white); // 聊天框内容错误文字颜色
 $color-chat_inputBottom_clearButton_icon: var(--semi-color-text-2); //清空按钮图标颜色
@@ -37,12 +37,11 @@ $color-chat_hint_item-bg-hover: var(--semi-color-fill-0); // 提示条hover背�
 $color-chat_hint_content_text: var(--semi-color-text-1); // 提示条文字颜色
 $color-chat_hint_icon: var(--semi-color-text-2); // 提示条图标颜色
 $color-chat_chatBox_loading-bg: var(--semi-color-text-0); // 聊天内容加载图标圆圈颜色
-$color-chat_action_stop: var(--semi-color-text-1); // 停止生成按钮内容颜色
 $color-chat_chatBox_code_topSlot: rgba(var(--semi-white), 1);  // 代码块顶部字体颜
 $color-chat_chatBox_code_topSlot-bg: rgba(var(--semi-grey-4), 1); //代码块顶部背景色
 $color-chat_chatBox_code_topSlot_toCopy-bg-hover: rgba(var(--semi-grey-5), 1); // 代码块顶部复制按钮hover背景色
 $color-chat_chatBox_code_content: var(--semi-color-bg-0); // 代码块内容背景色
-
+$color-chat_action-content-bg-hover: var(--semi-color-tertiary-light-hover); // 返回按钮/停止生成按钮hover背景颜色
 // spacing
 $spacing-chat-marginY: 8px; // 最外层垂直外边距
 $spacing-chat-marginX: 16px; // 最外层水平外边距
@@ -51,8 +50,6 @@ $spacing-chat_container-paddingX: 16px;  // 消息框水平内边距
 $spacing-chat_action_content-bottom: 0; // 返回按钮/停止生成按钮底部边距
 $spacing-chat_chatBox-marginTop: 10px; // 聊天框顶部外边距
 $spacing-chat_header-columnGap: 8px; // 聊天框头像和内容间距
-$spacing-chat_action_stop-columnGap: 5px; // 停止生成按钮内容列间距
-$spacing-chat_action_stop-paddingX: 12px; // 停止生成按钮上下内间距
 $spacing-chat_chatBox_title-paddingY: 5px; // 聊天框标题上下内边距
 $spacing-chat_chatBox_action-columnGap: 10px; // 聊天框操作区域按钮列间距
 $spacing-chat_chatBox_action-marginTop: 10px; // 聊天框操作区域顶部外边距
@@ -76,8 +73,6 @@ $spacing-chat_attachment_file-padding: 5px;  // 附件文件内边距
 $spacing-chat_chatBox_loading_item-gap: 15px; // 聊天内容加载图标间距 
 $spacing-chat_divider-marginY: 12px; // 分割线上下外边距
 $spacing-chat_chatBox_content_attachment-marginTop: 8px; // 聊天框内容附件上下外间距
-$spacing-chat_chatBox_content_code-marginX: 8px; // 聊天框代码块上下外边距
-$spacing-chat_chatBox_content_code-marginY: 8px; // 聊天框代码块上下外边距
 $spacing-chat_chatBox_content_code_topSlot-paddingX: 5px; // 聊天框代码块顶部上下内边距
 $spacing-chat_chatBox_content_code_topSlot-paddingY: 8px; // 聊天框代码块顶部左右内边距
 $spacing-chat_chatBox_content_code_topSlot_copy-columnGap: 5px; // 聊天框代码块顶部复制按钮列间距: 
@@ -85,6 +80,7 @@ $spacing-chat_chatBox_content_code_topSlot_copy-padding: 5px; // 聊天框代码
 
 $spacing-chat_hint-rowGap: 10px; // 提示条行间距
 $spacing-chat_hint-marginY: 8px; // 提示条顶部外边距
+$spacing-chat_hint-marginX: 40px; // 提示条左右外边距    
 $spacing-chat_hint_item-columnGap: 8px; // 提示条列间距
 $spacing-chat_hint_item-marginY: 8px; // 提示条上下外边距
 $spacing-chat_hint_item-marginX: 12px; // 提示条左右外边距
@@ -102,6 +98,7 @@ $width-chat_attachment_file: 50px; // 附件文件宽度
 $width-chat_hint_item-border: 1px; // 提示条边框宽度
 $width-chat_chatBox_loading: 8px; // 加载中单个圆圈图标宽度
 $width-chat_attachment_file_title: 90px; // 附件文件标题最大宽度
+$width-chat_max: 800px; // chat 组件最大宽度
 
 // height
 $height-chat_action_stop: 42px; //停止生成按钮高度

@@ -35,8 +35,11 @@ export interface ChatProps extends CommonChatsProps {
     renderInputArea?: (props?: RenderInputAreaProps) => ReactNode;
     placeholder?: string;
     topSlot?: ReactNode | ReactNode[];
+    bottomSlot?: ReactNode | ReactNode[];
     children?: ReactNode | undefined | any;
-    showStopGenerate?: boolean
+    showStopGenerate?: boolean;
+    hintStyle?: React.CSSProperties;
+    hintCls?: string
 }
 
 export interface RenderInputAreaProps {
@@ -91,8 +94,4 @@ export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
     message?: Message;
     lastChat?: boolean;
     customMarkDownComponents?: MDXProps['components']
-}
-
-export interface ChatBoxState {
-    visible: boolean
 }

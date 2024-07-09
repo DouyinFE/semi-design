@@ -192,7 +192,16 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
   
     resetMessage = (message: Message) => {
         const { chats } = this.getStates();
-        this._adapter.notifyChatsChange(chats.slice(0, -1));
+        const lastMessage = chats[chats.length - 1];
+        const newLastChat = {
+            ...lastMessage,
+            status: 'loading',
+            content: '',
+            id: getUuidv4(),
+            createAt: Date.now(),
+        };
+        const newChats = chats.slice(0, -1).concat(newLastChat);
+        this._adapter.notifyChatsChange(newChats);
         const { onMessageReset } = this.getProps();
         onMessageReset?.(message);
     }

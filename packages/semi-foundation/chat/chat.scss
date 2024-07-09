@@ -16,6 +16,7 @@ $module: #{$prefix}-chat;
     flex-direction: column;
     row-gap: $spacing-chat-rowGap;
     height: 100%;
+    max-width: $width-chat_max;
 
     &-wrapper {
         display: flex;
@@ -65,21 +66,21 @@ $module: #{$prefix}-chat;
             border: $width-chat_action_content-border solid $color-chat_action_content-border;
         }
 
-        &-backBottom {
+        &-content.#{$prefix}-button-light:not(.#{$prefix}-button-disabled):hover {
+            background: $color-chat_action-content-bg-hover;
+            border: $width-chat_action_content-border solid $color-chat_action_content-border;
+        }
+
+        &-backBottom.#{$prefix}-button {
             width: $width-chat_backBottom_wrapper;
             height: $width-chat_backBottom_wrapper;
-            color: $color-chat_backBottom-icon;
             border-radius: 50%;
         }
 
         &-stop {
             user-select: none;
-            column-gap: $spacing-chat_action_stop-columnGap;
             height: $height-chat_action_stop;
             border-radius: calc($height-chat-action-stop / 2);
-            padding-left: $spacing-chat_action_stop-paddingX;
-            padding-right: $spacing-chat_action_stop-paddingX;
-            color: $color-chat_action_stop;
         }
        
     }
@@ -132,6 +133,7 @@ $module: #{$prefix}-chat;
             visibility: hidden;
             display: flex;
             align-items: center;
+            position: relative;
             column-gap: $spacing-chat_chatBox_action-columnGap;
             margin-top: $spacing-chat_chatBox_action-marginTop;
             margin-left: $spacing-chat_chatBox_action-marginX;
@@ -208,13 +210,25 @@ $module: #{$prefix}-chat;
                 .#{$module}-attachment-file {
                     background: $color-chat_chatBox_user_attachment_file-bg;
                 }
+
+                .#{$prefix}-typography,  .#{$prefix}-typography code { 
+                    color: $color-chat_chatBox_content_user-text;
+                }
+
+                .#{$prefix}-markdownRender ul, .#{$prefix}-markdownRender li {
+                    color: $color-chat_chatBox_content_user-text;
+                }
+
+                .#{$prefix}-typography a {
+                    &, &:visited, &:hover {
+                        color: $color-chat_chatBox_content_user-text;
+                    }  
+                }
+
             }
 
             &-error {
                 background: $color-chat_chatBox_content_error-bg;
-            }
-
-            &-user, &-error {
                 .#{$prefix}-typography { 
                     color: $color-chat_chatBox_content_error-text;
                 }
@@ -263,11 +277,19 @@ $module: #{$prefix}-chat;
                 }
             }
 
+            pre {
+                background-color: transparent;
+            }
+
             &-code {
                 border-radius: $radius-chat_chatBox_content_code;
                 overflow: hidden;
-                margin: $spacing-chat_chatBox_content_code-marginX $spacing-chat_chatBox_content_code-marginY;
-        
+
+                & .#{$prefix}-codeHighlight pre {
+                    word-break: break-all;
+                    white-space: pre-wrap;
+                }
+
                 &-topSlot {
                     display: flex;
                     justify-content: space-between;
@@ -312,7 +334,7 @@ $module: #{$prefix}-chat;
         padding-top: $spacing-chat_inputBox-paddingTop;
         padding-bottom: $spacing-chat_inputBox-paddingBottom;
 
-        &-clearButton {
+        &-clearButton.#{$prefix}-button {
             border-radius: 50%;
             width: $width-chat_inputBottom_clearButton;
             height: $width-chat_inputBottom_clearButton;
@@ -327,7 +349,7 @@ $module: #{$prefix}-chat;
 
         }
 
-        &-uploadButton {
+        &-uploadButton.#{$prefix}-button {
             width: $width-chat_inputBottom_uploadButton;
             height: $width-chat_inputBottom_uploadButton;
             border-radius: 50%; 
@@ -336,7 +358,7 @@ $module: #{$prefix}-chat;
             }  
         }
 
-        &-sendButton {
+        &-sendButton.#{$prefix}-button{
             width: $width-chat_inputBottom_sendButton;
             height: $width-chat_inputBottom_sendButton;
             border-radius: 50%;
@@ -385,11 +407,9 @@ $module: #{$prefix}-chat;
             margin-bottom: $spacing-chat_inputBox_textarea-marginX;
 
             &.#{$prefix}-input-textarea-wrapper {
-                border: none;
-                background-color: transparent;
-
-                &:active {
+                &, &:hover, &:active {
                     border: none;
+                    background-color: transparent;
                 }
             }
         }    
@@ -480,9 +500,11 @@ $module: #{$prefix}-chat;
     &-hint {
         display: flex;
         flex-direction: column;
-        row-gap: $spacing-chat-hint-rowGap;
-        margin-bottom: $spacing-chat-hint-marginY;
-        margin-top: $spacing-chat-hint-marginY;
+        row-gap: $spacing-chat_hint-rowGap;
+        margin-bottom: $spacing-chat_hint-marginY;
+        margin-top: $spacing-chat_hint-marginY;
+        margin-left: $spacing-chat_hint-marginX;
+        margin-right: $spacing-chat_hint-marginX; 
        
         &-item {
             display: flex;

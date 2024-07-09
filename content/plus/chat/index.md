@@ -46,13 +46,13 @@ const defaultMessage = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "This is a  request",   
+        content: "给一个 Semi Design 的 Button 组件的使用示例",
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: "This is an answer",   
+        content: "以下是一个 Semi 代码的使用示例：\n\`\`\`jsx \nimport React from 'react';\nimport { Button } from 'semi-design';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n\`\`\`\n",
     }
 ];
 
@@ -74,7 +74,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    height: 550,
 }
 
 let id = 0;
@@ -100,9 +100,10 @@ function DefaultChat() {
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
@@ -111,7 +112,21 @@ function DefaultChat() {
 
     const onAlignChange = useCallback((e) => {
         setAlign(e.target.value);
-    }, [])
+    }, []);
+
+    const onMessageReset = useCallback((e) => {
+        setTimeout(() => {
+            setMessage((message) => {
+                const lastMessage = message[message.length - 1];
+                const newLastMessage = {
+                    ...lastMessage,
+                    status: 'complete',
+                    content: 'This is a mock reset message.',
+                }
+                return [...message.slice(0, -1), newLastMessage]
+            })
+        }, 200);
+    })
 
     return (
         <>
@@ -128,6 +143,7 @@ function DefaultChat() {
                 roleConfig={roleInfo}
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
+                onMessageReset={onMessageReset}
             />
         </>
     )
@@ -183,7 +199,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
@@ -206,9 +222,10 @@ function MessageStatus() {
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
@@ -245,6 +262,34 @@ const defaultMessage = [
         id: '1',
         createAt: 1715676751919,
         content: "Hello, I'm your AI assistant.",   
+    },
+    {
+        role: 'user',
+        id: '2',
+        createAt: 1715676751919,
+        content: "介绍一下 Semi design"
+    },
+    {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: `
+Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案，Semi Design从字节跳动各业务线的复杂场景中提炼而来，目前已经支撑了近千个平台产品，服务了内外部超过10万用户[[1]](https://semi.design/zh-CN/start/introduction)。
+
+Semi Design的特点包括：
+
+1. 设计简洁、现代化。
+2. 提供主题方案，可深度样式定制。
+3. 提供明暗色两套模式，切换方便。
+4. 国际化，覆盖了简/繁体中文、英语、日语、韩语、葡萄牙语等20+种语言，日期时间组件提供全球时区支持，全部组件可自动适配阿拉伯文RTL布局。
+5. 采用 Foundation 和 Adapter 跨框架技术方案，方便扩展。
+
+---
+Learn more:
+1. [Introduction 介绍 - Semi Design](https://semi.design/zh-CN/start/introduction)
+2. [Getting Started 快速开始 - Semi Design](https://semi.design/zh-CN/start/getting-started)
+3. [Semi D2C 设计稿转代码的演进之路 - 知乎](https://zhuanlan.zhihu.com/p/667189184)
+`,
     }
 ];
 
@@ -266,7 +311,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 600,
 }
 
 let id = 0;
@@ -433,7 +478,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
@@ -485,7 +530,10 @@ function CustomRender() {
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        setMessage((message) => ([...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     return (
@@ -572,7 +620,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
@@ -633,7 +681,7 @@ function CustomRender() {
         setMessage(chats);
     }, []);
 
-     const onMessageSend = useCallback((content, attachment) => {
+    const onMessageSend = useCallback((content, attachment) => {
         const newUserMessage = {
             role: 'user',
             id: getId(),
@@ -645,7 +693,10 @@ function CustomRender() {
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        setMessage((message) => ([...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     return (
@@ -710,7 +761,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 500,
 }
 
 let id = 0;
@@ -739,7 +790,10 @@ function CustomRender() {
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const renderContent = useCallback((props) => {
@@ -810,7 +864,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
@@ -857,7 +911,10 @@ function CustomFullRender() {
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
     
     return ( <Chat
@@ -918,7 +975,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    height: 500,
 };
 
 let id = 0;
@@ -991,8 +1048,11 @@ function CustomRenderInputArea() {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
-        }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        } 
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const renderInputArea = useCallback((props) => {
@@ -1066,7 +1126,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    height: 500,
 };
 
 let id = 0;
@@ -1096,9 +1156,10 @@ function DefaultChat() {
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
@@ -1185,7 +1246,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    height: 500,
 };
 
 let id = 0;
@@ -1215,9 +1276,10 @@ function DefaultChat() {
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setMessage((message) => ([ ...message, newUserMessage]));
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
         setHints([]);
     }, []);
 
@@ -1272,11 +1334,14 @@ render(DefaultChat);
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
 | align | 对话对齐方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
+| bottomSlot | 底部插槽 | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox 渲染配置 | ChatBoxRenderConfig | - |
 | chats | 受控对话列表 | Message | - |
 | className | 自定义类名 | string | - |
 | customMarkDownComponents | 自定义 markdown render， 透传给对话内容渲染的 MarkdownRender | MDXProps\['components'\]| - |
 | hints | 提示信息 | string | - |
+| hintCls | 提示区最外层样式类名 | string | - |
+| hintStyle | 提示区最外层样式 | CSSProperties | - |
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
 | roleConfig | 角色信息配置，具体见[RoleConfig](#RoleConfig) | RoleConfig | - |

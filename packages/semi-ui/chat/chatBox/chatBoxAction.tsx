@@ -1,13 +1,13 @@
 import React, { PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { ChatBoxProps, ChatBoxState, Message } from '../interface';
+import { ChatBoxProps, Message } from '../interface';
 import { IconThumbUpStroked, 
     IconDeleteStroked, 
     IconCopyStroked, 
     IconLikeThumb, 
     IconRedoStroked 
 } from '@douyinfe/semi-icons';
-import { BaseComponent, Button, Modal } from '../../index';
+import { BaseComponent, Button, Popconfirm } from '../../index';
 import copy from 'copy-text-to-clipboard';
 import { ROLE, cssClasses, MESSAGE_STATUS } from '@douyinfe/semi-foundation/chat/constants';
 import ChatBoxActionFoundation, { ChatBoxActionAdapter } from '@douyinfe/semi-foundation/chat/chatBoxActionFoundation';
@@ -21,7 +21,7 @@ interface ChatBoxActionProps extends ChatBoxProps {
     customRenderFunc?: (props: { message?: Message; defaultActions?: ReactNode | ReactNode[]; className: string }) => ReactNode
 }
 
-class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
+class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
 
     static propTypes = {
         role: PropTypes.object,
@@ -38,14 +38,14 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
 
     copySuccessNode: ReactNode;
     foundation: ChatBoxActionFoundation;
+    containerRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: ChatBoxProps) {
         super(props);
         this.foundation = new ChatBoxActionFoundation(this.adapter);
         this.copySuccessNode = null;
-        this.state = {
-            visible: false
-        };
+        this.state = {};
+        this.containerRef = React.createRef<HTMLDivElement>();
     }
 
     componentDidMount(): void {
@@ -54,12 +54,9 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
         </LocaleConsumer>;
     }
 
-    get adapter(): ChatBoxActionAdapter<ChatBoxActionProps, ChatBoxState> {
+    get adapter(): ChatBoxActionAdapter<ChatBoxActionProps> {
         return {
             ...super.adapter,
-            setVisible: (visible: boolean) => {
-                this.setState({ visible: visible });
-            },
             notifyDeleteMessage: () => {
                 const { message, onMessageDelete } = this.props;
                 onMessageDelete?.(message);
@@ -142,23 +139,20 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
         const deleteMessage = (<LocaleConsumer<Locale["Chat"]> componentName="Chat" >
             {(locale: Locale["Chat"]) => locale['deleteConfirm']}
         </LocaleConsumer>);
-        return (<>
+        return (<Popconfirm
+            key={'delete'}
+            title={deleteMessage}
+            onConfirm={this.foundation.deleteMessage}
+            getPopupContainer={() => this.containerRef?.current}
+            position='top'
+        >
             <Button
-                key={'delete'}
                 theme='borderless'
                 icon={<IconDeleteStroked />}
                 type='tertiary'
-                onClick={this.foundation.showDeleteModal}
                 className={`${PREFIX_CHAT_BOX_ACTION}-btn`}
             />
-            <Modal
-                key={'model'}
-                title={deleteMessage}
-                visible={this.state.visible}
-                onOk={this.foundation.deleteMessage}
-                onCancel={this.foundation.closeDeleteModal}
-            ></Modal>
-        </>);
+        </Popconfirm>);
     }
 
     render() {
@@ -186,7 +180,7 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxState> {
                 className: wrapCls
             });
         }
-        return <div className={wrapCls} >
+        return <div className={wrapCls} ref={this.containerRef}>
             {complete && this.copyNode()}
             {showFeedback && this.likeNode()}
             {showFeedback && this.dislikeNode()}

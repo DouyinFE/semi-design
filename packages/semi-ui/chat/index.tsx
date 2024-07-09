@@ -14,6 +14,7 @@ import ChatFoundation, { ChatAdapter } from '@douyinfe/semi-foundation/chat/foun
 import { FileItem } from 'upload';
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
+import Button from '../button';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -50,7 +51,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         inputBoxCls: PropTypes.string,
         renderFullInputBox: PropTypes.func,
         placeHolder: PropTypes.string,
-        topSlot: PropTypes.node,
+        topSlot: PropTypes.node || PropTypes.array,
+        bottomSlot: PropTypes.node || PropTypes.array,
         showStopGenerate: PropTypes.bool,
     };
 
@@ -231,12 +233,13 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     }
 
     render() {
-        const { topSlot, roleConfig, hints,
+        const { topSlot, bottomSlot, roleConfig, hints,
             onChatsChange, onMessageCopy, renderInputArea,
             chatBoxRenderConfig, align, renderHintBox,
             style, className, showStopGenerate,
             customMarkDownComponents,
-            placeholder, inputBoxCls, inputBoxStyle
+            placeholder, inputBoxCls, inputBoxStyle,
+            hintStyle, hintCls,
         } = this.props;
         const { backBottomVisible, chats, wheelScroll } = this.state;
         let showStopGenerateFlag = false;
@@ -276,32 +279,33 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                             />
                             {/* hint area */}
                             {!!hints?.length && <Hint 
+                                className={hintCls}
+                                style={hintStyle}
                                 value={hints} 
                                 onHintClick={this.foundation.onHintClick}
                                 renderHintBox={renderHintBox}
                             />}
                         </div>
                     </div>
-                    {backBottomVisible && !showStopGenerateFlag && (<span
-                        className={`${prefixCls}-action`}
-                        onClick={this.foundation.scrollToBottomWithAnimation}
-                    >
-                        <span className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`} >
-                            <IconChevronDown size="extra-large"/>
-                        </span>
+                    {backBottomVisible && !showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
+                        <Button
+                            className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`} 
+                            icon={<IconChevronDown size="extra-large"/>}
+                            type="tertiary"
+                            onClick={this.foundation.scrollToBottomWithAnimation}
+                        />
                     </span>)}
-                    {showStopGenerateFlag && (<span
-                        className={`${prefixCls}-action`}
-                        onClick={this.foundation.stopGenerate}
-                    >
-                        <span className={`${prefixCls}-action-content ${prefixCls}-action-stop`}>
-                            <IconDisc size="extra-large" />
-                            <span>
-                                <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
-                                    {(locale: Locale["Chat"]) => locale['stop']}
-                                </LocaleConsumer>
-                            </span>
-                        </span>
+                    {showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
+                        <Button
+                            className={`${prefixCls}-action-content ${prefixCls}-action-stop`} 
+                            icon={<IconDisc size="extra-large" />}
+                            type="tertiary"
+                            onClick={this.foundation.stopGenerate} 
+                        >
+                            <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
+                                {(locale: Locale["Chat"]) => locale['stop']}
+                            </LocaleConsumer>
+                        </Button>
                     </span>)}
                     {/* input area */}
                     <InputBox
@@ -314,6 +318,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         onInputChange={this.foundation.onInputChange}
                         renderInputArea={renderInputArea}
                     />
+                    {bottomSlot}
                 </div>
             </div>
         );
