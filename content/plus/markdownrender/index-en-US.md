@@ -24,7 +24,7 @@ Usually used in the following scenarios:
 
 ## Demos
 
-MarkdownRender supported from 2.62.0
+MarkdownRender supported from v2.62.0
 
 ### How to import
 

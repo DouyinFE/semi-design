@@ -24,9 +24,10 @@ Semi 提供的 MarkdownRender 组件支持渲染 Markdown 和 MDX，无需特别
 
 ## 代码演示
 
-MarkdownRender 从 2.62.0 开始支持
-
 ### 如何引入
+
+MarkdownRender 从 v2.62.0 开始支持  
+注意：MarkdownRender 组件 依赖 `jsx/run-time`，搭配使用 React 版本需 > 16.14.0  
 
 ```jsx
 import { MarkdownRender } from '@douyinfe/semi-ui';
@@ -114,7 +115,7 @@ import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 function Demo() {
     const components = {}
     
-    components['h2'] = ({children}) => <Typography.Title heading={2} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    components['h2'] = ({children}) => <Typography.Title heading={2} style={{color:"var(--semi-color-text-2)"}}>{children}</Typography.Title>
     
     return <MarkdownRender raw={`## 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
 }

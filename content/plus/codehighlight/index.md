@@ -17,7 +17,7 @@ Semi 代码高亮组件使用了 prismjs，支持297 种编程语言的高亮（
 
 ### 如何引入
 
-CodeHighlight 从 2.62.0 开始支持
+CodeHighlight 从 v2.62.0 开始支持
 
 ```jsx
 import { CodeHighlight } from '@douyinfe/semi-ui';

@@ -16,7 +16,7 @@ Pass the code plain text to `code` props, and pass the programming language name
 
 ### How to introduce
 
-CodeHighlight supported from 2.62.0 
+CodeHighlight supported from v2.62.0 
 
 ```jsx
 import { CodeHighlight } from '@douyinfe/semi-ui';
