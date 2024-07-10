@@ -9,6 +9,7 @@ import jsdom from 'jsdom';
 import crypto from 'crypto';
 import { advanceBy, advanceTo, clear } from 'jest-date-mock';
 import { mockRandom } from 'jest-mock-random';
+import 'jest-canvas-mock';
 
 import { IntersectionObserver } from '@shopify/jest-dom-mocks';
 // window.requestAnimationFrame = function (callback) {
