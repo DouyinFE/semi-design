@@ -375,8 +375,9 @@ exports.onPostBuild = async () => {
 
     (()=>{
         const jsFiles = glob.sync(`${publicPath}/*.js`);
-
+        const mapFiles = glob.sync(`${publicPath}/*.map`);
         const replaceNames = {};
+
         for (let file of jsFiles) {
             const filename = path.basename(file);
             const fileNameWithoutExt = filename.split('.')[0];
@@ -392,6 +393,25 @@ exports.onPostBuild = async () => {
                 fs.renameSync(file, path.join(path.dirname(file), finalFileName));
             }
         }
+
+        for (let file of mapFiles) {
+            const filename = path.basename(file);
+            const fileNameWithoutExt = filename.split('.')[0];
+            const originHash = fileNameWithoutExt.split('-').at(-1);
+
+            if (originHash && originHash!==fileNameWithoutExt) {
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js.map`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.js.map`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
+            }
+        }
+
+
+
         const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
         for (let file of allFiles) {
             const stats = fs.statSync(file);
