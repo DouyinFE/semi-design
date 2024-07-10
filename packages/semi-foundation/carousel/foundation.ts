@@ -7,7 +7,7 @@ export interface CarouselAdapter<P = Record<string, any>, S = Record<string, any
     setNewActiveIndex: (activeIndex: number) => void;
     setPreActiveIndex: (activeIndex: number) => void;
     setIsReverse: (isReverse: boolean) => void;   
-    setIsInit: (isInit: boolean) => void;   
+    setIsInit: (isInit: boolean) => void   
 }
 
 class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<CarouselAdapter<P, S>, P, S> {
@@ -124,9 +124,11 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
 
     handleAutoPlay(): void { 
         const { autoPlay } = this.getProps(); 
+        const { children } = this.getStates();
         const autoPlayType = typeof autoPlay;
         // when user manually call the play function, force play
-        if ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay) {
+        // only when carousel children length > 1 to start play
+        if (children.length > 1 && ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay)) {
             this.play(this.getSwitchingTime());
         }
     }
