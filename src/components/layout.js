@@ -189,7 +189,7 @@ const AppLayout = ({ type, location, children }) => {
             <IntlProvider locale={locale} messages={messages}>
                 <LocaleProvider locale={semiLocaleSource}>
                     {
-                        !isIde && (<div style={{ position: 'fixed', width: '100%', top: 0 }}>
+                        !isIde && (<div style={{ position: 'fixed', width: '100%', top: 0, zIndex: 999 }}>
                             <div className="skip-to-content">
                                 <div>{locale === "zh-CN" ? '跳转到:' : 'skip to:'}</div>
                                 <ol>
