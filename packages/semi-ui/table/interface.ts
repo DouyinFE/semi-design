@@ -248,6 +248,8 @@ export interface RowSelectionProps<RecordType> {
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    onCell?: ColumnProps['onCell'];
+    onHeaderCell?: ColumnProps['onHeaderCell'];
     renderCell?: RowSelectionRenderCell<RecordType>
 }
 
@@ -262,7 +264,7 @@ export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
     selectRow?: (selected: boolean, e: Event) => void;
     selectAll?: (selected: boolean, e: Event) => void
 }) => ReactNode;
-export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
+export type GetCheckboxProps<RecordType> = (record: RecordType) => Omit<CheckboxProps, 'defaultChecked' | 'checked' | 'indeterminate' | 'onChange'>;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
 export type RowSelectionOnSelect<RecordType> = (
     record?: RecordType,
@@ -319,13 +321,11 @@ export type VirtualizeItemSizeRow = {
     sectionRow?: boolean; 
     expandedRow?: boolean
 };
-export type VirtualizedMode = 'list' | 'grid';
 export type VirtualizedItemSizeFn = (index?: number, row?: VirtualizeItemSizeRow) => number;
 export type VirtualizedItemSize = number | VirtualizedItemSizeFn;
 export type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 export interface VirtualizedProps {
     [x: string]: any;
-    mode?: VirtualizedMode;
     itemSize?: VirtualizedItemSize;
     onScroll?: VirtualizedOnScroll
 }

@@ -13,9 +13,32 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.61.1 (2024-06-19)
+#### 🎉 2.61.0 (2024-06-24)
+- 【Docs】
+  - 新增 web components 适配文档 [#2313](https://github.com/DouyinFE/semi-design/pull/2313)
+
+#### 🎉 2.60.1 (2024-06-19)
 - 【Fix】
     - 修复 Typography 组件中 icon 大小和 size 设置未保持一致问题，影响版本2.59.0-2.60.1 [#2308](https://github.com/DouyinFE/semi-design/pull/2308)
+
+#### 🎉 2.61.0-beta.0 (2024-06-18)
+- 【Feat】
+    - Breadcrumb 支持通过 activeIndex 受控当前高亮导航项 [#2301](https://github.com/DouyinFE/semi-design/pull/2301)
+    - Select 支持 searchPosition 配置 [#2298](https://github.com/DouyinFE/semi-design/pull/2298)
+    - Form 组件 formApi 增加 scrollToError ，支持手动滚动至校验错误处 [#2294](https://github.com/DouyinFE/semi-design/pull/2294)
+    - Tree、TreeSelect 增加 autoMergeValue API [@LuyangFE](https://github.com/LuyangFE) [#2233](https://github.com/DouyinFE/semi-design/pull/2233)
+    - Tabs 添加 arrowPosition 设置滚动折叠模式下，箭头切换器的渲染位置 [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+    - Tabs 添加 renderArrow 用于自定义滚动折叠模式下，箭头左右切换器的渲染 [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+    - Tabs 添加 visibleTabsStyle 用于设置滚动区域样式 [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+    - Tabs 添加 onVisibleTabsChange 用于在 tabs 溢出时获取未隐藏的项目 [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+    - Tabs 增加 showRestInDropdown 用于控制可折叠 Tabs Dropdown 面板的显隐 [#2289](https://github.com/DouyinFE/semi-design/pull/2289)
+    - OverflowList 在 scroll 模式下添加 onVisibleStateChange 用于在溢出时获取未隐藏的项目 [#2288](https://github.com/DouyinFE/semi-design/pull/2288)
+    - Avatar size 支持传入合法的 width 属性值例如 "10px" [#2290](https://github.com/DouyinFE/semi-design/pull/2290)
+- 【Fix】
+    - 修复 Pagination 因位置变化下拉菜单位置没有跟随变化的问题 [2307](https://github.com/DouyinFE/semi-design/pull/2307)
+    - 修复 Tooltip 在快速移动下，可能由于 React 未正确触发 onMouseLeave 导致的未消失的问题 [#2306](https://github.com/DouyinFE/semi-design/pull/2306)
+    - Table 组件配置 virtualized 虚拟化后 align 失效的问题。 [@icwoker](https://github.com/icwoker) [#2300](https://github.com/DouyinFE/semi-design/pull/2300)
+    - 修复单选，可搜索，搜索框在 trigger 的 TreeSelect，当 trigger 中的选中项想要展示 Tooltip 时(比如 label 为 ReactNode，并且有 Tooltip，或者使用 renderSelectedItem 自定义渲染已选项目， 其中有 Tooltip)， tooltip 无法被触发问题  [#2291](https://github.com/DouyinFE/semi-design/issues/2291) [#2292](https://github.com/DouyinFE/semi-design/pull/2292)
 
 #### 🎉 2.60.0 (2024-06-07)
 - 【Docs】

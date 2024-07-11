@@ -2271,6 +2271,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | ------------------- | --------------------- | ------------------------------------------------- | ------- | ------ |
 | autoExpandParent | Toggle whether to expand parent node automatically | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | Toggle whether allow autoExpand when drag enter node | boolean | true | 1.8.0 | 
+| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, value will include that node and its children. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
 | blockNode           | Toggle whether to display node as row     | boolean                     | true    | - |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className           | Class name| string                      | -       | - |

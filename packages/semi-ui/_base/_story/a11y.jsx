@@ -1106,7 +1106,7 @@ export default function SemiA11y() {
                                 </Form>
                             </Row>
                             <Row>
-                                <Col span="12">
+                                <Col span={12}>
                                     <Tree
                                         treeData={treeData}
                                         defaultExpandAll
@@ -1117,7 +1117,7 @@ export default function SemiA11y() {
                                         }}
                                     />
                                 </Col>
-                                <Col span="12">
+                                <Col span={12}>
                                     <Transfer
                                         style={{ width: 568, height: 416 }}
                                         dataSource={transferData}

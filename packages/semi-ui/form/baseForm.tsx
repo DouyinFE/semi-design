@@ -208,6 +208,13 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             getFieldDOM: (field: string) =>
                 document.querySelector(`.${cssClasses.PREFIX}-field[x-field-id="${field}"]`),
+            getFieldErrorDOM: (field: string) => {
+                const { formId } = this.state;
+                const { id } = this.props;
+                const xId = id ? id : formId;
+                let selector = `form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field[x-field-id="${field}"] .${cssClasses.PREFIX}-field-error-message`;
+                return document.querySelector(selector);
+            }
         };
     }
 

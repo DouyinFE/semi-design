@@ -24,6 +24,7 @@ import {
 } from '../tree/foundation';
 import { Motion } from '../utils/type';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 /* Here ValidateStatus is the same as ValidateStatus in baseComponent */
 export type ValidateStatus = 'error' | 'warning' | 'default';
@@ -310,6 +311,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
+    handleKeyDown = (e: any) => {
+        if (e.key === ESC_KEY) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
+    }
+
     getTreeNodeProps(key: string) {
         const {
             expandedKeys = new Set([]),
@@ -399,10 +407,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     _notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }

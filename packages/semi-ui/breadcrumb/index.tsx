@@ -41,6 +41,7 @@ export interface BreadcrumbProps extends BaseProps {
     /* Style type for ellipsis area */
     moreType?: MoreType;
     'aria-label'?: React.AriaAttributes['aria-label']
+    activeIndex?: number
 }
 
 interface BreadcrumbState {
@@ -53,6 +54,7 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
     static Item: typeof BreadcrumbItem = BreadcrumbItem;
 
     static propTypes = {
+        activeIndex: propTypes.number,
         routes: propTypes.array,
         onClick: propTypes.func,
         separator: propTypes.node,
@@ -199,9 +201,9 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
                     <BreadcrumbItem
                         {...route}
                         key={key}
-                        active={idx === items.length - 1}
+                        active={this.props.activeIndex !== undefined ? this.props.activeIndex===idx : idx === items.length - 1}
                         route={route._origin}
-                        shouldRenderSeparator={!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
+                        shouldRenderSeparator={ (idx !== items.length - 1) && !(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)}
                     >
                         {renderItem ? renderItem(route._origin) : route.name}
                     </BreadcrumbItem>
@@ -252,8 +254,8 @@ class Breadcrumb extends BaseComponent<BreadcrumbProps, BreadcrumbState> {
 
                     return React.cloneElement(item, {
                         key: `${idx}-item`,
-                        active: idx === items.length - 1,
-                        shouldRenderSeparator: !(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea)
+                        active: this.props.activeIndex !== undefined ? this.props.activeIndex === idx : idx === items.length - 1,
+                        shouldRenderSeparator: (idx !== items.length - 1) && (!(shouldCollapse && (hasRenderMore || moreTypeIsPopover) && inCollapseArea))
                     });
                 })
             );
