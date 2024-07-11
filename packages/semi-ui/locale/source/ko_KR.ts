@@ -178,6 +178,7 @@ const local: Locale = {
         stop: '중지',
         copy: '복사',
         copied: '복사했습니다',
+        dropAreaText: '파일을 여기에 놓으세요',
     },
 };
 

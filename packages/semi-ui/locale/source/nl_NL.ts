@@ -184,6 +184,7 @@ const local: Locale = {
         stop: 'Stoppen',
         copy: 'Kopiëren',
         copied: 'Gekopieerd',
+        dropAreaText: 'Plaats het bestand hier',
     },
 };
 

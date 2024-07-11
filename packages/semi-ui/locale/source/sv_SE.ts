@@ -182,6 +182,7 @@ const local: Locale = {
         stop: 'Stoppa',
         copy: 'Kopiera',
         copied: 'Kopierad',
+        dropAreaText: 'Placera filen här',   
     }, 
 };
 

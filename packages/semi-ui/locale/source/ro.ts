@@ -177,6 +177,7 @@ const local: Locale = {
         stop: 'Oprire',
         copy: 'Copiază',
         copied: 'Copiat',
+        dropAreaText: 'Puneți fișierul aici',
     },
 };
 

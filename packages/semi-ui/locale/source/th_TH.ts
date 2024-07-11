@@ -181,6 +181,7 @@ const local: Locale = {
         stop: 'หยุด',
         copy: 'สำเนา"',
         copied: 'คัดลอกสำเร็จ',
+        dropAreaText: 'วางไฟล์ที่นี่',
     },
 };
 

@@ -178,6 +178,7 @@ const local: Locale = {
         stop: '停止',
         copy: '複制',
         copied: '複制成功',
+        dropAreaText: '將文件放到這裡',
     },
 };
 

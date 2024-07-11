@@ -177,6 +177,7 @@ const local: Locale = {
         stop: 'Berhenti',
         copy: 'Salin',
         copied: 'Disalin',
+        dropAreaText: 'Letakkan file di sini',
     },
 };
 

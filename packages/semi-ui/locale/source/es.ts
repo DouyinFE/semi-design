@@ -182,6 +182,7 @@ const locale: Locale = {
         stop: 'Detener',
         copy: 'Copiar',
         copied: 'Copiado',
+        dropAreaText: 'Coloca el archivo aquí',
     },
 };
 

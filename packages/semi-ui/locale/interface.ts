@@ -175,6 +175,7 @@ export interface Locale {
         copySuccess: string;
         stop: string;
         copy: string;
-        copied: string
+        copied: string;
+        dropAreaText: string
     }
 }

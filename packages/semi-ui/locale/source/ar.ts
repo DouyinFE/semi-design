@@ -177,6 +177,7 @@ const local: Locale = {
         stop: 'توقف',
         copy: 'نسخ',
         copied: 'نسخ',
+        dropAreaText: 'ضع الملف هنا',
     },
 };
 

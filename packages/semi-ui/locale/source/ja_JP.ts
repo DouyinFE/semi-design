@@ -178,6 +178,7 @@ const local: Locale = {
         stop: 'とめる',
         copy: 'コピー',
         copied: 'コピーしました',
+        dropAreaText: 'ファイルをここに置いてください',
     },
 };
 

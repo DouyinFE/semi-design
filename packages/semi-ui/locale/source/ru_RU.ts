@@ -180,6 +180,7 @@ const local: Locale = {
         stop: 'остановить',
         copy: 'Копировать',
         copied: 'Скопировано',
+        dropAreaText: 'Положите файл здесь',
     },
 };
 

@@ -177,6 +177,7 @@ const local: Locale = {
         stop: 'Durmak',
         copy: 'Kopyala',
         copied: 'Kopyalama başarılı',
+        dropAreaText: 'Dosyayı buraya yerleştirin',
     },
 };
 

@@ -180,6 +180,7 @@ const local: Locale = {
         stop: 'Dừng',
         copy: 'Sao chép',
         copied: 'Đã sao chép',
+        dropAreaText: 'Đặt tệp vào đây',
     }, 
 };
 
