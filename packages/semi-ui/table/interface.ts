@@ -20,7 +20,7 @@ import type {
     BaseIncludeGroupRecord,
     BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
-import type { ScrollDirection, CSSDirection } from 'react-window';
+import type { ScrollDirection, CSSDirection, VariableSizeList } from 'react-window';
 import type { ColumnFilterProps } from './ColumnFilter';
 
 export interface TableProps<RecordType extends Record<string, any> = any> extends BaseProps {
@@ -277,7 +277,7 @@ export type ExpandIcon = ((expanded?: boolean) => React.ReactNode) | React.React
 export type ExpandedRowRender<RecordType> = (record?: RecordType, index?: number, expanded?: boolean) => React.ReactNode;
 export type Footer<RecordType> = ReactNode | ((pageData?: RecordType[]) => React.ReactNode);
 export type FormatPageText = ((pageInfo?: { currentStart?: number; currentEnd?: number; total?: number }) => React.ReactNode) | boolean;
-export type GetVirtualizedListRef = (ref: MutableRefObject<any>) => void;
+export type GetVirtualizedListRef = (ref: MutableRefObject<VariableSizeList>) => void;
 export type GroupByFunction<RecordType> = BaseGroupByFn<RecordType>;
 export type GroupBy<RecordType> = BaseGroupBy<RecordType>;
 export type Size = ArrayElement<typeof strings.SIZES>;
