@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 35
+order: 38
 category: 输入类
 title: TimePicker 时间选择器
 icon: doc-timepicker

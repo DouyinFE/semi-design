@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 52
+order: 55
 category: Show
 title: Collapse
 subTitle: Collapse

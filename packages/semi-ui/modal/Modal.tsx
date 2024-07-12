@@ -137,14 +137,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
                 this.bodyOverflow = document.body.style.overflow || '';
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === document.body) && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === document.body) && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
@@ -354,7 +354,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         } = {
             zIndex,
         };
-        if (getPopupContainer) {
+        if (getPopupContainer && getPopupContainer() !== document.body) {
             wrapperStyle = {
                 zIndex,
                 position: 'static',

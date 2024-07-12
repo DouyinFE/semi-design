@@ -36,4 +36,5 @@ export { default as FixedDefaultExpandedGroupedRows } from './FixedExpandGroupRo
 export { default as FixedRowSelectionEmpty } from './FixedRowSelectionEmpty';
 export { default as DndKitDrag } from './DndKitDrag';
 export { default as FixedOnGroupedRowClassName } from './FixedOnGroupedRowClassName';
+export { default as FixedVirtualizedRef } from './FixedVirtualizedRef';
 export { default as RowSelectionOnCell } from './RowSelectionOnCell';

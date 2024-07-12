@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 53
+order: 56
 category: Show
 title: Collapsible
 subTitle: Collapsible

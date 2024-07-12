@@ -303,6 +303,14 @@ describe('table', () => {
         cy.get('tbody .semi-table-row-section').eq(0).should('have.class', 'test-group');
     });
 
+
+    it('test virtualized table ref', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-virtualized-ref&viewMode=story');
+        cy.get('.semi-button').eq(0).click();
+        cy.wait(300);
+        cy.get('.semi-table-row-cell').should('contain.text', 'Semi Design 设计稿20.fig');
+    });
+      
     it('test rowSelection onCell and onHeaderCell', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--row-selection-on-cell&viewMode=story');
         cy.get('.test-th').should('have.attr', 'style').should('contain', 'background: blue');

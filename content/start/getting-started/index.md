@@ -9,6 +9,8 @@ order: 2
 
 ## 1、安装 Semi
 
+Semi 支持搭配 React v16、v17、v18 版本使用
+
 ```bash
 # 使用 npm
 npm i @douyinfe/semi-ui
@@ -29,14 +31,10 @@ pnpm add @douyinfe/semi-ui
 import React, { Component } from 'react';
 import { Button, Toast } from '@douyinfe/semi-ui';
 
-class Demo extends React.Component {
-    constructor() {
-        super();
-    }
-
-    render() {
-        return <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>;
-    }
+const SemiApp = () => {
+    return (
+        <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>
+    )
 }
 ```
 

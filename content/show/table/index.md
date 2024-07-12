@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 65
+order: 68
 category: 展示类
 title: Table 表格
 icon: doc-table
