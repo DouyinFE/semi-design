@@ -18,7 +18,8 @@ import { Toast } from '@douyinfe/semi-ui';
 
 ### 普通提示
 
-信息提醒反馈
+通过调用 Toast的相关 method 可以实现弹出提示。
+推荐设置 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开，可有效防止一次性弹出多个并列 Toast 对用户造成干扰 (该 API在 v2.42.0 后支持)
 
 ```jsx live=true noInline=true
 import React from 'react';
@@ -29,6 +30,7 @@ function Demo() {
     const opts = {
         content: 'Hi, Bytedance dance dance',
         duration: 3,
+        stack: true,
     };
 
     const handleClose = () => {
@@ -38,6 +40,7 @@ function Demo() {
         content: 'Hi, Bytedance dance dance',
         duration: 10,
         onClose: handleClose,
+        stack: true,
     };
     const throttled = throttle(() => Toast.info(throttleOpts), 10000, { trailing: false });
 
@@ -53,29 +56,6 @@ function Demo() {
 render(Demo);
 ```
 
-<Notice>
-如果你在请求拦截器等场景中，使用 Toast 来做请求状态结果提示，你可能会在短时间内弹出多个 Toast ，该类场景我们更推荐使用你开启堆叠功能，防止同一时间展示过多元素对用户造成干扰
-</Notice>
-
-### 堆叠样式
-可以通过 stack 属性应用堆叠样式到同屏多个 Toast，Hover 展开，该 API在 v2.42.0 后支持
-
-```jsx live=true
-import { Toast, Typography, Button } from '@douyinfe/semi-ui';
-
-() => {
-    const opts = {
-        content: 'Hi, Bytedance dance dance',
-        duration: 10,
-        stack: true,
-    };
-    
-    return <Button onClick={() => {
-         Toast.info(opts)
-    }}>Click multiple times</Button>
-}
-
-```
 
 ### 其他提示类型
 
