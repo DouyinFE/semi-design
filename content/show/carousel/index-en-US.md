@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 51
+order: 54
 category: Show
 title: Carousel
 subTitle: Carousel

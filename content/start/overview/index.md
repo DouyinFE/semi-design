@@ -18,6 +18,14 @@ Space 间距,
 Typography 版式
 ```
 
+## Plus 组件
+
+```overview
+CodeHighlight 代码高亮,
+Markdown 渲染器,
+Lottie 动画
+```
+
 ## 输入类
 
 ```overview
@@ -29,6 +37,7 @@ DatePicker 日期选择器,
 Form 表单,
 Input 输入框,
 InputNumber 数字输入框,
+PinCode 验证码输入,
 Radio 单选框,
 Rating 评分,
 Select 选择器,

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 56
+order: 59
 category: 展示类
 title: Empty 空状态
 icon: doc-empty

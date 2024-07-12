@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.62.0-beta.0 (2024-07-05)
+- 【New Component】
+    - Added new verification code input component pinCode for quickly and conveniently entering verification codes  [#2130 ](https://github.com/DouyinFE/semi-design/issues/2130)
+    - Added Lottie component for convenient rendering of Lottie animations
+    - Added CodeHighlight code highlighting component, used to highlight code displayed in web pages
+- 【Feat】
+    - TreeSelect, Cascader supports closing the popup layer through the esc key
+- 【Style】
+    - Fix the problem of wrong style of ButtonGroup with theme as outline
+- 【Fix】
+    - Fixed the issue that when Select value is controlled, if multiple label texts are the same, it cannot be selected correctly when using reactNode writing  [#2284 ](https://github.com/DouyinFE/semi-design/issues/2284)
+- 【Chore】
+    - update Table getCheckboxProps and rowSelection typings  [#2234](https://github.com/DouyinFE/semi-design/issues/2234)
+
 #### 🎉 2.61.0 (2024-06-24)
 - 【Docs】
   - Add web components adaptation docs  [#2313](https://github.com/DouyinFE/semi-design/pull/2313)

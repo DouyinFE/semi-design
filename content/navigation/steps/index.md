@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 47
 category: 导航类
 title:  Steps 步骤
 icon: doc-steps

@@ -17,7 +17,6 @@
             "@douyinfe/semi-icons": ["./packages/semi-icons/src/index"],
             "@douyinfe/semi-illustrations": ["./packages/semi-illustrations/src/index"],
         },
-        "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
         "allowSyntheticDefaultImports": true,
