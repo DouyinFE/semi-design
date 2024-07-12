@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
 import { MDXProps } from 'mdx/types';
-import { FileItem } from '../upload';
+import Upload, { FileItem, UploadProps } from '../upload';
 import { Message } from '@douyinfe/semi-foundation/chat/foundation';
+import { TooltipProps } from '../tooltip';
 
 export { Message };
 export interface CommonChatsProps {
     align?: 'leftRight' | 'leftAlign';
+    mode?: 'bubble' | 'noBubble' | 'userBubble';
     chats?: Message[];
     roleConfig?: RoleConfig;
     onMessageDelete?: (message?: Message) => void;
@@ -39,7 +41,10 @@ export interface ChatProps extends CommonChatsProps {
     children?: ReactNode | undefined | any;
     showStopGenerate?: boolean;
     hintStyle?: React.CSSProperties;
-    hintCls?: string
+    hintCls?: string;
+    uploadProps?: UploadProps;
+    uploadTipProps?: TooltipProps;
+    showClearContext?: boolean;
 }
 
 export interface RenderInputAreaProps {
@@ -83,7 +88,8 @@ export interface ChatState {
     backBottomVisible?: boolean;
     scrollVisible?: boolean;
     wheelScroll?: boolean;
-    cacheHints?: string[]
+    cacheHints?: string[];
+    uploadAreaVisible?: boolean;
 }
 
 export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
@@ -91,7 +97,30 @@ export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
     style?: React.CSSProperties;
     className?: string;
     children?: ReactNode | undefined | any;
+    previousMessage?: Message;
     message?: Message;
     lastChat?: boolean;
     customMarkDownComponents?: MDXProps['components']
+}
+
+export interface InputBoxProps {
+    showClearContext?: boolean;
+    placeholder: string;
+    className?: string;
+    style?: React.CSSProperties;
+    disableSend?: boolean;
+    uploadRef?: React.RefObject<Upload>;
+    uploadTipProps?: TooltipProps;
+    uploadProps?: UploadProps;
+    manualUpload?: (file: File[]) => void;
+    renderInputArea?: (props: RenderInputAreaProps) => React.ReactNode;
+    children?: React.ReactNode;
+    onSend?: (content: string, attachment: FileItem[]) => void;
+    onClearContext?: (e: any) => void;
+    onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void
+}
+
+export interface InputBoxState {
+    content: string;
+    attachment: FileItem[]
 }

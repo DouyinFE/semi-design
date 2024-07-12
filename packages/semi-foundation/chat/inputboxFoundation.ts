@@ -20,12 +20,17 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
 
     onAttachmentAdd = (props: any) => {
         const { fileList } = props;
-        const { content, attachment } = this.getStates();
-        const newAttachMent = [...attachment, ...fileList];
-        this._adapter.setAttachment(newAttachMent);
+        const { uploadProps } = this.getProps();
+        const { onChange } = uploadProps;
+        if (onChange) {
+            onChange(props);
+        }
+        const { content } = this.getStates();
+        let newFileList = [...fileList];
+        this._adapter.setAttachment(newFileList);
         this._adapter.notifyInputChange({
             inputValue: content,
-            attachment: newAttachMent
+            attachment: newFileList
         });
     }
     
@@ -40,10 +45,46 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
     }
     
     onSend = (e: any) => {
+        if (this.getDisableSend()) {
+            return 
+        }
         const { content, attachment } = this.getStates();
         this._adapter.setInputValue('');
         this._adapter.setAttachment([]);
         this._adapter.notifySend(content, attachment);
+    }
+
+    getDisableSend = () => {
+        const { content, attachment } = this.getStates();
+        const { disableSend: disableSendInProps} = this.getProps();
+        const disabledSend = disableSendInProps || (content.length === 0 && attachment.length === 0);
+        return disabledSend;
+    }
+
+    onEnterPress = (e: any) => {
+        if (e.key === 'Enter' && e.shiftKey) {
+            return ;
+        }
+        this.onSend(e)
+    };
+
+    onPaste = (e: any) => {
+        const items = e.clipboardData?.items;
+        const { manualUpload } = this.getProps();
+        let files = [];
+        if (items) {
+            for (const it of items) {
+                const file = it.getAsFile();
+                file && files.push(it.getAsFile());
+            }
+            if (files.length) {
+                // 文件上传，则需要阻止默认粘贴行为
+                // File upload, you need to prevent the default paste behavior
+                manualUpload(files);
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
     }
 
 }

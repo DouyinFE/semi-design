@@ -1,7 +1,7 @@
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import Chat from '../index';
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
-import { Form, Button, Avatar, Dropdown } from '@douyinfe/semi-ui';
+import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch } from '@douyinfe/semi-ui';
 import { IconUpload, IconForward, IconMoreStroked, IconArrowRight } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
 import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode } from './constant';
@@ -13,21 +13,21 @@ export default {
     }
 }
 
+const uploadProps = { action: 'https://api.semi.design/upload' }
+
 export const _Chat = () => {
     const [message, setMessage] = useState(initMessage);
     const [hints, setHints] = useState(hintsExample);
+    const [mode, setMode] = useState('bubble');
+    const [align, setAlign] = useState('leftRight');
+    const [key, setKey] = useState(1);
+    const [showClearContext, setShowClearContext] = useState(false);
 
     const onClear = useCallback((clearMessage) => {
        console.log('onClear');
     }, []);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getUuidv4(),
-            content: content,
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getUuidv4(),
@@ -36,7 +36,6 @@ export const _Chat = () => {
         setMessage((message) => {
             return [
                 ...message,
-                newUserMessage,
                 newAssistantMessage
             ]
         })
@@ -71,26 +70,70 @@ export const _Chat = () => {
         setHints([]);
     }, []);
 
+    const onModeChange = useCallback((e) => {
+        setMode(e.target.value);
+        setKey((key) => key + 1);
+    }, []); 
+
+    const onAlignChange = useCallback((e) => {
+        setAlign(e.target.value);
+        setKey((key) => key + 1);
+    }, []);
+
+    const onSwitchChange = useCallback(() => {
+        setShowClearContext((showClearContext) => !showClearContext);
+    }, [])
+
     return (
-        <div
-            style={{ height: 600}}
-        >
-            <Chat 
-                style={commonOuterStyle}
-                chats={message}
-                hints={hints}
-                roleConfig={roleInfo}
-                onClear={onClear}
-                onMessageSend={onMessageSend}
-                onMessageDelete={onMessageDelete}
-                onMessageGoodFeedback={onMessageGoodFeedback}
-                onMessageBadFeedback={onMessageBadFeedback}
-                onChatsChange={onChatsChange}
-                onMessageReset={onMessageReset}
-                onInputChange={onInputChange}
-                onHintClick={onHintClick}
-            />
-        </div>
+        <>
+            <div style={{margin: 10}}>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    展示清除上下文按钮：
+                    <Switch checked={showClearContext} onChange={onSwitchChange}/>
+                </span>
+
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    模式：
+                    <RadioGroup onChange={onModeChange} value={mode} >
+                        <Radio value={'bubble'}>气泡</Radio>
+                        <Radio value={'noBubble'}>非气泡</Radio>
+                        <Radio value={'userBubble'}>用户会话气泡</Radio>
+                    </RadioGroup>
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    布局：
+                    <RadioGroup onChange={onAlignChange} value={align}>
+                        <Radio value={'leftRight'}>左右分布</Radio>
+                        <Radio value={'leftAlign'}>全左</Radio>
+                    </RadioGroup>
+                </span>
+            </div>
+            <div style={{ height: 800}}>
+                <Chat
+                    key={key} 
+                    style={commonOuterStyle}
+                    chats={message}
+                    hints={hints}
+                    roleConfig={roleInfo}
+                    onClear={onClear}
+                    onMessageSend={onMessageSend}
+                    onMessageDelete={onMessageDelete}
+                    onMessageGoodFeedback={onMessageGoodFeedback}
+                    onMessageBadFeedback={onMessageBadFeedback}
+                    onChatsChange={onChatsChange}
+                    onMessageReset={onMessageReset}
+                    onInputChange={onInputChange}
+                    onHintClick={onHintClick}
+                    uploadProps={uploadProps}
+                    uploadTipProps={{
+                        content: '自定义输入提示'
+                    }}
+                    mode={mode} 
+                    align={align}
+                    showClearContext={showClearContext}
+                />
+            </div>
+        </>
     )
 }
 
@@ -106,6 +149,7 @@ export const Attachment = () => {
                 style={commonOuterStyle}
                 chats={message}
                 roleConfig={roleInfo}
+                uploadProps={uploadProps}
             />
         </div>
     )
@@ -193,6 +237,7 @@ export const CustomRenderInputArea = () => {
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
                 renderInputArea={renderInputArea}
+                uploadProps={uploadProps}
             />
         </div>
     )
@@ -217,6 +262,7 @@ export const CustomRenderAvatar = (props) => {
                 renderChatBoxTitle: customRenderTitle,
                 renderChatBoxAvatar: customRenderAvatar
             }}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -227,7 +273,7 @@ export const CustomRenderTitle = (props) => {
         if (message.role === 'user') {
             return null;
         }
-        return <span style={{ display:' flex', alignItems: 'center', justifyContent: 'center', columnGap: '10px', padding: '5px 0px'}}>
+        return <span style={{ display:' flex', alignItems: 'center', justifyContent: 'center', columnGap: '10px'}}>
             <Avatar size="extra-small" shape="square" src={role.avatar} />
             {defaultTitle}
         </span>
@@ -247,6 +293,7 @@ export const CustomRenderTitle = (props) => {
                 renderChatBoxTitle: customRenderTitle,
                 renderChatBoxAvatar: customRenderAvatar
             }}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -264,7 +311,7 @@ export const CustomFullChatBox = () => {
         const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
         return <div className={className}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: message.role === 'user' ? 'end' : ''}}>
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 5, alignItems: message.role === 'user' ? 'end' : ''}}>
                 <span style={{color: 'var(--semi-color-text-2', fontSize: '12px'}}>{formattedDate}</span>
                 <div style={{ width: 'fit-content'}}>
                     {defaultNodes.content}
@@ -284,6 +331,7 @@ export const CustomFullChatBox = () => {
             chatBoxRenderConfig={{
                 renderFullChatBox: customRenderChatBox
             }}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -352,6 +400,7 @@ export const CustomRenderAction = () => {
             chatBoxRenderConfig={{
                 renderChatBoxAction: customRenderAction
             }}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -375,6 +424,7 @@ export const CustomRenderContent = () => {
             chatBoxRenderConfig={{
                 renderChatBoxContent: renderContent
             }}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -388,6 +438,7 @@ export const LeftAlign =  () => {
             chats={simpleInitMessage}
             roleConfig={roleInfo}
             align='leftAlign'
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -413,6 +464,7 @@ export const MessageStatus = () => {
             style={commonOuterStyle} 
             chats={messages}
             roleConfig={roleInfo}
+            uploadProps={uploadProps}
         />
     </div>);
 }
@@ -520,6 +572,7 @@ export const MockResponseMessage = () => {
             onMessageSend={onMessageSend}
             onStopGenerator={onStopGenerator}
             showStopGenerate={true}
+            uploadProps={uploadProps}
         />
     </div>
     );
@@ -573,6 +626,7 @@ export const CustomRenderHint = () => {
             roleConfig={roleInfo}
             renderHintBox={renderHintBox}
             onClear={onClear}
+            uploadProps={uploadProps}
         />
     </div>
 }

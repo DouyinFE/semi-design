@@ -27,6 +27,10 @@ import { Chat } from '@douyinfe/semi-ui';
 
 通过设置 `chats` 和 `onChatsChange`，`onMessageSend` 实现基础对话显示和交互。
 
+附件支持通过点击上传按钮，输入框粘贴，拖拽文件至 Chat 区域上传。通过 `uploadProps` 设置上传参数，详情参考 [Upload](/zh-CN/input/upload#API%20%E5%8F%82%E8%80%83)。
+
+上传按钮的提示文案可通过 `uploadTipProps` 设置，详情参考 [Tooltip](/zh-CN/tooltip#API%20%E5%8F%82%E8%80%83)。
+
 对话是多方参与，多轮交互的场景。可通过 `roleConfig` 传入角色信息（包括名称，头像等），具体参数细节 [RoleConfig](#roleConfig)。
 
 使用 `align` 属性可以设置对话的对齐方式，支持左右对齐（`leftRight`， 默认）和左对齐（`leftAlign`）。
@@ -82,25 +86,29 @@ function getId() {
     return `id-${id++}`
 }
 
+const uploadProps = { action: 'https://api.semi.design/upload' }
+const uploadTipProps = { content: '自定义上传按钮提示信息' }
+
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
+    const [mode, setMode] = useState('bubble');
     const [align, setAlign] = useState('leftRight');
 
+    const onAlignChange = useCallback((e) => {
+        setAlign(e.target.value);
+    }, []);
+
+    const onModeChange = useCallback((e) => {
+        setMode(e.target.value);
+    }, []); 
+
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -108,10 +116,6 @@ function DefaultChat() {
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
-    }, []);
-
-    const onAlignChange = useCallback((e) => {
-        setAlign(e.target.value);
     }, []);
 
     const onMessageReset = useCallback((e) => {
@@ -130,20 +134,33 @@ function DefaultChat() {
 
     return (
         <>
-            <span>会话对齐方式：</span>
-            <RadioGroup value={align} onChange={onAlignChange}>
-                <Radio value={'leftRight'}>左右对齐</Radio>
-                <Radio value={'leftAlign'}>左对齐</Radio>
-            </RadioGroup>
+             <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                模式：
+                <RadioGroup onChange={onModeChange} value={mode} >
+                    <Radio value={'bubble'}>气泡</Radio>
+                    <Radio value={'noBubble'}>非气泡</Radio>
+                    <Radio value={'userBubble'}>用户会话气泡</Radio>
+                </RadioGroup>
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                会话对齐方式：
+                <RadioGroup onChange={onAlignChange} value={align}>
+                    <Radio value={'leftRight'}>左右分布</Radio>
+                    <Radio value={'leftAlign'}>左对齐</Radio>
+                </RadioGroup>
+            </span>
             <Chat 
-                key={align}
+                key={align + mode}
                 align={align}
+                mode={mode}
+                uploadProps={uploadProps}
                 style={commonOuterStyle}
                 chats={message}
                 roleConfig={roleInfo}
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
                 onMessageReset={onMessageReset}
+                uploadTipProps={uploadTipProps}
             />
         </>
     )
@@ -204,25 +221,18 @@ const commonOuterStyle = {
 
 let id = 0;
 function getId() { return `id-${id++}` }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function MessageStatus() {
     const [message, setMessage] = useState(defaultMessage);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -239,6 +249,7 @@ function MessageStatus() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -318,6 +329,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DynamicUpdateChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -326,13 +338,6 @@ function DynamicUpdateChat() {
         setMessage((message) => {
             return [
                 ...message,
-                {
-                    role: 'user',
-                    createAt: Date.now(),
-                    id: getId(),
-                    content: content,
-                    attachment: attachment,
-                },
                 {
                     role: 'assistant',
                     status: 'loading',
@@ -410,6 +415,7 @@ function DynamicUpdateChat() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -449,13 +455,24 @@ const defaultMessage = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "介绍一下 semi design", 
+        content: [
+            {
+                type: 'text',
+                text: '这张图片里有什么？'
+            },
+            {
+                type: 'image_url',
+                image_url: {
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg'
+                }
+            }
+        ], 
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案[[1]](https://semi.design/zh-CN/start/introduction)'
+        content: '图片中是一个有卡通画像装饰的黄色背包'
     },
 
 ];
@@ -483,6 +500,7 @@ const commonOuterStyle = {
 
 let id = 0;
 function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function CustomRender() {
     const [title, setTitle] = useState('null');
@@ -508,7 +526,7 @@ function CustomRender() {
         switch(title) {
             case 'custom': return (props) => {
                     const { role, defaultTitle } = props;
-                    return <Tag shape='circle' style={{marginBottom: 8}}>{defaultTitle}</Tag>
+                    return <Tag shape='circle' >{defaultTitle}</Tag>
             }
             case 'null': return () => null
             case 'default': return undefined;
@@ -519,18 +537,11 @@ function CustomRender() {
     const onTitleChange = useCallback((e) => { setTitle(e.target.value) }, []);
 
      const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -566,6 +577,7 @@ function CustomRender() {
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
                 roleConfig={roleInfo}
+                uploadProps={uploadProps}
             />
         </>
     );
@@ -625,6 +637,7 @@ const commonOuterStyle = {
 
 let id = 0;
 function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const CustomActions = React.memo((props) => {
     const { role, message, defaultActions, className } = props;
@@ -682,18 +695,11 @@ function CustomRender() {
     }, []);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -709,6 +715,7 @@ function CustomRender() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             roleConfig={roleInfo}
+            uploadProps={uploadProps}
         />
     );
 }
@@ -766,31 +773,21 @@ const commonOuterStyle = {
 
 let id = 0;
 function getId() { return `id-${id++}` }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function CustomRender() {
     const [message, setMessage] = useState(defaultMessage);
-
-    const customRenderAction = useCallback((props) => {
-        return <CustomActions {...props} />
-    }, []);
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
     }, []);
 
      const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -812,6 +809,7 @@ function CustomRender() {
             chatBoxRenderConfig={{ renderChatBoxContent: renderContent }}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     );
 }
@@ -869,6 +867,7 @@ const commonOuterStyle = {
 
 let id = 0;
 function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const titleStyle = { display:' flex', alignItems: 'center', justifyContent: 'center', columnGap: '10px', padding: '5px 0px', width: 'fit-content' };
 
@@ -885,7 +884,7 @@ function CustomFullRender() {
         </span>
         }
         return <div className={className}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: message.role === 'user' ? 'end' : ''}}>
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 4, alignItems: message.role === 'user' ? 'end' : ''}}>
                 {titleNode}
                 <div style={{ width: 'fit-content'}}>
                     {defaultNodes.content}
@@ -900,18 +899,11 @@ function CustomFullRender() {
     } ,[]);
 
      const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -924,6 +916,7 @@ function CustomFullRender() {
         onChatsChange={onChatsChange}
         onMessageSend={onMessageSend}
         roleConfig={roleInfo}
+        uploadProps={uploadProps}
     />);
 }
 
@@ -982,6 +975,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const inputStyle = {   
     display: 'flex', 
@@ -1038,18 +1032,11 @@ function CustomRenderInputArea() {
     }, []);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
         } 
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -1067,6 +1054,7 @@ function CustomRenderInputArea() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1133,6 +1121,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -1143,20 +1132,12 @@ function DefaultChat() {
     }, [])
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -1180,6 +1161,7 @@ function DefaultChat() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             onClear={onClear}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1253,6 +1235,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -1263,20 +1246,12 @@ function DefaultChat() {
     }, [])
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "这是一条 mock 回复信息",
         }
-        setMessage((message) => ([ ...message, newUserMessage]));
         setTimeout(() => { 
             setMessage((message) => ([ ...message, newAssistantMessage])); 
         }, 200);
@@ -1322,6 +1297,7 @@ function DefaultChat() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             onClear={onClear}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1344,6 +1320,7 @@ render(DefaultChat);
 | hintStyle | 提示区最外层样式 | CSSProperties | - |
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
+| mode | 对话模式，支持'bubble' \| 'noBubble' \| 'userBubble'  | string | 'bubble' |
 | roleConfig | 角色信息配置，具体见[RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderHintBox | 自定义渲染提示信息 | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | 对话列表变化时触发 | (chats: Message[]) => void | - |
@@ -1357,10 +1334,14 @@ render(DefaultChat);
 | onMessageReset | 重置消息时触发 | (message: Message) => void | - |
 | onMessageSend | 发送消息时触发 | (content: string, attachment?: FileItem[]) => void | - |
 | onStopGenerator | 点击停止生成按钮时触发 | (message: Message) => void | - |
-| renderInputArea | 自定义渲染输入框 | (props: RenderInputAreaProps) => React.ReactNode | - |
 | placeHolder | 输入框占位符 | string | - |
-| topSlot | 顶部插槽 | React.ReactNode | - |
+| renderInputArea | 自定义渲染输入框 | (props: RenderInputAreaProps) => React.ReactNode | - |
+| showClearContext | 是否展示清除上下文按钮| boolean | false |
 | showStopGenerate | 是否展示停止生成按钮| boolean | false |
+| topSlot | 顶部插槽 | React.ReactNode | - |
+| uploadProps | 上传组件属性, 详情参考 [Upload](/zh-CN/input/upload#API%20%E5%8F%82%E8%80%83) | UploadProps | - |
+| uploadTipProps | 上传组件提示属性, 详情参考 [Tooltip](/zh-CN/show/tooltip#API%20%E5%8F%82%E8%80%83) | TooltipProps | - |
+
 
 #### RoleConfig
 
@@ -1385,10 +1366,20 @@ render(DefaultChat);
 | role | 角色  | string | - |
 | name | 名称  | string | - |
 | id | 唯一标识  | string\| number | - |
-| content | 文本内容 | string | - |
+| content | 文本内容 | string| Content[] | - |
 | parentId | 父节点id | string | - |
 | createAt | 创建时间 | number | -|
 | status | 消息状态，可选值为 `loading` \| `incomplete` \| `complete` \| `error` | string | complete |
+
+
+#### Content
+
+| 属性  | 说明   | 类型   | 默认值 |
+|------|--------|-------|-------|
+| type | 类型, 可选值`text` \| `image_url` \| `file_url`  | string | - |
+| text | 当类型为 `text`是的内容数据 | string | - |
+| image_url | 当类型为 `text`是的内容数据，支持 | { url: string } | - |
+| file_url | 当类型为 `text`时的内容数据 | { url: string; name: string; size: string; type: string } | - |
 
 #### Methods
 

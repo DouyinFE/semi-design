@@ -14,14 +14,34 @@ $module: #{$prefix}-chat;
     margin: $spacing-chat-marginY $spacing-chat-marginX;
     display: flex;
     flex-direction: column;
-    row-gap: $spacing-chat-rowGap;
     height: 100%;
     max-width: $width-chat_max;
+    position: relative;
+    overflow: hidden;
 
     &-wrapper {
         display: flex;
         flex-direction: column;
         height: 100%;
+    }
+
+    &-dropArea {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $color-chat_dropArea-bg;
+        z-index: $z-chat_dropArea;
+        border: $width-chat_dropArea-border dotted $color-chat_dropArea-border;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $radius-chat_dropArea;
+
+        &-text {
+            font-size: $font-chat_dropArea_text;
+        }
     }
 
     &-outer {
@@ -53,6 +73,7 @@ $module: #{$prefix}-chat;
 
     &-action {
         position: relative;
+        z-index: $z-chat_action;
 
         &-content {
             position: absolute;
@@ -62,12 +83,12 @@ $module: #{$prefix}-chat;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: $color-chat_action-content-bg;
+            background: $color-chat_action_content-bg;
             border: $width-chat_action_content-border solid $color-chat_action_content-border;
         }
 
         &-content.#{$prefix}-button-light:not(.#{$prefix}-button-disabled):hover {
-            background: $color-chat_action-content-bg-hover;
+            background: $color-chat_action_content-bg-hover;
             border: $width-chat_action_content-border solid $color-chat_action_content-border;
         }
 
@@ -80,7 +101,7 @@ $module: #{$prefix}-chat;
         &-stop {
             user-select: none;
             height: $height-chat_action_stop;
-            border-radius: calc($height-chat-action-stop / 2);
+            border-radius: calc($height-chat_action_stop / 2);
         }
        
     }
@@ -90,18 +111,15 @@ $module: #{$prefix}-chat;
         font-size: $font-chat_divider-fontSize;
         margin-top: $spacing-chat_divider-marginY;
         margin-bottom: $spacing-chat_divider-marginY;
-
-        .#{$prefix}-divider_inner-text {
-            font-weight: $font-chat_divider-fontWeight;
-        }
-        
+        font-weight: $font-chat_divider-fontWeight;  
     }
 
     &-chatBox {
         display: flex;
         flex-direction: row;
-        margin-top: $spacing-chat_chatBox-marginTop;
-        column-gap: $spacing-chat_header-columnGap;
+        margin-top: $spacing-chat_chatBox-marginY;
+        margin-Bottom: $spacing-chat_chatBox-marginY;
+        column-gap: $spacing-chat_chatBox-columnGap;
 
         &:hover {
             .#{$module}-chatBox-action:not(.#{$module}-chatBox-action-hidden) {
@@ -119,14 +137,18 @@ $module: #{$prefix}-chat;
 
         &-avatar {
             flex-shrink: 0;
+
+            &-hidden {
+                visibility: hidden;
+            }
         }
 
         &-title {
             line-height: $font-chat_chatBox_title-lineHeight;
             font-size: $font-chat_chatBox_title-fontSize;
-            padding-bottom: $spacing-chat_chatBox_title-paddingY;
-            padding-top: $spacing-chat_chatBox_title-paddingY;
             color: $color-chat_chatBox_title;
+            font-weight: $font-chat_chatBox_title-fontWeight;
+            text-overflow: ellipsis;
         }
 
         &-action {
@@ -135,7 +157,6 @@ $module: #{$prefix}-chat;
             align-items: center;
             position: relative;
             column-gap: $spacing-chat_chatBox_action-columnGap;
-            margin-top: $spacing-chat_chatBox_action-marginTop;
             margin-left: $spacing-chat_chatBox_action-marginX;
             margin-right: $spacing-chat_chatBox_action-marginX;
 
@@ -153,7 +174,7 @@ $module: #{$prefix}-chat;
                 transform: scaleY(-1);
             }
 
-            &:hover, &-show {
+            &-show {
                 visibility: visible;
             }
 
@@ -180,13 +201,17 @@ $module: #{$prefix}-chat;
             flex-direction: column;
             align-items: start;
             position: relative;
+            row-gap: $spacing-chat_chatBox_wrap;
         }
 
 
         &-content {
-            padding: $spacing-chat_chatBox_content-paddingY $spacing-chat_chatBox_content-paddingX;
-            border-radius: $radius-chat_chatBox_content;
-            background-color: $color-chat_chatBox_content_bg;
+
+            &-bubble, &-userBubble {
+                padding: $spacing-chat_chatBox_content-paddingY $spacing-chat_chatBox_content-paddingX;
+                border-radius: $radius-chat_chatBox_content;
+                background-color: $color-chat_chatBox_content_bg;
+            }
 
             code {
                 white-space: pre-wrap;
@@ -196,16 +221,18 @@ $module: #{$prefix}-chat;
                 color: $color-chat_chatBox_content_text;
             }
 
-            &-attachment {
-                margin-top: $spacing-chat_chatBox_content_attachment-marginTop;
-            }
-
             .#{$module}-attachment-file {
                 background: $color-chat_chatBox_other_attachment_file-bg;
+            }
+
+            .#{$module}-attachment-file, .#{$module}-attachment-img  {
+                margin-top: $spacing-chat_chatBox_content_attachment-marginY;
+                margin-bottom: $spacing-chat_chatBox_content_attachment-marginY;
             }
         
             &-user {
                 background: $color-chat_chatBox_content_user-bg;
+                color: $color-chat_chatBox_content_user-text;
 
                 .#{$module}-attachment-file {
                     background: $color-chat_chatBox_user_attachment_file-bg;
@@ -300,16 +327,23 @@ $module: #{$prefix}-chat;
                     font-size: $font-chat_chatBox_code_topSlot;
                     
                     &-copy {
+                        min-width: $width-chat_chatBox_content_code_topSlot_copy;
                         display: flex;
-                        align-items: center;
-                        column-gap: $spacing-chat_chatBox_content_code_topSlot_copy-columnGap;
-                        cursor: pointer;
-                        background: transparent;
-                        border: none;
-                        color: $color-chat_chatBox_code_topSlot;
-                        line-height: $font-chat_chatBox_code_topSlot-lineHeight;
-                        padding: $spacing-chat_chatBox_content_code_topSlot_copy-padding;
-                        border-radius: $radius-chat_chatBox_content_code_topSlot_copy;   
+                        justify-content: flex-end;
+
+                        &-wrapper {
+                            display: flex;
+                            align-items: center;
+                            column-gap: $spacing-chat_chatBox_content_code_topSlot_copy-columnGap;
+                            cursor: pointer;
+                            background: transparent;
+                            border: none;
+                            color: $color-chat_chatBox_code_topSlot;
+                            line-height: $font-chat_chatBox_code_topSlot-lineHeight;
+                            padding: $spacing-chat_chatBox_content_code_topSlot_copy-padding;
+                            border-radius: $radius-chat_chatBox_content_code_topSlot_copy; 
+                        }
+                          
                     }
         
                     &-toCopy {
@@ -349,10 +383,15 @@ $module: #{$prefix}-chat;
 
         }
 
+        &-upload {
+            .#{$prefix}-upload-file-list {
+                display: none;
+            }
+        }
+
         &-uploadButton.#{$prefix}-button {
             width: $width-chat_inputBottom_uploadButton;
             height: $width-chat_inputBottom_uploadButton;
-            border-radius: 50%; 
             &.#{$prefix}-button-primary.#{$prefix}-button-borderless {
                 color: $color-chat_inputBottom_uploadButton_icon;
             }  
@@ -361,9 +400,6 @@ $module: #{$prefix}-chat;
         &-sendButton.#{$prefix}-button{
             width: $width-chat_inputBottom_sendButton;
             height: $width-chat_inputBottom_sendButton;
-            border-radius: 50%;
-            cursor: pointer;
-
             &-icon {
                 transform: rotate(45deg);
             }
@@ -376,6 +412,8 @@ $module: #{$prefix}-chat;
         &-inner {
             display: flex;
             flex-direction: row; 
+            align-items: flex-end;
+            column-gap: $spacing-chat_inputBox_inner-columnGap;
         }
 
         &-container {
@@ -384,7 +422,6 @@ $module: #{$prefix}-chat;
             flex-grow: 1;
             border-radius: $radius-chat_inputBox_container;
             padding: $spacing-chat_inputBox_container-padding;
-            margin-left: $spacing-chat_inputBox_container-marginLeft;
             border: $width-chat_inputBox_container-border solid $color-chat_inputBox_container-border;
             align-items: end;
         }
@@ -393,18 +430,12 @@ $module: #{$prefix}-chat;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-        }  
-
-        .#{$prefix}-upload-add {
-            width: fit-content;
-            height: fit-content;
-            border-radius: 50%;
         }
         
         &-textarea {
             flex-grow: 1;
-            margin-top: $spacing-chat_inputBox_textarea-marginX;
-            margin-bottom: $spacing-chat_inputBox_textarea-marginX;
+            // margin-top: $spacing-chat_inputBox_textarea-marginX;
+            // margin-bottom: $spacing-chat_inputBox_textarea-marginX;
 
             &.#{$prefix}-input-textarea-wrapper {
                 &, &:hover, &:active {
@@ -444,9 +475,16 @@ $module: #{$prefix}-chat;
 
         &-clear {
             position: absolute;
-            top: -$spacing-chat_attachment_clear-top;
-            right: -$spacing-chat_attachment_clear-right;
+            top: -1 * $spacing-chat_attachment_clear-top;
+            right: -1 * $spacing-chat_attachment_clear-right;
             color: $color-chat_attachment_clear_icon;
+        }
+
+        &-process.#{$prefix}-progress-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         &-file {
@@ -458,7 +496,8 @@ $module: #{$prefix}-chat;
             padding: $spacing-chat_attachment_file-padding;
             border-radius: $radius-chat_attachment_file;
             background: $color-chat_attachment_file-bg;
-
+            text-decoration: none;
+    
             &-icon {
                 color: $color-chat_attachment_file_icon;
             }
@@ -501,16 +540,15 @@ $module: #{$prefix}-chat;
         display: flex;
         flex-direction: column;
         row-gap: $spacing-chat_hint-rowGap;
-        margin-bottom: $spacing-chat_hint-marginY;
-        margin-top: $spacing-chat_hint-marginY;
-        margin-left: $spacing-chat_hint-marginX;
-        margin-right: $spacing-chat_hint-marginX; 
+        margin: $spacing-chat_hint-marginY $spacing-chat_hint-marginX; 
        
         &-item {
+            cursor: pointer;
             display: flex;
             flex-direction: row;
             column-gap: $spacing-chat_hint_item-columnGap;
-            justify-content: space-between;
+            width: fit-content;
+            // justify-content: space-between;
             align-items: center;
             border: $width-chat_hint_item-border solid $color-chat_hint_item-border;
             padding: $spacing-chat_hint_item-marginY $spacing-chat_hint_item-marginX;
@@ -527,7 +565,7 @@ $module: #{$prefix}-chat;
         }
 
         &-icon {
-            font-size: $font-chat_hint_icon;
+            // font-size: $font-chat_hint_icon;
             color: $color-chat_hint_icon;
         }
        

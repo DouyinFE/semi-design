@@ -12,7 +12,7 @@ const { PREFIX_DIVIDER, PREFIX } = cssClasses;
 interface ChatContentProps extends CommonChatsProps {}
 
 const ChatContent = React.memo((props: ChatContentProps) => {
-    const { chats, onMessageBadFeedback, onMessageCopy, 
+    const { chats, onMessageBadFeedback, onMessageCopy, mode,
         onChatsChange, onMessageDelete, onMessageGoodFeedback,
         onMessageReset, roleConfig, chatBoxRenderConfig, align,
         customMarkDownComponents,
@@ -31,8 +31,10 @@ const ChatContent = React.memo((props: ChatContentProps) => {
                         </LocaleConsumer>
                     </Divider> :
                     <ChatBox
+                        previousMessage={index ? chats[index - 1] : undefined}
                         toast={toast}
                         align={align} 
+                        mode={mode}
                         key={item.id} 
                         message={item}
                         roleConfig={roleConfig}

@@ -1,16 +1,32 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
-import { ROLE } from "./constants";
+import { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE } from "./constants";
 import { Animation } from '@douyinfe/semi-animation';
 import { debounce } from "lodash";
 import { getUuidv4 } from "../utils/uuid";
 import { SCROLL_ANIMATION_TIME, SHOW_SCROLL_GAP } from './constants';
+import { handlePrevent } from "../utils/a11y";
 
+export interface Content {
+    type: 'text' | 'image_url' | 'file_url';
+    text?: string;
+    image_url?: { 
+        url: string;
+        [x: string]: any;
+    };
+    file_url?: {
+        url: string;
+        name: string;
+        size: string;
+        type: string;
+        [x: string]: any;
+    }
+}
 
 export interface Message {
     role?: string;
     name?: string;
     id?: string;
-    content?: string;
+    content?: string | Content[];
     parentId?: string;
     createAt?: number;
     status?: 'loading' | 'incomplete' | 'complete' | 'error';
@@ -31,7 +47,10 @@ export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> e
     registerWheelEvent: () => void;
     unRegisterWheelEvent: () => void;
     notifyStopGenerate: (e: any) => void;
-    notifyHintClick: (hint: string) => void
+    notifyHintClick: (hint: string) => void;
+    setUploadAreaVisible: (visible: boolean) => void;
+    manualUpload: (e: any) => void;
+    getDropAreaElement: () => HTMLDivElement;
 }
 
 
@@ -131,10 +150,47 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         this._adapter.notifyClearContext();
     } 
 
-    onMessageSend = (content: string, attachment: any[]) => {
+    onMessageSend = (input: string, attachment: any[]) => {
+        let content;
+        if (Boolean(attachment) && attachment.length === 0) {
+            content = input;
+        } else {
+            content = [];
+            input && content.push({  type: 'text', text: input });
+            (attachment ?? []).map(item => {
+                const {fileInstance, name='', url, size} = item;
+                const suffix = name.split('.').pop();
+                const isImg = fileInstance?.type?.startsWith(PIC_PREFIX) || PIC_SUFFIX_ARRAY.includes(suffix);
+                if (isImg) {
+                    content.push({ 
+                        type: 'image_url', 
+                        image_url: { url: url } 
+                    });
+                } else {
+                    content.push({ 
+                        type: 'file_url', 
+                        file_url: {
+                            url: url,
+                            name: name,
+                            size: size,
+                            type: fileInstance?.type
+                        }
+                    });
+                }
+            })
+        }
+        if (content) {
+            const newMessage = {
+                role: ROLE.USER,
+                id: getUuidv4(),
+                createAt: Date.now(),
+                content,
+            }
+            this._adapter.notifyChatsChange([...this.getStates().chats, newMessage]);
+        }
         this._adapter.setWheelScroll(false);
         this._adapter.registerWheelEvent();
-        this._adapter.notifyMessageSend(content, attachment);
+        this._adapter.notifyMessageSend(input, attachment);
     }
 
     onHintClick = (hint: string) => {
@@ -204,6 +260,40 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         this._adapter.notifyChatsChange(newChats);
         const { onMessageReset } = this.getProps();
         onMessageReset?.(message);
+    }
+
+    handleDragOver = (e: any) => {
+        this._adapter.setUploadAreaVisible(true);
+    }
+
+    handleContainerDragOver = (e: any) => {
+        handlePrevent(e);
+    }
+
+    handleContainerDrop = (e) => {
+        this._adapter.setUploadAreaVisible(false);
+        this._adapter.manualUpload(e?.dataTransfer?.files);
+        // 禁用默认实现，防止文件被打开
+        //Disable the default implementation, preventing files from being opened
+        handlePrevent(e);
+    }
+    
+    handleContainerDragLeave = (e: any) => {
+        handlePrevent(e);
+        // 鼠标移动至 container 的子元素，则不做任何操作
+        // If the mouse moves to the child element of container, no operation will be performed.
+        const dropAreaElement = this._adapter.getDropAreaElement();
+        if (dropAreaElement !== e.target && dropAreaElement.contains(e.target)) {
+            return;
+        }
+        /**
+         * 延迟隐藏 container ，防止父元素的 mouseOver 被触发，导致 container 无法隐藏
+         * Delay hiding of the container to prevent the parent element's mouseOver from being triggered, 
+         * causing the container to be unable to be hidden.
+        */
+        setTimeout(() => {
+            this._adapter.setUploadAreaVisible(false);
+        })
     }
 }
 

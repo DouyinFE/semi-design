@@ -27,27 +27,28 @@ const Pre = (props: PropsWithChildren<{ className: string }>) => {
         }, 2000);
     }, [props.children]);
     
-    return <div className={`${PREFIX_CHAT_BOX}-content-code semi-always-dark`}>
+    return language ? (<div className={`${PREFIX_CHAT_BOX}-content-code semi-always-dark`}>
         <div className={`${PREFIX_CHAT_BOX}-content-code-topSlot`}>
             <span className={`${PREFIX_CHAT_BOX}-content-code-topSlot-type`}>{language}</span>
-            {copied ? (<span className={`${PREFIX_CHAT_BOX}-content-code-topSlot-copy`}>
-                <IconTick />
-                <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
-                    {(locale: Locale["Chat"]) => locale['copied']}
-                </LocaleConsumer>
-            </span>) : (<button 
-                className={`${PREFIX_CHAT_BOX}-content-code-topSlot-copy ${PREFIX_CHAT_BOX}-content-code-topSlot-toCopy`} 
-                onClick={onCopyButtonClick}
-            >
-                <IconCopyStroked />
-                <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
-                    {(locale: Locale["Chat"]) => locale['copy']}
-                </LocaleConsumer>
-            </button>) 
-            }
+            <span className={`${PREFIX_CHAT_BOX}-content-code-topSlot-copy`}>
+                {copied ? (<span className={`${PREFIX_CHAT_BOX}-content-code-topSlot-copy-wrapper`}>
+                    <IconTick />
+                    <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
+                        {(locale: Locale["Chat"]) => locale['copied']}
+                    </LocaleConsumer>
+                </span>) : (<button 
+                    className={`${PREFIX_CHAT_BOX}-content-code-topSlot-copy-wrapper ${PREFIX_CHAT_BOX}-content-code-topSlot-toCopy`} 
+                    onClick={onCopyButtonClick}
+                >
+                    <IconCopyStroked />
+                    <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
+                        {(locale: Locale["Chat"]) => locale['copy']}
+                    </LocaleConsumer>
+                </button>)}
+            </span> 
         </div>
         {code(props)}
-    </div>;
+    </div>) : (code(props));
 };
 
 export default Pre;

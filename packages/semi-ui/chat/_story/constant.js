@@ -1,4 +1,4 @@
-const semiCode = "以下是一个 Semi 代码的使用示例：\n```jsx \nimport React from 'react';\nimport { Button } from 'semi-design';\nconst MyComponent = () => {\n  const handleClick = () => {\n  console.log('Button clicked');\n};\n  return (\n    <div>\n      <h1>Hello, Semi Design!</h1>\n      <Button onClick={handleClick}>Click me</Button>\n    </div>\n  );\n};\nexport default MyComponent;\n```";
+const semiCode = "以下是一个 \`Semi\` 代码的使用示例：\n```jsx \nimport React from 'react';\nimport { Button } from 'semi-design';\nconst MyComponent = () => {\n  const handleClick = () => {\n  console.log('Button clicked');\n};\n  return (\n    <div>\n      <h1>Hello, Semi Design!</h1>\n      <Button onClick={handleClick}>Click me</Button>\n    </div>\n  );\n};\nexport default MyComponent;\n```";
 const semiInfo = `
 Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统。作为一个全面、易用、优质的现代应用UI解决方案，Semi Design从字节跳动各业务线的复杂场景中提炼而来，目前已经支撑了近千个平台产品，服务了内外部超过10万用户[[1]](https://semi.design/zh-CN/start/introduction)。
 
@@ -23,38 +23,6 @@ Learn more:
 3. [Semi D2C 设计稿转代码的演进之路 - 知乎](https://zhuanlan.zhihu.com/p/667189184)
 `;
 
-const tempAttachment = [
-    {
-        uid: '1',
-        name: 'dyBag.jpeg',
-        status: 'success',
-        size: '130KB',
-        preview: true,
-        url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
-    },
-    {
-        name: "a.txt",
-        size: "0.03KB",
-        uid: "3defa077-2fc3-49fe-962e-4d6aca983cfe",
-        percent: 0,
-        fileInstance: {
-            uid: "3defa077-2fc3-49fe-962e-4d6aca983cfe",
-            lastModified: 1713927714309,
-            type: "text/plain",
-            webkitRelativePath: ""
-        },
-        url: "blob:http://localhost:6006/57479c3d-3daf-4920-9689-e11f7fff7cd0"
-    },
-    {
-        name: "avatar.jpeg",
-        percent: 0,
-        preview: true,
-        size: "161.6KB",
-        uid: "976c04d6-3f3c-4cf8-bf34-e063068908c9",
-        url: "blob:http://localhost:6006/de2528d3-490c-4231-bbef-11118a48242f"
-    }
-];
-
 const initMessage = [
     {
         role: 'system',
@@ -78,7 +46,7 @@ const initMessage = [
         role: 'user',
         id: '4',
         createAt: 1715676751919,
-        content: "semi design Button 使用示例",
+        content: "Semi design Button 使用示例",
     },
     {
         role: 'assistant',
@@ -93,15 +61,24 @@ const infoWithAttachment = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "用于查附件的样式",
-        attachment: [tempAttachment[0], tempAttachment[1]],
+        content: [
+            {
+                type: 'text',
+                text: '用于查看附件的样式，不处理任何输入',
+            },
+            {
+                type: 'image_url',
+                image_url: {
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg'
+                },
+            }
+        ],
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: '用于查看附件的样式',
-        attachment: [tempAttachment[0], tempAttachment[1]],
+        content: `用于查看附件的样式, 不处理任何输入\n\n![image](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg)`,
     },
 ];
 

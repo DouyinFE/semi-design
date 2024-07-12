@@ -10,7 +10,7 @@ import { cssClasses, ROLE, CHAT_ALIGN } from '@douyinfe/semi-foundation/chat/con
 const { PREFIX_CHAT_BOX } = cssClasses;
 
 const ChatBox = React.memo((props: ChatBoxProps) => {
-    const { message, lastChat, align, toast,
+    const { message, lastChat, align, toast, mode,
         roleConfig, 
         onMessageBadFeedback, 
         onMessageGoodFeedback,
@@ -19,12 +19,17 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
         onMessageDelete,
         onMessageReset,
         chatBoxRenderConfig = {}, 
-        customMarkDownComponents
+        customMarkDownComponents,
+        previousMessage,
     } = props;
     const { renderChatBoxAvatar, renderChatBoxAction, 
         renderChatBoxContent, renderChatBoxTitle,
         renderFullChatBox
     } = chatBoxRenderConfig;
+
+    const continueSend = useMemo(() => {
+        return message?.role === previousMessage?.role;
+    }, [message.role, previousMessage])
 
     const info = useMemo(() => {
         let info = {};
@@ -35,7 +40,8 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
     }, [message.role, roleConfig]);
 
     const avatarNode = useMemo(() => {
-        return (<ChatBoxAvatar 
+        return (<ChatBoxAvatar
+            continueSend={continueSend}
             role={info} 
             customRenderFunc={renderChatBoxAvatar}
         />);
@@ -51,6 +57,7 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
 
     const contentNode = useMemo(() => {
         return (<ChatBoxContent
+            mode={mode}
             role={info}
             message={message}
             customMarkDownComponents={customMarkDownComponents}
@@ -87,7 +94,7 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
             <div
                 className={`${PREFIX_CHAT_BOX}-wrap`}
             >
-                {titleNode}
+                {!continueSend && titleNode}
                 {contentNode}
                 {actionNode}
             </div>

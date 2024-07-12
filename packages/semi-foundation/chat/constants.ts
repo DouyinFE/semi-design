@@ -38,6 +38,12 @@ const PIC_PREFIX = 'image/';
 const SCROLL_ANIMATION_TIME = 300;
 const SHOW_SCROLL_GAP = 100;
 
+const MODE = {
+    BUBBLE: 'bubble',
+    NO_BUBBLE: 'noBubble',
+    USER_BUBBLE: 'userBubble'
+}
+
 
 export {
     cssClasses,
@@ -47,5 +53,6 @@ export {
     PIC_SUFFIX_ARRAY,
     PIC_PREFIX,
     SCROLL_ANIMATION_TIME,
-    SHOW_SCROLL_GAP
+    SHOW_SCROLL_GAP,
+    MODE
 };

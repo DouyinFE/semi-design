@@ -9,12 +9,12 @@ import Hint from './hint';
 import { IconChevronDown, IconDisc } from '@douyinfe/semi-icons';
 import ChatContent from './chatContent';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
-import { cssClasses, CHAT_ALIGN } from '@douyinfe/semi-foundation/chat/constants';
+import { cssClasses, CHAT_ALIGN, MODE } from '@douyinfe/semi-foundation/chat/constants';
 import ChatFoundation, { ChatAdapter } from '@douyinfe/semi-foundation/chat/foundation';
 import { FileItem } from 'upload';
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
-import Button from '../button';
+import { Button, Upload } from '../index';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -26,6 +26,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     animation: any;
     wheelEventHandler: any;
     foundation: ChatFoundation;
+    uploadRef: React.RefObject<Upload>;
+    dropAreaRef: React.RefObject<HTMLDivElement>;
 
     static propTypes = {
         children: PropTypes.node,
@@ -54,17 +56,27 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         topSlot: PropTypes.node || PropTypes.array,
         bottomSlot: PropTypes.node || PropTypes.array,
         showStopGenerate: PropTypes.bool,
+        showClearContext: PropTypes.bool,
+        hintStyle: PropTypes.object,
+        hintCls: PropTypes.string,
+        uploadProps: PropTypes.object,
+        uploadTipProps: PropTypes.object,
+        mode: PropTypes.string,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Chat.__SemiComponentName__, {
         align: CHAT_ALIGN.LEFT_RIGHT,
         showStopGenerate: false,
+        mode: MODE.BUBBLE,
+        showClearContext: false,
     })
 
     constructor(props: ChatProps) {
         super(props);
 
         this.containerRef = React.createRef();
+        this.uploadRef = React.createRef();
+        this.dropAreaRef = React.createRef();
         this.wheelEventHandler = null;
         this.foundation = new ChatFoundation(this.adapter);
 
@@ -73,6 +85,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             chats: [],
             cacheHints: [],
             wheelScroll: false,
+            uploadAreaVisible: false,
         };
     }
 
@@ -154,7 +167,19 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             notifyHintClick: (hint: string) => {
                 const { onHintClick } = this.props;
                 onHintClick && onHintClick(hint);
-            }
+            },
+            setUploadAreaVisible: (visible: boolean) => {
+                this.setState({ uploadAreaVisible: visible })
+            },
+            manualUpload: (file: File[]) => {
+                const uploadComponent = this.uploadRef.current;
+                if (uploadComponent) {
+                    uploadComponent.insert(file);
+                }
+            },
+            getDropAreaElement: () => {
+                return this.dropAreaRef?.current;
+            } 
         };
     }
 
@@ -237,11 +262,11 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             onChatsChange, onMessageCopy, renderInputArea,
             chatBoxRenderConfig, align, renderHintBox,
             style, className, showStopGenerate,
-            customMarkDownComponents,
+            customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
-            hintStyle, hintCls,
+            hintStyle, hintCls, uploadProps, uploadTipProps
         } = this.props;
-        const { backBottomVisible, chats, wheelScroll } = this.state;
+        const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
         const lastChat = chats.length > 0 && chats[chats.length - 1];
         let disableSend = false;
@@ -251,7 +276,24 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             showStopGenerate && (showStopGenerateFlag = lastChatOnGoing);
         }
         return (
-            <div className={cls(`${prefixCls}`, className)} style={style}>
+            <div
+                className={cls(`${prefixCls}`, className)} 
+                style={style}
+                onDragOver={this.foundation.handleDragOver}
+            >
+                {uploadAreaVisible && <div
+                    ref={this.dropAreaRef} 
+                    className={`${prefixCls}-dropArea`}
+                    onDragOver={this.foundation.handleContainerDragOver}
+                    onDrop={this.foundation.handleContainerDrop}
+                    onDragLeave={this.foundation.handleContainerDragLeave}
+                >
+                    <span className={`${prefixCls}-dropArea-text`}>
+                        <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
+                            {(locale: Locale["Chat"]) => locale['dropAreaText']}
+                        </LocaleConsumer>
+                    </span>  
+                </div>}
                 <div className={`${prefixCls}-wrapper`}>
                     {/* top slot */}
                     {topSlot}
@@ -266,6 +308,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         >
                             <ChatContent 
                                 align={align}
+                                mode={mode}
                                 chats={chats}  
                                 roleConfig={roleConfig}
                                 customMarkDownComponents={customMarkDownComponents}
@@ -309,6 +352,9 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </span>)}
                     {/* input area */}
                     <InputBox
+                        showClearContext={showClearContext}
+                        uploadRef={this.uploadRef}
+                        manualUpload={this.adapter.manualUpload}
                         style={inputBoxStyle}
                         className={inputBoxCls}
                         placeholder={placeholder}
@@ -317,6 +363,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         onSend={this.foundation.onMessageSend}
                         onInputChange={this.foundation.onInputChange}
                         renderInputArea={renderInputArea}
+                        uploadProps={uploadProps}
+                        uploadTipProps={uploadTipProps}
                     />
                     {bottomSlot}
                 </div>
