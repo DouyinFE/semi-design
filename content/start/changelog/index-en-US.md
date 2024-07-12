@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.62.0 (2024-07-12)
+- 【Fix】
+  - When the carousel has only one child and autoPlay is true, no switching operation is performed [#2334](https://github.com/DouyinFE/semi-design/pull/2334)
+  - Fixed the issue that Modal returns document.body exception in getPopupContainer
+  - Fix Table has unexpected borderRadius when dataSource is empty
+- 【Chore】
+  - Table Column support RecordType  [#2314](https://github.com/DouyinFE/semi-design/issues/2314)
+
 #### 🎉 2.62.0-beta.0 (2024-07-05)
 - 【New Component】
     - Added new verification code input component pinCode for quickly and conveniently entering verification codes  [#2130 ](https://github.com/DouyinFE/semi-design/issues/2130)

@@ -12,7 +12,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   次版本号（minor）：Semi 固定每两周发布一个 minor 版本，包括以下类型变更：添加了新组件/新 feature，或者设计规范样式更新，或者不合理交互的变更，但不会对组件 API 做删减或功能变更。
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
-  
+
+#### 🎉 2.62.0 (2024-07-12)
+- 【Fix】
+  - Carousel 仅有一个 children 且 autoPlay 为 true 时不执行任何切换操作 [#2334](https://github.com/DouyinFE/semi-design/pull/2334)
+  - 修复 Modal 在 getPopupContainer 中如果返回 document.body 异常的问题 [#2335](https://github.com/DouyinFE/semi-design/pull/2335)
+  - 修复 Table 在 dataSource 为空时，存在非预期的 borderRadius 的问题 [#2337](https://github.com/DouyinFE/semi-design/pull/2337)
+- 【Chore】
+  - Table Column jsx 写法支持传入 RecordType 泛型  [#2314](https://github.com/DouyinFE/semi-design/issues/2314) [#2320](https://github.com/DouyinFE/semi-design/pull/2320)  
+
 #### 🎉 2.62.0-beta.0 (2024-07-05)
 - 【New Component】
     - 新增验证码输入组件 PinCode 用于快速便捷输入验证码  [#2130](https://github.com/DouyinFE/semi-design/issues/2130) [#2209](https://github.com/DouyinFE/semi-design/pull/2209)
