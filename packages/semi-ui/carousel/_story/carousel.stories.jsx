@@ -511,12 +511,10 @@ fix1482.story = {
 };
 
 
-
-
-
-
-
-
-
-
-
+export const OnlyOneChildrenNotPlay = () => (
+    <Carousel style={style} autoPlay onChange={e => {console.log('onChange', e)}}>
+      <div style={contentPinkStyle}>
+        <h3>1</h3>
+      </div>
+    </Carousel>
+);
