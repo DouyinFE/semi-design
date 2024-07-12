@@ -117,7 +117,7 @@ export {
     FixedRowSelectionEmpty,
     DndKitDrag,
     FixedOnGroupedRowClassName,
-    FixedVirtualizedRef
+    FixedVirtualizedRef,
     RowSelectionOnCell
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
