@@ -565,7 +565,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const triangleCls = classNames([`${prefixCls}-icon-arrow`]);
         const bgColor = get(style, 'backgroundColor');
 
-        const iconComponent = placement.includes('left') || placement.includes('right') ?
+        const iconComponent = placement?.includes('left') || placement?.includes('right') ?
             <TriangleArrowVertical /> :
             <TriangleArrow />;
         if (showArrow) {
