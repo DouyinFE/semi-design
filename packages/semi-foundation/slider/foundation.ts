@@ -40,7 +40,7 @@ export interface SliderProps{
     handleDot?: {
         size?: string;
         color?: string
-    } & ({
+    } | ({
         size?: string;
         color?: string
     }[])
