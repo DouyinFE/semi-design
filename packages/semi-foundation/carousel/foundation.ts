@@ -128,7 +128,7 @@ class CarouselFoundation<P = Record<string, any>, S = Record<string, any>> exten
         const autoPlayType = typeof autoPlay;
         // when user manually call the play function, force play
         // only when carousel children length > 1 to start play
-        if (children.length > 1 && ((autoPlayType === 'boolean' && autoPlay) || isObject(autoPlay) || this._forcePlay)) {
+        if (children.length > 1 && ((autoPlay === true) || isObject(autoPlay) || this._forcePlay)) {
             this.play(this.getSwitchingTime());
         }
     }
