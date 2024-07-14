@@ -7,7 +7,7 @@ import type { DropdownProps } from '../dropdown';
 export interface NavContextType {
     isCollapsed?: boolean;
     mode?: NavProps['mode'];
-    openKeys?: string[];
+    openKeys?: Array<string | number>;
     onCollapseChange?: NavProps['onCollapseChange'];
     prefixCls?: string;
     selectedKeys?: string[];

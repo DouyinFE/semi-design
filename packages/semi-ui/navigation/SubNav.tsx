@@ -14,7 +14,7 @@ import NavItem from './Item';
 import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext, { NavContextType } from './nav-context';
 
-import { times, get } from 'lodash';
+import { times, get, isNumber, isString } from 'lodash';
 import Collapsible from "../collapsible";
 import CSSAnimation from "../_cssAnimation";
 export interface SubNavProps extends BaseProps {
@@ -141,8 +141,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
             getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
-            getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
+            getIsOpen: () => {
+                const { itemKey } = this.props;
+                return Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(isNumber(itemKey) || isString(itemKey) ? itemKey : String(itemKey)));
+            }
         };
     }
 
@@ -172,8 +174,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"180":"0"}`}>
-                {({ animationClassName })=>{
+            <CSSAnimation animationState={isOpen ? "enter" : "leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen ? "180" : "0"}`}>
+                {({ animationClassName }) => {
                     // @ts-ignore
                     return React.cloneElement(icon, { size: iconSize, className: animationClassName });
                 }}
@@ -275,7 +277,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     className={subNavCls}
                 >
                     {children}
-                </ul>: null
+                </ul> : null
             }
         </Collapsible>;
 
