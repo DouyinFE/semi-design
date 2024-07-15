@@ -204,7 +204,7 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select-popover').should('not.exist');
     })
 
-    it.only('showFilteredOnly + searchPosition in trigger', () => {
+    it('showFilteredOnly + searchPosition in trigger', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--show-filtered-only');
         cy.get('.semi-tree-select').trigger('click');
         cy.get('.semi-input').type('上');
