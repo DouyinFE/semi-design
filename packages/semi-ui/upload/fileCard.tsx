@@ -161,8 +161,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
             [`${prefixCls}-picture-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
             [`${prefixCls}-picture-file-card-error`]: status === strings.FILE_STATUS_UPLOAD_FAIL,
             [`${prefixCls}-picture-file-card-uploading`]: showProgress,
-            [`${prefixCls}-picture-file-card-custom-thumbnail`]: customThumbnail
-
+            [`${prefixCls}-picture-file-card-custom-thumbnail`]: customThumbnail && picHeight && picWidth
         });
         const retry = (
             <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
