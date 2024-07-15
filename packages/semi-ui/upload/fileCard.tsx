@@ -153,13 +153,16 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
         const showPreview = status === strings.FILE_STATUS_SUCCESS && !this.props.showReplace;
+        const customThumbnail = typeof renderThumbnail === 'function';
         const filePicCardCls = cls({
             [`${prefixCls}-picture-file-card`]: true,
             [`${prefixCls}-picture-file-card-preview-fallback`]: fallbackPreview,
             [`${prefixCls}-picture-file-card-disabled`]: disabled,
             [`${prefixCls}-picture-file-card-show-pointer`]: typeof onPreviewClick !== 'undefined',
             [`${prefixCls}-picture-file-card-error`]: status === strings.FILE_STATUS_UPLOAD_FAIL,
-            [`${prefixCls}-picture-file-card-uploading`]: showProgress
+            [`${prefixCls}-picture-file-card-uploading`]: showProgress,
+            [`${prefixCls}-picture-file-card-custom-thumbnail`]: customThumbnail
+
         });
         const retry = (
             <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-retry`} onClick={e => this.onRetry(e)}>
@@ -175,7 +178,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         );
         const preview = (
             <div className={`${prefixCls}-picture-file-card-preview`}>
-                {typeof renderPicPreviewIcon === 'function'? renderPicPreviewIcon(this.props): null}
+                {typeof renderPicPreviewIcon === 'function' ? renderPicPreviewIcon(this.props) : null}
             </div>
         );
         const close = (
@@ -203,7 +206,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         
         const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} style={imgStyle}/> : <IconFile size="large" />;
 
-        const thumbnail = typeof renderThumbnail === 'function' ? renderThumbnail(this.props) : defaultThumbTail;
+        const thumbnail = customThumbnail ? renderThumbnail(this.props) : defaultThumbTail;
 
         return (
             <div role="listitem" className={filePicCardCls} style={itemStyle} onClick={onPreviewClick}>
@@ -243,7 +246,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
         if (previewFile) {
             previewContent = previewFile(this.props);
         }
-        const operation = typeof renderFileOperation === 'function'? renderFileOperation(this.props) : <Button onClick={e => this.onRemove(e)} type="tertiary" icon={<IconClose />} theme="borderless" size="small" className={closeCls} />;
+        const operation = typeof renderFileOperation === 'function' ? renderFileOperation(this.props) : <Button onClick={e => this.onRemove(e)} type="tertiary" icon={<IconClose />} theme="borderless" size="small" className={closeCls} />;
         return (
             <div role="listitem" className={fileCardCls} style={style} onClick={onPreviewClick}>
                 <div className={previewCls}>
