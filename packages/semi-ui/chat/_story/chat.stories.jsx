@@ -145,7 +145,7 @@ export const Attachment = () => {
             style={{ height: 600}}
         >
             <Chat 
-                placeHolder={'不处理输入信息，仅用于展示附件'}
+                placeholder={'不处理输入信息，仅用于展示附件'}
                 style={commonOuterStyle}
                 chats={message}
                 roleConfig={roleInfo}
@@ -285,7 +285,7 @@ export const CustomRenderTitle = (props) => {
         style={{ height: 600}}
     >
         <Chat
-            placeHolder={"不处理输入信息，仅用于展示自定义头像和标题"}
+            placeholder={"不处理输入信息，仅用于展示自定义头像和标题"}
             style={commonOuterStyle}
             chats={simpleInitMessage}
             roleConfig={roleInfo}

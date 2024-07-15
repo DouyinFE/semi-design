@@ -1,13 +1,14 @@
 import React from "react";
 import Divider from '../divider';
 import ChatBox from './chatBox';
-import { CommonChatsProps } from "./interface";
-import { cssClasses, ROLE } from "@douyinfe/semi-foundation/chat/constants";
+import type { CommonChatsProps } from "./interface";
+import { cssClasses, strings } from "@douyinfe/semi-foundation/chat/constants";
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { Toast } from '../index';
 
 const { PREFIX_DIVIDER, PREFIX } = cssClasses;
+const { ROLE } = strings;
 
 interface ChatContentProps extends CommonChatsProps {}
 

@@ -2,21 +2,22 @@ import * as React from 'react';
 import BaseComponent from '../_base/baseComponent';
 import cls from "classnames";
 import PropTypes from 'prop-types';
-import { ChatProps, ChatState, Message } from './interface';
+import type { ChatProps, ChatState, Message } from './interface';
 import InputBox from './inputBox';
 import "@douyinfe/semi-foundation/chat/chat.scss";
 import Hint from './hint';
 import { IconChevronDown, IconDisc } from '@douyinfe/semi-icons';
 import ChatContent from './chatContent';
 import { getDefaultPropsFromGlobalConfig } from '../_utils';
-import { cssClasses, CHAT_ALIGN, MODE } from '@douyinfe/semi-foundation/chat/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import ChatFoundation, { ChatAdapter } from '@douyinfe/semi-foundation/chat/foundation';
-import { FileItem } from 'upload';
+import type { FileItem } from '../upload';
 import LocaleConsumer from "../locale/localeConsumer";
 import { Locale } from "../locale/interface";
 import { Button, Upload } from '../index';
 
 const prefixCls = cssClasses.PREFIX;
+const { CHAT_ALIGN, MODE } = strings;
 
 class Chat extends BaseComponent<ChatProps, ChatState> {
 
@@ -30,7 +31,6 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     dropAreaRef: React.RefObject<HTMLDivElement>;
 
     static propTypes = {
-        children: PropTypes.node,
         className: PropTypes.string,
         style: PropTypes.object,
         roleConfig: PropTypes.object,
@@ -52,7 +52,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         InputBoxStyle: PropTypes.object,
         inputBoxCls: PropTypes.string,
         renderFullInputBox: PropTypes.func,
-        placeHolder: PropTypes.string,
+        placeholder: PropTypes.string,
         topSlot: PropTypes.node || PropTypes.array,
         bottomSlot: PropTypes.node || PropTypes.array,
         showStopGenerate: PropTypes.bool,

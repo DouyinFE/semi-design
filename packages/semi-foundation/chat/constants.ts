@@ -44,9 +44,7 @@ const MODE = {
     USER_BUBBLE: 'userBubble'
 }
 
-
-export {
-    cssClasses,
+const strings = {
     ROLE,
     CHAT_ALIGN,
     MESSAGE_STATUS,
@@ -54,5 +52,11 @@ export {
     PIC_PREFIX,
     SCROLL_ANIMATION_TIME,
     SHOW_SCROLL_GAP,
-    MODE
+    MODE,
+}
+
+
+export {
+    cssClasses,
+    strings,
 };

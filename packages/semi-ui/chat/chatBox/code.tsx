@@ -13,7 +13,7 @@ import { Locale } from "../../locale/interface";
 
 const { PREFIX_CHAT_BOX } = cssClasses;
 
-const Pre = (props: PropsWithChildren<{ className: string }>) => {
+const Code = (props: PropsWithChildren<{ className: string }>) => {
     const [copied, setCopied] = useState(false);
     const language = useMemo(() => {
         return nth(props.className?.split("-"), -1);
@@ -51,4 +51,4 @@ const Pre = (props: PropsWithChildren<{ className: string }>) => {
     </div>) : (code(props));
 };
 
-export default Pre;
+export default Code;

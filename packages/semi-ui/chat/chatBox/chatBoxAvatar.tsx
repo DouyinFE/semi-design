@@ -1,6 +1,6 @@
 import React, { useMemo, ReactNode, ReactElement } from 'react';
 import Avatar from '../../avatar';
-import { Metadata } from 'chat/interface';
+import { Metadata } from '../interface';
 import { cssClasses } from '@douyinfe/semi-foundation/chat/constants';
 import cls from 'classnames';
 

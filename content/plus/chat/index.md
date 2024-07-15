@@ -534,7 +534,7 @@ function CustomRender() {
         switch(title) {
             case 'custom': return (props) => {
                     const { role, defaultTitle } = props;
-                    return <Tag shape='circle' >{defaultTitle}</Tag>
+                    return <Tag shape='circle' >{role.name}</Tag>
             }
             case 'null': return () => null
             case 'default': return undefined;
@@ -1322,7 +1322,7 @@ render(DefaultChat);
 | onMessageReset | 重置消息时触发 | (message: Message) => void | - |
 | onMessageSend | 发送消息时触发 | (content: string, attachment?: FileItem[]) => void | - |
 | onStopGenerator | 点击停止生成按钮时触发 | (message: Message) => void | - |
-| placeHolder | 输入框占位符 | string | - |
+| placeholder | 输入框占位符 | string | - |
 | renderInputArea | 自定义渲染输入框 | (props: RenderInputAreaProps) => React.ReactNode | - |
 | showClearContext | 是否展示清除上下文按钮| boolean | false |
 | showStopGenerate | 是否展示停止生成按钮| boolean | false |

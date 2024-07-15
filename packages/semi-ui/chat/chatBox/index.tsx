@@ -1,13 +1,14 @@
 import React, { useMemo, useEffect, ReactElement } from 'react';
 import cls from 'classnames';
-import { ChatBoxProps } from '../interface';
+import type { ChatBoxProps } from '../interface';
 import ChatBoxAvatar from './chatBoxAvatar';
 import ChatBoxTitle from './chatBoxTitle';
 import ChatBoxContent from './chatBoxContent';
 import ChatBoxAction from './chatBoxAction';
-import { cssClasses, ROLE, CHAT_ALIGN } from '@douyinfe/semi-foundation/chat/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 
 const { PREFIX_CHAT_BOX } = cssClasses;
+const { ROLE, CHAT_ALIGN } = strings;
 
 const ChatBox = React.memo((props: ChatBoxProps) => {
     const { message, lastChat, align, toast, mode,

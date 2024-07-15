@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
 import { MDXProps } from 'mdx/types';
-import Upload, { FileItem, UploadProps } from '../upload';
+import { Upload } from '../index';
+import type { FileItem, UploadProps } from '../upload';
 import { Message } from '@douyinfe/semi-foundation/chat/foundation';
-import { TooltipProps } from '../tooltip';
+import type { TooltipProps } from '../tooltip';
 
 export { Message };
 export interface CommonChatsProps {
@@ -27,7 +28,7 @@ export interface ChatProps extends CommonChatsProps {
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     onHintClick?: (hint: string) => void;
     onChatsChange?: (chats?: Message[]) => void;
-    onStopGenerator?: (e) => void;
+    onStopGenerator?: (e?: React.MouseEvent) => void;
     customMarkDownComponents?: MDXProps['components'];
     onClear?: () => void;
     onInputChange?: (props: { value?: string; attachment?: FileItem[] }) => void;

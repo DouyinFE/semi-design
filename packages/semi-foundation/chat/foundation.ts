@@ -1,10 +1,13 @@
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
-import { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE } from "./constants";
+import { strings } from "./constants";
 import { Animation } from '@douyinfe/semi-animation';
 import { debounce } from "lodash";
 import { getUuidv4 } from "../utils/uuid";
-import { SCROLL_ANIMATION_TIME, SHOW_SCROLL_GAP } from './constants';
 import { handlePrevent } from "../utils/a11y";
+
+const { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE, 
+    SCROLL_ANIMATION_TIME, SHOW_SCROLL_GAP
+} = strings;
 
 export interface Content {
     type: 'text' | 'image_url' | 'file_url';
@@ -69,6 +72,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
 
     destroy = () => {
         this.animation && this.animation.destroy();
+        this._adapter.unRegisterWheelEvent();
     }
 
     stopGenerate = (e: any) => {

@@ -2,11 +2,12 @@ import React from "react";
 import { FileItem } from '../upload/interface';
 import Image from '../image';
 import { IconBriefStroked, IconClear } from '@douyinfe/semi-icons';
-import { PIC_SUFFIX_ARRAY, PIC_PREFIX, cssClasses } from '@douyinfe/semi-foundation/chat/constants';
+import { strings, cssClasses } from '@douyinfe/semi-foundation/chat/constants';
 import cls from 'classnames';
 import { Progress } from "../index";
 
 const { PREFIX_ATTACHMENT, } = cssClasses;
+const { PIC_SUFFIX_ARRAY, PIC_PREFIX } = strings;
 
 interface AttachmentProps {
     className?: string;

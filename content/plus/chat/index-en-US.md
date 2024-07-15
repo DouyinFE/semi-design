@@ -1303,7 +1303,7 @@ render(DefaultChat);
 | onMessageSend | Triggered when sending a message | (content: string, attachment?: FileItem[]) => void | - |
 | onStopGenerator | Fires when the stop generation button is clicked | (message: Message) => void | - |
 | renderInputArea | Custom rendering input box | (props: RenderInputAreaProps) => React.ReactNode | - |
-| placeHolder | Input box placeholder | string | - |
+| placeholder | Input box placeholder | string | - |
 | topSlot | top slot | React.ReactNode | - |
 | showStopGenerate | Whether to display the stop generation button | boolean | false |
 

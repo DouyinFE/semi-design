@@ -2,12 +2,13 @@ import React, { ReactElement, ReactNode, useMemo } from 'react';
 import cls from 'classnames';
 import { Message, Metadata } from '../interface';
 import MarkdownRender from '../../markdownRender';
-import { cssClasses, MESSAGE_STATUS, MODE, ROLE } from '@douyinfe/semi-foundation/chat/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
 import { FileAttachment, ImageAttachment } from '..//attachment';
-import { default as code } from './code';
+import Code from './code';
 
 const { PREFIX_CHAT_BOX } = cssClasses;
+const { MESSAGE_STATUS, MODE, ROLE } = strings;
 
 interface ChatBoxContentProps {
     mode?: 'bubble' | 'noBubble' | 'userBubble';
@@ -23,7 +24,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
     const { content, role, status } = message;
 
     const markdownComponents = useMemo(() => ({
-        'code': code,
+        'code': Code,
         'SemiFile': FileAttachment,
         'img': ImageAttachment,
         ...customMarkDownComponents

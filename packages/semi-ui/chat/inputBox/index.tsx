@@ -2,12 +2,11 @@ import React, { PureComponent } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { FileItem } from '../../upload/interface';
-import { InputBoxProps, InputBoxState } from '../interface';
-import { BaseComponent, Button, Upload } from '../../index';
-import { IconDeleteStroked, IconSend, IconChainStroked, IconArrowUp } from '@douyinfe/semi-icons';
+import type { InputBoxProps, InputBoxState } from '../interface';
+import { BaseComponent, Button, Upload, Tooltip, TextArea } from '../../index';
+import { IconDeleteStroked, IconChainStroked, IconArrowUp } from '@douyinfe/semi-icons';
 import { cssClasses } from "@douyinfe/semi-foundation/chat/constants";
 import InputBoxFoundation, { InputBoxAdapter } from '@douyinfe/semi-foundation/chat/inputboxFoundation';
-import { Tooltip, TextArea } from '../../index';
 import Attachment from '../attachment';
 
 const { PREFIX_INPUT_BOX } = cssClasses;
@@ -17,11 +16,10 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     inputAreaRef: React.RefObject<any>;
     static propTypes = {
-        children: PropTypes.node,
+        uploadProps: PropTypes.object,
     };
 
     static defaultProps = {
-        children: null,
         uploadProps: {}
     };
 

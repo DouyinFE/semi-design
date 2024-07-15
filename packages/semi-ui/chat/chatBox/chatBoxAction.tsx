@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { ChatBoxProps, Message } from '../interface';
+import type { ChatBoxProps, Message } from '../interface';
 import { IconThumbUpStroked, 
     IconDeleteStroked, 
     IconCopyStroked, 
@@ -9,13 +9,14 @@ import { IconThumbUpStroked,
 } from '@douyinfe/semi-icons';
 import { BaseComponent, Button, Popconfirm } from '../../index';
 import copy from 'copy-text-to-clipboard';
-import { ROLE, cssClasses, MESSAGE_STATUS } from '@douyinfe/semi-foundation/chat/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import ChatBoxActionFoundation, { ChatBoxActionAdapter } from '@douyinfe/semi-foundation/chat/chatBoxActionFoundation';
 import LocaleConsumer from "../../locale/localeConsumer";
 import { Locale } from "../../locale/interface";
 import cls from 'classnames';
 
 const { PREFIX_CHAT_BOX_ACTION } = cssClasses;
+const { ROLE, MESSAGE_STATUS } = strings;
 
 interface ChatBoxActionProps extends ChatBoxProps {
     customRenderFunc?: (props: { message?: Message; defaultActions?: ReactNode | ReactNode[]; className: string }) => ReactNode
