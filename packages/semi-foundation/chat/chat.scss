@@ -11,7 +11,8 @@ $module: #{$prefix}-chat;
 }
 
 .#{$module} {
-    margin: $spacing-chat-marginY $spacing-chat-marginX;
+    padding-top: $spacing-chat_paddingY;
+    padding-bottom: $spacing-chat_paddingY;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -176,6 +177,10 @@ $module: #{$prefix}-chat;
 
             &-show {
                 visibility: visible;
+            }
+
+            &-delete-wrap {
+                display: inline-flex;
             }
 
             &.#{$module}-chatBox-action-hidden, &:hover.#{$module}-chatBox-action-hidden {
@@ -540,7 +545,9 @@ $module: #{$prefix}-chat;
         display: flex;
         flex-direction: column;
         row-gap: $spacing-chat_hint-rowGap;
-        margin: $spacing-chat_hint-marginY $spacing-chat_hint-marginX; 
+        margin-top: $spacing-chat_hint-marginY; 
+        margin-bottom: $spacing-chat_hint-marginY;
+        margin-left: $spacing-chat_hint-marginLeft;
        
         &-item {
             cursor: pointer;

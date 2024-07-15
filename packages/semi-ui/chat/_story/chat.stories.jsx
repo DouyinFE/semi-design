@@ -94,7 +94,7 @@ export const _Chat = () => {
 
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
                     模式：
-                    <RadioGroup onChange={onModeChange} value={mode} >
+                    <RadioGroup onChange={onModeChange} value={mode} type="button">
                         <Radio value={'bubble'}>气泡</Radio>
                         <Radio value={'noBubble'}>非气泡</Radio>
                         <Radio value={'userBubble'}>用户会话气泡</Radio>
@@ -102,7 +102,7 @@ export const _Chat = () => {
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
                     布局：
-                    <RadioGroup onChange={onAlignChange} value={align}>
+                    <RadioGroup onChange={onAlignChange} value={align} type="button">
                         <Radio value={'leftRight'}>左右分布</Radio>
                         <Radio value={'leftAlign'}>全左</Radio>
                     </RadioGroup>

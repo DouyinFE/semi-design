@@ -23,7 +23,7 @@ $color-chat_chatBox_content_user-text: var(--semi-color-white); // 聊天框内�
 $color-chat_chatBox_content_error-bg: var(--semi-color-danger-hover); // 聊天框内容错误背景颜色
 $color-chat_chatBox_content_error-text: var(--semi-color-white); // 聊天框内容错误文字颜色
 $color-chat_inputBottom_clearButton_icon: var(--semi-color-text-2); //清空按钮图标颜色
-$color-chat_inputBottom_uploadButton_icon: var(--semi-color-black); // 上传按钮图标颜色
+$color-chat_inputBottom_uploadButton_icon: var(--semi-color-text-0); // 上传按钮图标颜色
 $color-chat_inputBottom_sendButton_icon-disable: var(--semi-color-primary-disabled); // 发送按钮禁用态图标颜色
 $color-chat_inputBox_container-border: var(--semi-color-border);  // 输入框容器边框颜色
 $color-chat_attachment_clear_icon: var(--semi-color-text-2);  // 附件清除图标颜色
@@ -47,8 +47,7 @@ $color-chat_dropArea-bg: rgba(var(--semi-grey-2), 0.9); // 拖拽区域文字颜
 $color-chat_dropArea-border: var(--semi-color-border); // 拖拽区域边框颜色
 
 // spacing
-$spacing-chat-marginY: 8px; // 最外层垂直外边距
-$spacing-chat-marginX: 16px; // 最外层水平外边距
+$spacing-chat_paddingY: 12px; // chat组件上下内边距
 $spacing-chat_container-paddingX: 16px;  // 消息框水平内边距
 $spacing-chat_action_content-bottom: 0; // 返回按钮/停止生成按钮底部边距
 $spacing-chat_chatBox-marginY: 8px; // 聊天框上下外边距
@@ -59,7 +58,7 @@ $spacing-chat_chatBox_action_btn-padding: 0;  // 聊天框操作区域按钮内�
 $spacing-chat_chatBox_content-paddingY: 8px;  // 聊天框内容上下内边距
 $spacing-chat_chatBox_content-paddingX: 12px;  // 聊天框内容左右内边距
 $spacing-chat_inputBox-paddingTop: 8px; // 输入框顶部内边距
-$spacing-chat_inputBox-paddingBottom: 16px; // 输入框底部内边距
+$spacing-chat_inputBox-paddingBottom: 8px; // 输入框底部内边距
 $spacing-chat_inputBox-paddingX: 16px; // 输入框左右内边距
 $spacing-chat_inputBox_container-padding: 11px; // 输入框容器内边距
 $spacing-chat_inputBox_inner-columnGap: 3px; // 输入框容器列间距
@@ -80,7 +79,7 @@ $spacing-chat_chatBox_content_code_topSlot_copy-padding: 5px; // 聊天框代码
 $spacing-chat_chatBox_wrap: 8px; // 聊天框外层间距
 $spacing-chat_hint-rowGap: 10px; // 提示条行间距
 $spacing-chat_hint-marginY: 12px; // 提示条容器上下外边距
-$spacing-chat_hint-marginX: 34px; // 提示条容器左右外边距    
+$spacing-chat_hint-marginLeft: 34px; // 提示条容器左外边距    
 $spacing-chat_hint_item-marginY: 8px; // 提示条上下外边距
 $spacing-chat_hint_item-marginX: 12px; // 提示条左右外边距
 $spacing-chat_hint_item-columnGap: 20px; // 提示条内容列间距

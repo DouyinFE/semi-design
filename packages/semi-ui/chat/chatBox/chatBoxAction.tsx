@@ -21,7 +21,12 @@ interface ChatBoxActionProps extends ChatBoxProps {
     customRenderFunc?: (props: { message?: Message; defaultActions?: ReactNode | ReactNode[]; className: string }) => ReactNode
 }
 
-class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
+interface ChatBoxActionState {
+    visible: boolean;
+    showAction: boolean
+}
+
+class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxActionState> {
 
     static propTypes = {
         role: PropTypes.object,
@@ -39,13 +44,20 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
     copySuccessNode: ReactNode;
     foundation: ChatBoxActionFoundation;
     containerRef: React.RefObject<HTMLDivElement>;
+    popconfirmTriggerRef: React.RefObject<HTMLSpanElement>;
+    clickOutsideHandler: any;
 
     constructor(props: ChatBoxProps) {
         super(props);
         this.foundation = new ChatBoxActionFoundation(this.adapter);
         this.copySuccessNode = null;
-        this.state = {};
+        this.state = {
+            visible: false,
+            showAction: false,
+        };
+        this.clickOutsideHandler = null;
         this.containerRef = React.createRef<HTMLDivElement>();
+        this.popconfirmTriggerRef = React.createRef<HTMLSpanElement>();
     }
 
     componentDidMount(): void {
@@ -54,7 +66,11 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
         </LocaleConsumer>;
     }
 
-    get adapter(): ChatBoxActionAdapter<ChatBoxActionProps> {
+    componentWillUnmount(): void {
+        this.foundation.destroy();
+    }
+
+    get adapter(): ChatBoxActionAdapter<ChatBoxActionProps, ChatBoxActionState> {
         return {
             ...super.adapter,
             notifyDeleteMessage: () => {
@@ -88,6 +104,35 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
             notifyResetMessage: () => {
                 const { message, onMessageReset } = this.props;
                 onMessageReset?.(message);
+            },
+            setVisible: (visible) => {
+                this.setState({ visible });
+            },
+            setShowAction: (showAction) => {
+                this.setState({ showAction });
+            },
+            registerClickOutsideHandler: (cb: () => void) => {
+                if (this.clickOutsideHandler) {
+                    this.adapter.unregisterClickOutsideHandler();
+                }
+                this.clickOutsideHandler = (e: React.MouseEvent): any => {
+                    let el = this.popconfirmTriggerRef && this.popconfirmTriggerRef.current;
+                    const target = e.target as Element;
+                    const path = (e as any).composedPath && (e as any).composedPath() || [target];
+                    if (
+                        el && !(el as any).contains(target) && 
+                        ! path.includes(el)
+                    ) {
+                        cb();
+                    }
+                };
+                window.addEventListener('mousedown', this.clickOutsideHandler);
+            },
+            unregisterClickOutsideHandler: () => {
+                if (this.clickOutsideHandler) {
+                    window.removeEventListener('mousedown', this.clickOutsideHandler);
+                    this.clickOutsideHandler = null;
+                }
             },
         };
     }
@@ -145,30 +190,39 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps> {
             {(locale: Locale["Chat"]) => locale['deleteConfirm']}
         </LocaleConsumer>);
         return (<Popconfirm
+            trigger="custom"
+            visible={this.state.visible}
             key={'delete'}
             title={deleteMessage}
             onConfirm={this.foundation.deleteMessage}
-            getPopupContainer={() => this.containerRef?.current}
+            onCancel={this.foundation.hideDeletePopup}
             position='top'
         >
-            <Button
-                theme='borderless'
-                icon={<IconDeleteStroked />}
-                type='tertiary'
-                className={`${PREFIX_CHAT_BOX_ACTION}-btn`}
-            />
+            <span 
+                ref={this.popconfirmTriggerRef}
+                className={`${PREFIX_CHAT_BOX_ACTION}-delete-wrap`}
+            >
+                <Button
+                    theme='borderless'
+                    icon={<IconDeleteStroked />}
+                    type='tertiary'
+                    className={`${PREFIX_CHAT_BOX_ACTION}-btn`}
+                    onClick={this.foundation.showDeletePopup}
+                />
+            </span>
         </Popconfirm>);
     }
 
     render() {
         const { message = {}, lastChat } = this.props;
+        const { showAction } = this.state;
         const { role, status = MESSAGE_STATUS.COMPLETE } = message;
         const complete = status === MESSAGE_STATUS.COMPLETE ;
         const showFeedback = role !== ROLE.USER && complete;
         const showReset = lastChat && role === ROLE.ASSISTANT;
         const finished = status !== MESSAGE_STATUS.LOADING && status !== MESSAGE_STATUS.INCOMPLETE;
         const wrapCls = cls(PREFIX_CHAT_BOX_ACTION, { 
-            [`${PREFIX_CHAT_BOX_ACTION}-show`]: showReset && finished,
+            [`${PREFIX_CHAT_BOX_ACTION}-show`]: showReset && finished || showAction,
             [`${PREFIX_CHAT_BOX_ACTION}-hidden`]: !finished,
         });
         const { customRenderFunc } = this.props;

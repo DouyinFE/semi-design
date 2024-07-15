@@ -78,6 +78,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
+    margin: '8px 16px',
     height: 550,
 }
 
@@ -134,20 +135,22 @@ function DefaultChat() {
 
     return (
         <>
-             <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                模式：
-                <RadioGroup onChange={onModeChange} value={mode} >
-                    <Radio value={'bubble'}>气泡</Radio>
-                    <Radio value={'noBubble'}>非气泡</Radio>
-                    <Radio value={'userBubble'}>用户会话气泡</Radio>
-                </RadioGroup>
-            </span>
-            <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                会话对齐方式：
-                <RadioGroup onChange={onAlignChange} value={align}>
-                    <Radio value={'leftRight'}>左右分布</Radio>
-                    <Radio value={'leftAlign'}>左对齐</Radio>
-                </RadioGroup>
+            <span style={{ display: 'flex', flexDirection: 'column', rowGap: '8px'}}>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    模式
+                    <RadioGroup onChange={onModeChange} value={mode} type={"button"}>
+                        <Radio value={'bubble'}>气泡</Radio>
+                        <Radio value={'noBubble'}>非气泡</Radio>
+                        <Radio value={'userBubble'}>用户会话气泡</Radio>
+                    </RadioGroup>
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    会话对齐方式
+                    <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
+                        <Radio value={'leftRight'}>左右分布</Radio>
+                        <Radio value={'leftAlign'}>左对齐</Radio>
+                    </RadioGroup>
+                </span>
             </span>
             <Chat 
                 key={align + mode}
@@ -429,10 +432,15 @@ render(DynamicUpdateChat);
 
 ```ts
 interface ChatBoxRenderConfig {
+    /* 自定义渲染标题 */
     renderChatBoxTitle?: (props: {role?: Metadata, defaultTitle?: ReactNode}) => ReactNode;
+    /* 自定义渲染头像 */
     renderChatBoxAvatar?: (props: { role?: Metadata, defaultAvatar?: ReactNode}) => ReactNode;
+    /* 自定义渲染内容区域 */
     renderChatBoxContent?: (props: {message?: Message, role?: Metadata, defaultContent?: ReactNode | ReactNode[], className?: string}) => ReactNode;
+    /* 自定义渲染消息操作栏 */
     renderChatBoxAction?: (props: {message?: Message, defaultActions?: ReactNode | ReactNode[], className: string}) => ReactNode;
+    /* 完全自定义渲染整个聊天框 */
     renderFullChatBox?: (props: {message?: Message, role?: Metadata, defaultNodes?: FullChatBoxNodes, className: string}) => ReactNode;
 }
 ```
@@ -549,23 +557,24 @@ function CustomRender() {
 
     return (
         <>
-            <div style={{ marginLeft: 12 }}>
-                <span >头像渲染模式: </span>
-                <RadioGroup onChange={onAvatarChange} value={avatar} aria-label="单选组合示例" name="demo-radio-group">
+            <span style={{ display: 'flex', flexDirection: 'column', rowGap: 8, marginBottom: 5}}>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: 10}}>
+                    头像渲染模式
+                    <RadioGroup onChange={onAvatarChange} value={avatar} type="button">
                     <Radio value={'default'}>默认头像</Radio>
                     <Radio value={'null'}>无头像</Radio>
                     <Radio value={'custom'}>自定义头像</Radio>
                 </RadioGroup>
-                <br />
-                <br />
-                <span >标题渲染模式: </span>
-                <RadioGroup onChange={onTitleChange} value={title} aria-label="单选组合示例" name="demo-radio-group">
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: 10}}>
+                    标题渲染模式
+                    <RadioGroup onChange={onTitleChange} value={title} type="button">
                     <Radio value={'default'}>默认标题</Radio>
                     <Radio value={'null'}>无标题</Radio>
                     <Radio value={'custom'}>自定义标题</Radio>
                 </RadioGroup>
-            </div>
-            <br />
+                </span>
+            </span>
             <Chat
                 chatBoxRenderConfig={{
                     renderChatBoxTitle: customRenderTitle,
@@ -929,8 +938,11 @@ render(CustomFullRender)
 
 ``` ts
 export interface RenderInputAreaProps {
+    /* 默认节点 */
     defaultNode?: ReactNode;
+    /* 如果自定义输入框，发送消息时需调用 */
     onSend?: (content?: string, attachment?: FileItem[]) => void;
+    /* 如果自定义清除上下文按钮，点击清除上下文时需调用 */
     onClear?: (e?: any) => void;
 }
 ```
@@ -1071,29 +1083,17 @@ import { Chat } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
     {
-        role: 'system',
+        role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "Hello, I'm your AI assistant.",   
-    },
-    {
-        role: 'user',
-        id: '2',
-        createAt: 1715676751919,
-        content: "介绍一下 semi design", 
-    },
-    {
-        role: 'assistant',
-        id: '3',
-        createAt: 1715676751919,
-        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统',
+        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统，你可以向我提问任何关于 Semi 的问题。',
     }
 ];
 
 const hintsExample = [
     "告诉我更多",
     "Semi Design 的组件有哪些？",
-    "Semi Design 官网及 github 仓库地址是？",
+    "我能够通过 DSM 定制自己的主题吗？",
 ]
 
 const roleInfo = {
@@ -1114,7 +1114,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 500,
+    height: 400,
 };
 
 let id = 0;
@@ -1185,29 +1185,17 @@ import { Chat } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
     {
-        role: 'system',
+        role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "Hello, I'm your AI assistant.",   
-    },
-    {
-        role: 'user',
-        id: '2',
-        createAt: 1715676751919,
-        content: "介绍一下 semi design", 
-    },
-    {
-        role: 'assistant',
-        id: '3',
-        createAt: 1715676751919,
-        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统',
+        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统，你可以向我提问任何关于 Semi 的问题。',
     }
 ];
 
 const hintsExample = [
     "告诉我更多",
     "Semi Design 的组件有哪些？",
-    "Semi Design 官网及 github 仓库地址是？",
+    "我能够通过 DSM 定制自己的主题吗？",
 ]
 
 const roleInfo = {
@@ -1228,7 +1216,7 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 500,
+    height: 400,
 };
 
 let id = 0;
@@ -1266,9 +1254,9 @@ function DefaultChat() {
         border: '1px solid var(--semi-color-border)',
         padding: '10px',
         borderRadius: '10px',
-        width: 'fit-content',
         color: 'var( --semi-color-text-1)',
         display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         cursor: 'pointer',
         fontSize: '14px'
