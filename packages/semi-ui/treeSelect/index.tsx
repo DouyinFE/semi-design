@@ -319,7 +319,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
     onMotionEnd: any;
     treeSelectID: string;
     context: ContextValue;
-    clearInputFlag: boolean;
 
     constructor(props: TreeSelectProps) {
         super(props);
@@ -760,12 +759,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
             },
-            setClearInputFlag: (flag: boolean) => {
-                this.clearInputFlag = flag;
-            },
-            getClearInputFlag: () => {
-                return this.clearInputFlag;
-            }
         };
     }
 
@@ -1110,7 +1103,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         let triggerRenderKeys = [];
         if (multiple) {
             if (!autoMergeValue) {
-                triggerRenderKeys =[...checkedKeys];
+                triggerRenderKeys = [...checkedKeys];
             } else if (checkRelation === 'related') {
                 triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
             } else if (checkRelation === 'unRelated') {
