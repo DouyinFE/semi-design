@@ -356,7 +356,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         this.triggerRef = React.createRef();
         this.optionsRef = React.createRef();
         this.clickOutsideHandler = null;
-        this.clearInputFlag = false;
         this.foundation = new TreeSelectFoundation(this.adapter);
         this.treeSelectID = Math.random().toString(36).slice(2);
         this.onMotionEnd = () => {
