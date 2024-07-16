@@ -295,6 +295,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
                 onReset={this.reset}
                 onSubmit={this.submit}
                 className={formCls}
+                id={id ? id : formId}
                 x-form-id={id ? id : formId}
             >
                 {this.content}
