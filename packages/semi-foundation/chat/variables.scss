@@ -1,11 +1,11 @@
 // radius
-$radius-chat_chatBox_content: 12px;  // 聊天框内容圆角
+$radius-chat_chatBox_content: var(--semi-border-radius-large);  // 聊天框内容圆角
 $radius-chat_inputBox_container: 16px; // 输入框容器圆角
-$radius-chat_attachment_img: 5px; // 附件图片圆角
-$radius-chat_attachment_file: 5px; // 附件文件圆角
-$radius-chat_hint_item: 12px; // 提示条圆角
-$radius-chat_chatBox_content_code: 10px; // 代码块圆角
-$radius-chat_chatBox_content_code_topSlot_copy: 10px; // 代码块顶部复制按钮圆角
+$radius-chat_attachment_img: var(--semi-border-radius-medium); // 附件图片圆角
+$radius-chat_attachment_file: var(--semi-border-radius-medium); // 附件文件圆角
+$radius-chat_hint_item: var(--semi-border-radius-large); // 提示条圆角
+$radius-chat_chatBox_content_code: var(--semi-border-radius-large); // 代码块圆角
+$radius-chat_chatBox_content_code_topSlot_copy: var(--semi-border-radius-large); // 代码块顶部复制按钮圆角
 $radius-chat_dropArea: 16px; // 拖拽上传区域圆角
 
 //color
@@ -34,6 +34,7 @@ $color-chat_attachment_file_icon: var(--semi-color-text-2); // 附件文件图�
 $color-chat_attachment_file_title: var(--semi-color-text-0); // 附件文件标题颜色
 $color-chat_attachment_file_metadata_text: var(--semi-color-text-2); // 附件文件元数据文字颜色
 $color-chat_hint_item-border: var(--semi-color-border); // 提示条边框颜色
+$color-chat_hint_item-bg: transparent; // 提示条背景颜色
 $color-chat_hint_item-bg-hover: var(--semi-color-fill-0); // 提示条hover背景颜色
 $color-chat_hint_content_text: var(--semi-color-text-1); // 提示条文字颜色
 $color-chat_hint_icon: var(--semi-color-text-2); // 提示条图标颜色

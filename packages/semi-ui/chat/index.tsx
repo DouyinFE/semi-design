@@ -169,7 +169,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                 onHintClick && onHintClick(hint);
             },
             setUploadAreaVisible: (visible: boolean) => {
-                this.setState({ uploadAreaVisible: visible })
+                this.setState({ uploadAreaVisible: visible });
             },
             manualUpload: (file: File[]) => {
                 const uploadComponent = this.uploadRef.current;
@@ -294,11 +294,11 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         </LocaleConsumer>
                     </span>  
                 </div>}
-                <div className={`${prefixCls}-wrapper`}>
+                <div className={`${prefixCls}-inner`}>
                     {/* top slot */}
                     {topSlot}
                     {/* chat area */}
-                    <div className={`${prefixCls}-outer`}>
+                    <div className={`${prefixCls}-content`}>
                         <div 
                             className={cls(`${prefixCls}-container`, {
                                 'semi-chat-container-scroll-hidden': !wheelScroll

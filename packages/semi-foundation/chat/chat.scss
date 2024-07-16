@@ -20,7 +20,7 @@ $module: #{$prefix}-chat;
     position: relative;
     overflow: hidden;
 
-    &-wrapper {
+    &-inner {
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -45,7 +45,7 @@ $module: #{$prefix}-chat;
         }
     }
 
-    &-outer {
+    &-content {
         overflow: hidden;
         flex: 1 1;
         position: relative;
@@ -541,14 +541,16 @@ $module: #{$prefix}-chat;
         
     }
 
-    &-hint {
+    &-hints {
         display: flex;
         flex-direction: column;
         row-gap: $spacing-chat_hint-rowGap;
         margin-top: $spacing-chat_hint-marginY; 
         margin-bottom: $spacing-chat_hint-marginY;
         margin-left: $spacing-chat_hint-marginLeft;
-       
+    }
+
+    &-hint {
         &-item {
             cursor: pointer;
             display: flex;
@@ -556,6 +558,7 @@ $module: #{$prefix}-chat;
             column-gap: $spacing-chat_hint_item-columnGap;
             width: fit-content;
             // justify-content: space-between;
+            background: $color-chat_hint_item-bg;
             align-items: center;
             border: $width-chat_hint_item-border solid $color-chat_hint_item-border;
             padding: $spacing-chat_hint_item-marginY $spacing-chat_hint_item-marginX;

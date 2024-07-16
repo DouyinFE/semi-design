@@ -28,7 +28,7 @@ export interface ChatProps extends CommonChatsProps {
     renderHintBox?: (props: {content: string; index: number;onHintClick: () => void}) => React.ReactNode;
     onHintClick?: (hint: string) => void;
     onChatsChange?: (chats?: Message[]) => void;
-    onStopGenerator?: (e?: React.MouseEvent) => void;
+    onStopGenerator?: (e?: MouseEvent) => void;
     customMarkDownComponents?: MDXProps['components'];
     onClear?: () => void;
     onInputChange?: (props: { value?: string; attachment?: FileItem[] }) => void;
@@ -39,13 +39,12 @@ export interface ChatProps extends CommonChatsProps {
     placeholder?: string;
     topSlot?: ReactNode | ReactNode[];
     bottomSlot?: ReactNode | ReactNode[];
-    children?: ReactNode | undefined | any;
     showStopGenerate?: boolean;
     hintStyle?: React.CSSProperties;
     hintCls?: string;
     uploadProps?: UploadProps;
     uploadTipProps?: TooltipProps;
-    showClearContext?: boolean;
+    showClearContext?: boolean
 }
 
 export interface RenderInputAreaProps {
@@ -90,14 +89,13 @@ export interface ChatState {
     scrollVisible?: boolean;
     wheelScroll?: boolean;
     cacheHints?: string[];
-    uploadAreaVisible?: boolean;
+    uploadAreaVisible?: boolean
 }
 
 export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
     toast?: any;
     style?: React.CSSProperties;
     className?: string;
-    children?: ReactNode | undefined | any;
     previousMessage?: Message;
     message?: Message;
     lastChat?: boolean;
@@ -115,7 +113,6 @@ export interface InputBoxProps {
     uploadProps?: UploadProps;
     manualUpload?: (file: File[]) => void;
     renderInputArea?: (props: RenderInputAreaProps) => React.ReactNode;
-    children?: React.ReactNode;
     onSend?: (content: string, attachment: FileItem[]) => void;
     onClearContext?: (e: any) => void;
     onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void

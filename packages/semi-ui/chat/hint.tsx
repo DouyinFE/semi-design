@@ -16,7 +16,7 @@ const Hint = React.memo((props: HintProps) => {
     const { value, onHintClick, renderHintBox, className, style } = props;
     return (
         <section 
-            className={cls(PREFIX_HINT, {
+            className={cls(`${PREFIX_HINT}s`, {
                 [className]: !!className,
             })}
             style={style}

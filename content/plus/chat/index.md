@@ -533,8 +533,15 @@ function CustomRender() {
     const customRenderTitle = useMemo(()=> {
         switch(title) {
             case 'custom': return (props) => {
-                    const { role, defaultTitle } = props;
-                    return <Tag shape='circle' >{role.name}</Tag>
+                    const { role, defaultTitle, message } = props;
+                    const date = new Date(message.createAt);
+                    const hours = ('0' + date.getHours()).slice(-2);
+                    const minutes = ('0' + date.getMinutes()).slice(-2);
+                    const formatTime = `${hours}:${minutes}`;
+                    return (<span className="title" >
+                        {role.name}
+                        <span className={'time'}>{formatTime}</span>
+                    </span>)
             }
             case 'null': return () => null
             case 'default': return undefined;
@@ -582,6 +589,7 @@ function CustomRender() {
                 }} 
                 key={`${avatar}${title}`}
                 style={commonOuterStyle}
+                className={'component-chat-demo-custom-render'}
                 chats={message}
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
@@ -668,9 +676,7 @@ const CustomActions = React.memo((props) => {
         className={className}
         ref={myRef}
     >
-        {defaultActions.map((item, index)=> {
-            return <span key={index}>{item}</span>
-        })}
+        {defaultActions}
         {<Dropdown
             key="dropdown"
             render={
@@ -887,10 +893,10 @@ function CustomFullRender() {
         const { role, message, defaultNodes, className } = props;
         let titleNode = null;
         if (message.role !== 'user') {
-            titleNode = <span style={titleStyle}>
-            <Avatar size="extra-small" shape="square" src={role.avatar} />
-            {defaultNodes.title}
-        </span>
+            titleNode = (<span style={titleStyle}>
+                <Avatar size="extra-small" shape="square" src={role.avatar} />
+                {defaultNodes.title}
+            </span>)
         }
         return <div className={className}>
             <div style={{ display: 'flex', flexDirection: 'column', rowGap: 4, alignItems: message.role === 'user' ? 'end' : ''}}>
