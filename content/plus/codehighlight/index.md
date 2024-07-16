@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 0
 category: Plus
 title:  CodeHighlight 代码高亮
-icon: doc-configprovider
+icon: doc-codehighlight
 dir: column
 brief: 根据语法高亮页面中的代码块
 ---
