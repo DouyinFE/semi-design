@@ -358,6 +358,15 @@ $module: #{$prefix}-upload;
                 border-radius: $radius-upload_picture_file_card_img;
             }
 
+            &-custom-thumbnail {
+                .#{$prefix}-image {
+                    img {
+                        width: inherit;
+                        height: inherit;
+                    }
+                }
+            }
+
             &-close {
                 visibility: hidden;
                 display: inline-flex;
