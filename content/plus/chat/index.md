@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 79
+order: 82
 category: Plus
 title:  Chat 对话
 icon: doc-configprovider

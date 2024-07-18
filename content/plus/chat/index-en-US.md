@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 79
+order: 82
 category: Plus
 title:  Chat
 icon: doc-configprovider
