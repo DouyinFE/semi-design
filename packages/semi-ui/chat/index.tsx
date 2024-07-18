@@ -17,7 +17,7 @@ import { Locale } from "../locale/interface";
 import { Button, Upload } from '../index';
 
 const prefixCls = cssClasses.PREFIX;
-const { CHAT_ALIGN, MODE } = strings;
+const { CHAT_ALIGN, MODE, KEY_SEND_STRATEGY } = strings;
 
 class Chat extends BaseComponent<ChatProps, ChatState> {
 
@@ -69,6 +69,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         showStopGenerate: false,
         mode: MODE.BUBBLE,
         showClearContext: false,
+        keySendStrategy: KEY_SEND_STRATEGY.ENTER,
     })
 
     constructor(props: ChatProps) {
@@ -267,7 +268,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             style, className, showStopGenerate,
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
-            hintStyle, hintCls, uploadProps, uploadTipProps
+            hintStyle, hintCls, uploadProps, uploadTipProps,
+            keySendStrategy,
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -368,6 +370,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         renderInputArea={renderInputArea}
                         uploadProps={uploadProps}
                         uploadTipProps={uploadTipProps}
+                        keySendStrategy={keySendStrategy}
                     />
                     {bottomSlot}
                 </div>

@@ -1,4 +1,8 @@
+import { handlePrevent } from "../utils/a11y";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
+import { strings } from './constants';
+
+const { KEY_SEND_STRATEGY } = strings;
 
 export interface InputBoxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyInputChange: (props: { inputValue: string; attachment: any[]}) => void;
@@ -62,9 +66,13 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
     }
 
     onEnterPress = (e: any) => {
-        if (e.key === 'Enter' && e.shiftKey) {
+        const { keySendStrategy } = this.getProps();
+        if (keySendStrategy === KEY_SEND_STRATEGY.SHIFT_PLUS_ENTER && e.shiftKey === false) {
+            return ;
+        } else if (keySendStrategy === KEY_SEND_STRATEGY.ENTER && e.shiftKey === true) {
             return ;
         }
+        handlePrevent(e);
         this.onSend(e)
     };
 

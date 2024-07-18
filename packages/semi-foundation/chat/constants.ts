@@ -42,6 +42,11 @@ const MODE = {
     BUBBLE: 'bubble',
     NO_BUBBLE: 'noBubble',
     USER_BUBBLE: 'userBubble'
+};
+
+const KEY_SEND_STRATEGY ={
+    ENTER: 'enter',
+    SHIFT_PLUS_ENTER: 'shiftPlusEnter'
 }
 
 const strings = {
@@ -53,6 +58,7 @@ const strings = {
     SCROLL_ANIMATION_TIME,
     SHOW_SCROLL_GAP,
     MODE,
+    KEY_SEND_STRATEGY
 }
 
 

@@ -91,7 +91,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     renderInputArea = () => {
         const { content, attachment } = this.state;
-        const { placeholder } = this.props;
+        const { placeholder, keySendStrategy } = this.props;
         return (<div
             className={`${PREFIX_INPUT_BOX}-inputArea`}
         >
@@ -103,7 +103,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 ref={this.inputAreaRef}
                 className={`${PREFIX_INPUT_BOX}-textarea`}
                 autosize={textAutoSize} 
-                disabledEnterStartNewLine={true}
+                disabledEnterStartNewLine={keySendStrategy === 'enter' ? true : false}
                 onPaste={this.foundation.onPaste as any}
             />
             <Attachment 

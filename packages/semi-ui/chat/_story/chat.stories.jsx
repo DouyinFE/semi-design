@@ -20,6 +20,7 @@ export const _Chat = () => {
     const [hints, setHints] = useState(hintsExample);
     const [mode, setMode] = useState('bubble');
     const [align, setAlign] = useState('leftRight');
+    const [keySendStrategy, setKeySendStrategy] = useState('enter');
     const [key, setKey] = useState(1);
     const [showClearContext, setShowClearContext] = useState(false);
 
@@ -84,14 +85,17 @@ export const _Chat = () => {
         setShowClearContext((showClearContext) => !showClearContext);
     }, [])
 
+    const onKeySendStrategyChange = useCallback((e) => {
+        setKeySendStrategy(e.target.value);
+    }, []);
+
     return (
         <>
-            <div style={{margin: 10}}>
+            <div style={{margin: 10, display: 'flex', flexDirection: 'column', rowGap: 5}}>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
                     展示清除上下文按钮：
                     <Switch checked={showClearContext} onChange={onSwitchChange}/>
                 </span>
-
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
                     模式：
                     <RadioGroup onChange={onModeChange} value={mode} type="button">
@@ -107,10 +111,17 @@ export const _Chat = () => {
                         <Radio value={'leftAlign'}>全左</Radio>
                     </RadioGroup>
                 </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    按键发送策略：
+                    <RadioGroup onChange={onKeySendStrategyChange} value={keySendStrategy} type="button">
+                        <Radio value={'enter'}>enter</Radio>
+                        <Radio value={'shiftPlusEnter'}>shiftPlusEnter</Radio>
+                    </RadioGroup>
+                </span>
             </div>
-            <div style={{ height: 800}}>
+            <div style={{ height: 650}}>
                 <Chat
-                    key={key} 
+                    key={key}
                     style={commonOuterStyle}
                     chats={message}
                     hints={hints}
@@ -130,6 +141,7 @@ export const _Chat = () => {
                     }}
                     mode={mode} 
                     align={align}
+                    keySendStrategy={keySendStrategy} 
                     showClearContext={showClearContext}
                 />
             </div>
@@ -453,8 +465,6 @@ const SourceCard = (props) => {
         }, 350)
     }, []);
 
-    
-
     return (<div style={{ 
             transition: open ? 'height 0.4s ease, width 0.4s ease': 'height 0.4s ease',
             height: open ? '30px' : '184px',
@@ -525,7 +535,7 @@ const SourceCard = (props) => {
                         <span style={{
                             display: '-webkit-box',
                             "-webkit-box-orient": 'vertical',
-                            "-webkit-line-clamp": '3', 
+                            WebkitLineClamp: '3', 
                             textOverflow: 'ellipsis', 
                             overflow: 'hidden',
                             color: 'var(--semi-color-text-2)',
@@ -593,7 +603,6 @@ export const CustomRenderContentPlus = () => {
 
     const renderContent = useCallback((props) => {
         const { role, message, defaultNode, className } = props;
-        console.log('message', message);
         return <div className={className}>
             <SourceCard sources={message?.source} />
             <MarkdownRender raw={message?.content}/>
@@ -816,14 +825,4 @@ export const CustomRenderHint = () => {
             uploadProps={uploadProps}
         />
     </div>
-}
-
-export const Code = () => {
-    return (
-        <div> 
-            test
-        <br />
-            <code> {semiCode}</code>
-        </div>
-    ) 
 }

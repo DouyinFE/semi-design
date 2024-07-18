@@ -62,8 +62,9 @@ $spacing-chat_inputBox-paddingTop: 8px; // 输入框顶部内边距
 $spacing-chat_inputBox-paddingBottom: 8px; // 输入框底部内边距
 $spacing-chat_inputBox-paddingX: 16px; // 输入框左右内边距
 $spacing-chat_inputBox_container-padding: 11px; // 输入框容器内边距
-$spacing-chat_inputBox_inner-columnGap: 3px; // 输入框容器列间距
+$spacing-chat_inputBox_inner-columnGap: 4px; // 输入框容器列间距
 // $spacing-chat_inputBox_textarea-marginX: 5px; // 输入框textArea左右内边距
+$spacing-chat_inputBox-marginY: 4px;
 $spacing-chat_attachment-columnGap: 10px; // 附件列间距
 $spacing-chat_attachment-RowGap: 5px; // 附件行间距
 $spacing-chat_attachment_clear-top: 8px;  // 附件清除图标顶部间距
@@ -90,7 +91,7 @@ $spacing-chat_chatBox_loading-item-marginY: 6px; // 聊天内容加载图标中�
 // width
 $width-chat_backBottom_wrapper: 42px; // 返回按钮宽度
 $width-chat_action_content-border: 1px; // 返回按钮/停止生成按钮描边宽度
-$width-chat_inputBottom_clearButton: 56px; // 清空按钮宽度
+$width-chat_inputBottom_clearButton: 48px; // 清空按钮宽度
 $width-chat_inputBottom_uploadButton: 32px; // 上传按钮宽度
 $width-chat_inputBottom_sendButton: 32px; // 发送按钮宽度
 $width-chat_inputBox_container-border: 1px; // 输入框容器边框宽度

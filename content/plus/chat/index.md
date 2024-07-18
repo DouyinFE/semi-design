@@ -426,6 +426,119 @@ function DynamicUpdateChat() {
 render(DynamicUpdateChat);
 ```
 
+### 清除上下文
+
+通过 `showClearContext` 可以开启在输入框中显示清除上下文按钮，默认为 `false`。
+也可以通过 ref 调用 `clearContext` 方法清除上下文。
+
+```jsx live=true noInline=true dir="column"
+import React, {useState, useCallback} from 'react';
+import { Chat, Radio } from '@douyinfe/semi-ui';
+
+const defaultMessage = [
+    {
+        role: 'system',
+        id: '1',
+        createAt: 1715676751919,
+        content: "Hello, I'm your AI assistant.",   
+    },
+    {
+        role: 'user',
+        id: '2',
+        createAt: 1715676751919,
+        content: "介绍一下 semi design", 
+    },
+    {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: 'Semi Design 是由抖音前端团队和MED产品设计团队设计、开发并维护的设计系统',
+    }
+];
+
+const roleInfo = {
+    user:  {
+        name: 'User',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
+    },
+    assistant: {
+        name: 'Assistant',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
+    },
+    system: {
+        name: 'System',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
+    }
+}
+
+const commonOuterStyle = {
+    border: '1px solid var(--semi-color-border)',
+    borderRadius: '16px',
+    margin: '8px 16px',
+    height: 550,
+}
+
+let id = 0;
+function getId() {
+    return `id-${id++}`
+}
+
+const uploadProps = { action: 'https://api.semi.design/upload' }
+const uploadTipProps = { content: '自定义上传按钮提示信息' }
+
+function DefaultChat() {
+    const [message, setMessage] = useState(defaultMessage);
+
+    const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getId(),
+            createAt: Date.now(),
+            content: "这是一条 mock 回复信息",
+        }
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
+    }, []);
+
+    const onChatsChange = useCallback((chats) => {
+        setMessage(chats);
+    }, []);
+
+    const onMessageReset = useCallback((e) => {
+        setTimeout(() => {
+            setMessage((message) => {
+                const lastMessage = message[message.length - 1];
+                const newLastMessage = {
+                    ...lastMessage,
+                    status: 'complete',
+                    content: 'This is a mock reset message.',
+                }
+                return [...message.slice(0, -1), newLastMessage]
+            })
+        }, 200);
+    })
+
+    return (
+        <>
+            <Chat
+                uploadProps={uploadProps}
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                onChatsChange={onChatsChange}
+                onMessageSend={onMessageSend}
+                onMessageReset={onMessageReset}
+                uploadTipProps={uploadTipProps}
+                showClearContext
+            />
+        </>
+    )
+}
+
+render(DefaultChat);
+```
+
 ### 自定义渲染会话框
 
 通过 `chatBoxRenderConfig` 传入自定义渲染配置, chatBoxRenderConfig 类型如下
@@ -741,7 +854,7 @@ render(CustomRender);
 通过 `renderChatBoxContent` 自定义操作区域
 
 ```jsx live=true noInline=true dir="column"
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback, useRef} from 'react';
 import { Chat, MarkdownRender } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
@@ -819,11 +932,12 @@ const SourceCard = (props) => {
 
     return (<div style={{ 
             transition: open ? 'height 0.4s ease, width 0.4s ease': 'height 0.4s ease',
-            height: open ? '30px' : '184px',
-            width: open ? '237px': '100%', 
+            height: open ? '30px' : '200px',
+            width: open ? '190px': '100%', 
             background: 'var(--semi-color-tertiary-light-hover)', 
             borderRadius: 16,
             boxSizing: 'border-box',
+            marginBottom: 10,
         }}
         >
         <span
@@ -887,7 +1001,7 @@ const SourceCard = (props) => {
                         <span style={{
                             display: '-webkit-box',
                             "-webkit-box-orient": 'vertical',
-                            "-webkit-line-clamp": '3', 
+                            WebkitLineClamp: '3', 
                             textOverflow: 'ellipsis', 
                             overflow: 'hidden',
                             color: 'var(--semi-color-text-2)',
@@ -920,7 +1034,7 @@ function CustomRender() {
     const renderContent = useCallback((props) => {
         const { role, message, defaultNode, className } = props;
         return <div className={className}>
-            <SourceCard source={message.source}>
+            {message.source && <SourceCard source={message.source} />}
             <MarkdownRender raw={message.content}/>
         </div>
     }, []);
@@ -1423,7 +1537,8 @@ render(DefaultChat);
 | hintStyle | 提示区最外层样式 | CSSProperties | - |
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
-| mode | 对话模式，支持'bubble' \| 'noBubble' \| 'userBubble'  | string | 'bubble' |
+| keySendStrategy | 按键发送的策略，支持 `enter` \| `shiftPlusEnter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
+| mode | 对话模式，支持 `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | 角色信息配置，具体见[RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderHintBox | 自定义渲染提示信息 | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | 对话列表变化时触发 | (chats: Message[]) => void | - |
@@ -1480,9 +1595,9 @@ render(DefaultChat);
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
 | type | 类型, 可选值`text` \| `image_url` \| `file_url`  | string | - |
-| text | 当类型为 `text`是的内容数据 | string | - |
-| image_url | 当类型为 `text`是的内容数据，支持 | { url: string } | - |
-| file_url | 当类型为 `text`时的内容数据 | { url: string; name: string; size: string; type: string } | - |
+| text | 当类型为 `text` 时的内容数据 | string | - |
+| image_url | 当类型为 `image_url` 时的内容数据 | { url: string } | - |
+| file_url | 当类型为 `file_url` 时的内容数据 | { url: string; name: string; size: string; type: string } | - |
 
 #### Methods
 

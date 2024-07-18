@@ -377,6 +377,8 @@ $module: #{$prefix}-chat;
             border-radius: 50%;
             width: $width-chat_inputBottom_clearButton;
             height: $width-chat_inputBottom_clearButton;
+            margin-top: $spacing-chat_inputBox-marginY;
+            margin-bottom: $spacing-chat_inputBox-marginY;
 
             .#{$prefix}-icon {
                 font-size: $font-chat_inputBottom_clearButton_icon-fontSize;
@@ -439,8 +441,6 @@ $module: #{$prefix}-chat;
         
         &-textarea {
             flex-grow: 1;
-            // margin-top: $spacing-chat_inputBox_textarea-marginX;
-            // margin-bottom: $spacing-chat_inputBox_textarea-marginX;
 
             &.#{$prefix}-input-textarea-wrapper {
                 &, &:hover, &:active {
