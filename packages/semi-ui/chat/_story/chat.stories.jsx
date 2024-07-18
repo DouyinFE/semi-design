@@ -1,8 +1,8 @@
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import Chat from '../index';
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
-import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch } from '@douyinfe/semi-ui';
-import { IconUpload, IconForward, IconMoreStroked, IconArrowRight } from '@douyinfe/semi-icons';
+import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch, Collapsible, AvatarGroup} from '@douyinfe/semi-ui';
+import { IconUpload, IconForward, IconMoreStroked, IconArrowRight, IconChevronUp } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
 import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode } from './constant';
 
@@ -426,6 +426,193 @@ export const CustomRenderContent = () => {
             }}
             uploadProps={uploadProps}
         />
+    </div>);
+}
+
+// const Card = (source) => {
+//     return (<span className="demo-card">
+//         <span className="demo-card-title"></span>
+//         <span className="demo-card-link"></span>
+//         <span className="demo-card-content"></span>
+//     </span>)
+// }
+
+const SourceCard = (props) => {
+    const [open, setOpen] = useState(true);
+    const [show, setShow] = useState(false);
+    const spanRef = useRef();
+    const onOpen = useCallback(() => {
+        setOpen(false);
+        setShow(true);
+    }, []);
+
+    const onClose = useCallback(() => {
+        setOpen(true);
+        setTimeout(() => {
+            setShow(false);
+        }, 350)
+    }, []);
+
+    
+
+    return (<div style={{ 
+            transition: open ? 'height 0.4s ease, width 0.4s ease': 'height 0.4s ease',
+            height: open ? '30px' : '184px',
+            width: open ? '237px': '100%', 
+            background: 'var(--semi-color-tertiary-light-hover)', 
+            borderRadius: 16,
+            boxSizing: 'border-box',
+        }}
+        >
+        <span
+            ref={spanRef} 
+            style={{
+                display: !open ? 'none' : 'flex',
+                width: 'fit-content',
+                columnGap: 10,
+                background: 'var(--semi-color-tertiary-light-hover)', 
+                borderRadius: '16px',
+                padding: '5px 10px',
+                point: 'cursor',
+                fontSize: 14,
+                color: 'var(--semi-color-text-1)',
+            }}
+            onClick={onOpen} 
+        >
+            <span>基于{props.sources.length}个搜索来源</span>
+            <AvatarGroup size="extra-extra-small" >
+                {props.sources.map((s, index) => (<Avatar key={index} src={s.avatar}></Avatar>))}        
+            </AvatarGroup>
+        </span>
+        <span 
+            style={{
+                height: '100%',
+                boxSizing: 'border-box',
+                display: !open ? 'flex' : 'none',
+                flexDirection: 'column',
+                background: 'var(--semi-color-tertiary-light-hover)', borderRadius: '16px', padding: 12, boxSize: 'border-box'
+            }}
+            onClick={onClose}
+            >
+            <span style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '5px 10px', columnGap: 10, color: 'var(--semi-color-text-1)'
+            }}>
+                <span style={{fontSize: 14, fontWeight: 500}}>Source</span>
+                <IconChevronUp />
+            </span>
+            <span style={{display: 'flex', flexWrap: 'wrap', gap: 10,  overflow: 'scroll', padding: '5px 10px'}}>
+                {props.sources.map(s => (
+                    <span style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        rowGap: 5, 
+                        flexBasis: 150, 
+                        flexGrow: 1,
+                        border: "1px solid var(--semi-color-border)",
+                        borderRadius: 12,
+                        padding: 12,
+                        fontSize: 12
+                    }}>
+                        <span style={{display: 'flex', columnGap: 5, alignItems: 'center', }}>
+                            <Avatar style={{width: 16, height: 16, flexShrink: 0 }} shape="square" src={s.avatar} />
+                            <span style={{ color: 'var(--semi-color-text-2)', textOverflow: 'ellipsis'}}>{s.title}</span>
+                        </span>
+                        <span style={{
+                            color: 'var(--semi-color-primary)',
+                            fontSize: 12,
+                        }}
+                        >{s.subTitle}</span>
+                        <span style={{
+                            display: '-webkit-box',
+                            "-webkit-box-orient": 'vertical',
+                            "-webkit-line-clamp": '3', 
+                            textOverflow: 'ellipsis', 
+                            overflow: 'hidden',
+                            color: 'var(--semi-color-text-2)',
+                        }}>{s.content}</span>
+                    </span>))}
+                </span>
+            </span>
+        </div>
+    )
+}
+
+
+export const CustomRenderContentPlus = () => {
+    const chat = [
+        {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: "Semi Design 是由抖音前端团队，MED 产品设计团队设计、开发并维护的设计系统。它作为全面、易用、优质的现代应用 UI 解决方案，从字节跳动各业务线的复杂场景提炼而来，支撑近千计平台产品，服务内外部 10 万+ 用户。",
+        source: [
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/zh-CN/start/introduction',
+                title: 'semi Design',
+                subTitle: 'Semi design website',
+                content: 'Semi Design 是由抖音前端团队，MED 产品设计团队设计、开发并维护的设计系统。'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/dsm/landing',
+                subTitle: 'Semi DSM website',
+                title: 'Semi 设计系统',
+                content: '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/code/zh-CN/start/introduction',
+                subTitle: 'Semi D2C website',
+                title: '设计稿转代码',
+                content: 'Semi 设计稿转代码（Semi Design to Code，或简称 Semi D2C），是由抖音前端 Semi Design 团队推出的全新的提效工具'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/zh-CN/start/introduction',
+                title: 'semi Design',
+                subTitle: 'Semi design website',
+                content: 'Semi Design 是由抖音前端团队，MED 产品设计团队设计、开发并维护的设计系统。'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/dsm/landing',
+                subTitle: 'Semi DSM website',
+                title: 'Semi 设计系统',
+                content: '从 Semi Design，到 Any Design 快速定义你的设计系统，并应用在设计稿和代码中'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/code/zh-CN/start/introduction',
+                subTitle: 'Semi D2C website',
+                title: '设计稿转代码',
+                content: 'Semi 设计稿转代码（Semi Design to Code，或简称 Semi D2C），是由抖音前端 Semi Design 团队推出的全新的提效工具'
+            },
+        ]
+    }];
+
+    const renderContent = useCallback((props) => {
+        const { role, message, defaultNode, className } = props;
+        console.log('message', message);
+        return <div className={className}>
+            <SourceCard sources={message?.source} />
+            <MarkdownRender raw={message?.content}/>
+        </div>
+    }, []);
+
+    return (<div
+        style={{ height: 600}}
+    >
+        <Chat 
+            style={commonOuterStyle}
+            chats={chat}
+            roleConfig={roleInfo}
+            chatBoxRenderConfig={{
+                renderChatBoxContent: renderContent
+            }}
+            uploadProps={uploadProps}
+        />
+        <div></div>
     </div>);
 }
 

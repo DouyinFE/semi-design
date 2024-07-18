@@ -14,14 +14,14 @@ export interface Content {
     text?: string;
     image_url?: { 
         url: string;
-        [x: string]: any;
+        [x: string]: any
     };
     file_url?: {
         url: string;
         name: string;
         size: string;
         type: string;
-        [x: string]: any;
+        [x: string]: any
     }
 }
 
@@ -53,7 +53,7 @@ export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyHintClick: (hint: string) => void;
     setUploadAreaVisible: (visible: boolean) => void;
     manualUpload: (e: any) => void;
-    getDropAreaElement: () => HTMLDivElement;
+    getDropAreaElement: () => HTMLDivElement
 }
 
 
@@ -115,6 +115,9 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
     }
 
     containerScroll = (e: any) => {
+        if (e.target !== e.currentTarget) {
+            return;
+        }
         e.persist();
         const update = () => {
             this.getScroll(e.target);
@@ -160,9 +163,9 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
             content = input;
         } else {
             content = [];
-            input && content.push({  type: 'text', text: input });
+            input && content.push({ type: 'text', text: input });
             (attachment ?? []).map(item => {
-                const {fileInstance, name='', url, size} = item;
+                const { fileInstance, name = '', url, size } = item;
                 const suffix = name.split('.').pop();
                 const isImg = fileInstance?.type?.startsWith(PIC_PREFIX) || PIC_SUFFIX_ARRAY.includes(suffix);
                 if (isImg) {
@@ -181,7 +184,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
                         }
                     });
                 }
-            })
+            });
         }
         if (content) {
             const newMessage = {
@@ -189,7 +192,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
                 id: getUuidv4(),
                 createAt: Date.now(),
                 content,
-            }
+            };
             this._adapter.notifyChatsChange([...this.getStates().chats, newMessage]);
         }
         this._adapter.setWheelScroll(false);
@@ -297,7 +300,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         */
         setTimeout(() => {
             this._adapter.setUploadAreaVisible(false);
-        })
+        });
     }
 }
 

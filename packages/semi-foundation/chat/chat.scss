@@ -76,7 +76,7 @@ $module: #{$prefix}-chat;
         position: relative;
         z-index: $z-chat_action;
 
-        &-content {
+        &-content.#{$prefix}-button {
             position: absolute;
             bottom: $spacing-chat_action_content-bottom;
             left: 50%;
@@ -99,7 +99,7 @@ $module: #{$prefix}-chat;
             border-radius: 50%;
         }
 
-        &-stop {
+        &-stop.#{$prefix}-button {
             user-select: none;
             height: $height-chat_action_stop;
             border-radius: calc($height-chat_action_stop / 2);

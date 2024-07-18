@@ -143,6 +143,9 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     return ;
                 }
                 this.wheelEventHandler = (e: any) => {
+                    if (e.target !== containerElement) {
+                        return;
+                    }
                     this.adapter.setWheelScroll(true);
                     this.adapter.unRegisterWheelEvent();
                 };
