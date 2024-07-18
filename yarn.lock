@@ -1731,10 +1731,10 @@
     lodash-es "^4.17.21"
     react-i18next "^11.12.0"
 
-"@douyinfe/semi-site-markdown-blocks@^0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.17.tgz#36b5dd8c521c2767bcf151af4c832166d9631a6e"
-  integrity sha512-uPVEO8dDJMNoUgiq1mrqqXZW1LTFJ1V+3+zW58mAc9ghZABl4v4DZpsGudft+nUuYGetbosGg3rKa3aXmrFFrg==
+"@douyinfe/semi-site-markdown-blocks@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-markdown-blocks/-/semi-site-markdown-blocks-0.0.18.tgz#e0c0a29fc5b9574d05a22f23cb8fa8851f6ecb6e"
+  integrity sha512-vx1oi8j08lw1iE/RZFyXCcwuWA8XAUQ9IXUufrV/or1ReRRlziBt5MR4PXoKjr/oW+VgtYbyBdowT9huSG3epg==
   dependencies:
     "@douyinfe/semi-site-playground" "0.0.14"
     classnames "^2.2.6"

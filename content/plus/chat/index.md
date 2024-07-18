@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 78
+order: 79
 category: Plus
 title:  Chat 对话
 icon: doc-configprovider
@@ -18,6 +18,8 @@ Chat 组件可用于普通会话，AI 会话等场景。
 ## 代码演示
 
 ### 如何引入
+
+Chat 从 v2.63.0 版本开始支持。
 
 ```jsx
 import { Chat } from '@douyinfe/semi-ui';
@@ -593,7 +595,7 @@ const defaultMessage = [
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: '图片中是一个有卡通画像装饰的黄色背包'
+        content: '图片中是一个有卡通画像装饰的黄色背包。'
     },
 
 ];

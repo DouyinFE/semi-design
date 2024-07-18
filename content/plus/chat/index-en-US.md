@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 78
+order: 79
 category: Plus
 title:  Chat
 icon: doc-configprovider
@@ -18,6 +18,7 @@ The rendering of the conversation content is based on the MarkdownRender compone
 
 ### How to import
 
+Chat is supported starting from version v2.63.0.
 ```jsx
 import { Chat } from '@douyinfe/semi-ui';
 ```
@@ -28,7 +29,11 @@ By setting `chats`, `onChatsChange`, and `onMessageSend`, you can achieve basic 
 
 Conversations involve multiple participants and multiple rounds of interaction. Role information, including names and avatars, can be passed through the `roleConfig` parameter. For detailed parameter information, refer to [RoleConfig](#RoleConfig).
 
-The align property can be used to set the alignment of the conversation. It supports left-right alignment(`leftRight`, default) and left alignment (`leftAlign`).
+The prompt text of the upload button can be set through `uploadTipProps`. For details, please refer to [Tooltip](/zh-CN/tooltip#API%20%E5%8F%82%E8%80%83).
+
+Dialogue is a scene involving multiple parties and multiple rounds of interaction. Role information (including name, avatar, etc.) can be passed in through `roleConfig`, and the specific parameter details are [RoleConfig](#roleConfig).
+
+Use the `align` attribute to set the alignment of the dialog, supporting left and right alignment (`leftRight`, default) and left alignment (`leftAlign`).
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -45,13 +50,13 @@ const defaultMessage = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "This is a  request",   
+        content: "Give an example of using Semi Design’s Button component",
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: "This is an answer",   
+        content: "The following is an example of using Semi code：\n\`\`\`jsx \nimport React from 'react';\nimport { Button } from '@douyinfe/semi-ui';\n\nconst MyComponent = () => {\n  return (\n    <Button>Click me</Button>\n );\n};\nexport default MyComponent;\n\`\`\`\n",
     }
 ];
 
@@ -73,7 +78,8 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    margin: '8px 16px',
+    height: 550,
 }
 
 let id = 0;
@@ -81,52 +87,83 @@ function getId() {
     return `id-${id++}`
 }
 
+const uploadProps = { action: 'https://api.semi.design/upload' }
+const uploadTipProps = { content: 'Customize upload button prompt information' }
+
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
+    const [mode, setMode] = useState('bubble');
     const [align, setAlign] = useState('leftRight');
 
+    const onAlignChange = useCallback((e) => {
+        setAlign(e.target.value);
+    }, []);
+
+    const onModeChange = useCallback((e) => {
+        setMode(e.target.value);
+    }, []); 
+
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "This is a mock response",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
     }, []);
 
-    const onAlignChange = useCallback((e) => {
-        setAlign(e.target.value);
-    }, [])
+    const onMessageReset = useCallback((e) => {
+        setTimeout(() => {
+            setMessage((message) => {
+                const lastMessage = message[message.length - 1];
+                const newLastMessage = {
+                    ...lastMessage,
+                    status: 'complete',
+                    content: 'This is a mock reset message.',
+                }
+                return [...message.slice(0, -1), newLastMessage]
+            })
+        }, 200);
+    })
 
     return (
         <>
-            <span>Align：</span>
-            <RadioGroup value={align} onChange={onAlignChange}>
-                <Radio value={'leftRight'}>LeftRight</Radio>
-                <Radio value={'leftAlign'}>leftAlign</Radio>
-            </RadioGroup>
+            <span style={{ display: 'flex', flexDirection: 'column', rowGap: '8px'}}>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    Mode
+                    <RadioGroup onChange={onModeChange} value={mode} type={"button"}>
+                        <Radio value={'bubble'}>bubble</Radio>
+                        <Radio value={'noBubble'}>noBubble</Radio>
+                        <Radio value={'userBubble'}>userBubble</Radio>
+                    </RadioGroup>
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
+                    Chat align
+                    <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
+                        <Radio value={'leftRight'}>leftRight</Radio>
+                        <Radio value={'leftAlign'}>leftAlign</Radio>
+                    </RadioGroup>
+                </span>
+            </span>
             <Chat 
-                key={align}
+                key={align + mode}
                 align={align}
+                mode={mode}
+                uploadProps={uploadProps}
                 style={commonOuterStyle}
                 chats={message}
                 roleConfig={roleInfo}
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
+                onMessageReset={onMessageReset}
+                uploadTipProps={uploadTipProps}
             />
         </>
     )
@@ -181,32 +218,26 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
-function getId() { return `id-${id++}`}
+function getId() { return `id-${id++}` }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function MessageStatus() {
     const [message, setMessage] = useState(defaultMessage);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "This is a mock response",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
@@ -220,6 +251,7 @@ function MessageStatus() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -243,6 +275,34 @@ const defaultMessage = [
         id: '1',
         createAt: 1715676751919,
         content: "Hello, I'm your AI assistant.",   
+    },
+    {
+        role: 'user',
+        id: '2',
+        createAt: 1715676751919,
+        content: "介绍一下 Semi design"
+    },
+    {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: `
+Semi Design is a design system designed, developed and maintained by Douyin's front-end team and MED product design team. As a comprehensive, easy-to-use, high-quality modern application UI solution, Semi Design is extracted from the complex scenarios of ByteDance's various business lines. It has currently supported nearly a thousand platform products and served more than 100,000 internal and external users.[[1]](https://semi.design/zh-CN/start/introduction)。
+
+Semi Design features include:
+
+1. Simple and modern design.
+2. Provide theme solutions, which can be customized in depth.
+3. Provide two sets of light and dark color modes, easy to switch.
+4. Internationalization, covering 20+ languages ​​such as Simplified/Traditional Chinese, English, Japanese, Korean, Portuguese, etc. The date and time component provides global time zone support, and all components can automatically adapt to the Arabic RTL layout.
+5. Use Foundation and Adapter cross-framework technical solutions to facilitate expansion.
+
+---
+Learn more:
+1. [Introduction - Semi Design](https://semi.design/zh-CN/start/introduction)
+2. [Getting Started - Semi Design](https://semi.design/zh-CN/start/getting-started)
+3. [The evolution of Semi D2C design draft to code - Zhihu](https://zhuanlan.zhihu.com/p/667189184)
+`,
     }
 ];
 
@@ -264,13 +324,14 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 600,
 }
 
 let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DynamicUpdateChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -279,13 +340,6 @@ function DynamicUpdateChat() {
         setMessage((message) => {
             return [
                 ...message,
-                {
-                    role: 'user',
-                    createAt: Date.now(),
-                    id: getId(),
-                    content: content,
-                    attachment: attachment,
-                },
                 {
                     role: 'assistant',
                     status: 'loading',
@@ -363,6 +417,7 @@ function DynamicUpdateChat() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -370,16 +425,134 @@ function DynamicUpdateChat() {
 render(DynamicUpdateChat);
 ```
 
-### Custom render ChatBox
+### Clear context
 
-You can pass custom rendering configurations through `chatBoxRenderConfig`. Here is the type definition for `chatBoxRenderConfig`:
+Displaying the clear context button in the input box can be enabled through `showClearContext`, which defaults to `false`.
+The context can also be cleared by calling the `clearContext` method through ref.
+
+```jsx live=true noInline=true dir="column"
+import React, {useState, useCallback} from 'react';
+import { Chat, Radio } from '@douyinfe/semi-ui';
+
+const defaultMessage = [
+    {
+        role: 'system',
+        id: '1',
+        createAt: 1715676751919,
+        content: "Hello, I'm your AI assistant.",   
+    },
+    {
+        role: 'user',
+        id: '2',
+        createAt: 1715676751919,
+        content: "Introduce semi design", 
+    },
+    {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: 'Semi Design is a design system designed, developed and maintained by the Douyin front-end team and MED product design team.',
+    }
+];
+
+const roleInfo = {
+    user:  {
+        name: 'User',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png'
+    },
+    assistant: {
+        name: 'Assistant',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
+    },
+    system: {
+        name: 'System',
+        avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png'
+    }
+}
+
+const commonOuterStyle = {
+    border: '1px solid var(--semi-color-border)',
+    borderRadius: '16px',
+    margin: '8px 16px',
+    height: 550,
+}
+
+let id = 0;
+function getId() {
+    return `id-${id++}`
+}
+
+const uploadProps = { action: 'https://api.semi.design/upload' }
+const uploadTipProps = { content: 'Customize upload button prompt information' }
+
+function DefaultChat() {
+    const [message, setMessage] = useState(defaultMessage);
+
+    const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getId(),
+            createAt: Date.now(),
+            content: "This is a mock response message.",
+        }
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
+    }, []);
+
+    const onChatsChange = useCallback((chats) => {
+        setMessage(chats);
+    }, []);
+
+    const onMessageReset = useCallback((e) => {
+        setTimeout(() => {
+            setMessage((message) => {
+                const lastMessage = message[message.length - 1];
+                const newLastMessage = {
+                    ...lastMessage,
+                    status: 'complete',
+                    content: 'This is a mock reset message.',
+                }
+                return [...message.slice(0, -1), newLastMessage]
+            })
+        }, 200);
+    })
+
+    return (
+        <>
+            <Chat
+                uploadProps={uploadProps}
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                onChatsChange={onChatsChange}
+                onMessageSend={onMessageSend}
+                onMessageReset={onMessageReset}
+                uploadTipProps={uploadTipProps}
+                showClearContext
+            />
+        </>
+    )
+}
+
+render(DefaultChat);
+```
+
+### Custom rendering dialog box
+
+Pass in custom rendering configuration through `chatBoxRenderConfig`, the chatBoxRenderConfig type is as follows
 
 ```ts
 interface ChatBoxRenderConfig {
+    /* Custom rendering title */
     renderChatBoxTitle?: (props: {role?: Metadata, defaultTitle?: ReactNode}) => ReactNode;
+    /* Custom rendering avatr */
     renderChatBoxAvatar?: (props: { role?: Metadata, defaultAvatar?: ReactNode}) => ReactNode;
+    /* Custom rendering content */
     renderChatBoxContent?: (props: {message?: Message, role?: Metadata, defaultContent?: ReactNode | ReactNode[], className?: string}) => ReactNode;
+    /* Custom rendering message action bar */
     renderChatBoxAction?: (props: {message?: Message, defaultActions?: ReactNode | ReactNode[], className: string}) => ReactNode;
+    /* Fully customized rendering of the entire chat box */
     renderFullChatBox?: (props: {message?: Message, role?: Metadata, defaultNodes?: FullChatBoxNodes, className: string}) => ReactNode;
 }
 ```
@@ -402,13 +575,24 @@ const defaultMessage = [
         role: 'user',
         id: '2',
         createAt: 1715676751919,
-        content: "Introduce Semi design", 
+        content: [
+            {
+                type: 'text',
+                text: 'What\'s in this picture?'
+            },
+            {
+                type: 'image_url',
+                image_url: {
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg'
+                }
+            }
+        ], 
     },
     {
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team. It serves as a comprehensive, user-friendly, and high-quality UI solution for modern applications.[[1]](https://semi.design/en-US/start/introduction)'
+        content: 'The picture shows a yellow backpack decorated with cartoon images'
     },
 
 ];
@@ -431,35 +615,17 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
-function getId() { return `id-${id++}`}
+function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function CustomRender() {
     const [title, setTitle] = useState('null');
     const [avatar, setAvatar] = useState('null');
     const [message, setMessage] = useState(defaultMessage);
-
-    const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
-        const newAssistantMessage = {
-            role: 'assistant',
-            id: getId(),
-            createAt: Date.now(),
-            content: "This is a mock response",
-        }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
-    }, []);
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
@@ -479,8 +645,15 @@ function CustomRender() {
     const customRenderTitle = useMemo(()=> {
         switch(title) {
             case 'custom': return (props) => {
-                    const { role, defaultTitle } = props;
-                    return <Tag shape='circle' style={{marginBottom: 8}}>{defaultTitle}</Tag>
+                    const { role, defaultTitle, message } = props;
+                    const date = new Date(message.createAt);
+                    const hours = ('0' + date.getHours()).slice(-2);
+                    const minutes = ('0' + date.getMinutes()).slice(-2);
+                    const formatTime = `${hours}:${minutes}`;
+                    return (<span className="title" >
+                        {role.name}
+                        <span className={'time'}>{formatTime}</span>
+                    </span>)
             }
             case 'null': return () => null
             case 'default': return undefined;
@@ -490,25 +663,37 @@ function CustomRender() {
     const onAvatarChange = useCallback((e) => { setAvatar(e.target.value) }, []);
     const onTitleChange = useCallback((e) => { setTitle(e.target.value) }, []);
 
+     const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getId(),
+            content: `This is a mock response`
+        }
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
+    }, []);
+
     return (
         <>
-            <div style={{ marginLeft: 12 }}>
-                <span >Avatar Render Mode: </span>
-                <RadioGroup onChange={onAvatarChange} value={avatar} >
+            <span style={{ display: 'flex', flexDirection: 'column', rowGap: 8, marginBottom: 5}}>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: 10}}>
+                    Avatar Render Mode
+                    <RadioGroup onChange={onAvatarChange} value={avatar} type="button">
                     <Radio value={'default'}>default</Radio>
                     <Radio value={'null'}>null</Radio>
                     <Radio value={'custom'}>custom</Radio>
                 </RadioGroup>
-                <br />
-                <br />
-                <span >Title Render mode: </span>
-                <RadioGroup onChange={onTitleChange} value={title} >
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', columnGap: 10}}>
+                    Title Render mode
+                    <RadioGroup onChange={onTitleChange} value={title} type="button">
                     <Radio value={'default'}>default</Radio>
                     <Radio value={'null'}>null</Radio>
                     <Radio value={'custom'}>custom</Radio>
                 </RadioGroup>
-            </div>
-            <br />
+                </span>
+            </span>
             <Chat
                 chatBoxRenderConfig={{
                     renderChatBoxTitle: customRenderTitle,
@@ -516,10 +701,12 @@ function CustomRender() {
                 }} 
                 key={`${avatar}${title}`}
                 style={commonOuterStyle}
+                className={'component-chat-demo-custom-render'}
                 chats={message}
-                roleConfig={roleInfo}
                 onChatsChange={onChatsChange}
                 onMessageSend={onMessageSend}
+                roleConfig={roleInfo}
+                uploadProps={uploadProps}
             />
         </>
     );
@@ -552,7 +739,7 @@ const defaultMessage = [
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team.',
+        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin and the MED product design team.',
     }
 ];
 
@@ -574,11 +761,12 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
 
 let id = 0;
-function getId() { return `id-${id++}`}
+function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const CustomActions = React.memo((props) => {
     const { role, message, defaultActions, className } = props;
@@ -600,14 +788,12 @@ const CustomActions = React.memo((props) => {
         className={className}
         ref={myRef}
     >
-        {defaultActions.map((item, index)=> {
-            return <span key={index}>{item}</span>
-        })}
+        {defaultActions}
         {<Dropdown
             key="dropdown"
             render={
                 <Dropdown.Menu >
-                    <Dropdown.Item icon={<IconForward />}>分享</Dropdown.Item>
+                    <Dropdown.Item icon={<IconForward />}>Share</Dropdown.Item>
                 </Dropdown.Menu>
             }
             trigger="click"
@@ -626,31 +812,24 @@ const CustomActions = React.memo((props) => {
 
 function CustomRender() {
     const [message, setMessage] = useState(defaultMessage);
+
     const customRenderAction = useCallback((props) => {
         return <CustomActions {...props} />
     }, []);
 
+    const onChatsChange = useCallback((chats) => {
+        setMessage(chats);
+    }, []);
+
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
-            createAt: Date.now(),
-            content: "This is a mock response",
+            content: `This is a mock response`
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
-    }, []);
-
-    const onChatsChange = useCallback((chats) => {
-        setMessage(chats);
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     return (
@@ -663,6 +842,7 @@ function CustomRender() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             roleConfig={roleInfo}
+            uploadProps={uploadProps}
         />
     );
 }
@@ -673,29 +853,39 @@ render(CustomRender);
 You can customize the content of the action area using `renderChatBoxContent`.
 
 ```jsx live=true noInline=true dir="column"
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback, useRef} from 'react';
 import { Chat, MarkdownRender } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
-    {
-        role: 'system',
+        {
+        role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "Hello, I'm your AI assistant.",   
-    },
-    {
-        role: 'user',
-        id: '2',
-        createAt: 1715676751919,
-        content: "Introduce Semi design", 
-    },
-    {
-        role: 'assistant',
-        id: '3',
-        createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team.',
-    }
-];
+        content: "Semi Design is a design system designed, developed and maintained by Douyin's front-end team and MED product design team. As a comprehensive, easy-to-use, high-quality modern application UI solution, it is extracted from the complex scenarios of ByteDance's various business lines, supports nearly a thousand platform products, and serves 100,000+ internal and external users.",
+        source: [
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/en-US/start/introduction',
+                title: 'semi Design',
+                subTitle: 'Semi design website',
+                content: 'Semi Design is a design system designed, developed and maintained by Douyin\'s front-end team and MED product design team.'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/dsm/landing',
+                subTitle: 'Semi DSM website',
+                title: 'Semi Design System',
+                content: 'From Semi Design to Any Design, quickly define your design system and apply it in design drafts and code'
+            },
+            {
+                avatar: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/logo.png',
+                url: '/code/en-US/start/introduction',
+                subTitle: 'Semi D2C website',
+                title: 'Design to Code',
+                content: 'Semi Design to Code, or Semi D2C for short, is a new performance improvement tool launched by the Douyin front-end Semi Design team.'
+            },
+        ]
+    }];
 
 const roleInfo = {
     user:  {
@@ -715,42 +905,135 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 500,
 }
 
 let id = 0;
-function getId() { return `id-${id++}`}
+function getId() { return `id-${id++}` }
+const uploadProps = { action: 'https://api.semi.design/upload' }
+
+const SourceCard = (props) => {
+    const [open, setOpen] = useState(true);
+    const [show, setShow] = useState(false);
+    const { source } = props;
+    const spanRef = useRef();
+    const onOpen = useCallback(() => {
+        setOpen(false);
+        setShow(true);
+    }, []);
+
+    const onClose = useCallback(() => {
+        setOpen(true);
+        setTimeout(() => {
+            setShow(false);
+        }, 350)
+    }, []);
+
+    return (<div style={{ 
+            transition: open ? 'height 0.4s ease, width 0.4s ease': 'height 0.4s ease',
+            height: open ? '30px' : '200px',
+            width: open ? '190px': '100%', 
+            background: 'var(--semi-color-tertiary-light-hover)', 
+            borderRadius: 16,
+            boxSizing: 'border-box',
+            marginBottom: 10,
+        }}
+        >
+        <span
+            ref={spanRef} 
+            style={{
+                display: !open ? 'none' : 'flex',
+                width: 'fit-content',
+                columnGap: 10,
+                background: 'var(--semi-color-tertiary-light-hover)', 
+                borderRadius: '16px',
+                padding: '5px 10px',
+                point: 'cursor',
+                fontSize: 14,
+                color: 'var(--semi-color-text-1)',
+            }}
+            onClick={onOpen} 
+        >
+            <span> Got {source.length} sources </span>
+            <AvatarGroup size="extra-extra-small" >
+                {source.map((s, index) => (<Avatar key={index} src={s.avatar}></Avatar>))}        
+            </AvatarGroup>
+        </span>
+        <span 
+            style={{
+                height: '100%',
+                boxSizing: 'border-box',
+                display: !open ? 'flex' : 'none',
+                flexDirection: 'column',
+                background: 'var(--semi-color-tertiary-light-hover)', borderRadius: '16px', padding: 12, boxSize: 'border-box'
+            }}
+            onClick={onClose}
+            >
+            <span style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '5px 10px', columnGap: 10, color: 'var(--semi-color-text-1)'
+            }}>
+                <span style={{fontSize: 14, fontWeight: 500}}>Source</span>
+                <IconChevronUp />
+            </span>
+            <span style={{display: 'flex', flexWrap: 'wrap', gap: 10,  overflow: 'scroll', padding: '5px 10px'}}>
+                {source.map(s => (
+                    <span style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        rowGap: 5, 
+                        flexBasis: 150, 
+                        flexGrow: 1,
+                        border: "1px solid var(--semi-color-border)",
+                        borderRadius: 12,
+                        padding: 12,
+                        fontSize: 12
+                    }}>
+                        <span style={{display: 'flex', columnGap: 5, alignItems: 'center', }}>
+                            <Avatar style={{width: 16, height: 16, flexShrink: 0 }} shape="square" src={s.avatar} />
+                            <span style={{ color: 'var(--semi-color-text-2)', textOverflow: 'ellipsis'}}>{s.title}</span>
+                        </span>
+                        <span style={{
+                            color: 'var(--semi-color-primary)',
+                            fontSize: 12,
+                        }}
+                        >{s.subTitle}</span>
+                        <span style={{
+                            display: '-webkit-box',
+                            "-webkit-box-orient": 'vertical',
+                            WebkitLineClamp: '3', 
+                            textOverflow: 'ellipsis', 
+                            overflow: 'hidden',
+                            color: 'var(--semi-color-text-2)',
+                        }}>{s.content}</span>
+                    </span>))}
+                </span>
+            </span>
+        </div>
+    )
+}
 
 function CustomRender() {
     const [message, setMessage] = useState(defaultMessage);
-
-    const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
-        const newAssistantMessage = {
-            role: 'assistant',
-            id: getId(),
-            createAt: Date.now(),
-            content: "This is a mock response",
-        }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
-    }, []);
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
     }, []);
 
+     const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getId(),
+            content: `This is a mock response`
+        }
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
+    }, []);
+
     const renderContent = useCallback((props) => {
         const { role, message, defaultNode, className } = props;
         return <div className={className}>
-            <strong style={{color: message.role === 'user' ? 'var(--semi-color-white)' : 'var(--semi-color-text-0)'}}>---custom render content---</strong>
+            {message.source && <SourceCard source={message.source} />}
             <MarkdownRender raw={message.content}/>
         </div>
     }, []);
@@ -763,6 +1046,7 @@ function CustomRender() {
             chatBoxRenderConfig={{ renderChatBoxContent: renderContent }}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     );
 }
@@ -793,7 +1077,7 @@ const defaultMessage = [
         role: 'assistant',
         id: '3',
         createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team.',
+        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin and the MED product design team.',
     }
 ];
 
@@ -815,51 +1099,29 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 300,
+    height: 400,
 }
+
+let id = 0;
+function getId() { return `id-${id++}`; }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const titleStyle = { display:' flex', alignItems: 'center', justifyContent: 'center', columnGap: '10px', padding: '5px 0px', width: 'fit-content' };
 
-let id = 0;
-function getId() { return `id-${id++}`}
-
 function CustomFullRender() {
     const [message, setMessage] = useState(defaultMessage);
-
-    const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
-        const newAssistantMessage = {
-            role: 'assistant',
-            id: getId(),
-            createAt: Date.now(),
-            content: "This is a mock response",
-        }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
-    }, []);
-
-    const onChatsChange = useCallback((chats) => {
-        setMessage(chats);
-    }, []);
 
     const customRenderChatBox = useCallback((props) => {
         const { role, message, defaultNodes, className } = props;
         let titleNode = null;
         if (message.role !== 'user') {
-            titleNode = <span style={titleStyle}>
-            <Avatar size="extra-small" shape="square" src={role.avatar} />
-            {defaultNodes.title}
-        </span>
+            titleNode = (<span style={titleStyle}>
+                <Avatar size="extra-small" shape="square" src={role.avatar} />
+                {defaultNodes.title}
+            </span>)
         }
         return <div className={className}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: message.role === 'user' ? 'end' : ''}}>
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 4, alignItems: message.role === 'user' ? 'end' : ''}}>
                 {titleNode}
                 <div style={{ width: 'fit-content'}}>
                     {defaultNodes.content}
@@ -867,6 +1129,21 @@ function CustomFullRender() {
                 {defaultNodes.action}
             </div>
         </div>
+    }, []);
+
+    const onChatsChange = useCallback((chats) => {
+        setMessage(chats)
+    } ,[]);
+
+     const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getId(),
+            content: `This is a mock response`
+        }
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
     
     return ( <Chat
@@ -876,7 +1153,7 @@ function CustomFullRender() {
         onChatsChange={onChatsChange}
         onMessageSend={onMessageSend}
         roleConfig={roleInfo}
-        
+        uploadProps={uploadProps}
     />);
 }
 
@@ -889,8 +1166,11 @@ The rendering input box can be customized through `renderInputArea`, the paramet
 
 ``` ts
 export interface RenderInputAreaProps {
+    /* Default node */
     defaultNode?: ReactNode;
+    /* If you customize the input box, you need to call it when sending a message. */
     onSend?: (content?: string, attachment?: FileItem[]) => void;
+    /* If you customize the clear context button, it needs to be called when you click to clear the context */
     onClear?: (e?: any) => void;
 }
 ```
@@ -928,13 +1208,14 @@ const roleInfo = {
 const commonOuterStyle = {
     border: '1px solid var(--semi-color-border)',
     borderRadius: '16px',
-    height: 400,
+    height: 500,
 };
 
 let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 const inputStyle = {   
     display: 'flex', 
@@ -991,18 +1272,14 @@ function CustomRenderInputArea() {
     }, []);
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            attachment: attachment
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             content: `This is a mock response`
-        }
-        setMessage((message) => ([...message, newUserMessage, newAssistantMessage]));
+        } 
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const renderInputArea = useCallback((props) => {
@@ -1017,6 +1294,7 @@ function CustomRenderInputArea() {
             roleConfig={roleInfo}
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1033,22 +1311,10 @@ import { Chat } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
     {
-        role: 'system',
+        role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "Hello, I'm your AI assistant.",   
-    },
-    {
-        role: 'user',
-        id: '2',
-        createAt: 1715676751919,
-        content: "Introduce Semi design", 
-    },
-    {
-        role: 'assistant',
-        id: '3',
-        createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team.',
+        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin and the MED product design team.',
     }
 ];
 
@@ -1083,6 +1349,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -1093,29 +1360,22 @@ function DefaultChat() {
     }, [])
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
             content: "This is a mock response",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
     }, []);
 
     const onChatsChange = useCallback((chats) => {
         setMessage(chats);
     }, []);
 
-    const onClear = useCallback(() => {
+    onClear = useCallback(() => {
         setHints([]);
     }, [])
 
@@ -1129,6 +1389,7 @@ function DefaultChat() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             onClear={onClear}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1152,22 +1413,10 @@ import { Chat } from '@douyinfe/semi-ui';
 
 const defaultMessage = [
     {
-        role: 'system',
+        role: 'assistant',
         id: '1',
         createAt: 1715676751919,
-        content: "Hello, I'm your AI assistant.",   
-    },
-    {
-        role: 'user',
-        id: '2',
-        createAt: 1715676751919,
-        content: "Introduce Semi design", 
-    },
-    {
-        role: 'assistant',
-        id: '3',
-        createAt: 1715676751919,
-        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin (the Chinese version of TikTok) and the MED product design team.',
+        content: 'Semi Design is a design system designed, developed, and maintained by the front-end team at Douyin and the MED product design team.',
     }
 ];
 
@@ -1202,6 +1451,7 @@ let id = 0;
 function getId() {
     return `id-${id++}`
 }
+const uploadProps = { action: 'https://api.semi.design/upload' }
 
 function DefaultChat() {
     const [message, setMessage] = useState(defaultMessage);
@@ -1212,22 +1462,15 @@ function DefaultChat() {
     }, [])
 
     const onMessageSend = useCallback((content, attachment) => {
-        const newUserMessage = {
-            role: 'user',
-            id: getId(),
-            content: content,
-            createAt: Date.now(),
-            attachment: attachment,
-        }
         const newAssistantMessage = {
             role: 'assistant',
             id: getId(),
             createAt: Date.now(),
-            content: "This",
+            content: "This is a mock reply message",
         }
-        setMessage((message) => {
-            return [ ...message, newUserMessage, newAssistantMessage ];
-        })
+        setTimeout(() => { 
+            setMessage((message) => ([ ...message, newAssistantMessage])); 
+        }, 200);
         setHints([]);
     }, []);
 
@@ -1239,9 +1482,9 @@ function DefaultChat() {
         border: '1px solid var(--semi-color-border)',
         padding: '10px',
         borderRadius: '10px',
-        width: 'fit-content',
         color: 'var( --semi-color-text-1)',
         display: 'flex',
+        justifyContent: 'space-between',
         alignItems: 'center',
         cursor: 'pointer',
         fontSize: '14px'
@@ -1255,7 +1498,7 @@ function DefaultChat() {
         </div>
     }, []);
 
-    const onClear = useCallback(() => {
+    onClear = useCallback(() => {
         setHints([]);
     }, [])
 
@@ -1270,6 +1513,7 @@ function DefaultChat() {
             onChatsChange={onChatsChange}
             onMessageSend={onMessageSend}
             onClear={onClear}
+            uploadProps={uploadProps}
         />
     )
 }
@@ -1281,15 +1525,20 @@ render(DefaultChat);
 
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
-| align | Dialog alignment, supports `leftRight`, `leftAlign` | string | `leftRight` |
+| align | Dialog alignment, supports `leftRight`,`leftAlign` | string | `leftRight` |
+| bottomSlot | bottom slot for chat | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox rendering configuration | ChatBoxRenderConfig | - |
 | chats | Controlled conversation list | Message | - |
 | className | Custom class name | string | - |
-| customMarkDownComponents | Custom markdown render, transparently passed to MarkdownRender for conversation content rendering | MDXProps\['components'\]| - |
+| customMarkDownComponents | custom markdown render, transparently passed to MarkdownRender for conversation content rendering | MDXProps\['components'\]| - |
 | hints | prompt information | string | - |
+| hintCls | hint style | string | - |
+| hintStyle | hint style | CSSProperties | - |
 | inputBoxStyle | Input box style | CSSProperties | - |
 | inputBoxCls | Input box className | string | - |
-| roleConfig | Role information configuration, see [RoleConfig](#RoleConfig) for details | RoleConfig | - |
+| keySendStrategy | Key sending strategy, supports `enter` \| `shiftPlusEnter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
+| mode | Conversation mode, support `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
+| roleConfig | Role information configuration, see[RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderHintBox | Custom rendering prompt information | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | Triggered when the conversation list changes | (chats: Message[]) => void | - |
 | onClear | Triggered when context message is cleared | () => void | - |
@@ -1302,10 +1551,14 @@ render(DefaultChat);
 | onMessageReset | Triggered when message is reset | (message: Message) => void | - |
 | onMessageSend | Triggered when sending a message | (content: string, attachment?: FileItem[]) => void | - |
 | onStopGenerator | Fires when the stop generation button is clicked | (message: Message) => void | - |
-| renderInputArea | Custom rendering input box | (props: RenderInputAreaProps) => React.ReactNode | - |
 | placeholder | Input box placeholder | string | - |
-| topSlot | top slot | React.ReactNode | - |
-| showStopGenerate | Whether to display the stop generation button | boolean | false |
+| renderInputArea | Custom rendering input box | (props: RenderInputAreaProps) => React.ReactNode | - |
+| showClearContext | Whether to display the clear context button| boolean | false |
+| showStopGenerate | Whether to display the stop generation button| boolean | false |
+| topSlot | top slot for chat | React.ReactNode | - |
+| uploadProps | Upload component properties, refer to details [Upload](/zh-CN/input/upload#API%20%E5%8F%82%E8%80%83) | UploadProps | - |
+| uploadTipProps | Upload component prompt attribute, refer to details [Tooltip](/zh-CN/show/tooltip#API%20%E5%8F%82%E8%80%83) | TooltipProps | - |
+
 
 #### RoleConfig
 
@@ -1330,10 +1583,20 @@ render(DefaultChat);
 | role | role  | string | - |
 | name | name  | string | - |
 | id | Uniquely identifies  | string\| number | - |
-| content | Text content | string | - |
+| content | all content | string| Content[] | - |
 | parentId | parent Uniquely identifies | string | - |
 | createAt | creation time | number | -|
 | status | Information status， `loading` \| `incomplete` \| `complete` \| `error` | string | complete |
+
+
+#### Content
+
+| PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
+|------|--------|-------|-------|
+| type | type,  suport `text` \| `image_url` \| `file_url`  | string | - |
+| text | Content data when type is `text` | string | - |
+| image_url | Content data when type is `image_url` | { url: string } | - |
+| file_url | Content data when type is `file_url` | { url: string; name: string; size: string; type: string } | - |
 
 #### Methods
 
