@@ -1187,3 +1187,18 @@ CashedSelectedValue.storyName = "cashedSelectedValue";
 export const Fix1982 = () => {
   return <DatePicker type="monthRange" style={{ width: 200 }} />
 }
+
+export const FixInputLoseFocus = () => {
+  return (
+    <Space>
+      <div data-cy="dateTime">
+        <DatePicker
+          type="dateTime"
+          needConfirm={true}
+        />
+      </div>
+    </Space>
+  );
+};
+
+FixInputLoseFocus.storyName = "FixInputLoseFocus"

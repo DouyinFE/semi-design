@@ -433,40 +433,46 @@ export default class DateInput extends BaseComponent<DateInputProps, {}> {
             text = this.formatText(value);
         }
 
-        const inputCls = cls({
+        const inputCls = cls(`${prefixCls}-input-wrapper-start`, {
             [`${prefixCls}-input-readonly`]: inputReadOnly,
             [`${prefixCls}-monthRange-input`]: type === 'monthRange',
+            [`${prefixCls}-input-active`]: rangeInputFocus === 'rangeStart',
         });
 
-        const rangeProps = { ...this.props, text, suffix, inputCls };
+        const rangeProps = { ...this.props, text, suffix };
 
         return this.isRenderMultipleInputs() ? (
             this.renderRangeInput(rangeProps)
         ) : (
-            <Input
-                {...rest}
-                ref={inputRef}
-                insetLabel={insetLabel}
-                disabled={disabled}
-                showClearIgnoreDisabled={showClearIgnoreDisabled}
-                readonly={inputReadOnly}
-                className={inputCls}
-                style={inputStyle}
-                hideSuffix={showClear}
-                placeholder={type === 'monthRange' && Array.isArray(placeholder) ? placeholder[0] + rangeSeparator + placeholder[1] : placeholder}
-                onEnterPress={this.handleEnterPress}
-                onChange={this.handleChange}
-                onClear={this.handleInputClear}
-                suffix={suffix}
-                showClear={showClear}
-                value={text}
-                validateStatus={validateStatus}
-                prefix={prefix}
-                autoFocus={autofocus}
-                size={size}
-                onBlur={onBlur as any}
-                onFocus={onFocus as any}
-            />
+            <div
+                className={`${inputCls}`}
+                onClick={e => !disabled && this.handleRangeInputFocus(e, 'rangeStart')}
+            >
+                <Input
+                    {...rest}
+                    ref={inputRef}
+                    insetLabel={insetLabel}
+                    disabled={disabled}
+                    showClearIgnoreDisabled={showClearIgnoreDisabled}
+                    readonly={inputReadOnly}
+                    className={inputCls}
+                    style={inputStyle}
+                    hideSuffix={showClear}
+                    placeholder={type === 'monthRange' && Array.isArray(placeholder) ? placeholder[0] + rangeSeparator + placeholder[1] : placeholder}
+                    onEnterPress={this.handleEnterPress}
+                    onChange={this.handleChange}
+                    onClear={this.handleInputClear}
+                    suffix={suffix}
+                    showClear={showClear}
+                    value={text}
+                    validateStatus={validateStatus}
+                    prefix={prefix}
+                    autoFocus={autofocus}
+                    size={size}
+                    onBlur={onBlur as any}
+                    onFocus={onFocus as any}
+                />
+            </div>
         );
     }
 

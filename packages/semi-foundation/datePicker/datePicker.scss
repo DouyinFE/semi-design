@@ -841,7 +841,12 @@ $module-list: #{$prefix}-scrolllist;
     .#{$prefix}-datepicker-input-readonly {
         cursor: pointer;
     }
-
+    .#{$prefix}-datepicker-input-active {
+        border-color: $color-datepicker_range_input-border-active;
+        background-color: $color-datepicker_range_input_inputWrapper-bg-focus;
+        border-radius: $radius-datepicker_range_input_inputWrapper;
+        transition: $transition-datepicker_range_input;
+    }
     &-inset-input {
         &-wrapper {
             display: flex;
