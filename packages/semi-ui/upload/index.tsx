@@ -384,7 +384,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
      * @param index number
      * @returns
      */
-    insert = (files: Array<CustomFile>, index: number): void => {
+    insert = (files: Array<CustomFile>, index?: number): void => {
         return this.foundation.insertFileToList(files, index);
     };
 

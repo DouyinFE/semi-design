@@ -171,6 +171,15 @@ const local: Locale = {
         adaptiveTip: '페이지에 맞게 조정',
         originTip: '원래 크기',
     },
+    Chat: {
+        deleteConfirm: '이 대화를 삭제하시겠습니까?',
+        clearContext: '컨텍스트가 지워졌습니다',
+        copySuccess: '복사 성공',
+        stop: '중지',
+        copy: '복사',
+        copied: '복사했습니다',
+        dropAreaText: '파일을 여기에 놓으세요',
+    },
 };
 
 // [i18n-Korea]
