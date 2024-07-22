@@ -20,7 +20,7 @@ export const _Chat = () => {
     const [hints, setHints] = useState(hintsExample);
     const [mode, setMode] = useState('bubble');
     const [align, setAlign] = useState('leftRight');
-    const [keySendStrategy, setKeySendStrategy] = useState('enter');
+    const [sendHotKey, setSendHotKey] = useState('enter');
     const [key, setKey] = useState(1);
     const [showClearContext, setShowClearContext] = useState(false);
 
@@ -85,8 +85,8 @@ export const _Chat = () => {
         setShowClearContext((showClearContext) => !showClearContext);
     }, [])
 
-    const onKeySendStrategyChange = useCallback((e) => {
-        setKeySendStrategy(e.target.value);
+    const onSendHotKeyChange = useCallback((e) => {
+        setSendHotKey(e.target.value);
     }, []);
 
     return (
@@ -113,9 +113,9 @@ export const _Chat = () => {
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
                     按键发送策略：
-                    <RadioGroup onChange={onKeySendStrategyChange} value={keySendStrategy} type="button">
+                    <RadioGroup onChange={onSendHotKeyChange} value={sendHotKey} type="button">
                         <Radio value={'enter'}>enter</Radio>
-                        <Radio value={'shiftPlusEnter'}>shiftPlusEnter</Radio>
+                        <Radio value={'shift+enter'}>shift+enter</Radio>
                     </RadioGroup>
                 </span>
             </div>
@@ -141,7 +141,7 @@ export const _Chat = () => {
                     }}
                     mode={mode} 
                     align={align}
-                    keySendStrategy={keySendStrategy} 
+                    sendHotKey={sendHotKey} 
                     showClearContext={showClearContext}
                 />
             </div>

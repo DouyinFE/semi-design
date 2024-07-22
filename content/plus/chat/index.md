@@ -1539,7 +1539,7 @@ render(DefaultChat);
 | hintStyle | 提示区最外层样式 | CSSProperties | - |
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
-| keySendStrategy | 按键发送的策略，支持 `enter` \| `shiftPlusEnter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
+| sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
 | mode | 对话模式，支持 `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | 角色信息配置，具体见[RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderHintBox | 自定义渲染提示信息 | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |

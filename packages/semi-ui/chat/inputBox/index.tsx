@@ -5,11 +5,12 @@ import { FileItem } from '../../upload/interface';
 import type { InputBoxProps, InputBoxState } from '../interface';
 import { BaseComponent, Button, Upload, Tooltip, TextArea } from '../../index';
 import { IconDeleteStroked, IconChainStroked, IconArrowUp } from '@douyinfe/semi-icons';
-import { cssClasses } from "@douyinfe/semi-foundation/chat/constants";
+import { cssClasses, strings } from "@douyinfe/semi-foundation/chat/constants";
 import InputBoxFoundation, { InputBoxAdapter } from '@douyinfe/semi-foundation/chat/inputboxFoundation';
 import Attachment from '../attachment';
 
 const { PREFIX_INPUT_BOX } = cssClasses;
+const { SEND_HOT_KEY } = strings;
 const textAutoSize = { minRows: 1, maxRows: 5 };
 
 class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
@@ -68,30 +69,28 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
         const { className, onChange, renderFileItem, children, ...rest } = uploadProps;
         const realUploadProps = {
             ...rest,
-            className: cls(`${PREFIX_INPUT_BOX}-upload`,{
+            className: cls(`${PREFIX_INPUT_BOX}-upload`, {
                 [className]: className
             }),
             onChange: this.foundation.onAttachmentAdd,
-        }
+        };
         const uploadNode = <Upload
             ref={uploadRef}
             fileList={attachment}
             {...realUploadProps}
         >
-            {children ? children : 
-                <Button 
-                    className={`${PREFIX_INPUT_BOX}-uploadButton`}
-                    icon={<IconChainStroked size="extra-large" />}
-                    theme='borderless'
-                />
-            }
-        </Upload>
+            {children ? children : <Button 
+                className={`${PREFIX_INPUT_BOX}-uploadButton`}
+                icon={<IconChainStroked size="extra-large" />}
+                theme='borderless'
+            />}
+        </Upload>;
         return (uploadTipProps ? <Tooltip {...uploadTipProps}><span>{uploadNode}</span></Tooltip> : uploadNode);
     }
 
     renderInputArea = () => {
         const { content, attachment } = this.state;
-        const { placeholder, keySendStrategy } = this.props;
+        const { placeholder, sendHotKey } = this.props;
         return (<div
             className={`${PREFIX_INPUT_BOX}-inputArea`}
         >
@@ -103,14 +102,14 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 ref={this.inputAreaRef}
                 className={`${PREFIX_INPUT_BOX}-textarea`}
                 autosize={textAutoSize} 
-                disabledEnterStartNewLine={keySendStrategy === 'enter' ? true : false}
+                disabledEnterStartNewLine={sendHotKey === SEND_HOT_KEY.ENTER ? true : false}
                 onPaste={this.foundation.onPaste as any}
             />
             <Attachment 
                 attachment={attachment as any} 
                 onClear={this.foundation.onAttachmentDelete}
             />
-        </div>)
+        </div>);
     }
 
     renderClearButton = () => {
@@ -122,7 +121,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 icon={<IconDeleteStroked />}
                 onClick={onClearContext}
             />
-        )
+        );
     }
 
     renderSendButton = () => {
@@ -134,10 +133,10 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 type='primary'
                 className={`${PREFIX_INPUT_BOX}-sendButton`}
                 // icon={<IconSend size="extra-large" className={`${PREFIX_INPUT_BOX}-sendButton-icon`} />}
-                icon={<IconArrowUp size="large"  className={`${PREFIX_INPUT_BOX}-sendButton-icon`} />}
+                icon={<IconArrowUp size="large" className={`${PREFIX_INPUT_BOX}-sendButton-icon`} />}
                 onClick={this.foundation.onSend}
             />
-        )
+        );
     }
 
     render() {
@@ -148,7 +147,7 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                     className={`${PREFIX_INPUT_BOX}-inner`}
                     onClick={this.onClick}
                 >
-                   {showClearContext && this.renderClearButton()}
+                    {showClearContext && this.renderClearButton()}
                     <div className={`${PREFIX_INPUT_BOX}-container`}>
                         {this.renderUploadButton()}
                         {this.renderInputArea()}

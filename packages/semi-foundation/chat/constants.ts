@@ -44,10 +44,10 @@ const MODE = {
     USER_BUBBLE: 'userBubble'
 };
 
-const KEY_SEND_STRATEGY ={
+const SEND_HOT_KEY = {
     ENTER: 'enter',
-    SHIFT_PLUS_ENTER: 'shiftPlusEnter'
-}
+    SHIFT_PLUS_ENTER: 'shift+enter'
+};
 
 const strings = {
     ROLE,
@@ -58,8 +58,8 @@ const strings = {
     SCROLL_ANIMATION_TIME,
     SHOW_SCROLL_GAP,
     MODE,
-    KEY_SEND_STRATEGY
-}
+    SEND_HOT_KEY,
+};
 
 
 export {

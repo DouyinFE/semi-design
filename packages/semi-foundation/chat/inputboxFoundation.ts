@@ -2,7 +2,7 @@ import { handlePrevent } from "../utils/a11y";
 import BaseFoundation, { DefaultAdapter } from "../base/foundation";
 import { strings } from './constants';
 
-const { KEY_SEND_STRATEGY } = strings;
+const { SEND_HOT_KEY } = strings;
 
 export interface InputBoxAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyInputChange: (props: { inputValue: string; attachment: any[]}) => void;
@@ -50,7 +50,7 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
     
     onSend = (e: any) => {
         if (this.getDisableSend()) {
-            return 
+            return; 
         }
         const { content, attachment } = this.getStates();
         this._adapter.setInputValue('');
@@ -60,20 +60,20 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
 
     getDisableSend = () => {
         const { content, attachment } = this.getStates();
-        const { disableSend: disableSendInProps} = this.getProps();
+        const { disableSend: disableSendInProps } = this.getProps();
         const disabledSend = disableSendInProps || (content.length === 0 && attachment.length === 0);
         return disabledSend;
     }
 
     onEnterPress = (e: any) => {
-        const { keySendStrategy } = this.getProps();
-        if (keySendStrategy === KEY_SEND_STRATEGY.SHIFT_PLUS_ENTER && e.shiftKey === false) {
+        const { sendHotKey } = this.getProps();
+        if (sendHotKey === SEND_HOT_KEY.SHIFT_PLUS_ENTER && e.shiftKey === false) {
             return ;
-        } else if (keySendStrategy === KEY_SEND_STRATEGY.ENTER && e.shiftKey === true) {
+        } else if (sendHotKey === SEND_HOT_KEY.ENTER && e.shiftKey === true) {
             return ;
         }
         handlePrevent(e);
-        this.onSend(e)
+        this.onSend(e);
     };
 
     onPaste = (e: any) => {

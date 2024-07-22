@@ -1536,7 +1536,7 @@ render(DefaultChat);
 | hintStyle | hint style | CSSProperties | - |
 | inputBoxStyle | Input box style | CSSProperties | - |
 | inputBoxCls | Input box className | string | - |
-| keySendStrategy | Key sending strategy, supports `enter` \| `shiftPlusEnter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
+| sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
 | mode | Conversation mode, support `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | Role information configuration, see[RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderHintBox | Custom rendering prompt information | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |

@@ -45,7 +45,7 @@ export interface ChatProps extends CommonChatsProps {
     uploadProps?: UploadProps;
     uploadTipProps?: TooltipProps;
     showClearContext?: boolean;
-    keySendStrategy?: 'enter' | 'shiftPlusEnter';
+    sendHotKey?: 'enter' | 'shift+enter'
 }
 
 export interface RenderInputAreaProps {
@@ -105,7 +105,7 @@ export interface ChatBoxProps extends Omit<CommonChatsProps, "chats"> {
 
 export interface InputBoxProps {
     showClearContext?: boolean;
-    keySendStrategy?: 'enter' | 'shiftPlusEnter';
+    sendHotKey?: 'enter' | 'shift+enter';
     placeholder: string;
     className?: string;
     style?: React.CSSProperties;
