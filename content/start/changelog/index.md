@@ -13,6 +13,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.63.0-beta.0 (2024-07-22)
+- 【New Component】
+    - 新增 Chat 组件用于渲染对话列表 [#2248](https://github.com/DouyinFE/semi-design/pull/2248)
+- 【Fix】
+    - 修复 Form ArrayField addWithInitValue 时未对入参 clone做作用域隔离的问题   [#2351](https://github.com/DouyinFE/semi-design/issues/2351)
+    - 修复 Upload 使用 renderThumbnail 搭配 Image 组件使用时，宽高度恒定的问题  [#2343](https://github.com/DouyinFE/semi-design/issues/2343)
+- 【Feat】
+    - Form 新增 stopPropagation 可用于阻止嵌套Form场景下，submit 、reset事件同时在多级容器触发的问题 [#2355](https://github.com/DouyinFE/semi-design/issues/2355)
+    - Upload 支持 afterUpload 中 return url 修改预览链接 [#2346](https://github.com/DouyinFE/semi-design/pull/2346)
+
 #### 🎉 2.62.1 (2024-07-16)
 - 【Fix】
   - 修复 TreeSelect 启用 showFilteredOnly 并且搜索框在 trigger 中的 treeSelect 面板，在搜索后再次打开显示不正确问题 [#2345](https://github.com/DouyinFE/semi-design/pull/2345)
