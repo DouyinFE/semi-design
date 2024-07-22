@@ -38,7 +38,7 @@ class NavApp extends React.Component {
     render() {
         return (
             <Nav
-                Body Style={{ height: 320 }}
+                bodyStyle={{ height: 320 }}
                 items={[
                     { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
                     { itemKey: 'union', text: 'Union Center', icon: <IconStar /> },
