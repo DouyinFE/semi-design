@@ -3,13 +3,12 @@ localeCode: zh-CN
 order: 23
 category: Plus
 title: Lottie 动画
-icon: doc-configprovider
+icon: doc-lottie
 dir: column
 brief: 在网页中展示 Lottie 动画
 ---
 
 ## 概述
-
 
 Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获取到全局 Lottie 和 动画实例满足更广泛的配置需求。
 
@@ -19,9 +18,9 @@ Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获�
 
 相较于直接使用 `lottie-web`，使用 Semi Lottie 组件
 
-- 无需关心动画容器的创建与销毁
-- 无需关心动画本身的生命周期
-- 更易和 React 项目结合使用
+-   无需关心动画容器的创建与销毁
+-   无需关心动画本身的生命周期
+-   更易和 React 项目结合使用
 
 ## 代码演示
 
@@ -30,30 +29,29 @@ Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获�
 Lottie 从 v2.62.0 开始支持
 
 ```jsx
-import { Lottie } from "@douyinfe/semi-ui";
+import { Lottie } from '@douyinfe/semi-ui';
 ```
 
-
-
 ### 基本用法
-
 
 **当 Lottie 动画资源 JSON 在 CDN 上时**
 
 向 `params` props 里传入 path= 你的 lottie json 的 URL 即可
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
 
-    return  <div>
-            <Lottie params={{ path: jsonURL }} width={"300px"} />
-        </div>;
+    return (
+        <div>
+            <Lottie params={{ path: jsonURL }} width={'300px'} height={'300'} />
+        </div>
+    );
 };
-
 ```
 
 **当 Lottie 动画资源 JSON 需要被打包到网站代码中时**
@@ -61,25 +59,26 @@ import React from "react";
 向 `params` props 里传入 animationData= 你的 lottie json 对象即可 (下方 Demo 请求 JSON 是仅作为演示，实际项目中 json 应当被手动 import，而不是通过网络请求获取，这样 JSON 动画资源才会被打包进网站代码)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
-    const [data, setData] = useState("");
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
+    const [data, setData] = useState('');
 
     useEffect(() => {
         fetch(jsonURL)
-            .then(resp=>resp.json())
+            .then(resp => resp.json())
             .then(setData);
-       
     }, []);
 
-    return <div>
-            <Lottie params={{ animationData: data }} width={"300px"} />
-        </div>;
+    return (
+        <div>
+            <Lottie params={{ animationData: data }} width={'300px'} height={'300px'} />
+        </div>
+    );
 };
-
 ```
 
 ### Params 其他常用参数
@@ -101,7 +100,6 @@ import React from "react";
 }
 ```
 
-
 ### 获取当前动画实例
 
 使用 `getAnimationInstance` 获取当前播放的动画的 animation 实例，实例上含有许多方法用于调整动画的各项参数，例如播放暂停，获取当前帧序号，调整播放速度等。
@@ -109,15 +107,25 @@ import React from "react";
 关于动画实例上含有的方法，更多信息可以参考 `lottie-web` [文档](https://github.com/airbnb/lottie-web?tab=readme-ov-file#usage)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
 
-    return <div>
-        <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />
-    </div>
+    return (
+        <div>
+            <Lottie
+                getAnimationInstance={animation => {
+                    console.log(animation);
+                }}
+                params={{ path: jsonURL }}
+                width={'300px'}
+                height={'300px'}
+            />
+        </div>
+    );
 };
 ```
 
@@ -127,39 +135,39 @@ import React from "react";
 
 关于全局 lottie 上含有的方法，更多信息可以参考 `lottie-web` [文档](https://github.com/airbnb/lottie-web?tab=readme-ov-file#usage)
 
-
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
-()=>{
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
-    
-    console.log("lottie", Lottie.getLottie());
-    
-    return <div>
-        <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />
-    </div>
+() => {
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
+
+    console.log('lottie', Lottie.getLottie());
+
+    return (
+        <div>
+            <Lottie
+                getLottie={lottie => console.log('lottie', lottie)}
+                params={{ path: jsonURL }}
+                width={'300px'}
+                height={'300px'}
+            />
+        </div>
+    );
 };
-
 ```
-
-
 
 ### API
 
-| 属性        | 说明                   | 类型                                   | 默认值 |
-|-----------|----------------------|--------------------------------------|-----|
-| className | 类名                   | string                               | -   |
-| params    | 用于配置动画相关参数           | 同 lottie-web lottie.loadAnimation 入参 | -   |
-| getAnimationInstance    | 获取当前动画 AnimationItem | (animation:AnimationItem)=>void      | -   |
-| getLottie       | 获取全局 Lottie          | (lottie: Lottie)=>void               | -   |
-| style     | 样式                   | CSSProperties                        | -   |
+| 属性                 | 说明                       | 类型                                    | 默认值 |
+| -------------------- | -------------------------- | --------------------------------------- | ------ |
+| className            | 类名                       | string                                  | -      |
+| params               | 用于配置动画相关参数       | 同 lottie-web lottie.loadAnimation 入参 | -      |
+| getAnimationInstance | 获取当前动画 AnimationItem | (animation:AnimationItem)=>void         | -      |
+| getLottie            | 获取全局 Lottie            | (lottie: Lottie)=>void                  | -      |
+| style                | 样式                       | CSSProperties                           | -      |
 
 ## 设计变量
 
 <DesignToken/>
-
-
-
-
