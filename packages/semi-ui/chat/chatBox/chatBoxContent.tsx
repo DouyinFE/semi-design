@@ -4,7 +4,7 @@ import { Message, Metadata } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
-import { FileAttachment, ImageAttachment } from '..//attachment';
+import { FileAttachment, ImageAttachment } from '../attachment';
 import Code from './code';
 
 const { PREFIX_CHAT_BOX } = cssClasses;
@@ -28,7 +28,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
         'SemiFile': FileAttachment,
         'img': ImageAttachment,
         ...customMarkDownComponents
-    }), [customMarkDownComponents])
+    }), [customMarkDownComponents]);
 
     const wrapCls = useMemo(() => {
         const isUser = role === ROLE.USER;
@@ -48,18 +48,18 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
             </span>;
         } else {
             let realContent = '';
-            if (typeof content  === 'string') {
+            if (typeof content === 'string') {
                 realContent = content;
-            } else if (Array.isArray(content)){
+            } else if (Array.isArray(content)) {
                 realContent = content.map((item)=> {
                     if (item.type === 'text') {
                         return item.text;
                     } else if (item.type === 'image_url') {
                         return `![image](${item.image_url.url})`;
                     } else if (item.type === 'file_url') {
-                        const {name, size, url, type} = item.file_url;
+                        const { name, size, url, type } = item.file_url;
                         const realType = name.split('.').pop() ?? type?.split('/').pop();
-                        return `<SemiFile url={'${url}'} name={'${name}'} size={'${size}'} type={'${realType}'}></SemiFile>`
+                        return `<SemiFile url={'${url}'} name={'${name}'} size={'${size}'} type={'${realType}'}></SemiFile>`;
                     }
                     return '';
                 }).join('\n\n');
