@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.62.1 (2024-07-16)
+- 【Fix】
+  - Fixed the issue that when TreeSelect enables showFilteredOnly and the search box is in the trigger, the treeSelect panel does not display correctly when it is opened again after searching [#2345](https://github.com/DouyinFE/semi-design/pull/2345)
+  - Fixed the issue that when Upload uses renderThumbnail with the Image component, the width and height remain constant [#2343](https://github.com/DouyinFE/semi-design/issues/2343) 
+  - Fixed the issue that Form does not pass the id attribute to the form element DOM
+
 #### 🎉 2.62.0 (2024-07-12)
 - 【Fix】
   - When the carousel has only one child and autoPlay is true, no switching operation is performed [#2334](https://github.com/DouyinFE/semi-design/pull/2334)

@@ -2813,3 +2813,23 @@ export const AutoMerge = () => {
     </>
   )
 }
+
+export const showFilteredOnly = () => {
+  return (
+      <>
+          <span id='info'>searchPosition="trigger", showFilteredOnly, multiple</span>
+          <br />
+          <TreeSelect
+              searchPosition="trigger"
+              style={{ width: 300 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData2}
+              multiple
+              filterTreeNode
+              showFilteredOnly
+              maxTagCount={2}
+              placeholder="多选"
+          />
+      </>
+  );
+}
