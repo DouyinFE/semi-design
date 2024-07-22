@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 22
 category: Plus
 title:  Markdown 渲染器
-icon: doc-configprovider
+icon: doc-markdown
 dir: column
 brief: 在网页中即时渲染 Markdown 和 MDX
 ---
@@ -32,7 +32,6 @@ MarkdownRender 从 v2.62.0 开始支持
 ```jsx
 import { MarkdownRender } from '@douyinfe/semi-ui';
 ```
-
 
 
 ### 基本用法
