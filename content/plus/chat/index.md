@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 82
 category: Plus
 title:  Chat 对话
-icon: doc-configprovider
+icon: doc-chat
 dir: column
 brief: 用于快速搭建对话内容
 ---

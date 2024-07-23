@@ -3,7 +3,7 @@ localeCode: en-US
 order: 82
 category: Plus
 title:  Chat
-icon: doc-configprovider
+icon: doc-chat
 dir: column
 brief: Used to quickly build conversation content
 ---
