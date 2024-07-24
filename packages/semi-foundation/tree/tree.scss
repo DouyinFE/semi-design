@@ -211,13 +211,11 @@ $module: #{$prefix}-tree;
 
         &-drag-over.#{$module}-option-draggable,
         &-drag-over.#{$module}-option-fullLabel-draggable {
+            border: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
+
             .#{$module}-option-label {
                 border-top: 0;
                 border-bottom: 0;
-            }
-
-            & {
-                border: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
             }
 
             // selected solid background will overlap with drag over border-bottom
