@@ -254,7 +254,7 @@ class Demo extends React.Component {
                             initValue={'all'}
                         >
                             <Radio value="all">All</Radio>
-                            <Radio value="ios">IOS</Radio>
+                            <Radio value="ios">iOS</Radio>
                             <Radio value="android">Android</Radio>
                             <Radio value="web">Web</Radio>
                         </RadioGroup>

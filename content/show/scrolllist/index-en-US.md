@@ -18,7 +18,7 @@ import { ScrollList, ScrollItem } from '@douyinfe/semi-ui';
 ```
 ### Basic Usage
 
-The scrolling list provides a scrolling selection mode similar to the IOS operating system, while supporting scrolling to the specified window location selection and click selection.
+The scrolling list provides a scrolling selection mode similar to the iOS operating system, while supporting scrolling to the specified window location selection and click selection.
 
 ```jsx live=true
 import React from 'react';
