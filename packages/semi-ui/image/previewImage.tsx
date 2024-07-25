@@ -43,7 +43,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             getImage: () => {
                 return this.imageRef.current;
             },
-            setLoading: (loading: boolean) => { 
+            setLoading: (loading: boolean) => {
                 this.setState({
                     loading,
                 });
@@ -64,10 +64,11 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             width: 0,
             height: 0,
             loading: true,
-            offset: { x: 0, y: 0 },
-            currZoom: 0,
-            top: 0,
-            left: 0,
+            translate: {
+                x: 0,
+                y: 0
+            },
+            currZoom: 0
         };
         this.containerRef = React.createRef<HTMLDivElement>();
         this.imageRef = React.createRef<HTMLImageElement>();
@@ -96,7 +97,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             if ("rotation" in this.props && this.props.rotation !== prevProps.rotation) {
                 this.onWindowResize();
             }
-        }   
+        }
     }
 
     onWindowResize = (): void => {
@@ -126,18 +127,18 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
 
     render() {
         const { src, rotation, crossOrigin } = this.props;
-        const { loading, width, height, top, left } = this.state;
+        const { loading, width, height, translate } = this.state;
+
         const imgStyle = {
             position: "absolute",
             visibility: loading ? "hidden" : "visible",
             transform: `rotate(${-rotation}deg)`,
-            top,
-            left,
+            translate: `${translate.x}px ${translate.y}px`,
             width,
-            height,
+            height
         };
         return (
-            <div 
+            <div
                 className={`${preViewImgPrefixCls}`}
                 ref={this.containerRef}
             >
@@ -157,7 +158,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     style={imgStyle as React.CSSProperties}
                     crossOrigin={crossOrigin}
                 />
-                {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`}/>}
+                {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`} />}
             </div>
         );
     }

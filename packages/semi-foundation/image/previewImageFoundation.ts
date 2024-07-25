@@ -12,14 +12,29 @@ export interface DragDirection {
     canDragHorizontal: boolean
 }
 
-export interface ExtremeBounds {
-    left: number;
-    top: number
-}
-
-export interface ImageOffset {
+export interface ExtremeTranslate {
     x: number;
     y: number
+}
+
+export interface Offset {
+    x: number;
+    y: number
+}
+
+export interface Client {
+    x: number;
+    y: number
+}
+
+export interface Translate {
+    x: number;
+    y: number
+}
+
+export interface BoundingRectSize {
+    width: number;
+    height: number
 }
 
 const DefaultDOMRect = {
@@ -38,7 +53,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         super({ ...adapter });
     }
 
-    startMouseOffset = { x: 0, y: 0 };
+    startMouseClientPosition = { x: 0, y: 0 };
     originImageWidth = null;
     originImageHeight = null;
 
@@ -60,11 +75,13 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         return DefaultDOMRect;
     }
 
-    _getOffset = (e: any): ImageOffset => {
-        const { left, top } = this._getImageBounds();
+    _getTranslate = (e: any): Translate => {
+        const { left, top, width, height } = this._getImageBounds();
+        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+
         return {
-            x: e.clientX - left,
-            y: e.clientY - top,
+            x: left + width / 2 - containerWidth / 2,
+            y: top + height / 2 - containerHeight / 2,
         };
     }
 
@@ -103,20 +120,19 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleResizeImage = (notify: boolean = true) => {
-        const horizontal = !this._isImageVertical();
         const { currZoom } = this.getStates();
-        const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
-        const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
-        const { onZoom, setRatio, ratio } = this.getProps();
+        const { onZoom, rotation } = this.getProps();
+        let { width, height } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
+        
         const containerDOM = this._adapter.getContainer();
         if (containerDOM) {
             const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
             const reservedWidth = containerWidth - 80;
             const reservedHeight = containerHeight - 80;
             let _zoom = 1;
-            if (imgWidth > reservedWidth || imgHeight > reservedHeight) {
+            if (width > reservedWidth || height > reservedHeight) {
                 _zoom = Number(
-                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
+                    Math.min(reservedWidth / width, reservedHeight / height).toFixed(2)
                 );
             }
             if (currZoom === _zoom) {
@@ -162,14 +178,24 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
+    calcBoundingRectSize(width = 0, height = 0, rotation = 0) {
+        const angleInRadians = rotation * Math.PI / 180;
+        const sinTheta = Math.abs(Math.sin(angleInRadians));
+        const cosTheta = Math.abs(Math.cos(angleInRadians));
+        const boundingWidth = width * cosTheta + height * sinTheta;
+        const boundingHeight = width * sinTheta + height * cosTheta;
+
+        return {
+            width: boundingWidth,
+            height: boundingHeight
+        };
+    }
+
     getCanDragDirection = (width: number, height: number): DragDirection => {
         const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
         let canDragHorizontal = width > containerWidth;
         let canDragVertical = height > containerHeight;
-        if (this._isImageVertical()) {
-            canDragHorizontal = height > containerWidth;
-            canDragVertical = width > containerHeight;
-        }
+
         return {
             canDragVertical,
             canDragHorizontal,
@@ -178,97 +204,102 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
     changeZoom = (newZoom: number, e?: WheelEvent): void => {
         const imageDOM = this._adapter.getImage();
-        const { currZoom, left, top } = this.getStates();
+        const { currZoom, translate } = this.getStates();
         const changeScale = newZoom / (currZoom || 1);
         const newWidth = Math.floor(this.originImageWidth * newZoom);
         const newHeight = Math.floor(this.originImageHeight * newZoom);
-        let newLeft = Math.floor(left * changeScale);
-        let newTop = Math.floor(top * changeScale);
+        let newTranslateX = Math.floor(translate.x * changeScale);
+        let newTranslateY = Math.floor(translate.y * changeScale);
 
+        const imageBound = this._getImageBounds();
+        const newImageBound = {
+            width: imageBound.width * changeScale,
+            height: imageBound.height * changeScale
+        };
 
         if (e && imageDOM && e.target === imageDOM) {
-            newLeft = e.clientX - Math.floor(e.offsetX * changeScale);
-            newTop = e.clientY - Math.floor(e.offsetY * changeScale);
+            const offCenterX = imageBound.width / 2 - (e.clientX - imageBound.x);
+            const offCenterY = imageBound.height / 2 - (e.clientY - imageBound.y);
+
+            newTranslateX += offCenterX * changeScale - offCenterX;
+            newTranslateY += offCenterY * changeScale - offCenterY;
         }
 
-        const position = this.getSafePosition(newWidth, newHeight, newLeft, newTop);
+        const newTranslate = this.tryTranslateToCenter(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
 
         this.setState({
-            ...position,
+            translate: newTranslate,
             width: newWidth,
             height: newHeight,
             currZoom: newZoom,
         } as any);
         if (imageDOM) {
-            const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(newWidth, newHeight);
+            const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(newImageBound.width, newImageBound.height);
             const canDrag = canDragVertical || canDragHorizontal;
 
             this._adapter.setImageCursor(canDrag);
         }
     };
 
-    getExtremeBounds = (width: number, height: number, containerWidth: number, containerHeight: number): ExtremeBounds => {
-        let extremeLeft = containerWidth - width;
-        let extremeTop = containerHeight - height;
-        if (this._isImageVertical()) {
-            extremeLeft = containerWidth - height;
-            extremeTop = containerHeight - width;
-        }
+    getExtremeTranslate = (width: number, height: number): ExtremeTranslate => {
+        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+
         return {
-            left: extremeLeft,
-            top: extremeTop,
+            x: (width - containerWidth) / 2,
+            y: (height - containerHeight) / 2,
         };
     };
 
-    getSafePosition = (width: number, height: number, left: number, top: number) => {
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-        const { left: extremeLeft, top: extremeTop } = this.getExtremeBounds(width, height, containerWidth, containerHeight);
+    tryTranslateToCenter = (width: number, height: number, translateX: number, translateY: number) => {
+        const { x: extremeX, y: extremeY } = this.getExtremeTranslate(width, height);
         const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
 
-        let newLeft = extremeLeft / 2,
-            newTop = extremeTop / 2;
+        let newTranslateX = 0,
+            newTranslateY = 0;
 
         if (canDragHorizontal) {
-            newLeft = left > 0 ? 0 : left < extremeLeft ? extremeLeft : left;
+            newTranslateX = translateX > 0 ? Math.min(translateX, extremeX) : Math.max(translateX, -extremeX);
         }
 
         if (canDragVertical) {
-            newTop = top > 0 ? 0 : top < extremeTop ? extremeTop : top;
+            newTranslateY = translateY > 0 ? Math.min(translateY, extremeY) : Math.max(translateY, -extremeY);
         }
 
-        const _offset = {
-            x: newLeft,
-            y: newTop,
-        };
-
-        const isImageVertical = this._isImageVertical();
-
         return {
-            offset: _offset,
-            left: isImageVertical ? _offset.x - (width - height) / 2 : _offset.x,
-            top: isImageVertical ? _offset.y + (width - height) / 2 : _offset.y,
+            x: newTranslateX,
+            y: newTranslateY
         };
     }
 
     handleImageMove = (e: any): void => {
-        const { offset, width, height } = this.getStates();
-        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
+        const { translate } = this.getStates();
+        const imageBound = this._getImageBounds();
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(imageBound.width, imageBound.height);
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
         const mouseLeftPress = e.buttons === 1;
         if (mouseLeftPress && (canDragVertical || canDragHorizontal)) {
             const { clientX, clientY } = e;
-            const { left: containerLeft, top: containerTop } = this._getContainerBounds();
-            let newX = canDragHorizontal ? clientX - containerLeft - this.startMouseOffset.x : offset.x;
-            let newY = canDragVertical ? clientY - containerTop - this.startMouseOffset.y : offset.y;
-            
-            const position = this.getSafePosition(width, height, newX, newY);
 
-            this.setState(position as any);
+            let newTranslateX = canDragHorizontal ? translate.x + clientX - this.startMouseClientPosition.x : translate.x;
+            let newTranslateY = canDragVertical ? translate.y + clientY - this.startMouseClientPosition.y : translate.y;
+            
+            const newTranslate = this.tryTranslateToCenter(imageBound.width, imageBound.height, newTranslateX, newTranslateY);
+
+            this.setState({
+                translate: newTranslate,
+            } as any);
+
+            this.startMouseClientPosition = {
+                x: clientX,
+                y: clientY
+            };
         }
     };
 
     handleImageMouseDown = (e: any): void => {
-        this.startMouseOffset = this._getOffset(e);
+        this.startMouseClientPosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
     };
-
 }
