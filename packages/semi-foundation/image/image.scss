@@ -100,6 +100,7 @@ $module: #{$prefix}-image;
         align-items: center;
         padding: $spacing-image_preview_header-paddingY $spacing-image_preview_header-paddingX;
         z-index: $z-image_preview_header;
+        pointer-events: none;
 
         &-title {
             flex: 1;
@@ -113,6 +114,7 @@ $module: #{$prefix}-image;
             width: $width-image_preview_header_close;
             height: $height-image_preview_header_close;
             border-radius: 50%;
+            pointer-events: auto;
 
             &:hover {
                 background-color: $color-image_header_close-bg;

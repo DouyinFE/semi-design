@@ -143,6 +143,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     }
 
+    // TODO
     handleRatioChange = () => {
         if (this.originImageWidth && this.originImageHeight) {
             const { currZoom } = this.getStates();
@@ -218,11 +219,14 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
 
         if (e && imageDOM && e.target === imageDOM) {
-            const offCenterX = imageBound.width / 2 - (e.clientX - imageBound.x);
-            const offCenterY = imageBound.height / 2 - (e.clientY - imageBound.y);
+            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+            const imageNewCenterX = e.clientX + (imageBound.width / 2 - e.offsetX) * changeScale;
+            const imageNewCenterY = e.clientY + (imageBound.height / 2 - e.offsetY) * changeScale;
+            const containerCenterX = containerWidth / 2;
+            const containerCenterY = containerHeight / 2;
 
-            newTranslateX += offCenterX * changeScale - offCenterX;
-            newTranslateY += offCenterY * changeScale - offCenterY;
+            newTranslateX = imageNewCenterX - containerCenterX;
+            newTranslateY = imageNewCenterY - containerCenterY;
         }
 
         const newTranslate = this.tryTranslateToCenter(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
