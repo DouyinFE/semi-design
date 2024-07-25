@@ -292,10 +292,11 @@ Copying of text can be supported by configuring the `copyable` property.
 When copyable is configured as true, the default copied content is children itself. Note that at this time, children only support string type.    
 When copyable is configured as object, you can specify the content copied to the clipboard through `copyable.content`, which is no longer strongly associated with children.   
 At this time, children will no longer limit the type, but `copyable.content` still needs to be a string.  
+You can use the `copyable.render` attribute to customize the copyable button render.
 
 ```jsx live=true
 import React from 'react';
-import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { Typography, TextArea, Button } from '@douyinfe/semi-ui';
 import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
@@ -308,6 +309,18 @@ function Demo() {
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
             Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
             <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>Custom Copy Node</Paragraph>
+            <Paragraph copyable={{
+                content: 'Custom render!',
+                render: (copied, doCopy, config) => {
+                    return (
+                        <Button size="small" onClick={doCopy}>
+                            <span>{copied ? 'Copy success' : `Click to copy: ${config.content}`}</span>
+                        </Button>
+                    );
+                }
+            }}>
+                Custom Copy Render
+            </Paragraph>
             <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>

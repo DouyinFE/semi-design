@@ -13,7 +13,9 @@ export interface CopyableConfig {
     successTip?: React.ReactNode;
     icon?: React.ReactNode;
 
-    onCopy?(e: React.MouseEvent, content: string, res: boolean): void
+    onCopy?(e: React.MouseEvent, content: string, res: boolean): void;
+
+    render?(copied: boolean, doCopy: (e: React.MouseEvent) => void, configs: CopyableConfig): React.ReactNode
 }
 
 export type LinkType = React.AnchorHTMLAttributes<HTMLAnchorElement> | boolean;

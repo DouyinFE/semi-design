@@ -280,10 +280,11 @@ function Demo() {
 可通过配置 copyable 属性支持文本的复制。  
 当 copyable 配置为 true时，默认复制内容为 children 本身，注意，此时 children 只支持 string类型传入    
 当 copyable 配置为 object 时，可通过 `copyable.content` 指定复制至粘贴板的内容，与 children 不再强关联， 此时 children 将不再限定类型，但 `copyable.content` 仍需要为 string    
+可以通过 `copyable.render` 属性，自定义复制按钮的渲染逻辑
 
 ```jsx live=true
 import React from 'react';
-import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { Typography, TextArea, Button } from '@douyinfe/semi-ui';
 import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
@@ -296,6 +297,18 @@ function Demo() {
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: '复制文本成功' }) }}>点击右边的图标复制文本。</Paragraph>
             时间戳: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
             <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>自定义复制节点</Paragraph>
+            <Paragraph copyable={{
+                content: 'Custom render!',
+                render: (copied, doCopy, config) => {
+                    return (
+                        <Button size="small" onClick={doCopy}>
+                            <span>{copied ? '复制成功' : `点击复制:${config.content}`}</span>
+                        </Button>
+                    );
+                }
+            }}>
+                自定义复制渲染
+            </Paragraph>
             <br/>
             <br/>
             <Text type="secondary">粘贴区域：</Text>
