@@ -283,12 +283,11 @@ $module: #{$prefix}-cascader;
     &-disabled {
         cursor: not-allowed;
         user-select: none;
+        background-color: $color-cascader_input_disabled-bg-default;
 
         .#{$module}-selection {
             cursor: not-allowed;
         }
-
-        background-color: $color-cascader_input_disabled-bg-default;
 
         &:hover {
             background-color: $color-cascader_input_disabled-bg-hover;

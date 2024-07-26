@@ -66,12 +66,12 @@ $module: #{$prefix}-table;
 
     &-header {
         overflow: hidden;
+        scrollbar-base-color: transparent;
 
         &::-webkit-scrollbar {
             background-color: transparent;
             border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
         }
-        scrollbar-base-color: transparent;
 
         &-sticky {
             position: sticky;
