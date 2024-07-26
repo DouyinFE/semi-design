@@ -315,6 +315,7 @@ $module: #{$prefix}-cascader;
 
     .#{$module}-option-empty {
         @include font-size-regular;
+        border-radius: $radius-cascader_option_empty;
         min-width: $width-cascader_option;
         color: $color-cascader_option_empty-text-default;
         margin: 0;
@@ -423,6 +424,7 @@ $module: #{$prefix}-cascader;
         word-break: break-all;
         color: $color-cascader_option_main-text-default;
         position: relative;
+
 
         &:hover {
             background-color: $color-cascader_option-bg-hover;
