@@ -132,7 +132,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         const imgStyle = {
             position: "absolute",
             visibility: loading ? "hidden" : "visible",
-            transform: `rotate(${-rotation}deg)`,
+            transform: `rotate(${rotation}deg)`,
             translate: `${translate.x}px ${translate.y}px`,
             width,
             height

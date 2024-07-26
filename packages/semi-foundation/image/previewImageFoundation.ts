@@ -22,14 +22,16 @@ export interface Offset {
     y: number
 }
 
-export interface Client {
+export interface Translate {
     x: number;
     y: number
 }
 
-export interface Translate {
-    x: number;
-    y: number
+interface CalcBoundingRectMouseOffset {
+    offset: Offset;
+    width: number;
+    height: number;
+    rotation?: number
 }
 
 export interface BoundingRectSize {
@@ -205,7 +207,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
     changeZoom = (newZoom: number, e?: WheelEvent): void => {
         const imageDOM = this._adapter.getImage();
-        const { currZoom, translate } = this.getStates();
+        const { currZoom, translate, width, height } = this.getStates();
+        const { rotation } = this.getProps();
         const changeScale = newZoom / (currZoom || 1);
         const newWidth = Math.floor(this.originImageWidth * newZoom);
         const newHeight = Math.floor(this.originImageHeight * newZoom);
@@ -220,8 +223,18 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
         if (e && imageDOM && e.target === imageDOM) {
             const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-            const imageNewCenterX = e.clientX + (imageBound.width / 2 - e.offsetX) * changeScale;
-            const imageNewCenterY = e.clientY + (imageBound.height / 2 - e.offsetY) * changeScale;
+            const { x: offsetX, y: offsetY } = this.calcBoundingRectMouseOffset({
+                width,
+                height,
+                offset: {
+                    x: e.offsetX,
+                    y: e.offsetY
+                },
+                rotation
+            });
+
+            const imageNewCenterX = e.clientX + (imageBound.width / 2 - offsetX) * changeScale;
+            const imageNewCenterY = e.clientY + (imageBound.height / 2 - offsetY) * changeScale;
             const containerCenterX = containerWidth / 2;
             const containerCenterY = containerHeight / 2;
 
@@ -229,7 +242,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             newTranslateY = imageNewCenterY - containerCenterY;
         }
 
-        const newTranslate = this.tryTranslateToCenter(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
+        const newTranslate = this.getSafeTranslate(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
 
         this.setState({
             translate: newTranslate,
@@ -254,7 +267,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-    tryTranslateToCenter = (width: number, height: number, translateX: number, translateY: number) => {
+    getSafeTranslate = (width: number, height: number, translateX: number, translateY: number) => {
         const { x: extremeX, y: extremeY } = this.getExtremeTranslate(width, height);
         const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
 
@@ -287,7 +300,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             let newTranslateX = canDragHorizontal ? translate.x + clientX - this.startMouseClientPosition.x : translate.x;
             let newTranslateY = canDragVertical ? translate.y + clientY - this.startMouseClientPosition.y : translate.y;
             
-            const newTranslate = this.tryTranslateToCenter(imageBound.width, imageBound.height, newTranslateX, newTranslateY);
+            const newTranslate = this.getSafeTranslate(imageBound.width, imageBound.height, newTranslateX, newTranslateY);
 
             this.setState({
                 translate: newTranslate,
@@ -306,4 +319,47 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             y: e.clientY
         };
     };
+
+
+    // 鼠标事件的 e.offset 是以 dom 旋转前左上角为零点的，这个方法会转换为以旋转后元素的外接矩形的左上角为零点的 offset
+    calcBoundingRectMouseOffset = (calcBoundingRectMouseOffset: CalcBoundingRectMouseOffset) => {
+        const {
+            width,
+            height,
+            offset,
+            rotation = 0
+        } = calcBoundingRectMouseOffset;
+
+        let degrees = rotation % 360;
+        degrees = degrees >= 0 ? degrees : 360 + degrees;
+
+        const radians = degrees * Math.PI / 180;
+
+        const sinTheta = Math.sin(radians);
+        const absSinTheta = Math.abs(sinTheta);
+        const cosTheta = Math.cos(radians);
+        const absCosTheta = Math.abs(cosTheta);
+
+        let boundOffsetX = 0,
+            boundOffsetY = 0;
+
+        if (degrees >= 0 && degrees < 90) {
+            boundOffsetX = absSinTheta * (height - offset.y) + absCosTheta * offset.x;
+            boundOffsetY = absSinTheta * offset.x + absCosTheta * offset.y;
+        } else if (degrees >= 90 && degrees < 180) {
+            boundOffsetX = absSinTheta * (height - offset.y) + absCosTheta * (width - offset.x);
+            boundOffsetY = absCosTheta * (height - offset.y) + absSinTheta * offset.x;
+        } else if (degrees >= 180 && degrees < 270) {
+            boundOffsetX = absCosTheta * (width - offset.x) + absSinTheta * offset.y;
+            boundOffsetY = absSinTheta * (width - offset.x) + absCosTheta * (height - offset.y);
+        } else if (degrees >= 270 && degrees < 360) {
+            boundOffsetX = absCosTheta * offset.x + absSinTheta * offset.y;
+            boundOffsetY = absCosTheta * offset.y + absSinTheta * (width - offset.x);
+        }
+
+        return {
+            x: boundOffsetX,
+            y: boundOffsetY
+        };
+    }
 }
