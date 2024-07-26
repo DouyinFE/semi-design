@@ -488,7 +488,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>

@@ -535,7 +535,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* 宽度计算方式为单元格设置宽度 - 非文本内容宽度 */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
