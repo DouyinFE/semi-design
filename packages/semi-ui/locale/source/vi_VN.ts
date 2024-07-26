@@ -173,6 +173,15 @@ const local: Locale = {
         adaptiveTip: 'Thích ứng với trang',
         originTip: 'Kích thước ban đầu',
     },
+    Chat: {
+        deleteConfirm: 'Bạn có chắc muốn xóa phiên này không?',
+        clearContext: 'Ngữ cảnh đã được xóa',
+        copySuccess: 'Sao chép thành công',
+        stop: 'Dừng',
+        copy: 'Sao chép',
+        copied: 'Đã sao chép',
+        dropAreaText: 'Đặt tệp vào đây',
+    }, 
 };
 
 // [i18n-Vietnam] 越南语
