@@ -247,7 +247,7 @@ $module: #{$prefix}-upload;
 
         &-icon {
             &-loading,
-            &-error {
+            &-error.#{$prefix}-icon {
                 font-size: $width-upload_file_card-icon;
                 margin-right: $spacing-upload_file_card_icon-marginRight;
             }
