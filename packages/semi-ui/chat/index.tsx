@@ -22,7 +22,7 @@ const { CHAT_ALIGN, MODE, SEND_HOT_KEY } = strings;
 class Chat extends BaseComponent<ChatProps, ChatState> {
 
     static __SemiComponentName__ = "Chat";
-  
+
     containerRef: React.RefObject<HTMLDivElement>;
     animation: any;
     wheelEventHandler: any;
@@ -93,7 +93,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     get adapter(): ChatAdapter {
         return {
             ...super.adapter,
-            getContainerRef: () => this.containerRef,
+            getContainerRef: () => this.containerRef?.current,
             setWheelScroll: (flag: boolean) => {
                 this.setState({
                     wheelScroll: flag,
@@ -150,7 +150,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     this.adapter.setWheelScroll(true);
                     this.adapter.unRegisterWheelEvent();
                 };
-        
+
                 containerElement.addEventListener('wheel', this.wheelEventHandler);
             },
             unRegisterWheelEvent: () => {
@@ -183,7 +183,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             },
             getDropAreaElement: () => {
                 return this.dropAreaRef?.current;
-            } 
+            }
         };
     }
 
@@ -203,7 +203,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     }
 
     componentDidMount(): void {
-        this.foundation.init();    
+        this.foundation.init();
     }
 
     componentDidUpdate(prevProps: Readonly<ChatProps>, prevState: Readonly<ChatState>, snapshot?: any): void {
@@ -261,6 +261,13 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.foundation.onMessageSend(content, attachment);
     }
 
+    containerScroll(e: React.UIEvent<HTMLDivElement>){
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+        this.foundation.containerScroll(e)
+    }
+
     render() {
         const { topSlot, bottomSlot, roleConfig, hints,
             onChatsChange, onMessageCopy, renderInputArea,
@@ -282,12 +289,12 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         }
         return (
             <div
-                className={cls(`${prefixCls}`, className)} 
+                className={cls(`${prefixCls}`, className)}
                 style={style}
                 onDragOver={this.foundation.handleDragOver}
             >
                 {uploadAreaVisible && <div
-                    ref={this.dropAreaRef} 
+                    ref={this.dropAreaRef}
                     className={`${prefixCls}-dropArea`}
                     onDragOver={this.foundation.handleContainerDragOver}
                     onDrop={this.foundation.handleContainerDrop}
@@ -297,24 +304,24 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                             {(locale: Locale["Chat"]) => locale['dropAreaText']}
                         </LocaleConsumer>
-                    </span>  
+                    </span>
                 </div>}
                 <div className={`${prefixCls}-inner`}>
                     {/* top slot */}
                     {topSlot}
                     {/* chat area */}
                     <div className={`${prefixCls}-content`}>
-                        <div 
+                        <div
                             className={cls(`${prefixCls}-container`, {
                                 'semi-chat-container-scroll-hidden': !wheelScroll
                             })}
-                            onScroll={this.foundation.containerScroll}
+                            onScroll={this.containerScroll}
                             ref={this.containerRef}
                         >
-                            <ChatContent 
+                            <ChatContent
                                 align={align}
                                 mode={mode}
-                                chats={chats}  
+                                chats={chats}
                                 roleConfig={roleConfig}
                                 customMarkDownComponents={customMarkDownComponents}
                                 onMessageDelete={this.foundation.deleteMessage}
@@ -326,10 +333,10 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 chatBoxRenderConfig={chatBoxRenderConfig}
                             />
                             {/* hint area */}
-                            {!!hints?.length && <Hint 
+                            {!!hints?.length && <Hint
                                 className={hintCls}
                                 style={hintStyle}
-                                value={hints} 
+                                value={hints}
                                 onHintClick={this.foundation.onHintClick}
                                 renderHintBox={renderHintBox}
                             />}
@@ -337,7 +344,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </div>
                     {backBottomVisible && !showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
                         <Button
-                            className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`} 
+                            className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`}
                             icon={<IconChevronDown size="extra-large"/>}
                             type="tertiary"
                             onClick={this.foundation.scrollToBottomWithAnimation}
@@ -345,10 +352,10 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </span>)}
                     {showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
                         <Button
-                            className={`${prefixCls}-action-content ${prefixCls}-action-stop`} 
+                            className={`${prefixCls}-action-content ${prefixCls}-action-stop`}
                             icon={<IconDisc size="extra-large" />}
                             type="tertiary"
-                            onClick={this.foundation.stopGenerate} 
+                            onClick={this.foundation.stopGenerate}
                         >
                             <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                                 {(locale: Locale["Chat"]) => locale['stop']}
