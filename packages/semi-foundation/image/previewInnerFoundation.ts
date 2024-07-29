@@ -194,7 +194,9 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleRotateImage = (direction: string) => {
         const { rotation } = this.getStates();
-        const newRotation = rotation + (direction === "left" ? -90 : 90);
+        const ROTATE_STEP = 90;
+        const newRotation = rotation + (direction === "left" ? -ROTATE_STEP : ROTATE_STEP);
+        
         this.setState({
             rotation: newRotation,
         } as any);

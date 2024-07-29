@@ -87,14 +87,42 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     }
 
+    _getAdaptationZoom = () => {
+        let _zoom = 1;
+        const containerDOM = this._adapter.getContainer();
+        
+        if (containerDOM && this.originImageWidth && this.originImageHeight) {
+            const { rotation } = this.getProps();
+            const { width: imageWidth, height: imageHeight } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
+            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+            const reservedWidth = containerWidth - 80;
+            const reservedHeight = containerHeight - 80;
+            
+            _zoom = Number(
+                Math.min(reservedWidth / imageWidth, reservedHeight / imageHeight).toFixed(2)
+            );
+        }
+
+        return _zoom;
+    }
+
+    _getInitialZoom = () => {
+        const { ratio } = this.getProps();
+        let _zoom = 1;
+
+        if (ratio === 'adaptation') {
+            _zoom = this._getAdaptationZoom();
+        }
+
+        return _zoom;
+    }
+
     setLoading = (loading: boolean) => {
         this._adapter.setLoading(loading);
     }
 
     handleWindowResize = (): void => {
-        if (this.originImageWidth && this.originImageHeight) {
-            this.handleResizeImage();
-        }
+        this.initializeImage();
     };
 
     handleLoad = (e: any): void => {
@@ -107,7 +135,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             } as any);
             // 图片初次加载，计算 zoom，zoom 改变不需要通过回调透出
             // When the image is loaded for the first time, zoom is calculated, and zoom changes do not need to be exposed through callbacks.
-            this.handleResizeImage(false);
+            this.initializeImage(false);
         }
         const { src, onLoad } = this.getProps();
         onLoad && onLoad(src);
@@ -121,53 +149,35 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         onError && onError(src);
     }
 
-    handleResizeImage = (notify: boolean = true) => {
-        const { currZoom } = this.getStates();
-        const { onZoom, rotation } = this.getProps();
-        let { width, height } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
-        
-        const containerDOM = this._adapter.getContainer();
-        if (containerDOM) {
-            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-            const reservedWidth = containerWidth - 80;
-            const reservedHeight = containerHeight - 80;
-            let _zoom = 1;
-            if (width > reservedWidth || height > reservedHeight) {
-                _zoom = Number(
-                    Math.min(reservedWidth / width, reservedHeight / height).toFixed(2)
-                );
-            }
-            if (currZoom === _zoom) {
-                this.changeZoom(_zoom);
-            } else {
-                onZoom(_zoom, notify);
-            }
-        }
+    handleRatioChange = () => {
+        this.initializeImage();
     }
 
-    // TODO
-    handleRatioChange = () => {
-        if (this.originImageWidth && this.originImageHeight) {
-            const { currZoom } = this.getStates();
-            const { ratio, onZoom } = this.getProps();
-            let _zoom: number;
-            if (ratio === 'adaptation') {
-                const horizontal = !this._isImageVertical();
-                const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
-                const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
-                const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-                const reservedWidth = containerWidth - 80;
-                const reservedHeight = containerHeight - 80;
-                _zoom = Number(
-                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
-                );
-            } else {
-                _zoom = 1;
-            }
-            if (currZoom !== _zoom) {
-                onZoom(_zoom);
-            }
+    initializeImageZoom = (notify = true) => {
+        const { currZoom } = this.getStates();
+        const { onZoom } = this.getProps();
+        
+        const _zoom = this._getInitialZoom();
+        
+        if (currZoom !== _zoom) {
+            onZoom(_zoom, notify);
         }
+
+        this.changeZoom(_zoom);
+    }
+
+    initializeTranslate = () => {
+        this.setState({
+            translate: {
+                x: 0,
+                y: 0
+            }
+        } as any);
+    }
+
+    initializeImage = (notify = true) => {
+        this.initializeImageZoom(notify);
+        this.initializeTranslate();
     }
 
     handleRightClickImage = (e: any) => {
@@ -320,8 +330,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     };
 
-
-    // 鼠标事件的 e.offset 是以 dom 旋转前左上角为零点的，这个方法会转换为以旋转后元素的外接矩形的左上角为零点的 offset
+    // 鼠标事件的 e.offset 是以 dom 旋转前左上角为零点的, 这个方法会转换为以旋转后元素的外接矩形左上角为零点的 offset
     calcBoundingRectMouseOffset = (calcBoundingRectMouseOffset: CalcBoundingRectMouseOffset) => {
         const {
             width,
