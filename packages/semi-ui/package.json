@@ -5,6 +5,14 @@
     "main": "lib/cjs/index.js",
     "module": "lib/es/index.js",
     "typings": "lib/es/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./lib/es/index.js",
+            "require": "./lib/cjs/index.js"
+        },
+        "./lib/es/*": "./lib/es/*",
+        "./lib/cjs/*": "./lib/cjs/*"
+    },
     "scripts": {
         "clean": "rimraf dist lib",
         "build:lib": "node ./scripts/compileLib.js",
