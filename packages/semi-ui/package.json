@@ -12,10 +12,6 @@
         "build:css": "node scripts/compileScss.js",
         "prepublishOnly": "npm run clean && npm run build:lib && npm run build:js && npm run build:css"
     },
-    "exports": {
-        "require": "./lib/cjs/index.js",
-        "import": "./lib/es/index.js"
-    },
     "files": [
         "dist/*",
         "lib/*"
