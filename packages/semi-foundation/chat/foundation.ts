@@ -5,14 +5,14 @@ import { debounce } from "lodash";
 import { getUuidv4 } from "../utils/uuid";
 import { handlePrevent } from "../utils/a11y";
 
-const { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE, 
+const { PIC_PREFIX, PIC_SUFFIX_ARRAY, ROLE,
     SCROLL_ANIMATION_TIME, SHOW_SCROLL_GAP
 } = strings;
 
 export interface Content {
     type: 'text' | 'image_url' | 'file_url';
     text?: string;
-    image_url?: { 
+    image_url?: {
         url: string;
         [x: string]: any
     };
@@ -37,7 +37,7 @@ export interface Message {
 }
 
 export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getContainerRef: () => React.RefObject<HTMLDivElement>;
+    getContainerRef: () => HTMLDivElement;
     setWheelScroll: (flag: boolean) => void;
     notifyChatsChange: (chats: Message[]) => void;
     notifyLikeMessage: (message: Message) => void;
@@ -80,17 +80,15 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
     }
 
     scrollToBottomImmediately = () => {
-        const containerRef = this._adapter.getContainerRef();
-        const element = containerRef?.current;
+        const element = this._adapter.getContainerRef();
         if (element) {
             element.scrollTop = element.scrollHeight;
-        } 
+        }
     }
 
     scrollToBottomWithAnimation = () => {
         const duration = SCROLL_ANIMATION_TIME;
-        const containerRef = this._adapter.getContainerRef();
-        const element = containerRef?.current;
+        const element = this._adapter.getContainerRef();
         if (!element) {
             return;
         }
@@ -106,18 +104,15 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
                 easing: 'easeInOutCubic'
             }
         );
-    
+
         this.animation.on('frame', ({ scrollTop }: { scrollTop: number }) => {
             element.scrollTop = scrollTop;
         });
-    
+
         this.animation.start();
     }
 
     containerScroll = (e: any) => {
-        if (e.target !== e.currentTarget) {
-            return;
-        }
         e.persist();
         const update = () => {
             this.getScroll(e.target);
@@ -155,7 +150,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         const newChats = [...chats, dividerMessage];
         this._adapter.notifyChatsChange(newChats);
         this._adapter.notifyClearContext();
-    } 
+    }
 
     onMessageSend = (input: string, attachment: any[]) => {
         let content;
@@ -169,13 +164,13 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
                 const suffix = name.split('.').pop();
                 const isImg = fileInstance?.type?.startsWith(PIC_PREFIX) || PIC_SUFFIX_ARRAY.includes(suffix);
                 if (isImg) {
-                    content.push({ 
-                        type: 'image_url', 
-                        image_url: { url: url } 
+                    content.push({
+                        type: 'image_url',
+                        image_url: { url: url }
                     });
                 } else {
-                    content.push({ 
-                        type: 'file_url', 
+                    content.push({
+                        type: 'file_url',
                         file_url: {
                             url: url,
                             name: name,
@@ -238,7 +233,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         newChats.splice(index, 1, newChat);
         this._adapter.notifyChatsChange(newChats);
     }
-  
+
     dislikeMessage = (message: Message) => {
         const { chats } = this.getStates();
         this._adapter.notifyDislikeMessage(message);
@@ -252,7 +247,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         newChats.splice(index, 1, newChat);
         this._adapter.notifyChatsChange(newChats);
     }
-  
+
     resetMessage = (message: Message) => {
         const { chats } = this.getStates();
         const lastMessage = chats[chats.length - 1];
@@ -284,7 +279,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         //Disable the default implementation, preventing files from being opened
         handlePrevent(e);
     }
-    
+
     handleContainerDragLeave = (e: any) => {
         handlePrevent(e);
         // 鼠标移动至 container 的子元素，则不做任何操作
@@ -295,7 +290,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         }
         /**
          * 延迟隐藏 container ，防止父元素的 mouseOver 被触发，导致 container 无法隐藏
-         * Delay hiding of the container to prevent the parent element's mouseOver from being triggered, 
+         * Delay hiding of the container to prevent the parent element's mouseOver from being triggered,
          * causing the container to be unable to be hidden.
         */
         setTimeout(() => {
