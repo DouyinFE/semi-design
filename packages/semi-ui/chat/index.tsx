@@ -241,15 +241,15 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.foundation.destroy();
     }
 
-    resetMessage() {
+    resetMessage = () => {
         this.foundation.resetMessage(null);
     }
 
-    clearContext() {
+    clearContext = () => {
         this.foundation.clearContext(null);
     }
 
-    scrollToBottom(animation: boolean) {
+    scrollToBottom = (animation: boolean) => {
         if (animation) {
             this.foundation.scrollToBottomWithAnimation();
         } else {
@@ -257,15 +257,15 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         }
     }
 
-    sendMessage(content: string, attachment: FileItem[]) {
+    sendMessage = (content: string, attachment: FileItem[]) => {
         this.foundation.onMessageSend(content, attachment);
     }
 
-    containerScroll(e: React.UIEvent<HTMLDivElement>){
+    containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
         if (e.target !== e.currentTarget) {
             return;
         }
-        this.foundation.containerScroll(e)
+        this.foundation.containerScroll(e);
     }
 
     render() {
