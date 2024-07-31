@@ -858,4 +858,19 @@ describe('DatePicker', () => {
         cy.get('.semi-input').eq(0).should('have.value', '2024-01-24');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-26');
     });
+
+    it('fixed selected status bug when double click', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-selected-status&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-day-selected').contains("15");
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-day-selected').contains("15");
+    });
 });
