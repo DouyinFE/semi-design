@@ -30,12 +30,12 @@ In order to use the npm package, you need to customize the theme through [Semi D
 
 ``` js
 // rspack.config.js
-const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
 
 module.exports = {
     // ...
     plugins: [
-        new SemiPlugin({
+        new SemiRspackPlugin({
             theme: '@douyinfe/semi-theme-default'
         })
     ]
@@ -57,12 +57,12 @@ $font-size-small: 16px;
 ``` js
 // rspack.config.js
 const path = require('path');
-const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
 
 module.exports = {
     // ...
     plugins: [
-        new SemiPlugin({
+        new SemiRspackPlugin({
             include: path.join(__dirname, 'local.scss')
         })
     ]
@@ -72,12 +72,12 @@ module.exports = {
 #### Through parameters
 ``` js
 // rspack.config.js
-const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
 
 module.exports = {
     // ...
     plugins: [
-        new SemiPlugin({
+        new SemiRspackPlugin({
             variables: {
                 "$font-size-small": '16px'
             }
@@ -91,12 +91,12 @@ The CSS selectors used by Semi Design is prefixed with semi by default(e.g, `.se
 
 ``` js
 // rspack.config.js
-const SemiPlugin = require('@douyinfe/semi-rspack-plugin').default;
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
 
 module.exports = {
     // ...
     plugins: [
-        new SemiPlugin({
+        new SemiRspackPlugin({
             prefixCls: 'custom'
         })
     ]
