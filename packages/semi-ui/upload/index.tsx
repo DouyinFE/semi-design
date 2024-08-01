@@ -337,6 +337,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
     }
 
     componentWillUnmount(): void {
+        console.log('upload componentWillUnmount');
         this.foundation.destroy();
     }
 
