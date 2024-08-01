@@ -201,7 +201,7 @@ $module: #{$prefix}-image;
         &-img {
             position: absolute;
             transform: scale3d($transform_scale3d-image_preview_image_img) $transform_rotate-image_preview_image_img;
-            transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
+            // transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
             user-select: none;
         }

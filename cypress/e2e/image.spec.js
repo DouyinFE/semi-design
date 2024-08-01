@@ -99,7 +99,7 @@ describe('image', () => {
         cy.wait(200);
         cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100, buttons: 1 });
         cy.wait(200);
-        cy.get('.semi-image-preview-image-img').should('have.css', 'translate').and('eq', '144px 80px');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'translate(144px, 80px)');
     });
 
     // 测试鼠标滚动滚轮放大，缩小图片
@@ -343,9 +343,9 @@ describe('image', () => {
         // 测试点击向右旋转，向左旋转按键
         cy.get('.semi-icon-rotate').eq(0).click();
         cy.wait(500);
-        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'transform: rotate(90deg)');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'rotate(90deg)');
         cy.get('.semi-icon-rotate').eq(1).click();
-        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'transform: rotate(0deg)');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'rotate(0deg)');
 
         // 测试下载按键
         cy.get('.semi-icon-download').click();

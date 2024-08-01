@@ -121,7 +121,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleImageMove(e);
     };
 
-    onImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
+    handleMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
         this.foundation.handleImageMouseDown(e);
     };
 
@@ -132,8 +132,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         const imgStyle = {
             position: "absolute",
             visibility: loading ? "hidden" : "visible",
-            transform: `rotate(${rotation}deg)`,
-            translate: `${translate.x}px ${translate.y}px`,
+            transform: `translate(${translate.x}px, ${translate.y}px) rotate(${rotation}deg)`,
             width,
             height
         };
@@ -150,7 +149,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     className={`${preViewImgPrefixCls}-img`}
                     key={src}
                     onMouseMove={this.handleImageMove}
-                    onMouseDown={this.onImageMouseDown}
+                    onMouseDown={this.handleMouseDown}
                     onContextMenu={this.handleRightClickImage}
                     onDragStart={(e): void => e.preventDefault()}
                     onLoad={this.handleLoad}
