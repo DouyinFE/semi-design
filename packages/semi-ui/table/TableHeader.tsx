@@ -149,7 +149,7 @@ class TableHeader extends BaseComponent<TableHeaderProps, Record<string, any>> {
 
         const rows = parseHeaderRows(columns);
 
-        const HeaderWrapper: any = components.header.wrapper;
+        const HeaderWrapper = components.header.wrapper;
 
         return (
             <HeaderWrapper className={`${prefixCls}-thead`} ref={forwardedRef}>

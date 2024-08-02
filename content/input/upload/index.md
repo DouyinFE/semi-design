@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 37
+order: 41
 category: 输入类
 title: Upload 上传
 icon: doc-upload

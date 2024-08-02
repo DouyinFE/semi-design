@@ -7,7 +7,7 @@ const cssClasses = {
 const strings = {
     WEIGHT: ['light', 'regular', 'medium', 'semibold', 'bold', "default"],
     TYPE: ['primary', 'secondary', 'danger', 'warning', 'success', 'tertiary', 'quaternary'],
-    SIZE: ['normal', 'small'],
+    SIZE: ['normal', 'small', "inherit"],
     SPACING: ['normal', 'extended'],
     HEADING: [1, 2, 3, 4, 5, 6],
     RULE: ['text', 'numbers', 'bytes-decimal', 'bytes-binary', 'percentages', 'exponential'],

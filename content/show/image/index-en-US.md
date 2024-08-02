@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 57
+order: 61
 category: Show
 title: Image
 icon: doc-image
@@ -469,6 +469,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | className        | custom style class name              | string            | - | |
 | crossOrigin      | Passthrough to the crossorigin of the native img tag | 'anonymous' \| 'use-credentials' |-| |
 | fallback         | Custom loading failed display content | ReactNode  | - | |
+| imgCls           | Custom style class name, transparently passed to img node | string            | - | |
+| imgStyle         | Custom styles, transparently passed to img node | CSSProperties     | - | |
 | height           | Image display height                 | number            | - | |
 | onClick          | Click callback on image              | (event: Event) => void | - | |
 | onError          | Load error callback                  | (event: Event) => void | - | |

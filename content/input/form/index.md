@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 28
 category: 输入类
 title:  Form 表单
 icon: doc-form
@@ -2107,6 +2107,7 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 
 | Function      | 说明                                                                                                                                                                                                                             | example                                                                                                             |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------|
+| getFormProps  | 获取 Form 组件上当前所有props的值，例如可用于读取 disabled 等。v 2.57.0 后提供                                                    | formApi.getProps(propNames?: string[])                                                                                              |
 | getFormState  | 获取 FormState                                                                                                                                                                                                                   | formApi.getFormState()                                                                                              |
 | submitForm    | 可手动触发 submit 提交操作                                                                                                                                                                                                       | formApi.submitForm()                                                                                                |
 | reset         | 可手动对 form 进行重置                                                                                                                                                                                                           | formApi.reset(fields?: Array <string\>)                                                                             |
@@ -2120,7 +2121,8 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 | setError      | 修改 某个 field 的 error 信息                                                                                                                                                                                                    | formApi.setError(field: string, fieldErrorMessage: string)                                                          |
 | getError      | 获取 Field 的 error 状态                                                                                                                                                                                                         | formApi.getError(field: string)                                                                                     |
 | getFieldExist | 获取 Form 中是否存在对应的 field                                                                                                                                                                                                 | formApi.getFieldExist(field: string)                                                                                |
-| scrollToField | 滚动至指定的 field                                                                                                                                                                                                                   | formApi.scrollToField(field: string, scrollOpts: object)                                                            |
+| scrollToField | 滚动至指定的 field, 第二个入参将透传至scroll-into-view-if-needed | formApi.scrollToField(field: string, scrollOpts: [ScrollIntoViewOptions](https://github.com/stipsan/scroll-into-view-if-needed#options))                                                            |
+| scrollToError | 滚动至校验错误的field，可传指定 field 或者 index，传入 index 则滚动到第 index 个错误的 DOM，若不传参则滚动到DOM树中第一个校验出错的位置。 v2.61.0后提供  | formApi.scrollToError(<ApiType detail='{field?: string; index?: number; scrollOpts?: ScrollIntoViewOptions }'>ScrollToErrorOptions</ApiType>)                                                            |
 ### 如何获取 formApi
 
 -   Form 组件在 ComponentDidMount 阶段，会执行 props 传入的 getFormApi 回调，你可以在回调函数中保存 formApi 的引用，以便后续进行调用(**示例如下代码**)  
@@ -2130,6 +2132,23 @@ FormState 存储了所有 Form 内部的状态值，包括各表单控件的值�
 -   通过 [render props 方式声明表单](#支持的其他写法)，formApi 会作为参数注入
 -   通过 [useFormApi](#useFormApi) hook
 -   通过 [withFormApi](#HOC-withFormApi) HOC
+
+```jsx
+import React from 'react';
+import { Form, Button } from '@douyinfe/semi-ui';
+
+() => {
+    // 函数式组件通过useRef存储formApi
+    const api = useRef();
+
+    return (
+        <Form getFormApi={formApi => api.current = formApi}>
+            <Form.Input field='a' />
+            <Button onClick={()=>{console.log(api);}}>log</Button>
+        </Form>
+    );
+};
+```
 
 ```jsx
 import React from 'react';
@@ -2168,22 +2187,6 @@ class FormApiDemo extends React.Component {
 }
 ```
 
-```jsx
-import React from 'react';
-import { Form, Button } from '@douyinfe/semi-ui';
-
-() => {
-    // 函数式组件通过useRef存储formApi
-    const api = useRef();
-
-    return (
-        <Form getFormApi={formApi => api.current = formApi}>
-            <Form.Input field='a' />
-            <Button onClick={()=>{console.log(api);}}>log</Button>
-        </Form>
-    );
-};
-```
 
 ## Field Props
 

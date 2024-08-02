@@ -363,7 +363,7 @@ stories.add('empty', () => {
     const test = (
         <div>
             <Empty
-                image={IllustrationConstruction}
+                image={<IllustrationConstruction></IllustrationConstruction>}
                 title={'功能建设中'}
                 description="当前功能暂未开放，敬请期待。"
             />

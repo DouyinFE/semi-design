@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 22
 category: Plus
 title:  Markdown 渲染器
 icon: doc-configprovider
@@ -25,6 +25,9 @@ Semi 提供的 MarkdownRender 组件支持渲染 Markdown 和 MDX，无需特别
 ## 代码演示
 
 ### 如何引入
+
+MarkdownRender 从 v2.62.0 开始支持  
+注意：MarkdownRender 组件 依赖 `jsx/run-time`，搭配使用 React 版本需 > 16.14.0  
 
 ```jsx
 import { MarkdownRender } from '@douyinfe/semi-ui';
@@ -105,16 +108,16 @@ function Demo(){
 
 比如，现在需要将所有1号标题的颜色设置成主色
 
-```jsx live=true
+```jsx live=true dir="column"
 import { MarkdownRender, Typography } from '@douyinfe/semi-ui';
 
 
 function Demo() {
     const components = {}
     
-    components['h1'] = ({children}) => <Typography.Title heading={1} style={{color:"var(--semi-color-primary)"}}>{children}</Typography.Title>
+    components['h2'] = ({children}) => <Typography.Title heading={2} style={{color:"var(--semi-color-text-2)"}}>{children}</Typography.Title>
     
-    return <MarkdownRender raw={`# 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
+    return <MarkdownRender raw={`## 从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中`} components={components} />
 }
 
 
@@ -142,6 +145,7 @@ function Demo() {
 ### 添加自定义组件
 
 通过传入自定义组件到 `components` Props，能够实现在 Markdown 中直接书写 JSX，组件会被渲染到最终页面上，支持 JS 事件。
+默认的 Markdown 组件可从 `MarkdownRender.defaultComponents` 中获取，可以用于二次封装。
 
 <Notice type="primary" title="注意事项">
   <div>注意尽量确保被渲染的 Markdown 内 JSX 代码可信，防止 XSS。</div>
@@ -165,7 +169,7 @@ function Demo() {
 
 直接在 Markdown 中书写 JSX 即可
         `}
-        components={components}
+        components={{...MarkdownRender.defaultComponents,...components}}
         />
 }
 
@@ -173,13 +177,15 @@ function Demo() {
 ```
 
 
-### MarkdownRender
+### API
 
 | 属性         | 说明                         | 类型                                    | 默认值   |
 |------------|----------------------------|---------------------------------------|-------|
+| className | 类名    | string | -   |
 | components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | -     |
-| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
 | format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                           | 'mdx' |
+| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
+| style | 样式 | CSSProperties | - |
 
 ## 设计变量
 

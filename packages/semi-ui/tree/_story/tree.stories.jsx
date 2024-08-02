@@ -3,7 +3,7 @@ import { difference, isEqual } from 'lodash';
 import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
-import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography } from '../../index';
+import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography, Tag } from '../../index';
 import BigTree from './BigData';
 import testData from './data';
 import copy from 'fast-copy';
@@ -3085,3 +3085,57 @@ export const ShowLine = () => {
 ShowLine.story = {
   name: 'show line',
 };
+
+export const CustomRenderIcon = () => {
+  const iconFunc = useCallback((props) => {
+    const { data } = props;
+    return data.suffix ? <Tag>{data.suffix}</Tag> : null
+  })
+
+  const treeDataWithSuffix = [
+    {
+      label: 'package',
+      key: '0',
+      children: [
+        {
+          label: 'semi.py',
+          suffix: 'Py',
+          key: '1'
+        },
+        {
+          label: 'semi.js',
+          suffix: 'Js',
+          key: '2'
+        }
+      ]
+    }, 
+  ]
+
+  return (<Tree
+      defaultExpandAll
+      treeData={treeDataWithSuffix}
+      icon={iconFunc}
+  />);
+}
+
+export const AutoMerge = () => {
+  const [value, setValue] = useState([]);
+
+  const onChange = useCallback((val) => {
+    console.log('onChange', val);
+    setValue(val);
+  }, []);
+
+  return (
+    <>
+      <Tree
+        autoMergeValue={false}
+        style={{ width: 300}}
+        multiple
+        value={value}
+        onChange={onChange}
+        treeData={treeData1}
+      />
+    </>
+  )
+}

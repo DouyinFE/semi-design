@@ -41,6 +41,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         onChange: PropTypes.func,
         onTabClick: PropTypes.func,
         renderTabBar: PropTypes.func,
+        showRestInDropdown: PropTypes.bool,
         size: PropTypes.oneOf(strings.SIZE),
         style: PropTypes.object,
         tabBarClassName: PropTypes.string,
@@ -52,6 +53,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         type: PropTypes.oneOf(strings.TYPE_MAP),
         onTabClose: PropTypes.func,
         preventScroll: PropTypes.bool,
+        more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+        arrowPosition: PropTypes.string,
+        renderArrow: PropTypes.func,
     };
     static __SemiComponentName__ = "Tabs";
     static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
@@ -65,7 +69,9 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         tabPaneMotion: true,
         tabPosition: 'top',
         type: 'line',
-        onTabClose: () => undefined
+        onTabClose: () => undefined,
+        showRestInDropdown: true,
+        arrowPosition: "both",
     });
 
     contentRef: RefObject<HTMLDivElement>;
@@ -245,6 +251,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             keepDOM,
             lazyRender,
             renderTabBar,
+            showRestInDropdown,
             size,
             style,
             tabBarClassName,
@@ -253,6 +260,11 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             tabPaneMotion,
             tabPosition,
             type,
+            more,
+            onVisibleTabsChange,
+            visibleTabsStyle,
+            arrowPosition,
+            renderArrow,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -272,13 +284,19 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             collapsible,
             list: panes,
             onTabClick: this.onTabClick,
+            showRestInDropdown,
             size,
             style: tabBarStyle,
             tabBarExtraContent,
             tabPosition,
             type,
             deleteTabItem: this.deleteTabItem,
-            handleKeyDown: this.foundation.handleKeyDown
+            handleKeyDown: this.foundation.handleKeyDown,
+            more,
+            onVisibleTabsChange,
+            visibleTabsStyle,
+            arrowPosition,
+            renderArrow
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

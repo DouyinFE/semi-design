@@ -4,6 +4,11 @@ $module: #{$prefix}-markdownRender;
 
 .#{$module} {
 
+    &-simple-code{
+        background: $color-markdownRender_simpleCode-bg;
+        color:$color-markdownRender_simpleCode-text;
+    }
+
     ul, li {
         color: $color-markdownRender_component_list
     }
@@ -23,9 +28,27 @@ $module: #{$prefix}-markdownRender;
         }
     }
 
-    & &-component-header {
-        margin-top: $spacing-markdownRender_component_header-marginTop;
-        margin-bottom: $spacing-markdownRender_component_header-marginBottom;
+    &-component-header.#{$prefix}-typography{
+        &.#{$prefix}-typography-h1 {
+            margin-top: $spacing-markdownRender_component_header1-marginTop;
+            margin-bottom: $spacing-markdownRender_component_header1-marginBottom;
+        }
+        &.#{$prefix}-typography-h2 {
+            margin-top: $spacing-markdownRender_component_header2-marginTop;
+            margin-bottom: $spacing-markdownRender_component_header2-marginBottom;
+        }
+        &.#{$prefix}-typography-h3 {
+            margin-top: $spacing-markdownRender_component_header3-marginTop;
+            margin-bottom: $spacing-markdownRender_component_header3-marginBottom;
+        }
+        &.#{$prefix}-typography-h4 {
+            margin-top: $spacing-markdownRender_component_header4-marginTop;
+            margin-bottom: $spacing-markdownRender_component_header4-marginBottom;
+        }
+        &.#{$prefix}-typography-h5 {
+            margin-top: $spacing-markdownRender_component_header5-marginTop;
+            margin-bottom: $spacing-markdownRender_component_header5-marginBottom;
+        }
     }
 
     &-component-p {
@@ -33,6 +56,8 @@ $module: #{$prefix}-markdownRender;
             font-weight: $font-weight-bold;
         }
     }
+
+
 
 
 }

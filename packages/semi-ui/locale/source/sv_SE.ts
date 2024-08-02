@@ -19,6 +19,9 @@ const local: Locale = {
         confirm: 'Bekräfta',
         cancel: 'Avbryt',
     },
+    Tabs: {
+        more: "Mer"
+    },
     TimePicker: {
         placeholder: {
             time: 'Välj tid',

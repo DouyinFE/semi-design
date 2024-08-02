@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import './select.scss';
-import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider } from '../../index';
+import { Input, Select, Button, Icon, Avatar, Checkbox, Form, withField, Space, Tag, Switch, Divider, RadioGroup } from '../../index';
 import CustomTrigger from './CustomTrigger';
 import classNames from 'classnames';
 const Option = Select.Option;
@@ -123,11 +123,11 @@ const AutoFocusDemo = () => {
         onFocus={() => console.log('onFocus')}
         onBlur={() => console.log('onBlur')}
       >
-        <Option value="abc">抖音</Option>
-        <Option value="hotsoon">火山</Option>
-        <Option value="pipixia">皮皮虾</Option>
-        <Option value="duoshan">多闪</Option>
-        <Option value="xigua">西瓜视频</Option>
+        <Option value="abc" data-test-id='douyin' data-shortcut='dy'>抖音</Option>
+        <Option value="hotsoon" data-test-id='hotsoon'>火山</Option>
+        <Option value="capcut" data-test-id='capcut'>剪映</Option>
+        <Option value="duoshan" data-test-id='duoshan'>多闪</Option>
+        <Option value="xigua" data-test-id='xigua'>西瓜视频</Option>
       </Select>
       <div className="test-div">test-div</div>
     </>
@@ -1253,6 +1253,7 @@ RenderSelectedItem.parameters =  {
 };
 
 const ControlledSelect = () => {
+  const [filter, setFilter] = useState(true);
   const [value, setValue] = useState('nick');
   const [value2, setValue2] = useState('jerry');
   const [value3, setValue3] = useState();
@@ -1260,9 +1261,22 @@ const ControlledSelect = () => {
   const [value5, setValue5] = useState();
   return (
     <>
+      <RadioGroup
+        type='button'
+        defaultValue={false}
+        onChange={e => setFilter(e.target.value)}
+        options={[
+          { value: true, label: 'Filter enable' },
+          { value: false, label: 'Filter disable' },
+        ]}
+      >
+      </RadioGroup>
+      <br />
+      <br />
       <span>value + onChange</span>
       <Select
         value={value}
+        filter={filter}
         onChange={setValue}
         style={{
           width: 200,
@@ -1278,6 +1292,7 @@ const ControlledSelect = () => {
       <span>只传value，不传onChange</span>
       <Select
         value={value2}
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -1293,6 +1308,7 @@ const ControlledSelect = () => {
       <Select
         value={value3}
         onChange={setValue3}
+        filter={filter}
         multiple
         style={{
           width: 200,
@@ -1312,6 +1328,7 @@ const ControlledSelect = () => {
       <Select
         value={value4}
         multiple
+        filter={filter}
         style={{
           width: 200,
         }}
@@ -2184,9 +2201,9 @@ class OptionGroupDemo extends React.Component {
 
   renderGroup(group, index) {
     const options = group.children.map(option => (
-      <Select.Option value={option.value} label={option.label} key={option.label} />
+      <Select.Option value={option.value} label={option.label} key={option.label} data-test-id={option.label} />
     ));
-    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label}>{options}</Select.OptGroup>;
+    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label} data-test-id={group.label}>{options}</Select.OptGroup>;
   }
 
   render() {
@@ -3551,3 +3568,58 @@ export const UpdateOtherKeyNotInList = () => {
     </>
   );
 };
+
+
+export const ControledSameLabelInNode = () => {
+    const [value, setValue] = useState();
+    return <Select style={{ width: 180 }} 
+        value={value}
+        id='test'
+        // motion={false}
+        data-cy="singleControl"
+        onChange={(value) => {
+            console.log('change');
+            console.log(value)
+            setValue(value)
+        }}>
+        <Select.OptGroup label="Asia">
+            <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1' key={'a-1'}></Select.Option>
+            <Select.Option value="a-2" label={<div>China</div>} className='a-2' data-cy='a-2' key={'a-2'}></Select.Option>
+            <Select.Option value="a-3" label={<div>Korea</div>} className='a-3'></Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label="Europe">
+            <Select.Option value="b-1" label={<div>Germany</div>}></Select.Option>
+            <Select.Option value="b-2" label={<div>France</div>}></Select.Option>
+        </Select.OptGroup>
+    </Select>
+}
+
+export const SearchPosition = () => {
+  
+  return (<>
+        <Select
+          filter
+          searchPosition='dropdown'
+          onChangeWithObject
+          placeholder={'single searchPosition=dropdown'}
+          optionList={optionList}
+          searchPlaceholder='dropdown input place'
+          showClear
+          autoFocus
+          style={{ width: 320 }}
+        />
+        <Select
+          filter
+          multiple
+          placeholder={'multiple searchPosition=dropdown'}
+          searchPosition='dropdown'
+          onChangeWithObject
+          showClear
+          searchPlaceholder='dropdown input place'
+          autoClearSearchValue={false}
+          optionList={optionList}
+          style={{ width: 320 }}
+        />
+    </>
+  )
+}

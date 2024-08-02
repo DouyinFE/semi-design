@@ -898,3 +898,24 @@ export const SingleRowCssEllipsisAccurate = () => {
     </div>
   );
 }
+
+export const InheritSize = () => {
+  const { Text } = Typography;
+  return (
+    <Text size="small">这是一段文本，样式为 small
+      <Text link size="inherit">这是一段链接，设置 size 为 inherit 继承外部样式设置</Text>
+    </Text>
+  )
+}
+
+export const SizeAffectIcon = () => {
+  // 增加用例，观察 size 设置对 icon 大小的影响
+  return (
+      <>
+          <Text size="normal"  icon={<IconLink />} underline>带下划线的网页链接</Text> 
+          <br />   
+          <br />     
+          <Text size="small"  icon={<IconLink />} underline>带下划线的网页链接</Text>
+      </>
+  )
+}

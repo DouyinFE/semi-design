@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'ตกลง',
         cancel: 'ยกเลิก',
     },
+    Tabs: {
+        more: "มากกว่า"
+    },
     TimePicker: {
         placeholder: {
             time: 'โปรดเลือกเวลา',

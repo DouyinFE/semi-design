@@ -20,6 +20,7 @@ import {
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 export interface BasicData {
     data: BasicCascaderData;
@@ -255,6 +256,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (isOpen && !this._isDisabled()) {
             this.open();
         }
+    }
+
+    handleKeyDown = (e: any) => {
+        if (e.key === ESC_KEY) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
     }
 
     destroy() {

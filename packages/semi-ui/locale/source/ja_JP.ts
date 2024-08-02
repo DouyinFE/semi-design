@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '確認する',
         cancel: 'キャンセル',
     },
+    Tabs: {
+        more: "もっと"
+    },
     TimePicker: {
         placeholder: {
             time: '時間を選択してください',

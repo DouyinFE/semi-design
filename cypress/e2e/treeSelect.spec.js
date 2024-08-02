@@ -151,7 +151,7 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-option').should('have.length', 4);
     });
 
-    it.only('filterTreeNode + loadData', () => {
+    it('filterTreeNode + loadData', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--load-data');
         cy.get('.semi-tree-select-selection').eq(0).trigger('click');
         cy.wait(1000);
@@ -160,6 +160,48 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select-selection').eq(0).trigger('click');
         cy.wait(1000);
         cy.get('.semi-tree-option.semi-tree-option-level-1.semi-tree-option-selected.semi-tree-option-collapsed').should('exist');
+    });
+
+    it('multiple, checkRelation = unRelated, triggerRender', () => {
+        cy.visit("http://127.0.0.1:6006/iframe.html?id=treeselect--trigger-render-add-method");
+        cy.get('.semi-tagInput').eq(1).trigger('click');
+        cy.get('.semi-tree-option').eq(2).trigger('click');
+        cy.get('.semi-tree-option').eq(3).trigger('click');
+        cy.get('.semi-tagInput-wrapper').eq(1).get('.semi-tag-content').should('have.length', 2);
+        cy.get('.semi-tagInput-wrapper').eq(1).get('.semi-tag-content').eq(0).contains('北京');
+        cy.get('.semi-tagInput-wrapper').eq(1).get('.semi-tag-content').eq(1).contains('上海');
+    });
+
+    it('multiple, checkRelation = related, triggerRender', () => {
+        cy.visit("http://127.0.0.1:6006/iframe.html?id=treeselect--trigger-render-add-method");
+        cy.get('.semi-tagInput').eq(0).trigger('click');
+        cy.get('.semi-tree-option').eq(2).trigger('click');
+        cy.get('.semi-tree-option').eq(3).trigger('click');
+        cy.get('.semi-tagInput-wrapper').eq(1).get('.semi-tag-content').should('have.length', 1);
+        cy.get('.semi-tagInput-wrapper').eq(1).get('.semi-tag-content').eq(0).contains('亚洲');
+    });
+
+    it('single, triggerRender', () => {
+        cy.visit("http://127.0.0.1:6006/iframe.html?id=treeselect--trigger-render-add-method");
+        cy.get('.semi-button').eq(0).trigger('click');
+        cy.get('.semi-tree-option').eq(0).trigger('click');
+        cy.get('.semi-button-content-left').eq(0).contains('亚洲');
+    })
+
+    it('default open', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--multiple')
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('#invisible-span').eq(0).trigger('mousedown');
+        cy.get('.semi-tree-select-popover').should('not.exist');
+    })
+
+    it('esc close panel', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--search-position-in-trigger-and-virtualize');
+        cy.get('.semi-input').trigger('click');
+        cy.get('.semi-input').type('中');
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('.semi-input').type('{esc}', { force: true });
+        cy.get('.semi-tree-select-popover').should('not.exist');
     })
 });
 

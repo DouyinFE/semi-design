@@ -104,7 +104,9 @@ const appLocale = {
         "feature_live_code": "Live Code 组件",
         "feature_live_code_description": "LiveCode 允许你使用在线代码编辑器即时演示你的 UI 组件",
         "feature_test": "稳定的质量保障",
-        "feature_test_description": "Semi 稳定迭代4年+，使用了单元测试、E2E测试、视觉对比测试等多种方法保证组件的稳定和质量，测试覆盖率达到 90%",
+        "feature_test_description": "Semi 稳定迭代5年+，使用了单元测试、E2E测试、视觉对比测试等多种方法保证组件的稳定和质量，测试覆盖率达到 90%",
+        "adapter_webComponents": "轻松兼容 web components",
+        "adapter_webComponents_description": "提供完整的适配方案，所有的组件在 shadow DOM 中均可正常工作，更适合用于构建 SDK、浏览器插件等需要 DOM 隔离的场景",
         "feature_SSR": "支持 SSR",
         "feature_SSR_description": "Semi 组件库支持 SSR 场景，可以在 Next.js 、 Gatsby 和 Remix 等框架中使用",
         "feature_D2C": "设计稿转代码",
@@ -139,6 +141,7 @@ const appLocale = {
         // page seven: Web application
         "application_title": "打造现代 Web 应用",
         "application_subtitle": "使用 Semi 与现代操作系统、浏览器更贴近的设计语言",
+        "coze": "新一代一站式 AI Bot 开发平台，无论你是否有编程基础，都可以在扣子平台上快速搭建基于 AI 模型的各类问答 Bot，发布到豆包、飞书、微信客服、微信公众号多个渠道，与更多人一起玩转 AI。",
         "feishu_program": "飞书项目是 2022 年春季飞书发布的单品，支持大型团队将复杂项目拆解流程并可视化，直观呈现协作标准，让成员明晰权责，轻松掌握上下游信息。",
         "douyin_creator": "抖音创作服务平台是抖音创作者的专属服务平台，支持用户作为创作者和管理机构两种登录方式，提供多种功能助力用户高效运营",
         "anyweb": "Anyweb 是一个免费的网站构建器，可以轻松创建专业网站。无需编程技能，您可以通过 Anyweb 拖放编辑器快速轻松地设置自定义网站。",

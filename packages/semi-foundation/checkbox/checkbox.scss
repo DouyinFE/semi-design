@@ -188,7 +188,7 @@ $module: #{$prefix}-checkbox;
         border-radius: $radius-checkbox_cardType;
         padding: $spacing-checkbox_cardType-paddingY $spacing-checkbox_cardType-paddingX;
         background: transparent;
-        border: $width-checkbox_cardType_checked-border solid transparent;
+        border: $width-checkbox_cardType_checked-border solid $color-checkbox_cardType-border-default;
 
 
         .#{$module}-inner {

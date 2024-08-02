@@ -135,6 +135,13 @@ export const ButtonGroupDemo = () => (
       <Button>剪切</Button>
     </ButtonGroup>
     <br />
+    <br />
+    <ButtonGroup theme={'outline'}>
+      <Button>拷贝</Button>
+      <Button>查询</Button>
+      <Button>剪切</Button>
+    </ButtonGroup>
+    <br />
   </div>
 );
 

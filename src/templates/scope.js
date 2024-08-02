@@ -133,6 +133,7 @@ export {
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
+    arrayMove,
 } from '@dnd-kit/sortable';
   
 export { CSS as cssDndKit } from '@dnd-kit/utilities';
@@ -146,8 +147,11 @@ export {
     useSensor,
     useSensors,
     KeyboardSensor,
-    TraversalOrder
+    TraversalOrder,
+    PointerSensor
 } from '@dnd-kit/core';
+
+export { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 
 export {
@@ -160,7 +164,7 @@ export {
     IconBadgeStar, 
     IconBanner, 
     IconBreadcrumb,
-    IconButton,
+    // IconButton,
     // IconCalendar,
     IconCard,
     IconCascader,

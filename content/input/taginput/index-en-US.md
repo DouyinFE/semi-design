@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 33
+order: 37
 category: Input
 title: TagInput
 subTitle: TagInput

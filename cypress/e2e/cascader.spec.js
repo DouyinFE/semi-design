@@ -119,5 +119,14 @@ describe('cascader', () => {
         cy.get('.semi-cascader-selection').click();
         cy.get('.semi-checkbox.semi-checkbox-checked').eq(0).should('exist');
     });
+
+    it('esc close panel', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--searchable');
+        cy.get('.semi-cascader-selection').eq(0).trigger('click');
+        cy.get('.semi-input').type('中');
+        cy.get('.semi-cascader-popover').should('have.length', 1);
+        cy.get('.semi-input').type('{esc}', { force: true });
+        cy.get('.semi-cascader-popover').should('not.exist');
+    })
     
 });

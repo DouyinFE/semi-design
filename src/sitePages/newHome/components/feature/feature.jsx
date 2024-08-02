@@ -79,6 +79,15 @@ function Feature(props) {
                             </p>
                         </div>
                     </div>
+                    <div className={styles.iconDetails}>
+                        <img className={styles.icon} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/fa-webcomponents.png" alt="adapter web components" />
+                        <div className={styles.details}>
+                            <p className={styles.headline}>{_t("adapter_webComponents")}</p>
+                            <p className={styles.description}>
+                                {_t("adapter_webComponents_description")}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
