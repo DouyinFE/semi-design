@@ -3,6 +3,7 @@ import ColorPickerFoundation, { ColorPickerProps } from "./foundation";
 import split from "./utils/split";
 import { HsvaColor, RgbaColor } from "./interface";
 
+
 type Value = ColorPickerProps['value']
 
 export interface DataPartBaseProps {
@@ -94,6 +95,15 @@ class DataPartFoundation extends BaseFoundation<DataPartAdapter<DataPartBaseProp
         } catch (e) {
 
         }
+    }
+
+
+    handleInputValueChange = (value: string) => {
+        this._adapter.setState({ inputValue: value });
+    }
+
+    handleFormatChange = (format: DataPartBaseState['format']) => {
+        this._adapter.setState({ format });
     }
 
 

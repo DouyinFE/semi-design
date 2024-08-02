@@ -46,12 +46,12 @@ class DataPart extends BaseComponent<PropsWithChildren<DataPartProps>, DataPartS
     }
 
     componentDidMount() {
-        this.setState({ inputValue: this.foundation.getInputValue() });
+        this.foundation.handleInputValueChange(this.foundation.getInputValue());
     }
 
     componentDidUpdate(prevProps: Readonly<DataPartProps>, prevState: Readonly<DataPartState>, snapshot?: any) {
         if (!isEqual(prevProps.currentColor, this.props.currentColor) || prevState.format !== this.state.format) {
-            this.setState({ inputValue: this.foundation.getInputValue() });
+            this.foundation.handleInputValueChange(this.foundation.getInputValue());
         }
     }
 
@@ -77,8 +77,7 @@ class DataPart extends BaseComponent<PropsWithChildren<DataPartProps>, DataPartS
                         if (value) {
                             this.handleChange(value);
                         }
-                        this.setState({ inputValue: v });
-
+                        this.foundation.handleInputValueChange(v);
                     }}
                 />
                 {
@@ -104,7 +103,7 @@ class DataPart extends BaseComponent<PropsWithChildren<DataPartProps>, DataPartS
                 <Select className={`${cssClasses.PREFIX}-formatSelect`}
                     size={'small'}
                     value={this.state.format}
-                    onSelect={v => this.setState({ format: v as DataPartState['format'] })}
+                    onSelect={v => this.foundation.handleFormatChange(v)}
                     optionList={['hex', 'rgba', 'hsva'].map(type => ({ label: type, value: type }))}/>
             </InputGroup>
 

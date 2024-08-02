@@ -6,7 +6,7 @@ import ColorPickerFoundation, {
 import BaseComponent from '../_base/baseComponent';
 import { PopoverProps } from '../popover';
 import ColorChooseArea from './ColorChooseArea';
-import { ColorPickerAdapter,Value } from '@douyinfe/semi-foundation/colorPicker/foundation';
+import { ColorPickerAdapter, ColorValue } from '@douyinfe/semi-foundation/colorPicker/foundation';
 import AlphaSlider from './AlphaSlider';
 import ColorSlider from './ColorSlider';
 import DataPart from './DataPart';
@@ -112,12 +112,12 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
         const currentColor = this.foundation.getCurrentColor();
         return <div className={className}>
             {this.props.topSlot}
-            <ColorChooseArea hsva={this.state.currentColor.hsva} foundation={this.foundation} onChange={({ s, v }) => {
+            <ColorChooseArea hsva={currentColor.hsva} foundation={this.foundation} onChange={({ s, v }) => {
                 this.foundation.handleChange({
                     s,
                     v,
-                    a: this.state.currentColor.hsva.a,
-                    h: this.state.currentColor.hsva.h
+                    a: currentColor.hsva.a,
+                    h: currentColor.hsva.h
                 }, 'hsva');
             }} handleSize={20} width={this.props.width ?? 280} height={this.props.height ?? 280}/>
             <ColorSlider width={this.props.width ?? 280}
@@ -145,11 +145,12 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
     }
 
     render() {
+        const currentColor = this.foundation.getCurrentColor();
         if (this.props.usePopover) {
             return <Popover {...this.props.popoverProps}
                 className={cls(`${cssClasses.PREFIX}-popover`, this.props.popoverProps?.className)}
                 content={this.renderPicker()}>
-                {this.props.children ?? <div style={{ backgroundColor: this.state.currentColor.hex }}
+                {this.props.children ?? <div style={{ backgroundColor: currentColor.hex }}
                     className={cls(`${cssClasses.PREFIX}-popover-defaultChildren`)}></div>}
             </Popover>;
         } else {
@@ -158,7 +159,7 @@ class ColorPicker extends BaseComponent<PropsWithChildren<ColorPickerReactProps>
     }
 }
 
-export type { Value };
+export type { ColorValue };
 export * from "@douyinfe/semi-foundation/colorPicker/interface";
 
 export default ColorPicker;

@@ -81,7 +81,7 @@ function Demo(){
         <ColorPicker 
             defaultValue={ColorPicker.colorStringToValue("rgb(57,197,187)")}
             onChange={(value)=>{
-            setValue(value)
+            console.log(value)
         }} className={""} alpha={true}/>
     </div>
 

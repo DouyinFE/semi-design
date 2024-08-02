@@ -50,7 +50,7 @@ class ColorChooseArea extends BaseComponent<PropsWithChildren<ColorChooseAreaPro
                 this.setState({ isHandleGrabbing: false });
             },
             getDOM: ()=>this.ref.current,
-            onChange: (newColor)=>this.props.onChange(newColor)
+            notifyChange: (newColor)=>this.props.onChange(newColor)
 
         };
     }

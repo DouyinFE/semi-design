@@ -23,7 +23,7 @@ export interface ColorChooseAreaAdapter<P = Record<string, any>, S = Record<stri
     handleMouseDown: (e: any) => void;
     handleMouseUp: (e: any) => void;
     getDOM: () => HTMLDivElement;
-    onChange: (newColor: { s: number; v: number }) => void
+    notifyChange: (newColor: { s: number; v: number }) => void
 }
 
 
@@ -71,7 +71,7 @@ class ColorChooseAreaFoundation extends BaseFoundation<ColorChooseAreaAdapter<Co
         }, handleSize);
         if (handlePosition) {
             this.setState({ handlePosition });
-            this._adapter.onChange({
+            this._adapter.notifyChange({
                 s: Math.round(mousePosition.x / width * 100),
                 v: Math.round(100 - (Math.min(Math.max(mousePosition.y / height, 0), 1)) * 100),
             });

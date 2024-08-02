@@ -12,16 +12,16 @@ import {
 } from './utils/convert';
 
 
-export type Value = {
+export type ColorValue = {
     hsva: HsvaColor;
     rgba: RgbaColor;
     hex: string
 }
 export interface ColorPickerProps {
     eyeDropper?: boolean;
-    defaultValue?: Value;
-    value?: Value;
-    onChange: (value: Value) => void;
+    defaultValue?: ColorValue;
+    value?: ColorValue;
+    onChange: (value: ColorValue) => void;
     alpha: boolean;
     width?: number;
     height?: number;
@@ -29,12 +29,12 @@ export interface ColorPickerProps {
 }
 
 export interface ColorPickerState {
-    currentColor: Value
+    currentColor: ColorValue
 }
 
 
 export interface ColorPickerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    notifyChange: (value: Value) => void
+    notifyChange: (value: ColorValue) => void
 }
 
 
@@ -46,7 +46,7 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         });
     }
 
-    static hsvaToRgba =hsvaToRgba
+    static hsvaToRgba = hsvaToRgba
     static rgbaToHsva = rgbaToHsva
     static rgbaToHex = rgbaToHex
     static hsvaToHex = hsvaToHex
@@ -58,7 +58,7 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
     static rgbaStringToRgba = rgbaStringToRgba
 
 
-    handleChangeH = (currentColor: Value, newH: number) => {
+    handleChangeH = (currentColor: ColorValue, newH: number) => {
 
         const hsva = {
             ...currentColor.hsva,
@@ -79,7 +79,7 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
     }
 
 
-    handleChangeA = (currentColor: Value, newAlpha: number) => {
+    handleChangeA = (currentColor: ColorValue, newAlpha: number) => {
         let alpha = this._adapter.getProp('alpha');
         if (!alpha) {
             newAlpha = 1;
