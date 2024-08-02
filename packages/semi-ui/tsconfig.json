@@ -6,7 +6,7 @@
         "sourceMap": true,
         "allowJs": true,
         "module": "es6",
-        "lib": ["ES2023", "dom"],
+        "lib": ["esnext", "dom"],
         "moduleResolution": "node",
         "noImplicitAny": false,
         "jsx": "react",
