@@ -43,7 +43,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             getImage: () => {
                 return this.imageRef.current;
             },
-            setLoading: (loading: boolean) => { 
+            setLoading: (loading: boolean) => {
                 this.setState({
                     loading,
                 });
@@ -64,10 +64,11 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             width: 0,
             height: 0,
             loading: true,
-            offset: { x: 0, y: 0 },
-            currZoom: 0,
-            top: 0,
-            left: 0,
+            translate: {
+                x: 0,
+                y: 0
+            },
+            currZoom: this.props.zoom,
         };
         this.containerRef = React.createRef<HTMLDivElement>();
         this.imageRef = React.createRef<HTMLImageElement>();
@@ -75,6 +76,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     }
 
     componentDidMount() {
+        this.foundation.init();
         window.addEventListener("resize", this.onWindowResize);
     }
 
@@ -89,10 +91,6 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         if (srcChange) {
             this.foundation.setLoading(true);
         }
-        // If the incoming zoom changes, other content changes are determined based on the new zoom value
-        if (zoomChange) {
-            this.foundation.calculatePreviewImage(this.props.zoom, null);
-        }
         if (!zoomChange && !srcChange && prevProps) {
             if ("ratio" in this.props && this.props.ratio !== prevProps.ratio) {
                 this.foundation.handleRatioChange();
@@ -100,7 +98,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
             if ("rotation" in this.props && this.props.rotation !== prevProps.rotation) {
                 this.onWindowResize();
             }
-        }   
+        }
     }
 
     onWindowResize = (): void => {
@@ -120,28 +118,27 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
         this.foundation.handleError(e);
     }
 
-    handleMoveImage = (e): void => {
-        this.foundation.handleMoveImage(e);
+    handleImageMove = (e): void => {
+        this.foundation.handleImageMove(e);
     };
 
-    onImageMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
+    handleMouseDown = (e: React.MouseEvent<HTMLImageElement>): void => {
         this.foundation.handleImageMouseDown(e);
     };
 
     render() {
         const { src, rotation, crossOrigin } = this.props;
-        const { loading, width, height, top, left } = this.state;
+        const { loading, width, height, translate } = this.state;
+
         const imgStyle = {
             position: "absolute",
             visibility: loading ? "hidden" : "visible",
-            transform: `rotate(${-rotation}deg)`,
-            top,
-            left,
+            transform: `translate(${translate.x}px, ${translate.y}px) rotate(${rotation}deg)`,
             width,
-            height,
+            height
         };
         return (
-            <div 
+            <div
                 className={`${preViewImgPrefixCls}`}
                 ref={this.containerRef}
             >
@@ -152,8 +149,8 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     alt="previewImag"
                     className={`${preViewImgPrefixCls}-img`}
                     key={src}
-                    onMouseMove={this.handleMoveImage}
-                    onMouseDown={this.onImageMouseDown}
+                    onMouseMove={this.handleImageMove}
+                    onMouseDown={this.handleMouseDown}
                     onContextMenu={this.handleRightClickImage}
                     onDragStart={(e): void => e.preventDefault()}
                     onLoad={this.handleLoad}
@@ -161,7 +158,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                     style={imgStyle as React.CSSProperties}
                     crossOrigin={crossOrigin}
                 />
-                {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`}/>}
+                {loading && <Spin size={"large"} wrapperClassName={`${preViewImgPrefixCls}-spin`} />}
             </div>
         );
     }
