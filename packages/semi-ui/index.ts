@@ -103,6 +103,7 @@ export { default as Image } from './image';
 export { Preview as ImagePreview } from './image';
 
 export { default as semiGlobal } from "./_utils/semi-global";
+export { default as ColorPicker } from "./colorPicker";
 
 export { default as PinCode } from "./pincode";
 
