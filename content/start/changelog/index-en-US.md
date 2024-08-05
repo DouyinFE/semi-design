@@ -19,8 +19,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 #### 🎉 2.64.0-beta.0 (2024-08-05)
 - 【Feat】
     - Events with exactly the same start and end times in Calendar day view are displayed side by side without covering each other
+    - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection.
 - 【Fix】
-    - [Id 为 2293 的英文 PR 格式不正确，需要 @l123wx 修改](https://github.com/DouyinFE/semi-design/pull/2293)
+    - Fixed an issue where after the mouse wheel zoomed the picture, dragging the picture would reset to the center position after zooming again.[@l123wx](https://github.com/l123wx) [#2293](https://github.com/DouyinFE/semi-design/pull/2293)
     - fix modal 'document not defined' in ssr. (Bug version 2.62.0~2.63.0)
     - fixed DatePicker selected value is not reset after close panel  [#2387](https://github.com/DouyinFE/semi-design/issues/2387)
     - When the searchRender of the Tree is false, remove the excess height at the top
