@@ -25,6 +25,7 @@ const order = [
     'autocomplete',
     'cascader',
     'checkbox',
+    'colorpicker',
     'datepicker',
     'form',
     'input',

@@ -1,9 +1,9 @@
 ---
 localeCode: zh-CN
-order: 0
+order: 27
 category: 输入类
 title: ColorPicker 颜色选择器
-icon: doc-checkbox
+icon: doc-colorPlatteNew
 brief: 快速便捷地选择颜色，并提供滴管工具取色
 ---
 
