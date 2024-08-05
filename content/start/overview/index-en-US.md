@@ -22,7 +22,8 @@ Typography
 ```overview
 CodeHighlight,
 Markdown,
-Lottie
+Lottie,
+Chat
 ```
 
 

@@ -3,7 +3,7 @@ localeCode: en-US
 order: 22
 category: Plus
 title:  Markdown Render
-icon: doc-configprovider
+icon: doc-markdown
 dir: column
 brief: Instantly render Markdown and MDX in web pages
 ---

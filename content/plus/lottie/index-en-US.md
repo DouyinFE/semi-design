@@ -3,7 +3,7 @@ localeCode: en-US
 order: 23
 category: Plus
 title: Lottie Animation
-icon: doc-configprovider
+icon: doc-lottie
 dir: column
 brief: Display Lottie animation on the web page
 ---

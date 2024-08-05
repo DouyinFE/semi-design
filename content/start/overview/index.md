@@ -23,7 +23,8 @@ Typography 版式
 ```overview
 CodeHighlight 代码高亮,
 Markdown 渲染器,
-Lottie 动画
+Lottie 动画,
+Chat 聊天
 ```
 
 ## 输入类

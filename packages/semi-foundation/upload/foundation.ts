@@ -60,7 +60,8 @@ export interface AfterUploadResult {
     autoRemove?: boolean;
     status?: string;
     validateMessage?: unknown;
-    name?: string
+    name?: string;
+    url?: string
 }
 
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -646,7 +647,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         e ? (newFileList[index].event = e) : null;
 
         if (afterUpload && typeof afterUpload === 'function') {
-            const { autoRemove, status, validateMessage, name } =
+            const { autoRemove, status, validateMessage, name, url } =
                 this._adapter.notifyAfterUpload({
                     response: body,
                     file: newFileList[index],
@@ -655,6 +656,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             status ? (newFileList[index].status = status) : null;
             validateMessage ? (newFileList[index].validateMessage = validateMessage) : null;
             name ? (newFileList[index].name = name) : null;
+            url ? (newFileList[index].url = url) : null;
             autoRemove ? newFileList.splice(index, 1) : null;
         }
         this._adapter.notifySuccess(body, fileInstance, newFileList);

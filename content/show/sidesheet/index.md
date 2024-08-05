@@ -256,7 +256,7 @@ class Demo extends React.Component {
                         />
                         <RadioGroup field="type" label="目标操作系统" direction="horizontal" initValue={'all'}>
                             <Radio value="all">全平台</Radio>
-                            <Radio value="ios">IOS</Radio>
+                            <Radio value="ios">iOS</Radio>
                             <Radio value="android">Android</Radio>
                             <Radio value="web">Web</Radio>
                         </RadioGroup>

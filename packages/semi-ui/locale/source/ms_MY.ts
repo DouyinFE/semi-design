@@ -170,6 +170,15 @@ const local: Locale = {
         adaptiveTip: 'Menyesuaikan diri dengan halaman',
         originTip: 'Saiz asal',
     },
+    Chat: {
+        deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
+        clearContext: 'Konteks telah dibersihkan',
+        copySuccess: 'Berjaya disalin',
+        stop: 'Berhenti',
+        copy: 'Samin',
+        copied: 'Disalin',
+        dropAreaText: 'Letakkan fail di sini',
+    },
 };
 
 // [i18n-Malaysia(MY)]
