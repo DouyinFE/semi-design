@@ -493,10 +493,13 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.errors, field, error);
+
+
         // The setError caused by centralized validation does not need to trigger notify, otherwise it will be called too frequently, as many times as there are fields
         // 集中validate时，引起的setError不需要触发notify，否则会过于频繁调用，有多少个field就调用了多少次
         if (!notNotify) {
             this._adapter.notifyChange(this.data);
+            this._adapter.notifyErrorChange(this.data.errors, { [field]: error });
         }
 
         if (!notUpdate) {
