@@ -74,7 +74,9 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         };
 
         this._adapter.notifyChange(newCurrentColor);
-        this._adapter.setState({ currentColor: newCurrentColor });
+        if (!this.getProp("value")) {
+            this._adapter.setState({ currentColor: newCurrentColor });
+        }
 
     }
 
@@ -98,7 +100,9 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
             }
         };
         this._adapter.notifyChange(currentColor);
-        this._adapter.setState({ currentColor: currentColor });
+        if (!this.getProp("value")) {
+            this._adapter.setState({ currentColor: currentColor });
+        }
 
     }
 
@@ -135,7 +139,10 @@ class ColorPickerFoundation extends BaseFoundation<ColorPickerAdapter<ColorPicke
         }
 
         this._adapter.notifyChange(currentColor);
-        this._adapter.setState({ currentColor: currentColor });
+        if (!this.getProp("value")) {
+            this._adapter.setState({ currentColor: currentColor });
+        }
+       
     }
 
 
