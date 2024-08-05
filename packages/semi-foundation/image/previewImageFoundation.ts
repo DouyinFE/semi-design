@@ -39,16 +39,9 @@ export interface BoundingRectSize {
     height: number
 }
 
-const DefaultDOMRect = {
-    bottom: 0,
+const DefaultBoundingRectSize = {
     height: 0,
-    left: 0,
-    right: 0,
-    top: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-    toJSON: () => ({})
+    width: 0
 };
 export default class PreviewImageFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewImageAdapter<P, S>, P, S> {
     constructor(adapter: PreviewImageAdapter<P, S>) {
@@ -61,20 +54,12 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
     _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
 
-    _getImageBounds = (): DOMRect => {
-        const imageDOM = this._adapter.getImage();
-        if (imageDOM) {
-            return imageDOM.getBoundingClientRect();
-        }
-        return DefaultDOMRect;
-    };
-
-    _getContainerBounds = (): DOMRect => {
+    _getContainerBoundingRectSize = () => {
         const containerDOM = this._adapter.getContainer();
         if (containerDOM) {
-            return containerDOM.getBoundingClientRect();
+            return this.calcBoundingRectSize(containerDOM.clientWidth, containerDOM.clientHeight);
         }
-        return DefaultDOMRect;
+        return DefaultBoundingRectSize;
     }
 
     _getAdaptationZoom = () => {
@@ -84,7 +69,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         if (containerDOM && this.originImageWidth && this.originImageHeight) {
             const { rotation } = this.getProps();
             const { width: imageWidth, height: imageHeight } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
-            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+            const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
             const reservedWidth = containerWidth - 80;
             const reservedHeight = containerHeight - 80;
             
@@ -195,7 +180,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     getCanDragDirection = (width: number, height: number): DragDirection => {
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+        const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
         let canDragHorizontal = width > containerWidth;
         let canDragVertical = height > containerHeight;
 
@@ -215,14 +200,14 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         let newTranslateX = Math.floor(translate.x * changeScale);
         let newTranslateY = Math.floor(translate.y * changeScale);
 
-        const imageBound = this._getImageBounds();
+        const imageBound = this.calcBoundingRectSize(width, height, rotation);
         const newImageBound = {
             width: imageBound.width * changeScale,
             height: imageBound.height * changeScale
         };
 
         if (e && imageDOM && e.target === imageDOM) {
-            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+            const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
             const { x: offsetX, y: offsetY } = this.calcBoundingRectMouseOffset({
                 width,
                 height,
@@ -259,7 +244,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     };
 
     getExtremeTranslate = (width: number, height: number): ExtremeTranslate => {
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+        const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
 
         return {
             x: (width - containerWidth) / 2,
@@ -288,15 +273,23 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
     }
 
-    handleImageMove = (e: any): void => {
-        const { translate } = this.getStates();
-        const imageBound = this._getImageBounds();
-        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(imageBound.width, imageBound.height);
+    handleImageMove = (e: MouseEvent): void => {
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
         const mouseLeftPress = e.buttons === 1;
-        if (mouseLeftPress && (canDragVertical || canDragHorizontal)) {
-            const { clientX, clientY } = e;
 
+        if (mouseLeftPress) {
+            this.moveImage(e);
+        }
+    };
+
+    moveImage = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { width, height, translate } = this.getStates();
+        const { rotation } = this.getProps();
+        const imageBound = this.calcBoundingRectSize(width, height, rotation);
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(imageBound.width, imageBound.height);
+
+        if (canDragVertical || canDragHorizontal) {
             let newTranslateX = canDragHorizontal ? translate.x + clientX - this.startMouseClientPosition.x : translate.x;
             let newTranslateY = canDragVertical ? translate.y + clientY - this.startMouseClientPosition.y : translate.y;
             
