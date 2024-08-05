@@ -687,10 +687,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     onFocus = (e: any, handler: 'min'| 'max') => {
-        const { tipFormatter } = this.getProps();
-        if (tipFormatter === null) {
-            return;
-        }
         handlePrevent(e);
         const { target } = e;
         try {
@@ -707,10 +703,6 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     onBlur = (e: any, handler: 'min'| 'max') => {
-        const { tipFormatter } = this.getProps();
-        if (tipFormatter === null) {
-            return;
-        }
         const { firstDotFocusVisible, secondDotFocusVisible } = this.getStates();
         if (handler === 'min') {
             firstDotFocusVisible && this._adapter.setStateVal('firstDotFocusVisible', false);
