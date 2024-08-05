@@ -77,16 +77,6 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         return DefaultDOMRect;
     }
 
-    _getTranslate = (e: any): Translate => {
-        const { left, top, width, height } = this._getImageBounds();
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-
-        return {
-            x: left + width / 2 - containerWidth / 2,
-            y: top + height / 2 - containerHeight / 2,
-        };
-    }
-
     _getAdaptationZoom = () => {
         let _zoom = 1;
         const containerDOM = this._adapter.getContainer();
