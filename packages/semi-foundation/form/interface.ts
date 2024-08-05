@@ -87,6 +87,8 @@ export interface BaseFormApi<T extends object = any> {
     getFieldExist: <K extends keyof T>(field: K) => boolean;
     /** get formState of form */
     getFormState: () => FormState<T extends object ? T : object>;
+    /** get formProps of form */
+    getFormProps: (keys?: Array<string>) => ComponentProps;
     /** submit form manual */
     submitForm: () => void;
     /** reset form manual */

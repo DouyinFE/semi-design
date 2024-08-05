@@ -777,3 +777,85 @@ export const DayEventMinHeight = () => {
     </>
   )
 } 
+
+
+export const TestDemo = () => {
+
+  const [mode, setMode] = useState('day');
+
+  const dailyEventStyle = {
+    borderRadius: '3px',
+    boxSizing: 'border-box',
+    border: 'var(--semi-color-primary) 1px solid',
+    padding: '10px',
+    backgroundColor: 'var(--semi-color-primary-light-default)',
+    height: '100%',
+    overflow: 'hidden',
+  };  
+
+  const events = [
+    {
+      key: '1',
+      start: new Date(2019, 6, 23, 8, 22, 0),
+      end: new Date(2019, 6, 23, 8, 23, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:32</div>,
+    },
+    {
+      key: '2',
+      start: new Date(2019, 6, 23, 8, 22, 0),
+      end: new Date(2019, 6, 23, 8, 23, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:32 重复</div>,
+    },
+    {
+      key: '3',
+      start: new Date(2019, 6, 23, 8, 22, 0),
+      end: new Date(2019, 6, 23, 8, 23, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:32 重复</div>,
+    },
+    {
+      key: '4',
+      start: new Date(2019, 6, 23, 8, 22, 0),
+      end: new Date(2019, 6, 23, 8, 23, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:32 重复</div>,
+    },
+    {
+      key: '5',
+      start: new Date(2019, 6, 23, 8, 55, 0),
+      end: new Date(2019, 6, 23, 9, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 8:50</div>,
+    },
+    {
+      key: '6',
+      start: new Date(2019, 6, 23, 10, 55, 0),
+      end: new Date(2019, 6, 23, 11, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 10:55</div>,
+    },
+     {
+      key: '7',
+      start: new Date(2019, 6, 23, 10, 55, 0),
+      end: new Date(2019, 6, 23, 11, 30, 0),
+      children: <div style={dailyEventStyle}>7月23日 10:55</div>,
+    },
+  ];
+
+  const displayValue = new Date(2019, 6, 23, 8, 32, 0);
+
+  return (
+    <>
+      <RadioGroup onChange={e => {setMode(e.target.value)}} value={mode}>
+        <Radio value={'day'}>日视图</Radio>
+        <Radio value={'week'}>周视图</Radio>
+        <Radio value={'range'}>多日视图</Radio>
+      </RadioGroup>
+      <br />
+      <br />
+      <Calendar
+        height={400}
+        mode={mode}
+        displayValue={displayValue}
+        events={events}
+        minEventHeight={50}
+        range={mode === 'range' ? [new Date(2019, 6, 23), new Date(2019, 6, 26)] : []}></Calendar>
+    </>
+  )
+} 
