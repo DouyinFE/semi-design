@@ -144,6 +144,7 @@ export { default as IconExternalOpen } from './IconExternalOpen';
 export { default as IconExternalOpenStroked } from './IconExternalOpenStroked';
 export { default as IconEyeClosed } from './IconEyeClosed';
 export { default as IconEyeClosedSolid } from './IconEyeClosedSolid';
+export { default as IconEyedropper } from "./IconEyedropper";
 export { default as IconEyeOpened } from './IconEyeOpened';
 export { default as IconFacebook } from './IconFacebook';
 export { default as IconFaceuLogo } from './IconFaceuLogo';
