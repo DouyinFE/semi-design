@@ -39,10 +39,6 @@ export interface BoundingRectSize {
     height: number
 }
 
-const DefaultBoundingRectSize = {
-    height: 0,
-    width: 0
-};
 export default class PreviewImageFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewImageAdapter<P, S>, P, S> {
     constructor(adapter: PreviewImageAdapter<P, S>) {
         super({ ...adapter });
@@ -52,14 +48,21 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     originImageWidth = null;
     originImageHeight = null;
 
+    containerWidth = 0; 
+    containerHeight = 0;
+
+    init() {
+        this._getContainerBoundingRectSize();
+    }
+
     _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
 
     _getContainerBoundingRectSize = () => {
         const containerDOM = this._adapter.getContainer();
         if (containerDOM) {
-            return this.calcBoundingRectSize(containerDOM.clientWidth, containerDOM.clientHeight);
+            this.containerWidth = containerDOM.clientWidth;
+            this.containerHeight = containerDOM.clientHeight;
         }
-        return DefaultBoundingRectSize;
     }
 
     _getAdaptationZoom = () => {
@@ -69,9 +72,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         if (containerDOM && this.originImageWidth && this.originImageHeight) {
             const { rotation } = this.getProps();
             const { width: imageWidth, height: imageHeight } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
-            const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
-            const reservedWidth = containerWidth - 80;
-            const reservedHeight = containerHeight - 80;
+            const reservedWidth = this.containerWidth - 80;
+            const reservedHeight = this.containerHeight - 80;
             
             _zoom = Number(
                 Math.min(reservedWidth / imageWidth, reservedHeight / imageHeight).toFixed(2)
@@ -97,6 +99,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleWindowResize = (): void => {
+        this._getContainerBoundingRectSize();
         this.initializeImage();
     };
 
@@ -136,9 +139,9 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         
         if (currZoom !== _zoom) {
             onZoom(_zoom, notify);
+        } else {
+            this.changeZoom(_zoom);
         }
-
-        this.changeZoom(_zoom);
     }
 
     initializeTranslate = () => {
@@ -180,9 +183,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     getCanDragDirection = (width: number, height: number): DragDirection => {
-        const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
-        let canDragHorizontal = width > containerWidth;
-        let canDragVertical = height > containerHeight;
+        let canDragHorizontal = width > this.containerWidth;
+        let canDragVertical = height > this.containerHeight;
 
         return {
             canDragVertical,
@@ -207,7 +209,6 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
 
         if (e && imageDOM && e.target === imageDOM) {
-            const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
             const { x: offsetX, y: offsetY } = this.calcBoundingRectMouseOffset({
                 width,
                 height,
@@ -220,8 +221,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
             const imageNewCenterX = e.clientX + (imageBound.width / 2 - offsetX) * changeScale;
             const imageNewCenterY = e.clientY + (imageBound.height / 2 - offsetY) * changeScale;
-            const containerCenterX = containerWidth / 2;
-            const containerCenterY = containerHeight / 2;
+            const containerCenterX = this.containerWidth / 2;
+            const containerCenterY = this.containerHeight / 2;
 
             newTranslateX = imageNewCenterX - containerCenterX;
             newTranslateY = imageNewCenterY - containerCenterY;
@@ -244,11 +245,9 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     };
 
     getExtremeTranslate = (width: number, height: number): ExtremeTranslate => {
-        const { width: containerWidth, height: containerHeight } = this._getContainerBoundingRectSize();
-
         return {
-            x: (width - containerWidth) / 2,
-            y: (height - containerHeight) / 2,
+            x: (width - this.containerWidth) / 2,
+            y: (height - this.containerHeight) / 2,
         };
     };
 
@@ -324,29 +323,28 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
 
         let degrees = rotation % 360;
         degrees = degrees >= 0 ? degrees : 360 + degrees;
-
-        const radians = degrees * Math.PI / 180;
-
-        const sinTheta = Math.sin(radians);
-        const absSinTheta = Math.abs(sinTheta);
-        const cosTheta = Math.cos(radians);
-        const absCosTheta = Math.abs(cosTheta);
-
         let boundOffsetX = 0,
             boundOffsetY = 0;
 
-        if (degrees >= 0 && degrees < 90) {
-            boundOffsetX = absSinTheta * (height - offset.y) + absCosTheta * offset.x;
-            boundOffsetY = absSinTheta * offset.x + absCosTheta * offset.y;
-        } else if (degrees >= 90 && degrees < 180) {
-            boundOffsetX = absSinTheta * (height - offset.y) + absCosTheta * (width - offset.x);
-            boundOffsetY = absCosTheta * (height - offset.y) + absSinTheta * offset.x;
-        } else if (degrees >= 180 && degrees < 270) {
-            boundOffsetX = absCosTheta * (width - offset.x) + absSinTheta * offset.y;
-            boundOffsetY = absSinTheta * (width - offset.x) + absCosTheta * (height - offset.y);
-        } else if (degrees >= 270 && degrees < 360) {
-            boundOffsetX = absCosTheta * offset.x + absSinTheta * offset.y;
-            boundOffsetY = absCosTheta * offset.y + absSinTheta * (width - offset.x);
+        switch (degrees) {
+            case 0: 
+                boundOffsetX = offset.x;
+                boundOffsetY = offset.y;
+                break;
+            case 90: 
+                boundOffsetX = height - offset.y;
+                boundOffsetY = offset.x;
+                break;
+            case 180: 
+                boundOffsetX = width - offset.x;
+                boundOffsetY = height - offset.y;
+                break;
+            case 270:
+                boundOffsetX = offset.y;
+                boundOffsetY = width - offset.x;
+                break;
+            default:
+                break;
         }
 
         return {

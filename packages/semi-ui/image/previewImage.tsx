@@ -68,7 +68,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
                 x: 0,
                 y: 0
             },
-            currZoom: 0
+            currZoom: this.props.zoom,
         };
         this.containerRef = React.createRef<HTMLDivElement>();
         this.imageRef = React.createRef<HTMLImageElement>();
@@ -76,6 +76,7 @@ export default class PreviewImage extends BaseComponent<PreviewImageProps, Previ
     }
 
     componentDidMount() {
+        this.foundation.init();
         window.addEventListener("resize", this.onWindowResize);
     }
 
