@@ -1277,9 +1277,50 @@ export const PastingDemo = () => {
         checked={addOnPasting}
         onChange={e => switchAddOnPasting(e)}
       >
-
       </Switch>
     </div>
 
   )
+};
+
+let first = true;
+
+
+export const Unmount = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'music.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        }
+    ];
+    const [a, setA] =React.useState(true)
+
+    const toggle = () => {
+      console.log('ready to toggle', !a)
+      setA(!a);
+    }
+
+    return (
+        <>
+            {a&&<Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                onChange={(value)=>{
+                    console.log('change')
+                }}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>}
+            <button onClick={toggle}>toggle upload mount</button>
+        </>
+    );
 };
