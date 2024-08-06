@@ -1,0 +1,1 @@
+../../../content/show/avatar/index-en-US.md

@@ -1,0 +1,1 @@
+../../../content/input/pincode/index.md

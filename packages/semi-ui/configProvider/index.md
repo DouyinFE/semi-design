@@ -1,0 +1,1 @@
+../../../content/other/configprovider/index.md

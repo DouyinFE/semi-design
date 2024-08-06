@@ -1,0 +1,1 @@
+../../../content/show/empty/index.md

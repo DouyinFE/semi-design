@@ -1,0 +1,1 @@
+../../../content/input/slider/index-en-US.md

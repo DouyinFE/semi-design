@@ -1,0 +1,1 @@
+../../../content/show/badge/index-en-US.md

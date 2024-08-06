@@ -1,0 +1,1 @@
+../../../content/show/image/index.md

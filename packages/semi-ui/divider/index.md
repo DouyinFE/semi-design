@@ -1,0 +1,1 @@
+../../../content/basic/divider/index.md

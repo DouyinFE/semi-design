@@ -1,0 +1,1 @@
+../../../content/navigation/tabs/index.md
