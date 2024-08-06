@@ -1,1 +1,0 @@
-../../../content/input/rating/index.md

@@ -1,1 +1,0 @@
-../../../content/feedback/spin/index-en-US.md
