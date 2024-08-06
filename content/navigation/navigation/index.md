@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 45
 category: 导航类
 title:  Navigation 导航
 icon: doc-navigation

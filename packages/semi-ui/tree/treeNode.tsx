@@ -75,7 +75,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         }
         const { onNodeCheck } = this.context;
         e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
+        e.nativeEvent?.stopImmediatePropagation?.();
         onNodeCheck(e, this.props);
     };
 
@@ -263,22 +263,22 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             directory,
             treeIcon
         } = this.context;
-        const { expanded, icon } = this.props;
-        const hasChild = !this.isLeaf();
-        const hasIcon = icon || treeIcon;
-        let itemIcon;
-        if (hasIcon || directory) {
-            if (hasIcon) {
-                itemIcon = icon || treeIcon;
+        const { expanded, icon, data } = this.props;
+        if (icon) {
+            return icon;
+        }
+        if (treeIcon) {
+            return typeof treeIcon === 'function' ? treeIcon(this.props) : treeIcon;
+        }
+        if (directory) {
+            const hasChild = !this.isLeaf();
+            if (!hasChild) {
+                return <IconFile className={`${prefixcls}-item-icon`} />;
             } else {
-                if (!hasChild) {
-                    itemIcon = <IconFile className={`${prefixcls}-item-icon`} />;
-                } else {
-                    itemIcon = expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
-                }
+                return expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
             }
         }
-        return itemIcon;
+        return null;
     }
 
     renderEmptyNode() {

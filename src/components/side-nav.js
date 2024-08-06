@@ -49,7 +49,7 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
             const { items, ...rest } = category;
             return (
                 <Nav.Sub {...rest} key={rest.itemKey}>
-                    {items.map(item=>{
+                    {items?.map(item=>{
                         return (
                             <Link to={item.itemKey} key={item.itemKey} >
                                 <Nav.Item {...item} tabIndex={-1}/>

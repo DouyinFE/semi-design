@@ -5,6 +5,18 @@ $module: #{$prefix}-table;
         direction: rtl;
         text-align: right;
 
+        &-align-left {
+            .#{$module}-operate-wrapper {
+                justify-content: flex-end;
+            }
+        }
+
+        &-align-right {
+            .#{$module}-operate-wrapper {
+                justify-content: flex-start;
+            }
+        }
+
         &-thead {
             & > .#{$module}-row {
                 & > .#{$module}-row-head {
@@ -98,12 +110,12 @@ $module: #{$prefix}-table;
             }
 
             &-sorter {
-                margin-left: auto;
+                margin-left: 0;
                 margin-right: $spacing-table_column_sorter-marginLeft;
             }
 
             &-filter {
-                margin-left: auto;
+                margin-left: 0;
                 margin-right: $spacing-table_column_filter-marginLeft;
             }
         }

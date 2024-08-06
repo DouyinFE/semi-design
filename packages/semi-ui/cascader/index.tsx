@@ -87,7 +87,8 @@ export interface CascaderProps extends BasicCascaderProps {
     onBlur?: (e: MouseEvent) => void;
     onFocus?: (e: MouseEvent) => void;
     validateStatus?: ValidateStatus;
-    position?: Position
+    position?: Position;
+    searchPosition?: string
 }
 
 export interface CascaderState extends BasicCascaderInnerData {
@@ -182,7 +183,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         leafOnly: PropTypes.bool,
         enableLeafClick: PropTypes.bool,
         preventScroll: PropTypes.bool,
-        position: PropTypes.string
+        position: PropTypes.string,
+        searchPosition: PropTypes.string,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Cascader.__SemiComponentName__, {
@@ -215,6 +217,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         onListScroll: noop,
         enableLeafClick: false,
         'aria-label': 'Cascader',
+        searchPosition: strings.SEARCH_POSITION_TRIGGER,
     })
 
     options: any;
@@ -310,11 +313,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
                     if (
                         optionsDom &&
                         (!optionsDom.contains(target) || !optionsDom.contains(target.parentNode)) &&
                         triggerDom &&
-                        !triggerDom.contains(target)
+                        !triggerDom.contains(target) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }
@@ -448,12 +453,16 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 formatItem.length > 0 && (formatValuePath.push(formatItem));
             });
             // formatKeys is used to save key of value
-            const formatKeys = formatValuePath.map(v => getKeyByValuePath(v));
+            const formatKeys = formatValuePath.reduce((acc, cur) => { 
+                const key = getKeyByValuePath(cur);
+                keyEntities[key] && acc.push(key);
+                return acc;
+            }, []) as string[];
             return formatKeys;
         };
-        const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
-        const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
         if (multiple) {
+            const needUpdateTreeData = needUpdate('treeData') || needUpdateData();
+            const needUpdateValue = needUpdate('value') || (isEmpty(prevProps) && defaultValue);
             // when value and treedata need updated
             if (needUpdateTreeData || needUpdateValue) {
                 // update state.keyEntities
@@ -504,8 +513,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     componentDidUpdate(prevProps: CascaderProps) {
+        if (this.props.multiple) {
+            return;
+        }
         let isOptionsChanged = false;
-        if (!isEqual(prevProps.treeData, this.props.treeData) && !this.props.multiple) {
+        if (!isEqual(prevProps.treeData, this.props.treeData)) {
             isOptionsChanged = true;
             this.foundation.collectOptions();
         }
@@ -513,6 +525,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             this.foundation.handleValueChange(this.props.value);
         }
     }
+
+    // ref method
+    search = (value: string) => {
+        this.handleInputChange(value);
+    };
 
     handleInputChange = (value: string) => {
         this.foundation.handleInputChange(value);
@@ -531,11 +548,12 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     renderTagItem = (nodeKey: string, idx: number) => {
         const { keyEntities, disabledKeys } = this.state;
         const { size, disabled, displayProp, displayRender, disableStrictly } = this.props;
-        const isDsiabled =
-            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
+
         if (keyEntities[nodeKey]) {
+            const isDisabled =
+            disabled || keyEntities[nodeKey].data.disabled || (disableStrictly && disabledKeys.has(nodeKey));
             const tagCls = cls(`${prefixcls}-selection-tag`, {
-                [`${prefixcls}-selection-tag-disabled`]: isDsiabled,
+                [`${prefixcls}-selection-tag-disabled`]: isDisabled,
             });
             // custom render tags
             if (isFunction(displayRender)) {
@@ -681,7 +699,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const content = (
-            <div className={popoverCls} role="listbox" style={dropdownStyle}>
+            <div className={popoverCls} role="listbox" style={dropdownStyle} onKeyDown={this.foundation.handleKeyDown}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
@@ -783,9 +801,9 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderSelectContent = () => {
-        const { placeholder, filterTreeNode, multiple } = this.props;
+        const { placeholder, filterTreeNode, multiple, searchPosition } = this.props;
         const { checkedKeys } = this.state;
-        const searchable = Boolean(filterTreeNode);
+        const searchable = Boolean(filterTreeNode) && searchPosition === strings.SEARCH_POSITION_TRIGGER;
 
         if (!searchable) {
             if (multiple) {
@@ -1008,6 +1026,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 id={id}
+                onKeyDown={this.foundation.handleKeyDown}
                 {...mouseEvent}
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"

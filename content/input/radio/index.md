@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 27
+order: 32
 category: 输入类
 title: Radio 单选框
 icon: doc-radio
@@ -33,14 +33,12 @@ import { Radio } from '@douyinfe/semi-ui';
 
 通过`extra`设置辅助文本，可以是任意类型的 ReactNode
 
-> `extra`在 v0.25.0 后开始提供
-
 ```jsx live=true
 import React from 'react';
 import { Radio } from '@douyinfe/semi-ui';
 
 () => (
-    <Radio extra="Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统" aria-label="单选示例" name="demo-radio-extra">
+    <Radio extra="Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统" aria-label="单选示例" name="demo-radio-extra">
         Semi Design
     </Radio>
 );
@@ -196,13 +194,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='card' defaultValue={2} direction='vertical' aria-label="单选组合示例" name="demo-radio-group-card">
-        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={1} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={2} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={3} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
     </RadioGroup>
@@ -220,13 +218,13 @@ import { RadioGroup, Radio } from '@douyinfe/semi-ui';
 
 () => (
     <RadioGroup type='pureCard' defaultValue={2} direction='vertical' aria-label="单选组合示例" name="demo-radio-group-pureCard">
-        <Radio value={1} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={1} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={2} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={2} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
-        <Radio value={3} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Radio value={3} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Radio>
     </RadioGroup>
@@ -325,18 +323,18 @@ class App extends React.Component {
 | addonId | addon 节点 id，aria-labelledby 指向这个 id，若无设置会随机生成一个 id  <br/>**v2.11.0 后提供**                                 | string            |       |
 | addonStyle     | 包裹内容容器的内联样式  <br/>**v1.16.0 后提供**                                 | CSSProperties     |       |
 | aria-label      | Radio 的 label                                                            | string           | -  |
-| name         | Radio组件中`input[type="radio"]`的`name`属性，具有相同`name`的Radio属于同一个RadioGroup，`name`属性可参考[MDN Radio](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/radio#%E5%80%BC)                              | string         | -  |
 | autoFocus      | 自动获取焦点                                                            | boolean           | false  |
 | checked        | 指定当前是否选中                                                         | boolean           | false  |
-|type            |设置 radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v2.18.0 后提供**    |string|`default`|
 | className      | 样式类名                                                                | string            |        |
 | defaultChecked | 初始是否选中                                                             | boolean           | false  |
 | disabled       | 禁选单选框                                                              |boolean            | false    |
-| extra          | 副文本，只对type='default'生效<br/>**v0.25.0 后提供**                     | ReactNode         | -      |
+| extra          | 副文本，只对type='default'生效<br/>                                      | ReactNode         | -      |
 | extraId        | 副文本的 id，aria-describedby 指向这个 id，若无设置会随机生成一个 id <br/>**v2.11.0 后提供**                     | ReactNode         | -      |
 | mode           | 高级和普通模式，高级模式可以在 checked 时点击变成 unchecked，可选值 advanced   | string            | -      |
+| name         | Radio组件中`input[type="radio"]`的`name`属性，具有相同`name`的Radio属于同一个RadioGroup，`name`属性可参考 [MDN Radio](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/radio#%E5%80%BC)                              | string         | -  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | style          | 内联样式                                                                 | CSSProperties    |        |
+| type            |设置 radio的样式类型，可选值为：`default`、`button`、`card`、`pureCard` <br/>**该 api 在 v2.18.0 后提供**    |string|`default`|
 | value          | 根据 value 进行比较，判断是否选中                                          | string \| number               | -      |
 | onChange       | 选项变化时的回调函数                                                      | function(e:Event) | -      |
 | onMouseEnter   | 鼠标移入选项时的回调函数                                                   | function(e:Event) | -      |

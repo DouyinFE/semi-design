@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 37
+order: 42
 category: 导航类
 title:  Anchor 锚点
 icon: doc-anchor

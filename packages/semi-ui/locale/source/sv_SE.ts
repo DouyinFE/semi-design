@@ -19,6 +19,9 @@ const local: Locale = {
         confirm: 'Bekräfta',
         cancel: 'Avbryt',
     },
+    Tabs: {
+        more: "Mer"
+    },
     TimePicker: {
         placeholder: {
             time: 'Välj tid',
@@ -172,6 +175,15 @@ const local: Locale = {
         adaptiveTip: 'Adaptiv visning',
         originTip: 'Standardvisning',
     },
+    Chat: {
+        deleteConfirm: 'Är du säker på att du vill ta bort denna konversation?',
+        clearContext: 'Kontexten har rensats',
+        copySuccess: 'Kopiering lyckades',
+        stop: 'Stoppa',
+        copy: 'Kopiera',
+        copied: 'Kopierad',
+        dropAreaText: 'Placera filen här',   
+    }, 
 };
 
 export default local;

@@ -420,20 +420,55 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         this._adapter.notifyChange(value as BasicValue);
     }
 
+    constructDataForValue(value: string) {
+        const { keyMaps } = this.getProps();
+        const keyName = get(keyMaps, 'key', 'key');
+        const labelName = get(keyMaps, 'label', 'label');
+        return {
+            [keyName]: value,
+            [labelName]: value
+        };    
+    }
+
+    findDataForValue(findValue: string) {
+        const { value, defaultValue, keyMaps } = this.getProps();
+        const realValueName = get(keyMaps, 'value', 'value');
+        const realKeyName = get(keyMaps, 'key', 'key');
+        let valueArr = [];
+        if (value) {
+            valueArr = Array.isArray(value) ? value : [value];
+        } else if (defaultValue) {
+            valueArr = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+        }
+        return valueArr.find(item => {
+            return item[realValueName] === findValue || item[realKeyName] === findValue;
+        });
+    }
+
+    getDataForKeyNotInKeyEntities(value: string) {
+        const { onChangeWithObject } = this.getProps();
+        if (onChangeWithObject) {
+            return this.findDataForValue(value);
+        } else {
+            return this.constructDataForValue(value);
+        }
+    }
+
     notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let value;
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key;
         }
+        const nodes = keyList.map(key => keyEntities[key] ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key));
         if (this.getProp('onChangeWithObject')) {
-            value = keyList.map((itemKey: string) => keyEntities[itemKey].data);
+            value = nodes;
         } else {
-            value = getValueOrKey(keyList.map((itemKey: string) => keyEntities[itemKey].data), keyMaps);
+            value = getValueOrKey(nodes, keyMaps);
         }
         this._adapter.notifyChange(value);
     }
@@ -585,7 +620,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
         const nonDisabled = descendantKeys.filter((key: string) => !disabledKeys.has(key));
         const newCheckedKeys = targetStatus ?
             [...nonDisabled, ...checkedKeys] :
-            difference(normalizeKeyList([...checkedKeys], keyEntities, true), nonDisabled);
+            difference(normalizeKeyList([...checkedKeys], keyEntities, true, true), nonDisabled);
         return calcCheckedKeys(newCheckedKeys, keyEntities);
     }
 

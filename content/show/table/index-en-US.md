@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 63
+order: 68
 category: Show
 title: Table
 subTitle: Table
@@ -257,7 +257,10 @@ This feature can be turned on by passing in `rowSelection`.
 -   Click the selection box in the header, and all rows in the `dataSource` that are not in the state of `disabled` will be selected. The callback function for selecting all rows is `onSelectAll`;
 -   Clicking on the row selection box will select the current row. Its callback function is `onSelect`;
 
-> Note: Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
+<Notice title='注意事项'>
+    <div>1. Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.</div>
+    <div>2. If you encounter the problem of returning to the first page after clicking a row selection on the second page, please check whether component rendering triggers "dataSource" update (shallow equal). After the "dataSource" is updated, the uncontrolled page turner will return to the first page. Please put "dataSource" inside state. </div>
+</Notice>
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -265,7 +268,8 @@ import { Table, Avatar } from '@douyinfe/semi-ui';
 import { IconMore } from '@douyinfe/semi-icons';
 
 function App() {
-    const columns = [
+    const [selectedKeys, setSelectedKeys] = useState([]);
+    const columns = useMemo(() => [
         {
             title: 'Title',
             dataIndex: 'name',
@@ -313,8 +317,8 @@ function App() {
                 return <IconMore />;
             },
         },
-    ];
-    const data = [
+    ], []);
+    const data = useMemo(() => [
         {
             key: '1',
             name: 'Semi Design design draft.fig',
@@ -369,7 +373,7 @@ function App() {
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
         },
-    ];
+    ], []);
     const rowSelection = {
         getCheckboxProps: record => ({
             disabled: record.name === 'Design docs', // Column configuration not to be checked
@@ -383,6 +387,7 @@ function App() {
         },
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            setSelectedKeys(selectedRowKeys);
         },
     };
 
@@ -483,7 +488,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -1079,6 +1084,8 @@ render(App);
 Filters and sorting controls are integrated inside the table, and users can pass in the sorter display of the sorter open header by passing filters in Column and the filter control display of the onFilter open header.
 
 > Note: Be sure to provide a "key" for each row of data that is different from other row values, or use the rowKey parameter to specify a property name as the primary key.
+
+> Note: Sorting and filtering columns must set independent "dataIndex"
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -3486,209 +3493,187 @@ The CSS style definition used in this example:
 
 ### Drag Sorting
 
-With custom elements, we can integrate `react-dnd` To implement drag and drop sorting.
+Use [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) with the [`components`](https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200) API to easily implement drag-and-drop sorting. Supported in version 2.58
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
-import { DndProvider, DragSource, DropTarget } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import * as dateFns from 'date-fns';
+import { DndContext, PointerSensor, useSensors, useSensor } from '@dnd-kit/core'; // based on @dnd-kit/core v6
+import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import classNames from 'classnames';
 
-let draggingIndex = -1;
-const PAGE_SIZE = 5;
-const DAY = 24 * 60 * 60 * 1000;
-const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
-
-function BodyRow(props) {
-    const { isOver, connectDragSource, connectDropTarget, moveRow, currentPage, ...restProps } = props;
-    const style = { ...restProps.style, cursor: 'move' };
-
-    let { className } = restProps;
-    if (isOver) {
-        console.log('true');
-        if (restProps.index > draggingIndex) {
-            className += ' drop-over-downward';
-        }
-        if (restProps.index < draggingIndex) {
-            className += ' drop-over-upward';
-        }
-    }
-
-    return connectDragSource(connectDropTarget(<tr {...restProps} className={className} style={style} />));
-}
-
-const rowSource = {
-    beginDrag(props) {
-        draggingIndex = props.index;
-        return {
-            index: props.index,
-        };
-    },
-};
-
-const rowTarget = {
-    drop(props, monitor) {
-        const dragIndex = monitor.getItem().index;
-        const hoverIndex = props.index;
-
-        if (dragIndex === hoverIndex) {
-            return;
-        }
-
-        props.moveRow(dragIndex, hoverIndex);
-
-        monitor.getItem().index = hoverIndex;
-    },
-};
-
-const DraggableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-}))(
-    DragSource('row', rowSource, connect => ({
-        connectDragSource: connect.dragSource(),
-    }))(BodyRow)
-);
-
-const columns = [
-    {
-        title: 'Title',
-        dataIndex: 'name',
-        width: 400,
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
-                    {text}
-                </div>
-            );
-        },
-        filters: [
+function App() {
+    const pageSize = 10;
+    const [dataSource, setData] = useState([]);
+    const [pageData, setPageData] = useState([]);
+    const columns = useMemo(
+        () => [
             {
-                text: 'Semi Design design draft',
-                value: 'Semi Design design draft',
+                title: 'Title',
+                dataIndex: 'name',
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar
+                                size="small"
+                                shape="square"
+                                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png"
+                                style={{ marginRight: 12 }}
+                            ></Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design Draft',
+                        value: 'Semi Design Draft',
+                    },
+                    {
+                        text: 'Semi D2C Draft',
+                        value: 'Semi D2C Draft',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
             },
             {
-                text: 'Semi D2C design draft',
-                value: 'Semi D2C design draft',
+                title: 'Size',
+                dataIndex: 'size',
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
+            },
+            {
+                title: 'Owner',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+            },
+            {
+                title: 'Update',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                },
             },
         ],
-        onFilter: (value, record) => record.name.includes(value),
-    },
-    {
-        title: 'Size',
-        dataIndex: 'size',
-        width: 200,
-        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
-        render: text => `${text} KB`,
-    },
-    {
-        title: 'Owner',
-        width: 200,
-        dataIndex: 'owner',
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
-                        {typeof text === 'string' && text.slice(0, 1)}
-                    </Avatar>
-                    {text}
-                </div>
-            );
-        },
-    },
-    {
-        title: 'Update',
-        dataIndex: 'updateTime',
-        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
-        render: value => {
-            return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        },
-    },
-];
-
-const initData = [];
-for (let i = 0; i < 46; i++) {
-    const isSemiDesign = i % 2 === 0;
-    const randomNumber = (i * 1000) % 199;
-    initData.push({
-        key: '' + i,
-        name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
-        owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
-        size: randomNumber,
-        updateTime: new Date().valueOf() + randomNumber * DAY,
-        avatarBg: isSemiDesign ? 'grey' : 'red',
-    });
-}
-
-function DragSortingTableDemo(props) {
-    const [data, setData] = useState([...initData]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageData, setPageData] = useState(data.slice(0, PAGE_SIZE));
-
-    const components = useMemo(
-        () => ({
-            body: {
-                row: DraggableBodyRow,
-            },
-        }),
         []
     );
 
-    const moveRow = (dragIndex, hoverIndex) => {
-        const totalDragIndex = (currentPage - 1) * PAGE_SIZE + dragIndex;
-        const totalHoverIndex = (currentPage - 1) * PAGE_SIZE + hoverIndex;
-        const dragRow = data[totalDragIndex];
-        const newData = [...data];
-        newData.splice(totalDragIndex, 1);
-        newData.splice(totalHoverIndex, 0, dragRow);
-        setData(newData);
-        setPageData(newData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
+    useEffect(() => {
+        const getData = () => {
+            const data = [];
+            for (let i = 0; i < 46; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design Draft${i}.fig` : `Semi D2C Draft${i}.fig`,
+                    owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                    size: randomNumber,
+                    updateTime: new Date().valueOf() + randomNumber,
+                    avatarBg: isSemiDesign ? 'grey' : 'red',
+                });
+            }
+            return data;
+        };
+        const data = getData();
+        setData(data);
+    }, []);
+    const [pageNum, setPageNum] = useState(1);
+
+    useEffect(() => {
+        const currentPageData = dataSource.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+        setPageData(currentPageData);
+    }, [dataSource, pageNum]);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 1 },
+        })
+    );
+
+    const handleDragEnd = event => {
+        const { active, over } = event;
+        if (active && over && active.id !== over.id) {
+            setPageData(prev => {
+                const activeIndex = prev.findIndex(data => data.key === active.id);
+                const overIndex = prev.findIndex(data => data.key === over.id);
+                return arrayMove(prev, activeIndex, overIndex);
+            });
+        }
     };
 
-    const handlePageChange = pageNum => {
-        console.log(pageNum);
-        setCurrentPage(pageNum);
-        setPageData(data.slice((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE));
+    const handleChange = ({ pagination }) => {
+        const { currentPage } = pagination;
+        setPageNum(currentPage);
+    };
+
+    const SortableRow = (props) => {
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
+            id: props['data-row-key'],
+        });
+        const style = {
+            ...props.style,
+            transform: cssDndKit.Transform.toString(transform),
+            transition,
+            cursor: 'grabbing',
+            ...(isDragging ? { zIndex: 999, position: 'relative' } : {}),
+        };
+        const rowCls = classNames(props.className,
+            {
+                ['isDragging']: isDragging,
+                ['isOver']: isOver,
+            }
+        );
+        const onPointerDown = (event) => {
+            event.persist();
+            console.log('props', event);
+            listeners.onPointerDown(event);
+        };
+
+        return <tr {...props} className={rowCls} ref={setNodeRef} style={style} {...attributes} {...listeners} onPointerDown={onPointerDown}></tr>;
     };
 
     return (
-        <div id="components-table-demo-drag-sorting">
-            <DndProvider backend={HTML5Backend}>
+        <DndContext
+            // https://docs.dndkit.com/api-documentation/context-provider#autoscroll
+            autoScroll={true}
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+        >
+            <SortableContext items={pageData.map(data => data.key)} strategy={verticalListSortingStrategy}>
                 <Table
+                    components={{
+                        body: {
+                            row: SortableRow,
+                        },
+                    }}
+                    rowKey="key"
                     columns={columns}
                     dataSource={pageData}
-                    pagination={{
-                        pageSize: PAGE_SIZE,
-                        total: data.length,
-                        currentPage,
-                        onPageChange: handlePageChange,
-                    }}
-                    components={components}
-                    onRow={(record, index) => ({
-                        index,
-                        moveRow,
-                    })}
+                    pagination={{ currentPage: pageNum, pageSize: pageSize, total: dataSource.length }}
+                    onChange={handleChange}
                 />
-            </DndProvider>
-        </div>
+            </SortableContext>
+        </DndContext>
     );
 }
 
-render(DragSortingTableDemo);
-```
-
-The CSS styles used in this example are:
-
-```css
-#components-table-demo-drag-sorting tr.drop-over-downward td {
-    border-bottom: 2px dashed #1890ff;
-}
-
-#components-table-demo-drag-sorting tr.drop-over-upward td {
-    border-top: 2px dashed #1890ff;
-}
+render(App);
 ```
 
 ### Table Grouping
@@ -5266,7 +5251,7 @@ render(App);
 | clickGroupedRowToExpand | Group content expands or collapses when the group header row is clicked                                                   | boolean |  | **0.29.0** |
 | columns | For a configuration description of the table column, see [Column](#Column)                                                | Column [] | [] |
 | components | Override the elements of Table, such as table, body, row, td, th, etc.                                                    | <a target="_blank" href="https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200">TableComponents</a> |  |
-| dataSource | Data, Each item needs to have a key, or specify rowKey, see the beginning of the document                                                                                                                      | RecordType[] | [] |
+| dataSource | Data. **An independent key of each data record is need, or use rowKey to specify an attribute name as the primary key**                                                                                                             | RecordType[] | [] |
 | defaultExpandAllRows | All rows are expanded by default                                                                                          | boolean | false |
 | defaultExpandAllGroupRows | All grouped rows are expanded by default                                                                                  | boolean | false | **1.30.0** |
 | defaultExpandedRowKeys | Default expansion of row key array                                                                                        | Array <\*> | [] |
@@ -5274,7 +5259,7 @@ render(App);
 | expandCellFixed | Whether the column of the expansion icon is fixed or not, the same value as the fixed value in Column                     | boolean\|string | false |
 | expandIcon | Custom expansion icon, hidden when it is `false`                                                                          | boolean <br/>\|ReactNode <br/>\| (expanded: boolean) => ReactNode |  |
 | expandedRowKeys | Expanded rows, the row expansion function will be controlled when this parameter is introduced.                           | (string \| number)[] |  |
-| expandedRowRender | Extra unfolding lines                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode |  |
+| expandedRowRender | Extra unfolding lines. **An independent key of each data record is need**                                                                                                     | (record: object, index: number, expanded: boolean) => ReactNode |  |
 | expandAllRows | All rows are expanded                                                                                                     | boolean | false | **1.30.0** |
 | expandAllGroupRows | All grouped rows are expanded                                                                                             | boolean | false | **1.30.0** |
 | expandRowByClick | Expand row when click row                                                                                                 | boolean | false | **1.31.0** |
@@ -5316,7 +5301,6 @@ interface TablePaginationProps extends PaginationProps {
     formatPageText?: FormatPageText;
 }
 
-type VirtualizedMode = 'list' | 'grid';
 type VirtualizedItemSizeFn = (index?: number) => number;
 type VirtualizedOnScrollArgs = {
     scrollDirection?: 'forward' | 'backward';
@@ -5328,7 +5312,6 @@ type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 type Virtualized =
     | boolean
     | {
-          mode?: VirtualizedMode;
           itemSize?: number | VirtualizedItemSizeFn;
           onScroll?: VirtualizedOnScroll;
       };
@@ -5437,13 +5420,13 @@ import { Table } from '@douyinfe/semi-ui';
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
-| sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
+| sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true. **An independent dataIndex must be set for the sort column, and an independent key must be set for each data item in the dataSource** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon |Customize the sort icon. The returned node controls the entire sort button, including ascending and descending buttons. Need to control highlighting behavior based on sortOrder | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
 | useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |
 | onCell | Set cell properties | (record: RecordType, rowIndex: number) => object |  |
-| onFilter | Determine the running function of the filter in local mode | (filteredValue: any, record: RecordType) => boolean |  |
+| onFilter | Determine the running function of the filter in local mode. **An independent dataIndex must be set for the filter column, and an independent key must be set for each data item in the dataSource** | (filteredValue: any, record: RecordType) => boolean |  |
 | onFilterDropdownVisibleChange | A callback when a custom filter menu is visible | (visible: boolean) => void |  |
 | onHeaderCell | Set the head cell property | (column: RecordType, columnIndex: number) => object |  |
 
@@ -5585,6 +5568,39 @@ function Demo() {
 <DesignToken/>
 
 ## FAQ
+
+- **Clicking the row selection button on the second page will jump to the first page? **
+
+     After the Table's dataSource is updated, the page number will be reset to the initial state. Please check if the data source changed when the component was rendered.
+
+     ```typescript
+     function App() {
+         const [dataSource, setDataSource] = useState([]);
+
+         useEffect(() => {
+             // ✅ Correct
+             const getData = () => {
+                 // fetch data
+                 const newData = fetch(/**/);
+                 // set data
+                 setDataSource(dataSource);
+             };
+
+             getData();
+         }, []);
+
+         // ❌ Error
+         const data = [];
+
+         return <Table dataSource={data} columns={[/*...*/]} />;
+     }
+     ```
+
+-   **The number of filtered data is wrong?**
+
+    Please check that your filter columns and data sources are configured correctly.
+
+    The filter column needs to set an independent `dataIndex`, and the dataSource needs to set an independent `key`. Please refer to the `dataSource` API. Otherwise the filtering function will not work properly.
 
 -   **Why is the table data not updated?**  
      At present, all parameters of the table component are shallow comparison. That is to say, if the parameter value type is an array or object, you need to manually change its reference to trigger the update. Similarly, if you don't want to trigger additional updates, try not to use literal values when passing parameters directly or define reference parameter values in the render process:

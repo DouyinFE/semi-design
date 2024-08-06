@@ -13,6 +13,9 @@ export interface Locale {
         confirm: string;
         cancel: string
     };
+    Tabs: {
+        more: string
+    };
     TimePicker: {
         placeholder: {
             time: string;
@@ -165,5 +168,14 @@ export interface Locale {
         downloadTip: string;
         adaptiveTip: string;
         originTip: string
+    };
+    Chat: {
+        deleteConfirm: string;
+        clearContext: string;
+        copySuccess: string;
+        stop: string;
+        copy: string;
+        copied: string;
+        dropAreaText: string
     }
 }

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 52
+order: 57
 category: Show
 title: Description
 subTitle: Descriptions
@@ -18,6 +18,9 @@ import { Descriptions } from '@douyinfe/semi-ui';
 ```
 
 ### Basic Usage
+
+Data can be passed in as an array of key-value pairs `{ key: value }` through `props.data`
+Both key and value support the `ReactNode` type. You can pass in a string or a higher degree of freedom ReactNode to freely customize the render dom.
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -38,6 +41,7 @@ import { Descriptions, Tag } from '@douyinfe/semi-ui';
 ### Alignment
 
 You can use `align` to set alignment of key-value. Supporting values including: `center`(default), `justify`, `left`, and `plain`.
+When `row` is true, this configuration is invalid
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -136,6 +140,35 @@ import { Descriptions } from '@douyinfe/semi-ui';
 };
 ```
 
+### Set layout mode
+
+The layout mode can be set through `layout`, which supports `horizontal` and `vertical` (support after v2.54.0) . Default is `vertical`.     
+When horizontal is set, column can be used to specify the maximum number of columns per row.
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
+
+() => {
+    const data = [
+        { key: 'UID', value: 'SemiDesign' },
+        { key: 'Anchor Type', value: 'Freelance anchor' },
+        { key: 'Security Level', value: 'Level 3' },
+        { key: 'Classification', value: <Tag size="small" shape='circle' color='amber'>Tech News</Tag>
+           
+        },
+        { key: 'Videos Count', value: '88888888' },
+        { key: 'Certification status', value: 'This is a long, long, long value that needs to be automatically wrapped and displayed.', span: 3 },
+    ];
+    return (
+        <> 
+            <Descriptions layout='horizontal' align='plain' data={data} column={4} />
+        </>
+    );
+};
+
+```
+
 ## API Reference
 
 ### Descriptions
@@ -148,6 +181,8 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | row        | Toggle whether to display data in double-row                               | boolean    | `false`  |
 | size       | Size of the list for double-row display, one of `small`, `medium`, `large` | string     | `medium` |
 | style      | Inline style                                                               | CSSProperties     | -        |
+| layout    | List layout mode  **v>=2.54.0**                                         | string        | `vertical` |
+| column    | Total number of columns in landscape layout  **v>=2.54.0**                                       | number        | 3          |
 
 ### DataItem
 
@@ -156,6 +191,7 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | key    | Key value                                       | ReactNode           | -      |
 | value  | Data value                                                | ReactNode \| (() => ReactNode) | -      |
 | hidden | Toggle whether the data should be displayed **v>=1.12.0** | boolean                     | -      |
+| span   | The number of columns the cell should span **v>=2.54.0**               | number      | 1                 |
 
 ### Descriptions.Item
 
@@ -165,8 +201,9 @@ import { Descriptions } from '@douyinfe/semi-ui';
 | ---------- | ------------------------------------------- | ----------------- | ------- |
 | itemKey    | Key value                         | ReactNode | -       |
 | hidden     | Toggle whether the data should be displayed | boolean           | -       |
-| className  | Classname                                   | string            | -       |
-| style      | Inline style                                | CSSProperties     | -       |
+| className  | Item external wrapper: class name of tr DOM element    | string            | -       |
+| style      | Item external wrapper: inline style of tr DOM element  | CSSProperties     | -       |
+| span   | The number of columns the cell should span **v>=2.54.0**                | number      | 1                 |
 
 ## Content Guidelines
 

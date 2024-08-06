@@ -288,6 +288,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
                     onKeyPress={this.handleKeyPress}
+                    {...this.getDataAttr(this.props)}
                 >
                     {itemChildren}
                 </li>

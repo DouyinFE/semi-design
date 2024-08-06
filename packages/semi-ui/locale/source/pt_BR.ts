@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'OK',
         cancel: 'Cancelar',
     },
+    Tabs: {
+        more: "Mais"
+    },
     TimePicker: {
         placeholder: {
             time: 'Por favor escolha a hora',
@@ -174,6 +177,15 @@ const local: Locale = {
         downloadTip: 'baixar',
         adaptiveTip: 'Adaptar à página',
         originTip: 'Tamanho original',
+    },
+    Chat: {
+        deleteConfirm: 'Você tem certeza de que deseja excluir esta sessão?',
+        clearContext: 'Contexto limpo',
+        copySuccess: 'Copiado com sucesso',
+        stop: 'Parar',
+        copy: 'Copiar',
+        copied: 'Cópia bem sucedida',
+        dropAreaText: 'Coloque o arquivo aqui',
     },
 };
 

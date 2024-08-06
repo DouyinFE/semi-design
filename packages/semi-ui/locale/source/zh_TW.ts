@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '確定',
         cancel: '取消',
     },
+    Tabs: {
+        more: "更多"
+    },
     TimePicker: {
         placeholder: {
             time: '請選擇時間',
@@ -167,6 +170,15 @@ const local: Locale = {
         downloadTip: '下載',
         adaptiveTip: '適應頁面',
         originTip: '原始尺寸',
+    },
+    Chat: {
+        deleteConfirm: '確認刪除該對話嗎？',
+        clearContext: '上下文已清除',
+        copySuccess: '複製成功',
+        stop: '停止',
+        copy: '複制',
+        copied: '複制成功',
+        dropAreaText: '將文件放到這裡',
     },
 };
 

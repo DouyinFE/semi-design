@@ -27,6 +27,7 @@ import type {
     UploadAdapter,
     BeforeUploadObjectResult,
     AfterUploadResult,
+    FileItemStatus
 } from '@douyinfe/semi-foundation/upload/foundation';
 import type { ValidateStatus } from '../_base/baseComponent';
 
@@ -34,6 +35,7 @@ const prefixCls = cssClasses.PREFIX;
 
 export type {
     FileItem,
+    FileItemStatus,
     RenderFileItemProps,
     UploadListType,
     PromptPositionType,
@@ -382,7 +384,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
      * @param index number
      * @returns
      */
-    insert = (files: Array<CustomFile>, index: number): void => {
+    insert = (files: Array<CustomFile>, index?: number): void => {
         return this.foundation.insertFileToList(files, index);
     };
 

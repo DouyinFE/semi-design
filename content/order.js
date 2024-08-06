@@ -7,6 +7,8 @@ const order = [
     'accessibility',
     'overview',
     'faq',
+    "tailwind",
+    "web-components",
     'content-guidelines',
     'changelog',
     'update-to-v2',
@@ -18,6 +20,8 @@ const order = [
     'button',
     'space',
     'typography',
+    "markdownrender",
+    "lottie",
     'autocomplete',
     'cascader',
     'checkbox',
@@ -25,6 +29,7 @@ const order = [
     'form',
     'input',
     'inputnumber',
+    'pincode',
     'radio',
     'rating',
     'select',
@@ -75,6 +80,7 @@ const order = [
     'toast',
     'configprovider',
     'locale',
+    'chat',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

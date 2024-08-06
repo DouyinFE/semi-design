@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 30
+order: 35
 category: Input
 title:  Slider
 subTitle: Slider

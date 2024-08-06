@@ -14,12 +14,14 @@ export interface PreviewInnerAdapter<P = Record<string, any>, S = Record<string,
     notifyRatioChange: (type: RatioType) => void;
     notifyRotateChange: (angle: number) => void;
     notifyDownload: (src: string, index: number) => void;
+    notifyDownloadError: (src: string) => void;
     registerKeyDownListener: () => void;
     unregisterKeyDownListener: () => void;
     disabledBodyScroll: () => void;
     enabledBodyScroll: () => void;
     getSetDownloadFunc: () => (src: string) => string;
-    isValidTarget: (e: any) => boolean
+    isValidTarget: (e: any) => boolean;
+    changeImageZoom: (zoom: number, e?: WheelEvent) => void
 }
 
 
@@ -89,12 +91,12 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         }
     }
 
-    handleWheel = (e: any) => {
+    handleWheel = (e: WheelEvent) => {
         this.onWheel(e);
         handlePrevent(e);
     }
 
-    onWheel = (e: any): void => {
+    onWheel = (e: WheelEvent): void => {
         const { zoomStep, maxZoom, minZoom } = this.getProps();
         const { zoom: currZoom } = this.getStates();
         let _zoom: number;
@@ -110,7 +112,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
             }
         }
         if (!isUndefined(_zoom)) {
-            this.handleZoomImage(_zoom);
+            this.handleZoomImage(_zoom, true, e);
         }
     };
 
@@ -173,7 +175,7 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
         const setDownloadName = this._adapter.getSetDownloadFunc();
         const downloadSrc = imgSrc[currentIndex];
         const downloadName = setDownloadName ? setDownloadName(downloadSrc) : downloadSrc.slice(downloadSrc.lastIndexOf("/") + 1).split('?')[0];
-        downloadImage(downloadSrc, downloadName);
+        downloadImage(downloadSrc, downloadName, this._adapter.notifyDownloadError);
         this._adapter.notifyDownload(downloadSrc, currentIndex);
     }
 
@@ -192,17 +194,21 @@ export default class PreviewInnerFoundation<P = Record<string, any>, S = Record<
 
     handleRotateImage = (direction: string) => {
         const { rotation } = this.getStates();
-        const newRotation = rotation + (direction === "left" ? 90 : (-90));
+        const ROTATE_STEP = 90;
+        const newRotation = rotation + (direction === "left" ? -ROTATE_STEP : ROTATE_STEP);
+        
         this.setState({
             rotation: newRotation,
         } as any);
         this._adapter.notifyRotateChange(newRotation);
     }
 
-    handleZoomImage = (newZoom: number, notify: boolean = true) => {
+    handleZoomImage = (newZoom: number, notify: boolean = true, e?: WheelEvent) => {
         const { zoom } = this.getStates();
         if (zoom !== newZoom) {
             notify && this._adapter.notifyZoom(newZoom, newZoom > zoom);
+            
+            this._adapter.changeImageZoom(newZoom, e);
             this.setState({
                 zoom: newZoom,
             } as any);

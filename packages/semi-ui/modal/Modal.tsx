@@ -1,23 +1,23 @@
-import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/modal/constants';
-import Button from '../button';
-import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
-import ModalContent from './ModalContent';
-import Portal from '../_portal';
-import LocaleConsumer from '../locale/localeConsumer';
-import cls from 'classnames';
-import PropTypes from 'prop-types';
-import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/modal/modal.scss';
+import ModalFoundation, { ModalAdapter, ModalProps, ModalState } from '@douyinfe/semi-foundation/modal/modalFoundation';
+import cls from 'classnames';
+import { noop } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { CSSProperties, LegacyRef, ReactNode } from 'react';
 import BaseComponent from '../_base/baseComponent';
-import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
-import { Locale } from '../locale/interface';
-import useModal from './useModal';
-import { ButtonProps } from '../button/Button';
 import CSSAnimation from "../_cssAnimation";
+import Portal from '../_portal';
 import { getDefaultPropsFromGlobalConfig, getScrollbarWidth } from '../_utils';
+import Button from '../button';
+import { ButtonProps } from '../button/Button';
+import { Locale } from '../locale/interface';
+import LocaleConsumer from '../locale/localeConsumer';
+import ModalContent from './ModalContent';
+import confirm, { withConfirm, withError, withInfo, withSuccess, withWarning } from './confirm';
+import useModal from './useModal';
 
-export const destroyFns: any[] = [];
+export let destroyFns: any[] = [];
 export type ConfirmType = 'leftTop' | 'leftBottom' | 'rightTop' | 'rightBottom';
 export type Directions = 'ltr' | 'rtl';
 export type { ModalState };
@@ -137,14 +137,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
                 this.bodyOverflow = document.body.style.overflow || '';
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
@@ -212,14 +212,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
     };
 
     static destroyAll = function destroyAllFn() {
-        while (destroyFns.length) {
-            const close = destroyFns.pop();
+        for (let i = 0, len = destroyFns.length; i < len; i++) {
+            const close = destroyFns[i];
             if (close) {
                 close();
             }
         }
+        destroyFns = [];
     };
-
 
     componentDidMount() {
 
@@ -229,7 +229,6 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             this.foundation.beforeShow();
         }
     }
-
 
     componentDidUpdate(prevProps: ModalReactProps, prevState: ModalState, snapshot: any) {
         // hide => show
@@ -286,6 +285,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        style={{
+                            ...footerFill ? { marginLeft: "unset" }:{},
+                            ...this.props.cancelButtonProps?.style
+                        }}
                         x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
@@ -339,6 +342,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            modalContentClass,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -350,7 +354,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         } = {
             zIndex,
         };
-        if (getPopupContainer) {
+        if (getPopupContainer && getPopupContainer() !== globalThis?.document?.body) {
             wrapperStyle = {
                 zIndex,
                 position: 'static',
@@ -391,7 +395,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={animationClassName}
+                                        contentClassName={`${animationClassName} ${modalContentClass}`}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}

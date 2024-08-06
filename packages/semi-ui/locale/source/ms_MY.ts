@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'Sahkan',
         cancel: 'Batal',
     },
+    Tabs: {
+        more: "Lagi"
+    },
     TimePicker: {
         placeholder: {
             time: 'Pilih masa',
@@ -166,6 +169,15 @@ const local: Locale = {
         downloadTip: 'muat turun',
         adaptiveTip: 'Menyesuaikan diri dengan halaman',
         originTip: 'Saiz asal',
+    },
+    Chat: {
+        deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
+        clearContext: 'Konteks telah dibersihkan',
+        copySuccess: 'Berjaya disalin',
+        stop: 'Berhenti',
+        copy: 'Samin',
+        copied: 'Disalin',
+        dropAreaText: 'Letakkan fail di sini',
     },
 };
 

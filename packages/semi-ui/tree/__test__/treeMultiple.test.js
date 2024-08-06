@@ -807,4 +807,39 @@ describe('Tree', () => {
         const nodeZhongguo = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
         expect(nodeZhongguo.find(`.${BASE_CLASS_PREFIX}-checkbox-inner-checked`).exists()).toEqual(true);
     });
+
+    it('value not in treeData', () => {
+        const spyOnChange = sinon.spy(() => {});
+        let tree = getTree({
+            multiple: true,
+            defaultValue: ['fish'],
+            onChange: spyOnChange,
+            defaultExpandAll: true,
+        });
+        let nodeYazhou = tree.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-1`).at(0);;
+        nodeYazhou.simulate('click');
+        expect(spyOnChange.calledWithMatch(['fish', 'Yazhou'])).toEqual(true);
+        tree.unmount();
+    })
+
+    it('onChange + autoMergeValue', () => {
+        let spyOnSelect = sinon.spy(() => { });
+        let spyOnChange = sinon.spy(() => { });
+        let treeSelect = getTree({
+            defaultExpandAll: true,
+            onSelect: spyOnSelect,
+            onChange: spyOnChange,
+            autoMergeValue: false,
+        });
+        let nodeChina = treeSelect.find(`.${BASE_CLASS_PREFIX}-tree-option.${BASE_CLASS_PREFIX}-tree-option-level-2`).at(0);
+        // select China
+        nodeChina.simulate('click');
+        // onSelect & onChange
+        expect(spyOnSelect.calledOnce).toBe(true);
+        expect(spyOnChange.calledOnce).toBe(true);
+        expect(spyOnSelect.calledWithMatch('zhongguo', true, { key: "zhongguo" })).toEqual(true);
+        expect(spyOnChange.calledWithMatch(
+            ['Zhongguo', 'Beijing', 'Shanghai'],
+        )).toEqual(true);
+    });
 })

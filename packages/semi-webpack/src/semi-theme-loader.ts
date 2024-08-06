@@ -1,8 +1,10 @@
 import loaderUtils from 'loader-utils';
 import resolve from 'enhanced-resolve';
+import componentVariablePathList from './componentName';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
+    const cssLayer = query.cssLayer ?? false as boolean;
     const theme = query.name || '@douyinfe/semi-theme-default';
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
@@ -13,7 +15,7 @@ export default function SemiThemeLoader(source: string) {
     try {
         resolve.sync(this.context, `${theme}/scss/animation.scss`);
     } catch (e) {
-        animationStr = ""; // fallback to empty string
+        animationStr = ''; // fallback to empty string
     }
 
 
@@ -47,17 +49,49 @@ export default function SemiThemeLoader(source: string) {
             }
         } catch (error) {
         }
+
     }
+
 
     // inject prefix
     const prefixCls = query.prefixCls || 'semi';
 
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
+    let finalCSS: string = "";
     if (shouldInject) {
-        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+
+        const customStr = (() => {
+            let customStr = '';
+            try {
+                if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
+                    return '';
+                }
+                const collectAllVariablesPath: string[] = [
+                    ...componentVariablePathList,
+                ];
+                if (componentVariables) {
+                    collectAllVariablesPath.push(`${theme}/scss/local.scss`);
+                }
+                collectAllVariablesPath.push(`${theme}/scss/custom.scss`);
+                customStr = collectAllVariablesPath.map(p => {
+                    return `@import "~${p}";`;
+                }).join('\n') + '\n' + customStr;
+
+            } catch (e) {
+                customStr = ''; // fallback to empty string
+            }
+            return `body:not(:not(body)){${customStr}};`;
+        })();
+
+        finalCSS = `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
-        return `${scssVarStr}${prefixClsStr}${fileStr}`;
+        finalCSS = `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
+
+    if (cssLayer) {
+        finalCSS = `@layer semi{${finalCSS}}`;
+    }
+    return finalCSS;
 }
 

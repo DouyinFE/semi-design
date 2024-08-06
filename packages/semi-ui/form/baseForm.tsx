@@ -75,6 +75,10 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         style: PropTypes.object,
         showValidateIcon: PropTypes.bool,
         stopValidateWithError: PropTypes.bool,
+        stopPropagation: PropTypes.shape({
+            submit: PropTypes.bool,
+            reset: PropTypes.bool,
+        }),
         id: PropTypes.string,
         wrapperCol: PropTypes.object, // Control wrapperCol {span: number, offset: number} for all field child nodes
         trigger: PropTypes.oneOfType([
@@ -208,6 +212,13 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             getFieldDOM: (field: string) =>
                 document.querySelector(`.${cssClasses.PREFIX}-field[x-field-id="${field}"]`),
+            getFieldErrorDOM: (field: string) => {
+                const { formId } = this.state;
+                const { id } = this.props;
+                const xId = id ? id : formId;
+                let selector = `form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field[x-field-id="${field}"] .${cssClasses.PREFIX}-field-error-message`;
+                return document.querySelector(selector);
+            }
         };
     }
 
@@ -233,11 +244,17 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
 
     submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (this.props.stopPropagation && this.props.stopPropagation.submit) {
+            e.stopPropagation();
+        }
         this.foundation.submit(e);
     }
 
     reset(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (this.props.stopPropagation && this.props.stopPropagation.reset) {
+            e.stopPropagation();
+        }
         this.foundation.reset();
     }
 
@@ -288,6 +305,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
                 onReset={this.reset}
                 onSubmit={this.submit}
                 className={formCls}
+                id={id ? id : formId}
                 x-form-id={id ? id : formId}
             >
                 {this.content}

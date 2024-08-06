@@ -11,6 +11,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
     box-sizing: border-box;
     position: relative;
 
+
     &-left {
         display: flex;
         flex-direction: row;
@@ -28,6 +29,39 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         &-extra {
             padding: $spacing-tabs_bar_extra-paddingY $spacing-tabs_bar_extra-paddingX;
+        }
+
+        &-more-trigger{
+            display: inline-block;
+            cursor: pointer;
+            color: var(--semi-color-text-2);
+
+            &-content{
+                display: flex;
+                align-content: center;
+
+                &-icon:not(:not(&-icon)){ // increase priority
+                    margin-top: $spacing-tabs_tab-more_trigger_icon-marginTop;
+                    margin-bottom: $spacing-tabs_tab-more_trigger_icon-marginBottom;
+                    margin-left: $spacing-tabs_tab-more_trigger_icon-marginLeft;
+                    margin-right: $spacing-tabs_tab-more_trigger_icon-marginRight;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            &-line{
+                padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
+            }
+
+            &-card{
+                padding: $spacing-tabs_bar_card_tab-paddingY $spacing-tabs_bar_card_tab-paddingX;
+            }
+
+            &-button{
+                padding: $spacing-tabs_bar_button_tab-paddingY $spacing-tabs_bar_button_tab-paddingX;
+            }
         }
 
         .#{$module}-tab {
@@ -230,7 +264,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         .#{$module}-bar-arrow-start {
             margin-right: $spacing-tabs_overflow_icon-marginRight;
-            & > .#{$prefix}-button {
+            & > .#{$prefix}-button[aria-disabled=false] {
                 color: $color-tabs_tab-pane_arrow-text-default;
                 padding: $spacing-tabs_tab-pane_arrow;
                 border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
@@ -251,7 +285,7 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
         .#{$module}-bar-arrow-end {
             margin-left: $spacing-tabs_overflow_icon-marginLeft;
-            & > .#{$prefix}-button {
+            & > .#{$prefix}-button[aria-disabled=false] {
                 color: $color-tabs_tab-pane_arrow-text-default;
                 padding: $spacing-tabs_tab-pane_arrow;
                 border: $width-tabs_tab-pane_arrow-border solid $color-tabs_tab-pane_arrow-border-default;
@@ -292,12 +326,11 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
                 transition: border-bottom-color $transition_duration-tabs_tab_line-border $transition_function-tabs_tab_line-border $transition_delay-tabs_tab_line-border,
                     color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的border-color 的 transition
-                
+                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
+
                 &:nth-of-type(1) {
                     padding-left: 0;
                 }
-
-                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
 
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
@@ -656,15 +689,15 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
         &.#{$module}-tab-top {
 
             &.#{$module}-tab {
+                font-size: $font-tabs_bar_large-fontSize;
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
                 transition: border-bottom-color $transition_duration-tabs_tab_line-border $transition_function-tabs_tab_line-border $transition_delay-tabs_tab_line-border,
                     color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的border-color 的 transition
+                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
                 
                 &:nth-of-type(1) {
                     padding-left: 0;
                 }
-
-                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
 
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
@@ -684,10 +717,12 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 // }
 
                 &-small {
+                    font-size: $font-tabs_bar_small-fontSize;
                     padding: $spacing-tabs_bar_line_tab_small-paddingTop $spacing-tabs_bar_line_tab_small-paddingRight $spacing-tabs_bar_line_tab_small-paddingBottom $spacing-tabs_bar_line_tab_small-paddingLeft;
                 }
 
                 &-medium {
+                    font-size: $font-tabs_bar_medium-fontSize;
                     padding: $spacing-tabs_bar_line_tab_medium-paddingTop $spacing-tabs_bar_line_tab_medium-paddingRight $spacing-tabs_bar_line_tab_medium-paddingBottom $spacing-tabs_bar_line_tab_medium-paddingLeft;
                 }
             }

@@ -13,16 +13,15 @@ $inner-width: $width-icon-medium;
     column-gap: $spacing-radio_addon-paddingLeft;
     transition: background-color $transition_duration-radio-bg $transition_function-radio-bg $transition_delay-radio-bg,
     border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
-
-    &.#{$module}-vertical {
-        display: block;
-    }
-
     min-height: $height-radio_inner_min;
     min-width: $width-radio_inner;
     cursor: pointer;
     vertical-align: bottom;
     text-align: left;
+
+    &.#{$module}-vertical {
+        display: block;
+    }
 
     input[type="checkbox"],
     input[type="radio"] {
@@ -114,10 +113,11 @@ $inner-width: $width-icon-medium;
         border $transition_duration-radio-border $transition_function-radio-border $transition_delay-radio-border;
 
         .#{$module}-inner {
+            flex-shrink: 0;
+
             &-display {
                 background: $color-radio_card-bg-default;
             }
-            flex-shrink: 0;
         }
 
         .#{$module}-addon {
@@ -335,6 +335,7 @@ $inner-width: $width-icon-medium;
         left: 0;
         width: 100%;
         height: 100%;
+        margin-top: 0; // when type= button/card/pureCard, reset margin
         z-index: -1;
         opacity: 0;
     }

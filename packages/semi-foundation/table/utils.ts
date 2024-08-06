@@ -479,6 +479,31 @@ export function getRTLAlign(align: typeof strings.ALIGNS[number], direction?: 'l
     return align;
 }
 
+export function getRTLFlexAlign(align: typeof strings.ALIGNS[number], direction?: 'ltr' | 'rtl'): typeof strings.JUSTIFY_CONTENT[number] {
+    if (direction === 'rtl') {
+        switch (align) {
+            case 'left':
+                return 'flex-end';
+            case 'right':
+                return 'flex-start';
+            default:
+                return align;
+        }
+    }
+    else
+    {
+        switch (align) {
+            case 'left':
+                return 'flex-start';
+            case 'right':
+                return 'flex-end';
+            default:
+                return align;
+        }
+    }
+}
+
+
 export function shouldShowEllipsisTitle(ellipsis: BaseEllipsis) {
     const shouldShowTitle = ellipsis === true || get(ellipsis, 'showTitle', true);
     return shouldShowTitle;

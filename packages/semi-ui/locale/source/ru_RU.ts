@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'подтвердить',
         cancel: 'отмена',
     },
+    Tabs: {
+        more: "Более"
+    },
     TimePicker: {
         placeholder: {
             time: 'Выбрать время',
@@ -169,6 +172,15 @@ const local: Locale = {
         downloadTip: 'скачать',
         adaptiveTip: 'Адаптировать к странице',
         originTip: 'Исходный размер',
+    },
+    Chat: {
+        deleteConfirm: 'Вы уверены, что хотите удалить эту сессию?',
+        clearContext: 'Контекст очищен',
+        copySuccess: 'Скопировано успешно',
+        stop: 'остановить',
+        copy: 'Копировать',
+        copied: 'Скопировано',
+        dropAreaText: 'Положите файл здесь',
     },
 };
 

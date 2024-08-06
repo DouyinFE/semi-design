@@ -107,4 +107,21 @@ describe(`Typography`, () => {
         })
         expect(numeral.find('.price').text()).toEqual('1992.15')
     })
+
+    it('children is template string', () => {
+        const { Text } = Typography;
+        const code = 'code'; 
+
+        const typographyParagraph = mount(
+            <Text 
+                style={{  marginTop: 6, color: 'var(--semi-color-text-2)' }}
+                ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-word' } } } }}
+                copyable={{ content: code }}
+            >
+                Key: {code}
+            </Text>
+        );
+        expect(typographyParagraph.find('.semi-typography').children().at(0).text()).toEqual('Key: code');
+    });
+
 });

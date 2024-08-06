@@ -36,7 +36,7 @@ import fr from '@douyinfe/semi-ui/locale/source/fr';
 import ro from '@douyinfe/semi-ui/locale/source/ro';
 import { SortableContainer, SortableElement, sortableHandle } from 'react-sortable-hoc';
 import GraphemeSplitter from 'grapheme-splitter';
-
+export * as SemiMarkdownComponents from "@douyinfe/semi-ui/markdownRender/components";
 export * from '@douyinfe/semi-ui';
 export * from '@douyinfe/semi-foundation/utils';
 export * from '@douyinfe/semi-icons';
@@ -133,6 +133,7 @@ export {
     SortableContext,
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
+    arrayMove,
 } from '@dnd-kit/sortable';
   
 export { CSS as cssDndKit } from '@dnd-kit/utilities';
@@ -146,8 +147,11 @@ export {
     useSensor,
     useSensors,
     KeyboardSensor,
-    TraversalOrder
+    TraversalOrder,
+    PointerSensor
 } from '@dnd-kit/core';
+
+export { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 
 
 export {
@@ -160,7 +164,7 @@ export {
     IconBadgeStar, 
     IconBanner, 
     IconBreadcrumb,
-    IconButton,
+    // IconButton,
     // IconCalendar,
     IconCard,
     IconCascader,
@@ -227,3 +231,6 @@ export {
     IconVersionTwo,
     IconWheelChair
 } from '@douyinfe/semi-icons-lab';
+
+export { VChart } from "@visactor/react-vchart";
+export { initVChartSemiTheme } from '@visactor/vchart-semi-theme';

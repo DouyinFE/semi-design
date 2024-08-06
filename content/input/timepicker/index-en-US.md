@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 33
+order: 38
 category: Input
 title: TimePicker
 subTitle: TimePicker
@@ -203,8 +203,6 @@ function Demo() {
 
 ### Custom Trigger
 
-**Version:** >=0.34.0
-
 By default we use the `Input` component as the trigger for the `DatePicker` component. You can customize this trigger by passing the `triggerRender` method.
 
 ```jsx live=true hideInDSM
@@ -216,18 +214,6 @@ import { IconChevronDown, IconClose } from '@douyinfe/semi-icons';
 function Demo() {
     const formatToken = 'HH:mm:ss';
     const [time, setTime] = useState(new Date());
-    const triggerIcon = useMemo(() => {
-        return time ? (
-            <IconClose
-                onClick={e => {
-                    e && e.stopPropagation();
-                    setTime();
-                }}
-            />
-        ) : (
-            <IconChevronDown />
-        );
-    }, [time]);
 
     return (
         <TimePicker
@@ -235,9 +221,16 @@ function Demo() {
             format={formatToken}
             onChange={time => setTime(time)}
             triggerRender={({ placeholder }) => (
-                <Button theme={'light'} icon={triggerIcon} iconPosition={'right'}>
+                <Tag
+                    color='cyan'
+                    size='large'
+                    shape='circle'
+                    style={{ padding: 12, paddingRight: 16, fontSize: 14 }}
+                    theme={'light'}
+                    prefixIcon={<IconTimePicker />}
+                >
                     {time ? dateFns.format(time, formatToken) : placeholder}
-                </Button>
+                </Tag>
             )}
         />
     );
@@ -299,13 +292,13 @@ function Demo(props = {}) {
 
 | Parameters | Instructions                                                                                                                                                                                                                                  | Type | Default | Version |
 | --- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                                                                             | boolean | true | **0.34.0** |
+| autoAdjustOverflow | Whether the floating layer automatically adjusts its direction when it is blocked                                                                                                                                                             | boolean | true |  |
 | autoFocus | Automatic access to focus                                                                                                                                                                                                                     | boolean | false |
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                                                                     | boolean                         |           |
 | className | Outer style name                                                                                                                                                                                                                              | string |  |
 | clearIcon | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                       | ReactNode |  |  **2.25.0**|
 | clearText | Clear button prompt copy                                                                                                                                                                                                                      | string | Clear |
-| defaultOpen | Whether the panel is open by default                                                                                                                                                                                                          | boolean |  | **0.19.0** |
+| defaultOpen | Whether the panel is open by default                                                                                                                                                                                                          | boolean |  |  |
 | defaultValue | Default time                                                                                                                                                                                                                                  | Date\|timeStamp\|string (array when type = "timeRange") |  |
 | disabled | Disable all operations                                                                                                                                                                                                                        | boolean | false |
 | disabledHours | Prohibited selection of partial hour options                                                                                                                                                                                                  | () => number [] |  |
@@ -331,19 +324,19 @@ function Demo(props = {}) {
 | prefix | Prefix content                                                                                                                                                                                                                                | string\|ReactNode |  |  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user                                                 | boolean |  |  |
 | rangeSeparator | time range delimiter                                                                                                                                                                                                                          | string | "~" |
-| scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)                                                                                                               | object |  | **0.31.0** |
+| scrollItemProps | The props passed through to ScrollItem. The optional values are the same as [ScrollList#API](/zh-CN/show/scrolllist#ScrollItem)                                                                                                               | object |  | |
 | secondStep | Second option interval                                                                                                                                                                                                                        | number | 1 |
-| showClear | Whether to show the clear button                                                                                                                                                                                                              | boolean | true | **0.35.0**|
+| showClear | Whether to show the clear button                                                                                                                                                                                                              | boolean | true | |
 | stopPropagation | Whether to prevent click events on the popup layer from bubbling | boolean | true | **2.49.0** |
 | size  | Size of input box, one of 'default', 'small' and 'large'                                                                                                                                                                                      | string                                                                   | 'default'                                                              |                    |
-| triggerRender | Custom trigger rendering method                                                                                                                                                                                                               | ({ placeholder: string }) => ReactNode |  | **0.34.0** |
+| triggerRender | Custom trigger rendering method                                                                                                                                                                                                               | ({ placeholder: string }) => ReactNode |  |  |
 | type | type                                                                                                                                                                                                                                          | "time"\|"timeRange" | "time" |
 | use12Hours | Using a 12-hour system, `format` default to `h: mm: ssa` when true                                                                                                                                                                            | boolean | false |
 | value | Current time                                                                                                                                                                                                                                  | Date\|timeStamp\|string (array when type = "timeRange") |  |
-| onBlur | Callback when focus is lost                                                                                                                                                                                                                   | (e: domEvent) => void | () => {} | **1.0.0** |
+| onBlur | Callback when focus is lost                                                                                                                                                                                                                   | (e: domEvent) => void | () => {} | |
 | onChange | A callback in time.                                                                                                                                                                                                                           | (time: Date\|Date[], timeString: string\|string[]) => void |  |
 | onChangeWithDateFirst | Set the order of parameter in `onChange`, `true`: (Date, string); `false`: (string, Date)                                                                                                                                                     | boolean | true | **2.4.0** |
-| onFocus | Callback when focus is obtained                                                                                                                                                                                                               | (e: domEvent) => void | () => {} | **1.0.0** |
+| onFocus | Callback when focus is obtained                                                                                                                                                                                                               | (e: domEvent) => void | () => {} |  |
 | onOpenChange | A callback when the panel is on / off                                                                                                                                                                                                         | (isOpen: boolean) => void |  |
 
 ## Methods

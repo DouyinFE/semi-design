@@ -15,8 +15,8 @@ const numHash = Math.round(Math.random()*1000000);
 const glob = require('glob');
 
 
-function resolve(dir) {
-    return path.resolve(__dirname, dir);
+function resolve(...dirs) {
+    return path.resolve(__dirname, ...dirs);
 }
 const getLocale = path => {
     let pathname = path || window.location.pathname;
@@ -91,10 +91,21 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             }
         );
     }
-
+    console.log(["node_modules",resolve("node_modules")]);
     actions.setWebpackConfig({
+        externals:{
+          "node:url":"url",
+            "node:path":"path",
+            "node:process":"process",
+        },
         resolve: {
             alias: {
+                "vfile/do-not-use-conditional-minurl":isSSR ? "vfile/lib/minurl.js":"vfile/lib/minurl.browser.js",
+                "vfile/do-not-use-conditional-minproc":isSSR?"vfile/lib/minproc.js":"vfile/lib/minproc.browser.js",
+                "vfile/do-not-use-conditional-minpath": isSSR ? "vfile/lib/minpath.js":"vfile/lib/minpath.browser.js",
+                "estree-util-visit/do-not-use-color": isSSR ? "estree-util-visit/lib/color.node.js":"estree-util-visit/lib/color.js",
+                "devlop":"devlop/lib/default.js",
+                "unist-util-visit-parents/do-not-use-color": isSSR?"unist-util-visit-parents/lib/color.node.js":"unist-util-visit-parents/lib/color.js",
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 'univers-webview': process.env.SEMI_SITE_UNIVERS_WEBVIEW || resolve('packages/semi-ui'),
@@ -113,6 +124,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'locale': resolve('src/locale'),
                 'src': resolve('src')
             },
+            extensions:["*",".mjs",".js",".json"]
         },
         module: {
             rules: [
@@ -139,7 +151,12 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                     use: [...srcScssUse, resolve('packages/semi-webpack/lib/semi-theme-loader.js')],
                 },
                 {
-                    test: [/\.jsx?$/],
+                  test:/\.m?js/,
+                  include: [/micromark-util-sanitize-uri/,/mdast-util-from-markdown/,/micromark/,/mdast-util-to-markdown/,/semi-foundation\/node_modules\/@mdx-js/],
+                  use: ["esbuild-loader"]
+                },
+                {
+                    test: [/\.jsx?$/,/\.mjs/],
                     include: [path.resolve(__dirname, 'src')],
                     use: {
                         loader: 'esbuild-loader',
@@ -159,6 +176,11 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                             target: 'esnext' // Syntax to compile to (see options below for possible values)
                         },
                     },
+                },
+                {
+                    test: /\.mjs$/,
+                    include: /node_modules/,
+                    type: "javascript/auto"
                 }
             ],
         },
@@ -353,8 +375,9 @@ exports.onPostBuild = async () => {
 
     (()=>{
         const jsFiles = glob.sync(`${publicPath}/*.js`);
-
+        const mapFiles = glob.sync(`${publicPath}/*.map`);
         const replaceNames = {};
+
         for (let file of jsFiles) {
             const filename = path.basename(file);
             const fileNameWithoutExt = filename.split('.')[0];
@@ -370,6 +393,25 @@ exports.onPostBuild = async () => {
                 fs.renameSync(file, path.join(path.dirname(file), finalFileName));
             }
         }
+
+        for (let file of mapFiles) {
+            const filename = path.basename(file);
+            const fileNameWithoutExt = filename.split('.')[0];
+            const originHash = fileNameWithoutExt.split('-').at(-1);
+
+            if (originHash && originHash!==fileNameWithoutExt) {
+                let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
+                replaceNames[originHash] = `${originHash}${numHash}`;
+                fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js.map`));
+            } else {
+                let finalFileName = `${fileNameWithoutExt}${numHash}.js.map`;
+                replaceNames[filename] = finalFileName;
+                fs.renameSync(file, path.join(path.dirname(file), finalFileName));
+            }
+        }
+
+
+
         const allFiles = glob.sync(`${publicPath}/**/*.{js,html,json}`);
         for (let file of allFiles) {
             const stats = fs.statSync(file);

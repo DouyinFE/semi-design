@@ -11,7 +11,7 @@ export interface ImageStates {
     previewVisible: boolean
 }
 
-export interface ImageProps extends BaseProps{
+export interface ImageProps extends BaseProps {
     src?: string;
     width?: string | number;
     height?: string | number;
@@ -22,10 +22,12 @@ export interface ImageProps extends BaseProps{
     onError?: (event: Event) => void;
     onLoad?: (event: Event) => void;
     onClick?: (event: any) => void;
-    crossOrigin?: "anonymous"| "use-credentials";
+    crossOrigin?: "anonymous" | "use-credentials";
     children?: ReactNode;
     imageID?: number;
-    setDownloadName?: (src: string) => string
+    setDownloadName?: (src: string) => string;
+    imgStyle?: React.CSSProperties;
+    imgCls?: string
 }
 
 export interface PreviewProps extends BaseProps {
@@ -57,7 +59,7 @@ export interface PreviewProps extends BaseProps {
     disableDownload?: boolean;
     zIndex?: number;
     children?: ReactNode;
-    crossOrigin?: "anonymous"| "use-credentials";
+    crossOrigin?: "anonymous" | "use-credentials";
     maxZoom?: number;
     minZoom?: number;
     previewCls?: string;
@@ -75,17 +77,18 @@ export interface PreviewProps extends BaseProps {
     onRatioChange?: (type: RatioType) => void;
     onRotateLeft?: (angle: number) => void;
     onDownload?: (src: string, index: number) => void;
+    onDownloadError?: (src: string) => void;
     setDownloadName?: (src: string) => string
 }
 
-export interface PreviewInnerProps extends Omit<PreviewProps, "previewCls" | "previewStyle"> {}
+export interface PreviewInnerProps extends Omit<PreviewProps, "previewCls" | "previewStyle"> { }
 
 export interface MenuProps {
     min?: number;
     max?: number;
     step?: number;
     curPage?: number;
-    totalNum?: number; 
+    totalNum?: number;
     zoom?: number;
     ratio?: RatioType;
     disabledPrev?: boolean;
@@ -170,14 +173,14 @@ export interface PreviewImageProps {
     ratio?: RatioType;
     disableDownload?: boolean;
     clickZoom?: number;
-    crossOrigin?: "anonymous"| "use-credentials";
+    crossOrigin?: "anonymous" | "use-credentials";
     setRatio?: (type: RatioType) => void;
     onZoom?: (zoom: number) => void;
     onLoad?: (src: string) => void;
     onError?: (src: string) => void
 }
 
-export interface ImageOffset {
+export interface ImageTranslate {
     x: number;
     y: number
 }
@@ -186,10 +189,8 @@ export interface PreviewImageStates {
     loading: boolean;
     width: number;
     height: number;
-    offset: ImageOffset;
+    translate: ImageTranslate;
     currZoom: number;
-    top: number;
-    left: number
 }
 
 export interface DragDirection {

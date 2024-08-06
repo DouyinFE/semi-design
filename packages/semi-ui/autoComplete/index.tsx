@@ -168,7 +168,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
     static Option = Option;
 
     static __SemiComponentName__ = "AutoComplete";
-    
+
     static defaultProps = getDefaultPropsFromGlobalConfig(AutoComplete.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
@@ -305,11 +305,13 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
                     if (
                         optionsDom &&
                         (!optionsDom.contains(target) || !optionsDom.contains(target.parentNode)) &&
                         triggerDom &&
-                        !triggerDom.contains(target)
+                        !triggerDom.contains(target) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }
@@ -404,7 +406,7 @@ class AutoComplete<T extends AutoCompleteItems> extends BaseComponent<AutoComple
         const innerProps = {
             disabled,
             placeholder,
-            autofocus: autoFocus,
+            autoFocus: autoFocus,
             onChange: this.onSearch,
             onClear: this.onInputClear,
             'aria-label': this.props['aria-label'],

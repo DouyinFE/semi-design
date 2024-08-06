@@ -283,6 +283,11 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             border-radius: var(--semi-border-radius-circle);
             line-height:normal;
         }
+        &-shape_circle-extra-small{
+            width:$width-avatar-bottom_slot_circle_extra_small;
+            height:$width-avatar-bottom_slot_circle_extra_small;
+            font-size: $font-avatar_bottom_slot-extra_small-fontSize;
+        }
         &-shape_circle-small{
             width:$width-avatar-bottom_slot_circle_small;
             height:$width-avatar-bottom_slot_circle_small;
@@ -322,6 +327,11 @@ $colors: 'amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'ligh
             font-weight: $font-weight-bold;
             border-style: solid;
             border-color: $color-avatar-bottom_slot_square-border;
+        }
+
+        &-shape_square-extra_small{
+            font-size: $font-avatar_bottom_slot-extra_small-fontSize;
+            border-width: $width-avatar-bottom_slot_square_extra_small-border;
         }
 
         &-shape_square-small{

@@ -4,19 +4,22 @@ import cls from 'classnames';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/tabs/constants';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import OverflowList from '../overflowList';
-import Dropdown from '../dropdown';
+import Dropdown, { DropdownProps } from '../dropdown';
 import Button from '../button';
 import { TabBarProps, PlainTab } from './interface';
 import { isEmpty, pick } from 'lodash';
-import { IconChevronRight, IconChevronLeft, IconClose } from '@douyinfe/semi-icons';
+import { IconChevronRight, IconChevronLeft, IconChevronDown } from '@douyinfe/semi-icons';
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import TabItem from './TabItem';
+import { Locale } from "../locale/interface";
+import LocaleConsumer from "../locale/localeConsumer";
 
 export interface TabBarState {
     endInd: number;
     rePosKey: number;
     startInd: number;
-    uuid: string
+    uuid: string;
+    currentVisibleItems: string[]
 }
 
 export interface OverflowItem extends PlainTab {
@@ -37,7 +40,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         tabPosition: PropTypes.oneOf(strings.POSITION_MAP),
         type: PropTypes.oneOf(strings.TYPE_MAP),
         closable: PropTypes.bool,
-        deleteTabItem: PropTypes.func
+        deleteTabItem: PropTypes.func,
+        more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     };
 
     constructor(props: TabBarProps) {
@@ -47,6 +51,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             rePosKey: 0,
             startInd: 0,
             uuid: '',
+            currentVisibleItems: []
         };
     }
 
@@ -54,6 +59,14 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         this.setState({
             uuid: getUuidv4(),
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.activeKey !== this.props.activeKey) {
+            if (this.props.collapsible) {
+                this.scrollActiveTabItemIntoView();
+            }
+        }
     }
 
     renderIcon(icon: ReactNode): ReactNode {
@@ -86,11 +99,6 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     handleItemClick = (itemKey: string, e: MouseEvent<Element>): void => {
         this.props.onTabClick(itemKey, e);
-        if (this.props.collapsible) {
-            const key = this._getItemKey(itemKey);
-            const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-            tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-        }
     };
 
     handleKeyDown = (event: React.KeyboardEvent, itemKey: string, closable: boolean) => {
@@ -100,11 +108,10 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
     renderTabItem = (panel: PlainTab): ReactNode => {
         const { size, type, deleteTabItem, handleKeyDown, tabPosition } = this.props;
         const isSelected = this._isActive(panel.itemKey);
-        
         return (
             <TabItem
                 {...pick(panel, ['disabled', 'icon', 'itemKey', 'tab', 'closable'])}
-                key={this._getItemKey(panel.itemKey)} 
+                key={this._getBarItemKeyByItemKey(panel.itemKey)}
                 selected={isSelected}
                 size={size}
                 type={type}
@@ -116,6 +123,16 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         );
     };
 
+    scrollTabItemIntoViewByKey = (key: string, logicalPosition: ScrollLogicalPosition = 'nearest') => {
+        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
+        tabItem?.scrollIntoView({ behavior: 'smooth', block: logicalPosition, inline: logicalPosition });
+    }
+
+    scrollActiveTabItemIntoView = (logicalPosition?: ScrollLogicalPosition) => {
+        const key = this._getBarItemKeyByItemKey(this.props.activeKey);
+        this.scrollTabItemIntoViewByKey(key, logicalPosition);
+    }
+
     renderTabComponents = (list: Array<PlainTab>): Array<ReactNode> => list.map(panel => this.renderTabItem(panel));
 
     handleArrowClick = (items: Array<OverflowItem>, pos: 'start' | 'end'): void => {
@@ -123,22 +140,28 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         if (!lastItem) {
             return;
         }
-        const key = this._getItemKey(lastItem.itemKey);
-        const tabItem = document.querySelector(`[data-uuid="${this.state.uuid}"] .${cssClasses.TABS_TAB}[data-scrollkey="${key}"]`);
-        tabItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        const key = this._getBarItemKeyByItemKey(lastItem.itemKey);
+        this.scrollTabItemIntoViewByKey(key);
     };
 
     renderCollapse = (items: Array<OverflowItem>, icon: ReactNode, pos: 'start' | 'end'): ReactNode => {
+        const arrowCls = cls({
+            [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
+            [`${cssClasses.TABS_BAR}-arrow`]: true,
+        });
+
         if (isEmpty(items)) {
             return (
-                <Button
-                    disabled={true}
-                    icon={icon}
-                    theme="borderless"
-                />
+                <div role="presentation" className={arrowCls}>
+                    <Button
+                        disabled={true}
+                        icon={icon}
+                        theme="borderless"
+                    />
+                </div>
             );
         }
-        const { dropdownClassName, dropdownStyle } = this.props;
+        const { dropdownClassName, dropdownStyle, showRestInDropdown } = this.props;
         const { rePosKey } = this.state;
         const disabled = !items.length;
         const menu = (
@@ -160,43 +183,48 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             </Dropdown.Menu>
         );
 
-        const arrowCls = cls({
-            [`${cssClasses.TABS_BAR}-arrow-${pos}`]: pos,
-            [`${cssClasses.TABS_BAR}-arrow`]: true,
-        });
+        const button = (
+            <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
+                <Button
+                    disabled={disabled}
+                    icon={icon}
+                    theme="borderless"
+                />
+            </div>
+        );
 
         const dropdownCls = cls(dropdownClassName, {
             [`${cssClasses.TABS_BAR}-dropdown`]: true,
         });
 
         return (
-            <Dropdown
-                className={dropdownCls}
-                clickToHide
-                clickTriggerToHide
-                key={`${rePosKey}-${pos}`}
-                position={pos === 'start' ? 'bottomLeft' : 'bottomRight'}
-                render={disabled ? null : menu}
-                showTick
-                style={dropdownStyle}
-                trigger={'hover'}
-                disableFocusListener // prevent the panel from popping up again after clicking
-            >
-                <div role="presentation" className={arrowCls} onClick={(e): void => this.handleArrowClick(items, pos)}>
-                    <Button
-                        disabled={disabled}
-                        icon={icon}
-                        // size="small"
-                        theme="borderless"
-                    />
-                </div>
-            </Dropdown>
+            <>
+                {showRestInDropdown ? (
+                    <Dropdown
+                        className={dropdownCls}
+                        clickToHide
+                        clickTriggerToHide
+                        key={`${rePosKey}-${pos}`}
+                        position={pos === 'start' ? 'bottomLeft' : 'bottomRight'}
+                        render={disabled ? null : menu}
+                        showTick
+                        style={dropdownStyle}
+                        trigger={'hover'}
+                        disableFocusListener // prevent the panel from popping up again after clicking
+                    >
+                        {button}
+                    </Dropdown>
+                ) : (button)}
+            </>
         );
     };
 
-    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, ind) => {
-        const icon = ind === 0 ? <IconChevronLeft /> : <IconChevronRight />;
-        const pos = ind === 0 ? 'start' : 'end';
+    renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, index) => {
+        const pos = index === 0 ? 'start' : 'end';
+        if (this.props.renderArrow) {
+            return this.props.renderArrow(item, pos, ()=>this.handleArrowClick(item, pos));
+        }
+        const icon = index === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
         return this.renderCollapse(item, icon, pos);
     });
 
@@ -205,21 +233,86 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         const { list } = this.props;
         const renderedList = list.map(item => {
             const { itemKey } = item;
-            return { key: this._getItemKey(itemKey), active: this._isActive(itemKey), ...item };
+            return { key: this._getBarItemKeyByItemKey(itemKey), active: this._isActive(itemKey), ...item };
         });
         return (
             <OverflowList
                 items={renderedList}
+                overflowRenderDirection={this.props.arrowPosition}
+                wrapperStyle={this.props.visibleTabsStyle}
                 overflowRenderer={this.renderOverflow}
                 renderMode="scroll"
                 className={`${cssClasses.TABS_BAR}-overflow-list`}
                 visibleItemRenderer={this.renderTabItem as any}
+                onVisibleStateChange={(visibleMap)=>{
+                    const visibleMapWithItemKey: Map<string, boolean> = new Map();
+                    visibleMap.forEach((v, k )=>{
+                        visibleMapWithItemKey.set(this._getItemKeyByBarItemKey(k), v);
+                    });
+                    this.props.onVisibleTabsChange?.(visibleMapWithItemKey);
+                }}
             />
+
         );
     };
 
+    renderWithMoreTrigger = (): ReactNode => {
+        const { list, more } = this.props;
+        let tabElements: ReactNode[] = [];
+        let moreTrigger: ReactNode = <div className={cls({
+            [`${cssClasses.TABS_BAR}-more-trigger`]: true,
+            [`${cssClasses.TABS_BAR}-more-trigger-${this.props.type}`]: true
+        })}>
+            <LocaleConsumer componentName="Tabs">
+                {(locale: Locale['Tabs'], localeCode: Locale['code']) => (
+                    <div className={`${cssClasses.TABS_BAR}-more-trigger-content`}>
+                        <div>{locale.more}</div>
+                        <IconChevronDown className={`${cssClasses.TABS_BAR}-more-trigger-content-icon`} />
+                    </div>
+                )}
+            </LocaleConsumer>
+        </div>;
+        let keepCount: number;
+        if (typeof more === "number") {
+            keepCount = list.length - Math.min(more, list.length);
+            tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
+        } else if (typeof more === 'object') {
+            keepCount = list.length - Math.min(more.count, list.length);
+            tabElements = list.slice(0, keepCount).map(panel => this.renderTabItem(panel));
+            if (more.render) {
+                moreTrigger = more.render();
+            }
+
+        } else if (more !== undefined) {
+            throw new Error("[Semi Tabs]: invalid tab props format: more");
+        }
+
+        return <>
+            {tabElements}
+            {this.renderMoreDropdown(list.slice(keepCount), more?.['dropdownProps'], moreTrigger)}
+        </>;
+    }
+
+    renderMoreDropdown = (panels: PlainTab[], dropDownProps: DropdownProps, trigger: ReactNode): ReactNode => {
+
+        return <Dropdown trigger={'hover'} showTick position={'bottomLeft'}
+            className={`${cssClasses.TABS_BAR}-more-dropdown-${this.props.type}`}
+            clickToHide={true}
+            menu={panels.map(panel => ({
+                node: 'item',
+                name: panel.tab as string,
+                icon: panel.icon,
+                onClick: (e) => this.props.onTabClick(panel.itemKey, e),
+                active: this.props.activeKey === panel.itemKey
+            }))}
+            {...dropDownProps}
+        >
+            {trigger}
+        </Dropdown>;
+    }
+
     render(): ReactNode {
-        const { type, style, className, list, tabPosition, collapsible, ...restProps } = this.props;
+        const { type, style, className, list, tabPosition, more, collapsible, ...restProps } = this.props;
         const classNames = cls(className, {
             [cssClasses.TABS_BAR]: true,
             [cssClasses.TABS_BAR_LINE]: type === 'line',
@@ -230,10 +323,11 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
         });
 
         const extra = this.renderExtra();
-        const contents = collapsible ? this.renderCollapsedTab() : this.renderTabComponents(list);
+        const contents = collapsible ? this.renderCollapsedTab() : (more ? this.renderWithMoreTrigger() : this.renderTabComponents(list));
 
         return (
-            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"} className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
+            <div role="tablist" aria-orientation={tabPosition === "left" ? "vertical" : "horizontal"}
+                className={classNames} style={style} {...getDataAttr(restProps)} data-uuid={this.state.uuid}>
                 {contents}
                 {extra}
             </div>
@@ -242,7 +336,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     private _isActive = (key: string): boolean => key === this.props.activeKey;
 
-    private _getItemKey = (key: string): string => `${key}-bar`;
+    private _getBarItemKeyByItemKey = (key: string): string => `${key}-bar`;
+    private _getItemKeyByBarItemKey = (key: string): string => key.replace(/-bar$/, "");
 }
 
 export default TabBar;

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 22
+order: 26
 category: 输入类
 title: Checkbox 复选框
 icon: doc-checkbox
@@ -52,11 +52,11 @@ import { Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统'>
+        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统'>
             Semi Design
         </Checkbox>
         <br/>
-        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 400 }}>
+        <Checkbox aria-label="Checkbox 示例" extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 400 }}>
             Semi Design
         </Checkbox>
     </>
@@ -301,16 +301,16 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <CheckboxGroup type='card' defaultValue={['1', '3']} direction='vertical' aria-label="CheckboxGroup 示例">
-        <Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'1'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'2'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'2'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'3'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'3'} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'4'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'4'} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
     </CheckboxGroup>
@@ -328,16 +328,16 @@ import { CheckboxGroup, Checkbox } from '@douyinfe/semi-ui';
 
 () => (
     <CheckboxGroup type='pureCard' defaultValue={['1', '3']} direction='vertical' aria-label="CheckboxGroup 示例">
-        <Checkbox value={'1'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'1'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'2'} disabled extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'2'} disabled extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'3'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'3'} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
-        <Checkbox value={'4'} extra='Semi Design 是由互娱社区前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
+        <Checkbox value={'4'} extra='Semi Design 是由抖音前端团队与 UED 团队共同设计开发并维护的设计系统' style={{ width: 280 }}>
             单选框标题
         </Checkbox>
     </CheckboxGroup>

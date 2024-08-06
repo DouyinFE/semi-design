@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 20
+order: 24
 category: 输入类
 title: AutoComplete 自动完成
 icon: doc-autocomplete
@@ -27,7 +27,7 @@ import { AutoComplete } from '@douyinfe/semi-ui';
 
 ### 基本用法
 
-通过 onSearch 监听用户输入，将输入建议通过 data 传入，通过 onChange 保持受控，当输入框变化/选中输入项时会触发 onChange
+通过 onSearch 监听用户输入，将输入建议通过更新 props.data 传入。通过 onChange 保持受控，当输入框变化/选中输入项时会触发 onChange
 
 ```jsx live=true
 import React from 'react';
@@ -76,34 +76,29 @@ import React from 'react';
 import { AutoComplete, Avatar } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
 
-class CustomOptionDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            data: [],
-            color: ['amber', 'indigo', 'cyan'],
-            list: [
-                { name: '夏可漫', email: 'xiakeman@example.com', abbr: 'XK', color: 'amber' },
-                { name: '申悦', email: 'shenyue@example.com', abbr: 'SY', color: 'indigo' },
-                { name: '曲晨一', email: 'quchenyi@example.com', abbr: 'CY', color: 'blue' },
-                { name: '文嘉茂', email: 'wenjiamao@example.com', abbr: 'JM', color: 'cyan' },
-            ],
-        };
-    }
-
-    search(value) {
+() => {
+    const color = ['amber', 'indigo', 'cyan'];
+    const [data, setData] = useState([
+        { name: '夏可漫', email: 'xiakeman@example.com', abbr: 'XK', color: 'amber' },
+        { name: '申悦', email: 'shenyue@example.com', abbr: 'SY', color: 'indigo' },
+        { name: '曲晨一', email: 'quchenyi@example.com', abbr: 'CY', color: 'blue' },
+        { name: '文嘉茂', email: 'wenjiamao@example.com', abbr: 'JM', color: 'cyan' },
+    ]);
+    const [value, setValue] = useState('');
+    
+    const handleStringSearch = (value) => {
         let result;
         if (value) {
-            result = this.state.list.map(item => {
+            result = data.map(item => {
                 return { ...item, value: item.name, label: item.email };
             });
         } else {
             result = [];
         }
-        this.setState({ data: result });
-    }
+        setData(result);
+    };
 
-    renderOption(item) {
+    const renderOption = (item) => {
         let optionStyle = {
             display: 'flex',
         };
@@ -120,103 +115,90 @@ class CustomOptionDemo extends React.Component {
         );
     }
 
-    render() {
-        return (
-            <AutoComplete
-                data={this.state.data}
-                prefix={<IconSearch />}
-                style={{ width: '250px' }}
-                renderSelectedItem={option => option.email}
-                renderItem={this.renderOption}
-                onSearch={this.search.bind(this)}
-                onSelect={v => console.log(v)}
-            ></AutoComplete>
-        );
-    }
-}
+
+    return (
+        <AutoComplete
+            data={data}
+            showClear
+            prefix={<IconSearch />}
+            onSearch={handleStringSearch}
+            renderItem={renderOption}
+            renderSelectedItem={option => option.email}
+            style={{ width: 280 }}
+        />
+    );
+};
 ```
 
 ### 远程搜索
 
-从 onSearch 中获取用户输入值，动态更新 data 值，更新 loading
+从 onSearch 中获取用户输入值，动态更新 data 值
 
 ```jsx live=true
 import React from 'react';
 import { AutoComplete } from '@douyinfe/semi-ui';
 import { IconSearch } from '@douyinfe/semi-icons';
+import { IconSelect, IconForm, IconTable, IconInput, IconButton } from '@douyinfe/semi-icons-lab';
 
-class ObjectDemo extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            list: [
-                { value: 'abc', label: 'douyin', email: '1@gmail.com', type: 2 },
-                { value: 'hotsoon', label: 'huoshan', email: '2@gmail.com', type: 3 },
-                { value: 'pipixia', label: 'pip', email: '3@gmail.com' },
-            ],
-            loading: false,
-        };
-        this.onSearch = this.onSearch.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
-        this.renderItem = this.renderItem.bind(this);
-        this.renderSelectedItem = this.renderSelectedItem.bind(this);
-        this.search = debounce(this.search.bind(this), 200);
-    }
+() => {
+    let initList = [
+        { value: 'select', label: '选择器', icon: <IconSelect/> },
+        { value: 'input', label: '输入框', icon: <IconInput/> },
+        { value: 'form', label: '表单', icon: <IconForm /> },
+        { value: 'button', label: '按钮', icon: <IconButton /> },
+        { value: 'table', label: '表格', icon: <IconTable /> },
+    ];
 
-    onSearch(inputValue) {
-        this.setState({ loading: true });
-        this.search(inputValue);
-    }
+    const [loading, setLoading] = useState(false);
+    const [list, setList] = useState(initList);
 
-    search(inputValue) {
-        let { list } = this.state;
-        const newList = list.map(item => {
-            let num = Math.random()
-                .toString()
-                .slice(2, 5);
-            let option = inputValue + '-' + num;
-            return { ...item, label: '名称:' + option, value: option };
-        });
-        this.setState({ list: newList, loading: false });
-    }
+    const handleSearch = (inputValue) => {
+        setLoading(true);
+        let newList = initList;
+        if (inputValue) {
+            newList = list.filter(item => item.value.includes(inputValue));
+        }
+        setTimeout(() => {
+            setList(newList);
+            setLoading(false);
+        }, 1000);
+    };
 
-    handleSelect(value) {
+    const search = debounce(handleSearch, 200);
+
+    const handleSelect = () => {
         console.log(value);
-    }
+    };
 
-    renderItem(item) {
+    const renderItem = (item) => {
         return (
-            <div>
-                <div>{item.label}</div>
-                <div>email: {item.email}</div>
-                <div style={{ color: 'pink' }}>value: {item.value}</div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ fontSize: 32 }}>{item.icon}</div>
+                <div style={{ marginLeft: 12 }}>
+                    <p>{item.value}</p>
+                    <p>{item.label}</p>
+                </div>
             </div>
         );
-    }
+    };
 
-    renderSelectedItem(item) {
-        // 注意：与Select不同，此处只能返回String类型的值，不能返回ReactNode
+    const renderSelectedItem = (item) => {
+        // 注意：与其他组件如Select不同，此处只能返回String类型的值，不能返回ReactNode
         return item.value;
-    }
+    };
 
-    render() {
-        const { loading } = this.state;
-        return (
-            <div>
-                <AutoComplete
-                    data={this.state.list}
-                    style={{ width: 250 }}
-                    prefix={<IconSearch />}
-                    onSearch={this.onSearch}
-                    loading={loading}
-                    onChangeWithObject
-                    renderItem={this.renderItem}
-                    renderSelectedItem={this.renderSelectedItem}
-                    onSelect={this.handleSelect}
-                ></AutoComplete>
-            </div>
-        );
-    }
+    return (
+        <AutoComplete
+            data={list}
+            style={{ width: 250 }}
+            prefix={<IconSearch />}
+            onSearch={search}
+            loading={loading}
+            renderItem={renderItem}
+            renderSelectedItem={renderSelectedItem}
+            onSelect={handleSelect}
+        ></AutoComplete>
+    );
 }
 ```
 
@@ -373,9 +355,9 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | 属性 | 说明                                                                                                         | 类型 | 默认值 | 版本|
 | --- |------------------------------------------------------------------------------------------------------------| --- | --- |--- |
 | autoFocus | 是否自动聚焦                                                                                                     | bool | false | 1.16.0|
-| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向                                                                                             | bool | true | 0.27.0|
+| autoAdjustOverflow | 浮层被遮挡时是否自动调整方向                                                                                             | bool | true | |
 | className | 样式类名                                                                                                       | string | |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                              | ReactNode | 2.25.0  |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                              | ReactNode |   | 2.25.0
 | data | 候选项的数据源，可以为字符串数组或对象数组                                                                                      | array | [] |
 | defaultActiveFirstOption | 是否默认高亮第一个选项（按回车可直接选中）                                                                                      | bool | false |
 | defaultOpen | 是否默认展开下拉菜单                                                                                                 | boolean | false |
@@ -384,20 +366,20 @@ import { IllustrationNoContent } from '@douyinfe/semi-illustrations';
 | dropdownClassName | 下拉列表的 CSS 类名                                                                                               | string |  |
 | dropdownStyle | 下拉列表的内联样式                                                                                                  | object |  |
 | emptyContent | data 为空时自定义下拉内容                                                                                            | ReactNode | null | 1.16.0 |
-| getPopupContainer | 指定父级 DOM，下拉列表浮层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                   | () => HTMLElement | () => document.body |
+| getPopupContainer | 指定下拉列表浮层的父级容器，浮层将会渲染至该 DOM 中。自定义该项时需给容器设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置 | () => HTMLElement | () => document.body |
 | loading | 下拉列表是否展示加载动画                                                                                               | boolean | false |
 | maxHeight | 下拉列表的最大高度                                                                                                  | number\|string | 300 |
 | motion | 下拉列表出现/隐藏时，是否有动画                                                                                           | boolean | true |
 | onSelectWithObject | 点击候选项时，是否将选中项 option 的其他属性也作为回调入参。设为 true 时，onSelect 的入参类型会从 `string` 变为 object: { value, label, ...rest } | boolean | false |1.23.0 |
-| placeholder | 输入框提示                                                                                                      | string | |
+| placeholder | 输入框默认提示文案                                                                                                      | string | |
 | position | 下拉菜单的显示位置，可选值同 tooltip 组件                                                                                  | string | 'bottomLeft' |
 | prefix | 选择框的前缀标签                                                                                                   | ReactNode |  | 0.23.0|
 | renderItem | 控制下拉列表候选项的渲染                                                                                               | (option: string\|Item)=> React.Node |  |
-| renderSelectedItem | 通过 renderSelectedItem 自定义下拉列表候选项被点击选中后，在选择框中的渲染内容<br/>**仅支持 String 类型的返回值**<br/>                           | (option: string\|Item) => string |  |0.23.0 |
+| renderSelectedItem | 通过 renderSelectedItem 自定义下拉列表候选项被点击选中后，在选择框中的渲染内容<br/>**仅支持 String 类型的返回值**<br/>                           | (option: string\|Item) => string |  | |
 | showClear | 是否展示清除按钮                                                                                                   | boolean | false |
 | size | 尺寸，可选`small`, `default`, `large`                                                                           | string | `default` |
 | style | 样式                                                                                                         | object |  |
-| suffix | 选择框的前缀标签                                                                                                   | ReactNode |  |0.23.0 |
+| suffix | 选择框的前缀标签                                                                                                   | ReactNode |  | |
 | validateStatus | 校验状态，可选值`default`、`error`、`warning`，默认 default。仅影响展示样式                                                     | string | 'default' | 1.14.0|
 | value | 当前值                                                                                                        | string\|number | 无 |
 | zIndex | 下拉菜单的 zIndex                                                                                               | number |  |

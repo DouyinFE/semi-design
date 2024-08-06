@@ -142,7 +142,8 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const updater = this.context;
         const { field } = this.props;
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
-        newArrayFieldVal.push(rowVal);
+        const cloneRowVal = copy(rowVal);
+        newArrayFieldVal.push(cloneRowVal);
         updater.updateStateValue(field, newArrayFieldVal, {});
         updater.updateArrayField(field, { updateKey: new Date().valueOf() });
     }

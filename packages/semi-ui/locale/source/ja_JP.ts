@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '確認する',
         cancel: 'キャンセル',
     },
+    Tabs: {
+        more: "もっと"
+    },
     TimePicker: {
         placeholder: {
             time: '時間を選択してください',
@@ -167,6 +170,15 @@ const local: Locale = {
         downloadTip: 'ダウンロード',
         adaptiveTip: 'ページに適応',
         originTip: '元のサイズ',
+    },
+    Chat: {
+        deleteConfirm: 'このセッションを削除してもよろしいですか？',
+        clearContext: 'コンテキストを削除しました',
+        copySuccess: '正常にコピーされました',
+        stop: 'とめる',
+        copy: 'コピー',
+        copied: 'コピーしました',
+        dropAreaText: 'ファイルをここに置いてください',
     },
 };
 

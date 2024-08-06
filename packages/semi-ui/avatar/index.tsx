@@ -294,7 +294,7 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         const textStyle: CSSProperties = {};
         if (this.props.topSlot.textColor) {
             textStyle['color'] = this.props.topSlot.textColor;
-        } 
+        }
         return <div style={this.props.topSlot.style ?? {}}
             className={cls([`${prefixCls}-top_slot-wrapper`, this.props.topSlot.className ?? "", {
                 [`${prefixCls}-animated`]: this.props.contentMotion,
@@ -336,6 +336,17 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
             ...others
         } = this.props;
         const { isImgExist, hoverContent, focusVisible } = this.state;
+        let customStyle: CSSProperties = {};
+        if (!strings.SIZE.includes(size)) {
+            customStyle = { width: size, height: size };
+        }
+        customStyle = { ...customStyle, ...style };
+        const shouldWrap = bottomSlot || topSlot || border;
+        const mouseEvent = {
+            onClick: onClick,
+            onMouseEnter: this.onEnter,
+            onMouseLeave: this.onLeave,
+        };
         const isImg = src && isImgExist;
         const avatarCls = cls(
             prefixCls,
@@ -355,11 +366,9 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         let avatar = <span
             {...(others as any)}
-            style={(border || bottomSlot || topSlot || border) ? {} : style}
+            style={shouldWrap ? {} : customStyle}
             className={avatarCls}
-            onClick={onClick as any}
-            onMouseEnter={this.onEnter as any}
-            onMouseLeave={this.onLeave as any}
+            {...(shouldWrap ? {} : mouseEvent)}
             role='listitem'
             ref={this.avatarRef}>
             {this.getContent()}
@@ -369,10 +378,10 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
 
         if (border) {
             const borderStyle: CSSProperties = {};
-            if (border?.color) {
-                borderStyle['borderColor'] = border.color;
+            if (typeof border === 'object' && border?.color) {
+                borderStyle['borderColor'] = border?.color;
             }
-            avatar = <div style={{ position: "relative", ...style }}>
+            avatar = <div style={{ position: "relative", ...customStyle }}>
                 {avatar}
                 <span style={borderStyle} className={cls([
                     `${prefixCls}-additionalBorder`,
@@ -383,12 +392,13 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
                 ])}>
                 </span>
                 {
-                    this.props.border?.motion && <span style={borderStyle} className={cls([
+                    (typeof this.props.border === 'object' && this.props.border.motion) &&
+                    <span style={borderStyle} className={cls([
                         `${prefixCls}-additionalBorder`,
                         `${prefixCls}-additionalBorder-${size}`,
                         {
                             [`${prefixCls}-${shape}`]: shape,
-                            [`${prefixCls}-additionalBorder-animated`]: this.props.border?.motion,
+                            [`${prefixCls}-additionalBorder-animated`]: typeof this.props.border === 'object' && this.props.border?.motion,
                         },
                     ])}/>
                 }
@@ -397,11 +407,11 @@ export default class Avatar extends BaseComponent<AvatarProps, AvatarState> {
         }
 
 
-        if (bottomSlot || topSlot || border) {
-            return <span className={cls([`${prefixCls}-wrapper`])} style={style}>
+        if (shouldWrap) {
+            return <span className={cls([`${prefixCls}-wrapper`])} style={customStyle} {...mouseEvent}>
                 {avatar}
-                {topSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
-                {bottomSlot && ["small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
+                {topSlot && ["extra-small", "small", "default", "medium", "large", "extra-large"].includes(size) && shape === "circle" && this.renderTopSlot()}
+                {bottomSlot && ["extra-small", "small", "default", "medium", "large", "extra-large"].includes(size) && this.renderBottomSlot()}
             </span>;
         } else {
             return avatar;

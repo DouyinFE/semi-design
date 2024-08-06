@@ -292,4 +292,28 @@ describe('table', () => {
         cy.visit('http://localhost:6006/iframe.html?id=table--fixed-default-expanded-grouped-rows&viewMode=story');
         cy.get('.semi-table-tbody tr').eq(1).should('have.class', 'semi-table-row-expanded');
     });
+
+    it('test header rowSelection is not selected when dataSource is empty', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=table--fixed-row-selection-empty&viewMode=story');
+        cy.get('.semi-table-thead .semi-checkbox-unChecked').should('exist');
+    });
+
+    it('test onGroupedRow return object includes className', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-on-grouped-row-class-name&viewMode=story');
+        cy.get('tbody .semi-table-row-section').eq(0).should('have.class', 'test-group');
+    });
+
+
+    it('test virtualized table ref', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--fixed-virtualized-ref&viewMode=story');
+        cy.get('.semi-button').eq(0).click();
+        cy.wait(300);
+        cy.get('.semi-table-row-cell').should('contain.text', 'Semi Design 设计稿20.fig');
+    });
+      
+    it('test rowSelection onCell and onHeaderCell', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=table--row-selection-on-cell&viewMode=story');
+        cy.get('.test-th').should('have.attr', 'style').should('contain', 'background: blue');
+        cy.get('.test-td').should('have.attr', 'style').should('contain', 'background: red');
+    });
 });

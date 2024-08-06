@@ -473,3 +473,47 @@ body > .component-list-demo-drag-item {
 .semi-select-option-list > div {
     will-change: unset!important;
 }
+
+.component-chat-demo-custom-render {
+    .time {
+        font-size: 12px;
+        color: var(--semi-color-text-2);
+        visibility: hidden;
+    }
+
+    .title {
+        display: flex;
+        align-items: 'center';
+        column-gap: 10px;
+    }
+
+    .semi-chat-chatBox:hover {
+        .time {
+            visibility: visible;
+        }
+    }
+
+    .semi-chat-chatBox-right {
+        .title {
+            flex-direction: row-reverse;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

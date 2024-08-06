@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 29
+order: 34
 category: 输入类
 title: Select 选择器
 icon: doc-select
@@ -699,11 +699,58 @@ import { Select } from '@douyinfe/semi-ui';
 );
 ```
 
+### 搜索框位置
+默认搜索框展示于 Select 的 Trigger 触发器上。通过 `searchPosition` 可以指定不同的位置，可选 `dropdown`、`trigger`。 在 v2.61.0后提供
+若希望定制位于 dropdown 中的 Input 搜索框的 placeholder，可以通过 `searchPlaceholder` 控制  
+若 `searchPosition` 值为 `trigger`，当showClear=true 时，点击Trigger区域的清空按钮，将同时清空已选项以及搜索框中的文本  
+若 `searchPosition` 值为 `dropdown`，当showClear=true 时，点击Trigger区域清空按钮，仅清空已选项。点击搜索框中的清空按钮，仅清空搜索文本  
+
+```jsx live=true
+import React from 'react';
+import { Select } from '@douyinfe/semi-ui';
+
+() => (
+    <>
+        <Select
+            filter
+            searchPosition='dropdown'
+            style={{ width: 200 }}
+            defaultValue={'ulikecam'}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的单选"
+        >
+            <Select.Option value="douyin">抖音</Select.Option>
+            <Select.Option value="ulikecam">轻颜相机</Select.Option>
+            <Select.Option value="jianying">剪映</Select.Option>
+            <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            filter
+            searchPosition='dropdown'
+            multiple
+            style={{ width: 300 }}
+            defaultValue={['semi-1']}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的多选"
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
+        </Select>
+    </>
+);
+```
+
 ### 远程搜索
 
 带有远程搜索，防抖请求，加载状态的多选示例  
 通过`filter`开启搜索能力  
-将`remote`设置为 true 关闭对当前数据的筛选过滤(在 v0.24.0 后提供)  
+将`remote`设置为 true 关闭对当前数据的筛选过滤
 通过动态更新`optionList`更新下拉菜单中的备选项  
 使用受控的 value 属性
 
@@ -1121,7 +1168,8 @@ class VirtualizeDemo extends React.Component {
 
 ### 自定义触发器
 
-如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示
+如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示  
+如果想保留搜索筛选能力，又不希望自己渲染 Input 相关的结构，可以同时通过 searchPosition='dropdown'，将默认的搜索框置于下拉列表中
 
 triggerRender 入参如下
 
@@ -1230,6 +1278,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 optionList={list}
                 onChange={value => setValList(value)}
                 multiple
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240 }}
             ></Select>
             <br />
@@ -1240,6 +1290,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 onChange={value => setVal(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240, marginTop: 20, outline: 0 }}
             ></Select>
         </div>
@@ -1388,13 +1440,13 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | 属性 | 说明                                                                                                                                    | 类型 | 默认值 | 版本 |
 | --- |---------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | allowCreate | 是否允许用户创建新条目，需配合 filter 使用。该项为true时不再响应 optionList的变更                                                                                  | boolean | false |
-| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                        | ReactNode |  | 1.15.0 |
+| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                        | ReactNode |  |  |
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                | boolean | true |
 | autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效                                                                                            | boolean | true | 2.3.0 |
 | autoFocus | 初始渲染时是否自动 focus                                                                                                                       | boolean | false |
 | borderless        | 无边框模式  >=2.33.0                                                                                                                       | boolean                         |           |
 | className | 类名                                                                                                                                    | string |  |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode | 2.25.0  |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode |   | 2.25.0
 | clickToHide | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                  | boolean | false |
 | defaultValue | 初始选中的值                                                                                                                                | string\|number\|array |  |
 | defaultOpen | 是否默认展开下拉列表                                                                                                                            | boolean | false |
@@ -1430,6 +1482,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                  | function(props) 入参详见 Demo |  |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                              | PopoverProps | {} | 2.22.0 |
 | remote | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                      | boolean | false |
+| searchPosition | filter开启时，搜索框的位置，默认在 trigger中，可以通过设为 'dropdown' 将搜索框置于下拉列表顶部。搭配 triggerRender 使用可以实现更高自由度的交互   | string | 'trigger' | 2.61.0
 | size | 大小，可选值 `default`/`small`/`large`                                                                                                      | string | 'default' |
 | style | 样式                                                                                                                                    | object |  |
 | stopPropagation | 是否阻止浮层上的点击事件冒泡                                                                                                                        | boolean | true |  |
@@ -1603,4 +1656,4 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 3,4,44,54,58,62,72
 ``` -->
 ## 相关物料
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>

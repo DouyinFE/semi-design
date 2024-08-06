@@ -10,7 +10,8 @@ export interface DescriptionsItemProps {
     className?: string;
     children?: React.ReactNode | (() => React.ReactNode);
     style?: React.CSSProperties;
-    itemKey?: React.ReactNode
+    itemKey?: React.ReactNode;
+    span?: number
 }
 
 const prefixCls = cssClasses.PREFIX;
@@ -30,38 +31,43 @@ export default class Item extends PureComponent<DescriptionsItemProps> {
     context: DescriptionsContextValue;
 
     render() {
-        const { itemKey, hidden, className, style, children, ...rest } = this.props;
-        const { align } = this.context;
+        const { itemKey, hidden, className, span, style, children, ...rest } = this.props;
+        const { align, layout } = this.context;
         if (hidden) {
             return null;
         }
+        const plainItem = <td className={`${prefixCls}-item`} colSpan={span || 1}>
+            <span className={keyCls}>
+                {itemKey}:
+            </span>
+            <span className={valCls}>
+                {typeof children === 'function' ? children() : children}
+            </span>
+        </td>;
+        const alignItem = <>
+            <th className={`${prefixCls}-item ${prefixCls}-item-th`}>
+                <span className={keyCls}>
+                    {itemKey}
+                </span>
+            </th>
+            <td className={`${prefixCls}-item ${prefixCls}-item-td`} colSpan={span? ((span * 2) - 1) : 1}>
+                <span className={valCls}>
+                    {typeof children === 'function' ? children() : children}
+                </span>
+            </td>
+        </>;
         const item = align === 'plain' ?
             (
                 <tr className={className} style={style} {...getDataAttr(rest)}>
-                    <td className={`${prefixCls}-item`}>
-                        <span className={keyCls}>
-                            {itemKey}:
-                        </span>
-                        <span className={valCls}>
-                            {typeof children === 'function' ? children() : children}
-                        </span>
-                    </td>
+                    {plainItem}
                 </tr>
             ) :
             (
                 <tr className={className} style={style} {...getDataAttr(rest)}>
-                    <th className={`${prefixCls}-item ${prefixCls}-item-th`}>
-                        <span className={keyCls}>
-                            {itemKey}
-                        </span>
-                    </th>
-                    <td className={`${prefixCls}-item ${prefixCls}-item-td`}>
-                        <span className={valCls}>
-                            {typeof children === 'function' ? children() : children}
-                        </span>
-                    </td>
+                    {alignItem}
                 </tr>
             );
-        return item;
+        const horizontalItem = align === 'plain' ? plainItem : alignItem;
+        return layout === 'horizontal' ? horizontalItem : item;
     }
 }

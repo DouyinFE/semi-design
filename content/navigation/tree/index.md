@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 44
+order: 49
 category: 导航类
 title:  Tree 树形控件
 icon: doc-tree
@@ -2286,6 +2286,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 |-------------   | ----------- | -------------- | -------------- | --------|
 | autoExpandParent | 是否自动展开父节点，默认为 false，当组件初次挂载时为 true | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | 是否允许拖拽到节点上时自动展开改节点 | boolean | true | 1.8.0 | 
+| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将包括该节点以及该子孙节点。（在leafOnly为false的情况下生效）| boolean | true | 2.61.0 | 
 | blockNode | 行显示节点 | boolean | true | - |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className | 类名 | string | - | - |
@@ -2303,7 +2304,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | keyMaps | 自定义节点中 key、label、value 的字段 | object |  - | 2.47.0 |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值,  data 参数自 v2.28.0 开始提供 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean) | false | - |
 | hideDraggingNode | 是否隐藏正在拖拽的节点的 dragImg | boolean | false | 1.8.0 | 
-| icon | 自定义图标 | ReactNode | - | - |
+| icon | 自定义图标 | ReactNode \| (props: TreeNodeProps)=>ReactNode | - | - |
 | labelEllipsis | 是否开启label的超出省略，默认虚拟化状态开启，如果有其他省略需求可以设置关闭 | boolean | false\|true(virtualized) | 1.8.0 |
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点 | boolean | false | 1.18.0 |  
 | loadData | 异步加载数据，需要返回一个Promise | (treeNode?: TreeNodeData) => Promise< void > |- |  1.0.0|

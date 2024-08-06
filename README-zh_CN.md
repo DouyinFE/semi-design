@@ -10,7 +10,7 @@
 <div align="center">
 
 [![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![FIGMA][figma-badge]][figma-url] ![Design Token][Design Token] 
-[![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url] [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
+[![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
 [![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
 
 
@@ -54,6 +54,7 @@
 - ⚙️ 稳定的质量保障，覆盖单元测试、E2E测试、视觉回归测试等多种测试手段
 - 🥳 支持 SSR
 - 👏 使用 TypeScript, 良好的类型定义，基于 Foundation / Adapter 架构，源码易于阅读 / 贡献
+- 📦 轻松兼容 web components，提供完整适配方案，更适合用于构建 SDK、浏览器插件等需要 DOM 隔离的场景
 
 # 🔥 安装
 

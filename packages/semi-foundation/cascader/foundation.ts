@@ -20,6 +20,7 @@ import {
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 export interface BasicData {
     data: BasicCascaderData;
@@ -257,6 +258,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
     }
 
+    handleKeyDown = (e: any) => {
+        if (e.key === ESC_KEY) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
+    }
+
     destroy() {
         this._adapter.unregisterClickOutsideHandler();
     }
@@ -391,7 +399,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             cacheValue = this._getCacheValue(keyEntities);
         }
 
-        const selectedValue = !this._isControlledComponent() ? cacheValue : value;
+        const selectedValue = !this._isControlledComponent() ? cacheValue : (isUndefined(value) ? [] : value);
         if (isValid(selectedValue)) {
             this.updateSelectedKey(selectedValue, keyEntities);
         } else {
@@ -402,8 +410,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     // call when props.value change
     handleValueChange(value: BasicValue) {
         const { keyEntities } = this.getStates();
-        const { multiple } = this.getProps();
-        !multiple && this.updateSelectedKey(value, keyEntities);
+        this.updateSelectedKey(value, keyEntities);
     }
 
     /**

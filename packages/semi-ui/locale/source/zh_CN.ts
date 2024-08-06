@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: '确定',
         cancel: '取消',
     },
+    Tabs: {
+        more: "更多",
+    },
     TimePicker: {
         placeholder: {
             time: '请选择时间',
@@ -167,6 +170,15 @@ const local: Locale = {
         downloadTip: '下载',
         adaptiveTip: '适应页面',
         originTip: '原始尺寸',
+    },
+    Chat: {
+        deleteConfirm: '确认删除该会话吗？',
+        clearContext: '上下文已清除',
+        copySuccess: '复制成功',
+        stop: '停止',
+        copy: '复制',
+        copied: '复制成功',
+        dropAreaText: '将文件放到这里',
     },
 };
 

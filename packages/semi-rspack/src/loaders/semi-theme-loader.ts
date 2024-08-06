@@ -1,16 +1,19 @@
 import { LoaderContext } from 'webpack';
 import resolve from 'enhanced-resolve';
+import componentVariablePathList from '../componentName';
 
 export interface SemiThemeLoaderOptions {
     prefixCls: string;
     variables: string;
     include: string;
-    name?: string
+    name?: string;
+    cssLayer?: boolean
 }
 
 export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptions>, source: string) {
     const query = this.getOptions();
     const theme = query.name || '@douyinfe/semi-theme-default';
+    const cssLayer = query.cssLayer ?? false as boolean;
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
     // inject once
@@ -57,10 +60,38 @@ export default function SemiThemeLoader(this: LoaderContext<SemiThemeLoaderOptio
     const prefixCls = query.prefixCls || 'semi';
 
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
-
+    let finalCSS: string = "";
     if (shouldInject) {
-        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}`;
+
+        const customStr = (() => {
+            let customStr = '';
+            try {
+                if (!resolve.sync(this.context, `${theme}/scss/custom.scss`)) {
+                    return '';
+                }
+                const collectAllVariablesPath: string[] = [
+                    ...componentVariablePathList,
+                ];
+                if (componentVariables) {
+                    collectAllVariablesPath.push(`${theme}/scss/local.scss`);
+                }
+                collectAllVariablesPath.push(`${theme}/scss/custom.scss`);
+                customStr = collectAllVariablesPath.map(p => {
+                    return `@import "~${p}";`;
+                }).join('\n') + '\n' + customStr;
+
+            } catch (e) {
+                customStr = ''; // fallback to empty string
+            }
+            return `body:not(:not(body)){${customStr}};`;
+        })();
+
+        finalCSS = `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
-        return `${scssVarStr}${prefixClsStr}${fileStr}`;
+        finalCSS = `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
+    if (cssLayer) {
+        finalCSS = `@layer semi{${finalCSS}}`;
+    }
+    return finalCSS;
 }

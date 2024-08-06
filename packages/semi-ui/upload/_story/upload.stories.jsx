@@ -1,7 +1,7 @@
 /* argus-disable unPkgSensitiveInfo */
 import React, { useState } from 'react';
 import FileCard from '../fileCard';
-import { Button, Upload, Toast, Tag } from '@douyinfe/semi-ui/index';
+import { Button, Upload, Toast, Tag, Switch } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
 import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
 
@@ -1247,14 +1247,17 @@ export const PreviewFallback = () => <PreviewFallbackDemo></PreviewFallbackDemo>
 
 PreviewFallback.story = {
   name: 'preview other type',
+  delay: 300
 };
 
 
 export const PastingDemo = () => {
+  const [addOnPasting, switchAddOnPasting] = useState(true);
+
   return (
     <div style={{ width: 800, height: 500 }}>
       <Upload
-        addOnPasting
+        addOnPasting={addOnPasting}
         action={action}
         // {...commonProps}
         onChange={(e) => console.log(e)}
@@ -1270,6 +1273,12 @@ export const PastingDemo = () => {
           .then(() => alert('clear'))
           .catch(error => console.log(error))
       }}>清空clipboard</Button>
+      <Switch
+        checked={addOnPasting}
+        onChange={e => switchAddOnPasting(e)}
+      >
+
+      </Switch>
     </div>
 
   )

@@ -48,7 +48,7 @@ class App extends React.Component {
                 lineHeight: 1.8,
               }}
             >
-              Semi Design 是由互娱社区前端团队与 UED
+              Semi Design 是由抖音前端团队与 UED
               团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
               Web 应用。
             </p>
@@ -80,7 +80,7 @@ class App extends React.Component {
                 lineHeight: 1.8,
               }}
             >
-              Semi Design 是由互娱社区前端团队与 UED
+              Semi Design 是由抖音前端团队与 UED
               团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
               Web 应用。
             </p>
@@ -1000,6 +1000,62 @@ export const IconStyle = () => {
         <TabPane tab={<Checkbox defaultChecked>test2</Checkbox>} itemKey="3">
           用于测试 Checkbox 下的 Radio 中的 semi-icon 是否收到影响
         </TabPane>
+    </Tabs>
+  )
+}
+
+export const Fix2239 = () => {
+  const [activeKey, setActiveKey] = useState('tab-0')
+  
+  return (
+    <div>
+      The overflow tab will also 'scrollIntoView' when the 'activeKey' changes.
+      <Tabs
+        style={{
+          width: '500px',
+          margin: '20px',
+        }}
+        type="card"
+        activeKey={activeKey}
+        collapsible
+        onChange={(e) => {
+          setActiveKey(e)
+        }}
+      >
+        {[...Array(10).keys()].map(i => (
+          <TabPane tab={`Tab-${i}`} itemKey={`tab-${i}`} key={i}>content of tab {i}</TabPane>
+        ))}
+      </Tabs>
+      <Button onClick={() => { setActiveKey('tab-0') }}>
+        To Tab-0
+      </Button>
+      <Button onClick={() => { setActiveKey('tab-7') }}>
+        To Tab-7
+      </Button>
+    </div>
+  );
+}
+
+Fix2239.story = {
+  name: 'Fix 2239',
+};
+
+export const ShowRestInDropdownDemo = () => {
+  return (
+    <Tabs
+      style={{
+        width: '60%',
+        margin: '20px',
+      }}
+      type="card"
+      collapsible
+      showRestInDropdown={false}
+    >
+      {[...Array(30).keys()].map(i => (
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={`${i}`}>
+          Content of card tab {i}
+        </TabPane>
+      ))}
     </Tabs>
   )
 }

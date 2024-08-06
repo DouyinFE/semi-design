@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 73
+order: 78
 category: 反馈类
 title: Spin 加载器
 icon: doc-spin

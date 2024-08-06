@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 58
+order: 63
 category: 展示类
 title: Modal 模态对话框
 icon: doc-modal
@@ -360,7 +360,7 @@ class modalDemo extends React.Component {
                     bodyStyle={{ overflow: 'auto', height: 200 }}
                 >
                     <p style={{ lineHeight: 1.8 }}>
-                        Semi Design 是由互娱社区前端团队与 UED
+                        Semi Design 是由抖音前端团队与 UED
                         团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
                         Web 应用。
                     </p>
@@ -640,6 +640,7 @@ function Demo(props = {}) {
 | mask | 是否显示遮罩                                                                                                    | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
 | maskStyle | 遮罩的样式                                                                                                     | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | motion | 动画效果开关                                                                                                    | boolean | true |
 | okButtonProps | 确认按钮的 props                                                                                               | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字                                                                                                   | string | 无 |
@@ -680,6 +681,7 @@ function Demo(props = {}) {
 | mask | 是否显示遮罩 | boolean | true |
 | maskClosable | 是否允许通过点击遮罩来关闭对话框 | boolean | true |
 | maskStyle | 遮罩的样式 | CSSProperties | 无 |
+| modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
 | okButtonProps | 确认按钮的 props | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字 | string | 无 |
 | okType | 确认按钮的类型 | string | primary |

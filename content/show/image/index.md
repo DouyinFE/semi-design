@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 56
+order: 61
 category: 展示类
 title: Image 图片
 icon: doc-image
@@ -471,6 +471,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | crossOrigin       | 透传给原生 img 标签的 crossorigin         | 'anonymous'｜'use-credentials'| - | |
 | fallback          | 加载失败容错地址或者自定义加载失败时的显示内容 | ReactNode  | - | |
 | height            | 图片显示高度                             | number            | - | |
+| imgCls            | 自定义样式类名，透传给 img 节点              | string            | - | |
+| imgStyle          | 自定义样式，透传给 img 节点                | CSSProperties     | - | |
 | onClick           | 点击图片的回调                            | (event: any) => void | - | |
 | onError           | 加载错误回调                              | (event: Event) => void | - | |
 | onLoad            | 加载成功回调                              | (event: Event) => void | - | |
@@ -505,6 +507,7 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | onChange          | 切换图片触发的事件                                                                                                                                        | (index: number) => void | - | |
 | onClose           | 点击关闭按钮时的回调函数                                                                                                                                     | () => void | - | |
 | onDownload        | 图片下载回调函数                                                                                                                                         | (src: string, index: number) => void | - | |
+| onDownloadError     | 图片下载错误回调函数                                                                                                                                | (src: string) => void | - | v2.54.0 |
 | onRotateLeft      | 旋转图片的回调                                                                                                                                          | (angle: number) => void | - | |
 | onNext            | 向后切换图片的回调                                                                                                                                        | (index: number) => void | - | |
 | onPrev            | 向前切换图片的回调                                                                                                                                        | (index: number) => void | - | |

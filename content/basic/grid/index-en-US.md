@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 13
+order: 15
 category: Basic
 title:  Grid
 icon: doc-grid

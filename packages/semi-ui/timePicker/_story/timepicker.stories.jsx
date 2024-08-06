@@ -375,3 +375,36 @@ export const Fix2082 = () => {
         </ConfigProvider>
     );
 };
+
+
+export const Fix2375 = () => {
+  const [dateString, setDateString] = useState();
+  const onChange = (time) => {
+    setDateString(time);
+  };
+
+  return ( 
+    <div>
+      <TimePicker
+        type="timeRange"
+        value={dateString}
+        onChange={onChange}
+        onChangeWithDateFirst={false}
+      /> 
+      <br/>
+      <br/>
+      <Form layout='horizontal' onValueChange={values=>console.log(values)}>
+        <Form.TimePicker
+          rules={[{ required: true, message: '请设置起始时间' }]}
+          //   validate={(fieldValue, values) => validateTimeRange(fieldValue, values)}
+          label="起始时间"
+          width="md"
+          field="time_range"
+          type="timeRange"
+          onChangeWithDateFirst={false}
+          onChange={(...props) => {console.log('props', props)}}
+        />
+      </Form>
+    </div> 
+  );
+};

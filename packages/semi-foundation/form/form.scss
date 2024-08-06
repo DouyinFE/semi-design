@@ -9,6 +9,8 @@ $col: #{$form}-col;
 $checkboxGroup: #{$prefix}-checkboxGroup;
 $radioGroup: #{$prefix}-radioGroup;
 $buttonRadioGroup: #{$prefix}-radioGroup-buttonRadio;
+$horizontalCardRadioGroup: #{$prefix}-radioGroup-horizontal-card;
+$verticalCardRadioGroup: #{$prefix}-radioGroup-vertical-card;
 
 $switch: #{$prefix}-switch;
 $rating: #{$prefix}-rating;
@@ -171,11 +173,17 @@ $rating: #{$prefix}-rating;
             padding-top: $spacing-form_label_posTop-paddingTop;
             padding-bottom: $spacing-form_label_posTop-paddingBottom;
         }
+        // no need to adjust height for button radio & card radio
+        .#{$buttonRadioGroup},
+        .#{$horizontalCardRadioGroup},
+        .#{$verticalCardRadioGroup} {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         .#{$field}-label-with-extra {
             display: flex;
             align-items: center;
         }
-
     }
 
     &[x-label-pos="left"] {
@@ -192,13 +200,19 @@ $rating: #{$prefix}-rating;
             display: flex;
             align-items: center;
         }
+        // labelAlign = right
+        .#{$field}-label-with-extra.#{$field}-label-right{
+            justify-content: flex-end;
+        }
         .#{$checkboxGroup},
         .#{$radioGroup} {
             padding-top: $spacing-form_label-paddingTop;
             padding-bottom: $spacing-form_label-paddingTop;
         }
-        // no need to adjust height for button radio, already 32px
-        .#{$buttonRadioGroup} {
+        // no need to adjust height for button radio, already 32px, no need to consider height of card radio
+        .#{$buttonRadioGroup},
+        .#{$horizontalCardRadioGroup},
+        .#{$verticalCardRadioGroup} {
             padding-top: 0;
             padding-bottom: 0;
         }
@@ -249,15 +263,16 @@ $rating: #{$prefix}-rating;
 
 .#{$form}-vertical {
     .#{$form}-field-group {
-        .#{$field} {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
         margin-top: 0;
         margin-bottom: 0;
         padding-top: $spacing-form_field_group_vertical-paddingTop;
         padding-bottom: $spacing-form_field_group_vertical-paddingBottom;
         overflow: hidden;
+        
+        .#{$field} {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
 }
 

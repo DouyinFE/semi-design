@@ -858,4 +858,23 @@ describe('DatePicker', () => {
         cy.get('.semi-input').eq(0).should('have.value', '2024-01-24');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-26');
     });
+
+    it('fixed selected is not update when close panel', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-controlled&viewMode=story');
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('15');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('10')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
+    });
 });
