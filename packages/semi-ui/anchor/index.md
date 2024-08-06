@@ -1,1 +1,0 @@
-../../../content/navigation/anchor/index.md

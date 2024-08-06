@@ -1,1 +1,0 @@
-../../../content/show/carousel/index.md

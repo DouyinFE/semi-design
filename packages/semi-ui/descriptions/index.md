@@ -1,1 +1,0 @@
-../../../content/show/descriptions/index.md

@@ -1,1 +1,0 @@
-../../../content/show/avatar/index.md

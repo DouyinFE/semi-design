@@ -1,1 +1,0 @@
-../../../content/plus/lottie/index-en-US.md
