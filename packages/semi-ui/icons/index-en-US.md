@@ -1,1 +1,0 @@
-../../../content/basic/icon/index-en-US.md
