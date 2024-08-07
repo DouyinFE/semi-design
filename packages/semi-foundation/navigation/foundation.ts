@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import NavItem from './NavItem';
-import { ItemProps } from './itemFoundation';
+import { ItemProps, ItemKey } from './itemFoundation';
 import { strings } from './constants';
 import { get } from 'lodash';
 import isNullOrUndefined from '../utils/isNullOrUndefined';
@@ -10,18 +10,18 @@ export interface ItemKey2ParentKeysMap {
 }
 
 export interface OnClickData {
-    itemKey: string | number;
+    itemKey: ItemKey;
     domEvent: any;
     isOpen: boolean
 }
 
 export interface OnSelectData extends OnClickData {
-    selectedKeys: (string | number)[];
+    selectedKeys: ItemKey[];
     selectedItems: ItemProps[]
 }
 
 export interface OnOpenChangeData extends OnClickData {
-    openKeys: (string | number)[]
+    openKeys: ItemKey[]
 }
 
 export interface NavItemType {
@@ -52,7 +52,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     }
 
     /* istanbul ignore next */
-    static getZeroParentKeys(itemKeysMap = {}, ...itemKeys: (string | number)[]) {
+    static getZeroParentKeys(itemKeysMap = {}, ...itemKeys: ItemKey[]) {
         const willAddKeys = [];
         if (itemKeys.length) {
             for (const itemKey of itemKeys) {
@@ -182,7 +182,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
         return [...willOpenKeys];
     }
 
-    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: (string | number)[] = []) {
+    getShouldOpenKeys(itemKeysMap: ItemKey2ParentKeysMap = {}, selectedKeys: ItemKey[] = []) {
         const willOpenKeySet = new Set();
 
         if (Array.isArray(selectedKeys) && selectedKeys.length) {
@@ -202,7 +202,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
 
     destroy() {}
 
-    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, itemKeys: (string | number)[]) {
+    selectLevelZeroParentKeys(itemKeysMap: ItemKey2ParentKeysMap, itemKeys: ItemKey[]) {
         const _itemKeysMap = isNullOrUndefined(itemKeysMap) ? this.getState('itemKeysMap') : itemKeysMap;
         // console.log(itemKeysMap);
 
@@ -236,7 +236,7 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
     }
 
     /* istanbul ignore next */
-    judgeIfOpen(openKeys: (string | number)[], items: NavItemType[]): boolean {
+    judgeIfOpen(openKeys: ItemKey[], items: NavItemType[]): boolean {
         let shouldBeOpen = false;
 
         const _openKeys = Array.isArray(openKeys) ? openKeys : openKeys && [openKeys];

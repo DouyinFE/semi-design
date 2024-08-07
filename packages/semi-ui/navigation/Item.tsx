@@ -9,6 +9,7 @@ import { cloneDeep, isSemiIcon } from '../_utils';
 import ItemFoundation, {
     ItemAdapter,
     ItemProps,
+    ItemKey,
     SelectedItemProps
 } from '@douyinfe/semi-foundation/navigation/itemFoundation';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/navigation/constants';
@@ -18,13 +19,12 @@ import NavContext, { NavContextType } from './nav-context';
 import Dropdown from '../dropdown';
 
 const clsPrefix = `${cssClasses.PREFIX}-item`;
-
 export interface NavItemProps extends ItemProps, BaseProps {
     children?: React.ReactNode;
     disabled?: boolean;
     forwardRef?: (ele: HTMLLIElement) => void;
     icon?: React.ReactNode;
-    itemKey?: React.ReactText;
+    itemKey?: ItemKey;
     level?: number;
     link?: string;
     linkOptions?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
