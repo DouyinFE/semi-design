@@ -19,7 +19,7 @@ import NavContext, { NavContextType } from './nav-context';
 import Dropdown from '../dropdown';
 
 const clsPrefix = `${cssClasses.PREFIX}-item`;
-export interface NavItemProps extends ItemProps, BaseProps {
+interface NavItemProps extends ItemProps, BaseProps {
     children?: React.ReactNode;
     disabled?: boolean;
     forwardRef?: (ele: HTMLLIElement) => void;
@@ -39,14 +39,15 @@ export interface NavItemProps extends ItemProps, BaseProps {
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>
 }
 
-export interface SelectedData extends SelectedItemProps<NavItemProps> {
+interface SelectedData extends SelectedItemProps<NavItemProps> {
     text?: React.ReactNode
 }
 
-export interface NavItemState {
+interface NavItemState {
     tooltipShow: boolean
 }
 
+export type { NavItemProps, ItemKey, NavItemState, SelectedData };
 export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
     static contextType = NavContext;
 
