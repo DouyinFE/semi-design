@@ -143,7 +143,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
             getIsOpen: () => {
                 const { itemKey } = this.props;
-                return Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(isNumber(itemKey) || isString(itemKey) ? itemKey : String(itemKey)));
+                return Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey));
             }
         };
     }

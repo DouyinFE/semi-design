@@ -4,10 +4,12 @@ import { IconSemiLogo } from '@douyinfe/semi-icons';
 import { IconDescriptions, IconIntro, IconTree, IconAvatar, IconTreeSelect, IconTabs } from '@douyinfe/semi-icons-lab';
 
 export default function NumberItemKey() {
+    const [openKeys, setOpenKeys] = useState([]);
     return (
         <Nav
             bodyStyle={{ height: 320 }}
-            // openKeys={[3]}
+            openKeys={openKeys}
+            onOpenChange={props => setOpenKeys(props.openKeys)}
             items={[
                 { itemKey: 1, text: '用户管理', icon: <IconAvatar /> },
                 { itemKey: 2, text: '活动管理', icon: <IconDescriptions /> },
