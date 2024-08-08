@@ -3,7 +3,7 @@ localeCode: en-US
 order: 23
 category: Plus
 title: Lottie Animation
-icon: doc-configprovider
+icon: doc-lottie
 dir: column
 brief: Display Lottie animation on the web page
 ---
@@ -18,9 +18,9 @@ The Lottie component can render Lottie animations conveniently and simply, and p
 
 Compared to using `lottie-web` directly, use the Semi Lottie component
 
-- No need to worry about the creation and destruction of animation containers
-- No need to worry about the life cycle of the animation itself
-- Easier to use with React projects
+-   No need to worry about the creation and destruction of animation containers
+-   No need to worry about the life cycle of the animation itself
+-   Easier to use with React projects
 
 ## Demos
 
@@ -29,10 +29,8 @@ Compared to using `lottie-web` directly, use the Semi Lottie component
 Lottie component supported from v2.62.0
 
 ```jsx
-import { Lottie } from "@douyinfe/semi-ui";
+import { Lottie } from '@douyinfe/semi-ui';
 ```
-
-
 
 ### Basic Usage
 
@@ -40,47 +38,47 @@ import { Lottie } from "@douyinfe/semi-ui";
 
 Pass path=your lottie json URL to the `params` props
 
-
-
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
 
-    return  <div>
-        <Lottie params={{ path: jsonURL }} width={"300px"} />
-    </div>;
+    return (
+        <div>
+            <Lottie params={{ path: jsonURL }} width={'300px'} height={'300px'} />
+        </div>
+    );
 };
-
 ```
-
 
 **When Lottie animation resource JSON needs to be packaged into the website code**
 
 Pass animationData=your lottie json object into the `params` props (the Demo request JSON below is only for demonstration. In actual projects, json should be manually imported instead of obtained through network requests, so that JSON animation resources can be packaged into the website code)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
-    const [data, setData] = useState("");
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
+    const [data, setData] = useState('');
 
     useEffect(() => {
         fetch(jsonURL)
-            .then(resp=>resp.json())
+            .then(resp => resp.json())
             .then(setData);
-
     }, []);
 
-    return <div>
-        <Lottie params={{ animationData: data }} width={"300px"} />
-    </div>;
+    return (
+        <div>
+            <Lottie params={{ animationData: data }} width={'300px'} height={'300px'} />
+        </div>
+    );
 };
-
 ```
 
 ### Params Other common parameters
@@ -102,7 +100,6 @@ Common parameters
 }
 ```
 
-
 ### Get the current animation instance
 
 Use `getAnimationInstance` to get the animation instance of the currently playing animation. The instance contains many methods for adjusting various parameters of the animation, such as playing and pausing, getting the current frame number, adjusting the playback speed, etc.
@@ -110,15 +107,26 @@ Use `getAnimationInstance` to get the animation instance of the currently playin
 For more information about the methods contained in the animation instance, please refer to the `lottie-web` [documentation](https://github.com/airbnb/lottie-web?tab=readme-ov-file#usage)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
 () => {
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
 
-    return <div>
-        <Lottie getAnimationInstance={(animation )=>{console.log(animation);}} params={{ path: jsonURL }} width={"300px"} />;
-    </div>
+    return (
+        <div>
+            <Lottie
+                getAnimationInstance={animation => {
+                    console.log(animation);
+                }}
+                params={{ path: jsonURL }}
+                width={'300px'}
+                height={'300px'}
+            />
+            ;
+        </div>
+    );
 };
 ```
 
@@ -129,27 +137,33 @@ Use `getLottie` Props to get global lottie, or use the static method `Lottie.get
 For more information about the methods on the global lottie, please refer to the `lottie-web` [documentation](https://github.com/airbnb/lottie-web?tab=readme-ov-file#usage)
 
 ```jsx live=true
-import { Lottie } from "@douyinfe/semi-ui";
-import React from "react";
+import { Lottie } from '@douyinfe/semi-ui';
+import React from 'react';
 
-()=>{
-    const jsonURL = "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json";
+() => {
+    const jsonURL =
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/lottie_demo.json';
 
-    console.log("lottie", Lottie.getLottie());
+    console.log('lottie', Lottie.getLottie());
 
-    return <div>
-        <Lottie getLottie={lottie=>console.log("lottie", lottie)} params={{ path: jsonURL }} width={"300px"} />;
-    </div>
+    return (
+        <div>
+            <Lottie
+                getLottie={lottie => console.log('lottie', lottie)}
+                params={{ path: jsonURL }}
+                width={'300px'}
+                height={'300px'}
+            />
+            ;
+        </div>
+    );
 };
-
 ```
-
-
 
 ### API
 
 | Property | Description | Type | Default value |
-|-----------|----------------------|--------------------------------------|-----|
+| --- | --- | --- | --- |
 | className | Class name | string | - |
 | params | Used to configure animation related parameters | Same as lottie-web lottie.loadAnimation input | - |
 | getAnimationInstance | Get the current animation AnimationItem | (animation:AnimationItem)=>void | - |
@@ -159,7 +173,3 @@ import React from "react";
 ## Design Tokens
 
 <DesignToken/>
-
-
-
-

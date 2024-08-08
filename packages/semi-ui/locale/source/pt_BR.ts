@@ -178,6 +178,15 @@ const local: Locale = {
         adaptiveTip: 'Adaptar à página',
         originTip: 'Tamanho original',
     },
+    Chat: {
+        deleteConfirm: 'Você tem certeza de que deseja excluir esta sessão?',
+        clearContext: 'Contexto limpo',
+        copySuccess: 'Copiado com sucesso',
+        stop: 'Parar',
+        copy: 'Copiar',
+        copied: 'Cópia bem sucedida',
+        dropAreaText: 'Coloque o arquivo aqui',
+    },
 };
 
 // 葡萄牙语

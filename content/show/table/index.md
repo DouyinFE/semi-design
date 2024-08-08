@@ -45,6 +45,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -54,6 +55,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -62,6 +64,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -107,6 +110,19 @@ function App() {
             dataIndex: 'size',
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -133,12 +149,13 @@ function App() {
         },
     ];
     const data = [
-        {
+         {
             key: '1',
             name: 'Semi Design 设计稿.fig',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -148,6 +165,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -156,6 +174,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -192,6 +211,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -201,6 +221,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -209,6 +230,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -293,6 +315,19 @@ function App() {
             dataIndex: 'size',
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -326,6 +361,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -335,6 +371,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -343,6 +380,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -353,6 +391,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'wait',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -362,6 +401,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -370,6 +410,7 @@ function App() {
             name: 'Semi D2C 设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'success',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -424,6 +465,7 @@ const raw = [
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
         size: '2M',
         owner: '姜鹏志',
+        status: 'success',
         updateTime: '2020-02-02 05:13',
         avatarBg: 'grey',
     },
@@ -433,6 +475,7 @@ const raw = [
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '2M',
         owner: '郝宣',
+        status: 'pending',
         updateTime: '2020-01-17 05:31',
         avatarBg: 'red',
     },
@@ -441,6 +484,7 @@ const raw = [
         name: '设计文档',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
+        status: 'wait',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
         avatarBg: 'light-blue',
@@ -450,6 +494,7 @@ const raw = [
         name: 'Semi D2C 设计文档可能也有点长所以也会显示Tooltip',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
+        status: 'success',
         owner: '姜琪',
         updateTime: '2020-01-26 11:01',
         avatarBg: 'green',
@@ -490,7 +535,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* 宽度计算方式为单元格设置宽度 - 非文本内容宽度 */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -501,6 +546,19 @@ function App() {
             title: '大小',
             dataIndex: 'size',
             width: 150,
+        },
+        {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
         },
         {
             title: '所有者',
@@ -565,7 +623,6 @@ render(App);
 -   受控模式下，分页的状态完全由外部传入，依据为是否往 Table 传入了 `pagination.currentPage` 这个字段。一般情况下，受控模式适用于远程拉取数据并渲染。
 -   非受控模式下，Table 默认会将传入的 `dataSource` 长度作为 `total` 传给 Pagination 组件，当然你也可以传入一个 `total` 字段来覆盖 Table 组件的取值，不过我们并不推荐用户在非受控分页模式下传入这个字段。
 
-> 非受控时传入自定义的 `pagination.total` 字段在 >=0.25.0 版本后才支持
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -603,6 +660,19 @@ const columns = [
         dataIndex: 'size',
         sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
         render: text => `${text} KB`,
+    },
+    {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text] || {};
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
     },
     {
         title: '所有者',
@@ -657,6 +727,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status: isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -725,6 +796,19 @@ const columns = [
         render: text => `${text} KB`,
     },
     {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text] || {};
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
+    },
+    {
         title: '所有者',
         dataIndex: 'owner',
         render: (text, record, index) => {
@@ -758,6 +842,7 @@ const getData = () => {
             name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
             owner: isSemiDesign ? '姜鹏志' : '郝宣',
             size: randomNumber,
+            status: isSemiDesign ? 'success' : 'wait',
             updateTime: new Date().valueOf() + randomNumber * DAY,
             avatarBg: isSemiDesign ? 'grey' : 'red',
         });
@@ -1133,6 +1218,19 @@ const columns = [
         render: text => `${text} KB`,
     },
     {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text];
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
+    },
+    {
         title: '所有者',
         dataIndex: 'owner',
         render: (text, record, index) => {
@@ -1183,6 +1281,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status:  isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -1402,6 +1501,19 @@ function App() {
             render: text => `${text} KB`,
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -1435,6 +1547,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 首页${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status:  isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });

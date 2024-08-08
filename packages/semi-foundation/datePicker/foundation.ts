@@ -436,7 +436,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      */
     resetInnerSelectedStates(willUpdateDates?: Date[]) {
         const { value } = this._adapter.getStates();
-        const needResetCachedSelectedValue = !this.isCachedSelectedValueValid(willUpdateDates) || this._adapter.needConfirm() && !this.clickConfirmButton;
+        const needResetCachedSelectedValue = isNullOrUndefined(willUpdateDates) || !this.isCachedSelectedValueValid(willUpdateDates) || this._adapter.needConfirm() && !this.clickConfirmButton;
         if (needResetCachedSelectedValue) {
             this.resetCachedSelectedValue(value);
         }

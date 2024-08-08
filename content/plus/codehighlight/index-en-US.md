@@ -3,7 +3,7 @@ localeCode: en-US
 order: 0
 category: Plus
 title:  CodeHighlight
-icon: doc-configprovider
+icon: doc-codehighlight
 dir: column
 brief: Highlight code blocks in the page according to syntax
 ---

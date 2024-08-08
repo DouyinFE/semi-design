@@ -16,6 +16,32 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.63.0 (2024-07-26)
+- 【Fix】
+    - fix the issue that when TimePicker selects a later time first, the invalid time value will be caused when onChangeWithDateFirst is false [#2376](https://github.com/DouyinFE/semi-design/pull/2376)
+- 【Style】
+    - Fixed the problem that when Cascader has no options and the emptyContent is hovering, the background color will exceed the popup layer area.
+    - fixed the problem that the use of declarations after nested rules is currently deprecated in Sass(version >= 1.77.7)  [#2366](https://github.com/DouyinFE/semi-design/issues/2366)
+    - Increase the priority of the font-size settings of uploaded wrong icons in the Upload component to prevent font-size inconsistencies in effect due to the order of compiled css files.
+- 【Chore】
+    - Fix the problem of missing getFormProps type definition in formAPI in Form[#2367](https://github.com/DouyinFE/semi-design/pull/2367)
+
+#### 🎉 2.63.0-beta.0 (2024-07-22)
+- 【New Component】
+    - Added `Chat` component for rendering conversation list [#2248](https://github.com/DouyinFE/semi-design/pull/2248)
+- 【Feat】
+    - Form adds stopPropagation to prevent the issue of submit and reset events triggering in multiple levels of containers at the same time in nested Form scenarios [#2355](https://github.com/DouyinFE/semi-design/issues/2355)
+    - Upload support afterUpload return url modification preview link [#2346](https://github.com/DouyinFE/semi-design/pull/2346)
+- 【Fix】
+    - Fixed Form ArrayField addWithInitValue without scope isolation for imported parameter cloning  [#2351](https://github.com/DouyinFE/semi-design/issues/2351)
+    - Fixed the problem that the width and height are constant when using renderThumbnail with the Image component in Upload  [#2343](https://github.com/DouyinFE/semi-design/issues/2343)
+
+#### 🎉 2.62.1 (2024-07-16)
+- 【Fix】
+  - Fixed the issue that when TreeSelect enables showFilteredOnly and the search box is in the trigger, the treeSelect panel does not display correctly when it is opened again after searching [#2345](https://github.com/DouyinFE/semi-design/pull/2345)
+  - Fixed the issue that when Upload uses renderThumbnail with the Image component, the width and height remain constant [#2343](https://github.com/DouyinFE/semi-design/issues/2343) 
+  - Fixed the issue that Form does not pass the id attribute to the form element DOM
+
 #### 🎉 2.62.0 (2024-07-12)
 - 【Fix】
   - When the carousel has only one child and autoPlay is true, no switching operation is performed [#2334](https://github.com/DouyinFE/semi-design/pull/2334)
@@ -26,9 +52,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.62.0-beta.0 (2024-07-05)
 - 【New Component】
-    - Added new verification code input component pinCode for quickly and conveniently entering verification codes  [#2130 ](https://github.com/DouyinFE/semi-design/issues/2130)
-    - Added Lottie component for convenient rendering of Lottie animations
-    - Added CodeHighlight code highlighting component, used to highlight code displayed in web pages
+    - Added new verification code input component `pinCode` for quickly and conveniently entering verification codes  [#2130 ](https://github.com/DouyinFE/semi-design/issues/2130)
+    - Added `Lottie` component for convenient rendering of Lottie animations
+    - Added `CodeHighlight` code highlighting component, used to highlight code displayed in web pages
 - 【Feat】
     - TreeSelect, Cascader supports closing the popup layer through the esc key
 - 【Style】

@@ -100,6 +100,7 @@ $module: #{$prefix}-image;
         align-items: center;
         padding: $spacing-image_preview_header-paddingY $spacing-image_preview_header-paddingX;
         z-index: $z-image_preview_header;
+        pointer-events: none;
 
         &-title {
             flex: 1;
@@ -113,6 +114,7 @@ $module: #{$prefix}-image;
             width: $width-image_preview_header_close;
             height: $height-image_preview_header_close;
             border-radius: 50%;
+            pointer-events: auto;
 
             &:hover {
                 background-color: $color-image_header_close-bg;
@@ -192,11 +194,14 @@ $module: #{$prefix}-image;
     &-image {
         position: relative;
         height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &-img {
             position: absolute;
             transform: scale3d($transform_scale3d-image_preview_image_img) $transform_rotate-image_preview_image_img;
-            transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
+            // transition: transform $transition_duration-image_preview_image_img  $transition_delay-image_preview_image_img;
             z-index: 0;
             user-select: none;
         }

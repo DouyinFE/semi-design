@@ -1,1 +1,0 @@
-../../../content/input/datepicker/index-en-US.md

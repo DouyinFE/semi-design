@@ -319,6 +319,7 @@ $module-list: #{$prefix}-scrolllist;
         @include font-size-small;
         font-weight: $font-weight-bold;
         color: $color-datepicker_day-text-default;
+        border-bottom: $width-datepicker-border solid $color-datepicker_border-bg-default;
 
         &-item {
             width: $width-datepicker_day;
@@ -327,8 +328,6 @@ $module-list: #{$prefix}-scrolllist;
             text-align: center;
             display: inline-block;
         }
-
-        border-bottom: $width-datepicker-border solid $color-datepicker_border-bg-default;
     }
 
     // 月面板-月周

@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 31
 category: 输入类
 title: PinCode 验证码输入
-icon: doc-input
+icon: doc-pincode
 width: 60%
 brief: 用于便捷直观地输入验证码
 ---

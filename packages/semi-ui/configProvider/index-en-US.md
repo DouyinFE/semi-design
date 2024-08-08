@@ -1,1 +1,0 @@
-../../../content/other/configprovider/index-en-US.md

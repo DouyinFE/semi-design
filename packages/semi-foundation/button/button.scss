@@ -243,12 +243,11 @@ $module: #{$prefix}-button;
 
     &-disabled {
         color: $color-button_disabled_solid-text-default;
+        cursor: not-allowed;
 
         &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
             color: $color-button_disabled-text-hover;
         }
-
-        cursor: not-allowed;
 
         &.#{$module}-light,
         &.#{$module}-borderless {
