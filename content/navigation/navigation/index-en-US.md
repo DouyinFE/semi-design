@@ -760,16 +760,16 @@ function NavApp (props = {}) {
 
 ### Nav.Item
 
-| Properties   | Description                                                                                                       | Type                                                                 | Default  | Version |
+| Properties   | Description                                                                                                       | Type                                                                 | Default  |
 | ------------ | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | -------- | ------- |
-| disabled     | Disabled state                                                                                                    | boolean                                                              | false    | 1.17.0  |
-| icon         | Navigation project icon name or component                                                                         | ReactNode                                                            |          |         |
-| indent       | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean                                                              | false    |         |
-| itemKey      | Navigation project only key                                                                                       | string                                                               | ""       |         |
-| level        | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number                                                               |          | 1.27.0  |
-| link         | Navigation item href link, when imported, the navigation item will be wrapped with an a tag                       | string                                                               | -        | 1.0.0   |
-| linkOptions  | Parameters transparently passed to the a tag                                                                      | object                                                               | -        | 1.0.0   |
-| text         | Navigation project copy or element                                                                                | string \| ReactNode                                                  | ""       |         |
+| disabled     | Disabled state                                                                                                    | boolean                                                              | false    |
+| icon         | Navigation project icon name or component                                                                         | ReactNode                                                            |          | 
+| indent       | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean                                                              | false    |
+| itemKey      | Unique item identifier, no duplication allowed                                                                    | string                                                               | ""       |
+| level        | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number                                                               |          |
+| link         | Navigation item href link, when imported, the navigation item will be wrapped with an a tag                       | string                                                               | -        |
+| linkOptions  | Parameters transparently passed to the a tag                                                                      | object                                                               | -        |
+| text         | Navigation project copy or element                                                                                | string \| ReactNode                                                  | ""       |
 | onClick      | Callback of click                                                                                                 | function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) | () => {} |
 | onMouseEnter | Callback of mouse enter event                                                                                     | function(e) => {}                                                    | () => {} |
 | onMouseLeave | Callback of mouse leave event                                                                                     | function(e) => {}                                                    | () => {} |
@@ -778,14 +778,14 @@ function NavApp (props = {}) {
 
 | Properties    | Description                                                                                                       | Type                | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------- | -------- |
-| disabled      | Disabled state                                                                                                    | boolean             | false    | 1.17.0 |
-| dropdownStyle | Style of dropdown layer                                                                                           | CSSProperties       |          |        |
+| disabled      | Disabled state                                                                                                    | boolean             | false    |
+| dropdownStyle | Style of dropdown layer                                                                                           | CSSProperties       |          |
 | icon          | Navigation project icon name or component                                                                         | ReactNode           |          |
 | indent        | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean             | false    |
 | isCollapsed   | Whether it is a controlled attribute in the collapsed state, only `mode = "vertical"`                             | boolean             | false    |
 | isOpen        | Control open state                                                                                                | boolean             | false    |
 | itemKey       | Navigation project only key                                                                                       | string              | ""       |
-| level         | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number              | 1.27.0   |
+| level         | The nesting level of the current item. When limitIndent is true, it is used to customize the indentation position | number              |          |
 | maxHeight     | max height                                                                                                        | number              | 999      |
 | text          | Navigation project copy or component                                                                              | string \| ReactNode | ""       |
 | onMouseEnter  | Callback of mouse enter event                                                                                     | function(e) => {}   | () => {} |
@@ -797,8 +797,8 @@ function NavApp (props = {}) {
 | ----------- | ------------------------------------------------------------------------------------------- | ------------------- | ------- | ------- |
 | children    | Sub element                                                                                 | ReactNode           |         |         |
 | className   | Outermost style name                                                                        | string              |         |         |
-| link        | Navigation item href link, when imported, the navigation item will be wrapped with an a tag | string              | -       | 1.0.0   |
-| linkOptions | Parameters transparently passed to the a tag                                                | object              | -       | 1.0.0   |
+| link        | Navigation item href link, when imported, the navigation item will be wrapped with an a tag | string              | -       |         |
+| linkOptions | Parameters transparently passed to the a tag                                                | object              | -       |         |
 | logo        | Logo, can be a string or component                                                          | string \| ReactNode |         |         |
 | style       | Outermost style                                                                             | object              |         |         |
 | text        | Logo copy, which can be a string or component                                               | string \| ReactNode |         |         |
