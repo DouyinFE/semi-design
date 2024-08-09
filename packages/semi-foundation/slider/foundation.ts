@@ -686,9 +686,14 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         }
     }
 
+    _noTooltip = () => {
+        const { tipFormatter, tooltipVisible } = this.getProps();
+        return tipFormatter === null || tooltipVisible === false;
+    }
+
     onFocus = (e: any, handler: 'min'| 'max') => {
-        const { tipFormatter } = this.getProps();
-        if (tipFormatter === null) {
+        const noTooltip = this._noTooltip();
+        if (noTooltip) {
             return;
         }
         handlePrevent(e);
@@ -707,8 +712,8 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     onBlur = (e: any, handler: 'min'| 'max') => {
-        const { tipFormatter } = this.getProps();
-        if (tipFormatter === null) {
+        const noTooltip = this._noTooltip();
+        if (noTooltip) {
             return;
         }
         const { firstDotFocusVisible, secondDotFocusVisible } = this.getStates();
