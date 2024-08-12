@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.64.0-beta.0 (2024-08-05)
+- 【Feat】
+    - Calendar 日视图中起止时间完全相同的事件支持并排显示，不互相遮盖 [#2393](https://github.com/DouyinFE/semi-design/pull/2393)
+    - 新增颜色选择器 ColorPicker 组件，用户快速选择颜色，支持滴管屏幕取色
+- 【Fix】
+    - 修复鼠标滚轮缩放图片后，拖动了图片，再次缩放后会重置回中心位置的问题 [@l123wx](https://github.com/l123wx) [#2293](https://github.com/DouyinFE/semi-design/pull/2293)
+    - 修复 Modal 在 SSR 时 document 不存在的问题 （影响范围 2.62.0~2.63.0） [#2395](https://github.com/DouyinFE/semi-design/pull/2395)
+    - 修复 DatePicker 选中日期在关闭面板后未重置问题  [#2387](https://github.com/DouyinFE/semi-design/issues/2387) [#2388](https://github.com/DouyinFE/semi-design/pull/2388)
+    - 当 Tree 的 searchRender 为 false 时 ，去除顶部多余的高度. [#2386](https://github.com/DouyinFE/semi-design/pull/2386)
+    - 修复 Upload 在组件卸载后，仍然可能因为上传异步请求触发 onChange、onError、onSuccess回调的问题  [#2391](https://github.com/DouyinFE/semi-design/pull/2391)
 
 #### 🎉 2.63.0 (2024-07-26)
 - 【Fix】

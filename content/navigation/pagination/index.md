@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 46
+order: 47
 category: 导航类
 title:  Pagination 翻页器
 icon: doc-pagination
