@@ -209,22 +209,24 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
 
         if (e && imageDOM && e.target === imageDOM) {
-            switch (rotation % 360) {
+            let angle = rotation % 360;
+            angle < 0 && (angle = 360 + angle);
+            switch (angle) {
                 case 0:
                     newTranslateX = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.x;
                     newTranslateY = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.y;
                     break;
-                case -90:
-                    newTranslateX = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.x; 
-                    newTranslateY = (0.5 * width - e.offsetX ) * (1 - newZoom / currZoom) + translate.y;
+                case 90:
+                    newTranslateX = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.y;
                     break;
-                case -180:
+                case 180:
                     newTranslateX = (0.5 * width - e.offsetX) * (1 - newZoom / currZoom) + translate.x;
                     newTranslateY = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.y;
                     break;
-                case -270:
-                    newTranslateX = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.x;
-                    newTranslateY = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.y;
+                case 270:
+                    newTranslateX = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.x; 
+                    newTranslateY = (0.5 * width - e.offsetX ) * (1 - newZoom / currZoom) + translate.y;
                     break;
                 default:
                     break;
