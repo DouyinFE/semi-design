@@ -209,23 +209,28 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         };
 
         if (e && imageDOM && e.target === imageDOM) {
-            const { x: offsetX, y: offsetY } = this.calcBoundingRectMouseOffset({
-                width,
-                height,
-                offset: {
-                    x: e.offsetX,
-                    y: e.offsetY
-                },
-                rotation
-            });
-
-            const imageNewCenterX = e.clientX + (imageBound.width / 2 - offsetX) * changeScale;
-            const imageNewCenterY = e.clientY + (imageBound.height / 2 - offsetY) * changeScale;
-            const containerCenterX = this.containerWidth / 2;
-            const containerCenterY = this.containerHeight / 2;
-
-            newTranslateX = imageNewCenterX - containerCenterX;
-            newTranslateY = imageNewCenterY - containerCenterY;
+            let angle = rotation % 360;
+            angle < 0 && (angle = 360 + angle);
+            switch (angle) {
+                case 0:
+                    newTranslateX = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 90:
+                    newTranslateX = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 180:
+                    newTranslateX = (0.5 * width - e.offsetX) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 270:
+                    newTranslateX = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.x; 
+                    newTranslateY = (0.5 * width - e.offsetX ) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                default:
+                    break;
+            }
         }
 
         const newTranslate = this.getSafeTranslate(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
