@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.64.0 (2024-08-12)
+- 【Feat】
+  - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection. [#2218](https://github.com/DouyinFE/semi-design/pull/2218)
+- 【Fix】
+  - Fix Tooltip triggerDOM not defined in some case  [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
+
+
 #### 🎉 2.64.0-beta.0 (2024-08-05)
 - 【Feat】
     - Events with exactly the same start and end times in Calendar day view are displayed side by side without covering each other
