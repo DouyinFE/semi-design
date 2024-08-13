@@ -22,7 +22,7 @@ export interface CopyableProps extends BaseProps {
     successTip?: React.ReactNode;
     icon?: React.ReactNode;
     onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void;
-    render?(copied: boolean, doCopy: (e: React.MouseEvent) => void, configs: CopyableConfig): React.ReactNode
+    render?: (copied: boolean, doCopy: (e: React.MouseEvent) => void, configs: CopyableConfig) => React.ReactNode
 }
 interface CopyableState {
     copied: boolean;
