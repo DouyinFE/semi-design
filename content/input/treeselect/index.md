@@ -1420,7 +1420,7 @@ function Demo() {
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
 | insetLabel | 前缀标签别名，主要用于 Form                                                                                                                     | ReactNode | - |
-| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true | 
+| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                            | boolean | false |
 | loadData | 异步加载数据，需要返回一个Promise                                                                                                                 | (treeNode: TreeNodeData) => Promise |- |
 | loadedKeys | （受控）已经加载的节点，配合 loadData 使用                                                                                                       | Set< string > | - |
