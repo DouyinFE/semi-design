@@ -112,6 +112,7 @@
         "terser-webpack-plugin": "^4.2.3",
         "through2": "^4.0.2",
         "ts-loader": "^5.4.5",
-        "webpackbar": "^5.0.0-3"
+        "webpackbar": "^5.0.0-3",
+        "webpack": "^5.77.0"
     }
 }
