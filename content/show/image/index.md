@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 61
+order: 62
 category: 展示类
 title: Image 图片
 icon: doc-image

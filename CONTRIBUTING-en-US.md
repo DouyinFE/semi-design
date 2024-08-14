@@ -22,8 +22,12 @@ cd semi-design
 git checkout -b <TOPIC_BRANCH_NAME>
 ```
 >Before installing the enviroment,make sure that there is a dependency of `lerna` and `yarn` locally, if not, should run:
+```base
+corepack enable
+```
+
 ```bash
-npm install --global lerna yarn
+npm install --global lerna
 ```
  - Install the dependencies
 ```bash

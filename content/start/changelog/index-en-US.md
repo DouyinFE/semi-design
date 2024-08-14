@@ -16,6 +16,25 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.64.0 (2024-08-12)
+- 【Feat】
+  - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection. [#2218](https://github.com/DouyinFE/semi-design/pull/2218)
+- 【Fix】
+  - Fix Tooltip triggerDOM not defined in some case  [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
+
+
+#### 🎉 2.64.0-beta.0 (2024-08-05)
+- 【Feat】
+    - Events with exactly the same start and end times in Calendar day view are displayed side by side without covering each other
+    - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection.
+- 【Fix】
+    - Fixed an issue where after the mouse wheel zoomed the picture, dragging the picture would reset to the center position after zooming again.[@l123wx](https://github.com/l123wx) [#2293](https://github.com/DouyinFE/semi-design/pull/2293)
+    - fix modal 'document not defined' in ssr. (Bug version 2.62.0~2.63.0)
+    - fixed DatePicker selected value is not reset after close panel  [#2387](https://github.com/DouyinFE/semi-design/issues/2387)
+    - When the searchRender of the Tree is false, remove the excess height at the top
+    - Fixed the issue that onChange, onError, and onSuccess callbacks may still be triggered by asynchronous upload requests after the component is uninstalled 
+
 #### 🎉 2.63.0 (2024-07-26)
 - 【Fix】
     - fix the issue that when TimePicker selects a later time first, the invalid time value will be caused when onChangeWithDateFirst is false [#2376](https://github.com/DouyinFE/semi-design/pull/2376)
