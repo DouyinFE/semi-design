@@ -152,10 +152,8 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         };
     }
 
-    ref: React.MutableRefObject<any>;
     constructor(props: BaseRowProps) {
         super(props);
-        this.ref = createRef();
         this.foundation = new TableRowFoundation(this.adapter);
     }
 
@@ -189,10 +187,6 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         }
         return false;
     }
-
-    _cacheNode = (node: any) => {
-        this.ref.current = node;
-    };
 
     // Pass true to render the tree-shaped expand button
     renderExpandIcon = (record: Record<string, any>) => {
@@ -344,10 +338,11 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
             expandableRow,
             level,
             expandedRow,
-            isSection
+            isSection,
+            rowKey
         } = this.props;
 
-        const BodyRow: any = components.body.row;
+        const BodyRow = components.body.row;
 
         const { className: customClassName, style: customStyle, ...rowProps } = onRow(record, index) || {};
 
@@ -356,9 +351,9 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         const baseRowStyle = { ...style, ...customStyle };
 
         const rowCls =
-            typeof replaceClassName === 'string' && replaceClassName.length ?
-                replaceClassName :
-                classnames(
+            typeof replaceClassName === 'string' && replaceClassName.length
+                ? classnames(replaceClassName, customClassName)
+                : classnames(
                     className,
                     `${prefixCls}-row`,
                     {
@@ -394,7 +389,8 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                 {...rowProps}
                 style={baseRowStyle}
                 className={rowCls}
-                ref={this._cacheNode}
+                // used for dnd-kit sortable
+                data-row-key={rowKey}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}

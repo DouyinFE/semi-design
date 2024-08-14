@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 36
+order: 42
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -630,7 +630,8 @@ import { IconUpload } from '@douyinfe/semi-icons';
 
 ### 图片墙
 
-设置 `listType = 'picture'`，用户可以上传图片并在列表中显示缩略图
+设置 `listType = 'picture'`，用户可以上传图片并在列表中显示缩略图  
+如果通过 defaultFileList 或 fileList 设置已上传的文件列表时，会自动读取对象数组中的 url 属性用于展示图片
 
 ```jsx live=true width=48%
 import React from 'react';
@@ -784,6 +785,7 @@ import { IconPlus, IconEyeOpened } from '@douyinfe/semi-icons';
 
 ### 图片墙设置宽高
 通过设置 picHeight, picWidth （ v2.42 后提供），可以统一设置图片墙元素的宽高
+如果同时使用 `renderThumbnail` return Image 组件来实现点击放大预览，你需要同时指定 Image 组件的 width 和 height
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -813,6 +815,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
                 defaultFileList={defaultFileList}
                 picHeight={110}
                 picWidth={200}
+                renderThumbnail={(file) => (<Image src={file.url} width={200} height={110} />)}
             >
                 <IconPlus size="extra-large" style={{ margin: 4 }} />
                 点击添加图片
@@ -821,8 +824,6 @@ import { IconPlus } from '@douyinfe/semi-icons';
     );
 };
 ```
-
-
 
 设置 `hotSpotLocation` 自定义点击热区的顺序，默认在照片墙列表结尾
 
@@ -1186,15 +1187,21 @@ class AsyncBeforeUploadDemo extends React.Component {
 
 可以通过 `afterUpload` 钩子，对文件状态，校验信息，文件名进行更新。  
 `({ response: any, file: FileItem, fileList: Array<FileItem> }) => afterUploadResult`  
-afterUpload 在上传完成后(xhr.onload)且没有发生错误的情况下触发，需返回一个 Object 对象（不支持异步返回），具体结构如下
+`afterUpload` 在上传完成后(`xhr.onload`)且没有发生错误的情况下触发，需返回一个 Object 对象（不支持异步返回），具体结构如下
 
 ```ts
 // afterUploadResult:
 {
-    status?: 'success' | 'uploadFail' | 'validateFail' | 'validating' | 'uploading' | 'wait',
-    validateMessage?: React.ReactNode | string, // 文件的校验信息
-    autoRemove: boolean, // 是否从fileList中移除该文件，默认为false
-    name: string,
+    status?: 'success' | 'uploadFail' | 'validateFail' | 'validating' | 'uploading' | 'wait';
+    // 文件的校验信息
+    validateMessage?: React.ReactNode | string;
+    // 是否从fileList中移除该文件，默认为false
+    autoRemove?: boolean;
+    // 文件的名称
+    name?: string;
+    // 预览文件的url，一般为当次上传请求中 Server 接收到文件后返回的存储地址，v2.63后支持传入。
+    // 之前的版本也可以通过 onChange 中结合 status 手动更新受控 fileList 中的属性实现
+    url?: string 
 }
 ```
 
@@ -1203,14 +1210,8 @@ import React from 'react';
 import { Upload, Button } from '@douyinfe/semi-ui';
 import { IconUpload } from '@douyinfe/semi-icons';
 
-class ValidateDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.count = 0;
-    }
-
-    afterUpload({ response, file }) {
+() => {
+    const afterUpload = ({ response, file }) => {
         // 可以根据业务接口返回，决定当次上传是否成功
         if (response.status_code === 200) {
             return {
@@ -1218,21 +1219,20 @@ class ValidateDemo extends React.Component {
                 status: 'uploadFail',
                 validateMessage: '内容不合法',
                 name: 'RenameByServer.jpg',
+                url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg'
             };
         } else {
             return {};
         }
-    }
+    };
 
-    render() {
-        return (
-            <Upload action="https://api.semi.design/upload" afterUpload={this.afterUpload}>
-                <Button icon={<IconUpload />} theme="light">
-                    点击上传
-                </Button>
-            </Upload>
-        );
-    }
+    return (
+        <Upload action="https://api.semi.design/upload" afterUpload={afterUpload}>
+            <Button icon={<IconUpload />} theme="light">
+                点击上传
+            </Button>
+        </Upload>
+    )
 }
 ```
 

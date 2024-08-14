@@ -9,7 +9,7 @@ export default function Demo() {
     const [selectedKeys, setSelectedKeys] = useState(['入驻审核']);
     const navItems = useMemo(
         () => [
-            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+            { itemKey: 'user', text: '用户管理', icon: <IconUser />, 'data-key': 'user' },
             { itemKey: 'union', text: '公会中心', icon: <IconStar /> },
             {
                 itemKey: 'union-management',

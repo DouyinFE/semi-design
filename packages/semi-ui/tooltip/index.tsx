@@ -1,5 +1,5 @@
-import React, { isValidElement, cloneElement, CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
+import React, { isValidElement, cloneElement, CSSProperties, ReactInstance } from 'react';
+import ReactDOM, { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { throttle, noop, get, omit, each, isEmpty, isFunction, isEqual } from 'lodash';
@@ -20,7 +20,13 @@ import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { isHTMLElement } from '../_base/reactUtils';
-import { getActiveElement, getDefaultPropsFromGlobalConfig, getFocusableElements, stopPropagation } from '../_utils';
+import {
+    getActiveElement,
+    getDefaultPropsFromGlobalConfig,
+    getFocusableElements,
+    runAfterTicks,
+    stopPropagation,
+} from '../_utils';
 import Portal from '../_portal/index';
 import ConfigContext, { ContextValue } from '../configProvider/context';
 import TriangleArrow from './TriangleArrow';
@@ -349,9 +355,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     let popupEl = this.containerEl && this.containerEl.current;
                     el = ReactDOM.findDOMNode(el as React.ReactInstance);
                     popupEl = ReactDOM.findDOMNode(popupEl as React.ReactInstance) as HTMLDivElement;
+                    const target = e.target as Element;
+                    const path = (e as any).composedPath && (e as any).composedPath() || [target];
+                    const isClickTriggerToHide = this.props.clickTriggerToHide ? el && (el as any).contains(target) || path.includes(el) : false;
                     if (
-                        (el && !(el as any).contains(e.target) && popupEl && !(popupEl as any).contains(e.target)) ||
-                        (this.props.clickTriggerToHide && el && (el as any).contains(e.target))
+                        el && !(el as any).contains(target) && 
+                        popupEl && !(popupEl as any).contains(target) && 
+                        !(path.includes(popupEl) || path.includes(el)) ||
+                        isClickTriggerToHide
                     ) {
                         this.props.onClickOutSide(e);
                         cb();
@@ -446,6 +457,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             setId: () => {
                 this.setState({ id: getUuidShort() });
+            },
+            getTriggerDOM: ()=>{
+                if (this.triggerEl.current) {
+                    return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
+                } else {
+                    return null;
+                }
+
             }
         };
     }
@@ -454,6 +473,16 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = true;
         this.getPopupContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         this.foundation.init();
+        runAfterTicks(()=>{
+            let triggerEle = this.triggerEl.current;
+            if (triggerEle) {
+                if (!(triggerEle instanceof HTMLElement)) {
+                    triggerEle = findDOMNode(triggerEle as ReactInstance);
+                }
+            }
+            this.foundation.updateStateIfCursorOnTrigger(triggerEle as HTMLElement);
+        }, 1);
+
     }
 
     componentWillUnmount() {
@@ -536,7 +565,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         const triangleCls = classNames([`${prefixCls}-icon-arrow`]);
         const bgColor = get(style, 'backgroundColor');
 
-        const iconComponent = placement.includes('left') || placement.includes('right') ?
+        const iconComponent = placement?.includes('left') || placement?.includes('right') ?
             <TriangleArrowVertical /> :
             <TriangleArrow />;
         if (showArrow) {

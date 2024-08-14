@@ -20,7 +20,7 @@ import type {
     BaseIncludeGroupRecord,
     BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
-import type { ScrollDirection, CSSDirection } from 'react-window';
+import type { ScrollDirection, CSSDirection, VariableSizeList } from 'react-window';
 import type { ColumnFilterProps } from './ColumnFilter';
 
 export interface TableProps<RecordType extends Record<string, any> = any> extends BaseProps {
@@ -190,7 +190,7 @@ export interface OnRowReturnObject extends Omit<React.DetailedHTMLProps<React.HT
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void
 }
-export interface OnGroupedRowReturnObject extends Omit<React.HTMLAttributes<HTMLTableRowElement>, 'className'> {
+export interface OnGroupedRowReturnObject extends React.HTMLAttributes<HTMLTableRowElement> {
     [x: string]: any;
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent) => void
@@ -208,29 +208,31 @@ export interface Data {
     key?: string | number
 }
 
+export type TableComponent<P> = React.ComponentType<P> | React.ForwardRefExoticComponent<P> | keyof React.ReactHTML;
+
 export interface TableComponents {
-    table?: ReactNode;
+    table?: TableComponent<any>;
     header?: {
-        outer?: ReactNode;
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode
+        outer?: TableComponent<any>;
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>
     };
     body?: {
-        outer?: ReactNode;
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode;
+        outer?: TableComponent<any>;
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>;
         colgroup?: {
-            wrapper?: ReactNode;
-            col?: ReactNode
+            wrapper?: TableComponent<any>;
+            col?: TableComponent<any>
         }
     };
     footer?: {
-        wrapper?: ReactNode;
-        row?: ReactNode;
-        cell?: ReactNode;
-        outer?: ReactNode
+        wrapper?: TableComponent<any>;
+        row?: TableComponent<any>;
+        cell?: TableComponent<any>;
+        outer?: TableComponent<any>
     }
 }
 
@@ -246,6 +248,8 @@ export interface RowSelectionProps<RecordType> {
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    onCell?: ColumnProps['onCell'];
+    onHeaderCell?: ColumnProps['onHeaderCell'];
     renderCell?: RowSelectionRenderCell<RecordType>
 }
 
@@ -260,7 +264,7 @@ export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
     selectRow?: (selected: boolean, e: Event) => void;
     selectAll?: (selected: boolean, e: Event) => void
 }) => ReactNode;
-export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
+export type GetCheckboxProps<RecordType> = (record: RecordType) => Omit<CheckboxProps, 'defaultChecked' | 'checked' | 'indeterminate' | 'onChange'>;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
 export type RowSelectionOnSelect<RecordType> = (
     record?: RecordType,
@@ -273,7 +277,7 @@ export type ExpandIcon = ((expanded?: boolean) => React.ReactNode) | React.React
 export type ExpandedRowRender<RecordType> = (record?: RecordType, index?: number, expanded?: boolean) => React.ReactNode;
 export type Footer<RecordType> = ReactNode | ((pageData?: RecordType[]) => React.ReactNode);
 export type FormatPageText = ((pageInfo?: { currentStart?: number; currentEnd?: number; total?: number }) => React.ReactNode) | boolean;
-export type GetVirtualizedListRef = (ref: MutableRefObject<any>) => void;
+export type GetVirtualizedListRef = (ref: MutableRefObject<VariableSizeList>) => void;
 export type GroupByFunction<RecordType> = BaseGroupByFn<RecordType>;
 export type GroupBy<RecordType> = BaseGroupBy<RecordType>;
 export type Size = ArrayElement<typeof strings.SIZES>;
@@ -317,13 +321,11 @@ export type VirtualizeItemSizeRow = {
     sectionRow?: boolean; 
     expandedRow?: boolean
 };
-export type VirtualizedMode = 'list' | 'grid';
 export type VirtualizedItemSizeFn = (index?: number, row?: VirtualizeItemSizeRow) => number;
 export type VirtualizedItemSize = number | VirtualizedItemSizeFn;
 export type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 export interface VirtualizedProps {
     [x: string]: any;
-    mode?: VirtualizedMode;
     itemSize?: VirtualizedItemSize;
     onScroll?: VirtualizedOnScroll
 }

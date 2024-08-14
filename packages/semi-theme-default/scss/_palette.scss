@@ -1,5 +1,4 @@
-body,
-body .semi-always-light {
+body, body .semi-always-light, :host, :host .semi-always-light {
     --semi-amber-0: 254,251,235;
     --semi-amber-1: 252,245,206;
     --semi-amber-2: 249,232,158;
@@ -164,8 +163,7 @@ body .semi-always-light {
     --semi-yellow-9: 83,72,0;
 }
 
-body[theme-mode="dark"],
-body .semi-always-dark {
+body[theme-mode="dark"], body .semi-always-dark, :host([theme-mode="dark"]), :host .semi-always-dark {
     --semi-red-0: 108,9,11;
     --semi-red-1: 144,17,16;
     --semi-red-2: 180,32,25;

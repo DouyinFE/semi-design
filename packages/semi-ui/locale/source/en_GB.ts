@@ -14,6 +14,9 @@ const local: Locale = {
         confirm: 'Confirm',
         cancel: 'Cancel',
     },
+    Tabs: {
+        more: "More"
+    },
     TimePicker: {
         placeholder: {
             time: 'Select time',
@@ -167,6 +170,15 @@ const local: Locale = {
         adaptiveTip: 'Adapt to the page',
         originTip: 'Original size',
     },
+    Chat: {
+        deleteConfirm: 'Are you sure you want to delete this session?',
+        clearContext: 'Context cleared',
+        copySuccess: 'Copy successful.',
+        stop: 'Stop',
+        copy: 'Copy',
+        copied: 'Copied',
+        dropAreaText: 'Put the file here',
+    }
 };
 
 // [i18n-English(GB)]

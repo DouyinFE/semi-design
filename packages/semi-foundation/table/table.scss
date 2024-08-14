@@ -66,12 +66,12 @@ $module: #{$prefix}-table;
 
     &-header {
         overflow: hidden;
+        scrollbar-base-color: transparent;
 
         &::-webkit-scrollbar {
             background-color: transparent;
             border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
         }
-        scrollbar-base-color: transparent;
 
         &-sticky {
             position: sticky;
@@ -541,7 +541,6 @@ $module: #{$prefix}-table;
         text-align: center;
         background: $color-table_pl-bg-default;
         border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-        border-radius: 0 0 #{$radius-table_base} #{$radius-table_base};
     }
 
     &-fixed {

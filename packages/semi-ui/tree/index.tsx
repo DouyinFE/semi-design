@@ -52,6 +52,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
     static contextType = ConfigContext;
 
     static propTypes = {
+        autoMergeValue: PropTypes.bool,
         blockNode: PropTypes.bool,
         className: PropTypes.string,
         showClear: PropTypes.bool,
@@ -140,6 +141,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         draggable: false,
         autoExpandWhenDragEnter: true,
         checkRelation: 'related',
+        autoMergeValue: true,
     };
 
     static TreeNode: typeof TreeNode;
@@ -538,6 +540,9 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
             searchPlaceholder,
             showClear
         } = this.props;
+        if (searchRender === false) {
+            return null;
+        }
         const inputcls = cls(`${prefixcls}-input`);
         const { inputValue } = this.state;
         const inputProps = {
@@ -556,9 +561,6 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
                         inputProps.placeholder = searchPlaceholder || get(locale, 'searchPlaceholder');
                         if (isFunction(searchRender)) {
                             return searchRender({ ...inputProps });
-                        }
-                        if (searchRender === false) {
-                            return null;
                         }
                         return (
                             <Input

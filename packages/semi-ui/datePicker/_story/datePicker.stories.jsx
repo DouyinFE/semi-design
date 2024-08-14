@@ -72,7 +72,8 @@ export {
     AutoSplitInput,
     FixNeedConfirmControlled,
     FixedNaN,
-    PresetsFunctionType
+    PresetsFunctionType,
+    FixedControlled
 } from './v2';
 
 

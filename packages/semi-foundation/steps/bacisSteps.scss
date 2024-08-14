@@ -5,6 +5,9 @@ $basicType: #{$module}-basic;
 .#{$basicType} {
 
     &.#{$module}-horizontal {
+        display: flex;
+        flex-flow: row nowrap;
+
         &.#{$module}-hasline {
             .#{$item}-title {
 
@@ -20,9 +23,6 @@ $basicType: #{$module}-basic;
                 }
             }
         }
-
-        display: flex;
-        flex-flow: row nowrap;
 
         .#{$item} {
             padding-left: $spacing-steps_basic_item-paddingLeft;

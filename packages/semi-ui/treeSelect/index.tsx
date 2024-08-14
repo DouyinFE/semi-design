@@ -150,7 +150,8 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     onChange?: OnChange;
     onFocus?: (e: React.MouseEvent) => void;
     onVisibleChange?: (isVisible: boolean) => void;
-    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void
+    onClear?: (e: React.MouseEvent | React.KeyboardEvent<HTMLDivElement>) => void;
+    autoMergeValue?: boolean
 }
 
 export type OverrideCommonState =
@@ -271,6 +272,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         restTagsPopoverProps: PropTypes.object,
         preventScroll: PropTypes.bool,
         clickTriggerToHide: PropTypes.bool,
+        autoMergeValue: PropTypes.bool,
     };
 
     static defaultProps: Partial<TreeSelectProps> = {
@@ -304,6 +306,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         showRestTagsPopover: false,
         restTagsPopoverProps: {},
         clickTriggerToHide: true,
+        autoMergeValue: true,
     };
     inputRef: React.RefObject<typeof Input>;
     tagInputRef: React.RefObject<TagInput>;
@@ -444,21 +447,6 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     props.multiple,
                     valueEntities
                 );
-            } else if ((!isExpandControlled && needUpdateTreeData) && props.value) {
-                // 当 treeData 已经设置具体的值，并且设置了 props.loadData ，则认为 treeData 的更新是因为 loadData 导致的
-                // 如果是因为 loadData 导致 treeData改变， 此时在这里重新计算 key 会导致为未选中的展开项目被收起
-                // 所以此时不需要重新计算 expandedKeys，因为在点击展开按钮时候已经把被展开的项添加到 expandedKeys 中
-                // When treeData has a specific value and props.loadData is set, it is considered that the update of treeData is caused by loadData
-                // If the treeData is changed because of loadData, recalculating the key here will cause the unselected expanded items to be collapsed
-                // So there is no need to recalculate expandedKeys at this time, because the expanded item has been added to expandedKeys when the expand button is clicked
-                if (!(prevState.treeData && prevState.treeData?.length > 0 && props.loadData)) {
-                    newState.expandedKeys = calcExpandedKeysForValues(
-                        props.value,
-                        keyEntities,
-                        props.multiple,
-                        valueEntities
-                    );
-                }
             }
 
             if (!newState.expandedKeys) {
@@ -633,11 +621,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         | 'rePositionDropdown'
         > = {
             registerClickOutsideHandler: cb => {
+                this.adapter.unregisterClickOutsideHandler();
                 const clickOutsideHandler = (e: Event) => {
                     const optionInstance = this.optionsRef && this.optionsRef.current as React.ReactInstance;
                     const triggerDom = this.triggerRef && this.triggerRef.current;
                     const optionsDom = ReactDOM.findDOMNode(optionInstance);
                     const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
+
                     if (
                         optionsDom &&
                         (
@@ -645,7 +636,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                             !optionsDom.contains(target.parentNode)
                         ) &&
                         triggerDom &&
-                        !triggerDom.contains(target)
+                        !triggerDom.contains(target) &&
+                        !(path.includes(triggerDom) || path.includes(optionsDom))
                     ) {
                         cb(e);
                     }
@@ -654,6 +646,9 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 document.addEventListener('mousedown', clickOutsideHandler, false);
             },
             unregisterClickOutsideHandler: () => {
+                if (!this.clickOutsideHandler) {
+                    return;
+                }
                 document.removeEventListener('mousedown', this.clickOutsideHandler, false);
                 this.clickOutsideHandler = null;
             },
@@ -677,8 +672,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             notifySelect: ((selectKey, bool, node) => {
                 this.props.onSelect && this.props.onSelect(selectKey, bool, node);
             }),
-            notifySearch: (input, filteredExpandedKeys) => {
-                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys);
+            notifySearch: (input, filteredExpandedKeys, filteredNodes) => {
+                this.props.onSearch && this.props.onSearch(input, filteredExpandedKeys, filteredNodes);
             },
             cacheFlattenNodes: bool => {
                 this.setState({ cachedFlattenNodes: bool ? cloneDeep(this.state.flattenNodes) : undefined });
@@ -762,7 +757,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             },
             updateIsFocus: bool => {
                 this.setState({ isFocus: bool });
-            }
+            },
         };
     }
 
@@ -812,7 +807,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const style = { minWidth: dropdownMinWidth, ...dropdownStyle };
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         return (
-            <div className={popoverCls} style={style}>
+            <div className={popoverCls} style={style} onKeyDown={this.foundation.handleKeyDown}>
                 {this.renderTree()}
             </div>
         );
@@ -859,15 +854,14 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return showClear && (this.hasValue() || triggerSearchHasInputValue) && !disabled && (isOpen || isHovering);
     };
 
-    renderTagList = () => {
-        const { checkedKeys, keyEntities, disabledKeys, realCheckedKeys } = this.state;
+    renderTagList = (triggerRenderKeys: string[]) => {
+        const { keyEntities, disabledKeys } = this.state;
         const {
             treeNodeLabelProp,
             leafOnly,
             disabled,
             disableStrictly,
             size,
-            checkRelation,
             renderSelectedItem: propRenderSelectedItem,
             keyMaps
         } = this.props;
@@ -878,14 +872,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 isRenderInTag: true,
                 content: get(item, realLabelName, null)
             });
-        let renderKeys = [];
-        if (checkRelation === 'related') {
-            renderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
-        } else if (checkRelation === 'unRelated' && Object.keys(keyEntities).length > 0) {
-            renderKeys = [...realCheckedKeys];
-        }
         const tagList: Array<React.ReactNode> = [];
-        renderKeys.forEach((key: TreeNodeData['key'], index) => {
+        triggerRenderKeys.forEach((key: TreeNodeData['key'], index) => {
             const item = (keyEntities[key] && keyEntities[key].key === key) ? keyEntities[key].data : this.getDataForKeyNotInKeyEntities(key);
             const onClose = (tagContent: any, e: React.MouseEvent) => {
                 if (e && typeof e.preventDefault === 'function') {
@@ -931,7 +919,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             [`${prefixcls}-selection-TriggerSearchItem-disabled`]: disabled,
         });
         return (
-            <span className={spanCls}>
+            <span className={spanCls} onClick={this.foundation.onClickSingleTriggerSearchItem}>
                 {renderText ? renderText : placeholder}
             </span>
         );
@@ -944,13 +932,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const { inputValue } = this.state;
         return (
             <>
-                {!inputValue && this.renderSingleTriggerSearchItem()}
                 {this.renderInput()}
+                {!inputValue && this.renderSingleTriggerSearchItem()}
             </>
         );
     };
 
-    renderSelectContent = () => {
+    renderSelectContent = (triggerRenderKeys: string[]) => {
         const {
             multiple,
             placeholder,
@@ -963,7 +951,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const isTriggerPositionSearch = filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER;
         // searchPosition = trigger
         if (isTriggerPositionSearch) {
-            return multiple ? this.renderTagInput() : this.renderSingleTriggerSearch();
+            return multiple ? this.renderTagInput(triggerRenderKeys) : this.renderSingleTriggerSearch();
         }
         // searchPosition = dropdown and single seleciton
         if (!multiple || !this.hasValue()) {
@@ -974,7 +962,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             return <span className={spanCls}>{renderText ? renderText : placeholder}</span>;
         }
         // searchPosition = dropdown and multiple seleciton
-        const tagList = this.renderTagList();
+        const tagList = this.renderTagList(triggerRenderKeys);
         // mode=custom to return tagList directly
         return (
             <TagGroup<'custom'>
@@ -1071,9 +1059,11 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             searchPosition,
             triggerRender,
             borderless,
+            autoMergeValue,
+            checkRelation,
             ...rest
         } = this.props;
-        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus } = this.state;
+        const { inputValue, selectedKeys, checkedKeys, keyEntities, isFocus, realCheckedKeys } = this.state;
         const filterable = Boolean(filterTreeNode);
         const useCustomTrigger = typeof triggerRender === 'function';
         const mouseEvent = showClear ?
@@ -1108,9 +1098,21 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 },
                 className
             );
-        const triggerRenderKeys = multiple ? normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true) : selectedKeys;
-        const inner = useCustomTrigger ? (
-            <Trigger
+        let inner: React.ReactNode | React.ReactNode[];
+        let triggerRenderKeys = [];
+        if (multiple) {
+            if (!autoMergeValue) {
+                triggerRenderKeys = [...checkedKeys];
+            } else if (checkRelation === 'related') {
+                triggerRenderKeys = normalizeKeyList([...checkedKeys], keyEntities, leafOnly, true);
+            } else if (checkRelation === 'unRelated') {
+                triggerRenderKeys = [...realCheckedKeys];
+            }
+        } else {
+            triggerRenderKeys = selectedKeys;
+        }
+        if (useCustomTrigger) {
+            inner = <Trigger
                 inputValue={inputValue}
                 value={triggerRenderKeys.map((key: string) => get(keyEntities, [key, 'data']))}
                 disabled={disabled}
@@ -1121,12 +1123,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 componentProps={{ ...this.props }}
                 onSearch={this.search}
                 onRemove={this.removeTag}
-            />
-        ) : (
-            [
+            />;
+        } else {
+            inner = [
                 <Fragment key={'prefix'}>{prefix || insetLabel ? this.renderPrefix() : null}</Fragment>,
                 <Fragment key={'selection'}>
-                    <div className={`${prefixcls}-selection`}>{this.renderSelectContent()}</div>
+                    <div className={`${prefixcls}-selection`}>{this.renderSelectContent(triggerRenderKeys)}</div>
                 </Fragment>,
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key={'clearBtn'}>
@@ -1137,8 +1139,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                     }
                 </Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
-            ]
-        );
+            ];
+        }
         const tabIndex = disabled ? null : 0;
         /**
          * Reasons for disabling the a11y eslint rule:
@@ -1156,6 +1158,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 ref={this.triggerRef}
                 onClick={this.handleClick}
                 onKeyPress={this.handleSelectionEnterPress}
+                onKeyDown={this.foundation.handleKeyDown}
                 aria-invalid={this.props['aria-invalid']}
                 aria-errormessage={this.props['aria-errormessage']}
                 aria-label={this.props['aria-label']}
@@ -1227,15 +1230,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         );
     };
 
-    renderTagInput = () => {
+    renderTagInput = (triggerRenderKeys: string[]) => {
         const {
-            leafOnly,
             disabled,
             size,
             searchAutoFocus,
             placeholder,
             maxTagCount,
-            checkRelation,
             showRestTagsPopover,
             restTagsPopoverProps,
             searchPosition,
@@ -1243,17 +1244,8 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             preventScroll
         } = this.props;
         const {
-            keyEntities,
-            checkedKeys,
             inputValue,
-            realCheckedKeys,
         } = this.state;
-        let keyList = [];
-        if (checkRelation === 'related') {
-            keyList = normalizeKeyList(checkedKeys, keyEntities, leafOnly, true);
-        } else if (checkRelation === 'unRelated') {
-            keyList = [...realCheckedKeys];
-        }
         // auto focus search input divide into two parts
         // 1. filterTreeNode && searchPosition === strings.SEARCH_POSITION_TRIGGER
         //    Implemented by passing autofocus to the underlying input's autofocus
@@ -1269,7 +1261,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 onInputChange={v => this.search(v)}
                 ref={this.tagInputRef}
                 placeholder={placeholder}
-                value={keyList}
+                value={triggerRenderKeys}
                 inputValue={inputValue}
                 size={size}
                 showRestTagsPopover={showRestTagsPopover}
@@ -1397,28 +1389,13 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         return key;
     };
 
-    /* Event handler function after popover is closed */
-    handlePopoverClose = isVisible => {
-        const { filterTreeNode, searchAutoFocus, searchPosition } = this.props;
-        // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
-        // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
-        if (isVisible === false && filterTreeNode) {
-            this.foundation.clearInputValue();
-        }
-        if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
-            this.foundation.focusInput(true);
-        }
+    /* Event handler function after popover visible change */
+    handlePopoverVisibleChange = isVisible => {
+        this.foundation.handlePopoverVisibleChange(isVisible);
     }
 
     afterClose = () => {
-        // flattenNode 的变化将导致弹出层面板中的选项数目变化
-        // 在弹层完全收起之后，再通过 clearInput 重新计算 state 中的 expandedKey， flattenNode
-        // 防止在弹出层未收起时弹层面板中选项数目变化导致视觉上出现弹层闪动问题
-        // Changes to flattenNode will cause the number of options in the popup panel to change
-        // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
-        // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
-        const { filterTreeNode } = this.props;
-        filterTreeNode && this.foundation.clearInput();
+        this.foundation.handleAfterClose();
     }
 
     renderTreeNode = (treeNode: FlattenNode, ind: number, style: React.CSSProperties) => {
@@ -1602,7 +1579,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                onVisibleChange={this.handlePopoverClose}
+                onVisibleChange={this.handlePopoverVisibleChange}
                 afterClose={this.afterClose}
             >
                 {selection}

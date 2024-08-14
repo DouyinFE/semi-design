@@ -213,6 +213,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
     foundation: TimePickerFoundation;
     timePickerRef: React.MutableRefObject<HTMLDivElement>;
     savePanelRef: React.RefObject<HTMLDivElement>;
+    useCustomTrigger: boolean;
 
     clickOutSideHandler: (e: MouseEvent) => void;
 
@@ -236,6 +237,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         this.foundation = new TimePickerFoundation(this.adapter);
         this.timePickerRef = React.createRef();
         this.savePanelRef = React.createRef();
+        this.useCustomTrigger = typeof this.props.triggerRender === 'function';
     }
 
     get adapter(): TimePickerAdapter<TimePickerProps, TimePickerState> {
@@ -250,14 +252,15 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                 }
                 this.clickOutSideHandler = e => {
                     const panel = this.savePanelRef && this.savePanelRef.current;
-                    const isInPanel = e.target && panel && panel.contains(e.target as Node);
-                    const isInTimepicker =
-                        this.timePickerRef &&
-                        this.timePickerRef.current &&
-                        this.timePickerRef.current.contains(e.target as Node);
-                    if (!isInTimepicker && !isInPanel) {
-                        const clickedOutside = true;
-                        this.foundation.handlePanelClose(clickedOutside, e);
+                    const trigger = this.timePickerRef && this.timePickerRef.current;
+                    const target = e.target as Element;
+                    const path = e.composedPath && e.composedPath() || [target];
+
+                    if (!(panel && panel.contains(target)) &&
+                        !(trigger && trigger.contains(target)) &&
+                        !(path.includes(trigger) || path.includes(panel))
+                    ) {
+                        this.foundation.handlePanelClose(true, e);
                     }
                 };
                 document.addEventListener('mousedown', this.clickOutSideHandler);
@@ -478,7 +481,6 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
         } = this.props;
         const format = this.foundation.getDefaultFormatIfNeed();
         const position = this.foundation.getPosition();
-        const useCustomTrigger = typeof triggerRender === 'function';
 
         const { open, inputValue, invalid, value } = this.state;
         const popupClassName = this.getPopupClassName();
@@ -514,7 +516,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
 
         const outerProps = {} as { onClick: () => void };
 
-        if (useCustomTrigger) {
+        if (this.useCustomTrigger) {
             outerProps.onClick = this.openPanel;
         }
 
@@ -540,7 +542,7 @@ export default class TimePicker extends BaseComponent<TimePickerProps, TimePicke
                     autoAdjustOverflow={autoAdjustOverflow}
                     stopPropagation={stopPropagation}
                 >
-                    {useCustomTrigger ? (
+                    {this.useCustomTrigger ? (
                         <Trigger
                             triggerRender={triggerRender}
                             disabled={disabled}

@@ -48,23 +48,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
         });
     }
 
-    init() {
-        this.setInitValue();
-    }
-
     destroy() { }
-
-    setInitValue() {
-        const {
-            defaultValue,
-            value
-        } = this.getProps();
-        let v = defaultValue;
-        if (this._isControlledComponent()) {
-            v = value;
-        }
-        this._adapter.setValue(v);
-    }
 
     handleValueChange(v: string) {
         this._adapter.setValue(v);
@@ -187,6 +171,11 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleKeyDown(e: any) {
+        const { disabledEnterStartNewLine } = this.getProps();
+        if (disabledEnterStartNewLine && e.key === 'Enter' && !e.shiftKey) {
+            // Prevent default line wrapping behavior
+            e.preventDefault(); 
+        }
         this._adapter.notifyKeyDown(e);
         if (e.keyCode === 13) {
             this._adapter.notifyPressEnter(e);

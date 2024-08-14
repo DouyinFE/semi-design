@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 50
+order: 56
 category: 展示类
 title: Collapse 折叠面板
 icon: doc-accordion
@@ -182,7 +182,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | expandIconPosition | 展开图标位置 | `left`, `right` | `right` | 1.12.0 |
 | keepDOM | 是否保留隐藏的面板 DOM 树，默认销毁 | bool | `false` | 0.25.0 |
 | motion | 是否开启动画 | boolean | `true` | 1.4.0  |
-| lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染组件 | boolean | `false` | 2.25.1 |
+| lazyRender | 配合 keepDOM 使用，为 true 时挂载时不会渲染组件 | boolean | `false` | 2.54.1 |
 | style | 内联 CSS 样式 | CSSProperties | {} | -      |
 | onChange | 切换面板的回调 | function(activeKey: string \| string[], e: event) | 无 | -      |
 

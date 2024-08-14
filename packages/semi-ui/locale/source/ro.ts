@@ -1,9 +1,7 @@
 import { ro } from 'date-fns/locale';
+import { Locale } from '../interface';
 
-/**
- * [i18n-Romanian]
- */
-export default {
+const local: Locale = {
     code: 'ro',
     dateFnsLocale: ro,
     Pagination: {
@@ -15,6 +13,9 @@ export default {
     Modal: {
         confirm: 'Confirmă',
         cancel: 'Anulează',
+    },
+    Tabs: {
+        more: "Mai mult"
     },
     TimePicker: {
         placeholder: {
@@ -107,6 +108,7 @@ export default {
     },
     Tree: {
         emptyText: 'Nici un rezultat',
+        searchPlaceholder: 'Căutare',
     },
     Cascader: {
         emptyText: 'Nici un rezultat',
@@ -168,4 +170,16 @@ export default {
         adaptiveTip: 'Afișaj adaptabil',
         originTip: 'Afișaj implicit',
     },
+    Chat: {
+        deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
+        clearContext: 'Contextul a fost șters',
+        copySuccess: 'Copiere reușită',
+        stop: 'Oprire',
+        copy: 'Copiază',
+        copied: 'Copiat',
+        dropAreaText: 'Puneți fișierul aici',
+    },
 };
+
+// [i18n-Romanian] 罗马尼亚语
+export default local;

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 63
+order: 69
 category: 展示类
 title: Table 表格
 icon: doc-table
@@ -45,6 +45,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -54,6 +55,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -62,6 +64,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -107,6 +110,19 @@ function App() {
             dataIndex: 'size',
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -133,12 +149,13 @@ function App() {
         },
     ];
     const data = [
-        {
+         {
             key: '1',
             name: 'Semi Design 设计稿.fig',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -148,6 +165,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -156,6 +174,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -192,6 +211,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -201,6 +221,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -209,6 +230,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -293,6 +315,19 @@ function App() {
             dataIndex: 'size',
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -326,6 +361,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'success',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -335,6 +371,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -343,6 +380,7 @@ function App() {
             name: '设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'wait',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -353,6 +391,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
             size: '2M',
             owner: '姜鹏志',
+            status: 'wait',
             updateTime: '2020-02-02 05:13',
             avatarBg: 'grey',
         },
@@ -362,6 +401,7 @@ function App() {
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '2M',
             owner: '郝宣',
+            status: 'pending',
             updateTime: '2020-01-17 05:31',
             avatarBg: 'red',
         },
@@ -370,6 +410,7 @@ function App() {
             name: 'Semi D2C 设计文档',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
             size: '34KB',
+            status: 'success',
             owner: 'Zoey Edwards',
             updateTime: '2020-01-26 11:01',
             avatarBg: 'light-blue',
@@ -424,6 +465,7 @@ const raw = [
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
         size: '2M',
         owner: '姜鹏志',
+        status: 'success',
         updateTime: '2020-02-02 05:13',
         avatarBg: 'grey',
     },
@@ -433,6 +475,7 @@ const raw = [
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '2M',
         owner: '郝宣',
+        status: 'pending',
         updateTime: '2020-01-17 05:31',
         avatarBg: 'red',
     },
@@ -441,6 +484,7 @@ const raw = [
         name: '设计文档',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
+        status: 'wait',
         owner: 'Zoey Edwards',
         updateTime: '2020-01-26 11:01',
         avatarBg: 'light-blue',
@@ -450,6 +494,7 @@ const raw = [
         name: 'Semi D2C 设计文档可能也有点长所以也会显示Tooltip',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
+        status: 'success',
         owner: '姜琪',
         updateTime: '2020-01-26 11:01',
         avatarBg: 'green',
@@ -490,7 +535,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* 宽度计算方式为单元格设置宽度 - 非文本内容宽度 */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -501,6 +546,19 @@ function App() {
             title: '大小',
             dataIndex: 'size',
             width: 150,
+        },
+        {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
         },
         {
             title: '所有者',
@@ -565,7 +623,6 @@ render(App);
 -   受控模式下，分页的状态完全由外部传入，依据为是否往 Table 传入了 `pagination.currentPage` 这个字段。一般情况下，受控模式适用于远程拉取数据并渲染。
 -   非受控模式下，Table 默认会将传入的 `dataSource` 长度作为 `total` 传给 Pagination 组件，当然你也可以传入一个 `total` 字段来覆盖 Table 组件的取值，不过我们并不推荐用户在非受控分页模式下传入这个字段。
 
-> 非受控时传入自定义的 `pagination.total` 字段在 >=0.25.0 版本后才支持
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
@@ -603,6 +660,19 @@ const columns = [
         dataIndex: 'size',
         sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
         render: text => `${text} KB`,
+    },
+    {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text] || {};
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
     },
     {
         title: '所有者',
@@ -657,6 +727,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status: isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -725,6 +796,19 @@ const columns = [
         render: text => `${text} KB`,
     },
     {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text] || {};
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
+    },
+    {
         title: '所有者',
         dataIndex: 'owner',
         render: (text, record, index) => {
@@ -758,6 +842,7 @@ const getData = () => {
             name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
             owner: isSemiDesign ? '姜鹏志' : '郝宣',
             size: randomNumber,
+            status: isSemiDesign ? 'success' : 'wait',
             updateTime: new Date().valueOf() + randomNumber * DAY,
             avatarBg: isSemiDesign ? 'grey' : 'red',
         });
@@ -1133,6 +1218,19 @@ const columns = [
         render: text => `${text} KB`,
     },
     {
+        title: '交付状态',
+        dataIndex: 'status',
+        render: (text) => {
+            const tagConfig = {
+                success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+            };
+            const tagProps = tagConfig[text];
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+        }
+    },
+    {
         title: '所有者',
         dataIndex: 'owner',
         render: (text, record, index) => {
@@ -1183,6 +1281,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status:  isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -1402,6 +1501,19 @@ function App() {
             render: text => `${text} KB`,
         },
         {
+            title: '交付状态',
+            dataIndex: 'status',
+            render: (text) => {
+                const tagConfig = {
+                    success: { color: 'green', prefixIcon: <IconTickCircle />, text: '已交付' },
+                    pending: { color: 'pink', prefixIcon: <IconClear />, text: '已延期' },
+                    wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
+                };
+                const tagProps = tagConfig[text];
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            }
+        },
+        {
             title: '所有者',
             dataIndex: 'owner',
             render: (text, record, index) => {
@@ -1435,6 +1547,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 首页${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
+                status:  isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -3498,210 +3611,189 @@ render(ResizableDemo);
 
 ### 拖拽排序
 
-使用自定义元素，我们可以集成 `react-dnd` 来实现拖拽排序。
+使用 [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) 搭配 [`components`](https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200) API 可轻松实现拖拽排序。v2.58 版本支持。
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
-import { DndProvider, DragSource, DropTarget } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import * as dateFns from 'date-fns';
+import { DndContext, PointerSensor, useSensors, useSensor } from '@dnd-kit/core'; // based on @dnd-kit/core v6
+import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import classNames from 'classnames';
 
-let draggingIndex = -1;
-const PAGE_SIZE = 5;
-const DAY = 24 * 60 * 60 * 1000;
-const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
-
-function BodyRow(props) {
-    const { isOver, connectDragSource, connectDropTarget, moveRow, currentPage, ...restProps } = props;
-    const style = { ...restProps.style, cursor: 'move' };
-
-    let { className } = restProps;
-    if (isOver) {
-        console.log('true');
-        if (restProps.index > draggingIndex) {
-            className += ' drop-over-downward';
-        }
-        if (restProps.index < draggingIndex) {
-            className += ' drop-over-upward';
-        }
-    }
-
-    return connectDragSource(connectDropTarget(<tr {...restProps} className={className} style={style} />));
-}
-
-const rowSource = {
-    beginDrag(props) {
-        draggingIndex = props.index;
-        return {
-            index: props.index,
-        };
-    },
-};
-
-const rowTarget = {
-    drop(props, monitor) {
-        const dragIndex = monitor.getItem().index;
-        const hoverIndex = props.index;
-
-        if (dragIndex === hoverIndex) {
-            return;
-        }
-
-        props.moveRow(dragIndex, hoverIndex);
-
-        monitor.getItem().index = hoverIndex;
-    },
-};
-
-const DraggableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-}))(
-    DragSource('row', rowSource, connect => ({
-        connectDragSource: connect.dragSource(),
-    }))(BodyRow)
-);
-
-const columns = [
-    {
-        title: '标题',
-        dataIndex: 'name',
-        width: 400,
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
-                    {text}
-                </div>
-            );
-        },
-        filters: [
+function App() {
+    const pageSize = 10;
+    const [dataSource, setData] = useState([]);
+    const [pageData, setPageData] = useState([]);
+    const columns = useMemo(
+        () => [
             {
-                text: 'Semi Design 设计稿',
-                value: 'Semi Design 设计稿',
+                title: '标题',
+                dataIndex: 'name',
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar
+                                size="small"
+                                shape="square"
+                                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png"
+                                style={{ marginRight: 12 }}
+                            ></Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design 设计稿',
+                        value: 'Semi Design 设计稿',
+                    },
+                    {
+                        text: 'Semi D2C 设计稿',
+                        value: 'Semi D2C 设计稿',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
             },
             {
-                text: 'Semi D2C 设计稿',
-                value: 'Semi D2C 设计稿',
+                title: '大小',
+                dataIndex: 'size',
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
+            },
+            {
+                title: '所有者',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+            },
+            {
+                title: '更新日期',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                },
             },
         ],
-        onFilter: (value, record) => record.name.includes(value),
-    },
-    {
-        title: '大小',
-        dataIndex: 'size',
-        width: 200,
-        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
-        render: text => `${text} KB`,
-    },
-    {
-        title: '所有者',
-        width: 200,
-        dataIndex: 'owner',
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
-                        {typeof text === 'string' && text.slice(0, 1)}
-                    </Avatar>
-                    {text}
-                </div>
-            );
-        },
-    },
-    {
-        title: '更新日期',
-        dataIndex: 'updateTime',
-        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
-        render: value => {
-            return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        },
-    },
-];
-
-const initData = [];
-for (let i = 0; i < 46; i++) {
-    const isSemiDesign = i % 2 === 0;
-    const randomNumber = (i * 1000) % 199;
-    initData.push({
-        key: '' + i,
-        name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
-        owner: isSemiDesign ? '姜鹏志' : '郝宣',
-        size: randomNumber,
-        updateTime: new Date().valueOf() + randomNumber * DAY,
-        avatarBg: isSemiDesign ? 'grey' : 'red',
-    });
-}
-
-function DragSortingTableDemo(props) {
-    const [data, setData] = useState([...initData]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageData, setPageData] = useState(data.slice(0, PAGE_SIZE));
-
-    const components = useMemo(
-        () => ({
-            body: {
-                row: DraggableBodyRow,
-            },
-        }),
         []
     );
 
-    const moveRow = (dragIndex, hoverIndex) => {
-        const totalDragIndex = (currentPage - 1) * PAGE_SIZE + dragIndex;
-        const totalHoverIndex = (currentPage - 1) * PAGE_SIZE + hoverIndex;
-        const dragRow = data[totalDragIndex];
-        const newData = [...data];
-        newData.splice(totalDragIndex, 1);
-        newData.splice(totalHoverIndex, 0, dragRow);
-        setData(newData);
-        setPageData(newData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
+    useEffect(() => {
+        const getData = () => {
+            const data = [];
+            for (let i = 0; i < 46; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
+                    owner: isSemiDesign ? '姜鹏志' : '郝宣',
+                    size: randomNumber,
+                    updateTime: new Date().valueOf() + randomNumber,
+                    avatarBg: isSemiDesign ? 'grey' : 'red',
+                });
+            }
+            return data;
+        };
+        const data = getData();
+        setData(data);
+    }, []);
+    const [pageNum, setPageNum] = useState(1);
+
+    useEffect(() => {
+        const currentPageData = dataSource.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+        setPageData(currentPageData);
+    }, [dataSource, pageNum]);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 1 },
+        })
+    );
+
+    const handleDragEnd = event => {
+        const { active, over } = event;
+        if (active && over && active.id !== over.id) {
+            setPageData(prev => {
+                const activeIndex = prev.findIndex(data => data.key === active.id);
+                const overIndex = prev.findIndex(data => data.key === over.id);
+                return arrayMove(prev, activeIndex, overIndex);
+            });
+        }
     };
 
-    const handlePageChange = pageNum => {
-        console.log(pageNum);
-        setCurrentPage(pageNum);
-        setPageData(data.slice((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE));
+    const handleChange = ({ pagination }) => {
+        const { currentPage } = pagination;
+        setPageNum(currentPage);
+    };
+
+    const SortableRow = (props) => {
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
+            id: props['data-row-key'],
+        });
+        const style = {
+            ...props.style,
+            transform: cssDndKit.Transform.toString(transform),
+            transition,
+            cursor: 'grabbing',
+            ...(isDragging ? { zIndex: 999, position: 'relative' } : {}),
+        };
+        const rowCls = classNames(props.className,
+            {
+                ['isDragging']: isDragging,
+                ['isOver']: isOver,
+            }
+        );
+        const onPointerDown = (event) => {
+            event.persist();
+            console.log('props', event);
+            listeners.onPointerDown(event);
+        };
+
+        return <tr {...props} className={rowCls} ref={setNodeRef} style={style} {...attributes} {...listeners} onPointerDown={onPointerDown}></tr>;
     };
 
     return (
-        <div id="components-table-demo-drag-sorting">
-            <DndProvider backend={HTML5Backend}>
+        <DndContext
+            // https://docs.dndkit.com/api-documentation/context-provider#autoscroll
+            autoScroll={true}
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+        >
+            <SortableContext items={pageData.map(data => data.key)} strategy={verticalListSortingStrategy}>
                 <Table
+                    components={{
+                        body: {
+                            row: SortableRow,
+                        },
+                    }}
+                    rowKey="key"
                     columns={columns}
                     dataSource={pageData}
-                    pagination={{
-                        pageSize: PAGE_SIZE,
-                        total: data.length,
-                        currentPage,
-                        onPageChange: handlePageChange,
-                    }}
-                    components={components}
-                    onRow={(record, index) => ({
-                        index,
-                        moveRow,
-                    })}
+                    pagination={{ currentPage: pageNum, pageSize: pageSize, total: dataSource.length }}
+                    onChange={handleChange}
                 />
-            </DndProvider>
-        </div>
+            </SortableContext>
+        </DndContext>
     );
 }
 
-render(DragSortingTableDemo);
+render(App);
 ```
 
-本例中使用的 CSS 样式为：
-
-```css
-#components-table-demo-drag-sorting tr.drop-over-downward td {
-    border-bottom: 2px dashed #1890ff;
-}
-
-#components-table-demo-drag-sorting tr.drop-over-upward td {
-    border-top: 2px dashed #1890ff;
-}
-```
 
 ### 表格分组
 
@@ -5331,7 +5423,6 @@ interface TablePaginationProps extends PaginationProps {
     formatPageText?: FormatPageText;
 }
 
-type VirtualizedMode = 'list' | 'grid';
 type VirtualizedItemSizeFn = (index?: number) => number;
 type VirtualizedOnScrollArgs = {
     scrollDirection?: 'forward' | 'backward';
@@ -5343,7 +5434,6 @@ type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 type Virtualized =
     | boolean
     | {
-          mode?: VirtualizedMode;
           itemSize?: number | VirtualizedItemSizeFn;
           onScroll?: VirtualizedOnScroll;
       };

@@ -110,4 +110,10 @@ describe('textarea', () => {
             expect(scrollHeight).eq(clientHeight);
         });
     });
+
+    it('textarea autofocus should focus to text end', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=input--fix-text-area-auto-focus&viewMode=story');
+        cy.get('div[data-cy=start]').should('contain.text', 0);
+        cy.get('div[data-cy=end]').should('contain.text', 0);
+    });
 });

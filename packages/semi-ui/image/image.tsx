@@ -174,7 +174,10 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
 
     render() {
         const { src, loadStatus, previewVisible } = this.state;
-        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview, fallback, placeholder, imageID, setDownloadName, ...restProps } = this.props;
+        const { src: picSrc, width, height, alt, style, className, crossOrigin, preview, 
+            fallback, placeholder, imageID, setDownloadName, imgCls, imgStyle,
+            ...restProps 
+        } = this.props;
         const outerStyle = Object.assign({ width, height }, style);
         const outerCls = cls(prefixCls, className);
         const canPreview = loadStatus === "success" && preview && !this.isInGroup();
@@ -197,9 +200,11 @@ export default class Image extends BaseComponent<ImageProps, ImageStates> {
                     src={this.isInGroup() && this.isLazyLoad() ? undefined : src}
                     data-src={src}
                     alt={alt}
+                    style={imgStyle}
                     className={cls(`${prefixCls}-img`, {
                         [`${prefixCls}-img-preview`]: showPreviewCursor,
                         [`${prefixCls}-img-error`]: loadStatus === "error",
+                        [imgCls]: Boolean(imgCls),
                     })}
                     width={width}
                     height={height}

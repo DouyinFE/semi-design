@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 63
+order: 69
 category: Show
 title: Table
 subTitle: Table
@@ -488,7 +488,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -3493,209 +3493,187 @@ The CSS style definition used in this example:
 
 ### Drag Sorting
 
-With custom elements, we can integrate `react-dnd` To implement drag and drop sorting.
+Use [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) with the [`components`](https://github.com/DouyinFE/semi-design/blob/340c93e4e1612a879be869c43ad7a9a85ab5a302/packages/semi-ui/table/interface.ts#L200) API to easily implement drag-and-drop sorting. Supported in version 2.58
 
 ```jsx live=true dir="column" noInline=true hideInDSM
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
-import { DndProvider, DragSource, DropTarget } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import * as dateFns from 'date-fns';
+import { DndContext, PointerSensor, useSensors, useSensor } from '@dnd-kit/core'; // based on @dnd-kit/core v6
+import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import classNames from 'classnames';
 
-let draggingIndex = -1;
-const PAGE_SIZE = 5;
-const DAY = 24 * 60 * 60 * 1000;
-const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
-
-function BodyRow(props) {
-    const { isOver, connectDragSource, connectDropTarget, moveRow, currentPage, ...restProps } = props;
-    const style = { ...restProps.style, cursor: 'move' };
-
-    let { className } = restProps;
-    if (isOver) {
-        console.log('true');
-        if (restProps.index > draggingIndex) {
-            className += ' drop-over-downward';
-        }
-        if (restProps.index < draggingIndex) {
-            className += ' drop-over-upward';
-        }
-    }
-
-    return connectDragSource(connectDropTarget(<tr {...restProps} className={className} style={style} />));
-}
-
-const rowSource = {
-    beginDrag(props) {
-        draggingIndex = props.index;
-        return {
-            index: props.index,
-        };
-    },
-};
-
-const rowTarget = {
-    drop(props, monitor) {
-        const dragIndex = monitor.getItem().index;
-        const hoverIndex = props.index;
-
-        if (dragIndex === hoverIndex) {
-            return;
-        }
-
-        props.moveRow(dragIndex, hoverIndex);
-
-        monitor.getItem().index = hoverIndex;
-    },
-};
-
-const DraggableBodyRow = DropTarget('row', rowTarget, (connect, monitor) => ({
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-}))(
-    DragSource('row', rowSource, connect => ({
-        connectDragSource: connect.dragSource(),
-    }))(BodyRow)
-);
-
-const columns = [
-    {
-        title: 'Title',
-        dataIndex: 'name',
-        width: 400,
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" shape="square" src={figmaIconUrl} style={{ marginRight: 12 }}></Avatar>
-                    {text}
-                </div>
-            );
-        },
-        filters: [
+function App() {
+    const pageSize = 10;
+    const [dataSource, setData] = useState([]);
+    const [pageData, setPageData] = useState([]);
+    const columns = useMemo(
+        () => [
             {
-                text: 'Semi Design design draft',
-                value: 'Semi Design design draft',
+                title: 'Title',
+                dataIndex: 'name',
+                width: 400,
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar
+                                size="small"
+                                shape="square"
+                                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png"
+                                style={{ marginRight: 12 }}
+                            ></Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+                filters: [
+                    {
+                        text: 'Semi Design Draft',
+                        value: 'Semi Design Draft',
+                    },
+                    {
+                        text: 'Semi D2C Draft',
+                        value: 'Semi D2C Draft',
+                    },
+                ],
+                onFilter: (value, record) => record.name.includes(value),
             },
             {
-                text: 'Semi D2C design draft',
-                value: 'Semi D2C design draft',
+                title: 'Size',
+                dataIndex: 'size',
+                sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
+                render: text => `${text} KB`,
+            },
+            {
+                title: 'Owner',
+                dataIndex: 'owner',
+                render: (text, record, index) => {
+                    return (
+                        <div>
+                            <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
+                                {typeof text === 'string' && text.slice(0, 1)}
+                            </Avatar>
+                            {text}
+                        </div>
+                    );
+                },
+            },
+            {
+                title: 'Update',
+                dataIndex: 'updateTime',
+                sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
+                render: value => {
+                    return dateFns.format(new Date(value), 'yyyy-MM-dd');
+                },
             },
         ],
-        onFilter: (value, record) => record.name.includes(value),
-    },
-    {
-        title: 'Size',
-        dataIndex: 'size',
-        width: 200,
-        sorter: (a, b) => (a.size - b.size > 0 ? 1 : -1),
-        render: text => `${text} KB`,
-    },
-    {
-        title: 'Owner',
-        width: 200,
-        dataIndex: 'owner',
-        render: (text, record, index) => {
-            return (
-                <div>
-                    <Avatar size="small" color={record.avatarBg} style={{ marginRight: 4 }}>
-                        {typeof text === 'string' && text.slice(0, 1)}
-                    </Avatar>
-                    {text}
-                </div>
-            );
-        },
-    },
-    {
-        title: 'Update',
-        dataIndex: 'updateTime',
-        sorter: (a, b) => (a.updateTime - b.updateTime > 0 ? 1 : -1),
-        render: value => {
-            return dateFns.format(new Date(value), 'yyyy-MM-dd');
-        },
-    },
-];
-
-const initData = [];
-for (let i = 0; i < 46; i++) {
-    const isSemiDesign = i % 2 === 0;
-    const randomNumber = (i * 1000) % 199;
-    initData.push({
-        key: '' + i,
-        name: isSemiDesign ? `Semi Design design draft${i}.fig` : `Semi D2C design draft${i}.fig`,
-        owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
-        size: randomNumber,
-        updateTime: new Date().valueOf() + randomNumber * DAY,
-        avatarBg: isSemiDesign ? 'grey' : 'red',
-    });
-}
-
-function DragSortingTableDemo(props) {
-    const [data, setData] = useState([...initData]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageData, setPageData] = useState(data.slice(0, PAGE_SIZE));
-
-    const components = useMemo(
-        () => ({
-            body: {
-                row: DraggableBodyRow,
-            },
-        }),
         []
     );
 
-    const moveRow = (dragIndex, hoverIndex) => {
-        const totalDragIndex = (currentPage - 1) * PAGE_SIZE + dragIndex;
-        const totalHoverIndex = (currentPage - 1) * PAGE_SIZE + hoverIndex;
-        const dragRow = data[totalDragIndex];
-        const newData = [...data];
-        newData.splice(totalDragIndex, 1);
-        newData.splice(totalHoverIndex, 0, dragRow);
-        setData(newData);
-        setPageData(newData.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
+    useEffect(() => {
+        const getData = () => {
+            const data = [];
+            for (let i = 0; i < 46; i++) {
+                const isSemiDesign = i % 2 === 0;
+                const randomNumber = (i * 1000) % 199;
+                data.push({
+                    key: '' + i,
+                    name: isSemiDesign ? `Semi Design Draft${i}.fig` : `Semi D2C Draft${i}.fig`,
+                    owner: isSemiDesign ? 'Jiang Pengzhi' : 'Hao Xuan',
+                    size: randomNumber,
+                    updateTime: new Date().valueOf() + randomNumber,
+                    avatarBg: isSemiDesign ? 'grey' : 'red',
+                });
+            }
+            return data;
+        };
+        const data = getData();
+        setData(data);
+    }, []);
+    const [pageNum, setPageNum] = useState(1);
+
+    useEffect(() => {
+        const currentPageData = dataSource.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+        setPageData(currentPageData);
+    }, [dataSource, pageNum]);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: { distance: 1 },
+        })
+    );
+
+    const handleDragEnd = event => {
+        const { active, over } = event;
+        if (active && over && active.id !== over.id) {
+            setPageData(prev => {
+                const activeIndex = prev.findIndex(data => data.key === active.id);
+                const overIndex = prev.findIndex(data => data.key === over.id);
+                return arrayMove(prev, activeIndex, overIndex);
+            });
+        }
     };
 
-    const handlePageChange = pageNum => {
-        console.log(pageNum);
-        setCurrentPage(pageNum);
-        setPageData(data.slice((pageNum - 1) * PAGE_SIZE, pageNum * PAGE_SIZE));
+    const handleChange = ({ pagination }) => {
+        const { currentPage } = pagination;
+        setPageNum(currentPage);
+    };
+
+    const SortableRow = (props) => {
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
+            id: props['data-row-key'],
+        });
+        const style = {
+            ...props.style,
+            transform: cssDndKit.Transform.toString(transform),
+            transition,
+            cursor: 'grabbing',
+            ...(isDragging ? { zIndex: 999, position: 'relative' } : {}),
+        };
+        const rowCls = classNames(props.className,
+            {
+                ['isDragging']: isDragging,
+                ['isOver']: isOver,
+            }
+        );
+        const onPointerDown = (event) => {
+            event.persist();
+            console.log('props', event);
+            listeners.onPointerDown(event);
+        };
+
+        return <tr {...props} className={rowCls} ref={setNodeRef} style={style} {...attributes} {...listeners} onPointerDown={onPointerDown}></tr>;
     };
 
     return (
-        <div id="components-table-demo-drag-sorting">
-            <DndProvider backend={HTML5Backend}>
+        <DndContext
+            // https://docs.dndkit.com/api-documentation/context-provider#autoscroll
+            autoScroll={true}
+            sensors={sensors}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+        >
+            <SortableContext items={pageData.map(data => data.key)} strategy={verticalListSortingStrategy}>
                 <Table
+                    components={{
+                        body: {
+                            row: SortableRow,
+                        },
+                    }}
+                    rowKey="key"
                     columns={columns}
                     dataSource={pageData}
-                    pagination={{
-                        pageSize: PAGE_SIZE,
-                        total: data.length,
-                        currentPage,
-                        onPageChange: handlePageChange,
-                    }}
-                    components={components}
-                    onRow={(record, index) => ({
-                        index,
-                        moveRow,
-                    })}
+                    pagination={{ currentPage: pageNum, pageSize: pageSize, total: dataSource.length }}
+                    onChange={handleChange}
                 />
-            </DndProvider>
-        </div>
+            </SortableContext>
+        </DndContext>
     );
 }
 
-render(DragSortingTableDemo);
-```
-
-The CSS styles used in this example are:
-
-```css
-#components-table-demo-drag-sorting tr.drop-over-downward td {
-    border-bottom: 2px dashed #1890ff;
-}
-
-#components-table-demo-drag-sorting tr.drop-over-upward td {
-    border-top: 2px dashed #1890ff;
-}
+render(App);
 ```
 
 ### Table Grouping
@@ -5323,7 +5301,6 @@ interface TablePaginationProps extends PaginationProps {
     formatPageText?: FormatPageText;
 }
 
-type VirtualizedMode = 'list' | 'grid';
 type VirtualizedItemSizeFn = (index?: number) => number;
 type VirtualizedOnScrollArgs = {
     scrollDirection?: 'forward' | 'backward';
@@ -5335,7 +5312,6 @@ type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 type Virtualized =
     | boolean
     | {
-          mode?: VirtualizedMode;
           itemSize?: number | VirtualizedItemSizeFn;
           onScroll?: VirtualizedOnScroll;
       };

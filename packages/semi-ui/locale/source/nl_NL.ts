@@ -21,6 +21,9 @@ const local: Locale = {
         confirm: 'Bevestigen',
         cancel: 'Annuleren',
     },
+    Tabs: {
+        more: "Meer"
+    },
     TimePicker: {
         placeholder: {
             time: 'Tijd selecteren',
@@ -173,6 +176,15 @@ const local: Locale = {
         downloadTip: 'Downloaden',
         adaptiveTip: 'Adaptieve weergave',
         originTip: 'Standaardweergave',
+    },
+    Chat: {
+        deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
+        clearContext: 'De context is gewist',
+        copySuccess: 'Succesvol gekopieerd',
+        stop: 'Stoppen',
+        copy: 'Kopiëren',
+        copied: 'Gekopieerd',
+        dropAreaText: 'Plaats het bestand hier',
     },
 };
 

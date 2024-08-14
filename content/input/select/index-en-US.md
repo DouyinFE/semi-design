@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 29
+order: 35
 category: Input
 title: Select
 subTitle: Select
@@ -616,6 +616,52 @@ import { Select } from '@douyinfe/semi-ui';
 );
 ```
 
+
+### Search position
+The default search input is displayed on the Select Trigger. You can specify different positions through `searchPosition`, and you can choose `dropdown` or `trigger`. Available after `v2.61.0`  
+If you want to customize the placeholder of the Input search box in the dropdown, you can control it through `searchPlaceholder`  
+If the `searchPosition` is `trigger`, when `showClear=true`, clicking the clear button of the input will clear the selected items and the search text in the input at the same time   
+If the `searchPosition` is `dropdown`, when `showClear=true`, clicking the clear button of the trigger will clear the selected items,  clicking the clear button in the dropdown input will clear search text  
+
+
+```jsx live=true
+import React from 'react';
+import { Select } from '@douyinfe/semi-ui';
+
+() => (
+    <>
+        <Select
+            filter
+            searchPosition='dropdown'
+            style={{ width: 200 }}
+            defaultValue={'ulikecam'}
+        >
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="ulikecam">UlikeCam</Select.Option>
+            <Select.Option value="jianying">Capcut</Select.Option>
+            <Select.Option value="xigua">XiguaVideo</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            filter
+            searchPosition='dropdown'
+            multiple
+            style={{ width: 300 }}
+            defaultValue={['semi-1']}
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
+        </Select>
+    </>
+);
+
+```
+
 ### Remote search
 
 A multi-select example with remote search, request debounce, loading status.
@@ -1168,6 +1214,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 value={valList}
                 triggerRender={triggerRender}
                 optionList={list}
+                filter
+                searchPosition='dropdown'
                 onChange={value => setValList(value)}
                 multiple
                 style={{ width: 240 }}
@@ -1180,6 +1228,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 onChange={value => setVal(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240, marginTop: 20, outline: 0 }}
             ></Select>
         </div>
@@ -1363,10 +1413,11 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label                                                                                                                                                                                                                                                                                    | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box                                                                                                                                                                                                                                                                                                      | function(option) |  |
 | restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                                                 | PopoverProps | {} | 2.22.0 |
+| size | Size, optional value `default` / `small` / `large`   
+| searchPosition | When the filter is turned on, the search box is in the trigger by default. You can set it to 'dropdown' to put the search box at the top of the popup list.  | string | 'trigger' | 2.61.0
 | showArrow | Whether to show arrow icon                                                                                                                                                                                                                                                                                                                                         | boolean | true |
 | showClear | Whether to show the clear button                                                                                                                                                                                                                                                                                                                                   | boolean | false |
 | showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover                                                                                                                                                                                                                                         | boolean | false | 2.22.0 |
-| size | Size, optional value `default` / `small` / `large`                                                                                                                                                                                                                                                                                                                 | string | 'default' |
 | spacing | Spacing between popup layer and trigger                                                                                                                                                                                                                                                                                                                            | number | 4 |
 | stopPropagation | Whether to prevent click events on the popup layer from bubbling                                                                                                                                                                                                                                                                                                   | boolean | true |  |
 | style | Inline Style                                                                                                                                                                                                                                                                                                                                                       | object |  |
@@ -1472,7 +1523,7 @@ Some internal methods provided by Select can be accessed through ref:
 <DesignToken/>
 
 ## Related Material
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>
 
 ## FAQ
 

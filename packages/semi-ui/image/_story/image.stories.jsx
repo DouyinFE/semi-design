@@ -105,6 +105,14 @@ export const basicImage = () => {
     </>
 )}
 
+export const ImgClsAndStyle = () => {
+    return <Image 
+        imgCls="custom-img-cls"
+        imgStyle={{ maxWidth: 300}}
+        src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+    />
+}
+
 export const LoadErrorImage = () => (
     <>
         <p>加载失败默认样式</p>

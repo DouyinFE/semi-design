@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 70
+order: 76
 category: Feedback
 title:  Popconfirm
 subTitle: Popconfirm

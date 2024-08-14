@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 72
+order: 78
 category: Feedback
 title: Skeleton
 subTitle: Skeleton

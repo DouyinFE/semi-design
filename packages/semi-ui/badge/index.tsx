@@ -24,7 +24,10 @@ export interface BadgeProps {
     onMouseEnter?: (e: React.MouseEvent) => any;
     onMouseLeave?: (e: React.MouseEvent) => any;
     onClick?: (e: React.MouseEvent) => any;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    countClassName?: string;
+    countStyle?: React.CSSProperties;
+
 }
 
 export default class Badge extends PureComponent<BadgeProps> {
@@ -42,6 +45,8 @@ export default class Badge extends PureComponent<BadgeProps> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
+        countClassName: PropTypes.string,
+        countStyle: PropTypes.object,
     };
 
     static defaultProps = {
@@ -60,10 +65,10 @@ export default class Badge extends PureComponent<BadgeProps> {
         const { direction } = this.context;
         // DefaultPosition here, static can't get this
         const defaultPosition = direction === 'rtl' ? 'leftTop' : 'rightTop';
-        const { count, dot, type, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
+        const { count, dot, type, countClassName,countStyle, theme, position = defaultPosition, overflowCount, style, children, className, ...rest } = this.props;
         const custom = count && !(isNumber(count) || isString(count));
         const showBadge = count !== null && typeof count !== 'undefined';
-        const wrapper = cls(className, {
+        const wrapper = cls(countClassName, {
             [`${prefixCls}-${type}`]: !custom,
             [`${prefixCls}-${theme}`]: !custom,
             [`${prefixCls}-${position}`]: Boolean(position) && Boolean(children),
@@ -79,9 +84,9 @@ export default class Badge extends PureComponent<BadgeProps> {
             content = count;
         }
         return (
-            <span className={prefixCls} {...rest}>
+            <span className={cls(prefixCls, className)} {...rest}>
                 {children}
-                <span className={wrapper} style={style} x-semi-prop="count">
+                <span className={wrapper} style={style || countStyle} x-semi-prop="count">
                     {dot ? null : content}
                 </span>
             </span>

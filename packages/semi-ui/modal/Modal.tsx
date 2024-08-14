@@ -137,14 +137,14 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
                 this.bodyOverflow = document.body.style.overflow || '';
-                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
                 }
             },
             enabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
-                if (!getPopupContainer && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
+                if ((!getPopupContainer || getPopupContainer() === globalThis?.document?.body) && this.bodyOverflow !== null && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = this.bodyOverflow;
                     document.body.style.width = this.originBodyWidth;
                 }
@@ -285,6 +285,10 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                         block={footerFill}
                         autoFocus={true}
                         {...this.props.cancelButtonProps}
+                        style={{
+                            ...footerFill ? { marginLeft: "unset" }:{},
+                            ...this.props.cancelButtonProps?.style
+                        }}
                         x-semi-children-alias="cancelText"
                     >
                         {cancelText || locale.cancel}
@@ -338,6 +342,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
             zIndex,
             getPopupContainer,
             visible,
+            modalContentClass,
             ...restProps
         } = this.props;
         let style = styleFromProps;
@@ -349,7 +354,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
         } = {
             zIndex,
         };
-        if (getPopupContainer) {
+        if (getPopupContainer && getPopupContainer() !== globalThis?.document?.body) {
             wrapperStyle = {
                 zIndex,
                 position: 'static',
@@ -390,7 +395,7 @@ class Modal extends BaseComponent<ModalReactProps, ModalState> {
                                         contentExtraProps={animationEventsNeedBind}
                                         maskExtraProps={maskAnimationEventsNeedBind}
                                         isFullScreen={this.state.isFullScreen}
-                                        contentClassName={animationClassName}
+                                        contentClassName={`${animationClassName} ${modalContentClass}`}
                                         maskClassName={maskAnimationClassName}
                                         className={classList}
                                         getPopupContainer={getPopupContainer}

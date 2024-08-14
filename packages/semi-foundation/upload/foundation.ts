@@ -60,7 +60,8 @@ export interface AfterUploadResult {
     autoRemove?: boolean;
     status?: string;
     validateMessage?: unknown;
-    name?: string
+    name?: string;
+    url?: string
 }
 
 export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -93,6 +94,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
 }
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
+    destroyState: boolean = false;
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -107,9 +109,10 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     destroy() {
         const { disabled, addOnPasting } = this.getProps();
         this.releaseMemory();
-        if (addOnPasting && !disabled) {
+        if (!disabled) {
             this.unbindPastingHandler();
         }
+        this.destroyState = true;
     }
 
     getError({ action, xhr, message, fileName }: { action: string;xhr: XMLHttpRequest;message?: string;fileName: string }): XhrError {
@@ -568,13 +571,27 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         }
 
         if (xhr.upload) {
-            xhr.upload.onprogress = (e: ProgressEvent): void => this.handleProgress({ e, fileInstance });
+            xhr.upload.onprogress = (e: ProgressEvent): void => {
+                if (!this.destroyState) {
+                    this.handleProgress({ e, fileInstance });
+                } else {
+                    xhr.abort();
+                }
+            };
         }
 
         // Callback function after upload is completed
-        xhr.onload = (e: ProgressEvent): void => this.handleOnLoad({ e, xhr, fileInstance });
+        xhr.onload = (e: ProgressEvent): void => {
+            if (!this.destroyState) {
+                this.handleOnLoad({ e, xhr, fileInstance });
+            }
+        };
 
-        xhr.onerror = (e: ProgressEvent): void => this.handleError({ e, xhr, fileInstance });
+        xhr.onerror = (e: ProgressEvent): void => {
+            if (!this.destroyState) {
+                this.handleError({ e, xhr, fileInstance });
+            }
+        };
 
         // add headers
         let headers = option.headers || {};
@@ -646,7 +663,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         e ? (newFileList[index].event = e) : null;
 
         if (afterUpload && typeof afterUpload === 'function') {
-            const { autoRemove, status, validateMessage, name } =
+            const { autoRemove, status, validateMessage, name, url } =
                 this._adapter.notifyAfterUpload({
                     response: body,
                     file: newFileList[index],
@@ -655,6 +672,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
             status ? (newFileList[index].status = status) : null;
             validateMessage ? (newFileList[index].validateMessage = validateMessage) : null;
             name ? (newFileList[index].name = name) : null;
+            url ? (newFileList[index].url = url) : null;
             autoRemove ? newFileList.splice(index, 1) : null;
         }
         this._adapter.notifySuccess(body, fileInstance, newFileList);
@@ -884,31 +902,31 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
     handlePasting(e: any) {
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
+        const { addOnPasting } = this.getProps();
 
-        if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
-            // https://github.com/microsoft/TypeScript/issues/33923
-            const permissionName = "clipboard-read" as PermissionName;
-            // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
-            navigator.permissions
-                .query({ name: permissionName })
-                .then(result => {
-                    console.log(result);
-                    if (result.state === 'granted' || result.state === 'prompt') {
-                        // user has authorized or will authorize
-                        navigator.clipboard
-                            .read()
-                            .then(clipboardItems => {
+        if (addOnPasting) {
+            if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
+                // https://github.com/microsoft/TypeScript/issues/33923
+                const permissionName = 'clipboard-read' as PermissionName;
+                // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
+                navigator.permissions
+                    .query({ name: permissionName })
+                    .then(result => {
+                        if (result.state === 'granted' || result.state === 'prompt') {
+                            // user has authorized or will authorize
+                            navigator.clipboard.read().then(clipboardItems => {
                                 // Process the data read from the pasteboard
                                 // Check the returned data type to determine if it is image data, and process accordingly
                                 this.readFileFromClipboard(clipboardItems);
                             });
-                    } else {
-                        this._adapter.notifyPastingError(result);
-                    }
-                })
-                .catch(error => {
-                    this._adapter.notifyPastingError(error);
-                });
+                        } else {
+                            this._adapter.notifyPastingError(result);
+                        }
+                    })
+                    .catch(error => {
+                        this._adapter.notifyPastingError(error);
+                    });
+            }
         }
     }
 

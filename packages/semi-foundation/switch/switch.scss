@@ -116,11 +116,6 @@ $module: #{$prefix}-switch;
     }
 
     &-native-control {
-
-        &[type="checkbox"] {
-            width: inherit;
-            height: inherit;
-        }
         width: 100%;
         height: 100%;
         opacity: 0;
@@ -130,6 +125,11 @@ $module: #{$prefix}-switch;
         position: absolute;
         top: 0;
         left: 0;
+
+        &[type="checkbox"] {
+            width: inherit;
+            height: inherit;
+        }
     }
 
     &-checked-text,

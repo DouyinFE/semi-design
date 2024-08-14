@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 34
+order: 40
 category: 输入类
 title: Transfer 穿梭框
 icon: doc-transfer
@@ -101,9 +101,10 @@ import { Transfer } from '@douyinfe/semi-ui';
 
 ### 自定义筛选逻辑，自定义选项数据渲染
 
-使用`filter`自定义搜索逻辑，返回 true 时表示当前项符合筛选规则，保留当前项在列表中的显示，返回 false 则表示不符合，当前项会被隐藏  
-使用`renderSourceItem`，你可以自定义左侧每一条源数据的渲染结构  
-使用`renderSelectedItem` 你可以自定义右侧每一条已选项的渲染结构
+使用`filter`自定义搜索逻辑，返回 true 时表示当前项符合筛选规则，保留当前项在列表中的显示，返回 false 则表示不符合，当前项会被隐藏。  
+当 type 为 `treeList`时，如需要自定义搜索逻辑，需设置 `filter` 为 true，并通过 `treeProps` 的 `filterTreeNode` 设置自定义的搜索函数。  
+使用`renderSourceItem`，你可以自定义左侧每一条源数据的渲染结构。  
+使用`renderSelectedItem` 你可以自定义右侧每一条已选项的渲染结构。
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -1282,7 +1283,7 @@ import { Transfer } from '@douyinfe/semi-ui';
 | disabled | 是否禁用 | boolean | false |  |
 | draggable | 是否开启拖拽排序 | boolean | false |  |
 | emptyContent | 自定义空状态的提示文本，search 为无搜索结果时展示的文本，left 为左侧无源数据时的文本，right 为无勾选数据时的提示文本 | {left: ReactNode; right: ReactNode; search: ReactNode;} |  |  |
-| filter | 自定义筛选逻辑, 当为 false 时，不展示搜索框 | boolean \| (input:string, item: Item) => boolean | true |  |
+| filter | 自定义筛选逻辑, 当为 false 时，不展示搜索框，传入函数可自定义搜素逻辑。当 type 为 `treeList`时，如需要自定义搜索逻辑，需设置 `filter` 为 true，并通过 `treeProps` 的 `filterTreeNode` 设置自定义的搜索函数。 | boolean \| (input:string, item: Item) => boolean | true |  |
 | inputProps | 可用于自定义搜索框 Input，可配置属性参考 Input 组件，其中 value 和 onChange 参数在 Transfer 内部会被使用，用户请勿使用，如需通过外部数据进行搜索，可调用 Transfer 的 search 方法 | [InputProps](/zh-CN/input/input#API%20%E5%8F%82%E8%80%83) |  |  |
 | loading | 是否正在加载左侧选项 | boolean | - |  |
 | onChange | 选中值发生变化时触发的回调, 拖拽排序变化后也会触发该回调 | (values: Array<string\|number>, items: Array<Item\>) => void |  |  |

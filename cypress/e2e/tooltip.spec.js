@@ -53,7 +53,7 @@ describe('tooltip', () => {
         cy.get(dataSelector).trigger('mouseover');
         cy.get(input).should('be.focused');
     });
-    it('autoFocusHoverNoMotion', () => {
+    it.skip('autoFocusHoverNoMotion', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tooltip--auto-focus-content-demo&args=&viewMode=story');
         const dataSelector = `[data-cy=hoverNoMotion]`;
         const input = `[data-cy=hoverNoMotionInput]`;

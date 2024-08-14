@@ -1,7 +1,7 @@
 /* argus-disable unPkgSensitiveInfo */
 import React, { useState } from 'react';
 import FileCard from '../fileCard';
-import { Button, Upload, Toast, Tag } from '@douyinfe/semi-ui/index';
+import { Button, Upload, Toast, Tag, Switch } from '@douyinfe/semi-ui/index';
 import { withField, Form } from '../../form/index';
 import { IconPlus, IconFile, IconUpload, IconEyeOpened, IconDownload, IconDelete } from '@douyinfe/semi-icons';
 
@@ -1252,10 +1252,12 @@ PreviewFallback.story = {
 
 
 export const PastingDemo = () => {
+  const [addOnPasting, switchAddOnPasting] = useState(true);
+
   return (
     <div style={{ width: 800, height: 500 }}>
       <Upload
-        addOnPasting
+        addOnPasting={addOnPasting}
         action={action}
         // {...commonProps}
         onChange={(e) => console.log(e)}
@@ -1271,7 +1273,54 @@ export const PastingDemo = () => {
           .then(() => alert('clear'))
           .catch(error => console.log(error))
       }}>清空clipboard</Button>
+      <Switch
+        checked={addOnPasting}
+        onChange={e => switchAddOnPasting(e)}
+      >
+      </Switch>
     </div>
 
   )
+};
+
+let first = true;
+
+
+export const Unmount = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'music.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/Resso.png',
+        }
+    ];
+    const [a, setA] =React.useState(true)
+
+    const toggle = () => {
+      console.log('ready to toggle', !a)
+      setA(!a);
+    }
+
+    return (
+        <>
+            {a&&<Upload
+                action={action}
+                listType="picture"
+                accept="image/*"
+                multiple
+                defaultFileList={defaultFileList}
+                onChange={(value)=>{
+                    console.log('change')
+                }}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>}
+            <button onClick={toggle}>toggle upload mount</button>
+        </>
+    );
 };

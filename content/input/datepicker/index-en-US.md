@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 28
 category: Input
 title: DatePicker
 subTitle: Date Selector
