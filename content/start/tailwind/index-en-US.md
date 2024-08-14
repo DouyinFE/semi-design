@@ -122,7 +122,7 @@ After enabling the plugin, all Semi styles will be wrapped by `@layer {xxxx}`. I
 
 In addition, we configured the priority order of various Layers:
 ```css
-@layer tailwind-base,semi,components,utils;
+@layer tailwind-base,semi,tailwind-components,tailwind-utils;
 ```
 The meaning of the above CSS is that base (including Preflight) has the lowest priority, followed by Semi. The atomic class styles set by the user (padding-[xxx], etc.) have the highest priority, which can solve the above problems.
 

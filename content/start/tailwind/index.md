@@ -125,7 +125,7 @@ CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https
 
 另外，我们配置了各种 Layer 的优先级顺序：
 ```css
-@layer tailwind-base,semi,components,utils;
+@layer tailwind-base,semi,tailwind-components,tailwind-utils;
 ```
 上述 CSS 的含义为， base （含 Preflight）优先级最低，Semi 次之，用户设置的原子类样式（padding-[xxx] 等）优先级最高，这样即可解决上面遇到的问题。
 
