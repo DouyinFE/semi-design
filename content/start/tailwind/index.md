@@ -50,13 +50,43 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
-** 2. 在项目中的配置文件中（webpack.config.js 等）引入Semi webpack 插件并开启 cssLayer (使用非 webpack 构建的用户请参照原理自行对 semi 的 css 进行 layer 包裹) **
+** 2. 在项目中的配置文件中 **
+
+- webpack 用户: 在webpack.config.js 引入Semi webpack 插件并开启 cssLayer
+
 ```js
-new SemiWebpackPlugin({
-    cssLayer:true,
-    /* ...options */
-});
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    // ...
+    plugins: [
+        new SemiPlugin({
+            cssLayer:true,
+            /* ...options */
+        })
+    ]
+    // ...
+};
+
 ```
+- rspack 用户: 在 rspack.config.js  引入Semi webpack 插件并开启 cssLayer
+
+```js
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
+
+module.exports = {
+    // ...
+    plugins: [
+        new SemiRspackPlugin({
+            cssLayer:true
+        })
+    ]
+};
+```
+
+使用非 webpack rspack 构建的用户请参照原理自行对 semi 的 css 进行 layer 包裹
+
+
 ** 3. 修改 Tailwind 入口配置**
 
 Tailwind 入口的 CSS 通常是包含了下面三行的文件
@@ -68,7 +98,7 @@ Tailwind 入口的 CSS 通常是包含了下面三行的文件
 
 将其修改为（直接复制）
 ```css
-@layer tailwind-base,semi,components,utils;
+@layer tailwind-base,semi,tailwind-components,tailwind-utils;
 @layer tailwind-base{
     @tailwind base;
 }
