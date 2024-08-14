@@ -872,6 +872,7 @@ function Demo() {
 | inputReadOnly | 文本框是否 readonly                                                                                       | boolean | false |  |
 | inputStyle | 输入框样式                                                                                                | object |  |  |
 | insetLabel | 前缀标签，优先级低于 `prefix`                                                                                  | string\|ReactNode |  |  |
+| leftSlot         | 渲染左侧额外区域                                                                                             | ReactNode |         |  |
 | max | multiple 为 true 时，多选的数目,不传或者值为 null\|undefined 的话无限制                                                 | number | - |  |
 | motion | 是否开启面板展开的动画                                                                                          | boolean | true |  |
 | multiple | 是否可以选择多个，仅支持 type="date"                                                                             | boolean | false |  |
@@ -886,6 +887,7 @@ function Demo() {
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | **1.31.0** |
 | renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - | **1.4.0** |
 | renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - | **1.4.0** |
+| bottomSlot         | 渲染右侧额外区域                                                                                             | ReactNode |         |  |
 | showClear | 是否显示清除按钮                                                                                             | boolean | true | **0.35.0** |
 | size | 尺寸，可选值："small", "default", "large"                                                                   | string | 'default' |  |
 | spacing | 浮层与 trigger 的距离                                                                                      | number | 4 | **1.9.0** |

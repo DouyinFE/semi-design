@@ -44,6 +44,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     insetLabelId?: string;
     prefix?: React.ReactNode;
     topSlot?: React.ReactNode;
+    rightSlot?: React.ReactNode;
     renderDate?: (dayNumber?: number, fullDate?: string) => React.ReactNode;
     renderFullDate?: (dayNumber?: number, fullDate?: string, dayStatus?: DayStatusType) => React.ReactNode;
     triggerRender?: (props: DatePickerProps) => React.ReactNode;
@@ -63,6 +64,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
     onClickOutSide?: () => void;
     locale?: Locale['DatePicker'];
+    leftSlot?: React.ReactNode;
     dateFnsLocale?: Locale['dateFnsLocale'];
     yearAndMonthOpts?: ScrollItemProps<any>;
     dropdownMargin?: PopoverProps['margin']
@@ -747,7 +749,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
     };
 
     renderPanel = (locale: Locale['DatePicker'], localeCode: string, dateFnsLocale: Locale['dateFnsLocale']) => {
-        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, presetPosition, type } = this.props;
+        const { dropdownClassName, dropdownStyle, density, topSlot, bottomSlot, presetPosition, type, leftSlot, rightSlot } = this.props;
         const wrapCls = classnames(
             cssClasses.PREFIX,
             {
@@ -759,22 +761,36 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} x-type={type}>
-                {topSlot && (
-                    <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
-                        {topSlot}
+                <div className={`${cssClasses.PREFIX}-container`}>
+                    {leftSlot && (
+                        <div className={`${cssClasses.PREFIX}-leftSlot`} x-semi-prop="leftSlot">
+                            {leftSlot}
+                        </div>
+                    )}
+                    <div>
+                        {topSlot && (
+                            <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
+                                {topSlot}
+                            </div>
+                        )}
+                        {/* todo: monthRange does not support presetPosition temporarily */}
+                        {presetPosition === "top" && type !== 'monthRange' && this.renderQuickControls()}
+                        {this.adapter.typeIsYearOrMonth()
+                            ? this.renderYearMonthPanel(locale, localeCode)
+                            : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
+                        {presetPosition === "bottom" && type !== 'monthRange' && this.renderQuickControls()}
+                        {bottomSlot && (
+                            <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
+                                {bottomSlot}
+                            </div>
+                        )}
                     </div>
-                )}
-                {/* todo: monthRange does not support presetPosition temporarily */}
-                {presetPosition === "top" && type !== 'monthRange' && this.renderQuickControls()}
-                {this.adapter.typeIsYearOrMonth()
-                    ? this.renderYearMonthPanel(locale, localeCode)
-                    : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
-                {presetPosition === "bottom" && type !== 'monthRange' && this.renderQuickControls()}
-                {bottomSlot && (
-                    <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
-                        {bottomSlot}
-                    </div>
-                )}
+                    {rightSlot && (
+                        <div className={`${cssClasses.PREFIX}-rightSlot`} x-semi-prop="rightSlot">
+                            {rightSlot}
+                        </div>
+                    )}
+                </div>
                 {this.renderFooter(locale, localeCode)}
             </div>
         );
