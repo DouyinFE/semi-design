@@ -108,6 +108,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Geen resultaten gevonden',
         pageText: '${currentStart} tot ${currentEnd} van ${total} wordt weergegeven',
+        descend: 'Klik om af te dalen',
+        ascend: 'Klik om op te stijgen',
+        cancelSort: 'Sorteren annuleren',
     },
     Select: {
         emptyText: 'Geen resultaten gevonden',

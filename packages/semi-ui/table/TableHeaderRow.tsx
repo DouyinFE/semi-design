@@ -15,8 +15,11 @@ import {
 } from '@douyinfe/semi-foundation/table/utils';
 import BaseComponent from '../_base/baseComponent';
 import TableContext, { TableContextProps } from './table-context';
-import { TableComponents, OnHeaderRow, Fixed } from './interface';
+import { TableComponents, OnHeaderRow, Fixed, TableLocale } from './interface';
 import type { TableHeaderCell } from './TableHeader';
+import Tooltip from '../tooltip';
+import LocaleConsumer from '../locale/localeConsumer';
+import { getNextSortOrder } from './utils';
 
 export interface TableHeaderRowProps {
     components?: TableComponents;
@@ -149,6 +152,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
                     [`${prefixCls}-cell-fixed-right`]: fixedRight,
                     [`${prefixCls}-cell-fixed-right-first`]: fixedRightFirst,
                     [`${prefixCls}-row-head-ellipsis`]: column.ellipsis,
+                    [`${prefixCls}-row-head-clickSort`]: column.clickToSort
                 }
             );
 
@@ -190,17 +194,41 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
             if (rowSpan === 0 || colSpan === 0) {
                 return null;
             }
+            
+            if (typeof column.clickToSort === 'function') {
+                if (props.onClick) {
+                    props.onClick = (e: any) => {
+                        props.onClick(e);
+                        column.clickToSort(e);
+                    };
+                } else {
+                    props.onClick = column.clickToSort;
+                }
+            }
 
-            return (
-                // @ts-ignore  no need to do complex ts type checking and qualification
-                <HeaderCell
-                    role="columnheader"
-                    aria-colindex={cellIndex + 1}
-                    {...props}
-                    style={cellStyle}
+            const headerCellNode = (<HeaderCell
+                role="columnheader"
+                aria-colindex={cellIndex + 1}
+                {...props}
+                style={cellStyle}
+                key={column.key || column.dataIndex || cellIndex}
+            />);
+
+            if (typeof column.clickToSort === 'function' && column.showSortTooltip !== false) {
+                let content = getNextSortOrder(column.sortOrder);
+                return (<LocaleConsumer 
+                    componentName="Table" 
                     key={column.key || column.dataIndex || cellIndex}
-                />
-            );
+                >
+                    {(locale: TableLocale, localeCode: string) => (
+                        <Tooltip content={locale[content]}>
+                            {headerCellNode}
+                        </Tooltip>
+                    )}
+                </LocaleConsumer>);
+            }
+
+            return headerCellNode;
         });
 
         return (

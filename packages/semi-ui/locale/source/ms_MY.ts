@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Tiada kandungan',
         pageText: 'Papar halaman ${currentStart} hingga ${currentEnd} daripada ${total}',
+        descend: 'Klik untuk menurun',
+        ascend: 'Klik untuk menaik',
+        cancelSort: 'Batal mengurutkan',
     },
     Select: {
         emptyText: 'Tiada kandungan',

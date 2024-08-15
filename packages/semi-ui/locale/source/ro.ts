@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Nici un rezultat',
         pageText: 'Arată ${currentStart} la ${currentEnd} de ${total}',
+        descend: 'Faceți clic pentru a coborî',
+        ascend: 'Faceți clic pentru a urca',
+        cancelSort: 'Anulați sortarea',
     },
     Select: {
         emptyText: 'Nici un rezultat',

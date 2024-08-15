@@ -140,6 +140,15 @@ $module: #{$prefix}-table;
                 // word-break: break-all;
                 // word-wrap: break-word;
                 position: relative;
+                transition: background-color $transition_duration-table_row-head-bg $transition_function-table_row-head-bg;
+
+                &-clickSort {
+                    cursor: pointer;
+                    &:hover {
+                        background: var(--semi-color-fill-0),
+                    }
+                }
+               
 
                 &.#{$module}-cell-fixed {
                     &-left,

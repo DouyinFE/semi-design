@@ -1008,8 +1008,15 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
     addFnsInColumn = (column: ColumnProps = {}) => {
         const { prefixCls } = this.props;
         if (column && (column.sorter || column.filters || column.onFilter || column.useFullRender)) {
+            let hasSorter = typeof column.sorter === 'function' || column.sorter === true;
+            let hasFilter = (Array.isArray(column.filters) && column.filters.length) ||
+                isValidElement(column.filterDropdown) ||
+                typeof column.renderFilterDropdown === 'function';
             let hasSorterOrFilter = false;
+            const sortOrderNotControlled = !('sortOrder' in column);
+            let showSortTooltip = sortOrderNotControlled && !(column.showSortTooltip === false) ;
             const { dataIndex, title: rawTitle, useFullRender } = column;
+            const clickColumnToSorter = hasSorter && !hasFilter && !Boolean(useFullRender);
             const curQuery = this.foundation.getQuery(dataIndex);
             const titleMap: ColumnTitleProps = {};
             const titleArr = [];
@@ -1032,7 +1039,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     {rawTitle as React.ReactNode}
                 </span>
             );
-            if (typeof column.sorter === 'function' || column.sorter === true) {
+            if (hasSorter) {
                 // In order to increase the click hot area of ​​sorting, when sorting is required & useFullRender is false,
                 // both the title and sorting areas are used as the click hot area for sorting。
                 const sorter = (
@@ -1040,8 +1047,9 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         key={strings.DEFAULT_KEY_COLUMN_SORTER}
                         sortOrder={sortOrder}
                         sortIcon={column.sortIcon}
-                        onClick={e => this.foundation.handleSort(column, e)}
+                        onClick={useFullRender || hasFilter ? e => this.foundation.handleSort(column, e) : null}
                         title={TitleNode}
+                        showTooltip={!clickColumnToSorter && showSortTooltip}
                     />
                 );
                 useFullRender && (titleMap.sorter = sorter);
@@ -1054,11 +1062,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
             const stateFilteredValue = get(curQuery, 'filteredValue');
             const defaultFilteredValue = get(curQuery, 'defaultFilteredValue');
             const filteredValue = stateFilteredValue ? stateFilteredValue : defaultFilteredValue;
-            if (
-                (Array.isArray(column.filters) && column.filters.length) ||
-                isValidElement(column.filterDropdown) ||
-                typeof column.renderFilterDropdown === 'function'
-            ) {
+            if (hasFilter) {
 
                 const filter = (
                     <ColumnFilter
@@ -1086,6 +1090,13 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 );
 
             column = { ...column, title: newTitle };
+            if (clickColumnToSorter) {
+                column.clickToSort = e => {
+                    this.foundation.handleSort(column, e);
+                };
+                column.sortOrder = sortOrder;
+                column.showSortTooltip = showSortTooltip;
+            }
         }
 
         return column;
