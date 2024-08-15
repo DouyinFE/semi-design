@@ -2,13 +2,16 @@ import React, { ReactNode } from 'react';
 import cls from 'classnames';
 import PropTypes from 'prop-types';
 import KeyboardShortCutFoudation, { KeyboardShortCutAdapter } from '@douyinfe/semi-foundation/keyboardShortCut/foundation';
-// import { cssClasses, strings } from '@douyinfe/semi-foundation/switch/constants';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/keyboardShortCut/constants';
 import BaseComponent from '../_base/baseComponent';
+import { noop } from 'lodash';
 // import '@douyinfe/semi-foundation/switch/switch.scss';
 
 export interface KeyboardShortCutProps {
-    hotKeys?: string[];
+    hotKeys?: KeyboardEvent["key"][];
+    content?: string[];
     onClick?: () => {};
+    clickable: Boolean;
     render?: () => ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
@@ -22,7 +25,9 @@ export interface KeyboardShortCutState {
 class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShortCutState> {
     static propTypes = {
         hotKeys: PropTypes.arrayOf(PropTypes.string),
+        content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
+        clickable :PropTypes.bool,
         render: PropTypes.func,
         getListenerTarget: PropTypes.func,
         className: PropTypes.string,
@@ -31,7 +36,9 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
 
     static defaultProps: Partial<KeyboardShortCutProps> = {
         hotKeys: null,
+        content: null,
         onClick: null,
+        clickable: false,
         render: null,
         getListenerTarget: () => document.body,
         className: '',
@@ -73,15 +80,18 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
 
     
     render() {
-        const { hotKeys, onClick, render, getListenerTarget, ...rest } = this.props;
+        const { hotKeys, content, onClick, clickable, render, getListenerTarget, ...rest } = this.props;
+        if (hotKeys?.length !== content?.length) {
+            // TODO:error
+        }
         if (render !== null) {
             return render()
         }
         return (
-            <div onClick={onClick}>
-                { hotKeys.join('+') }
+            <div onClick={clickable ? onClick : noop}>
+                { content === null ? hotKeys.join('+') : content.join('+') }
             </div>
-        );
+        ) 
     }
 }
 

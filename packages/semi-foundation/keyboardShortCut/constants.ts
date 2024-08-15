@@ -1,4 +1,14 @@
+import { BASE_CLASS_PREFIX } from "../base/constants";
 import { KeyboardEvent } from "react";
+
+const cssClasses = {
+    PREFIX: `${BASE_CLASS_PREFIX}-keyBoardShortCut`,
+} as const;
+
+const strings = {
+};
+
+export { cssClasses, strings };
 
 export function keyToCode(key: KeyboardEvent["key"]) {
     const keyCodeMap = {

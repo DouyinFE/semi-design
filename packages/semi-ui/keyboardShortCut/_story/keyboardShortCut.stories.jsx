@@ -16,6 +16,9 @@ export const Demo = () => {
     <div>
       <pre>{cnt}</pre>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘", "k"]}></KeyboardShortCut>
+      <span>clickable</span>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
     </div>
   );
 }
@@ -40,7 +43,8 @@ export const Demo2 = () => {
   return (
     <div>
       <span>{hotKeys}</span>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={button}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={button}
+      ></KeyboardShortCut>
     </div>
 
   );
@@ -63,13 +67,13 @@ export const Demo3 = () => {
 }
 
 export const Demo4 = () => {
-  const hotKeys = ["Meta", "k"]
+  const hotKeys = ["Meta", "s"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
 
-  const target = <div id="test" style={{ width:500, height: 400, color:'red'}}></div>
+  const target = <input id="test" placeholder='test for target'></input>
   return (
     <div>
       {target}

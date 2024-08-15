@@ -1,6 +1,5 @@
-import { noop } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
-import { keyToCode } from './constant'
+import { keyToCode } from './constants'
 
 export interface KeyboardShortCutAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyClick: () => void,
@@ -20,8 +19,7 @@ export default class KeyboardShortCutFoundation<P = Record<string, any>, S = Rec
     }
 
     handleKeyDown = (event: KeyboardEvent): void => {
-        event.preventDefault()
-        console.log(event)
+        // console.log(event)
 
         const hotKeys = this.getProps().hotKeys
         const keysPressed = hotKeys.map((key : KeyboardEvent["key"])=> {
@@ -31,9 +29,9 @@ export default class KeyboardShortCutFoundation<P = Record<string, any>, S = Rec
             if (key === "Ctrl") return event.ctrlKey
             return event.code === keyToCode(key); 
         });
-        console.log(keysPressed)
+        // console.log(keysPressed)
         if (keysPressed.every(Boolean)) {
-            event.preventDefault();
+            event.preventDefault()
             this.handleClick()
             return
         }
