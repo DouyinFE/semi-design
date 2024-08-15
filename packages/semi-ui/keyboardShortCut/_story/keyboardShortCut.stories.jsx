@@ -14,11 +14,11 @@ export const Demo = () => {
   }
   return (
     <div>
-      <pre>{cnt}</pre>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘", "k"]}></KeyboardShortCut>
       <span>clickable</span>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
+      <pre>{cnt}</pre>
     </div>
   );
 }
@@ -27,7 +27,7 @@ Demo.story = {
   name: 'demo',
 };
 
-export const Demo2 = () => {
+export const render = () => {
   const hotKeys = ["Meta", "ArrowDown"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
@@ -50,7 +50,7 @@ export const Demo2 = () => {
   );
 }
 
-export const Demo3 = () => {
+export const combine = () => {
   const hotKeys = ["Meta", "Alt", "k"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
@@ -66,7 +66,7 @@ export const Demo3 = () => {
   );
 }
 
-export const Demo4 = () => {
+export const target = () => {
   const hotKeys = ["Meta", "s"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
@@ -81,5 +81,22 @@ export const Demo4 = () => {
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} getListenerTarget={() => document.getElementById("test")}></KeyboardShortCut>
     </div>
     
+  );
+}
+
+export const test = () => {
+  const hotKeys = ["Meta","\\"]
+  const [cnt, setCnt] = useState(0)
+  const onClick = () => {
+    setCnt(cnt+1)
+  }
+  return (
+    <div>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘", "k"]}></KeyboardShortCut>
+      <span>clickable</span>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
+      <pre>{cnt}</pre>
+    </div>
   );
 }

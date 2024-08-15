@@ -1,0 +1,29 @@
+@import "./variables.scss";
+
+$module: #{$prefix}-keyboardShortCut;
+
+.#{$module} {
+    box-sizing: border-box;
+    position: relative;
+    user-select: none;
+    white-space: nowrap;
+    vertical-align: bottom;
+    @include all-center;
+    display: inline-flex;
+
+    &-content {
+        @include font-size-small;
+        border-radius: $radius-keyboardShortCut;
+        height: $height-keyboardShortCut;
+        padding: $spacing-keyboardShortCut-paddingY $spacing-keyboardShortCut-paddingX;
+        border: $width-keyboardShortCut-border;
+        background-color: $color-keyboardShortCut-bg;
+        color: $color-keyboardShortCut-text;
+    }
+
+    &-split {
+        @include font-size-small;
+        margin: 0 3px;
+    }
+
+}

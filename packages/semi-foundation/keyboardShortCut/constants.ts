@@ -1,8 +1,7 @@
 import { BASE_CLASS_PREFIX } from "../base/constants";
-import { KeyboardEvent } from "react";
 
 const cssClasses = {
-    PREFIX: `${BASE_CLASS_PREFIX}-keyBoardShortCut`,
+    PREFIX: `${BASE_CLASS_PREFIX}-keyboardShortCut`,
 } as const;
 
 const strings = {
