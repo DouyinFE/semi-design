@@ -299,7 +299,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const { renderLabel } = this.context;
         const { label, keyword, data, filtered, treeNodeFilterProp } = this.props;
         if (isFunction(renderLabel)) {
-            return renderLabel(label, data);
+            return renderLabel(label, data, keyword);
         } else if (isString(label) && filtered && keyword) {
             return getHighLightTextHTML({
                 sourceString: label,

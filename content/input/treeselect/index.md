@@ -1435,7 +1435,7 @@ function Demo() {
 | prefix | 前缀标签                                                                                                                                            | ReactNode | - |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                 | boolean | - |
 | renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制)                                                                     | (obj) => ReactNode | - |
-| renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                        | <ApiType detail='(label:ReactNode, data:TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | - |
+| renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                        | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | - |
 | renderSelectedItem | 自定义渲染已选项                                                                                                                         | Function | - |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) 。v2.22.0后提供  | PopoverProps | {} |
 | searchAutoFocus | 搜索框自动聚焦                                                                                                                              | boolean | false |

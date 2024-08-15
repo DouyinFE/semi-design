@@ -1452,7 +1452,7 @@ function Demo() {
 | prefix                   | Prefix                                                                              | ReactNode                                                         | -           | 0.28.0  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
-| renderLabel | Custom label render function | <ApiType detail='(label: ReactNode, data: TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | 1.6.0 | 
+| renderLabel | Custom label render function | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | 1.6.0 | 
 | renderSelectedItem | render selected item | Function | - | 1.26.0 | 
 | restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
 | searchAutoFocus        | Whether autofocus for search box           | boolean      | false           | 1.27.0       |
