@@ -174,6 +174,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 color: var(--semi-color-text-2);
                 margin-left: 10px;
                 cursor: pointer;
+
+                &.#{$prefix}-icon-close:hover {
+                    color: var(--semi-color-text-0);
+                }
             }
 
             &:hover {
@@ -182,6 +186,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-hover;
                 }
+
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
             }
 
             &:active {
@@ -189,6 +197,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
                 .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-active;
+                }
+
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
+                    color: var(--semi-color-text-2);
                 }
             }
         }
@@ -579,6 +591,28 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 color: $color-tabs_tab_button_selected-text-default;
                 border: none;
                 background-color: $color-tabs_tab_button_selected-bg-default;
+            }
+        }
+    }
+
+    &-bar-slash {
+
+        .#{$module}-tab {
+            padding: $spacing-tabs_bar_slash_tab-paddingY $spacing-tabs_bar_slash_tab-paddingX;
+
+            &:nth-of-type(1) {
+                padding-left: 0;
+            }  
+
+            &:not(:last-of-type) {
+                margin-right: $spacing-tabs_bar_slash-marginRight;
+
+                &:after {  
+                    content: "/";
+                    font-weight:  $font-tabs_tab_slash_line-fontWeight;
+                    margin-left: $spacing-tabs_bar_slash_line_marginLeft;
+                    color: $color-tabs_tab_slash_line;
+                }
             }
         }
     }
