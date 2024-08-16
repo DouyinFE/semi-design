@@ -14,9 +14,8 @@ export const Demo = () => {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘", "k"]}></KeyboardShortCut>
-      <span>clickable</span>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘ / Crtl", "k"]}></KeyboardShortCut>
+      <div>clickable</div>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
       <pre>{cnt}</pre>
     </div>
@@ -28,7 +27,7 @@ Demo.story = {
 };
 
 export const render = () => {
-  const hotKeys = ["Meta", "ArrowDown"]
+  const hotKeys = ["r"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
@@ -36,13 +35,13 @@ export const render = () => {
   const button = () => {
     return (
       <div>
-        <Button>{cnt}</Button>
+        <Button>{"按下R即可加一"}</Button>
       </div>
     )
   }
   return (
     <div>
-      <span>{hotKeys}</span>
+      <span>{" cnt:" + cnt}</span>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={button}
       ></KeyboardShortCut>
     </div>
@@ -85,7 +84,7 @@ export const target = () => {
 }
 
 export const test = () => {
-  const hotKeys = ["Meta","\\"]
+  const hotKeys = ["Meta", "Shift", "2"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
@@ -93,9 +92,6 @@ export const test = () => {
   return (
     <div>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘", "k"]}></KeyboardShortCut>
-      <span>clickable</span>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
       <pre>{cnt}</pre>
     </div>
   );

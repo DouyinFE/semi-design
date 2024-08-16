@@ -44,6 +44,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         render: null,
         getListenerTarget: () => document.body,
         className: '',
+        style: null,
     };
 
     constructor(props: KeyboardShortCutProps) {
@@ -82,7 +83,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
 
     
     render() {
-        const { hotKeys, content, onClick, clickable, render, getListenerTarget, className, ...rest } = this.props;
+        const { hotKeys, content, onClick, clickable, render, getListenerTarget, className, style, ...rest } = this.props;
         if (hotKeys?.length !== content?.length) {
             // TODO:error
         }
@@ -95,6 +96,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
             <div 
                 onClick={clickable ? onClick : noop}
                 className={classNames(prefixCls, className)}
+                style={style}
             >
                 { renderContent.map((key: KeyboardEvent["key"], index) => {
                     return index === 0 ? 
