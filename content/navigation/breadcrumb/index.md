@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 45
+order: 46
 category: 导航类
 title:  Breadcrumb 面包屑
 icon: doc-breadcrumb

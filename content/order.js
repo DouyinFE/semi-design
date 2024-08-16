@@ -30,6 +30,7 @@ const order = [
     'form',
     'input',
     'inputnumber',
+    'keyboardshortcut',
     'pincode',
     'radio',
     'rating',

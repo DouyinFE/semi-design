@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 69
+order: 70
 category: Show
 title: Table
 subTitle: Table
