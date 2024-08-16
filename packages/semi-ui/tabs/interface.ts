@@ -4,7 +4,7 @@ import TabBar, { OverflowItem } from './TabBar';
 import { DropdownProps } from "../dropdown";
 import { OverflowListProps } from "../overflowList";
 
-export type TabType = 'line' | 'card' | 'button';
+export type TabType = 'line' | 'card' | 'button' | 'slash';
 export type TabSize = 'small' | 'medium' | 'large';
 export type TabPosition = 'top' | 'left';
 
@@ -69,7 +69,7 @@ export interface TabBarProps {
     onVisibleTabsChange?: (visibleState: Map<string, boolean>) => void;
     visibleTabsStyle?: CSSProperties;
     arrowPosition?: OverflowListProps['overflowRenderDirection'];
-    renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void) => ReactNode
+    renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void, defaultNode: ReactNode) => ReactNode
 
 }
 

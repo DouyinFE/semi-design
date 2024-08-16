@@ -381,7 +381,9 @@ class App extends React.Component {
 
 **Modify the scrolling rendering Arrow**
 
-`renderArrow` modifies the Arrow, with the input parameters being the overflowed items and position
+`renderArrow` modifies the Arrow, with the input parameters being the overflowed items, position, click function, and defaultNode.
+ 
+**Attention**: The first three parameters of renderArrow are supported since 2.61.0，while defaultNode parameter is supported since 2.65.0.
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -708,7 +710,7 @@ class App extends React.Component {
 | lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
 | more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
 | renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
-| renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. **>=2.61.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void)=> ReactNode | None |
+| renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. The first three parameters of renderArrow are supported since **>=2.61.0**, defaultNode is supported since **>=2.65.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | None |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |
 | showRestInDropdown | Whether to display the collapsed Tab in the drop-down menu (only effective when collapsible is true) **>= 2.61.0** | boolean | true |
 | size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |

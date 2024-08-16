@@ -221,11 +221,12 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
 
     renderOverflow = (items: any[]): Array<ReactNode> => items.map((item, index) => {
         const pos = index === 0 ? 'start' : 'end';
-        if (this.props.renderArrow) {
-            return this.props.renderArrow(item, pos, ()=>this.handleArrowClick(item, pos));
-        }
         const icon = index === 0 ? <IconChevronLeft/> : <IconChevronRight/>;
-        return this.renderCollapse(item, icon, pos);
+        const overflowNode = this.renderCollapse(item, icon, pos);
+        if (this.props.renderArrow) {
+            return this.props.renderArrow(item, pos, ()=>this.handleArrowClick(item, pos), overflowNode);
+        }
+        return overflowNode;
     });
 
 
@@ -318,6 +319,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             [cssClasses.TABS_BAR_LINE]: type === 'line',
             [cssClasses.TABS_BAR_CARD]: type === 'card',
             [cssClasses.TABS_BAR_BUTTON]: type === 'button',
+            [cssClasses.TABS_BAR_SLASH]: type === 'slash',
             [`${cssClasses.TABS_BAR}-${tabPosition}`]: tabPosition,
             [`${cssClasses.TABS_BAR}-collapse`]: collapsible,
         });
