@@ -13,7 +13,8 @@ export interface KeyboardShortCutProps {
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
     onClick?: () => void;
-    clickable: boolean;
+    clickable?: boolean;
+    disabled?: boolean;
     render?: () => ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
@@ -21,7 +22,7 @@ export interface KeyboardShortCutProps {
 }
 
 export interface KeyboardShortCutState {
-
+    disabled: boolean
 }
 
 class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShortCutState> {
@@ -30,6 +31,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
         clickable: PropTypes.bool,
+        disabled: PropTypes.bool,
         render: PropTypes.func,
         getListenerTarget: PropTypes.func,
         className: PropTypes.string,
@@ -41,6 +43,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         content: null,
         onClick: null,
         clickable: false,
+        disabled: false,
         render: null,
         getListenerTarget: () => document.body,
         className: '',
@@ -50,6 +53,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
     constructor(props: KeyboardShortCutProps) {
         super(props);
         this.state = {
+            disabled: false
         };
         this.foundation = new KeyboardShortCutFoudation(this.adapter);
     }
@@ -83,10 +87,8 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
 
     
     render() {
-        const { hotKeys, content, onClick, clickable, render, getListenerTarget, className, style, ...rest } = this.props;
-        if (hotKeys?.length !== content?.length) {
-            // TODO:error
-        }
+        const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
+        
         if (render !== null) {
             return render();
         }

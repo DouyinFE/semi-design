@@ -71,7 +71,7 @@ export const target = () => {
   const onClick = () => {
     setCnt(cnt+1)
   }
-
+  
   const target = <input id="test" placeholder='test for target'></input>
   return (
     <div>
@@ -84,14 +84,14 @@ export const target = () => {
 }
 
 export const test = () => {
-  const hotKeys = ["Meta", "Shift", "2"]
+  const hotKeys = ["Meta", "k"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} disabled></KeyboardShortCut>
       <pre>{cnt}</pre>
     </div>
   );
