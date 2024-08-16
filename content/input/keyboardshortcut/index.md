@@ -27,7 +27,7 @@ import React, { useState } from 'react';
 import { KeyboardShortCut } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const hotKeys = ["Ctrl", "a"]
+  const hotKeys = ["Control", "a"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
@@ -36,7 +36,7 @@ function Demo() {
     <div>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} ></KeyboardShortCut>
       <br></br>
-      <KeyboardShortCut hotKeys={['Ctrl', 'Shift', 'a']} onClick={onClick} ></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></KeyboardShortCut>
       <div>{cnt}</div>
     </div>
   );
@@ -58,7 +58,7 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={["Ctrl", "b"]} onClick={onClick} content={["Control", "B"]}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></KeyboardShortCut>
         <br></br>
       <KeyboardShortCut hotKeys={["Meta","c"]} onClick={onClick} content={["⌘", "C"]}></KeyboardShortCut>
       <div>{cnt}</div>
@@ -103,14 +103,14 @@ import React, { useState } from 'react';
 import { KeyboardShortCut } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const hotKeys = ["Ctrl", "a"]
+  const hotKeys = ["Control", "a"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable></KeyboardShortCut>
       <div>{cnt}</div>
     </div>
   );
@@ -152,7 +152,7 @@ import React, { useState } from 'react';
 import { KeyboardShortCut } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const hotKeys = ["Ctrl", "a"]
+  const hotKeys = ["Control", "a"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)

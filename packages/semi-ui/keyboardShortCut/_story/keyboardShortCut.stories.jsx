@@ -7,14 +7,14 @@ export default {
 }
 
 export const Demo = () => {
-  const hotKeys = ["Meta","k"]
+  const hotKeys = ["Alt","k"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} content={["⌘ / Crtl", "k"]}></KeyboardShortCut>
+      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
       <div>clickable</div>
       <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
       <pre>{cnt}</pre>
@@ -83,7 +83,7 @@ export const target = () => {
   );
 }
 
-export const test = () => {
+export const disabled = () => {
   const hotKeys = ["Meta", "k"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {

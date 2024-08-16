@@ -36,7 +36,7 @@ export default class KeyboardShortCutFoundation<P = Record<string, any>, S = Rec
             } else if (key === "Alt") {
                 allModifier[2] = true;
                 return event.altKey;
-            } else if (key === "Ctrl") {
+            } else if (key === "Control") {
                 allModifier[3] = true;
                 return event.ctrlKey;
             }
