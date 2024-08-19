@@ -67,7 +67,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### 多选
 
 设置 `multiple`，可以进行多选。多选情况下所有子项都被选择时，自动勾选显示其父项。  
-通过 `leafOnly` (>= v0.32.0) 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
+通过 `leafOnly` 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
 
 ```jsx live=true
 import React from 'react';
@@ -571,8 +571,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 `defaultExpandAll` 和 `expandAll` 均可以设置 `TreeSelect` 的默认展开/收起状态。二者的区别是，`defaultExpandAll` 只在初始化时生效，而 `expandAll` 不仅会在初始化时生效，当数据(`treeData`)发生动态更新时，`expandAll` 也仍然生效。
 
-其中，`expandAll` 是从 1.30.0 开始支持的。
-
 在下面的 demo 中，`TreeData` 更新后，`defaultExpandAll` 失效，`expandAll` 仍然生效。
 
 ```jsx live=true
@@ -708,8 +706,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### 严格禁用
-
-version: >= 1.30.0
 
 可以使用 `disableStrictly` 来开启严格禁用。开启严格禁用后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态。
 
@@ -1470,8 +1466,7 @@ function Demo() {
 
 ### TreeNodeData
 
-> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。**v>=1.7.0** 之前 value 值要求必须必填且唯一。
-> **v>=1.7.0** 之后 value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
+> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
 > 为了保证行为的符合预期，treeData 中的 value 值或者全部不填写，或者全部填写且唯一，不建议混写。
 
 | 属性            | 说明         | 类型           | 默认值          |
