@@ -1,6 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { strings } from './constants';
-import { noop, get } from 'lodash';
+import { get, cloneDeep } from 'lodash';
 import copy from 'fast-copy';
 
 const Boundary = strings.BOUNDARY_MAP;
@@ -33,13 +33,15 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
             return overflow;
         }
 
-        const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
+        const cloneItems = cloneDeep(items);
+
+        const visibleStateArr = cloneItems.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
 
         const overflowList = [];
-        overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
-        overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items;
+        overflowList[0] = visibleStart >= 0 ? cloneItems.slice(0, visibleStart) : [];
+        overflowList[1] = visibleEnd >= 0 ? cloneItems.slice(visibleEnd + 1, cloneItems.length) : cloneItems;
         return overflowList;
     }
 
