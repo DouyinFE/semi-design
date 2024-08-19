@@ -113,7 +113,7 @@ const appLocale = {
         "feature_D2C_description": "Semi 提供高效的 design to code 能力，3-5s，一键点击，从 Figma 设计稿生成真实代码",
         // page four: theme
         "home.theme": "百变主题",
-        "home.theme.desc": "提供高达2700+ Design Token，快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
+        "home.theme.desc": "提供高达3000+ Design Token，快速克隆或深度定制，灵活调配符合品牌调性的设计风格",
         // page five: DSM
         "semi_dsm": "Semi 设计系统管理",
         "powerful_theme_editor__real_time_effect__one_click_synchronization_of_design_too_d77f5776bf126331e801d6d6aa0146f2": "强大的主题编辑器，实时生效，设计工具一键同步",
