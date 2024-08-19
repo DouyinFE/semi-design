@@ -494,7 +494,8 @@ class Body extends BaseComponent<BodyProps, BodyState> {
             index,
             rowKey,
             virtualized,
-            displayNone
+            displayNone,
+            level
         } = props;
         let key = getRecordKey(record, rowKey);
 
@@ -524,6 +525,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 key={genExpandedRowKey(key)}
                 cellWidths={this.cellWidths}
                 displayNone={displayNone}
+                level={level}
             />
         );
     };
@@ -561,17 +563,14 @@ class Body extends BaseComponent<BodyProps, BodyState> {
         const expandable = rowExpandable && rowExpandable(record);
 
         const expandableProps: {
-            level?: number;
             expanded?: boolean;
             expandableRow?: boolean;
             onRowClick?: (...args: any[]) => void
         } = {
-            level: undefined,
             expanded,
         };
 
         if (expandable || expandBtnShouldInRow) {
-            expandableProps.level = level;
             expandableProps.expandableRow = expandable;
             if (expandRowByClick) {
                 expandableProps.onRowClick = this.handleRowClick;
@@ -639,6 +638,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                     group,
                     groupKey,
                     expanded,
+                    level: 0,
                 })
             );
 
@@ -657,7 +657,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 /**
                  * Render the contents of the group row
                  */
-                renderedRows.push(this.renderBodyRows(dataInGroup, undefined, [], !expanded));
+                renderedRows.push(this.renderBodyRows(dataInGroup, 1, [], !expanded));
             }
         });
 
@@ -708,7 +708,7 @@ class Body extends BaseComponent<BodyProps, BodyState> {
                 const currentExpandRow = this.renderExpandedRow({
                     ...this.props,
                     columns: flattenedColumns,
-                    level,
+                    level: level + 1,
                     index,
                     record,
                     expanded,
@@ -862,5 +862,6 @@ export interface RenderSectionRowProps {
     group?: any;
     groupKey: string | number;
     index?: number;
-    expanded?: boolean
+    expanded?: boolean;
+    level?: number
 }

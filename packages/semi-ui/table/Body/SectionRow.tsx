@@ -37,7 +37,8 @@ export interface SectionRowProps {
     renderExpandIcon?: (record: Record<string, any>, isNested: boolean, groupKey: string | number) => ReactNode | null;
     className?: string;
     store?: Store;
-    rowKey?: RowKey<any>
+    rowKey?: RowKey<any>;
+    level?: number
 }
 
 /**
@@ -63,6 +64,7 @@ export const sectionRowPropTypes = {
     className: PropTypes.string,
     store: PropTypes.object,
     rowKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
+    level: PropTypes.number,
 };
 
 /**
@@ -151,6 +153,7 @@ class SectionRow extends PureComponent<SectionRowProps> {
             groupKey,
             virtualized,
             style,
+            level
         } = this.props;
 
         const props: { colSpan?: number } = {};
@@ -188,6 +191,7 @@ class SectionRow extends PureComponent<SectionRowProps> {
                 expanded={expanded}
                 expandIcon
                 isSection
+                level={level}
                 record={record}
                 replaceClassName={rowCls}
                 expandableRow
