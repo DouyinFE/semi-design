@@ -85,6 +85,15 @@ export const HorizontalSlider = () => (
       ></Slider>
     </div>
     <div style={divStyle}>
+      <div>tooltipVisible=false，不显示tooltip</div>
+      <Slider
+        tooltipVisible={false}
+        onChange={value => {
+          console.log('value改变了' + value);
+        }}
+      ></Slider>
+    </div>
+    <div style={divStyle}>
       <div>step=10</div>
       <Slider
         step={10}
