@@ -371,15 +371,8 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
         if (expandableRow) {
             ariaProps['aria-expanded'] = expanded;
         }
-        // if row is expandedRow, set it's level to 2 
-        if (expanded || expandedRow) {
-            ariaProps['aria-level'] = 2;
-        }
         if (typeof level === 'number') {
             ariaProps['aria-level'] = level + 1;
-        }
-        if (isSection) {
-            ariaProps['aria-level'] = 1;
         }
 
         return (
