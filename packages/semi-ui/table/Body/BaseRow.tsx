@@ -245,8 +245,11 @@ export default class TableRow extends BaseComponent<BaseRowProps, Record<string,
                 // Only the first data row will be indented
                 if (level != null && columnIndex === firstIndex) {
                     expandableProps.indent = level;
+                    const isBool = typeof expandIcon === 'boolean';
+                    const hasExpandIcon = expandIcon !== false || !isBool && expandIcon !== null;
 
-                    if (!expandableRow && hideExpandedColumn) {
+                    // 如果 expandIcon 为空，不需要 indent
+                    if (!expandableRow && hideExpandedColumn && hasExpandIcon) {
                         expandableProps.indent = level + 1;
                     }
                 }
