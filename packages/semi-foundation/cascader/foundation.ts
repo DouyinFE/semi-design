@@ -926,6 +926,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             filteredKeys: new Set(filteredKeys),
         });
         this._adapter.notifyOnSearch(sugInput);
+        this._adapter.rePositionDropdown();
     }
 
     handleClear() {
@@ -1039,6 +1040,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         const removedItem = keyEntities[key] ?? {};
         !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+        this._adapter.rePositionDropdown();
     }
 
     handleTagRemoveInTrigger = (pos: string) => {
