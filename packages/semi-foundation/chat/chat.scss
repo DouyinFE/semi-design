@@ -119,7 +119,7 @@ $module: #{$prefix}-chat;
         display: flex;
         flex-direction: row;
         margin-top: $spacing-chat_chatBox-marginY;
-        margin-Bottom: $spacing-chat_chatBox-marginY;
+        margin-bottom: $spacing-chat_chatBox-marginY;
         column-gap: $spacing-chat_chatBox-columnGap;
 
         &:hover {

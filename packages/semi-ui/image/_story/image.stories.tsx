@@ -68,9 +68,10 @@ export const BasicPreview = () => {
                 {srcList1.map((src, index) => {
                     return (
                         <Image 
-                            key={index}
+                            key={`${index}`}
                             src={src}
                             width={200}
+                            loading='lazy'
                             alt={`lamp${index + 1}`}
                             data-test={'data-test'}
                             onClick={()=>{}}
