@@ -17,7 +17,7 @@ import { Locale } from "../locale/interface";
 import { Button, Upload } from '../index';
 
 const prefixCls = cssClasses.PREFIX;
-const { CHAT_ALIGN, MODE, SEND_HOT_KEY } = strings;
+const { CHAT_ALIGN, MODE, SEND_HOT_KEY, MESSAGE_STATUS } = strings;
 
 class Chat extends BaseComponent<ChatProps, ChatState> {
 
@@ -283,7 +283,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         const lastChat = chats.length > 0 && chats[chats.length - 1];
         let disableSend = false;
         if (lastChat && showStopGenerate) {
-            const lastChatOnGoing = lastChat.status && lastChat.status !== 'complete';
+            const lastChatOnGoing = lastChat.status && [MESSAGE_STATUS.LOADING, MESSAGE_STATUS.INCOMPLETE].includes(lastChat.status);
             disableSend = lastChatOnGoing;
             showStopGenerate && (showStopGenerateFlag = lastChatOnGoing);
         }

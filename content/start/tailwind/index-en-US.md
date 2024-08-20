@@ -48,13 +48,42 @@ No matter which side of Tailwind or the component library has higher priority, p
 ```shell
 yarn add -D @douyinfe/semi-webpack-plugin
 ```
-** 2. In the configuration file of the project (webpack.config.js, etc.), import the Semi webpack plug-in and enable cssLayer (users who use non-webpack builds, please refer to the principle to wrap the semi css layer by yourself) **
+** 2. In the configuration file in the project **
+
+- Webpack user: import Semi webpack plugin and enable cssLayer in the webpack.config.js
+
 ```js
-new SemiWebpackPlugin({
-     cssLayer:true,
-     /* ...options */
-});
+const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
+
+module.exports = {
+    // ...
+    plugins: [
+        new SemiPlugin({
+            cssLayer:true,
+            /* ...options */
+        })
+    ]
+    // ...
+};
+
 ```
+- Rspack user:  import Semi webpack plugin and enable cssLayer in the rspack.config.js
+
+```js
+const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
+
+module.exports = {
+    // ...
+    plugins: [
+        new SemiRspackPlugin({
+            cssLayer:true
+        })
+    ]
+};
+```
+
+For users who use neither webpack or rspack build, please refer to the principle to layer-wrap semi's css yourself
+
 ** 3. Modify Tailwind entry configuration**
 
 The CSS of Tailwind entry is usually a file containing the following three lines
@@ -66,7 +95,7 @@ The CSS of Tailwind entry is usually a file containing the following three lines
 
 Modify it to (copy directly):
 ```css
-@layer tailwind-base,semi,components,utils;
+@layer tailwind-base,semi,tailwind-components,tailwind-utils;
 @layer tailwind-base{
      @tailwind base;
 }
@@ -93,7 +122,7 @@ After enabling the plugin, all Semi styles will be wrapped by `@layer {xxxx}`. I
 
 In addition, we configured the priority order of various Layers:
 ```css
-@layer tailwind-base,semi,components,utils;
+@layer tailwind-base,semi,tailwind-components,tailwind-utils;
 ```
 The meaning of the above CSS is that base (including Preflight) has the lowest priority, followed by Semi. The atomic class styles set by the user (padding-[xxx], etc.) have the highest priority, which can solve the above problems.
 

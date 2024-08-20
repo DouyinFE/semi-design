@@ -41,7 +41,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
     static defaultProps: Partial<KeyboardShortCutProps> = {
         hotKeys: null,
         content: null,
-        onClick: null,
+        onClick: noop,
         clickable: false,
         disabled: false,
         render: null,
@@ -74,14 +74,16 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         return {
             ...super.adapter,
             notifyClick: () => {
-                this.props.onClick();
+                if (this.props.onClick) {
+                    this.props.onClick();
+                }
             },
             getListenerTarget: () => {
-                return this.props.getListenerTarget();
+                if (this.props.getListenerTarget) {
+                    return this.props.getListenerTarget();
+                }
+                return document.body;
             },
-            getHotKeys: () => {
-                return this.props.hotKeys;
-            }
         };
     }
 
@@ -92,7 +94,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         if (render !== null) {
             return render();
         }
-        const renderContent = content === null ? hotKeys : content;
+        const renderContent = content ?? hotKeys ;
         
         return (
             <div 
