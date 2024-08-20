@@ -3,8 +3,7 @@ import { keyToCode } from './constants';
 
 export interface KeyboardShortCutAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyClick: () => void;
-    getListenerTarget: () => HTMLElement;
-    getHotKeys: () => string[]
+    getListenerTarget: () => HTMLElement
 }
 
 export default class KeyboardShortCutFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<KeyboardShortCutAdapter<P, S>, P, S> {
