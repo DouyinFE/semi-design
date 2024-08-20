@@ -6,7 +6,7 @@ $module-list: #{$prefix}-scrolllist;
 
 .#{$module} {
     box-sizing: border-box;
-    display: inline-block;
+    display: inline-flex;
 
     &-container {
         display: flex;

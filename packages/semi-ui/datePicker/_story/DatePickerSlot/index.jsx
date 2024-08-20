@@ -44,6 +44,22 @@ export default function Demo() {
         );
     };
 
+    const LeftSlot = function (props) {
+        const { style } = props;
+        return (
+            <div>LeftSlot</div>
+        );
+    };
+
+    const RightSlot = function (props) {
+        const { style } = props;
+        return (
+            <Space style={{ padding: '12px 20px', ...style }}>
+                <div>RightSlot</div>
+            </Space>
+        );
+    };
+
     const MonthBottomSlot = function (props) {
         const { style } = props;
         return (
@@ -60,7 +76,7 @@ export default function Demo() {
     return (
         <div>
             <span>topSlot</span>
-            <DatePicker topSlot={<TopSlot />} disabledDate={disabledDate} value={date} onChange={handleDateChange} />
+            <DatePicker topSlot={<TopSlot />} leftSlot={<LeftSlot />} rightSlot={<RightSlot/>} disabledDate={disabledDate} value={date} onChange={handleDateChange} />
             <br />
             <br />
             <span>bottomSlot</span>

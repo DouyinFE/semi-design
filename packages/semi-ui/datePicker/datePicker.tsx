@@ -761,36 +761,34 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
 
         return (
             <div ref={this.panelRef} className={wrapCls} style={dropdownStyle} x-type={type}>
-                <div className={`${cssClasses.PREFIX}-container`}>
-                    {leftSlot && (
-                        <div className={`${cssClasses.PREFIX}-leftSlot`} x-semi-prop="leftSlot">
-                            {leftSlot}
+                {leftSlot && (
+                    <div className={`${cssClasses.PREFIX}-leftSlot`} x-semi-prop="leftSlot">
+                        {leftSlot}
+                    </div>
+                )}
+                <div>
+                    {topSlot && (
+                        <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
+                            {topSlot}
                         </div>
                     )}
-                    <div>
-                        {topSlot && (
-                            <div className={`${cssClasses.PREFIX}-topSlot`} x-semi-prop="topSlot">
-                                {topSlot}
-                            </div>
-                        )}
-                        {/* todo: monthRange does not support presetPosition temporarily */}
-                        {presetPosition === "top" && type !== 'monthRange' && this.renderQuickControls()}
-                        {this.adapter.typeIsYearOrMonth()
-                            ? this.renderYearMonthPanel(locale, localeCode)
-                            : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
-                        {presetPosition === "bottom" && type !== 'monthRange' && this.renderQuickControls()}
-                        {bottomSlot && (
-                            <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
-                                {bottomSlot}
-                            </div>
-                        )}
-                    </div>
-                    {rightSlot && (
-                        <div className={`${cssClasses.PREFIX}-rightSlot`} x-semi-prop="rightSlot">
-                            {rightSlot}
+                    {/* todo: monthRange does not support presetPosition temporarily */}
+                    {presetPosition === "top" && type !== 'monthRange' && this.renderQuickControls()}
+                    {this.adapter.typeIsYearOrMonth()
+                        ? this.renderYearMonthPanel(locale, localeCode)
+                        : this.renderMonthGrid(locale, localeCode, dateFnsLocale)}
+                    {presetPosition === "bottom" && type !== 'monthRange' && this.renderQuickControls()}
+                    {bottomSlot && (
+                        <div className={`${cssClasses.PREFIX}-bottomSlot`} x-semi-prop="bottomSlot">
+                            {bottomSlot}
                         </div>
                     )}
                 </div>
+                {rightSlot && (
+                    <div className={`${cssClasses.PREFIX}-rightSlot`} x-semi-prop="rightSlot">
+                        {rightSlot}
+                    </div>
+                )}
                 {this.renderFooter(locale, localeCode)}
             </div>
         );
