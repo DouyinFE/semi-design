@@ -15,7 +15,7 @@ Semi 团队会维护两个常驻分支：`main` 和 `release`，根据我们的[
 Semi Design 团队会认真对待每一个 Pull Request。我们会 review 并合并你的代码。也有可能对你的代码提出一些修改意见。
 
 要提交一个 Pull Request，请遵循以下步骤：
- - Node.js > v16
+ - Node.js > v20
  - Fork 项目并克隆下来
 ```bash
 git clone https://github.com/<your-username>/semi-design.git
