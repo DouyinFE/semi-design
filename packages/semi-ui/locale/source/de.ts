@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Kein Ergebnis',
         pageText: 'Anzeigen ${currentStart} bis ${currentEnd} von ${total}',
+        descend: 'Klicken, um absteigend zu sortieren',
+        ascend: 'Klicken, um aufsteigend zu sortieren',
+        cancelSort: 'Sortierung abbrechen',
     },
     Select: {
         emptyText: 'Kein Ergebnis',

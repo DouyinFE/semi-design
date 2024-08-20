@@ -106,6 +106,9 @@ const locale: Locale = {
     Table: {
         emptyText: 'Sin resultados',
         pageText: 'Mostrando del ${currentStart} al ${currentEnd} de ${total}',
+        descend: 'Hacer clic para descender',
+        ascend: 'Hacer clic para ascender',
+        cancelSort: 'Cancelar ordenación',
     },
     Select: {
         emptyText: 'Sin resultados',

@@ -102,6 +102,9 @@ const local: Locale = {
     Table: {
         emptyText: 'データがありません',
         pageText: '第 ${currentStart} 条から第 ${currentEnd} 条まで表示します。計 ${total} 条',
+        descend: 'クリックして降順',
+        ascend: 'クリックして昇順',
+        cancelSort: 'ソートのキャンセル',
     },
     Select: {
         emptyText: 'データがありません',

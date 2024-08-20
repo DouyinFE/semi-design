@@ -57,6 +57,7 @@ $color-table_shadow-border-default: var(--semi-color-border); // 表格拟阴影
 $color-table_th-bg-default: var(--semi-color-bg-1); // 表头背景色
 $color-table_th-border-default: var(--semi-color-border); // 表头底部分割线颜色
 $color-table_th-text-default: var(--semi-color-text-2); // 表头文字颜色
+$color-table_th-clickSort-bg-hover: var(--semi-color-fill-0); //点击表头触发排序背景色 - 悬浮
 
 $color-table_pl-bg-default: transparent;
 $color-table_body-bg-default: var(--semi-color-bg-1); // 表格背景颜色 - 默认

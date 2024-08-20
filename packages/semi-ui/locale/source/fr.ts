@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Aucun Résultat',
         pageText: 'Montrant ${currentStart} to ${currentEnd} of ${total}',
+        descend: 'Cliquez pour descendre',
+        ascend: 'Cliquez pour monter',
+        cancelSort: 'Annuler le tri',
     },
     Select: {
         emptyText: 'Aucun Résultat',
