@@ -31,3 +31,4 @@ export { default as FixNeedConfirmControlled } from './FixNeedConfirmControlled'
 export { default as PresetsFunctionType } from './PresetsFunctionType';
 export { default as FixedNaN } from './FixedNaN';
 export { default as FixedSelectedStatus } from './FixedSelectedStatus';
+export { default as FixedControlled } from './FixedControlled';

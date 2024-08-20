@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 62
 category: Show
 title: Image
 icon: doc-image
@@ -481,6 +481,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | style            | custom style                         | CSSProperties     | - | |
 | width            | Image display width                  | number            | - | |
 | setDownloadName  | Set the name of the downloaded image | (src: string) => string | - | 2.40.0 |
+
+Other attributes same as [img](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes)。Other attributes will be transmitted to the underlying img node.
 
 ### ImagePreview
 

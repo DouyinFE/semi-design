@@ -1,1 +1,0 @@
-../../../content/input/radio/index-en-US.md

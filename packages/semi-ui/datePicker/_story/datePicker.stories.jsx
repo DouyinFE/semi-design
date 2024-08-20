@@ -73,7 +73,8 @@ export {
     FixNeedConfirmControlled,
     FixedNaN,
     PresetsFunctionType,
-    FixedSelectedStatus
+    FixedSelectedStatus,
+    FixedControlled
 } from './v2';
 
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 30
+order: 31
 category: Input
 title:  InputNumber
 subTitle: InputNumber

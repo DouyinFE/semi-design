@@ -102,7 +102,10 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             alias: {
                 "vfile/do-not-use-conditional-minurl":isSSR ? "vfile/lib/minurl.js":"vfile/lib/minurl.browser.js",
                 "vfile/do-not-use-conditional-minproc":isSSR?"vfile/lib/minproc.js":"vfile/lib/minproc.browser.js",
-                "vfile/do-not-use-conditional-minpath": isSSR ? "vfile/lib/minpath.js":"vfile/lib/minpath.browser.js",
+                "vfile/do-not-use-conditional-minpath": isSSR ? "vfile/lib/minpath.js" : "vfile/lib/minpath.browser.js",
+                "#minpath": isSSR ? "vfile/lib/minpath.js" : "vfile/lib/minpath.browser.js",
+                "#minproc": isSSR ? "vfile/lib/minproc.js" : "vfile/lib/minproc.browser.js",
+                "#minurl": isSSR ? "vfile/lib/minurl.js" : "vfile/lib/minurl.browser.js",
                 "estree-util-visit/do-not-use-color": isSSR ? "estree-util-visit/lib/color.node.js":"estree-util-visit/lib/color.js",
                 "devlop":"devlop/lib/default.js",
                 "unist-util-visit-parents/do-not-use-color": isSSR?"unist-util-visit-parents/lib/color.node.js":"unist-util-visit-parents/lib/color.js",

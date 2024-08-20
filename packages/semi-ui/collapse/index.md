@@ -1,1 +1,0 @@
-../../../content/show/collapse/index.md
