@@ -40,6 +40,7 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
         components: PropTypes.any,
         raw: PropTypes.string,
         remarkPlugins: PropTypes.arrayOf(PropTypes.object),
+        rehypePlugins: PropTypes.arrayOf(PropTypes.object),
     }
 
     static __SemiComponentName__ = "MarkdownRender";
