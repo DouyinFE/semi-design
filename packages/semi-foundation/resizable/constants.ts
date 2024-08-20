@@ -9,31 +9,213 @@ const strings = {
 
 export { cssClasses, strings };
 
-export function getDirection(component: HTMLElement, e: MouseEvent): string {
-    const rect = component.getBoundingClientRect();
-    const edgeThreshold = 10;
-    const isTop = Math.abs(e.clientY - rect.top) < edgeThreshold;
-    const isBottom = Math.abs(e.clientY - rect.bottom) < edgeThreshold;
-    const isLeft = Math.abs(e.clientX - rect.left) < edgeThreshold;
-    const isRight = Math.abs(e.clientX - rect.right) < edgeThreshold;
 
-    if (isTop && isLeft) {
-        return 'nw';
-    } else if (isTop && isRight) {
-        return 'ne';
-    } else if (isBottom && isLeft) {
-        return 'sw';
-    } else if (isBottom && isRight) {
-        return 'se';
-    } else if (isTop) {
-        return 'n';
-    } else if (isBottom) {
-        return 's';
-    } else if (isLeft) {
-        return 'w';
-    } else if (isRight) {
-        return 'e';
-    } else {
-        return null;
-    }
+// single
+const rowSizeBase = {
+    width: '100%',
+    height: '10px',
+    top: '0px',
+    left: '0px',
+    cursor: 'row-resize',
+} as const;
+
+const colSizeBase = {
+    width: '10px',
+    height: '100%',
+    top: '0px',
+    left: '0px',
+    cursor: 'col-resize',
+} as const;
+
+const edgeBase = {
+    width: '20px',
+    height: '20px',
+    position: 'absolute',
+} as const;
+
+export const styles = {
+    top: {
+        ...rowSizeBase,
+        top: '-5px',
+    },
+    right: {
+        ...colSizeBase,
+        left: undefined,
+        right: '-5px',
+    },
+    bottom: {
+        ...rowSizeBase,
+        top: undefined,
+        bottom: '-5px',
+    },
+    left: {
+        ...colSizeBase,
+        left: '-5px',
+    },
+    topRight: {
+        ...edgeBase,
+        right: '-10px',
+        top: '-10px',
+        cursor: 'ne-resize',
+    },
+    bottomRight: {
+        ...edgeBase,
+        right: '-10px',
+        bottom: '-10px',
+        cursor: 'se-resize',
+    },
+    bottomLeft: {
+        ...edgeBase,
+        left: '-10px',
+        bottom: '-10px',
+        cursor: 'sw-resize',
+    },
+    topLeft: {
+        ...edgeBase,
+        left: '-10px',
+        top: '-10px',
+        cursor: 'nw-resize',
+    },
+} as const;
+
+export type Direction = 'top' | 'right' | 'bottom' | 'left' | 'topRight' | 'bottomRight' | 'bottomLeft' | 'topLeft';
+
+export type OnStartCallback = (
+    e: MouseEvent,
+    direction: Direction,
+) => void;
+
+export interface Enable {
+    top?: boolean;
+    right?: boolean;
+    bottom?: boolean;
+    left?: boolean;
+    topRight?: boolean;
+    bottomRight?: boolean;
+    bottomLeft?: boolean;
+    topLeft?: boolean
 }
+
+export interface Size {
+    width?: string | number;
+    height?: string | number
+}
+
+export interface NumberSize {
+    width: number;
+    height: number
+}
+export interface NewSize {
+    newHeight: number | string;
+    newWidth: number | string
+}
+export const DEFAULT_SIZE = {
+    width: 'auto',
+    height: 'auto',
+};
+
+export type ResizeCallback = (
+    event: MouseEvent,
+    direction: Direction,
+    elementRef: HTMLElement,
+    delta: NumberSize,
+) => void;
+
+export type ResizeStartCallback = (
+    e: MouseEvent,
+    dir: Direction,
+    elementRef: HTMLElement,
+) => void | boolean;
+export const clamp = (n: number, min: number, max: number): number => Math.max(Math.min(n, max), min);
+export const snap = (n: number, size: number): number => Math.round(n / size) * size;
+export const hasDirection = (dir: 'top' | 'right' | 'bottom' | 'left', target: string): boolean => new RegExp(dir, 'i').test(target);
+export const findClosestSnap = (n: number, snapArray: number[], snapGap: number = 0): number => {
+    const closestGapIndex = snapArray.reduce(
+        (prev, curr, index) => (Math.abs(curr - n) < Math.abs(snapArray[prev] - n) ? index : prev),
+        0
+    );
+    const gap = Math.abs(snapArray[closestGapIndex] - n);
+
+    return snapGap === 0 || gap < snapGap ? snapArray[closestGapIndex] : n;
+};
+export const getStringSize = (n: number | string): string => {
+    n = n.toString();
+    if (n === 'auto') {
+        return n;
+    }
+    if (n.endsWith('px')) {
+        return n;
+    }
+    if (n.endsWith('%')) {
+        return n;
+    }
+    if (n.endsWith('vh')) {
+        return n;
+    }
+    if (n.endsWith('vw')) {
+        return n;
+    }
+    if (n.endsWith('vmax')) {
+        return n;
+    }
+    if (n.endsWith('vmin')) {
+        return n;
+    }
+    return `${n}px`;
+};
+const getPixelSize = (
+    size: undefined | string | number,
+    parentSize: number,
+    innerWidth: number,
+    innerHeight: number
+) => {
+    if (size && typeof size === 'string') {
+        if (size.endsWith('px')) {
+            return Number(size.replace('px', ''));
+        }
+        if (size.endsWith('%')) {
+            const ratio = Number(size.replace('%', '')) / 100;
+            return parentSize * ratio;
+        }
+        if (size.endsWith('vw')) {
+            const ratio = Number(size.replace('vw', '')) / 100;
+            return innerWidth * ratio;
+        }
+        if (size.endsWith('vh')) {
+            const ratio = Number(size.replace('vh', '')) / 100;
+            return innerHeight * ratio;
+        }
+    }
+    return size;
+};
+export const calculateNewMax = (
+    parentSize: { width: number; height: number },
+    innerWidth: number,
+    innerHeight: number,
+    maxWidth?: string | number,
+    maxHeight?: string | number,
+    minWidth?: string | number,
+    minHeight?: string | number
+) => {
+    maxWidth = getPixelSize(maxWidth, parentSize.width, innerWidth, innerHeight);
+    maxHeight = getPixelSize(maxHeight, parentSize.height, innerWidth, innerHeight);
+    minWidth = getPixelSize(minWidth, parentSize.width, innerWidth, innerHeight);
+    minHeight = getPixelSize(minHeight, parentSize.height, innerWidth, innerHeight);
+    return {
+        maxWidth: typeof maxWidth === 'undefined' ? undefined : Number(maxWidth),
+        maxHeight: typeof maxHeight === 'undefined' ? undefined : Number(maxHeight),
+        minWidth: typeof minWidth === 'undefined' ? undefined : Number(minWidth),
+        minHeight: typeof minHeight === 'undefined' ? undefined : Number(minHeight),
+    };
+};
+export const normalizeToPair = <T>(val: T | [T, T]): [T, T] => (Array.isArray(val) ? val : [val, val]);
+export const isTouchEvent = (event: MouseEvent | TouchEvent): event is TouchEvent => {
+    return Boolean((event as TouchEvent).touches && (event as TouchEvent).touches.length);
+};
+export const isMouseEvent = (event: MouseEvent | TouchEvent): event is MouseEvent => {
+    return Boolean(
+        ((event as MouseEvent).clientX || (event as MouseEvent).clientX === 0) &&
+        ((event as MouseEvent).clientY || (event as MouseEvent).clientY === 0)
+    );
+};
+
