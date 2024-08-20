@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
-import { IconSemiLogo } from '@douyinfe/semi-icons';
-import { IconDescriptions, IconIntro, IconTree, IconAvatar, IconTreeSelect, IconTabs } from '@douyinfe/semi-icons-lab';
+import { IconDescriptions, IconTree, IconAvatar } from '@douyinfe/semi-icons-lab';
 
 export default function NumberItemKey() {
     const [openKeys, setOpenKeys] = useState([]);
