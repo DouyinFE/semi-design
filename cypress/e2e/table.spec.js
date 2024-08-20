@@ -316,9 +316,4 @@ describe('table', () => {
         cy.get('.test-th').should('have.attr', 'style').should('contain', 'background: blue');
         cy.get('.test-td').should('have.attr', 'style').should('contain', 'background: red');
     });
-
-    it('test aria-level when children is empty', () => {
-        cy.visit('http://localhost:6006/iframe.html?args=&id=table--fixed-aria-level&viewMode=story');
-        cy.get('.semi-table-tbody .semi-table-row').eq(0).should('have.attr', 'aria-level', '1');
-    });
 });

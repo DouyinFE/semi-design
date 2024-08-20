@@ -38,4 +38,3 @@ export { default as DndKitDrag } from './DndKitDrag';
 export { default as FixedOnGroupedRowClassName } from './FixedOnGroupedRowClassName';
 export { default as FixedVirtualizedRef } from './FixedVirtualizedRef';
 export { default as RowSelectionOnCell } from './RowSelectionOnCell';
-export { default as FixedAriaLevel } from './FixedAriaLevel';
