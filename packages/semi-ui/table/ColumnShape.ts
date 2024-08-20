@@ -30,5 +30,5 @@ export default {
     title: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     useFullRender: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    showSortTooltip: PropTypes.bool,
+    showSortTip: PropTypes.bool,
 };

@@ -117,7 +117,7 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onHeaderCell?: OnHeaderCell<RecordType>;
     ellipsis?: BaseEllipsis;
     resize?: boolean;
-    showSortTooltip?: boolean
+    showSortTip?: boolean
 }
 
 export type Align = BaseAlign;

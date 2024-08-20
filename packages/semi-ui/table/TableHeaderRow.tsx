@@ -213,8 +213,7 @@ export default class TableHeaderRow extends BaseComponent<TableHeaderRowProps, R
                 style={cellStyle}
                 key={column.key || column.dataIndex || cellIndex}
             />);
-
-            if (typeof column.clickToSort === 'function' && column.showSortTooltip !== false) {
+            if (typeof column.clickToSort === 'function' && column.showSortTip === true) {
                 let content = getNextSortOrder(column.sortOrder);
                 return (<LocaleConsumer 
                     componentName="Table" 

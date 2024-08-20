@@ -142,13 +142,21 @@ $module: #{$prefix}-table;
                 position: relative;
                 transition: background-color $transition_duration-table_row-head-bg $transition_function-table_row-head-bg;
 
-                &-clickSort {
+                &.#{$module}-row-head-clickSort {
                     cursor: pointer;
                     &:hover {
-                        background: var(--semi-color-fill-0),
+                        background: $color-table_th-clickSort-bg-hover;
+                        
+                        &.#{$module}-cell-fixed {
+                            &-left,
+                            &-right {
+                                &::before {
+                                    background-color: transparent;
+                                }
+                            }
+                        }
                     }
                 }
-               
 
                 &.#{$module}-cell-fixed {
                     &-left,

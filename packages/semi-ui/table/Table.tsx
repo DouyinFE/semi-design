@@ -1014,7 +1014,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                 typeof column.renderFilterDropdown === 'function';
             let hasSorterOrFilter = false;
             const sortOrderNotControlled = !('sortOrder' in column);
-            let showSortTooltip = sortOrderNotControlled && !(column.showSortTooltip === false) ;
+            const showSortTip = sortOrderNotControlled && column.showSortTip === true;
             const { dataIndex, title: rawTitle, useFullRender } = column;
             const clickColumnToSorter = hasSorter && !hasFilter && !Boolean(useFullRender);
             const curQuery = this.foundation.getQuery(dataIndex);
@@ -1049,7 +1049,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                         sortIcon={column.sortIcon}
                         onClick={useFullRender || hasFilter ? e => this.foundation.handleSort(column, e) : null}
                         title={TitleNode}
-                        showTooltip={!clickColumnToSorter && showSortTooltip}
+                        showTooltip={!clickColumnToSorter && showSortTip}
                     />
                 );
                 useFullRender && (titleMap.sorter = sorter);
@@ -1095,7 +1095,7 @@ class Table<RecordType extends Record<string, any>> extends BaseComponent<Normal
                     this.foundation.handleSort(column, e);
                 };
                 column.sortOrder = sortOrder;
-                column.showSortTooltip = showSortTooltip;
+                column.showSortTip = showSortTip;
             }
         }
 

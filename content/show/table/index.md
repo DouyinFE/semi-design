@@ -1302,6 +1302,10 @@ render(App);
 
 sorter 为函数类型时，可以通过函数的第三个参数获取 sortOrder 状态。函数类型为 `(a?: RecordType, b?: RecordType, sortOrder?: 'ascend' | 'descend') => number`。v2.47 版本支持。
 
+可通过 `showSortTip` 属性控制是否展示排序提示，自 v2.65 版本支持，默认为 `false`。当开启提示后，当仅有排序功能时候，鼠标移动至表头时，会展示排序提示；其他情况下，仅鼠标移动至排序图标时，会展示排序提示。
+
+**注**：在使用 `sortOrder` 属性受控排序时，由于无法预测下一个排序顺序，因此 `showSortTip` 不生效，不会展示提示。
+
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
@@ -1338,6 +1342,7 @@ function App() {
                     return 0; // 保持原来的顺序
                 }
             },
+            showSortTip: true,
             render: text => text ? `${text} KB` : '未知',
         },
         {
@@ -5545,11 +5550,11 @@ import { Table } from '@douyinfe/semi-ui';
 | renderFilterDropdown | 自定义筛选器 dropdown 面板，用法详见[自定义筛选器](#自定义筛选器) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
+| showSortTip | 是否展示排序提示, 如果设置了 sortOrder，排序受控，则该参数不会生效 | boolean | false | **2.65.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
 | sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true。**必须给排序列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon | 自定义 sort 图标，返回的节点控制了整个排序按钮，包含升序和降序。需根据 sortOrder 控制高亮行为 | (props: { sortOrder }) => ReactNode | | **2.50.0** |
-| showSortTooltip | 是否展示排序提示 | boolean | true | **2.65.0** |
 | title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
 | useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
