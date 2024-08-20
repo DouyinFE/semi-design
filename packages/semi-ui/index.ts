@@ -114,3 +114,7 @@ export { default as Lottie } from "./lottie";
 export { default as Chat } from './chat';
 
 export { default as HotKeys } from './hotKeys'; 
+
+export {
+    Resizable
+} from './resizable';
