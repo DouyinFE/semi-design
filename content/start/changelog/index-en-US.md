@@ -17,12 +17,29 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 
-#### 🎉 2.64.0 (2024-08-12)
+#### 🎉 2.65.0-beta.0 (2024-08-20)
 - 【Feat】
-  - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection. [#2218](https://github.com/DouyinFE/semi-design/pull/2218)
+  - MarkdownRender now supports RemarkPlugin and RehypePlugins plugins. [#2433](https://github.com/DouyinFE/semi-design/pull/2433)
+  - The renderLabel API of Tree and TreeSelect has added a searchWord parameter to expose the currently input value in the search box. [#2412](https://github.com/DouyinFE/semi-design/pull/2412)
+  - Optimize the sorting interaction of Table. When there is only sorting function, click on the entire table header column to trigger sorting. Column supports the showSortTooltip API to set whether to display the tooltip, and the default is true [#2413](https://github.com/DouyinFE/semi-design/pull/2413)
+  - Datepicker supports leftSlot and rightSlot. [@LuyangFE](https://github.com/LuyangFE) [#2409](https://github.com/DouyinFE/semi-design/pull/2409)
+  - Typograph support custom render copy trigger [@sylingd](https://github.com/sylingd) [#2408](https://github.com/DouyinFE/semi-design/pull/2408)
+- 【Perf】
+  - Optimized the judgment times of getValueLength for Input and TextArea. [#2432](https://github.com/DouyinFE/semi-design/pull/2432)
+- 【Chore】
+  - The Image component interface supports native img element attributes. [#2427](https://github.com/DouyinFE/semi-design/pull/2427)
+- 【Fix】
+  - Fixed the type error after sending a message when the messages in Chat are an empty array. [#2411](https://github.com/DouyinFE/semi-design/pull/2411)
+  - Fixed the incorrect problem of Table aria-level when tree data is empty. [#2359](https://github.com/DouyinFE/semi-design/issues/2359)
+  - Fixed the incorrect disabling of arrows in Collapse Tabs when quickly clicking left and right arrows. [#2415](https://github.com/DouyinFE/semi-design/issues/2415)
+  - Fixed the problem that when showStopGenerate of Chat component is true and the status of a message is error, the stop button is displayed. [#2422](https://github.com/DouyinFE/semi-design/pull/2422)
+  - Fixed the problem that in Cascader, after searching and in multiple selection scenarios, the position of the pop-up layer is not recalculated, resulting in a long panel being blocked. [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - Fixed the problem that in Cascader's multiple selection scenario, when unselecting by clicking the close icon of an existing option in the trigger, the position of the pop-up layer is not recalculated. [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - Fixed the loss of the selected state color after clicking the selected date twice in DatePicker. [#2389](https://github.com/DouyinFE/semi-design/pull/2389)
+
+#### 🎉 2.64.0 (2024-08-12)
 - 【Fix】
   - Fix Tooltip triggerDOM not defined in some case  [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
-
 
 #### 🎉 2.64.0-beta.0 (2024-08-05)
 - 【Feat】
