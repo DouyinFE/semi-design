@@ -13,6 +13,7 @@ brief: 快速便捷地选择颜色，并提供滴管工具取色
 
 ### 如何引入
 
+ColorPicker 从 v2.64.0 开始支持
 
 ```jsx import
 import { ColorPicker } from '@douyinfe/semi-ui';
@@ -24,28 +25,27 @@ import { ColorPicker } from '@douyinfe/semi-ui';
 #### 放在弹层
 
 ```jsx live=true
+import React from 'react';
 import { ColorPicker, Button } from '@douyinfe/semi-ui';
-function Demo(){
+function Demo() {
     return <div>
-        <ColorPicker alpha={true} onChange={value=>{console.log(value)}} usePopover={true}/>
-        
+        <ColorPicker alpha={true} onChange={value=>{console.log(value);}} usePopover={true}/>
         <br/>
         <div>自定义 trigger</div>
-
-        <ColorPicker alpha={true} onChange={value=>{console.log(value)}} usePopover={true}>
+        <ColorPicker alpha={true} onChange={value=>{console.log(value);}} usePopover={true}>
             <Button> Trigger </Button>
         </ColorPicker>
-        
-    </div>
+    </div>;
 }
 
 ```
 
 #### 正常展示
 ```jsx live=true
+import React from 'react';
 import { ColorPicker } from '@douyinfe/semi-ui';
-function Demo(){
-    return <ColorPicker alpha={true} onChange={value=>{console.log(value)}}/>
+function Demo() {
+    return <ColorPicker alpha={true} onChange={value=>{console.log(value);}}/>;
 }
 
 ```
@@ -60,9 +60,10 @@ function Demo(){
 
 
 ```jsx live=true
+import React from 'react';
 import { ColorPicker } from '@douyinfe/semi-ui';
-function Demo(){
-    return <ColorPicker alpha={true} eyeDropper={true} onChange={value=>{console.log(value)}}/>
+function Demo() {
+    return <ColorPicker alpha={true} eyeDropper={true} onChange={value=>{console.log(value);}}/>;
 }
 
 ```
@@ -76,14 +77,16 @@ function Demo(){
 
 ```jsx live=true
 import { ColorPicker } from '@douyinfe/semi-ui';
-function Demo(){
+import React from 'react';
+
+function Demo() {
     return <div>
         <ColorPicker 
             defaultValue={ColorPicker.colorStringToValue("rgb(57,197,187)")}
             onChange={(value)=>{
-            console.log(value)
-        }} className={""} alpha={true}/>
-    </div>
+                console.log(value);
+            }} className={""} alpha={true}/>
+    </div>;
 
 }
 
@@ -95,14 +98,18 @@ function Demo(){
 
 ```jsx live=true
 import { ColorPicker } from '@douyinfe/semi-ui';
-function Demo(){
-    const [value,setValue] = useState(ColorPicker.colorStringToValue("#39c5bb"));
-    console.log(value);
+import React from 'react';
+function Demo() {
+    const [value, setValue] = useState(ColorPicker.colorStringToValue("#39c5bb"));
     return <div>
-        <ColorPicker value={value} onChange={(value)=>{
-            setValue(value)
-        }} className={""} alpha={true}/>
-    </div>
+        <ColorPicker
+            value={value}
+            onChange={(value)=>{
+                setValue(value);
+            }}
+            alpha={true}
+        />
+    </div>;
 
 }
 
@@ -114,11 +121,15 @@ function Demo(){
 使用 `topSlot` 和 `bottomSlot` 在顶部和底部渲染额外元素
 
 ```jsx live=true
+import React from 'react';
 import { ColorPicker } from '@douyinfe/semi-ui';
-function Demo(){
-    return <ColorPicker topSlot={<div>
-        TopSlot
-    </div>} bottomSlot={<div>Bottom Slot</div>} alpha={true} onChange={value=>{console.log(value)}}/>
+function Demo() {
+    return <ColorPicker
+        topSlot={<div> TopSlot</div>}
+        bottomSlot={<div>Bottom Slot</div>}
+        alpha={true}
+        onChange={value=>{console.log(value);}}
+    />;
 }
 
 ```
