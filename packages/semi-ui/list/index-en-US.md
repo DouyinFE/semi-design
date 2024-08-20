@@ -1,1 +1,0 @@
-../../../content/show/list/index-en-US.md

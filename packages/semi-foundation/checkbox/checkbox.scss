@@ -193,12 +193,11 @@ $module: #{$prefix}-checkbox;
 
         .#{$module}-inner {
             position: relative;
+            flex-shrink: 0;
 
             &-display {
                 background: $color-checkbox_cardType_inner-bg-default;
             }
-
-            flex-shrink: 0;
         }
 
         .#{$module}-inner-pureCardType {

@@ -159,13 +159,12 @@ $types: "ghost", "solid", "light";
 
 .#{$module}-group {
     display: block;
+    height: auto;
 
     .#{$module} {
         margin-bottom: $spacing-tag_group-marginBottom;
         margin-right: $spacing-tag_group-marginRight;
     }
-
-    height: auto;
 
     &-max.#{$module}-group-small {
         height: ($height-tag_small + 2);

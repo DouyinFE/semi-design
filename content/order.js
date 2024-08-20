@@ -25,6 +25,7 @@ const order = [
     'autocomplete',
     'cascader',
     'checkbox',
+    'colorpicker',
     'datepicker',
     'form',
     'input',
@@ -80,6 +81,7 @@ const order = [
     'toast',
     'configprovider',
     'locale',
+    'chat',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

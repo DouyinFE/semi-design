@@ -337,7 +337,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         if (trigger==="hover") {
             const checkTriggerIsHover = () => {
                 const triggerDOM = this._adapter.getTriggerDOM();
-                if (trigger && !triggerDOM.matches(":hover")) {
+                if (trigger && !triggerDOM?.matches?.(":hover")) {
                     this.hide();
                 }
                 this._adapter.off("portalInserted", checkTriggerIsHover);

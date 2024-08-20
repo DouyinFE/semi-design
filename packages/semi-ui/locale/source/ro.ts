@@ -170,6 +170,15 @@ const local: Locale = {
         adaptiveTip: 'Afișaj adaptabil',
         originTip: 'Afișaj implicit',
     },
+    Chat: {
+        deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
+        clearContext: 'Contextul a fost șters',
+        copySuccess: 'Copiere reușită',
+        stop: 'Oprire',
+        copy: 'Copiază',
+        copied: 'Copiat',
+        dropAreaText: 'Puneți fișierul aici',
+    },
 };
 
 // [i18n-Romanian] 罗马尼亚语

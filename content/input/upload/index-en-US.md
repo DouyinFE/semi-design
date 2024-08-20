@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 41
+order: 42
 category: Input
 title: Upload
 icon: doc-upload
@@ -1181,10 +1181,13 @@ afterUpload is triggered when the upload is completed (xhr.onload) and no error 
 ```ts
 // afterUploadResult:
 {
-     status?:'success' |'uploadFail' |'validateFail' |'validating' |'uploading' |'wait',
-     validateMessage?: React.ReactNode | string, // file validation information
-     autoRemove: boolean, // Whether to remove the file from the fileList, the default is false
-     name: string,
+    status?:'success' |'uploadFail' |'validateFail' |'validating' |'uploading' |'wait',
+    validateMessage?: React.ReactNode | string, // file validation information
+    autoRemove?: boolean, // Whether to remove the file from the fileList, the default is false
+    name?: string;
+    // The URL for previewing image file, usually the storage address returned by the Server after receiving response, supported since v2.63.
+    // Previous versions can also manually update the controlled properties in the fileList through onChange callback.
+    url?: string; // support after v2.63
 }
 ```
 

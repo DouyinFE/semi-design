@@ -1,9 +1,9 @@
 ---
 localeCode: en-US
-order: 31
+order: 32
 category: Input
 title: PinCode
-icon: doc-input
+icon: doc-pincode
 width: 60%
 brief: For easy and intuitive verification code entry
 ---

@@ -263,15 +263,16 @@ $rating: #{$prefix}-rating;
 
 .#{$form}-vertical {
     .#{$form}-field-group {
-        .#{$field} {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
         margin-top: 0;
         margin-bottom: 0;
         padding-top: $spacing-form_field_group_vertical-paddingTop;
         padding-bottom: $spacing-form_field_group_vertical-paddingBottom;
         overflow: hidden;
+        
+        .#{$field} {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
 }
 

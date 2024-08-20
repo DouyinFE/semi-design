@@ -86,6 +86,7 @@ module.exports = {
         config.resolve.alias = {
             '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
             '@douyinfe/semi-icons': resolve('packages/semi-icons/src'),
+            '@douyinfe/semi-icons-lab': resolve('packages/semi-icons-lab/src'),
             '@douyinfe/semi-ui': resolve('packages/semi-ui'),
             '@douyinfe/semi-theme-default': resolve('packages/semi-theme-default'),
             '@douyinfe/semi-illustrations': resolve('packages/semi-illustrations/src'),

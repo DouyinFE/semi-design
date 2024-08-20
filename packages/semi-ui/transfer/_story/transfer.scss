@@ -72,6 +72,8 @@
         height: 353px;
         border: 1px solid var(--semi-color-border);
         border-top: none;
+        margin-right: 16px;
+
         .panel-list {
             overflow-y: auto;
             height: 202px;
@@ -92,7 +94,6 @@
         .panel-item {
             margin-right: 8px;
         }
-        margin-right: 16px;
     }
     .selected-panel {
         width: 200px;

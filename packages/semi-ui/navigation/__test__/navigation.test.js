@@ -271,4 +271,44 @@ describe(`Navigation`, () => {
         expect(onCollapseChange.called).toBeTruthy();
         expect(onCollapseChange.getCall(0).args[0]).toEqual(true);
     });
+
+    it(`test itemKey is a number type expansion`, async () => {
+        const onSelect = sinon.spy(noop);
+        const onOpenChange = sinon.spy(noop);
+        const onCollapseChange = sinon.spy(noop);
+        const onClick = sinon.spy(noop);
+
+        const nav = mount(
+            <Nav
+                bodyStyle={{ height: 320 }}
+                items={[
+                    { itemKey: 'user', text: '用户管理', icon: 'user' },
+                    { itemKey: 'union', text: '公会中心', icon: 'star' },
+                    {
+                        text: '任务平台',
+                        icon: 'setting',
+                        itemKey: 2,
+                        items: ['任务管理', '用户任务查询'],
+                    },
+                ]}
+                onSelect={onSelect}
+                onOpenChange={onOpenChange}
+                onCollapseChange={onCollapseChange}
+                onClick={onClick}
+                footer={{
+                    collapseButton: true,
+                }}
+            />
+        );
+
+        const subTitle = nav.find(`.${BASE_CLASS_PREFIX}-navigation-sub-title`);
+        subTitle.simulate('click');
+        expect(onClick.called).toBeTruthy();
+        expect(onOpenChange.called).toBeTruthy();
+        expect(onClick.getCall(0).args[0].itemKey).toEqual(2);
+        expect(onOpenChange.getCall(0).args[0].itemKey).toEqual(2);
+        expect(
+            document.querySelectorAll(`.${BASE_CLASS_PREFIX}-navigation-item-sub .${BASE_CLASS_PREFIX}-navigation-sub-open`).length > 0
+        ).toBeTruthy();
+    });
 });

@@ -447,7 +447,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             setInitialFocus: () => {
                 const { preventScroll } = this.props;
-                const focusRefNode = get(this, 'initialFocusRef.current');
+                const focusRefNode = get(this, 'initialFocusRef.current') as HTMLElement;
                 if (focusRefNode && 'focus' in focusRefNode) {
                     focusRefNode.focus({ preventScroll });
                 }

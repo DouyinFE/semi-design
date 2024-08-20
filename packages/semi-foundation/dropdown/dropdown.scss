@@ -33,11 +33,12 @@ $module: #{$prefix}-dropdown;
         padding-bottom: $spacing-dropdown_title-paddingBottom;
         padding-left: $spacing-dropdown_title-paddingLeft;
         padding-right: $spacing-dropdown_title-paddingRight;
+        @include font-size-small;
+        cursor: default;
+        
         &-withTick {
             padding-left: $spacing-dropdown_title_withTick-paddingLeft;
         }
-        @include font-size-small;
-        cursor: default;
     }
     &-item {
         padding: $spacing-dropdown_item-paddingY $spacing-dropdown_item-paddingX;

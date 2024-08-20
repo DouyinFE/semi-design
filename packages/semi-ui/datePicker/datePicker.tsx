@@ -312,7 +312,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 }
                 switch (rangeInputFocus) {
                     case 'rangeStart':
-                        const inputStartNode = get(this, 'rangeInputStartRef.current');
+                        const inputStartNode = get(this, 'rangeInputStartRef.current') as HTMLInputElement;
                         inputStartNode && inputStartNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
@@ -332,7 +332,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         }, 0);
                         break;
                     case 'rangeEnd':
-                        const inputEndNode = get(this, 'rangeInputEndRef.current');
+                        const inputEndNode = get(this, 'rangeInputEndRef.current') as HTMLInputElement;
                         inputEndNode && inputEndNode.focus({ preventScroll });
                         /**
                          * 解决选择完startDate，切换到endDate后panel被立马关闭的问题。
@@ -363,14 +363,14 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 switch (rangeInputFocus) {
                     case 'rangeEnd':
                         if (document.activeElement !== this.rangeInputEndRef.current) {
-                            const inputEndNode = get(this, 'rangeInputEndRef.current');
+                            const inputEndNode = get(this, 'rangeInputEndRef.current') as HTMLInputElement;
                             inputEndNode && inputEndNode.focus({ preventScroll });
                         }
                         break;
                     case 'rangeStart':
                     default:
                         if (document.activeElement !== this.rangeInputStartRef.current) {
-                            const inputStartNode = get(this, 'rangeInputStartRef.current');
+                            const inputStartNode = get(this, 'rangeInputStartRef.current') as HTMLInputElement;
                             inputStartNode && inputStartNode.focus({ preventScroll });
                         }
                         break;
@@ -378,20 +378,20 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             },
             setInputFocus: () => {
                 const { preventScroll } = this.props;
-                const inputNode = get(this, 'inputRef.current');
+                const inputNode = get(this, 'inputRef.current') as HTMLInputElement;
                 inputNode && inputNode.focus({ preventScroll });
             },
             setInputBlur: () => {
-                const inputNode = get(this, 'inputRef.current');
+                const inputNode = get(this, 'inputRef.current') as HTMLInputElement;
                 inputNode && inputNode.blur();
             },
             setRangeInputBlur: () => {
                 const { rangeInputFocus } = this.state;
                 if (rangeInputFocus === 'rangeStart') {
-                    const inputStartNode = get(this, 'rangeInputStartRef.current');
+                    const inputStartNode = get(this, 'rangeInputStartRef.current') as HTMLInputElement;
                     inputStartNode && inputStartNode.blur();
                 } else if (rangeInputFocus === 'rangeEnd') {
-                    const inputEndNode = get(this, 'rangeInputEndRef.current');
+                    const inputEndNode = get(this, 'rangeInputEndRef.current') as HTMLInputElement;
                     inputEndNode && inputEndNode.blur();
                 }
                 this.adapter.setRangeInputFocus(false);
@@ -882,6 +882,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
         const inner = this.renderInner(pick(this.props, innerPropKeys));
         const wrappedInner = this.wrapPopover(inner);
 
-        return <div {...outerProps}>{wrappedInner}</div>;
+        return <div {...outerProps}>
+            {wrappedInner}
+        </div>;
     }
 }
