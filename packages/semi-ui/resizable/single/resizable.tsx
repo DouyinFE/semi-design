@@ -155,7 +155,6 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     componentDidUpdate(_prevProps: ResizableProps) {
-
     }
 
     componentWillUnmount() {
