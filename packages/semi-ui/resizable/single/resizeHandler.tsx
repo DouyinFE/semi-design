@@ -1,28 +1,27 @@
 import React, { createRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { ResizerFoundation, ResizerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
+import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
-import { cssClasses, styles, Direction, OnStartCallback } from '@douyinfe/semi-foundation/resizable/constants';
+import { cssClasses, directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
-import { noop } from 'lodash';
 
 const prefixCls = cssClasses.PREFIX;
 
-export interface ResizerProps {
+export interface ResizeHandlerProps {
     children?: ReactNode;
     direction?: Direction;
-    onResizeStart?: OnStartCallback;
+    onResizeStart?: HandlerCallback;
     className?: string;
     disabled?: boolean;
     style?: React.CSSProperties
 }
 
-export interface ResizerState {
+export interface ResizeHandlerState {
     direction: Direction
 }
 
-class Resizer extends BaseComponent<ResizerProps, ResizerState> {
+class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState> {
     static propTypes = {
         children: PropTypes.node,
         direction: PropTypes.string,
@@ -32,42 +31,41 @@ class Resizer extends BaseComponent<ResizerProps, ResizerState> {
         style: PropTypes.object,
     };
 
-    static defaultProps: Partial<ResizerProps> = {
+    static defaultProps: Partial<ResizeHandlerProps> = {
     };
 
-    constructor(props: ResizerProps) {
+    constructor(props: ResizeHandlerProps) {
         super(props);
         this.state = {
             direction: this.props.direction
         };
-        this.resizerRef = createRef();
-        this.foundation = new ResizerFoundation(this.adapter);
-        
+        this.resizeHandlerRef = createRef();
+        this.foundation = new ResizeHandlerFoundation(this.adapter); 
     }
 
     componentDidMount() {
         this.foundation.init();
     }
 
-    componentDidUpdate(_prevProps: ResizerProps) {
+    componentDidUpdate(_prevProps: ResizeHandlerProps) {
     }
 
     componentWillUnmount() {
         this.foundation.destroy();
     }
 
-    get adapter(): ResizerAdapter<ResizerProps, ResizerState> {
+    get adapter(): ResizeHandlerAdapter<ResizeHandlerProps, ResizeHandlerState> {
         return {
             ...super.adapter,
-            getResizer: this.getResizer,
+            getResizeHandler: this.getResizeHandler,
         };
     }
 
-    getResizer: () => HTMLElement = () => {
-        return this.resizerRef.current;
+    getResizeHandler: () => HTMLElement = () => {
+        return this.resizeHandlerRef.current;
     }
 
-    resizerRef: React.RefObject<HTMLDivElement>
+    resizeHandlerRef: React.RefObject<HTMLDivElement>
     render() {
         const { children, style, className } = this.props;
         return (
@@ -76,10 +74,10 @@ class Resizer extends BaseComponent<ResizerProps, ResizerState> {
                 style={{
                     position: 'absolute',
                     userSelect: 'none',
-                    ...styles[this.props.direction],
+                    ...directionStyles[this.props.direction],
                     ...style
                 }} 
-                ref={this.resizerRef}
+                ref={this.resizeHandlerRef}
             >
                 { children }
             </div>
@@ -87,4 +85,4 @@ class Resizer extends BaseComponent<ResizerProps, ResizerState> {
     }
 }
 
-export default Resizer;
+export default ResizeHandler;

@@ -11,7 +11,7 @@ export { cssClasses, strings };
 
 
 // single
-const rowSizeBase = {
+const rowStyleBase = {
     width: '100%',
     height: '10px',
     top: '0px',
@@ -19,7 +19,7 @@ const rowSizeBase = {
     cursor: 'row-resize',
 } as const;
 
-const colSizeBase = {
+const colStyleBase = {
     width: '10px',
     height: '100%',
     top: '0px',
@@ -27,51 +27,51 @@ const colSizeBase = {
     cursor: 'col-resize',
 } as const;
 
-const edgeBase = {
+const edgeStyleBase = {
     width: '20px',
     height: '20px',
     position: 'absolute',
 } as const;
 
-export const styles = {
+export const directionStyles = {
     top: {
-        ...rowSizeBase,
+        ...rowStyleBase,
         top: '-5px',
     },
     right: {
-        ...colSizeBase,
+        ...colStyleBase,
         left: undefined,
         right: '-5px',
     },
     bottom: {
-        ...rowSizeBase,
+        ...rowStyleBase,
         top: undefined,
         bottom: '-5px',
     },
     left: {
-        ...colSizeBase,
+        ...colStyleBase,
         left: '-5px',
     },
     topRight: {
-        ...edgeBase,
+        ...edgeStyleBase,
         right: '-10px',
         top: '-10px',
         cursor: 'ne-resize',
     },
     bottomRight: {
-        ...edgeBase,
+        ...edgeStyleBase,
         right: '-10px',
         bottom: '-10px',
         cursor: 'se-resize',
     },
     bottomLeft: {
-        ...edgeBase,
+        ...edgeStyleBase,
         left: '-10px',
         bottom: '-10px',
         cursor: 'sw-resize',
     },
     topLeft: {
-        ...edgeBase,
+        ...edgeStyleBase,
         left: '-10px',
         top: '-10px',
         cursor: 'nw-resize',
@@ -80,7 +80,40 @@ export const styles = {
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left' | 'topRight' | 'bottomRight' | 'bottomLeft' | 'topLeft';
 
-export type OnStartCallback = (
+export interface HandleStyles {
+    top?: CSSStyleDeclaration;
+    right?: CSSStyleDeclaration;
+    bottom?: CSSStyleDeclaration;
+    left?: CSSStyleDeclaration;
+    topRight?: CSSStyleDeclaration;
+    bottomRight?: CSSStyleDeclaration;
+    bottomLeft?: CSSStyleDeclaration;
+    topLeft?: CSSStyleDeclaration
+}
+
+export interface HandleClassName {
+    top?: string;
+    right?: string;
+    bottom?: string;
+    left?: string;
+    topRight?: string;
+    bottomRight?: string;
+    bottomLeft?: string;
+    topLeft?: string
+}
+
+export interface HandleComponent {
+    top?: HTMLElement;
+    right?: HTMLElement;
+    bottom?: HTMLElement;
+    left?: HTMLElement;
+    topRight?: HTMLElement;
+    bottomRight?: HTMLElement;
+    bottomLeft?: HTMLElement;
+    topLeft?: HTMLElement
+}
+
+export type HandlerCallback = (
     e: MouseEvent,
     direction: Direction,
 ) => void;
@@ -109,6 +142,7 @@ export interface NewSize {
     newHeight: number | string;
     newWidth: number | string
 }
+
 export const DEFAULT_SIZE = {
     width: 'auto',
     height: 'auto',
@@ -126,10 +160,11 @@ export type ResizeStartCallback = (
     dir: Direction,
     elementRef: HTMLElement,
 ) => void | boolean;
+
 export const clamp = (n: number, min: number, max: number): number => Math.max(Math.min(n, max), min);
 export const snap = (n: number, size: number): number => Math.round(n / size) * size;
 export const hasDirection = (dir: 'top' | 'right' | 'bottom' | 'left', target: string): boolean => new RegExp(dir, 'i').test(target);
-export const findClosestSnap = (n: number, snapArray: number[], snapGap: number = 0): number => {
+export const findNextSnap = (n: number, snapArray: number[], snapGap: number = 0): number => {
     const closestGapIndex = snapArray.reduce(
         (prev, curr, index) => (Math.abs(curr - n) < Math.abs(snapArray[prev] - n) ? index : prev),
         0
@@ -163,7 +198,7 @@ export const getStringSize = (n: number | string): string => {
     }
     return `${n}px`;
 };
-const getPixelSize = (
+export const getNumberSize = (
     size: undefined | string | number,
     parentSize: number,
     innerWidth: number,
@@ -186,7 +221,7 @@ const getPixelSize = (
             return innerHeight * ratio;
         }
     }
-    return size;
+    return typeof size === 'undefined' ? size : Number(size);
 };
 export const calculateNewMax = (
     parentSize: { width: number; height: number },
@@ -197,10 +232,10 @@ export const calculateNewMax = (
     minWidth?: string | number,
     minHeight?: string | number
 ) => {
-    maxWidth = getPixelSize(maxWidth, parentSize.width, innerWidth, innerHeight);
-    maxHeight = getPixelSize(maxHeight, parentSize.height, innerWidth, innerHeight);
-    minWidth = getPixelSize(minWidth, parentSize.width, innerWidth, innerHeight);
-    minHeight = getPixelSize(minHeight, parentSize.height, innerWidth, innerHeight);
+    maxWidth = getNumberSize(maxWidth, parentSize.width, innerWidth, innerHeight);
+    maxHeight = getNumberSize(maxHeight, parentSize.height, innerWidth, innerHeight);
+    minWidth = getNumberSize(minWidth, parentSize.width, innerWidth, innerHeight);
+    minHeight = getNumberSize(minHeight, parentSize.height, innerWidth, innerHeight);
     return {
         maxWidth: typeof maxWidth === 'undefined' ? undefined : Number(maxWidth),
         maxHeight: typeof maxHeight === 'undefined' ? undefined : Number(maxHeight),
@@ -208,5 +243,4 @@ export const calculateNewMax = (
         minHeight: typeof minHeight === 'undefined' ? undefined : Number(minHeight),
     };
 };
-export const normalizeToPair = <T>(val: T | [T, T]): [T, T] => (Array.isArray(val) ? val : [val, val]);
 
