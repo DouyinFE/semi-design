@@ -18,7 +18,7 @@ export interface ResizableProps {
         y?: number[]
     };
     snapGap?: number;
-    bounds?: 'parent' | 'window' | HTMLElement;
+    boundElement?: 'parent' | 'window' | HTMLElement;
     boundsByDirection?: boolean;
     size?: Size;
     minWidth?: string | number;
@@ -33,11 +33,11 @@ export interface ResizableProps {
     handleClasses?: HandleClassName;
     handleWrapperStyle?: React.CSSProperties;
     handleWrapperClass?: string;
-    handleComponent?: HandleComponent;
+    handleNode?: HandleComponent;
     children?: React.ReactNode;
     onResizeStart?: ResizeStartCallback;
-    onResize?: ResizeCallback;
-    onResizeStop?: ResizeCallback;
+    onChange?: ResizeCallback;
+    onResizeEnd?: ResizeCallback;
     defaultSize?: Size;
     scale?: number;
     ratio?: number | [number, number]
@@ -80,15 +80,15 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         lockAspectRatioExtraWidth: PropTypes.number,
         lockAspectRatioExtraHeight: PropTypes.number,
         enable: PropTypes.object,
-        // handleStyles: HandleStyles,
-        // handleClasses: HandleClassName,
+        handleStyles: PropTypes.object,
+        handleClasses: PropTypes.object,
         handleWrapperStyle: PropTypes.object,
         handleWrapperClass: PropTypes.string,
-        // handleComponent: HandleComponent,
+        handleNode: PropTypes.object,
         children: PropTypes.object,
         onResizeStart: PropTypes.func,
-        onResize: PropTypes.func,
-        onResizeStop: PropTypes.func,
+        onChange: PropTypes.func,
+        onResizeEnd: PropTypes.func,
         defaultSize: PropTypes.object,
         scale: PropTypes.number,
         ratio: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(number)]),
@@ -96,8 +96,8 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
 
     static defaultProps: Partial<ResizableProps> = {
         onResizeStart: () => {},
-        onResize: () => {},
-        onResizeStop: () => {},
+        onChange: () => {},
+        onResizeEnd: () => {},
         enable: {
             top: true,
             right: true,
@@ -169,7 +169,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     renderResizeHandler = () => {
-        const { enable, handleStyles, handleClasses, handleComponent, handleWrapperStyle, handleWrapperClass } = this.props;
+        const { enable, handleStyles, handleClasses, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
         if (!enable) {
             return null;
         }
@@ -184,7 +184,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                         style={handleStyles && handleStyles[dir]}
                         className={handleClasses && handleClasses[dir]}
                     >
-                        {handleComponent?.[dir] ?? null}
+                        {handleNode?.[dir] ?? null}
                     </ResizeHandler>
                 );
             }

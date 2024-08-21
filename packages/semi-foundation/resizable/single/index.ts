@@ -38,17 +38,19 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             return;
         }
         const computedStyle = this.window.getComputedStyle(this.resizable);
+        
         this.setState({
-            width: this.getStates().width || this.size.width,
-            height: this.getStates().height || this.size.height,
+            width: this.propSize.width,
+            height: this.propSize.height,
             flexBasis: computedStyle.flexBasis !== 'auto' ? computedStyle.flexBasis : undefined,
         } as any);
+        
         this.onResizeStart = this.onResizeStart.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
     }
 
-    flexDir?: 'row' | 'column';
+    flexDirection?: 'row' | 'column';
 
     lockAspectRatio = 1;
     resizable: HTMLElement | null = null;
@@ -253,7 +255,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
         const props = this.getProps();
 
-        if (props.bounds === 'parent') {
+        if (props.boundElement === 'parent') {
             const parentElement = this.parent;
             if (parentElement) {
                 maxWidthConstraint = isWidthConstrained
@@ -264,22 +266,22 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
                     ? this.resizableBottom - this.parentTop
                     : parentElement.offsetHeight + (this.parentTop - this.resizableTop);
             }
-        } else if (props.bounds === 'window' && this.window) {
+        } else if (props.boundElement === 'window' && this.window) {
             maxWidthConstraint = isWidthConstrained
                 ? this.resizableRight
                 : this.window.innerWidth - this.resizableLeft;
             maxHeightConstraint = isHeightConstrained
                 ? this.resizableBottom
                 : this.window.innerHeight - this.resizableTop;
-        } else if (props.bounds) {
-            const boundsElement = props.bounds;
+        } else if (props.boundElement) {
+            const boundary = props.boundElement;
 
             maxWidthConstraint = isWidthConstrained
                 ? this.resizableRight - this.targetLeft
-                : boundsElement.offsetWidth + (this.targetLeft - this.resizableLeft);
+                : boundary.offsetWidth + (this.targetLeft - this.resizableLeft);
             maxHeightConstraint = isHeightConstrained
                 ? this.resizableBottom - this.targetTop
-                : boundsElement.offsetHeight + (this.targetTop - this.resizableTop);
+                : boundary.offsetHeight + (this.targetTop - this.resizableTop);
         }
 
         if (maxWidthConstraint && Number.isFinite(maxWidthConstraint)) {
@@ -372,7 +374,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         const props = this.getProps();
         
         // Set parent boundary
-        if (props.bounds === 'parent') {
+        if (props.boundElement === 'parent') {
             const parentElement = this.parent;
             if (parentElement) {
                 const parentRect = parentElement.getBoundingClientRect();
@@ -382,8 +384,8 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         }
     
         // Set target (HTML element) boundary
-        if (props.bounds && typeof props.bounds !== 'string') {
-            const targetRect = props.bounds.getBoundingClientRect();
+        if (props.boundElement && typeof props.boundElement !== 'string') {
+            const targetRect = props.boundElement.getBoundingClientRect();
             this.targetLeft = targetRect.left;
             this.targetTop = targetRect.top;
         }
@@ -443,7 +445,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             const parent = this.parent;
             if (parent) {
                 const parentStyle = this.window.getComputedStyle(parent);
-                this.flexDir = parentStyle.flexDirection.startsWith('row') ? 'row' : 'column';
+                this.flexDirection = parentStyle.flexDirection.startsWith('row') ? 'row' : 'column';
                 flexBasis = computedStyle.flexBasis;
             }
         }
@@ -532,7 +534,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         
         // Apply grid snapping if defined
         if (props.grid) {
-            const [gridW, gridH] = props.grid;
+            const [gridW, gridH] = Array.isArray(props.grid) ? props.grid : [props.grid, props.grid];
             const gap = props.snapGap || 0;
             const newGridWidth = snap(newWidth, gridW);
             const newGridHeight = snap(newHeight, gridH);
@@ -573,9 +575,9 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             height: this.createSizeForCssProperty(newHeight, 'height')
         };
     
-        if (this.flexDir === 'row') {
+        if (this.flexDirection === 'row') {
             newState.flexBasis = newState.width;
-        } else if (this.flexDir === 'column') {
+        } else if (this.flexDirection === 'column') {
             newState.flexBasis = newState.height;
         }
     
@@ -588,9 +590,9 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         if (hasChanges) {
             this.setState(newState as any);
     
-            // Call onResize callback if defined
-            if (props.onResize) {
-                props.onResize(event, direction, this.resizable, delta);
+            // Call onChange callback if defined
+            if (props.onChange) {
+                props.onChange(event, direction, this.resizable, delta);
             }
         }
     }
@@ -609,11 +611,11 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             height: currentHeight - original.height,
         };
     
-        const { onResizeStop, size } = this.getProps();
+        const { onResizeEnd, size } = this.getProps();
     
-        // Call onResizeStop callback if defined
-        if (onResizeStop) {
-            onResizeStop(event, direction, this.resizable, delta);
+        // Call onResizeEnd callback if defined
+        if (onResizeEnd) {
+            onResizeEnd(event, direction, this.resizable, delta);
         }
     
         // Update state with new size if provided
@@ -633,11 +635,6 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
                 cursor: 'auto'
             }
         } as any);
-    }
-    
-
-    updateSize(size: Size) {
-        this.setState({ width: size.width ?? 'auto', height: size.height ?? 'auto' } as any);
     }
 
 
