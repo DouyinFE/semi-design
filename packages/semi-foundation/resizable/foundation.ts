@@ -1,3 +1,3 @@
-import { ResizerAdapter, ResizerFoundation, ResizableFoundation, ResizableAdapter } from './single';
-export { ResizerAdapter, ResizerFoundation, ResizableFoundation, ResizableAdapter }; 
+import { ResizeHandlerAdapter, ResizeHandlerFoundation, ResizableFoundation, ResizableAdapter } from './single';
+export { ResizeHandlerAdapter, ResizeHandlerFoundation, ResizableFoundation, ResizableAdapter }; 
 
