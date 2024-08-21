@@ -163,7 +163,7 @@ export type ResizeStartCallback = (
 
 export const clamp = (n: number, min: number, max: number): number => Math.max(Math.min(n, max), min);
 export const snap = (n: number, size: number): number => Math.round(n / size) * size;
-export const hasDirection = (dir: 'top' | 'right' | 'bottom' | 'left', target: string): boolean => new RegExp(dir, 'i').test(target);
+export const has = (dir: 'top' | 'right' | 'bottom' | 'left', target: string): boolean => new RegExp(dir, 'i').test(target);
 export const findNextSnap = (n: number, snapArray: number[], snapGap: number = 0): number => {
     const closestGapIndex = snapArray.reduce(
         (prev, curr, index) => (Math.abs(curr - n) < Math.abs(snapArray[prev] - n) ? index : prev),
