@@ -11,7 +11,7 @@ import IntersectionObserver from './intersectionObserver';
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
-import { cloneDeep } from '../_utils';
+import copy from 'fast-copy';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -126,8 +126,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                 }
 
                 const isCollapseFromStart = props.collapseFrom === Boundary.START;
-                const visible = isCollapseFromStart ? cloneDeep(props.items).reverse().slice(0, maxCount) : props.items.slice(0, maxCount);
-                const overflow = isCollapseFromStart ? cloneDeep(props.items).reverse().slice(maxCount) : props.items.slice(maxCount);
+                const visible = isCollapseFromStart ? copy(props.items).reverse().slice(0, maxCount) : props.items.slice(0, maxCount);
+                const overflow = isCollapseFromStart ? copy(props.items).reverse().slice(maxCount) : props.items.slice(maxCount);
                 newState.visible = visible;
                 newState.overflow = overflow;
                 newState.maxCount = maxCount;

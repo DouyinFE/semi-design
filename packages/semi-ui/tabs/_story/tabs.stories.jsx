@@ -1003,3 +1003,15 @@ export const IconStyle = () => {
     </Tabs>
   )
 }
+
+export const Fix2415 = () => {
+  return (
+     <Tabs style={{ width: 250, margin: '20px' }} type="card" collapsible>
+        {[10,2324325324324,1111].map(i => (
+            <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                Content of card tab {i}.Quickly click the right arrow and observe that the arrow is disabled correctly.
+            </TabPane>   
+        ))}    
+    </Tabs>
+  )
+}
