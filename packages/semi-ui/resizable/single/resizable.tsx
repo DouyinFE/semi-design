@@ -6,7 +6,7 @@ import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation
 import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
 import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleStyles, HandleClassName, HandleComponent } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
-import ResizeHandler from './resizeHandler';
+import ResizableHandler from './resizableHandler';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -177,7 +177,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         const handlers = directions.map(dir => {
             if (enable[dir as Direction] !== false) {
                 return (
-                    <ResizeHandler
+                    <ResizableHandler
                         key={dir}
                         direction={dir as Direction}
                         onResizeStart={this.foundation.onResizeStart}
@@ -185,7 +185,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                         className={handleClasses && handleClasses[dir]}
                     >
                         {handleNode?.[dir] ?? null}
-                    </ResizeHandler>
+                    </ResizableHandler>
                 );
             }
             return null;
