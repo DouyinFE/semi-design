@@ -608,10 +608,18 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 margin-right: $spacing-tabs_bar_slash-marginRight;
 
                 &:after {  
-                    content: "/";
-                    font-weight:  $font-tabs_tab_slash_line-fontWeight;
+                    content: "";
                     margin-left: $spacing-tabs_bar_slash_line_marginLeft;
-                    color: $color-tabs_tab_slash_line;
+                    display: inline-block;
+                    height: $height-tabs_tab_slash_line;
+                    width: $width-tabs_tab_slash_line;
+                    margin-top: $spacing-tabs_bar_slash_line_marginTop;
+                    margin-bottom: $spacing-tabs_bar_slash_line_marginBottom;
+                    vertical-align: bottom;
+                    // Get diagonal slash
+                    background: linear-gradient(to bottom right, transparent 0%, 
+                        transparent calc(50% - 1px), $color-tabs_tab_slash_line 50%,
+                        transparent calc(50% + 1px), transparent 100%);
                 }
             }
         }

@@ -18,7 +18,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 ### Basic Usage
 
-Tbs supports three types of styles: `line`, `button`, and `card`. By default, the first tab is selected.
+Tbs supports three types of styles: `line`, `button`, `card`, and `slash`. By default, the first tab is selected.
 
 Tabs supports two declare ways, and the rendering process of the two is different:
 
@@ -168,6 +168,44 @@ class TabDemo extends React.Component {
 }
 ```
 
+```jsx live=true
+import React from 'react';
+import { Tabs } from '@douyinfe/semi-ui';
+
+class TabDemo extends React.Component {
+    constructor() {
+        super();
+        this.state = { key: '1' };
+        this.onTabClick = this.onTabClick.bind(this);
+    }
+
+    onTabClick(key, type) {
+        this.setState({ [type]: key });
+    }
+
+    render() {
+        // eslint-disable-next-line react/jsx-key
+        const contentList = [<div>Document</div>, <div>Quick Start</div>, <div>Help</div>];
+        const tabList = [
+            { tab: 'Document', itemKey: '1' },
+            { tab: 'Quick Start', itemKey: '2' },
+            { tab: 'Help', itemKey: '3' },
+        ];
+        return (
+            <Tabs
+                type="slash"
+                tabList={tabList}
+                onChange={key => {
+                    this.onTabClick(key, 'key');
+                }}
+            >
+                {contentList[this.state.key - 1]}
+            </Tabs>
+        );
+    }
+}
+```
+
 ### With Icon
 
 ```jsx live=true
@@ -274,7 +312,7 @@ function Demo() {
 
 ### Vertical mode
 
-Support two positions: `tabPosition='left|top'`
+When `type` is `line`, `card`, or `button`, horizontal and vertical modes are supported, `tabPosition='left|top'`，default is top. When `type` is `slash`, only horizontal mode is supported.
 
 ```jsx live=true
 import React from 'react';
@@ -703,6 +741,7 @@ class App extends React.Component {
 | activeKey | The itemKey value of the currently active tab page | string | None |
 | className | class name | string | None |
 | collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
+| dropdownProps | In collapsible mode, It is used to transparently transmit parameters to the Dropdown component of the drop-down menu, support since 2.65.0 | DropDownProps | { start: DropdownProps, end: DropdownProps } |
 | visibleTabsStyle | Overall scrolling area style **>=2.61.0** | style: CSSProperties | None |
 | contentStyle | The outer style object of the content area | CSSProperties | None |
 | defaultActiveKey | Initialize the key value of the selected tab page | string | '1' |

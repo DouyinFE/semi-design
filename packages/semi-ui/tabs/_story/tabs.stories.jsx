@@ -366,7 +366,7 @@ Level2Card.story = {
 export const SlashTab = () => {
   return (
   <>
-    <Tabs defaultActiveKey="1" type="slash" >
+    <Tabs defaultActiveKey="1" type="slash">
       <TabPane tab="文档" itemKey="1">文档</TabPane>
       <TabPane tab="快速起步" itemKey="2" disabled>快速起步</TabPane>
       <TabPane tab="帮助" itemKey="3">帮助</TabPane>
@@ -376,16 +376,14 @@ export const SlashTab = () => {
     <br />
     <br />
     <Tabs defaultActiveKey="1" type="slash">
-    <TabPane tab="文档" itemKey="1">文档</TabPane>
-      <TabPane tab="快速起步" itemKey="2" disabled>快速起步</TabPane>
-      <TabPane tab="帮助" itemKey="3">帮助</TabPane>
-      <TabPane tab="关于" itemKey="4">关于</TabPane>
-      <TabPane tab="资源工具" itemKey="5">资源工具</TabPane>
+      <TabPane tab={<span><IconFile />文档</span>} itemKey="1">文档</TabPane>
+      <TabPane tab={<span><IconGlobe />快速起步</span>} itemKey="2" disabled>快速起步</TabPane>
+      <TabPane tab={<span><IconHelpCircle />帮助</span>} itemKey="3">帮助</TabPane>
     </Tabs>
     <br />
-    <Tabs style={{ width: '400px'}} type="slash" collapsible>
-          {['文档', "快速起步", "帮助", "关于", "资源工具"].map((i, index) => (
-              <TabPane tab={`tab-${index}`} itemKey={i} key={i} >
+    <Tabs style={{ width: '400px'}} type="slash" collapsible dropdownProps={{ start: { showTick: false}, end: { showTick: false}}}>
+          {['文档', "快速起步", "帮助", "关于", "资源工具", "主页"].map((i, index) => (
+              <TabPane tab={i} itemKey={i} key={i} >
                   Content of card tab {i}
               </TabPane>
           ))}

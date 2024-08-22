@@ -16,6 +16,10 @@ export interface PlainTab {
     closable?: boolean
 }
 
+interface TabsDropDownProps {
+    start: DropdownProps;
+    end: DropdownProps
+}
 
 export interface TabsProps {
     activeKey?: string;
@@ -45,7 +49,8 @@ export interface TabsProps {
     onVisibleTabsChange?: TabBarProps["onVisibleTabsChange"];
     visibleTabsStyle?: TabBarProps['visibleTabsStyle'];
     arrowPosition?: TabBarProps['arrowPosition'];
-    renderArrow?: TabBarProps['renderArrow']
+    renderArrow?: TabBarProps['renderArrow'];
+    dropdownProps?: TabsDropDownProps
 }
 
 export interface TabBarProps {
@@ -69,8 +74,8 @@ export interface TabBarProps {
     onVisibleTabsChange?: (visibleState: Map<string, boolean>) => void;
     visibleTabsStyle?: CSSProperties;
     arrowPosition?: OverflowListProps['overflowRenderDirection'];
-    renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void, defaultNode: ReactNode) => ReactNode
-
+    renderArrow?: (items: OverflowItem[], pos: "start"|"end", handleArrowClick: () => void, defaultNode: ReactNode) => ReactNode;
+    dropdownProps?: TabsDropDownProps
 }
 
 export interface TabPaneProps {

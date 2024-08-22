@@ -65,8 +65,7 @@ $color-tabs_tab-pane_arrow_disabled-bg-hover:  transparent;
 $color-tabs_tab-pane_arrow_disabled-text-default: var(--semi-color-disabled-text);
 $color-tabs_tab-pane_arrow_disabled-text-hover:  var(--semi-color-disabled-text);
 
-$color-tabs_tab_slash_line: var(--semi-color-text-2); //斜线式页签分割线字体颜色
-$font-tabs_tab_slash_line-fontWeight: $font-weight-regular; //斜线式页签分割线字重
+$color-tabs_tab_slash_line: var(--semi-color-text-2); //斜线式页签分割线颜色
 
 $font-tabs_tab-fontWeight: $font-weight-regular; // 页签文本字重 - 默认
 $font-tabs_tab_active-fontWeight: $font-weight-bold; // 页签文本字重 - 选中
@@ -81,6 +80,9 @@ $width-tabs-outline: 2px; // 聚焦轮廓宽度
 $width-tabs-outline-offset: -2px; // 聚焦轮廓偏移宽度
 $width-tabs_bar_line-outline-offset: -1px; // 线条式页签聚焦轮廓偏移宽度
 $width-tabs_tab-pane_arrow-border:0px; // 滚动折叠箭头边框宽度
+
+$width-tabs_tab_slash_line: 8px; // 斜线式页签分割线宽度
+$height-tabs_tab_slash_line: 14px; // 斜线式页签分割线高度
 
 $height-tabs_bar_extra_large: 50px; // 大尺寸页签高度
 $font-tabs_bar_extra_large-lineHeight: $height-tabs_bar_extra_large; // 大尺寸页签文字行高
@@ -125,6 +127,8 @@ $spacing-tabs_bar_slash_tab-paddingY: 12px; // 斜线式页签上下内边距
 $spacing-tabs_bar_slash_tab-paddingX: 0px; // 斜线式页签水平内边距
 $spacing-tabs_bar_slash-marginRight: 16px; // 斜线式页签右侧外边距
 $spacing-tabs_bar_slash_line_marginLeft: 16px; // 斜线式页签斜线左侧外边距
+$spacing-tabs_bar_slash_line_marginTop: 3px; // 斜线式页签斜线顶部外边距
+$spacing-tabs_bar_slash_line_marginBottom: 3px; // 斜线式页签斜线底部外边距
 
 $spacing-tabs_content-paddingY: 5px; // 页签内容区垂直方向内边距
 $spacing-tabs_content-paddingX: 0; // 页签内容区水平方向内边距
