@@ -1,4 +1,4 @@
-import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap, clamp } from '../constants';
+import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap, clamp } from "../singleConstants";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {

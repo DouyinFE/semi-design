@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import PropTypes, { number } from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
-import { cssClasses, Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleStyles, HandleClassName, HandleComponent } from '@douyinfe/semi-foundation/resizable/constants';
+import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
+import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleStyles, HandleClassName, HandleComponent } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 import ResizeHandler from './resizeHandler';
 
