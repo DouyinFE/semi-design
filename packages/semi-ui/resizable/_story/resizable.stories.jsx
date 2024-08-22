@@ -107,7 +107,7 @@ export const Single_lock_aspect = () => {
           16 / 9
         </div>
       </Resizable>
-      <Resizable
+      {/* <Resizable
         lockAspectRatio={aspectRatio}
         lockAspectRatioExtraHeight={50}
         lockAspectRatioExtraWidth={50}
@@ -122,7 +122,7 @@ export const Single_lock_aspect = () => {
           <div style={{ backgroundColor: 'black' }}>Nav</div>
           <div style={{ backgroundColor: 'grey' }}>001</div>
         </div>
-      </Resizable>
+      </Resizable> */}
     </div>
   );
 }

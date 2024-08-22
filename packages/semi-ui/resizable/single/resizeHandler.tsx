@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
-import { cssClasses, directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/constants';
+import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
+import { directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
