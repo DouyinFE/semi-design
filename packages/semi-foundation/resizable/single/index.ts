@@ -1,17 +1,17 @@
 import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap, clamp } from "../singleConstants";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 
-export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getResizeHandler: () => HTMLElement
+export interface ResizableHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+    getResizableHandler: () => HTMLElement
 }
 
-export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeHandlerAdapter<P, S>, P, S> {
-    constructor(adapter: ResizeHandlerAdapter<P, S>) {
+export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizableHandlerAdapter<P, S>, P, S> {
+    constructor(adapter: ResizableHandlerAdapter<P, S>) {
         super({ ...adapter });
     }
 
     init(): void {
-        this._adapter.getResizeHandler().addEventListener('mousedown', this.onMouseDown);
+        this._adapter.getResizableHandler().addEventListener('mousedown', this.onMouseDown);
     }
 
     onMouseDown = (e: MouseEvent) => {
@@ -19,7 +19,7 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
     };
 
     destroy(): void {
-        this._adapter.getResizeHandler().removeEventListener('mousedown', this.onMouseDown);
+        this._adapter.getResizableHandler().removeEventListener('mousedown', this.onMouseDown);
     }
 }
 
