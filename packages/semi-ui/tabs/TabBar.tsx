@@ -161,7 +161,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                 </div>
             );
         }
-        const { dropdownClassName, dropdownStyle, showRestInDropdown } = this.props;
+        const { dropdownClassName, dropdownStyle, showRestInDropdown, dropdownProps } = this.props;
         const { rePosKey } = this.state;
         const disabled = !items.length;
         const menu = (
@@ -197,6 +197,8 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
             [`${cssClasses.TABS_BAR}-dropdown`]: true,
         });
 
+        const customDropdownProps = dropdownProps?.[pos] ?? {};
+
         return (
             <>
                 {showRestInDropdown ? (
@@ -211,6 +213,7 @@ class TabBar extends React.Component<TabBarProps, TabBarState> {
                         style={dropdownStyle}
                         trigger={'hover'}
                         disableFocusListener // prevent the panel from popping up again after clicking
+                        {...customDropdownProps}
                     >
                         {button}
                     </Dropdown>
