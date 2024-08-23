@@ -1011,9 +1011,11 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         let info = '';
 
         const formatPageText = get(this.getProp('pagination'), 'formatPageText');
+        const dataSource = this.getState('dataSource') as any[];
         const { total, pageSize, currentPage } = pagination;
+        const currentPageSize = dataSource.length;
         const currentStart = Math.min((currentPage - 1) * pageSize + 1, total);
-        const currentEnd = Math.min(currentPage * pageSize, total);
+        const currentEnd = Math.min(currentPage * pageSize, total, currentPageSize);
 
         if (formatPageText || (formatPageText !== false && defaultPageText && total > 0)) {
             info =
