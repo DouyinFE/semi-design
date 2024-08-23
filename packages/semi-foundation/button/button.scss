@@ -36,6 +36,11 @@ $module: #{$prefix}-button;
         }
     }
 
+    &-content{
+        display: flex;
+        align-items: center;
+    }
+
     &-danger {
         background-color: $color-button_danger-bg-default;
         color: $color-button_danger-text-default;
