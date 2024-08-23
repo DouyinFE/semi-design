@@ -50,7 +50,7 @@ export const renderButton = () => {
   }
   return (
     <div>
-      <span>{" cnt:" + cnt}</span>
+      <pre>{" cnt:" + cnt}</pre>
       <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
     </div>
 
