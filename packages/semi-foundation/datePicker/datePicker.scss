@@ -6,7 +6,11 @@ $module-list: #{$prefix}-scrolllist;
 
 .#{$module} {
     box-sizing: border-box;
-    display: inline-block;
+    display: inline-flex;
+
+    &-container {
+        display: flex;
+    }
 
     .#{$module-list}-body {
         .#{$module-list}-item {
@@ -819,6 +823,14 @@ $module-list: #{$prefix}-scrolllist;
 
     &-topSlot {
         border-bottom: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
+    }
+    
+    &-leftSlot {
+        border-right: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
+    }
+
+    &-rightSlot {
+        border-left: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
     }
 
     &-bottomSlot {

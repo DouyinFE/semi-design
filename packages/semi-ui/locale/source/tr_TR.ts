@@ -107,7 +107,11 @@ const local: Locale = {
     {
         emptyText: 'Henüz veri yok',
         pageText:
-            '${currentStart} öğesini görüntüle - ${currentEnd} öğe, toplam ${total} öğe '
+            '${currentStart} öğesini görüntüle - ${currentEnd} öğe, toplam ${total} öğe ',
+        descend: 'Azalan sıralama için tıklayın',
+        ascend: 'Artan sıralama için tıklayın',
+        cancelSort: 'Sıralamayı iptal et',
+    
     },
     Select: { emptyText: 'Henüz veri yok', createText: 'Oluştur' },
     Cascader: { emptyText: 'Henüz veri yok' },

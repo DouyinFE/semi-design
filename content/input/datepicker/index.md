@@ -27,7 +27,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 小尺寸
 
-使用 density 可以控制日期面板的尺寸，`compact` 为小尺寸，`default` 为默认尺寸。v1.17.0 后支持。
+使用 density 可以控制日期面板的尺寸，`compact` 为小尺寸，`default` 为默认尺寸。
 
 ```jsx live=true
 import React from 'react';
@@ -186,8 +186,6 @@ function Demo() {
 
 ### 同步切换双面板月份
 
-version: >= 1.28.0
-
 在范围选择的场景中, 开启 `syncSwitchMonth` 则允许双面板同步切换。默认为 false。
 
 > Note：点击年份按钮也会同步切换两个面板，从滚轮里面切换年月不会同步切换面板，这保证了用户选择非固定间隔月份的能力。
@@ -208,8 +206,6 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 切换面板日期的回调
 
-版本：>=1.28.0
-
 `onPanelChange` 回调函数会在面板的月份或年份切换改变时被调用。
 
 ```jsx live=true
@@ -228,7 +224,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 周选择
 
-dateRange 搭配 startDateOffset 和 endDateOffset 可以进行单击范围选择，如周选择、双周选择。v1.10.0 后支持。
+dateRange 搭配 startDateOffset 和 endDateOffset 可以进行单击范围选择，如周选择、双周选择。
 
 ```jsx live=true
 import React from 'react';
@@ -280,8 +276,6 @@ function Demo() {
 
 ### 年月选择
 
-**版本：** >= 0.21.0
-
 将 `type` 设定为 `month`，可以进行年月选择。
 
 ```jsx live=true
@@ -305,8 +299,6 @@ import { DatePicker } from '@douyinfe/semi-ui';
 ```
 
 ### 确认日期时间选择
-
-**版本：** >= 0.18.0
 
 对于“日期时间”（type="dateTime"）或“日期时间范围”（type="dateTimeRange"）的选择，可以进行确认后才将值写入输入框内，你可以通过传递 needConfirm=true 来开启这种行为。
 
@@ -364,7 +356,8 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 渲染顶部/底部额外区域
 
-通过 `topSlot` 和 `bottomSlot` 可以自定义渲染顶部和底部额外区域。
+通过 `topSlot` 和 `bottomSlot` 可以自定义渲染顶部和底部额外区域     
+通过 `leftSlot` 和 `rightSlot` 可以自定义渲染左侧和右侧额外区域（v2.65.0后支持）
 
 ```jsx live=true
 import React, { useState, useMemo } from 'react';
@@ -641,8 +634,6 @@ import { DatePicker } from '@douyinfe/semi-ui';
 
 ### 自定义触发器
 
-**版本：**>=0.34.0
-
 默认情况下我们使用 `Input` 组件作为 `DatePicker` 组件的触发器，通过传递 `triggerRender` 方法你可以自定义这个触发器。
 
 自定义触发器是对触发器的完全自定义，默认的清除按钮将不生效，如果你需要清除功能，请自定义一个清除按钮。
@@ -735,8 +726,6 @@ function Demo() {
 
 ### 自定义日期显示内容
 
-**版本：**>=1.4.0
-
 `renderDate: (dayNumber: number, fullDate: string) => ReactNode`，自定义日期内容。
 
 -   `dayNumber`：当前日。如 `13`。
@@ -770,8 +759,6 @@ function Demo() {
 ```
 
 ### 自定义日期格子渲染
-
-**版本：**>=1.4.0
 
 `renderFullDate: (dayNumber: number, fullDate: string, dayStatus: object) => ReactNode`， 自定义日期格子的渲染内容。
 
@@ -872,6 +859,7 @@ function Demo() {
 | inputReadOnly | 文本框是否 readonly                                                                                       | boolean | false |  |
 | inputStyle | 输入框样式                                                                                                | object |  |  |
 | insetLabel | 前缀标签，优先级低于 `prefix`                                                                                  | string\|ReactNode |  |  |
+| leftSlot   | 渲染左侧额外区域                                                                                             | ReactNode |         |  **2.65.0** |
 | max | multiple 为 true 时，多选的数目,不传或者值为 null\|undefined 的话无限制                                                 | number | - |  |
 | motion | 是否开启面板展开的动画                                                                                          | boolean | true |  |
 | multiple | 是否可以选择多个，仅支持 type="date"                                                                             | boolean | false |  |
@@ -883,9 +871,13 @@ function Demo() {
 | presets | 日期时间快捷方式, start 和 end 在 v2.52 版本支持函数类型                                                                                            |  <ApiType detail='type PresetType = { start?: BaseValueType \| (() => BaseValueType); end?: BaseValueType \| (() => BaseValueType); text?: string }; type PresetsType = Array<PresetType \| (() => PresetType)>;'>Array</ApiType> | [] |  |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                               | boolean |  |  |
 | presetPosition | 日期时间快捷方式面板位置, 可选值'left', 'right', 'top', 'bottom'                                                    | string |  'bottom' | **2.18.0** |
+| rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' |  |
+| renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - |  |
+| renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - |  |
 | rangeSeparator | 自定义范围类型输入框的日期分隔符                                                                                     | string | '~' | |
 | renderDate | 自定义日期显示内容                                                                                            | (dayNumber, fullDate) => ReactNode | - |  |
 | renderFullDate | 自定义显示日期格子内容                                                                                          | (dayNumber, fullDate, dayStatus) => ReactNode | - |  |
+| rightSlot         | 渲染右侧额外区域                                                                                             | ReactNode |         | **2.65.0** |
 | showClear | 是否显示清除按钮                                                                                             | boolean | true |  |
 | size | 尺寸，可选值："small", "default", "large"                                                                   | string | 'default' |  |
 | spacing | 浮层与 trigger 的距离                                                                                      | number | 4 |  |

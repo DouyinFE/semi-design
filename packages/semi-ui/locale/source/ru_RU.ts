@@ -104,6 +104,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Нет результата',
         pageText: 'Отображение ${currentStart} до ${currentEnd} из ${total}',
+        descend: 'Щелкните, чтобы упорядочить по убыванию',
+        ascend: 'Щелкните, чтобы упорядочить по возрастанию',
+        cancelSort: 'Отменить сортировку',
     },
     Select: {
         emptyText: 'Нет результата',

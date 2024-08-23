@@ -1,6 +1,6 @@
 import { merge, clone as lodashClone, find, map } from 'lodash';
 import Logger from '@douyinfe/semi-foundation/utils/Logger';
-import { numbers } from '@douyinfe/semi-foundation/table/constants';
+import { numbers, strings } from '@douyinfe/semi-foundation/table/constants';
 import { cloneDeep } from '../_utils';
 import { TableComponents, Virtualized } from './interface';
 import { getColumnKey } from '@douyinfe/semi-foundation/table/utils';
@@ -145,6 +145,17 @@ export function mergeColumns(oldColumns: any[] = [], newColumns: any[] = [], key
     });
 
     return finalColumns;
+}
+
+export function getNextSortOrder(sortOrder: string | boolean) {
+    switch (sortOrder) {
+        case strings.SORT_DIRECTIONS[0]:
+            return strings.SORT_DIRECTIONS[1];
+        case strings.SORT_DIRECTIONS[1]:
+            return 'cancelSort';
+        default: 
+            return strings.SORT_DIRECTIONS[0];
+    }
 }
 
 export { cloneDeep };

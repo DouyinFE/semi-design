@@ -102,6 +102,9 @@ const local: Locale = {
     Table: {
         emptyText: '결과 없음',
         pageText: '${total} 중 ${currentStart}-${currentEnd}',
+        descend: '내림차순을 보려면 클릭하세요',
+        ascend: '오름차순을 보려면 클릭하세요',
+        cancelSort: '정렬 취소',
     },
     Select: {
         emptyText: '결과 없음',
