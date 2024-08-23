@@ -1,7 +1,7 @@
 import { BASE_CLASS_PREFIX } from "../base/constants";
 
 const cssClasses = {
-    PREFIX: `${BASE_CLASS_PREFIX}-keyboardShortCut`,
+    PREFIX: `${BASE_CLASS_PREFIX}-hotKeys`,
 } as const;
 
 const strings = {
