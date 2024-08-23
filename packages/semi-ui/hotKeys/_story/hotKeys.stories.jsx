@@ -15,6 +15,19 @@ export const Demo = () => {
   return (
     <div>
       <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
+      <pre>{cnt}</pre>
+    </div>
+  );
+}
+
+export const Clickable = () => {
+  const hotKeys = ["Alt","k"]
+  const [cnt, setCnt] = useState(0)
+  const onClick = () => {
+    setCnt(cnt+1)
+  }
+  return (
+    <div>
       <div>clickable</div>
       <HotKeys hotKeys={hotKeys} onClick={onClick} clickable={true}></HotKeys>
       <pre>{cnt}</pre>
@@ -22,11 +35,7 @@ export const Demo = () => {
   );
 }
 
-Demo.story = {
-  name: 'demo',
-};
-
-export const render = () => {
+export const renderButton = () => {
   const hotKeys = ["r"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
@@ -42,8 +51,22 @@ export const render = () => {
   return (
     <div>
       <span>{" cnt:" + cnt}</span>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button}
-      ></HotKeys>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
+    </div>
+
+  );
+}
+
+export const renderNull = () => {
+  const hotKeys = ["r"]
+  const [cnt, setCnt] = useState(0)
+  const onClick = () => {
+    setCnt(cnt+1)
+  }
+  return (
+    <div>
+      <span>{" cnt:" + cnt}</span>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={null} clickable></HotKeys>
     </div>
 
   );

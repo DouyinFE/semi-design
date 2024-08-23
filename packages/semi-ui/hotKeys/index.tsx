@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
@@ -15,7 +15,7 @@ export interface HotKeysProps {
     onClick?: () => void;
     clickable?: boolean;
     disabled?: boolean;
-    render?: () => ReactNode;
+    render?: () => ReactNode | ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
     style?: React.CSSProperties
@@ -32,7 +32,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         onClick: PropTypes.func,
         clickable: PropTypes.bool,
         disabled: PropTypes.bool,
-        render: PropTypes.func,
+        render: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
         getListenerTarget: PropTypes.func,
         className: PropTypes.string,
         style: PropTypes.object,
@@ -44,7 +44,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         onClick: noop,
         clickable: false,
         disabled: false,
-        render: null,
+        render: undefined,
         getListenerTarget: () => document.body,
         className: '',
         style: null,
@@ -63,7 +63,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     }
 
     componentDidUpdate(_prevProps: HotKeysProps) {
-        
     }
 
     componentWillUnmount() {
@@ -87,34 +86,44 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         };
     }
 
-    
+
     render() {
         const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
-        
-        if (render !== null) {
-            return render();
+ 
+        if (typeof render !== 'undefined') {
+            if (render === null || (typeof render === 'function' && render() === null)) {
+                return null;
+            }
+            return (
+                <div 
+                    onClick={clickable ? onClick : noop}
+                    className={classNames(prefixCls, className)}
+                    style={style}>
+                    { typeof render === 'function' ? render() : render }
+                </div>
+            );
         }
-        const renderContent = content ?? hotKeys ;
-        
+        const renderContent = content ?? hotKeys;
+
         return (
-            <div 
+            <div
                 onClick={clickable ? onClick : noop}
                 className={classNames(prefixCls, className)}
                 style={style}
             >
-                { renderContent.map((key: KeyboardEvent["key"], index) => {
-                    return index === 0 ? 
+                {renderContent.map((key: KeyboardEvent["key"], index) => {
+                    return index === 0 ?
                         (<span key={index}>
                             <span className={prefixCls + '-content'}>{key}</span>
                         </span>)
-                        : 
+                        :
                         (<span key={index}>
                             <span className={prefixCls + '-split'}>+</span>
                             <span className={prefixCls + '-content'}>{key}</span>
                         </span>);
-                }) }
+                })}
             </div>
-        ); 
+        );
     }
 }
 
