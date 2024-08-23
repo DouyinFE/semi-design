@@ -1,15 +1,15 @@
 import React, { KeyboardEvent, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import KeyboardShortCutFoudation, { KeyboardShortCutAdapter } from '@douyinfe/semi-foundation/keyboardShortCut/foundation';
-import { cssClasses, strings } from '@douyinfe/semi-foundation/keyboardShortCut/constants';
+import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
+import { cssClasses, strings } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
-import '@douyinfe/semi-foundation/keyboardShortCut/keyboardShortCut.scss';
+import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
-export interface KeyboardShortCutProps {
+export interface HotKeysProps {
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
     onClick?: () => void;
@@ -21,11 +21,11 @@ export interface KeyboardShortCutProps {
     style?: React.CSSProperties
 }
 
-export interface KeyboardShortCutState {
+export interface HotKeysState {
     disabled: boolean
 }
 
-class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShortCutState> {
+class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     static propTypes = {
         hotKeys: PropTypes.arrayOf(PropTypes.string),
         content: PropTypes.arrayOf(PropTypes.string),
@@ -38,7 +38,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         style: PropTypes.object,
     };
 
-    static defaultProps: Partial<KeyboardShortCutProps> = {
+    static defaultProps: Partial<HotKeysProps> = {
         hotKeys: null,
         content: null,
         onClick: noop,
@@ -50,19 +50,19 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         style: null,
     };
 
-    constructor(props: KeyboardShortCutProps) {
+    constructor(props: HotKeysProps) {
         super(props);
         this.state = {
             disabled: false
         };
-        this.foundation = new KeyboardShortCutFoudation(this.adapter);
+        this.foundation = new HotKeysFoudation(this.adapter);
     }
 
     componentDidMount() {
         this.foundation.init();
     }
 
-    componentDidUpdate(_prevProps: KeyboardShortCutProps) {
+    componentDidUpdate(_prevProps: HotKeysProps) {
         
     }
 
@@ -70,7 +70,7 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
         this.foundation.destroy();
     }
 
-    get adapter(): KeyboardShortCutAdapter<KeyboardShortCutProps, KeyboardShortCutState> {
+    get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
             notifyClick: () => {
@@ -118,4 +118,4 @@ class KeyboardShortCut extends BaseComponent<KeyboardShortCutProps, KeyboardShor
     }
 }
 
-export default KeyboardShortCut;
+export default HotKeys;

@@ -1,13 +1,13 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { keyToCode } from './constants';
 
-export interface KeyboardShortCutAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+export interface HotKeysAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyClick: () => void;
     getListenerTarget: () => HTMLElement
 }
 
-export default class KeyboardShortCutFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<KeyboardShortCutAdapter<P, S>, P, S> {
-    constructor(adapter: KeyboardShortCutAdapter<P, S>) {
+export default class HotKeysFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<HotKeysAdapter<P, S>, P, S> {
+    constructor(adapter: HotKeysAdapter<P, S>) {
         super({ ...adapter });
     }
 

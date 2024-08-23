@@ -1,8 +1,8 @@
 ---
 localeCode: zh-CN
-order: 32
+order: 30
 category: 输入类
-title: KeyboardShortCut 快捷键
+title: HotKeys 快捷键
 icon: doc-input
 width: 60%
 brief: 用于方便用户自定义快捷键及相关操作
@@ -14,7 +14,7 @@ brief: 用于方便用户自定义快捷键及相关操作
 ### 如何引入
 
 ```jsx import
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 ```
 ### 基本
 
@@ -24,7 +24,7 @@ import { KeyboardShortCut } from '@douyinfe/semi-ui';
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -34,9 +34,9 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} ></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} ></HotKeys>
       <br></br>
-      <KeyboardShortCut hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></KeyboardShortCut>
+      <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -49,7 +49,7 @@ function Demo() {
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [cnt, setCnt] = useState(0)
@@ -58,9 +58,9 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></KeyboardShortCut>
+      <HotKeys hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
         <br></br>
-      <KeyboardShortCut hotKeys={["Meta","c"]} onClick={onClick} content={["⌘", "C"]}></KeyboardShortCut>
+      <HotKeys hotKeys={["Meta","b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -68,9 +68,11 @@ function Demo() {
 ```
 
 通过`render`传入代替渲染的元素
+
+当遇到操作系统导致的快捷键不同的问题时，可以类似地使用两个组件且自定义渲染
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut, Tag } from '@douyinfe/semi-ui';
+import { HotKeys, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["r"]
@@ -87,8 +89,8 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={newShortCut}></KeyboardShortCut>
-      <KeyboardShortCut hotKeys={["k"]} onClick={onClick} render={() => null}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={newShortCut}></HotKeys>
+      <HotKeys hotKeys={["k"]} onClick={onClick} render={() => null}></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -100,7 +102,7 @@ function Demo() {
 设置`clickable`为`true`可以通过点击触发
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -110,7 +112,7 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} clickable></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -121,7 +123,7 @@ function Demo() {
 通过`getListenerTarget`修改快捷键监听挂载的DOM
 ```jsx live=true
 import React, { useState, useRef } from 'react';
-import { KeyboardShortCut, Input } from '@douyinfe/semi-ui';
+import { HotKeys, Input } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Meta", "s"]
@@ -134,9 +136,9 @@ function Demo() {
   return (
     <div>
       <Input ref={inputRef} placeholder='test for target'></Input>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} 
+      <HotKeys hotKeys={hotKeys} onClick={onClick} 
         getListenerTarget={() => inputRef.current}>
-      </KeyboardShortCut>
+      </HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -147,9 +149,11 @@ function Demo() {
 
 设定 `disabled` 属性为 `true`
 
+当仅需要样式时可以使用
+
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -159,7 +163,7 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} disabled></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -168,7 +172,7 @@ function Demo() {
 
 ## API 参考
 
-### KeyboardShortCut
+### HotKeys
 
 | 属性              | 说明                                                                  | 类型                            | 默认值    |
 | ----------------- | --------------------------------------------------------------------- | ------------------------------- | --------- |

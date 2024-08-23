@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from '@douyinfe/semi-ui'
-import { KeyboardShortCut } from '../../index';
+import { HotKeys } from '../../index';
 
 export default {
-  title: 'KeyboardShortCut'
+  title: 'HotKeys'
 }
 
 export const Demo = () => {
@@ -14,9 +14,9 @@ export const Demo = () => {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
       <div>clickable</div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable={true}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} clickable={true}></HotKeys>
       <pre>{cnt}</pre>
     </div>
   );
@@ -42,8 +42,8 @@ export const render = () => {
   return (
     <div>
       <span>{" cnt:" + cnt}</span>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={button}
-      ></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button}
+      ></HotKeys>
     </div>
 
   );
@@ -58,8 +58,8 @@ export const combine = () => {
   return (
     <div>
       <pre>{cnt}</pre>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick}></KeyboardShortCut>
-      <KeyboardShortCut hotKeys={["Meta", "Shift", "k"]} onClick={onClick}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
+      <HotKeys hotKeys={["Meta", "Shift", "k"]} onClick={onClick}></HotKeys>
     </div>
     
   );
@@ -77,7 +77,7 @@ export const target = () => {
     <div>
       {target}
       <pre>{cnt}</pre>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} getListenerTarget={() => document.getElementById("test")}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} getListenerTarget={() => document.getElementById("test")}></HotKeys>
     </div>
     
   );
@@ -91,7 +91,7 @@ export const disabled = () => {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} disabled></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
       <pre>{cnt}</pre>
     </div>
   );

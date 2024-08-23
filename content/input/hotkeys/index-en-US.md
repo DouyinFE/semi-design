@@ -1,8 +1,8 @@
 ---
 localeCode: en-US
-order: 32
+order: 30
 category: Input
-title:  KeyboardShortCut
+title:  HotKeys
 icon: doc-input
 width: 60%
 brief: used to facilitate the customization of keyboard shortcut
@@ -14,7 +14,7 @@ brief: used to facilitate the customization of keyboard shortcut
 ### How to import
 
 ```jsx import 
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 ```
 
 ### Basic Usage
@@ -25,7 +25,7 @@ Define the keyboard shortcut through `hotKeys`
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -35,9 +35,9 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} ></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} ></HotKeys>
       <br></br>
-      <KeyboardShortCut hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></KeyboardShortCut>
+      <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -50,7 +50,7 @@ Set the characters through `content`
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [cnt, setCnt] = useState(0)
@@ -59,9 +59,9 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></KeyboardShortCut>
+      <HotKeys hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
         <br></br>
-      <KeyboardShortCut hotKeys={["Meta","c"]} onClick={onClick} content={["⌘", "C"]}></KeyboardShortCut>
+      <HotKeys hotKeys={["Meta","b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -69,9 +69,11 @@ function Demo() {
 ```
 
 Replace the element through `render`
+
+When encountering issues caused by different operating system shortcuts, you can similarly use two components and customize the rendering.
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut, Tag } from '@douyinfe/semi-ui';
+import { HotKeys, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["r"]
@@ -88,8 +90,8 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} render={newShortCut}></KeyboardShortCut>
-      <KeyboardShortCut hotKeys={["k"]} onClick={onClick} render={() => null}></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={newShortCut}></HotKeys>
+      <HotKeys hotKeys={["k"]} onClick={onClick} render={() => null}></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -101,7 +103,7 @@ function Demo() {
 Trigger the function by clicking component
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -111,7 +113,7 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} clickable></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} clickable></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -122,7 +124,7 @@ function Demo() {
 through `getListenerTarget`
 ```jsx live=true
 import React, { useState, useRef } from 'react';
-import { KeyboardShortCut, Input } from '@douyinfe/semi-ui';
+import { HotKeys, Input } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Meta", "s"]
@@ -135,9 +137,9 @@ function Demo() {
   return (
     <div>
       <Input ref={inputRef} placeholder='test for target'></Input>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} 
+      <HotKeys hotKeys={hotKeys} onClick={onClick} 
         getListenerTarget={() => inputRef.current}>
-      </KeyboardShortCut>
+      </HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -145,10 +147,11 @@ function Demo() {
 ```
 
 ### Disabled
+You can use it when only styling is needed.
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { KeyboardShortCut } from '@douyinfe/semi-ui';
+import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const hotKeys = ["Control", "a"]
@@ -158,7 +161,7 @@ function Demo() {
   }
   return (
     <div>
-      <KeyboardShortCut hotKeys={hotKeys} onClick={onClick} disabled></KeyboardShortCut>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -167,7 +170,7 @@ function Demo() {
 
 ## API Reference
 
-### KeyboardShortCut
+### HotKeys
 
 
 | Property          | Instructions                                                                                                                                                                                  | type                            | Default   |
