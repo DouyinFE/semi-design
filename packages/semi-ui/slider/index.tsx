@@ -193,7 +193,7 @@ export default class Slider extends BaseComponent<SliderProps, SliderState> {
                 this.setState(stateObj, callback);
             },
             notifyChange: (cbValue: number | number[]) => {
-                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort() : cbValue);
+                this.props.onChange(Array.isArray(cbValue) ? [...cbValue].sort((a, b)=>a - b) : cbValue);
             },
             setDragging: (value: boolean[]) => {
                 this.dragging = value;
