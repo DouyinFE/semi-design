@@ -16,9 +16,17 @@ brief: 用于方便用户自定义快捷键及相关操作
 ```jsx import
 import { HotKeys } from '@douyinfe/semi-ui';
 ```
+
+### 说明
+快捷键仅支持修饰键组合`Shift`,`Control`,`Meta`,`Alt`与其他键的组合。
+
+当设定快捷键与常用快捷键如`Ctrl/Meta + C`相同时，会导致默认行为（复制）不会正常触发。
+
 ### 基本
 
-基本使用，通过`hotKeys`传入快捷键组合
+基本使用，通过`hotKeys`传入快捷键组合，通过 onClick 绑定快捷键处理函数，作出响应动作。
+
+按下 Ctrl + Shift + A，使得 count + 1。默认在 body 监听，全局生效。
 
 [hotKeys取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)
 
@@ -27,15 +35,12 @@ import React, { useState } from 'react';
 import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const hotKeys = ["Control", "a"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} ></HotKeys>
-      <br></br>
       <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
@@ -120,7 +125,7 @@ function Demo() {
 ```
 
 ### 修改监听挂载DOM
-通过`getListenerTarget`修改快捷键监听挂载的DOM
+快捷键默认在 body 监听，通过`getListenerTarget`修改快捷键监听挂载的DOM
 ```jsx live=true
 import React, { useState, useRef } from 'react';
 import { HotKeys, Input } from '@douyinfe/semi-ui';
@@ -147,7 +152,7 @@ function Demo() {
 
 ### 不可用
 
-设定 `disabled` 属性为 `true`
+设定 `disabled` 属性为 `true`, 不监听 hotKeys。
 
 当仅需要样式时可以使用
 
@@ -180,7 +185,7 @@ function Demo() {
 | content | 设置显示内容                                          | string[]                          | -         |
 | onClick        | 快捷键触发函数                                                              |   () => void                      |    -       |
 | clickable       | 设置函数是否可以点击触发                                                              | boolean                       |   false       |
-| render        |    覆盖组件渲染                                               | () => ReactNode                        |           |
+| render        |    覆盖组件渲染                                               | () => ReactNode \| ReactNode                       |           |
 | className         | 类名                                                                  | string                          |           |
 | getListenerTarget         | 用于设置监听器挂载的DOM            | () => HTMLElement                       |  document.body         |
 | disabled          | 是否禁用，默认为false                                                 | boolean                         | false     |

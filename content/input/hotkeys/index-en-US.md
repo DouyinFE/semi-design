@@ -17,9 +17,16 @@ brief: used to facilitate the customization of keyboard shortcut
 import { HotKeys } from '@douyinfe/semi-ui';
 ```
 
+### Explaination
+The hotkeys only support combinations of modifier keys like Shift, Control, Meta, and Alt with other keys.
+
+When a hotkey is set to a common shortcut like Ctrl/Meta + C, it may prevent the default behavior (e.g., copying) from being triggered properly.
+
 ### Basic Usage
 
-Define the keyboard shortcut through `hotKeys`
+Pass in key combinations via `hotKeys` and bind a shortcut handler function using `onClick` to respond to the action.
+
+When pressing `Ctrl + Shift + A`, it increments the count by 1. By default, it listens on the body, making it effective globally.
 
 [values reference](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)
 
@@ -28,15 +35,12 @@ import React, { useState } from 'react';
 import { HotKeys } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const hotKeys = ["Control", "a"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} ></HotKeys>
-      <br></br>
       <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
@@ -121,7 +125,7 @@ function Demo() {
 ```
 
 ### change the DOM element the listener is mounted on
-through `getListenerTarget`
+The hotkey is listened to on the body by default, through `getListenerTarget`
 ```jsx live=true
 import React, { useState, useRef } from 'react';
 import { HotKeys, Input } from '@douyinfe/semi-ui';
@@ -147,6 +151,7 @@ function Demo() {
 ```
 
 ### Disabled
+By setting `disabled` as `true`, the component will not listen hotkeys.
 You can use it when only styling is needed.
 
 ```jsx live=true
@@ -179,7 +184,7 @@ function Demo() {
 | content | Set the characters                                         | string[]                          | -         |
 | onClick        | function that keyboard shortcut triggers                                                             |   () => void                      |    -       |
 | clickable       | whether the function can be triggered by click                                                              | boolean                       |   false       |
-| render        |    Replace the element                                               | () => ReactNode                        |           |
+| render        |    Replace the element                                               | () => ReactNode \| ReactNode                       |           |
 | className         | class name                                                                  | string                          |           |
 | getListenerTarget         | change the DOM element the listener is mounted on            | () => HTMLElement                       |  document.body         |
 | disabled          |                                                   | boolean                         | false     |
