@@ -47,7 +47,7 @@ jobs:
             - name: Reclaim cache directory
               run: chown -R 1001:1001 /github/home/.cache && echo "pwn dat cache"
             - name: Cypress install
-              uses: cypress-io/github-action@v5
+              uses: cypress-io/github-action@v6
               with:
                   # Disable running of tests within install job
                   runTests: false
@@ -66,7 +66,7 @@ jobs:
                   name: storybook-static
                   path: storybook
             - name: 'Cypress Tests - Chrome'
-              uses: cypress-io/github-action@v5
+              uses: cypress-io/github-action@v6
               with:
                   # we have already installed all dependencies above
                   install: true
