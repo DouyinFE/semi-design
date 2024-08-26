@@ -5,7 +5,7 @@ export default {
   title: 'Resizable'
 }
 
-import { ResizeItem, ResizeHandler } from '../../index'
+import { ResizeItem, ResizeHandler, ResizeGroup } from '../../index'
 
 export const Group_test = () => {
   const [text, setText] = useState('test')
@@ -21,50 +21,51 @@ export const Group_test = () => {
   };
   let dir = 'bottom'
   let leftRef = createRef(), rightRef = createRef(), handlerRef = createRef()
+  const func = (e) => {
+    leftRef.current.foundation.onResizeStart(e, dir)
+    rightRef.current.foundation.onResizeStart(e, 'top')
+  }
   return (
     <div style={{ width: '500px', height: '60%' }}>
-      <ResizeItem
-        ref={leftRef}
-        style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
-        defaultSize={{
-          width: '60%',
-          height: 300,
-        }}
-        onChange={() => { setText('resizing') }}
-        onResizeStart={() => Toast.info(opts_1)}
-        onResizeEnd={() => { Toast.info(opts); setText('test') }}
-      >
-        <div style={{ marginLeft: '20%' }}>
-          {text}
-        </div>
-      </ResizeItem>
-      <ResizeHandler
-        ref={handlerRef}
-        key={dir}
-        direction={dir}
-        onResizeStart={
-          (e) => {
-            leftRef.current.foundation.onResizeStart(e, dir)
-            rightRef.current.foundation.onResizeStart(e, 'top')
+      <ResizeGroup>
+        <ResizeItem
+          ref={leftRef}
+          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '60%',
+            height: 300,
+          }}
+          onChange={() => { setText('resizing') }}
+          onResizeStart={() => Toast.info(opts_1)}
+          onResizeEnd={() => { Toast.info(opts); setText('test') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+        <ResizeHandler
+          ref={handlerRef}
+          key={dir}
+          direction={dir}
+          onResizeStart={
+            func
           }
-        }
-      >
-      </ResizeHandler>
-      <ResizeItem
-        ref={rightRef}
-        style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
-        defaultSize={{
-          width: '60%',
-          height: 300,
-        }}
-        onChange={() => { setText('resizing') }}
-        onResizeStart={() => Toast.info(opts_1)}
-        onResizeEnd={() => { Toast.info(opts); setText('test') }}
-      >
-        <div style={{ marginLeft: '20%' }}>
-          {text}
-        </div>
-      </ResizeItem>
+        >
+        </ResizeHandler>
+        <ResizeItem
+          ref={rightRef}
+          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '60%',
+            height: 300,
+          }}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
     </div>
   );
 }
@@ -173,22 +174,6 @@ export const Single_lock_aspect = () => {
           16 / 9
         </div>
       </Resizable>
-      {/* <Resizable
-        lockAspectRatio={aspectRatio}
-        lockAspectRatioExtraHeight={50}
-        lockAspectRatioExtraWidth={50}
-
-        defaultSize={{
-          width: 400 + 50,
-          height: 400 / aspectRatio + 50,
-        }}
-      >
-        <div style={{ backgroundColor: 'blue' }}>Header</div>
-        <div >
-          <div style={{ backgroundColor: 'black' }}>Nav</div>
-          <div style={{ backgroundColor: 'grey' }}>001</div>
-        </div>
-      </Resizable> */}
     </div>
   );
 }
