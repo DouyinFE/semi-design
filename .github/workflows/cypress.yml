@@ -54,7 +54,7 @@ jobs:
     chrome-tests:
         runs-on: ubuntu-latest
         container:
-            image: cypress/browsers:node18.12.0-chrome103-ff107
+            image: cypress/browsers:node-20.14.0-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
             options: --user 1001
         needs: install
         steps:
