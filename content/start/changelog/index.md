@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.65.0 (2024-08-23)
+- 【Fix】
+    - 修复 Slider 在 range 受控模式下，拖动一个 handle 可能导致另一个 handle 抖动的问题 [#2438](https://github.com/DouyinFE/semi-design/issues/2438) [#2442](https://github.com/DouyinFE/semi-design/pull/2442)
+    - 修复 Slider，在 range 模式下，min handler 可以拖动到 max handler 右侧，意外交换两个 handler 的问题 [#2438](https://github.com/DouyinFE/semi-design/issues/2438) [#2442](https://github.com/DouyinFE/semi-design/pull/2442)
+    - 修复 Button 在 children 直接传入 icon 时，垂直方向不居中的问题  [#2402](https://github.com/DouyinFE/semi-design/issues/2402) [#2440](https://github.com/DouyinFE/semi-design/pull/2440)
+    - 修复 markdown render 渲染仅包含标题的表格时崩溃 [#2436](https://github.com/DouyinFE/semi-design/pull/2436) [@tgz](https://github.com/tgz)
 
 #### 🎉 2.65.0-beta.0 (2024-08-20)
 - 【Feat】

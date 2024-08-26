@@ -60,10 +60,14 @@ $module: #{$prefix}-button;
 
         &-left {
             margin-right: $spacing-button_iconOnly_content-marginRight;
+            display: flex;
+            align-items: center;
         }
 
         &-right {
             margin-left: $spacing-button_iconOnly_content-marginLeft;
+            display: flex;
+            align-items: center;
         }
     }
 }

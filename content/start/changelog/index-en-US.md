@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.65.0 (2024-08-23)
+- 【Fix】
+    - Fixed the problem that when Slider is in range controlled mode, dragging one handle may cause another handle to shake [#2438](https://github.com/DouyinFE/semi-design/issues/2438)
+    - Fixed the problem that when Slider is in range mode, the min handler can be dragged to the right of the max handler, accidentally swapping the two handlers [#2438](https://github.com/DouyinFE/semi-design/issues/2438)
+    - Fixed the issue that Button is not vertically centered when icon is passed directly to children [#2402](https://github.com/DouyinFE/semi-design/issues/2402)
+    - fix ui crash when render markdown data only  only includes heading definitions [#2436](https://github.com/DouyinFE/semi-design/pull/2436) [@tgz](https://github.com/tgz) 
 
 #### 🎉 2.65.0-beta.0 (2024-08-20)
 - 【Feat】
