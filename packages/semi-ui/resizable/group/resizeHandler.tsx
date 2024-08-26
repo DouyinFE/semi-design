@@ -4,13 +4,17 @@ import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-
+import { directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
 
 export interface ResizeHandlerProps {
-
+    direction?: Direction;
+    onResizeStart?: HandlerCallback;
+    className?: string;
+    disabled?: boolean;
+    style?: React.CSSProperties
 }
 
 export interface ResizeHandlerState {
@@ -18,7 +22,11 @@ export interface ResizeHandlerState {
 
 class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState> {
     static propTypes = {
-    
+        direction: PropTypes.string,
+        onResizeStart: PropTypes.func,
+        className: PropTypes.string,
+        disabled: PropTypes.bool,
+        style: PropTypes.object,
     };
 
     static defaultProps: Partial<ResizeHandlerProps> = {
@@ -28,6 +36,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
         super(props);
         this.state = {
         };
+        this.resizeHandlerRef = createRef();
         this.foundation = new ResizeHandlerFoundation(this.adapter); 
     }
 
@@ -45,12 +54,29 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     get adapter(): ResizeHandlerAdapter<ResizeHandlerProps, ResizeHandlerState> {
         return {
             ...super.adapter,
+            getResizeHandler: this.getResizeHandler,
         };
     }
 
+    getResizeHandler: () => HTMLElement = () => {
+        return this.resizeHandlerRef.current;
+    }
+
+    resizeHandlerRef: React.RefObject<HTMLDivElement>
+
     render() {
+        const { style, className } = this.props;
         return (
-            <div>
+            <div 
+                className={classNames(className, prefixCls)}
+                style={{
+                    position: 'absolute',
+                    userSelect: 'none',
+                    ...directionStyles[this.props.direction],
+                    ...style
+                }} 
+                ref={this.resizeHandlerRef}
+            >
             </div>
         ); 
     }

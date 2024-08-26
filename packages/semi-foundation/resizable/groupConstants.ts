@@ -1,61 +1,65 @@
-// public 
-export type Direction = "horizontal" | "vertical";
-export type ResizeHandler = (event: MouseEvent) => void;
+// group
+const rowStyleBase = {
+    width: '100%',
+    height: '10px',
+    top: '0px',
+    left: '0px',
+    cursor: 'row-resize',
+} as const;
+const colStyleBase = {
+    width: '10px',
+    height: '100%',
+    top: '0px',
+    left: '0px',
+    cursor: 'col-resize',
+} as const;
+const edgeStyleBase = {
+    width: '20px',
+    height: '20px',
+    position: 'absolute',
+} as const;
 
-// item
-export type ItemOnCollapse = () => void;
-export type ItemOnExpand = () => void;
-export type ItemOnResize = (
-    size: number,
-    prevSize: number | undefined
-) => void;
-
-export type ItemCallbacks = {
-    onCollapse?: ItemOnCollapse;
-    onExpand?: ItemOnExpand;
-    onResize?: ItemOnResize
-};
-
-export type ItemConstraints = {
-    collapsedSize?: number | undefined;
-    collapsible?: boolean | undefined;
-    defaultSize?: number | undefined;
-    maxSize?: number | undefined;
-    minSize?: number | undefined
-};
-
-export type ItemData = {
-    callbacks: ItemCallbacks;
-    constraints: ItemConstraints;
-    id: string;
-    idIsFromProps: boolean;
-    order: number | undefined
-};
-
-export type ImperativeItemHandle = {
-    collapse: () => void;
-    expand: (minSize?: number) => void;
-    getId(): string;
-    getSize(): number;
-    isCollapsed: () => boolean;
-    isExpanded: () => boolean;
-    resize: (size: number) => void
-};
-
-// handler
-export type ResizeHandlerOnDragging = (isDragging: boolean) => void;
-export type ResizeHandlerState = "drag" | "hover" | "inactive";
-
-// group 
-export type ImperativeGroupHandle = {
-    getId: () => string;
-    getLayout: () => number[];
-    setLayout: (layout: number[]) => void
-};
-
-export type GroupStorage = {
-    getItem(name: string): string | null;
-    setItem(name: string, value: string): void
-};
-
-export type GroupOnLayout = (layout: number[]) => void;
+export const directionStyles = {
+    top: {
+        ...rowStyleBase,
+        top: '-5px',
+    },
+    right: {
+        ...colStyleBase,
+        left: undefined,
+        right: '-5px',
+    },
+    bottom: {
+        ...rowStyleBase,
+        top: undefined,
+        bottom: '-5px',
+    },
+    left: {
+        ...colStyleBase,
+        left: '-5px',
+    },
+    topRight: {
+        ...edgeStyleBase,
+        right: '-10px',
+        top: '-10px',
+        cursor: 'ne-resize',
+    },
+    bottomRight: {
+        ...edgeStyleBase,
+        right: '-10px',
+        bottom: '-10px',
+        cursor: 'se-resize',
+    },
+    bottomLeft: {
+        ...edgeStyleBase,
+        left: '-10px',
+        bottom: '-10px',
+        cursor: 'sw-resize',
+    },
+    topLeft: {
+        ...edgeStyleBase,
+        left: '-10px',
+        top: '-10px',
+        cursor: 'nw-resize',
+    },
+} as const;
