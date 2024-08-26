@@ -118,5 +118,6 @@ export { default as HotKeys } from './hotKeys';
 export {
     Resizable,
     ResizeItem,
-    ResizeHandler
+    ResizeHandler,
+    ResizeGroup
 } from './resizable';

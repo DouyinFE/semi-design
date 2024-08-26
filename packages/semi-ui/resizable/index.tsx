@@ -5,8 +5,10 @@ export {
 
 import ResizeItem from "./group/resizeItem";
 import ResizeHandler from "./group/resizeHandler";
+import ResizeGroup from "./group/resizeGroup";
 
 export {
     ResizeItem, 
-    ResizeHandler
+    ResizeHandler,
+    ResizeGroup
 };

@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode } from 'react';
+import React, { createRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -8,6 +8,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { Direction, Enable, HandleClassName, HandleComponent, HandleStyles, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import ResizeHandler from './resizeHandler';
+import { ResizeContext } from './resizeContext';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -122,7 +123,9 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
 
     constructor(props: ResizeItemProps) {
         super(props);
+        this.resizeItemRef = createRef();
         this.foundation = new ResizeItemFoundation(this.adapter);
+        this.foundation.resizable = () => this.resizeItemRef.current;
         this.state = {
             isResizing: false,
             width: this.foundation.propsSize?.width ?? 'auto',
@@ -168,37 +171,14 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             ...super.adapter,
         };
     }
-
-    renderResizeHandler = () => {
-        const { enable, handleStyles, handleClasses, handleWrapperStyle, handleWrapperClass } = this.props;
-        if (!enable) {
-            return null;
-        }
-        const directions = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
-        const handlers = directions.map(dir => {
-            if (enable[dir as Direction] !== false) {
-                return (
-                    <ResizeHandler
-                        key={dir}
-                        direction={dir as Direction}
-                        onResizeStart={this.foundation.onResizeStart}
-                        style={handleStyles && handleStyles[dir]}
-                        className={handleClasses && handleClasses[dir]}
-                    >
-                    </ResizeHandler>
-                );
-            }
-            return null;
-        });
-
-        return (
-            <div className={handleWrapperClass} style={handleWrapperStyle}>
-                {handlers}
-            </div>
-        );
-    }
+    static contextType = ResizeContext;
+    context: ResizeItemProps;
+    resizeItemRef: React.RefObject<HTMLDivElement>
 
     render() {
+        // console.log(this.context)
+        console.log(this.props);
+                                                                                                                                                                                                                                
         const style: React.CSSProperties = {
             position: 'relative',
             userSelect: this.state.isResizing ? 'none' : 'auto',
@@ -228,7 +208,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                 {this.props.children}
-                {/* {this.renderResizeHandler()} */}
             </div>
         );
     }

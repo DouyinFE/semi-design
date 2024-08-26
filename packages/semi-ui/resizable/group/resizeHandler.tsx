@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode } from 'react';
+import React, { createRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -7,6 +7,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
+import { ResizeContext, ResizeContextProps } from './resizeContext';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -38,7 +39,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
         this.state = {
         };
         this.resizeHandlerRef = createRef();
-        this.foundation = new ResizeHandlerFoundation(this.adapter); 
+        this.foundation = new ResizeHandlerFoundation(this.adapter);
     }
 
     componentDidMount() {
@@ -64,21 +65,25 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     }
 
     resizeHandlerRef: React.RefObject<HTMLDivElement>
-
+    static contextType = ResizeContext;
+    context: ResizeContextProps;
     render() {
         const { style, className } = this.props;
+        console.log(this.context);
+        this.context.registerHandler(this.resizeHandlerRef);
+        this.context.getArray();
         return (
-            <div 
-                className={classNames(className, prefixCls)}
+            <div
+                className={classNames(className, prefixCls + '-handler')}
                 style={{
                     userSelect: 'none',
                     ...directionStyles[this.props.direction],
                     ...style
-                }} 
+                }}
                 ref={this.resizeHandlerRef}
             >
             </div>
-        ); 
+        );
     }
 }
 
