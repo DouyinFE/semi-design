@@ -400,7 +400,12 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         })();
         
         if (Array.isArray(inputValue)) {
-            return [transWay(inputValue[0]), transWay(inputValue[1])];
+            const min = transWay(inputValue[0]);
+            const max = transWay(inputValue[1]);
+            if (min > max) {
+                return this.getState("focusPos") === "min" ? [max, max] : [min, min];
+            }
+            return [min, max];
         } else {
             return transWay(inputValue);
         }
