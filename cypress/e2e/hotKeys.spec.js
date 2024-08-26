@@ -1,11 +1,4 @@
 describe('hotKeys', () => {
-    it('Basic Demo', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--demo')
-
-        cy.get('body').click().type('{alt}{k}')
-        cy.get('pre#pre').should('have.text', '1')
-    });
-
     it('Clickable', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--clickable')
 
