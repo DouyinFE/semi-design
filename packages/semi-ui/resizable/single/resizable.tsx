@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef } from 'react';
 import classNames from 'classnames';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
@@ -64,10 +64,10 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     static propTypes = {
         style: PropTypes.object,
         className: PropTypes.string,
-        grid: PropTypes.arrayOf(number),
+        grid: PropTypes.arrayOf(PropTypes.number),
         snap: {
-            x: PropTypes.arrayOf(number),
-            y: PropTypes.arrayOf(number),
+            x: PropTypes.arrayOf(PropTypes.number),
+            y: PropTypes.arrayOf(PropTypes.number),
         },
         snapGap: PropTypes.number,
         bounds: PropTypes.oneOf(['parent', 'window', HTMLElement]),
@@ -92,7 +92,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         onResizeEnd: PropTypes.func,
         defaultSize: PropTypes.object,
         scale: PropTypes.number,
-        ratio: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(number)]),
+        ratio: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
     };
 
     static defaultProps: Partial<ResizableProps> = {
