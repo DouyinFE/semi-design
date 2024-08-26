@@ -474,7 +474,7 @@ $module: #{$prefix}-upload;
             }
 
             &-error {
-                outline: 1px solid $color-upload_picture_file_card_error-border;
+                border: 1px solid $color-upload_picture_file_card_error-border;
             }
 
             &:hover {
