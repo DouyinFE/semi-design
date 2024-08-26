@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-import { directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
@@ -70,7 +71,6 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
             <div 
                 className={classNames(className, prefixCls)}
                 style={{
-                    position: 'absolute',
                     userSelect: 'none',
                     ...directionStyles[this.props.direction],
                     ...style

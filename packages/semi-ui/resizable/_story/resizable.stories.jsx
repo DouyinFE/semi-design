@@ -1,9 +1,75 @@
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { Resizable } from '../../index';
 import { Toast, Button } from '@douyinfe/semi-ui'
 export default {
   title: 'Resizable'
 }
+
+import { ResizeItem, ResizeHandler } from '../../index'
+
+export const Group_test = () => {
+  const [text, setText] = useState('test')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  let dir = 'bottom'
+  let leftRef = createRef(), rightRef = createRef(), handlerRef = createRef()
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <ResizeItem
+        ref={leftRef}
+        style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        onChange={() => { setText('resizing') }}
+        onResizeStart={() => Toast.info(opts_1)}
+        onResizeEnd={() => { Toast.info(opts); setText('test') }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          {text}
+        </div>
+      </ResizeItem>
+      <ResizeHandler
+        ref={handlerRef}
+        key={dir}
+        direction={dir}
+        onResizeStart={
+          (e) => {
+            leftRef.current.foundation.onResizeStart(e, dir)
+            rightRef.current.foundation.onResizeStart(e, 'top')
+          }
+        }
+      >
+      </ResizeHandler>
+      <ResizeItem
+        ref={rightRef}
+        style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        onChange={() => { setText('resizing') }}
+        onResizeStart={() => Toast.info(opts_1)}
+        onResizeEnd={() => { Toast.info(opts); setText('test') }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          {text}
+        </div>
+      </ResizeItem>
+    </div>
+  );
+}
+
+
 
 export const Single_defaultSize = () => {
   const [text, setText] = useState('test')
@@ -25,9 +91,9 @@ export const Single_defaultSize = () => {
           width: '60%',
           height: 300,
         }}
-        onChange={() => {setText('resizing')}}
+        onChange={() => { setText('resizing') }}
         onResizeStart={() => Toast.info(opts_1)}
-        onResizeEnd={() => {Toast.info(opts);setText('test')}}
+        onResizeEnd={() => { Toast.info(opts); setText('test') }}
       >
         <div style={{ marginLeft: '20%' }}>
           {text}
