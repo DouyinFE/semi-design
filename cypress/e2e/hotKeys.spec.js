@@ -1,6 +1,7 @@
 describe('hotKeys', () => {
     it('Clickable', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--clickable')
+        cy.wait(1000)
 
         cy.get('body').click().type('{alt}{k}')
         cy.get('div.semi-hotKeys').click()
