@@ -11,7 +11,7 @@ export interface ImageStates {
     previewVisible: boolean
 }
 
-export interface ImageProps extends BaseProps {
+export interface ImageProps extends BaseProps, Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'onLoad' | 'onError'> {
     src?: string;
     width?: string | number;
     height?: string | number;
@@ -190,7 +190,7 @@ export interface PreviewImageStates {
     width: number;
     height: number;
     translate: ImageTranslate;
-    currZoom: number;
+    currZoom: number
 }
 
 export interface DragDirection {

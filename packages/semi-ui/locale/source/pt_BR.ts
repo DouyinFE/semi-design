@@ -109,6 +109,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Não há dados',
         pageText: 'Mostrando ${currentStart} - ${currentEnd} ，de ${total}',
+        descend: 'Clique para descrescer',
+        ascend: 'Clique para crescer',
+        cancelSort: 'Cancelar classificação',
     },
     Select: {
         emptyText: 'Não há dados',

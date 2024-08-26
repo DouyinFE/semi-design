@@ -483,6 +483,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | width             | 图片显示宽度                             | number            | - | |
 | setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
 
+其他支持的属性同 [img](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes)。其他属性将透传至底层的 img 节点。
+
 ### ImagePreview
 
 | 属性               | 说明                                                                                                                                               | 类型              | 默认值 | 版本 |

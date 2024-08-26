@@ -10,6 +10,7 @@ import { IconCopy, IconTick } from '@douyinfe/semi-icons';
 import { BaseProps } from '../_base/baseComponent';
 import { Locale } from '../locale/interface';
 import isEnterPress from '@douyinfe/semi-foundation/utils/isEnterPress';
+import { CopyableConfig } from './title';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -20,7 +21,8 @@ export interface CopyableProps extends BaseProps {
     forwardRef?: React.RefObject<any>;
     successTip?: React.ReactNode;
     icon?: React.ReactNode;
-    onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void
+    onCopy?: (e: React.MouseEvent, content: string, res: boolean) => void;
+    render?: (copied: boolean, doCopy: (e: React.MouseEvent) => void, configs: CopyableConfig) => React.ReactNode
 }
 interface CopyableState {
     copied: boolean;
@@ -133,12 +135,16 @@ export class Copyable extends React.PureComponent<CopyableProps, CopyableState> 
     }
 
     render() {
-        const { style, className, forwardRef, copyTip } = this.props;
+        const { style, className, forwardRef, copyTip, render } = this.props;
         const { copied } = this.state;
         const finalCls = cls(className, {
             [`${prefixCls}-action-copy`]: !copied,
             [`${prefixCls}-action-copied`]: copied,
         });
+
+        if (render) {
+            return render(copied, this.copy, this.props);
+        }
 
         return (
             <LocaleConsumer componentName="Typography">

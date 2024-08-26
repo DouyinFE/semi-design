@@ -99,7 +99,10 @@ export interface Locale {
     };
     Table: {
         emptyText: string;
-        pageText: string
+        pageText: string;
+        descend: string;
+        ascend: string;
+        cancelSort: string
     };
     Select: {
         emptyText: string;

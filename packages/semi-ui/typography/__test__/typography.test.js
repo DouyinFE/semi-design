@@ -124,4 +124,39 @@ describe(`Typography`, () => {
         expect(typographyParagraph.find('.semi-typography').children().at(0).text()).toEqual('Key: code');
     });
 
+    it('custom copy render', () => {
+        const { Text } = Typography;
+        const code = 'code';
+
+        const typographyParagraph = mount(
+            <Text
+                style={{ marginTop: 6, color: 'var(--semi-color-text-2)' }}
+                ellipsis={{ showTooltip: { opts: { style: { wordBreak: 'break-word' } } } }}
+                copyable={{
+                    content: code,
+                    render: (copied, doCopy, config) => {
+                        return (
+                            <span className="test-copy-button" onClick={doCopy}>
+                                <span className="test-copied">{String(copied)}</span>
+                                <span className="test-copy-content">{config.content}</span>
+                            </span>
+                        );
+                    }
+                }}
+            >
+                Key: {code}
+            </Text>
+        );
+
+        // test basic render
+        expect(typographyParagraph.find('.test-copied').text()).toEqual('false');
+        expect(typographyParagraph.find('.test-copy-content').text()).toEqual(code);
+
+        // test copy
+        const trigger = typographyParagraph.find('.test-copy-button');
+        expect(trigger.length).toEqual(1);
+        trigger.at(0).simulate('click');
+        expect(typographyParagraph.find('.test-copied').text()).toEqual('true');
+    });
+
 });
