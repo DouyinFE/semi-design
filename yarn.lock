@@ -1650,10 +1650,10 @@
     prop-types "^15.7.2"
     tslib "^2.3.1"
 
-"@douyinfe/semi-site-doc-style@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.4.tgz#465badb80f387c222f91488dbb868addc2d62470"
-  integrity sha512-t1GQqW1GsZHiHECCXQQAXkhErzUrlTfV7PjAmdMGB7wyh9yLYiwiwHW6Np1oh+yiSvJAd1lx5EPA2jHDo1SeNA==
+"@douyinfe/semi-site-doc-style@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@douyinfe/semi-site-doc-style/-/semi-site-doc-style-0.0.5.tgz#791a12bad18cfeaeb91402efce49b8879042be76"
+  integrity sha512-NXqz4UXSC7DGq0rjvCIPGxfVEgyoABtsIv+8ApfDoVOwoF7x2VpUCNFkBVBFM84nXHJBL0Lx2Vb934eadnLO1w==
 
 "@douyinfe/semi-site-header@^0.0.29":
   version "0.0.29"

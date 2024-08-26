@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'لا نتيجة',
         pageText: 'عرض ${currentStart} إلى ${currentEnd} من ${total}',
+        descend: 'انقر للهبوط',
+        ascend: 'انقر للصعود',
+        cancelSort: 'إلغاء الترتيب',
     },
     Select: {
         emptyText: 'لا نتيجة',

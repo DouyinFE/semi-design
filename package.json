@@ -43,12 +43,12 @@
         "coverage:merge": "npx istanbul-combine -d test/merged -p detail -r lcov -r json cypress/coverage/coverage-final.json test/coverage/coverage-final.json"
     },
     "engines": {
-        "node": ">= 16.0.0"
+        "node": ">= 20.0.0"
     },
     "dependencies": {
         "@dnd-kit/modifiers": "^7.0.0",
         "@douyinfe/semi-site-banner": "^0.1.5",
-        "@douyinfe/semi-site-doc-style": "0.0.4",
+        "@douyinfe/semi-site-doc-style": "0.0.5",
         "@douyinfe/semi-site-header": "^0.0.29",
         "@douyinfe/semi-site-markdown-blocks": "^0.0.18",
         "@mdx-js/mdx": "1.6.22",

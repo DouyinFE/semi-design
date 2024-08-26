@@ -102,6 +102,9 @@ const local: Locale = {
     Table: {
         emptyText: '暫無數據',
         pageText: '顯示第 ${currentStart} 條-第 ${currentEnd} 條，共 ${total} 條',
+        descend: '點擊降序',
+        ascend: '點擊升序',
+        cancelSort: '取消排序',
     },
     Select: {
         emptyText: '暫無數據',

@@ -105,6 +105,9 @@ const local: Locale = {
     Table: {
         emptyText: 'ไม่มีข้อมูล',
         pageText: 'แสดงรายการ ${currentStart} - ${currentEnd} จาก ${total}',
+        descend: 'คลิกเพื่อเรียงจากมากไปหาน้อย',
+        ascend: 'คลิกเพื่อเรียงจากน้อยไปหามาก',
+        cancelSort: 'ยกเลิกการเรียงลำดับ',
     },
     Select: {
         emptyText: 'ไม่มีข้อมูล',

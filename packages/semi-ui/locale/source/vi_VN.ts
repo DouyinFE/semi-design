@@ -104,6 +104,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Không kết quả',
         pageText: 'Hiển thị ${currentStart} đến ${currentEnd} trong tổng số ${total}',
+        descend: 'Nhấp để sắp xếp giảm dần',
+        ascend: 'Nhấp để sắp xếp tăng dần',
+        cancelSort: 'Hủy sắp xếp',
     },
     Select: {
         emptyText: 'Không kết quả',

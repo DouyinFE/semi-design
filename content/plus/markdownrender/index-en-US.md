@@ -158,6 +158,10 @@ Just write JSX directly in Markdown
 
 ```
 
+# Add plugins
+
+Support all RemarkPlugin and RehypePlugins plugins of MDXJS through `remarkPlugins` `rehypePlugins`, please refer to [MDXJS](https://mdxjs.com/docs/extending-mdx/) for details
+
 
 ### API
 
@@ -167,6 +171,8 @@ Just write JSX directly in Markdown
 | components | Used to override Markdown elements and add custom components | Record<string, JSXElementConstructor> | - |
 | format | The incoming raw type, whether it is pure Markdown | 'md'\|'mdx' | 'mdx' |
 | raw | plain text in Markdown or MDX | string | - |
+| remarkPlugins | custom Remark Plugin          | Remark Plugin Array                | - |
+| rehypePlugins | custom Rehype Plugin          | Rehype Plugin Array               | - |
 | style | style | CSSProperties | - |
 
 ## Design Token

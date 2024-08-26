@@ -2,6 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { CompileOptions, evaluate, compile, EvaluateOptions, evaluateSync, RunOptions } from '@mdx-js/mdx';
 import { MDXProps } from 'mdx/types';
 import remarkGfm from 'remark-gfm';
+import { type PluggableList } from "@mdx-js/mdx/lib/core";
 export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getRuntime: () => any
 
@@ -13,7 +14,9 @@ export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<stri
 export interface MarkdownRenderBaseProps{
     raw: string;
     components: MDXProps['components'];
-    format: "md"|"mdx"
+    format: "md"|"mdx";
+    remarkPlugins?: PluggableList;
+    rehypePlugins?: PluggableList
 }
 
 
@@ -26,11 +29,14 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
     private getOptions = ()=>{
         return {
             evaluateOptions: {
-                remarkPlugins: [remarkGfm],
+                remarkPlugins: [remarkGfm, ...(this.getProp("remarkPlugins") ?? [])],
+                rehypePlugins: this.getProp("rehypePlugins") ?? [],
                 format: this.getProp("format")
             },
             compileOptions: {
-                format: this.getProp("format")
+                format: this.getProp("format"),
+                remarkPlugins: [remarkGfm, ...(this.getProp("remarkPlugins") ?? [])],
+                rehypePlugins: this.getProp("rehypePlugins") ?? [],
             },
             runOptions: {
             }

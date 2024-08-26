@@ -14,16 +14,36 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
-#### 🎉 2.64.0 (2024-08-12)
+#### 🎉 2.65.0-beta.0 (2024-08-20)
 - 【Feat】
-  - 新增 颜色选择器 ColorPicker 组件，用户快速选择颜色，支持滴管屏幕取色 [#2218](https://github.com/DouyinFE/semi-design/pull/2218)
+  - 优化 Table 的排序交互，仅有排序功能时，支持点击整个表头column触发排序。Column 支持 showSortTooltip API支持设置是否显示 tooltip，默认为 true [#2413](https://github.com/DouyinFE/semi-design/pull/2413)
+  - MarkdownRender 支持 RemarkPlugin 和 RehypePlugins 插件 [#2433](https://github.com/DouyinFE/semi-design/pull/2433)
+  - Tree、TreeSelect 的 renderLabel API 增加 searchWord 参数，用于透出当前搜索框输入值 [#2412](https://github.com/DouyinFE/semi-design/pull/2412)
+  - Datepicker 支持 leftSlot、rightSlot [@LuyangFE](https://github.com/LuyangFE) [#2409](https://github.com/DouyinFE/semi-design/pull/2409) 
+  - Typograph 组件支持自定义复制区域渲染 [@sylingd](https://github.com/sylingd) [#2408](https://github.com/DouyinFE/semi-design/pull/2408)
+- 【Perf】
+  - 优化 Input、TextArea getValueLength 判断次数 [#2432](https://github.com/DouyinFE/semi-design/pull/2432)
+- 【Chore】
+  - Image 组件 interface 支持原生 img 元素属性 [#2427](https://github.com/DouyinFE/semi-design/pull/2427)
 - 【Fix】
-  - 修复 Tooltip triggerDOM 特殊场景下未定义的问题  [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
+  - 修复 Chat 中消息为空数组时，发送消息后的类型错误 [#2411](https://github.com/DouyinFE/semi-design/pull/2411)
+  - 修复 Table aria-level 在树形数据为空时错误的问题  [#2359](https://github.com/DouyinFE/semi-design/issues/2359)
+  - 修复 Table 树形数据为空且 expandIcon 为 false时缩进错误的问题  [#2425](https://github.com/DouyinFE/semi-design/issues/2425)
+  - 修复 Collapse Tabs 在快速点击左右箭头情况下造成的箭头禁用情况不正确问题 [#2415](https://github.com/DouyinFE/semi-design/issues/2415)
+  - 修复 Chat 组件在 showStopGenerate 为 true 时，消息的 status 为 error 会展示停止按钮问题 [#2422](https://github.com/DouyinFE/semi-design/pull/2422)
+  - 修复 Cascader 搜索后以及多选，弹出层的位置未重新计算，导致内容较长的面板被遮挡问题 [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - 修复 Cascader 多选场景，通过点击 trigger 中已选项的关闭 icon 取消选中，弹出层位置未重新计算问题 [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - 修复 DatePicker 点击选择的日期两次后，选中态颜色丢失 [#2389](https://github.com/DouyinFE/semi-design/pull/2389)
+
+#### 🎉 2.64.0 (2024-08-12)
+- 【Fix】
+  - 修复 Tooltip triggerDOM 特殊场景下未定义的问题 [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
 
 #### 🎉 2.64.0-beta.0 (2024-08-05)
+- 【New Component】
+  - 新增 颜色选择器 ColorPicker 组件，用户快速选择颜色，支持滴管屏幕取色 [#2218](https://github.com/DouyinFE/semi-design/pull/2218)
 - 【Feat】
     - Calendar 日视图中起止时间完全相同的事件支持并排显示，不互相遮盖 [#2393](https://github.com/DouyinFE/semi-design/pull/2393)
-    - 新增颜色选择器 ColorPicker 组件，用户快速选择颜色，支持滴管屏幕取色
 - 【Fix】
     - 修复鼠标滚轮缩放图片后，拖动了图片，再次缩放后会重置回中心位置的问题 [@l123wx](https://github.com/l123wx) [#2293](https://github.com/DouyinFE/semi-design/pull/2293)
     - 修复 Modal 在 SSR 时 document 不存在的问题 （影响范围 2.62.0~2.63.0） [#2395](https://github.com/DouyinFE/semi-design/pull/2395)
