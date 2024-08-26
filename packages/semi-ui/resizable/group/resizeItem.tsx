@@ -228,7 +228,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                 {this.props.children}
-                {this.renderResizeHandler()}
+                {/* {this.renderResizeHandler()} */}
             </div>
         );
     }

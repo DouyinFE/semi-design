@@ -116,5 +116,7 @@ export { default as Chat } from './chat';
 export { default as HotKeys } from './hotKeys'; 
 
 export {
-    Resizable
+    Resizable,
+    ResizeItem,
+    ResizeHandler
 } from './resizable';
