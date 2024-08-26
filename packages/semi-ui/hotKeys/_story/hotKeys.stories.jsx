@@ -15,7 +15,7 @@ export const Demo = () => {
   return (
     <div>
       <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
-      <pre>{cnt}</pre>
+      <pre id='pre'>{cnt}</pre>
     </div>
   );
 }
@@ -30,7 +30,7 @@ export const Clickable = () => {
     <div>
       <div>clickable</div>
       <HotKeys hotKeys={hotKeys} onClick={onClick} clickable={true}></HotKeys>
-      <pre>{cnt}</pre>
+      <pre id='pre'>{cnt}</pre>
     </div>
   );
 }
@@ -50,7 +50,7 @@ export const renderButton = () => {
   }
   return (
     <div>
-      <pre>{" cnt:" + cnt}</pre>
+      <pre id='pre'>{" cnt:" + cnt}</pre>
       <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
     </div>
 
@@ -80,7 +80,7 @@ export const combine = () => {
   }
   return (
     <div>
-      <pre>{cnt}</pre>
+      <pre id='pre'>{cnt}</pre>
       <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
       <HotKeys hotKeys={["Meta", "Shift", "k"]} onClick={onClick}></HotKeys>
     </div>
@@ -99,7 +99,7 @@ export const target = () => {
   return (
     <div>
       {target}
-      <pre>{cnt}</pre>
+      <pre id='pre'>{cnt}</pre>
       <HotKeys hotKeys={hotKeys} onClick={onClick} getListenerTarget={() => document.getElementById("test")}></HotKeys>
     </div>
     
@@ -115,7 +115,7 @@ export const disabled = () => {
   return (
     <div>
       <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
-      <pre>{cnt}</pre>
+      <pre id='pre'>{cnt}</pre>
     </div>
   );
 }

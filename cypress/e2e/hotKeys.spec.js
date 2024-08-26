@@ -3,7 +3,7 @@ describe('hotKeys', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--demo')
 
         cy.get('body').click().type('{alt}{k}')
-        cy.get('pre').should('have.text', '1')
+        cy.get('pre#pre').should('have.text', '1')
     });
 
     it('Clickable', () => {
@@ -11,27 +11,27 @@ describe('hotKeys', () => {
 
         cy.get('body').click().type('{alt}{k}')
         cy.get('div.semi-hotKeys').click()
-        cy.get('pre').should('exist').and('have.text', '2')
+        cy.get('pre#pre').should('exist').and('have.text', '2')
     });
 
     it('Combine', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--combine')
 
         cy.get('body').click().type('{meta}{alt}{k}').type('{meta}{shift}{k}')
-        cy.get('pre').should('exist').and('have.text', '2')
+        cy.get('pre#pre').should('exist').and('have.text', '2')
     });
 
     it('Target', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--target')
 
         cy.get('input#test').type('{meta}{s}')
-        cy.get('pre').should('exist').and('have.text', '1')
+        cy.get('pre#pre').should('exist').and('have.text', '1')
     });
 
     it('Disabled', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--disabled')
 
         cy.get('body').click().type('{meta}{k}')
-        cy.get('pre').should('exist').and('have.text', '0')
+        cy.get('pre#pre').should('exist').and('have.text', '0')
     });
 });
