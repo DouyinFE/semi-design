@@ -15,20 +15,30 @@ const colStyleBase = {
 export const directionStyles = {
     top: {
         ...rowStyleBase,
-        top: '-5px',
     },
     right: {
         ...colStyleBase,
-        left: undefined,
-        right: '-5px',
     },
     bottom: {
         ...rowStyleBase,
-        top: undefined,
-        bottom: '-5px',
     },
     left: {
         ...colStyleBase,
-        left: '-5px',
     },
 } as const;
+
+export const getItemDirection = (dir: 'vertical'| 'horizontal') => {
+    if (dir === 'vertical') {
+        return ['bottom', 'top'];
+    } else {
+        return ['right', 'left'];
+    }
+};
+
+export const getHandlerDirection = (dir: 'vertical'| 'horizontal') => {
+    if (dir === 'vertical') {
+        return 'bottom';
+    } else {
+        return 'right';
+    }
+};
