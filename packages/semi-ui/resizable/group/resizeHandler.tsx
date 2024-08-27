@@ -12,6 +12,7 @@ import { ResizeContext, ResizeContextProps } from './resizeContext';
 const prefixCls = cssClasses.PREFIX;
 
 export interface ResizeHandlerProps {
+    children?: React.ReactNode;
     direction?: Direction;
     onResizeStart?: HandlerCallback;
     className?: string;
@@ -69,19 +70,18 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     context: ResizeContextProps;
     render() {
         const { style, className } = this.props;
-        console.log(this.context);
-        this.context.registerHandler(this.resizeHandlerRef);
-        this.context.getArray();
         return (
             <div
                 className={classNames(className, prefixCls + '-handler')}
                 style={{
                     userSelect: 'none',
+                    zIndex: 9999,
                     ...directionStyles[this.props.direction],
                     ...style
                 }}
                 ref={this.resizeHandlerRef}
             >
+                {this.props.children}
             </div>
         );
     }

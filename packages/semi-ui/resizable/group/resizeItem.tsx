@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode, useContext } from 'react';
+import React, { createRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -6,7 +6,7 @@ import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundati
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 
 import BaseComponent from '../../_base/baseComponent';
-import { Direction, Enable, HandleClassName, HandleComponent, HandleStyles, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, HandleClassName, HandleComponent, HandleStyles, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import ResizeHandler from './resizeHandler';
 import { ResizeContext } from './resizeContext';
 
@@ -31,12 +31,6 @@ export interface ResizeItemProps {
     lockAspectRatio?: boolean | number;
     lockAspectRatioExtraWidth?: number;
     lockAspectRatioExtraHeight?: number;
-    enable?: Enable | false;
-    handleStyles?: HandleStyles;
-    handleClasses?: HandleClassName;
-    handleWrapperStyle?: React.CSSProperties;
-    handleWrapperClass?: string;
-    handleNode?: HandleComponent;
     children?: React.ReactNode;
     onResizeStart?: ResizeStartCallback;
     onChange?: ResizeCallback;
@@ -83,11 +77,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         lockAspectRatioExtraWidth: PropTypes.number,
         lockAspectRatioExtraHeight: PropTypes.number,
         enable: PropTypes.object,
-        handleStyles: PropTypes.object,
-        handleClasses: PropTypes.object,
-        handleWrapperStyle: PropTypes.object,
-        handleWrapperClass: PropTypes.string,
-        handleNode: PropTypes.object,
         children: PropTypes.object,
         onResizeStart: PropTypes.func,
         onChange: PropTypes.func,
@@ -101,16 +90,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         onResizeStart: () => { },
         onChange: () => { },
         onResizeEnd: () => { },
-        enable: {
-            top: true,
-            right: true,
-            bottom: true,
-            left: true,
-            topRight: true,
-            bottomRight: true,
-            bottomLeft: true,
-            topLeft: true,
-        },
         style: {},
         grid: [1, 1],
         lockAspectRatio: false,
@@ -175,10 +154,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     context: ResizeItemProps;
     resizeItemRef: React.RefObject<HTMLDivElement>
 
-    render() {
-        // console.log(this.context)
-        console.log(this.props);
-                                                                                                                                                                                                                                
+    render() {                                                                                                                                                                                                                     
         const style: React.CSSProperties = {
             position: 'relative',
             userSelect: this.state.isResizing ? 'none' : 'auto',
@@ -212,5 +188,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         );
     }
 }
+
 
 export default ResizeItem;

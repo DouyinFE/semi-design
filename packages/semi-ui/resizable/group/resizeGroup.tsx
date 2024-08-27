@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
+import { getItemDirection, getHandlerDirection } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext } from './resizeContext';
 import ResizeItem from './resizeItem';
@@ -55,34 +56,40 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     static contextType = ResizeContext;
     context: ResizeGroupProps;
-
     childRefs: RefObject<any>[] = [];
 
-    registerItem = (r: RefObject<any>) => {
-        if (this.childRefs.indexOf(r) == -1) {
-            this.childRefs.push(r);
-        }
-    }
-
-    registerHandler = (r: RefObject<any>) => {
-        if (this.childRefs.indexOf(r) == -1) {
-            this.childRefs.push(r);
-        }
-        // console.log(r.current.foundation)ß
-    }
-
     render() {
-        const { children } = this.props;
-        console.log(this.context);
+        const { children, direction } = this.props;
+        this.childRefs = [];
+        const childrenWithRefs = React.Children.map(children, (child, index) => {
+            if (React.isValidElement(child)) {
+                const ref = React.createRef();
+                this.childRefs.push(ref);
+                if (child.type === ResizeItem) {
+                    return React.cloneElement(child as React.ReactElement, { ref, boundElement: 'parent' });
+                } else if (child.type === ResizeHandler) {
+                    const onResizeStart = (e: MouseEvent) => {
+                        let [dir_last, dir_next] = getItemDirection(direction);
+                        this.childRefs[index - 1].current?.foundation.onResizeStart(e, dir_last);
+                        this.childRefs[index + 1].current?.foundation.onResizeStart(e, dir_next);
+                    };
+                    return React.cloneElement(child as React.ReactElement, { ref, direction: getHandlerDirection(direction), onResizeStart });
+                }
+            }
+            return child;
+        });
+
         return (
             <ResizeContext.Provider value={{ 
-                direction: this.props.direction,
-                registerItem: this.registerItem,
-                registerHandler: this.registerHandler,
-                getArray: () => console.log(this.childRefs)
+                direction: this.props.direction
             }}>
-                <div>
-                    {children}
+                <div style={{ 
+                    display: 'flex',
+                    flexDirection: direction === 'vertical' ? 'column' : 'row',
+                    width: '100%',
+                    height: '100%'
+                }}>
+                    {childrenWithRefs}
                 </div>
             </ResizeContext.Provider>
         );
