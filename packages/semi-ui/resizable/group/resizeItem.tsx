@@ -165,7 +165,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             minWidth: this.props.minWidth,
             minHeight: this.props.minHeight,
             boxSizing: 'border-box',
-            flexShrink: 0,
+            flexShrink: 1,
         };
 
         if (this.state?.flexBasis) {

@@ -40,6 +40,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     groupRef: React.RefObject<HTMLDivElement>;
     constraintsMap: Map<number, [number, number]>;
+    itemMinWidth: number = 10;
     componentDidMount() {
         this.foundation.init();
 
@@ -59,7 +60,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     let { borderLeftWidth, borderRightWidth } = child.foundation.window.getComputedStyle(child.foundation.resizable);
                     borderLeftWidth = Number(borderLeftWidth.replace('px', ''));
                     borderRightWidth = Number(borderRightWidth.replace('px', ''));
-                    let borderWidth = borderLeftWidth + borderRightWidth; 
+                    let borderWidth = borderLeftWidth + borderRightWidth + this.itemMinWidth; 
 
                     let nextLeftConstraint = rect.left + minWidth + borderWidth, nextRightConstraint = undefined;
                     let lastRightConstraint = rect.right - minWidth - borderWidth, lastLeftConstraint = undefined;
@@ -83,8 +84,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     let { borderTopWidth, borderBottomWidth } = child.foundation.window.getComputedStyle(child.foundation.resizable);
                     borderTopWidth = Number(borderTopWidth.replace('px', ''));
                     borderBottomWidth = Number(borderBottomWidth.replace('px', ''));
-                    let borderWidth = borderTopWidth + borderBottomWidth;
-
+                    let borderWidth = (borderTopWidth + borderBottomWidth) + this.itemMinWidth;
+                    
                     let nextTopConstraint = rect.top + minHeight + borderWidth, nextBottomConstraint = undefined;
                     let lastBottomConstraint = rect.bottom - minHeight - borderWidth, lastTopConstraint = undefined;
                     if (child.props.maxHeight) {
@@ -98,13 +99,10 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 }
             }
         }
-        console.log(lastConstraints);
-        console.log(nextConstraints);
 
         for (let i = 0; i < this.childRefs.length; i++) {
             const child = this.childRefs[i].current;
             if ((child instanceof ResizeHandler)) {
-                // this.constraintsMap.set(i, [lastConstraints.get(i), nextConstraints.get(i)]);
                 // lastBack and nextFront wont be undefined
                 let [lastFront, lastBack] = lastConstraints.get(i);
                 let [nextFront, nextBack] = nextConstraints.get(i);
@@ -113,7 +111,6 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 this.constraintsMap.set(i, [front, back]);
             }
         }
-        console.log(this.constraintsMap);
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -176,6 +173,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                         flexDirection: direction === 'vertical' ? 'column' : 'row',
                         width: '100%',
                         height: '100%',
+                        boxSizing: 'border-box'
                     }}
                     ref={this.groupRef}
                 >

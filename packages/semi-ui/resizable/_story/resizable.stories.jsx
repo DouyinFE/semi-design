@@ -23,7 +23,7 @@ export const Group_layout = () => {
     <div style={{ width: '1000px', height: '600px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
-          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red' }}
           defaultSize={{
             height: '20%',
           }}
@@ -39,7 +39,7 @@ export const Group_layout = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           defaultSize={{
-            height: '75%',
+            height: '80%',
           }}
           onChange={() => { setText('resizing') }}
         >
@@ -48,7 +48,6 @@ export const Group_layout = () => {
               style={{ backgroundColor: 'red', border: 'black 1px solid' }}
               defaultSize={{
                 width: '25%',
-                height: '100%',
               }}
               onChange={() => { setText('resizing') }}
               onResizeStart={() => Toast.info(opts_1)}
@@ -62,8 +61,7 @@ export const Group_layout = () => {
             <ResizeItem
               style={{ backgroundColor: 'red', border: 'black 1px solid' }}
               defaultSize={{
-                width: '73%',
-                height: '100%',
+                width: '75%',
               }}
               onChange={() => { setText('resizing') }}
             >
@@ -109,7 +107,7 @@ export const Group_nested = () => {
             {text}
           </div>
         </ResizeItem>
-        <ResizeHandler></ResizeHandler>
+        <ResizeHandler><div>{'hahaha, man'}</div></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
@@ -119,7 +117,7 @@ export const Group_nested = () => {
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ marginLeft: '5%', backgroundColor: 'red', border: 'black 5px solid' }}
+              style={{ backgroundColor: 'red', border: 'black 5px solid' }}
               defaultSize={{
                 width: '25%',
                 height: '100%',
@@ -205,7 +203,7 @@ export const Group_vertical = () => {
           onResizeEnd={() => { Toast.info(opts); setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
-            {text}
+            {text + " min:10% max:30%"}
           </div>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
@@ -234,9 +232,9 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
-            height: '20%',
+            height: '30%',
           }}
           onChange={() => { setText('resizing') }}
         >
@@ -265,7 +263,7 @@ export const Group_horizontal = () => {
           // onResizeEnd={() => { setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
-            {text}
+            {text + " min:10%"}
           </div>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
@@ -280,7 +278,7 @@ export const Group_horizontal = () => {
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
-            {text}
+            {text + " min:10% max:30%"}
           </div>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
