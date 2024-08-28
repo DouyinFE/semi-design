@@ -1,4 +1,4 @@
-import React, { createRef, ReactNode, useContext } from 'react';
+import React, { Children, createRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -12,7 +12,7 @@ import { ResizeContext, ResizeContextProps } from './resizeContext';
 const prefixCls = cssClasses.PREFIX;
 
 export interface ResizeHandlerProps {
-    children?: React.ReactNode;
+    children?: ReactNode;
     direction?: Direction;
     onResizeStart?: HandlerCallback;
     className?: string;
@@ -25,6 +25,7 @@ export interface ResizeHandlerState {
 
 class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState> {
     static propTypes = {
+        children: PropTypes.node,
         direction: PropTypes.string,
         onResizeStart: PropTypes.func,
         className: PropTypes.string,
@@ -68,12 +69,15 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     resizeHandlerRef: React.RefObject<HTMLDivElement>
     static contextType = ResizeContext;
     context: ResizeContextProps;
+
     render() {
-        const { style, className } = this.props;
+        const { style, className, children } = this.props;
+        console.log(children);
         return (
             <div
                 className={classNames(className, prefixCls + '-handler')}
                 style={{
+                    backgroundColor: 'grey',
                     userSelect: 'none',
                     zIndex: 9999,
                     ...directionStyles[this.props.direction],
@@ -81,7 +85,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
                 }}
                 ref={this.resizeHandlerRef}
             >
-                {this.props.children}
+                {children}
             </div>
         );
     }
