@@ -36,7 +36,8 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
             return;
         }
         const flexBasis = this.window.getComputedStyle(this.resizable).flexBasis;
-
+        this.getConstraintById = this.getContext('getConstraintById');
+        this.direction = this.getContext('direction');
         this.setState({
             width: this.propSize.width,
             height: this.propSize.height,
@@ -47,6 +48,10 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
     }
+
+    curHandlerId: number;
+    direction: 'horizontal' | 'vertical';
+    getConstraintById: (id: number) => [number, number];
 
     flexDirection?: 'row' | 'column';
 
@@ -83,7 +88,13 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
     get propSize(): Size {
         const porps = this.getProps();
-        return porps.size || porps.defaultSize || DEFAULT_SIZE;
+        let defaultSize = this.getProp('defaultSize');
+        if (this.direction === 'horizontal') {
+            defaultSize.height = 'auto';
+        } else {
+            defaultSize.width = 'auto';
+        }
+        return porps.size || defaultSize || DEFAULT_SIZE;
     }
 
     get size(): NumberSize {
@@ -476,6 +487,16 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         }
 
         const { clientX, clientY } = event;
+        let [last, next] = this.getConstraintById(this.curHandlerId);
+        if (this.direction === 'horizontal') {
+            if (clientX <= last || clientX >= next) {
+                return;
+            }
+        } else if (this.direction === 'vertical') {
+            if (clientY <= last || clientY >= next) {
+                return;
+            }
+        }
         const { direction, original, width, height } = states;
         const parentSize = this.getParentSize();
         let { maxWidth, maxHeight, minWidth, minHeight } = props;
@@ -513,16 +534,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
                 newHeight = findNextSnap(newHeight, props.snap.y, props.snapGap);
             }
         }
-
-        // Adjust size based on aspect ratio
-        const sizeFromAspectRatio = this.calAspectRatioSize(
-            newWidth,
-            newHeight,
-            { width: boundaryMax.maxWidth, height: boundaryMax.maxHeight },
-            { width: minWidth, height: minHeight }
-        );
-        newWidth = sizeFromAspectRatio.newWidth;
-        newHeight = sizeFromAspectRatio.newHeight;
 
         // Apply grid snapping if defined
         if (props.grid) {
@@ -618,7 +629,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
             } as any);
         }
 
-        // Unregister events and update state
+        // Unregister events and update isResizing state
         this.unregisterEvents();
         this.setState({
             isResizing: false,

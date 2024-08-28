@@ -33,12 +33,64 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         super(props);
         this.state = {
         };
+        this.constraintsMap = new Map();
+        this.groupRef = createRef();
         this.foundation = new ResizeGroupFoundation(this.adapter);
     }
 
-
+    groupRef: React.RefObject<HTMLDivElement>;
+    constraintsMap: Map<number, [number, number]>;
     componentDidMount() {
         this.foundation.init();
+
+    }
+
+    updateConstraints() {
+        let lastConstraints = new Map(), nextConstraints = new Map();
+        if (this.props.direction === 'horizontal') {
+            const parentWidth = this.groupRef.current.getBoundingClientRect().width;
+            for (let i = 0; i < this.childRefs.length; i++) {
+                const child = this.childRefs[i].current;
+                
+                if ((child instanceof ResizeItem)) {
+                    const minWidth = child.props.minWidth ? Number(child.props.minWidth.replace('%', '')) / 100 * parentWidth : 0;
+                    const rect = child.foundation.resizable.getBoundingClientRect();
+                    let { borderLeftWidth, borderRightWidth } = child.foundation.window.getComputedStyle(child.foundation.resizable);
+                    borderLeftWidth = Number(borderLeftWidth.replace('px', ''));
+                    borderRightWidth = Number(borderRightWidth.replace('px', ''));
+                    let borderWidth = borderLeftWidth + borderRightWidth; 
+                    lastConstraints.set(i + 1, rect.left + minWidth + borderWidth);
+                    nextConstraints.set(i - 1, rect.right - minWidth - borderWidth);
+                }
+            }
+        } else {
+            const parentHeight = this.groupRef.current.getBoundingClientRect().height;
+            for (let i = 0; i < this.childRefs.length; i++) {
+                const child = this.childRefs[i].current;
+                if ((child instanceof ResizeItem)) {
+                    const minHeight = child.props.minHeight ? Number(child.props.minHeight.replace('%', '')) / 100 * parentHeight : 0;
+                    const rect = child.foundation.resizable.getBoundingClientRect();
+                    let { borderTopWidth, borderBottomWidth } = child.foundation.window.getComputedStyle(child.foundation.resizable);
+                    borderTopWidth = Number(borderTopWidth.replace('px', ''));
+                    borderBottomWidth = Number(borderBottomWidth.replace('px', ''));
+                    let borderWidth = borderTopWidth + borderBottomWidth;
+
+                    const maxHeight = child.props.maxHeight ? Number(child.props.maxHeight.replace('%', '')) / 100 * parentHeight : null;
+                    
+
+                    lastConstraints.set(i + 1, rect.top + minHeight + borderWidth);
+                    nextConstraints.set(i - 1, rect.bottom - minHeight - borderWidth);
+                }
+            }
+        }
+
+        for (let i = 0; i < this.childRefs.length; i++) {
+            const child = this.childRefs[i].current;
+            if ((child instanceof ResizeHandler)) {
+                // last/next is for handler
+                this.constraintsMap.set(i, [lastConstraints.get(i), nextConstraints.get(i)]);
+            }
+        }
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -61,17 +113,26 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     render() {
         const { children, direction } = this.props;
         this.childRefs = [];
+        
         const childrenWithRefs = React.Children.map(children, (child, index) => {
             if (React.isValidElement(child)) {
                 const ref = React.createRef();
                 this.childRefs.push(ref);
                 if (child.type === ResizeItem) {
-                    return React.cloneElement(child as React.ReactElement, { ref, boundElement: 'parent' });
+                    return React.cloneElement(child as React.ReactElement, { ref });
                 } else if (child.type === ResizeHandler) {
                     const onResizeStart = (e: MouseEvent) => {
+                        this.updateConstraints();
                         let [dir_last, dir_next] = getItemDirection(direction);
-                        this.childRefs[index - 1].current?.foundation.onResizeStart(e, dir_last);
-                        this.childRefs[index + 1].current?.foundation.onResizeStart(e, dir_next);
+
+                        this.childRefs[index - 1].current.foundation.curHandlerId = index;
+                        this.childRefs[index - 1].current.foundation.onResizeStart(e, dir_last);
+
+                        if (index < this.childRefs.length - 1) {
+                            this.childRefs[index + 1].current.foundation.curHandlerId = index;
+                            this.childRefs[index + 1].current.foundation.onResizeStart(e, dir_next);
+                        }
+                        
                     };
                     return React.cloneElement(child as React.ReactElement, { ref, direction: getHandlerDirection(direction), onResizeStart });
                 }
@@ -81,14 +142,20 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
         return (
             <ResizeContext.Provider value={{ 
-                direction: this.props.direction
+                direction: this.props.direction,
+                getConstraintById: (id: number) => {
+                    return this.constraintsMap.get(id);
+                }
             }}>
-                <div style={{ 
-                    display: 'flex',
-                    flexDirection: direction === 'vertical' ? 'column' : 'row',
-                    width: '100%',
-                    height: '100%'
-                }}>
+                <div 
+                    style={{ 
+                        display: 'flex',
+                        flexDirection: direction === 'vertical' ? 'column' : 'row',
+                        width: '100%',
+                        height: '100%',
+                    }}
+                    ref={this.groupRef}
+                >
                     {childrenWithRefs}
                 </div>
             </ResizeContext.Provider>
