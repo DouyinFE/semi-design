@@ -24,10 +24,10 @@ export interface ResizeItemProps {
     boundElement?: 'parent' | 'window' | HTMLElement;
     boundsByDirection?: boolean;
     size?: Size;
-    minWidth?: string | number;
-    minHeight?: string | number;
-    maxWidth?: string | number;
-    maxHeight?: string | number;
+    minWidth?: string ;
+    minHeight?: string ;
+    maxWidth?: string;
+    maxHeight?: string;
     lockAspectRatio?: boolean | number;
     lockAspectRatioExtraWidth?: number;
     lockAspectRatioExtraHeight?: number;
