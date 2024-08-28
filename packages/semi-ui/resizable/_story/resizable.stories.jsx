@@ -194,7 +194,7 @@ export const Group_vertical = () => {
     <div style={{ width: '500px', height: '600px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
-          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
             height: '20%',
           }}
@@ -210,7 +210,7 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
             height: '20%',
           }}
@@ -222,7 +222,7 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ marginLeft: '20%', backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
             height: '20%',
           }}
@@ -251,21 +251,11 @@ export const Group_vertical = () => {
 
 export const Group_horizontal = () => {
   const [text, setText] = useState('test')
-  const opts_1 = {
-    content: 'resize start',
-    duration: 1,
-    stack: true,
-  };
-  const opts = {
-    content: 'resize end',
-    duration: 1,
-    stack: true,
-  };
   return (
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ marginLeft: '5%', backgroundColor: 'red', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'red', border: 'black 5px solid' }}
           defaultSize={{
             width: '25%',
             height: '100%',
@@ -286,6 +276,7 @@ export const Group_horizontal = () => {
             height: '100%',
           }}
           minWidth={'10%'}
+          maxWidth={'30%'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>

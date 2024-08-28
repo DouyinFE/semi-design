@@ -46,6 +46,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     updateConstraints() {
+        // this item constaint last / next handler
         let lastConstraints = new Map(), nextConstraints = new Map();
         if (this.props.direction === 'horizontal') {
             const parentWidth = this.groupRef.current.getBoundingClientRect().width;
@@ -59,8 +60,17 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     borderLeftWidth = Number(borderLeftWidth.replace('px', ''));
                     borderRightWidth = Number(borderRightWidth.replace('px', ''));
                     let borderWidth = borderLeftWidth + borderRightWidth; 
-                    lastConstraints.set(i + 1, rect.left + minWidth + borderWidth);
-                    nextConstraints.set(i - 1, rect.right - minWidth - borderWidth);
+
+                    let nextLeftConstraint = rect.left + minWidth + borderWidth, nextRightConstraint = undefined;
+                    let lastRightConstraint = rect.right - minWidth - borderWidth, lastLeftConstraint = undefined;
+                    if (child.props.maxWidth) {
+                        const maxWidth = Number(child.props.maxWidth.replace('%', '')) / 100 * parentWidth;
+                        nextRightConstraint = rect.left + maxWidth - borderWidth;
+                        lastLeftConstraint = rect.right - maxWidth + borderWidth;
+                    }
+
+                    lastConstraints.set(i - 1, [lastLeftConstraint, lastRightConstraint]);
+                    nextConstraints.set(i + 1, [nextLeftConstraint, nextRightConstraint]);
                 }
             }
         } else {
@@ -75,22 +85,35 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     borderBottomWidth = Number(borderBottomWidth.replace('px', ''));
                     let borderWidth = borderTopWidth + borderBottomWidth;
 
-                    const maxHeight = child.props.maxHeight ? Number(child.props.maxHeight.replace('%', '')) / 100 * parentHeight : null;
-                    
+                    let nextTopConstraint = rect.top + minHeight + borderWidth, nextBottomConstraint = undefined;
+                    let lastBottomConstraint = rect.bottom - minHeight - borderWidth, lastTopConstraint = undefined;
+                    if (child.props.maxHeight) {
+                        const maxHeight = Number(child.props.maxHeight.replace('%', '')) / 100 * parentHeight;
+                        nextBottomConstraint = rect.top + maxHeight - borderWidth;
+                        lastTopConstraint = rect.bottom - maxHeight + borderWidth;
+                    }
 
-                    lastConstraints.set(i + 1, rect.top + minHeight + borderWidth);
-                    nextConstraints.set(i - 1, rect.bottom - minHeight - borderWidth);
+                    lastConstraints.set(i - 1, [lastTopConstraint, lastBottomConstraint]);
+                    nextConstraints.set(i + 1, [nextTopConstraint, nextBottomConstraint]);
                 }
             }
         }
+        console.log(lastConstraints);
+        console.log(nextConstraints);
 
         for (let i = 0; i < this.childRefs.length; i++) {
             const child = this.childRefs[i].current;
             if ((child instanceof ResizeHandler)) {
-                // last/next is for handler
-                this.constraintsMap.set(i, [lastConstraints.get(i), nextConstraints.get(i)]);
+                // this.constraintsMap.set(i, [lastConstraints.get(i), nextConstraints.get(i)]);
+                // lastBack and nextFront wont be undefined
+                let [lastFront, lastBack] = lastConstraints.get(i);
+                let [nextFront, nextBack] = nextConstraints.get(i);
+                let front = lastFront === undefined ? nextFront : Math.max(lastFront, nextFront);
+                let back = nextBack === undefined ? lastBack : Math.min(lastBack, nextBack);
+                this.constraintsMap.set(i, [front, back]);
             }
         }
+        console.log(this.constraintsMap);
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
