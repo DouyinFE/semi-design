@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Table, Switch, Typography, Tooltip, Tag } from '../../../index';
-import { getData } from '../../../_test_/utils';
+import { getData } from '../../../_test_/utils/table';
 
 const { Title } = Typography;
 

@@ -79,8 +79,7 @@ body, body[theme-mode="dark"] .semi-always-light, :host, :host .semi-always-ligh
 
     --semi-color-border: rgba(var(--semi-grey-9), .08); // 默认描边颜色
     --semi-color-nav-bg: rgba(var(--semi-white), 1); // 导航背景色
-
-    --semi-color-overlay-bg: rgba(22, 22, 26, .6); // 蒙层背景色
+    --semi-color-overlay-bg: rgba(172, 172, 181, 0.6); // 蒙层背景色
 
     --semi-color-fill-0: rgba(var(--semi-grey-8), .05); // 填充色 - 默认态
     --semi-color-fill-1: rgba(var(--semi-grey-8), .09); // 填充色 - 悬浮态

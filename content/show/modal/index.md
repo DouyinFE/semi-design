@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 64
+order: 65
 category: 展示类
 title: Modal 模态对话框
 icon: doc-modal
