@@ -18,7 +18,8 @@ import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 
 ## 单个组件
 
-基本使用，通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
+### 基本使用与回调
+通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
 
 ```jsx live=true "
 import React, { useState } from 'react';
@@ -58,262 +59,476 @@ function Demo() {
 
 ```
 
-### 导航步骤条
+### 控制伸缩方向
+通过设置`enable`的值开启/关闭特定伸缩方向，默认值均为`true`
 
-通过设置 type="nav" 显示为导航风格步骤条。导航风格的步骤条有以下特点：
-1. 步骤条不支持交互。
+```tsx
+interface Enable {
+  left: Boolean;
+  right: Boolean;
+  top: Boolean;
+  bottom: Boolean;
+  topLeft: Boolean;
+  topRight: Boolean;
+  bottomLeft: Boolean;
+  bottomRight: Boolean;
+}
+```
 
-2. 适用于步骤间互相关联较小，内容互不影响，且需要突出页面视觉元素时使用。
 
-3. 步骤条的宽度按照内容物撑开。
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-4. Steps.Step 仅支持title、className、style 属性。
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Steps type="nav" current={1} style={{ margin: 'auto' }} onChange={(i)=>console.log(i)}>
-            <Steps.Step title="注册账号" />
-            <Steps.Step title="这个项目的文字比较多多多多" />
-            <Steps.Step title="产品用途" />
-            <Steps.Step title="期待尝试功能" />
-        </Steps>
+function Demo() {
+  const [b, setB] = useState(false)
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Button onClick={() => (setB(!b))}>{'enable.left:' + b}</Button>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        enable={{
+          left: b
+        }}
+        defaultSize={{
+          width: 200,
+          height: 200,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          {'enable.left:' + b}
+        </div>
+      </Resizable>
     </div>
-);
-```
-
-
-### 迷你尺寸步骤条
-
-通过设置 size="small" 显示迷你尺寸步骤条
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <Steps type="basic" size="small" current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
-```
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Steps type="nav" size="small" current={1} style={{ margin: 'auto' }} onChange={(i)=>console.log(i)}>
-            <Steps.Step title="注册账号" />
-            <Steps.Step title="这个项目的文字比较多多多多" />
-            <Steps.Step title="产品用途" />
-            <Steps.Step title="期待尝试功能" />
-        </Steps>
-    </div>
-);
-
-```
-
-### 处理进度
-
-配合内容及按钮使用，表示一个流程的处理进度
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps, Button } from '@douyinfe/semi-ui';
-
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 0,
-        };
-    }
-
-    next() {
-        const current = this.state.current + 1;
-        this.setState({ current });
-    }
-
-    prev() {
-        const current = this.state.current - 1;
-        this.setState({ current });
-    }
-
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
-
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={(i)=>console.log(i)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-                <div className="steps-content" style={{ marginTop: 4, marginBottom: 4 }}>{steps[current].content}</div>
-                <div className="steps-action">
-                    {current < steps.length - 1 && (
-                        <Button type="primary" onClick={() => this.next()}>
-                            Next
-                        </Button>
-                    )}
-                    {current === steps.length - 1 && (
-                        <Button type="primary" onClick={() => console.log('Processing complete!')}>
-                            Done
-                        </Button>
-                    )}
-                    {current > 0 && (
-                        <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                            Previous
-                        </Button>
-                    )}
-                </div>
-            </div>
-        );
-    }
+  );
 }
 
 ```
 
-### 竖直方向的步骤条
+### 设置变化比例
 
-通过设置 `direction`，使用竖直方向的步骤条
+通过`ratio`设置拖动和实际变化的比例 
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-() => (
-    <Steps direction="vertical" current={1} style={{ width: 300 }} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        ratio={2}
+        defaultSize={{
+          width: 200,
+          height: 200,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          ratio=2
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
 ```
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+### 锁定横纵比
 
-() => (
-    <Steps direction="vertical" type="basic" current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
+通过`lockAspectRatio`设置锁定横纵比,可以为`boolean`或`number`,为`number`时表示横纵比为`number`,为`true`时锁定初始横纵比
+
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: 400,
+          height: 300,
+        }}
+        lockAspectRatio
+      >
+        <div style={{ marginLeft: '20%' }}>
+          lock
+        </div>
+      </Resizable>
+      <Resizable
+        style={{backgroundColor: 'lightblue'}}
+        defaultSize={{
+          width: 200,
+          height: 200 * 9 / 16,
+        }}
+        lockAspectRatio={16 / 9}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          16 / 9
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
 ```
 
-### 指定步骤状态
+### 设置最大，最小宽高 
+可通过 `maxHeight`，`maxWidth`，`minHeight`，`minWidth` 设置最大，最小宽高
 
-步骤运行错误，使用 Steps 的 `status` 属性来指定当前步骤的状态。
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        maxWidth={200}
+        maxHeight={300}
+        minWidth={50}
+        minHeight={50}
+        defaultSize={{
+          width: 100,
+          height: 100,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          width在50到200之间，height在50到300之间
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
-() => (
-    <Steps type="basic" current={1} status="error" onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Process" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
 ```
 
-### 自定义图标/状态
+### 受控宽高
 
-通过设置 Steps.Step 的 `icon` 属性，可以启用自定义图标  
-通过设置 Steps.Step 的 `status` 属性，可以自定义每个 step 的状态
+可通过 `size` 控制元素的宽高
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-import { IconHome, IconLock } from '@douyinfe/semi-icons';
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-() => (
-    <Steps type="basic" onChange={(i)=>console.log(i)}>
-        <Steps.Step status="finish" title="已完成" />
-        <Steps.Step status="error" title="错误" />
-        <Steps.Step status="warning" title="警告" />
-        <Steps.Step status="process" title="正在进行" icon={<IconHome size="extra-large" />} />
-        <Steps.Step status="wait" title="等待" icon={<IconLock size="extra-large" />} />
-    </Steps>
-);
+function Demo() {
+  const [size, setSize] = useState({ width: 200, height: 300 });
+
+  const onChange = ((newSize, event, direction) => {
+    let realSize = { width: size.width + 10, height: size.height + 10 };
+    setSize(realSize);
+  })
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Button onClick={onChange}>set += 10</Button>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: 100,
+          height: 100,
+        }}
+        size={size}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          受控
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
 ```
 
-### onChange 回调
+### 设置缩放值
 
-从 1.29.0 版本开始支持 onChange，可以使用它来实现处理进度。onChange 接收一个 number 类型的参数，该参数等于 initial + current。
+通过设置 `scale`，整体缩放元素
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-```jsx live=true dir="column" hideInDSM
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%', transform: 'scale(0.5)', transformOrigin: '0 0' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: '60%',
+          height: '60%',
+        }}
+        scale={0.5}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          scale 0.5
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 1,
-        };
-    }
+```
 
-    onChange(index) {
-        this.setState({ current: index });
-    }
+### 根据元素限制元素宽高
 
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
+通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'） / Element 节点
 
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={index => this.onChange(index)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-            </div>
-        );
-    }
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '300px', height: '300px', border: 'black 5px solid' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: '60%',
+          height: 200,
+        }}
+        boundElement={'parent'}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          bound：parent
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
+```
+
+### 自定义边角handler样式
+
+可通过 handleNode设置不同方向的拖动元素节点，可通过 handleStyle，handleClassName 设置不同方向上的样式
+
+```jsx
+type HandleNode = {
+  left: ReactNode;
+  right: ReactNode;
+  top: ReactNode;
+  bottom: ReactNode;
+  topLeft: ReactNode;
+  topRight: ReactNode;
+  bottomLeft: ReactNode;
+  bottomRight: ReactNode;
+}
+
+type HandleStyle = {
+  left: React.CSSProperties;
+  right: React.CSSProperties;
+  top: React.CSSProperties;
+  bottom: React.CSSProperties;
+  topLeft: React.CSSProperties;
+  topRight: React.CSSProperties;
+  bottomLeft: React.CSSProperties;
+  bottomRight: React.CSSProperties;
+}
+
+type HandleStyle = {
+  left: string;
+  right: string;
+  top: string;
+  bottom: string;
+  topLeft: string;
+  topRight: string;
+  bottomLeft: string;
+  bottomRight: string;
 }
 ```
+
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable, Button } from '@douyinfe/semi-ui';
+function Demo() {
+    return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        handleNode={{
+          bottomRight: <Button type="primary">hi</Button>
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          bottomRight
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+```
+
+### 允许阶段性调整宽高
+
+可通过 grid ，snap 属性允许逐渐调整宽高。
+grid 属性用于指定调整大小应对齐的增量。默认为 [1, 1]。
+snap 属性用于指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴。默认为空。
+以上两个参数可结合 snapGap使用，该参数用于指定移动到下一个目标所需的最小间隙。默认为 0，这意味着始终使用grid/snap 设定的目标。
+
+```jsx live=true 
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        grid={100}
+        snapGap={20}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          snap
+        </div>
+      </Resizable>
+    </div >
+  );
+}
+```
+
+## 组合组件
+
+
+### 基本使用
+通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
+支持`onResizeStart` `onResize` `onResizeEnd`回调，支持`min` `max`设置最大最小宽高
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup, Toast } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('test')
+  return (
+    <div style={{ width: '1000px', height: '100px' }}>
+      <ResizeGroup direction='horizontal'>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+          minWidth={'10%'}
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('test') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text + " min:10%"}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+          minWidth={'10%'}
+          maxWidth={'30%'}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text + " min:10% max:30%"}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
+### 嵌套使用
+通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
+
+```jsx live=true 
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('test')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts_2 = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  return (
+    <div style={{ width: '500px', height: '300px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue' }}
+          defaultSize={{
+            height: '20%',
+          }}
+          onChange={() => { setText('resizing') }}
+          onResizeStart={() => Toast.info(opts_1)}
+          onResizeEnd={() => { Toast.info(opts_2); setText('test') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {'header'}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={{
+            height: '80%',
+          }}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              defaultSize={{
+                width: '25%',
+              }}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              defaultSize={{
+                width: '75%',
+              }}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
 
 ## Accessibility
 
