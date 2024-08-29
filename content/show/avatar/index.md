@@ -452,7 +452,7 @@ import { AvatarGroup, Avatar } from '@douyinfe/semi-ui';
 | overlapFrom | 设置头像覆盖方向，支持 `start`, `end` | string | `start` |
 | renderMore | 自定义渲染 more 标签 | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
 | shape | 指定头像的形状，支持`circle`、`square` | string | `circle` |
-| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`default`、`medium`、`large`、`extra-large` | string | `medium` |
+| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`default`、`medium`、`large`、`extra-large` 和合法的 width 属性值例，如 "10px"| string | `medium` |
 
 ## Accessibility
 
