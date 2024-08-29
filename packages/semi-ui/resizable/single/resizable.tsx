@@ -70,7 +70,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
             y: PropTypes.arrayOf(PropTypes.number),
         },
         snapGap: PropTypes.number,
-        bounds: PropTypes.oneOf(['parent', 'window', HTMLElement]),
+        bounds: PropTypes.oneOf(['parent', 'window', PropTypes.node]),
         boundsByDirection: PropTypes.bool,
         size: PropTypes.object,
         minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

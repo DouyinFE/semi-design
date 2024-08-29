@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap, clamp } from "../singleConstants";
+import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap } from "../singleConstants";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getResizeHandler: () => HTMLElement
 }
@@ -52,10 +52,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     curHandlerId: number;
     direction: 'horizontal' | 'vertical';
     getConstraintById: (id: number) => [number, number];
-
     flexDirection?: 'row' | 'column';
-
-    lockAspectRatio = 1;
     resizable: HTMLElement | null = null;
 
     parentLeft = 0;
@@ -300,99 +297,32 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
     calDirectionSize(clientX: number, clientY: number) {
         const scale = this.getProps().scale || 1;
-        let aspectRatio = this.getProps().ratio;
-        const [resizeRatioX, resizeRatioY] = Array.isArray(aspectRatio) ? aspectRatio : [aspectRatio, aspectRatio];
 
         const { direction, original } = this.getStates();
-        const { lockAspectRatio, lockAspectRatioExtraHeight = 0, lockAspectRatioExtraWidth = 0 } = this.getProps();
 
         let newWidth = original.width;
         let newHeight = original.height;
 
-        const calculateNewWidth = (deltaX: number) => original.width + (deltaX * resizeRatioX) / scale;
-        const calculateNewHeight = (deltaY: number) => original.height + (deltaY * resizeRatioY) / scale;
+        const calculateNewWidth = (deltaX: number) => original.width + (deltaX) / scale;
+        const calculateNewHeight = (deltaY: number) => original.height + (deltaY) / scale;
 
         if (has('top', direction)) {
             newHeight = calculateNewHeight(original.y - clientY);
-            if (lockAspectRatio) {
-                newWidth = (newHeight - lockAspectRatioExtraHeight) * this.lockAspectRatio + lockAspectRatioExtraWidth;
-            }
         }
         if (has('bottom', direction)) {
             newHeight = calculateNewHeight(clientY - original.y);
-            if (lockAspectRatio) {
-                newWidth = (newHeight - lockAspectRatioExtraHeight) * this.lockAspectRatio + lockAspectRatioExtraWidth;
-            }
         }
         if (has('right', direction)) {
             newWidth = calculateNewWidth(clientX - original.x);
-            if (lockAspectRatio) {
-                newHeight = (newWidth - lockAspectRatioExtraWidth) / this.lockAspectRatio + lockAspectRatioExtraHeight;
-            }
         }
         if (has('left', direction)) {
             newWidth = calculateNewWidth(original.x - clientX);
-            if (lockAspectRatio) {
-                newHeight = (newWidth - lockAspectRatioExtraWidth) / this.lockAspectRatio + lockAspectRatioExtraHeight;
-            }
         }
 
-        return { newWidth, newHeight };
-    }
-
-    calAspectRatioSize(
-        newWidth: number,
-        newHeight: number,
-        max: { width?: number; height?: number },
-        min: { width?: number; height?: number },
-    ) {
-        const { lockAspectRatio, lockAspectRatioExtraHeight = 0, lockAspectRatioExtraWidth = 0 } = this.getProps();
-
-        const minWidth = typeof min.width === 'undefined' ? 10 : min.width;
-        const maxWidth = typeof max.width === 'undefined' || max.width < 0 ? newWidth : max.width;
-        const minHeight = typeof min.height === 'undefined' ? 10 : min.height;
-        const maxHeight = typeof max.height === 'undefined' || max.height < 0 ? newHeight : max.height;
-
-        if (lockAspectRatio) {
-            const adjustedMinWidth = (minHeight - lockAspectRatioExtraHeight) * this.lockAspectRatio + lockAspectRatioExtraWidth;
-            const adjustedMaxWidth = (maxHeight - lockAspectRatioExtraHeight) * this.lockAspectRatio + lockAspectRatioExtraWidth;
-            const adjustedMinHeight = (minWidth - lockAspectRatioExtraWidth) / this.lockAspectRatio + lockAspectRatioExtraHeight;
-            const adjustedMaxHeight = (maxWidth - lockAspectRatioExtraWidth) / this.lockAspectRatio + lockAspectRatioExtraHeight;
-
-            const lockedMinWidth = Math.max(minWidth, adjustedMinWidth);
-            const lockedMaxWidth = Math.min(maxWidth, adjustedMaxWidth);
-            const lockedMinHeight = Math.max(minHeight, adjustedMinHeight);
-            const lockedMaxHeight = Math.min(maxHeight, adjustedMaxHeight);
-
-            newWidth = clamp(newWidth, lockedMinWidth, lockedMaxWidth);
-            newHeight = clamp(newHeight, lockedMinHeight, lockedMaxHeight);
-        } else {
-            newWidth = clamp(newWidth, minWidth, maxWidth);
-            newHeight = clamp(newHeight, minHeight, maxHeight);
-        }
         return { newWidth, newHeight };
     }
 
     setBoundary() {
-        const props = this.getProps();
-
-        // Set parent boundary
-        if (props.boundElement === 'parent') {
-            const parentElement = this.parent;
-            if (parentElement) {
-                const parentRect = parentElement.getBoundingClientRect();
-                this.parentLeft = parentRect.left;
-                this.parentTop = parentRect.top;
-            }
-        }
-
-        // Set target (HTML element) boundary
-        if (props.boundElement && typeof props.boundElement !== 'string') {
-            const targetRect = props.boundElement.getBoundingClientRect();
-            this.targetLeft = targetRect.left;
-            this.targetTop = targetRect.top;
-        }
-
         // Set resizable boundary
         if (this.resizable) {
             const { left, top, right, bottom } = this.resizable.getBoundingClientRect();
@@ -435,11 +365,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
                 this.setState({ width } as any);
             }
         }
-
-        // Handle aspect ratio locking
-        this.lockAspectRatio = typeof props.lockAspectRatio === 'number'
-            ? props.lockAspectRatio
-            : this.size.width / this.size.height;
 
         // Determine flexBasis if applicable
         let flexBasis: string | undefined;

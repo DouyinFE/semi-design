@@ -2,12 +2,9 @@ import React, { createRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
-
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-
 import BaseComponent from '../../_base/baseComponent';
-import { Direction, HandleClassName, HandleComponent, HandleStyles, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import ResizeHandler from './resizeHandler';
+import { Direction, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { ResizeContext } from './resizeContext';
 
 const prefixCls = cssClasses.PREFIX;
@@ -21,23 +18,16 @@ export interface ResizeItemProps {
         y?: number[]
     };
     snapGap?: number;
-    boundElement?: 'parent' | 'window' | HTMLElement;
-    boundsByDirection?: boolean;
     size?: Size;
     minWidth?: string ;
     minHeight?: string ;
     maxWidth?: string;
     maxHeight?: string;
-    lockAspectRatio?: boolean | number;
-    lockAspectRatioExtraWidth?: number;
-    lockAspectRatioExtraHeight?: number;
     children?: React.ReactNode;
     onResizeStart?: ResizeStartCallback;
     onChange?: ResizeCallback;
     onResizeEnd?: ResizeCallback;
-    defaultSize?: Size;
-    scale?: number;
-    ratio?: number | [number, number]
+    defaultSize?: Size
 }
 
 export interface ResizeItemState {
@@ -66,24 +56,16 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             y: PropTypes.arrayOf(PropTypes.number),
         },
         snapGap: PropTypes.number,
-        bounds: PropTypes.oneOf(['parent', 'window', HTMLElement]),
-        boundsByDirection: PropTypes.bool,
         size: PropTypes.object,
         minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         minHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        lockAspectRatio: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-        lockAspectRatioExtraWidth: PropTypes.number,
-        lockAspectRatioExtraHeight: PropTypes.number,
-        enable: PropTypes.object,
         children: PropTypes.object,
         onResizeStart: PropTypes.func,
         onChange: PropTypes.func,
         onResizeEnd: PropTypes.func,
         defaultSize: PropTypes.object,
-        scale: PropTypes.number,
-        ratio: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
     };
 
     static defaultProps: Partial<ResizeItemProps> = {
@@ -92,11 +74,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         onResizeEnd: () => { },
         style: {},
         grid: [1, 1],
-        lockAspectRatio: false,
-        lockAspectRatioExtraWidth: 0,
-        lockAspectRatioExtraHeight: 0,
-        scale: 1,
-        ratio: 1,
         snapGap: 0,
     };
 
@@ -175,7 +152,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         return (
             <div
                 style={style}
-                className={classNames(this.props.className, prefixCls)}
+                className={classNames(this.props.className, prefixCls + '-item')}
                 ref={(c: HTMLElement | null) => {
                     if (c) {
                         this.foundation.resizable = c;

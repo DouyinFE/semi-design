@@ -47,6 +47,7 @@ const order = [
     'breadcrumb',
     'navigation',
     'pagination',
+    'resizable',
     'steps',
     'tabs',
     'tree',
