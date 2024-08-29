@@ -17,6 +17,10 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
         this.getProp('onResizeStart')(e, this.getProp('direction'));
     };
 
+    getResizeHandler = () => {
+        return this._adapter.getResizeHandler();
+    }
+
     destroy(): void {
         this._adapter.getResizeHandler().removeEventListener('mousedown', this.onMouseDown);
     }
@@ -55,16 +59,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     flexDirection?: 'row' | 'column';
     resizable: HTMLElement | null = null;
 
-    parentLeft = 0;
-    parentTop = 0;
 
-    boundaryLeft = 0;
-    boundaryRight = 0;
-    boundaryTop = 0;
-    boundaryBottom = 0;
-
-    targetLeft = 0;
-    targetTop = 0;
 
     get parent(): HTMLElement | null {
         if (!this.resizable) {
@@ -244,57 +239,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     }
 
 
-    calBoundaryMax(maxWidth?: number, maxHeight?: number) {
-        const { boundsByDirection } = this.getProps();
-        const { direction } = this.getStates();
-
-        const isWidthConstrained = boundsByDirection && has('left', direction);
-        const isHeightConstrained = boundsByDirection && has('top', direction);
-
-        let maxWidthConstraint: number;
-        let maxHeightConstraint: number;
-
-        const props = this.getProps();
-
-        if (props.boundElement === 'parent') {
-            const parentElement = this.parent;
-            if (parentElement) {
-                maxWidthConstraint = isWidthConstrained
-                    ? this.boundaryRight - this.parentLeft
-                    : parentElement.offsetWidth + (this.parentLeft - this.boundaryLeft);
-
-                maxHeightConstraint = isHeightConstrained
-                    ? this.boundaryBottom - this.parentTop
-                    : parentElement.offsetHeight + (this.parentTop - this.boundaryTop);
-            }
-        } else if (props.boundElement === 'window' && this.window) {
-            maxWidthConstraint = isWidthConstrained
-                ? this.boundaryRight
-                : this.window.innerWidth - this.boundaryLeft;
-            maxHeightConstraint = isHeightConstrained
-                ? this.boundaryBottom
-                : this.window.innerHeight - this.boundaryTop;
-        } else if (props.boundElement) {
-            const boundary = props.boundElement;
-
-            maxWidthConstraint = isWidthConstrained
-                ? this.boundaryRight - this.targetLeft
-                : boundary.offsetWidth + (this.targetLeft - this.boundaryLeft);
-            maxHeightConstraint = isHeightConstrained
-                ? this.boundaryBottom - this.targetTop
-                : boundary.offsetHeight + (this.targetTop - this.boundaryTop);
-        }
-
-        if (maxWidthConstraint && Number.isFinite(maxWidthConstraint)) {
-            maxWidth = maxWidth && maxWidth < maxWidthConstraint ? maxWidth : maxWidthConstraint;
-        }
-        if (maxHeightConstraint && Number.isFinite(maxHeightConstraint)) {
-            maxHeight = maxHeight && maxHeight < maxHeightConstraint ? maxHeight : maxHeightConstraint;
-        }
-
-        return { maxWidth, maxHeight };
-    }
-
     calDirectionSize(clientX: number, clientY: number) {
         const scale = this.getProps().scale || 1;
 
@@ -322,16 +266,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         return { newWidth, newHeight };
     }
 
-    setBoundary() {
-        // Set resizable boundary
-        if (this.resizable) {
-            const { left, top, right, bottom } = this.resizable.getBoundingClientRect();
-            this.boundaryLeft = left;
-            this.boundaryRight = right;
-            this.boundaryTop = top;
-            this.boundaryBottom = bottom;
-        }
-    }
 
 
     onResizeStart(e: MouseEvent, direction: Direction) {
@@ -350,22 +284,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
                 return;
             }
         }
-
-        // Update state with new size if defined
-        const { size } = props;
-        if (size) {
-            const { height, width } = size;
-            const { height: currentHeight, width: currentWidth } = states;
-
-            if (height !== undefined && height !== currentHeight) {
-                this.setState({ height } as any);
-            }
-
-            if (width !== undefined && width !== currentWidth) {
-                this.setState({ width } as any);
-            }
-        }
-
+        
         // Determine flexBasis if applicable
         let flexBasis: string | undefined;
         const computedStyle = this.window.getComputedStyle(this.resizable);
@@ -379,7 +298,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         }
 
         // Set bounding rectangle and register events
-        this.setBoundary();
         this.registerEvents();
 
         // Update state with initial resize values
@@ -446,7 +364,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         let { newWidth, newHeight }: NewSize = this.calDirectionSize(clientX, clientY);
 
         // Apply boundary constraints
-        const boundaryMax = this.calBoundaryMax(maxWidth, maxHeight);
         newWidth = getNumberSize(newWidth, parentSize.width, this.window.innerWidth, this.window.innerHeight);
         newHeight = getNumberSize(newHeight, parentSize.height, this.window.innerWidth, this.window.innerHeight);
 

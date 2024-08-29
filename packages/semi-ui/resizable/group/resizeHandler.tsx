@@ -72,7 +72,6 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
 
     render() {
         const { style, className, children } = this.props;
-        console.log(children);
         return (
             <div
                 className={classNames(className, prefixCls + '-handler')}

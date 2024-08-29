@@ -41,7 +41,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     groupRef: React.RefObject<HTMLDivElement>;
     constraintsMap: Map<number, [number, number]>;
-    itemMinWidth: number = 10;
+    itemMinWidth: number = 0; // 需要是handler的宽度
     componentDidMount() {
         this.foundation.init();
 
@@ -143,6 +143,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     return React.cloneElement(child as React.ReactElement, { ref });
                 } else if (child.type === ResizeHandler) {
                     const onResizeStart = (e: MouseEvent) => {
+                        this.itemMinWidth = this.childRefs[index].current.foundation.getResizeHandler().getBoundingClientRect().width;
                         this.updateConstraints();
                         let [dir_last, dir_next] = getItemDirection(direction);
 

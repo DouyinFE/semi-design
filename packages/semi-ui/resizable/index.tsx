@@ -1,3 +1,4 @@
+// reference:https://github.com/bokuweb/re-resizable
 import Resizable from "./single/resizable";
 export {
     Resizable

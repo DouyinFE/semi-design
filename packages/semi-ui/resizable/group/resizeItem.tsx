@@ -79,9 +79,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
 
     constructor(props: ResizeItemProps) {
         super(props);
-        this.resizeItemRef = createRef();
         this.foundation = new ResizeItemFoundation(this.adapter);
-        this.foundation.resizable = () => this.resizeItemRef.current;
         this.state = {
             isResizing: false,
             width: this.foundation.propsSize?.width ?? 'auto',
@@ -129,7 +127,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     }
     static contextType = ResizeContext;
     context: ResizeItemProps;
-    resizeItemRef: React.RefObject<HTMLDivElement>
 
     render() {                                                                                                                                                                                                                     
         const style: React.CSSProperties = {
