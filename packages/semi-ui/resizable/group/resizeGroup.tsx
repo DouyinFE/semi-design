@@ -13,7 +13,8 @@ const prefixCls = cssClasses.PREFIX;
 
 export interface ResizeGroupProps {
     children: ReactNode;
-    direction: 'horizontal' | 'vertical'
+    direction: 'horizontal' | 'vertical';
+    className?: string
 }
 
 export interface ResizeGroupState {
@@ -131,7 +132,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     childRefs: RefObject<any>[] = [];
 
     render() {
-        const { children, direction } = this.props;
+        const { children, direction, className } = this.props;
         this.childRefs = [];
         
         const childrenWithRefs = React.Children.map(children, (child, index) => {
@@ -176,6 +177,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                         boxSizing: 'border-box'
                     }}
                     ref={this.groupRef}
+                    className={classNames(className, prefixCls + '-group')}
                 >
                     {childrenWithRefs}
                 </div>
