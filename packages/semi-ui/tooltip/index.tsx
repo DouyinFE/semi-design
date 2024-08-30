@@ -240,7 +240,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             on: (...args: any[]) => this.eventManager.on(...args),
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
-            getAnimatingState: ()=> this.isAnimating,
+            getAnimatingState: () => this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.setState(
                     {
@@ -459,7 +459,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             setId: () => {
                 this.setState({ id: getUuidShort() });
             },
-            getTriggerDOM: ()=>{
+            getTriggerDOM: () => {
                 if (this.triggerEl.current) {
                     return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
                 } else {
@@ -474,7 +474,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = true;
         this.getPopupContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         this.foundation.init();
-        runAfterTicks(()=>{
+        runAfterTicks(() => {
             let triggerEle = this.triggerEl.current;
             if (triggerEle) {
                 if (!(triggerEle instanceof HTMLElement)) {
@@ -653,7 +653,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 animationState={transitionState as "enter" | "leave"}
                 motion={motion && isPositionUpdated}
                 startClassName={transitionState === 'enter' ? `${prefix}-animation-show` : `${prefix}-animation-hide`}
-                onAnimationStart={()=>this.isAnimating = true}
+                onAnimationStart={() => this.isAnimating = true}
                 onAnimationEnd={() => {
                     if (transitionState === 'leave') {
                         this.isAnimating = false;
