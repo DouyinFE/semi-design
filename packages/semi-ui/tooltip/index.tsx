@@ -198,7 +198,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     containerPosition: string;
     foundation: TooltipFoundation;
     context: ContextValue;
-
+    isAnimating: boolean = false;
     constructor(props: TooltipProps) {
         super(props);
         this.state = {
@@ -240,6 +240,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             on: (...args: any[]) => this.eventManager.on(...args),
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
+            getAnimatingState: ()=>this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.setState(
                     {
@@ -652,8 +653,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 animationState={transitionState as "enter" | "leave"}
                 motion={motion && isPositionUpdated}
                 startClassName={transitionState === 'enter' ? `${prefix}-animation-show` : `${prefix}-animation-hide`}
+                onAnimationStart={()=>this.isAnimating = true}
                 onAnimationEnd={() => {
                     if (transitionState === 'leave') {
+                        this.isAnimating = false;
                         this.didLeave();
                         this.props.afterClose?.();
                     }
