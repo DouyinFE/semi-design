@@ -444,7 +444,7 @@ class App extends React.Component {
 
 通过 renderArrow 修改滚动折叠模式下，左右切换箭头的渲染，入参为溢出的 items 和 位置, 点击处理函数，以及 defaultNode。
 
-**注**：renderArrow 的前三个参数自 2.61.0 支持，defaultNode 自 2.65.0 支持。
+**注**：renderArrow 的前三个参数自 2.61.0 支持，defaultNode 自 2.66.0 支持。
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -766,7 +766,7 @@ class App extends React.Component {
 | lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中  | boolean | false |
 | more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
 | renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
-| renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项。前三个参数自 **>=2.61.0** 支持，defaultNode 参数自 **>=2.65.0** 支持| (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | 无 |
+| renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项。前三个参数自 **>=2.61.0** 支持，defaultNode 参数自 **>=2.66.0** 支持| (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | 无 |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | showRestInDropdown | 是否将收起的 Tab 展示在下拉菜单中（仅当 collapsible 为 true 时生效） **>= 2.61.0** | boolean | true |
 | size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string | `large` |
