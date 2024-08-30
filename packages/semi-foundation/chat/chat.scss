@@ -233,6 +233,7 @@ $module: #{$prefix}-chat;
             .#{$module}-attachment-file, .#{$module}-attachment-img  {
                 margin-top: $spacing-chat_chatBox_content_attachment-marginY;
                 margin-bottom: $spacing-chat_chatBox_content_attachment-marginY;
+                margin-right: $spacing-chat_chatBox_content_attachment-marginRight;
             }
         
             &-user {
@@ -457,6 +458,8 @@ $module: #{$prefix}-chat;
         flex-wrap: wrap;
         column-gap: $spacing-chat_attachment-columnGap;
         row-gap: $spacing-chat_attachment-RowGap;
+        margin-left: $spacing-chat_attachment-marginX;
+        margin-right: $spacing-chat_attachment-marginX;
 
         &-item {
             position: relative;
@@ -493,7 +496,7 @@ $module: #{$prefix}-chat;
         }
 
         &-file {
-            display: flex;
+            display: inline-flex;
             flex-direction: row;
             align-items: center;
             height: $width-chat_attachment_file;

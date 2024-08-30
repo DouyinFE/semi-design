@@ -134,7 +134,7 @@ class Dropdown extends BaseComponent<DropdownProps, DropdownState> {
         return {
             ...super.adapter,
             setPopVisible: (popVisible: boolean) => this.setState({ popVisible }),
-            notifyVisibleChange: (visible: boolean) => this.props.onVisibleChange(visible),
+            notifyVisibleChange: (visible: boolean) => this.props.onVisibleChange?.(visible),
             getPopupId: () => this.tooltipRef.current.getPopupId()
         };
     }

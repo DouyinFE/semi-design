@@ -67,6 +67,7 @@ $spacing-chat_inputBox_inner-columnGap: 4px; // 输入框容器列间距
 $spacing-chat_inputBox-marginY: 4px;
 $spacing-chat_attachment-columnGap: 10px; // 附件列间距
 $spacing-chat_attachment-RowGap: 5px; // 附件行间距
+$spacing-chat_attachment-marginX: 12px; // 附件左右外边距
 $spacing-chat_attachment_clear-top: 8px;  // 附件清除图标顶部间距
 $spacing-chat_attachment_clear-right: 8px;  // 附件清除图标右内边距
 $spacing-chat_attachment_file-columnGap: 5px; // 文件附件列间距
@@ -74,6 +75,7 @@ $spacing-chat_attachment_file-padding: 5px;  // 文件附件内边距
 $spacing-chat_chatBox_loading_item-gap: 15px; // 聊天内容加载图标间距 
 $spacing-chat_divider-marginY: 12px; // 分割线上下外边距
 $spacing-chat_chatBox_content_attachment-marginY: 4px; // 聊天框内容文件/图片上下外间距
+$spacing-chat_chatBox_content_attachment-marginRight: 4px; //聊天框内容文件/图片上下右间距
 $spacing-chat_chatBox_content_code_topSlot-paddingX: 5px; // 聊天框代码块顶部上下内边距
 $spacing-chat_chatBox_content_code_topSlot-paddingY: 8px; // 聊天框代码块顶部左右内边距
 $spacing-chat_chatBox_content_code_topSlot_copy-columnGap: 5px; // 聊天框代码块顶部复制按钮列间距: 
