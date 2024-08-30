@@ -240,7 +240,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             on: (...args: any[]) => this.eventManager.on(...args),
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
-            getAnimatingState: ()=>this.isAnimating,
+            getAnimatingState: ()=> this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.setState(
                     {
