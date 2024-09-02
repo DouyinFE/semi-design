@@ -1102,7 +1102,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
         // @ts-ignore
         if (e.target?.role === "combobox") {
-            // if the blur event is from inner combobox, refocus the trigger
+            // if the blur event is from inner combobox, refocus the trigger case see in https://github.com/DouyinFE/semi-design/issues/2465
             this._focusTrigger();
         }
         // Under normal circumstances, blur will be accompanied by clickOutsideHandler, so the notify of blur can be called uniformly in clickOutsideHandler
