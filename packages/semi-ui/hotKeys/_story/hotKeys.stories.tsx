@@ -21,7 +21,7 @@ export const Demo = () => {
 }
 
 export const Clickable = () => {
-  const hotKeys = ["Alt", Keys.K]
+  const hotKeys = ["Alt","k"]
   const [cnt, setCnt] = useState(0)
   const onClick = () => {
     setCnt(cnt+1)

@@ -22,6 +22,11 @@ The hotkeys only support combinations of modifier keys like Shift, Control, Meta
 
 When a hotkey is set to a common shortcut like Ctrl/Meta + C, it may prevent the default behavior (e.g., copying) from being triggered properly.
 
+It's also possible to use the `Keys` wrapper to set hotkeys.
+```jsx import
+import { Keys } from '@douyinfe/semi-ui';
+```
+
 ### Basic Usage
 
 Pass in key combinations via `hotKeys` and bind a shortcut handler function using `onClick` to respond to the action.
@@ -41,7 +46,7 @@ function Demo() {
   }
   return (
     <div>
-      <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
+      <HotKeys hotKeys={[Keys.Control, 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -63,9 +68,9 @@ function Demo() {
   }
   return (
     <div>
-      <HotKeys hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
+      <HotKeys hotKeys={["Control", Keys.B]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
         <br></br>
-      <HotKeys hotKeys={["Meta","b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
+      <HotKeys hotKeys={[Keys.Meta,"b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
       <div>{cnt}</div>
     </div>
   );

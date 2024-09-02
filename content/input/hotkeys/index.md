@@ -30,9 +30,14 @@ import { HotKeys } from '@douyinfe/semi-ui';
 
 [hotKeys取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)
 
+也可以引入包装好的`Keys`进行设置
+```jsx import
+import { Keys } from '@douyinfe/semi-ui';
+```
+
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys } from '@douyinfe/semi-ui';
+import { HotKeys, Keys } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [cnt, setCnt] = useState(0)
@@ -41,7 +46,7 @@ function Demo() {
   }
   return (
     <div>
-      <HotKeys hotKeys={['Control', 'Shift', 'a']} onClick={onClick} ></HotKeys>
+      <HotKeys hotKeys={[Keys.Control, 'Shift', 'a']} onClick={onClick} ></HotKeys>
       <div>{cnt}</div>
     </div>
   );
@@ -63,9 +68,9 @@ function Demo() {
   }
   return (
     <div>
-      <HotKeys hotKeys={["Control", "b"]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
+      <HotKeys hotKeys={["Control", Keys.B]} onClick={onClick} content={["Ctrl", "B"]}></HotKeys>
         <br></br>
-      <HotKeys hotKeys={["Meta","b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
+      <HotKeys hotKeys={[Keys.Meta,"b"]} onClick={onClick} content={["⌘", "B"]}></HotKeys>
       <div>{cnt}</div>
     </div>
   );

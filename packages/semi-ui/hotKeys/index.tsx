@@ -2,13 +2,14 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
-import { cssClasses, strings } from '@douyinfe/semi-foundation/hotKeys/constants';
+import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
 
 const prefixCls = cssClasses.PREFIX;
 
+export { Keys };
 export interface HotKeysProps {
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
