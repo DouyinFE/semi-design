@@ -66,17 +66,6 @@ export const directionStyles = {
 
 export type Direction = 'top' | 'right' | 'bottom' | 'left' | 'topRight' | 'bottomRight' | 'bottomLeft' | 'topLeft';
 
-export interface HandleStyles {
-    top?: CSSStyleDeclaration;
-    right?: CSSStyleDeclaration;
-    bottom?: CSSStyleDeclaration;
-    left?: CSSStyleDeclaration;
-    topRight?: CSSStyleDeclaration;
-    bottomRight?: CSSStyleDeclaration;
-    bottomLeft?: CSSStyleDeclaration;
-    topLeft?: CSSStyleDeclaration
-}
-
 export interface HandleClassName {
     top?: string;
     right?: string;
@@ -86,17 +75,6 @@ export interface HandleClassName {
     bottomRight?: string;
     bottomLeft?: string;
     topLeft?: string
-}
-
-export interface HandleComponent {
-    top?: HTMLElement;
-    right?: HTMLElement;
-    bottom?: HTMLElement;
-    left?: HTMLElement;
-    topRight?: HTMLElement;
-    bottomRight?: HTMLElement;
-    bottomLeft?: HTMLElement;
-    topLeft?: HTMLElement
 }
 
 export type HandlerCallback = (

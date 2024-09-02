@@ -27,7 +27,6 @@ export const Group_layout = () => {
           defaultSize={{
             height: '20%',
           }}
-          minHeight={0}
           onChange={() => { setText('resizing') }}
           onResizeStart={() => Toast.info(opts_1)}
           onResizeEnd={() => { Toast.info(opts); setText('test') }}
@@ -504,6 +503,13 @@ export const Single_handler = () => {
         }}
         handleNode={{
           bottomRight: <Button type="primary">hi</Button>
+        }}
+        handleStyles={{
+          bottomRight: {
+            width: '100px',
+            height: '100px',
+            backgroundColor: 'red'
+          }
         }}
       >
         <div style={{ marginLeft: '20%' }}>

@@ -1,14 +1,35 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { CSSProperties, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
-import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleStyles, HandleClassName, HandleComponent } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 import ResizableHandler from './resizableHandler';
 
 const prefixCls = cssClasses.PREFIX;
+export interface HandleComponent {
+    top?: ReactNode;
+    right?: ReactNode;
+    bottom?: ReactNode;
+    left?: ReactNode;
+    topRight?: ReactNode;
+    bottomRight?: ReactNode;
+    bottomLeft?: ReactNode;
+    topLeft?: ReactNode
+}
+
+export interface HandleStyles {
+    top?: CSSProperties;
+    right?: CSSProperties;
+    bottom?: CSSProperties;
+    left?: CSSProperties;
+    topRight?: CSSProperties;
+    bottomRight?: CSSProperties;
+    bottomLeft?: CSSProperties;
+    topLeft?: CSSProperties
+}
 
 export interface ResizableProps {
     style?: React.CSSProperties;
