@@ -48,16 +48,16 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
         let clickedModifier = [event.metaKey, event.shiftKey, event.altKey, event.ctrlKey];
         const keysPressed = hotKeys?.map((key: KeyboardEvent["key"])=> {
             key = key.toLowerCase();
-            if (key === "meta") {
+            if (key === Keys.Meta) {
                 allModifier[0] = true;
                 return event.metaKey; 
-            } else if (key === "shift") {
+            } else if (key === Keys.Shift) {
                 allModifier[1] = true;
                 return event.shiftKey;
-            } else if (key === "alt") {
+            } else if (key === Keys.Alt) {
                 allModifier[2] = true;
                 return event.altKey;
-            } else if (key === "control") {
+            } else if (key === Keys.Control) {
                 allModifier[3] = true;
                 return event.ctrlKey;
             }
