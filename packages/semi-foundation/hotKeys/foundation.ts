@@ -27,6 +27,9 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
 
         hotKeys.forEach(key => {
             key = key.toLowerCase();
+            if (!Object.values(Keys).some((value) => value === key)) {
+                throw new Error(`${key} is not a valid key`);
+            }
             if (!modifierKeys.includes(key)) {
                 commonKeyCnt += 1;
             }
@@ -46,9 +49,6 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
         let clickedModifier = [event.metaKey, event.shiftKey, event.altKey, event.ctrlKey];
         const keysPressed = hotKeys?.map((key: KeyboardEvent["key"])=> {
             key = key.toLowerCase();
-            if (!Object.values(Keys).some((value) => value === key)) {
-                throw new Error(`${key} is not a valid key`);
-            }
             if (key === "meta") {
                 allModifier[0] = true;
                 return event.metaKey; 
