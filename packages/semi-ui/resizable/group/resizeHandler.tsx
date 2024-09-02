@@ -2,12 +2,14 @@ import React, { Children, createRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
-
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
+import "@douyinfe/semi-foundation/resizable/group/resizeGroup.scss";
+import { IconHandle } from '@douyinfe/semi-icons';
+
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -76,15 +78,19 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
             <div
                 className={classNames(className, prefixCls + '-handler')}
                 style={{
-                    backgroundColor: 'grey',
                     userSelect: 'none',
                     zIndex: 9999,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     ...directionStyles[this.props.direction],
                     ...style
                 }}
                 ref={this.resizeHandlerRef}
             >
-                {children}
+                {children ?? <IconHandle size='inherit' style={{
+                    rotate: this.context.direction === 'horizontal' ? '0deg' : '90deg',
+                }}/>}
             </div>
         );
     }

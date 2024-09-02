@@ -1,0 +1,8 @@
+$module: #{$prefix}-resizable;
+
+.#{$module} {
+
+    &-handler {
+        background-color: var(--semi-color-fill-0);
+    }
+}
