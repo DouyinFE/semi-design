@@ -1,24 +1,24 @@
 ---
 localeCode: zh-CN
 order: 68
-category: 导航类
+category: 展示类
 title:  Resizable 伸缩框
 icon: doc-steps
 brief: 根据用户的鼠标拖拽，改变组件的大小，支持单个组件伸缩与组合伸缩
 ---
 
-# 代码演示
+## 代码演示
 
-## 如何引入
+### 如何引入
 
-```jsx import
+```jsx 
 import { Resizable } from '@douyinfe/semi-ui';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 ```
 
-## 单个组件
+### 单个组件
 
-### 基本使用与回调
+#### 基本使用与回调
 通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
 
 ```tsx
@@ -66,7 +66,7 @@ function Demo() {
 
 ```
 
-### 控制伸缩方向
+#### 控制伸缩方向
 通过设置`enable`的值开启/关闭特定伸缩方向，默认值均为`true`
 
 ```tsx
@@ -112,7 +112,7 @@ function Demo() {
 
 ```
 
-### 设置变化比例
+#### 设置变化比例
 
 通过`ratio`设置拖动和实际变化的比例 
 
@@ -141,7 +141,7 @@ function Demo() {
 
 ```
 
-### 锁定横纵比
+#### 锁定横纵比
 
 通过`lockAspectRatio`设置锁定横纵比,可以为`boolean`或`number`,为`number`时表示横纵比为`number`,为`true`时锁定初始横纵比
 
@@ -182,7 +182,7 @@ function Demo() {
 
 ```
 
-### 设置最大，最小宽高 
+#### 设置最大，最小宽高 
 可通过 `maxHeight`，`maxWidth`，`minHeight`，`minWidth` 设置最大，最小宽高
 
 ```jsx live=true "
@@ -213,7 +213,7 @@ function Demo() {
 
 ```
 
-### 受控宽高
+#### 受控宽高
 
 可通过 `size` 控制元素的宽高
 
@@ -249,7 +249,7 @@ function Demo() {
 
 ```
 
-### 设置缩放值
+#### 设置缩放值
 
 通过设置 `scale`，整体缩放元素
 ```jsx live=true
@@ -277,7 +277,7 @@ function Demo() {
 
 ```
 
-### 根据元素限制元素宽高
+#### 根据元素限制元素宽高
 
 通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'）
 
@@ -306,7 +306,7 @@ function Demo() {
 
 ```
 
-### 自定义边角handler样式
+#### 自定义边角handler样式
 
 可通过 handleNode设置不同方向的拖动元素节点，可通过 handleStyle，handleClassName 设置不同方向上的样式
 
@@ -370,7 +370,7 @@ function Demo() {
 }
 ```
 
-### 允许阶段性调整宽高
+#### 允许阶段性调整宽高
 
 可通过 grid ，snap 属性允许逐渐调整宽高。
 grid 属性用于指定调整大小应对齐的增量。默认为 [1, 1]。
@@ -409,10 +409,10 @@ function Demo() {
 }
 ```
 
-## 组合组件
+### 组合组件
 
 
-### 基本使用
+#### 基本使用
 必须要为`ResizeGroup`的父元素设置`width`和`height`
 
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
@@ -474,7 +474,7 @@ function Demo() {
 }
 ```
 
-### 嵌套使用
+#### 嵌套使用
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 
 ```jsx live=true 
@@ -569,6 +569,7 @@ function Demo() {
 | handleNode     | 用于设置拖拽处理元素各个方向的自定义节点             | [HandleNode](#自定义边角handler样式)          |            |        |
 | handleStyle    | 用于设置拖拽处理元素各个方向的样式              | [HandleStyles](#自定义边角handler样式)            |            |        |
 | handleClasses    | 用于设置拖拽处理元素各个方向的类名称              | [HandleClasses](#自定义边角handler样式)            |            |        |
+| style | 样式 | CSSProperties |      |
 | snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
 | snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
 | grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
@@ -578,29 +579,37 @@ function Demo() {
 
 ### ResizeGroup
 
-步骤条内的每一个步骤。
+| 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
+| className   | 类名                                                                                                                        | string                             |        |      |
+| direction | 指定Group内的伸缩方向  | 'horizontal' \| 'vertical' | 'horizontal' |      |
+
+### ResizeHandler
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| aria-label  | 容器aria-label                                                                                                              | React.AriaAttributes["aria-label"] |        |      |
 | className   | 类名                                                                                                                        | string                             |        |      |
-| description | 步骤的详情描述，可选                                                                                                        | ReactNode                          | -      |      |
-| icon        | 步骤图标的类型，可选                                                                                                        | ReactNode                          | -      |      |
-| role        | 容器role                                                                                                                    | React.AriaRole                     | -      |      |
-| status      | 指定状态。当不配置该属性时，会使用 Steps 的 `current` 来自动指定状态。可选：`wait`、`process`、`finish`、`error`、`warning` | string                             | wait   |      |
-| style       | 样式                                                                                                                        | CSSProperties                      |        |      |
-| title       | 标题                                                                                                                        | ReactNode                          | -      |      |
-| onClick     | 点击回调                                                                                                                    | function                           | -      |      |
-| onKeyDown   | 回车事件回调                                                                                                                | function                           | -      |      |
+| style | 样式 | CSSProperties |      |
+
+### ResizeItem
 
 
-## 文案规范
-- 步骤标题
-  - 标题应保持简洁，避免截断和换行；
-  - 使用句子大小写书写；
-  - 不要包含标点符号
-- 描述
-  - 为标题补充上下文信息
-  - 不要以标点符号结尾
+| 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
+| --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
+| className | 类名                                                                          | string                  |            |        |
+| defaultSize   | 用于设置初始宽高，只支持百分比字符串 | string                  |           |        |
+| minWidth | 指定伸缩框最小宽度      |  string                   |   |        |
+| maxWidth | 指定伸缩框最大宽度      |  string                   |   |        |
+| minHeight | 指定伸缩框最小高度      |  string                   |   |        |
+| maxHeight | 指定伸缩框最大高度      |  string                   |   |     
+| style | 样式 | CSSProperties |      |
+| snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
+| snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
+| grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | 拖拽过程中的回调                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (e: Event; direction: String) => void | -          |  |
+
+
 ## 设计变量
 <DesignToken/>

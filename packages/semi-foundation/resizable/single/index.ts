@@ -533,12 +533,6 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             newHeight = gap === 0 || Math.abs(newGridHeight - newHeight) <= gap ? newGridHeight : newHeight;
         }
 
-        // Calculate delta
-        const delta = {
-            width: newWidth - original.width,
-            height: newHeight - original.height
-        };
-
         // Convert width and height to CSS units if needed
         const convertToCssUnit = (size: number, originalSize: number, unit: string): string | number => {
 

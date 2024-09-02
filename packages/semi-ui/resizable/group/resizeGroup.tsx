@@ -27,7 +27,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     };
 
     static defaultProps: Partial<ResizeGroupProps> = {
-        direction: 'vertical'
+        direction: 'horizontal'
     };
 
     constructor(props: ResizeGroupProps) {

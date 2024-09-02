@@ -279,7 +279,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
         // Call onResizeStart callback if defined
         if (props.onResizeStart) {
-            const shouldContinue = props.onResizeStart(e, direction, this.resizable);
+            const shouldContinue = props.onResizeStart(e, direction);
             if (shouldContinue === false) {
                 return;
             }
@@ -342,23 +342,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         }
         const { direction, original, width, height } = states;
         const parentSize = this.getParentSize();
-        let { maxWidth, maxHeight, minWidth, minHeight } = props;
-
-        // Calculate max and min dimensions
-        const maxBounds = calculateNewMax(
-            parentSize,
-            this.window.innerWidth,
-            this.window.innerHeight,
-            maxWidth,
-            maxHeight,
-            minWidth,
-            minHeight
-        );
-
-        maxWidth = maxBounds.maxWidth;
-        maxHeight = maxBounds.maxHeight;
-        minWidth = maxBounds.minWidth;
-        minHeight = maxBounds.minHeight;
 
         // Calculate new size based on direction
         let { newWidth, newHeight }: NewSize = this.calDirectionSize(clientX, clientY);
@@ -386,12 +369,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
             newWidth = gap === 0 || Math.abs(newGridWidth - newWidth) <= gap ? newGridWidth : newWidth;
             newHeight = gap === 0 || Math.abs(newGridHeight - newHeight) <= gap ? newGridHeight : newHeight;
         }
-
-        // Calculate delta
-        const delta = {
-            width: newWidth - original.width,
-            height: newHeight - original.height
-        };
 
         // Convert width and height to CSS units if needed
         const convertToCssUnit = (size: number, originalSize: number, unit: string): string | number => {
@@ -437,7 +414,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
             // Call onChange callback if defined
             if (props.onChange) {
-                props.onChange(event, direction, this.resizable, delta);
+                props.onChange(event, direction, this.size);
             }
         }
     }
@@ -460,7 +437,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
         // Call onResizeEnd callback if defined
         if (onResizeEnd) {
-            onResizeEnd(event, direction, this.resizable, delta);
+            onResizeEnd(event, direction);
         }
 
         // Update state with new size if provided

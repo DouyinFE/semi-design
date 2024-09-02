@@ -1,344 +1,608 @@
 ---
 localeCode: en-US
 order: 68
-category: Navigation
-title: Steps
-subTitle: Steps
+category: Show
+title: Resizable
 icon: doc-steps
 dir: column
-brief: Decompose complex tasks or tasks with prior relationships, use step components to guide users to operate according to the prescribed process, and let them know their current progress
+brief: The component size is adjusted based on the user's mouse drag, supporting both resizing of a single component and combined resizing.
 ---
 
 ## Demos
 
 ### How to import
 
-```jsx
-import { Steps } from '@douyinfe/semi-ui';
-const Step = Steps.Step;
+```jsx 
+import { Resizable } from '@douyinfe/semi-ui';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 ```
 
-### Default step bar(Deprecated)
+### Single Component
 
-It is recommended to use the simple version of steps, which will be gradually deprecated later
+#### Basic Usage and Callbacks
+You can set the initial size using defaultSize, and set drag callbacks with onResizeStart, onResize, and onResizeEnd.
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <Steps current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description." />
-        <Steps.Step title="In Progress" description="This is a description." />
-        <Steps.Step title="Waiting" description="This is a description." />
-    </Steps>
-);
+```tsx
+interface Size {
+    width: string | number;
+    height: string | number;
+}
 ```
 
-### Basic Steps(Recommended)
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-Set type=`"basic"` to display a simple style step bar
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <Steps type="basic" current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
-
-```
-
-### Nav Steps
-
-You can use type="nav" to set the navigation style step bar. The navigation style step bar has the following characteristics:
-1. The step bar does not support interaction.
-
-2. It is suitable when the steps are not related to each other, the content does not affect each other, and the visual elements of the page need to be highlighted.
-
-3. The width of the step bar is opened according to the content.
-
-4. Steps.Step only supports title, className, and style attributes.
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Steps type="nav" current={1} style={{ margin: 'auto' }} onChange={(i)=>console.log(i)}>
-            <Steps.Step title="Register an account" />
-            <Steps.Step title="There is a lot of text in this project" />
-            <Steps.Step title="Product Usage" />
-            <Steps.Step title="Looking forward to trying out features" />
-        </Steps>
+function Demo() {
+  const [text, setText] = useState('test')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts_2 = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  return (
+    <div style={{ width: '500px' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        onChange={() => { setText('resizing') }}
+        onResizeStart={() => Toast.info(opts_1)}
+        onResizeEnd={() => { Toast.info(opts_2); setText('test') }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          {text}
+        </div>
+      </Resizable>
     </div>
-);
+  );
+}
+
 ```
 
-### Mini size step bar
 
-Display the mini size step bar by setting size=`"small"`
+#### Controlling Resize Directions
+You can enable or disable specific resizing directions by setting the value of enable. All directions are enabled by default.
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <Steps type="basic" size="small" current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
-```
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-
-() => (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Steps type="nav" size="small" current={1} style={{ margin: 'auto' }} onChange={(i)=>console.log(i)}>
-            <Steps.Step title="Register an account" />
-            <Steps.Step title="There is a lot of text in this project" />
-            <Steps.Step title="Product Usage" />
-            <Steps.Step title="Looking forward to trying out features" />
-        </Steps>
-    </div>  
-);
-```
-
-### Processing progress
-
-Use with content and buttons to represent the processing progress of a process
-
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps, Button } from '@douyinfe/semi-ui';
-
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 0,
-        };
-    }
-
-    next() {
-        const current = this.state.current + 1;
-        this.setState({ current });
-    }
-
-    prev() {
-        const current = this.state.current - 1;
-        this.setState({ current });
-    }
-
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
-
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={(i)=>console.log(i)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-                <div className Name="steps-content" style={{ marginTop: 4, marginBottom: 4 }}>
-                    {steps[current].content}
-                </div>
-                <div className="steps-action">
-                    {current < steps.length - 1 && (
-                        <Button type="primary" onClick={() => this.next()}>
-                            Next
-                        </Button>
-                    )}
-                    {current === steps.length - 1 && (
-                        <Button type="primary" onClick={() => console.log('Processing complete!')}>
-                            Done
-                        </Button>
-                    )}
-                    {current > 0 && (
-                        <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                            Previous
-                        </Button>
-                    )}
-                </div>
-            </div>
-        );
-    }
+```tsx
+interface Enable {
+  left: Boolean;
+  right: Boolean;
+  top: Boolean;
+  bottom: Boolean;
+  topLeft: Boolean;
+  topRight: Boolean;
+  bottomLeft: Boolean;
+  bottomRight: Boolean;
 }
 ```
 
-### Steps bar in vertical direction
 
-Show steps in vertical direction by setting direction
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+function Demo() {
+  const [b, setB] = useState(false)
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Button onClick={() => (setB(!b))}>{'enable.left:' + b}</Button>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        enable={{
+          left: b
+        }}
+        defaultSize={{
+          width: 200,
+          height: 200,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          {'enable.left:' + b}
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
-() => (
-    <Steps direction="vertical" current={1} style={{ width: 300 }} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
 ```
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
 
-() => (
-    <Steps direction="vertical" type="basic" current={1} onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Progress" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
+#### Setting Resizing Ratio
+
+You can set the drag and resize ratio using ratio.
+
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        ratio={2}
+        defaultSize={{
+          width: 200,
+          height: 200,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          ratio=2
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
 ```
 
-### Specify step status
+#### Locking Aspect Ratio
+You can lock the aspect ratio by setting lockAspectRatio. It can be a boolean or a number. If true, it locks to the initial aspect ratio; if a number, it locks to the given ratio.
 
-Using Steps `status` Property to specify the state of the current step.
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: 400,
+          height: 300,
+        }}
+        lockAspectRatio
+      >
+        <div style={{ marginLeft: '20%' }}>
+          lock
+        </div>
+      </Resizable>
+      <Resizable
+        style={{backgroundColor: 'lightblue'}}
+        defaultSize={{
+          width: 200,
+          height: 200 * 9 / 16,
+        }}
+        lockAspectRatio={16 / 9}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          16 / 9
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
-() => (
-    <Steps type="basic" current={1} status="error" onChange={(i)=>console.log(i)}>
-        <Steps.Step title="Finished" description="This is a description" />
-        <Steps.Step title="In Process" description="This is a description" />
-        <Steps.Step title="Waiting" description="This is a description" />
-    </Steps>
-);
 ```
 
-### Custom icons
+#### Setting Maximum and Minimum Width/Height
 
-By setting Steps.Step's `icon` Properties, you can use custom icons.
+You can set the maximum and minimum width and height using maxHeight, maxWidth, minHeight, and minWidth.
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
-import { IconHome, IconLock, IconClear, IconTickCircle } from '@douyinfe/semi-icons';
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-() => (
-    <Steps type="basic" onChange={(i)=>console.log(i)}>
-        <Steps.Step status="finish" title="Login" icon={<IconHome />} />
-        <Steps.Step status="finish" title="Verification" icon={<IconLock />} />
-        <Steps.Step status="process" title="Pay" icon={<IconClear />} />
-        <Steps.Step status="wait" title="Done" icon={<IconTickCircle />} />
-    </Steps>
-);
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        maxWidth={200}
+        maxHeight={300}
+        minWidth={50}
+        minHeight={50}
+        defaultSize={{
+          width: 100,
+          height: 100,
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          width is between 50 and 200, height is between 50 and 300
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
 ```
 
-### onChange CallBack
+#### Controll Width/Height
+You can control the size of the element through the size prop.
 
-Since version 1.29.0, onChange is supported, which can be used to realize the processing progress. onChange receives a parameter of type number, which is equal to initial + current.
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-```jsx live=true dir="column"
-import React from 'react';
-import { Steps } from '@douyinfe/semi-ui';
+function Demo() {
+  const [size, setSize] = useState({ width: 200, height: 300 });
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            current: 1,
-        };
-    }
+  const onChange = ((newSize, event, direction) => {
+    let realSize = { width: size.width + 10, height: size.height + 10 };
+    setSize(realSize);
+  })
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Button onClick={onChange}>set += 10</Button>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: 100,
+          height: 100,
+        }}
+        size={size}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          Controll Width/Height
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
-    onChange(index) {
-        this.setState({ current: index });
-    }
+```
 
-    render() {
-        const { current } = this.state;
-        const { Step } = Steps;
-        const steps = [
-            {
-                title: 'First',
-                content: 'First-content',
-            },
-            {
-                title: 'Second',
-                content: 'Second-content',
-            },
-            {
-                title: 'Last',
-                content: 'Last-content',
-            },
-        ];
 
-        return (
-            <div>
-                <Steps type="basic" current={current} onChange={index => this.onChange(index)}>
-                    {steps.map(item => (
-                        <Step key={item.title} title={item.title} />
-                    ))}
-                </Steps>
-            </div>
-        );
-    }
+#### Setting Scale
+You can scale the entire element by setting the scale prop.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%', transform: 'scale(0.5)', transformOrigin: '0 0' }}>
+      <Resizable
+        style={{ backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: '60%',
+          height: '60%',
+        }}
+        scale={0.5}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          scale 0.5
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
+```
+
+
+#### Restricting Width/Height by an Element
+You can restrict the width and height by setting the boundElement, which supports string values like 'parent' or 'window'.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  return (
+    <div style={{ width: '300px', height: '300px', border: 'black 5px solid' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue' }}
+        defaultSize={{
+          width: '60%',
+          height: 200,
+        }}
+        boundElement={'parent'}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          bound：parent
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
+```
+
+#### Customizing Corner Handler Styles
+You can customize the drag handles for each direction using handleNode, and apply different styles using handleStyle and handleClassName.
+```jsx
+type HandleNode = {
+  left: ReactNode;
+  right: ReactNode;
+  top: ReactNode;
+  bottom: ReactNode;
+  topLeft: ReactNode;
+  topRight: ReactNode;
+  bottomLeft: ReactNode;
+  bottomRight: ReactNode;
+}
+
+type HandleStyle = {
+  left: React.CSSProperties;
+  right: React.CSSProperties;
+  top: React.CSSProperties;
+  bottom: React.CSSProperties;
+  topLeft: React.CSSProperties;
+  topRight: React.CSSProperties;
+  bottomLeft: React.CSSProperties;
+  bottomRight: React.CSSProperties;
+}
+
+type HandleClasses = {
+  left: string;
+  right: string;
+  top: string;
+  bottom: string;
+  topLeft: string;
+  topRight: string;
+  bottomLeft: string;
+  bottomRight: string;
 }
 ```
 
-## API reference
+```jsx live=true "
+import React, { useState } from 'react';
+import { Resizable, Button } from '@douyinfe/semi-ui';
+function Demo() {
+    return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        handleNode={{
+          bottomRight: <Button type="primary">hi</Button>
+        }}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          bottomRight
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+```
 
-### Steps
 
-| Parameters | Instructions | type | Default | Version |
-| --- | --- | --- | --- | --- |
-| className | Class name | string |  |  |
-| current | Specifies the current step, counting from 0. In the subStep element, the state can be overridden by the `status` attribute | number | 0 |  |
-| direction | Specify step bar directions. Currently support level (`vertical`) and vertical (`vertical`) in both directions | string | with |  |
-| hasLine | When the step bar type is basic, you can control whether to display the connecting line | boolean | true | 1.18.0 |
-| initial | Start serial number, count from 0. | number | 0 |  |
-| size | For simple step bar and navigation step bar, the size is optional, the value is `small`, `default` | string | `default` | 1.18.0 |
-| status | Specify the status of the current step, optional `wait`,`process`,`finish`,`error`,`warning` | string | process |  |
-| style | Style | CSSProperties |  |  |
-| type | Steps type, optional `fill` `basic`、`nav` | string | fill | 1.18.0 |
-| onChange  | onChange callback    | (index: number)=>void | -       | 1.29.0    |
+#### Allowing Incremental Width and Height Adjustment
+You can allow gradual adjustments in width and height using the grid and snap properties. The grid property specifies the increments to which resizing should snap. The default value is [1, 1]. The snap property specifies the absolute pixel values to which resizing should snap. Both x and y are optional, allowing you to define only the desired axis. These two parameters can be combined with the snapGap property, which specifies the minimum gap required to move to the next target. The default is 0, meaning the target defined by grid/snap is always used.
 
-### Steps.Step
+```tsx
+interface Snap {
+    x: number[];
+    y: number[];
+}
+```
 
-Step in the step bar.
+```jsx live=true 
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
 
-| Parameters | Instructions | type | Default | Version |
-| --- | --- | --- | --- | --- |
-| aria-label | Container aria-label   | React.AriaAttributes["aria-label"] |  |   |
-| description | Detailed description of steps, optional | ReactNode |  | - |  |
-| icon | Type of step icon, optional | ReactNode |  | - |  |
-| role      | Container role  | React.AriaRole | -  |    |
-| status | Specify the state. When this property is not configured, the `current`of Steps is used to automatically specify the state. Optional: `wait`,`process`,`finish`,`error`,`warning` | string | wait |  |
-| style     | CSS Style                                                                          | CSSProperties |            |    |
-| title | Title | ReactNode |  | - |  |
-| onClick | Callback of click | function | - |  |
-| onKeyDown     | Callback ok keyDown  | function | -   |    |
+function Demo() {
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        grid={100}
+        snapGap={20}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          snap
+        </div>
+      </Resizable>
+    </div >
+  );
+}
+```
+
+### Group Component Resizing
+
+#### Basic Usage
+For the parent element of the ResizeGroup, you must set width and height. Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
+
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup, Toast } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('test')
+  return (
+    <div style={{ width: '1000px', height: '100px' }}>
+      <ResizeGroup direction='horizontal'>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+          minWidth={'10%'}
+          onResizeStart={() => Toast.info({ content: 'resize start', duration: 1, stack: true })}
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('test') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text + " min:10%"}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+          minWidth={'10%'}
+          maxWidth={'30%'}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text + " min:10% max:30%"}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          defaultSize={{
+            width: '25%',
+            height: '100%',
+          }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
+#### Nested
+Set the resizing direction using the direction prop. Options are horizontal and vertical.
+
+```jsx live=true 
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('test')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts_2 = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  return (
+    <div style={{ width: '500px', height: '300px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          style={{ backgroundColor: 'lightblue' }}
+          defaultSize={{
+            height: '20%',
+          }}
+          onChange={() => { setText('resizing') }}
+          onResizeStart={() => Toast.info(opts_1)}
+          onResizeEnd={() => { Toast.info(opts_2); setText('test') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {'header'}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={{
+            height: '80%',
+          }}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              defaultSize={{
+                width: '25%',
+              }}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              defaultSize={{
+                width: '75%',
+              }}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
+
+## API
+
+### Resizable
+
+单个伸缩框组件。
+
+| 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
+| --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
+| className | 类名                                                                          | string                  |            |        |
+| size   | Controls the size of the resizable box, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
+| defaultSize   | Sets the initial width and height, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
+| minWidth | Specifies the minimum width of the resizable box      |  string \| number                  |   |        |
+| maxWidth | Specifies the maximum width of the resizable box      |  string \| number                  |   |        |
+| minHeight | Specifies the minimum height of the resizable box      |  string \| number                  |   |        |
+| maxHeight | Specifies the maximum height of the resizable box      |  string \| number                  |   |     
+| lockAspectRatio | Locks the aspect ratio of the resizable box when true, using the initial width and height as the ratio    |  boolean \| number                  |   |        |
+| enable | Specifies the directions in which the resizable box can be resized. If not set, all directions are enabled by default      |    [Enable](#controlling-resize-directions) 
+| scale | The scale ratio of the resizable element      |   number                  |  1 |        |   
+| boundElement | Restricts the size of the resizable element within a specific element. Pass "parent" to set the parent element as the bounding element    | string                  |            |        |
+| handleNode     | Custom nodes for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)          |            |        |
+| handleStyle    | Styles for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)            |            |        |
+| handleClasses    | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
+| style |  | CSSProperties |      |
+| snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
+| snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
+| grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+
+### ResizeGroup
+
+| 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
+| className   |                                                                                                                         | string                             |        |      |
+| direction | Specifies the resize direction within the group  | 'horizontal' \| 'vertical' | 'horizontal' |      |
+
+### ResizeHandler
+
+| 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
+| className   |                                                                                                                         | string                             |        |      |
+| style |  | CSSProperties |      |
+
+### ResizeItem
+
+| 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
+| --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
+| className | 类名                                                                          | string                  |            |        |
+| defaultSize   | Sets the initial width and height, supports only percentage string  | string                  |           |        |
+| minWidth | Specifies the minimum width of the resizable box      |  string                  |   |        |
+| maxWidth | Specifies the maximum width of the resizable box      |  string                  |   |        |
+| minHeight | Specifies the minimum height of the resizable box      |  string                  |   |        |
+| maxHeight | Specifies the maximum height of the resizable box      |  string                  |   |     
+| style |  | CSSProperties |      |
+| snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
+| snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
+| grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+
 
 ## Accessibility
 
