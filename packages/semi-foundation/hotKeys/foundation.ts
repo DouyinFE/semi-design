@@ -39,7 +39,6 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
     }
 
     handleKeyDown = (event: KeyboardEvent): void => {
-        console.log(event);
         const disabled = this.getProps().disabled;
         if (disabled) {
             return;
