@@ -1099,6 +1099,12 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     handleTriggerBlur(e: FocusEvent) {
         const { filter, autoFocus } = this.getProps();
         const { isOpen, isFocus } = this.getStates();
+
+        // @ts-ignore
+        if (e.target?.role === "combobox") {
+            // if the blur event is from inner combobox, refocus the trigger
+            this._focusTrigger();
+        }
         // Under normal circumstances, blur will be accompanied by clickOutsideHandler, so the notify of blur can be called uniformly in clickOutsideHandler
         // But when autoFocus or the panel is close, because clickOutsideHandler is not register or unregister, you need to listen for the trigger's blur and trigger the notify callback
         if (isFocus && !isOpen) {

@@ -3623,3 +3623,47 @@ export const SearchPosition = () => {
     </>
   )
 }
+
+export const fix2465 = () => {
+  let selectBox = useRef(null);
+    let outSlotStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: '36px',
+        display: 'flex',
+        paddingLeft: 32,
+        color: 'var(--semi-color-link)',
+        alignItems: 'center',
+        cursor: 'pointer',
+        borderTop: '1px solid var(--semi-color-border)',
+        borderRadius: '0 0 6px 6px',
+    };
+    let outSlotNode = (
+        <div style={outSlotStyle}>
+            <button onClick={(e)=>{selectBox.current.close()}}>close</button>
+        </div>
+    );
+
+    return (
+        <div>
+            <p>outerBottomSlot:</p>
+            <Select
+                ref={selectBox}
+                style={{ width: 300 }}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={outSlotNode}
+                placeholder="自定义外侧底部slot，始终显示"
+                // defaultOpen
+                autoAdjustOverflow={false}
+                position="bottom"
+            >
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                <Select.Option value="jianying">剪映</Select.Option>
+                <Select.Option value="duoshan">多闪</Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+            <Button onClick={()=>{selectBox.current.close()}}>close</Button>
+        </div>
+    );
+}
