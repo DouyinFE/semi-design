@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 49
+order: 68
 category: 导航类
 title:  Resizable 伸缩框
 icon: doc-steps
@@ -20,6 +20,13 @@ import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 
 ### 基本使用与回调
 通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
+
+```tsx
+interface Size {
+    width: string | number;
+    height: string | number;
+}
+```
 
 ```jsx live=true "
 import React, { useState } from 'react';
@@ -272,7 +279,7 @@ function Demo() {
 
 ### 根据元素限制元素宽高
 
-通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'） / Element 节点
+通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'）
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -326,7 +333,7 @@ type HandleStyle = {
   bottomRight: React.CSSProperties;
 }
 
-type HandleStyle = {
+type HandleClasses = {
   left: string;
   right: string;
   top: string;
@@ -370,6 +377,13 @@ grid 属性用于指定调整大小应对齐的增量。默认为 [1, 1]。
 snap 属性用于指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴。默认为空。
 以上两个参数可结合 snapGap使用，该参数用于指定移动到下一个目标所需的最小间隙。默认为 0，这意味着始终使用grid/snap 设定的目标。
 
+```tsx
+interface Snap {
+    x: number[];
+    y: number[];
+}
+```
+
 ```jsx live=true 
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
@@ -399,6 +413,8 @@ function Demo() {
 
 
 ### 基本使用
+必须要为`ResizeGroup`的父元素设置`width`和`height`
+
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 支持`onResizeStart` `onResize` `onResizeEnd`回调，支持`min` `max`设置最大最小宽高
 
@@ -531,33 +547,36 @@ function Demo() {
 ```
 
 
-## Accessibility
-
-### ARIA
-
-- Steps、Step组件支持传入`aria-label`属性，来表示Steps和Step的描述
-- Step组件具有 `aria-current` `step` 属性，表示这是步骤条内的一步
-
 ## API 参考
 
-### Steps
+### Resizable
 
-整体步骤条。
+单个伸缩框组件。
 
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
-| current   | 指定当前步骤，从 0 开始记数。在子 Step 元素中，可以通过 `status` 属性覆盖状态 | number                  | 0          |        |
-| direction | 指定步骤条方向。目前支持水平（`horizontal`）和竖直（`vertical`）两种方向      | string                  | horizontal |        |
-| hasLine   | 步骤条类型为basic时，可控制是否显示连接线                                     | boolean                 | true       | 1.18.0 |
-| initial   | 起始序号，从 0 开始记数                                                       | number                  | 0          |        |
-| status    | 指定当前步骤的状态，可选 `wait`、`process`、`finish`、`error`、`warning`      | string                  | process    |        |
-| size      | 对于简单步骤条和导航步骤条，可选尺寸尺寸，值为`small`、`default`              | string                  | `default`  | 1.18.0 |
-| style     | 样式                                                                          | CSSProperties           |            |        |
-| type      | 步骤条类型，可选 `fill`、`basic`、`nav`                                       | string                  | fill       | 1.18.0 |
-| onChange  | 改变步骤条的回调                                                              | (index: number) => void | -          | 1.29.0 |
+| size   | 控制伸缩框的大小，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| defaultSize   | 用于设置初始宽高，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| minWidth | 指定伸缩框最小宽度      |  string \| number                  |   |        |
+| maxWidth | 指定伸缩框最大宽度      |  string \| number                  |   |        |
+| minHeight | 指定伸缩框最小高度      |  string \| number                  |   |        |
+| maxHeight | 指定伸缩框最大高度      |  string \| number                  |   |     
+| lockAspectRatio | 设置伸缩框横纵比，当为`true`时按照初始宽高锁定    |  boolean \| number                  |   |        |
+| enable | 指定伸缩框可以伸缩的方向，没有设置为 false，则默认允许该方向的拖动      |    [Enable](#控制伸缩方向) 
+| scale | 可伸缩元素被缩放的比例      |   number                  |  1 |        |   
+| boundElement | 用于限制可伸缩元素宽高的元素,传入 `parent` 设置父节点为限制节点    | string                  |            |        |
+| handleNode     | 用于设置拖拽处理元素各个方向的自定义节点             | [HandleNode](#自定义边角handler样式)          |            |        |
+| handleStyle    | 用于设置拖拽处理元素各个方向的样式              | [HandleStyles](#自定义边角handler样式)            |            |        |
+| handleClasses    | 用于设置拖拽处理元素各个方向的类名称              | [HandleClasses](#自定义边角handler样式)            |            |        |
+| snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
+| snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
+| grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | 拖拽过程中的回调                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (e: Event; direction: String) => void | -          |  |
 
-### Steps.Step
+### ResizeGroup
 
 步骤条内的每一个步骤。
 

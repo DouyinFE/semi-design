@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 53
+order: 52
 category: Show
 title:  Avatar
 subTitle: avatar

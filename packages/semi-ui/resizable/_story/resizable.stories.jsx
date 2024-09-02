@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { Resizable } from '../../index';
 import { Toast, Button } from '@douyinfe/semi-ui'
 export default {
@@ -319,7 +319,7 @@ export const Single_defaultSize = () => {
           width: '60%',
           height: 300,
         }}
-        onChange={() => { setText('resizing') }}
+        onChange={(e, d, s) => { setText('resizing');console.log(e, d, s) }}
         onResizeStart={() => Toast.info(opts_1)}
         onResizeEnd={() => { Toast.info(opts); setText('test') }}
       >

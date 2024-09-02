@@ -583,7 +583,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
             // Call onChange callback if defined
             if (props.onChange) {
-                props.onChange(event, direction, this.resizable, delta);
+                props.onChange(event, direction, this.size);
             }
         }
     }

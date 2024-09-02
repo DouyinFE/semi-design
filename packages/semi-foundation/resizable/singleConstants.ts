@@ -115,14 +115,12 @@ export const DEFAULT_SIZE = {
 export type ResizeCallback = (
     event: MouseEvent,
     direction: Direction,
-    elementRef: HTMLElement,
-    delta: NumberSize
+    size: Size
 ) => void;
 
 export type ResizeStartCallback = (
     e: MouseEvent,
     dir: Direction,
-    elementRef: HTMLElement
 ) => void | boolean;
 
 export const clamp = (n: number, min: number, max: number): number => Math.max(Math.min(n, max), min);

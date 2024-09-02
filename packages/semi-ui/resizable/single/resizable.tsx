@@ -51,7 +51,7 @@ export interface ResizableProps {
     lockAspectRatioExtraWidth?: number;
     lockAspectRatioExtraHeight?: number;
     enable?: Enable | false;
-    handleStyles?: HandleStyles;
+    handleStyle?: HandleStyles;
     handleClasses?: HandleClassName;
     handleWrapperStyle?: React.CSSProperties;
     handleWrapperClass?: string;
@@ -102,7 +102,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         lockAspectRatioExtraWidth: PropTypes.number,
         lockAspectRatioExtraHeight: PropTypes.number,
         enable: PropTypes.object,
-        handleStyles: PropTypes.object,
+        handleStyle: PropTypes.object,
         handleClasses: PropTypes.object,
         handleWrapperStyle: PropTypes.object,
         handleWrapperClass: PropTypes.string,
@@ -190,7 +190,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     renderResizeHandler = () => {
-        const { enable, handleStyles, handleClasses, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
+        const { enable, handleStyle, handleClasses, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
         if (!enable) {
             return null;
         }
@@ -202,7 +202,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                         key={dir}
                         direction={dir as Direction}
                         onResizeStart={this.foundation.onResizeStart}
-                        style={handleStyles && handleStyles[dir]}
+                        style={handleStyle && handleStyle[dir]}
                         className={handleClasses && handleClasses[dir]}
                     >
                         {handleNode?.[dir] ?? null}

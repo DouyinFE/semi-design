@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 66
+order: 65
 category: Show
 title:  Modal
 subTitle: Modal
