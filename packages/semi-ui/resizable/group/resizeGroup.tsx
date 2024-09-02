@@ -143,7 +143,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     return React.cloneElement(child as React.ReactElement, { ref });
                 } else if (child.type === ResizeHandler) {
                     const onResizeStart = (e: MouseEvent) => {
-                        this.itemMinWidth = this.childRefs[index].current.foundation.getResizeHandler().getBoundingClientRect().width;
+                        const rect = this.childRefs[index].current.foundation.getResizeHandler().getBoundingClientRect();
+                        this.itemMinWidth = this.props.direction === 'horizontal' ? rect.width : rect.height;
                         this.updateConstraints();
                         let [dir_last, dir_next] = getItemDirection(direction);
 
