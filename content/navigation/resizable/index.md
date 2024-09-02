@@ -418,6 +418,7 @@ function Demo() {
             height: '100%',
           }}
           minWidth={'10%'}
+          onResizeStart={() => Toast.info({ content: 'resize start', duration: 1, stack: true })}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('test') }}
         >
