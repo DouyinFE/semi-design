@@ -18,7 +18,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 ### Basic Usage
 
-Tbs supports three types of styles: `line`, `button`, and `card`. By default, the first tab is selected.
+Tbs supports three types of styles: `line`, `button`, `card`, and `slash`. By default, the first tab is selected.
 
 Tabs supports two declare ways, and the rendering process of the two is different:
 
@@ -168,6 +168,44 @@ class TabDemo extends React.Component {
 }
 ```
 
+```jsx live=true
+import React from 'react';
+import { Tabs } from '@douyinfe/semi-ui';
+
+class TabDemo extends React.Component {
+    constructor() {
+        super();
+        this.state = { key: '1' };
+        this.onTabClick = this.onTabClick.bind(this);
+    }
+
+    onTabClick(key, type) {
+        this.setState({ [type]: key });
+    }
+
+    render() {
+        // eslint-disable-next-line react/jsx-key
+        const contentList = [<div>Document</div>, <div>Quick Start</div>, <div>Help</div>];
+        const tabList = [
+            { tab: 'Document', itemKey: '1' },
+            { tab: 'Quick Start', itemKey: '2' },
+            { tab: 'Help', itemKey: '3' },
+        ];
+        return (
+            <Tabs
+                type="slash"
+                tabList={tabList}
+                onChange={key => {
+                    this.onTabClick(key, 'key');
+                }}
+            >
+                {contentList[this.state.key - 1]}
+            </Tabs>
+        );
+    }
+}
+```
+
 ### With Icon
 
 ```jsx live=true
@@ -274,7 +312,7 @@ function Demo() {
 
 ### Vertical mode
 
-Support two positions: `tabPosition='left|top'`
+When `type` is `line`, `card`, or `button`, horizontal and vertical modes are supported, `tabPosition='left|top'`，default is top. When `type` is `slash`, only horizontal mode is supported.
 
 ```jsx live=true
 import React from 'react';
@@ -381,7 +419,9 @@ class App extends React.Component {
 
 **Modify the scrolling rendering Arrow**
 
-`renderArrow` modifies the Arrow, with the input parameters being the overflowed items and position
+`renderArrow` modifies the Arrow, with the input parameters being the overflowed items, position, click function, and defaultNode.
+ 
+**Attention**: The first three parameters of renderArrow are supported since 2.61.0，while defaultNode parameter is supported since 2.66.0.
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -701,6 +741,7 @@ class App extends React.Component {
 | activeKey | The itemKey value of the currently active tab page | string | None |
 | className | class name | string | None |
 | collapsible | collapsed Tabs, **>=1.1.0** | boolean | false |
+| dropdownProps | In collapsible mode, It is used to transparently transmit parameters to the Dropdown component of the drop-down menu, support since 2.66.0 | DropDownProps | { start: DropdownProps, end: DropdownProps } |
 | visibleTabsStyle | Overall scrolling area style **>=2.61.0** | style: CSSProperties | None |
 | contentStyle | The outer style object of the content area | CSSProperties | None |
 | defaultActiveKey | Initialize the key value of the selected tab page | string | '1' |
@@ -708,7 +749,7 @@ class App extends React.Component {
 | lazyRender | Lazy rendering, only when the panel is activated will it be rendered in the DOM tree, **>=1.0.0** | boolean | false |
 | more | Render a portion of the Tab into a drop-down menu ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
 | renderTabBar | Used for secondary packaging tab bar | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | None |
-| renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. **>=2.61.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void)=> ReactNode | None |
+| renderArrow | Customize how overflow items indicator are rendered externally. By default, the overflow items are expanded when the arrow button is hovered. The first three parameters of renderArrow are supported since **>=2.61.0**, defaultNode is supported since **>=2.66.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | None |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |
 | showRestInDropdown | Whether to display the collapsed Tab in the drop-down menu (only effective when collapsible is true) **>= 2.61.0** | boolean | true |
 | size | Size, providing three types of `large`, `medium`, and `small`, **>=1.11.0, currently only supports linear Tabs** | string | `large` |

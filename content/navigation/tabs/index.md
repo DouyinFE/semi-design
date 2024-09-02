@@ -17,7 +17,7 @@ import { Tabs, TabPane } from '@douyinfe/semi-ui';
 
 ### 基本用法
 
-标签栏支持三种样式的显示：线条式，按钮式，卡片式。默认选中第一项。  
+标签栏支持三种样式的显示：线条式，按钮式，卡片式，斜线式。默认选中第一项。  
 标签页支持两种传入方式，两者渲染流程上有所区别：
 
 -   通过 `tabList` 传入标签页对象的数组，当使用 `tabList` 时每次只渲染当前传入的节点
@@ -153,6 +153,44 @@ class TabDemo extends React.Component {
 }
 ```
 
+```jsx live=true
+import React from 'react';
+import { Tabs } from '@douyinfe/semi-ui';
+
+class TabDemo extends React.Component {
+    constructor() {
+        super();
+        this.state = { key: '1' };
+        this.onTabClick = this.onTabClick.bind(this);
+    }
+
+    onTabClick(key, type) {
+        this.setState({ [type]: key });
+    }
+
+    render() {
+        // eslint-disable-next-line react/jsx-key
+        const contentList = [<div>文档</div>, <div>快速起步</div>, <div>帮助</div>];
+        const tabList = [
+            { tab: '文档', itemKey: '1' },
+            { tab: '快速起步', itemKey: '2' },
+            { tab: '帮助', itemKey: '3' },
+        ];
+        return (
+            <Tabs
+                type="slash"
+                tabList={tabList}
+                onChange={key => {
+                    this.onTabClick(key, 'key');
+                }}
+            >
+                {contentList[this.state.key - 1]}
+            </Tabs>
+        );
+    }
+}
+```
+
 ### 带图标的
 
 有图标的标签栏。
@@ -257,7 +295,7 @@ function Demo() {
 
 ### 垂直的标签栏
 
-支持水平和垂直两种模式， `tabPosition='left|top'`
+`type` 为 `line`, `card`, `button` 支持水平和垂直两种模式，`tabPosition='left|top'`， 默认为 `top`。`type` 为 `slash` 仅支持水平模式，无需设置。
 
 ```jsx live=true
 import React from 'react';
@@ -404,7 +442,9 @@ class App extends React.Component {
 
 **自定义滚动箭头渲染**
 
-通过 renderArrow 修改滚动折叠模式下，左右切换箭头的渲染，入参为溢出的 items 和 位置
+通过 renderArrow 修改滚动折叠模式下，左右切换箭头的渲染，入参为溢出的 items 和 位置, 点击处理函数，以及 defaultNode。
+
+**注**：renderArrow 的前三个参数自 2.61.0 支持，defaultNode 自 2.66.0 支持。
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -412,7 +452,7 @@ import { Tabs, TabPane, Dropdown } from '@douyinfe/semi-ui';
 
 () => {
     const [activeKey, setActiveKey] = useState('Tab-0');
-    const renderArrow = (items, pos, handleArrowClick) => {
+    const renderArrow = (items, pos, handleArrowClick, defaultNode) => {
         const style = {
             width: 32,
             height: 32,
@@ -718,6 +758,7 @@ class App extends React.Component {
 | arrowPosition | 折叠模式下，左右切换箭头渲染位置 **>=2.61.0** | "start" "end" "both" | 无 |
 | className | 类名 | string | 无 |
 | collapsible | 折叠的 Tabs，**>=1.1.0** | boolean | false |
+| dropdownProps | 用于在折叠模式下透传参数到下拉菜单的 Dropdown 组件 | { start: DropdownProps, end: DropdownProps } | 无 |
 | visibleTabsStyle | 整体滚动区域 Style **>=2.61.0** | style: CSSProperties | 无 |
 | contentStyle | 内容区域外层样式对象 | CSSProperties | 无 |
 | defaultActiveKey | 初始化选中的 tab 页的 key 值 | string | '1' |
@@ -725,7 +766,7 @@ class App extends React.Component {
 | lazyRender | 懒渲染，仅当面板激活过才被渲染在 DOM 树中  | boolean | false |
 | more | 将一部分 Tab 渲染到下拉菜单中 ** >= 2.59.0** | number \| {count:number,render:()=>ReactNode,dropdownProps:DropDownProps} | - |
 | renderTabBar | 用于二次封装标签栏 | (tabBarProps: object, defaultTabBar: React.ComponentType) => ReactNode | 无 |
-| renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项 **>=2.61.0** | (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void)=> ReactNode | 无 |
+| renderArrow | 折叠滚动模式下，自定义左右切换箭头如何渲染，默认为箭头按钮 hover 时展开溢出项。前三个参数自 **>=2.61.0** 支持，defaultNode 参数自 **>=2.66.0** 支持| (items: OverflowItem[],pos:"start"\|"end", handleArrowClick:()=>void, defaultNode: ReactNode)=> ReactNode | 无 |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | showRestInDropdown | 是否将收起的 Tab 展示在下拉菜单中（仅当 collapsible 为 true 时生效） **>= 2.61.0** | boolean | true |
 | size | 大小，提供 `large`、`medium`、`small` 三种类型，**>=1.11.0，目前仅支持线性 Tabs** | string | `large` |
@@ -734,7 +775,7 @@ class App extends React.Component {
 | tabList | 标签页对象组成的数组，该对象支持 itemKey（对应 activeKey，tab（标签页文字）及 icon（标签页图标） | TabPane[] | 无 |
 | tabPaneMotion | 是否使用动画切换 tabs | boolean | true |
 | tabPosition | tab 的位置，支持`top`(水平), `left`(垂直) | string | `top` |
-| type | 标签栏的样式，可选`line`、 `card`、 `button` | string | `line` |
+| type | 标签栏的样式，可选`line`、 `card`、 `button`、`slash` | string | `line` |
 | onChange | 切换 tab 页时的回调函数 | function(activeKey: string) | 无 |
 | onTabClick | 单击事件 | function(key: string, e: Event) | 无 |
 | onTabClose | 关闭 tab 页时的回调函数 **>=2.1.0** | function(tabKey: string) | 无 |
