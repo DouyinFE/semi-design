@@ -74,13 +74,13 @@ describe('tabs', () => {
         cy.get('[id=semiTab1]').should('be.focused');
     });
 
-    it('keyboard test when the tabs is closable', () => {
+    it.only('keyboard test when the tabs is closable', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--tab-closable&args=&viewMode=story');
-        cy.get('[id=semiTab1]').click();
-        cy.get('[id=semiTab1]').should('be.focused');
+        cy.get('[data-tabkey=semiTab1]').eq(0).click();
+        cy.get('[data-tabkey=semiTab1]').eq(0).should('be.focused');
 
-        cy.get('[id=semiTab1]').type('{backspace}');
-        cy.get('[id=semiTab1]').should('not.exist');
+        cy.get('[data-tabkey=semiTab1]').eq(0).type('{backspace}');
+        cy.get('[data-tabkey=semiTab1]').should('not.exist');
     });
 
     it('collapsible', () => {

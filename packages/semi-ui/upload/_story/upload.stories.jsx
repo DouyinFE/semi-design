@@ -1324,3 +1324,16 @@ export const Unmount = () => {
         </>
     );
 };
+
+export const fix2448 = () => {
+  let action = 'http://xxx';
+    return (
+        <>
+          <Form>
+            <Form.Upload action={action} listType="picture" accept="image/*" multiple >
+              <IconPlus size="extra-large" />
+            </Form.Upload>
+          </Form>
+        </>
+    );
+}
