@@ -104,11 +104,11 @@ function Demo(props = {}) {
                 return <Typography.Text ellipsis={{ showTooltip: {opts:{style:{minWidth:"1200px"}} }}}  style={{ width: 600 }}>
                   {JSON.stringify(value)}
                 </Typography.Text>
-             }}
-              </ConfigConsumer>
-                {/*...*/}
-              </ConfigProvider>
-              );
+              }}
+            </ConfigConsumer>
+            {/*...*/}
+          </ConfigProvider>
+  );
 }
 
 ```

@@ -108,10 +108,10 @@ function Demo(props = {}) {
                   {JSON.stringify(value)}
                 </Typography.Text>
              }}
-              </ConfigConsumer>
-                {/*...*/}
-              </ConfigProvider>
-              );
+            </ConfigConsumer>
+            {/*...*/}
+          </ConfigProvider>
+          );
 }
 
 ```
