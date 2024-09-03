@@ -74,6 +74,45 @@ function Demo(props = {}) {
 }
 ```
 
+### Manually obtain values
+Usually, the value of ConfigProvider is automatically obtained and consumed within the component, so you don't need to worry about it. However, in some special scenarios, you may need to manually obtain the value to perform other operations.
+
+Use ConfigConsumer to obtain the value of ConfigProvider
+
+```jsx live=true dir="column" hideInDSM
+import React, { useMemo, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Select, DatePicker, TimePicker, Typography } from '@douyinfe/semi-ui';
+
+function Demo(props = {}) {
+  const [timeZone, setTimeZone] = useState('GMT+08:00');
+  const defaultTimestamp = 1581599305265;
+  const gmtList = useMemo(() => {
+    const list = [];
+    for (let hourOffset = -11; hourOffset <= 14; hourOffset++) {
+      const prefix = hourOffset >= 0 ? '+' : '-';
+      const hOffset = Math.abs(parseInt(hourOffset, 10));
+      list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
+    }
+    return list;
+  }, []);
+
+  return (
+          <ConfigProvider timeZone={timeZone}>
+            {/*...*/}
+            <ConfigConsumer>
+              {(value) => {
+                return <Typography.Text ellipsis={{ showTooltip: {opts:{style:{minWidth:"1200px"}} }}}  style={{ width: 600 }}>
+                  {JSON.stringify(value)}
+                </Typography.Text>
+             }}
+              </ConfigConsumer>
+                {/*...*/}
+              </ConfigProvider>
+              );
+}
+
+```
+
 ### RTL/LTR
 Global configuration `direction` can change the text direction of components。`rtl` means right to left (similar to Hebrew or Arabic), `ltr` means left to right (similar to most languages such as English)
 
