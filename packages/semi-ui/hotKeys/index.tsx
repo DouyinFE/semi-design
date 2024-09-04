@@ -89,7 +89,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
 
 
     render() {
-        const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
+        const { hotKeys, content, onClick, clickable, disabled, render, className, style, ...rest } = this.props;
  
         if (typeof render !== 'undefined') {
             if (render === null || (typeof render === 'function' && render() === null)) {
@@ -100,7 +100,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                     onClick={clickable ? onClick : noop}
                     className={classNames(prefixCls, className)}
                     style={style}
-                    {...this.getDataAttr(this.props)}
                     {...rest}    
                 >
                     { typeof render === 'function' ? render() : render }
@@ -114,7 +113,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 onClick={clickable ? onClick : noop}
                 className={classNames(prefixCls, className)}
                 style={style}
-                {...this.getDataAttr(this.props)}
                 {...rest}    
             >
                 {renderContent.map((key: KeyboardEvent["key"], index) => {
