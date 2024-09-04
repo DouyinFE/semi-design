@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@douyinfe/semi-ui'
+import { Button, Tag } from '@douyinfe/semi-ui'
 import { HotKeys, Keys } from '../../index';
 
 export default {
@@ -116,6 +116,40 @@ export const disabled = () => {
     <div>
       <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
       <pre id='pre'>{cnt}</pre>
+    </div>
+  );
+}
+
+export const hotKeys = () => {
+  const hotKeys = ["Meta", "k"]
+  const [cnt, setCnt] = useState(0)
+  const onClick = () => {
+    setCnt(cnt+1)
+  }
+  const button = () => {
+    return (
+      <div>
+        <Tag>{"Press R To do ..."}</Tag>
+      </div>
+    )
+  }
+  return (
+    <div style={{ 
+      width: '195px', height: '129px', 
+      border: '1px solid var(--semi-color-border)',
+      boxSizing: 'border-box',
+      backgroundColor: 'rgb(28,31,35)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '24px',
+      fontWeight: 'bold',
+      rowGap: '5px',
+    }}>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled={true}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} content={['⌘ ','⏎']}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
     </div>
   );
 }
