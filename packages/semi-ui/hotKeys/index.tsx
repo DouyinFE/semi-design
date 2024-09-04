@@ -2,14 +2,13 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
-import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
+import { cssClasses } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
-
+export { Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 const prefixCls = cssClasses.PREFIX;
 
-export { Keys };
 export interface HotKeysProps {
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
@@ -89,7 +88,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
 
 
     render() {
-        const { hotKeys, content, onClick, clickable, disabled, render, className, style, ...rest } = this.props;
+        const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
  
         if (typeof render !== 'undefined') {
             if (render === null || (typeof render === 'function' && render() === null)) {
@@ -99,9 +98,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 <div 
                     onClick={clickable ? onClick : noop}
                     className={classNames(prefixCls, className)}
-                    style={style}
-                    {...rest}    
-                >
+                    style={style}>
                     { typeof render === 'function' ? render() : render }
                 </div>
             );
@@ -113,7 +110,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 onClick={clickable ? onClick : noop}
                 className={classNames(prefixCls, className)}
                 style={style}
-                {...rest}    
             >
                 {renderContent.map((key: KeyboardEvent["key"], index) => {
                     return index === 0 ?

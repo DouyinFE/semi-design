@@ -3,7 +3,7 @@ localeCode: en-US
 order: 30
 category: Input
 title:  HotKeys
-icon: doc-input
+icon: doc-configprovider
 width: 60%
 brief: used to facilitate the customization of keyboard shortcut
 ---

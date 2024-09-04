@@ -138,7 +138,7 @@ export const hotKeys = () => {
       width: '195px', height: '129px', 
       border: '1px solid var(--semi-color-border)',
       boxSizing: 'border-box',
-      backgroundColor: 'rgb(28,31,35)',
+      backgroundColor: 'rgb(249,249,249)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
