@@ -23,6 +23,7 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
 }
 
 export interface ResizableAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
+    getResizable: () => HTMLDivElement | null
 }
 
 export class ResizableFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizableAdapter<P, S>, P, S> {
@@ -35,7 +36,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
             return;
         }
         const flexBasis = this.window.getComputedStyle(this.resizable).flexBasis;
-
+        
         this.setState({
             width: this.propSize.width,
             height: this.propSize.height,
@@ -383,7 +384,8 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onResizeStart(e: MouseEvent, direction: Direction) {
+    onResizeStart = (e: MouseEvent, direction: Direction) => {
+        this.resizable = this._adapter.getResizable();
         if (!this.resizable || !this.window) {
             return;
         }
@@ -394,7 +396,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
         // Call onResizeStart callback if defined
         if (props.onResizeStart) {
-            const shouldContinue = props.onResizeStart(e, direction, this.resizable);
+            const shouldContinue = props.onResizeStart(e, direction);
             if (shouldContinue === false) {
                 return;
             }
@@ -457,7 +459,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onMouseMove(event: MouseEvent) {
+    onMouseMove = (event: MouseEvent) => {
         const states = this.getStates();
         const props = this.getProps();
 
@@ -574,7 +576,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onMouseUp(event: MouseEvent) {
+    onMouseUp = (event: MouseEvent) => {
         const { isResizing, direction, original } = this.getStates();
 
         if (!isResizing || !this.resizable) {

@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useRef } from 'react';
+import React, { createRef, CSSProperties, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -20,7 +20,7 @@ export interface HandleComponent {
     topLeft?: ReactNode
 }
 
-export interface HandleStyles {
+export interface HandleStyle {
     top?: CSSProperties;
     right?: CSSProperties;
     bottom?: CSSProperties;
@@ -51,8 +51,8 @@ export interface ResizableProps {
     lockAspectRatioExtraWidth?: number;
     lockAspectRatioExtraHeight?: number;
     enable?: Enable | false;
-    handleStyle?: HandleStyles;
-    handleClasses?: HandleClassName;
+    handleStyle?: HandleStyle;
+    handleClass?: HandleClassName;
     handleWrapperStyle?: React.CSSProperties;
     handleWrapperClass?: string;
     handleNode?: HandleComponent;
@@ -103,7 +103,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         lockAspectRatioExtraHeight: PropTypes.number,
         enable: PropTypes.object,
         handleStyle: PropTypes.object,
-        handleClasses: PropTypes.object,
+        handleClass: PropTypes.object,
         handleWrapperStyle: PropTypes.object,
         handleWrapperClass: PropTypes.string,
         handleNode: PropTypes.object,
@@ -141,8 +141,10 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     };
 
     foundation: ResizableFoundation;
+    resizableRef: React.RefObject<HTMLDivElement | null>;;
     constructor(props: ResizableProps) {
         super(props);
+        this.resizableRef = createRef<HTMLDivElement | null>();
         this.foundation = new ResizableFoundation(this.adapter);
         this.state = {
             isResizing: false,
@@ -184,14 +186,19 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         this.foundation.destroy();
     }
 
+    getResizable = () => {
+        return this.resizableRef?.current   ;
+    }
+
     get adapter(): ResizableAdapter<ResizableProps, ResizableState> {
         return {
             ...super.adapter,
+            getResizable: this.getResizable,
         };
     }
 
     renderResizeHandler = () => {
-        const { enable, handleStyle, handleClasses, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
+        const { enable, handleStyle, handleClass, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
         if (!enable) {
             return null;
         }
@@ -203,7 +210,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                         direction={dir as Direction}
                         onResizeStart={this.foundation.onResizeStart}
                         style={handleStyle && handleStyle[dir]}
-                        className={handleClasses && handleClasses[dir]}
+                        className={handleClass && handleClass[dir]}
                     >
                         {handleNode?.[dir] ?? null}
                     </ResizableHandler>
@@ -241,15 +248,11 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
             <div
                 style={style}
                 className={classNames(this.props.className, prefixCls)}
-                ref={(c: HTMLElement | null) => {
-                    if (c) {
-                        this.foundation.resizable = c;
-                    }
-                }}
+                ref={this.resizableRef}
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                 {this.props.children}
-                {this.renderResizeHandler()}
+                {this.props.size ? null : this.renderResizeHandler()}
             </div>
         );
     }

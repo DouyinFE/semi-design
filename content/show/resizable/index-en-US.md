@@ -34,7 +34,7 @@ import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [text, setText] = useState('test')
+  const [text, setText] = useState('Drag edge to resize')
   const opts_1 = {
     content: 'resize start',
     duration: 1,
@@ -48,14 +48,14 @@ function Demo() {
   return (
     <div style={{ width: '500px' }}>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
           width: '60%',
           height: 300,
         }}
         onChange={() => { setText('resizing') }}
         onResizeStart={() => Toast.info(opts_1)}
-        onResizeEnd={() => { Toast.info(opts_2); setText('test') }}
+        onResizeEnd={() => { Toast.info(opts_2); setText('Drag edge to resize') }}
       >
         <div style={{ marginLeft: '20%' }}>
           {text}
@@ -87,15 +87,21 @@ interface Enable {
 
 ```jsx live=true "
 import React, { useState } from 'react';
-import { Resizable } from '@douyinfe/semi-ui';
+import { Resizable, Switch, Typography } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [b, setB] = useState(false)
+  const { Title } = Typography;
   return (
     <div style={{ width: '500px', height: '60%' }}>
-      <Button onClick={() => (setB(!b))}>{'enable.left:' + b}</Button>
+        <div style={{ display: 'flex', alignItems: 'center', margin: 8 }}>
+          <Switch checked={b} onChange={setB}></Switch>
+            <Title heading={6} style={{ margin: 8 }}>
+                {b ? 'able' : 'disable'}
+            </Title>
+        </div>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         enable={{
           left: b
         }}
@@ -127,7 +133,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         ratio={2}
         defaultSize={{
           width: 200,
@@ -155,7 +161,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
           width: 400,
           height: 300,
@@ -167,7 +173,7 @@ function Demo() {
         </div>
       </Resizable>
       <Resizable
-        style={{backgroundColor: 'lightblue'}}
+        style={{backgroundColor: 'rgba(var(--semi-grey-1), 1)'}}
         defaultSize={{
           width: 200,
           height: 200 * 9 / 16,
@@ -196,7 +202,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         maxWidth={200}
         maxHeight={300}
         minWidth={50}
@@ -217,7 +223,7 @@ function Demo() {
 ```
 
 #### Controll Width/Height
-You can control the size of the element through the size prop.
+You can control the size of the element through the size prop. And dragging will not affect the size of the element.
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -226,7 +232,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 function Demo() {
   const [size, setSize] = useState({ width: 200, height: 300 });
 
-  const onChange = ((newSize, event, direction) => {
+  const onChange = (() => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
     setSize(realSize);
   })
@@ -234,7 +240,7 @@ function Demo() {
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
           width: 100,
           height: 100,
@@ -263,7 +269,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%', transform: 'scale(0.5)', transformOrigin: '0 0' }}>
       <Resizable
-        style={{ backgroundColor: 'lightblue' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
           width: '60%',
           height: '60%',
@@ -292,7 +298,7 @@ function Demo() {
   return (
     <div style={{ width: '300px', height: '300px', border: 'black 5px solid' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'lightblue' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
           width: '60%',
           height: 200,
@@ -334,7 +340,7 @@ type HandleStyle = {
   bottomRight: React.CSSProperties;
 }
 
-type HandleClasses = {
+type HandleClass = {
   left: string;
   right: string;
   top: string;
@@ -353,13 +359,18 @@ function Demo() {
     return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
         }}
         handleNode={{
-          bottomRight: <Button type="primary">hi</Button>
+          right: <div style={{
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            width: 'fit-content',
+          }}><IconTransfer /></div>
         }}
       >
         <div style={{ marginLeft: '20%' }}>
@@ -390,7 +401,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -417,12 +428,12 @@ import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup, Toast } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [text, setText] = useState('test')
+  const [text, setText] = useState('Drag edge to resize')
   return (
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
           defaultSize={{
             width: '25%',
             height: '100%',
@@ -430,7 +441,7 @@ function Demo() {
           minWidth={'10%'}
           onResizeStart={() => Toast.info({ content: 'resize start', duration: 1, stack: true })}
           onChange={() => { setText('resizing') }}
-          onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('test') }}
+          onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('Drag edge to resize') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {text + " min:10%"}
@@ -438,7 +449,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
           defaultSize={{
             width: '25%',
             height: '100%',
@@ -452,7 +463,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'lightblue', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
           defaultSize={{
             width: '25%',
             height: '100%',
@@ -476,7 +487,7 @@ import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [text, setText] = useState('test')
+  const [text, setText] = useState('Drag edge to resize')
   const opts_1 = {
     content: 'resize start',
     duration: 1,
@@ -491,13 +502,13 @@ function Demo() {
     <div style={{ width: '500px', height: '300px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
-          style={{ backgroundColor: 'lightblue' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
           defaultSize={{
             height: '20%',
           }}
           onChange={() => { setText('resizing') }}
           onResizeStart={() => Toast.info(opts_1)}
-          onResizeEnd={() => { Toast.info(opts_2); setText('test') }}
+          onResizeEnd={() => { Toast.info(opts_2); setText('Drag edge to resize') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {'header'}
@@ -512,7 +523,7 @@ function Demo() {
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
               defaultSize={{
                 width: '25%',
               }}
@@ -523,7 +534,7 @@ function Demo() {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'lightblue', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
               defaultSize={{
                 width: '75%',
               }}
@@ -562,7 +573,7 @@ function Demo() {
 | boundElement | Restricts the size of the resizable element within a specific element. Pass "parent" to set the parent element as the bounding element    | string                  |            |        |
 | handleNode     | Custom nodes for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)          |            |        |
 | handleStyle    | Styles for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)            |            |        |
-| handleClasses    | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
+| handleClass   | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
 | style |  | CSSProperties |      |
 | snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
 | snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
