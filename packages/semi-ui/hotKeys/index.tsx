@@ -99,7 +99,10 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 <div 
                     onClick={clickable ? onClick : noop}
                     className={classNames(prefixCls, className)}
-                    style={style}>
+                    style={style}
+                    {...this.getDataAttr(this.props)}
+                    {...rest}    
+                >
                     { typeof render === 'function' ? render() : render }
                 </div>
             );
@@ -111,6 +114,8 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
                 onClick={clickable ? onClick : noop}
                 className={classNames(prefixCls, className)}
                 style={style}
+                {...this.getDataAttr(this.props)}
+                {...rest}    
             >
                 {renderContent.map((key: KeyboardEvent["key"], index) => {
                     return index === 0 ?
