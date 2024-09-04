@@ -51,10 +51,10 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         style: PropTypes.object,
         className: PropTypes.string,
         grid: PropTypes.arrayOf(PropTypes.number),
-        snap: {
+        snap: PropTypes.shape({
             x: PropTypes.arrayOf(PropTypes.number),
             y: PropTypes.arrayOf(PropTypes.number),
-        },
+        }),  
         snapGap: PropTypes.number,
         size: PropTypes.object,
         minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

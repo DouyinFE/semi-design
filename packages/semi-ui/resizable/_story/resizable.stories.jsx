@@ -429,15 +429,18 @@ export const singleMaxMin = () => {
 
 export const Single_change = () => {
   const [size, setSize] = useState({ width: 200, height: 300 });
-
-  const onChange = ((newSize, event, direction) => {
+  const ref = createRef()
+  const onChange = ((event, direction, newSize) => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
+    console.log(ref.current.foundation.getStates())
+    console.log(event, direction, newSize)
     setSize(realSize);
   })
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
+        ref={ref}
         style={{ marginLeft: '20%', backgroundColor: 'lightblue', border: 'black 5px solid' }}
         defaultSize={{
           width: '60%',

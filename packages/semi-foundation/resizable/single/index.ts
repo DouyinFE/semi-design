@@ -89,18 +89,8 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         let width = 0;
         let height = 0;
         if (this.resizable && this.window) {
-            const initialWidth = this.resizable.offsetWidth;
-            const initialHeight = this.resizable.offsetHeight;
-            const originalPosition = this.resizable.style.position;
-
-            if (originalPosition !== 'relative') {
-                this.resizable.style.position = 'relative';
-            }
-
-            width = this.resizable.style.width !== 'auto' ? this.resizable.offsetWidth : initialWidth;
-            height = this.resizable.style.height !== 'auto' ? this.resizable.offsetHeight : initialHeight;
-
-            this.resizable.style.position = originalPosition;
+            width =  this.resizable.offsetWidth ;
+            height =  this.resizable.offsetHeight ;    
         }
         return { width, height };
     }
@@ -287,12 +277,13 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
     calDirectionSize(clientX: number, clientY: number) {
-        const scale = this.getProps().scale || 1;
-        let aspectRatio = this.getProps().ratio;
+        const props = this.getProps();
+        const scale = props.scale || 1;
+        let aspectRatio = props.ratio;
         const [resizeRatioX, resizeRatioY] = Array.isArray(aspectRatio) ? aspectRatio : [aspectRatio, aspectRatio];
 
         const { direction, original } = this.getStates();
-        const { lockAspectRatio, lockAspectRatioExtraHeight = 0, lockAspectRatioExtraWidth = 0 } = this.getProps();
+        const { lockAspectRatio, lockAspectRatioExtraHeight = 0, lockAspectRatioExtraWidth = 0 } = props;
 
         let newWidth = original.width;
         let newHeight = original.height;
@@ -600,7 +591,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
         // Call onResizeEnd callback if defined
         if (onResizeEnd) {
-            onResizeEnd(event, direction, this.resizable, delta);
+            onResizeEnd(event, direction, this.size);
         }
 
         // Update state with new size if provided

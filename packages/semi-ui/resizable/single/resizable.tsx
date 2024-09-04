@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
-import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName, directions } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 import ResizableHandler from './resizableHandler';
 
@@ -86,10 +86,10 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         style: PropTypes.object,
         className: PropTypes.string,
         grid: PropTypes.arrayOf(PropTypes.number),
-        snap: {
+        snap: PropTypes.shape({
             x: PropTypes.arrayOf(PropTypes.number),
             y: PropTypes.arrayOf(PropTypes.number),
-        },
+        }),        
         snapGap: PropTypes.number,
         bounds: PropTypes.oneOf(['parent', 'window', PropTypes.node]),
         boundsByDirection: PropTypes.bool,
@@ -140,13 +140,14 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         snapGap: 0,
     };
 
+    foundation: ResizableFoundation;
     constructor(props: ResizableProps) {
         super(props);
         this.foundation = new ResizableFoundation(this.adapter);
         this.state = {
             isResizing: false,
-            width: this.foundation.propsSize?.width ?? 'auto',
-            height: this.foundation.propsSize?.height ?? 'auto',
+            width: this.foundation.propSize.width ?? 'auto',
+            height: this.foundation.propSize.height ?? 'auto',
             direction: 'right',
             original: {
                 x: 0,
@@ -194,7 +195,6 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         if (!enable) {
             return null;
         }
-        const directions = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'];
         const handlers = directions.map(dir => {
             if (enable[dir as Direction] !== false) {
                 return (

@@ -19,6 +19,8 @@ const edgeStyleBase = {
     position: 'absolute',
 } as const;
 
+export const directions = ['top', 'right', 'bottom', 'left', 'topRight', 'bottomRight', 'bottomLeft', 'topLeft'] as const;
+
 export const directionStyles = {
     top: {
         ...rowStyleBase,
@@ -199,9 +201,9 @@ export const calculateNewMax = (
     minWidth = getNumberSize(minWidth, parentSize.width, innerWidth, innerHeight);
     minHeight = getNumberSize(minHeight, parentSize.height, innerWidth, innerHeight);
     return {
-        maxWidth: typeof maxWidth === 'undefined' ? undefined : Number(maxWidth),
-        maxHeight: typeof maxHeight === 'undefined' ? undefined : Number(maxHeight),
-        minWidth: typeof minWidth === 'undefined' ? undefined : Number(minWidth),
-        minHeight: typeof minHeight === 'undefined' ? undefined : Number(minHeight),
+        maxWidth,
+        maxHeight,
+        minWidth,
+        minHeight,
     };
 };
