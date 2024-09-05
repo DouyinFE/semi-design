@@ -58,7 +58,8 @@ let config = {
         
         '@mdx-js/mdx': '<rootDir>/test/__mocks__/mdx-3.0.1-cjs.js',
         'remark-gfm': '<rootDir>/test/__mocks__/remark-gfm-4.0.0-cjs.js',
-
+        "@testing-library/react": "<rootDir>/node_modules/@testing-library/react",
+        "@testing-library/dom": "<rootDir>/node_modules/@testing-library/dom",
         '@douyinfe/semi-ui(.*)$': '<rootDir>/packages/semi-ui/$1',
         '@douyinfe/semi-foundation(.*)$': '<rootDir>/packages/semi-foundation/$1',
         '@douyinfe/semi-illustrations(.*)$': '<rootDir>/packages/semi-illustrations/src/$1',
