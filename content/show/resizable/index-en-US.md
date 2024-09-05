@@ -428,20 +428,16 @@ import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup, Toast } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [text, setText] = useState('Drag edge to resize')
+  const [text, setText] = useState('Drag to resize')
   return (
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={{
-            width: '25%',
-            height: '100%',
-          }}
-          minWidth={'10%'}
-          onResizeStart={() => Toast.info({ content: 'resize start', duration: 1, stack: true })}
+          defaultSize={'20%'}
+          min={'10%'}
           onChange={() => { setText('resizing') }}
-          onResizeEnd={() => { Toast.info({ content: 'resize end', duration: 1, stack: true }); setText('Drag edge to resize') }}
+          onResizeEnd={() => { setText('Drag to resize') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {text + " min:10%"}
@@ -450,12 +446,10 @@ function Demo() {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={{
-            width: '25%',
-            height: '100%',
-          }}
-          minWidth={'10%'}
-          maxWidth={'30%'}
+          defaultSize={'20%'}
+          min={'10%'}
+          max={'30%'}
+          onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {text + " min:10% max:30%"}
@@ -464,10 +458,8 @@ function Demo() {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={{
-            width: '25%',
-            height: '100%',
-          }}
+          defaultSize={'60px'}
+          onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {text}
@@ -487,28 +479,26 @@ import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [text, setText] = useState('Drag edge to resize')
+  const [text, setText] = useState('Drag to resize')
   const opts_1 = {
     content: 'resize start',
     duration: 1,
     stack: true,
   };
-  const opts_2 = {
+  const opts = {
     content: 'resize end',
     duration: 1,
     stack: true,
   };
   return (
-    <div style={{ width: '500px', height: '300px' }}>
+    <div style={{ width: '1000px', height: '600px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
-          defaultSize={{
-            height: '20%',
-          }}
+          defaultSize={"20%"}
           onChange={() => { setText('resizing') }}
           onResizeStart={() => Toast.info(opts_1)}
-          onResizeEnd={() => { Toast.info(opts_2); setText('Drag edge to resize') }}
+          onResizeEnd={() => { Toast.info(opts); setText('Drag to resize') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {'header'}
@@ -516,17 +506,16 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          defaultSize={{
-            height: '80%',
-          }}
+          defaultSize={"80%"}
           onChange={() => { setText('resizing') }}
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
-              defaultSize={{
-                width: '25%',
-              }}
+              defaultSize={"25%"}
+              onChange={() => { setText('resizing') }}
+              onResizeStart={() => Toast.info(opts_1)}
+              onResizeEnd={() => { Toast.info(opts); setText('Drag to resize') }}
             >
               <div style={{ marginLeft: '20%' }}>
                 {'tab'}
@@ -535,14 +524,14 @@ function Demo() {
             <ResizeHandler></ResizeHandler>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
-              defaultSize={{
-                width: '75%',
-              }}
+              defaultSize={"75%"}
+              onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
                 {text}
               </div>
             </ResizeItem>
+            
           </ResizeGroup>
         </ResizeItem>
       </ResizeGroup>
@@ -602,34 +591,13 @@ function Demo() {
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
 | defaultSize   | Sets the initial width and height, supports only percentage string  | string                  |           |        |
-| minWidth | Specifies the minimum width of the resizable box      |  string                  |   |        |
-| maxWidth | Specifies the maximum width of the resizable box      |  string                  |   |        |
-| minHeight | Specifies the minimum height of the resizable box      |  string                  |   |        |
-| maxHeight | Specifies the maximum height of the resizable box      |  string                  |   |     
+| minWidth | Specifies the minimum size of the resizable box (as percentage)     |  string                  |   |        |
+| maxWidth | Specifies the maximum size of the resizable box (as percentage)     |  string                  |   |        |   
 | style |  | CSSProperties |      |
-| snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
-| snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
-| grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
 | onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
 | onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
 
-
-## Accessibility
-
-### ARIA
-
-- Steps and Step components support passing in the `aria-label` attribute to represent the description of Steps and Steps
-- Step component has an `aria-current` `step` attribute, indicating that this is a step in the step bar
-
-## Content Guidelines
-- Step title
-  - title should be kept concise, avoiding truncation and line breaks
-  - use sentence capitalization
-  - do not include punctuation
-- Step description
-  - supplementary contextual information for the title
-  - don't end with punctuation
 
 ## Design Tokens
 
