@@ -198,7 +198,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     renderResizeHandler = () => {
-        const { enable, handleStyle, handleClass, handleNode: handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
+        const { enable, handleStyle, handleClass, handleNode, handleWrapperStyle, handleWrapperClass } = this.props;
         if (!enable) {
             return null;
         }
@@ -227,15 +227,17 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     render() {
-        const style: React.CSSProperties = {
+        const {className, style, children,
+            maxHeight, maxWidth, minHeight, minWidth, size,} = this.props;
+        const resizeStyle: React.CSSProperties = {
             position: 'relative',
             userSelect: this.state.isResizing ? 'none' : 'auto',
-            ...this.props.style,
+            ...style,
             ...this.foundation.sizeStyle,
-            maxWidth: this.props.maxWidth,
-            maxHeight: this.props.maxHeight,
-            minWidth: this.props.minWidth,
-            minHeight: this.props.minHeight,
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+            minWidth: minWidth,
+            minHeight: minHeight,
             boxSizing: 'border-box',
             flexShrink: 0,
         };
@@ -246,13 +248,14 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
 
         return (
             <div
-                style={style}
-                className={classNames(this.props.className, prefixCls)}
+                style={resizeStyle}
+                className={classNames(className, prefixCls)}
                 ref={this.resizableRef}
+                {...this.getDataAttr(this.props)}
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
-                {this.props.children}
-                {this.props.size ? null : this.renderResizeHandler()}
+                {children}
+                {size ? null : this.renderResizeHandler()}
             </div>
         );
     }

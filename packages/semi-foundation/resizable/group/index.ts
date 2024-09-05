@@ -1,7 +1,8 @@
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap } from "../singleConstants";
+import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, NewSize, findNextSnap, snap } from "../singleConstants";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getResizeHandler: () => HTMLElement
+    getHandler: () => HTMLElement;
+    getHandlerIndex: () => number;
 }
 
 export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeHandlerAdapter<P, S>, P, S> {
@@ -10,24 +11,23 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
     }
 
     init(): void {
-        this._adapter.getResizeHandler().addEventListener('mousedown', this.onMouseDown);
+        this._adapter.getHandler().addEventListener('mousedown', this.onMouseDown);
     }
 
     onMouseDown = (e: MouseEvent) => {
-        this.getProp('onResizeStart')(e, this.getProp('direction'));
+        this.getContext('notifyResizeStart')(this._adapter.getHandlerIndex(), e);
+        
+        // this.getProp('onResizeStart')(e, this.getProp('direction'));
     };
 
-    getResizeHandler = () => {
-        return this._adapter.getResizeHandler();
-    }
-
     destroy(): void {
-        this._adapter.getResizeHandler().removeEventListener('mousedown', this.onMouseDown);
+        this._adapter.getHandler().removeEventListener('mousedown', this.onMouseDown);
     }
 }
 
 export interface ResizeItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    
+    getItemRef: () => HTMLElement | null;    
+    getItemIndex: () => number;
 }
 
 export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeItemAdapter<P, S>, P, S> {
@@ -268,7 +268,8 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
 
 
-    onResizeStart(e: MouseEvent, direction: Direction) {
+    onResizeStart = (e: MouseEvent, direction: Direction) => {
+        this.resizable = this._adapter.getItemRef();
         if (!this.resizable || !this.window) {
             return;
         }
@@ -321,7 +322,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     }
 
 
-    onMouseMove(event: MouseEvent) {
+    onMouseMove = (event: MouseEvent) => {
         const states = this.getStates();
         const props = this.getProps();
 
@@ -420,7 +421,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     }
 
 
-    onMouseUp(event: MouseEvent) {
+    onMouseUp = (event: MouseEvent) => {
         const { isResizing, direction, original } = this.getStates();
 
         if (!isResizing || !this.resizable) {

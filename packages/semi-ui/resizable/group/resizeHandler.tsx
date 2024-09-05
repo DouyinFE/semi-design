@@ -42,7 +42,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
         super(props);
         this.state = {
         };
-        this.resizeHandlerRef = createRef();
+        this.handlerRef = createRef();
         this.foundation = new ResizeHandlerFoundation(this.adapter);
     }
 
@@ -60,19 +60,22 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     get adapter(): ResizeHandlerAdapter<ResizeHandlerProps, ResizeHandlerState> {
         return {
             ...super.adapter,
-            getResizeHandler: this.getResizeHandler,
+            getHandler: this.getHandler,
+            getHandlerIndex: () => this.handlerIndex,
         };
     }
 
-    getResizeHandler: () => HTMLElement = () => {
-        return this.resizeHandlerRef.current;
+    getHandler: () => HTMLElement = () => {
+        return this.handlerRef.current;
     }
 
-    resizeHandlerRef: React.RefObject<HTMLDivElement>
     static contextType = ResizeContext;
     context: ResizeContextProps;
+    handlerRef: React.RefObject<HTMLDivElement>
+    handlerIndex: number;
 
     render() {
+        this.handlerIndex = this.context.registerHandler(this.handlerRef);
         const { style, className, children } = this.props;
         return (
             <div
@@ -83,10 +86,10 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    ...directionStyles[this.props.direction],
+                    ...directionStyles[this.context.direction],
                     ...style
                 }}
-                ref={this.resizeHandlerRef}
+                ref={this.handlerRef}
             >
                 {children ?? <IconHandle size='inherit' style={{
                     rotate: this.context.direction === 'horizontal' ? '0deg' : '90deg',

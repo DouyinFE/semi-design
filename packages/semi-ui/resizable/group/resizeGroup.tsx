@@ -18,11 +18,18 @@ export interface ResizeGroupProps {
 }
 
 export interface ResizeGroupState {
+    isResizing: boolean;
+    originalPosition: {
+        x: number;
+        y: number;
+        lastItemSize: number;
+        nextItemSize: number;
+    };
+    curHandler: number;
 }
 
-
-
 class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
+    
     static propTypes = {
     };
 
@@ -33,6 +40,14 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     constructor(props: ResizeGroupProps) {
         super(props);
         this.state = {
+            isResizing: false,
+            originalPosition: {
+                x: 0,
+                y: 0,
+                lastItemSize: 0,
+                nextItemSize: 0,
+            },
+            curHandler: null
         };
         this.constraintsMap = new Map();
         this.groupRef = createRef();
@@ -44,16 +59,53 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     itemMinWidth: number = 0; // 需要是handler的宽度
     componentDidMount() {
         this.foundation.init();
-
     }
 
-    updateConstraints() {
+    componentDidUpdate(_prevProps: ResizeGroupProps) {
+    }
+
+    componentWillUnmount() {
+        this.foundation.destroy();
+    }
+
+    get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
+        return {
+            ...super.adapter,
+        };
+    }
+
+    static contextType = ResizeContext;
+    context: ResizeGroupProps;
+    itemRefs: RefObject<HTMLDivElement>[] = [];
+    handlerRefs: RefObject<HTMLDivElement>[] = [];
+
+    get window(): Window | null {
+        return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
+    }
+
+    registerEvents = () => {
+        if (this.window) {
+            this.window.addEventListener('mousemove', this.onResizing);
+            this.window.addEventListener('mouseup', this.onResizeEnd);
+            this.window.addEventListener('mouseleave', this.onResizeEnd);
+        }
+    }
+
+    unregisterEvents = () => {
+        if (this.window) {
+            this.window.removeEventListener('mousemove', this.onResizing);
+            this.window.removeEventListener('mouseup', this.onResizeEnd);
+            this.window.removeEventListener('mouseleave', this.onResizeEnd);
+        }
+    }
+
+    updateConstraints = () => {
         // this item constaint last / next handler
         let lastConstraints = new Map(), nextConstraints = new Map();
         if (this.props.direction === 'horizontal') {
             const parentWidth = this.groupRef.current.getBoundingClientRect().width;
-            for (let i = 0; i < this.childRefs.length; i++) {
-                const child = this.childRefs[i].current;
+            for (let i = 0; i < this.itemRefs.length; i++) {
+                const child = this.itemRefs[i];
                 
                 if ((child instanceof ResizeItem)) {
                     const minWidth = child.props.minWidth ? Number(child.props.minWidth.replace('%', '')) / 100 * parentWidth : 0;
@@ -77,8 +129,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             }
         } else {
             const parentHeight = this.groupRef.current.getBoundingClientRect().height;
-            for (let i = 0; i < this.childRefs.length; i++) {
-                const child = this.childRefs[i].current;
+            for (let i = 0; i < this.itemRefs.length; i++) {
+                const child = this.itemRefs[i];
                 if ((child instanceof ResizeItem)) {
                     const minHeight = child.props.minHeight ? Number(child.props.minHeight.replace('%', '')) / 100 * parentHeight : 0;
                     const rect = child.foundation.resizable.getBoundingClientRect();
@@ -101,74 +153,83 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             }
         }
 
-        for (let i = 0; i < this.childRefs.length; i++) {
-            const child = this.childRefs[i].current;
-            if ((child instanceof ResizeHandler)) {
-                // lastBack and nextFront wont be undefined
-                let [lastFront, lastBack] = lastConstraints.get(i);
-                let [nextFront, nextBack] = nextConstraints.get(i);
-                let front = lastFront === undefined ? nextFront : Math.max(lastFront, nextFront);
-                let back = nextBack === undefined ? lastBack : Math.min(lastBack, nextBack);
-                this.constraintsMap.set(i, [front, back]);
-            }
+        for (let i = 0; i < this.handlerRefs.length; i++) {
+            // lastBack and nextFront wont be undefined
+            let [lastFront, lastBack] = lastConstraints.get(i);
+            let [nextFront, nextBack] = nextConstraints.get(i);
+            let front = lastFront === undefined ? nextFront : Math.max(lastFront, nextFront);
+            let back = nextBack === undefined ? lastBack : Math.min(lastBack, nextBack);
+            this.constraintsMap.set(i, [front, back]);
         }
     }
 
-    componentDidUpdate(_prevProps: ResizeGroupProps) {
+
+    onResizing = (e: MouseEvent) => {
+        if (!this.state.isResizing) {
+            return
+        }
+        const { curHandler, originalPosition } = this.state;
+        const { x:initX, y:initY, lastItemSize, nextItemSize } = originalPosition;
+        const { clientX, clientY } = e;
+        const { direction } = this.props;
+        let lastItem = this.itemRefs[curHandler], nextItem = this.itemRefs[curHandler + 1];
+        
+        if (direction === 'horizontal') {
+            let delta = clientX - initX;
+            lastItem.current.style.width = lastItemSize + delta + 'px';
+            nextItem.current.style.width = nextItemSize - delta + 'px';
+        } else if (direction === 'vertical') {
+            let delta = clientY - initY;
+            lastItem.current.style.height = lastItemSize + delta + 'px';
+            nextItem.current.style.height = nextItemSize - delta + 'px';
+        }
+
+        // TODO: item onchange
     }
 
-    componentWillUnmount() {
-        this.foundation.destroy();
+    onResizeEnd = (e: MouseEvent) => {
+        this.setState({
+            isResizing: false
+        })
+        this.unregisterEvents();
+        // TODO: item onresizeend
     }
-
-    get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
-        return {
-            ...super.adapter,
-        };
-    }
-
-    static contextType = ResizeContext;
-    context: ResizeGroupProps;
-    childRefs: RefObject<any>[] = [];
 
     render() {
-        const { children, direction, className } = this.props;
-        this.childRefs = [];
-        
-        const childrenWithRefs = React.Children.map(children, (child, index) => {
-            if (React.isValidElement(child)) {
-                const ref = React.createRef();
-                this.childRefs.push(ref);
-                if (child.type === ResizeItem) {
-                    return React.cloneElement(child as React.ReactElement, { ref });
-                } else if (child.type === ResizeHandler) {
-                    const onResizeStart = (e: MouseEvent) => {
-                        const rect = this.childRefs[index].current.foundation.getResizeHandler().getBoundingClientRect();
-                        this.itemMinWidth = this.props.direction === 'horizontal' ? rect.width : rect.height;
-                        this.updateConstraints();
-                        let [dir_last, dir_next] = getItemDirection(direction);
-
-                        this.childRefs[index - 1].current.foundation.curHandlerId = index;
-                        this.childRefs[index - 1].current.foundation.onResizeStart(e, dir_last);
-
-                        if (index < this.childRefs.length - 1) {
-                            this.childRefs[index + 1].current.foundation.curHandlerId = index;
-                            this.childRefs[index + 1].current.foundation.onResizeStart(e, dir_next);
-                        }
-                        
-                    };
-                    return React.cloneElement(child as React.ReactElement, { ref, direction: getHandlerDirection(direction), onResizeStart });
-                }
-            }
-            return child;
-        });
+        const { children, direction, className, ...rest } = this.props;
+        this.itemRefs = [];
+        this.handlerRefs = [];
 
         return (
             <ResizeContext.Provider value={{ 
-                direction: this.props.direction,
+                direction: direction,
                 getConstraintById: (id: number) => {
                     return this.constraintsMap.get(id);
-                }
+                },
+                registerItem: (ref: RefObject<HTMLDivElement>) => {
+                    this.itemRefs.push(ref);
+                    return this.itemRefs.length - 1;
+                },
+                registerHandler: (ref: RefObject<HTMLDivElement>) => {
+                    this.handlerRefs.push(ref);
+                    return this.handlerRefs.length - 1;
+                },
+                notifyResizeStart: (handlerIndex, e) => { // handler ref
+                    const { clientX, clientY } = e;
+                    let lastItem = this.itemRefs[handlerIndex], nextItem = this.itemRefs[handlerIndex + 1];
+                    this.setState({
+                        isResizing: true,
+                        originalPosition: {
+                            x: clientX,
+                            y: clientY,
+                            lastItemSize: this.props.direction === 'horizontal' ? lastItem.current.offsetWidth : lastItem.current.offsetHeight,
+                            nextItemSize: this.props.direction === 'horizontal' ? nextItem.current.offsetWidth : nextItem.current.offsetHeight,
+                        },
+                        curHandler: handlerIndex,
+                    })
+                    this.registerEvents();
+                    // TODO: onresizestart
+                },
             }}>
                 <div 
                     style={{ 
@@ -180,8 +241,9 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     }}
                     ref={this.groupRef}
                     className={classNames(className, prefixCls + '-group')}
+                    {...rest}
                 >
-                    {childrenWithRefs}
+                    {children}
                 </div>
             </ResizeContext.Provider>
         );

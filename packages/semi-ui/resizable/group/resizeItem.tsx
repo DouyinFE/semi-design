@@ -1,11 +1,11 @@
-import React, { createRef, ReactNode } from 'react';
+import React, { createRef, ReactNode, useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { Direction, ResizeCallback, ResizeStartCallback, Size } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import { ResizeContext } from './resizeContext';
+import { ResizeContext, ResizeContextProps } from './resizeContext';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -79,6 +79,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
 
     constructor(props: ResizeItemProps) {
         super(props);
+        this.itemRef = createRef<HTMLDivElement | null>();
         this.foundation = new ResizeItemFoundation(this.adapter);
         this.state = {
             isResizing: false,
@@ -123,21 +124,22 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     get adapter(): ResizeItemAdapter<ResizeItemProps, ResizeItemState> {
         return {
             ...super.adapter,
+            getItemRef: () => this.itemRef?.current,
+            getItemIndex: () => this.itemIndex,
         };
     }
     static contextType = ResizeContext;
-    context: ResizeItemProps;
+    context: ResizeContextProps;
+    itemRef: React.RefObject<HTMLDivElement | null>;
+    itemIndex: number;
 
-    render() {                                                                                                                                                                                                                     
+    render() {     
+        this.itemIndex = this.context.registerItem(this.itemRef);                                                                                                                                                                                                                
         const style: React.CSSProperties = {
             position: 'relative',
             userSelect: this.state.isResizing ? 'none' : 'auto',
             ...this.props.style,
             ...this.foundation.sizeStyle,
-            maxWidth: this.props.maxWidth,
-            maxHeight: this.props.maxHeight,
-            minWidth: this.props.minWidth,
-            minHeight: this.props.minHeight,
             boxSizing: 'border-box',
             flexShrink: 1,
         };
@@ -150,11 +152,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             <div
                 style={style}
                 className={classNames(this.props.className, prefixCls + '-item')}
-                ref={(c: HTMLElement | null) => {
-                    if (c) {
-                        this.foundation.resizable = c;
-                    }
-                }}
+                ref={this.itemRef}
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                 {this.props.children}
