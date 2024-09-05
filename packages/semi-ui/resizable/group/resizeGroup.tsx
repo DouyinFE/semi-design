@@ -50,14 +50,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             curHandler: null,
             curConstraint: null
         };
-        this.constraintsMap = new Map();
+        
         this.groupRef = createRef();
         this.foundation = new ResizeGroupFoundation(this.adapter);
     }
 
     groupRef: React.RefObject<HTMLDivElement>;
-    constraintsMap: Map<number, [number, number]>;
-    itemMinSize: number = 0; // the size of handler define the min size of item to contain border
     static contextType = ResizeContext;
     context: ResizeGroupProps;
     itemRefs: RefObject<HTMLDivElement>[] = [];
@@ -82,6 +80,26 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
         return {
             ...super.adapter,
+            getGroupRef: () => this.groupRef.current,
+            getItem: (id: number) => this.itemRefs[id].current,
+            getItemCount: () => this.itemRefs.length,
+            getHandler: (id: number) => this.handlerRefs[id].current,
+            getHandlerCount: () => this.handlerRefs.length,
+            getItemMin: (index) => {
+                return this.itemMinMap.get(index);
+            },
+            getItemMax: (index) => {
+                return this.itemMaxMap.get(index);
+            },
+            getItemChange: (index) => {
+                return this.itemResizing.get(index);
+            },
+            getItemEnd: (index) => {
+                return this.itemResizeEnd.get(index);   
+            },
+            getItemStart: (index) => {
+                return this.itemResizeStart.get(index);
+            },
         };
     }
 
@@ -89,160 +107,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
     }
 
-    registerEvents = () => {
-        if (this.window) {
-            this.window.addEventListener('mousemove', this.onResizing);
-            this.window.addEventListener('mouseup', this.onResizeEnd);
-            this.window.addEventListener('mouseleave', this.onResizeEnd);
-        }
-    }
-
-    unregisterEvents = () => {
-        if (this.window) {
-            this.window.removeEventListener('mousemove', this.onResizing);
-            this.window.removeEventListener('mouseup', this.onResizeEnd);
-            this.window.removeEventListener('mouseleave', this.onResizeEnd);
-        }
-    }
-
-    updateConstraints = () => {
-        // this item constaint last / next handler
-        let lastConstraints = new Map(), nextConstraints = new Map();
-        if (this.props.direction === 'horizontal') {
-            const parentWidth = this.groupRef.current.getBoundingClientRect().width;
-            for (let i = 0; i < this.itemRefs.length; i++) {
-                const child = this.itemRefs[i].current;
-
-                const minWidth = this.itemMinMap.get(i) ? Number(this.itemMinMap.get(i).replace('%', '')) / 100 * parentWidth : 0;
-                const rect = child.getBoundingClientRect();
-                let { borderLeftWidth, borderRightWidth } = this.window.getComputedStyle(child);
-                let leftWidth = Number(borderLeftWidth.replace('px', ''));
-                let rightWidth = Number(borderRightWidth.replace('px', ''));
-                let borderWidth = leftWidth + rightWidth + this.itemMinSize;
-
-                let nextLeftConstraint = rect.left + minWidth + borderWidth, nextRightConstraint = undefined;
-                let lastRightConstraint = rect.right - minWidth - borderWidth, lastLeftConstraint = undefined;
-                if (this.itemMaxMap.get(i)) {
-                    const maxWidth = Number(this.itemMaxMap.get(i).replace('%', '')) / 100 * parentWidth;
-                    nextRightConstraint = rect.left + maxWidth - borderWidth;
-                    lastLeftConstraint = rect.right - maxWidth + borderWidth;
-                }
-
-                lastConstraints.set(i - 1, [lastLeftConstraint, lastRightConstraint]);
-                nextConstraints.set(i, [nextLeftConstraint, nextRightConstraint]);
-            }
-        } else {
-            const parentHeight = this.groupRef.current.getBoundingClientRect().height;
-            for (let i = 0; i < this.itemRefs.length; i++) {
-                const child = this.itemRefs[i].current;
-
-                const minHeight = this.itemMinMap.get(i) ? Number(this.itemMinMap.get(i).replace('%', '')) / 100 * parentHeight : 0;
-                const rect = child.getBoundingClientRect();
-                let { borderTopWidth, borderBottomWidth } = this.window.getComputedStyle(child);
-                let topWidth = Number(borderTopWidth.replace('px', ''));
-                let bottomWidth = Number(borderBottomWidth.replace('px', ''));
-                let borderWidth = (topWidth + bottomWidth) + this.itemMinSize;
-
-                let nextTopConstraint = rect.top + minHeight + borderWidth, nextBottomConstraint = undefined;
-                let lastBottomConstraint = rect.bottom - minHeight - borderWidth, lastTopConstraint = undefined;
-                if (this.itemMaxMap.get(i)) {
-                    const maxHeight = Number(this.itemMaxMap.get(i).replace('%', '')) / 100 * parentHeight;
-                    nextBottomConstraint = rect.top + maxHeight - borderWidth;
-                    lastTopConstraint = rect.bottom - maxHeight + borderWidth;
-                }
-
-                lastConstraints.set(i - 1, [lastTopConstraint, lastBottomConstraint]);
-                nextConstraints.set(i, [nextTopConstraint, nextBottomConstraint]);
-
-            }
-        }
-
-        for (let i = 0; i < this.handlerRefs.length; i++) {
-            // lastBack and nextFront wont be undefined
-            let [lastFront, lastBack] = lastConstraints.get(i);
-            let [nextFront, nextBack] = nextConstraints.get(i);
-            let front = lastFront === undefined ? nextFront : Math.max(lastFront, nextFront);
-            let back = nextBack === undefined ? lastBack : Math.min(lastBack, nextBack);
-            this.constraintsMap.set(i, [front, back]);
-        }
-    }
-
-
-    onResizing = (e: MouseEvent) => {
-        if (!this.state.isResizing) {
-            return
-        }
-        const { curHandler, originalPosition, curConstraint } = this.state;
-        const { x: initX, y: initY, lastItemSize, nextItemSize } = originalPosition;
-        const { clientX, clientY } = e;
-
-        if (curConstraint) {
-            if (this.props.direction === 'horizontal') {
-                if (clientX <= curConstraint[0] || clientX >= curConstraint[1]) {
-                    return
-                }
-            } else if (this.props.direction === 'vertical') {
-                if (clientY <= curConstraint[0] || clientY >= curConstraint[1]) {
-                    return
-                }
-            }
-        }
-
-        const { direction } = this.props;
-        let lastItem = this.itemRefs[curHandler], nextItem = this.itemRefs[curHandler + 1];
-
-        if (direction === 'horizontal') {
-            let delta = clientX - initX;
-            lastItem.current.style.width = lastItemSize + delta + 'px';
-            nextItem.current.style.width = nextItemSize - delta + 'px';
-        } else if (direction === 'vertical') {
-            let delta = clientY - initY;
-            lastItem.current.style.height = lastItemSize + delta + 'px';
-            nextItem.current.style.height = nextItemSize - delta + 'px';
-        }
-
-        let lastFunc = this.itemResizing.get(curHandler),
-            nextFunc = this.itemResizing.get(curHandler + 1);
-        let [lastDir, nextDir] = getItemDirection(this.props.direction)
-        if (lastFunc) {
-            lastFunc(e, lastDir as any, {width: lastItem.current.offsetWidth, height: lastItem.current.offsetHeight})
-        }
-        if (nextFunc) {
-            nextFunc(e, nextDir as any, {width: nextItem.current.offsetWidth, height: nextItem.current.offsetHeight})
-        }
-    }
-
-    onResizeEnd = (e: MouseEvent) => {
-        const { curHandler } = this.state;
-        let lastItem = this.itemRefs[curHandler], nextItem = this.itemRefs[curHandler + 1];
-        let lastFunc = this.itemResizeEnd.get(curHandler),
-            nextFunc = this.itemResizeEnd.get(curHandler + 1);
-        let [lastDir, nextDir] = getItemDirection(this.props.direction)
-        if (lastFunc) {
-            lastFunc(e, lastDir as any, {width: lastItem.current.offsetWidth, height: lastItem.current.offsetHeight})
-        }
-        if (nextFunc) {
-            nextFunc(e, nextDir as any, {width: nextItem.current.offsetWidth, height: nextItem.current.offsetHeight})
-        }
-        this.setState({
-            isResizing: false,
-            curConstraint: null,
-            curHandler: null
-        })
-        this.unregisterEvents();
-    }
+    
 
     render() {
-        const { children, direction, className, ...rest } = this.props;
         this.itemRefs = [];
         this.handlerRefs = [];
+        const { children, direction, className, ...rest } = this.props;
 
         return (
             <ResizeContext.Provider value={{
                 direction: direction,
-                getConstraintById: (id: number) => {
-                    return this.constraintsMap.get(id);
-                },
                 registerItem: (ref: RefObject<HTMLDivElement>,
                     min, max,
                     onResizeStart, onChange, onResizeEnd
@@ -260,40 +134,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     this.handlerRefs.push(ref);
                     return this.handlerRefs.length - 1;
                 },
-                notifyResizeStart: (handlerIndex, e) => { // handler ref
-                    let { clientX, clientY } = e;
-                    let lastItem = this.itemRefs[handlerIndex], nextItem = this.itemRefs[handlerIndex + 1];
-                    let curHandler = this.handlerRefs[handlerIndex].current;
-
-                    if (this.props.direction === 'horizontal') {
-                        this.itemMinSize = this.handlerRefs[handlerIndex].current.offsetWidth;
-                    } else if (this.props.direction === 'vertical') {
-                        this.itemMinSize = this.handlerRefs[handlerIndex].current.offsetHeight;
-                    }
-                    this.updateConstraints();
-                    this.setState({
-                        isResizing: true,
-                        originalPosition: {
-                            x: clientX,
-                            y: clientY,
-                            lastItemSize: this.props.direction === 'horizontal' ? lastItem.current.offsetWidth : lastItem.current.offsetHeight,
-                            nextItemSize: this.props.direction === 'horizontal' ? nextItem.current.offsetWidth : nextItem.current.offsetHeight,
-                        },
-                        curHandler: handlerIndex,
-                        curConstraint: this.constraintsMap.get(handlerIndex),
-                    })
-                    this.registerEvents();
-
-                    let lastStart = this.itemResizeStart.get(handlerIndex),
-                        nextStart = this.itemResizeStart.get(handlerIndex + 1);
-                    let [lastDir, nextDir] = getItemDirection(this.props.direction)
-                    if (lastStart) {
-                        lastStart(e, lastDir as any)
-                    }
-                    if (nextStart) {
-                        nextStart(e, nextDir as any)
-                    }
-                },
+                notifyResizeStart: this.foundation.onResizeStart,
                 getGroupSize: () => {
                     return {
                         width: this.groupRef.current.offsetWidth,

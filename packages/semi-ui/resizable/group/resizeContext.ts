@@ -3,7 +3,6 @@ import { ResizeCallback, ResizeStartCallback} from '@douyinfe/semi-foundation/re
 
 export interface ResizeContextProps {
     direction: 'horizontal' | 'vertical';
-    getConstraintById: (id: number) => [number, number];
     registerItem: (ref: RefObject<HTMLDivElement>, 
         min: string, max:string,
         onResizeStart: ResizeStartCallback,
