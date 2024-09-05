@@ -81,8 +81,8 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     itemIndex: number;
 
     render() {     
-        const { min, max } = this.props;
-        this.itemIndex = this.context.registerItem(this.itemRef, min, max);                                                                                                                                                                                                                
+        const { min, max, onResizeStart, onChange, onResizeEnd } = this.props;
+        this.itemIndex = this.context.registerItem(this.itemRef, min, max, onResizeStart, onChange, onResizeEnd);                                                                                                                                                                                                                
         const style: React.CSSProperties = {
             position: 'relative',
             boxSizing: 'border-box',

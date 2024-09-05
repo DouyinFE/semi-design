@@ -30,11 +30,3 @@ export const getItemDirection = (dir: 'vertical'| 'horizontal') => {
         return ['right', 'left'];
     }
 };
-
-export const getHandlerDirection = (dir: 'vertical'| 'horizontal') => {
-    if (dir === 'vertical') {
-        return 'bottom';
-    } else {
-        return 'right';
-    }
-};
