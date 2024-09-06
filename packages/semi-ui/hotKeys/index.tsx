@@ -10,11 +10,12 @@ export { Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 const prefixCls = cssClasses.PREFIX;
 
 export interface HotKeysProps {
+    blockDefault?: boolean;
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
     onClick?: () => void;
-    clickable?: boolean;
-    disabled?: boolean;
+    onHotKey?: () => void;
+    mergeMetaCtrl?: boolean;
     render?: () => ReactNode | ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
@@ -22,16 +23,16 @@ export interface HotKeysProps {
 }
 
 export interface HotKeysState {
-    disabled: boolean
 }
 
 class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     static propTypes = {
+        blockDefalut: PropTypes.bool,
         hotKeys: PropTypes.arrayOf(PropTypes.string),
         content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
-        clickable: PropTypes.bool,
-        disabled: PropTypes.bool,
+        onHotKey: PropTypes.func,
+        mergeMetaCtrl: PropTypes.bool,
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
         getListenerTarget: PropTypes.func,
         className: PropTypes.string,
@@ -39,11 +40,12 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     };
 
     static defaultProps: Partial<HotKeysProps> = {
+        blockDefault: false,
         hotKeys: null,
         content: null,
         onClick: noop,
-        clickable: false,
-        disabled: false,
+        onHotKey: noop,
+        mergeMetaCtrl: false,
         render: undefined,
         getListenerTarget: () => document.body,
         className: '',
@@ -53,7 +55,6 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     constructor(props: HotKeysProps) {
         super(props);
         this.state = {
-            disabled: false
         };
         this.foundation = new HotKeysFoudation(this.adapter);
     }
@@ -72,13 +73,13 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
-            notifyClick: () => {
-                if (this.props.onClick) {
-                    this.props.onClick();
+            notifyHotKey: () => {
+                if (this.props.onHotKey && typeof this.props.onHotKey === 'function') {
+                    this.props.onHotKey();
                 }
             },
             getListenerTarget: () => {
-                if (this.props.getListenerTarget) {
+                if (this.props.getListenerTarget && typeof this.props.getListenerTarget === 'function') {
                     return this.props.getListenerTarget();
                 }
                 return document.body;
@@ -88,7 +89,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
 
 
     render() {
-        const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
+        const { hotKeys, content, onClick, render, getListenerTarget, className, style, ...rest } = this.props;
  
         if (typeof render !== 'undefined') {
             if (render === null || (typeof render === 'function' && render() === null)) {
@@ -96,9 +97,11 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
             }
             return (
                 <div 
-                    onClick={clickable ? onClick : noop}
+                    onClick={onClick}
                     className={classNames(prefixCls, className)}
-                    style={style}>
+                    style={style}
+                    {...this.getDataAttr(rest)}    
+                >
                     { typeof render === 'function' ? render() : render }
                 </div>
             );
@@ -107,9 +110,10 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
 
         return (
             <div
-                onClick={clickable ? onClick : noop}
+                onClick={onClick}
                 className={classNames(prefixCls, className)}
                 style={style}
+                {...this.getDataAttr(rest)}  
             >
                 {renderContent.map((key: KeyboardEvent["key"], index) => {
                     return index === 0 ?

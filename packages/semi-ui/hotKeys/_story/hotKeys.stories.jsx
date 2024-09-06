@@ -7,29 +7,14 @@ export default {
 }
 
 export const Demo = () => {
-  const hotKeys = ["alt", Keys.K]
+  const hotKeys = [Keys.Control, Keys.K]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
-      <pre id='pre'>{cnt}</pre>
-    </div>
-  );
-}
-
-export const Clickable = () => {
-  const hotKeys = ["Alt", Keys.K]
-  const [cnt, setCnt] = useState(0)
-  const onClick = () => {
-    setCnt(cnt+1)
-  }
-  return (
-    <div>
-      <div>clickable</div>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} clickable={true}></HotKeys>
+      <HotKeys hotKeys={hotKeys} content={["Control", "K"]} onHotKey={onHotKey} onClick={onHotKey} mergeMetaCtrl></HotKeys>
       <pre id='pre'>{cnt}</pre>
     </div>
   );
@@ -38,7 +23,7 @@ export const Clickable = () => {
 export const renderButton = () => {
   const hotKeys = [Keys.R]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   const button = () => {
@@ -51,7 +36,7 @@ export const renderButton = () => {
   return (
     <div>
       <pre id='pre'>{" cnt:" + cnt}</pre>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button} clickable></HotKeys>
     </div>
 
   );
@@ -60,13 +45,13 @@ export const renderButton = () => {
 export const renderNull = () => {
   const hotKeys = ["r"]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
       <span>{" cnt:" + cnt}</span>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} render={null} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={null} clickable></HotKeys>
     </div>
 
   );
@@ -75,14 +60,14 @@ export const renderNull = () => {
 export const combine = () => {
   const hotKeys = [Keys.Meta, Keys.Alt, "k"]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
       <pre id='pre'>{cnt}</pre>
-      <HotKeys hotKeys={hotKeys} onClick={onClick}></HotKeys>
-      <HotKeys hotKeys={["Meta", "Shift", "k"]} onClick={onClick}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey}></HotKeys>
+      <HotKeys hotKeys={["Meta", "Shift", "k"]} onHotKey={onHotKey}></HotKeys>
     </div>
     
   );
@@ -91,7 +76,7 @@ export const combine = () => {
 export const target = () => {
   const hotKeys = ["Meta", Keys.S]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   
@@ -100,7 +85,7 @@ export const target = () => {
     <div>
       {target}
       <pre id='pre'>{cnt}</pre>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} getListenerTarget={() => document.getElementById("test")}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} getListenerTarget={() => document.getElementById("test")}></HotKeys>
     </div>
     
   );
@@ -109,12 +94,12 @@ export const target = () => {
 export const disabled = () => {
   const hotKeys = ["Meta", "k"]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} disabled></HotKeys>
       <pre id='pre'>{cnt}</pre>
     </div>
   );
@@ -123,7 +108,7 @@ export const disabled = () => {
 export const hotKeys = () => {
   const hotKeys = ["Meta", "k"]
   const [cnt, setCnt] = useState(0)
-  const onClick = () => {
+  const onHotKey = () => {
     setCnt(cnt+1)
   }
   const button = () => {
@@ -147,9 +132,9 @@ export const hotKeys = () => {
       fontWeight: 'bold',
       rowGap: '5px',
     }}>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} disabled={true}></HotKeys>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} content={['⌘ ','⏎']}></HotKeys>
-      <HotKeys hotKeys={hotKeys} onClick={onClick} render={button} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} disabled={true}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} content={['⌘ ','⏎']}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button} clickable></HotKeys>
     </div>
   );
 }

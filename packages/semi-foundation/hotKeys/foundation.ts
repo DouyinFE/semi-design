@@ -2,7 +2,7 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { keyToCode, Keys } from './constants';
 
 export interface HotKeysAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    notifyClick: () => void;
+    notifyHotKey: () => void;
     getListenerTarget: () => HTMLElement
 }
 
@@ -39,11 +39,7 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
     }
 
     handleKeyDown = (event: KeyboardEvent): void => {
-        const disabled = this.getProps().disabled;
-        if (disabled) {
-            return;
-        }
-        const hotKeys = this.getProps().hotKeys;
+        const { mergeMetaCtrl:merged, hotKeys, blockDefault } = this.getProps();
         let allModifier = new Array(4).fill(false); // Meta Shift Alt Ctrl
         let clickedModifier = [event.metaKey, event.shiftKey, event.altKey, event.ctrlKey];
         const keysPressed = hotKeys?.map((key: KeyboardEvent["key"])=> {
@@ -68,15 +64,13 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
             return;
         }
         if (keysPressed.every(Boolean)) {
-            event.preventDefault();
-            this.handleClick();
+            if (blockDefault) {
+                event.preventDefault();
+            }
+            this._adapter.notifyHotKey();
             return;
         }
         
-    }
-
-    handleClick(): void {
-        this._adapter.notifyClick();
     }
 
     destroy(): void {
