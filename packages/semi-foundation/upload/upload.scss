@@ -347,6 +347,7 @@ $module: #{$prefix}-upload;
             height: $height-upload_file_pic_card;
             width: $width-upload_file_pic_card;
             border-radius: $radius-upload_picture_file_card_img;
+            box-sizing: border-box;
             position: relative;
             overflow: hidden;
 
@@ -474,6 +475,7 @@ $module: #{$prefix}-upload;
             }
 
             &-error {
+                border: 1px solid $color-upload_picture_file_card_error-border;
                 outline: 1px solid $color-upload_picture_file_card_error-border;
             }
 
