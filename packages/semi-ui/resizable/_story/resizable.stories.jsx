@@ -134,7 +134,6 @@ export const Group_nested = () => {
             <ResizeHandler></ResizeHandler>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-              defaultSize={'25%'}
               onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -209,7 +208,7 @@ export const Group_vertical = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={'30%'}
+          
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>

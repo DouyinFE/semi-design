@@ -74,11 +74,19 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
         for (let i = 0; i < this.itemDefaultSizeList.length; i++) {
             if (this.itemDefaultSizeList[i]) {
+                let itemSizePercent: number;
                 if (this.itemDefaultSizeList[i].endsWith('%')) {
-                    totalSizePercent += parseInt(this.itemDefaultSizeList[i].slice(0, -1));
+                    itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -1));
                 } else if (this.itemDefaultSizeList[i].endsWith('px')) {
-                    
-                    totalSizePercent += parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
+                    itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
+                }
+                totalSizePercent += itemSizePercent;
+                let minSizePercent = Number(this.itemMinMap.get(i)?.replace('%', '')), 
+                    maxSizePercent = Number(this.itemMaxMap.get(i)?.replace('%', ''));
+                if (itemSizePercent < minSizePercent) {
+                    console.warn('item size smaller than min size');
+                } else if (itemSizePercent > maxSizePercent) {
+                    console.warn('item size bigger than max size');
                 }
             } else {
                 undefineLoc.push(i);
