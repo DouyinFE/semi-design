@@ -3,6 +3,7 @@ import { CompileOptions, evaluate, compile, EvaluateOptions, evaluateSync, RunOp
 import { MDXProps } from 'mdx/types';
 import remarkGfm from 'remark-gfm';
 import { type PluggableList } from "@mdx-js/mdx/lib/core";
+import {VFile} from "vfile";
 export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getRuntime: () => any
 
@@ -47,7 +48,7 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
         };
     }
 
-    compile = async (mdxRaw: string)=>{
+    compile = async (mdxRaw: string): Promise<VFile> =>{
         return await compile(mdxRaw, this.getOptions().compileOptions);
     }
 
