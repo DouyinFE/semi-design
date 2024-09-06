@@ -61,6 +61,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     itemRefs: RefObject<HTMLDivElement>[] = [];
     itemMinMap: Map<number, string> = new Map();
     itemMaxMap: Map<number, string> = new Map();
+    itemDefaultSizeList: string[] = []
     itemResizeStart: Map<number, ResizeStartCallback> = new Map();
     itemResizing: Map<number, ResizeCallback> = new Map();
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
@@ -68,6 +69,35 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentDidMount() {
         this.foundation.init();
+        let totalSizePercent = 0;
+        let undefineLoc = []
+        let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
+        for (let i = 0; i < this.itemDefaultSizeList.length; i++) {
+            if (this.itemDefaultSizeList[i]) {
+                if (this.itemDefaultSizeList[i].endsWith('%')) {
+                    totalSizePercent += parseInt(this.itemDefaultSizeList[i].slice(0, -1));
+                } else if (this.itemDefaultSizeList[i].endsWith('px')) {
+                    
+                    totalSizePercent += parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
+                }
+            } else {
+                undefineLoc.push(i);
+            }
+        }
+        let undefineSizePercent = 100 - totalSizePercent;
+        if (totalSizePercent > 100) {
+            console.warn('total Size bigger than 100%');
+            undefineSizePercent = 10 // 如果总和超过100%，则保留10%的空间均分给未定义的item
+        }
+        let undefineSize = undefineLoc.length > 0 ? undefineSizePercent / undefineLoc.length * parentSize / 100 : 0;
+        for (let i = 0; i < undefineLoc.length; i++) {
+            const child = this.itemRefs[undefineLoc[i]].current;
+            if (this.props.direction === 'horizontal') {
+                child.style.width = undefineSize + 'px';
+            } else {
+                child.style.height = undefineSize + 'px';
+            }
+        }
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -112,19 +142,21 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     render() {
         this.itemRefs = [];
         this.handlerRefs = [];
+        this.itemDefaultSizeList = [];
         const { children, direction, className, ...rest } = this.props;
 
         return (
             <ResizeContext.Provider value={{
                 direction: direction,
                 registerItem: (ref: RefObject<HTMLDivElement>,
-                    min, max,
+                    min, max, defaultSize,
                     onResizeStart, onChange, onResizeEnd
                 ) => {
                     this.itemRefs.push(ref);
                     let index = this.itemRefs.length - 1;
                     this.itemMinMap.set(index, min);
                     this.itemMaxMap.set(index, max);
+                    this.itemDefaultSizeList.push(defaultSize);
                     this.itemResizeStart.set(index, onResizeStart);
                     this.itemResizing.set(index, onChange);
                     this.itemResizeEnd.set(index, onResizeEnd);

@@ -4,7 +4,7 @@ import { ResizeCallback, ResizeStartCallback} from '@douyinfe/semi-foundation/re
 export interface ResizeContextProps {
     direction: 'horizontal' | 'vertical';
     registerItem: (ref: RefObject<HTMLDivElement>, 
-        min: string, max:string,
+        min: string, max:string, defaultSize: string,
         onResizeStart: ResizeStartCallback,
         onChange: ResizeCallback,
         onResizeEnd: ResizeCallback

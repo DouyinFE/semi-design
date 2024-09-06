@@ -26,7 +26,7 @@ export const Group_layout = () => {
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
           defaultSize={"20%"}
           onChange={() => { setText('resizing') }}
-          onResizeStart={() => Toast.info(opts_1)}
+          onResizeStart={() => {{Toast.info(opts_1)}}}
           onResizeEnd={() => { Toast.info(opts); setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -41,9 +41,9 @@ export const Group_layout = () => {
           <ResizeGroup direction='horizontal'>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
-              defaultSize={"25%"}
+              defaultSize={"20%"}
               onChange={() => { setText('resizing') }}
-              onResizeStart={() => Toast.info(opts_1)}
+              onResizeStart={() => {Toast.info(opts_1)}}
               onResizeEnd={() => { Toast.info(opts); setText('test') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -53,7 +53,16 @@ export const Group_layout = () => {
             <ResizeHandler></ResizeHandler>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
-              defaultSize={"75%"}
+              onChange={() => { setText('resizing') }}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              // defaultSize={"90%"}
               onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -87,7 +96,7 @@ export const Group_nested = () => {
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
           defaultSize={"20%"}
           onChange={() => { setText('resizing') }}
-          onResizeStart={() => Toast.info(opts_1)}
+          onResizeStart={() => {{Toast.info(opts_1)}}}
           onResizeEnd={() => { Toast.info(opts); setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -105,7 +114,7 @@ export const Group_nested = () => {
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
               defaultSize={"25%"}
               onChange={() => { setText('resizing') }}
-              onResizeStart={() => Toast.info(opts_1)}
+              onResizeStart={() => {Toast.info(opts_1)}}
               onResizeEnd={() => { Toast.info(opts); setText('test') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -170,7 +179,7 @@ export const Group_vertical = () => {
           min={'10%'}
           max={'30%'}
           onChange={() => { setText('resizing') }}
-          onResizeStart={() => Toast.info(opts_1)}
+          onResizeStart={() => {Toast.info(opts_1)}}
           onResizeEnd={() => { Toast.info(opts); setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -276,8 +285,8 @@ export const Single_defaultSize = () => {
           width: '60%',
           height: 300,
         }}
-        onChange={(e, d, s) => { setText('resizing');console.log(e, d, s) }}
-        onResizeStart={() => Toast.info(opts_1)}
+        onChange={(e, d, s) => { setText('resizing'); }}
+        onResizeStart={() => {Toast.info(opts_1)}}
         onResizeEnd={() => { Toast.info(opts); setText('test') }}
       >
         <div style={{ marginLeft: '20%' }}>
@@ -387,17 +396,14 @@ export const singleMaxMin = () => {
 export const Single_change = () => {
   const [size, setSize] = useState({ width: 200, height: 300 });
   const ref = createRef()
-  const onChange = ((event, direction, newSize) => {
+  const onChange = (() => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
-    console.log(ref.current.foundation.getStates())
-    console.log(event, direction, newSize)
     setSize(realSize);
   })
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
-        ref={ref}
         style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
         defaultSize={{
           width: '60%',
@@ -464,7 +470,7 @@ export const Single_handler = () => {
         handleNode={{
           bottomRight: <Button type="primary">hi</Button>
         }}
-        handleStyles={{
+        handleStyle={{
           bottomRight: {
             width: '100px',
             height: '100px',
@@ -489,7 +495,7 @@ export const Single_grid = () => {
           width: '60%',
           height: 300,
         }}
-        grid={100}
+        grid={[100, 100]}
         snapGap={20}
       >
         <div style={{ marginLeft: '20%' }}>
