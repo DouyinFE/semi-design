@@ -23,7 +23,7 @@ import { HotKeys } from '@douyinfe/semi-ui';
 快捷键仅支持修饰键组合`Shift`,`Control`,`Meta`,`Alt`与其他键的组合。
 > [Meta](https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent/metaKey) 在MacOS中为`Command`，在Windows中为`Win`
 
-当设定快捷键与常用快捷键如`Ctrl/Meta + C`相同时，可以通过设置`blockDefault`控制默认事件是否触发。
+当设定快捷键与常用快捷键如`Ctrl/Meta + C`相同时，可以通过设置`preventDefault`控制默认事件是否触发。
 
 ### 基本
 
@@ -31,14 +31,11 @@ import { HotKeys } from '@douyinfe/semi-ui';
 
 按下 Ctrl + Shift + A， 唤起modal。默认在 body.document 监听，全局生效。
 
-[hotKeys取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)，推荐引入包装好的`Keys`进行设置
-```jsx
-import { Keys } from '@douyinfe/semi-ui';
-```
+[hotKeys取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)，也可以使用`HotKeys.Keys`进行设置
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -51,7 +48,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, 'Shift', Keys.A]
+  const hotKeys = [HotKeys.Keys.Control, 'Shift', HotKeys.Keys.A]
   
   return (
     <div>
@@ -75,7 +72,7 @@ function Demo() {
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -88,7 +85,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, 'Shift', Keys.B]
+  const hotKeys = [HotKeys.Keys.Control, 'Shift', HotKeys.Keys.B]
   
   return (
     <div>
@@ -110,7 +107,7 @@ function Demo() {
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal, Tag } from '@douyinfe/semi-ui';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -123,7 +120,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, Keys.R]
+  const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R]
   
   const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>
   return (
@@ -144,10 +141,10 @@ function Demo() {
 
 ### 阻止默认事件
 
-通过设置`blockDefault`控制默认事件是否触发。
+通过设置`preventDefault`控制默认事件是否触发。
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -160,13 +157,13 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Meta, Keys.S]
+  const hotKeys = [HotKeys.Keys.Meta, HotKeys.Keys.S]
 
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} blockDefault></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} preventDefault></HotKeys>
       <br />
-      <HotKeys hotKeys={[Keys.Control, Keys.S]} onHotKey={showDialog} blockDefault></HotKeys>
+      <HotKeys hotKeys={[HotKeys.Keys.Control, HotKeys.Keys.S]} onHotKey={showDialog} preventDefault></HotKeys>
       <Modal
           title="Dialog"
           visible={visible}
@@ -225,13 +222,13 @@ function Demo() {
 
 | 属性              | 说明                                                                  | 类型                            | 默认值    |
 | ----------------- | --------------------------------------------------------------------- | ------------------------------- | --------- |
-| blockDefault        | 是否阻止快捷键默认行为                                                                  | boolean                          | false          |
 | className         | 类名                                                                  | string                          |           |
 | content | 设置显示内容                                          | string[]                          | -         |
 | getListenerTarget         | 用于设置监听器挂载的DOM            | () => HTMLElement                       |  document.body         |
 | hotKeys  | 设置快捷键组合，[取值参考](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)                                          | KeyboardEvent.key[]                          | -         |
 | onClick        | 点击回调函数                                                              |   () => void                      |    -       |
-| onHotKey        | 快捷键回调函数                                                              |   () => void                      |    -       |
+| onHotKey        | 快捷键回调函数                                                              |   (e: KeyboardEvent) => void                      |    -       |
+| preventDefault        | 是否阻止快捷键默认行为                                                                  | boolean                          | false          |
 | render        |    覆盖组件渲染                                               | () => ReactNode \| ReactNode                       |           |
 | style             | 样式                                                                  | CSSProperties                   |           |
 

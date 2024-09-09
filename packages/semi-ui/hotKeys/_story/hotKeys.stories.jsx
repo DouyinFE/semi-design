@@ -7,9 +7,10 @@ export default {
 }
 
 export const Demo = () => {
-  const hotKeys = [Keys.Control, Keys.K]
+  const hotKeys = [HotKeys.Keys.Control, Keys.K]
   const [cnt, setCnt] = useState(0)
-  const onHotKey = () => {
+  const onHotKey = (e) => {
+    console.log(e)
     setCnt(cnt+1)
   }
   return (

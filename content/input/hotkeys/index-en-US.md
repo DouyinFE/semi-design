@@ -23,7 +23,7 @@ The hotkeys only support combinations of modifier keys like Shift, Control, Meta
 
 > [Meta](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey) corresponds to Command on macOS and Win on Windows.
 
-When setting a shortcut that overlaps with common shortcuts like Ctrl/Meta + C, the blockDefault setting can be used to control whether the default event is triggered.
+When setting a shortcut that overlaps with common shortcuts like Ctrl/Meta + C, the preventDefault setting can be used to control whether the default event is triggered.
 
 
 
@@ -35,14 +35,11 @@ When pressing `Ctrl + Shift + A`, it opens the modal. By default, it listens on 
 
 [values reference](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)
 
-It's also recommended to use the `Keys` wrapper to set hotkeys.
-```jsx import
-import { Keys } from '@douyinfe/semi-ui';
-```
+It's also recommended to use the `HotKeys.Keys` wrapper to set hotkeys.
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -55,7 +52,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, 'Shift', Keys.A]
+  const hotKeys = [HotKeys.Keys.Control, 'Shift', HotKeys.Keys.A]
   
   return (
     <div>
@@ -79,7 +76,7 @@ Set the characters through `content`
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -92,7 +89,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, 'Shift', Keys.B]
+  const hotKeys = [HotKeys.Keys.Control, 'Shift', HotKeys.Keys.B]
   
   return (
     <div>
@@ -114,7 +111,7 @@ Replace the element through `render`
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal, Tag } from '@douyinfe/semi-ui';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -127,7 +124,7 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Control, Keys.R]
+  const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R]
   
   const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>
   return (
@@ -148,10 +145,10 @@ function Demo() {
 
 ### prevent Default event
 
-Control the default event by setting `blockDefault`.
+Control the default event by setting `preventDefault`.
 ```jsx live=true
 import React, { useState } from 'react';
-import { HotKeys, Keys, Modal } from '@douyinfe/semi-ui';
+import { HotKeys, Modal } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [visible, setVisible] = useState(false);
@@ -164,13 +161,13 @@ function Demo() {
   const handleCancel = () => {
       setVisible(false);
   };
-  const hotKeys = [Keys.Meta, Keys.S]
+  const hotKeys = [HotKeys.Keys.Meta, HotKeys.Keys.S]
 
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} blockDefault></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} preventDefault></HotKeys>
       <br />
-      <HotKeys hotKeys={[Keys.Control, Keys.S]} onHotKey={showDialog} blockDefault></HotKeys>
+      <HotKeys hotKeys={[HotKeys.Keys.Control, HotKeys.Keys.S]} onHotKey={showDialog} preventDefault></HotKeys>
       <Modal
           title="Dialog"
           visible={visible}
@@ -230,13 +227,13 @@ function Demo() {
 
 | Property          | Instructions                                                                                                                                                                                  | type                            | Default   |
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|-----------|
-| blockDefault  | Whether to prevent the default behavior of the shortcut                                         | boolean                          | false        |
 | className         | class name               | string                          |           |                                     
 | content | Set the characters                                         | string[]                          | -         |
 | getListenerTarget         | change the DOM element the listener is mounted on            | () => HTMLElement                       |  document.body         |
 | hotKeys  | Define keyboard shortcut，[values](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)                                          | KeyboardEvent.key[]                          | -         |
 | onClick        | callback that clicking triggers                                                             |   () => void                      |    -       |
-| onHotKey      | callback that hotKeys triggers                                                        | () => void                       |   -      |
+| onHotKey      | callback that hotKeys triggers                                                        | (e: KeyboardEvent) => void                       |   -      |
+| preventDefault  | Whether to prevent the default behavior of the shortcut                                         | boolean                          | false        |
 | render        |    Replace the element                                               | () => ReactNode \| ReactNode                       |           |
 | style             | style                                                                  | CSSProperties                   |           |
 

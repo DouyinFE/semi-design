@@ -2,19 +2,18 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
-import { cssClasses } from '@douyinfe/semi-foundation/hotKeys/constants';
+import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
-export { Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 const prefixCls = cssClasses.PREFIX;
 
 export interface HotKeysProps {
-    blockDefault?: boolean;
+    preventDefault?: boolean;
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
     onClick?: () => void;
-    onHotKey?: () => void;
+    onHotKey?: (e: KeyboardEvent) => void;
     mergeMetaCtrl?: boolean;
     render?: () => ReactNode | ReactNode;
     getListenerTarget?: () => HTMLElement;
@@ -27,7 +26,7 @@ export interface HotKeysState {
 
 class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     static propTypes = {
-        blockDefalut: PropTypes.bool,
+        preventDefalut: PropTypes.bool,
         hotKeys: PropTypes.arrayOf(PropTypes.string),
         content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
@@ -40,7 +39,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     };
 
     static defaultProps: Partial<HotKeysProps> = {
-        blockDefault: false,
+        preventDefault: false,
         hotKeys: null,
         content: null,
         onClick: noop,
@@ -51,6 +50,8 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         className: '',
         style: null,
     };
+
+    static Keys = Keys
 
     constructor(props: HotKeysProps) {
         super(props);
@@ -73,14 +74,14 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
-            notifyHotKey: () => {
+            notifyHotKey: (e: KeyboardEvent) => {
                 if (this.props.onHotKey && typeof this.props.onHotKey === 'function') {
-                    this.props.onHotKey();
+                    this.props.onHotKey?.(e);
                 }
             },
             getListenerTarget: () => {
                 if (this.props.getListenerTarget && typeof this.props.getListenerTarget === 'function') {
-                    return this.props.getListenerTarget();
+                    return this.props.getListenerTarget?.();
                 }
                 return document.body;
             },
