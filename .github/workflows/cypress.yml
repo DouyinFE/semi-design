@@ -33,7 +33,6 @@ jobs:
               run: 
                   npm i -g lerna@^6
                   corepack enable
-              run: npm i -g lerna@^6
             - name: Build storybook
               run: |
                   yarn bootstrap
