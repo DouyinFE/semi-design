@@ -30,3 +30,14 @@ export const getItemDirection = (dir: 'vertical'| 'horizontal') => {
         return ['right', 'left'];
     }
 };
+
+export const getPixelSize = (size: string, parentSize: number): number => {
+    if (size.endsWith('px')) {
+        return Number(size.replace('px', ''));
+    }
+    if (size.endsWith('%')) {
+        return Number(size.replace('%', '')) / 100 * parentSize;
+    }
+
+    return typeof size === 'undefined' ? size : Number(size);
+}

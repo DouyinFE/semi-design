@@ -1,6 +1,7 @@
 import { getItemDirection } from '../groupConstants';
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, NewSize, findNextSnap, snap, ResizeStartCallback, ResizeCallback } from "../singleConstants";
+import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
+import { getPixelSize } from '../groupConstants';
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getHandler: () => HTMLElement;
     getHandlerIndex: () => number;
@@ -47,9 +48,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         let direction = this.getContext('direction');
         if (direction === 'horizontal') {
             width = defaultSize
-            height = '100%'
         } else if (direction === 'vertical'){
-            width = '100%';
             height = defaultSize
         }
 
@@ -118,7 +117,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 const child = this._adapter.getItem(i);
 
                 let itemMin = this._adapter.getItemMin(i)
-                const minWidth = itemMin ? Number(itemMin.replace('%', '')) / 100 * parentWidth : 0;
+                const minWidth = itemMin ? getPixelSize(itemMin, parentWidth) : 0;
                 const rect = child.getBoundingClientRect();
                 let { borderLeftWidth, borderRightWidth } = this.window.getComputedStyle(child);
                 let leftWidth = Number(borderLeftWidth.replace('px', ''));
@@ -129,7 +128,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 let lastRightConstraint = rect.right - minWidth - borderWidth, lastLeftConstraint = undefined;
                 let itemMax = this._adapter.getItemMax(i)
                 if (itemMax) {
-                    const maxWidth = Number(itemMax.replace('%', '')) / 100 * parentWidth;
+                    const maxWidth = getPixelSize(itemMax, parentWidth);
                     nextRightConstraint = rect.left + maxWidth - borderWidth;
                     lastLeftConstraint = rect.right - maxWidth + borderWidth;
                 }
@@ -143,7 +142,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 const child = this._adapter.getItem(i);
 
                 let itemMin = this._adapter.getItemMin(i)
-                const minHeight = itemMin ? Number(itemMin.replace('%', '')) / 100 * parentHeight : 0;
+                const minHeight = itemMin ? getPixelSize(itemMin, parentHeight) : 0;
                 const rect = child.getBoundingClientRect();
                 let { borderTopWidth, borderBottomWidth } = this.window.getComputedStyle(child);
                 let topWidth = Number(borderTopWidth.replace('px', ''));
@@ -154,7 +153,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 let lastBottomConstraint = rect.bottom - minHeight - borderWidth, lastTopConstraint = undefined;
                 let itemMax = this._adapter.getItemMax(i)
                 if (itemMax) {
-                    const maxHeight = Number(itemMax.replace('%', '')) / 100 * parentHeight;
+                    const maxHeight = getPixelSize(itemMax, parentHeight);
                     nextBottomConstraint = rect.top + maxHeight - borderWidth;
                     lastTopConstraint = rect.bottom - maxHeight + borderWidth;
                 }
@@ -251,7 +250,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             nextFunc = this._adapter.getItemChange(curHandler + 1);
         let [lastDir, nextDir] = getItemDirection(this.direction)
         if (lastFunc) {
-            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any,)
+            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any)
         }
         if (nextFunc) {
             nextFunc( {width: nextItem.offsetWidth, height: nextItem.offsetHeight}, e, nextDir as any)

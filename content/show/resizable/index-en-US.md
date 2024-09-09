@@ -474,7 +474,7 @@ function Demo() {
 #### Nested
 Set the resizing direction using the direction prop. Options are horizontal and vertical.
 
-```jsx live=true 
+```jsx live=true dir="column"
 import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 

@@ -480,7 +480,7 @@ function Demo() {
 #### 嵌套使用
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 
-```jsx live=true 
+```jsx live=true dir="column"
 import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 

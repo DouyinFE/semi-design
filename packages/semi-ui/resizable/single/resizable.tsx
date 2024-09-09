@@ -187,7 +187,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     getResizable = () => {
-        return this.resizableRef?.current   ;
+        return this.resizableRef?.current;
     }
 
     get adapter(): ResizableAdapter<ResizableProps, ResizableState> {

@@ -6,6 +6,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { getPixelSize } from '@douyinfe/semi-foundation/resizable/groupConstants';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -68,6 +69,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentDidMount() {
         this.foundation.init();
+
+        // allocate size for items which don't have default size
         let totalSizePercent = 0;
         let undefineLoc = []
         let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
@@ -80,8 +83,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
                 }
                 totalSizePercent += itemSizePercent;
-                let minSizePercent = Number(this.itemMinMap.get(i)?.replace('%', '')), 
-                    maxSizePercent = Number(this.itemMaxMap.get(i)?.replace('%', ''));
+                let minSizePercent = this.itemMinMap.get(i) ? getPixelSize(this.itemMinMap.get(i), parentSize) / parentSize * 100 : 0,
+                    maxSizePercent = this.itemMaxMap.get(i) ? getPixelSize(this.itemMaxMap.get(i), parentSize) / parentSize * 100 : 100;
                 if (itemSizePercent < minSizePercent) {
                     console.warn('item size smaller than min size');
                 } else if (itemSizePercent > maxSizePercent) {
