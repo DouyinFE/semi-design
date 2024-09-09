@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 68
+order: 70
 category: Show
 title: Table
 subTitle: Table
@@ -488,7 +488,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -1197,6 +1197,10 @@ render(App);
 ```
 
 When sorter is a function type, the sortOrder status can be obtained through the third parameter of the function. The function type is `(a?: RecordType, b?: RecordType, sortOrder?: 'ascend' | 'descend') => number`. Supported by version v2.47.
+
+You can control whether to display the sorting tip through the `showSortTip` attribute. It is supported since v2.65 and defaults to `false`. When the tip is turned on, when there is only sorting function, the sorting prompt will be displayed when the mouse is moved to the table header; in other cases, the sorting prompt will be displayed only when the mouse is moved to the sorting icon.
+
+**Note**: When using the `sortOrder` attribute for controlled sorting, since the next sort order cannot be predicted, `showSortTip` does not take effect and the prompt will not be displayed.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -5418,6 +5422,7 @@ import { Table } from '@douyinfe/semi-ui';
 | renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
+| showSortTip | Whether to display sorting tips, If sortOrder is set and sorting is controlled, this parameter will not take effect | boolean | false | **2.65.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true. **An independent dataIndex must be set for the sort column, and an independent key must be set for each data item in the dataSource** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |

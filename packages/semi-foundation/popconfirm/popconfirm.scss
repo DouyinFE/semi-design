@@ -46,10 +46,11 @@ $module: #{$prefix}-popconfirm;
     }
 
     &-body {
+        color: $color-popconfirm_body-text;
+
         &-withIcon {
             margin-left: $width-popconfirm-icon + $spacing-popconfirm_header_icon-marginRight;
         }
-        color: $color-popconfirm_body-text;
 
         & > p {
             margin: $spacing-popconfirm_body_p-margin;

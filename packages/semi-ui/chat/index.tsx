@@ -17,18 +17,19 @@ import { Locale } from "../locale/interface";
 import { Button, Upload } from '../index';
 
 const prefixCls = cssClasses.PREFIX;
-const { CHAT_ALIGN, MODE, SEND_HOT_KEY } = strings;
+const { CHAT_ALIGN, MODE, SEND_HOT_KEY, MESSAGE_STATUS } = strings;
 
 class Chat extends BaseComponent<ChatProps, ChatState> {
 
     static __SemiComponentName__ = "Chat";
-  
+
     containerRef: React.RefObject<HTMLDivElement>;
     animation: any;
     wheelEventHandler: any;
     foundation: ChatFoundation;
     uploadRef: React.RefObject<Upload>;
     dropAreaRef: React.RefObject<HTMLDivElement>;
+    scrollTargetRef: React.RefObject<HTMLElement>;
 
     static propTypes = {
         className: PropTypes.string,
@@ -80,6 +81,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.dropAreaRef = React.createRef();
         this.wheelEventHandler = null;
         this.foundation = new ChatFoundation(this.adapter);
+        this.scrollTargetRef = React.createRef();
 
         this.state = {
             backBottomVisible: false,
@@ -93,7 +95,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     get adapter(): ChatAdapter {
         return {
             ...super.adapter,
-            getContainerRef: () => this.containerRef,
+            getContainerRef: () => this.containerRef?.current,
             setWheelScroll: (flag: boolean) => {
                 this.setState({
                     wheelScroll: flag,
@@ -144,13 +146,20 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     return ;
                 }
                 this.wheelEventHandler = (e: any) => {
-                    if (e.target !== containerElement) {
+                    /**
+                     * Why use this.scrollTargetRef.current and wheel's currentTarget target comparison?
+                     * Both scroll and wheel events are on the container
+                     * his.scrollTargetRef.current is the object where scrolling actually occurs
+                     * wheel's currentTarget is the container,
+                     * Only when the wheel event occurs and there is scroll, the following logic(show scroll bar) needs to be executed
+                     */
+                    if (this.scrollTargetRef?.current !== e.currentTarget) {
                         return;
                     }
                     this.adapter.setWheelScroll(true);
                     this.adapter.unRegisterWheelEvent();
                 };
-        
+
                 containerElement.addEventListener('wheel', this.wheelEventHandler);
             },
             unRegisterWheelEvent: () => {
@@ -183,7 +192,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             },
             getDropAreaElement: () => {
                 return this.dropAreaRef?.current;
-            } 
+            }
         };
     }
 
@@ -191,7 +200,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         const { chats, hints } = nextProps;
         const newState = {} as any;
         if (chats !== prevState.chats) {
-            newState.chats = chats;
+            newState.chats = chats ?? [];
         }
         if (hints !== prevState.cacheHints) {
             newState.cacheHints = hints;
@@ -203,7 +212,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     }
 
     componentDidMount(): void {
-        this.foundation.init();    
+        this.foundation.init();
     }
 
     componentDidUpdate(prevProps: Readonly<ChatProps>, prevState: Readonly<ChatState>, snapshot?: any): void {
@@ -212,19 +221,18 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         const { wheelScroll } = this.state;
         let shouldScroll = false;
         if (newChats !== oldChats) {
-            const newLastChat = newChats[newChats.length - 1];
-            const oldLastChat = oldChats[oldChats.length - 1];
-            if (newChats.length > oldChats.length) {
-                if (newLastChat.id !== oldLastChat.id) {
+            if (Array.isArray(newChats) && Array.isArray(oldChats)) {
+                const newLastChat = newChats[newChats.length - 1];
+                const oldLastChat = oldChats[oldChats.length - 1];
+                if (newChats.length > oldChats.length) {
+                    if (oldChats.length === 0 || newLastChat.id !== oldLastChat.id) {
+                        shouldScroll = true;
+                    }
+                } else if (newChats.length === oldChats.length &&
+                    (newLastChat.status !== 'complete' || newLastChat.status !== oldLastChat.status)
+                ) {
                     shouldScroll = true;
                 }
-            } else if (newChats.length === oldChats.length &&
-        (
-            newLastChat.status !== 'complete' ||
-          newLastChat.status !== oldLastChat.status
-        )
-            ) {
-                shouldScroll = true;
             }
         }
         if (newHints !== cacheHints) {
@@ -241,15 +249,15 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.foundation.destroy();
     }
 
-    resetMessage() {
+    resetMessage = () => {
         this.foundation.resetMessage(null);
     }
 
-    clearContext() {
+    clearContext = () => {
         this.foundation.clearContext(null);
     }
 
-    scrollToBottom(animation: boolean) {
+    scrollToBottom = (animation: boolean) => {
         if (animation) {
             this.foundation.scrollToBottomWithAnimation();
         } else {
@@ -257,8 +265,16 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         }
     }
 
-    sendMessage(content: string, attachment: FileItem[]) {
+    sendMessage = (content: string, attachment: FileItem[]) => {
         this.foundation.onMessageSend(content, attachment);
+    }
+
+    containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        (this.scrollTargetRef as any).current = e.target as HTMLElement;
+        if (e.target !== e.currentTarget) {
+            return;
+        }
+        this.foundation.containerScroll(e);
     }
 
     render() {
@@ -276,18 +292,18 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         const lastChat = chats.length > 0 && chats[chats.length - 1];
         let disableSend = false;
         if (lastChat && showStopGenerate) {
-            const lastChatOnGoing = lastChat.status && lastChat.status !== 'complete';
+            const lastChatOnGoing = lastChat?.status && [MESSAGE_STATUS.LOADING, MESSAGE_STATUS.INCOMPLETE].includes(lastChat?.status);
             disableSend = lastChatOnGoing;
             showStopGenerate && (showStopGenerateFlag = lastChatOnGoing);
         }
         return (
             <div
-                className={cls(`${prefixCls}`, className)} 
+                className={cls(`${prefixCls}`, className)}
                 style={style}
                 onDragOver={this.foundation.handleDragOver}
             >
                 {uploadAreaVisible && <div
-                    ref={this.dropAreaRef} 
+                    ref={this.dropAreaRef}
                     className={`${prefixCls}-dropArea`}
                     onDragOver={this.foundation.handleContainerDragOver}
                     onDrop={this.foundation.handleContainerDrop}
@@ -297,24 +313,24 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                             {(locale: Locale["Chat"]) => locale['dropAreaText']}
                         </LocaleConsumer>
-                    </span>  
+                    </span>
                 </div>}
                 <div className={`${prefixCls}-inner`}>
                     {/* top slot */}
                     {topSlot}
                     {/* chat area */}
                     <div className={`${prefixCls}-content`}>
-                        <div 
+                        <div
                             className={cls(`${prefixCls}-container`, {
                                 'semi-chat-container-scroll-hidden': !wheelScroll
                             })}
-                            onScroll={this.foundation.containerScroll}
+                            onScroll={this.containerScroll}
                             ref={this.containerRef}
                         >
-                            <ChatContent 
+                            <ChatContent
                                 align={align}
                                 mode={mode}
-                                chats={chats}  
+                                chats={chats}
                                 roleConfig={roleConfig}
                                 customMarkDownComponents={customMarkDownComponents}
                                 onMessageDelete={this.foundation.deleteMessage}
@@ -326,10 +342,10 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 chatBoxRenderConfig={chatBoxRenderConfig}
                             />
                             {/* hint area */}
-                            {!!hints?.length && <Hint 
+                            {!!hints?.length && <Hint
                                 className={hintCls}
                                 style={hintStyle}
-                                value={hints} 
+                                value={hints}
                                 onHintClick={this.foundation.onHintClick}
                                 renderHintBox={renderHintBox}
                             />}
@@ -337,7 +353,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </div>
                     {backBottomVisible && !showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
                         <Button
-                            className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`} 
+                            className={`${prefixCls}-action-content ${prefixCls}-action-backBottom`}
                             icon={<IconChevronDown size="extra-large"/>}
                             type="tertiary"
                             onClick={this.foundation.scrollToBottomWithAnimation}
@@ -345,10 +361,10 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     </span>)}
                     {showStopGenerateFlag && (<span className={`${prefixCls}-action`}>
                         <Button
-                            className={`${prefixCls}-action-content ${prefixCls}-action-stop`} 
+                            className={`${prefixCls}-action-content ${prefixCls}-action-stop`}
                             icon={<IconDisc size="extra-large" />}
                             type="tertiary"
-                            onClick={this.foundation.stopGenerate} 
+                            onClick={this.foundation.stopGenerate}
                         >
                             <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                                 {(locale: Locale["Chat"]) => locale['stop']}

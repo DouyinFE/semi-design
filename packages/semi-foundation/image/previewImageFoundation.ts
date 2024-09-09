@@ -12,60 +12,86 @@ export interface DragDirection {
     canDragHorizontal: boolean
 }
 
-export interface ExtremeBounds {
-    left: number;
-    top: number
-}
-
-export interface ImageOffset {
+export interface ExtremeTranslate {
     x: number;
     y: number
 }
 
-const DefaultDOMRect = {
-    bottom: 0,
-    height: 0,
-    left: 0,
-    right: 0,
-    top: 0,
-    width: 0,
-    x: 0,
-    y: 0,
-    toJSON: () => ({})
-};
+export interface Offset {
+    x: number;
+    y: number
+}
+
+export interface Translate {
+    x: number;
+    y: number
+}
+
+interface CalcBoundingRectMouseOffset {
+    offset: Offset;
+    width: number;
+    height: number;
+    rotation?: number
+}
+
+export interface BoundingRectSize {
+    width: number;
+    height: number
+}
+
 export default class PreviewImageFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<PreviewImageAdapter<P, S>, P, S> {
     constructor(adapter: PreviewImageAdapter<P, S>) {
         super({ ...adapter });
     }
 
-    startMouseOffset = { x: 0, y: 0 };
+    startMouseClientPosition = { x: 0, y: 0 };
     originImageWidth = null;
     originImageHeight = null;
 
-    _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
+    containerWidth = 0; 
+    containerHeight = 0;
 
-    _getImageBounds = (): DOMRect => {
-        const imageDOM = this._adapter.getImage();
-        if (imageDOM) {
-            return imageDOM.getBoundingClientRect();
-        }
-        return DefaultDOMRect;
-    };
-
-    _getContainerBounds = (): DOMRect => {
-        const containerDOM = this._adapter.getContainer();
-        if (containerDOM) {
-            return containerDOM.getBoundingClientRect();
-        }
-        return DefaultDOMRect;
+    init() {
+        this._getContainerBoundingRectSize();
     }
 
-    _getOffset = (e: any): ImageOffset => {
-        const { left, top } = this._getImageBounds();
-        return {
-            x: e.clientX - left,
-            y: e.clientY - top,
-        };
+    _isImageVertical = (): boolean => this.getProp("rotation") % 180 !== 0;
+
+    _getContainerBoundingRectSize = () => {
+        const containerDOM = this._adapter.getContainer();
+        if (containerDOM) {
+            this.containerWidth = containerDOM.clientWidth;
+            this.containerHeight = containerDOM.clientHeight;
+        }
+    }
+
+    _getAdaptationZoom = () => {
+        let _zoom = 1;
+        const containerDOM = this._adapter.getContainer();
+        
+        if (containerDOM && this.originImageWidth && this.originImageHeight) {
+            const { rotation } = this.getProps();
+            const { width: imageWidth, height: imageHeight } = this.calcBoundingRectSize(this.originImageWidth, this.originImageHeight, rotation);
+            const reservedWidth = this.containerWidth - 80;
+            const reservedHeight = this.containerHeight - 80;
+            
+            _zoom = Number(
+                Math.min(reservedWidth / imageWidth, reservedHeight / imageHeight).toFixed(2)
+            );
+        }
+
+        return _zoom;
+    }
+
+    _getInitialZoom = () => {
+        const { ratio } = this.getProps();
+        let _zoom = 1;
+
+        if (ratio === 'adaptation') {
+            _zoom = this._getAdaptationZoom();
+        }
+
+        return _zoom;
     }
 
     setLoading = (loading: boolean) => {
@@ -73,9 +99,8 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
     }
 
     handleWindowResize = (): void => {
-        if (this.originImageWidth && this.originImageHeight) {
-            this.handleResizeImage();
-        }
+        this._getContainerBoundingRectSize();
+        this.initializeImage();
     };
 
     handleLoad = (e: any): void => {
@@ -88,7 +113,7 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
             } as any);
             // 图片初次加载，计算 zoom，zoom 改变不需要通过回调透出
             // When the image is loaded for the first time, zoom is calculated, and zoom changes do not need to be exposed through callbacks.
-            this.handleResizeImage(false);
+            this.initializeImage(false);
         }
         const { src, onLoad } = this.getProps();
         onLoad && onLoad(src);
@@ -102,53 +127,35 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         onError && onError(src);
     }
 
-    handleResizeImage = (notify: boolean = true) => {
-        const horizontal = !this._isImageVertical();
+    handleRatioChange = () => {
+        this.initializeImage();
+    }
+
+    initializeImageZoom = (notify = true) => {
         const { currZoom } = this.getStates();
-        const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
-        const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
-        const { onZoom, setRatio, ratio } = this.getProps();
-        const containerDOM = this._adapter.getContainer();
-        if (containerDOM) {
-            const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-            const reservedWidth = containerWidth - 80;
-            const reservedHeight = containerHeight - 80;
-            let _zoom = 1;
-            if (imgWidth > reservedWidth || imgHeight > reservedHeight) {
-                _zoom = Number(
-                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
-                );
-            }
-            if (currZoom === _zoom) {
-                this.calculatePreviewImage(_zoom, null);
-            } else {
-                onZoom(_zoom, notify);
-            }
+        const { onZoom } = this.getProps();
+        
+        const _zoom = this._getInitialZoom();
+        
+        if (currZoom !== _zoom) {
+            onZoom(_zoom, notify);
+        } else {
+            this.changeZoom(_zoom);
         }
     }
 
-    handleRatioChange = () => {
-        if (this.originImageWidth && this.originImageHeight) {
-            const { currZoom } = this.getStates();
-            const { ratio, onZoom } = this.getProps();
-            let _zoom: number;
-            if (ratio === 'adaptation') {
-                const horizontal = !this._isImageVertical();
-                const imgWidth = horizontal ? this.originImageWidth : this.originImageHeight;
-                const imgHeight = horizontal ? this.originImageHeight : this.originImageWidth;
-                const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-                const reservedWidth = containerWidth - 80;
-                const reservedHeight = containerHeight - 80;
-                _zoom = Number(
-                    Math.min(reservedWidth / imgWidth, reservedHeight / imgHeight).toFixed(2)
-                );
-            } else {
-                _zoom = 1;
+    initializeTranslate = () => {
+        this.setState({
+            translate: {
+                x: 0,
+                y: 0
             }
-            if (currZoom !== _zoom) {
-                onZoom(_zoom);
-            }
-        }
+        } as any);
+    }
+
+    initializeImage = (notify = true) => {
+        this.initializeImageZoom(notify);
+        this.initializeTranslate();
     }
 
     handleRightClickImage = (e: any) => {
@@ -162,111 +169,192 @@ export default class PreviewImageFoundation<P = Record<string, any>, S = Record<
         }
     };
 
-    calcCanDragDirection = (): DragDirection => {
-        const { width, height } = this.getStates();
-        const { rotation } = this.getProps();
-        const { width: containerWidth, height: containerHeight } =this._getContainerBounds();
-        let canDragHorizontal = width > containerWidth;
-        let canDragVertical = height > containerHeight;
-        if (this._isImageVertical()) {
-            canDragHorizontal = height > containerWidth;
-            canDragVertical = width > containerHeight;
-        }
+    calcBoundingRectSize(width = 0, height = 0, rotation = 0) {
+        const angleInRadians = rotation * Math.PI / 180;
+        const sinTheta = Math.abs(Math.sin(angleInRadians));
+        const cosTheta = Math.abs(Math.cos(angleInRadians));
+        const boundingWidth = width * cosTheta + height * sinTheta;
+        const boundingHeight = width * sinTheta + height * cosTheta;
+
+        return {
+            width: boundingWidth,
+            height: boundingHeight
+        };
+    }
+
+    getCanDragDirection = (width: number, height: number): DragDirection => {
+        let canDragHorizontal = width > this.containerWidth;
+        let canDragVertical = height > this.containerHeight;
+
         return {
             canDragVertical,
             canDragHorizontal,
         };
     };
 
-    calculatePreviewImage = (newZoom: number, e: any): void => {
+    changeZoom = (newZoom: number, e?: WheelEvent): void => {
         const imageDOM = this._adapter.getImage();
-        const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
-        const canDrag = canDragVertical || canDragHorizontal;
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
+        const { currZoom, translate, width, height } = this.getStates();
+        const { rotation } = this.getProps();
+        const changeScale = newZoom / (currZoom || 1);
         const newWidth = Math.floor(this.originImageWidth * newZoom);
         const newHeight = Math.floor(this.originImageHeight * newZoom);
+        let newTranslateX = Math.floor(translate.x * changeScale);
+        let newTranslateY = Math.floor(translate.y * changeScale);
 
-        // debugger;
-        let _offset;
-        const horizontal = !this._isImageVertical();
-        let newTop = 0;
-        let newLeft = 0;
-        if (horizontal) {
-            _offset = {
-                x: 0.5 * (containerWidth - newWidth),
-                y: 0.5 * (containerHeight - newHeight),
-            };
-           
-            newLeft = _offset.x;
-            newTop= _offset.y;
-        } else {
-            _offset = {
-                x: 0.5 * (containerWidth - newHeight),
-                y: 0.5 * (containerHeight - newWidth),
-            };
-            newLeft = _offset.x - (newWidth - newHeight) / 2;
-            newTop = _offset.y + (newWidth - newHeight) / 2;
+        const imageBound = this.calcBoundingRectSize(width, height, rotation);
+        const newImageBound = {
+            width: imageBound.width * changeScale,
+            height: imageBound.height * changeScale
+        };
+
+        if (e && imageDOM && e.target === imageDOM) {
+            let angle = rotation % 360;
+            angle < 0 && (angle = 360 + angle);
+            switch (angle) {
+                case 0:
+                    newTranslateX = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 90:
+                    newTranslateX = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (e.offsetX - 0.5 * width) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 180:
+                    newTranslateX = (0.5 * width - e.offsetX) * (1 - newZoom / currZoom) + translate.x;
+                    newTranslateY = (0.5 * height - e.offsetY) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                case 270:
+                    newTranslateX = (e.offsetY - 0.5 * height) * (1 - newZoom / currZoom) + translate.x; 
+                    newTranslateY = (0.5 * width - e.offsetX ) * (1 - newZoom / currZoom) + translate.y;
+                    break;
+                default:
+                    break;
+            }
         }
-        
+
+        const newTranslate = this.getSafeTranslate(newImageBound.width, newImageBound.height, newTranslateX, newTranslateY);
+
         this.setState({
+            translate: newTranslate,
             width: newWidth,
             height: newHeight,
-            offset: _offset,
-            left: newLeft,
-            top: newTop,
             currZoom: newZoom,
         } as any);
         if (imageDOM) {
+            const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(newImageBound.width, newImageBound.height);
+            const canDrag = canDragVertical || canDragHorizontal;
+
             this._adapter.setImageCursor(canDrag);
         }
     };
 
-    calcExtremeBounds = (): ExtremeBounds => {
-        const { width, height } = this.getStates(); 
-        const { width: containerWidth, height: containerHeight } = this._getContainerBounds();
-        let extremeLeft = containerWidth - width;
-        let extremeTop = containerHeight - height;
-        if (this._isImageVertical()) {
-            extremeLeft = containerWidth - height;
-            extremeTop = containerHeight - width;
-        }
+    getExtremeTranslate = (width: number, height: number): ExtremeTranslate => {
         return {
-            left: extremeLeft,
-            top: extremeTop,
+            x: (width - this.containerWidth) / 2,
+            y: (height - this.containerHeight) / 2,
         };
     };
 
-    handleMoveImage = (e: any): void => {
-        const { offset, width, height } = this.getStates();
-        const { canDragVertical, canDragHorizontal } = this.calcCanDragDirection();
+    getSafeTranslate = (width: number, height: number, translateX: number, translateY: number) => {
+        const { x: extremeX, y: extremeY } = this.getExtremeTranslate(width, height);
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(width, height);
+
+        let newTranslateX = 0,
+            newTranslateY = 0;
+
+        if (canDragHorizontal) {
+            newTranslateX = translateX > 0 ? Math.min(translateX, extremeX) : Math.max(translateX, -extremeX);
+        }
+
+        if (canDragVertical) {
+            newTranslateY = translateY > 0 ? Math.min(translateY, extremeY) : Math.max(translateY, -extremeY);
+        }
+
+        return {
+            x: newTranslateX,
+            y: newTranslateY
+        };
+    }
+
+    handleImageMove = (e: MouseEvent): void => {
         // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
         const mouseLeftPress = e.buttons === 1;
-        if (mouseLeftPress && (canDragVertical || canDragHorizontal)) {
-            const { clientX, clientY } = e;
-            const { left: containerLeft, top: containerTop } = this._getContainerBounds();
-            const { left: extremeLeft, top: extremeTop } = this.calcExtremeBounds();
-            let newX = canDragHorizontal ? clientX - containerLeft - this.startMouseOffset.x : offset.x;
-            let newY = canDragVertical ? clientY - containerTop - this.startMouseOffset.y : offset.y;
-            if (canDragHorizontal) {
-                newX = newX > 0 ? 0 : newX < extremeLeft ? extremeLeft : newX;
-            }
-            if (canDragVertical) {
-                newY = newY > 0 ? 0 : newY < extremeTop ? extremeTop : newY;
-            }
-            const _offset = {
-                x: newX,
-                y: newY,
-            };
+
+        if (mouseLeftPress) {
+            this.moveImage(e);
+        }
+    };
+
+    moveImage = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { width, height, translate } = this.getStates();
+        const { rotation } = this.getProps();
+        const imageBound = this.calcBoundingRectSize(width, height, rotation);
+        const { canDragVertical, canDragHorizontal } = this.getCanDragDirection(imageBound.width, imageBound.height);
+
+        if (canDragVertical || canDragHorizontal) {
+            let newTranslateX = canDragHorizontal ? translate.x + clientX - this.startMouseClientPosition.x : translate.x;
+            let newTranslateY = canDragVertical ? translate.y + clientY - this.startMouseClientPosition.y : translate.y;
+            
+            const newTranslate = this.getSafeTranslate(imageBound.width, imageBound.height, newTranslateX, newTranslateY);
+
             this.setState({
-                offset: _offset,
-                left: this._isImageVertical() ? _offset.x - (width - height) / 2 : _offset.x,
-                top: this._isImageVertical() ? _offset.y + (width - height) / 2 : _offset.y,
+                translate: newTranslate,
             } as any);
+
+            this.startMouseClientPosition = {
+                x: clientX,
+                y: clientY
+            };
         }
     };
 
     handleImageMouseDown = (e: any): void => {
-        this.startMouseOffset = this._getOffset(e);
+        this.startMouseClientPosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
     };
 
+    // 鼠标事件的 e.offset 是以 dom 旋转前左上角为零点的, 这个方法会转换为以旋转后元素的外接矩形左上角为零点的 offset
+    calcBoundingRectMouseOffset = (calcBoundingRectMouseOffset: CalcBoundingRectMouseOffset) => {
+        const {
+            width,
+            height,
+            offset,
+            rotation = 0
+        } = calcBoundingRectMouseOffset;
+
+        let degrees = rotation % 360;
+        degrees = degrees >= 0 ? degrees : 360 + degrees;
+        let boundOffsetX = 0,
+            boundOffsetY = 0;
+
+        switch (degrees) {
+            case 0: 
+                boundOffsetX = offset.x;
+                boundOffsetY = offset.y;
+                break;
+            case 90: 
+                boundOffsetX = height - offset.y;
+                boundOffsetY = offset.x;
+                break;
+            case 180: 
+                boundOffsetX = width - offset.x;
+                boundOffsetY = height - offset.y;
+                break;
+            case 270:
+                boundOffsetX = offset.y;
+                boundOffsetY = width - offset.x;
+                break;
+            default:
+                break;
+        }
+
+        return {
+            x: boundOffsetX,
+            y: boundOffsetY
+        };
+    }
 }

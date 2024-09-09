@@ -174,6 +174,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 color: var(--semi-color-text-2);
                 margin-left: 10px;
                 cursor: pointer;
+
+                &.#{$prefix}-icon-close:hover {
+                    color: var(--semi-color-text-0);
+                }
             }
 
             &:hover {
@@ -182,6 +186,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-hover;
                 }
+
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
+                    color: var(--semi-color-text-2);
+                }
             }
 
             &:active {
@@ -189,6 +197,10 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
 
                 .#{$prefix}-icon:not(#{$ignoreIcon}) {
                     color: $color-tabs_tab-icon-active;
+                }
+
+                .#{$prefix}-icon.#{$module}-tab-icon-close {
+                    color: var(--semi-color-text-2);
                 }
             }
         }
@@ -326,12 +338,11 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
                 transition: border-bottom-color $transition_duration-tabs_tab_line-border $transition_function-tabs_tab_line-border $transition_delay-tabs_tab_line-border,
                     color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的border-color 的 transition
-                
+                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
+
                 &:nth-of-type(1) {
                     padding-left: 0;
                 }
-
-                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
 
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;
@@ -584,6 +595,36 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
         }
     }
 
+    &-bar-slash {
+
+        .#{$module}-tab {
+            padding: $spacing-tabs_bar_slash_tab-paddingY $spacing-tabs_bar_slash_tab-paddingX;
+
+            &:nth-of-type(1) {
+                padding-left: 0;
+            }  
+
+            &:not(:last-of-type) {
+                margin-right: $spacing-tabs_bar_slash-marginRight;
+
+                &:after {  
+                    content: "";
+                    margin-left: $spacing-tabs_bar_slash_line_marginLeft;
+                    display: inline-block;
+                    height: $height-tabs_tab_slash_line;
+                    width: $width-tabs_tab_slash_line;
+                    margin-top: $spacing-tabs_bar_slash_line_marginTop;
+                    margin-bottom: $spacing-tabs_bar_slash_line_marginBottom;
+                    vertical-align: bottom;
+                    // Get diagonal slash
+                    background: linear-gradient(to bottom right, transparent 0%, 
+                        transparent calc(50% - 1px), $color-tabs_tab_slash_line 50%,
+                        transparent calc(50% + 1px), transparent 100%);
+                }
+            }
+        }
+    }
+
     &-content {
         width: 100%;
         padding: $spacing-tabs_content-paddingY $spacing-tabs_content-paddingX;
@@ -694,12 +735,11 @@ $ignoreIcon: '.#{$prefix}-icon-checkbox_tick, .#{$prefix}-icon-radio, .#{$prefix
                 padding: $spacing-tabs_bar_line_tab-paddingTop $spacing-tabs_bar_line_tab-paddingRight $spacing-tabs_bar_line_tab-paddingBottom $spacing-tabs_bar_line_tab-paddingLeft;
                 transition: border-bottom-color $transition_duration-tabs_tab_line-border $transition_function-tabs_tab_line-border $transition_delay-tabs_tab_line-border,
                     color $transition_duration-tabs_tab_line-text $transition_function-tabs_tab_line-text $transition_delay-tabs_tab_line-text; //线条式tabs的border-color 的 transition
+                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
                 
                 &:nth-of-type(1) {
                     padding-left: 0;
                 }
-
-                border-bottom: $width-tabs_bar_line_tab-border solid transparent;
 
                 &:hover {
                     border-bottom: $width-tabs_bar_line_tab-border solid $color-tabs_tab_line_default-border-hover;

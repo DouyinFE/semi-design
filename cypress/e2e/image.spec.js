@@ -88,44 +88,18 @@ describe('image', () => {
         cy.get('.semi-image-preview-footer').children('.semi-icon-plus').click();
         cy.get('.semi-image-preview-footer').children('.semi-icon-plus').click();
         cy.wait(200);
-        // 再经过两次点击放大后，预期 zoom = 1.2， 宽1728px， 高960px， top-80px， left-144px
+        // 再经过两次点击放大后，预期 zoom = 1.2， 宽1728px， 高960px， translate.x = 0 translate.y = 0
         cy.get('.semi-image-preview-image-img').should('have.css', 'width').and('eq', '1728px');
         cy.get('.semi-image-preview-image-img').should('have.css', 'height').and('eq', '960px'); 
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '-80px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '-144px');
-
-        // // 测试拖拽，拖拽长度为分别向右，向下拖拽20px
-        // cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 720, clientY: 400 });
-        // cy.wait(200);
-        // cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 740, clientY: 420 }).trigger('mouseup');
-        // // 预期经过拖拽后，宽高保持不变（宽1728px， 高960px）， top和left定位增加20px（top-60px， left-124px）
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'width').and('eq', '1728px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'height').and('eq', '960px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '-60px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '-124px');
-        // // 测试拖拽边界： 内部逻辑是拖拽过程中，拖拽极限是图片边和容器边重合
-        // // 测试往右下方拖动极限
-        // cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 720, clientY: 400 });
-        // cy.wait(200);
-        // cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 844, clientY: 460 }).trigger('mouseup');
-        // // 鼠标移动距离为向右60px，向下130px，则此刻的top，left应该都是0
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '0px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '0px');
-        // // 当上下都在图片边缘时候，再次向右下方拖动，因为已经到拖动极限，此时无法再次拖动，top，left值不会再变化
-        // cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 720, clientY: 400 });
-        // cy.wait(200);
-        // cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 730, clientY: 430 }).trigger('mouseup');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '0px');
-        // cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '0px');
-
-        // zoom = 1.2， 宽1728px， 高960px， top-80px， left-144px, 鼠标移动 x * y = 200 * 100, 
-        // 图片拖动策略是图片只能够拖动到图片边缘和容器边缘重合，因此预期top和left都为 0px
+        
+        // zoom = 1.2， 宽1728px， 高960px， translate.x = 0 translate.y = 0, 鼠标移动 x * y = 200 * 100, 
+        // (1728 - 1440) / 2 = 144 | (960 - 800) / 2 = 80
+        // 图片拖动策略是图片只能够拖动到图片边缘和容器边缘重合，因此预期 translate.y 为 144，translate.x 为 80
         cy.get('.semi-image-preview-image-img').trigger('mousedown', { clientX: 0, clientY: 0 });
         cy.wait(200);
         cy.get('.semi-image-preview-image-img').trigger('mousemove', { clientX: 200, clientY: 100, buttons: 1 });
         cy.wait(200);
-        cy.get('.semi-image-preview-image-img').should('have.css', 'top').and('eq', '0px');
-        cy.get('.semi-image-preview-image-img').should('have.css', 'left').and('eq', '0px');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'translate(144px, 80px)');
     });
 
     // 测试鼠标滚动滚轮放大，缩小图片
@@ -146,7 +120,7 @@ describe('image', () => {
         cy.get('.semi-image-preview-image-img').should('have.css', 'height').and('eq', '800px');
         // 验证滚轮向下滚动缩小图片
         cy.get('.semi-image-preview-image-img').trigger('mouseover', { clientX: 720, clientY: 400 });
-        // 触发 wheel 事件， 参数 deltaY 表示纵向滚动量， 验证放大
+        // 触发 wheel 事件， 参数 deltaY 表示纵向滚动量， 验证缩小
         cy.get('.semi-image-preview-image-img').trigger('wheel', { deltaY: 10, bubbles: true });
         // 单次滚动向下滚动滚轮，zoom = zoom - zoomStep = 0.9,  width = '1296px'，height = '720px'
         cy.get('.semi-image-preview-image-img').should('have.css', 'width').and('eq', '1296px');
@@ -369,9 +343,9 @@ describe('image', () => {
         // 测试点击向右旋转，向左旋转按键
         cy.get('.semi-icon-rotate').eq(0).click();
         cy.wait(500);
-        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'transform: rotate(90deg)');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'rotate(90deg)');
         cy.get('.semi-icon-rotate').eq(1).click();
-        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'transform: rotate(0deg)');
+        cy.get('.semi-image-preview-image-img').should('have.attr', 'style').should('contain', 'rotate(0deg)');
 
         // 测试下载按键
         cy.get('.semi-icon-download').click();

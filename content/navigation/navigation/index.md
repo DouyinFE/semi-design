@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 45
+order: 47
 category: 导航类
 title:  Navigation 导航
 icon: doc-navigation
@@ -36,7 +36,7 @@ import { Nav } from '@douyinfe/semi-ui';
 
 参数详见 [Nav.Header](#Nav.Header) 和 [Nav.Footer](#Nav.Footer)。
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo } from '@douyinfe/semi-icons';
@@ -79,7 +79,7 @@ Navigation 目前提供了个两个参数用于定义导航样式：`style` 和 
 
 例如你需要一个中间列表可以滚动，导航头部和底部固定的导航组件，可以这么使用：
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo } from '@douyinfe/semi-icons';
@@ -126,7 +126,7 @@ class NavApp extends React.Component {
 
 可以使用 JSX 写法定义导航头部、导航项以及导航底部。使用 JSX写法时，在 Nav 的 children 层级，你除了可以使用 Nav.Header、Nav.Item、Nav.Sub、Nav.Footer外，你也可以置入其他自定义的 ReactNode 元素
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconStar, IconUser, IconUserGroup, IconSemiLogo } from '@douyinfe/semi-icons';
@@ -136,7 +136,7 @@ class NavApp extends React.Component {
     render() {
         return (
             <Nav
-                bodyStyle={{ height: 320 }}
+                bodyStyle={{ height: 300 }}
                 defaultOpenKeys={['user', 'union']}
                 onSelect={data => console.log('trigger onSelect: ', data)}
                 onClick={data => console.log('trigger onClick: ', data)}
@@ -201,17 +201,17 @@ import { Nav } from '@douyinfe/semi-ui';
             ]}
         ></Nav>
     );
-}
+};
 ```
 
 
 
-### 导航方向
+### 垂直与水平布局
 
 Navigation 目前提供两种方向的导航：
 
--   垂直方向（默认）,  `mode = "vertical"`
--   水平方向, `mode = "horizontal"`
+-   垂直布局（默认） `mode = "vertical"`
+-   水平布局 `mode = "horizontal"`
 
 
 特别注意的是，有一些功能（参数）仅在 `mode = "vertical"` 时有效：
@@ -220,9 +220,9 @@ Navigation 目前提供两种方向的导航：
 -   `defaultOpenKeys` | `openKeys` （指定默认的以及受控的展开子导航项 key 数组，这个参数仅在 `mode = "vertical"` 且 `isCollapsed = false` 有效）
 -   `Footer` 组件的 `collapseButton` 收起侧边栏功能按钮
 
-#### 竖直方向
+#### 垂直布局
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo } from '@douyinfe/semi-icons';
@@ -234,7 +234,7 @@ class NavApp extends React.Component {
         return (
             <div style={{ width: '100%' }}>
                 <Nav
-                    bodyStyle={{ height: 320 }}
+                    bodyStyle={{ height: 300 }}
                     items={[
                         { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
                         { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect/> },
@@ -266,7 +266,7 @@ class NavApp extends React.Component {
 }
 ```
 
-#### 水平方向
+#### 水平布局
 
 ```jsx live=true dir="column"
 import React from 'react';
@@ -339,113 +339,172 @@ class NavApp extends React.Component {
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Nav, Avatar, Dropdown, Select, Button } from '@douyinfe/semi-ui';
-import { IconStar, IconUser, IconUserGroup, IconSetting, IconEdit, IconLanguage, IconSemiLogo } from '@douyinfe/semi-icons';
+import { Nav, Avatar, Dropdown, Select, Button, Layout, Breadcrumb, Skeleton } from '@douyinfe/semi-ui';
+import { IconStar, IconLanguage, IconSemiLogo, IconBytedanceLogo, IconBell, IconHelpCircle } from '@douyinfe/semi-icons';
+import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNotification, IconSteps, IconTree, IconTabs, IconNavigation } from '@douyinfe/semi-icons-lab';
 
-class NavApp extends React.Component {
-    constructor() {
-        this.items = [
-            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-            { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
-            {
-                itemKey: 'union-management',
-                text: '任务管理',
-                icon: <IconUserGroup />,
-                items: ['公告设置', '任务查询', '信息录入']
-            },
-            {
-                itemKey: 'approve-management',
-                text: '审批管理',
-                icon: <IconEdit />,
-                items: [
-                    '入驻审核',
-                    {
-                        itemKey: 'operation-management',
-                        text: '运营管理',
-                        items: [
-                            '人员管理',
-                            '人员变更'
-                        ]
-                    }
-                ]
-            },
-            {
-                text: '任务平台',
-                icon: <IconSetting />,
-                itemKey: 'job',
-                items: ['任务管理', '用户任务查询'],
-            },
-        ];
+() => {
+    const { Header, Footer, Sider, Content } = Layout;
 
-        this.renderHorizontal = this.renderHorizontal.bind(this);
-        this.renderVertical = this.renderVertical.bind(this);
-    }
-
-    renderHorizontal() {
-        return (
-            <Nav
-                mode={'horizontal'}
-                onSelect={key => console.log(key)}
-                header={{
-                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
-                    text: 'Semi 运营后台'
-                }}
-                footer={
-                    <>
-                        <Select defaultValue='Chinese' style={{ width: 120, marginRight: 10 }} insetLabel={<IconLanguage />}>
-                            <Select.Option value='Chinese'>中文</Select.Option>
-                            <Select.Option value='English'>English</Select.Option>
-                            <Select.Option value='Korean'>한국어</Select.Option>
-                            <Select.Option value='Japanese'>日本語</Select.Option>
-                        </Select>
-                        <Button style={{ marginRight: 10 }}>切换至全球版</Button>
-                        <Dropdown
-                            position="bottomRight"
-                            render={
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>详情</Dropdown.Item>
-                                    <Dropdown.Item>退出</Dropdown.Item>
-                                </Dropdown.Menu>
-                            }
+    const TopHeader = () => (
+        <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
+            <div>
+                <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
+                    <Nav.Header>
+                        <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />
+                    </Nav.Header>
+                    <span
+                        style={{
+                            color: 'var(--semi-color-text-2)',
+                        }}
+                    >
+                        <span
+                            style={{
+                                marginRight: '24px',
+                                color: 'var(--semi-color-text-0)',
+                                fontWeight: '600',
+                            }}
                         >
-                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
-                            <span>Bytedancer</span>
-                        </Dropdown>
-                    </>
-                }
-            />
-        );
-    }
+                            模版推荐
+                        </span>
+                        <span style={{ marginRight: '24px' }}>所有模版</span>
+                        <span>我的模版</span>
+                    </span>
+                    <Nav.Footer>
+                        <Button
+                            theme="borderless"
+                            icon={<IconBell size="large" />}
+                            style={{
+                                color: 'var(--semi-color-text-2)',
+                                marginRight: '12px',
+                            }}
+                        />
+                        <Button
+                            theme="borderless"
+                            icon={<IconHelpCircle size="large" />}
+                            style={{
+                                color: 'var(--semi-color-text-2)',
+                                marginRight: '12px',
+                            }}
+                        />
+                        <Avatar color="orange" size="small">
+                            YJ
+                        </Avatar>
+                    </Nav.Footer>
+                </Nav>
+            </div>
+        </Header>
+    );
 
-    renderVertical() {
-        return (
-            <Nav
-                bodyStyle={{ height: 320 }}
-                items={this.items}
-                onSelect={key => console.log(key)}
-                footer={{
-                    collapseButton: true,
+    const LeftNav = () => (
+        <Nav
+            style={{ maxWidth: 220, height: '100%' }}
+            defaultSelectedKeys={['Home']}
+            items={[
+                {
+                    itemKey: 'approve-management',
+                    text: '审批管理',
+                    icon: <IconBreadcrumb />,
+                    items: [
+                        '入驻审核',
+                        {
+                            itemKey: 'operation-management',
+                            text: '运营管理',
+                            items: [
+                                '人员管理',
+                                '人员变更'
+                            ]
+                        }
+                    ]
+                },
+                {
+                    text: '任务平台',
+                    icon: <IconSteps />,
+                    itemKey: 'job',
+                    items: ['任务管理', '用户任务查询'],
+                },
+                { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect /> },
+            ]}
+            footer={{
+                collapseButton: true,
+            }}
+        />
+    );
+
+    const FooterContent = () => (
+        <>
+            <span
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
                 }}
-            />
-        );
-    }
+            >
+                <IconBytedanceLogo size="large" style={{ marginRight: '8px' }} />
+                <span>Copyright © {new Date().getFullYear()} ByteDance. All Rights Reserved. </span>
+            </span>
+            <span>
+                <span style={{ marginRight: '24px' }}>平台客服</span>
+                <span>反馈建议</span>
+            </span>
+        </>
+    );
+    return (
+        <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+            <TopHeader />
+            <Layout>
+                <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
+                    <LeftNav />
+                </Sider>
+                <Content
+                    style={{
+                        padding: '24px',
+                        backgroundColor: 'var(--semi-color-bg-0)',
+                    }}
+                >
+                    <Breadcrumb
+                        style={{
+                            marginBottom: '24px',
+                        }}
+                        routes={['首页', '当这个页面标题很长时需要省略', '上一页', '详情页']}
+                    />
+                    <div
+                        style={{
+                            borderRadius: '10px',
+                            border: '1px solid var(--semi-color-border)',
+                            height: '376px',
+                            padding: '32px',
+                        }}
+                    >
+                        <Skeleton placeholder={<Skeleton.Paragraph rows={2} />} loading={true}>
+                            <p>Hi, Bytedance dance dance.</p>
+                            <p>Hi, Bytedance dance dance.</p>
+                        </Skeleton>
+                    </div>
+                </Content>
+            </Layout>
+            <Footer
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    padding: '20px',
+                    color: 'var(--semi-color-text-2)',
+                    backgroundColor: 'rgba(var(--semi-grey-0), 1)',
+                }}
+            >
+                <FooterContent />
+            </Footer>
+        </Layout>
+    );
+};
 
-    render() {
-        return (
-            <>
-                {this.renderHorizontal()}
-                {this.renderVertical()}
-            </>
-        );
-    }
-}
 ```
 
 ### 展开收起箭头位置
 
 可通过 `toggleIconPosition` 改变 NavSub 展开收起箭头的位置，默认为 'right' 右侧展示，可改为 'left'
 
-```jsx live=true dir=column
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
@@ -457,7 +516,7 @@ class NavApp extends React.Component {
             <Nav
                 toggleIconPosition={'left'}
                 defaultOpenKeys={['job']}
-                bodyStyle={{ height: 320 }}
+                bodyStyle={{ height: 300 }}
                 items={[
                     { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
                     { itemKey: 'union', text: '活动管理', icon: <IconBanner /> },
@@ -488,7 +547,7 @@ class NavApp extends React.Component {
 - 当以 Jsx 方式用 Nav.Item 传入导航项时，请手动给 Nav.Item 传入 `level` props。
 - 以 items 方式传入导航项时，无需关心 level
 
-```jsx live=true dir=column
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconUser, IconStar, IconSetting, IconSemiLogo } from '@douyinfe/semi-icons';
@@ -500,7 +559,7 @@ class NavApp extends React.Component {
             <Nav
                 limitIndent={false}
                 defaultOpenKeys={['job', 'mission1']}
-                bodyStyle={{ height: 320 }}
+                bodyStyle={{ height: 300 }}
                 items={[
                     { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
                     {
@@ -546,7 +605,7 @@ class NavApp extends React.Component {
 -   `defaultOpenKeys`（默认展开的导航项 `key` 数组，仅 `mode = "vertical"` 且 `isCollapsed` | `defaultIsCollapsed = false` 的情况下有效）
 -   `defaultIsCollapsed`（侧边栏默认是否收起，仅 `mode = "vertical"` 时有效）
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo } from '@douyinfe/semi-icons';
@@ -559,7 +618,7 @@ class NavApp extends React.Component {
                 defaultOpenKeys={['job']}
                 defaultSelectedKeys={['信息录入']}
                 defaultIsCollapsed={true}
-                bodyStyle={{ height: 320 }}
+                bodyStyle={{ height: 300 }}
                 items={[
                     { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
                     { itemKey: 'union', text: '活动管理', icon: <IconBanner /> },
@@ -606,7 +665,7 @@ Navigation 组件提供了几个受控属性，配合各种回调，可以很轻
 -   `onSelect({ itemKey: string, selectedKeys: string[], domEvent: MouseEvent, isOpen: boolean }): void`
 -   `onOpenChange({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }): void`
 
-```jsx live=true dir="column"
+```jsx live=true width=78%
 import React, { useMemo, useState } from 'react';
 import { Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo } from '@douyinfe/semi-icons';
@@ -652,7 +711,7 @@ function NavApp (props = {}) {
             isCollapsed={isCollapsed}
             openKeys={openKeys}
             selectedKeys={selectedKeys}
-            bodyStyle={{ height: 360 }}
+            bodyStyle={{ height: 300 }}
             items={items}
             header={{
                 logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
@@ -673,92 +732,92 @@ function NavApp (props = {}) {
 
 ### Nav
 
-| 属性                  | 描述                                                                                      | 类型                                                                                                                                                                  | 默认值                     |
-|---------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| bodyStyle           | 导航项列表的自定义样式                                                                             | CSSProperties                                                                                                                                                       |                         |
-| className           | 最外层元素的样式名                                                                               | string                                                                                                                                                              |                         |
-| defaultIsCollapsed  | 默认是否处于收起状态，仅 `mode = "vertical"` 时有效                                                    | boolean                                                                                                                                                             | false                   |
-| defaultOpenKeys     | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效                               | string[]                                                                                                                                                            | []                      |
-| defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组                                                                   | string[]                                                                                                                                                            | []                      |
-| expandIcon          | 默认下拉箭头Icon, v>=2.36                                                                     | ReactNode                                                                                                                                                     |                       |
-| footer              | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer)                                                | object\                                                                                                                                                             | ReactNode               |                      |
-| getPopupContainer   | 垂直 Nav 折叠或 水平 Nav中 Dropdown 的 getPopupContainer 配置，可指定弹出层容器 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 , v>=2.24.0                 | Function |                      |
-| header              | 头部区域配置对象或元素，详见 [Nav.Header](#Nav.Header)                                                | object\                                                                                                                                                             | ReactNode               |                      |
-| isCollapsed         | 是否处于收起状态的受控属性，仅 `mode = "vertical"` 时有效                                                 | boolean                                                                                                                                                             |                         |
-| items               | 导航项目列表，每一项可以继续带有 items 属性。如果为 string 数组，则会取每一项作为 text 和 itemKey                         | object\| string[]\| [Item](#Nav.Item)[] \| [Sub](#Nav.Sub)[] |  |
-| limitIndent         | 解除缩进限制，可使用 level 自定义导航项缩进，水平模式只能为true >=1.27.0                                          | boolean                                                                                                                                                             | true                    |
-| mode                | 导航类型，目前支持横向与竖直，可选值：`vertical`/                                                          | `horizontal`                                                                                                                                                        | string                  | `vertical`           |
-| openKeys            | 受控的打开的子导航 `itemKey` 数组，配合 `onOpenChange` 回调控制子导航项展开，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效 | string[]                                                                                                                                                            |                         |
-| prefixCls           | 类名前缀                                                                                    | string                                                                                                                                                              | `semi`                  |
-| renderWrapper       | 自定义导航项外层组件，v>=2.24.0                                                                    |  <ApiType detail='(data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps }) => ReactNode'>(data) => ReactNode</ApiType>  | |
-| selectedKeys        | 受控的导航项 `itemKey` 数组，配合 `onSelect` 回调控制导航项选择                                             | string[]                                                                                                                                                            |                         |
-| style               | 最外层元素的自定义样式                                                                             | CSSProperties                                                                                                                                                       |                         |
-| subNavCloseDelay    | 子导航浮层关闭的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                             | number                                                                                                                                                              | 100                     |
-| subNavMotion        | 子导航折叠动画                                                                                 | boolean                                                                                                                                                             | true                    |
-| subNavOpenDelay     | 子导航浮层显示的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                             | number                                                                                                                                                              | 0                       |
-| toggleIconPosition  | 带有子导航项的的父级导航项箭头位置 v>=1.27.0                                                             | 'left' \                                                                                                                                                            | 'right'                 | 'right'              |
-| tooltipHideDelay    | tooltip 隐藏的延迟，collapse 为 true 时有效，单位为 ms                                                | number                                                                                                                                                              | 100                     |
-| tooltipShowDelay    | tooltip 显示的延迟，collapse 为 true 时有效，单位为 ms                                                | number                                                                                                                                                              | 0                       |
-| onClick             | 点击任意导航项时触发                                                                              | <ApiType detail='({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void'>(itemKey, event, isOpen) => void</ApiType>                                   | () => {}                |
-| onCollapseChange    | 收起状态变化时的回调                                                                              | <ApiType detail='(isCollapsed: boolean) => void'>(isCollapsed)=> void </ApiType>                                                                                       | () => {}                |
-| onOpenChange        | 切换某个子导航项目显隐状态时触发                                                                        | <ApiType detail='({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void'> ({itemKey, openKeys, event, isOpen})=>{}</ApiType>      | () => {}                |
-| onSelect            | 第一次选中某个可选中导航项目时触发                                                                       | <ApiType detail='({ itemKey: string, selectedKeys: string[], selectedItems: Item[], domEvent: MouseEvent, isOpen: boolean }) => void'>(onSelectProps)=>{}</ApiType> | () => {}                |
+| 属性                | 描述                                                                                                                                        | 类型                                                                                                                                                                  | 默认值     |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| bodyStyle           | 导航项列表的自定义样式                                                                                                                      | CSSProperties                                                                                                                                                         |            |
+| className           | 最外层元素的样式名                                                                                                                          | string                                                                                                                                                                |            |
+| defaultIsCollapsed  | 默认是否处于收起状态，仅 `mode = "vertical"` 时有效                                                                                         | boolean                                                                                                                                                               | false      |
+| defaultOpenKeys     | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效                                                          | string[]                                                                                                                                                              | []         |
+| defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组                                                                                                             | string[]                                                                                                                                                              | []         |
+| expandIcon          | 默认下拉箭头Icon, v>=2.36                                                                                                                   | ReactNode                                                                                                                                                             |            |
+| footer              | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer)                                                                                      | object\|ReactNode                                                                                                                                                     |            |
+| getPopupContainer   | 垂直 Nav 折叠或 水平 Nav中 Dropdown 的 getPopupContainer 配置，可指定弹出层容器 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 v>=2.24.0 | Function                                                                                                                                                              |            |
+| header              | 头部区域配置对象或元素，详见 [Nav.Header](#Nav.Header)                                                                                      | object\|ReactNode                                                                                                                                                     |            |
+| isCollapsed         | 是否处于收起状态的受控属性，仅 `mode = "vertical"` 时有效                                                                                   | boolean                                                                                                                                                               |            |
+| items               | 导航项目列表，每一项可以继续带有 items 属性。如果为 string 数组，则会取每一项作为 text 和 itemKey                                           | object\| string[]\| [Item](#Nav.Item)[] \| [Sub](#Nav.Sub)[]                                                                                                          |            |
+| limitIndent         | 解除缩进限制，可使用 level 自定义导航项缩进，水平模式只能为true                                                                             | boolean                                                                                                                                                               | true       |
+| mode                | 导航类型，目前支持横向与竖直，可选值：`vertical`或`horizontal`                                                                              | string                                                                                                                                                                | `vertical` |
+| openKeys            | 受控的打开的子导航 `itemKey` 数组，配合 `onOpenChange` 回调控制子导航项展开，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效              | string[]                                                                                                                                                              |            |
+| prefixCls           | 类名前缀                                                                                                                                    | string                                                                                                                                                                | `semi`     |
+| renderWrapper       | 自定义导航项外层组件，v>=2.24.0                                                                                                             | <ApiType detail='(data:{ itemElement:ReactElement, isSubNav:boolean, isInSubNav:boolean, props:SubNavProps\| ItemProps }) => ReactNode'>(data) => ReactNode</ApiType> |            |
+| selectedKeys        | 受控的导航项 `itemKey` 数组，配合 `onSelect` 回调控制导航项选择                                                                             | string[]                                                                                                                                                              |            |
+| style               | 最外层元素的自定义样式                                                                                                                      | CSSProperties                                                                                                                                                         |            |
+| subNavCloseDelay    | 子导航浮层关闭的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                                                            | number                                                                                                                                                                | 100        |
+| subNavMotion        | 子导航折叠动画                                                                                                                              | boolean                                                                                                                                                               | true       |
+| subNavOpenDelay     | 子导航浮层显示的延迟。collapse 为 true 或 mode 为 "horizontal" 时有效，单位为 ms                                                            | number                                                                                                                                                                | 0          |
+| toggleIconPosition  | 带有子导航项的的父级导航项箭头位置，可选 `left`或 `right`                                                                                   | string                                                                                                                                                                | 'right'    |
+| tooltipHideDelay    | tooltip 隐藏的延迟，collapse 为 true 时有效，单位为 ms                                                                                      | number                                                                                                                                                                | 100        |
+| tooltipShowDelay    | tooltip 显示的延迟，collapse 为 true 时有效，单位为 ms                                                                                      | number                                                                                                                                                                | 0          |
+| onClick             | 点击任意导航项时触发                                                                                                                        | <ApiType detail='({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void'>(itemKey, event, isOpen) => void</ApiType>                                     | () => {}   |
+| onCollapseChange    | 收起状态变化时的回调                                                                                                                        | <ApiType detail='(isCollapsed: boolean) => void'>(isCollapsed)=> void </ApiType>                                                                                      | () => {}   |
+| onOpenChange        | 切换某个子导航项目显隐状态时触发                                                                                                            | <ApiType detail='({ itemKey: string, openKeys: string[], domEvent: MouseEvent, isOpen: boolean }) => void'> ({itemKey, openKeys, event, isOpen})=>{}</ApiType>        | () => {}   |
+| onSelect            | 第一次选中某个可选中导航项目时触发                                                                                                          | <ApiType detail='({ itemKey: string, selectedKeys: string[], selectedItems: Item[], domEvent: MouseEvent, isOpen: boolean }) => void'>(onSelectProps)=>{}</ApiType>   | () => {}   |
 
 ### Nav.Item
 
-| 属性        | 描述                                               | 类型              | 默认值 | 版本          |
-|-------------|--------------------------------------------------|-------------------|--------|---------------|
-| disabled    | 是否禁用                                           | boolean | false     | 1.17.0              |
-| icon        | 导航项目图标                             | ReactNode |      |               |
-| indent      | 如果 icon 为空，是否保留其占位，仅对一级导航生效       | boolean           | false  |               |
-| itemKey     | 导航项目唯一 key                                   | string            | ""     |               |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | | 1.27.0 | 
-| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
-| linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
-| text        | 导航项目文案或元素                                 | string\|ReactNode | ""     |               |
-| onClick     | 点击任意导航项时触发 |function({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) |  () => {}   | 
-| onMouseEnter| mouse enter 时触发 |function(e) => {} | () => {}   | 
-| onMouseLeave| mouse leave 时触发 |function(e) => {} | () => {}   | 
+| 属性         | 描述                                                          | 类型                                                                                                                                   | 默认值   |
+| ------------ | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| disabled     | 是否禁用                                                      | boolean                                                                                                                                | false    |
+| icon         | 导航项目图标                                                  | ReactNode                                                                                                                              |          |
+| indent       | 如果 icon 为空，是否保留其占位，仅对一级导航生效              | boolean                                                                                                                                | false    |
+| itemKey      | 导航项目唯一 key                                              | string                                                                                                                                 | ""       |
+| level        | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置 | number                                                                                                                                 |          |
+| link         | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签           | string                                                                                                                                 | -        |
+| linkOptions  | 透传给 a 标签的参数                                           | object                                                                                                                                 | -        |
+| text         | 导航项目文案或元素                                            | string\|ReactNode                                                                                                                      | ""       |
+| onClick      | 点击任意导航项时触发                                          | <ApiType detail='({ itemKey: string, domEvent: MouseEvent, isOpen: boolean }) => void'>({itemKey, domEvent, isOpen}) => void</ApiType> | () => {} |
+| onMouseEnter | mouse enter 时触发                                            | function(e) => {}                                                                                                                      | () => {} |
+| onMouseLeave | mouse leave 时触发                                            | function(e) => {}                                                                                                                      | () => {} |
 
 ### Nav.Sub
 
-| 属性    | 描述                           | 类型              | 默认值 |
-| ------- | ------------------------------ | ----------------- | ------ |
-| disabled    | 是否禁用                                           | boolean | false     | 1.17.0             |
-| dropdownStyle | 弹出层的 style                                           | CSSProperties |     |              |
-| icon    | 导航项目图标       | ReactNode |      |
-| indent  | 如果 icon 为空，是否保留其占位，仅对一级导航生效 | boolean           | false  |
-| isCollapsed         |  是否处于收起状态的受控属性，仅 `mode = "vertical"`      | boolean  |    false        |
-| isOpen         |  是否打开      | boolean  |    false        |
-| itemKey | 导航项目唯一 key               | string            | ""     |
-| level       | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置| number | 0 | 1.27.0 |
-| maxHeight       | 最大高度 | number | 999 |
-| text    | 导航项目文案或组件             | string\|ReactNode | ""     |
-| onMouseEnter| mouse enter 时触发 |function(e) => {} | () => {}   | 
-| onMouseLeave| mouse leave 时触发 |function(e) => {} | () => {}   | 
+| 属性          | 描述                                                          | 类型              | 默认值   |
+| ------------- | ------------------------------------------------------------- | ----------------- | -------- |
+| disabled      | 是否禁用                                                      | boolean           | false    |  |
+| dropdownStyle | 弹出层的 style                                                | CSSProperties     |          |  |
+| icon          | 导航项目图标                                                  | ReactNode         |          |
+| indent        | 如果 icon 为空，是否保留其占位，仅对一级导航生效              | boolean           | false    |
+| isCollapsed   | 是否处于收起状态的受控属性，仅 `mode = "vertical"`            | boolean           | false    |
+| isOpen        | 是否打开                                                      | boolean           | false    |
+| itemKey       | 导航项目唯一 key                                              | string            | -        |
+| level         | 当前项所在嵌套层级，limitIndent 为 true时，用于自定义缩进位置 | number            | 0        |  |
+| maxHeight     | 最大高度                                                      | number            | 999      |
+| text          | 导航项目文案或组件                                            | string\|ReactNode | ""       |
+| onMouseEnter  | mouse enter 时触发                                            | function(e) => {} | () => {} |
+| onMouseLeave  | mouse leave 时触发                                            | function(e) => {} | () => {} |
 
 ### Nav.Header
 
-| 属性        | 描述                                               | 类型              | 默认值 | 版本          |
-|-------------|--------------------------------------------------|-------------------|--------|---------------|
-| children    | 子元素                                             | ReactNode         |        |               |
-| className   | 最外层样式名                                       | string            |        |               |
-| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string            | -      | 1.0.0 |
-| linkOptions | 透传给 a 标签的参数                                | object            | -      | 1.0.0 |
-| logo        | Logo                         | ReactNode |        |               |
-| style       | 最外层样式                                         | CSSProperties            |        |               |
-| text        | Logo 文案                       | ReactNode |        |               |
+| 属性        | 描述                                                | 类型          | 默认值 |
+| ----------- | --------------------------------------------------- | ------------- | ------ |
+| children    | 子元素                                              | ReactNode     |        |
+| className   | 最外层样式名                                        | string        |        |
+| link        | 导航项 href 链接，传入时导航项整体会包裹一个 a 标签 | string        | -      |
+| linkOptions | 透传给 a 标签的参数                                 | object        | -      |
+| logo        | Logo                                                | ReactNode     |        |
+| style       | 最外层样式                                          | CSSProperties |        |
+| text        | Logo 文案                                           | ReactNode     |        |
 
 ### Nav.Footer
 
-| 属性           | 描述                                                                                     | 类型                                      | 默认值 |
-| -------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------- | ------ |
-| children       | 子元素                                                                                   | ReactNode                                 |        |         
-| className      | 最外层样式名                                                                             | string                                    |        |      
-| collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode                        | false  |          
-| collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => string\|ReactNode |        |
-| style          | 最外层样式                                                                               | CSSProperties                                    |        |  
-| onClick        | 点击事件回调                                                                             | (event) => void                              |        |  
+| 属性           | 描述                                                                                     | 类型                             | 默认值 |
+| -------------- | ---------------------------------------------------------------------------------------- | -------------------------------- | ------ |
+| children       | 子元素                                                                                   | ReactNode                        |        |
+| className      | 最外层样式名                                                                             | string                           |        |
+| collapseButton | 是否展示底部“收起侧边栏”按钮，mode="vertical" 且 Footer 组件的 children 参数为空才有效果 | boolean\|ReactNode               | false  |
+| collapseText   | “收起”按钮的文案                                                                         | (collapsed:boolean) => ReactNode |        |
+| style          | 最外层样式                                                                               | CSSProperties                    |        |
+| onClick        | 点击事件回调                                                                             | (event) => void                  |        |
 
 ## Accessibility
 - ### 键盘和焦点
@@ -773,8 +832,8 @@ function NavApp (props = {}) {
 - 导航栏菜单使用句子大小写格式
 - 尽量精简
 
-| ✅ 推荐用法 | ❌ 不推荐用法 |   
-| --- | --- | 
+| ✅ 推荐用法    | ❌ 不推荐用法  |
+| ------------- | ------------- |
 | Appeal center | Appeal Center |
 
 

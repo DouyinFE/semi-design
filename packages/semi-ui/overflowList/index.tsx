@@ -10,7 +10,8 @@ import IntersectionObserver from './intersectionObserver';
 import OverflowListFoundation, { OverflowListAdapter } from '@douyinfe/semi-foundation/overflowList/foundation';
 
 import '@douyinfe/semi-foundation/overflowList/overflowList.scss';
-import { cloneDeep, getDefaultPropsFromGlobalConfig } from '../_utils';
+import { getDefaultPropsFromGlobalConfig } from '../_utils';
+import copy from 'fast-copy';
 
 const prefixCls = cssClasses.PREFIX;
 const Boundary = strings.BOUNDARY_MAP;
@@ -20,7 +21,7 @@ const RenderMode = strings.MODE_MAP;
 export type { ReactIntersectionObserverProps } from './intersectionObserver';
 export type OverflowItem = Record<string, any>;
 
-type Key = string|number
+type Key = string | number
 
 export interface OverflowListProps {
     className?: string;
@@ -38,7 +39,7 @@ export interface OverflowListProps {
     wrapperStyle?: CSSProperties;
     itemKey?: Key | ((item: OverflowItem) => Key);
     onVisibleStateChange?: (visibleState: Map<string, boolean>) => void;
-    overflowRenderDirection?: "both"|"start"|'end' // used in tabs, not exposed to user
+    overflowRenderDirection?: "both" | "start" | 'end' // used in tabs, not exposed to user
 }
 
 export interface OverflowListState {
@@ -134,8 +135,8 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
                 }
 
                 const isCollapseFromStart = props.collapseFrom === Boundary.START;
-                const visible = isCollapseFromStart ? cloneDeep(props.items).reverse().slice(0, maxCount) : props.items.slice(0, maxCount);
-                const overflow = isCollapseFromStart ? cloneDeep(props.items).reverse().slice(maxCount) : props.items.slice(maxCount);
+                const visible = isCollapseFromStart ? copy(props.items).reverse().slice(0, maxCount) : props.items.slice(0, maxCount);
+                const overflow = isCollapseFromStart ? copy(props.items).reverse().slice(maxCount) : props.items.slice(maxCount);
                 newState.visible = visible;
                 newState.overflow = overflow;
                 newState.maxCount = maxCount;
@@ -150,7 +151,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         return {
             ...super.adapter,
             updateVisibleState: (visibleState): void => {
-                this.setState({ visibleState }, ()=>{
+                this.setState({ visibleState }, () => {
                     this.props.onVisibleStateChange?.(visibleState);
                 });
             },
@@ -266,7 +267,7 @@ class OverflowList extends BaseComponent<OverflowListProps, OverflowListState> {
         }
         const inner =
             renderMode === RenderMode.SCROLL ?
-                (()=>{
+                (() => {
                     const list = [<div
                         className={cls(wrapperClassName, `${prefixCls}-scroll-wrapper`)}
                         ref={(ref): void => {

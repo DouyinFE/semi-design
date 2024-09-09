@@ -80,12 +80,13 @@ export default class DayCol extends BaseComponent<DayColProps, DayColState> {
     renderEvents = () => {
         const { events, scrollHeight, minEventHeight } = this.props;
         const list = events.map((event, ind) => {
-            const { startPos, endPos, children, key } = event;
+            const { startPos, endPos, children, key, left = 0 } = event;
             const top = startPos * scrollHeight;
             const height = (endPos - startPos) * scrollHeight;
             const style = {
                 top: `${top}px`,
                 height: `${Math.max(minEventHeight, height)}px`,
+                left: left
             };
             return (
                 <li className={`${cssClasses.PREFIX}-event-item ${cssClasses.PREFIX}-event-day`} style={style} key={key || `${top}-${ind}`}>

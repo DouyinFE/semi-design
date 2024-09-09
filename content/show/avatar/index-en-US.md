@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 50
+order: 52
 category: Show
 title:  Avatar
 subTitle: avatar
@@ -456,7 +456,7 @@ import { Avatar, AvatarGroup } from '@douyinfe/semi-ui';
 | overlapFrom | Set the coverage direction of the avatars, one of `start`, `end` | string | `start` |
 | renderMore | Customize the more tag  | (restNumber: number, restAvatars: ReactNode[]) => ReactNode | - |
 | shape      | Shape of the avatar, one of `circle`, `square`                                      | string | `circle` |
-| size       | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `default`, `medium`, `large`, `extra-large` | string | `medium` |
+| size       | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `default`, `medium`, `large`, `extra-large` and valid value like "10px" | string | `medium` |
 
 ## Accessibility
 

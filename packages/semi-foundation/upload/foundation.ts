@@ -94,6 +94,7 @@ export interface UploadAdapter<P = Record<string, any>, S = Record<string, any>>
 }
 
 class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<UploadAdapter<P, S>, P, S> {
+    destroyState: boolean = false;
     constructor(adapter: UploadAdapter<P, S>) {
         super({ ...adapter });
     }
@@ -111,6 +112,7 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         if (!disabled) {
             this.unbindPastingHandler();
         }
+        this.destroyState = true;
     }
 
     getError({ action, xhr, message, fileName }: { action: string;xhr: XMLHttpRequest;message?: string;fileName: string }): XhrError {
@@ -569,13 +571,27 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         }
 
         if (xhr.upload) {
-            xhr.upload.onprogress = (e: ProgressEvent): void => this.handleProgress({ e, fileInstance });
+            xhr.upload.onprogress = (e: ProgressEvent): void => {
+                if (!this.destroyState) {
+                    this.handleProgress({ e, fileInstance });
+                } else {
+                    xhr.abort();
+                }
+            };
         }
 
         // Callback function after upload is completed
-        xhr.onload = (e: ProgressEvent): void => this.handleOnLoad({ e, xhr, fileInstance });
+        xhr.onload = (e: ProgressEvent): void => {
+            if (!this.destroyState) {
+                this.handleOnLoad({ e, xhr, fileInstance });
+            }
+        };
 
-        xhr.onerror = (e: ProgressEvent): void => this.handleError({ e, xhr, fileInstance });
+        xhr.onerror = (e: ProgressEvent): void => {
+            if (!this.destroyState) {
+                this.handleError({ e, xhr, fileInstance });
+            }
+        };
 
         // add headers
         let headers = option.headers || {};

@@ -1,1 +1,0 @@
-../../../content/other/locale/index.md

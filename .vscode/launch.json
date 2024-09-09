@@ -10,7 +10,7 @@
             "runtimeArgs": [
                 "--inspect-brk",
                 "${workspaceRoot}/node_modules/jest/bin/jest",
-                "packages/semi-ui/select/", // Replace with the folder path of the component you want to debug
+                "packages/semi-ui/hotKeys/", // Replace with the folder path of the component you want to debug
                 "--runInBand",
                 "--silent" // ignore warning such as componentWillReceiveProps will be abondon...
             ],

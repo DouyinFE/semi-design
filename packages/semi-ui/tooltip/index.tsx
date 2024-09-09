@@ -198,7 +198,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     containerPosition: string;
     foundation: TooltipFoundation;
     context: ContextValue;
-
+    isAnimating: boolean = false;
     constructor(props: TooltipProps) {
         super(props);
         this.state = {
@@ -240,6 +240,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             on: (...args: any[]) => this.eventManager.on(...args),
             // @ts-ignore
             off: (...args: any[]) => this.eventManager.off(...args),
+            getAnimatingState: () => this.isAnimating,
             insertPortal: (content: TooltipProps['content'], { position, ...containerStyle }: { position: Position }) => {
                 this.setState(
                     {
@@ -447,7 +448,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             },
             setInitialFocus: () => {
                 const { preventScroll } = this.props;
-                const focusRefNode = get(this, 'initialFocusRef.current');
+                const focusRefNode = get(this, 'initialFocusRef.current') as HTMLElement;
                 if (focusRefNode && 'focus' in focusRefNode) {
                     focusRefNode.focus({ preventScroll });
                 }
@@ -458,7 +459,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             setId: () => {
                 this.setState({ id: getUuidShort() });
             },
-            getTriggerDOM: ()=>{
+            getTriggerDOM: () => {
                 if (this.triggerEl.current) {
                     return ReactDOM.findDOMNode(this.triggerEl.current as ReactInstance) as HTMLElement;
                 } else {
@@ -473,7 +474,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         this.mounted = true;
         this.getPopupContainer = this.props.getPopupContainer || this.context.getPopupContainer || defaultGetContainer;
         this.foundation.init();
-        runAfterTicks(()=>{
+        runAfterTicks(() => {
             let triggerEle = this.triggerEl.current;
             if (triggerEle) {
                 if (!(triggerEle instanceof HTMLElement)) {
@@ -652,8 +653,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 animationState={transitionState as "enter" | "leave"}
                 motion={motion && isPositionUpdated}
                 startClassName={transitionState === 'enter' ? `${prefix}-animation-show` : `${prefix}-animation-hide`}
+                onAnimationStart={() => this.isAnimating = true}
                 onAnimationEnd={() => {
                     if (transitionState === 'leave') {
+                        this.isAnimating = false;
                         this.didLeave();
                         this.props.afterClose?.();
                     }

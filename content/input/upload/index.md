@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 41
+order: 43
 category: 输入类
 title: Upload 上传
 icon: doc-upload
@@ -1303,45 +1303,45 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |accept | `html` 原生属性，接受上传的[文件类型](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-accept)。<br/>`accept` 的值为你允许选择文件的[MIME types 字符串](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types)或文件后缀（.jpg等） | string | |  |
 |action | 文件上传地址，必填 | string |  |  |
 |addOnPasting | 按下 ctrl/command + v时，是否自动将剪贴板中的文件添加至 fileList，当前仅支持图片类型; 需用户授权同意 | boolean | false | 2.43.0 |
-|afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  | 1.0.0 |
-|beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise||1.31.0|
-|beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise||1.31.0|
-|beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  | 1.0.0 |
+|afterUpload | 文件上传后的钩子，根据 return 的 object 更新文件状态 | function(auProps) => afterUploadResult |  |  |
+|beforeClear|清空文件前回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(fileList: Array<FileItem \>) => boolean\|Promise|| |
+|beforeRemove|移除文件前的回调，按照返回值来判断是否继续移除，返回false、Promise.resolve(false)、Promise.reject()会阻止移除|(file: <FileItem\>, fileList: Array<FileItem \>) => boolean\|Promise|| |
+|beforeUpload | 上传文件前的钩子，根据 return 的 object 更新文件状态，控制是否上传 | function(buProps) => beforeUploadResult \| Promise \| boolean |  |  |
 |capture | 文件上传控件中媒体拍摄的方式 | boolean\|string\|undefined | | |
 |className | 类名 | string |  |  |
-|customRequest | 自定义上传使用的异步请求方法 | (object: customRequestArgs) => void |  | 1.5.0 |
+|customRequest | 自定义上传使用的异步请求方法 | (object: customRequestArgs) => void |  |  |
 |data | 上传时附带的额外参数或返回上传额外参数的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |defaultFileList | 已上传的文件列表 | Array<FileItem\> | [] |  |
-|directory | 文件夹类型上传 | boolean | false | 1.20.0 |
+|directory | 文件夹类型上传 | boolean | false |  |
 |disabled | 是否禁用 | boolean | false |  |
 |dragIcon | 拖拽区左侧 Icon | ReactNode | `<IconUpload />` |  |
 |dragMainText | 拖拽区主文本 | ReactNode | '点击上传文件或拖拽文件到这里' | |
 |dragSubText | 拖拽区帮助文本 | ReactNode | '' |  |
 |draggable | 是否支持拖拽上传 | boolean | false |  |
-|fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  | 1.0.0 |
-|fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | 1.0.0 |
+|fileList | 已上传的文件列表，传入该值时，upload 即为受控组件 | Array<FileItem\> |  |  |
+|fileName | 作用与 name 相同，主要在 Form.Upload 中使用，为了避免与 Field 的 props.name 冲突，此处另外提供一个重命名的 props | string |  | |
 |headers | 上传时附带的 headers 或返回上传额外 headers 的方法 | object\|(file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => object | {} |  |
 |hotSpotLocation | 照片墙点击热区的放置位置，可选值 `start`, `end` | string | 'end' | 2.5.0 |
-|itemStyle | fileCard 的内联样式 | CSSProperties |  | 1.0.0 |
+|itemStyle | fileCard 的内联样式 | CSSProperties |  |  |
 |limit | 最大允许上传文件个数 | number |  |  |
 |listType | 文件列表展示类型，可选`picture`、`list` | string | 'list' |  |
 |maxSize | 文件体积最大限制，单位 KB | number |  |  |
 |minSize | 文件体积最小限制，单位 KB | number |  |  |
 |multiple | 是否允许单次选中多个文件 | boolean | false |  |
 |name | 上传时使用的文件名 | string | '' |  |
-|onAcceptInvalid | 当接收到的文件不符合accept规范时触发（一般是因为文件夹选择了全部类型文件/拖拽不符合格式的文件时触发） | (files: File[]) => void | | 1.24.0 |
-|onChange | 文件状态发生变化时调用，包括上传成功，失败，上传中，回调入参为 Object，包含 fileList、currentFile 等值 | ({fileList: Array<FileItem\>, currentFile?: FileItem}) => void |  | 1.0.0 |
-|onClear | 点击清空时的回调 | () => void |  | 1.1.0 |
-|onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, fileList: Array<FileItem\>) => void |  | 1.9.0 |
+|onAcceptInvalid | 当接收到的文件不符合accept规范时触发（一般是因为文件夹选择了全部类型文件/拖拽不符合格式的文件时触发） | (files: File[]) => void | |  |
+|onChange | 文件状态发生变化时调用，包括上传成功，失败，上传中，回调入参为 Object，包含 fileList、currentFile 等值 | ({fileList: Array<FileItem\>, currentFile?: FileItem}) => void |  |  |
+|onClear | 点击清空时的回调 | () => void |  |  |
+|onDrop | 当拖拽的元素在拖拽区上被释放时触发 | (e, files: Array<File\>, fileList: Array<FileItem\>) => void |  |  |
 |onError | 上传错误时的回调 | (error: Error, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>, xhr: XMLHttpRequest) => void |  |  |
 |onExceed | 上传文件总数超出 `limit` 时的回调 | (fileList:Array<FileItem\>) => void |  |  |
 |onFileChange | 选中文件后的回调 | (Array<File\>) => void |  |  |
-|onOpenFileDialog | 打开系统文系统文件选择弹窗时触发 | () => void |  | 1.18.0 |
-|onPreviewClick | 点击文件卡片时的回调 | (fileItem: FileItem) => void |  | 1.8.0 |
+|onOpenFileDialog | 打开系统文系统文件选择弹窗时触发 | () => void |  |  |
+|onPreviewClick | 点击文件卡片时的回调 | (fileItem: FileItem) => void |  |  |
 |onProgress | 上传文件时的回调 | (percent: number, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList: Array<FileItem\>) => void |  |  |
 |onPastingError | addOnPasting为true时，粘贴读取失败时的回调 | (Error\|PermissionState) |  | 2.43.0 |
 |onRemove | 移除文件的回调 | (currentFile: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>, currentFileItem: FileItem) => void |  |  |
-|onRetry | 上传重试的回调 | (file: <FileItem\>) => void |  | 1.18.0 |
+|onRetry | 上传重试的回调 | (file: <FileItem\>) => void |  |  |
 |onSizeError | 文件尺寸非法的回调 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |  |
 |onSuccess | 上传成功后的回调 | (responseBody: object, file: [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File), fileList:Array<FileItem\>) => void |  |
 |picHeight | 图片墙模式下，可通过该 API 定制图片展示高度 | string\|number |  | 2.42.0 |
@@ -1349,20 +1349,20 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |previewFile | 自定义预览逻辑，该函数返回内容将会替换原缩略图 | (fileItem: FileItem) => ReactNode |  |  |
 |prompt | 自定义插槽，可用于插入提示文本。与直接在 `children` 中写的区别时，`prompt` 的内容在点击时不会触发上传<br/>（图片墙模式下，v1.3.0 后才支持传入 prompt） | ReactNode |  |  |
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
-|renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  | 1.0.0 |
+|renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  |  |
 |renderFileOperation | 自定义列表项操作区 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |renderPicPreviewIcon| 自定义照片墙hover时展示的预览图标，只在照片墙模式下有效 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| 自定义图片墙缩略图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
-|showClear | 在 limit 不为 1 且当前已上传文件数大于 1 时，是否展示清空按钮 | boolean | true | 1.0.0 |
+|showClear | 在 limit 不为 1 且当前已上传文件数大于 1 时，是否展示清空按钮 | boolean | true |  |
 |showPicInfo| 是否显示图片信息，只在照片墙模式下有效| boolean| false | 2.2.0 |
-|showReplace | 上传成功时，是否展示在 fileCard 内部展示替换按钮 | boolean | false | 1.21.0 |
-|showRetry | 上传失败时，是否展示在 fileCard 内部展示重试按钮 | boolean | true | 1.0.0 |
+|showReplace | 上传成功时，是否展示在 fileCard 内部展示替换按钮 | boolean | false |  |
+|showRetry | 上传失败时，是否展示在 fileCard 内部展示重试按钮 | boolean | true |  |
 |showUploadList | 是否显示文件列表 | boolean | true |  |
 |style | 样式 | CSSProperties |  |  |
-|transformFile | 选中文件后，上传文件前的回调函数，可用于对文件进行自定义转换处理 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem |  | 1.0.0 |
+|transformFile | 选中文件后，上传文件前的回调函数，可用于对文件进行自定义转换处理 | (file:[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)) => FileItem |  |  |
 |uploadTrigger | 触发上传时机，可选值 `auto`、`custom` | string | 'auto' |  |
-|validateMessage | Upload 整体的错误信息 | ReactNode |  | 1.0.0 |
+|validateMessage | Upload 整体的错误信息 | ReactNode |  |  |
 |withCredentials | 是否带上 Cookie 信息 | boolean | false |  |
 
 

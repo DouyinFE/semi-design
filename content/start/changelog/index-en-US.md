@@ -16,6 +16,74 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.66.0-beta.0 (2024-09-02)
+- 【Fix】
+    - Fixed the issue that the error style was blocked in Form.Upload image wall mode
+    - Fixed the issue that Collapse Tabs crashes when the tab is set to jsx (affected range: 2.65.0 )
+    - Fixed the issue that Dropdown onVisibleChange reported an error when it was not defined in some scenarios
+    - Fixed SyntaxError when parsing unescaped characters in Chat component message box
+    - Fixed the issue where the Chat component scrolls the message list while the message is being updated streaming. The streaming update of message will cause the list to unexpectedly scroll to the bottom.
+- 【Feat】
+    - Tabs add slash type
+    - renderArrow of Tabs support defaultNode param
+    - All types of Tabs support closable (previously only the card type supported closable)
+    - Tabs supports setting dropdown parameters in collapsible mode through dropdownProps API
+    - create KeyboardShortCut，user can define shortcut key combinations and trigger callbacks. [@Nathon2Y](https://github.com/Nathon2Y)
+- 【Chore】
+    - The size API type of Avatar and AvatarGroup has been changed to string #2443  [#2446 ](https://github.com/DouyinFE/semi-design/issues/2446)
+
+#### 🎉 2.65.0 (2024-08-23)
+- 【Fix】
+    - Fixed the problem that when Slider is in range controlled mode, dragging one handle may cause another handle to shake [#2438](https://github.com/DouyinFE/semi-design/issues/2438)
+    - Fixed the problem that when Slider is in range mode, the min handler can be dragged to the right of the max handler, accidentally swapping the two handlers [#2438](https://github.com/DouyinFE/semi-design/issues/2438)
+    - Fixed the issue that Button is not vertically centered when icon is passed directly to children [#2402](https://github.com/DouyinFE/semi-design/issues/2402)
+    - fix ui crash when render markdown data only  only includes heading definitions [#2436](https://github.com/DouyinFE/semi-design/pull/2436) [@tgz](https://github.com/tgz) 
+
+#### 🎉 2.65.0-beta.0 (2024-08-20)
+- 【Feat】
+  - MarkdownRender now supports RemarkPlugin and RehypePlugins plugins. [#2433](https://github.com/DouyinFE/semi-design/pull/2433)
+  - The renderLabel API of Tree and TreeSelect has added a searchWord parameter to expose the currently input value in the search box. [#2412](https://github.com/DouyinFE/semi-design/pull/2412)
+  - Optimize the sorting interaction of Table. When there is only sorting function, click on the entire table header column to trigger sorting. Column supports the showSortTooltip API to set whether to display the tooltip, and the default is true [#2413](https://github.com/DouyinFE/semi-design/pull/2413)
+  - Datepicker supports leftSlot and rightSlot. [@LuyangFE](https://github.com/LuyangFE) [#2409](https://github.com/DouyinFE/semi-design/pull/2409)
+  - Typograph support custom render copy trigger [@sylingd](https://github.com/sylingd) [#2408](https://github.com/DouyinFE/semi-design/pull/2408)
+- 【Perf】
+  - Optimized the judgment times of getValueLength for Input and TextArea. [#2432](https://github.com/DouyinFE/semi-design/pull/2432)
+- 【Chore】
+  - The Image component interface supports native img element attributes. [#2427](https://github.com/DouyinFE/semi-design/pull/2427)
+- 【Fix】
+  - Fixed the type error after sending a message when the messages in Chat are an empty array. [#2411](https://github.com/DouyinFE/semi-design/pull/2411)
+  - Fixed the incorrect problem of Table aria-level when tree data is empty. [#2359](https://github.com/DouyinFE/semi-design/issues/2359)
+  - Fixed the incorrect disabling of arrows in Collapse Tabs when quickly clicking left and right arrows. [#2415](https://github.com/DouyinFE/semi-design/issues/2415)
+  - Fixed the problem that when showStopGenerate of Chat component is true and the status of a message is error, the stop button is displayed. [#2422](https://github.com/DouyinFE/semi-design/pull/2422)
+  - Fixed the problem that in Cascader, after searching and in multiple selection scenarios, the position of the pop-up layer is not recalculated, resulting in a long panel being blocked. [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - Fixed the problem that in Cascader's multiple selection scenario, when unselecting by clicking the close icon of an existing option in the trigger, the position of the pop-up layer is not recalculated. [#2417](https://github.com/DouyinFE/semi-design/pull/2417)
+  - Fixed the loss of the selected state color after clicking the selected date twice in DatePicker. [#2389](https://github.com/DouyinFE/semi-design/pull/2389)
+
+#### 🎉 2.64.0 (2024-08-12)
+- 【Fix】
+  - Fix Tooltip triggerDOM not defined in some case  [commit](https://github.com/DouyinFE/semi-design/commit/05878dd7b7c20f2e924f8e0b3cf71ad0eaa3aaf3)
+
+#### 🎉 2.64.0-beta.0 (2024-08-05)
+- 【Feat】
+    - Events with exactly the same start and end times in Calendar day view are displayed side by side without covering each other
+    - Added the ColorPicker component, which allows users to quickly select colors and supports eyedropper screen color selection.
+- 【Fix】
+    - Fixed an issue where after the mouse wheel zoomed the picture, dragging the picture would reset to the center position after zooming again.[@l123wx](https://github.com/l123wx) [#2293](https://github.com/DouyinFE/semi-design/pull/2293)
+    - fix modal 'document not defined' in ssr. (Bug version 2.62.0~2.63.0)
+    - fixed DatePicker selected value is not reset after close panel  [#2387](https://github.com/DouyinFE/semi-design/issues/2387)
+    - When the searchRender of the Tree is false, remove the excess height at the top
+    - Fixed the issue that onChange, onError, and onSuccess callbacks may still be triggered by asynchronous upload requests after the component is uninstalled 
+
+#### 🎉 2.63.0 (2024-07-26)
+- 【Fix】
+    - fix the issue that when TimePicker selects a later time first, the invalid time value will be caused when onChangeWithDateFirst is false [#2376](https://github.com/DouyinFE/semi-design/pull/2376)
+- 【Style】
+    - Fixed the problem that when Cascader has no options and the emptyContent is hovering, the background color will exceed the popup layer area.
+    - fixed the problem that the use of declarations after nested rules is currently deprecated in Sass(version >= 1.77.7)  [#2366](https://github.com/DouyinFE/semi-design/issues/2366)
+    - Increase the priority of the font-size settings of uploaded wrong icons in the Upload component to prevent font-size inconsistencies in effect due to the order of compiled css files.
+- 【Chore】
+    - Fix the problem of missing getFormProps type definition in formAPI in Form[#2367](https://github.com/DouyinFE/semi-design/pull/2367)
+
 #### 🎉 2.63.0-beta.0 (2024-07-22)
 - 【New Component】
     - Added `Chat` component for rendering conversation list [#2248](https://github.com/DouyinFE/semi-design/pull/2248)

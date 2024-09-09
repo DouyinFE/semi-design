@@ -1,1 +1,0 @@
-../../../content/basic/space/index-en-US.md

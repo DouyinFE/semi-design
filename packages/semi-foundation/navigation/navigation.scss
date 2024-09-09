@@ -438,7 +438,9 @@ $module: #{$prefix}-navigation;
                 &-selected {
                     font-weight: $font-navigation_sub_selected-fontWeight;
                     @include item-selected;
-                    background-color: $color-navigation_itemL1-bg-default;
+                    & {
+                        background-color: $color-navigation_itemL1-bg-default;
+                    }
 
                     &.#{$module}-sub-title-disabled {
                         @include item-disabled-selected;

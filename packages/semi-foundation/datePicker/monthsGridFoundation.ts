@@ -613,11 +613,11 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
         const multiple = this._isMultiple();
         const { selected } = this.getStates();
         const monthDetail = this._getPanelDetail(panelType);
-        const newSelected = new Set(multiple ? [...selected] : []);
+        const newSelected = new Set<string>(multiple ? [...selected] : []);
 
         const { fullDate } = day;
         const time = monthDetail.pickerDate;
-        const dateStr = type === 'dateTime' ? this._mergeDateAndTime(fullDate, time) : fullDate;
+        const dateStr = fullDate;
 
         if (!multiple) {
             newSelected.add(dateStr);
@@ -631,9 +631,8 @@ export default class MonthsGridFoundation extends BaseFoundation<MonthsGridAdapt
             }
         }
 
-        const dateFormat = this.getValidDateFormat();
         // When passed to the upper layer, it is converted into a Date object to ensure that the input parameter format of initFormDefaultValue is consistent
-        const newSelectedDates = [...newSelected].map(_dateStr => compatibleParse(_dateStr, dateFormat, undefined, dateFnsLocale));
+        const newSelectedDates = [...newSelected].map(_dateStr => type === 'dateTime' ? this._mergeDateAndTime(_dateStr, time) : compatibleParse(_dateStr, strings.FORMAT_FULL_DATE, undefined, dateFnsLocale));
 
         this.handleShowDateAndTime(panelType, time);
 

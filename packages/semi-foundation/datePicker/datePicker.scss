@@ -8,6 +8,10 @@ $module-list: #{$prefix}-scrolllist;
     box-sizing: border-box;
     display: inline-block;
 
+    &-container {
+        display: flex;
+    }
+
     .#{$module-list}-body {
         .#{$module-list}-item {
             -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -319,6 +323,7 @@ $module-list: #{$prefix}-scrolllist;
         @include font-size-small;
         font-weight: $font-weight-bold;
         color: $color-datepicker_day-text-default;
+        border-bottom: $width-datepicker-border solid $color-datepicker_border-bg-default;
 
         &-item {
             width: $width-datepicker_day;
@@ -327,8 +332,6 @@ $module-list: #{$prefix}-scrolllist;
             text-align: center;
             display: inline-block;
         }
-
-        border-bottom: $width-datepicker-border solid $color-datepicker_border-bg-default;
     }
 
     // 月面板-月周
@@ -820,6 +823,14 @@ $module-list: #{$prefix}-scrolllist;
 
     &-topSlot {
         border-bottom: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
+    }
+    
+    &-leftSlot {
+        border-right: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
+    }
+
+    &-rightSlot {
+        border-left: $width-datepicker_slot-border solid $color-datepicker_border-bg-default;
     }
 
     &-bottomSlot {

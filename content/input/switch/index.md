@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 36
+order: 38
 category: 输入类
 title: Switch 开关
 icon: doc-switch

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 42
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
@@ -67,7 +67,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### 多选
 
 设置 `multiple`，可以进行多选。多选情况下所有子项都被选择时，自动勾选显示其父项。  
-通过 `leafOnly` (>= v0.32.0) 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
+通过 `leafOnly` 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
 
 ```jsx live=true
 import React from 'react';
@@ -571,8 +571,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 `defaultExpandAll` 和 `expandAll` 均可以设置 `TreeSelect` 的默认展开/收起状态。二者的区别是，`defaultExpandAll` 只在初始化时生效，而 `expandAll` 不仅会在初始化时生效，当数据(`treeData`)发生动态更新时，`expandAll` 也仍然生效。
 
-其中，`expandAll` 是从 1.30.0 开始支持的。
-
 在下面的 demo 中，`TreeData` 更新后，`defaultExpandAll` 失效，`expandAll` 仍然生效。
 
 ```jsx live=true
@@ -708,8 +706,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### 严格禁用
-
-version: >= 1.30.0
 
 可以使用 `disableStrictly` 来开启严格禁用。开启严格禁用后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态。
 
@@ -1420,7 +1416,7 @@ function Demo() {
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
 | insetLabel | 前缀标签别名，主要用于 Form                                                                                                                     | ReactNode | - |
-| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true | 
+| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 
 | leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                            | boolean | false |
 | loadData | 异步加载数据，需要返回一个Promise                                                                                                                 | (treeNode: TreeNodeData) => Promise |- |
 | loadedKeys | （受控）已经加载的节点，配合 loadData 使用                                                                                                       | Set< string > | - |
@@ -1435,7 +1431,7 @@ function Demo() {
 | prefix | 前缀标签                                                                                                                                            | ReactNode | - |
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                 | boolean | - |
 | renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制)                                                                     | (obj) => ReactNode | - |
-| renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                        | <ApiType detail='(label:ReactNode, data:TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | - |
+| renderLabel | 自定义label的渲染函数，searchWord 参数自 2.65.0 开始支持。[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                        | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | - |
 | renderSelectedItem | 自定义渲染已选项                                                                                                                         | Function | - |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) 。v2.22.0后提供  | PopoverProps | {} |
 | searchAutoFocus | 搜索框自动聚焦                                                                                                                              | boolean | false |
@@ -1470,8 +1466,7 @@ function Demo() {
 
 ### TreeNodeData
 
-> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。**v>=1.7.0** 之前 value 值要求必须必填且唯一。
-> **v>=1.7.0** 之后 value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
+> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
 > 为了保证行为的符合预期，treeData 中的 value 值或者全部不填写，或者全部填写且唯一，不建议混写。
 
 | 属性            | 说明         | 类型           | 默认值          |

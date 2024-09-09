@@ -185,12 +185,11 @@ $overflowList: #{$prefix}-overflow-list;
         }
 
         .#{$prefix}-tag {
+            @include select-tag-margin;
 
             &:nth-of-type(1) {
                 margin-left: 0;
             }
-
-            @include select-tag-margin;
         }
 
         .#{$prefix}-tag-group {

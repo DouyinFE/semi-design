@@ -175,16 +175,23 @@ function Demo() {
 
 ```
 
+# 添加插件
+
+通过 `remarkPlugins` `rehypePlugins` 支持 MDXJS 的所有 RemarkPlugin 和 RehypePlugins 插件，详情请参考 [MDXJS](https://mdxjs.com/docs/extending-mdx/)
+
+
 
 ### API
 
-| 属性         | 说明                         | 类型                                    | 默认值   |
-|------------|----------------------------|---------------------------------------|-------|
-| className | 类名    | string | -   |
+| 属性         | 说明                         | 类型                                   | 默认值   |
+|------------|----------------------------|--------------------------------------|-------|
+| className | 类名                         | string                               | -   |
 | components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | -     |
-| format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                           | 'mdx' |
-| raw        | Markdown 或 MDX 的纯文本        | string                                | -     |
-| style | 样式 | CSSProperties | - |
+| format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                          | 'mdx' |
+| raw        | Markdown 或 MDX 的纯文本        | string                               | -     |
+| remarkPlugins | 自定义 Remark Plugin          | Remark Plugin Array                | - |
+| rehypePlugins | 自定义 Rehype Plugin          | Rehype Plugin Array               | - |
+| style | 样式                         | CSSProperties                        | - |
 
 ## 设计变量
 
