@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-import { getItemDirection } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
@@ -97,13 +96,13 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             console.warn('total Size bigger than 100%');
             undefineSizePercent = 10 // 如果总和超过100%，则保留10%的空间均分给未定义的item
         }
-        let undefineSize = undefineLoc.length > 0 ? undefineSizePercent / undefineLoc.length * parentSize / 100 : 0;
+    
         for (let i = 0; i < undefineLoc.length; i++) {
             const child = this.itemRefs[undefineLoc[i]].current;
             if (this.props.direction === 'horizontal') {
-                child.style.width = undefineSize + 'px';
+                child.style.width = undefineSizePercent / undefineLoc.length + '%';
             } else {
-                child.style.height = undefineSize + 'px';
+                child.style.height = undefineSizePercent / undefineLoc.length + '%';
             }
         }
     }
@@ -148,9 +147,6 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     
 
     render() {
-        this.itemRefs = [];
-        this.handlerRefs = [];
-        this.itemDefaultSizeList = [];
         const { children, direction, className, ...rest } = this.props;
 
         return (

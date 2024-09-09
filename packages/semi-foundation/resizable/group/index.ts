@@ -17,8 +17,6 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
 
     onMouseDown = (e: MouseEvent) => {
         this.getContext('notifyResizeStart')(this._adapter.getHandlerIndex(), e);
-        
-        // this.getProp('onResizeStart')(e, this.getProp('direction'));
     };
 
     destroy(): void {
@@ -239,12 +237,14 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         if (direction === 'horizontal') {
             let delta = clientX - initX;
-            lastItem.style.width = lastItemSize + delta + 'px';
-            nextItem.style.width = nextItemSize - delta + 'px';
+            let parentWidth = this._adapter.getGroupRef().getBoundingClientRect().width;
+            lastItem.style.width = (lastItemSize + delta) / parentWidth * 100 + '%';
+            nextItem.style.width = (nextItemSize - delta) / parentWidth * 100 + '%';
         } else if (direction === 'vertical') {
             let delta = clientY - initY;
-            lastItem.style.height = lastItemSize + delta + 'px';
-            nextItem.style.height = nextItemSize - delta + 'px';
+            let parentHeight = this._adapter.getGroupRef().getBoundingClientRect().height;
+            lastItem.style.height = (lastItemSize + delta) / parentHeight * 100 + '%';
+            nextItem.style.height = (nextItemSize - delta) / parentHeight * 100 + '%';
         }
 
         let lastFunc = this._adapter.getItemChange(curHandler),
@@ -254,7 +254,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any,)
         }
         if (nextFunc) {
-            nextFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, nextDir as any)
+            nextFunc( {width: nextItem.offsetWidth, height: nextItem.offsetHeight}, e, nextDir as any)
         }
     }
 
@@ -268,7 +268,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any)
         }
         if (nextFunc) {
-            nextFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, nextDir as any)
+            nextFunc( {width: nextItem.offsetWidth, height: nextItem.offsetHeight}, e, nextDir as any)
         }
         this.setState({
             isResizing: false,

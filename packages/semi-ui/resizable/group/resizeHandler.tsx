@@ -48,6 +48,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
 
     componentDidMount() {
         this.foundation.init();
+        this.handlerIndex = this.context.registerHandler(this.handlerRef);
     }
 
     componentDidUpdate(_prevProps: ResizeHandlerProps) {
@@ -75,7 +76,7 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     handlerIndex: number;
 
     render() {
-        this.handlerIndex = this.context.registerHandler(this.handlerRef);
+        
         const { style, className, children } = this.props;
         return (
             <div

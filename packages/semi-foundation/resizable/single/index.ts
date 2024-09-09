@@ -570,7 +570,18 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
             // Call onChange callback if defined
             if (props.onChange) {
-                props.onChange(this.size, event, direction);
+                let newSize = {
+                    width: newState.width,
+                    height: newState.height
+                };
+                props.onChange(newSize, event, direction);
+            }
+            const size = props.size;
+            if (size) {
+                this.setState({
+                    width: size.width ?? 'auto',
+                    height: size.height ?? 'auto'
+                } as any);
             }
         }
     }
