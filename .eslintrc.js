@@ -62,6 +62,7 @@ module.exports = {
             plugins: ['react', 'jest', 'react-hooks', 'import', '@typescript-eslint', 'semi-design'],
             rules: {
                 // 因为历史原因，现有项目基本全部是4个空格
+                "arrow-spacing": ["error", { "before": true, "after": true }],
                 indent: 'off',
                 'comma-spacing': ["error", {"before": false, "after": true}],
                 'no-multi-spaces': ["error", {ignoreEOLComments: true}],
