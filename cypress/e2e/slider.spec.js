@@ -55,12 +55,12 @@ describe('slider', () => {
             .realMouseDown()
             .realMouseMove(-530, 0, { position: "center" })
             .realMouseUp({ force: true });
-        
+
         // left 32% = 247.68px;
-        // cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
+        // cy.get(sliderHandleSelector).should('have.css', 'left', '32%');
         cy.window().then(window => {
-            const style = window.getComputedStyle(window.document.querySelector(sliderHandleSelector));
-            expect(Math.ceil(parseFloat(style.left))).eq(248);
+            const left = (window.document.querySelector(sliderHandleSelector))['style']['left'];
+            expect(left).eq("32%");
         });
     });
 
