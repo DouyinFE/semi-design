@@ -539,6 +539,7 @@ describe('DatePicker', () => {
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).clear().type('2021-0');
         cy.get('.semi-datepicker-footer .semi-button').eq(0).click();
+        cy.wait(300);
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
