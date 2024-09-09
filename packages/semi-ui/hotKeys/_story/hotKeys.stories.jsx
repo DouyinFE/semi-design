@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Tag } from '@douyinfe/semi-ui'
-import { HotKeys, Keys } from '../../index';
+import { HotKeys } from '../../index';
 
 export default {
   title: 'HotKeys'
 }
 
 export const Demo = () => {
-  const hotKeys = [HotKeys.Keys.Control, Keys.K]
+  const hotKeys = [HotKeys.Keys.Control, "k"]
   const [cnt, setCnt] = useState(0)
   const onHotKey = (e) => {
     console.log(e)
@@ -15,14 +15,14 @@ export const Demo = () => {
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} content={["Control", "K"]} onHotKey={onHotKey} onClick={onHotKey} mergeMetaCtrl></HotKeys>
+      <HotKeys hotKeys={hotKeys} content={["Control", "K"]} onHotKey={onHotKey} onClick={() => setCnt(cnt + 1)} mergeMetaCtrl></HotKeys>
       <pre id='pre'>{cnt}</pre>
     </div>
   );
 }
 
 export const renderButton = () => {
-  const hotKeys = [Keys.R]
+  const hotKeys = [HotKeys.Keys.R]
   const [cnt, setCnt] = useState(0)
   const onHotKey = () => {
     setCnt(cnt+1)
@@ -37,7 +37,7 @@ export const renderButton = () => {
   return (
     <div>
       <pre id='pre'>{" cnt:" + cnt}</pre>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button}></HotKeys>
     </div>
 
   );
@@ -52,14 +52,14 @@ export const renderNull = () => {
   return (
     <div>
       <span>{" cnt:" + cnt}</span>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={null} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={null}></HotKeys>
     </div>
 
   );
 }
 
 export const combine = () => {
-  const hotKeys = [Keys.Meta, Keys.Alt, "k"]
+  const hotKeys = [HotKeys.Keys.Meta, HotKeys.Keys.Alt, "k"]
   const [cnt, setCnt] = useState(0)
   const onHotKey = () => {
     setCnt(cnt+1)
@@ -75,7 +75,7 @@ export const combine = () => {
 }
 
 export const target = () => {
-  const hotKeys = ["Meta", Keys.S]
+  const hotKeys = ["Meta", HotKeys.Keys.S]
   const [cnt, setCnt] = useState(0)
   const onHotKey = () => {
     setCnt(cnt+1)
@@ -100,7 +100,7 @@ export const disabled = () => {
   }
   return (
     <div>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} disabled></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey}></HotKeys>
       <pre id='pre'>{cnt}</pre>
     </div>
   );
@@ -133,9 +133,9 @@ export const hotKeys = () => {
       fontWeight: 'bold',
       rowGap: '5px',
     }}>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} disabled={true}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey}></HotKeys>
       <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} content={['⌘ ','⏎']}></HotKeys>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button} clickable></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button}></HotKeys>
     </div>
   );
 }
