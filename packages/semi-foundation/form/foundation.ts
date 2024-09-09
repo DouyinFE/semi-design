@@ -499,7 +499,6 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
 
         
         // The setError caused by centralized validation does not need to trigger notify, otherwise it will be called too frequently, as many times as there are fields
-        // 集中validate时，引起的setError不需要触发notify onChange，否则会过于频繁调用，有多少个field就调用了多少次
         if (!notNotify) {
             this._adapter.notifyChange(this.data);
         }
