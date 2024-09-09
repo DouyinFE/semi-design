@@ -378,9 +378,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (loadData) {
                     new Promise<void>(resolve => {
                         loadData(selectedOpt).then(() => {
-                            callback();
-                            this.setState({ loading: false });
-                            resolve();
+                            /** Why update loading status & call callback function in setTimeout?
+                             *  loadData func will update treeData, treeData change may trigger 
+                             *  selectedKeys & activeKeys change. For Loading data asynchronously，
+                             *  activeKeys should not change， Its implementation depends on loading 
+                             *  & loadedKeys. The update time of Loading & loadedKeys(in callback func)
+                             *  should be later than the update time of treeData(in loaData func) 
+                             *  In React 18, we need to use setTimeout to ensure the above time requirements.
+                             * */ 
+                            setTimeout(() => {
+                                callback();
+                                this.setState({ loading: false });
+                                resolve();
+                            })
                         });
                     });
                 }
