@@ -53,7 +53,7 @@ describe('slider', () => {
         // test knob slide (pageX 300 = 32%)
         cy.get(sliderHandleSelector)
             .realMouseDown()
-            .realMouseMove(-(774-774 * 0.32), 0, { position: "center" })
+            .realMouseMove(-(774 - 774 * 0.32), 0, { position: "center" })
             .realMouseUp({ force: true });
 
         // left 32% = 247.68px;
