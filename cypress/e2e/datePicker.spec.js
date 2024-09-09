@@ -832,6 +832,7 @@ describe('DatePicker', () => {
         cy.get('.semi-input').should('have.value', '2024-02-15 00:00:00');
         cy.get('button').contains('确定').trigger('click');
         cy.get('.semi-input').should('have.value', '');
+        cy.wait(300);
         cy.get('.semi-input').eq(1).click();
         cy.get('.semi-datepicker-day').contains('15').trigger('click');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-15 00:00:00');
