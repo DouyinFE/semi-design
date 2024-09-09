@@ -255,7 +255,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
             >
                 {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                 {children}
-                {size ? null : this.renderResizeHandler()}
+                {this.renderResizeHandler()}
             </div>
         );
     }

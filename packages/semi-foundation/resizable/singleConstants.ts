@@ -115,9 +115,9 @@ export const DEFAULT_SIZE = {
 };
 
 export type ResizeCallback = (
+    size: Size,
     event: MouseEvent,
     direction: Direction,
-    size: Size
 ) => void;
 
 export type ResizeStartCallback = (

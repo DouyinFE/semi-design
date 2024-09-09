@@ -570,7 +570,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
             // Call onChange callback if defined
             if (props.onChange) {
-                props.onChange(event, direction, this.size);
+                props.onChange(this.size, event, direction);
             }
         }
     }
@@ -593,7 +593,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
         // Call onResizeEnd callback if defined
         if (onResizeEnd) {
-            onResizeEnd(event, direction, this.size);
+            onResizeEnd(this.size, event, direction);
         }
 
         // Update state with new size if provided

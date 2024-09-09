@@ -408,6 +408,7 @@ export const Single_change = () => {
           width: '60%',
           height: 300,
         }}
+        // onChange={(s) => { setSize(s); }}
         size={size}
       >
         <div style={{ marginLeft: '20%' }}>

@@ -251,10 +251,10 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             nextFunc = this._adapter.getItemChange(curHandler + 1);
         let [lastDir, nextDir] = getItemDirection(this.direction)
         if (lastFunc) {
-            lastFunc(e, lastDir as any, {width: lastItem.offsetWidth, height: lastItem.offsetHeight})
+            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any,)
         }
         if (nextFunc) {
-            nextFunc(e, nextDir as any, {width: nextItem.offsetWidth, height: nextItem.offsetHeight})
+            nextFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, nextDir as any)
         }
     }
 
@@ -265,10 +265,10 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             nextFunc = this._adapter.getItemEnd(curHandler + 1);
         let [lastDir, nextDir] = getItemDirection(this.direction)
         if (lastFunc) {
-            lastFunc(e, lastDir as any, {width: lastItem.offsetWidth, height: lastItem.offsetHeight})
+            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any)
         }
         if (nextFunc) {
-            nextFunc(e, nextDir as any, {width: nextItem.offsetWidth, height: nextItem.offsetHeight})
+            nextFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, nextDir as any)
         }
         this.setState({
             isResizing: false,
