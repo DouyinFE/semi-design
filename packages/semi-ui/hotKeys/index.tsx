@@ -81,7 +81,7 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
             },
             getListenerTarget: () => {
                 if (this.props.getListenerTarget && typeof this.props.getListenerTarget === 'function') {
-                    return this.props.getListenerTarget?.();
+                    return this.props.getListenerTarget();
                 }
                 return document.body;
             },
