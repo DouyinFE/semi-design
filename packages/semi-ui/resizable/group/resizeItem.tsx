@@ -72,9 +72,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
             ...super.adapter,
             getItemRef: () => this.itemRef?.current,
             getItemIndex: () => this.itemIndex,
-            getParentSize: () => { 
-                return this.context.getGroupSize();
-            },
         };
     }
     static contextType = ResizeContext;

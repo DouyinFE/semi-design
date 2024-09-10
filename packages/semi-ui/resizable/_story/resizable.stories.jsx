@@ -226,7 +226,7 @@ export const Group_horizontal = () => {
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
           defaultSize={'20%'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
@@ -238,7 +238,7 @@ export const Group_horizontal = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
           defaultSize={'20%'}
           min={'10%'}
           max={'30%'}
@@ -250,8 +250,8 @@ export const Group_horizontal = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={'300px'}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+          defaultSize={'30px'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>

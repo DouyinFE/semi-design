@@ -60,6 +60,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     groupRef: React.RefObject<HTMLDivElement>;
+    groupSize: number;
     static contextType = ResizeContext;
     context: ResizeGroupProps;
     itemRefs: RefObject<HTMLDivElement>[] = [];
@@ -127,6 +128,14 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 child.style.height = undefineSizePercent / undefineLoc.length + '%';
             }
         }
+
+        // calculate accurate space for group item
+        let allSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
+        for (let i = 0; i < this.handlerRefs.length; i++) {
+            let handlerSize = this.props.direction === 'horizontal' ? this.handlerRefs[i].current.offsetWidth : this.handlerRefs[i].current.offsetHeight;
+            allSize -= handlerSize;
+        }
+        this.groupSize = allSize;
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -140,6 +149,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return {
             ...super.adapter,
             getGroupRef: () => this.groupRef.current,
+            getGroupSize: () => this.groupSize,
             getItem: (id: number) => this.itemRefs[id].current,
             getItemCount: () => this.itemRefs.length,
             getHandler: (id: number) => this.handlerRefs[id].current,
@@ -194,10 +204,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 },
                 notifyResizeStart: this.foundation.onResizeStart,
                 getGroupSize: () => {
-                    return {
-                        width: this.groupRef.current.offsetWidth,
-                        height: this.groupRef.current.offsetHeight,
-                    }
+                    return this.groupSize;
                 },
             }}>
                 <div

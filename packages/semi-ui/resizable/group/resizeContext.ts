@@ -11,7 +11,7 @@ export interface ResizeContextProps {
     ) => number;
     registerHandler: (ref: RefObject<HTMLDivElement>) => number;
     notifyResizeStart: (handlerIndex: number, e: MouseEvent) => void;
-    getGroupSize: () => { width: number; height: number };
+    getGroupSize: () => number;
 }
 
 export const ResizeContext = createContext<ResizeContextProps>(undefined);

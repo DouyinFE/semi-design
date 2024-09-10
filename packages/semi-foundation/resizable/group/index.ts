@@ -28,7 +28,6 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
 export interface ResizeItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getItemRef: () => HTMLElement | null;    
     getItemIndex: () => number;
-    getParentSize: () => { width: number; height: number };
 }
 
 export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeItemAdapter<P, S>, P, S> {
@@ -61,6 +60,7 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
 export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getGroupRef: () => HTMLDivElement | null;
+    getGroupSize: () => number;
     getItem: (index: number) => HTMLDivElement;
     getItemCount: () => number;
     getHandler: (index: number) => HTMLDivElement;
@@ -115,8 +115,6 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         let lastOffset: number, nextOffset: number;
         if (this.direction === 'horizontal') {
             this.itemMinSize = handler.offsetWidth;
-            lastOffset = clientX - handler.offsetLeft;
-            nextOffset = handler.offsetLeft + handler.offsetWidth - clientX;
         } else if (this.direction === 'vertical') {
             this.itemMinSize = handler.offsetHeight;
         }
@@ -152,32 +150,31 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         if (!state.isResizing) {
             return
         }
-        const { curHandler, originalPosition, curConstraint } = state;
+        const { curHandler, originalPosition } = state;
         let { x: initX, y: initY, lastItemSize, nextItemSize, lastOffset, nextOffset } = originalPosition;
-        console.log(lastItemSize, nextItemSize, lastOffset, nextOffset)
         let { clientX, clientY } = e;
 
         const props = this.getProps();
         const { direction } = props;
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
-
+        let parentSize = this._adapter.getGroupSize()
         if (direction === 'horizontal') {
-            let delta = clientX - initX;
-            let parentWidth = this._adapter.getGroupRef().getBoundingClientRect().width;
+            let delta = (clientX - initX);
+            
             let lastNewSize = lastItemSize + delta, nextNewSize = nextItemSize - delta;
-            let lastFlag = judgeConstraint(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, parentWidth),
-                nextFlag = judgeConstraint(nextNewSize, nextItem.style.minWidth, nextItem.style.maxWidth, parentWidth);
-            console.log(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, lastFlag, 
-                nextNewSize ,nextItem.style.minWidth, nextItem.style.maxWidth, nextFlag);
+            let lastFlag = judgeConstraint(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, parentSize) && lastItemSize !== lastNewSize,
+                nextFlag = judgeConstraint(nextNewSize, nextItem.style.minWidth, nextItem.style.maxWidth, parentSize) && nextItemSize !== nextNewSize;
             if (lastFlag && nextFlag) {
-                lastItem.style.width = (lastItemSize + delta) / parentWidth * 100 + '%';
-                nextItem.style.width = (nextItemSize - delta) / parentWidth * 100 + '%';
+                lastItem.style.width = `calc(${(lastNewSize) / parentSize * 100 + '%'} - 4px)`;
+                console.log(lastItemSize, lastNewSize, lastItem.offsetWidth);
+                nextItem.style.width = `calc(${(nextNewSize) / parentSize * 100 + '%'} - 4px)`;
+                console.log(nextItemSize, nextNewSize, nextItem.offsetWidth);
             }
         } else if (direction === 'vertical') {
             let delta = clientY - initY;
-            let parentHeight = this._adapter.getGroupRef().getBoundingClientRect().height;
-            lastItem.style.height = (lastItemSize + delta) / parentHeight * 100 + '%';
-            nextItem.style.height = (nextItemSize - delta) / parentHeight * 100 + '%';
+            
+            lastItem.style.height = (lastItemSize + delta) / parentSize * 100 + '%';
+            nextItem.style.height = (nextItemSize - delta) / parentSize * 100 + '%';
         }
 
         let lastFunc = this._adapter.getItemChange(curHandler),
