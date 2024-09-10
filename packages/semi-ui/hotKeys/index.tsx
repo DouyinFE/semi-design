@@ -75,15 +75,10 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
             notifyHotKey: (e: KeyboardEvent) => {
-                if (this.props.onHotKey && typeof this.props.onHotKey === 'function') {
-                    this.props.onHotKey?.(e);
-                }
+                this.props.onHotKey?.(e);
             },
             getListenerTarget: () => {
-                if (this.props.getListenerTarget && typeof this.props.getListenerTarget === 'function') {
-                    return this.props.getListenerTarget();
-                }
-                return document.body;
+                return this.props.getListenerTarget?.() ?? document.body;
             },
         };
     }
