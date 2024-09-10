@@ -16,19 +16,30 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.66.0 (2024-09-10)
+- 【Feat】
+  - Add 'Keys' variable to enum values and check for hotKeys [@Nathon2Y](https://github.com/Nathon2Y)
+  - Added ConfigConsumer export to manually get the value in ConfigProvider
+  - Form adds onErrorChange callback
+- 【Fix】
+  - Fixed the issue where the tooltip quickly slides in and out when the animation is on, and the tooltip disappears normally but the dom is not unloaded
+  - Fixed single-select Cascader, under React18, the expansion behavior is abnormal when loading data asynchronously  [#2212](https://github.com/DouyinFE/semi-design/issues/2212)
+  - Made some API tweaks for the hotkeys component added in the previous Beta to make it more suitable for actual usage scenarios [#2463](https://github.com/DouyinFE/semi-design/issues/2463)
+
 #### 🎉 2.66.0-beta.0 (2024-09-02)
+- 【Feat】
+    - Tabs add slash type
+    - renderArrow of Tabs support defaultNode param
+    - All types of Tabs support closable (previously only the card type supported closable)
+    - Tabs supports setting dropdown parameters in collapsible mode through dropdownProps API
 - 【Fix】
     - Fixed the issue that the error style was blocked in Form.Upload image wall mode
     - Fixed the issue that Collapse Tabs crashes when the tab is set to jsx (affected range: 2.65.0 )
     - Fixed the issue that Dropdown onVisibleChange reported an error when it was not defined in some scenarios
     - Fixed SyntaxError when parsing unescaped characters in Chat component message box
     - Fixed the issue where the Chat component scrolls the message list while the message is being updated streaming. The streaming update of message will cause the list to unexpectedly scroll to the bottom.
-- 【Feat】
-    - Tabs add slash type
-    - renderArrow of Tabs support defaultNode param
-    - All types of Tabs support closable (previously only the card type supported closable)
-    - Tabs supports setting dropdown parameters in collapsible mode through dropdownProps API
-    - create KeyboardShortCut，user can define shortcut key combinations and trigger callbacks. [@Nathon2Y](https://github.com/Nathon2Y)
+- 【New Component】
+    - create Hotkeys component，user can define shortcut key combinations and trigger callbacks. [@Nathon2Y](https://github.com/Nathon2Y)
 - 【Chore】
     - The size API type of Avatar and AvatarGroup has been changed to string #2443  [#2446 ](https://github.com/DouyinFE/semi-design/issues/2446)
 
