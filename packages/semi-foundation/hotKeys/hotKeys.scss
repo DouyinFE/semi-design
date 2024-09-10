@@ -24,6 +24,7 @@ $module: #{$prefix}-hotKeys;
     &-split {
         @include font-size-small;
         margin: 0 3px;
+        color: $color-hotKeys-split;
     }
 
 }
