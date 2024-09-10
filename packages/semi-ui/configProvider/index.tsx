@@ -6,6 +6,8 @@ import Context, { ContextValue } from './context';
 
 export interface ConfigProviderProps extends ContextValue {}
 
+export const ConfigConsumer = Context.Consumer;
+
 export default class ConfigProvider extends React.Component<ConfigProviderProps> {
 
     constructor(props: ConfigProviderProps) {
