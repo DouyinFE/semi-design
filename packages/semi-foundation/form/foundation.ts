@@ -194,7 +194,6 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                         } else {
                             this.data.errors = result;
                             this._adapter.notifyChange(this.data);
-
                             this.injectErrorToField(result);
                             this._adapter.forceUpdate();
                             this._autoScroll(100);
@@ -213,7 +212,6 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
                 this.data.errors = maybePromisedErrors;
                 this.injectErrorToField(maybePromisedErrors);
                 this._adapter.notifyChange(this.data);
-
                 this._adapter.forceUpdate();
                 this._autoScroll(100);
                 reject(maybePromisedErrors);
@@ -243,7 +241,6 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
             Promise.all(promiseSet).then(() => {
                 // After the centralized verification is completed, trigger notify and forceUpdate once.
                 this._adapter.notifyChange(this.data);
-
                 this._adapter.forceUpdate();
                 const errors = this.getError();
                 if (this._isValid(targetFields)) {
@@ -496,14 +493,12 @@ export default class FormFoundation extends BaseFoundation<BaseFormAdapter> {
         const notNotify = opts && opts.notNotify;
         const notUpdate = opts && opts.notUpdate;
         ObjectUtil.set(this.data.errors, field, error);
-
-        
         // The setError caused by centralized validation does not need to trigger notify, otherwise it will be called too frequently, as many times as there are fields
+        // 集中validate时，引起的setError不需要触发notify，否则会过于频繁调用，有多少个field就调用了多少次
         if (!notNotify) {
             this._adapter.notifyChange(this.data);
         }
-        this._adapter.notifyErrorChange(this.data.errors, { [field]: error });
-        
+
         if (!notUpdate) {
             this._adapter.forceUpdate(callback);
         }
