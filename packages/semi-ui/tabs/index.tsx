@@ -56,6 +56,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
         more: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         arrowPosition: PropTypes.string,
         renderArrow: PropTypes.func,
+        dropdownProps: PropTypes.object,
     };
     static __SemiComponentName__ = "Tabs";
     static defaultProps: TabsProps = getDefaultPropsFromGlobalConfig(Tabs.__SemiComponentName__, {
@@ -265,6 +266,7 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             visibleTabsStyle,
             arrowPosition,
             renderArrow,
+            dropdownProps,
             ...restProps
         } = this.props;
         const { panes, activeKey } = this.state;
@@ -296,7 +298,8 @@ class Tabs extends BaseComponent<TabsProps, TabsState> {
             onVisibleTabsChange,
             visibleTabsStyle,
             arrowPosition,
-            renderArrow
+            renderArrow,
+            dropdownProps,
         } as TabBarProps;
 
         const tabBar = renderTabBar ? renderTabBar(tabBarProps, TabBar) : <TabBar {...tabBarProps} />;

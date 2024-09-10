@@ -67,7 +67,8 @@ export interface TooltipAdapter<P = Record<string, any>, S = Record<string, any>
     notifyEscKeydown(event: any): void;
     getTriggerNode(): any;
     setId(): void;
-    getTriggerDOM(): HTMLElement|null
+    getTriggerDOM(): HTMLElement|null;
+    getAnimatingState(): boolean
 }
 
 export type Position = ArrayElement<typeof strings.POSITION_SET>;
@@ -180,7 +181,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     _reducePos(position = '') {
         // if cur position consists of two directions, remove the last position
         const found = ['Top', 'Bottom', 'Left', 'Right'].find(pos => position.endsWith(pos));
-        return found ? position.replace(found, ''): position;
+        return found ? position.replace(found, '') : position;
     }
 
     clearDelayTimer() {
@@ -311,6 +312,9 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     };
 
     show = () => {
+        if (this._adapter.getAnimatingState()) {
+            return;
+        }
         const content = this.getProp('content');
         const trigger = this.getProp('trigger');
 
@@ -334,7 +338,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             this.calcPosition();
         });
 
-        if (trigger==="hover") {
+        if (trigger === "hover") {
             const checkTriggerIsHover = () => {
                 const triggerDOM = this._adapter.getTriggerDOM();
                 if (trigger && !triggerDOM?.matches?.(":hover")) {
@@ -474,13 +478,13 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const isWrapperWidthOverflow = wrapperRect.width > innerWidth;
         const scaled = Math.abs(wrapperRect?.width - this._adapter.getContainer()?.clientWidth) > 1;
         if (scaled) {
-            SPACING = SPACING * wrapperRect.width/this._adapter.getContainer().clientWidth;
+            SPACING = SPACING * wrapperRect.width / this._adapter.getContainer().clientWidth;
         }
         switch (position) {
             case 'top':
                 // left = middleX;
                 // top = triggerRect.top - SPACING;
-                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX + ANO_SPACING;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
                 top = isHeightOverFlow ? containerRect.bottom + offsetHeight : triggerRect.top - SPACING;
                 translateX = -0.5;
                 translateY = -1;
@@ -505,7 +509,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
                 // top = middleY;
                 // left = isWidthOverFlow? containerRect.right - SPACING : triggerRect.left - SPACING;
                 left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
-                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight): middleY + ANO_SPACING;
+                top = isHeightOverFlow ? (isTriggerNearTop ? containerRect.top + wrapperRect.height / 2 : containerRect.bottom - wrapperRect.height / 2 + offsetHeight) : middleY + ANO_SPACING;
                 translateX = -1;
                 translateY = -0.5;
                 break;
@@ -519,22 +523,22 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             case 'leftBottom':
                 // left = triggerRect.left - SPACING;
                 // top = pointAtCenter ? middleY + offsetYWithArrow : triggerRect.bottom;
-                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow: triggerRect.left - SPACING;
-                top = isHeightOverFlow ? containerRect.bottom + offsetHeight: (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
+                left = isWidthOverFlow ? containerRect.right + offsetWidth - SPACING + offsetXWithArrow : triggerRect.left - SPACING;
+                top = isHeightOverFlow ? containerRect.bottom + offsetHeight : (pointAtCenter ? middleY + offsetYWithArrow + ANO_SPACING : triggerRect.bottom + ANO_SPACING);
                 translateX = -1;
                 translateY = -1;
                 break;
             case 'bottom':
                 // left = middleX;
                 // top = triggerRect.top + triggerRect.height + SPACING;
-                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth): middleX + ANO_SPACING;
-                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING: triggerRect.top + triggerRect.height + SPACING;
+                left = isWidthOverFlow ? (isTriggerNearLeft ? containerRect.left + wrapperRect.width / 2 : containerRect.right - wrapperRect.width / 2 + offsetWidth) : middleX + ANO_SPACING;
+                top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 translateX = -0.5;
                 break;
             case 'bottomLeft':
                 // left = pointAtCenter ? middleX - offsetXWithArrow : triggerRect.left;
                 // top = triggerRect.bottom + SPACING;
-                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING: triggerRect.left + ANO_SPACING);
+                left = isWidthOverFlow ? (isWrapperWidthOverflow ? containerRect.left : containerRect.right - wrapperRect.width ) : (pointAtCenter ? middleX - offsetXWithArrow + ANO_SPACING : triggerRect.left + ANO_SPACING);
                 top = isHeightOverFlow ? containerRect.top + offsetYWithArrow - SPACING : triggerRect.top + triggerRect.height + SPACING;
                 break;
             case 'bottomRight':
@@ -596,11 +600,11 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         top = top - containerRect.top;
 
         if (scaled) {
-            left /= wrapperRect.width/this._adapter.getContainer().clientWidth;
+            left /= wrapperRect.width / this._adapter.getContainer().clientWidth;
         }
 
         if (scaled) {
-            top /= wrapperRect.height/this._adapter.getContainer().clientHeight;
+            top /= wrapperRect.height / this._adapter.getContainer().clientHeight;
         }
 
         /**
@@ -820,7 +824,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
             const shouldViewReverseLeft = clientLeft - marginLeft < wrapperRect.width + spacing && restClientRight - marginRight > wrapperRect.width + spacing;
             const shouldViewReverseBottom = restClientBottom - marginBottom < wrapperRect.height + spacing && clientTop - marginTop > wrapperRect.height + spacing;
             const shouldViewReverseRight = restClientRight - marginRight < wrapperRect.width + spacing && clientLeft - marginLeft > wrapperRect.width + spacing;
-            const shouldViewReverseTopOver = restClientTop - marginBottom< wrapperRect.height + spacing && clientBottom - marginTop> wrapperRect.height + spacing;
+            const shouldViewReverseTopOver = restClientTop - marginBottom < wrapperRect.height + spacing && clientBottom - marginTop > wrapperRect.height + spacing;
             const shouldViewReverseBottomOver = clientBottom - marginTop < wrapperRect.height + spacing && restClientTop - marginBottom > wrapperRect.height + spacing;
 
             const shouldViewReverseTopSide = restClientTop < wrapperRect.height + ano_spacing && clientBottom > wrapperRect.height + ano_spacing;

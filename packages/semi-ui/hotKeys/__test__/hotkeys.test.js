@@ -4,10 +4,9 @@ import { noop, drop } from 'lodash';
 import { BASE_CLASS_PREFIX } from '../../../semi-foundation/base/constants';
 import {sleep} from "../../_test_/utils";
 
-function getHK(props) {
-    return mount(<HotKeys {...props}></HotKeys>, {
-        attachTo: document.getElementById('container'),
-    });
+function mount(props) {
+    const container = document.getElementById('container');
+    return testRender(<HotKeys {...props} id={"test"}></HotKeys>, container);
 }
 
 describe('HotKeys', () => {
@@ -34,8 +33,9 @@ describe('HotKeys', () => {
             },
             hotKeys: ['r']
         };
-        const hotkeys = getHK(props);
-        expect(hotkeys.exists(`.${BASE_CLASS_PREFIX}-hotKeys.test`)).toEqual(true);
-        expect(hotkeys.find(`.${BASE_CLASS_PREFIX}-hotKeys`)).toHaveStyle('color', 'red');
+        mount(props);
+
+        expect(Boolean(document.querySelector(`.${BASE_CLASS_PREFIX}-hotKeys.test`))).toEqual(true);
+        expect(document.querySelector(`.${BASE_CLASS_PREFIX}-hotKeys`).style['color']==="red").toEqual(true);
     });
 });

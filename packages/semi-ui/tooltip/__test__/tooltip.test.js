@@ -295,14 +295,14 @@ describe(`Tooltip`, () => {
     });
 
   it(`test click outside handler`, async () => {
-    const containerId = `container`;
-
+    const containerId = `container`
     const demo = mount(
       <div style={{ height: 480, width: 320 }}>
         <div id={containerId}>Hello Semi</div>
         <Tooltip
           content='Content'
           trigger='click'
+          motion={false}
         >
           <Button >Click here</Button>
         </Tooltip>

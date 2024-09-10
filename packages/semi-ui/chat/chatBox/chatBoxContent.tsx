@@ -47,28 +47,34 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                 <span className={`${PREFIX_CHAT_BOX}-content-loading-item`} />
             </span>;
         } else {
-            let realContent = '';
+            let realContent;
             if (typeof content === 'string') {
-                realContent = content;
+                realContent = <MarkdownRender
+                    format='md'
+                    raw={content}
+                    components={markdownComponents as any}
+                />;
             } else if (Array.isArray(content)) {
-                realContent = content.map((item)=> {
+                realContent = content.map((item, index)=> {
                     if (item.type === 'text') {
-                        return item.text;
+                        return <MarkdownRender
+                            key={`index`}
+                            format='md'
+                            raw={item.text}
+                            components={markdownComponents as any}
+                        />;
                     } else if (item.type === 'image_url') {
-                        return `![image](${item.image_url.url})`;
+                        return <ImageAttachment key={`index`} src={item.image_url.url} />;
                     } else if (item.type === 'file_url') {
                         const { name, size, url, type } = item.file_url;
                         const realType = name.split('.').pop() ?? type?.split('/').pop();
-                        return `<SemiFile url={'${url}'} name={'${name}'} size={'${size}'} type={'${realType}'}></SemiFile>`;
+                        return <FileAttachment key={`index`} url={name} name={name} size={size} type={realType}></FileAttachment>;
                     }
-                    return '';
-                }).join('\n\n');
+                    return null;
+                });
             }
             return (<>
-                <MarkdownRender
-                    raw={realContent}
-                    components={markdownComponents as any}
-                />
+                {realContent}
             </>);
         }
     }, [status, content]);
