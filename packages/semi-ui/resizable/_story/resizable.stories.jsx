@@ -251,7 +251,7 @@ export const Group_horizontal = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={'60px'}
+          defaultSize={'300px'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>

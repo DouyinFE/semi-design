@@ -23,6 +23,8 @@ export interface ResizeGroupState {
         y: number;
         lastItemSize: number;
         nextItemSize: number;
+        lastOffset: number;
+        nextOffset: number;
     };
     curHandler: number;
     curConstraint: [number, number]
@@ -46,6 +48,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 y: 0,
                 lastItemSize: 0,
                 nextItemSize: 0,
+                lastOffset: 0,
+                nextOffset: 0,
             },
             curHandler: null,
             curConstraint: null
@@ -74,7 +78,21 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         let totalSizePercent = 0;
         let undefineLoc = []
         let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
-        for (let i = 0; i < this.itemDefaultSizeList.length; i++) {
+        for (let i = 0; i < this.itemRefs.length; i++) {
+            const child = this.itemRefs[i].current;
+            let minSize = this.itemMinMap.get(i), maxSize = this.itemMaxMap.get(i);
+            let minSizePercent = minSize ? getPixelSize(minSize, parentSize) / parentSize * 100 : 0,
+                maxSizePercent = maxSize ? getPixelSize(maxSize, parentSize) / parentSize * 100 : 100;
+            if (minSizePercent > maxSizePercent) {
+                console.warn('min size bigger than max size');
+            }    
+            if (this.props.direction === 'horizontal') {
+                child.style.minWidth = minSize ?? '0%';
+                child.style.maxWidth = maxSize ?? '100%';
+            } else {
+                child.style.minHeight = minSize ?? '0%';
+                child.style.maxHeight = maxSize ?? '100%';
+            }
             if (this.itemDefaultSizeList[i]) {
                 let itemSizePercent: number;
                 if (this.itemDefaultSizeList[i].endsWith('%')) {
@@ -83,11 +101,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
                 }
                 totalSizePercent += itemSizePercent;
-                let minSizePercent = this.itemMinMap.get(i) ? getPixelSize(this.itemMinMap.get(i), parentSize) / parentSize * 100 : 0,
-                    maxSizePercent = this.itemMaxMap.get(i) ? getPixelSize(this.itemMaxMap.get(i), parentSize) / parentSize * 100 : 100;
+                
+                
                 if (itemSizePercent < minSizePercent) {
                     console.warn('item size smaller than min size');
-                } else if (itemSizePercent > maxSizePercent) {
+                } 
+                if (itemSizePercent > maxSizePercent) {
                     console.warn('item size bigger than max size');
                 }
             } else {

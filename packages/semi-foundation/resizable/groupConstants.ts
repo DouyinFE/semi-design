@@ -41,3 +41,15 @@ export const getPixelSize = (size: string, parentSize: number): number => {
 
     return typeof size === 'undefined' ? size : Number(size);
 }
+
+export const judgeConstraint = (newSize: number, min: string, max: string, parentSize: number) => {
+    const minSize = getPixelSize(min, parentSize);
+    const maxSize = getPixelSize(max, parentSize);
+    if (newSize <= minSize) {
+        return false;
+    }
+    if (newSize >= maxSize) {
+        return false;
+    }
+    return true;
+}

@@ -1,7 +1,7 @@
 import { getItemDirection } from '../groupConstants';
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
-import { getPixelSize } from '../groupConstants';
+import { getPixelSize, judgeConstraint } from '../groupConstants';
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getHandler: () => HTMLElement;
     getHandlerIndex: () => number;
@@ -108,82 +108,18 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         }
     }
 
-    updateConstraints = () => {
-        // this item constaint last / next handler
-        let lastConstraints = new Map(), nextConstraints = new Map();
-        if (this.direction === 'horizontal') {
-            const parentWidth = this.groupRef.getBoundingClientRect().width;
-            for (let i = 0; i < this._adapter.getItemCount(); i++) {
-                const child = this._adapter.getItem(i);
-
-                let itemMin = this._adapter.getItemMin(i)
-                const minWidth = itemMin ? getPixelSize(itemMin, parentWidth) : 0;
-                const rect = child.getBoundingClientRect();
-                let { borderLeftWidth, borderRightWidth } = this.window.getComputedStyle(child);
-                let leftWidth = Number(borderLeftWidth.replace('px', ''));
-                let rightWidth = Number(borderRightWidth.replace('px', ''));
-                let borderWidth = leftWidth + rightWidth + this.itemMinSize;
-
-                let nextLeftConstraint = rect.left + minWidth + borderWidth, nextRightConstraint = undefined;
-                let lastRightConstraint = rect.right - minWidth - borderWidth, lastLeftConstraint = undefined;
-                let itemMax = this._adapter.getItemMax(i)
-                if (itemMax) {
-                    const maxWidth = getPixelSize(itemMax, parentWidth);
-                    nextRightConstraint = rect.left + maxWidth - borderWidth;
-                    lastLeftConstraint = rect.right - maxWidth + borderWidth;
-                }
-
-                lastConstraints.set(i - 1, [lastLeftConstraint, lastRightConstraint]);
-                nextConstraints.set(i, [nextLeftConstraint, nextRightConstraint]);
-            }
-        } else {
-            const parentHeight = this.groupRef.getBoundingClientRect().height;
-            for (let i = 0; i < this._adapter.getItemCount(); i++) {
-                const child = this._adapter.getItem(i);
-
-                let itemMin = this._adapter.getItemMin(i)
-                const minHeight = itemMin ? getPixelSize(itemMin, parentHeight) : 0;
-                const rect = child.getBoundingClientRect();
-                let { borderTopWidth, borderBottomWidth } = this.window.getComputedStyle(child);
-                let topWidth = Number(borderTopWidth.replace('px', ''));
-                let bottomWidth = Number(borderBottomWidth.replace('px', ''));
-                let borderWidth = (topWidth + bottomWidth) + this.itemMinSize;
-
-                let nextTopConstraint = rect.top + minHeight + borderWidth, nextBottomConstraint = undefined;
-                let lastBottomConstraint = rect.bottom - minHeight - borderWidth, lastTopConstraint = undefined;
-                let itemMax = this._adapter.getItemMax(i)
-                if (itemMax) {
-                    const maxHeight = getPixelSize(itemMax, parentHeight);
-                    nextBottomConstraint = rect.top + maxHeight - borderWidth;
-                    lastTopConstraint = rect.bottom - maxHeight + borderWidth;
-                }
-
-                lastConstraints.set(i - 1, [lastTopConstraint, lastBottomConstraint]);
-                nextConstraints.set(i, [nextTopConstraint, nextBottomConstraint]);
-
-            }
-        }
-
-        for (let i = 0; i < this._adapter.getHandlerCount(); i++) {
-            // lastBack and nextFront wont be undefined
-            let [lastFront, lastBack] = lastConstraints.get(i);
-            let [nextFront, nextBack] = nextConstraints.get(i);
-            let front = lastFront === undefined ? nextFront : Math.max(lastFront, nextFront);
-            let back = nextBack === undefined ? lastBack : Math.min(lastBack, nextBack);
-            this.constraintsMap.set(i, [front, back]);
-        }
-    }
-
     onResizeStart = (handlerIndex: number, e: MouseEvent) => { // handler ref
         let { clientX, clientY } = e;
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
+        let handler = this._adapter.getHandler(handlerIndex);
+        let lastOffset: number, nextOffset: number;
         if (this.direction === 'horizontal') {
-            this.itemMinSize = this._adapter.getHandler(handlerIndex).offsetWidth;
-            
+            this.itemMinSize = handler.offsetWidth;
+            lastOffset = clientX - handler.offsetLeft;
+            nextOffset = handler.offsetLeft + handler.offsetWidth - clientX;
         } else if (this.direction === 'vertical') {
-            this.itemMinSize = this._adapter.getHandler(handlerIndex).offsetHeight;
+            this.itemMinSize = handler.offsetHeight;
         }
-        this.updateConstraints();
         this.setState({
             isResizing: true,
             originalPosition: {
@@ -191,6 +127,8 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 y: clientY,
                 lastItemSize: this.direction === 'horizontal' ? lastItem.offsetWidth : lastItem.offsetHeight,
                 nextItemSize: this.direction === 'horizontal' ? nextItem.offsetWidth : nextItem.offsetHeight,
+                lastOffset,
+                nextOffset,
             },
             curHandler: handlerIndex,
             curConstraint: this.constraintsMap.get(handlerIndex),
@@ -215,20 +153,9 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             return
         }
         const { curHandler, originalPosition, curConstraint } = state;
-        const { x: initX, y: initY, lastItemSize, nextItemSize } = originalPosition;
-        const { clientX, clientY } = e;
-
-        if (curConstraint) {
-            if (this.direction === 'horizontal') {
-                if (clientX <= curConstraint[0] || clientX >= curConstraint[1]) {
-                    return
-                }
-            } else if (this.direction === 'vertical') {
-                if (clientY <= curConstraint[0] || clientY >= curConstraint[1]) {
-                    return
-                }
-            }
-        }
+        let { x: initX, y: initY, lastItemSize, nextItemSize, lastOffset, nextOffset } = originalPosition;
+        console.log(lastItemSize, nextItemSize, lastOffset, nextOffset)
+        let { clientX, clientY } = e;
 
         const props = this.getProps();
         const { direction } = props;
@@ -237,8 +164,15 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         if (direction === 'horizontal') {
             let delta = clientX - initX;
             let parentWidth = this._adapter.getGroupRef().getBoundingClientRect().width;
-            lastItem.style.width = (lastItemSize + delta) / parentWidth * 100 + '%';
-            nextItem.style.width = (nextItemSize - delta) / parentWidth * 100 + '%';
+            let lastNewSize = lastItemSize + delta, nextNewSize = nextItemSize - delta;
+            let lastFlag = judgeConstraint(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, parentWidth),
+                nextFlag = judgeConstraint(nextNewSize, nextItem.style.minWidth, nextItem.style.maxWidth, parentWidth);
+            console.log(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, lastFlag, 
+                nextNewSize ,nextItem.style.minWidth, nextItem.style.maxWidth, nextFlag);
+            if (lastFlag && nextFlag) {
+                lastItem.style.width = (lastItemSize + delta) / parentWidth * 100 + '%';
+                nextItem.style.width = (nextItemSize - delta) / parentWidth * 100 + '%';
+            }
         } else if (direction === 'vertical') {
             let delta = clientY - initY;
             let parentHeight = this._adapter.getGroupRef().getBoundingClientRect().height;
