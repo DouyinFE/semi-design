@@ -70,10 +70,8 @@ class ValidateFieldsDemo extends Component {
                     autoScrollToError
                     validateFields={this.syncValidate}
                     onReset={v => console.log('reset')}
-                    // onChange={v => console.log(v)}
-                    onValueChange={(values, changedField) => console.log('onValueChange', values, changedField)}
-                    onErrorChange={(errors, changedField) => console.log('onErrorChange', errors, changedField)}    
-                >
+                    onChange={v => console.log(v)}
+                    onValueChange={v => console.log('onValueChange')}>
                     <Form.InputGroup label="group" style={{ width: 600 }}>
                         <Input field="group.name" style={{ width: 280 }} />
                         <Input field="group.sort" style={{ width: 290 }} />
@@ -144,10 +142,7 @@ class CustomValidateDemo extends Component {
 
     render() {
         return (
-            <Form
-                autoScrollToError
-                onErrorChange={(errors, changedField) => console.log(errors, changedField)}
-            >
+            <Form autoScrollToError>
                 <Input field="name" validate={this.asyncValidate} trigger="blur" />
                 <Input field="familyName" validate={this.validateName} trigger="blur" name="familyName" />
                 <Input field="code" validate={this.asyncValidate} trigger={['change', 'mount']} />
@@ -208,11 +203,7 @@ class PartValidAndResetDemo extends Component {
     render() {
         let options = ['a', 'b', 'c', 'd', 'b.name'].map(item => ({ label: item, value: item }));
         return (
-            <Form
-                getFormApi={this.getFormApi}
-                autoScrollToError
-                onErrorChange={(errors, changedField) => console.log(errors, changedField)}
-            >
+            <Form getFormApi={this.getFormApi} autoScrollToError>
                 <Input field="a[1]" validate={this.validate} trigger="blur" />
                 <Input field="a[0]" validate={this.validate} trigger="blur" />
                 <Input field="ackk" validate={this.validate} trigger="blur" />
@@ -267,9 +258,7 @@ class RulesValidateDemo extends Component {
                     autoScrollToError
                     onReset={v => console.log('reset')}
                     onChange={v => console.log(v)}
-                    onValueChange={v => console.log('onValueChange')}
-                    onErrorChange={(errors, changedField) => console.log(errors, changedField)}
-                >
+                    onValueChange={v => console.log('onValueChange')}>
                     <Input field="panel[0].a" trigger="custom" rules={[{ required: true, message: '字段不能为空' }]} />
                     <Input field="panel[0].b" trigger="custom" rules={[{ required: true, message: '字段不能为空' }]} />
                     <Input field="panel[0].c" trigger="custom" rules={[{ required: true, message: '字段不能为空' }]} />

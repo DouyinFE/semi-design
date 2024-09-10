@@ -17,7 +17,6 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
-    notifyErrorChange: (errors: any, changedError: any) => void;
     notifyReset: () => void;
     getInitValues: () => Partial<Values>;
     getFormProps: (keys: undefined | string | Array<string>) => any;

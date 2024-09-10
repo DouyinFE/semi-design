@@ -13,7 +13,7 @@ import { cloneDeep } from '../_utils/index';
 import Slot from './slot';
 import Section from './section';
 import Label from './label';
-import ErrorMessage, { ReactFieldError } from './errorMessage';
+import ErrorMessage from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
@@ -93,7 +93,6 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         onSubmit: noop,
         onReset: noop,
         onValueChange: noop,
-        onErrorChange: noop,
         layout: 'vertical',
         labelPosition: 'top',
         allowEmpty: false,
@@ -180,9 +179,6 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             notifyValueChange: (values: Values, changedValues: Partial<Values>) => {
                 this.props.onValueChange(values, changedValues);
-            },
-            notifyErrorChange: (errors: Record<keyof Values, ReactFieldError>, changedError: Partial<Record<keyof Values, ReactFieldError>>) => {
-                this.props.onErrorChange(errors, changedError);
             },
             notifyReset: () => {
                 this.props.onReset();
@@ -273,7 +269,6 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             onChange,
             onSubmit,
             onSubmitFail,
-            onErrorChange,
             onValueChange,
             component,
             render,
