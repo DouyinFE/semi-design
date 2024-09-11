@@ -83,8 +83,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         const style: React.CSSProperties = {
             position: 'relative',
             boxSizing: 'border-box',
-            flexShrink: 1,
-            // userSelect: this.state.isResizing ? 'none' : 'auto',
+            flexShrink: 0,
             ...this.props.style,
             ...this.foundation.sizeStyle,
         };

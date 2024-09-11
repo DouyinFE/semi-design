@@ -1,7 +1,7 @@
 import { getItemDirection } from '../groupConstants';
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
-import { getPixelSize, judgeConstraint } from '../groupConstants';
+import { ResizeStartCallback, ResizeCallback, snap } from "../singleConstants";
+import { getPixelSize, adjustNewSize, judgeConstraint, getOffset } from '../groupConstants';
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getHandler: () => HTMLElement;
     getHandlerIndex: () => number;
@@ -61,12 +61,14 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getGroupRef: () => HTMLDivElement | null;
     getGroupSize: () => number;
+    getAvailableSize: () => number;
     getItem: (index: number) => HTMLDivElement;
     getItemCount: () => number;
     getHandler: (index: number) => HTMLDivElement;
     getHandlerCount: () => number;
     getItemMin: (index: number) => string;
     getItemMax: (index: number) => string;
+    getItemMinus: (index: number) => number;
     getItemStart: (index: number) => ResizeStartCallback;
     getItemChange: (index: number) => ResizeCallback;
     getItemEnd: (index: number) => ResizeCallback;  
@@ -113,18 +115,19 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
         let handler = this._adapter.getHandler(handlerIndex);
         let lastOffset: number, nextOffset: number;
-        if (this.direction === 'horizontal') {
-            this.itemMinSize = handler.offsetWidth;
-        } else if (this.direction === 'vertical') {
-            this.itemMinSize = handler.offsetHeight;
-        }
+        const lastStyle = this.window.getComputedStyle(lastItem);
+        const nextStyle = this.window.getComputedStyle(nextItem);
+
+        lastOffset = getOffset(lastStyle, this.direction);
+        nextOffset = getOffset(nextStyle, this.direction);
+        
         this.setState({
             isResizing: true,
             originalPosition: {
                 x: clientX,
                 y: clientY,
-                lastItemSize: this.direction === 'horizontal' ? lastItem.offsetWidth : lastItem.offsetHeight,
-                nextItemSize: this.direction === 'horizontal' ? nextItem.offsetWidth : nextItem.offsetHeight,
+                lastItemSize: (this.direction === 'horizontal' ? lastItem.offsetWidth : lastItem.offsetHeight),
+                nextItemSize: (this.direction === 'horizontal' ? nextItem.offsetWidth : nextItem.offsetHeight),
                 lastOffset,
                 nextOffset,
             },
@@ -157,24 +160,32 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         const props = this.getProps();
         const { direction } = props;
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
-        let parentSize = this._adapter.getGroupSize()
-        if (direction === 'horizontal') {
-            let delta = (clientX - initX);
+        let parentSize = this._adapter.getGroupSize();
+        let availableSize = this._adapter.getAvailableSize();
+        let delta = direction === 'horizontal' ? (clientX - initX) : (clientY - initY);;
             
-            let lastNewSize = lastItemSize + delta, nextNewSize = nextItemSize - delta;
-            let lastFlag = judgeConstraint(lastNewSize, lastItem.style.minWidth, lastItem.style.maxWidth, parentSize) && lastItemSize !== lastNewSize,
-                nextFlag = judgeConstraint(nextNewSize, nextItem.style.minWidth, nextItem.style.maxWidth, parentSize) && nextItemSize !== nextNewSize;
-            if (lastFlag && nextFlag) {
-                lastItem.style.width = `calc(${(lastNewSize) / parentSize * 100 + '%'} - 4px)`;
-                console.log(lastItemSize, lastNewSize, lastItem.offsetWidth);
-                nextItem.style.width = `calc(${(nextNewSize) / parentSize * 100 + '%'} - 4px)`;
-                console.log(nextItemSize, nextNewSize, nextItem.offsetWidth);
-            }
+        let lastNewSize = lastItemSize + delta
+        let nextNewSize = nextItemSize - delta
+
+        // 判断是否超出限制
+        let lastFlag = judgeConstraint(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), availableSize, lastOffset),
+            nextFlag = judgeConstraint(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), availableSize, nextOffset);
+
+        if (lastFlag) {
+            lastNewSize = adjustNewSize(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), availableSize, lastOffset);
+            nextNewSize = lastItemSize + nextItemSize - lastNewSize;
+        }
+
+        if (nextFlag) {
+            nextNewSize = adjustNewSize(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), availableSize, nextOffset);
+            lastNewSize = lastItemSize + nextItemSize - nextNewSize;
+        }
+        if (direction === 'horizontal') {     
+            lastItem.style.width = (lastNewSize) / parentSize * 100 + '%';
+            nextItem.style.width = (nextNewSize) / parentSize * 100 + '%';
         } else if (direction === 'vertical') {
-            let delta = clientY - initY;
-            
-            lastItem.style.height = (lastItemSize + delta) / parentSize * 100 + '%';
-            nextItem.style.height = (nextItemSize - delta) / parentSize * 100 + '%';
+            lastItem.style.height = (lastNewSize) / parentSize * 100 + '%';
+            nextItem.style.height = (nextNewSize) / parentSize * 100 + '%';
         }
 
         let lastFunc = this._adapter.getItemChange(curHandler),
