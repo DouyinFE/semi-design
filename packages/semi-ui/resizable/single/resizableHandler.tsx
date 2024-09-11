@@ -71,10 +71,8 @@ class ResizableHandler extends BaseComponent<ResizableHandlerProps, ResizableHan
         const { children, style, className } = this.props;
         return (
             <div 
-                className={classNames(className, prefixCls)}
+                className={classNames(className, prefixCls + '-resizableHandler')}
                 style={{
-                    position: 'absolute',
-                    userSelect: 'none',
                     ...directionStyles[this.props.direction],
                     ...style
                 }} 

@@ -115,6 +115,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
         let handler = this._adapter.getHandler(handlerIndex);
         let lastOffset: number, nextOffset: number;
+        // offset caused by padding and border
         const lastStyle = this.window.getComputedStyle(lastItem);
         const nextStyle = this.window.getComputedStyle(nextItem);
 

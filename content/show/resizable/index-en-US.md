@@ -18,8 +18,7 @@ import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 ```
 
 ### Single Component
-
-#### Basic Usage and Callbacks
+Basic Usage and Callbacks
 You can set the initial size using defaultSize, and set drag callbacks with onResizeStart, onResize, and onResizeEnd.
 
 ```tsx
@@ -68,7 +67,7 @@ function Demo() {
 ```
 
 
-#### Controlling Resize Directions
+### Controlling Resize Directions
 You can enable or disable specific resizing directions by setting the value of enable. All directions are enabled by default.
 
 ```tsx
@@ -121,7 +120,7 @@ function Demo() {
 ```
 
 
-#### Setting Resizing Ratio
+### Setting Resizing Ratio
 
 You can set the drag and resize ratio using ratio.
 
@@ -150,7 +149,7 @@ function Demo() {
 
 ```
 
-#### Locking Aspect Ratio
+### Locking Aspect Ratio
 You can lock the aspect ratio by setting lockAspectRatio. It can be a boolean or a number. If true, it locks to the initial aspect ratio; if a number, it locks to the given ratio.
 
 ```jsx live=true "
@@ -190,7 +189,7 @@ function Demo() {
 
 ```
 
-#### Setting Maximum and Minimum Width/Height
+### Setting Maximum and Minimum Width/Height
 
 You can set the maximum and minimum width and height using maxHeight, maxWidth, minHeight, and minWidth.
 
@@ -222,7 +221,7 @@ function Demo() {
 
 ```
 
-#### Controll Width/Height
+### Control Width/Height
 You can control the size of the element through the size prop. And dragging will not affect the size of the element.
 
 ```jsx live=true
@@ -240,7 +239,7 @@ function Demo() {
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
-        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
         defaultSize={{
           width: 100,
           height: 100,
@@ -248,7 +247,7 @@ function Demo() {
         size={size}
       >
         <div style={{ marginLeft: '20%' }}>
-          Controll Width/Height
+          Control Width/Height
         </div>
       </Resizable>
     </div>
@@ -258,7 +257,7 @@ function Demo() {
 ```
 
 
-#### Setting Scale
+### Setting Scale
 You can scale the entire element by setting the scale prop.
 
 ```jsx live=true
@@ -287,7 +286,7 @@ function Demo() {
 ```
 
 
-#### Restricting Width/Height by an Element
+### Restricting Width/Height by an Element
 You can restrict the width and height by setting the boundElement, which supports string values like 'parent' or 'window'.
 
 ```jsx live=true
@@ -296,7 +295,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   return (
-    <div style={{ width: '300px', height: '300px', border: 'black 5px solid' }}>
+    <div style={{ width: '300px', height: '300px', border: 'black 1px solid' }}>
       <Resizable
         style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
@@ -315,7 +314,7 @@ function Demo() {
 
 ```
 
-#### Customizing Corner Handler Styles
+### Customizing Corner Handler Styles
 You can customize the drag handles for each direction using handleNode, and apply different styles using handleStyle and handleClassName.
 ```jsx
 type HandleNode = {
@@ -359,7 +358,7 @@ function Demo() {
     return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -383,7 +382,7 @@ function Demo() {
 ```
 
 
-#### Allowing Incremental Width and Height Adjustment
+### Allowing Incremental Width and Height Adjustment
 You can allow gradual adjustments in width and height using the grid and snap properties. The grid property specifies the increments to which resizing should snap. The default value is [1, 1]. The snap property specifies the absolute pixel values to which resizing should snap. Both x and y are optional, allowing you to define only the desired axis. These two parameters can be combined with the snapGap property, which specifies the minimum gap required to move to the next target. The default is 0, meaning the target defined by grid/snap is always used.
 
 ```tsx
@@ -401,7 +400,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -418,9 +417,7 @@ function Demo() {
 }
 ```
 
-### Group Component Resizing
-
-#### Basic Usage
+### Group Component 
 For the parent element of the ResizeGroup, you must set width and height. Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
 
 ```jsx live=true dir="column"
@@ -433,7 +430,7 @@ function Demo() {
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
@@ -445,7 +442,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           max={'30%'}
@@ -457,8 +454,8 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={'60px'}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          defaultSize={'600px'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -471,7 +468,7 @@ function Demo() {
 }
 ```
 
-#### Nested
+### Nested
 Set the resizing direction using the direction prop. Options are horizontal and vertical.
 
 ```jsx live=true dir="column"
@@ -591,8 +588,8 @@ function Demo() {
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
 | defaultSize   | Sets the initial width and height, supports only percentage string  | string                  |           |        |
-| minWidth | Specifies the minimum size of the resizable box (as percentage)     |  string                  |   |        |
-| maxWidth | Specifies the maximum size of the resizable box (as percentage)     |  string                  |   |        |   
+| min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
+| max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
 | style |  | CSSProperties |      |
 | onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |

@@ -224,11 +224,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             }}>
                 <div
                     style={{
-                        display: 'flex',
                         flexDirection: direction === 'vertical' ? 'column' : 'row',
-                        width: '100%',
-                        height: '100%',
-                        boxSizing: 'border-box'
                     }}
                     ref={this.groupRef}
                     className={classNames(className, prefixCls + '-group')}

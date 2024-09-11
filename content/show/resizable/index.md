@@ -16,9 +16,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 ```
 
-### 单个组件
-
-#### 基本使用与回调
+### 单个组件 基本使用
 通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
 
 ```tsx
@@ -66,7 +64,7 @@ function Demo() {
 
 ```
 
-#### 控制伸缩方向
+### 控制伸缩方向
 通过设置`enable`的值开启/关闭特定伸缩方向，默认值均为`true`
 
 ```tsx
@@ -118,7 +116,7 @@ function Demo() {
 
 ```
 
-#### 设置变化比例
+### 设置变化比例
 
 通过`ratio`设置拖动和实际变化的比例 
 
@@ -147,7 +145,7 @@ function Demo() {
 
 ```
 
-#### 锁定横纵比
+### 锁定横纵比
 
 通过`lockAspectRatio`设置锁定横纵比,可以为`boolean`或`number`,为`number`时表示横纵比为`number`,为`true`时锁定初始横纵比
 
@@ -188,7 +186,7 @@ function Demo() {
 
 ```
 
-#### 设置最大，最小宽高 
+### 设置最大，最小宽高 
 可通过 `maxHeight`，`maxWidth`，`minHeight`，`minWidth` 设置最大，最小宽高
 
 ```jsx live=true "
@@ -219,7 +217,7 @@ function Demo() {
 
 ```
 
-#### 受控宽高
+### 受控宽高
 
 可通过 `size` 控制元素的宽高, 此时拖拽不再有效
 
@@ -238,7 +236,7 @@ function Demo() {
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
-        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
         defaultSize={{
           width: 100,
           height: 100,
@@ -255,7 +253,7 @@ function Demo() {
 
 ```
 
-#### 设置缩放值
+### 设置缩放值
 
 通过设置 `scale`，整体缩放元素
 ```jsx live=true
@@ -283,7 +281,7 @@ function Demo() {
 
 ```
 
-#### 根据元素限制元素宽高
+### 根据元素限制元素宽高
 
 通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'）
 
@@ -293,7 +291,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   return (
-    <div style={{ width: '300px', height: '300px', border: 'black 5px solid' }}>
+    <div style={{ width: '300px', height: '300px', border: 'black 1px solid' }}>
       <Resizable
         style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
@@ -312,7 +310,7 @@ function Demo() {
 
 ```
 
-#### 自定义边角handler样式
+### 自定义边角handler样式
 
 可通过 handleNode设置不同方向的拖动元素节点，可通过 handleStyle，handleClassName 设置不同方向上的样式
 
@@ -358,7 +356,7 @@ function Demo() {
     return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -381,7 +379,7 @@ function Demo() {
 }
 ```
 
-#### 允许阶段性调整宽高
+### 允许阶段性调整宽高
 
 可通过 grid ，snap 属性允许逐渐调整宽高。
 grid 属性用于指定调整大小应对齐的增量。默认为 [1, 1]。
@@ -403,7 +401,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -420,10 +418,7 @@ function Demo() {
 }
 ```
 
-### 组合组件
-
-
-#### 基本使用
+### 组合组件 基本使用
 必须要为`ResizeGroup`的父元素设置`width`和`height`
 
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
@@ -439,7 +434,7 @@ function Demo() {
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
@@ -451,7 +446,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           max={'30%'}
@@ -463,8 +458,8 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
-          defaultSize={'60px'}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          defaultSize={'600px'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -477,7 +472,7 @@ function Demo() {
 }
 ```
 
-#### 嵌套使用
+### 嵌套使用
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 
 ```jsx live=true dir="column"
@@ -598,8 +593,8 @@ function Demo() {
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
 | defaultSize   | 用于设置初始宽高，只支持字符串 | string                  |           |        |
-| min | 指定伸缩框最小尺寸（百分比）      |  string                   |   |        |
-| max | 指定伸缩框最大尺寸（百分比）     |  string                   |   |        |
+| min | 指定伸缩框最小尺寸（百分比或像素值）      |  string                   |   |        |
+| max | 指定伸缩框最大尺寸（百分比或像素值）     |  string                   |   |        |
 | style | 样式 | CSSProperties |      |
 | onChange  | 拖拽过程中的回调                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
 | onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |

@@ -82,11 +82,6 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
             <div
                 className={classNames(className, prefixCls + '-handler')}
                 style={{
-                    userSelect: 'none',
-                    zIndex: 9999,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     ...directionStyles[this.context.direction],
                     ...style
                 }}

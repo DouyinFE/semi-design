@@ -81,9 +81,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
 
     render() {     
         const style: React.CSSProperties = {
-            position: 'relative',
-            boxSizing: 'border-box',
-            flexShrink: 0,
             ...this.props.style,
             ...this.foundation.sizeStyle,
         };
