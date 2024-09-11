@@ -15,16 +15,18 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 #### 🎉 2.66.0 (2024-09-10)
-- 【Feat】
-  - 为组件新增`Keys`变量，并为用户定义快捷键添加有效性检查 [@Nathon2Y](https://github.com/Nathon2Y) [#2463](https://github.com/DouyinFE/semi-design/pull/2463)
-  - 新增 ConfigConsumer 导出，用于手动获取 ConfigProvider 内的值 [#2468](https://github.com/DouyinFE/semi-design/pull/2468)
-  - Form 增加 onErrorChange 回调 [#2397](https://github.com/DouyinFE/semi-design/pull/2397)
 - 【Fix】
-  - 修复 tooltip 在动画开启状态快速滑入并滑出，tooltip 正常消失但是 dom 不卸载的问题 [#2461](https://github.com/DouyinFE/semi-design/pull/2461)
-  - 修复单选的 Cascader，在 React 版本大于 18 情况下，异步加载数据展开行为异常问题  [#2212](https://github.com/DouyinFE/semi-design/issues/2212) [#2435](https://github.com/DouyinFE/semi-design/pull/2435)
-  - 针对上个 Beta 新增的 快捷键组件 hotkeys 进行了一些 API 的微调，更符合实际使用场景 [#2463](https://github.com/DouyinFE/semi-design/issues/2463)
-  
+  - 修复 Tooltip 在动画开启状态快速滑入并滑出，tooltip 正常消失但是 dom 不卸载的问题 [#2461](https://github.com/DouyinFE/semi-design/pull/2461)
+  - 修复 Upload addOnPasting 在 SideSheet中无法上传的问题  [#2478](https://github.com/DouyinFE/semi-design/issues/2478)
+  - 修复单选的 Cascader，在 React 版本大于 18 情况下，异步加载数据展开行为异常问题  [#2212](https://github.com/DouyinFE/semi-design/issues/2212) 
+  - **针对上个 Beta 新增的 快捷键组件 Hotkeys 进行了一些 API 的微调，更符合实际使用场景** [#2463](https://github.com/DouyinFE/semi-design/issues/2463)
+- 【Chore】
+  - 新增 ConfigConsumer 导出，用于手动获取 ConfigProvider 内的值 [#2468](https://github.com/DouyinFE/semi-design/pull/2468)
+  - HotKeys 增加 static `Keys`属性 [@Nathon2Y](https://github.com/Nathon2Y) [#2463](https://github.com/DouyinFE/semi-design/pull/2463)
+
 #### 🎉 2.66.0-beta.0 (2024-09-02)
+- 【New Component】
+    - 添加快捷键组件，支持用户自定义快捷键组合并触发回调 [@Nathon2Y](https://github.com/Nathon2Y) [#2418](https://github.com/DouyinFE/semi-design/pull/2418)
 - 【Feat】
     - Tabs 增加 slash 类型 [#2416](https://github.com/DouyinFE/semi-design/pull/2416)
     - Tabs 的 renderArrow 支持 defaultNode 参数 [#2416](https://github.com/DouyinFE/semi-design/pull/2416)
@@ -36,8 +38,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 Dropdown onVisibleChange 在一些场景未定义时报错的问题 [#2454](https://github.com/DouyinFE/semi-design/pull/2454)
     - 修复 Chat 组件内容显示部分解析未转义字符时候的 SyntaxError [#2452](https://github.com/DouyinFE/semi-design/pull/2452)
     - 修复 Chat 组件在消息流式更新的同时，滚动消息列表，消息流式更新会导致列表意外滚动到底部问题 [#2451](https://github.com/DouyinFE/semi-design/pull/2451)
-- 【New Component】
-    - 添加快捷键组件，支持用户自定义快捷键组合并触发回调 [@Nathon2Y](https://github.com/Nathon2Y) [#2418](https://github.com/DouyinFE/semi-design/pull/2418)
 - 【Chore】
     - Avatar，AvatarGroup 的 size API 类型修改为 string #2443  [#2446 ](https://github.com/DouyinFE/semi-design/issues/2446) [#2459](https://github.com/DouyinFE/semi-design/pull/2459)
 
