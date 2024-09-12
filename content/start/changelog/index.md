@@ -13,6 +13,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.66.1 (2024-09-12)
+- 【Fix】
+  - 优化 Datepicker 在马来语、俄语、越南语、阿拉伯语 的星期一-星期日的文案展示; 优化 Table 左下角文案在日语、印尼语、越南语时的展示 [#2486](https://github.com/DouyinFE/semi-design/pull/2486)
 
 #### 🎉 2.66.0 (2024-09-10)
 - 【Fix】
