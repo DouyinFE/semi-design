@@ -160,7 +160,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginBottom: '10px' }}
         defaultSize={{
           width: 400,
           height: 300,
@@ -222,7 +222,7 @@ function Demo() {
 ```
 
 ### Control Width/Height
-You can control the size of the element through the size prop. And dragging will not affect the size of the element.
+You can control the size of the element through the size prop.
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -295,7 +295,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   return (
-    <div style={{ width: '300px', height: '300px', border: 'black 1px solid' }}>
+    <div style={{ width: '300px', height: '300px', border: 'var(--semi-color-border) 1px solid' }}>
       <Resizable
         style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
@@ -358,7 +358,7 @@ function Demo() {
     return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -400,7 +400,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -418,7 +418,16 @@ function Demo() {
 ```
 
 ### Group Component 
-For the parent element of the ResizeGroup, you must set width and height. Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
+<Notice type='primary' title='notice'>
+
+You must set width and height for the parent element of ResizeGroup.
+
+It's best not to set padding for ResizeItem, as it may cause the minimum size to not match the expected value. You can set padding for child elements instead.
+</Notice>
+
+
+
+Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';
@@ -430,7 +439,7 @@ function Demo() {
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
@@ -442,7 +451,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           max={'30%'}
@@ -454,7 +463,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'600px'}
           onChange={() => { setText('resizing') }}
         >
@@ -508,7 +517,7 @@ function Demo() {
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"25%"}
               onChange={() => { setText('resizing') }}
               onResizeStart={() => Toast.info(opts_1)}
@@ -520,7 +529,7 @@ function Demo() {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"75%"}
               onChange={() => { setText('resizing') }}
             >

@@ -157,7 +157,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginBottom: '10px' }}
         defaultSize={{
           width: 400,
           height: 300,
@@ -219,7 +219,7 @@ function Demo() {
 
 ### 受控宽高
 
-可通过 `size` 控制元素的宽高, 此时拖拽不再有效
+可通过 `size` 控制元素的宽高
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -291,7 +291,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   return (
-    <div style={{ width: '300px', height: '300px', border: 'black 1px solid' }}>
+    <div style={{ width: '300px', height: '300px', border: 'var(--semi-color-border) 1px solid' }}>
       <Resizable
         style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
         defaultSize={{
@@ -356,7 +356,7 @@ function Demo() {
     return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -401,7 +401,7 @@ function Demo() {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -419,7 +419,13 @@ function Demo() {
 ```
 
 ### 组合组件 基本使用
+<Notice type='primary' title='注意事项'>
+
 必须要为`ResizeGroup`的父元素设置`width`和`height`
+
+最好不要为`ResizeItem`设置`padding`，会导致最小尺寸不符合预期，可以为子元素设置`padding`
+</Notice>
+
 
 通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 支持`onResizeStart` `onResize` `onResizeEnd`回调，支持`min` `max`设置最大最小宽高
@@ -434,7 +440,7 @@ function Demo() {
     <div style={{ width: '1000px', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
@@ -446,7 +452,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'20%'}
           min={'10%'}
           max={'30%'}
@@ -458,7 +464,7 @@ function Demo() {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
           defaultSize={'600px'}
           onChange={() => { setText('resizing') }}
         >
@@ -512,7 +518,7 @@ function Demo() {
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"25%"}
               onChange={() => { setText('resizing') }}
               onResizeStart={() => Toast.info(opts_1)}
@@ -524,7 +530,7 @@ function Demo() {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"75%"}
               onChange={() => { setText('resizing') }}
             >

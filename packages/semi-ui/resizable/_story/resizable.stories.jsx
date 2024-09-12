@@ -1,6 +1,6 @@
 import React, { createRef, useState } from 'react';
 import { Resizable } from '../../index';
-import { Toast, Button } from '@douyinfe/semi-ui'
+import { Toast, Button, Tag } from '@douyinfe/semi-ui'
 export default {
   title: 'Resizable'
 }
@@ -40,7 +40,7 @@ export const Group_layout = () => {
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"20%"}
               onChange={() => { setText('resizing') }}
               onResizeStart={() => {Toast.info(opts_1)}}
@@ -52,7 +52,7 @@ export const Group_layout = () => {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -61,7 +61,7 @@ export const Group_layout = () => {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 1px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               // defaultSize={"90%"}
               onChange={() => { setText('resizing') }}
             >
@@ -93,7 +93,7 @@ export const Group_nested = () => {
     <div style={{ width: '500px', height: '600px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={"20%"}
           onChange={() => { setText('resizing') }}
           onResizeStart={() => {{Toast.info(opts_1)}}}
@@ -105,13 +105,13 @@ export const Group_nested = () => {
         </ResizeItem>
         <ResizeHandler><div>{'hahaha, man'}</div></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={'20%'}
           onChange={() => { setText('resizing') }}
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid', 
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid', 
                 padding: '10px'  }}
               defaultSize={"25%"}
               onChange={() => { setText('resizing') }}
@@ -124,7 +124,7 @@ export const Group_nested = () => {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
               defaultSize={"25%"}
               onChange={() => { setText('resizing') }}
             >
@@ -134,7 +134,7 @@ export const Group_nested = () => {
             </ResizeItem>
             <ResizeHandler></ResizeHandler>
             <ResizeItem
-              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
               onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
@@ -145,7 +145,7 @@ export const Group_nested = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={"20%"}
           onChange={() => { setText('resizing') }}
         >
@@ -174,7 +174,7 @@ export const Group_vertical = () => {
     <div style={{ width: '500px', height: '600px' }}>
       <ResizeGroup direction='vertical'>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={"20%"}
           min={'10%'}
           max={'30%'}
@@ -188,7 +188,7 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={'20%'}
           onChange={() => { setText('resizing') }}
         >
@@ -198,7 +198,7 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           defaultSize={'20%'}
           onChange={() => { setText('resizing') }}
         >
@@ -208,7 +208,7 @@ export const Group_vertical = () => {
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
           
           onChange={() => { setText('resizing') }}
         >
@@ -233,7 +233,7 @@ export const Group_horizontal = () => {
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
         >
-          <div style={{ marginLeft: '20%', border: 'black solid 1px', padding:'5px' }}>
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
             {text + " min:10%"}
           </div>
         </ResizeItem>
@@ -245,7 +245,7 @@ export const Group_horizontal = () => {
           max={'30%'}
           onChange={() => { setText('resizing') }}
         >
-          <div style={{ marginLeft: '20%', border: 'black solid 1px', padding:'5px' }}>
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
             {text + " min:10% max:30%"}
           </div>
         </ResizeItem>
@@ -255,7 +255,7 @@ export const Group_horizontal = () => {
           defaultSize={'30%'}
           onChange={() => { setText('resizing') }}
         >
-          <div style={{ marginLeft: '20%', border: 'black solid 1px', padding:'5px' }}>
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
             {text}
           </div>
         </ResizeItem>
@@ -280,7 +280,7 @@ export const Single_defaultSize = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -290,7 +290,7 @@ export const Single_defaultSize = () => {
         onResizeEnd={() => { Toast.info(opts); setText('test') }}
       >
         <div style={{ marginLeft: '20%' }}>
-          {text}
+          <Tag>{text}</Tag>
         </div>
       </Resizable>
     </div>
@@ -303,7 +303,7 @@ export const Single_Enabel = () => {
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={() => (setB(!b))}>{'left:' + b}</Button>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         enable={{
           left: b
         }}
@@ -324,7 +324,7 @@ export const Single_ratio = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -344,7 +344,7 @@ export const Single_lock_aspect = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -356,7 +356,7 @@ export const Single_lock_aspect = () => {
         </div>
       </Resizable>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: 200,
           height: 1800 / 16,
@@ -375,7 +375,7 @@ export const singleMaxMin = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         maxWidth={500}
         maxHeight={600}
         minWidth={50}
@@ -404,7 +404,7 @@ export const Single_change = () => {
     <div style={{ width: '500px', height: '60%' }}>
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -425,7 +425,7 @@ export const Single_scale = () => {
   return (
     <div style={{ width: '500px', height: '60%', transform: 'scale(0.5)', transformOrigin: '0 0' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'light blue', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'light blue', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -442,9 +442,9 @@ export const Single_scale = () => {
 
 export const Single_bound = () => {
   return (
-    <div style={{ width: '500px', height: '600px', border: 'black 5px solid' }}>
+    <div style={{ width: '500px', height: '600px', border: 'var(--semi-color-border) 5px solid' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -463,7 +463,7 @@ export const Single_handler = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
@@ -491,7 +491,7 @@ export const Single_grid = () => {
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
-        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'black 5px solid' }}
+        style={{ marginLeft: '20%', backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
         defaultSize={{
           width: '60%',
           height: 300,
