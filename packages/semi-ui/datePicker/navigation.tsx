@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-// import cls from 'classnames';
+import cls from 'classnames';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash';
 
@@ -8,12 +8,14 @@ import Button from '../button';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/datePicker/constants';
 import { IconChevronLeft, IconChevronRight, IconDoubleChevronLeft, IconDoubleChevronRight } from '@douyinfe/semi-icons';
 import { PanelType } from '@douyinfe/semi-foundation/datePicker/monthsGridFoundation';
+import type { Locale } from '../locale/interface';
 
 const prefixCls = cssClasses.NAVIGATION;
 
 interface NavigationProps {
     forwardRef?: React.Ref<HTMLDivElement>;
     monthText?: string;
+    monthNumber?: string;
     density?: string;
     onMonthClick?: (e: React.MouseEvent) => void;
     onNextMonth?: () => void;
@@ -25,12 +27,14 @@ interface NavigationProps {
     // Whether to switch synchronously for two panels
     shouldBimonthSwitch?: boolean;
     // Panel type, divided into left panel and right panel
-    panelType?: PanelType
+    panelType?: PanelType;
+    localeCode: Locale['code']
 }
 
 export default class Navigation extends PureComponent<NavigationProps> {
     static propTypes = {
         monthText: PropTypes.string,
+        monthNumber: PropTypes.string,
         density: PropTypes.string,
         onMonthClick: PropTypes.func,
         onNextMonth: PropTypes.func,
@@ -42,7 +46,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
         // Whether to switch synchronously for two panels
         shouldBimonthSwitch: PropTypes.bool,
         // Panel type, divided into left panel and right panel
-        panelType: PropTypes.oneOf([strings.PANEL_TYPE_LEFT, strings.PANEL_TYPE_RIGHT])
+        panelType: PropTypes.oneOf([strings.PANEL_TYPE_LEFT, strings.PANEL_TYPE_RIGHT]),
+        localeCode: PropTypes.string,
     };
 
     static defaultProps = {
@@ -65,6 +70,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
         const {
             forwardRef,
             monthText,
+            monthNumber,
             onMonthClick,
             onNextMonth,
             onPrevMonth,
@@ -72,7 +78,8 @@ export default class Navigation extends PureComponent<NavigationProps> {
             onNextYear,
             density,
             shouldBimonthSwitch,
-            panelType
+            panelType,
+            localeCode
         } = this.props;
 
         const btnTheme = 'borderless';
@@ -95,6 +102,23 @@ export default class Navigation extends PureComponent<NavigationProps> {
         if (hiddenLeftPanelRightButtons) {
             rightButtonStyle.visibility = 'hidden';
         }
+
+        // some special case, detail please refer issue https://github.com/DouyinFE/semi-design/issues/2487
+        let monthTextButtonCls = '';
+        if (density) {
+            let textOverflowMonth = [];
+            if (localeCode == 'ms-MY') {
+                textOverflowMonth = [1, 2, 9, 10, 11, 12];
+                console.log(monthNumber);
+            } else if (localeCode == 'th-TH') {
+                textOverflowMonth = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12];
+            } else if (localeCode == 'tr-TR') {
+                textOverflowMonth = [2, 4, 5, 6, 7, 8, 11, 12];
+            }
+            textOverflowMonth.includes(Number(monthNumber)) ? monthTextButtonCls = `${prefixCls}-month-without-padding` : '';
+        }
+
+        const monthTextBtnWrapperCls = cls([`${prefixCls}-month`, monthTextButtonCls]);
 
         const ref = forwardRef || this.navRef;
         return (
@@ -119,7 +143,7 @@ export default class Navigation extends PureComponent<NavigationProps> {
                     noHorizontalPadding={btnNoHorizontalPadding}
                     style={leftButtonStyle}
                 />
-                <div className={`${prefixCls}-month`}>
+                <div className={monthTextBtnWrapperCls}>
                     <Button onClick={onMonthClick} theme={btnTheme} size={buttonSize}>
                         <span>{monthText}</span>
                     </Button>

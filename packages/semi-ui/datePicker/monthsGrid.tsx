@@ -333,10 +333,10 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
         const { weekStartsOn, disabledDate, locale, localeCode, renderDate, renderFullDate, startDateOffset, endDateOffset, density, rangeInputFocus, syncSwitchMonth, multiple } = this.props;
         let monthText = '';
         // i18n monthText
+        const monthNumber = month ? formatFn(month, 'L') : '';
         if (month) {
             // Get the absolute value of the year and month
             const yearNumber = month ? formatFn(month, 'yyyy') : '';
-            const monthNumber = month ? formatFn(month, 'L') : '';
             // Display the month as the corresponding language text
             const mText = locale.months[monthNumber];
             const monthFormatToken = locale.monthText;
@@ -364,7 +364,9 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                 <Navigation
                     forwardRef={current => this.cacheRefCurrent(`nav-${panelType}`, current)}
                     monthText={monthText}
+                    monthNumber={monthNumber}
                     density={density}
+                    localeCode={localeCode}
                     onMonthClick={e => this.showYearPicker(panelType, e)}
                     onPrevMonth={() => this.foundation.prevMonth(panelType)}
                     onNextMonth={() => this.foundation.nextMonth(panelType)}

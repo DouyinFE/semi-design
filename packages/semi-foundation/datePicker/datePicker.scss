@@ -305,6 +305,13 @@ $module-list: #{$prefix}-scrolllist;
             .#{$prefix}-button {
                 color: $color-datepicker_nav_monthIcon-text-default;
             }
+            // for special language i18n
+            &-without-padding {
+                .#{$prefix}-button {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
         }
     }
 
