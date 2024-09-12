@@ -539,6 +539,7 @@ describe('DatePicker', () => {
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).clear().type('2021-0');
         cy.get('.semi-datepicker-footer .semi-button').eq(0).click();
+        cy.wait(300);
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
@@ -832,6 +833,7 @@ describe('DatePicker', () => {
         cy.get('.semi-input').should('have.value', '2024-02-15 00:00:00');
         cy.get('button').contains('确定').trigger('click');
         cy.get('.semi-input').should('have.value', '');
+        cy.wait(300);
         cy.get('.semi-input').eq(1).click();
         cy.get('.semi-datepicker-day').contains('15').trigger('click');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-15 00:00:00');

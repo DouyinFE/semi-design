@@ -264,21 +264,24 @@ describe('table', () => {
         cy.get('.semi-input').type('12');
         cy.get('.semi-button').contains('筛选+关闭').click();
         cy.get('.semi-table-tbody .semi-table-row').should('have.length', 1);
+        cy.wait(200);
         cy.get('.semi-table-column-filter').eq(0).click();
         cy.get('.semi-input').should('be.focused');
         cy.get('.semi-button').contains('清除+关闭').click();
         cy.get('.semi-table-tbody .semi-table-row').should('have.length', 10);
+        cy.wait(200);
         cy.get('.semi-table-column-filter').eq(0).click();
         cy.get('.semi-input').should('be.focused');
         cy.get('.semi-button').contains('直接关闭').click();
         cy.get('.semi-dropdown').should('not.exist');
-
+        cy.wait(300);
         // 测试第二个筛选器
         cy.get('.semi-table-column-filter').eq(1).click();
         cy.get('.semi-input').should('have.value', '姜鹏志');
         cy.get('.semi-button').contains('清除后不关闭').click();
         cy.get('.semi-table-pagination-info').should('contain', '显示第 1 条-第 10 条，共 46 条');
         cy.get('.semi-dropdown').should('exist');
+        cy.wait(200);
         cy.get('.semi-table-column-filter').eq(1).click();
         cy.get('.semi-input').type('郝宣');
         cy.get('.semi-button').contains('筛选后不关闭').click();

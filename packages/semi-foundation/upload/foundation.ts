@@ -903,9 +903,8 @@ class UploadFoundation<P = Record<string, any>, S = Record<string, any>> extends
         const isMac = this._adapter.isMac();
         const isCombineKeydown = isMac ? e.metaKey : e.ctrlKey;
         const { addOnPasting } = this.getProps();
-
         if (addOnPasting) {
-            if (isCombineKeydown && e.code === 'KeyV' && e.target === document.body) {
+            if (isCombineKeydown && e.code === 'KeyV') {
                 // https://github.com/microsoft/TypeScript/issues/33923
                 const permissionName = 'clipboard-read' as PermissionName;
                 // The main thread should not be blocked by clipboard, so callback writing is required here. No await here
