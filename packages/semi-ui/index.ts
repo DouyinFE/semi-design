@@ -21,6 +21,7 @@ export { default as CheckboxGroup } from './checkbox/checkboxGroup';
 export { default as Collapse } from './collapse';
 export { default as Collapsible } from './collapsible';
 export { default as ConfigProvider } from './configProvider';
+export { ConfigConsumer } from "./configProvider";
 export { default as DatePicker } from './datePicker';
 export { default as Descriptions } from './descriptions';
 export { default as Divider } from './divider';
@@ -112,3 +113,5 @@ export { default as CodeHighlight } from "./codeHighlight";
 export { default as Lottie } from "./lottie";
 
 export { default as Chat } from './chat';
+
+export { default as HotKeys } from './hotKeys'; 

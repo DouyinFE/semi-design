@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 81
+order: 82
 category: 其他
 title:  ConfigProvider 全局配置
 icon: doc-configprovider
@@ -76,6 +76,48 @@ function Demo(props = {}) {
     );
 }
 ```
+
+### 手动获取值
+通常情况下，组件内部会自动获取 ConfigProvider 的值自动消费，无需关心。但是一些特殊场景，你可能需要手动获取值来进行其他操作。
+
+使用 ConfigConsumer 获取 ConfigProvider 的值
+
+```jsx live=true dir="column" hideInDSM
+import React, { useMemo, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Select, DatePicker, TimePicker, Typography } from '@douyinfe/semi-ui';
+
+function Demo(props = {}) {
+  const [timeZone, setTimeZone] = useState('GMT+08:00');
+  const defaultTimestamp = 1581599305265;
+  const gmtList = useMemo(() => {
+    const list = [];
+    for (let hourOffset = -11; hourOffset <= 14; hourOffset++) {
+      const prefix = hourOffset >= 0 ? '+' : '-';
+      const hOffset = Math.abs(parseInt(hourOffset, 10));
+      list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
+    }
+    return list;
+  }, []);
+
+  return (
+          <ConfigProvider timeZone={timeZone}>
+            {/*...*/}
+            <ConfigConsumer>
+              {(value) => {
+                return <Typography.Text ellipsis={{ showTooltip: {opts:{style:{minWidth:"1200px"}} }}}  style={{ width: 600 }}>
+                  {JSON.stringify(value)}
+                </Typography.Text>
+             }}
+            </ConfigConsumer>
+            {/*...*/}
+          </ConfigProvider>
+          );
+}
+
+```
+
+
+
 
 ### RTL/LTR
 全局配置 `direction` 可以改变组件的文本方向（1.8.0）。

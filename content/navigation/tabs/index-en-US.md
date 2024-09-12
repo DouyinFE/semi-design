@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 49
+order: 50
 category: Navigation
 title: Tabs
 subTitle: Tabs

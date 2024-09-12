@@ -28,6 +28,7 @@ const order = [
     'colorpicker',
     'datepicker',
     'form',
+    'hotkeys',
     'input',
     'inputnumber',
     'pincode',
