@@ -656,10 +656,10 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                 onAnimationStart={() => this.isAnimating = true}
                 onAnimationEnd={() => {
                     if (transitionState === 'leave') {
-                        this.isAnimating = false;
                         this.didLeave();
                         this.props.afterClose?.();
                     }
+                    this.isAnimating = false;
                 }}>
                 {
                     ({ animationStyle, animationClassName, animationEventsNeedBind }) => {
