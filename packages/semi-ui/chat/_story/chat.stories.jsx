@@ -1,10 +1,10 @@
 import { getUuidv4 } from '@douyinfe/semi-foundation/utils/uuid';
 import Chat from '../index';
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
-import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch, Collapsible, AvatarGroup} from '@douyinfe/semi-ui';
+import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch, Collapsible, AvatarGroup, Divider } from '@douyinfe/semi-ui';
 import { IconUpload, IconForward, IconMoreStroked, IconArrowRight, IconChevronUp } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
-import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode } from './constant';
+import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode, infoWithDivider } from './constant';
 
 export default {
     title: 'Chat',
@@ -825,4 +825,27 @@ export const CustomRenderHint = () => {
             uploadProps={uploadProps}
         />
     </div>
+}
+
+export const CustomRenderDivider = () => {
+    const [message, setMessage] = useState(infoWithDivider);
+
+    const renderDivider = useCallback((message) => (
+        <Divider key={message.id} >
+            <span style={{fontSize: '14px', lineHeight: '14px', fontWeight: 400, margin: '0 8px'}}>以下为新消息</span>
+        </Divider>
+    ), []);
+
+    return (
+        <div style={{ height: 600 }}>
+            <Chat 
+                placeholder={'不处理输入信息，仅用于展示附件'}
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                uploadProps={uploadProps}
+                renderDivider={renderDivider}
+            />
+        </div>
+    );
 }

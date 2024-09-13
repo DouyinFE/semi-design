@@ -1539,6 +1539,7 @@ render(DefaultChat);
 | sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
 | mode | Conversation mode, support `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
 | roleConfig | Role information configuration, see[RoleConfig](#RoleConfig) | RoleConfig | - |
+| renderDivider | Custom render divider | (message?: Message) => ReactNode | - |
 | renderHintBox | Custom rendering prompt information | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | Triggered when the conversation list changes | (chats: Message[]) => void | - |
 | onClear | Triggered when context message is cleared | () => void | - |
