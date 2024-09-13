@@ -1496,12 +1496,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             emptyContent
         } = this.props;
         const wrapperCls = cls(`${prefixTree}-wrapper`);
-        const listCls = cls(`${prefixTree}-option-list ${prefixTree}-option-list-block`, {
-            [`${prefixTree}-option-list-hidden`]: emptyContent === null,
-        });
         const searchNoRes = Boolean(inputValue) && !filteredKeys.size;
         const noData = isEmpty(flattenNodes) || (showFilteredOnly && searchNoRes);
         const isDropdownPositionSearch = searchPosition === strings.SEARCH_POSITION_DROPDOWN;
+        const listCls = cls(`${prefixTree}-option-list ${prefixTree}-option-list-block`, {
+            [`${prefixTree}-option-list-hidden`]: emptyContent === null && noData,
+        });
         return (
             <TreeContext.Provider
                 value={{
