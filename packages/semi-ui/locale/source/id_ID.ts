@@ -100,7 +100,7 @@ const local: Locale = {
     },
     Table: {
         emptyText: 'Tidak ada Hasil',
-        pageText: 'Tampilkan halaman ${currentStart} sampai ${currentEnd} dari ${total}',
+        pageText: 'Menampilkan ${currentStart}-${currentEnd} dari ${total}',
         descend: 'Klik untuk menurun',
         ascend: 'Klik untuk menaik',
         cancelSort: 'Batalkan penyortiran',

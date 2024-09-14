@@ -1014,8 +1014,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 <Fragment key={'selection'}>
                     <div className={sectionCls}>{this.renderSelectContent()}</div>
                 </Fragment>,
-                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ];
         /**

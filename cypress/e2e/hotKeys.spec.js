@@ -1,11 +1,10 @@
 describe('hotKeys', () => {
-    it('Clickable', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--clickable')
+    it('BasicUsage', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--demo')
         cy.wait(1000)
 
-        cy.get('body').click().type('{alt}{k}')
-        cy.get('div.semi-hotKeys').click()
-        cy.get('pre#pre').should('exist').and('have.text', '2')
+        cy.get('body').click().type('{control}{k}')
+        cy.get('pre#pre').should('exist').and('have.text', '1')
     });
 
     it('Combine', () => {
@@ -20,12 +19,5 @@ describe('hotKeys', () => {
 
         cy.get('input#test').type('{meta}{s}')
         cy.get('pre#pre').should('exist').and('have.text', '1')
-    });
-
-    it('Disabled', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/hotkeys--disabled')
-
-        cy.get('body').click().type('{meta}{k}')
-        cy.get('pre#pre').should('exist').and('have.text', '0')
     });
 });

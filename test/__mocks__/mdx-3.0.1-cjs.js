@@ -12818,13 +12818,13 @@ function buildUnicodeData(ecmaVersion) {
   d.nonBinary.sc = d.nonBinary.Script;
   d.nonBinary.scx = d.nonBinary.Script_Extensions;
 }
+var ecmaVersion;
+var i;
+var list3;
 for (i = 0, list3 = [9, 10, 11, 12, 13, 14]; i < list3.length; i += 1) {
   ecmaVersion = list3[i];
   buildUnicodeData(ecmaVersion);
 }
-var ecmaVersion;
-var i;
-var list3;
 var pp$1 = Parser.prototype;
 var BranchID = function BranchID2(parent, base) {
   this.parent = parent;

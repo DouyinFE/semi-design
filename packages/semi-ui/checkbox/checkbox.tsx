@@ -251,7 +251,7 @@ class Checkbox extends BaseComponent<CheckboxProps, CheckboxState> {
             [`${prefix}-unChecked`]: !props.checked,
             [`${prefix}-cardType`]: props.isCardType,
             [`${prefix}-cardType_disabled`]: props.disabled && props.isCardType,
-            [`${prefix}-cardType_unDisabled`]: !(props.disabled && props.isCardType),
+            [`${prefix}-cardType_enable`]: !(props.disabled && props.isCardType),
             [`${prefix}-cardType_checked`]: props.isCardType && props.checked && !props.disabled,
             [`${prefix}-cardType_checked_disabled`]: props.isCardType && props.checked && props.disabled,
             [className]: Boolean(className),

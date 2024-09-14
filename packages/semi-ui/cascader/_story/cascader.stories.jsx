@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { IconChevronDown, IconClose } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconClose, IconGift } from '@douyinfe/semi-icons';
 import { Button, Typography, Toast, Cascader, Checkbox, Input, Tag, TagInput } from '../../index';
 
 const { Text } = Typography;
@@ -2396,4 +2396,54 @@ export const SearchInTopSlot = () => {
           placeholder="请选择所在地区"
       />
   );
+}
+
+export const suffix = () => {
+  const treeData = [
+    {
+        label: '浙江省',
+        value: 'zhejiang',
+        children: [
+            {
+                label: '杭州市',
+                value: 'hangzhou',
+                children: [
+                    {
+                        label: '西湖区',
+                        value: 'xihu',
+                    },
+                    {
+                        label: '萧山区',
+                        value: 'xiaoshan',
+                    },
+                    {
+                        label: '临安区',
+                        value: 'linan',
+                    },
+                ],
+            },
+            {
+                label: '宁波市',
+                value: 'ningbo',
+                children: [
+                    {
+                        label: '海曙区',
+                        value: 'haishu',
+                    },
+                    {
+                        label: '江北区',
+                        value: 'jiangbei',
+                    }
+                ]
+            },
+        ],
+    }
+  ];
+
+  return (<Cascader
+    suffix={<IconGift />}
+    style={{ width: 300 }}
+    treeData={treeData}
+    placeholder="请选择所在地区"
+  />);
 }
