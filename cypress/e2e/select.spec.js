@@ -192,6 +192,31 @@ describe('Select', () => {
         cy.wait(300);
         cy.get('[data-cy=a-2]').should('have.class', 'semi-select-option-selected');
     });
+
+    it('renderOptionItem, keyboard Up & Down', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--render-option-item');
+        cy.get('[data-cy=multiple]').click();
+        cy.wait(300);
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-2]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-3]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-4]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-5]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-6]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-7]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-8]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{downArrow}');
+        cy.get('[data-cy=option-1]').should('have.class', 'custom-option-render-focused');
+        cy.get('input').eq(0).type('{upArrow}');
+        cy.get('[data-cy=option-8]').should('have.class', 'custom-option-render-focused');
+    });
+
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 

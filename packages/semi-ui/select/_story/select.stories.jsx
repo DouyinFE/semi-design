@@ -2697,14 +2697,14 @@ SelectPosition.story = {
 const RenderOptionDemo = () => {
 
   const optionList = [
-      { value: 'db-4', label: 'Doubao-Pro-4k', otherKey: 0 },
-      { value: 'db-32', label: 'Doubao-Pro-32K', otherKey: 1 },
-      { value: 'db-128', label: 'Doubao-Pro-128K', otherKey: 2 },
-      { value: 'db-lite-2', label: 'Doubao-Lite-4K', otherKey: 4 },
-      { value: 'db-lite-32', label: 'Doubao-Lite-32K', otherKey: 4 },
-      { value: 'db-lite-128', label: 'Doubao-Lite-128K', otherKey: 5 },
-      { value: 'gpt-4', label: 'GPT-4', otherKey: 6 },
-      { value: 'gpt-4-32', label: 'GPT-4-32K', otherKey: 7 },
+      { value: 'db-4', label: 'Doubao-Pro-4k', otherKey: 0, 'data-cy': 'option-1' },
+      { value: 'db-32', label: 'Doubao-Pro-32K', otherKey: 1, 'data-cy': 'option-2' },
+      { value: 'db-128', label: 'Doubao-Pro-128K', otherKey: 2, 'data-cy': 'option-3' },
+      { value: 'db-lite-2', label: 'Doubao-Lite-4K', otherKey: 4, 'data-cy': 'option-4' },
+      { value: 'db-lite-32', label: 'Doubao-Lite-32K', otherKey: 5, 'data-cy': 'option-5' },
+      { value: 'db-lite-128', label: 'Doubao-Lite-128K', otherKey: 6, 'data-cy': 'option-6' },
+      { value: 'gpt-4', label: 'GPT-4', otherKey: 6, 'data-cy': 'option-7' },
+      { value: 'gpt-4-32', label: 'GPT-4-32K', otherKey: 7, 'data-cy': 'option-8' },
   ];
 
   const renderOptionItem = renderProps => {
@@ -2740,6 +2740,7 @@ const RenderOptionDemo = () => {
         className={optionCls}
         onClick={() => onClick()}
         onMouseEnter={e => onMouseEnter()}
+        {...rest}
       >
         <Checkbox checked={selected} />
         <div className="option-right">{label}</div>
@@ -2756,6 +2757,7 @@ const RenderOptionDemo = () => {
         style={{
           width: 300,
         }}
+        data-cy="single"
         maxHeight={180}
         renderOptionItem={renderOptionItem}
       />
@@ -2767,6 +2769,7 @@ const RenderOptionDemo = () => {
         dropdownClassName="components-select-demo-renderOptionItem"
         optionList={optionList}
         maxHeight={180}
+        data-cy="multiple"
         style={{
           width: 450,
         }}
