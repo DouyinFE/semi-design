@@ -51,7 +51,14 @@ const { Option } = Select;
 
 export default {
     title: 'LocaleProvider',
+    parameters: {
+        //👇 Defines a list of viewport widths applied to all stories of a component to be captured in Chromatic.
+        // Note only widths are supported, to control width and height, use the modes api
+        // https://www.chromatic.com/docs/viewports
+        chromatic: { viewports: [320, 1200] },
+    },
 };
+
 // -√ Pagination
 // -√ Modal
 // -× DatePicker
@@ -171,15 +178,17 @@ const I18nComponent = () => {
                 <p>This is the content of a basic modal.</p>
                 <p>More content...</p>
             </Modal>
+            {/* Default size datepicker */}
             <div>
               <DatePicker style={{ ...style, width: 200 }} open />
-              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" />
+              <DatePicker style={{ ...style,marginLeft: 120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" />
               {/* <DatePicker style={{ ...style, width: 250 }} type="dateRange" /> */}
-              <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" />
+              <DatePicker style={{ ...style, marginLeft: 240, width: 400 }} open type="dateTimeRange" />
             </div>
+            {/* compact size datepicker */}
             <div style={{ marginTop: 400 }}>
               <DatePicker style={{ ...style, width: 200 }} open autoAdjustOverflow={false} position='bottomLeft' density='compact' />
-              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" autoAdjustOverflow={false} position='bottomLeft' density='compact' />
+              <DatePicker style={{ ...style,marginLeft: 120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" autoAdjustOverflow={false} position='bottomLeft' density='compact' />
               {/* <DatePicker style={{ ...style, width: 250 }} type="dateRange" /> */}
               <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" autoAdjustOverflow={false} position='bottomLeft' density='compact' />
             </div>
