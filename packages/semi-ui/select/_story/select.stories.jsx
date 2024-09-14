@@ -2695,6 +2695,18 @@ SelectPosition.story = {
 }
 
 const RenderOptionDemo = () => {
+
+  const optionList = [
+      { value: 'db-4', label: 'Doubao-Pro-4k', otherKey: 0 },
+      { value: 'db-32', label: 'Doubao-Pro-32K', disabled: true, otherKey: 1 },
+      { value: 'db-128', label: 'Doubao-Pro-128K', otherKey: 2 },
+      { value: 'db-lite-2', label: 'Doubao-Lite-4K', otherKey: 4 },
+      { value: 'db-lite-32', label: 'Doubao-Lite-32K', otherKey: 4 },
+      { value: 'db-lite-128', label: 'Doubao-Lite-128K', otherKey: 5 },
+      { value: 'gpt-4', label: 'GPT-4', otherKey: 6 },
+      { value: 'gpt-4-32', label: 'GPT-4-32K', otherKey: 7 },
+  ];
+
   const renderOptionItem = renderProps => {
     const {
       disabled,
@@ -2715,10 +2727,12 @@ const RenderOptionDemo = () => {
       ['custom-option-render-focused']: focused,
       ['custom-option-render-disabled']: disabled,
       ['custom-option-render-selected']: selected,
-    }); // Notice：
+    }, className); // Notice：
+
     // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
     // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
     // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
+    // 4.props传入的className需在wrapper dom上绑定，否则上下键盘操作时可能存在无法自动滚动展示的问题
 
     return (
       <div
@@ -2742,6 +2756,7 @@ const RenderOptionDemo = () => {
         style={{
           width: 300,
         }}
+        maxHeight={180}
         renderOptionItem={renderOptionItem}
       />
       <br />
@@ -2751,6 +2766,7 @@ const RenderOptionDemo = () => {
         multiple
         dropdownClassName="components-select-demo-renderOptionItem"
         optionList={optionList}
+        maxHeight={180}
         style={{
           width: 450,
         }}

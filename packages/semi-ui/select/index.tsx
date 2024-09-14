@@ -616,15 +616,28 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
-                let optionClassName = `.${prefixcls}-option-selected`;
-                if (index !== undefined) {
-                    optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                let optionClassName;
+
+                if ('renderOptionItem' in this.props) {
+                    optionClassName = `.${prefixcls}-custom-option-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-custom-option-selected:nth-child(${index})`;
+                        console.log('index');
+                    }
+                    console.log('xxx');
+                } else {
+                    optionClassName = `.${prefixcls}-option-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                    }
                 }
+
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
                     destNode = destNode[0];
                 }
                 if (destNode) {
+                    console.log('destNode');
                     /**
                      * Scroll the first selected item into view.
                      * The reason why ScrollIntoView is not used here is that it may cause page to move.
