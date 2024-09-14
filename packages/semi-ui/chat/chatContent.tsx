@@ -16,7 +16,7 @@ const ChatContent = React.memo((props: ChatContentProps) => {
     const { chats, onMessageBadFeedback, onMessageCopy, mode,
         onChatsChange, onMessageDelete, onMessageGoodFeedback,
         onMessageReset, roleConfig, chatBoxRenderConfig, align,
-        customMarkDownComponents,
+        customMarkDownComponents, renderDivider,
     } = props;
 
     const [toast, contextHolder] = Toast.useToast();
@@ -25,12 +25,13 @@ const ChatContent = React.memo((props: ChatContentProps) => {
         <>
             {chats.map((item, index) => {
                 const lastMessage = index === chats.length - 1;
-                return item.role === ROLE.DIVIDER ? 
+                return item.role === ROLE.DIVIDER ? (
+                    renderDivider ? renderDivider(item) :
                     <Divider key={item.id} className={PREFIX_DIVIDER}>
                         <LocaleConsumer<Locale["Chat"]> componentName="Chat" >
                             {(locale: Locale["Chat"]) => locale['clearContext']}
                         </LocaleConsumer>
-                    </Divider> :
+                    </Divider>) :
                     <ChatBox
                         previousMessage={index ? chats[index - 1] : undefined}
                         toast={toast}
