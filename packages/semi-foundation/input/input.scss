@@ -633,8 +633,8 @@ $module: #{$prefix}-input;
         .#{$prefix}-datepicker,
         .#{$prefix}-timepicker,
         .#{$prefix}-autocomplete {
-            border-radius: 0;
-
+            
+            .#{$module}-wrapper, 
             .#{$prefix}-datepicker-range-input {
                 border-radius: 0;
             }
