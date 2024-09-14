@@ -1431,11 +1431,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                             this.renderSingleSelection(selections, filterable)}
                     </div>
                 </Fragment>,
+                <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key="clearicon">
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     {showClear ? (<div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>{clear}</div>) : arrowContent}
                 </Fragment>,
-                <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]
         );
 
