@@ -474,6 +474,10 @@ $module: #{$prefix}-chat;
         &-img {
             border-radius: $radius-chat_attachment_img;
             vertical-align: top;
+
+            img {
+                object-fit: cover;
+            }
         }
 
         a {

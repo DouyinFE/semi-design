@@ -69,7 +69,7 @@ const infoWithAttachment = [
             {
                 type: 'image_url',
                 image_url: {
-                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/avatar-vertical.jpeg',
                 },
             },
             {
