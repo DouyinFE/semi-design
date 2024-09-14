@@ -617,18 +617,15 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             },
             updateScrollTop: (index?: number) => {
                 let optionClassName;
-
                 if ('renderOptionItem' in this.props) {
-                    optionClassName = `.${prefixcls}-custom-option-selected`;
+                    optionClassName = `.${prefixcls}-option-custom-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-custom-option-selected:nth-child(${index})`;
-                        console.log('index');
+                        optionClassName = `.${prefixcls}-option-custom:nth-child(${index + 1})`;
                     }
-                    console.log('xxx');
                 } else {
                     optionClassName = `.${prefixcls}-option-selected`;
                     if (index !== undefined) {
-                        optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                        optionClassName = `.${prefixcls}-option:nth-child(${index + 1})`;
                     }
                 }
 
@@ -637,7 +634,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                     destNode = destNode[0];
                 }
                 if (destNode) {
-                    console.log('destNode');
                     /**
                      * Scroll the first selected item into view.
                      * The reason why ScrollIntoView is not used here is that it may cause page to move.

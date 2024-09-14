@@ -2698,7 +2698,7 @@ const RenderOptionDemo = () => {
 
   const optionList = [
       { value: 'db-4', label: 'Doubao-Pro-4k', otherKey: 0 },
-      { value: 'db-32', label: 'Doubao-Pro-32K', disabled: true, otherKey: 1 },
+      { value: 'db-32', label: 'Doubao-Pro-32K', otherKey: 1 },
       { value: 'db-128', label: 'Doubao-Pro-128K', otherKey: 2 },
       { value: 'db-lite-2', label: 'Doubao-Lite-4K', otherKey: 4 },
       { value: 'db-lite-32', label: 'Doubao-Lite-32K', otherKey: 4 },

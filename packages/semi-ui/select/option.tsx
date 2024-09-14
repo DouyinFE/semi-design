@@ -119,8 +119,8 @@ class Option extends PureComponent<OptionProps> {
         if (typeof renderOptionItem === 'function') {
             const customRenderClassName = classNames(className,
                 {
-                    [`${prefixCls}-custom-option`]: true,
-                    [`${prefixCls}-custom-option-selected`]: selected
+                    [`${prefixCls}-custom`]: true,
+                    [`${prefixCls}-custom-selected`]: selected
                 }
             );
             return renderOptionItem({
