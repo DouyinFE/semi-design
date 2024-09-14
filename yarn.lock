@@ -1616,7 +1616,7 @@
     remark-gfm "^4.0.0"
     scroll-into-view-if-needed "^2.2.24"
 
-"@douyinfe/semi-icons@2.65.0", "@douyinfe/semi-icons@^2.0.0", "@douyinfe/semi-icons@latest":
+"@douyinfe/semi-icons@2.65.0", "@douyinfe/semi-icons@latest":
   version "2.65.0"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.65.0.tgz#af39cbd5431ebccedcf7d9ce689646e54bebc432"
   integrity sha512-FGPOgG0V/tOZ/dRZWwf9CG+IWLMS76H7HKxgIL/bK086BJ5aleuTPWgtSENOU7zsz+BR0lCL/f2NiRoHxarD4A==
@@ -1699,7 +1699,7 @@
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-theme-default/-/semi-theme-default-2.61.0.tgz#a7e9bf9534721c12af1d0eeb5d5a2de615896a23"
   integrity sha512-obn/DOw4vZyKFAlWvZxHTpBLAK9FO9kygTSm2GROgvi+UDB2PPU6l20cuUCsdGUNWJRSqYlTTVZ1tNYIyFZ5Sg==
 
-"@douyinfe/semi-ui@^2.0.0", "@douyinfe/semi-ui@latest":
+"@douyinfe/semi-ui@latest":
   version "2.65.0"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-ui/-/semi-ui-2.65.0.tgz#295eb0dd8e9e961adb4ddd7c7bbce3468d1b7430"
   integrity sha512-6AZhnZCAlMsf6Zg0Z10+JV5KEkuyWTsbzC0/Dlm7T6Xy/z9fOJS0LFgSUs6g5k1L/hs4y/1RM3KUrww3R+CRLw==
@@ -11819,11 +11819,6 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     semver "^6.3.1"
     string.prototype.matchall "^4.0.11"
     string.prototype.repeat "^1.0.0"
-
-eslint-plugin-semi-design@^2.33.0:
-  version "2.65.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.65.0.tgz#e34966a41da3d6eb1efd2efb687ab27a4b6b2f00"
-  integrity sha512-yO0d28YTQ4qtmqV+qoZ0UXzIMb2s6HxZ/oyXjAkn2tUVpUGNvQ3ECPQB9JCi69ROEpO/LC7sGtNBGzfzumKcaw==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
