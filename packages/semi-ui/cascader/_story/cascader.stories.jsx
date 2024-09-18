@@ -2399,51 +2399,32 @@ export const SearchInTopSlot = () => {
 }
 
 export const suffix = () => {
-  const treeData = [
-    {
-        label: '浙江省',
-        value: 'zhejiang',
-        children: [
-            {
-                label: '杭州市',
-                value: 'hangzhou',
-                children: [
-                    {
-                        label: '西湖区',
-                        value: 'xihu',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                    },
-                ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                    }
-                ]
-            },
-        ],
-    }
-  ];
-
   return (<Cascader
     suffix={<IconGift />}
     style={{ width: 300 }}
-    treeData={treeData}
+    treeData={treeData1}
     placeholder="请选择所在地区"
   />);
+}
+
+export const EmptyContent = () => {
+  return (
+  <>
+    <Cascader
+      emptyContent={null}
+      style={{ width: 400 }}
+      treeData={[]}
+      placeholder="点击 trigger 查看 emptyContent 为 null 效果 "
+      filterTreeNode
+    />
+    <br /><br />
+    <Cascader
+      emptyContent={null}
+      style={{ width: 400 }}
+      treeData={treeData1}
+      placeholder="输入 v 查看搜索状态下 emptyContent 为 null 效果"
+      filterTreeNode
+    />
+    <br />
+  </>)
 }
