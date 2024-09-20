@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 
 import CustomTrigger from './CustomTrigger';
 import AutoComplete from '../index';
-import { Form } from '../../index';
+import { Form, Avatar } from '../../index';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 export default {
@@ -371,3 +371,47 @@ export const ControlledOnSelectWithObjectDemo = () => {
         </Form>
     );
 };
+
+
+export const AutoScrollToKeyboardUpDown = () => {
+
+    const [data, setData] = useState([]);
+    const getData = (v) => {
+        let newData = Array.from({ length: 20 }, (v, i) => ({ label: `option-${i}`, value: i, 'data-cy': `option-${i}` }));
+        setData(newData);
+    };
+    
+    const renderOption = (item) => {
+        let optionStyle = {
+            display: 'flex',
+        };
+        return (
+            <>
+                <Avatar color={'cyan'} size="small">
+                    Semi
+                </Avatar>
+                <div style={{ marginLeft: 4 }}>
+                    <div style={{ fontSize: 14, marginLeft: 4 }}>{item.label}</div>
+                    <div style={{ marginLeft: 4 }}>{item.value}</div>
+                </div>
+            </>
+        );
+    }
+
+    return <>
+        <AutoComplete
+            data={data}
+            onSearch={(v) => getData(v)}
+            style={{ width: 320 }}
+        >
+        </AutoComplete>
+        <AutoComplete
+            placeholder='with render'
+            data={data}
+            renderItem={renderOption}
+            onSearch={(v) => getData(v)}
+            style={{ width: 320 }}
+        >
+        </AutoComplete>
+    </>
+}
