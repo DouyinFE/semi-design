@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.66.1 (2024-09-12)
+- 【Fix】
+  - Optimized Datepicker Copywriting in Malay (ms_MY), Russian(ru_RU), Vietnamese(vi_VN), Arabic(ar) Monday - Sunday. Optimize the display of text in Japanese, Indonesian, and Vietnamese in the lower left corner of the Table. [#2486](https://github.com/DouyinFE/semi-design/pull/2486)
+
+
 #### 🎉 2.66.0 (2024-09-10)
 - 【Fix】
   - Fixed the issue where the Tooltip quickly slides in and out when the animation is on, and the tooltip disappears normally but the dom is not unloaded

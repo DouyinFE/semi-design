@@ -5,12 +5,6 @@ $module: #{$prefix}-cascader;
     .#{$module} {
         direction: rtl;
 
-        &-arrow,
-        &-clearbtn {
-            margin-right: 0;
-            margin-left: $spacing-cascader_clearBtn-marginRight;
-        }
-
         &-inset-label {
             margin-right:  $spacing-cascader_label-marginRight;
             margin-left:  $spacing-cascader_label-marginRight;
@@ -79,12 +73,12 @@ $module: #{$prefix}-cascader;
         direction: rtl;
     }
 
-    .#{$module}-option-lists-rtl ul > li {
+    &.#{$module}-option-lists-rtl ul > li {
         padding-right: $spacing-cascader_option-paddingLeft;
         padding-left: auto;
     }
 
-    .#{$module}-option-lists-rtl .#{$module}-option-list {
+    &.#{$module}-option-lists-rtl .#{$module}-option-list {
         border-left: 0;
         border-right: $width-cascader_option_list-border solid $color-cascader_option_list-border-default;
 
@@ -93,7 +87,7 @@ $module: #{$prefix}-cascader;
         }
     }
 
-    .#{$module}-option-lists-rtl .#{$module}-option {
+    &.#{$module}-option-lists-rtl .#{$module}-option {
         &-icon {
             &-active,
             &-empty {
@@ -108,6 +102,8 @@ $module: #{$prefix}-cascader;
         }
 
         .#{$prefix}-icon-chevron_right {
+            margin-left: 0;
+            margin-right: $spacing-cascader_option_icon-marginLeft;
             transform: scaleX(-1);
         }
     }
