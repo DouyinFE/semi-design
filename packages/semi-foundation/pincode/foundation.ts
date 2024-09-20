@@ -42,7 +42,7 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
     }
 
     completeSingleInput = async (i: number, singleInputValue: string) => {
-        const isControlledComponent = Boolean(this.getProp("value"));
+        const isControlledComponent = this._isInProps("value");
         await this._adapter.onCurrentActiveIndexChange(i + 1);
         const valueList = [...this.getState("valueList")];
         valueList[i] = singleInputValue;
