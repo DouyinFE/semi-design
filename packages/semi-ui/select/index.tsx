@@ -616,10 +616,19 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
-                let optionClassName = `.${prefixcls}-option-selected`;
-                if (index !== undefined) {
-                    optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                let optionClassName;
+                if ('renderOptionItem' in this.props) {
+                    optionClassName = `.${prefixcls}-option-custom-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-option-custom:nth-child(${index + 1})`;
+                    }
+                } else {
+                    optionClassName = `.${prefixcls}-option-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-option:nth-child(${index + 1})`;
+                    }
                 }
+
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
                     destNode = destNode[0];

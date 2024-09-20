@@ -1305,8 +1305,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 -   完全自定义：通过传入`renderOptionItem`，你可以完全接管列表中候选项的渲染，并且从回调入参中，获取到相关的状态值。实现更高自由度的结构渲染  
     注意事项：
     1. props 传入的 style 需在 wrapper dom 上进行消费，否则在虚拟化场景下会无法正常使用
-    2. 选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从 props 中获取到相对的 boolean 值
-    3. onMouseEnter 需在 wrapper dom 上绑定，否则上下键盘操作时显示会有问题
+    2. props 传入的 className、onMouseEnter 需在 wrapper dom 上进行消费，否则上下键盘操作时显示会有问题
+    3. 选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从 props 中获取到相对的 boolean 值
     4. 如果你的自定义 item 为 Select.Option，需要将 renderProps.onClick 透传给 Option 的 onSelect prop
 
 ```jsx live=true
@@ -1335,13 +1335,14 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
             ['custom-option-render-focused']: focused,
             ['custom-option-render-disabled']: disabled,
             ['custom-option-render-selected']: selected,
+            className
         });
         const searchWords = [inputValue];
 
         // Notice：
         // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
         // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
-        // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
+        // 3.onMouseEnter、className需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
         
         return (
             <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={e => onMouseEnter()}>
