@@ -38,7 +38,8 @@ const getRenderText = (
     },
     ellipsisStr: string,
     suffix: string,
-    ellipsisPos: string
+    ellipsisPos: string,
+    isStrong: boolean,
 ) => {
     if (content.length === 0) {
         return '';
@@ -95,16 +96,26 @@ const getRenderText = (
         const ellipsisTextNode = document.createTextNode(suffix);
         ellipsisContentHolder.appendChild(ellipsisTextNode);
     }
-    ellipsisContainer.appendChild(ellipsisContentHolder);
+    appendEllipsisContentHolder();
 
     // Expand node needs to be added only when text needTruncated
     Object.values(omit(fixedContent, 'expand')).map(
         node => node && ellipsisContainer.appendChild(node.cloneNode(true))
     );
 
+    function appendEllipsisContentHolder() {
+        if (isStrong) {
+            const wrapper = document.createElement('strong');
+            wrapper.appendChild(ellipsisContentHolder);
+            ellipsisContainer.appendChild(wrapper);
+        } else {
+            ellipsisContainer.appendChild(ellipsisContentHolder);
+        }
+    }
+
     function appendExpandNode() {
         ellipsisContainer.innerHTML = '';
-        ellipsisContainer.appendChild(ellipsisContentHolder);
+        appendEllipsisContentHolder();
         Object.values(fixedContent).map(node => node && ellipsisContainer.appendChild(node.cloneNode(true)));
     }
 
