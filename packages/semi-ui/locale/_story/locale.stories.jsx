@@ -172,16 +172,16 @@ const I18nComponent = () => {
                 <p>More content...</p>
             </Modal>
             <div>
-              <DatePicker style={{ ...style, width: 200 }} open />
-              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" />
+              <DatePicker style={{ ...style, width: 200 }} open defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
+              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
               {/* <DatePicker style={{ ...style, width: 250 }} type="dateRange" /> */}
-              <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" />
+              <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
             </div>
             <div style={{ marginTop: 400 }}>
-              <DatePicker style={{ ...style, width: 200 }} open autoAdjustOverflow={false} position='bottomLeft' density='compact' />
-              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" autoAdjustOverflow={false} position='bottomLeft' density='compact' />
+              <DatePicker style={{ ...style, width: 200 }} open autoAdjustOverflow={false} position='bottomLeft' density='compact' defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
+              <DatePicker style={{ ...style,marginLeft:120, width: 250 }} open type="dateTime" presets={presets} presetPosition="left" autoAdjustOverflow={false} position='bottomLeft' density='compact'  defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
               {/* <DatePicker style={{ ...style, width: 250 }} type="dateRange" /> */}
-              <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" autoAdjustOverflow={false} position='bottomLeft' density='compact' />
+              <DatePicker style={{ ...style, marginLeft:240, width: 400 }} open type="dateTimeRange" autoAdjustOverflow={false} position='bottomLeft' density='compact' defaultPickerValue={[new Date('2024-09-08 00:00'), new Date('2024-09-09 12:00')]} />
             </div>
             <br />
             <br />
