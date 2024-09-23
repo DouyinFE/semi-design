@@ -29,6 +29,7 @@ export interface AutoCompleteAdapter<P = Record<string, any>, S = Record<string,
     updateInputValue: (inputValue: string | number) => void;
     toggleListVisible: (isShow: boolean) => void;
     updateOptionList: (optionList: Array<StateOptionItem>) => void;
+    updateScrollTop: (index: number) => void;
     updateSelection: (selection: Map<any, any>) => void;
     notifySearch: (inputValue: string) => void;
     notifyChange: (value: string | number) => void;
@@ -387,6 +388,7 @@ class AutoCompleteFoundation<P = Record<string, any>, S = Record<string, any>> e
             index = nearestActiveOption;
         }
         this._adapter.updateFocusIndex(index);
+        this._adapter.updateScrollTop(index);
     }
 
     _handleArrowKeyDown(offset: number): void {
