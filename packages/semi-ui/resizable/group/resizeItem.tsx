@@ -79,8 +79,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     itemRef: React.RefObject<HTMLDivElement | null>;
     itemIndex: number;
 
-    render() {   
-        console.log('render item');  
+    render() {
         const style: React.CSSProperties = {
             ...this.props.style,
             ...this.foundation.sizeStyle,
