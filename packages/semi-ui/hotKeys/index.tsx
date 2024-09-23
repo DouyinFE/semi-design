@@ -26,7 +26,7 @@ export interface HotKeysState {
 
 class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     static propTypes = {
-        preventDefalut: PropTypes.bool,
+        preventDefault: PropTypes.bool,
         hotKeys: PropTypes.arrayOf(PropTypes.string),
         content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
