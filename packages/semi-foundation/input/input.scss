@@ -593,7 +593,6 @@ $module: #{$prefix}-input;
         align-content: center;
         flex-wrap: wrap;
 
-        // select与autocomplete的border-radius都是基于select
         .#{$prefix}-select,
         .#{$prefix}-tagInput,
         .#{$prefix}-cascader,
