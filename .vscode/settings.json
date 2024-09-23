@@ -1,11 +1,11 @@
 {
     "[typescript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[javascript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[scss]": {
         "editor.formatOnPaste": false

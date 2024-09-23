@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
-import { ResizeContext } from './resizeContext';
+import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { getPixelSize } from '@douyinfe/semi-foundation/resizable/groupConstants';
 
@@ -24,7 +24,7 @@ export interface ResizeGroupState {
         lastItemSize: number;
         nextItemSize: number;
         lastOffset: number;
-        nextOffset: number;
+        nextOffset: number
     };
     curHandler: number;
     curConstraint: [number, number]
@@ -57,8 +57,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         
         this.groupRef = createRef();
         this.foundation = new ResizeGroupFoundation(this.adapter);
+        this.contextValue = {
+            direction: props.direction,
+            registerItem: this.registerItem,
+            registerHandler: this.registerHandler,
+            notifyResizeStart: this.foundation.onResizeStart,
+            getGroupSize: this.getGroupSize,
+        };
     }
 
+    contextValue: ResizeContextProps;
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
     availableSize: number;
@@ -79,7 +87,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         // calculate accurate space for group item
         let handlerSizes = new Array(this.handlerRefs.length).fill(0);
         this.groupSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
-        this.availableSize = this.groupSize
+        this.availableSize = this.groupSize;
         for (let i = 0; i < this.handlerRefs.length; i++) {
             let handlerSize = this.props.direction === 'horizontal' ? this.handlerRefs[i].current.offsetWidth : this.handlerRefs[i].current.offsetHeight;
             handlerSizes[i] = handlerSize;
@@ -88,16 +96,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
         // allocate size for items which don't have default size
         let totalSizePercent = 0;
-        let undefineLoc = []
+        let undefineLoc = [];
         let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
 
         for (let i = 0; i < this.itemRefs.length; i++) {
             if (i === 0) {
-                this.itemMinusMap.set(i, handlerSizes[i] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i] / 2);
             } else if (i === this.itemRefs.length - 1) {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
             } else {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2);
             }
             const child = this.itemRefs[i].current;
             let minSize = this.itemMinMap.get(i), maxSize = this.itemMaxMap.get(i);
@@ -117,9 +125,9 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 totalSizePercent += itemSizePercent;
                 
                 if (this.props.direction === 'horizontal') {
-                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`
+                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
                 } else {
-                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`
+                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
                 }
                 
                 if (itemSizePercent < minSizePercent) {
@@ -135,15 +143,15 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         let undefineSizePercent = 100 - totalSizePercent;
         if (totalSizePercent > 100) {
             console.warn('total Size bigger than 100%');
-            undefineSizePercent = 10 // 如果总和超过100%，则保留10%的空间均分给未定义的item
+            undefineSizePercent = 10; // 如果总和超过100%，则保留10%的空间均分给未定义的item
         }
     
         for (let i = 0; i < undefineLoc.length; i++) {
             const child = this.itemRefs[undefineLoc[i]].current;
             if (this.props.direction === 'horizontal') {
-                child.style.width = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`
+                child.style.width = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
             } else {
-                child.style.height = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`
+                child.style.height = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
             }
         }
 
@@ -191,37 +199,34 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
     }
 
-    
+    registerItem = (ref: RefObject<HTMLDivElement>,
+        min, max, defaultSize,
+        onResizeStart, onChange, onResizeEnd
+    ) => {
+        this.itemRefs.push(ref);
+        let index = this.itemRefs.length - 1;
+        this.itemMinMap.set(index, min);
+        this.itemMaxMap.set(index, max);
+        this.itemDefaultSizeList.push(defaultSize);
+        this.itemResizeStart.set(index, onResizeStart);
+        this.itemResizing.set(index, onChange);
+        this.itemResizeEnd.set(index, onResizeEnd);
+        return index;
+    }
+
+    registerHandler = (ref: RefObject<HTMLDivElement>) => {
+        this.handlerRefs.push(ref);
+        return this.handlerRefs.length - 1;
+    }
+
+    getGroupSize = () => {
+        return this.groupSize;
+    }
 
     render() {
         const { children, direction, className, ...rest } = this.props;
-
         return (
-            <ResizeContext.Provider value={{
-                direction: direction,
-                registerItem: (ref: RefObject<HTMLDivElement>,
-                    min, max, defaultSize,
-                    onResizeStart, onChange, onResizeEnd
-                ) => {
-                    this.itemRefs.push(ref);
-                    let index = this.itemRefs.length - 1;
-                    this.itemMinMap.set(index, min);
-                    this.itemMaxMap.set(index, max);
-                    this.itemDefaultSizeList.push(defaultSize);
-                    this.itemResizeStart.set(index, onResizeStart);
-                    this.itemResizing.set(index, onChange);
-                    this.itemResizeEnd.set(index, onResizeEnd);
-                    return index;
-                },
-                registerHandler: (ref: RefObject<HTMLDivElement>) => {
-                    this.handlerRefs.push(ref);
-                    return this.handlerRefs.length - 1;
-                },
-                notifyResizeStart: this.foundation.onResizeStart,
-                getGroupSize: () => {
-                    return this.groupSize;
-                },
-            }}>
+            <ResizeContext.Provider value={this.contextValue}>
                 <div
                     style={{
                         flexDirection: direction === 'vertical' ? 'column' : 'row',

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
-import { ResizeCallback, ResizeStartCallback} from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { noop } from 'lodash';
 
@@ -79,12 +79,12 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     itemRef: React.RefObject<HTMLDivElement | null>;
     itemIndex: number;
 
-    render() {     
+    render() {   
+        console.log('render item');  
         const style: React.CSSProperties = {
             ...this.props.style,
             ...this.foundation.sizeStyle,
         };
-
 
         return (
             <div
