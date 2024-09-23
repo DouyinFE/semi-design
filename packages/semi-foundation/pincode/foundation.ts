@@ -46,9 +46,8 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
         await this._adapter.onCurrentActiveIndexChange(i + 1);
         const valueList = [...this.getState("valueList")];
         valueList[i] = singleInputValue;
-        if (isControlledComponent) {
-            this._adapter.notifyValueChange(valueList);
-        } else {
+        this._adapter.notifyValueChange(valueList);
+        if (!isControlledComponent) {
             await this.updateValueList(valueList);
         }
 
@@ -102,11 +101,13 @@ class PinCodeFoundation<P = Record<string, any>, S = Record<string, any>> extend
         if (e.key === "Backspace") {
             valueList[index] = "";
             this.updateValueList(valueList);
+            this._adapter.notifyValueChange(valueList);
             this._adapter.changeSpecificInputFocusState(Math.max(0, index - 1), "focus");
             e.preventDefault();
         } else if (e.key === "Delete") {
             valueList[index] = "";
             this.updateValueList(valueList);
+            this._adapter.notifyValueChange(valueList);
             this._adapter.changeSpecificInputFocusState(Math.min(valueList.length - 1, index + 1), "focus");
             e.preventDefault();
         } else if (e.key === "ArrowLeft") {
