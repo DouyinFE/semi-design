@@ -1,5 +1,6 @@
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, getStringSize, getNumberSize, has, Direction, calculateNewMax, NewSize, findNextSnap, snap, clamp } from "../singleConstants";
+import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize } from "../singleConstants";
+import { getStringSize, getNumberSize, has, calculateNewMax, findNextSnap, snap, clamp } from "../utils";
 export interface ResizableHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getResizableHandler: () => HTMLElement
 }
@@ -90,8 +91,8 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
         let width = 0;
         let height = 0;
         if (this.resizable && this.window) {
-            width =  this.resizable.offsetWidth ;
-            height =  this.resizable.offsetHeight ;    
+            width = this.resizable.offsetWidth ;
+            height = this.resizable.offsetHeight ;    
         }
         return { width, height };
     }

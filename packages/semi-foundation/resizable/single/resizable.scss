@@ -10,6 +10,7 @@ $module: #{$prefix}-resizable;
 
     &-resizableHandler {
         position: absolute;
-        user-select: none;;
+        user-select: none;
+        z-index: $z-resizable_handler;
     }
 }

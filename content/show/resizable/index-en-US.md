@@ -28,7 +28,7 @@ interface Size {
 }
 ```
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -84,7 +84,7 @@ interface Enable {
 ```
 
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable, Switch, Typography } from '@douyinfe/semi-ui';
 
@@ -124,7 +124,7 @@ function Demo() {
 
 You can set the drag and resize ratio using ratio.
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -152,7 +152,7 @@ function Demo() {
 ### Locking Aspect Ratio
 You can lock the aspect ratio by setting lockAspectRatio. It can be a boolean or a number. If true, it locks to the initial aspect ratio; if a number, it locks to the given ratio.
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -193,7 +193,7 @@ function Demo() {
 
 You can set the maximum and minimum width and height using maxHeight, maxWidth, minHeight, and minWidth.
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -351,7 +351,7 @@ type HandleClass = {
 }
 ```
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable, Button } from '@douyinfe/semi-ui';
 function Demo() {

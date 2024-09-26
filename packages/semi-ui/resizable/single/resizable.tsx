@@ -7,7 +7,7 @@ import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
 import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName, directions } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import BaseComponent from '../../_base/baseComponent';
 import ResizableHandler from './resizableHandler';
-import '@douyinfe/semi-foundation/resizable/single/resizable.scss';
+import '@douyinfe/semi-foundation/resizable/index.scss';
 
 const prefixCls = cssClasses.PREFIX;
 export interface HandleComponent {
@@ -142,7 +142,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     };
 
     foundation: ResizableFoundation;
-    resizableRef: React.RefObject<HTMLDivElement | null>;;
+    resizableRef: React.RefObject<HTMLDivElement | null>;
     constructor(props: ResizableProps) {
         super(props);
         this.resizableRef = createRef<HTMLDivElement | null>();
@@ -228,7 +228,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
     }
 
     render() {
-        const {className, style, children, maxHeight, maxWidth, minHeight, minWidth } = this.props;
+        const { className, style, children, maxHeight, maxWidth, minHeight, minWidth } = this.props;
         const resizeStyle: React.CSSProperties = {
             userSelect: this.state.isResizing ? 'none' : 'auto',
             maxWidth: maxWidth,

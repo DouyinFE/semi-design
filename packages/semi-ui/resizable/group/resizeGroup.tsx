@@ -6,7 +6,8 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import { getPixelSize } from '@douyinfe/semi-foundation/resizable/groupConstants';
+import { getPixelSize } from '@douyinfe/semi-foundation/resizable/utils';
+import "@douyinfe/semi-foundation/resizable/index.scss";
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -24,8 +25,9 @@ export interface ResizeGroupState {
         lastItemSize: number;
         nextItemSize: number;
         lastOffset: number;
-        nextOffset: number;
+        nextOffset: number
     };
+    backgroundStyle: React.CSSProperties;
     curHandler: number;
     curConstraint: [number, number]
 }
@@ -50,6 +52,19 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 nextItemSize: 0,
                 lastOffset: 0,
                 nextOffset: 0,
+            },
+            backgroundStyle: {
+                height: '100%',
+                width: '100%',
+                backgroundColor: 'rgba(0,0,0,0)',
+                cursor: 'auto',
+                opacity: 0,
+                position: 'fixed',
+                zIndex: 9999,
+                top: '0',
+                left: '0',
+                bottom: '0',
+                right: '0',
             },
             curHandler: null,
             curConstraint: null
@@ -79,7 +94,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         // calculate accurate space for group item
         let handlerSizes = new Array(this.handlerRefs.length).fill(0);
         this.groupSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
-        this.availableSize = this.groupSize
+        this.availableSize = this.groupSize;
         for (let i = 0; i < this.handlerRefs.length; i++) {
             let handlerSize = this.props.direction === 'horizontal' ? this.handlerRefs[i].current.offsetWidth : this.handlerRefs[i].current.offsetHeight;
             handlerSizes[i] = handlerSize;
@@ -88,16 +103,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
         // allocate size for items which don't have default size
         let totalSizePercent = 0;
-        let undefineLoc = []
+        let undefineLoc = [];
         let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
 
         for (let i = 0; i < this.itemRefs.length; i++) {
             if (i === 0) {
-                this.itemMinusMap.set(i, handlerSizes[i] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i] / 2);
             } else if (i === this.itemRefs.length - 1) {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
             } else {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2)
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2);
             }
             const child = this.itemRefs[i].current;
             let minSize = this.itemMinMap.get(i), maxSize = this.itemMaxMap.get(i);
@@ -117,16 +132,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 totalSizePercent += itemSizePercent;
                 
                 if (this.props.direction === 'horizontal') {
-                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`
+                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
                 } else {
-                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`
+                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
                 }
                 
                 if (itemSizePercent < minSizePercent) {
-                    console.warn('item size smaller than min size');
+                    console.warn('[Semi ResizableGroup]: item size smaller than min size');
                 } 
                 if (itemSizePercent > maxSizePercent) {
-                    console.warn('item size bigger than max size');
+                    console.warn('[Semi ResizableGroup]: item size bigger than max size');
                 }
             } else {
                 undefineLoc.push(i);
@@ -134,16 +149,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         }
         let undefineSizePercent = 100 - totalSizePercent;
         if (totalSizePercent > 100) {
-            console.warn('total Size bigger than 100%');
-            undefineSizePercent = 10 // 如果总和超过100%，则保留10%的空间均分给未定义的item
+            console.warn('[Semi ResizableGroup]: total Size bigger than 100%');
+            undefineSizePercent = 10; // 如果总和超过100%，则保留10%的空间均分给未定义的item
         }
     
         for (let i = 0; i < undefineLoc.length; i++) {
             const child = this.itemRefs[undefineLoc[i]].current;
             if (this.props.direction === 'horizontal') {
-                child.style.width = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`
+                child.style.width = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
             } else {
-                child.style.height = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`
+                child.style.height = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
             }
         }
 
@@ -230,6 +245,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     className={classNames(className, prefixCls + '-group')}
                     {...rest}
                 >
+                    {this.state.isResizing && <div style={this.state.backgroundStyle} />}
                     {children}
                 </div>
             </ResizeContext.Provider>

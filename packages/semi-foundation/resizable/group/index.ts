@@ -1,10 +1,10 @@
-import { getItemDirection } from '../groupConstants';
+import { getItemDirection } from "resizable/utils";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { ResizeStartCallback, ResizeCallback, snap } from "../singleConstants";
-import { getPixelSize, adjustNewSize, judgeConstraint, getOffset } from '../groupConstants';
+import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
+import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getHandler: () => HTMLElement;
-    getHandlerIndex: () => number;
+    getHandlerIndex: () => number
 }
 
 export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeHandlerAdapter<P, S>, P, S> {
@@ -27,7 +27,7 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
 
 export interface ResizeItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getItemRef: () => HTMLElement | null;    
-    getItemIndex: () => number;
+    getItemIndex: () => number
 }
 
 export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeItemAdapter<P, S>, P, S> {
@@ -46,9 +46,9 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
         let width: string, height: string;
         let direction = this.getContext('direction');
         if (direction === 'horizontal') {
-            width = defaultSize
-        } else if (direction === 'vertical'){
-            height = defaultSize
+            width = defaultSize;
+        } else if (direction === 'vertical') {
+            height = defaultSize;
         }
 
         return { width, height };
@@ -71,7 +71,7 @@ export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, 
     getItemMinus: (index: number) => number;
     getItemStart: (index: number) => ResizeStartCallback;
     getItemChange: (index: number) => ResizeCallback;
-    getItemEnd: (index: number) => ResizeCallback;  
+    getItemEnd: (index: number) => ResizeCallback  
 }
 
 export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeGroupAdapter<P, S>, P, S> {
@@ -86,7 +86,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
     init(): void {
         this.groupRef = this._adapter.getGroupRef();
-        this.direction = this.getProp('direction')
+        this.direction = this.getProp('direction');
         this.constraintsMap = new Map();
     }
     get window(): Window | null {
@@ -121,7 +121,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         lastOffset = getOffset(lastStyle, this.direction);
         nextOffset = getOffset(nextStyle, this.direction);
-        
+        const states = this.getStates();
         this.setState({
             isResizing: true,
             originalPosition: {
@@ -132,27 +132,31 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 lastOffset,
                 nextOffset,
             },
+            backgroundStyle: {
+                ...states.backgroundStyle,
+                cursor: this.window.getComputedStyle(e.target as HTMLElement).cursor || 'auto',
+            },
             curHandler: handlerIndex,
             curConstraint: this.constraintsMap.get(handlerIndex),
-        } as any)
+        } as any);
         this.registerEvents();
 
         let lastStart = this._adapter.getItemStart(handlerIndex), 
             nextStart = this._adapter.getItemStart(handlerIndex + 1);
-        let [lastDir, nextDir] = getItemDirection(this.direction)
+        let [lastDir, nextDir] = getItemDirection(this.direction);
         if (lastStart) {
-            lastStart(e, lastDir as any)
+            lastStart(e, lastDir as any);
         }
         if (nextStart) {
-            nextStart(e, nextDir as any)
+            nextStart(e, nextDir as any);
         }
     }
 
 
     onResizing = (e: MouseEvent) => {
-        const state = this.getStates()
+        const state = this.getStates();
         if (!state.isResizing) {
-            return
+            return;
         }
         const { curHandler, originalPosition } = state;
         let { x: initX, y: initY, lastItemSize, nextItemSize, lastOffset, nextOffset } = originalPosition;
@@ -163,10 +167,10 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
         let parentSize = this._adapter.getGroupSize();
         let availableSize = this._adapter.getAvailableSize();
-        let delta = direction === 'horizontal' ? (clientX - initX) : (clientY - initY);;
+        let delta = direction === 'horizontal' ? (clientX - initX) : (clientY - initY);
             
-        let lastNewSize = lastItemSize + delta
-        let nextNewSize = nextItemSize - delta
+        let lastNewSize = lastItemSize + delta;
+        let nextNewSize = nextItemSize - delta;
 
         // 判断是否超出限制
         let lastFlag = judgeConstraint(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), availableSize, lastOffset),
@@ -191,12 +195,12 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         let lastFunc = this._adapter.getItemChange(curHandler),
             nextFunc = this._adapter.getItemChange(curHandler + 1);
-        let [lastDir, nextDir] = getItemDirection(this.direction)
+        let [lastDir, nextDir] = getItemDirection(this.direction);
         if (lastFunc) {
-            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any)
+            lastFunc( { width: lastItem.offsetWidth, height: lastItem.offsetHeight }, e, lastDir as any);
         }
         if (nextFunc) {
-            nextFunc( {width: nextItem.offsetWidth, height: nextItem.offsetHeight}, e, nextDir as any)
+            nextFunc( { width: nextItem.offsetWidth, height: nextItem.offsetHeight }, e, nextDir as any);
         }
     }
 
@@ -205,18 +209,18 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
         let lastFunc = this._adapter.getItemEnd(curHandler),
             nextFunc = this._adapter.getItemEnd(curHandler + 1);
-        let [lastDir, nextDir] = getItemDirection(this.direction)
+        let [lastDir, nextDir] = getItemDirection(this.direction);
         if (lastFunc) {
-            lastFunc( {width: lastItem.offsetWidth, height: lastItem.offsetHeight}, e, lastDir as any)
+            lastFunc( { width: lastItem.offsetWidth, height: lastItem.offsetHeight }, e, lastDir as any);
         }
         if (nextFunc) {
-            nextFunc( {width: nextItem.offsetWidth, height: nextItem.offsetHeight}, e, nextDir as any)
+            nextFunc( { width: nextItem.offsetWidth, height: nextItem.offsetHeight }, e, nextDir as any);
         }
         this.setState({
             isResizing: false,
             curConstraint: null,
             curHandler: null
-        } as any)
+        } as any);
         this.unregisterEvents();
     }
 

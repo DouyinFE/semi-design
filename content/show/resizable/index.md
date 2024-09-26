@@ -26,7 +26,7 @@ interface Size {
 }
 ```
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -81,7 +81,7 @@ interface Enable {
 ```
 
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable, Switch, Typography } from '@douyinfe/semi-ui';
 
@@ -120,7 +120,7 @@ function Demo() {
 
 通过`ratio`设置拖动和实际变化的比例 
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -149,7 +149,7 @@ function Demo() {
 
 通过`lockAspectRatio`设置锁定横纵比,可以为`boolean`或`number`,为`number`时表示横纵比为`number`,为`true`时锁定初始横纵比
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -189,7 +189,7 @@ function Demo() {
 ### 设置最大，最小宽高 
 可通过 `maxHeight`，`maxWidth`，`minHeight`，`minWidth` 设置最大，最小宽高
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
@@ -349,7 +349,7 @@ type HandleClass = {
 }
 ```
 
-```jsx live=true "
+```jsx live=true
 import React, { useState } from 'react';
 import { Resizable, Button } from '@douyinfe/semi-ui';
 function Demo() {

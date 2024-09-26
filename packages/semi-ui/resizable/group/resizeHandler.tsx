@@ -7,7 +7,6 @@ import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/
 import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
-import "@douyinfe/semi-foundation/resizable/group/resizeGroup.scss";
 import { IconHandle } from '@douyinfe/semi-icons';
 
 

@@ -1,6 +1,18 @@
 $module: #{$prefix}-resizable;
 
 .#{$module} {
+    &-resizable {
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    &-resizableHandler {
+        position: absolute;
+        user-select: none;
+        z-index: $z-resizable_handler;
+    }
+    
     &-group {
         display: flex;
         position: relative;
