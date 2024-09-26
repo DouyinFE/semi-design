@@ -25,9 +25,9 @@ export const Group_layout = () => {
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)' }}
           defaultSize={"20%"}
-          onChange={() => { setText('resizing') }}
-          onResizeStart={() => {{Toast.info(opts_1)}}}
-          onResizeEnd={() => { Toast.info(opts); setText('test') }}
+          // onChange={() => { setText('resizing') }}
+          // onResizeStart={() => {{Toast.info(opts_1)}}}
+          // onResizeEnd={() => { Toast.info(opts); setText('test') }}
         >
           <div style={{ marginLeft: '20%' }}>
             {'header'}
@@ -36,15 +36,15 @@ export const Group_layout = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           defaultSize={"80%"}
-          onChange={() => { setText('resizing') }}
+          // onChange={() => { setText('resizing') }}
         >
           <ResizeGroup direction='horizontal'>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               defaultSize={"20%"}
-              onChange={() => { setText('resizing') }}
-              onResizeStart={() => {Toast.info(opts_1)}}
-              onResizeEnd={() => { Toast.info(opts); setText('test') }}
+              // onChange={() => { setText('resizing') }}
+              // onResizeStart={() => {Toast.info(opts_1)}}
+              // onResizeEnd={() => { Toast.info(opts); setText('test') }}
             >
               <div style={{ marginLeft: '20%' }}>
                 {'tab'}
@@ -53,7 +53,7 @@ export const Group_layout = () => {
             <ResizeHandler></ResizeHandler>
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
-              onChange={() => { setText('resizing') }}
+              // onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
                 {text}
@@ -63,7 +63,7 @@ export const Group_layout = () => {
             <ResizeItem
               style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
               // defaultSize={"90%"}
-              onChange={() => { setText('resizing') }}
+              // onChange={() => { setText('resizing') }}
             >
               <div style={{ marginLeft: '20%' }}>
                 {text}

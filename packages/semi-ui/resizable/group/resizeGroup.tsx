@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
-import { ResizeContext } from './resizeContext';
+import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
 import { getPixelSize } from '@douyinfe/semi-foundation/resizable/utils';
 import "@douyinfe/semi-foundation/resizable/index.scss";
@@ -72,8 +72,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         
         this.groupRef = createRef();
         this.foundation = new ResizeGroupFoundation(this.adapter);
+        this.contextValue = {
+            direction: props.direction,
+            registerItem: this.registerItem,
+            registerHandler: this.registerHandler,
+            notifyResizeStart: this.foundation.onResizeStart,
+            getGroupSize: this.getGroupSize,
+        };
     }
 
+    contextValue: ResizeContextProps;
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
     availableSize: number;
@@ -206,37 +214,34 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
     }
 
-    
+    registerItem = (ref: RefObject<HTMLDivElement>,
+        min, max, defaultSize,
+        onResizeStart, onChange, onResizeEnd
+    ) => {
+        this.itemRefs.push(ref);
+        let index = this.itemRefs.length - 1;
+        this.itemMinMap.set(index, min);
+        this.itemMaxMap.set(index, max);
+        this.itemDefaultSizeList.push(defaultSize);
+        this.itemResizeStart.set(index, onResizeStart);
+        this.itemResizing.set(index, onChange);
+        this.itemResizeEnd.set(index, onResizeEnd);
+        return index;
+    }
+
+    registerHandler = (ref: RefObject<HTMLDivElement>) => {
+        this.handlerRefs.push(ref);
+        return this.handlerRefs.length - 1;
+    }
+
+    getGroupSize = () => {
+        return this.groupSize;
+    }
 
     render() {
         const { children, direction, className, ...rest } = this.props;
-
         return (
-            <ResizeContext.Provider value={{
-                direction: direction,
-                registerItem: (ref: RefObject<HTMLDivElement>,
-                    min, max, defaultSize,
-                    onResizeStart, onChange, onResizeEnd
-                ) => {
-                    this.itemRefs.push(ref);
-                    let index = this.itemRefs.length - 1;
-                    this.itemMinMap.set(index, min);
-                    this.itemMaxMap.set(index, max);
-                    this.itemDefaultSizeList.push(defaultSize);
-                    this.itemResizeStart.set(index, onResizeStart);
-                    this.itemResizing.set(index, onChange);
-                    this.itemResizeEnd.set(index, onResizeEnd);
-                    return index;
-                },
-                registerHandler: (ref: RefObject<HTMLDivElement>) => {
-                    this.handlerRefs.push(ref);
-                    return this.handlerRefs.length - 1;
-                },
-                notifyResizeStart: this.foundation.onResizeStart,
-                getGroupSize: () => {
-                    return this.groupSize;
-                },
-            }}>
+            <ResizeContext.Provider value={this.contextValue}>
                 <div
                     style={{
                         flexDirection: direction === 'vertical' ? 'column' : 'row',
