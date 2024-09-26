@@ -2,7 +2,7 @@
     "name": "semi",
     "version": "0.0.1",
     "description": "Semi monorepo main project",
-    "author": "",
+    "author": "DouyinFe",
     "workspaces": [
         "packages/**"
     ],
@@ -60,6 +60,7 @@
         "@visactor/vchart-semi-theme": "^1.10.4",
         "aos": "^2.3.4",
         "camelcase": "^6.2.0",
+        "chalk": "^5.3.0",
         "chroma-js": "^2.1.2",
         "classnames": "^2.3.1",
         "copy-text-to-clipboard": "^2.2.0",
@@ -138,6 +139,7 @@
         "@storybook/cli": "^7.0.7",
         "@storybook/react": "^7.0.7",
         "@svgr/webpack": "^5.5.0",
+        "@testing-library/react": "^12",
         "@types/classnames": "^2.3.0",
         "@types/enhanced-resolve": "^3.0.7",
         "@types/fs-extra": "^9.0.12",
@@ -153,7 +155,6 @@
         "@types/webpack": "^4.41.30",
         "@typescript-eslint/eslint-plugin": "^4.29.1",
         "@typescript-eslint/parser": "^4.29.1",
-        "awesome-typescript-loader": "^5.2.1",
         "axios": "^0.21.1",
         "babel-core": "^7.0.0-bridge.0",
         "babel-jest": "^24.9.0",
@@ -214,7 +215,7 @@
         "ts-loader": "^5.4.5",
         "typescript": "^4.8.3",
         "webpack": "^5.77.0",
-        "webpack-cli": "^3.3.12",
+        "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^3.11.2",
         "webpackbar": "^5.0.0-3"
     },

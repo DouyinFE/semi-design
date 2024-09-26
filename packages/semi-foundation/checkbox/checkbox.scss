@@ -148,7 +148,7 @@ $module: #{$prefix}-checkbox;
             }
         }
 
-        &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_unDisabled {
+        &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_enable {
             .#{$module}-inner-display {
                 background: $color-checkbox_cardType_inner-bg-hover;
             }
@@ -175,7 +175,7 @@ $module: #{$prefix}-checkbox;
             }
         }
 
-        &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_unDisabled {
+        &.#{$module}-cardType.#{$module}-unChecked.#{$module}-cardType_enable {
             .#{$module}-inner-display {
                 background: $color-checkbox_cardType_inner-bg-active;
             }

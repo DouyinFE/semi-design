@@ -33,15 +33,14 @@ class OverflowListFoundation extends BaseFoundation<OverflowListAdapter> {
             return overflow;
         }
 
-        const cloneItems = copy(items);
 
-        const visibleStateArr = cloneItems.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
+        const visibleStateArr = items.map(({ key }: { key: string }) => Boolean(visibleState.get(key)));
         const visibleStart = visibleStateArr.indexOf(true);
         const visibleEnd = visibleStateArr.lastIndexOf(true);
 
         const overflowList = [];
-        overflowList[0] = visibleStart >= 0 ? cloneItems.slice(0, visibleStart) : [];
-        overflowList[1] = visibleEnd >= 0 ? cloneItems.slice(visibleEnd + 1, cloneItems.length) : cloneItems;
+        overflowList[0] = visibleStart >= 0 ? items.slice(0, visibleStart) : [];
+        overflowList[1] = visibleEnd >= 0 ? items.slice(visibleEnd + 1, items.length) : items.slice();
         return overflowList;
     }
 

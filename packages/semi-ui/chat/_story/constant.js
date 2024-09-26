@@ -56,6 +56,26 @@ const initMessage = [
     },
 ];
 
+const infoWithDivider = [
+    {
+        role: 'user',
+        id: '1',
+        createAt: 1715676751919,
+        content: "介绍一下 semi design",
+    },
+    {
+        role: 'divider',
+        id: '2',
+        createAt: 1715676751919,
+    },
+    {
+        role: 'assistant',
+        id: '3',
+        createAt: 1715676751919,
+        content: "test",
+    },
+]
+
 const infoWithAttachment = [
     {
         role: 'user',
@@ -69,7 +89,13 @@ const infoWithAttachment = [
             {
                 type: 'image_url',
                 image_url: {
-                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg'
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/avatar-vertical.jpeg',
+                },
+            },
+            {
+                type: 'image_url',
+                image_url: {
+                    url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/SemiLogo.jpg'
                 },
             }
         ],
@@ -137,5 +163,6 @@ export {
     hintsExample,
     infoWithAttachment,
     simpleInitMessage,
-    semiCode
+    semiCode, 
+    infoWithDivider
 };

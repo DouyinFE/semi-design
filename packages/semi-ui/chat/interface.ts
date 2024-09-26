@@ -18,7 +18,8 @@ export interface CommonChatsProps {
     onMessageReset?: (message?: Message) => void;
     onMessageCopy?: (message?: Message) => void;
     chatBoxRenderConfig?: ChatBoxRenderConfig;
-    customMarkDownComponents?: MDXProps['components']
+    customMarkDownComponents?: MDXProps['components'];
+    renderDivider?: (message?: Message) => ReactNode;
 }
 
 export interface ChatProps extends CommonChatsProps {

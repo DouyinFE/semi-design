@@ -373,6 +373,10 @@ $module: #{$prefix}-tree-select;
         .#{$prefix}-tree-option-list {
             flex: 1;
             min-width: $width-treeSelect_option;
+
+            &-hidden {
+                padding: 0;
+            }
         }
 
         .#{$prefix}-tree-search-wrapper {

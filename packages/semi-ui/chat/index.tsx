@@ -29,6 +29,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     foundation: ChatFoundation;
     uploadRef: React.RefObject<Upload>;
     dropAreaRef: React.RefObject<HTMLDivElement>;
+    scrollTargetRef: React.RefObject<HTMLElement>;
 
     static propTypes = {
         className: PropTypes.string,
@@ -80,6 +81,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         this.dropAreaRef = React.createRef();
         this.wheelEventHandler = null;
         this.foundation = new ChatFoundation(this.adapter);
+        this.scrollTargetRef = React.createRef();
 
         this.state = {
             backBottomVisible: false,
@@ -144,7 +146,14 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     return ;
                 }
                 this.wheelEventHandler = (e: any) => {
-                    if (e.target !== containerElement) {
+                    /**
+                     * Why use this.scrollTargetRef.current and wheel's currentTarget target comparison?
+                     * Both scroll and wheel events are on the container
+                     * his.scrollTargetRef.current is the object where scrolling actually occurs
+                     * wheel's currentTarget is the container,
+                     * Only when the wheel event occurs and there is scroll, the following logic(show scroll bar) needs to be executed
+                     */
+                    if (this.scrollTargetRef?.current !== e.currentTarget) {
                         return;
                     }
                     this.adapter.setWheelScroll(true);
@@ -261,6 +270,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
     }
 
     containerScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        (this.scrollTargetRef as any).current = e.target as HTMLElement;
         if (e.target !== e.currentTarget) {
             return;
         }
@@ -275,7 +285,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
-            sendHotKey,
+            sendHotKey, renderDivider
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -330,6 +340,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 onMessageReset={this.foundation.resetMessage}
                                 onMessageCopy={onMessageCopy}
                                 chatBoxRenderConfig={chatBoxRenderConfig}
+                                renderDivider={renderDivider}
                             />
                             {/* hint area */}
                             {!!hints?.length && <Hint

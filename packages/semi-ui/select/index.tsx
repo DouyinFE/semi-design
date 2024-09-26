@@ -616,10 +616,19 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 return this.state.isFocusInContainer;
             },
             updateScrollTop: (index?: number) => {
-                let optionClassName = `.${prefixcls}-option-selected`;
-                if (index !== undefined) {
-                    optionClassName = `.${prefixcls}-option:nth-child(${index})`;
+                let optionClassName;
+                if ('renderOptionItem' in this.props) {
+                    optionClassName = `.${prefixcls}-option-custom-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-option-custom:nth-child(${index + 1})`;
+                    }
+                } else {
+                    optionClassName = `.${prefixcls}-option-selected`;
+                    if (index !== undefined) {
+                        optionClassName = `.${prefixcls}-option:nth-child(${index + 1})`;
+                    }
                 }
+
                 let destNode = document.querySelector(`#${prefixcls}-${this.selectOptionListID} ${optionClassName}`) as HTMLDivElement;
                 if (Array.isArray(destNode)) {
                     destNode = destNode[0];
@@ -1431,11 +1440,11 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                             this.renderSingleSelection(selections, filterable)}
                     </div>
                 </Fragment>,
+                <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
                 <Fragment key="clearicon">
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     {showClear ? (<div className={cls(`${prefixcls}-clear`)} onClick={this.onClear}>{clear}</div>) : arrowContent}
                 </Fragment>,
-                <Fragment key="suffix">{suffix ? this.renderSuffix() : null}</Fragment>,
             ]
         );
 

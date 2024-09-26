@@ -16,6 +16,59 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.67.0-beta.0 (2024-09-23)
+- 【Feat】
+    - Form adds onErrorChange callback [#2484](https://github.com/DouyinFE/semi-design/pull/2484)
+    - Feat: The Chat component supports custom rendering of dividing lines through renderDivider [#2471](https://github.com/DouyinFE/semi-design/issues/2474)
+- 【Fix】
+    - Fixed the issue where onChange does not trigger in PinCode in uncontrolled mode [#2509](https://github.com/DouyinFE/semi-design/pull/2509)
+    - fix the issue where onChange does not trigger when PinCode value is empty string [#2502](https://github.com/DouyinFE/semi-design/issues/2502) [@koderx](https://github.com/koderx)
+    - Fixed AutoComplete option when more than one page, when using keyboard ArrowUp, ArrowDown switch can not automatically scroll to view issue [#1530](https://github.com/DouyinFE/semi-design/issues/1530)
+    - Fix the problem that the case of the child component className of AutoComplete is inconsistent with the parent component, and the consistent is changed to lowercase (`.semi-autoComplete-option` - > `.semi-autocompelte-option`)[#2501](https://github.com/DouyinFE/semi-design/pull/2501)
+    - Modify the behavior of Cascader, TreeSelect when emptyContent is null, consistent with Select [#2476](https://github.com/DouyinFE/semi-design/pull/2476)
+    - Fixed the issue that Select fails to automatically scroll to view after using the keyboard up and down keys to select options when using IrenderOptionItem [#2263](https://github.com/DouyinFE/semi-design/issues/2263)
+    - Fixed Upload in React StrictMode request can not be post correctly (impact v2.64.0-2.66.1) [#2410](https://github.com/DouyinFE/semi-design/issues/2410)
+    - Fixed the problem that when Cascader has suffix and showClear is set, the position of the clear icon and the position of the clear icon are different [#2493](https://github.com/DouyinFE/semi-design/pull/2493)
+- 【Style】
+    - Modify the image display in the Chat component chat box and the uploaded image display effect in the input box, from filling to maintaining width-to-height ratio filling (object-fit from fill -> cover), prevent image deformation [#2496](https://github.com/DouyinFE/semi-design/pull/2496)
+    - Keep the content area and icon spacing in Cascader's trigger consistent with select/treeSelect  [#2472](https://github.com/DouyinFE/semi-design/issues/2472)
+    - Fixed the issue where the style of Cascader panel options does not meet expectations in rtl mode [#2475](https://github.com/DouyinFE/semi-design/pull/2475)
+    - Modify the unreasonable naming of style names in Cascader, undisabled -> enable [#2494](https://github.com/DouyinFE/semi-design/pull/2494)
+    - Modify the problem that when suffix is ​​set in Select, the positional relationship between the suffix and the drop-down icon is not consistent with TreeSelect/Cascader. (If you have other position requirements, you can adjust the position by setting the order attribute of flex) [#2493](https://github.com/DouyinFE/semi-design/pull/2493)
+    - Fixed the problem that the rounded corners of InputNumber, DatePicker, Time Pick, and AutoComplete located in the middle of the InputGroup are not 0 [#2489](https://github.com/DouyinFE/semi-design/issues/2489)
+
+#### 🎉 2.66.1 (2024-09-12)
+- 【Fix】
+  - Optimized Datepicker Copywriting in Malay (ms_MY), Russian(ru_RU), Vietnamese(vi_VN), Arabic(ar) Monday - Sunday. Optimize the display of text in Japanese, Indonesian, and Vietnamese in the lower left corner of the Table. [#2486](https://github.com/DouyinFE/semi-design/pull/2486)
+
+#### 🎉 2.66.0 (2024-09-10)
+- 【Fix】
+  - Fixed the issue where the Tooltip quickly slides in and out when the animation is on, and the tooltip disappears normally but the dom is not unloaded
+  - Fixed Upload addOnPasting in Sidesheet could not be uploaded  [#2478](https://github.com/DouyinFE/semi-design/issues/2478)
+  - Fixed single-select Cascader, under React18, the expansion behavior is abnormal when loading data asynchronously  [#2212](https://github.com/DouyinFE/semi-design/issues/2212)
+  - **Made some API tweaks for the Hotkeys component added in the previous Beta to make it more suitable for actual usage scenarios** [#2463](https://github.com/DouyinFE/semi-design/issues/2463)
+- 【Chore】
+  - Added ConfigConsumer export for manually obtaining ConfigProvider [#2468](https://github.com/DouyinFE/semi-design/pull/2468)
+  - HotKeys adds static `Keys` property [@Nathon2Y](https://github.com/Nathon2Y) [#2463](https://github.com/DouyinFE/semi-design/pull/2463)
+
+
+#### 🎉 2.66.0-beta.0 (2024-09-02)
+- 【New Component】
+    - create Hotkeys component，user can define shortcut key combinations and trigger callbacks. [@Nathon2Y](https://github.com/Nathon2Y)
+- 【Feat】
+    - Tabs add slash type
+    - renderArrow of Tabs support defaultNode param
+    - All types of Tabs support closable (previously only the card type supported closable)
+    - Tabs supports setting dropdown parameters in collapsible mode through dropdownProps API
+- 【Fix】
+    - Fixed the issue that the error style was blocked in Form.Upload image wall mode
+    - Fixed the issue that Collapse Tabs crashes when the tab is set to jsx (affected range: 2.65.0 )
+    - Fixed the issue that Dropdown onVisibleChange reported an error when it was not defined in some scenarios
+    - Fixed SyntaxError when parsing unescaped characters in Chat component message box
+    - Fixed the issue where the Chat component scrolls the message list while the message is being updated streaming. The streaming update of message will cause the list to unexpectedly scroll to the bottom.
+- 【Chore】
+    - The size API type of Avatar and AvatarGroup has been changed to string #2443  [#2446](https://github.com/DouyinFE/semi-design/issues/2446)
+
 #### 🎉 2.65.0 (2024-08-23)
 - 【Fix】
     - Fixed the problem that when Slider is in range controlled mode, dragging one handle may cause another handle to shake [#2438](https://github.com/DouyinFE/semi-design/issues/2438)

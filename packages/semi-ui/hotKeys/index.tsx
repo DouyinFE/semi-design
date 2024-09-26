@@ -2,19 +2,19 @@ import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import HotKeysFoudation, { HotKeysAdapter } from '@douyinfe/semi-foundation/hotKeys/foundation';
-import { cssClasses, strings } from '@douyinfe/semi-foundation/hotKeys/constants';
+import { cssClasses, Keys } from '@douyinfe/semi-foundation/hotKeys/constants';
 import BaseComponent from '../_base/baseComponent';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/hotKeys/hotKeys.scss';
-
 const prefixCls = cssClasses.PREFIX;
 
 export interface HotKeysProps {
+    preventDefault?: boolean;
     hotKeys?: KeyboardEvent["key"][];
     content?: string[];
     onClick?: () => void;
-    clickable?: boolean;
-    disabled?: boolean;
+    onHotKey?: (e: KeyboardEvent) => void;
+    mergeMetaCtrl?: boolean;
     render?: () => ReactNode | ReactNode;
     getListenerTarget?: () => HTMLElement;
     className?: string;
@@ -22,16 +22,16 @@ export interface HotKeysProps {
 }
 
 export interface HotKeysState {
-    disabled: boolean
 }
 
 class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     static propTypes = {
+        preventDefault: PropTypes.bool,
         hotKeys: PropTypes.arrayOf(PropTypes.string),
         content: PropTypes.arrayOf(PropTypes.string),
         onClick: PropTypes.func,
-        clickable: PropTypes.bool,
-        disabled: PropTypes.bool,
+        onHotKey: PropTypes.func,
+        mergeMetaCtrl: PropTypes.bool,
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
         getListenerTarget: PropTypes.func,
         className: PropTypes.string,
@@ -39,21 +39,23 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     };
 
     static defaultProps: Partial<HotKeysProps> = {
+        preventDefault: false,
         hotKeys: null,
         content: null,
         onClick: noop,
-        clickable: false,
-        disabled: false,
+        onHotKey: noop,
+        mergeMetaCtrl: false,
         render: undefined,
         getListenerTarget: () => document.body,
         className: '',
         style: null,
     };
 
+    static Keys = Keys
+
     constructor(props: HotKeysProps) {
         super(props);
         this.state = {
-            disabled: false
         };
         this.foundation = new HotKeysFoudation(this.adapter);
     }
@@ -72,23 +74,18 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
-            notifyClick: () => {
-                if (this.props.onClick) {
-                    this.props.onClick();
-                }
+            notifyHotKey: (e: KeyboardEvent) => {
+                this.props.onHotKey?.(e);
             },
             getListenerTarget: () => {
-                if (this.props.getListenerTarget) {
-                    return this.props.getListenerTarget();
-                }
-                return document.body;
+                return this.props.getListenerTarget?.() ?? document.body;
             },
         };
     }
 
 
     render() {
-        const { hotKeys, content, onClick, clickable, disabled, render, getListenerTarget, className, style, ...rest } = this.props;
+        const { hotKeys, content, onClick, render, getListenerTarget, className, style, ...rest } = this.props;
  
         if (typeof render !== 'undefined') {
             if (render === null || (typeof render === 'function' && render() === null)) {
@@ -96,9 +93,11 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
             }
             return (
                 <div 
-                    onClick={clickable ? onClick : noop}
+                    onClick={onClick}
                     className={classNames(prefixCls, className)}
-                    style={style}>
+                    style={style}
+                    {...this.getDataAttr(rest)}    
+                >
                     { typeof render === 'function' ? render() : render }
                 </div>
             );
@@ -107,9 +106,10 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
 
         return (
             <div
-                onClick={clickable ? onClick : noop}
+                onClick={onClick}
                 className={classNames(prefixCls, className)}
                 style={style}
+                {...this.getDataAttr(rest)}  
             >
                 {renderContent.map((key: KeyboardEvent["key"], index) => {
                     return index === 0 ?

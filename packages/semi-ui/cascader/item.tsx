@@ -360,6 +360,9 @@ export default class Item extends PureComponent<CascaderItemProps> {
 
     renderEmpty() {
         const { emptyContent } = this.props;
+        if (emptyContent === null) {
+            return null;
+        }
         return (
             <LocaleConsumer componentName="Cascader">
                 {(locale: Locale['Cascader']) => (

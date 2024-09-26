@@ -37,7 +37,7 @@ const TabItem = (props: TabItemProps, ref: LegacyRef<HTMLDivElement>) => {
     } = props;
 
     const closableIcon = useMemo(() => {
-        return (type === 'card' && closable) ?
+        return closable ?
             <IconClose 
                 aria-label="Close" 
                 role="button" 

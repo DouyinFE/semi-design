@@ -1244,7 +1244,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
     Notice:
     1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios
     2. The styles of selected, focused, disabled, etc. state need to be added by yourself, and you can get the relative boolean value from props
-    3. onMouseEnter needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
+    3. `onMouseEnter`、`className` needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
     4. If your custom item is Select.Option, you need to pass renderProps.onClick transparently to the onSelect prop of Option
 
 ```jsx live=true
@@ -1272,6 +1272,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             ['custom-option-render-focused']: focused,
             ['custom-option-render-disabled']: disabled,
             ['custom-option-render-selected']: selected,
+            className,
         });
         // Notice：
         // 1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios

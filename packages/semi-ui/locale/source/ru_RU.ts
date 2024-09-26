@@ -83,11 +83,11 @@ const local: Locale = {
         weeks: {
             Mon: 'Пн',
             Tue: 'Вт',
-            Wed: 'среда',
+            Wed: 'Ср',
             Thu: 'Чт',
             Fri: 'Пт',
             Sat: 'Сб',
-            Sun: 'Солнце',
+            Sun: 'Вс',
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
