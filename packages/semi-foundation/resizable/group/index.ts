@@ -1,4 +1,4 @@
-import { getItemDirection } from "resizable/utils";
+import { getItemDirection, getPixelSize } from "../utils";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
 import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
@@ -60,18 +60,16 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
 
 export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getGroupRef: () => HTMLDivElement | null;
-    getGroupSize: () => number;
-    getAvailableSize: () => number;
     getItem: (index: number) => HTMLDivElement;
     getItemCount: () => number;
     getHandler: (index: number) => HTMLDivElement;
     getHandlerCount: () => number;
     getItemMin: (index: number) => string;
     getItemMax: (index: number) => string;
-    getItemMinus: (index: number) => number;
     getItemStart: (index: number) => ResizeStartCallback;
     getItemChange: (index: number) => ResizeCallback;
-    getItemEnd: (index: number) => ResizeCallback  
+    getItemEnd: (index: number) => ResizeCallback;
+    getItemDefaultSize: (index: number) => string
 }
 
 export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeGroupAdapter<P, S>, P, S> {
@@ -79,15 +77,20 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         super({ ...adapter });
     }
 
-    groupRef: HTMLDivElement
+    get groupRef(): HTMLDivElement | null {
+        return this._adapter.getGroupRef();
+    }
+
     direction: 'horizontal' | 'vertical'
-    itemMinSize: number = 0; // the size of handler define the min size of item to contain border
-    constraintsMap: Map<number, [number, number]>;
+    itemMinusMap: Map<number, number>;
+    totalMinus: number;
+    avaliableSize: number;
+
 
     init(): void {
-        this.groupRef = this._adapter.getGroupRef();
         this.direction = this.getProp('direction');
-        this.constraintsMap = new Map();
+        this.itemMinusMap = new Map();
+        this.calculateSpace();
     }
     get window(): Window | null {
         return this.groupRef.ownerDocument.defaultView as Window ?? null;
@@ -113,7 +116,6 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     onResizeStart = (handlerIndex: number, e: MouseEvent) => { // handler ref
         let { clientX, clientY } = e;
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
-        let handler = this._adapter.getHandler(handlerIndex);
         let lastOffset: number, nextOffset: number;
         // offset caused by padding and border
         const lastStyle = this.window.getComputedStyle(lastItem);
@@ -136,8 +138,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 ...states.backgroundStyle,
                 cursor: this.window.getComputedStyle(e.target as HTMLElement).cursor || 'auto',
             },
-            curHandler: handlerIndex,
-            curConstraint: this.constraintsMap.get(handlerIndex),
+            curHandler: handlerIndex
         } as any);
         this.registerEvents();
 
@@ -165,10 +166,10 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         const props = this.getProps();
         const { direction } = props;
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
-        let parentSize = this._adapter.getGroupSize();
-        let availableSize = this._adapter.getAvailableSize();
+        let parentSize = this.direction === 'horizontal' ? this.groupRef.offsetWidth : this.groupRef.offsetHeight;
+        let availableSize = parentSize - this.totalMinus;
+
         let delta = direction === 'horizontal' ? (clientX - initX) : (clientY - initY);
-            
         let lastNewSize = lastItemSize + delta;
         let nextNewSize = nextItemSize - delta;
 
@@ -185,6 +186,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             nextNewSize = adjustNewSize(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), availableSize, nextOffset);
             lastNewSize = lastItemSize + nextItemSize - nextNewSize;
         }
+
         if (direction === 'horizontal') {     
             lastItem.style.width = (lastNewSize) / parentSize * 100 + '%';
             nextItem.style.width = (nextNewSize) / parentSize * 100 + '%';
@@ -218,10 +220,92 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         }
         this.setState({
             isResizing: false,
-            curConstraint: null,
             curHandler: null
         } as any);
         this.unregisterEvents();
+    }
+
+    calculateSpace = () => {
+        const props = this.getProps();
+        const { direction } = props;
+
+        // calculate accurate space for group item
+        let handlerSizes = new Array(this._adapter.getHandlerCount()).fill(0);
+        let groupSize = direction === 'horizontal' ? this.groupRef.offsetWidth : this.groupRef.offsetHeight;
+        this.totalMinus = 0;
+        for (let i = 0; i < this._adapter.getHandlerCount(); i++) {
+            let handlerSize = direction === 'horizontal' ? this._adapter.getHandler(i).offsetWidth : this._adapter.getHandler(i).offsetHeight;
+            handlerSizes[i] = handlerSize;
+            this.totalMinus += handlerSize;
+        }
+        
+        // allocate size for items which don't have default size
+        let totalSizePercent = 0;
+        let undefineLoc: Map<number, number> = new Map(), undefinedTotal = 0; // proportion
+
+        for (let i = 0; i < this._adapter.getItemCount(); i++) {
+            if (i === 0) {
+                this.itemMinusMap.set(i, handlerSizes[i] / 2);
+            } else if (i === this._adapter.getItemCount() - 1) {
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
+            } else {
+                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2);
+            }
+            const child = this._adapter.getItem(i);
+            let minSize = this._adapter.getItemMin(i), maxSize = this._adapter.getItemMax(i);
+            let minSizePercent = minSize ? getPixelSize(minSize, groupSize) / groupSize * 100 : 0,
+                maxSizePercent = maxSize ? getPixelSize(maxSize, groupSize) / groupSize * 100 : 100;
+            if (minSizePercent > maxSizePercent) {
+                console.warn('[Semi ResizableItem]: min size bigger than max size');
+            }    
+
+            let defaultSize = this._adapter.getItemDefaultSize(i);
+            if (defaultSize) {
+                let itemSizePercent: number;
+                if (defaultSize.endsWith('%')) {
+                    itemSizePercent = parseFloat(defaultSize.slice(0, -1));
+                } else if (defaultSize.endsWith('px')) {
+                    itemSizePercent = parseFloat(defaultSize.slice(0, -2)) / groupSize * 100;
+                } else if (/^-?\d+(\.\d+)?$/.test(defaultSize)) {
+                    // 仅由数字组成，表示按比例分配剩下空间
+                    undefineLoc.set(i, parseFloat(defaultSize));
+                    undefinedTotal += parseFloat(defaultSize);
+                    continue;
+                }
+
+                totalSizePercent += itemSizePercent;
+                
+                if (direction === 'horizontal') {
+                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
+                } else {
+                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
+                }
+                
+                if (itemSizePercent < minSizePercent) {
+                    console.warn('[Semi ResizableGroup]: item size smaller than min size');
+                } 
+                if (itemSizePercent > maxSizePercent) {
+                    console.warn('[Semi ResizableGroup]: item size bigger than max size');
+                }
+            } else {
+                undefineLoc.set(i, 1);
+                undefinedTotal += 1;
+            }
+        }
+        let undefineSizePercent = 100 - totalSizePercent;
+        if (totalSizePercent > 100) {
+            console.warn('[Semi ResizableGroup]: total Size bigger than 100%');
+            undefineSizePercent = 10; // 如果总和超过100%，则保留10%的空间均分给未定义的item
+        }
+    
+        undefineLoc.forEach((value, key) => {
+            const child = this._adapter.getItem(key);
+            if (direction === 'horizontal') {
+                child.style.width = `calc(${undefineSizePercent / undefinedTotal * value}% - ${this.itemMinusMap.get(key)}px)`;
+            } else {
+                child.style.height = `calc(${undefineSizePercent / undefinedTotal * value}% - ${this.itemMinusMap.get(key)}px)`;
+            }
+        });
     }
 
     destroy(): void {

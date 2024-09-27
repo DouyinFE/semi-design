@@ -28,8 +28,7 @@ export interface ResizeGroupState {
         nextOffset: number
     };
     backgroundStyle: React.CSSProperties;
-    curHandler: number;
-    curConstraint: [number, number]
+    curHandler: number
 }
 
 class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
@@ -67,7 +66,6 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 right: '0',
             },
             curHandler: null,
-            curConstraint: null
         };
         
         this.groupRef = createRef();
@@ -82,6 +80,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     contextValue: ResizeContextProps;
+    foundation: ResizeGroupFoundation;
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
     availableSize: number;
@@ -99,77 +98,6 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentDidMount() {
         this.foundation.init();
-        // calculate accurate space for group item
-        let handlerSizes = new Array(this.handlerRefs.length).fill(0);
-        this.groupSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
-        this.availableSize = this.groupSize;
-        for (let i = 0; i < this.handlerRefs.length; i++) {
-            let handlerSize = this.props.direction === 'horizontal' ? this.handlerRefs[i].current.offsetWidth : this.handlerRefs[i].current.offsetHeight;
-            handlerSizes[i] = handlerSize;
-            this.availableSize -= handlerSize;
-        }
-
-        // allocate size for items which don't have default size
-        let totalSizePercent = 0;
-        let undefineLoc = [];
-        let parentSize = this.props.direction === 'horizontal' ? this.groupRef.current.offsetWidth : this.groupRef.current.offsetHeight;
-
-        for (let i = 0; i < this.itemRefs.length; i++) {
-            if (i === 0) {
-                this.itemMinusMap.set(i, handlerSizes[i] / 2);
-            } else if (i === this.itemRefs.length - 1) {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2);
-            } else {
-                this.itemMinusMap.set(i, handlerSizes[i - 1] / 2 + handlerSizes[i] / 2);
-            }
-            const child = this.itemRefs[i].current;
-            let minSize = this.itemMinMap.get(i), maxSize = this.itemMaxMap.get(i);
-            let minSizePercent = minSize ? getPixelSize(minSize, parentSize) / parentSize * 100 : 0,
-                maxSizePercent = maxSize ? getPixelSize(maxSize, parentSize) / parentSize * 100 : 100;
-            if (minSizePercent > maxSizePercent) {
-                console.warn('min size bigger than max size');
-            }    
-
-            if (this.itemDefaultSizeList[i]) {
-                let itemSizePercent: number;
-                if (this.itemDefaultSizeList[i].endsWith('%')) {
-                    itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -1));
-                } else if (this.itemDefaultSizeList[i].endsWith('px')) {
-                    itemSizePercent = parseInt(this.itemDefaultSizeList[i].slice(0, -2)) / parentSize * 100;
-                }
-                totalSizePercent += itemSizePercent;
-                
-                if (this.props.direction === 'horizontal') {
-                    child.style.width = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
-                } else {
-                    child.style.height = `calc(${itemSizePercent}% - ${this.itemMinusMap.get(i)}px)`;
-                }
-                
-                if (itemSizePercent < minSizePercent) {
-                    console.warn('[Semi ResizableGroup]: item size smaller than min size');
-                } 
-                if (itemSizePercent > maxSizePercent) {
-                    console.warn('[Semi ResizableGroup]: item size bigger than max size');
-                }
-            } else {
-                undefineLoc.push(i);
-            }
-        }
-        let undefineSizePercent = 100 - totalSizePercent;
-        if (totalSizePercent > 100) {
-            console.warn('[Semi ResizableGroup]: total Size bigger than 100%');
-            undefineSizePercent = 10; // 如果总和超过100%，则保留10%的空间均分给未定义的item
-        }
-    
-        for (let i = 0; i < undefineLoc.length; i++) {
-            const child = this.itemRefs[undefineLoc[i]].current;
-            if (this.props.direction === 'horizontal') {
-                child.style.width = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
-            } else {
-                child.style.height = `calc(${undefineSizePercent / undefineLoc.length}% - ${this.itemMinusMap.get(i)}px)`;
-            }
-        }
-
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -183,8 +111,6 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return {
             ...super.adapter,
             getGroupRef: () => this.groupRef.current,
-            getGroupSize: () => this.groupSize,
-            getAvailableSize: () => this.availableSize,
             getItem: (id: number) => this.itemRefs[id].current,
             getItemCount: () => this.itemRefs.length,
             getHandler: (id: number) => this.handlerRefs[id].current,
@@ -204,8 +130,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             getItemStart: (index) => {
                 return this.itemResizeStart.get(index);
             },
-            getItemMinus: (index) => {
-                return this.itemMinusMap.get(index);
+            getItemDefaultSize: (index) => {
+                return this.itemDefaultSizeList[index];
             },
         };
     }
@@ -215,8 +141,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     registerItem = (ref: RefObject<HTMLDivElement>,
-        min, max, defaultSize,
-        onResizeStart, onChange, onResizeEnd
+        min: string, max: string, defaultSize: string,
+        onResizeStart: ResizeStartCallback, onChange: ResizeCallback, onResizeEnd: ResizeCallback
     ) => {
         this.itemRefs.push(ref);
         let index = this.itemRefs.length - 1;

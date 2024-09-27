@@ -224,11 +224,11 @@ export const Group_vertical = () => {
 export const Group_horizontal = () => {
   const [text, setText] = useState('test')
   return (
-    <div style={{ width: '500px', height: '100px' }}>
+    <div style={{ width: '100%', height: '100px' }}>
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
-          defaultSize={'20%'}
+          defaultSize={'0.2'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
@@ -252,7 +252,17 @@ export const Group_horizontal = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
-          defaultSize={'30%'}
+          defaultSize={'600px'}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+            {text}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
+          // defaultSize={'1'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
