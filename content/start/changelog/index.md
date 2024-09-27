@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.67.0 (2024-09-27)
+- 【Fix】
+    - fix: 修复 Typography 在 strong 属性为 true 时，省略计算存在误差问题 [@pandoralink](https://github.com/pandoralink) [#2506](https://github.com/DouyinFE/semi-design/pull/2506)
+
 #### 🎉 2.67.0-beta.0 (2024-09-23)
 - 【Feat】
     - Form 新增 onErrorChange 回调 [#2484](https://github.com/DouyinFE/semi-design/pull/2484)

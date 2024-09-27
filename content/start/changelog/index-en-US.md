@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.67.0 (2024-09-27)
+- 【Fix】
+    - fix: Fix Typography error in omitting calculation when the strong attribute is true [@pandoralink](https://github.com/pandoralink) [#2506](https://github.com/DouyinFE/semi-design/pull/2506)
+
 #### 🎉 2.67.0-beta.0 (2024-09-23)
 - 【Feat】
     - Form adds onErrorChange callback [#2484](https://github.com/DouyinFE/semi-design/pull/2484)
