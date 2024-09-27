@@ -67,6 +67,7 @@ const getRenderText = (
     ellipsisContainer.style.height = 'auto';
     ellipsisContainer.style.top = '-999999px';
     ellipsisContainer.style.zIndex = '-1000';
+    isStrong && (ellipsisContainer.style.fontWeight = '600');
 
     // clean up css overflow
     ellipsisContainer.style.textOverflow = 'clip';
@@ -96,26 +97,16 @@ const getRenderText = (
         const ellipsisTextNode = document.createTextNode(suffix);
         ellipsisContentHolder.appendChild(ellipsisTextNode);
     }
-    appendEllipsisContentHolder();
+    ellipsisContainer.appendChild(ellipsisContentHolder);
 
     // Expand node needs to be added only when text needTruncated
     Object.values(omit(fixedContent, 'expand')).map(
         node => node && ellipsisContainer.appendChild(node.cloneNode(true))
     );
 
-    function appendEllipsisContentHolder() {
-        if (isStrong) {
-            const wrapper = document.createElement('strong');
-            wrapper.appendChild(ellipsisContentHolder);
-            ellipsisContainer.appendChild(wrapper);
-        } else {
-            ellipsisContainer.appendChild(ellipsisContentHolder);
-        }
-    }
-
     function appendExpandNode() {
         ellipsisContainer.innerHTML = '';
-        appendEllipsisContentHolder();
+        ellipsisContainer.appendChild(ellipsisContentHolder);
         Object.values(fixedContent).map(node => node && ellipsisContainer.appendChild(node.cloneNode(true)));
     }
 
