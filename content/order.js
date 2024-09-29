@@ -66,6 +66,7 @@ const order = [
     'modal',
     'overflowlist',
     'popover',
+    'resizable',
     'scrolllist',
     'sidesheet',
     'table',

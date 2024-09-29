@@ -1,0 +1,39 @@
+$module: #{$prefix}-resizable;
+
+.#{$module} {
+    &-resizable {
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    &-resizableHandler {
+        position: absolute;
+        user-select: none;
+        z-index: $z-resizable_handler;
+    }
+    
+    &-group {
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+    }
+
+    &-item {
+        position: relative;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    &-handler {
+        user-select: none;
+        z-index: $z-resizable_handler;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--semi-color-fill-0);
+        opacity: 1;
+    }
+}
