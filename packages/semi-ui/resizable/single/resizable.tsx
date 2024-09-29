@@ -195,6 +195,18 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         return {
             ...super.adapter,
             getResizable: this.getResizable,
+            registerEvent: () => {
+                let window = this.foundation.window;
+                window?.addEventListener('mouseup', this.foundation.onMouseUp);
+                window?.addEventListener('mousemove', this.foundation.onMouseMove);
+                window?.addEventListener('mouseleave', this.foundation.onMouseUp);
+            },
+            unregisterEvent: () => {
+                let window = this.foundation.window;
+                window?.removeEventListener('mouseup', this.foundation.onMouseUp);
+                window?.removeEventListener('mousemove', this.foundation.onMouseMove);
+                window?.removeEventListener('mouseleave', this.foundation.onMouseUp);
+            },
         };
     }
 

@@ -2,7 +2,8 @@ import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize } from "../singleConstants";
 import { getStringSize, getNumberSize, has, calculateNewMax, findNextSnap, snap, clamp } from "../utils";
 export interface ResizableHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getResizableHandler: () => HTMLElement
+    registerEvent: () => void;
+    unregisterEvent: () => void
 }
 
 export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizableHandlerAdapter<P, S>, P, S> {
@@ -11,7 +12,7 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
     }
 
     init(): void {
-        this._adapter.getResizableHandler().addEventListener('mousedown', this.onMouseDown);
+        this._adapter.registerEvent();
     }
 
     onMouseDown = (e: MouseEvent) => {
@@ -19,12 +20,14 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
     };
 
     destroy(): void {
-        this._adapter.getResizableHandler().removeEventListener('mousedown', this.onMouseDown);
+        this._adapter.unregisterEvent();
     }
 }
 
 export interface ResizableAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getResizable: () => HTMLDivElement | null
+    getResizable: () => HTMLDivElement | null;
+    registerEvent: () => void;
+    unregisterEvent: () => void
 }
 
 export class ResizableFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizableAdapter<P, S>, P, S> {
@@ -199,19 +202,11 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
     registerEvents() {
-        if (this.window) {
-            this.window.addEventListener('mouseup', this.onMouseUp);
-            this.window.addEventListener('mousemove', this.onMouseMove);
-            this.window.addEventListener('mouseleave', this.onMouseUp);
-        }
+        this._adapter.registerEvent();
     }
 
     unregisterEvents() {
-        if (this.window) {
-            this.window.removeEventListener('mouseup', this.onMouseUp);
-            this.window.removeEventListener('mousemove', this.onMouseMove);
-            this.window.removeEventListener('mouseleave', this.onMouseUp);
-        }
+        this._adapter.unregisterEvent();
     }
 
     getCssPropertySize(newSize: number | string, property: 'width' | 'height'): number | string {

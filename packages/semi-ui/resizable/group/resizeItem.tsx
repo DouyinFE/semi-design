@@ -70,8 +70,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     get adapter(): ResizeItemAdapter<ResizeItemProps, ResizeItemState> {
         return {
             ...super.adapter,
-            getItemRef: () => this.itemRef?.current,
-            getItemIndex: () => this.itemIndex,
         };
     }
     static contextType = ResizeContext;
@@ -82,7 +80,6 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     render() {
         const style: React.CSSProperties = {
             ...this.props.style,
-            ...this.foundation.sizeStyle,
         };
 
         return (

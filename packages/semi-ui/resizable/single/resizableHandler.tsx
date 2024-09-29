@@ -55,15 +55,18 @@ class ResizableHandler extends BaseComponent<ResizableHandlerProps, ResizableHan
         this.foundation.destroy();
     }
 
+    foundation: ResizableHandlerFoundation;
+
     get adapter(): ResizableHandlerAdapter<ResizableHandlerProps, ResizableHandlerState> {
         return {
             ...super.adapter,
-            getResizableHandler: this.getResizableHandler,
+            registerEvent: () => {
+                this.resizeHandlerRef.current.addEventListener('mousedown', this.foundation.onMouseDown);
+            },
+            unregisterEvent: () => {
+                this.resizeHandlerRef.current.removeEventListener('mousedown', this.foundation.onMouseDown);
+            },
         };
-    }
-
-    getResizableHandler: () => HTMLElement = () => {
-        return this.resizeHandlerRef.current;
     }
 
     resizeHandlerRef: React.RefObject<HTMLDivElement>

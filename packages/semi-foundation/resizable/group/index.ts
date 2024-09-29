@@ -3,8 +3,8 @@ import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
 import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getHandler: () => HTMLElement;
-    getHandlerIndex: () => number
+    registerEvents: () => void;
+    unregisterEvents: () => void
 }
 
 export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeHandlerAdapter<P, S>, P, S> {
@@ -13,21 +13,15 @@ export class ResizeHandlerFoundation<P = Record<string, any>, S = Record<string,
     }
 
     init(): void {
-        this._adapter.getHandler().addEventListener('mousedown', this.onMouseDown);
+        this._adapter.registerEvents();
     }
 
-    onMouseDown = (e: MouseEvent) => {
-        this.getContext('notifyResizeStart')(this._adapter.getHandlerIndex(), e);
-    };
-
     destroy(): void {
-        this._adapter.getHandler().removeEventListener('mousedown', this.onMouseDown);
+        this._adapter.unregisterEvents();
     }
 }
 
 export interface ResizeItemAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getItemRef: () => HTMLElement | null;    
-    getItemIndex: () => number
 }
 
 export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeItemAdapter<P, S>, P, S> {
@@ -36,22 +30,6 @@ export class ResizeItemFoundation<P = Record<string, any>, S = Record<string, an
     }
 
     init(): void {
-        this.resizable = this._adapter.getItemRef();
-    }
-
-    resizable: HTMLElement | null = null;
-
-    get sizeStyle(): { width: string; height: string } {
-        let defaultSize = this.getProp('defaultSize');
-        let width: string, height: string;
-        let direction = this.getContext('direction');
-        if (direction === 'horizontal') {
-            width = defaultSize;
-        } else if (direction === 'vertical') {
-            height = defaultSize;
-        }
-
-        return { width, height };
     }
 
     destroy(): void {
@@ -69,7 +47,9 @@ export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, 
     getItemStart: (index: number) => ResizeStartCallback;
     getItemChange: (index: number) => ResizeCallback;
     getItemEnd: (index: number) => ResizeCallback;
-    getItemDefaultSize: (index: number) => string
+    getItemDefaultSize: (index: number) => string;
+    registerEvents: () => void;
+    unregisterEvents: () => void
 }
 
 export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeGroupAdapter<P, S>, P, S> {
@@ -98,19 +78,11 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
     
     registerEvents = () => {
-        if (this.window) {
-            this.window.addEventListener('mousemove', this.onResizing);
-            this.window.addEventListener('mouseup', this.onResizeEnd);
-            this.window.addEventListener('mouseleave', this.onResizeEnd);
-        }
+        this._adapter.registerEvents();
     }
 
     unregisterEvents = () => {
-        if (this.window) {
-            this.window.removeEventListener('mousemove', this.onResizing);
-            this.window.removeEventListener('mouseup', this.onResizeEnd);
-            this.window.removeEventListener('mouseleave', this.onResizeEnd);
-        }
+        this._adapter.unregisterEvents();
     }
 
     onResizeStart = (handlerIndex: number, e: MouseEvent) => { // handler ref

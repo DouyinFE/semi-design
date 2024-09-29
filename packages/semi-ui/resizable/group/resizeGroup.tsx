@@ -6,7 +6,6 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import { getPixelSize } from '@douyinfe/semi-foundation/resizable/utils';
 import "@douyinfe/semi-foundation/resizable/index.scss";
 
 const prefixCls = cssClasses.PREFIX;
@@ -133,11 +132,29 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
             getItemDefaultSize: (index) => {
                 return this.itemDefaultSizeList[index];
             },
+            registerEvents: this.registerEvent,
+            unregisterEvents: this.unregisterEvent,
         };
     }
 
     get window(): Window | null {
         return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
+    }
+
+    registerEvent = () => {
+        if (this.window) {
+            this.window.addEventListener('mousemove', this.foundation.onResizing);
+            this.window.addEventListener('mouseup', this.foundation.onResizeEnd);
+            this.window.addEventListener('mouseleave', this.foundation.onResizeEnd);
+        }
+    }
+
+    unregisterEvent = () => {
+        if (this.window) {
+            this.window.removeEventListener('mousemove', this.foundation.onResizing);
+            this.window.removeEventListener('mouseup', this.foundation.onResizeEnd);
+            this.window.removeEventListener('mouseleave', this.foundation.onResizeEnd);
+        }
     }
 
     registerItem = (ref: RefObject<HTMLDivElement>,
