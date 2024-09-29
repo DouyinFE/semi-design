@@ -228,7 +228,7 @@ export const Group_horizontal = () => {
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
-          defaultSize={'0.2'}
+          defaultSize={2}
           min={'10%'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
@@ -262,7 +262,7 @@ export const Group_horizontal = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
-          // defaultSize={'1'}
+          defaultSize={1.3}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>

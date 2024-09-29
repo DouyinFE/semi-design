@@ -373,7 +373,7 @@ function Demo() {
         }}
       >
         <div style={{ marginLeft: '20%' }}>
-          bottomRight
+          right
         </div>
       </Resizable>
     </div>
@@ -419,9 +419,7 @@ function Demo() {
 
 ### Group Component 
 <Notice type='primary' title='notice'>
-
-You must set width and height for the parent element of ResizeGroup.
-
+The parent element of `ResizeGroup` needs to have a size in the main axis direction.
 It's best not to set padding for ResizeItem, as it may cause the minimum size to not match the expected value. You can set padding for child elements instead.
 </Notice>
 
@@ -440,7 +438,7 @@ function Demo() {
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
-          defaultSize={'20%'}
+          defaultSize={'400px'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('Drag to resize') }}
@@ -464,7 +462,17 @@ function Demo() {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
-          defaultSize={'600px'}
+          defaultSize={'0.5'}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+          defaultSize={1}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -475,6 +483,7 @@ function Demo() {
     </div>
   );
 }
+
 ```
 
 ### Nested
@@ -546,6 +555,123 @@ function Demo() {
 }
 ```
 
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('Drag to resize')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  return (
+    <div style={{ width: '1000px', height: '600px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          defaultSize={"80%"}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"25%"}
+              min={'10%'}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' min:10% max:30%'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ height: '100%' }}>
+                <ResizeGroup direction='vertical'>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    onChange={() => { setText('resizing') }}
+                    onResizeEnd={() => { setText('Drag to resize') }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    max={'40%'}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10% max:40%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text}
+                    </div>
+                  </ResizeItem>
+                </ResizeGroup>
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"1"}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' max:30%'}
+              </div>
+            </ResizeItem>
+            
+          </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={"20%"}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'content'}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
 
 ## API
 
@@ -595,8 +721,8 @@ function Demo() {
 
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className | 类名                                                                          | string                  |            |        |
-| defaultSize   | Sets the initial width and height, supports only percentage string  | string                  |           |        |
+| className |                                                                           | string                  |            |        |
+| defaultSize   | Used to set the initial width and height. **The string supports % and px units, and when the string is a pure number or a number is set directly, it represents the proportional allocation of the remaining space based on the value.**  | string \| number                  |           |        |
 | min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
 | max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
 | style |  | CSSProperties |      |

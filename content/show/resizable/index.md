@@ -371,7 +371,7 @@ function Demo() {
         }}
       >
         <div style={{ marginLeft: '20%' }}>
-          bottomRight
+          right
         </div>
       </Resizable>
     </div>
@@ -420,9 +420,7 @@ function Demo() {
 
 ### 组合组件 基本使用
 <Notice type='primary' title='注意事项'>
-
-必须要为`ResizeGroup`的父元素设置`width`和`height`
-
+`ResizeGroup`的父元素需要具有主轴方向上的尺寸 
 最好不要为`ResizeItem`设置`padding`，会导致最小尺寸不符合预期，可以为子元素设置`padding`
 </Notice>
 
@@ -441,7 +439,7 @@ function Demo() {
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
-          defaultSize={'20%'}
+          defaultSize={'400px'}
           min={'10%'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('Drag to resize') }}
@@ -465,7 +463,17 @@ function Demo() {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
-          defaultSize={'600px'}
+          defaultSize={'0.5'}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            {text}
+          </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+          defaultSize={1}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%' }}>
@@ -476,6 +484,7 @@ function Demo() {
     </div>
   );
 }
+
 ```
 
 ### 嵌套使用
@@ -546,7 +555,122 @@ function Demo() {
   );
 }
 ```
+```jsx live=true dir="column"
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
 
+function Demo() {
+  const [text, setText] = useState('Drag to resize')
+  const opts_1 = {
+    content: 'resize start',
+    duration: 1,
+    stack: true,
+  };
+  const opts = {
+    content: 'resize end',
+    duration: 1,
+    stack: true,
+  };
+  return (
+    <div style={{ width: '1000px', height: '600px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          defaultSize={"80%"}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"25%"}
+              min={'10%'}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' min:10% max:30%'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ height: '100%' }}>
+                <ResizeGroup direction='vertical'>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    onChange={() => { setText('resizing') }}
+                    onResizeEnd={() => { setText('Drag to resize') }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    max={'40%'}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10% max:40%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text}
+                    </div>
+                  </ResizeItem>
+                </ResizeGroup>
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"1"}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' max:30%'}
+              </div>
+            </ResizeItem>
+            
+          </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={"20%"}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'content'}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
 
 ## API 参考
 
@@ -598,7 +722,7 @@ function Demo() {
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
-| defaultSize   | 用于设置初始宽高，只支持字符串 | string                  |           |        |
+| defaultSize   | 用于设置初始宽高，**字符串支持%和px单位，当字符串为纯数字或直接设置数字时表示按照值的比例分配剩余空间** | string \| number                 |           |        |
 | min | 指定伸缩框最小尺寸（百分比或像素值）      |  string                   |   |        |
 | max | 指定伸缩框最大尺寸（百分比或像素值）     |  string                   |   |        |
 | style | 样式 | CSSProperties |      |

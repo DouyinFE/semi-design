@@ -13,13 +13,13 @@ const prefixCls = cssClasses.PREFIX;
 export interface ResizeItemProps {
     style?: React.CSSProperties;
     className?: string;
-    min?: string ;
+    min?: string;
     max?: string;
     children?: React.ReactNode;
     onResizeStart?: ResizeStartCallback;
     onChange?: ResizeCallback;
     onResizeEnd?: ResizeCallback;
-    defaultSize?: string
+    defaultSize?: string | number
 }
 
 export interface ResizeItemState {
@@ -35,7 +35,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         onResizeStart: PropTypes.func,
         onChange: PropTypes.func,
         onResizeEnd: PropTypes.func,
-        defaultSize: PropTypes.string,
+        defaultSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     };
 
     static defaultProps: Partial<ResizeItemProps> = {

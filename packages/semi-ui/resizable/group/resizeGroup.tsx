@@ -89,7 +89,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     itemMinMap: Map<number, string> = new Map();
     itemMaxMap: Map<number, string> = new Map();
     itemMinusMap: Map<number, number> = new Map();
-    itemDefaultSizeList: string[] = []
+    itemDefaultSizeList: (string|number)[] = []
     itemResizeStart: Map<number, ResizeStartCallback> = new Map();
     itemResizing: Map<number, ResizeCallback> = new Map();
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
@@ -158,7 +158,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     registerItem = (ref: RefObject<HTMLDivElement>,
-        min: string, max: string, defaultSize: string,
+        min: string, max: string, defaultSize: string|number,
         onResizeStart: ResizeStartCallback, onChange: ResizeCallback, onResizeEnd: ResizeCallback
     ) => {
         this.itemRefs.push(ref);

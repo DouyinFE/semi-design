@@ -47,7 +47,7 @@ export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, 
     getItemStart: (index: number) => ResizeStartCallback;
     getItemChange: (index: number) => ResizeCallback;
     getItemEnd: (index: number) => ResizeCallback;
-    getItemDefaultSize: (index: number) => string;
+    getItemDefaultSize: (index: number) => string | number;
     registerEvents: () => void;
     unregisterEvents: () => void
 }
@@ -234,16 +234,23 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             let defaultSize = this._adapter.getItemDefaultSize(i);
             if (defaultSize) {
                 let itemSizePercent: number;
-                if (defaultSize.endsWith('%')) {
-                    itemSizePercent = parseFloat(defaultSize.slice(0, -1));
-                } else if (defaultSize.endsWith('px')) {
-                    itemSizePercent = parseFloat(defaultSize.slice(0, -2)) / groupSize * 100;
-                } else if (/^-?\d+(\.\d+)?$/.test(defaultSize)) {
-                    // 仅由数字组成，表示按比例分配剩下空间
-                    undefineLoc.set(i, parseFloat(defaultSize));
-                    undefinedTotal += parseFloat(defaultSize);
+                if (typeof defaultSize === 'string') {
+                    if (defaultSize.endsWith('%')) {
+                        itemSizePercent = parseFloat(defaultSize.slice(0, -1));
+                    } else if (defaultSize.endsWith('px')) {
+                        itemSizePercent = parseFloat(defaultSize.slice(0, -2)) / groupSize * 100;
+                    } else if (/^-?\d+(\.\d+)?$/.test(defaultSize)) {
+                        // 仅由数字组成，表示按比例分配剩下空间
+                        undefineLoc.set(i, parseFloat(defaultSize));
+                        undefinedTotal += parseFloat(defaultSize);
+                        continue;
+                    }
+                } else {
+                    undefineLoc.set(i, defaultSize);
+                    undefinedTotal += defaultSize;
                     continue;
                 }
+                
 
                 totalSizePercent += itemSizePercent;
                 
