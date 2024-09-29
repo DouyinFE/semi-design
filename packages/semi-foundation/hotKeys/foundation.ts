@@ -3,7 +3,8 @@ import { keyToCode, Keys } from './constants';
 
 export interface HotKeysAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     notifyHotKey: (e: KeyboardEvent) => void;
-    getListenerTarget: () => HTMLElement
+    registerEvent: () => void;
+    unregisterEvent: () => void
 }
 
 export default class HotKeysFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<HotKeysAdapter<P, S>, P, S> {
@@ -13,8 +14,7 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
 
     init(): void {
         // init Listener
-        const target = this._adapter.getListenerTarget();
-        target?.addEventListener('keydown', this.handleKeyDown);
+        this._adapter.registerEvent();
         const hotKeys = this.getProps().hotKeys;
         if (!this.isValidHotKeys(hotKeys)) {
             throw new Error('HotKeys must have one common key and 0/some modifier key');
@@ -75,7 +75,6 @@ export default class HotKeysFoundation<P = Record<string, any>, S = Record<strin
 
     destroy(): void {
         // remove Listener
-        const target = this._adapter.getListenerTarget();
-        target?.removeEventListener('keydown', this.handleKeyDown);
+        this._adapter.unregisterEvent();
     }
 }
