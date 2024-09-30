@@ -26,7 +26,7 @@ export interface MarkdownRenderBaseState{
 
 class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
 
-    private getOptions = ()=>{
+    private getOptions = () => {
         return {
             evaluateOptions: {
                 remarkPlugins: [remarkGfm, ...(this.getProp("remarkPlugins") ?? [])],
@@ -47,11 +47,11 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
         };
     }
 
-    compile = async (mdxRaw: string)=>{
+    compile = async (mdxRaw: string): Promise<any> => {
         return await compile(mdxRaw, this.getOptions().compileOptions);
     }
 
-    evaluate = async (mdxRaw: string)=>{
+    evaluate = async (mdxRaw: string) => {
         return (await evaluate(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,
@@ -59,7 +59,7 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
         })).default;
     }
 
-    evaluateSync = (mdxRaw: string)=>{
+    evaluateSync = (mdxRaw: string) => {
         return ( evaluateSync(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,
