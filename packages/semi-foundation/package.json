@@ -19,7 +19,8 @@
         "memoize-one": "^5.2.1",
         "prismjs": "^1.29.0",
         "remark-gfm": "^4.0.0",
-        "scroll-into-view-if-needed": "^2.2.24"
+        "scroll-into-view-if-needed": "^2.2.24",
+        "vfile": "6.0.1"
     },
     "keywords": [],
     "author": "",
