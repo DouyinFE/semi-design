@@ -5,7 +5,7 @@ import { stringifyVariableRecord } from './utils';
 
 export function createSourceSuffixLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/,
+        test: /@douyinfe(\/|\\)+semi-(ui|icons)(\/|\\)+.+\.js$/,
         use: [{ loader: SOURCE_SUFFIX_LOADER }],
     };
 }
@@ -25,7 +25,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         cssLayer: opts.cssLayer
     };
     const loaderInfo = {
-        test: /@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/,
+        test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
         use: [{ loader: THEME_LOADER, options }],
     };
     if (opts.webComponentPath) {
@@ -35,7 +35,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
             {
                 loader: 'css-loader',
                 options: { sourceMap: false }
-            }, 
+            },
             { loader: 'sass-loader' }
         ];
         loaderInfo.use = [
@@ -48,7 +48,7 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
 
 export function createOmitCssLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe\/semi-[^/]+\/.+env\.js$/,
+        test: /@douyinfe(\/|\\)+semi-[^/]+(\/|\\)+.+env\.js$/,
         use: [{ loader: OMIT_CSS_LOADER }],
     };
 }
@@ -58,7 +58,7 @@ export function createPrefixLoaderRule(opts?: SemiWebpackPluginOptions) {
         replacers: { BASE_CLASS_PREFIX: opts.prefixCls },
     };
     return {
-        test: /@douyinfe\/semi-[^/]+\/.+env\.js$/,
+        test: /@douyinfe(\/|\\)+semi-[^/]+(\/|\\)+.+env\.js$/,
         use: [{ loader: PREFIX_LOADER, options }],
     };
 }
