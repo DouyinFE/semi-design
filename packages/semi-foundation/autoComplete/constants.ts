@@ -3,9 +3,8 @@ import { BASE_CLASS_PREFIX, VALIDATE_STATUS } from '../base/constants';
 
 const cssClasses = {
     PREFIX: `${BASE_CLASS_PREFIX}-autocomplete`,
-    PREFIX_OPTION: `${BASE_CLASS_PREFIX}-autoComplete-option`,
-    PREFIX_GROUP: `${BASE_CLASS_PREFIX}-autoComplete-group`,
-    
+    PREFIX_OPTION: `${BASE_CLASS_PREFIX}-autocomplete-option`,
+    PREFIX_GROUP: `${BASE_CLASS_PREFIX}-autocomplete-group`,
 };
 
 const strings = {

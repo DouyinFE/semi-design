@@ -285,7 +285,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
-            sendHotKey,
+            sendHotKey, renderDivider
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -340,6 +340,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 onMessageReset={this.foundation.resetMessage}
                                 onMessageCopy={onMessageCopy}
                                 chatBoxRenderConfig={chatBoxRenderConfig}
+                                renderDivider={renderDivider}
                             />
                             {/* hint area */}
                             {!!hints?.length && <Hint

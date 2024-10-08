@@ -593,7 +593,6 @@ $module: #{$prefix}-input;
         align-content: center;
         flex-wrap: wrap;
 
-        // select与autocomplete的border-radius都是基于select
         .#{$prefix}-select,
         .#{$prefix}-tagInput,
         .#{$prefix}-cascader,
@@ -633,8 +632,8 @@ $module: #{$prefix}-input;
         .#{$prefix}-datepicker,
         .#{$prefix}-timepicker,
         .#{$prefix}-autocomplete {
-            border-radius: 0;
-
+            
+            .#{$module}-wrapper, 
             .#{$prefix}-datepicker-range-input {
                 border-radius: 0;
             }
