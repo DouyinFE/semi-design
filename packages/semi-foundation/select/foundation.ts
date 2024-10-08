@@ -400,9 +400,14 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
     close(closeConfig?: { event?: any; closeCb?: () => void; notToggleInput?: boolean }) {
         // to support A11y, closing the panel trigger does not necessarily lose focus
         const { event, closeCb, notToggleInput } = closeConfig || {};
+        const { isFocus } = this.getStates();
         this._adapter.closeMenu();
         this._adapter.notifyDropdownVisibleChange(false);
         this._adapter.setIsFocusInContainer(false);
+        if (isFocus) {
+            // if the isFocus state is true, refocus the trigger case see in https://github.com/DouyinFE/semi-design/issues/2465
+            this._focusTrigger();
+        }
         // this.unBindKeyBoardEvent();
         // this._notifyBlur(e);
         // this._adapter.updateFocusState(false);
@@ -438,7 +443,6 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         const isMultiple = this._isMultiple();
         if (!isMultiple) {
             this._handleSingleSelect(option, event);
-            this._focusTrigger();
         } else {
             this._handleMultipleSelect(option, event);
         }

@@ -217,6 +217,21 @@ describe('Select', () => {
         cy.get('[data-cy=option-8]').should('have.class', 'custom-option-render-focused');
     });
 
+    it.only('Fixed PR-2465', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-2465');
+        cy.get('.semi-select').eq(0).click();
+        cy.get('button').contains('single close').eq(0).click();
+        cy.get('.semi-select').eq(0).should('have.class', 'semi-select-focus');
+        cy.root().click('right');
+        cy.get('.semi-select').eq(0).should('not.have.class', 'semi-select-focus');
+
+        cy.get('.semi-select').eq(1).click();
+        cy.get('button').contains('multiple close').eq(0).click();
+        cy.get('.semi-select').eq(1).should('have.class', 'semi-select-focus');
+        cy.root().click('right');
+        cy.get('.semi-select').eq(1).should('not.have.class', 'semi-select-focus');
+    });
+
     // it('ellipsisTrigger', () => {
     //     cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-1560');
 
