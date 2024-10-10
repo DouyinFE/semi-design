@@ -248,9 +248,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             togglePanel: (panelShow, cb) => {
                 this.setState({ panelShow }, cb);
                 if (!panelShow) {
-                    this.focusRecordsRef.current.rangeEnd = false;
-                    this.focusRecordsRef.current.rangeStart = false;
+                    this.adapter.resetFocusRecords();
                 }
+            },
+            resetFocusRecords: () => {
+                this.focusRecordsRef.current.rangeEnd = false;
+                this.focusRecordsRef.current.rangeStart = false;
             },
             registerClickOutSide: () => {
                 if (this.clickOutSideHandler) {
@@ -501,7 +504,8 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
             presetPosition,
             yearAndMonthOpts,
             startYear,
-            endYear
+            endYear,
+            cancelRangeDisabled
         } = this.props;
         const { cachedSelectedValue, rangeInputFocus } = this.state;
 
@@ -547,6 +551,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                 yearAndMonthOpts={yearAndMonthOpts}
                 startYear={startYear}
                 endYear={endYear}
+                cancelRangeDisabled={cancelRangeDisabled}
             />
         );
     }

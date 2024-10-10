@@ -94,7 +94,8 @@ export interface MonthsGridFoundationProps extends MonthsGridElementProps, Pick<
     insetInput: DateInputFoundationProps['insetInput'];
     presetPosition?: PresetPosition;
     renderQuickControls?: any;
-    renderDateInput?: any
+    renderDateInput?: any;
+    cancelRangeDisabled?: boolean
 }
 
 export interface MonthInfo {

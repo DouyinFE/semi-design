@@ -99,7 +99,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
     }
 
     getSingleDayStatus(options: Partial<MonthProps> & { fullDate: string; todayText: string }) {
-        const { rangeInputFocus } = this.props;
+        const { rangeInputFocus, cancelRangeDisabled } = this.props;
         const { fullDate, todayText, selected, disabledDate, rangeStart, rangeEnd } = options;
         const disabledOptions = { rangeStart, rangeEnd, rangeInputFocus };
         const isToday = fullDate === todayText;
@@ -108,6 +108,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         let isDisabled = disabledDate && disabledDate(parseISO(fullDate), disabledOptions);
         if (
             !isDisabled &&
+            !cancelRangeDisabled &&
             this.props.rangeInputFocus === 'rangeStart' &&
             rangeEnd &&
             this.props.focusRecordsRef &&
@@ -118,6 +119,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
         }
         if (
             !isDisabled &&
+            !cancelRangeDisabled &&
             this.props.rangeInputFocus === 'rangeEnd' &&
             rangeStart &&
             this.props.focusRecordsRef &&

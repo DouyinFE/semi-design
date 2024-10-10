@@ -28,7 +28,9 @@ export interface MonthFoundationProps {
     focusRecordsRef: any;
     locale: any;
     localeCode: string;
-    multiple: boolean
+    multiple: boolean;
+    /** cancel range select disabled ui  */
+    cancelRangeDisabled?: boolean
 }
 
 export type MonthDayInfo = {

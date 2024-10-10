@@ -169,7 +169,10 @@ export interface DatePickerFoundationProps extends ElementProps, RenderProps, Ev
     localeCode?: string;
     rangeSeparator?: string;
     insetInput?: DateInputFoundationProps['insetInput'];
-    preventScroll?: boolean
+    preventScroll?: boolean;
+    /** cancel range select disabled ui  */
+    cancelRangeDisabled?: boolean;
+    clearRangeOnReSelect?: boolean
 }
 
 export interface DatePickerFoundationState {
@@ -216,7 +219,8 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
     setTriggerDisabled: (disabled: boolean) => void;
     setInputFocus: () => void;
     setInputBlur: () => void;
-    setRangeInputBlur: () => void
+    setRangeInputBlur: () => void;
+    resetFocusRecords: () => void
 }
  
 
@@ -966,7 +970,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      * @param {*} options
      */
     handleSelectedChange(value: Date[], options?: { fromPreset?: boolean; needCheckFocusRecord?: boolean }) {
-        const { type, format, rangeSeparator, insetInput } = this._adapter.getProps();
+        const { type, format, rangeSeparator, insetInput, clearRangeOnReSelect } = this._adapter.getProps();
         const { value: stateValue } = this.getStates();
         const controlled = this._isControlledComponent();
         const fromPreset = isObject(options) ? options.fromPreset : options;
@@ -1017,6 +1021,10 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
         const focusRecordChecked = !needCheckFocusRecord || (needCheckFocusRecord && this._adapter.couldPanelClosed());
         if ((type === 'date' && !this._isMultiple() && closePanel) || (type === 'dateRange' && this._isRangeValueComplete(dates) && closePanel && focusRecordChecked)) {
             this.closePanel(undefined, inputValue, dates);
+        }
+        if ((type === 'dateRange' || type === 'dateTimeRange') && this._isRangeValueComplete(dates) && clearRangeOnReSelect) {
+            this._adapter.resetFocusRecords();
+            this.clearRangeInputFocus();
         }
     }
 

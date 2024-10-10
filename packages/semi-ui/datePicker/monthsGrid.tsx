@@ -330,7 +330,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
 
     renderMonth(month: Date, panelType: PanelType) {
         const { selected, rangeStart, rangeEnd, hoverDay, maxWeekNum, offsetRangeStart, offsetRangeEnd } = this.state;
-        const { weekStartsOn, disabledDate, locale, localeCode, renderDate, renderFullDate, startDateOffset, endDateOffset, density, rangeInputFocus, syncSwitchMonth, multiple } = this.props;
+        const { weekStartsOn, disabledDate, locale, localeCode, renderDate, renderFullDate, startDateOffset, endDateOffset, density, rangeInputFocus, syncSwitchMonth, multiple, cancelRangeDisabled } = this.props;
         let monthText = '';
         // i18n monthText
         if (month) {
@@ -397,6 +397,7 @@ export default class MonthsGrid extends BaseComponent<MonthsGridProps, MonthsGri
                     endDateOffset={endDateOffset}
                     focusRecordsRef={this.props.focusRecordsRef}
                     multiple={multiple}
+                    cancelRangeDisabled={cancelRangeDisabled}
                 />
             </div>
         );

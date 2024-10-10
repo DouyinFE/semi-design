@@ -74,7 +74,8 @@ export {
     FixedNaN,
     PresetsFunctionType,
     FixedSelectedStatus,
-    FixedControlled
+    FixedControlled,
+    CancelRangeDisabled
 } from './v2';
 
 
