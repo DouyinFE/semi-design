@@ -269,7 +269,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                     ) {
                         this.props.onClickOutSide();
                         if (!this.adapter.needConfirm()) {
-                            this.foundation.closePanel(e);
+                            this.foundation.closePanel();
                         }
                     }
                 };

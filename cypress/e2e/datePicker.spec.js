@@ -894,4 +894,20 @@ describe('DatePicker', () => {
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
     });
+
+    it('fixed selected value does not show when value is controlled', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=datepicker--fixed-controlled-value&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('15');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('20');
+    });
 });
