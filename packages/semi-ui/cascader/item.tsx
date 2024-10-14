@@ -77,7 +77,8 @@ export interface CascaderItemProps {
     checkedKeys: Set<string>;
     halfCheckedKeys: Set<string>;
     filterRender?: (props: FilterRenderProps) => ReactNode;
-    virtualize?: Virtualize
+    virtualize?: Virtualize;
+    expandIcon?: ReactNode;
 }
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -98,7 +99,8 @@ export default class Item extends PureComponent<CascaderItemProps> {
         onItemCheckboxClick: PropTypes.func,
         separator: PropTypes.string,
         keyword: PropTypes.string,
-        virtualize: PropTypes.object
+        virtualize: PropTypes.object,
+        expandIcon: PropTypes.node,
     };
 
     static defaultProps = {
@@ -165,6 +167,10 @@ export default class Item extends PureComponent<CascaderItemProps> {
         };
         switch (type) {
             case 'child':
+                const { expandIcon } = this.props;
+                if (expandIcon) {
+                    return expandIcon;
+                }
                 return (<IconChevronRight className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-expand`)} />);
             case 'tick':
                 return (<IconTick className={finalCls(`${prefixcls}-icon ${prefixcls}-icon-active`)} />);

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { IconChevronDown, IconClose, IconGift } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconClose, IconGift, IconTreeTriangleRight  } from '@douyinfe/semi-icons';
 import { Button, Typography, Toast, Cascader, Checkbox, Input, Tag, TagInput } from '../../index';
 
 const { Text } = Typography;
@@ -2427,4 +2427,19 @@ export const EmptyContent = () => {
     />
     <br />
   </>)
+}
+
+export const CustomExpandIcon = () => {
+  const expandIcon = <IconTreeTriangleRight style={{ color: 'var(--semi-color-text-1)'}} />
+  return (
+    <>
+      <Cascader
+        expandIcon={expandIcon}
+        style={{ width: 400 }}
+        treeData={treeData2}
+        placeholder="custom expandIcon"
+        filterTreeNode
+      />
+    </>
+  );
 }
