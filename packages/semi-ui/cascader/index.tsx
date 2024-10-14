@@ -57,6 +57,7 @@ export interface CascaderProps extends BasicCascaderProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     arrowIcon?: ReactNode;
     clearIcon?: ReactNode;
+    expandIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     dropdownMargin?: PopoverProps['margin'];
@@ -703,7 +704,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             showNext,
             multiple,
             filterRender,
-            virtualizeInSearch
+            virtualizeInSearch,
+            expandIcon
         } = this.props;
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
@@ -732,6 +734,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     halfCheckedKeys={halfCheckedKeys}
                     filterRender={filterRender}
                     virtualize={virtualizeInSearch}
+                    expandIcon={expandIcon}
                 />
                 {bottomSlot}
             </div>
