@@ -900,7 +900,7 @@ function Demo() {
 | onChange | 值变化时的回调。<br/>0.x版本入参顺序与新版有所不同                                                                        | <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType> |  |  |
 | onChangeWithDateFirst | 0.x 中 onChange(string, Date), 1.0 后(Date, string)。此开关设为 false 时，入参顺序将与 0.x 版本保持一致                    | boolean | true |  |
 | onClear | 点击 clear 按钮时触发                                                                                       | (e: event) => void | () => {} |  |
-| onClickOutSide | 当弹出层处于展示状态，点击非弹出层、触发器的回调                                                                             | () => void | () => {} | **2.31.0** |
+| onClickOutSide | 当弹出层处于展示状态，点击非弹出层、触发器的回调, event 参数自 2.68.0 支持 | (event: React.mouseEvent) => void | () => {} | **2.31.0** |
 | onConfirm | 确认选择时的回调，入参为当前选择的值，仅 type="dateTime"\|"dateTimeRange" 且 needConfirm=true 时有效。<br/>0.x版本入参顺序与新版有所不同   | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|  | |
 | onFocus | 获得焦点时的回调，范围选择时不推荐使用                                                                                  | (e: event) => void | () => {} |  |
 | onOpenChange | 面板显示或隐藏状态切换的回调                                                                                       | <ApiType detail='(isOpen: boolean) => void'>(isOpen) => void</ApiType> |  |  |
