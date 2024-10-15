@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.68.0-beta.0 (2024-10-15)
+- 【New Component】
+    - Added a resizable box component that adjusts its size based on user mouse drag actions. [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
+- 【Feat】
+    - Datepicker's onClickoutSide adds event parameter [#2531](https://github.com/DouyinFE/semi-design/pull/2531)
+    - Cascader adds expandIcon API to support user-defined expansion icons  [#2513](https://github.com/DouyinFE/semi-design/issues/2513)
+- 【Fix】
+    - fix icon Spin uses a fixed id, resulting in an unexpected display in Tabs [#2526](https://github.com/DouyinFE/semi-design/pull/2526)
+    - Fixed the issue of incorrect width of Cascader panel icon, affecting versions 2.67.0～2.67.1 [#2529](https://github.com/DouyinFE/semi-design/pull/2529)
+    - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode [#2524](https://github.com/DouyinFE/semi-design/pull/2524)
+- 【Style】
+    - Newly added $width-cascader-option-icon is used to represent the width of the icon in the panel[#2529](https://github.com/DouyinFE/semi-design/pull/2529)
+
 #### 🎉 2.67.1 (2024-10-11)
 - 【Fix】
     - fix the issue that after closing the Select popup using the close method, clicking the outer area cannot remove the focus style
