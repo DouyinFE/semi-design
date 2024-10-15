@@ -62,7 +62,7 @@ export interface DatePickerProps extends DatePickerFoundationProps {
      */
     onFocus?: (e: React.MouseEvent, rangeType: RangeType) => void;
     onPresetClick?: (item: PresetType, e: React.MouseEvent<HTMLDivElement>) => void;
-    onClickOutSide?: () => void;
+    onClickOutSide?: (e: React.MouseEvent) => void;
     locale?: Locale['DatePicker'];
     leftSlot?: React.ReactNode;
     dateFnsLocale?: Locale['dateFnsLocale'];
@@ -267,7 +267,7 @@ export default class DatePicker extends BaseComponent<DatePickerProps, DatePicke
                         !(panelEl && panelEl.contains(target)) &&
                         !(path.includes(triggerEl) || path.includes(panelEl))
                     ) {
-                        this.props.onClickOutSide();
+                        this.props.onClickOutSide(e as any);
                         if (!this.adapter.needConfirm()) {
                             this.foundation.closePanel(e);
                         }

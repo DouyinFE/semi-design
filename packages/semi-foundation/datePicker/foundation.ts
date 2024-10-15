@@ -114,7 +114,7 @@ export interface EventHandlerProps {
     onClear?: (e: any) => void;
     onFocus?: (e: any, rangType: RangeType) => void;
     onPresetClick?: OnPresetClickType;
-    onClickOutSide?: () => void
+    onClickOutSide?: (e: any) => void
 }
 
 export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps, Pick<MonthsGridFoundationProps, 'startYear' | 'endYear'> {
