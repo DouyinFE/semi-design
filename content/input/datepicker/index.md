@@ -70,7 +70,7 @@ import { DatePicker } from '@douyinfe/semi-ui';
 ### 日期与时间选择
 
 将 `type` 设定为 `dateTime`，可以选择日期时间。  
-同时，如果希望去掉 TimePicker 的无限循环滚动交互，可以通过 timePickerOpts 传入特定配置关闭。
+版本V2.22.0开始，我们将 TimePicker 内的 ScrollItem 的默认模式从 wheel 变更为了 normal, 若想应用回无限滚动的效果，可以通过 timePickerOpts 传入特定配置开启。
 
 ```jsx live=true
 import React from 'react';
@@ -82,11 +82,11 @@ import { DatePicker } from '@douyinfe/semi-ui';
         <DatePicker type="dateTime" />
         <br />
         <br />
-        <h4>关闭时间列表无限循环</h4>
+        <h4>开启时间列表无限循环</h4>
         <DatePicker
             type="dateTime"
             timePickerOpts={{
-                scrollItemProps: { cycled: false },
+                scrollItemProps: { mode: "wheel", cycled: true }
             }}
         />
     </>
@@ -1018,8 +1018,8 @@ semi-ui 组件库中采用 [date-fns(v2.9.0)](https://date-fns.org/v2.9.0/docs/G
 
 ## FAQ
 
--   **日期时间选择器，时分秒选择时不想要无限滚动效果如何实现？**  
-     可以通过 timePickerOpts 中的特定开关控制该行为， timePickerOpts={{ scrollItemProps: { cycled: false } }} ，cycled 设为 false 即可
+-   **日期时间选择器，时分秒选择时想要无限滚动效果如何实现？**  
+    版本V2.22.0开始，我们将 TimePicker 内的 ScrollItem 的默认模式从 wheel 变更为了 normal, 若想应用回无限滚动的效果，可以通过 timePickerOpts 中的特定开关控制该行为，即 timePickerOpts={{ scrollItemProps: { mode: "wheel", cycled: true } }}。
 
 -   **如何设置面板打开时默认显示的时间？**  
      可通过 defaultPickerValue 属性。

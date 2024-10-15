@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.67.1 (2024-10-11)
+- 【Fix】
+    - 修复 Select 通过 method close 方法关闭弹层后，点击外部区域无法移除聚焦样式问题 [#2466](https://github.com/DouyinFE/semi-design/pull/2466)
+    - 修复 DatePicker 在受控状态下选择后，第一次打开面板选中态未展示问题（影响 v2.64 ~ v2.67）  [#2521 ](https://github.com/DouyinFE/semi-design/issues/2521) [#2522](https://github.com/DouyinFE/semi-design/pull/2522)
+    - 修复 Rspack plugin 在 win32 平台不生效的问题 [#2517](https://github.com/DouyinFE/semi-design/pull/2517)
+
+#### 🎉 2.67.0 (2024-09-27)
+- 【Fix】
+    - 修复 Typography 在 strong 属性为 true 时，省略计算存在误差问题 [@pandoralink](https://github.com/pandoralink) [#2506](https://github.com/DouyinFE/semi-design/pull/2506)
+
 #### 🎉 2.67.0-beta.0 (2024-09-23)
 - 【Feat】
     - Form 新增 onErrorChange 回调 [#2484](https://github.com/DouyinFE/semi-design/pull/2484)

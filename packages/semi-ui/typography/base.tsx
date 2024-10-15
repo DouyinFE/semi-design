@@ -351,7 +351,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     getEllipsisState = async ()=> {
         const { rows, suffix, pos } = this.getEllipsisOpt();
-        const { children } = this.props;
+        const { children, strong } = this.props;
         // wait until element mounted
         if (!this.wrapperRef || !this.wrapperRef.current) {
             await this.onResize();
@@ -406,7 +406,8 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             extraNode,
             ELLIPSIS_STR,
             suffix,
-            pos
+            pos,
+            strong
         );
         return new Promise<void>(resolve=>{
             this.setState({

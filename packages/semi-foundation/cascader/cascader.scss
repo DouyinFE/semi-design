@@ -436,7 +436,7 @@ $module: #{$prefix}-cascader;
         &-icon {
             display: inline-flex;
             flex-shrink: 0;
-            width: $width-cascader-icon;
+            width:$width-cascader-option-icon;
             color: $color-cascader_option-icon-default;
 
             &-active,
@@ -450,13 +450,13 @@ $module: #{$prefix}-cascader;
         }
 
         &-spin-icon {
-            width: $width-cascader-icon;
-            height: $width-cascader-icon;
+            width: $width-cascader-option-icon;
+            height: $width-cascader-option-icon;
             line-height: 0;
 
             & svg {
-                width: $width-cascader-icon;
-                height: $width-cascader-icon;
+                width: $width-cascader-option-icon;
+                height: $width-cascader-option-icon;
             }
         }
 
