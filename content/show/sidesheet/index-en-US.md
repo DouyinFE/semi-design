@@ -299,7 +299,7 @@ class Demo extends React.Component {
 
 | Properties | Instructions                                                                                                               | type | Default | Version |
 | --- |----------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisble: boolean) => void | - | 1.0.0 |
+| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisible: boolean) => void | - | 1.0.0 |
 | bodyStyle | Content style                                                                                                              | CSSProperties | - | - |
 | className | Class name                                                                                                                 | string | - | - |
 | closable | Toggle whether to show close button                                                                                        | boolean | true | - |
