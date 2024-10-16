@@ -71,15 +71,22 @@ class HotKeys extends BaseComponent<HotKeysProps, HotKeysState> {
         this.foundation.destroy();
     }
 
+    foundation: HotKeysFoudation;
+
     get adapter(): HotKeysAdapter<HotKeysProps, HotKeysState> {
         return {
             ...super.adapter,
             notifyHotKey: (e: KeyboardEvent) => {
                 this.props.onHotKey?.(e);
             },
-            getListenerTarget: () => {
-                return this.props.getListenerTarget?.() ?? document.body;
+            registerEvent: () => {
+                let target = this.props.getListenerTarget?.() ?? document.body;
+                target.addEventListener('keydown', this.foundation.handleKeyDown);
             },
+            unregisterEvent: () => {
+                let target = this.props.getListenerTarget?.() ?? document.body;
+                target.removeEventListener('keydown', this.foundation.handleKeyDown);
+            }
         };
     }
 
