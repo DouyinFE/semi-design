@@ -16,10 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.67.2 (2024-10-16)
+- 【Fix】
+    - Fixed the phenomenon that the background color does not match expectations in some special theme package configurations when Select disabled and focus is disabled [#2532](https://github.com/DouyinFE/semi-design/pull/2532)
+- 【Design Token】
+    - Select add token： `$color-select_input_disabled-border-focus`、`$color-select_input_disabled-border-focus` 
+
 #### 🎉 2.67.1 (2024-10-11)
 - 【Fix】
-    - fix the issue that after closing the Select popup using the close method, clicking the outer area cannot remove the focus style
-    - fixed selected value does not show when value is controlled （affects v2.64 ~ v2.67）  [#2521 ](https://github.com/DouyinFE/semi-design/issues/2521)
+    - Fixed the issue that after closing the Select popup using the close method, clicking the outer area cannot remove the focus style
+    - Fixed Datepicker selected value does not show when value is controlled （affects v2.64 ~ v2.67）  [#2521](https://github.com/DouyinFE/semi-design/issues/2521)
     - Fixed the issue that Rspack plugin does not work on win32 platform
 
 #### 🎉 2.67.0 (2024-09-27)
