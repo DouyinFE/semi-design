@@ -37,6 +37,7 @@ $overflowList: #{$prefix}-overflow-list;
     &:focus {
         border: $width-select-border-focus solid $color-select-border-focus;
         background-color: $color-select-bg-focus;
+        // background-color: plum;
         outline: 0;
     }
 
@@ -125,7 +126,8 @@ $overflowList: #{$prefix}-overflow-list;
 
         &:focus {
             // when select is disabled, the border should not have active color
-            border: $width-select-border-focus solid transparent;
+            border: $width-select-border-focus solid $color-select_input_disabled-border-focus;
+            background-color: $color-select_input_disabled-bg-focus;
         }
 
         .#{$module}-selection,
