@@ -7,6 +7,108 @@ export default {
 
 import { ResizeItem, ResizeHandler, ResizeGroup } from '../../index'
 
+export const Group = () => {
+  const [text, setText] = useState('Drag to resize')
+  return (
+    <div style={{ width: '1118px', height: '600px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          defaultSize={"80%"}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"25%"}
+              min={'10%'}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' min:10% max:30%'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ height: '100%' }}>
+                <ResizeGroup direction='vertical'>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    onChange={(a, b, c) => { setText('resizing'); console.log(a, b, c)  }}
+                    onResizeEnd={() => { setText('Drag to resize') }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    max={'40%'}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10% max:40%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text}
+                    </div>
+                  </ResizeItem>
+                </ResizeGroup>
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"1"}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' max:30%'}
+              </div>
+            </ResizeItem>
+            
+          </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={"20%"}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'content'}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+
 export const Group_layout = () => {
   const [text, setText] = useState('test')
   const opts_1 = {

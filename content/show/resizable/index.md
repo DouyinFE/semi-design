@@ -1,28 +1,23 @@
 ---
-localeCode: en-US
-order: 17
-category: Basic
-title: Resizable
+localeCode: zh-CN
+order: 68
+category: 展示类
+title:  Resizable 伸缩框
 icon: doc-steps
-dir: column
-showNew: true
-brief: The component size is adjusted based on the user's mouse drag, supporting both resizing of a single component and combined resizing.
+brief: 根据用户的鼠标拖拽，改变组件的大小，支持单个组件伸缩与组合伸缩
 ---
 
-## Demos
+## 代码演示
 
-### How to import
-
-Resizable supported from 2.69.0
+### 如何引入
 
 ```jsx 
 import { Resizable } from '@douyinfe/semi-ui';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui'
 ```
 
-### Single Component
-Basic Usage and Callbacks
-You can set the initial size using defaultSize, and set drag callbacks with onResizeStart, onResize, and onResizeEnd.
+### 单个组件 基本使用
+通过`defaultSize`设置初始大小，可以通过`onResizeStart` `onResize` `onResizeEnd`设置拖拽的回调
 
 ```tsx
 interface Size {
@@ -69,9 +64,8 @@ function Demo() {
 
 ```
 
-
-### Controlling Resize Directions
-You can enable or disable specific resizing directions by setting the value of enable. All directions are enabled by default.
+### 控制伸缩方向
+通过设置`enable`的值开启/关闭特定伸缩方向，默认值均为`true`
 
 ```tsx
 interface Enable {
@@ -122,10 +116,9 @@ function Demo() {
 
 ```
 
+### 设置变化比例
 
-### Setting Resizing Ratio
-
-You can set the drag and resize ratio using ratio.
+通过`ratio`设置拖动和实际变化的比例 
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -152,8 +145,9 @@ function Demo() {
 
 ```
 
-### Locking Aspect Ratio
-You can lock the aspect ratio by setting lockAspectRatio. It can be a boolean or a number. If true, it locks to the initial aspect ratio; if a number, it locks to the given ratio.
+### 锁定横纵比
+
+通过`lockAspectRatio`设置锁定横纵比,可以为`boolean`或`number`,为`number`时表示横纵比为`number`,为`true`时锁定初始横纵比
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -192,9 +186,8 @@ function Demo() {
 
 ```
 
-### Setting Maximum and Minimum Width/Height
-
-You can set the maximum and minimum width and height using maxHeight, maxWidth, minHeight, and minWidth.
+### 设置最大，最小宽高 
+可通过 `maxHeight`，`maxWidth`，`minHeight`，`minWidth` 设置最大，最小宽高
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -215,7 +208,7 @@ function Demo() {
         }}
       >
         <div style={{ marginLeft: '20%' }}>
-          width is between 50 and 200, height is between 50 and 300
+          width在50到200之间，height在50到300之间
         </div>
       </Resizable>
     </div>
@@ -224,8 +217,9 @@ function Demo() {
 
 ```
 
-### Control Width/Height
-You can control the size of the element through the size prop.
+### 受控宽高
+
+可通过 `size` 控制元素的宽高
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -250,12 +244,13 @@ function Demo() {
         size={size}
       >
         <div style={{ marginLeft: '20%' }}>
-          Control Width/Height
+          受控
         </div>
       </Resizable>
     </div>
   );
 }
+
 ```
 
 ```jsx live=true
@@ -264,7 +259,7 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [size, setSize] = useState({ width: 200, height: 300 });
-  
+
   return (
     <div style={{ width: '500px', height: '60%' }}>
       <Resizable
@@ -277,7 +272,7 @@ function Demo() {
         size={size}
       >
         <div style={{ marginLeft: '20%' }}>
-          Control Width/Height
+          受控
         </div>
       </Resizable>
     </div>
@@ -286,10 +281,9 @@ function Demo() {
 
 ```
 
+### 设置缩放值
 
-### Setting Scale
-You can scale the entire element by setting the scale prop.
-
+通过设置 `scale`，整体缩放元素
 ```jsx live=true
 import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
@@ -315,9 +309,9 @@ function Demo() {
 
 ```
 
+### 根据元素限制元素宽高
 
-### Restricting Width/Height by an Element
-You can restrict the width and height by setting the boundElement, which supports string values like 'parent' or 'window'.
+通过 boundElement 设置用于限制宽高的元素，支持 string（'parent'｜'window'）
 
 ```jsx live=true
 import React, { useState } from 'react';
@@ -344,8 +338,10 @@ function Demo() {
 
 ```
 
-### Customizing Corner Handler Styles
-You can customize the drag handles for each direction using handleNode, and apply different styles using handleStyle and handleClassName.
+### 自定义边角handler样式
+
+可通过 handleNode设置不同方向的拖动元素节点，可通过 handleStyle，handleClassName 设置不同方向上的样式
+
 ```jsx
 type HandleNode = {
   left: ReactNode;
@@ -411,9 +407,12 @@ function Demo() {
 }
 ```
 
+### 允许阶段性调整宽高
 
-### Allowing Incremental Width and Height Adjustment
-You can allow gradual adjustments in width and height using the grid and snap properties. The grid property specifies the increments to which resizing should snap. The default value is [1, 1]. The snap property specifies the absolute pixel values to which resizing should snap. Both x and y are optional, allowing you to define only the desired axis. These two parameters can be combined with the snapGap property, which specifies the minimum gap required to move to the next target. The default is 0, meaning the target defined by grid/snap is always used.
+可通过 grid ，snap 属性允许逐渐调整宽高。
+grid 属性用于指定调整大小应对齐的增量。默认为 [1, 1]。
+snap 属性用于指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴。默认为空。
+以上两个参数可结合 snapGap使用，该参数用于指定移动到下一个目标所需的最小间隙。默认为 0，这意味着始终使用grid/snap 设定的目标。
 
 ```tsx
 interface Snap {
@@ -447,15 +446,15 @@ function Demo() {
 }
 ```
 
-### Group Component 
-<Notice type='primary' title='notice'>
-The parent element of `ResizeGroup` needs to have a size in the main axis direction.
-It's best not to set padding for ResizeItem, as it may cause the minimum size to not match the expected value. You can set padding for child elements instead.
+### 组合组件 基本使用
+<Notice type='primary' title='注意事项'>
+`ResizeGroup`的父元素需要具有主轴方向上的尺寸 
+最好不要为`ResizeItem`设置`padding`，会导致最小尺寸不符合预期，可以为子元素设置`padding`
 </Notice>
 
 
-
-Use the direction prop to set the resizing direction. Options are horizontal and vertical. Supports onResizeStart, onResize, and onResizeEnd callbacks, as well as setting min and max to control the maximum and minimum width/height.
+通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
+支持`onResizeStart` `onResize` `onResizeEnd`回调，支持`min` `max`设置最大最小宽高
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';
@@ -516,8 +515,8 @@ function Demo() {
 
 ```
 
-### Nested
-Set the resizing direction using the direction prop. Options are horizontal and vertical.
+### 嵌套使用
+通过`direction`设置伸缩方向，可选值为`horizontal`和`vertical`
 
 ```jsx live=true dir="column"
 import React, { useState } from 'react';
@@ -584,7 +583,6 @@ function Demo() {
   );
 }
 ```
-
 ```jsx live=true dir="column"
 import React, { useState } from 'react';
 import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
@@ -702,8 +700,7 @@ function Demo() {
 }
 ```
 
-
-## API
+## API 参考
 
 ### Resizable
 
@@ -712,55 +709,55 @@ function Demo() {
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
 | className | 类名                                                                          | string                  |            |        |
-| size   | Controls the size of the resizable box, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
-| defaultSize   | Sets the initial width and height, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
-| minWidth | Specifies the minimum width of the resizable box      |  string \| number                  |   |        |
-| maxWidth | Specifies the maximum width of the resizable box      |  string \| number                  |   |        |
-| minHeight | Specifies the minimum height of the resizable box      |  string \| number                  |   |        |
-| maxHeight | Specifies the maximum height of the resizable box      |  string \| number                  |   |     
-| lockAspectRatio | Locks the aspect ratio of the resizable box when true, using the initial width and height as the ratio    |  boolean \| number                  |   |        |
-| enable | Specifies the directions in which the resizable box can be resized. If not set, all directions are enabled by default      |    [Enable](#controlling-resize-directions) 
-| scale | The scale ratio of the resizable element      |   number                  |  1 |        |   
-| boundElement | Restricts the size of the resizable element within a specific element. Pass "parent" to set the parent element as the bounding element    | string                  |            |        |
-| handleNode     | Custom nodes for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)          |            |        |
-| handleStyle    | Styles for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)            |            |        |
-| handleClass   | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
-| style |  | CSSProperties |      |
-| snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
-| snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
-| grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
-| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
-| onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
+| size   | 控制伸缩框的大小，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| defaultSize   | 用于设置初始宽高，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| minWidth | 指定伸缩框最小宽度      |  string \| number                  |   |        |
+| maxWidth | 指定伸缩框最大宽度      |  string \| number                  |   |        |
+| minHeight | 指定伸缩框最小高度      |  string \| number                  |   |        |
+| maxHeight | 指定伸缩框最大高度      |  string \| number                  |   |     
+| lockAspectRatio | 设置伸缩框横纵比，当为`true`时按照初始宽高锁定    |  boolean \| number                  |   |        |
+| enable | 指定伸缩框可以伸缩的方向，没有设置为 false，则默认允许该方向的拖动      |    [Enable](#控制伸缩方向) 
+| scale | 可伸缩元素被缩放的比例      |   number                  |  1 |        |   
+| boundElement | 用于限制可伸缩元素宽高的元素,传入 `parent` 设置父节点为限制节点    | string                  |            |        |
+| handleNode     | 用于设置拖拽处理元素各个方向的自定义节点             | [HandleNode](#自定义边角handler样式)          |            |        |
+| handleStyle    | 用于设置拖拽处理元素各个方向的样式              | [HandleStyles](#自定义边角handler样式)            |            |        |
+| handleClass  | 用于设置拖拽处理元素各个方向的类名称              | [HandleClasses](#自定义边角handler样式)            |            |        |
+| style | 样式 | CSSProperties |      |
+| snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
+| snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
+| grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
 ### ResizeGroup
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
-| direction | Specifies the resize direction within the group  | 'horizontal' \| 'vertical' | 'horizontal' |      |
+| className   | 类名                                                                                                                        | string                             |        |      |
+| direction | 指定Group内的伸缩方向  | 'horizontal' \| 'vertical' | 'horizontal' |      |
 
 ### ResizeHandler
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
-| style |  | CSSProperties |      |
+| className   | 类名                                                                                                                        | string                             |        |      |
+| style | 样式 | CSSProperties |      |
 
 ### ResizeItem
 
+
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className |                                                                           | string                  |            |        |
-| defaultSize   | Used to set the initial width and height. **The string supports % and px units, and when the string is a pure number or a number is set directly, it represents the proportional allocation of the remaining space based on the value.**  | string \| number                  |           |        |
-| min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
-| max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
-| style |  | CSSProperties |      |
-| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
-| onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
+| className | 类名                                                                          | string                  |            |        |
+| defaultSize   | 用于设置初始宽高，**字符串支持%和px单位，当字符串为纯数字或直接设置数字时表示按照值的比例分配剩余空间** | string \| number                 |           |        |
+| min | 指定伸缩框最小尺寸（百分比或像素值）      |  string                   |   |        |
+| max | 指定伸缩框最大尺寸（百分比或像素值）     |  string                   |   |        |
+| style | 样式 | CSSProperties |      |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
 
-## Design Tokens
-
+## 设计变量
 <DesignToken/>

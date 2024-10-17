@@ -80,7 +80,8 @@ export const calculateNewMax = (
         minWidth,
         minHeight,
     };
-};export const getItemDirection = (dir: 'vertical' | 'horizontal') => {
+};
+export const getItemDirection = (dir: 'vertical' | 'horizontal') => {
     if (dir === 'vertical') {
         return ['bottom', 'top'];
     } else {
@@ -107,7 +108,7 @@ export const judgeConstraint = (newSize: number, min: string, max: string, paren
     if (newSize <= minSize + offset) {
         return true;
     }
-    if (newSize >= maxSize - offset) {
+    if (newSize >= maxSize) {
         return true;
     }
     return false;
@@ -121,8 +122,8 @@ export const adjustNewSize = (newSize: number, min: string, max: string, parentS
     if (newSize <= minSize + offset) {
         return minSize + offset;
     }
-    if (newSize >= maxSize - offset) {
-        return maxSize - offset;
+    if (newSize >= maxSize) {
+        return maxSize;
     }
     return newSize;
 };
