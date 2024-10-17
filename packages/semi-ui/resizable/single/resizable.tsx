@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizableFoundation, ResizableAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses, } from '@douyinfe/semi-foundation/resizable/constants';
-import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName, directions } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, Size, Enable, ResizeStartCallback, ResizeCallback, HandleClassName, directions } from '@douyinfe/semi-foundation/resizable/types';
 import BaseComponent from '../../_base/baseComponent';
 import ResizableHandler from './resizableHandler';
 import '@douyinfe/semi-foundation/resizable/index.scss';
@@ -159,17 +159,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                 height: 0,
             },
             backgroundStyle: {
-                height: '100%',
-                width: '100%',
-                backgroundColor: 'rgba(0,0,0,0)',
                 cursor: 'auto',
-                opacity: 0,
-                position: 'fixed',
-                zIndex: 9999,
-                top: '0',
-                left: '0',
-                bottom: '0',
-                right: '0',
             },
             flexBasis: undefined,
         };        
@@ -262,7 +252,7 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
                 ref={this.resizableRef}
                 {...this.getDataAttr(this.props)}
             >
-                {this.state.isResizing && <div style={this.state.backgroundStyle} />}
+                {this.state.isResizing && <div style={this.state.backgroundStyle} className={classNames(className, prefixCls + '-background')}/>}
                 {children}
                 {this.renderResizeHandler()}
             </div>

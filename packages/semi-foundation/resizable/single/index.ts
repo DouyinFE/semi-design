@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize } from "../singleConstants";
+import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize } from "../types";
 import { getStringSize, getNumberSize, has, calculateNewMax, findNextSnap, snap, clamp } from "../utils";
 export interface ResizableHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     registerEvent: () => void;

@@ -5,7 +5,7 @@ import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-founda
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 import "@douyinfe/semi-foundation/resizable/index.scss";
 
 const prefixCls = cssClasses.PREFIX;
@@ -52,17 +52,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 nextOffset: 0,
             },
             backgroundStyle: {
-                height: '100%',
-                width: '100%',
-                backgroundColor: 'rgba(0,0,0,0)',
                 cursor: 'auto',
-                opacity: 0,
-                position: 'fixed',
-                zIndex: 9999,
-                top: '0',
-                left: '0',
-                bottom: '0',
-                right: '0',
             },
             curHandler: null,
         };
@@ -193,7 +183,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     className={classNames(className, prefixCls + '-group')}
                     {...rest}
                 >
-                    {this.state.isResizing && <div style={this.state.backgroundStyle} />}
+                    {this.state.isResizing && <div style={this.state.backgroundStyle} className={classNames(className, prefixCls + '-background')}/>}
                     {children}
                 </div>
             </ResizeContext.Provider>
