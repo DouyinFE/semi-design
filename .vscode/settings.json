@@ -5,13 +5,13 @@
     },
     "[javascript]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[scss]": {
         "editor.formatOnPaste": false
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "[less]": {
         "editor.defaultFormatter": "michelemelluso.code-beautifier"
