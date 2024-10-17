@@ -3642,3 +3642,72 @@ export const SearchPosition = () => {
     </>
   )
 }
+
+export const fix2465 = () => {
+  let singleSelectBox = useRef(null);
+  let multipleSelectBox = useRef(null);
+
+    let outSlotStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: '36px',
+        display: 'flex',
+        paddingLeft: 32,
+        color: 'var(--semi-color-link)',
+        alignItems: 'center',
+        cursor: 'pointer',
+        borderTop: '1px solid var(--semi-color-border)',
+        borderRadius: '0 0 6px 6px',
+    };
+    let singleOutSlotNode = (
+        <div style={outSlotStyle}>
+            <button onClick={(e)=>{singleSelectBox.current.close()}}>single close</button>
+        </div>
+    );
+    let multipleOutSlotNode = (
+        <div style={outSlotStyle}>
+            <button onClick={(e)=>{multipleSelectBox.current.close()}}>multiple close</button>
+        </div>
+    );
+
+    return (
+        <div>
+            <p>点击 Select 展开弹层后，点击 close 按钮关闭弹层，最后点击外部，检查 Select 聚焦样式是否消失 </p>
+            <Select
+                ref={singleSelectBox}
+                style={{ width: 300 }}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={singleOutSlotNode}
+                placeholder="单选"
+                autoAdjustOverflow={false}
+                position="bottom"
+            >
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                <Select.Option value="jianying">剪映</Select.Option>
+                <Select.Option value="duoshan">多闪</Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+            <br />
+            <br />
+            <Select
+                ref={multipleSelectBox}
+                style={{ width: 300 }}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={multipleOutSlotNode}
+                placeholder="多选"
+                autoAdjustOverflow={false}
+                multiple
+                position="bottom"
+            >
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                <Select.Option value="jianying">剪映</Select.Option>
+                <Select.Option value="duoshan">多闪</Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+            <Button onClick={()=>{multipleSelectBox.current.close()}}>close</Button>
+        </div>
+    );
+}

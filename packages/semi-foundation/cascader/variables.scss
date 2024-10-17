@@ -92,7 +92,8 @@ $height-cascader_large: $height-control-large; // 级联选择触发器高度 - 
 $width-cascader_hover-border: $width-cascader-border; // 级联选择触发器描边宽度 - 悬浮
 $width-cascader_focus-border: $border-thickness-control-focus; // 级联选择触发器描边宽度 - 选中态
 $width-cascader_search-border: 1px; // 级联选择触搜索描边宽度
-$width-cascader-icon: 32px; // 级联选择图标尺寸
+$width-cascader-icon: 32px; // 级联选择触发器图标尺寸
+$width-cascader-option-icon: 16px; // 级联选择选项面板图标尺寸
 $width-cascader_option:  150px; // 级联选择各级菜单宽度
 $height-cascader_option_list: 180px; // 级联选择菜单高度
 $height-cascader_selection_tagInput_wrapper_small: 22px;  //级联选择多选搜索时搜索框最小高度 - 小尺寸

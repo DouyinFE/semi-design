@@ -304,7 +304,7 @@ class Demo extends React.Component {
 
 | 属性 | 说明                                                                            | 类型 | 默认值 | 版本 |
 | --- |-------------------------------------------------------------------------------| --- | --- | --- |
-| afterVisibleChange | 面板展示/隐藏时动画结束触发的回调                                                             | (isVisble: boolean) => void | - | 1.0.0 |
+| afterVisibleChange | 面板展示/隐藏时动画结束触发的回调                                                             | (isVisible: boolean) => void | - | 1.0.0 |
 | bodyStyle | 面板内容的样式                                                                       | CSSProperties | - | - |
 | className | 类名                                                                            | string | - | - |
 | closable | 是否允许通过右上角的关闭按钮关闭                                                              | boolean | true | - |

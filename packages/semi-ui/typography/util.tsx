@@ -38,7 +38,8 @@ const getRenderText = (
     },
     ellipsisStr: string,
     suffix: string,
-    ellipsisPos: string
+    ellipsisPos: string,
+    isStrong: boolean,
 ) => {
     if (content.length === 0) {
         return '';
@@ -66,6 +67,7 @@ const getRenderText = (
     ellipsisContainer.style.height = 'auto';
     ellipsisContainer.style.top = '-999999px';
     ellipsisContainer.style.zIndex = '-1000';
+    isStrong && (ellipsisContainer.style.fontWeight = '600');
 
     // clean up css overflow
     ellipsisContainer.style.textOverflow = 'clip';

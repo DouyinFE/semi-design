@@ -37,8 +37,11 @@ $color-select_clearBtn-text-hover: var(--semi-color-primary); // 选择器输入
 $color-select_input-bg-default: transparent; // 选择器输入框清空按钮颜色 - 悬停态
 $color-select_input_disabled-bg: var(--semi-color-disabled-fill); // 禁用选择器输入框背景色
 $color-select_input_disabled-border: var(--semi-color-border); // 禁用选择器输入框描边颜色
+$color-select_input_disabled-border-focus: transparent; // 禁用选择器输入框描边颜色 - 聚焦态
 $color-select_input_disabled-text: var(--semi-color-disabled-text); // 禁用选择器输入框回填内容文字颜色
 $color-select_input_disabled-bg-hover: var(--semi-color-disabled-fill); // 选择器输入框回填内容文字颜色 - 悬停态
+$color-select_input_disabled-bg-focus: var(--semi-color-disabled-fill); // 选择器输入框回填内容文字颜色 - 聚焦态
+
 $color-select_input_placeholder-text: var(--semi-color-text-2); // 选择器输入框占位文本文字颜色
 
 $color-select_option_main-text: var(--semi-color-text-0); // 选择器菜单选项文本颜色

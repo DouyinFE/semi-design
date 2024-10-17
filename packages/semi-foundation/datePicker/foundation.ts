@@ -114,7 +114,7 @@ export interface EventHandlerProps {
     onClear?: (e: any) => void;
     onFocus?: (e: any, rangType: RangeType) => void;
     onPresetClick?: OnPresetClickType;
-    onClickOutSide?: () => void
+    onClickOutSide?: (e: any) => void
 }
 
 export interface DatePickerFoundationProps extends ElementProps, RenderProps, EventHandlerProps, Pick<MonthsGridFoundationProps, 'startYear' | 'endYear'> {
@@ -227,7 +227,6 @@ export interface DatePickerAdapter extends DefaultAdapter<DatePickerFoundationPr
  */
 export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapter> {
 
-    clickConfirmButton: boolean;
     constructor(adapter: DatePickerAdapter) {
         super({ ...adapter });
     }
@@ -389,17 +388,12 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
      *    - date type and not multiple, close panel after select date
      *    - dateRange type, close panel after select rangeStart and rangeEnd
      *  4. click outside
-     * @param {Event} e
-     * @param {String} inputValue
-     * @param {Date[]} dates
      */
-    closePanel(e?: any, inputValue: string = null, dates?: Date[]) {
-        const { value } = this._adapter.getStates();
-        const willUpdateDates = isNullOrUndefined(dates) ? value : dates;
+    closePanel() {
         if (!this._isControlledComponent('open')) {
             this.close();
         } else {
-            this.resetInnerSelectedStates(willUpdateDates);
+            this.resetInnerSelectedStates();
         }
         this._adapter.notifyOpenChange(false);
     }
@@ -410,7 +404,8 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     close() {
-        this._adapter.togglePanel(false, () => this.resetInnerSelectedStates());
+        this._adapter.togglePanel(false);
+        this.resetInnerSelectedStates();
         this._adapter.unregisterClickOutSide();
     }
 
@@ -434,15 +429,16 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     /**
      * reset cachedSelectedValue, inputValue when close panel
      */
-    resetInnerSelectedStates(willUpdateDates?: Date[]) {
-        const { value } = this._adapter.getStates();
-        const needResetCachedSelectedValue = isNullOrUndefined(willUpdateDates) || !this.isCachedSelectedValueValid(willUpdateDates) || this._adapter.needConfirm() && !this.clickConfirmButton;
-        if (needResetCachedSelectedValue) {
-            this.resetCachedSelectedValue(value);
-        }
+    resetInnerSelectedStates() {
+        // 通过 setTimeout 保证需要获取到最新的 state 状态
+        setTimeout(() => {
+            const { value, cachedSelectedValue } = this._adapter.getStates();
+            if (!isEqual(value, cachedSelectedValue)) {
+                this.resetCachedSelectedValue(value);
+            }
+        }, 0);
         this.resetFocus();
         this.clearInputValue();
-        this.clickConfirmButton = false;
     }
 
     resetFocus(e?: any) {
@@ -1016,7 +1012,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
         const focusRecordChecked = !needCheckFocusRecord || (needCheckFocusRecord && this._adapter.couldPanelClosed());
         if ((type === 'date' && !this._isMultiple() && closePanel) || (type === 'dateRange' && this._isRangeValueComplete(dates) && closePanel && focusRecordChecked)) {
-            this.closePanel(undefined, inputValue, dates);
+            this.closePanel();
         }
     }
 
@@ -1043,7 +1039,6 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
     }
 
     handleConfirm() {
-        this.clickConfirmButton = true;
         const { cachedSelectedValue, value } = this._adapter.getStates();
         const isRangeValueComplete = this._isRangeValueComplete(cachedSelectedValue);
         const newValue = isRangeValueComplete ? cachedSelectedValue : value;
@@ -1051,7 +1046,7 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
             this._adapter.updateValue(newValue);
         }
         // If the input is incomplete, the legal date of the last input is used
-        this.closePanel(undefined, undefined, newValue);
+        this.closePanel();
 
         if (isRangeValueComplete) {
             const { notifyValue, notifyDate } = this.disposeCallbackArgs(cachedSelectedValue);
