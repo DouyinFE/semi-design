@@ -61,15 +61,22 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         return this._adapter.getGroupRef();
     }
 
+    get groupSize(): number {
+        const { direction } = this.getProps();
+        let groupSize = direction === 'horizontal' ? this.groupRef.offsetWidth : this.groupRef.offsetHeight;
+        return groupSize;
+    }
+
     direction: 'horizontal' | 'vertical'
     itemMinusMap: Map<number, number>;
     totalMinus: number;
-    avaliableSize: number;
+    itemPercentMap: Map<number, number>; // 内部维护一个百分比数组，消除浮点计算误差
 
 
     init(): void {
         this.direction = this.getProp('direction');
         this.itemMinusMap = new Map();
+        this.itemPercentMap = new Map();
         this.calculateSpace();
     }
     get window(): Window | null {
@@ -93,16 +100,18 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         const lastStyle = this.window.getComputedStyle(lastItem);
         const nextStyle = this.window.getComputedStyle(nextItem);
 
-        lastOffset = getOffset(lastStyle, this.direction);
-        nextOffset = getOffset(nextStyle, this.direction);
+        lastOffset = getOffset(lastStyle, this.direction) + this.itemMinusMap.get(handlerIndex);
+        nextOffset = getOffset(nextStyle, this.direction) + this.itemMinusMap.get(handlerIndex + 1);
+        let lastItemSize = (this.direction === 'horizontal' ? lastItem.offsetWidth : lastItem.offsetHeight) + this.itemMinusMap.get(handlerIndex),
+            nextItemSize = (this.direction === 'horizontal' ? nextItem.offsetWidth : nextItem.offsetHeight) + this.itemMinusMap.get(handlerIndex + 1);
         const states = this.getStates();
         this.setState({
             isResizing: true,
             originalPosition: {
                 x: clientX,
                 y: clientY,
-                lastItemSize: (this.direction === 'horizontal' ? lastItem.offsetWidth : lastItem.offsetHeight),
-                nextItemSize: (this.direction === 'horizontal' ? nextItem.offsetWidth : nextItem.offsetHeight),
+                lastItemSize,
+                nextItemSize,
                 lastOffset,
                 nextOffset,
             },
@@ -138,33 +147,38 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         const props = this.getProps();
         const { direction } = props;
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
-        let parentSize = this.direction === 'horizontal' ? this.groupRef.offsetWidth : this.groupRef.offsetHeight;
-        let availableSize = parentSize - this.totalMinus;
-
+        let parentSize = this.groupSize;
         let delta = direction === 'horizontal' ? (clientX - initX) : (clientY - initY);
         let lastNewSize = lastItemSize + delta;
         let nextNewSize = nextItemSize - delta;
 
         // 判断是否超出限制
-        let lastFlag = judgeConstraint(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), availableSize, lastOffset),
-            nextFlag = judgeConstraint(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), availableSize, nextOffset);
+        let lastFlag = judgeConstraint(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), parentSize, lastOffset),
+            nextFlag = judgeConstraint(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), parentSize, nextOffset);
 
         if (lastFlag) {
-            lastNewSize = adjustNewSize(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), availableSize, lastOffset);
+            lastNewSize = adjustNewSize(lastNewSize, this._adapter.getItemMin(curHandler), this._adapter.getItemMax(curHandler), parentSize, lastOffset);
             nextNewSize = lastItemSize + nextItemSize - lastNewSize;
         }
 
         if (nextFlag) {
-            nextNewSize = adjustNewSize(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), availableSize, nextOffset);
+            nextNewSize = adjustNewSize(nextNewSize, this._adapter.getItemMin(curHandler + 1), this._adapter.getItemMax(curHandler + 1), parentSize, nextOffset);
             lastNewSize = lastItemSize + nextItemSize - nextNewSize;
         }
 
+        let lastItemPercent = this.itemPercentMap.get(curHandler),
+            nextItemPercent = this.itemPercentMap.get(curHandler + 1);
+
+        let lastNewPercent = (lastNewSize) / parentSize * 100;
+        let nextNewPercent = lastItemPercent + nextItemPercent - lastNewPercent; // 消除浮点误差
+        this.itemPercentMap.set(curHandler, lastNewPercent);
+        this.itemPercentMap.set(curHandler + 1, nextNewPercent);
         if (direction === 'horizontal') {     
-            lastItem.style.width = (lastNewSize) / parentSize * 100 + '%';
-            nextItem.style.width = (nextNewSize) / parentSize * 100 + '%';
+            lastItem.style.width = `calc(${lastNewPercent}% - ${this.itemMinusMap.get(curHandler)}px)`;
+            nextItem.style.width = `calc(${nextNewPercent}% - ${this.itemMinusMap.get(curHandler + 1)}px)`;
         } else if (direction === 'vertical') {
-            lastItem.style.height = (lastNewSize) / parentSize * 100 + '%';
-            nextItem.style.height = (nextNewSize) / parentSize * 100 + '%';
+            lastItem.style.height = `calc(${lastNewPercent}% - ${this.itemMinusMap.get(curHandler)}px)`;
+            nextItem.style.height = `calc(${nextNewPercent}% - ${this.itemMinusMap.get(curHandler + 1)}px)`;
         }
 
         let lastFunc = this._adapter.getItemChange(curHandler),
@@ -203,7 +217,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
         // calculate accurate space for group item
         let handlerSizes = new Array(this._adapter.getHandlerCount()).fill(0);
-        let groupSize = direction === 'horizontal' ? this.groupRef.offsetWidth : this.groupRef.offsetHeight;
+        let parentSize = this.groupSize;
         this.totalMinus = 0;
         for (let i = 0; i < this._adapter.getHandlerCount(); i++) {
             let handlerSize = direction === 'horizontal' ? this._adapter.getHandler(i).offsetWidth : this._adapter.getHandler(i).offsetHeight;
@@ -225,8 +239,8 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
             }
             const child = this._adapter.getItem(i);
             let minSize = this._adapter.getItemMin(i), maxSize = this._adapter.getItemMax(i);
-            let minSizePercent = minSize ? getPixelSize(minSize, groupSize) / groupSize * 100 : 0,
-                maxSizePercent = maxSize ? getPixelSize(maxSize, groupSize) / groupSize * 100 : 100;
+            let minSizePercent = minSize ? getPixelSize(minSize, parentSize) / parentSize * 100 : 0,
+                maxSizePercent = maxSize ? getPixelSize(maxSize, parentSize) / parentSize * 100 : 100;
             if (minSizePercent > maxSizePercent) {
                 console.warn('[Semi ResizableItem]: min size bigger than max size');
             }    
@@ -237,21 +251,21 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 if (typeof defaultSize === 'string') {
                     if (defaultSize.endsWith('%')) {
                         itemSizePercent = parseFloat(defaultSize.slice(0, -1));
+                        this.itemPercentMap.set(i, itemSizePercent);
                     } else if (defaultSize.endsWith('px')) {
-                        itemSizePercent = parseFloat(defaultSize.slice(0, -2)) / groupSize * 100;
+                        itemSizePercent = parseFloat(defaultSize.slice(0, -2)) / parentSize * 100;
+                        this.itemPercentMap.set(i, itemSizePercent);
                     } else if (/^-?\d+(\.\d+)?$/.test(defaultSize)) {
                         // 仅由数字组成，表示按比例分配剩下空间
                         undefineLoc.set(i, parseFloat(defaultSize));
                         undefinedTotal += parseFloat(defaultSize);
                         continue;
                     }
-                } else {
+                } else if (typeof defaultSize === 'number') {
                     undefineLoc.set(i, defaultSize);
                     undefinedTotal += defaultSize;
                     continue;
                 }
-                
-
                 totalSizePercent += itemSizePercent;
                 
                 if (direction === 'horizontal') {
@@ -279,10 +293,12 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     
         undefineLoc.forEach((value, key) => {
             const child = this._adapter.getItem(key);
+            const percent = value / undefinedTotal * undefineSizePercent;
+            this.itemPercentMap.set(key, percent);
             if (direction === 'horizontal') {
-                child.style.width = `calc(${undefineSizePercent / undefinedTotal * value}% - ${this.itemMinusMap.get(key)}px)`;
+                child.style.width = `calc(${percent}% - ${this.itemMinusMap.get(key)}px)`;
             } else {
-                child.style.height = `calc(${undefineSizePercent / undefinedTotal * value}% - ${this.itemMinusMap.get(key)}px)`;
+                child.style.height = `calc(${percent}% - ${this.itemMinusMap.get(key)}px)`;
             }
         });
     }
