@@ -253,6 +253,33 @@ function Demo() {
     </div>
   );
 }
+```
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [size, setSize] = useState({ width: 200, height: 300 });
+  
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        onChange={(s) => { setSize(s); }}
+        size={size}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          Control Width/Height
+        </div>
+      </Resizable>
+    </div>
+  );
+}
 
 ```
 
@@ -699,9 +726,9 @@ function Demo() {
 | snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
 | snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
 | grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
-| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
 
 ### ResizeGroup
 
@@ -726,9 +753,9 @@ function Demo() {
 | min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
 | max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
 | style |  | CSSProperties |      |
-| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
 
 
 ## Design Tokens

@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
+import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/types';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { IconHandle } from '@douyinfe/semi-icons';
@@ -87,11 +86,11 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     render() {
         
         const { style, className, children } = this.props;
+        const { direction } = this.context;
         return (
             <div
-                className={classNames(className, prefixCls + '-handler')}
+                className={classNames(className, prefixCls + '-handler', prefixCls + '-handler-' + direction)}
                 style={{
-                    ...directionStyles[this.context.direction],
                     ...style
                 }}
                 ref={this.handlerRef}

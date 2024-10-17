@@ -253,6 +253,34 @@ function Demo() {
 
 ```
 
+```jsx live=true
+import React, { useState } from 'react';
+import { Resizable } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [size, setSize] = useState({ width: 200, height: 300 });
+
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Resizable
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
+        defaultSize={{
+          width: '60%',
+          height: 300,
+        }}
+        onChange={(s) => { setSize(s); }}
+        size={size}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          受控
+        </div>
+      </Resizable>
+    </div>
+  );
+}
+
+```
+
 ### 设置缩放值
 
 通过设置 `scale`，整体缩放元素
@@ -698,9 +726,9 @@ function Demo() {
 | snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
 | snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
 | grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
-| onChange  | 拖拽过程中的回调                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | 结束伸缩的回调                                                    | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
 ### ResizeGroup
 
@@ -726,9 +754,9 @@ function Demo() {
 | min | 指定伸缩框最小尺寸（百分比或像素值）      |  string                   |   |        |
 | max | 指定伸缩框最大尺寸（百分比或像素值）     |  string                   |   |        |
 | style | 样式 | CSSProperties |      |
-| onChange  | 拖拽过程中的回调                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | 结束伸缩的回调                                                    | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
 
 ## 设计变量
