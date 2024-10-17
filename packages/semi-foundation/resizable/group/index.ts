@@ -1,6 +1,6 @@
 import { getItemDirection, getPixelSize } from "../utils";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { ResizeStartCallback, ResizeCallback } from "../singleConstants";
+import { ResizeStartCallback, ResizeCallback } from "../types";
 import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     registerEvents: () => void;

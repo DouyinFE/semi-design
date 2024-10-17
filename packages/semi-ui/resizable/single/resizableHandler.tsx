@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ResizableHandlerFoundation, ResizableHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-import { directionStyles, Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/types';
 import BaseComponent from '../../_base/baseComponent';
 
 const prefixCls = cssClasses.PREFIX;
@@ -74,9 +74,8 @@ class ResizableHandler extends BaseComponent<ResizableHandlerProps, ResizableHan
         const { children, style, className } = this.props;
         return (
             <div 
-                className={classNames(className, prefixCls + '-resizableHandler')}
+                className={classNames(className, prefixCls + '-resizableHandler', prefixCls + '-resizableHandler-' + this.props.direction)}
                 style={{
-                    ...directionStyles[this.props.direction],
                     ...style
                 }} 
                 ref={this.resizeHandlerRef}
