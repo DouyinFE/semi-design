@@ -945,6 +945,8 @@ render(App);
 
 The header can be fixed to the top of the page with the `sticky` property. v2.21 version support. When passing `top`, you can control the distance from the scroll container.
 
+After turning on sticky, Table will automatically turn on the fixed layout, and the column width will be determined by `column.width`. Columns without a given width are automatically assigned by the browser.
+
 <StickyHeaderTable />
 
 ```jsx live=false noInline=true dir="column"

@@ -1034,6 +1034,8 @@ render(App);
 
 通过 `sticky` 属性可以将表头固定在页面顶部。v2.21 版本支持。传入 `top` 时可以控制距离滚动容器的距离。
 
+开启 sticky 后，Table 会自动打开 fixed 布局，列宽将由 `column.width` 决定。没有给定 width 的列宽由浏览器自动分配。
+
 <StickyHeaderTable />
 
 ```jsx live=false noInline=true dir="column"
