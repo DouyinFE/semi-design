@@ -33,7 +33,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the phenomenon that the background color does not match expectations in some special theme package configurations when Select disabled and focus is disabled [#2532](https://github.com/DouyinFE/semi-design/pull/2532)
     - fix icon Spin uses a fixed id, resulting in an unexpected display in Tabs [#2526](https://github.com/DouyinFE/semi-design/pull/2526)
     - Fixed the issue of incorrect width of Cascader panel icon, affecting versions 2.67.0～2.67.1 [#2529](https://github.com/DouyinFE/semi-design/pull/2529)
-    - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode [#2524](https://github.com/DouyinFE/semi-design/pull/2524)
 - 【Design Token】
     - Select add token： `$color-select_input_disabled-border-focus`、`$color-select_input_disabled-border-focus`
      - Newly added $width-cascader-option-icon is used to represent the width of the icon in the panel[#2529](https://github.com/DouyinFE/semi-design/pull/2529)
