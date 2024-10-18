@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.68.0 (2024-10-18)
+- 【Fix】
+    - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode
+    - fixed Table typings not work bug caused by react-window dependency  [#2477](https://github.com/DouyinFE/semi-design/issues/2477)
+
 #### 🎉 2.68.0-beta.0 (2024-10-16)
 - 【New Component】
     - Added a resizable box component that adjusts its size based on user mouse drag actions. [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)

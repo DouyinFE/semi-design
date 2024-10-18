@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.68.0 (2024-10-18)
+- 【Fix】
+    - 修复亮色模式下，IllustrationFailure 和 IllustrationNoContent 曲线未完全闭合问题 [#2535](https://github.com/DouyinFE/semi-design/pull/2535)
+    - 修复 Table 类型定义不生效问题，影响版本 v2.31.0-beta.0 - 2.67.2  [#2477](https://github.com/DouyinFE/semi-design/issues/2477) [#2534](https://github.com/DouyinFE/semi-design/pull/2534)
+
 #### 🎉 2.68.0-beta.0 (2024-10-16)
 - 【New Component】
     - 新增伸缩框组件，根据用户鼠标拖拽修改组件大小 [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
