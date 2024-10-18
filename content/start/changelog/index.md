@@ -13,12 +13,22 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.68.0-beta.0 (2024-10-16)
+- 【New Component】
+    - 新增伸缩框组件，根据用户鼠标拖拽修改组件大小 [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
+- 【Feat】
+    - Datepicker 的 onClickoutSide 增加 event 参数 [#2531](https://github.com/DouyinFE/semi-design/pull/2531)
+    - Cascader 新增加 expandIcon API，用于支持用户自定义展开图标  [#2513](https://github.com/DouyinFE/semi-design/issues/2513) [#2528](https://github.com/DouyinFE/semi-design/pull/2528)
 
 #### 🎉 2.67.2 (2024-10-16)
 - 【Fix】
     - 修复 Select disabled 禁用但focus的情况下，在某些特殊的主题包配置中，背景色不符合预期的现象 [#2532](https://github.com/DouyinFE/semi-design/pull/2532)
+    - 修复 icon Spin 使用固定 id 导致在 Tabs 中展示不符合预期问题 [#2526](https://github.com/DouyinFE/semi-design/pull/2526)
+    - 修复 Cascader 面板 icon 宽度错误问题，影响版本2.67.0～2.67.1 [#2529](https://github.com/DouyinFE/semi-design/pull/2529)
+    - 修复亮色模式下，IllustrationFailure 和 IllustrationNoContent 曲线未完全闭合问题 [#2524](https://github.com/DouyinFE/semi-design/pull/2524)
 - 【Design Token】
     - Select 组件新增 Token： `$color-select_input_disabled-border-focus`、`$color-select_input_disabled-border-focus` 定制禁用态focus背景色样式、定制禁用focus边框
+    - 新增加 $width-cascader-option-icon 用于表示面板中的 icon 的宽度 [#2529](https://github.com/DouyinFE/semi-design/pull/2529)
 
 #### 🎉 2.67.1 (2024-10-11)
 - 【Fix】
