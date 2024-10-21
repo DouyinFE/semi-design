@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.68.1 (2024-10-21)
+- 【Fix】
+    - 修复 `$z-resizable_handler` token undefined issue, affecting versions v2.68.0-beta.0 - 2.68.0  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
+
 #### 🎉 2.68.0 (2024-10-18)
 - 【Fix】
     - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode
@@ -23,7 +27,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.68.0-beta.0 (2024-10-16)
 - 【New Component】
-    - Added a resizable box component that adjusts its size based on user mouse drag actions. [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
+    - Added a resizable box component that adjusts its size based on user mouse drag actions. **Component adds Token `z-resizable_handler` (if the user uses a custom theme, they need to republish the theme to obtain the token)**[@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
 - 【Feat】
     - Datepicker's onClickoutSide adds event parameter [#2531](https://github.com/DouyinFE/semi-design/pull/2531)
     - Cascader adds expandIcon API to support user-defined expansion icons  [#2513](https://github.com/DouyinFE/semi-design/issues/2513)
