@@ -25,7 +25,7 @@
         "@douyinfe/semi-foundation": "2.68.0",
         "@douyinfe/semi-icons": "2.68.0",
         "@douyinfe/semi-illustrations": "2.68.0",
-        "@douyinfe/semi-theme-default": "2.61.0",
+        "@douyinfe/semi-theme-default": "2.68.0",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
         "copy-text-to-clipboard": "^2.1.1",
