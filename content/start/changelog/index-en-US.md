@@ -18,7 +18,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.68.2 (2024-10-21)
 - 【Fix】
-    - 修复 `$z-resizable_handler` token undefined issue, affecting versions v2.68.0-beta.0 - 2.68.0  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
+    - fix `$z-resizable_handler` token undefined issue, affecting versions v2.68.0-beta.0 - 2.68.1  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
 
 #### 🎉 2.68.0 (2024-10-18)
 - 【Fix】

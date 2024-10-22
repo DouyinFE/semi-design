@@ -15,7 +15,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.68.2 (2024-10-21)
 - 【Fix】
-    - 修复 `$z-resizable_handler` token 未定义问题，影响版本 v2.68.0-beta.0 - 2.68.0  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
+    - 修复 `$z-resizable_handler` token 未定义问题，影响版本 v2.68.0-beta.0 - 2.68.1  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
 
 #### 🎉 2.68.0 (2024-10-18)
 - 【Fix】
