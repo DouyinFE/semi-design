@@ -213,7 +213,7 @@ const appLocale = {
         "design_resources_are_obviously_helpful_to_improve_efficiency_": "Design assets can obviously help improve efficiency.",
         "douyin_certification": "Douyin certification",
         "douyin_creative_service_theme": "Douyin Creator Theme",
-        "douyin_little_assistant": "Douyin Little Assistant",
+        "douyin_assistant": "Douyin Assistant",
         "easy_to_use__beautiful_style_": "Semi Design is easy-to-use and stylish.",
         // "excellent_design_of_mid_background_enterprise_applications": "Excellent design of mid-background enterprise applications",
         // "experience_monitoring": "Experience Monitoring",
@@ -250,7 +250,7 @@ const appLocale = {
         "uniform_style_and_high_fidelity_prototype_facilitate_communication_with_front_en_95d0c0ccece05c104b98ac0dae9fb53b": "It’s fluent to communicate with front-end devs because of the uniform style.",
         "user": "User",
         "video_compression_algorithm": "Video compression algorithm",
-        "volcano_little_helper": "Volcano Little",
+        "ulike_assistant": "Ulike Assistant",
         "theme_store": "Theme Store",
         "semi_dsm": "Managing Themes"
     },
