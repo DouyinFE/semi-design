@@ -452,41 +452,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-### 自定义预览逻辑
-
-`listType` 为 `list` 时，可以通过传入 `previewFile` 览逻辑。  
-例如你不需要对图片类型进行缩略图预览时，可以在 `previewFile` 中恒定返回一个`<IconFile />`
-
-```jsx live=true width=48%
-import React from 'react';
-import { Upload, Button } from '@douyinfe/semi-ui';
-import { IconUpload, IconFile } from '@douyinfe/semi-icons';
-
-() => {
-    let action = 'https://api.semi.design/upload';
-    const defaultFileList = [
-        {
-            uid: '1',
-            name: 'dyBag.png',
-            status: 'success',
-            size: '130KB',
-            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
-        },
-    ];
-    return (
-        <Upload
-            defaultFileList={defaultFileList}
-            action={action}
-            previewFile={file => <IconFile size="large" />}
-        >
-            <Button icon={<IconUpload />} theme="light">
-                点击上传
-            </Button>
-        </Upload>
-    );
-};
-```
-
 ### 自定义列表操作区
 
 `listType` 为 `list` 时，可以通过传入 `renderFileOperation` 来自定义列表操作区
@@ -520,6 +485,95 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
         <Button icon={<IconUpload />} theme="light">点击上传</Button>
     </Upload>;
 };
+```
+
+### 自定义预览逻辑
+
+`listType` 为 `list` 时，可以通过传入 `previewFile` 览逻辑  
+例如你不需要对图片类型进行缩略图预览时，可以在 `previewFile` 中恒定返回一个`<IconFile />`  
+假如你希望点击图片时放大预览，则可以在 `previewFile`中使用 Image 组件  
+或者你希望使用额外的操作区来实现点击放大预览，你也可以结合 `renderFileOperation` 放置一些自定义元素例如 Icon 图标实现点击放大  
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button, Image } from '@douyinfe/semi-ui';
+import { IconUpload, IconFile } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'dyBag.png',
+            status: 'success',
+            size: '130KB',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        },
+        {
+            uid: '2',
+            name: 'dyBag2.png',
+            status: 'success',
+            size: '130KB',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        },
+    ];
+    return (
+        <Upload
+            defaultFileList={defaultFileList}
+            action={action}
+            previewFile={file => file.uid === '1' ? <IconFile size="large" /> : <Image src={file.url} />}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                点击上传
+            </Button>
+        </Upload>
+    );
+};
+```
+
+结合 renderFileOperation 与 ImagePreview 的示例，以下示例点击右侧第一个 Icon 可放大图片预览
+```jsx live=true
+import React, { useStae } from 'react';
+import { Upload, Button, ImagePreview } from '@douyinfe/semi-ui';
+import { IconUpload, IconDownload, IconEyeOpened, IconDelete, IconExpand } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const [visible, setVisible] = useState(false);
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'dyBag.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        }
+    ];
+    const renderFileOperation = (fileItem) => (
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
+            <Button
+                icon={<IconExpand></IconExpand>}
+                type="tertiary"
+                theme="borderless"
+                size="small"
+                onClick={()=> setVisible(true)}
+            >
+            </Button>
+            <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
+            <ImagePreview
+                src={fileItem.url}
+                visible={visible}
+                onVisibleChange={setVisible}
+            />
+        </div>
+    );
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
+        <Button icon={<IconUpload />} theme="light">点击上传</Button>
+    </Upload>;
+};
+
 ```
 
 ### 默认文件列表
