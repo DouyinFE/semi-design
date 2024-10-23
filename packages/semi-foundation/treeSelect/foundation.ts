@@ -776,7 +776,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return !allChecked;
     }
     handleNodeExpandInSearch(e: any, treeNode: BasicTreeNodeProps) {
-        const { treeData, filteredShownKeys, keyEntities, keyMaps } = this.getStates();
+        const { treeData, filteredShownKeys, keyEntities } = this.getStates();
+        const { keyMaps } = this.getProps();
         const showFilteredOnly = this._showFilteredOnly();
         // clone otherwise will be modified unexpectedly
         const filteredExpandedKeys = new Set(this.getState('filteredExpandedKeys')) as Set<string>;
