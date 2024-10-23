@@ -13,6 +13,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.68.2 (2024-10-21)
+- 【Fix】
+    - 修复 `$z-resizable_handler` token 未定义问题，影响版本 v2.68.0-beta.0 - 2.68.1  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
 
 #### 🎉 2.68.0 (2024-10-18)
 - 【Fix】
@@ -21,7 +24,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.68.0-beta.0 (2024-10-16)
 - 【New Component】
-    - 新增伸缩框组件，根据用户鼠标拖拽修改组件大小 [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
+    - 新增伸缩框组件，根据用户鼠标拖拽修改组件大小。**组件新增 Token `z-resizable_handler`(用户如果使用了自定义主题，需要重新发布主题获取该 token)**[@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
 - 【Feat】
     - Datepicker 的 onClickoutSide 增加 event 参数 [#2531](https://github.com/DouyinFE/semi-design/pull/2531)
     - Cascader 新增加 expandIcon API，用于支持用户自定义展开图标  [#2513](https://github.com/DouyinFE/semi-design/issues/2513) [#2528](https://github.com/DouyinFE/semi-design/pull/2528)
