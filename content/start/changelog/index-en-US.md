@@ -18,7 +18,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 #### 🎉 2.68.3 (2024-10-23)
 - 【Fix】
-    - Fixed the issue of incorrect option text display after clicking the expand button in the search state when `keyMaps` is set for `TreeSelect`. [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
+    - Fixed the issue of incorrect option text display after clicking the expand button in the search state when `keyMaps` is set for `TreeSelect`.[#2541](https://github.com/DouyinFE/semi-design/pull/2541) 
 
 #### 🎉 2.68.2 (2024-10-21)
 - 【Fix】
