@@ -274,6 +274,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         if (e.target !== e.currentTarget) {
             return;
         }
+        e.persist();
         this.foundation.containerScroll(e);
     }
 
