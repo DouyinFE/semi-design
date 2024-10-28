@@ -183,8 +183,7 @@ $overflowList: #{$prefix}-overflow-list;
         }
 
         &-placeholder {
-            // color: $color-select_input_placeholder-text;
-            color: red
+            color: $color-select_input_placeholder-text;
         }
 
         .#{$prefix}-tag {
