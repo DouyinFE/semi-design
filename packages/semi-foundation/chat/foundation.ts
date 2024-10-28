@@ -113,6 +113,7 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
     }
 
     containerScroll = (e: any) => {
+        this._persistEvent(e);
         const update = () => {
             this.getScroll(e.target);
         };
