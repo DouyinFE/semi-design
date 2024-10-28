@@ -132,7 +132,7 @@ $module: #{$prefix}-chat;
             flex-direction: row-reverse;
 
             .#{$module}-chatBox-wrap {
-                align-items: end;
+                align-items: flex-end;
             }
         }
 
@@ -204,7 +204,7 @@ $module: #{$prefix}-chat;
         &-wrap {
             display: flex;
             flex-direction: column;
-            align-items: start;
+            align-items: flex-start;
             position: relative;
             row-gap: $spacing-chat_chatBox_wrap;
         }
@@ -431,7 +431,7 @@ $module: #{$prefix}-chat;
             border-radius: $radius-chat_inputBox_container;
             padding: $spacing-chat_inputBox_container-padding;
             border: $width-chat_inputBox_container-border solid $color-chat_inputBox_container-border;
-            align-items: end;
+            align-items: flex-end;
         }
             
         &-inputArea {
