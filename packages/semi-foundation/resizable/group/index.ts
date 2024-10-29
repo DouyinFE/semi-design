@@ -77,7 +77,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         this.direction = this.getProp('direction');
         this.itemMinusMap = new Map();
         this.itemPercentMap = new Map();
-        this.calculateSpace();
+        this.initSpace();
     }
     get window(): Window | null {
         return this.groupRef.ownerDocument.defaultView as Window ?? null;
@@ -211,7 +211,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         this.unregisterEvents();
     }
 
-    calculateSpace = () => {
+    initSpace = () => {
         const props = this.getProps();
         const { direction } = props;
 
@@ -301,6 +301,49 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 child.style.height = `calc(${percent}% - ${this.itemMinusMap.get(key)}px)`;
             }
         });
+    }
+
+    calculateSpace = () => { // 浏览器拖拽时保证px值最大最小仍生效
+        const { direction } = this.getProps();
+        const itemCount = this._adapter.getItemCount();
+        let continueFlag = true;
+        for (let i = 0; i < itemCount; i++) {
+            const child = this._adapter.getItem(i);
+            const childSize = direction === 'horizontal' ? child.offsetWidth : child.offsetHeight;
+            const childFlag = judgeConstraint(childSize, this._adapter.getItemMin(i), this._adapter.getItemMax(i), this.groupSize, this.itemMinusMap.get(i));
+            if (childFlag) {
+                const childNewSize = adjustNewSize(childSize, this._adapter.getItemMin(i), this._adapter.getItemMax(i), this.groupSize, this.itemMinusMap.get(i));
+                for (let j = i + 1; j < itemCount; j++) {
+                    const item = this._adapter.getItem(j);
+                    const itemSize = direction === 'horizontal' ? item.offsetWidth : item.offsetHeight;
+                    const itemFlag = judgeConstraint(itemSize, this._adapter.getItemMin(j), this._adapter.getItemMax(j), this.groupSize, this.itemMinusMap.get(j));
+                    if (!itemFlag) {
+                        let childPercent = this.itemPercentMap.get(i),
+                            itemPercent = this.itemPercentMap.get(j);
+                        let childNewPercent = childNewSize / this.groupSize * 100;
+                        let itemNewPercent = childPercent + itemPercent - childNewPercent;
+                        this.itemPercentMap.set(i, childNewPercent);
+                        this.itemPercentMap.set(j, itemNewPercent);
+                        if (direction === 'horizontal') {
+                            child.style.width = `calc(${childNewPercent}% - ${this.itemMinusMap.get(i)}px)`;
+                            item.style.width = `calc(${itemNewPercent}% - ${this.itemMinusMap.get(j)}px)`;
+                        } else {
+                            child.style.height = `calc(${childNewPercent}% - ${this.itemMinusMap.get(i)}px)`;
+                            item.style.height = `calc(${itemNewPercent}% - ${this.itemMinusMap.get(j)}px)`;
+                        }
+                        break;
+                    } else {
+                        if (j === itemCount - 1) {
+                            continueFlag = false;
+                            console.warn('[Semi ResizableGroup]: no enough space to adjust min/max size');
+                        }
+                    }
+                }
+            }
+            if (!continueFlag) {
+                break;
+            }
+        }
     }
 
     destroy(): void {

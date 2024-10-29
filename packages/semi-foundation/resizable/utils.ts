@@ -105,10 +105,10 @@ export const judgeConstraint = (newSize: number, min: string, max: string, paren
     max = max ?? "100%";
     const minSize = getPixelSize(min, parentSize);
     const maxSize = getPixelSize(max, parentSize);
-    if (newSize <= minSize + offset) {
+    if (newSize < minSize + offset) {
         return true;
     }
-    if (newSize >= maxSize) {
+    if (newSize > maxSize) {
         return true;
     }
     return false;
@@ -119,10 +119,10 @@ export const adjustNewSize = (newSize: number, min: string, max: string, parentS
     max = max ?? "100%";
     const minSize = getPixelSize(min, parentSize);
     const maxSize = getPixelSize(max, parentSize);
-    if (newSize <= minSize + offset) {
+    if (newSize < minSize + offset) {
         return minSize + offset;
     }
-    if (newSize >= maxSize) {
+    if (newSize > maxSize) {
         return maxSize;
     }
     return newSize;

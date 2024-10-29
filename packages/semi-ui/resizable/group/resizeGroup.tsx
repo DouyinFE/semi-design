@@ -87,7 +87,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentDidMount() {
         this.foundation.init();
-        console.log('group mount', this.itemRefs);
+        window.addEventListener('resize', this.foundation.calculateSpace);
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -95,6 +95,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentWillUnmount() {
         this.foundation.destroy();
+        window.removeEventListener('resize', this.foundation.calculateSpace);
     }
 
     get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
