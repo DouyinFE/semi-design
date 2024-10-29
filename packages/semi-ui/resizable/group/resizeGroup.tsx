@@ -1,4 +1,4 @@
-import React, { createContext, createRef, ReactNode, Ref, RefObject } from 'react';
+import React, { createRef, ReactNode, RefObject } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
@@ -75,18 +75,19 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     availableSize: number;
     static contextType = ResizeContext;
     context: ResizeGroupProps;
-    itemRefs: RefObject<HTMLDivElement>[] = [];
+    itemRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
     itemMinMap: Map<number, string> = new Map();
     itemMaxMap: Map<number, string> = new Map();
     itemMinusMap: Map<number, number> = new Map();
-    itemDefaultSizeList: (string|number)[] = []
+    itemDefaultSizeList: Map<number, (string|number)> = new Map();
     itemResizeStart: Map<number, ResizeStartCallback> = new Map();
     itemResizing: Map<number, ResizeCallback> = new Map();
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
-    handlerRefs: RefObject<HTMLDivElement>[] = [];
+    handlerRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
 
     componentDidMount() {
         this.foundation.init();
+        console.log('group mount', this.itemRefs);
     }
 
     componentDidUpdate(_prevProps: ResizeGroupProps) {
@@ -100,10 +101,10 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return {
             ...super.adapter,
             getGroupRef: () => this.groupRef.current,
-            getItem: (id: number) => this.itemRefs[id].current,
-            getItemCount: () => this.itemRefs.length,
-            getHandler: (id: number) => this.handlerRefs[id].current,
-            getHandlerCount: () => this.handlerRefs.length,
+            getItem: (id: number) => this.itemRefs.get(id).current,
+            getItemCount: () => this.itemRefs.size,
+            getHandler: (id: number) => this.handlerRefs.get(id).current,
+            getHandlerCount: () => this.handlerRefs.size,
             getItemMin: (index) => {
                 return this.itemMinMap.get(index);
             },
@@ -120,7 +121,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 return this.itemResizeStart.get(index);
             },
             getItemDefaultSize: (index) => {
-                return this.itemDefaultSizeList[index];
+                return this.itemDefaultSizeList.get(index);
             },
             registerEvents: this.registerEvent,
             unregisterEvents: this.unregisterEvent,
@@ -151,11 +152,14 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         min: string, max: string, defaultSize: string|number,
         onResizeStart: ResizeStartCallback, onChange: ResizeCallback, onResizeEnd: ResizeCallback
     ) => {
-        this.itemRefs.push(ref);
-        let index = this.itemRefs.length - 1;
+        if (Array.from(this.itemRefs.values()).some(r => r === ref)) {
+            return -1;
+        }
+        let index = this.itemRefs.size;
+        this.itemRefs.set(index, ref);
         this.itemMinMap.set(index, min);
         this.itemMaxMap.set(index, max);
-        this.itemDefaultSizeList.push(defaultSize);
+        this.itemDefaultSizeList.set(index, defaultSize);
         this.itemResizeStart.set(index, onResizeStart);
         this.itemResizing.set(index, onChange);
         this.itemResizeEnd.set(index, onResizeEnd);
@@ -163,8 +167,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     registerHandler = (ref: RefObject<HTMLDivElement>) => {
-        this.handlerRefs.push(ref);
-        return this.handlerRefs.length - 1;
+        if (Array.from(this.handlerRefs.values()).some(r => r === ref)) {
+            return -1;
+        }
+        let index = this.handlerRefs.size;
+        this.handlerRefs.set(index, ref);
+        return index;
     }
 
     getGroupSize = () => {
