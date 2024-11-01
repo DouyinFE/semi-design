@@ -173,6 +173,10 @@ export const Horizontal = () => (
         },
       ]}
       onSelect={key => console.log(key)}
+      dropdownProps={{
+        clickToHide: true,
+        spacing: 12
+      }}
     />
   </div>
 );

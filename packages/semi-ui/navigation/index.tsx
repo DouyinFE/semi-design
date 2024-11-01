@@ -15,6 +15,7 @@ import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
+import { DropdownProps } from '../dropdown';
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
@@ -43,10 +44,11 @@ export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[]
 export interface NavProps extends BaseProps {
     bodyStyle?: React.CSSProperties;
     children?: React.ReactNode;
-    
+
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
+    dropdownProps?: DropdownProps;
     expandIcon?: React.ReactNode;
     footer?: React.ReactNode | NavFooterProps;
     header?: React.ReactNode | NavHeaderProps;
@@ -70,7 +72,7 @@ export interface NavProps extends BaseProps {
     onDeselect?: (data?: any) => void;
     onOpenChange?: (data: { itemKey?: ItemKey; openKeys?: ItemKey[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
-    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement; isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
@@ -270,7 +272,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
-        const { expandIcon } = this.props;
+        const { expandIcon, dropdownProps } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
@@ -281,6 +283,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                                 {...item as SubNavPropsWithItems}
                                 level={level}
                                 expandIcon={expandIcon}
+                                dropdownProps={dropdownProps}
                             >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
