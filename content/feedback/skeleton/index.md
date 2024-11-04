@@ -9,7 +9,7 @@ brief: 在需要等待加载内容的位置提供的占位组件。
 
 ## 概述
 
--   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size（v1.0后支持)、shape 属性 (v2.20后支持)
+-   `Avatar`：占位头像，默认为圆形，默认尺寸：Avatar medium: `width: 48px`，`height: 48px`。支持 Avatar 的 size、shape 属性 (v2.20后支持)
 -   `Image`：占位图像，默认尺寸：`width: 100%`，`height: 100%`。
 -   `Title`：占位标题，默认尺寸：`width: 100%`， `height: 24px`。
 -   `Paragraph`：占位内容部分，默认尺寸：`width: 100%`，`height: 16px`，`margin-bottom: 10px`。
@@ -379,7 +379,7 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 类名 | string | - |
-| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`medium`、`large`、`extra-large` **v>=1.0** | string | `medium` |
+| size | 设置头像的大小，支持 `extra-extra-small`, `extra-small`、`small`、`medium`、`large`、`extra-large` | string | `medium` |
 | style | 样式 | CSSProperties | - |
 | shape | 指定头像的形状，支持 `circle`、`square` | string | `circle` |
 

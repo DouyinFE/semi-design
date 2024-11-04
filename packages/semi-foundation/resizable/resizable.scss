@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 $module: #{$prefix}-resizable;
 
 .#{$module} {

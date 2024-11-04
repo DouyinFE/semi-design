@@ -74,7 +74,7 @@ describe('tabs', () => {
         cy.get('[id=semiTab1]').should('be.focused');
     });
 
-    it.only('keyboard test when the tabs is closable', () => {
+    it('keyboard test when the tabs is closable', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--tab-closable&args=&viewMode=story');
         cy.get('[data-tabkey=semiTab1]').eq(0).click();
         cy.get('[data-tabkey=semiTab1]').eq(0).should('be.focused');

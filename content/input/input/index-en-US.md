@@ -296,6 +296,47 @@ import { TextArea } from '@douyinfe/semi-ui';
 );
 ```
 
+### Line break by Shift + Enter
+By default, in a TextArea, both `Enter` and `Shift` + `Enter` can achieve line breaks.
+Through appropriate event listening and disabling the default behavior, you can achieve disabling line breaks with Enter and only allowing line breaks with Shift + Enter.
+
+```jsx live=true
+import React from 'react';
+import { TextArea, HotKeys } from '@douyinfe/semi-ui';
+
+() => {
+    const [text, setText] = useState('');
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+        }
+    };
+
+    const handleChange = (value, event) => {
+        setText(event.target.value);
+    };
+
+    return (
+        <>  
+            <p style={{ display: 'flex' }}>
+                Use
+                <HotKeys
+                    hotKeys={['shift', 'enter']}
+                    style={{ marginBottom: 12, marginLeft: 4, marginRight: 4 }}
+                />
+                break line
+            </p>
+            <TextArea
+                value={text}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+            />
+        </>
+    );
+};
+```
+
 ### Autosize TextArea
 
 You can set `autosize` to allow TextArea resizing height with content.

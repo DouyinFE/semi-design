@@ -2889,3 +2889,75 @@ export const EmptyContent = () => {
       </>
   );
 }
+
+export const filterAndKeyMaps = () => {
+  const treeData = [
+    {
+        name: 'Asia',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                name: 'China',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        name: 'Beijing',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        name: 'Shanghai',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                ],
+            },
+            {
+                name: 'Japan',
+                value: 'Japan',
+                key: '0-1',
+                children: [
+                    {
+                        name: 'Osaka',
+                        value: 'Osaka',
+                        key: '0-1-0'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        name: 'North America',
+        value: 'North America',
+        key: '1',
+        children: [
+            {
+                name: 'United States',
+                value: 'United States',
+                key: '1-0'
+            },
+            {
+                name: 'Canada',
+                value: 'Canada',
+                key: '1-1'
+            }
+          ]
+      }
+  ];
+  return (
+    <TreeSelect
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData}
+      filterTreeNode
+      keyMaps={{
+        key: 'key',
+        value: 'value',
+        label: 'name',
+      }}
+      placeholder="单选可搜索的"
+    />
+  )
+}

@@ -47,7 +47,7 @@
 - 💅 Code2Design, automatically generate Figma UI Kit according to different themes, keep same between design and code
 - 🚀 Powerful Design2Code support, convert figma draft to code in a few seconds
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
-- 💅 Up to 2700+ Design Tokens can be easily modify by Semi Design system management, make Semi Design to Any Design quickly.
+- 💅 Up to 3000+ Design Tokens can be easily modify by Semi Design system management, make Semi Design to Any Design quickly.
 - 🌍 Internationalization Support for Dozens of Languages, timezone, RTL support
 - ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing
 - 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute

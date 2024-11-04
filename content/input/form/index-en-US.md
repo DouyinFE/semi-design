@@ -2336,11 +2336,14 @@ const { ErrorMessage } = Form;
 -   When the error is React Node, String, boolean, render directly
 -   When the error is an array, the join operation is automatically performed to aggregate the error information in the array
 
-| Properties | Instructions                      | Type                     | Default |
-| ---------- | --------------------------------- | ------------------------ | ------- |
-| error      | Error message content             | string\|array\|ReactNode\|undefined\|boolean | {}      |
-| className  | Classname of ErrorMessage wrapper | string                   |         |
-| style      | Inline style                      | object                   |         |
+| Properties | Instructions                      | Type                     |
+| ---------------- | ------------------------------------------------------------------------------------------ | --------------------------------- |
+| error            | Error message content                                                                      | array\|ReactNode\|boolean         |
+| className        | Classname of ErrorMessage wrapper                                                          | string                            |
+| style            | Inline style                                                                               | object                            |
+| showValidateIcon | Whether to automatically add the icon corresponding to validateStatus                      | boolean                           |
+| validateStatus   | The verification status of the information, optional: default/error/warning/success (success is generally recommended to be the same as default) | string|
+
 
 ## withFieldOption
 
