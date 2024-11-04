@@ -1,10 +1,10 @@
-import React, { createRef, ReactNode, useContext } from 'react';
+import React, { createRef } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeItemFoundation, ResizeItemAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { noop } from 'lodash';
 
@@ -51,17 +51,19 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         this.state = {
             isResizing: false,
         };
-
+        this.itemIndex = -1;
     }
 
     componentDidMount() {
         this.foundation.init();
         const { min, max, onResizeStart, onChange, onResizeEnd, defaultSize } = this.props;
-        const index = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
-        this.itemIndex = index === -1 ? this.itemIndex : index;
+        if (this.itemIndex === -1) {
+            this.itemIndex = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
+        }
     }
 
     componentDidUpdate(_prevProps: ResizeItemProps) {
+        // console.log('item.context', this.context.direction)
     }
 
     componentWillUnmount() {

@@ -6,7 +6,8 @@ import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
-import "@douyinfe/semi-foundation/resizable/index.scss";
+import "@douyinfe/semi-foundation/resizable/resizable.scss";
+import pre from 'markdownRender/components/code';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -27,7 +28,8 @@ export interface ResizeGroupState {
         nextOffset: number
     };
     backgroundStyle: React.CSSProperties;
-    curHandler: number
+    curHandler: number;
+    contextValue: ResizeContextProps
 }
 
 class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
@@ -41,6 +43,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     constructor(props: ResizeGroupProps) {
         super(props);
+        this.groupRef = createRef();
+        this.foundation = new ResizeGroupFoundation(this.adapter);
         this.state = {
             isResizing: false,
             originalPosition: {
@@ -55,20 +59,16 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 cursor: 'auto',
             },
             curHandler: null,
-        };
-        
-        this.groupRef = createRef();
-        this.foundation = new ResizeGroupFoundation(this.adapter);
-        this.contextValue = {
-            direction: props.direction,
-            registerItem: this.registerItem,
-            registerHandler: this.registerHandler,
-            notifyResizeStart: this.foundation.onResizeStart,
-            getGroupSize: this.getGroupSize,
+            contextValue: {
+                direction: props.direction,
+                registerItem: this.registerItem,
+                registerHandler: this.registerHandler,
+                notifyResizeStart: this.foundation.onResizeStart,
+                getGroupSize: this.getGroupSize,
+            },
         };
     }
 
-    contextValue: ResizeContextProps;
     foundation: ResizeGroupFoundation;
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
@@ -90,7 +90,20 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         window.addEventListener('resize', this.foundation.calculateSpace);
     }
 
-    componentDidUpdate(_prevProps: ResizeGroupProps) {
+    componentDidUpdate(prevProps: ResizeGroupProps) {
+        console.log('group.prevProp', prevProps.direction);
+        console.log('group.prop', this.props.direction);
+        if (this.props.direction !== prevProps.direction) {
+            console.log('update group.context');
+            this.setState((prevState) => ({
+                ...prevState, // 保留其他状态
+                contextValue: {
+                    ...prevState.contextValue, // 保留其他上下文值
+                    direction: this.props.direction,
+                }
+            }));
+        }
+        console.log('group.context', this.state.contextValue.direction);
     }
 
     componentWillUnmount() {
@@ -183,7 +196,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     render() {
         const { children, direction, className, ...rest } = this.props;
         return (
-            <ResizeContext.Provider value={this.contextValue}>
+            <ResizeContext.Provider value={this.state.contextValue}>
                 <div
                     style={{
                         flexDirection: direction === 'vertical' ? 'column' : 'row',

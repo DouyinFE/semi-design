@@ -42,15 +42,19 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
         };
         this.handlerRef = createRef();
         this.foundation = new ResizeHandlerFoundation(this.adapter);
+        this.handlerIndex = -1;
     }
 
     componentDidMount() {
         this.foundation.init();
-        const index = this.context.registerHandler(this.handlerRef);
-        this.handlerIndex = index === -1 ? this.handlerIndex : index;
+        if (this.handlerIndex === -1) {
+            this.handlerIndex = this.context.registerHandler(this.handlerRef);
+        }
     }
 
     componentDidUpdate(_prevProps: ResizeHandlerProps) {
+        // const { direction } = this.context;
+        // console.log('handler.context', direction)
     }
 
     componentWillUnmount() {
@@ -85,15 +89,12 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     handlerIndex: number;
 
     render() {
-        
         const { style, className, children } = this.props;
         const { direction } = this.context;
         return (
             <div
                 className={classNames(className, prefixCls + '-handler', prefixCls + '-handler-' + direction)}
-                style={{
-                    ...style
-                }}
+                style={style}
                 ref={this.handlerRef}
             >
                 {children ?? <IconHandle size='inherit' style={{
