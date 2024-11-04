@@ -1,11 +1,12 @@
 ---
 localeCode: en-US
-order: 22
+order: 25
 category: Plus
 title:  Markdown Render
 icon: doc-markdown
 dir: column
 brief: Instantly render Markdown and MDX in web pages
+showNew: true
 ---
 
 ## When to use
@@ -13,7 +14,7 @@ brief: Instantly render Markdown and MDX in web pages
 Markdown is a document markup language that can implement basic common rich text functions such as titles, pictures, tables, links, bolding, etc. through simple tags.
 MDX is based on Markdown and allows the introduction of JSX to achieve more complex and customized document writing and display requirements.
 
-The MarkdownRender component provided by Semi supports rendering Markdown and MDX. No special configuration is required. By passing in plain text, rich text content that conforms to Semi style specifications can be rendered.
+The `MarkdownRender` component provided by Semi supports rendering Markdown and MDX. No special configuration is required. By passing in plain text, rich text content that conforms to Semi style specifications can be rendered.
 
 
 Usually used in the following scenarios:

@@ -1,14 +1,17 @@
 ---
 localeCode: en-US
-order: 0
+order: 24
 category: Plus
 title:  CodeHighlight
 icon: doc-codehighlight
 dir: column
 brief: Highlight code blocks in the page according to syntax
+showNew: true
 ---
 
-The Semi code highlighting component uses prismjs, which supports highlighting of 297 programming languages ​​(automatically configured `JavaScript` `CSS` `Class C` `html` `svg`, etc., other languages ​​need to be manually introduced), and has high scalability and rich plug-in ecology.
+## When to use
+
+Semi `CodeHighlight` component uses `prismjs`, which supports highlighting of 297 programming languages ​​(automatically configured `JavaScript` `CSS` `Class C` `html` `svg`, etc., other languages ​​need to be manually introduced), and has high scalability and rich plug-in ecology.
 
 Pass the code plain text to `code` props, and pass the programming language name to `language`. Supported programming languages ​​and corresponding names can be viewed on the [Prismjs official website](https://prismjs.com/#supported-languages)
 

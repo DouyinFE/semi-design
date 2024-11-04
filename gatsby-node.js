@@ -11,7 +11,7 @@ const fs = require('fs');
 const items = ['basic', 'chart'];
 const sha1 = require('sha1');
 const hash = sha1(`${new Date().getTime()}${Math.random()}`);
-const numHash = Math.round(Math.random()*1000000);
+const numHash = Math.round(Math.random() * 1000000);
 const glob = require('glob');
 
 
@@ -91,24 +91,24 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             }
         );
     }
-    console.log(["node_modules",resolve("node_modules")]);
+    console.log(["node_modules", resolve("node_modules")]);
     actions.setWebpackConfig({
-        externals:{
-          "node:url":"url",
-            "node:path":"path",
-            "node:process":"process",
+        externals: {
+            "node:url": "url",
+            "node:path": "path",
+            "node:process": "process",
         },
         resolve: {
             alias: {
-                "vfile/do-not-use-conditional-minurl":isSSR ? "vfile/lib/minurl.js":"vfile/lib/minurl.browser.js",
-                "vfile/do-not-use-conditional-minproc":isSSR?"vfile/lib/minproc.js":"vfile/lib/minproc.browser.js",
+                "vfile/do-not-use-conditional-minurl": isSSR ? "vfile/lib/minurl.js" : "vfile/lib/minurl.browser.js",
+                "vfile/do-not-use-conditional-minproc": isSSR ? "vfile/lib/minproc.js" : "vfile/lib/minproc.browser.js",
                 "vfile/do-not-use-conditional-minpath": isSSR ? "vfile/lib/minpath.js" : "vfile/lib/minpath.browser.js",
                 "#minpath": isSSR ? "vfile/lib/minpath.js" : "vfile/lib/minpath.browser.js",
                 "#minproc": isSSR ? "vfile/lib/minproc.js" : "vfile/lib/minproc.browser.js",
                 "#minurl": isSSR ? "vfile/lib/minurl.js" : "vfile/lib/minurl.browser.js",
-                "estree-util-visit/do-not-use-color": isSSR ? "estree-util-visit/lib/color.node.js":"estree-util-visit/lib/color.default.js",
-                "devlop":"devlop/lib/default.js",
-                "unist-util-visit-parents/do-not-use-color": isSSR?"unist-util-visit-parents/lib/color.node.js":"unist-util-visit-parents/lib/color.js",
+                "estree-util-visit/do-not-use-color": isSSR ? "estree-util-visit/lib/color.node.js" : "estree-util-visit/lib/color.default.js",
+                "devlop": "devlop/lib/default.js",
+                "unist-util-visit-parents/do-not-use-color": isSSR ? "unist-util-visit-parents/lib/color.node.js" : "unist-util-visit-parents/lib/color.js",
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 'univers-webview': process.env.SEMI_SITE_UNIVERS_WEBVIEW || resolve('packages/semi-ui'),
@@ -127,7 +127,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'locale': resolve('src/locale'),
                 'src': resolve('src')
             },
-            extensions:["*",".mjs",".js",".json"]
+            extensions: ["*", ".mjs", ".js", ".json"]
         },
         module: {
             rules: [
@@ -154,12 +154,12 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                     use: [...srcScssUse, resolve('packages/semi-webpack/lib/semi-theme-loader.js')],
                 },
                 {
-                  test:/\.m?js/,
-                  include: [/micromark-util-sanitize-uri/,/mdast-util-from-markdown/,/micromark/,/mdast-util-to-markdown/,/semi-foundation\/node_modules\/@mdx-js/],
-                  use: ["esbuild-loader"]
+                    test: /\.m?js/,
+                    include: [/micromark-util-sanitize-uri/, /mdast-util-from-markdown/, /micromark/, /mdast-util-to-markdown/, /semi-foundation\/node_modules\/@mdx-js/],
+                    use: ["esbuild-loader"]
                 },
                 {
-                    test: [/\.jsx?$/,/\.mjs/],
+                    test: [/\.jsx?$/, /\.mjs/],
                     include: [path.resolve(__dirname, 'src')],
                     use: {
                         loader: 'esbuild-loader',
@@ -196,7 +196,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
             'process.env.SEMI_SITE_BANNER': JSON.stringify(process.env.SEMI_SITE_BANNER),
             "process.env.SEMI_SITE_UNIVERS_WEBVIEW": JSON.stringify(process.env.SEMI_SITE_UNIVERS_WEBVIEW),
             'process.env.D2C_URL': JSON.stringify(process.env.D2C_URL),
-            "ASSET_PREFIX": JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}`: ""),
+            "ASSET_PREFIX": JSON.stringify((process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN']) ? `https://${(process.env['CDN_OUTER_CN'] || process.env['CDN_INNER_CN'])}/${process.env['CDN_PATH_PREFIX']}` : ""),
         })],
     });
 };
@@ -263,6 +263,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                              title
                              localeCode
                              icon
+                             showNew
                          }
                      }
                      node {
@@ -274,6 +275,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                              localeCode
                              order
                              icon
+                             showNew
                          }
                      }
                      next {
@@ -285,6 +287,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                              title
                              localeCode
                              icon
+                             showNew
                          }
                      }
                  }
@@ -320,7 +323,7 @@ exports.onPostBuild = async () => {
     for (let file of pageDataFiles) {
         const newFilename = file.replace(/([a-zA-Z0-9\-]+)\.json/g, (_, p1)=> {
             replacedNameSet.add(p1);
-            return `${p1}${/^\d+$/.test(p1)?numHash:`.${hash}`}.json`;
+            return `${p1}${/^\d+$/.test(p1) ? numHash : `.${hash}`}.json`;
         });
         fs.renameSync(file, newFilename);
     }
@@ -342,7 +345,7 @@ exports.onPostBuild = async () => {
                     return `${p1}.json`;
                 }
             });
-            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+            result = result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
                 `designToken.json?v=${hash}`);
             fs.writeFileSync(file, result, 'utf8');
         }
@@ -358,7 +361,7 @@ exports.onPostBuild = async () => {
         }
         const stats = fs.statSync(file);
         if (stats.isFile()) {
-            console.log("Notice: Add Hash to JSON File "+ file);
+            console.log("Notice: Add Hash to JSON File " + file);
             if (file.includes("public/editor")) {
                 continue;
             }
@@ -370,7 +373,7 @@ exports.onPostBuild = async () => {
                 }
 
             }
-            result=result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
+            result = result.replace(/designToken.json(\?v=[a-f0-9]*)?/g,
                 `designToken.json?v=${hash}`);
             fs.writeFileSync(file, result, 'utf8');
         }
@@ -386,7 +389,7 @@ exports.onPostBuild = async () => {
             const fileNameWithoutExt = filename.split('.')[0];
             const originHash = fileNameWithoutExt.split('-').at(-1);
 
-            if (originHash && originHash!==fileNameWithoutExt) {
+            if (originHash && originHash !== fileNameWithoutExt) {
                 let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
                 replaceNames[originHash] = `${originHash}${numHash}`;
                 fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js`));
@@ -402,7 +405,7 @@ exports.onPostBuild = async () => {
             const fileNameWithoutExt = filename.split('.')[0];
             const originHash = fileNameWithoutExt.split('-').at(-1);
 
-            if (originHash && originHash!==fileNameWithoutExt) {
+            if (originHash && originHash !== fileNameWithoutExt) {
                 let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
                 replaceNames[originHash] = `${originHash}${numHash}`;
                 fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.js.map`));
@@ -439,7 +442,7 @@ exports.onPostBuild = async () => {
             const originHash = fileNameWithoutExt.split('.').at(-1);
 
 
-            if (originHash && originHash!==fileNameWithoutExt) {
+            if (originHash && originHash !== fileNameWithoutExt) {
                 let fileNameWithoutExtWithHash = fileNameWithoutExt.replace(originHash, `${originHash}${numHash}`);
                 replaceNames[originHash] = `${originHash}${numHash}`;
                 fs.renameSync(file, path.join(path.dirname(file), `${fileNameWithoutExtWithHash}.css`));

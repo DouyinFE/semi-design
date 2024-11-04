@@ -23,7 +23,8 @@ Typography
 CodeHighlight,
 Markdown,
 Lottie,
-Chat
+Chat,
+HotKeys
 ```
 
 
@@ -37,7 +38,6 @@ Button,
 Checkbox,
 DatePicker,
 Form,
-HotKeys,
 Input,
 InputNumber,
 PinCode,

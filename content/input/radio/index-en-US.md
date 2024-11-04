@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 34
+order: 37
 category: Input
 title: Radio
 subTitle: Radio

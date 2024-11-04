@@ -79,8 +79,11 @@ module.exports = semi({
 ```
 
 ## 4、在 Remix 中使用
-- @remix相关包版本要求 > 1.11.0，并安装 `@remix-run/css-bundle`
+<Notice>
+    注意：以下配置适用于 Remix v1。Remix v2有多种构建模式，Semi 未进行过完整适配性测试，建议优先参考 <a href="https://github.com/DouyinFE/semi-design/issues/2444" target="_blank">Issue 2444</a> 处理
+</Notice>
 
+- @remix相关包版本要求 > 1.11.0，并安装 `@remix-run/css-bundle`
 - 配置 `remix.config.js`，参考 [Remix Css Side-Effect Imports](https://remix.run/docs/en/v1/guides/styling#css-side-effect-imports)。打开 `unstable_cssSideEffectImports` 开关，并将 Semi 相关包配置在 `serverDependenciesToBundle` 中。
 ```diff
 // remix.config.js
@@ -94,9 +97,7 @@ module.exports = {
 +    /^@douyinfe\/semi-illustrations/,
   ],
 };
-
 ```
-
 - 在 `root.tsx` 中进行配置，参考[Remix CSS Bundling](https://remix.run/docs/en/v1/guides/styling#css-bundling)。引入 `cssBundleHref`，并配置 `links`
 
 ```diff
