@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.69.0-beta.0 (2024-11-04)
+- 【Feat】
+    - In Chat's custom rendering message box, renderChatBoxAvatar adds message parameter. [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Add defaultActionsObj parameter to renderChatBoxContent in Chat's custom rendering session box to reveal detailed node parameter information [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat's custom rendering input box adds the detailProps parameter to transmit detailed node parameter information [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Navigation adds subDropdownProps support [#2555](https://github.com/DouyinFE/semi-design/pull/2555)
+- 【Fix】
+    - Fixed a TypeError in Chat's message comparison logic when the previous and later messages are different empty arrays [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
 
 #### 🎉 2.68.4 (2024-11-04)
 - 【Fix】
