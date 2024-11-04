@@ -13,6 +13,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.68.4 (2024-11-04)
+- 【Fix】
+    - 修复 Chat Foundation 存在 React 特有的 event.persist 调用，其他框架 Adapter 兼容时存在的问题 [#2543](https://github.com/DouyinFE/semi-design/pull/2543) [@rashagu](https://github.com/rashagu)
+- 【Style】
+    - 修复 Select 在 filter、showClear 开启，点击 clearIcon 且失焦后，placeholder 透明度不正确的问题 [#2547](https://github.com/DouyinFE/semi-design/pull/2547)
+    - Chat 组件样式的 align-items 属性的 start/end 修改为 flex-start/flex-end，避免某些工程中 css 编译可能存在的 warning 问题[2546](https://github.com/DouyinFE/semi-design/pull/2546)
+
 #### 🎉 2.68.3 (2024-10-23)
 - 【Fix】
     - 修复 TreeSelect 设置了 keyMaps后，在搜索状态中，点击展开按钮后，选项文本展示错误问题 [#2541](https://github.com/DouyinFE/semi-design/pull/2541) 

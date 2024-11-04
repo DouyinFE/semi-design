@@ -16,6 +16,14 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.68.4 (2024-11-04)
+- 【Fix】
+    - Fixed the issue with Chat Foundation where the React-specific event.persist call causes compatibility problems with adapters for other frameworks. [#2543](https://github.com/DouyinFE/semi-design/pull/2543) [@rashagu](https://github.com/rashagu)
+- 【Style】
+    - Fixed the issue where the placeholder opacity is incorrect after clicking the clearIcon and losing focus when both filter and showClear are enabled in Select. [#2547](https://github.com/DouyinFE/semi-design/pull/2547)
+    - Modified the align-items property of the Chat component styles from start/end to flex-start/flex-end to avoid potential CSS compilation warnings in some projects. [2546](https://github.com/DouyinFE/semi-design/pull/2546)
+
 #### 🎉 2.68.3 (2024-10-23)
 - 【Fix】
     - Fixed the issue of incorrect option text display after clicking the expand button in the search state when `keyMaps` is set for `TreeSelect`.[#2541](https://github.com/DouyinFE/semi-design/pull/2541) 
