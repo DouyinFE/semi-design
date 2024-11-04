@@ -1,6 +1,6 @@
 import React, { useMemo, ReactNode, ReactElement } from 'react';
 import Avatar from '../../avatar';
-import { Metadata } from '../interface';
+import { Message, Metadata, RenderAvatarProps } from '../interface';
 import { cssClasses } from '@douyinfe/semi-foundation/chat/constants';
 import cls from 'classnames';
 
@@ -10,11 +10,12 @@ interface ChatBoxAvatarProps {
     children?: string;
     role?: Metadata;
     continueSend?: boolean;
-    customRenderFunc?: (props: {role?: Metadata; defaultAvatar?: ReactNode}) => ReactNode
+    message?: Message;
+    customRenderFunc?: (props: RenderAvatarProps) => ReactNode
 }
 
 const ChatBoxAvatar = React.memo((props: ChatBoxAvatarProps) => {
-    const { role, customRenderFunc, continueSend } = props;
+    const { role, customRenderFunc, continueSend, message } = props;
 
     const node = useMemo(() => {
         const { avatar, color } = role;
@@ -32,7 +33,8 @@ const ChatBoxAvatar = React.memo((props: ChatBoxAvatarProps) => {
     if (customRenderFunc && typeof customRenderFunc === 'function') {
         return customRenderFunc({
             role, 
-            defaultAvatar: node
+            defaultAvatar: node,
+            message: message
         }) as ReactElement;
     }
     return node;
