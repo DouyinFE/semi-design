@@ -91,10 +91,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     componentDidUpdate(prevProps: ResizeGroupProps) {
-        console.log('group.prevProp', prevProps.direction);
-        console.log('group.prop', this.props.direction);
         if (this.props.direction !== prevProps.direction) {
-            console.log('update group.context');
             this.setState((prevState) => ({
                 ...prevState, // 保留其他状态
                 contextValue: {
@@ -102,8 +99,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     direction: this.props.direction,
                 }
             }));
+            this.foundation.direction = this.props.direction;
         }
-        console.log('group.context', this.state.contextValue.direction);
     }
 
     componentWillUnmount() {

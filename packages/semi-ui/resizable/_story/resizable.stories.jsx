@@ -388,17 +388,16 @@ export const Group_dynamic_direction = () => {
     }
   }
   return (
-    <div style={{ width: '1000px', height: '100px' }}>
+    <div style={{ width: '1000px', height: '500px' }}>
       <Button onClick={changeDirection}>{direction}</Button>
       <ResizeGroup direction={direction}>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
           defaultSize={'15%'}
-          min={'50px'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
         >
-          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px' }}>
             {text + " min:50px"}
           </div>
         </ResizeItem>
@@ -406,8 +405,6 @@ export const Group_dynamic_direction = () => {
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
           defaultSize={'20%'}
-          min={'10%'}
-          max={'30%'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>

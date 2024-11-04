@@ -53,8 +53,6 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     }
 
     componentDidUpdate(_prevProps: ResizeHandlerProps) {
-        // const { direction } = this.context;
-        // console.log('handler.context', direction)
     }
 
     componentWillUnmount() {

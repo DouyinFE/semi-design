@@ -60,10 +60,22 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         if (this.itemIndex === -1) {
             this.itemIndex = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
         }
+        this.direction = this.context.direction;
     }
 
     componentDidUpdate(_prevProps: ResizeItemProps) {
-        // console.log('item.context', this.context.direction)
+        if (this.context.direction !== this.direction) {
+            this.direction = this.context.direction;
+            if (this.direction === 'horizontal') {
+                const newWidth = this.itemRef.current?.style.height;
+                this.itemRef.current.style.width = newWidth;
+                this.itemRef.current.style.removeProperty('height');
+            } else {
+                const newHeight = this.itemRef.current?.style.width;
+                this.itemRef.current.style.height = newHeight;
+                this.itemRef.current.style.removeProperty('width');
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -77,6 +89,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
     }
     static contextType = ResizeContext;
     context: ResizeContextProps;
+    direction: 'horizontal' | 'vertical';
     itemRef: React.RefObject<HTMLDivElement | null>;
     itemIndex: number;
 
