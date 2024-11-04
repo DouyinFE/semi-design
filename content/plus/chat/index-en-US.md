@@ -577,6 +577,13 @@ export interface RenderActionProps {
     defaultActionsObj?: DefaultActionNodeObj
 };
 
+export interface FullChatBoxNodes {
+    avatar?: ReactNode;
+    title?: ReactNode; 
+    content?: ReactNode; 
+    action?: ReactNode
+}
+
 export interface RenderFullChatBoxProps {
     message?: Message;
     role?: Metadata;
