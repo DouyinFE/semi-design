@@ -553,7 +553,7 @@ export interface RenderTitleProps {
 }
 
 export interface RenderAvatarProps {
-    message?: Message;
+    message?: Message; /* Supported in  2.69.0*/
     role?: Metadata, 
     defaultAvatar?: ReactNode
 }
@@ -577,7 +577,7 @@ export interface RenderActionProps {
     message?: Message;
     defaultActions?: ReactNode | ReactNode[];
     className: string;
-    defaultActionsObj?: DefaultActionNodeObj
+    defaultActionsObj?: DefaultActionNodeObj; /* Supported in  2.69.0*/
 };
 
 export interface FullChatBoxNodes {
@@ -1223,6 +1223,7 @@ export interface RenderInputAreaProps {
     onSend?: (content?: string, attachment?: FileItem[]) => void;
     /* 如果自定义清除上下文按钮，点击清除上下文时需调用 */
     onClear?: (e?: any) => void;
+    /* detailProps 自 2.69.0 版本开始支持 */
     detailProps: {
         /* 清除上下文按钮 */
         clearContextNode?: ReactNode;

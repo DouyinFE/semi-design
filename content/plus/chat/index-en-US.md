@@ -550,7 +550,7 @@ export interface RenderTitleProps {
 }
 
 export interface RenderAvatarProps {
-    message?: Message;
+    message?: Message;  /* Supported in  2.69.0*/
     role?: Metadata, 
     defaultAvatar?: ReactNode
 }
@@ -574,7 +574,7 @@ export interface RenderActionProps {
     message?: Message;
     defaultActions?: ReactNode | ReactNode[];
     className: string;
-    defaultActionsObj?: DefaultActionNodeObj
+    defaultActionsObj?: DefaultActionNodeObj; /* Supported in  2.69.0*/
 };
 
 export interface FullChatBoxNodes {
@@ -1220,6 +1220,7 @@ export interface RenderInputAreaProps {
     onSend?: (content?: string, attachment?: FileItem[]) => void;
     /* If you customize the clear context button, it needs to be called when you click to clear the context */
     onClear?: (e?: any) => void;
+    /* DetailProps supported since 2.69.0 */
     detailProps: {
         /* clear context button */
         clearContextNode?: ReactNode;
