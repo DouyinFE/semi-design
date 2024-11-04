@@ -1113,10 +1113,12 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     handleInputBlur(e: any) {
         const { filter, autoFocus } = this.getProps();
+        const { showInput } = this.getStates();
         const isMultiple = this._isMultiple();
-        if (autoFocus && filter && !isMultiple ) {
-            // under this condition, when input blur, hide the input
-            this.toggle2SearchInput(false);
+        if (filter && !isMultiple ) {
+            if (showInput || autoFocus) {
+                this.toggle2SearchInput(false);
+            }
         }
     }
 

@@ -217,7 +217,7 @@ describe('Select', () => {
         cy.get('[data-cy=option-8]').should('have.class', 'custom-option-render-focused');
     });
 
-    it.only('Fixed PR-2465', () => {
+    it('Fixed PR-2465', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?path=/story/select--fix-2465');
         cy.get('.semi-select').eq(0).click();
         cy.get('button').contains('single close').eq(0).click();

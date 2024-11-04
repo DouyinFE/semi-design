@@ -16,9 +16,30 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+
+#### 🎉 2.68.4 (2024-11-04)
+- 【Fix】
+    - Fixed the issue with Chat Foundation where the React-specific event.persist call causes compatibility problems with adapters for other frameworks. [#2543](https://github.com/DouyinFE/semi-design/pull/2543) [@rashagu](https://github.com/rashagu)
+- 【Style】
+    - Fixed the issue where the placeholder opacity is incorrect after clicking the clearIcon and losing focus when both filter and showClear are enabled in Select. [#2547](https://github.com/DouyinFE/semi-design/pull/2547)
+    - Modified the align-items property of the Chat component styles from start/end to flex-start/flex-end to avoid potential CSS compilation warnings in some projects. [2546](https://github.com/DouyinFE/semi-design/pull/2546)
+
+#### 🎉 2.68.3 (2024-10-23)
+- 【Fix】
+    - Fixed the issue of incorrect option text display after clicking the expand button in the search state when `keyMaps` is set for `TreeSelect`.[#2541](https://github.com/DouyinFE/semi-design/pull/2541) 
+
+#### 🎉 2.68.2 (2024-10-21)
+- 【Fix】
+    - fix `$z-resizable_handler` token undefined issue, affecting versions v2.68.0-beta.0 - 2.68.1  [#2539](https://github.com/DouyinFE/semi-design/issues/2539) 
+
+#### 🎉 2.68.0 (2024-10-18)
+- 【Fix】
+    - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode
+    - fixed Table typings not work bug caused by react-window dependency  [#2477](https://github.com/DouyinFE/semi-design/issues/2477)
+
 #### 🎉 2.68.0-beta.0 (2024-10-16)
 - 【New Component】
-    - Added a resizable box component that adjusts its size based on user mouse drag actions. [@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
+    - Added a resizable box component that adjusts its size based on user mouse drag actions. **Component adds Token `z-resizable_handler` (if the user uses a custom theme, they need to republish the theme to obtain the token)**[@Nathon2Y](https://github.com/Nathon2Y) [#2458](https://github.com/DouyinFE/semi-design/pull/2458)
 - 【Feat】
     - Datepicker's onClickoutSide adds event parameter [#2531](https://github.com/DouyinFE/semi-design/pull/2531)
     - Cascader adds expandIcon API to support user-defined expansion icons  [#2513](https://github.com/DouyinFE/semi-design/issues/2513)
@@ -28,7 +49,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the phenomenon that the background color does not match expectations in some special theme package configurations when Select disabled and focus is disabled [#2532](https://github.com/DouyinFE/semi-design/pull/2532)
     - fix icon Spin uses a fixed id, resulting in an unexpected display in Tabs [#2526](https://github.com/DouyinFE/semi-design/pull/2526)
     - Fixed the issue of incorrect width of Cascader panel icon, affecting versions 2.67.0～2.67.1 [#2529](https://github.com/DouyinFE/semi-design/pull/2529)
-    - fix IllustrationFailure and IllustrationNoContent curves are not completely closed in light mode [#2524](https://github.com/DouyinFE/semi-design/pull/2524)
 - 【Design Token】
     - Select add token： `$color-select_input_disabled-border-focus`、`$color-select_input_disabled-border-focus`
      - Newly added $width-cascader-option-icon is used to represent the width of the icon in the panel[#2529](https://github.com/DouyinFE/semi-design/pull/2529)

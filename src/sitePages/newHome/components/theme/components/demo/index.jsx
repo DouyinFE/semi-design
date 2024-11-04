@@ -94,9 +94,9 @@ function Demo(props) {
                 <section className={styles.dataSection}>
                     <div>
                         <Form layout="horizontal" initValues={{ type: 'abc' }}>
-                            <Select field="type" noLabel={true}>
-                                <Option value="abc">{_t("douyin_little_assistant", { }, "抖音小助手")}</Option>
-                                <Option value="huoshan">{_t("volcano_little_helper", { }, "火山小助手")}</Option>
+                            <Select field="type" noLabel={true} style={{ width: 116 }}>
+                                <Option value="abc">{_t("douyin_assistant", { }, "抖音小助手")}</Option>
+                                <Option value="huoshan">{_t("ulike_assistant", { }, "轻颜小助手")}</Option>
                             </Select>
                             <TextArea field="content" placeholder='placeholder' noLabel={true} style={{ width: 556, height: 75 }} className={styles.textarea}></TextArea>
                             <Button theme='solid' icon={<IconFeishuLogo />}>{_t("send", { }, "发送")}</Button>

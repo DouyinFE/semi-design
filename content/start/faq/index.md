@@ -17,7 +17,7 @@ order: 8
 
 #### Semi 的默认的主题风格跟我们系统的定位不符，可以配置另外的主题吗？
 
-- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 2700+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在 [Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System** 将 `Semi Design` 定制为 `Any Design`
+- 具体请参考 [定制主题](/zh-CN/start/customize-theme) 。Semi 提供**多达 3000+ Design Token 允许用户进行深度定制**，无论你是研发还是设计师，在 [Semi DSM](/dsm) 里可以非常方便地进行样式层配置，并在代码、设计稿始终保持双向同步。基于 Semi 你可以**低成本定制属于你自己的 Design System** 将 `Semi Design` 定制为 `Any Design`
 - 并且在使用时，你也只需要在 webpack.config.js 里指定使用的主题包名即可完成接入（需接入 Semi 插件）
   
 #### 什么情况下推荐使用 Design Token 定制样式，什么情况下推荐通过 css 覆盖方式定制样式？

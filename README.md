@@ -55,7 +55,7 @@ English | [简体中文](./README-zh_CN.md)
 - 🚀 Official Design to Code (D2C) support, convert figma draft to real code in a few seconds
 - 💅 Code to Design (C2D), automatically generate Figma UI Kit according to different themes, keep same between design and code
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
-- 💅 Design system management Semi DSM, up to 2700+ Design Tokens, make Semi Design to Any Design quickly.
+- 💅 Design system management Semi DSM, up to 3000+ Design Tokens, make Semi Design to Any Design quickly.
 - 🌍 Internationalization Support for Dozens of Languages, timezone, RTL support
 - ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing.
 - 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute
@@ -106,7 +106,7 @@ Install [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662
 
 # 🎨 DSM Usage
 
-Define your own design system base on Semi UI with DSM in one click, Provide more than 2700 tokens for you to configure every detail. Sync between Figma and Code at all times.
+Define your own design system base on Semi UI with DSM in one click, Provide more than 3000 tokens for you to configure every detail. Sync between Figma and Code at all times.
 
 ![dsmintro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsmintro.png)
 

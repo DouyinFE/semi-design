@@ -217,5 +217,13 @@ describe('treeSelect', () => {
         cy.get('.semi-tree-select').trigger('click');
         cy.get('.semi-tree-option').should('have.length', 2);
     })
+
+    it('keyMaps + search', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--filter-and-key-maps');
+        cy.get('.semi-tree-select').trigger('click');
+        cy.get('.semi-input').type('1');
+        cy.get('.semi-tree-option-expand-icon').eq(0).trigger('click');
+        cy.get('.semi-tree-option-label-text').eq(0).contains('Asia');
+    })
 });
 

@@ -790,6 +790,7 @@ export const SelectFilterSingle = () => (
       }}
       showClear
       autoFocus
+      placeholder='singe filter select'
       onSearch={(val) => console.log(`onSearch:${val}`)}
       onFocus={() => console.log('onFocus')}
       onBlur={() => console.log('onBlur')}
@@ -2217,6 +2218,7 @@ class OptionGroupDemo extends React.Component {
             width: 180,
           }}
           filter
+          showClear
         >
           {groups.map((group, index) => this.renderGroup(group, index))}
         </Select>
@@ -2227,6 +2229,7 @@ class OptionGroupDemo extends React.Component {
               let sug = sugInput.toUpperCase();
               return label.includes(sug);
           }}
+          showClear
           id='without-key'
           style={{ width: "180px" }}
           placeholder="without key"
@@ -2255,10 +2258,6 @@ class OptionGroupDemo extends React.Component {
 }
 
 export const SelectOptionGroup = () => <OptionGroupDemo />;
-
-SelectOptionGroup.story = {
-  name: 'Select OptionGroup',
-};
 
 const BlurDemo = () => {
   const onBlur = (value, e) => {
