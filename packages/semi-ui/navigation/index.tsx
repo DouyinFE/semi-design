@@ -48,7 +48,7 @@ export interface NavProps extends BaseProps {
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
-    dropdownProps?: DropdownProps;
+    subDropdownProps?: DropdownProps;
     expandIcon?: React.ReactNode;
     footer?: React.ReactNode | NavFooterProps;
     header?: React.ReactNode | NavHeaderProps;
@@ -272,7 +272,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
-        const { expandIcon, dropdownProps } = this.props;
+        const { expandIcon, subDropdownProps } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
@@ -283,7 +283,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                                 {...item as SubNavPropsWithItems}
                                 level={level}
                                 expandIcon={expandIcon}
-                                dropdownProps={dropdownProps}
+                                subDropdownProps={subDropdownProps}
                             >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>
