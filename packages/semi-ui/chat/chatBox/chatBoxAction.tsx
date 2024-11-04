@@ -1,6 +1,6 @@
 import React, { PureComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import type { ChatBoxProps, Message } from '../interface';
+import type { ChatBoxProps, DefaultActionNodeObj, RenderActionProps } from '../interface';
 import { IconThumbUpStroked, 
     IconDeleteStroked, 
     IconCopyStroked, 
@@ -19,7 +19,7 @@ const { PREFIX_CHAT_BOX_ACTION } = cssClasses;
 const { ROLE, MESSAGE_STATUS } = strings;
 
 interface ChatBoxActionProps extends ChatBoxProps {
-    customRenderFunc?: (props: { message?: Message; defaultActions?: ReactNode | ReactNode[]; className: string }) => ReactNode
+    customRenderFunc?: (props: RenderActionProps) => ReactNode
 }
 
 interface ChatBoxActionState {
@@ -229,15 +229,33 @@ class ChatBoxAction extends BaseComponent<ChatBoxActionProps, ChatBoxActionState
         const { customRenderFunc } = this.props;
         if (customRenderFunc) {
             const actionNodes = [];
-            complete && actionNodes.push(this.copyNode());
-            showFeedback && actionNodes.push(this.likeNode());
-            showFeedback && actionNodes.push(this.dislikeNode());
-            showReset && actionNodes.push(this.resetNode());
-            actionNodes.push(this.deleteNode());
+            const actionNodeObj = {} as DefaultActionNodeObj;
+            if (complete) {
+                const copyNode = this.copyNode();
+                actionNodes.push(copyNode);
+                actionNodeObj.copyNode = copyNode;
+            }
+            if (showFeedback) {
+                const likeNode = this.likeNode();
+                actionNodes.push(likeNode);
+                actionNodeObj.likeNode = likeNode;
+                const dislikeNode = this.dislikeNode();
+                actionNodes.push(dislikeNode);
+                actionNodeObj.dislikeNode = dislikeNode;
+            }
+            if (showReset) {
+                const resetNode = this.resetNode();
+                actionNodes.push(resetNode);
+                actionNodeObj.resetNode = resetNode;
+            }
+            const deleteNode = this.deleteNode();
+            actionNodes.push(deleteNode);
+            actionNodeObj.deleteNode = deleteNode;
             return customRenderFunc({
                 message,
                 defaultActions: actionNodes,
-                className: wrapCls
+                className: wrapCls,
+                defaultActionsObj: actionNodeObj
             });
         }
         return <div className={wrapCls} ref={this.containerRef}>

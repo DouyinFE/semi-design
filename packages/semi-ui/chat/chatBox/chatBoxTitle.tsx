@@ -1,5 +1,5 @@
 import React, { useMemo, ReactNode, ReactElement } from 'react';
-import { Message, Metadata } from '../interface';
+import { Message, Metadata, RenderTitleProps } from '../interface';
 import { cssClasses } from '@douyinfe/semi-foundation/chat/constants';
 const { PREFIX_CHAT_BOX } = cssClasses;
 
@@ -7,7 +7,7 @@ interface ChatBoxTitleProps {
     children?: ReactNode | undefined | any;
     role?: Metadata;
     message?: Message;
-    customRenderFunc?: (props: {role?: Metadata; message: Message; defaultTitle?: ReactNode}) => ReactNode
+    customRenderFunc?: (props: RenderTitleProps) => ReactNode
 }
 
 const ChatBoxTitle = React.memo((props: ChatBoxTitleProps) => {
