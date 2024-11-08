@@ -13,6 +13,15 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.69.0-beta.0 (2024-11-04)
+- 【Feat】
+    - Chat 的自定义渲染会话框中的 renderChatBoxAvatar 增加 message 参数 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat 的自定义渲染会话框中的 renderChatBoxContent 增加 defaultActionsObj 参数，用于透出详细节点参数信息 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat 的自定义渲染输入框增加 detailProps 参数用于透出传递详细节点参数信息 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Navigation 新增 subDropdownProps 支持 [#2555](https://github.com/DouyinFE/semi-design/pull/2555)
+- 【Fix】
+    - 修复 Chat 的消息对比逻辑在前后消息为不同的空数组时的 TypeError [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+
 #### 🎉 2.68.4 (2024-11-04)
 - 【Fix】
     - 修复 Chat Foundation 存在 React 特有的 event.persist 调用，其他框架 Adapter 兼容时存在的问题 [#2543](https://github.com/DouyinFE/semi-design/pull/2543) [@rashagu](https://github.com/rashagu)

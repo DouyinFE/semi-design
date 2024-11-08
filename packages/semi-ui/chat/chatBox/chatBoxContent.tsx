@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useMemo } from 'react';
 import cls from 'classnames';
-import { Message, Metadata } from '../interface';
+import { Message, Metadata, RenderContentProps } from '../interface';
 import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
@@ -16,7 +16,7 @@ interface ChatBoxContentProps {
     children?: string;
     role?: Metadata;
     message?: Message;
-    customRenderFunc?: (props: {message?: Message; role?: Metadata; defaultContent?: ReactNode | ReactNode[]; className?: string}) => ReactNode
+    customRenderFunc?: (props: RenderContentProps) => ReactNode
 }
 
 const ChatBoxContent = (props: ChatBoxContentProps) => {
@@ -55,7 +55,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                     components={markdownComponents as any}
                 />;
             } else if (Array.isArray(content)) {
-                realContent = content.map((item, index)=> {
+                realContent = content.map((item, index) => {
                     if (item.type === 'text') {
                         return <MarkdownRender
                             key={`index`}
