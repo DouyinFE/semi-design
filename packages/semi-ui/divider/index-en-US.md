@@ -1,1 +1,0 @@
-../../../content/basic/divider/index-en-US.md

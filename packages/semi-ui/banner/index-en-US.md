@@ -1,1 +1,0 @@
-../../../content/feedback/banner/index-en-US.md

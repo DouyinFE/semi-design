@@ -1,1 +1,0 @@
-../../../content/show/popover/index-en-US.md
