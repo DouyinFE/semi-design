@@ -13,6 +13,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.69.0 (2024-11-08)
+- 【Fix】
+    - 插画包 @douyinfe/semi-illustrations 中的 clip-rule & stroke-width 修改为 clipRule & strokeWidth
+
 #### 🎉 2.69.0-beta.0 (2024-11-04)
 - 【Feat】
     - Chat 的自定义渲染会话框中的 renderChatBoxAvatar 增加 message 参数 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)

@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.69.0 (2024-11-08)
+- 【Fix】
+    - The clip-rule & stroke-width in the @douyinfe/semi-illustrations package are modified to clipRule & strokeWidth
+
 #### 🎉 2.69.0-beta.0 (2024-11-04)
 - 【Feat】
     - In Chat's custom rendering message box, renderChatBoxAvatar adds message parameter. [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
