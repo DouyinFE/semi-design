@@ -68,7 +68,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     }
 
     direction: 'horizontal' | 'vertical'
-    itemMinusMap: Map<number, number>;
+    itemMinusMap: Map<number, number>; // 这个是为了给handler留出空间，方便维护每一个item的size为cal(percent% - minus)
     totalMinus: number;
     itemPercentMap: Map<number, number>; // 内部维护一个百分比数组，消除浮点计算误差
 
@@ -310,10 +310,12 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         for (let i = 0; i < itemCount; i++) {
             const child = this._adapter.getItem(i);
             const childSize = direction === 'horizontal' ? child.offsetWidth : child.offsetHeight;
+            // 判断由非鼠标拖拽导致item的size变化过程中是否有超出限制的情况
             const childFlag = judgeConstraint(childSize, this._adapter.getItemMin(i), this._adapter.getItemMax(i), this.groupSize, this.itemMinusMap.get(i));
             if (childFlag) {
                 const childNewSize = adjustNewSize(childSize, this._adapter.getItemMin(i), this._adapter.getItemMax(i), this.groupSize, this.itemMinusMap.get(i));
                 for (let j = i + 1; j < itemCount; j++) {
+                    // 找到下一个没有超出限制的item
                     const item = this._adapter.getItem(j);
                     const itemSize = direction === 'horizontal' ? item.offsetWidth : item.offsetHeight;
                     const itemFlag = judgeConstraint(itemSize, this._adapter.getItemMin(j), this._adapter.getItemMax(j), this.groupSize, this.itemMinusMap.get(j));

@@ -392,34 +392,30 @@ export const Group_dynamic_direction = () => {
       <Button onClick={changeDirection}>{direction}</Button>
       <ResizeGroup direction={direction}>
         <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
-          defaultSize={'15%'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
+          defaultSize={8}
         >
-          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px' }}>
-            {text + " min:50px"}
-          </div>
-        </ResizeItem>
-        <ResizeHandler></ResizeHandler>
-        <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
-          defaultSize={'20%'}
-          onChange={() => { setText('resizing') }}
-        >
-          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
-            {text + " min:10% max:30%"}
-          </div>
-        </ResizeItem>
-        <ResizeHandler></ResizeHandler>
-        <ResizeItem
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
-          defaultSize={'300px'}
-          onChange={() => { setText('resizing') }}
-        >
-          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
-            {text}
-          </div>
+            <ResizeGroup direction='horizontal'>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+                onResizeEnd={() => { setText('test') }}
+              >
+                <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+              <ResizeHandler></ResizeHandler>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+              >
+                <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+            </ResizeGroup>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem

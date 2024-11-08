@@ -60,10 +60,11 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         if (this.itemIndex === -1) {
             this.itemIndex = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
         }
-        this.direction = this.context.direction;
+        this.direction = this.context.direction; // 留一个direction的引用，方便在componentDidUpdate中判断方向是否有变化
     }
 
     componentDidUpdate(_prevProps: ResizeItemProps) {
+        // 支持动态方向，修改item的style
         if (this.context.direction !== this.direction) {
             this.direction = this.context.direction;
             if (this.direction === 'horizontal') {

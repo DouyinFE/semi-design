@@ -75,6 +75,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     availableSize: number;
     static contextType = ResizeContext;
     context: ResizeGroupProps;
+    // 在context中使用的属性需要考虑在strictMode下会执行两次，所以用Map来维护
     itemRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
     itemMinMap: Map<number, string> = new Map();
     itemMaxMap: Map<number, string> = new Map();
@@ -87,10 +88,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentDidMount() {
         this.foundation.init();
+        // 监听窗口大小变化，保证一些限制仍生效
         window.addEventListener('resize', this.foundation.calculateSpace);
     }
 
     componentDidUpdate(prevProps: ResizeGroupProps) {
+        // 支持动态调整伸缩direction
         if (this.props.direction !== prevProps.direction) {
             this.setState((prevState) => ({
                 ...prevState, // 保留其他状态
