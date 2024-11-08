@@ -23,7 +23,7 @@ jobs:
             - name: Run Jest test
               run: npm run test:coverage
             - name: Archive Jest coverage
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   if-no-files-found: error
                   name: jest
@@ -48,7 +48,7 @@ jobs:
             - name: Run Cypress test
               run: npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run
             - name: Archive Cypress coverage
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   if-no-files-found: error
                   name: cypress
@@ -62,7 +62,7 @@ jobs:
               with:
                   node-version: '20'
             - name: Download Jest coverage
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                   # upload jest and cypress coverage to output dir
                   path: output
