@@ -9,6 +9,9 @@ import { JSONCompletion } from '../../service/completion';
 import { SelectionModel } from '../../model/selectionModel';
 import { Position } from '../../common/position';
 
+/**
+ * CompleteWidget 类用于管理 JSON Viewer 中的补全功能
+ */
 export class CompleteWidget {
     private _view: View;
     private _jsonModel: JSONModel;

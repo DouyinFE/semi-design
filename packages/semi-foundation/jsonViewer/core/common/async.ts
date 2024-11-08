@@ -1,4 +1,4 @@
-/** reference from https://github.com/microsoft/vscode */
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 export function runWhenGlobalIdle(callback: (idleDeadline: IdleDeadline) => void) {
     const handler = window.requestIdleCallback(callback);
     let disposed = false;

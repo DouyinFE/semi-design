@@ -1,4 +1,4 @@
-//@ts-nocheck
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 import { Position } from '../common/position';
 import { JSONModel } from '../model/jsonModel';
 import { JsonDocument } from './parse';
@@ -17,6 +17,10 @@ import {
 } from './jsonTypes';
 import { CompletionsCollector, JSONCompletionItem } from './contribution';
 import { CompletionOptions } from '../json-viewer/jsonViewer';
+
+/**
+ * Json补全功能的核心实现
+ */
 export class JSONCompletion {
     private _options: CompletionOptions | null;
 
@@ -222,7 +226,6 @@ export class JSONCompletion {
     }
 
     private getInsertTextForPlainText(text: string): string {
-        // eslint-disable-next-line no-useless-escape
         return text.replace(/[\\\$\}]/g, '\\$&'); // escape $, \ and }
     }
 

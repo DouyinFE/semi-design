@@ -8,6 +8,9 @@ import { SearchParams, TextModelSearch } from './textModelSearch';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { isInWorkerThread } from '../common/worker';
 
+/**
+ * JSONModel 类用于管理 JSON 数据模型
+ */
 export class JSONModel {
     private _pieceTree: PieceTreeBase;
     private _normalizeEOL: boolean;
@@ -300,6 +303,7 @@ export class JSONModel {
      * @param captureMatches 是否捕获匹配
      * @param limitResultCount 限制结果数量
      * @returns 匹配结果
+     * Based on https://github.com/microsoft/vscode with modifications for custom requirements
      */
     findMatches(
         searchString: string,

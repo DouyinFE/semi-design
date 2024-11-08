@@ -1,8 +1,13 @@
-/** reference from https://github.com/microsoft/vscode-json-languageservice*/
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 
-// @ts-nocheck
 import { JSONModel } from '../model/jsonModel';
 import { createScanner, SyntaxKind, ScanError } from 'jsonc-parser';
+import { FoldingRange } from './jsonService';
+/**
+ * 获取json括号折叠信息
+ * @param jsonModel 
+ * @returns 
+ */
 export function getFoldingRanges(jsonModel: JSONModel) {
     const ranges: FoldingRange[] = [];
     const nestingLevels: number[] = [];

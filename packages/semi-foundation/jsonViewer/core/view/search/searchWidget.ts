@@ -4,13 +4,16 @@ import { elt, setStyles } from '../../common/dom';
 import { JSONModel } from '../../model/jsonModel';
 import { IModelContentChangeEvent } from '../../common/emitterEvents';
 
-//TODO 修改searchResults存储数据结构
+/**
+ * SearchWidget 类用于管理 JSON Viewer 中的查找和替换功能
+ */
 export class SearchWidget {
     private _view: View;
     private _searchInput: HTMLInputElement;
     private _replaceInput: HTMLInputElement;
     private _container: HTMLElement;
     private _jsonModel: JSONModel;
+    //TODO: 修改searchResults存储数据结构
     public searchResults: FindMatch[] | null = null;
     public _currentResultIndex: number = -1;
     public matchCase: boolean = false;

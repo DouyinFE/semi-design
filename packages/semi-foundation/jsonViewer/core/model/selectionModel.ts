@@ -3,6 +3,9 @@ import { View } from '../view/view';
 import { getLineElement } from '../common/dom';
 import { Position } from '../common/position';
 
+/**
+ * 选择模型，管理JSON的选中范围和选中状态
+ */
 export class SelectionModel {
     private _row: number;
     private _col: number;
@@ -144,8 +147,7 @@ export class SelectionModel {
 
             col = totalOffset;
         }
-        // @ts-ignore
-        row = lineElement.lineNumber || 1;
+        row = (lineElement as any).lineNumber || 1;
         return { row, col };
     }
 }

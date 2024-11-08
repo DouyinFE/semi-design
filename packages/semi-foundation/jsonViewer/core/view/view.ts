@@ -15,6 +15,10 @@ import { ScalingCellSizeAndPositionManager } from './virtualized/ScalingCellSize
 import { CompleteWidget } from './complete/completeWidget';
 import { HoverWidget } from './hover/hoverWidget';
 //TODO 实现ViewModel抽离代码
+
+/**
+ * View 类用于管理 JSON Viewer 的视图
+ */
 export class View {
     private _jsonModel: JSONModel;
     private _selectionModel: SelectionModel;

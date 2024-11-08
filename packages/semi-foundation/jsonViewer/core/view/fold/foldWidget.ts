@@ -2,6 +2,9 @@ import { elt, setStyles } from '../../common/dom';
 import { View } from '../view';
 import { FoldingModel } from '../../model/foldingModel';
 
+/**
+ * FoldWidget 类用于管理 JSON Viewer 中的折叠功能
+ */
 export class FoldWidget {
     private _view: View;
     private _foldingModel: FoldingModel;
@@ -9,37 +12,37 @@ export class FoldWidget {
     constructor(view: View, foldingModel: FoldingModel) {
         this._view = view;
         this._foldingModel = foldingModel;
-        this.attachEventListeners();
+        this._attachEventListeners();
     }
 
-    attachEventListeners() {
+    private _attachEventListeners() {
         this._view.lineScrollDom.addEventListener('mouseover', e => {
-            this.handleLineNumberHover(e);
+            this._handleLineNumberHover(e);
         });
         this._view.lineScrollDom.addEventListener('mouseleave', () => {
-            this.handleLineNumberContainerLeave();
+            this._handleLineNumberContainerLeave();
         });
     }
 
-    handleLineNumberHover(e: MouseEvent) {
-        this.showFoldingIcon();
+    private _handleLineNumberHover(e: MouseEvent) {
+        this._showFoldingIcon();
     }
 
-    private handleLineNumberContainerLeave() {
+    private _handleLineNumberContainerLeave() {
         this.removeAllFoldingIcons();
     }
 
-    showFoldingIcon() {
+    private _showFoldingIcon() {
         const lineNumberElement = this._view.lineScrollDom.children;
         for (let i = 0; i < lineNumberElement.length; i++) {
             const element: HTMLElement = lineNumberElement[i] as HTMLElement;
             if (this._foldingModel.isFoldable(Number(element.dataset.lineNumber))) {
-                element.appendChild(this.createFoldingIcon(Number(element.dataset.lineNumber)));
+                element.appendChild(this._createFoldingIcon(Number(element.dataset.lineNumber)));
             }
         }
     }
 
-    createFoldingIcon(lineNumber: number): HTMLElement {
+    private _createFoldingIcon(lineNumber: number): HTMLElement {
         const foldingIcon = elt('span', 'folding-icon');
         const isCollapsed = this._foldingModel.isCollapsed(lineNumber);
         foldingIcon.textContent = isCollapsed ? '▶' : '▼';

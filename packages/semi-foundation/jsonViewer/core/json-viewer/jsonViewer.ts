@@ -4,7 +4,9 @@ import { emitter } from '../common/emitter';
 import { createModel } from '../model';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { CompletionItem } from '../service/jsonTypes';
-
+/**
+ * JsonViewer 主类
+ */
 export interface JsonViewerOptions {
     lineHeight?: number;
     autoHeight?: boolean;
@@ -32,8 +34,6 @@ export class JsonViewer {
     constructor(container: HTMLElement, value: string, options?: JsonViewerOptions) {
         this._container = container;
         this._jsonModel = createModel(value);
-        //@ts-ignore
-        window.jsonModel = this._jsonModel;
         this._jsonWorkerManager.init(value);
         this._view = new View(container, this._jsonModel, options);
     }

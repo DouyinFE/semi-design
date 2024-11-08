@@ -20,7 +20,6 @@ export function elt(tag: string, className: string, style?: { [key: string]: str
  */
 export function setStyles(element: HTMLElement, styles: { [key: string]: string }) {
     for (const [key, value] of Object.entries(styles)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         element.style[key as any] = value;
     }
 }

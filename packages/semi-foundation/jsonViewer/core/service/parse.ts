@@ -1,5 +1,4 @@
-/** reference from https://github.com/microsoft/vscode-json-languageservice*/
-/* eslint-disable @typescript-eslint/prefer-as-const */
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 import * as Json from 'jsonc-parser';
 import { JSONModel } from '../model/jsonModel';
 import {
@@ -16,7 +15,9 @@ import {
     StringASTNode,
 } from './jsonTypes';
 import { isObject, isNumber } from '../common/utils';
-
+/**
+ * Json 解析服务，提供json解析（AST）、获取节点值、获取节点路径等功能
+ */
 
 export function getNodeValue(node: ASTNode): any {
     return Json.getNodeValue(node);

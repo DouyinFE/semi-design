@@ -7,6 +7,10 @@ import { FoldingModel } from '../../model/foldingModel';
 import { emitter } from '../../common/emitter';
 import { IModelContentChangeEvent } from '../../common/emitterEvents';
 import { Range } from '../../common/range';
+
+/**
+ * EditWidget 类用于管理 JSON Viewer 中的编辑功能
+ */
 export class EditWidget {
     private _view: View;
     private _selectionModel: SelectionModel;

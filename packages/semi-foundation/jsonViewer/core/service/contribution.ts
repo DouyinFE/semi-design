@@ -1,3 +1,4 @@
+/** reference from https://github.com/microsoft/vscode-json-languageservice */
 import { CompletionItem } from './jsonTypes';
 
 export type JSONCompletionItem = CompletionItem & { insertText: string };

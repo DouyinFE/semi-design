@@ -1,7 +1,12 @@
 import { IModelContentChangeEvent } from '../common/emitterEvents';
 import { FormattingOptions } from 'jsonc-parser';
-import Worker from './json.worker.ts';
+// import Worker from './json.worker.ts';
 
+//TODO 修改封装方式
+
+/**
+ * JsonWorkerManager 类用于管理 JSON Worker
+ */
 type WorkerMethod = 'init' | 'updateModel' | 'format' | 'foldRange' | 'validate';
 type WorkerParams = {
     value?: string;
@@ -14,8 +19,8 @@ export class JsonWorkerManager {
     private _callbacks: Map<number, (result: any) => void>;
 
     constructor() {
-        // this._worker = new Worker(new URL('../worker/json.worker.ts', import.meta.url), { type: 'module' });
-        this._worker = new Worker();
+        this._worker = new Worker(new URL('../worker/json.worker.ts', import.meta.url), { type: 'module' });
+        // this._worker = new Worker();
         this._callbacks = new Map();
 
         this._worker.onmessage = this._handleWorkerMessage.bind(this);

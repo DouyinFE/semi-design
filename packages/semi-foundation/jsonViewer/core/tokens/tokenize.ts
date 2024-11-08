@@ -1,4 +1,4 @@
-/** reference from https://github.com/microsoft/vscode */
+/** Based on https://github.com/microsoft/vscode with modifications for custom requirements */
 import * as json from 'jsonc-parser';
 import { Token } from './token';
 

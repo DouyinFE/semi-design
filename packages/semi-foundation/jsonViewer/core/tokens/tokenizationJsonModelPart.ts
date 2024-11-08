@@ -50,8 +50,8 @@ export class GrammarTokens {
     private _jsonModel: JSONModel;
     constructor(jsonModel: JSONModel) {
         this._jsonModel = jsonModel;
-        //@ts-ignore
-        emitter.on('contentChanged', (e: IModelContentChangeEvent) => {
+        emitter.on('contentChanged', (e: IModelContentChangeEvent | IModelContentChangeEvent[]) => {
+            if (Array.isArray(e)) return;
             this._backgroundTokenizer?.requestTokens({
                 from: e.range.startLineNumber,
                 to: this._jsonModel.getLineCount(),

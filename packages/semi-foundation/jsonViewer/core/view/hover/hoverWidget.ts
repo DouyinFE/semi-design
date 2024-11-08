@@ -1,6 +1,10 @@
 import { View } from '../view';
 import { emitter } from '../../common/emitter';
 import { elt, setStyles } from '../../common/dom';
+/**
+ * HoverWidget 类用于管理 JSON Viewer 中的悬浮提示功能
+ * 当鼠标悬停在字符串值上时，显示一个自定义的提示框
+ */
 export class HoverWidget {
     private _view: View;
     private _hoverDom: HTMLElement | null = null;
@@ -10,12 +14,12 @@ export class HoverWidget {
     constructor(view: View) {
         this._view = view;
 
-        this._tooltipDom = this.createTooltipDom();
+        this._tooltipDom = this._createTooltipDom();
         this._view.jsonViewerDom.appendChild(this._tooltipDom);
-        this.attachEventListeners();
+        this._attachEventListeners();
     }
 
-    attachEventListeners() {
+    private _attachEventListeners() {
         this._view.contentDom.addEventListener('mousemove', e => {
             if (e.target instanceof HTMLSpanElement && e.target.classList.contains('string-value')) {
                 if (this._hoverDom === e.target) {
@@ -71,7 +75,7 @@ export class HoverWidget {
         this._hoverDom = null;
     }
 
-    private createTooltipDom() {
+    private _createTooltipDom() {
         const div = elt('div', 'hover-container');
         setStyles(div, {
             visibility: 'hidden',

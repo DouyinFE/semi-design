@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /** reference from https://github.com/microsoft/vscode */
 import { toUint8 } from './uint';
 
@@ -62,10 +61,10 @@ const enum Boolean {
 }
 
 export class CharacterSet {
-    private readonly _actual: CharacterClassifier<Boolean>;
+    private readonly _actual: CharacterClassifier<boolean>;
 
     constructor() {
-        this._actual = new CharacterClassifier<Boolean>(Boolean.False);
+        this._actual = new CharacterClassifier<boolean>(Boolean.False);
     }
 
     public add(charCode: number): void {

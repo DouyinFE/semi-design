@@ -1,5 +1,4 @@
 /** reference from https://github.com/microsoft/vscode */
-/* eslint-disable @typescript-eslint/no-this-alias */
 interface Item<K, V> {
     previous: Item<K, V> | undefined;
     next: Item<K, V> | undefined;

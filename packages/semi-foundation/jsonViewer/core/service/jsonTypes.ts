@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-as-const */
-/* eslint-disable @typescript-eslint/no-namespace */
-/** reference from https://github.com/microsoft/vscode-json-languageservice*/
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 import { Position } from '../common/position';
 import { Range } from '../common/range';
 /**

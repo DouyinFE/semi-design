@@ -4,6 +4,10 @@ import { JsonDocument, parseJson } from './parse';
 import { Diagnostic } from './jsonTypes';
 export { getFoldingRanges } from './getRange';
 
+/**
+ * Json 服务，提供json格式化、补全、折叠等功能
+ */
+
 export interface FoldingRange {
     startLine: number;
     endLine: number;

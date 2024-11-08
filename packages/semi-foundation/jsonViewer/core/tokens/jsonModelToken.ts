@@ -45,7 +45,6 @@ export class JsonTokenizerWithStateStoreAndModel extends TokenizerWithStateStore
 
             const text = this._jsonModel.getLineContent(lineToTokenize.lineNumber);
             const result = this.tokenizationSupport.tokenize(text, lineToTokenize.startState);
-            // console.log(result, 'result.tokens');
             backgroundTokenizationStore.setTokens(lineToTokenize.lineNumber, result.tokens);
 
             this.store.setEndState(lineToTokenize.lineNumber, result.endState);

@@ -1,4 +1,4 @@
-/** reference from https://github.com/microsoft/vscode */
+/** Based on https://github.com/microsoft/vscode-json-languageservice with modifications for custom requirements */
 import { CharCode } from '../common/charCode';
 import {
     getMapForWordSeparators,
@@ -11,6 +11,7 @@ import { EndOfLinePreference, SearchData } from '../common/model';
 import { createRegExp, getNextCodePoint } from '../common/strings';
 import { JSONModel } from './jsonModel';
 const LIMIT_FIND_COUNT = 999;
+
 
 class LineFeedCounter {
     private readonly _lineFeedsOffsets: number[];

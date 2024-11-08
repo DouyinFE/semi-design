@@ -2,6 +2,10 @@ import { JSONModel } from './jsonModel';
 import { getFoldingRanges, FoldingRange } from '../service/jsonService';
 import { emitter } from '../common/emitter';
 
+
+/**
+ * 折叠模型，管理JSON的折叠范围
+ */
 //TODO 修改range数据结构
 export class FoldingModel {
     private _jsonModel: JSONModel;
