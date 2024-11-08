@@ -1,31 +1,26 @@
 import { 
-    ResizableHandlerAdapter, 
     ResizableHandlerFoundation, 
     ResizableFoundation, 
-    ResizableAdapter } 
-    from './single';
-
-export { 
-    ResizableHandlerAdapter, 
-    ResizableHandlerFoundation, 
-    ResizableFoundation, 
-    ResizableAdapter 
-}; 
+} from './single';
 
 import { 
-    ResizeGroupAdapter,
-    ResizeItemAdapter,
-    ResizeHandlerAdapter,
     ResizeGroupFoundation,
     ResizeItemFoundation,
     ResizeHandlerFoundation
 } from './group';
 
-export {
+import type { ResizableHandlerAdapter, ResizableAdapter } from './single';
+import type { ResizeGroupAdapter, ResizeItemAdapter, ResizeHandlerAdapter } from './group';
+
+export { 
+    ResizableHandlerAdapter, 
+    ResizableHandlerFoundation, 
+    ResizableFoundation, 
+    ResizableAdapter,
     ResizeGroupAdapter,
     ResizeItemAdapter,
     ResizeHandlerAdapter,
     ResizeGroupFoundation,
     ResizeItemFoundation,
     ResizeHandlerFoundation
-};
+}; 
