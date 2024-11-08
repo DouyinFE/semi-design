@@ -1,0 +1,71 @@
+.current-search-result {
+    background-color: orange !important;
+}
+
+.search-result {
+    background-color: rgba(0, 255, 76, 0.5);
+}
+
+.search-result-current {
+    background-color: rgba(255, 255, 0, 1);
+}
+.folding-icon {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.folding-icon:hover {
+    opacity: 1;
+}
+.keyword {
+    color: #0451a5;
+}
+.string-key {
+    color: #a31515;
+}
+.string-value {
+    color: #0451a5;
+}
+.number {
+    color: #319331;
+}
+.delimiter-bracket-0 {
+    color: #0431fa;
+}
+.delimiter-bracket-1 {
+    color: #319331;
+}
+.delimiter-bracket-2 {
+    color: #7b3814;
+}
+.delimiter-array-0 {
+    color: #0431fa;
+}
+.delimiter-array-1 {
+    color: #319331;
+}
+.delimiter-array-2 {
+    color: #7b3814;
+}
+
+.view-line,
+.line-number {
+    font-family: Menlo, Monaco, 'Courier New', monospace;
+    font-weight: normal;
+    font-size: 12px;
+    font-feature-settings: 'liga' 0, 'calt' 0;
+    font-variation-settings: normal;
+    letter-spacing: 0px;
+    color: #237893;
+}
+.line-number {
+    text-align: center;
+    width: 50px;
+}
+.line-number-container::-webkit-scrollbar {
+    display: none; /* 隐藏滚动条（Webkit 浏览器） */
+}
+.line-number-container {
+    scrollbar-width: none; /* 隐藏滚动条（Firefox） */
+    -ms-overflow-style: none; /* 隐藏滚动条（IE 和 Edge） */
+}

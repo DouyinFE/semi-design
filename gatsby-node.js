@@ -155,7 +155,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 },
                 {
                   test:/\.m?js/,
-                  include: [/micromark-util-sanitize-uri/,/mdast-util-from-markdown/,/micromark/,/mdast-util-to-markdown/,/semi-foundation\/node_modules\/@mdx-js/],
+                  include: [/micromark-util-sanitize-uri/,/mdast-util-from-markdown/,/micromark/,/mdast-util-to-markdown/,/semi-foundation\/node_modules\/@mdx-js/,/jsonc-parser/],
                   use: ["esbuild-loader"]
                 },
                 {
@@ -184,7 +184,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                     test: /\.mjs$/,
                     include: /node_modules/,
                     type: "javascript/auto"
-                }
+                },
+                { test: /\.worker\.ts$/, use: ['worker-loader', 'ts-loader'] }
             ],
         },
         plugins: [plugins.extractText(), plugins.define({

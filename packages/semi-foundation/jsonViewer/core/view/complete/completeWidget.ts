@@ -1,0 +1,209 @@
+import { IModelContentChangeEvent } from '../../common/emitterEvents';
+import { elt, setStyles } from '../../common/dom';
+import { JSONModel } from '../../model/jsonModel';
+import { CompletionItem, CompletionItemKind, TextEdit } from '../../service/jsonTypes';
+import { View } from '../view';
+import { emitter } from '../../common/emitter';
+import { doValidate, parseJsonAst } from '../../service/jsonService';
+import { JSONCompletion } from '../../service/completion';
+import { SelectionModel } from '../../model/selectionModel';
+import { Position } from '../../common/position';
+
+export class CompleteWidget {
+    private _view: View;
+    private _jsonModel: JSONModel;
+    private _selectionModel: SelectionModel;
+    private _container: HTMLElement;
+    private _suggestionsContainer: HTMLElement;
+    private _selectedIndex: number = 0;
+    private _suggestions: CompletionItem[] = [];
+    public isVisible: boolean = false;
+
+    constructor(view: View, jsonModel: JSONModel, selectionModel: SelectionModel) {
+        this._view = view;
+        this._jsonModel = jsonModel;
+        this._selectionModel = selectionModel;
+
+        this._container = this.createCompleteContainer();
+        this._suggestionsContainer = this.createSuggestionsContainer();
+        this._container.appendChild(this._suggestionsContainer);
+        this._view.jsonViewerDom.appendChild(this._container);
+
+        this._attachEventListeners();
+    }
+
+    private _attachEventListeners() {
+        const shouldTrigger = (e: IModelContentChangeEvent): boolean => {
+            // 不是插入操作，不触发
+            if (e.type !== 'insert') {
+                return false;
+            }
+            // 不是单个字符，不触发
+            if (e.newText.length !== 1) {
+                return false;
+            }
+            // 是空白字符（空格、制表符、换行等），不触发
+            if (/\s/.test(e.newText)) {
+                return false;
+            }
+            return true;
+        };
+
+        emitter.on('contentChanged', e => {
+            // 如果是批量操作，直接返回
+            if (Array.isArray(e)) {
+                return;
+            }
+
+            if (!shouldTrigger(e)) {
+                // 不符合触发条件时，隐藏补全框
+                this.hide();
+                return;
+            }
+
+            this._fetchCompletions();
+        });
+    }
+
+    private _fetchCompletions() {
+        const root = parseJsonAst(this._jsonModel);
+        const position = {
+            lineNumber: this._jsonModel.lastChangeBufferPos.lineNumber,
+            column: this._jsonModel.lastChangeBufferPos.column + 1,
+        } as Position;
+        new JSONCompletion(this._view.options?.completionOptions || null)
+            .doCompletion(this._jsonModel, position, root)
+            .then(completions => {
+                this._suggestions = completions.items || [];
+                this.show();
+            });
+    }
+
+    private _calculatePosition(): { x: number; y: number } {
+        const selection = window.getSelection();
+        if (!selection || !selection.rangeCount) return { x: 0, y: 0 };
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+
+        // 获取编辑器容器的位置
+        const editorRect = this._view.contentDom.getBoundingClientRect();
+
+        // 计算补全框的位置（相对于编辑器容器）
+        const x = rect.left - editorRect.left + 50;
+        const y = rect.bottom - editorRect.top;
+        return { x, y };
+    }
+
+    private createCompleteContainer(): HTMLElement {
+        const container = elt('div', 'complete-container');
+        setStyles(container, {
+            position: 'absolute',
+            zIndex: '1000',
+            backgroundColor: '#fff',
+            borderRadius: '3px',
+            border: '1px solid #ccc',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+            minWidth: '200px',
+            maxWidth: '400px',
+            display: 'none',
+        });
+        return container;
+    }
+
+    private createSuggestionsContainer(): HTMLElement {
+        const container = elt('div', 'suggestions-container');
+        setStyles(container, {
+            maxHeight: '200px',
+            overflowY: 'auto',
+        });
+        return container;
+    }
+
+    public show() {
+        if (this._suggestions.length === 0) {
+            return;
+        }
+        const { x, y } = this._calculatePosition();
+        if (x < 0 || y < 0) {
+            return;
+        }
+        this.isVisible = true;
+        // 更新位置和内容
+        setStyles(this._container, {
+            left: `${x}px`,
+            top: `${y}px`,
+            display: 'block',
+        });
+
+        // 清空并添加新的建议
+        this._suggestionsContainer.innerHTML = '';
+        this._renderCompletions();
+    }
+
+    public _handleKeyDown = (e: KeyboardEvent) => {
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                this._selectedIndex = (this._selectedIndex + 1) % this._suggestions.length;
+                this._renderCompletions();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                this._selectedIndex = (this._selectedIndex - 1 + this._suggestions.length) % this._suggestions.length;
+                this._renderCompletions();
+                break;
+            case 'Enter':
+            case 'Tab':
+                e.preventDefault();
+                const selectedItem = this._suggestions[this._selectedIndex];
+                console.log(selectedItem, 'selectedItem');
+                const { textEdit } = selectedItem;
+                if (!textEdit) {
+                    return;
+                }
+                const { range } = textEdit;
+                const startOffset = this._jsonModel.getOffsetAt(range.startLineNumber, range.startColumn - 1);
+
+                const endOffset = this._jsonModel.getOffsetAt(range.endLineNumber, range.endColumn - 1);
+
+                const op: IModelContentChangeEvent = {
+                    type: 'replace',
+                    range: {
+                        startLineNumber: range.startLineNumber,
+                        startColumn: range.startColumn - 1,
+                        endLineNumber: range.endLineNumber,
+                        endColumn: range.endColumn - 1,
+                    },
+                    rangeLength: endOffset - startOffset,
+                    rangeOffset: startOffset,
+                    oldText: this._jsonModel.getValueInRange(range),
+                    newText: textEdit?.newText || '',
+                };
+                this._jsonModel.applyOperation(op);
+                this._jsonModel.pushUndoStack(op);
+                this.hide();
+                break;
+        }
+    };
+
+    private _renderCompletions() {
+        this._suggestionsContainer.innerHTML = this._suggestions
+            .map(
+                (item, index) => `
+        <li style="padding: 4px 8px; cursor: pointer; background-color: ${
+    index === this._selectedIndex ? '#e8e8e8' : 'transparent'
+}" data-index="${index}">
+            ${item.label}
+        </li>
+    `
+            )
+            .join('');
+    }
+
+    public hide() {
+        this.isVisible = false;
+        this._container.style.display = 'none';
+        this._suggestions = [];
+    }
+}

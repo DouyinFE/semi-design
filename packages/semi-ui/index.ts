@@ -122,3 +122,6 @@ export {
     ResizeHandler,
     ResizeGroup
 } from './resizable';
+
+
+export { default as JsonViewer } from './jsonViewer';

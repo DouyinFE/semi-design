@@ -84,6 +84,7 @@ const order = [
     'configprovider',
     'locale',
     'chat',
+    'jsonviewer',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

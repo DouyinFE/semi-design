@@ -217,7 +217,8 @@
         "webpack": "^5.77.0",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^3.11.2",
-        "webpackbar": "^5.0.0-3"
+        "webpackbar": "^5.0.0-3",
+        "worker-loader": "^3.0.8"
     },
     "husky": {
         "hooks": {
@@ -242,5 +243,6 @@
             "stylelint"
         ]
     },
-    "license": "MIT"
+    "license": "MIT",
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
