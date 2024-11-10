@@ -66,8 +66,6 @@ export class SelectionModel {
         } else if (row1 === row2 && col1 > col2) {
             [col1, col2] = [col2, col1];
         }
-        console.log(row1, 'startRow', col1, 'startCol');
-        console.log(row2, 'endRow', col2, 'endCol');
 
         this._row = row1;
         this._col = col1;

@@ -280,7 +280,7 @@ export function parseJson(jsonModel: JSONModel) {
 
     function _parseArray(parent: ASTNode | undefined): ArrayASTNode | undefined {
         if (scanner.getToken() !== Json.SyntaxKind.OpenBracketToken) {
-            return;
+            return undefined;
         }
         const node = new ArrayASTNodeImpl(parent, scanner.getTokenOffset());
         _scanNext();

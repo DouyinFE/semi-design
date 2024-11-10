@@ -160,7 +160,6 @@ export class CompleteWidget {
             case 'Tab':
                 e.preventDefault();
                 const selectedItem = this._suggestions[this._selectedIndex];
-                console.log(selectedItem, 'selectedItem');
                 const { textEdit } = selectedItem;
                 if (!textEdit) {
                     return;

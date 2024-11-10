@@ -55,24 +55,24 @@ export class CharacterClassifier<T extends number> {
     }
 }
 
-const enum Boolean {
+const enum BooleanEnum {
     False = 0,
     True = 1,
 }
 
 export class CharacterSet {
-    private readonly _actual: CharacterClassifier<boolean>;
+    private readonly _actual: CharacterClassifier<BooleanEnum>;
 
     constructor() {
-        this._actual = new CharacterClassifier<boolean>(Boolean.False);
+        this._actual = new CharacterClassifier<BooleanEnum>(BooleanEnum.False);
     }
 
     public add(charCode: number): void {
-        this._actual.set(charCode, Boolean.True);
+        this._actual.set(charCode, BooleanEnum.True);
     }
 
     public has(charCode: number): boolean {
-        return this._actual.get(charCode) === Boolean.True;
+        return this._actual.get(charCode) === BooleanEnum.True;
     }
 
     public clear(): void {

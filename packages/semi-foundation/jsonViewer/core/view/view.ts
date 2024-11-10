@@ -360,11 +360,6 @@ export class View {
     }
 
     private renderVisibleLines(startVisibleLine: number, endVisibleLine: number) {
-        // console.log(
-        // 	startVisibleLine,
-        // 	endVisibleLine,
-        // 	'startVisibleLine, endVisibleLine'
-        // );
 
         let actualLineNumber = this._foldingModel.getActualLineNumber(startVisibleLine + 1);
         let visibleLineNumber = startVisibleLine;

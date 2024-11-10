@@ -3,10 +3,10 @@ import { GlobalEvents } from './emitterEvents';
 type EventHandler<T> = (event: T) => void;
 
 class Emitter<Events extends Record<string, any>> {
-    private static instance: Emitter<any> | null = null;
-    private listeners: { [K in keyof Events]?: EventHandler<Events[K]>[] } = {};
+    static instance: Emitter<any> | null = null;
+    public listeners: { [K in keyof Events]?: EventHandler<Events[K]>[] } = {};
 
-    private constructor() {}
+    constructor() {}
 
     public static getInstance<Events extends Record<string, any>>(): Emitter<Events> {
         if (!Emitter.instance) {
