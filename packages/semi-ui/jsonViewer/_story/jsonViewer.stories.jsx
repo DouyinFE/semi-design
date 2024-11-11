@@ -81,7 +81,7 @@ export const DefaultJsonViewer = () => {
             value={baseStr}
             width={700}
             height={400}
-            options={{ lineHeight: 20, autoHeight: true }}
+            options={{ lineHeight: 20, autoWrap: true }}
             hoverHandler={hoverHandler}
             onChange={onChangeHandler}
         />

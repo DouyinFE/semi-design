@@ -77,7 +77,7 @@ render(SimpleList);
 
 ### 自动换行
 
-配置 options 的 autoHeight 参数，设置组件是否自动换行。
+配置 options 的 autoWrap 参数，设置组件是否自动换行。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -95,7 +95,7 @@ class SimpleList extends React.Component {
             <div>
                 <div style={{ marginRight: 16 }}>
                     <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={400} width={700} value={data} options={{ autoHeight: true }} />
+                    <JsonViewer height={400} width={700} value={data} options={{ autoWrap: true }} />
                 </div>
             </div>
         );
@@ -162,7 +162,7 @@ render(SimpleList);
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
 | lineHeight        | 设置行高 属性                                    | number                          | 20  |
-| autoHeight        | 设置是否自动换行 属性                             | boolean                          | true  |
+| autoWrap        | 设置是否自动换行 属性                             | boolean                          | true  |
 | formatOptions     | 设置格式化配置 属性                               | FormattingOptions                |           |
 
 ### FormattingOptions

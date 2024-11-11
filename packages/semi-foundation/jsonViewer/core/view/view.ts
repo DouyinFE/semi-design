@@ -264,7 +264,7 @@ export class View {
             left: '0',
             height: `${this._lineHeight * this._jsonModel.getLineCount()}px`,
         });
-        if (this._options?.autoHeight) {
+        if (this._options?.autoWrap) {
             scrollEl.style.width = '100%';
         } else {
             scrollEl.style.width = '1000px';
@@ -288,7 +288,7 @@ export class View {
             whiteSpace: 'pre-wrap',
             top: `${rowDatum.offset + this._verticalOffsetAdjustment}px`,
         });
-        if (!this._options?.autoHeight) {
+        if (!this._options?.autoWrap) {
             lineElement.style.height = `${this._lineHeight}px`;
         }
         lineElement.innerHTML = lineContent;
@@ -299,7 +299,7 @@ export class View {
     }
 
     private getCellSize(index: number): number {
-        if (this._options?.autoHeight) {
+        if (this._options?.autoWrap) {
             return this._measuredHeights[index] || this._lineHeight;
         }
         return this._lineHeight;
@@ -404,7 +404,7 @@ export class View {
         const lineElement = this.createLineContentElement(lineContent, actualLineNumber, visibleLineNumber);
         this._scrollDom.appendChild(lineElement);
 
-        // this._options?.autoHeight &&
+        // this._options?.autoWrap &&
         this._measureAndUpdateItemHeight(lineElement, visibleLineNumber);
         return lineElement;
     }
