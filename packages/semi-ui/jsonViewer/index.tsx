@@ -10,7 +10,7 @@ export interface JsonViewerProps {
     width: number;
     height: number;
     onChange?: (value: string) => void;
-    hoverHandler?: ({ value, target }: { value: string; target: HTMLElement }) => HTMLElement;
+    onValueHover?: ({ value, target }: { value: string; target: HTMLElement }) => HTMLElement;
     options?: JsonViewerOptions
 }
 
@@ -50,7 +50,7 @@ class JsonViewerCpn extends PureComponent<JsonViewerProps> {
     }
 
     private initJsonViewer() {
-        const { value, options, onChange, hoverHandler } = this.props;
+        const { value, options, onChange, onValueHover } = this.props;
 
         if (this.editorRef.current) {
             this.jsonViewer = new JsonViewer(this.editorRef.current, value, options);
@@ -61,7 +61,7 @@ class JsonViewerCpn extends PureComponent<JsonViewerProps> {
             });
 
             this.jsonViewer.emitter.on('hoverNode', (e) => {
-                const el = hoverHandler?.(e);
+                const el = onValueHover?.(e);
                 if (el) {
                     this.jsonViewer?.emitter.emit('renderHoverNode', { el });
                 }
