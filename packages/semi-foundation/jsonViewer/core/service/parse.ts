@@ -285,7 +285,6 @@ export function parseJson(jsonModel: JSONModel) {
         const node = new ArrayASTNodeImpl(parent, scanner.getTokenOffset());
         _scanNext();
 
-        const count = 0;
         let needComma = false;
         while (scanner.getToken() !== Json.SyntaxKind.CloseBracketToken && scanner.getToken() !== Json.SyntaxKind.EOF) {
             if (scanner.getToken() === Json.SyntaxKind.CommaToken) {
@@ -297,19 +296,25 @@ export function parseJson(jsonModel: JSONModel) {
                 if (scanner.getToken() === Json.SyntaxKind.CloseBracketToken) {
                     if (needComma) {
                         _errorAtRange('Trailing comma', ErrorCode.TrailingComma, commaOffset, commaOffset + 1);
-                        continue;
                     }
+                    continue;
                 }
             } else if (needComma) {
-                _error('Comma expected.', ErrorCode.CommaExpected);
+                _error('Comma expected.', ErrorCode.CommaExpected, undefined, [], [Json.SyntaxKind.CloseBracketToken]);
+                break;
             }
             const item = _parseValue(node);
             if (!item) {
-                _error('Value expected.', ErrorCode.ValueExpected);
+                _error('Value expected.', ErrorCode.ValueExpected, undefined, [], [Json.SyntaxKind.CloseBracketToken]);
+                break;
             } else {
                 node.items.push(item);
             }
             needComma = true;
+        }
+
+        if (scanner.getToken() !== Json.SyntaxKind.CloseBracketToken) {
+            return _error('Expected comma or closing bracket', ErrorCode.CommaOrCloseBraceExpected, node);
         }
         return _finalize(node, true);
     }

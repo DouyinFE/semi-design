@@ -1,7 +1,7 @@
 import { JSONModel } from './jsonModel';
 import { getFoldingRanges, FoldingRange } from '../service/jsonService';
 import { emitter } from '../common/emitter';
-
+import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 
 /**
  * 折叠模型，管理JSON的折叠范围
@@ -11,17 +11,20 @@ export class FoldingModel {
     private _jsonModel: JSONModel;
     private _foldingRanges: FoldingRange[] = [];
     private _collapsedRanges: Map<number, number> = new Map(); // startLine -> endLine
+    private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager();
     constructor(jsonModel: JSONModel) {
         this._jsonModel = jsonModel;
         this.updateFoldingRanges();
-        emitter.on('contentChanged', e => {
+        emitter.on('problemsChanged', e => {
             this.updateFoldingRanges();
         });
     }
 
     public updateFoldingRanges(): void {
-        this._foldingRanges = getFoldingRanges(this._jsonModel);
-        this.updateCollapsedRanges();
+        this._jsonWorkerManager.foldRange().then(ranges => {
+            this._foldingRanges = ranges;
+            this.updateCollapsedRanges();
+        });
     }
 
     private updateCollapsedRanges(): void {
