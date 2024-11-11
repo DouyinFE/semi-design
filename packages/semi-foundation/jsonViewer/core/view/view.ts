@@ -185,7 +185,8 @@ export class View {
     }
 
     private createLineNumberContainer(): HTMLElement {
-        const lineNumberContainer = elt('div', 'line-number-container');
+        const lineNumberClass = 'semi-json-viewer-line-number-container';
+        const lineNumberContainer = elt('div', lineNumberClass);
         setStyles(lineNumberContainer, {
             position: 'absolute',
             left: '0',
@@ -229,7 +230,8 @@ export class View {
     }
 
     private createLineNumberElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
-        const lineNumberElement = elt('div', 'line-number');
+        const lineNumberClass = 'semi-json-viewer-line-number';
+        const lineNumberElement = elt('div', lineNumberClass);
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
         setStyles(lineNumberElement, {
             position: 'absolute',
@@ -276,7 +278,8 @@ export class View {
         visibleLineNumber: number
     ): HTMLElement {
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
-        const lineElement = elt('div', 'view-line');
+        const lineElementClass = 'semi-json-viewer-view-line';
+        const lineElement = elt('div', lineElementClass);
         setStyles(lineElement, {
             lineHeight: `${this._lineHeight}px`,
             width: '100%',
@@ -448,15 +451,17 @@ export class View {
 
             const highlightedText = this.escapeHtml(content.substring(startIndex, endIndex));
             const currentMatch = this._searchWidget.searchResults?.[this._searchWidget._currentResultIndex];
+            const searchResultClass = 'semi-json-viewer-search-result';
+            const currentSearchResultClass = 'semi-json-viewer-current-search-result';
             if (
                 match.range.startLineNumber === currentMatch?.range.startLineNumber &&
                 match.range.endLineNumber === currentMatch?.range.endLineNumber &&
                 match.range.startColumn === currentMatch?.range.startColumn &&
                 match.range.endColumn === currentMatch?.range.endColumn
             ) {
-                result += `<span class="${tokenClass} search-result current-search-result" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
+                result += `<span class="${tokenClass} ${searchResultClass} ${currentSearchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
             } else {
-                result += `<span class="${tokenClass} search-result " data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
+                result += `<span class="${tokenClass} ${searchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
             }
 
             lastIndex = endIndex;

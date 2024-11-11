@@ -1,11 +1,10 @@
-import BaseComponent from "_base/baseComponent";
 import { JsonViewerOptions, JsonViewer } from "@douyinfe/semi-foundation/jsonViewer/core";
-import { LegacyRef, PureComponent } from "react";
+import { PureComponent } from "react";
 import React from "react";
-import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.scss';
-
-
+import classNames from "classnames";
+import { cssClasses } from "@douyinfe/semi-foundation/jsonViewer/constants";
+const prefixCls = cssClasses.PREFIX;
 export interface JsonViewerProps {
     value: string;
     width: number;
@@ -21,7 +20,7 @@ class JsonViewerCpn extends PureComponent<JsonViewerProps> {
     static defaultProps: Partial<JsonViewerProps> = {
         width: 400,
         height: 400,
-        value: '',
+        value: ''
     };
 
     private editorRef: React.RefObject<HTMLDivElement>;
@@ -46,8 +45,7 @@ class JsonViewerCpn extends PureComponent<JsonViewerProps> {
         const { width, height } = this.props;
         return {
             width,
-            height,
-            border: '1px solid #0080ff'
+            height
         };
     }
 
@@ -72,7 +70,7 @@ class JsonViewerCpn extends PureComponent<JsonViewerProps> {
     }
 
     render() {
-        return <div style={this.getStyle()} ref={this.editorRef}></div>;
+        return <div style={this.getStyle()} ref={this.editorRef} className={classNames(prefixCls, `${prefixCls}-background`)}></div>;
     }
 }
 

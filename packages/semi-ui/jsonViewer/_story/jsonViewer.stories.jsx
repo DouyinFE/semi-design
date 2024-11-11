@@ -51,7 +51,7 @@ const baseStr = `{
           "age": 3
        }
     ]
- }`;
+}`;
 
 export const DefaultJsonViewer = () => {
     const hoverHandler = ({ value, target }) => {
