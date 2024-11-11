@@ -1,1 +1,1 @@
-export * from './json-viewer/jsonViewer';
+export * from '@douyinfe/semi-json-viewer-core';

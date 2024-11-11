@@ -1,6 +1,8 @@
 import { FormattingOptions } from 'jsonc-parser';
 import { JsonWorker } from './jsonWorker';
+
 let jsonWorker: JsonWorker | null = null;
+
 self.onmessage = (e: MessageEvent) => {
     const { method, params, messageId } = e.data;
 

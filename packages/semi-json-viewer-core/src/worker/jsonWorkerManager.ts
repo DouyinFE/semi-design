@@ -1,6 +1,6 @@
 import { IModelContentChangeEvent } from '../common/emitterEvents';
 import { FormattingOptions } from 'jsonc-parser';
-// import Worker from './json.worker.ts';
+
 
 //TODO 修改封装方式
 
@@ -19,8 +19,10 @@ export class JsonWorkerManager {
     private _callbacks: Map<number, (result: any) => void>;
 
     constructor() {
-        this._worker = new Worker(new URL('../worker/json.worker.ts', import.meta.url), { type: 'module' });
-        // this._worker = new Worker();
+        const workerRaw = decodeURIComponent("%WORKER_RAW%");
+        const blob = new Blob([workerRaw], { type: 'application/javascript' });
+        const workerURL = URL.createObjectURL(blob);
+        this._worker = new Worker(workerURL);
         this._callbacks = new Map();
 
         this._worker.onmessage = this._handleWorkerMessage.bind(this);
