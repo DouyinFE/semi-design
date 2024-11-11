@@ -185,7 +185,8 @@ export class View {
     }
 
     private createLineNumberContainer(): HTMLElement {
-        const lineNumberContainer = elt('div', 'line-number-container');
+        const lineNumberClass = 'semi-json-viewer-line-number-container';
+        const lineNumberContainer = elt('div', lineNumberClass);
         setStyles(lineNumberContainer, {
             position: 'absolute',
             left: '0',
@@ -229,7 +230,8 @@ export class View {
     }
 
     private createLineNumberElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
-        const lineNumberElement = elt('div', 'line-number');
+        const lineNumberClass = 'semi-json-viewer-line-number';
+        const lineNumberElement = elt('div', lineNumberClass);
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
         setStyles(lineNumberElement, {
             position: 'absolute',
@@ -262,7 +264,7 @@ export class View {
             left: '0',
             height: `${this._lineHeight * this._jsonModel.getLineCount()}px`,
         });
-        if (this._options?.autoHeight) {
+        if (this._options?.autoWrap) {
             scrollEl.style.width = '100%';
         } else {
             scrollEl.style.width = '1000px';
@@ -276,7 +278,8 @@ export class View {
         visibleLineNumber: number
     ): HTMLElement {
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
-        const lineElement = elt('div', 'view-line');
+        const lineElementClass = 'semi-json-viewer-view-line';
+        const lineElement = elt('div', lineElementClass);
         setStyles(lineElement, {
             lineHeight: `${this._lineHeight}px`,
             width: '100%',
@@ -285,7 +288,7 @@ export class View {
             whiteSpace: 'pre-wrap',
             top: `${rowDatum.offset + this._verticalOffsetAdjustment}px`,
         });
-        if (!this._options?.autoHeight) {
+        if (!this._options?.autoWrap) {
             lineElement.style.height = `${this._lineHeight}px`;
         }
         lineElement.innerHTML = lineContent;
@@ -296,7 +299,7 @@ export class View {
     }
 
     private getCellSize(index: number): number {
-        if (this._options?.autoHeight) {
+        if (this._options?.autoWrap) {
             return this._measuredHeights[index] || this._lineHeight;
         }
         return this._lineHeight;
@@ -401,7 +404,7 @@ export class View {
         const lineElement = this.createLineContentElement(lineContent, actualLineNumber, visibleLineNumber);
         this._scrollDom.appendChild(lineElement);
 
-        // this._options?.autoHeight &&
+        // this._options?.autoWrap &&
         this._measureAndUpdateItemHeight(lineElement, visibleLineNumber);
         return lineElement;
     }
@@ -448,15 +451,17 @@ export class View {
 
             const highlightedText = this.escapeHtml(content.substring(startIndex, endIndex));
             const currentMatch = this._searchWidget.searchResults?.[this._searchWidget._currentResultIndex];
+            const searchResultClass = 'semi-json-viewer-search-result';
+            const currentSearchResultClass = 'semi-json-viewer-current-search-result';
             if (
                 match.range.startLineNumber === currentMatch?.range.startLineNumber &&
                 match.range.endLineNumber === currentMatch?.range.endLineNumber &&
                 match.range.startColumn === currentMatch?.range.startColumn &&
                 match.range.endColumn === currentMatch?.range.endColumn
             ) {
-                result += `<span class="${tokenClass} search-result current-search-result" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
+                result += `<span class="${tokenClass} ${searchResultClass} ${currentSearchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
             } else {
-                result += `<span class="${tokenClass} search-result " data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
+                result += `<span class="${tokenClass} ${searchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
             }
 
             lastIndex = endIndex;

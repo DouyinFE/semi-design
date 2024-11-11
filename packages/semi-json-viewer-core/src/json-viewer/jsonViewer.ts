@@ -9,7 +9,7 @@ import { CompletionItem } from '../service/jsonTypes';
  */
 export interface JsonViewerOptions {
     lineHeight?: number;
-    autoHeight?: boolean;
+    autoWrap?: boolean;
     formatOptions?: FormattingOptions;
     completionOptions?: CompletionOptions
 }

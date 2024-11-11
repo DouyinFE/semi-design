@@ -155,7 +155,9 @@ export class JSONModel {
                     this.lastChangeBufferPos.lineNumber -= 1;
                     this.lastChangeBufferPos.column = this.getLineLength(this.lastChangeBufferPos.lineNumber);
                 } else {
-                    this.lastChangeBufferPos.column -= op.rangeLength;
+                    const startColumn = op.range.startColumn;
+                    const newColumn = op.rangeLength === 1 ? startColumn - 1 : startColumn;
+                    this.lastChangeBufferPos.column = newColumn;
                 }
                 break;
             case 'replace':

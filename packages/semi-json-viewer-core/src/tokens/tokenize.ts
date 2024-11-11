@@ -22,17 +22,17 @@ export interface IState {
     equals(other: IState): boolean
 }
 
-export const TOKEN_DELIM_OBJECT = 'delimiter-bracket';
-export const TOKEN_DELIM_ARRAY = 'delimiter-array';
-export const TOKEN_DELIM_COLON = 'delimiter-colon';
-export const TOKEN_DELIM_COMMA = 'delimiter-comma';
-export const TOKEN_VALUE_BOOLEAN = 'keyword';
-export const TOKEN_VALUE_NULL = 'keyword';
-export const TOKEN_VALUE_STRING = 'string-value';
-export const TOKEN_VALUE_NUMBER = 'number';
-export const TOKEN_PROPERTY_NAME = 'string-key';
-export const TOKEN_COMMENT_BLOCK = 'comment-block';
-export const TOKEN_COMMENT_LINE = 'comment-line';
+export const TOKEN_DELIM_OBJECT = 'semi-json-viewer-delimiter-bracket';
+export const TOKEN_DELIM_ARRAY = 'semi-json-viewer-delimiter-array';
+export const TOKEN_DELIM_COLON = 'semi-json-viewer-delimiter-colon';
+export const TOKEN_DELIM_COMMA = 'semi-json-viewer-delimiter-comma';
+export const TOKEN_VALUE_BOOLEAN = 'semi-json-viewer-keyword';
+export const TOKEN_VALUE_NULL = 'semi-json-viewer-keyword';
+export const TOKEN_VALUE_STRING = 'semi-json-viewer-string-value';
+export const TOKEN_VALUE_NUMBER = 'semi-json-viewer-number';
+export const TOKEN_PROPERTY_NAME = 'semi-json-viewer-string-key';
+export const TOKEN_COMMENT_BLOCK = 'semi-json-viewer-comment-block';
+export const TOKEN_COMMENT_LINE = 'semi-json-viewer-comment-line';
 
 const enum JSONParent {
     Object = 0,

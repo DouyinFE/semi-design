@@ -21,7 +21,7 @@ export class HoverWidget {
 
     private _attachEventListeners() {
         this._view.contentDom.addEventListener('mousemove', e => {
-            if (e.target instanceof HTMLSpanElement && e.target.classList.contains('string-value')) {
+            if (e.target instanceof HTMLSpanElement && e.target.classList.contains('semi-json-viewer-string-value')) {
                 if (this._hoverDom === e.target) {
                     return;
                 }

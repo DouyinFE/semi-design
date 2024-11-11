@@ -30,5 +30,5 @@ export function setStyles(element: HTMLElement, styles: { [key: string]: string 
  * @returns line element
  */
 export function getLineElement(node: Node): HTMLElement | null {
-    return node.parentElement?.closest('.view-line') || null;
+    return node.parentElement?.closest('.semi-json-viewer-view-line') || null;
 }
