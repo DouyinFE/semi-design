@@ -1,5 +1,4 @@
-@import './variables.scss';
-
+@import "./variables.scss";
 $module: #{$prefix}-resizable;
 
 .#{$module} {
@@ -16,76 +15,70 @@ $module: #{$prefix}-resizable;
 
         // 基础样式
         @mixin row-resize-base {
-            width: 100%;
-            height: 10px;
+            width: $width-row-handler;
+            height: $height-row-handler;
             top: 0;
             left: 0;
             cursor: row-resize;
         }
 
         @mixin col-resize-base {
-            width: 10px;
-            height: 100%;
+            width: $width-col-handler;
+            height: $height-col-handler;
             top: 0;
             left: 0;
             cursor: col-resize;
         }
 
         @mixin edge-resize-base {
-            width: 20px;
-            height: 20px;
+            width: $width-edge-handler;
+            height: $height-edge-handler;
             position: absolute;
         }
 
         // 方向样式
         &-top {
             @include row-resize-base;
-            top: -5px;
+            inset: $inset-top-handler;
         }
 
         &-right {
             @include col-resize-base;
-            left: auto;
-            right: -5px;
+            inset: $inset-right-handler;
         }
 
         &-bottom {
             @include row-resize-base;
-            top: auto;
-            bottom: -5px;
+            inset: $inset-bottom-handler;
         }
 
         &-left {
             @include col-resize-base;
-            left: -5px;
+            inset: $inset-left-handler;
         }
 
         // 边角样式
         &-topRight {
             @include edge-resize-base;
-            right: -10px;
-            top: -10px;
+            inset: $inset-topRight-handler;
             cursor: ne-resize;
         }
 
         &-bottomRight {
             @include edge-resize-base;
-            right: -10px;
-            bottom: -10px;
+            inset: $inset-bottomRight-handler;
             cursor: se-resize;
         }
 
         &-bottomLeft {
             @include edge-resize-base;
-            left: -10px;
-            bottom: -10px;
+            inset: $inset-bottomLeft-handler;
             cursor: sw-resize;
         }
 
         &-topLeft {
             @include edge-resize-base;
-            left: -10px;
-            top: -10px;
+            inset: $inset-topLeft-handler;
             cursor: nw-resize;
         }
     }
@@ -114,18 +107,16 @@ $module: #{$prefix}-resizable;
         opacity: 1;
 
         &-vertical {
-            width: 100%;
-            height: 8px;
+            width: $width-vertical-handler;
+            height: $height-vertical-handler;
             flex-shrink: 0;
-            margin: 0;
             cursor: row-resize;
         }
 
         &-horizontal {
-            height: 100%;
-            width: 8px;
+            height: $height-horizontal-handler;
+            width: $width-horizontal-handler;
             flex-shrink: 0;
-            margin: 0;
             cursor: col-resize;
         }
     }
@@ -133,11 +124,7 @@ $module: #{$prefix}-resizable;
     &-background {
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0);
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         z-index: $z-resizable_background;
         opacity: 0;
         position: fixed;
