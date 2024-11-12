@@ -377,7 +377,7 @@ export const Group_horizontal = () => {
 }
 
 export const Group_dynamic_direction = () => {
-  const [text, setText] = useState('test')
+  const [text, setText] = useState('drag to resize')
   const [direction, setDirection] = useState('horizontal')
 
   const changeDirection = () => {
@@ -393,14 +393,14 @@ export const Group_dynamic_direction = () => {
       <ResizeGroup direction={direction}>
         <ResizeItem
           onChange={() => { setText('resizing') }}
-          onResizeEnd={() => { setText('test') }}
+          onResizeEnd={() => { setText('drag to resize') }}
           defaultSize={8}
         >
             <ResizeGroup direction='horizontal'>
               <ResizeItem
                 style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
                 onChange={() => { setText('resizing') }}
-                onResizeEnd={() => { setText('test') }}
+                onResizeEnd={() => { setText('drag to resize') }}
               >
                 <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
                   {text}

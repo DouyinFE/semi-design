@@ -58,6 +58,7 @@ class ResizeItem extends BaseComponent<ResizeItemProps, ResizeItemState> {
         this.foundation.init();
         const { min, max, onResizeStart, onChange, onResizeEnd, defaultSize } = this.props;
         if (this.itemIndex === -1) {
+            // 开发过程在StrictMode下context方法会执行两次，需要判断一下是否已经注册过
             this.itemIndex = this.context.registerItem(this.itemRef, min, max, defaultSize, onResizeStart, onChange, onResizeEnd);
         }
         this.direction = this.context.direction; // 留一个direction的引用，方便在componentDidUpdate中判断方向是否有变化

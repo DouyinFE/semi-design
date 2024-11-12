@@ -2,6 +2,7 @@ import { getItemDirection, getPixelSize } from "../utils";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
 import { ResizeStartCallback, ResizeCallback } from "../types";
 import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
+import { debounce } from "lodash";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     registerEvents: () => void;
     unregisterEvents: () => void
@@ -303,7 +304,8 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         });
     }
 
-    calculateSpace = () => { // 浏览器拖拽时保证px值最大最小仍生效
+    ensureConstraint = debounce(() => {
+        // 浏览器拖拽时保证px值最大最小仍生效
         const { direction } = this.getProps();
         const itemCount = this._adapter.getItemCount();
         let continueFlag = true;
@@ -346,7 +348,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
                 break;
             }
         }
-    }
+    }, 200) 
 
     destroy(): void {
         

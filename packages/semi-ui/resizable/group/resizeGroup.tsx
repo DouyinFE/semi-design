@@ -7,7 +7,6 @@ import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 import "@douyinfe/semi-foundation/resizable/resizable.scss";
-import pre from 'markdownRender/components/code';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -89,7 +88,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     componentDidMount() {
         this.foundation.init();
         // 监听窗口大小变化，保证一些限制仍生效
-        window.addEventListener('resize', this.foundation.calculateSpace);
+        window.addEventListener('resize', this.foundation.ensureConstraint);
     }
 
     componentDidUpdate(prevProps: ResizeGroupProps) {
@@ -108,7 +107,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     componentWillUnmount() {
         this.foundation.destroy();
-        window.removeEventListener('resize', this.foundation.calculateSpace);
+        window.removeEventListener('resize', this.foundation.ensureConstraint);
     }
 
     get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
