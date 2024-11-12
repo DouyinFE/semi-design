@@ -232,8 +232,8 @@ import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [size, setSize] = useState({ width: 200, height: 300 });
-
+  const [size, setSize] = useState({ width: 200, height: 100 });
+  const [size_, setSize_] = useState({ width: 200, height: 100 });
   const onChange = (() => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
     setSize(realSize);
@@ -243,16 +243,24 @@ function Demo() {
       <Button onClick={onChange}>set += 10</Button>
       <Resizable
         style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
-        defaultSize={{
-          width: 100,
-          height: 100,
-        }}
         size={size}
       >
         <div style={{ marginLeft: '20%' }}>
           Control Width/Height
         </div>
       </Resizable>
+
+      <div style={{ width: '500px', height: '60%', marginTop: '10px' }}>
+        <Resizable
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
+          onChange={(s) => { setSize_(s); }}
+          size={size_}
+        >
+          <div style={{ marginLeft: '20%' }}>
+            Control Width/Height
+          </div>
+        </Resizable>
+      </div>
     </div>
   );
 }
@@ -695,6 +703,68 @@ function Demo() {
               </div>
             </ResizeItem>
           </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
+### Dynamic Direction
+```jsx live=true 
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('drag to resize')
+  const [direction, setDirection] = useState('horizontal')
+
+  const changeDirection = () => {
+    if (direction === 'horizontal') {
+      setDirection('vertical')
+    } else {
+      setDirection('horizontal')
+    }
+  }
+  return (
+    <div style={{ width: '400px', height: '300px' }}>
+      <Button onClick={changeDirection}>{direction}</Button>
+      <ResizeGroup direction={direction} >
+        <ResizeItem
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { setText('drag to resize') }}
+          defaultSize={5}
+        >
+            <ResizeGroup direction='horizontal'>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+                onResizeEnd={() => { setText('drag to resize') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+              <ResizeHandler></ResizeHandler>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+            </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
+          defaultSize={1.3}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%',  padding:'5px' }}>
+            {text}
+          </div>
         </ResizeItem>
       </ResizeGroup>
     </div>
