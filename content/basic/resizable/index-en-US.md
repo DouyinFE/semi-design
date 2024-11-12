@@ -233,56 +233,19 @@ import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
   const [size, setSize] = useState({ width: 200, height: 100 });
-  const [size_, setSize_] = useState({ width: 200, height: 100 });
-  const onChange = (() => {
+  const onButtonClick = (() => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
     setSize(realSize);
   })
+  const onChange = (s) => { setSize(s); }
+
   return (
     <div style={{ width: '500px', height: '60%' }}>
-      <Button onClick={onChange}>set += 10</Button>
+      <Button onClick={onButtonClick}>set += 10</Button>
       <Resizable
         style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
         size={size}
-      >
-        <div style={{ marginLeft: '20%' }}>
-          Control Width/Height
-        </div>
-      </Resizable>
-
-      <div style={{ width: '500px', height: '60%', marginTop: '10px' }}>
-        <Resizable
-          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
-          onChange={(s) => { setSize_(s); }}
-          size={size_}
-        >
-          <div style={{ marginLeft: '20%' }}>
-            Control Width/Height
-          </div>
-        </Resizable>
-      </div>
-    </div>
-  );
-}
-```
-
-```jsx live=true
-import React, { useState } from 'react';
-import { Resizable } from '@douyinfe/semi-ui';
-
-function Demo() {
-  const [size, setSize] = useState({ width: 200, height: 300 });
-  
-  return (
-    <div style={{ width: '500px', height: '60%' }}>
-      <Resizable
-        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 5px solid' }}
-        defaultSize={{
-          width: '60%',
-          height: 300,
-        }}
-        onChange={(s) => { setSize(s); }}
-        size={size}
+        onChange={onChange}
       >
         <div style={{ marginLeft: '20%' }}>
           Control Width/Height
@@ -291,7 +254,6 @@ function Demo() {
     </div>
   );
 }
-
 ```
 
 

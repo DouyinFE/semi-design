@@ -15,7 +15,7 @@ $module: #{$prefix}-resizable;
 
         // 基础样式
         @mixin row-resize-base {
-            width: $width-row-handler;
+            width: 100%;
             height: $height-row-handler;
             top: 0;
             left: 0;
@@ -24,7 +24,7 @@ $module: #{$prefix}-resizable;
 
         @mixin col-resize-base {
             width: $width-col-handler;
-            height: $height-col-handler;
+            height: 100%;
             top: 0;
             left: 0;
             cursor: col-resize;
@@ -39,46 +39,52 @@ $module: #{$prefix}-resizable;
         // 方向样式
         &-top {
             @include row-resize-base;
-            inset: $inset-top-handler;
+            top: calc(-1 * $height-row-handler / 2);
         }
 
         &-right {
             @include col-resize-base;
-            inset: $inset-right-handler;
+            left: auto;
+            right: calc(-1 * $width-col-handler / 2);
         }
 
         &-bottom {
             @include row-resize-base;
-            inset: $inset-bottom-handler;
+            top: auto;
+            bottom: calc(-1 * $height-row-handler / 2);
         }
 
         &-left {
             @include col-resize-base;
-            inset: $inset-left-handler;
+            left: calc(-1 * $width-col-handler / 2);
         }
 
         // 边角样式
         &-topRight {
             @include edge-resize-base;
-            inset: $inset-topRight-handler;
+            right: calc(-1 * $width-edge-handler / 2);
+            top: calc(-1 * $height-edge-handler / 2);
             cursor: ne-resize;
         }
 
         &-bottomRight {
             @include edge-resize-base;
-            inset: $inset-bottomRight-handler;
+            right: calc(-1 * $width-edge-handler / 2);
+            bottom: calc(-1 * $height-edge-handler / 2);
             cursor: se-resize;
         }
 
         &-bottomLeft {
             @include edge-resize-base;
-            inset: $inset-bottomLeft-handler;
+            left: calc(-1 * $width-edge-handler / 2);
+            bottom: calc(-1 * $height-edge-handler / 2);
             cursor: sw-resize;
         }
 
         &-topLeft {
             @include edge-resize-base;
-            inset: $inset-topLeft-handler;
+            left: calc(-1 * $width-edge-handler / 2);
+            top: calc(-1 * $height-edge-handler / 2);
             cursor: nw-resize;
         }
     }
@@ -107,14 +113,14 @@ $module: #{$prefix}-resizable;
         opacity: 1;
 
         &-vertical {
-            width: $width-vertical-handler;
+            width: 100%;
             height: $height-vertical-handler;
             flex-shrink: 0;
             cursor: row-resize;
         }
 
         &-horizontal {
-            height: $height-horizontal-handler;
+            height: 100%;
             width: $width-horizontal-handler;
             flex-shrink: 0;
             cursor: col-resize;
