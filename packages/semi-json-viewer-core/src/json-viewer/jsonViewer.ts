@@ -45,4 +45,8 @@ export class JsonViewer {
     getModel() {
         return this._jsonModel;
     }
+
+    getSearchWidget() {
+        return this._view.searchWidget;
+    }
 }

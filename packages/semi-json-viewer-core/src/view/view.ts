@@ -120,6 +120,10 @@ export class View {
         return this._scalingCellSizeAndPositionManager;
     }
 
+    get searchWidget() {
+        return this._searchWidget;
+    }
+
     private _attachEventListeners() {
         this._contentDom.addEventListener('scroll', e => {
             const scrollTop = this._contentDom.scrollTop;
@@ -392,6 +396,7 @@ export class View {
         // 	lineNumberElement
         // });
     }
+    
 
     private renderLineNumber(actualLineNumber: number, visibleLineNumber: number) {
         const lineNumberElement = this.createLineNumberElement(actualLineNumber, visibleLineNumber);

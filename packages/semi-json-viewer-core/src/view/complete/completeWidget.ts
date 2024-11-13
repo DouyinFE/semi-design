@@ -99,23 +99,17 @@ export class CompleteWidget {
     }
 
     private createCompleteContainer(): HTMLElement {
-        const container = elt('div', 'complete-container');
+        const className = 'semi-json-viewer-complete-container';
+        const container = elt('div', className);
         setStyles(container, {
-            position: 'absolute',
-            zIndex: '1000',
-            backgroundColor: '#fff',
-            borderRadius: '3px',
-            border: '1px solid #ccc',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-            minWidth: '200px',
-            maxWidth: '400px',
             display: 'none',
         });
         return container;
     }
 
     private createSuggestionsContainer(): HTMLElement {
-        const container = elt('div', 'suggestions-container');
+        const className = 'semi-json-viewer-complete-suggestions-container';
+        const container = elt('div', className);
         setStyles(container, {
             maxHeight: '200px',
             overflowY: 'auto',
@@ -190,11 +184,12 @@ export class CompleteWidget {
     };
 
     private _renderCompletions() {
+        const className = 'semi-json-viewer-complete-suggestions-item';
         this._suggestionsContainer.innerHTML = this._suggestions
             .map(
                 (item, index) => `
-        <li style="padding: 4px 8px; cursor: pointer; background-color: ${
-    index === this._selectedIndex ? '#e8e8e8' : 'transparent'
+        <li class="${className}" style="background-color: ${
+    index === this._selectedIndex ? 'var(--semi-color-fill-0)' : 'transparent'
 }" data-index="${index}">
             ${item.label}
         </li>
