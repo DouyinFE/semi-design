@@ -24,14 +24,12 @@ JsonViewer 的基本用法。传入 value height 和 width 参数，设置组件
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
-
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
 class SimpleList extends React.Component {
     render() {
-        const data = `{
-            "name": "Semi",
-            "version": "0.0.0"
-        }`;
-
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
@@ -53,14 +51,12 @@ render(SimpleList);
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
-
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
 class SimpleList extends React.Component {
     render() {
-        const data = `{
-            "name": "Semi",
-            "version": "0.0.0"
-        }`;
-
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
@@ -82,15 +78,13 @@ render(SimpleList);
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
-
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0",
+    "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit."
+}`;
 class SimpleList extends React.Component {
     render() {
-        const data = `{
-            "name": "Semi",
-            "version": "0.0.0",
-            "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        }`;
-
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
@@ -116,15 +110,9 @@ render(SimpleList);
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
-
+const data = `{"name": "Semi", "version": "0.0.0"}`;
 class SimpleList extends React.Component {
     render() {
-        const data = `{
-            "name": "Semi",
-            "version": "0.0.0",
-            "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        }`;
-
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
