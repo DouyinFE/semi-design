@@ -65,12 +65,6 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         this.foundation.init();
     }
 
-    // componentDidUpdate(prevProps: JsonViewerProps) {
-    //     if (prevProps.value !== this.props.value || prevProps.options !== this.props.options) {
-    //         this.initJsonViewer();
-    //     }
-    // }
-
     get adapter(): JsonViewerAdapter<JsonViewerProps, JsonViewerState> {
         return {
             ...super.adapter,
@@ -105,8 +99,9 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
                 ...this.state.searchOptions,
                 [key]: !this.state.searchOptions[key]
             }
+        }, () => {
+            this.searchHandler();
         });
-        this.searchHandler();
     }
 
     renderSearchOptions() {
