@@ -605,6 +605,12 @@ export const MonthRangePicker = () => {
         return date.getTime() < deadDate.getTime(); 
     };
 
+    const disabledRangeDate = date => {
+        const deadDate = new Date('2025/3/1 00:00:00');
+        const startDate = new Date('2024/11/1 00:00:00');
+        return date.getTime() < startDate.getTime() || date.getTime() > deadDate.getTime(); 
+    };
+
     return (
       <>
         <div>
@@ -640,6 +646,8 @@ export const MonthRangePicker = () => {
           <br />
           <div>年月禁用：禁用2023年3月前的所有年月</div>
           <DatePicker type="monthRange" disabledDate={disabledDate}/>
+          <div>年月禁用：禁用2024年11月前 & 2025年2月后的所有年月</div>
+          <DatePicker type="monthRange" disabledDate={disabledRangeDate}/>
           <br />
           <br />
           <div>validateStatus</div>
