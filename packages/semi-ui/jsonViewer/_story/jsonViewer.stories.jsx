@@ -54,7 +54,7 @@ const baseStr = `{
 }`;
 
 export const DefaultJsonViewer = () => {
-    const hoverHandler = ({ value, target }) => {
+    const hoverHandler = (value, target) => {
         const el = document.createElement('div');
         el.style.backgroundColor = '#f5f5f5';
         el.style.width = '100px';
