@@ -10,6 +10,7 @@ const compileWorker = async ()=>{
         entryPoints: [workerEntry],
         bundle: true,
         write: false,
+        minify: true,
     });
     return result.outputFiles[0].text;
 };
