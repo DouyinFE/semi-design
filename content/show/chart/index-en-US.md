@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 75
+order: 77
 category: Show
 title: Data Visualization
 icon: doc-vchart

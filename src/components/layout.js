@@ -136,6 +136,7 @@ const AppLayout = ({ type, location, children }) => {
                             localeCode
                             icon
                             order
+                            showNew
                         }
                     }
                 }

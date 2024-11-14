@@ -37,7 +37,6 @@ No plans for this. Specific reasons: [Issue 311](https://github.com/DouyinFE/sem
 - All subsequent new features and components will be developed based on version 2.x. We recommend business parties to keep using the latest version as much as possible
 - Between 2.x versions, the API will remain **forward compatible**
 - The API will also remain **forward compatible** between 1.x versions. When upgrading from 1.x to 2.x, breaking changes will be included, please refer to the documentation for specific upgrade precautions
-- 0.x versions are currently discontinued, and hotfix updates are made if and only if a bugfix has to be done. When upgrading from 0.x to 1.x, breaking changes will be included. For specific upgrade precautions, please refer to the documentation
 
 
 #### TS type check reports an error, indicating that the attribute children does not exist on xxx or that XXX cannot be used as a JSX component

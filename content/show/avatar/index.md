@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 52
+order: 55
 category: 展示类
 title: Avatar 头像
 icon: doc-avatar
