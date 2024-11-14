@@ -203,7 +203,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading, expanded, showLine } = this.props;
+        const { loading, expanded, showLine, level } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
@@ -218,7 +218,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 />
             );
         }
-        if (showLine) {
+        // when leaf node 's level is 0, no switcher
+        if (showLine && level) {
             return this.renderSwitcher();
         }
         return (
