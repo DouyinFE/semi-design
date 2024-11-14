@@ -255,6 +255,57 @@ export const CustomRenderInputArea = () => {
     )
 }
 
+function CustomInputRender2(props) {
+    const { defaultNode, onClear, onSend, detailProps } = props;
+    const { clearContextNode, uploadNode, inputNode, sendNode, onClick } = detailProps;
+   
+    return <div style={{margin: '8px 16px', display: 'flex', flexDirection:'row',
+      alignItems: 'flex-end', borderRadius: 16,padding: 10, border: '1px solid var(--semi-color-border)'}}
+      onClick={onClick} 
+    >
+        {uploadNode}
+        {inputNode}
+        {sendNode}
+    </div>
+}
+
+export const CustomRenderInputArea2 = () => {
+    const [message, setMessage] = useState(initMessage.slice(0, 1));
+
+    const onChatsChange = useCallback((chats) => {
+        setMessage(chats);
+    }, []);
+
+    const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getUuidv4(),
+            content: `This is a mock response`
+        }
+        setMessage((message) => ([...message, newAssistantMessage]));
+    }, []);
+
+    const renderInputArea = useCallback((props) => {
+        return (<CustomInputRender2 {...props} />)
+    }, []);     
+
+    return (
+        <div
+            style={{ height: 600}}
+        >
+            <Chat 
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                onChatsChange={onChatsChange}
+                onMessageSend={onMessageSend}
+                renderInputArea={renderInputArea}
+                uploadProps={uploadProps}
+            />
+        </div>
+    )
+}
+
 export const CustomRenderAvatar = (props) => {
     const customRenderAvatar = useCallback((props)=> {
         const { role, defaultAvatar } = props;

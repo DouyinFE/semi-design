@@ -19,7 +19,7 @@ export interface CommonChatsProps {
     onMessageCopy?: (message?: Message) => void;
     chatBoxRenderConfig?: ChatBoxRenderConfig;
     customMarkDownComponents?: MDXProps['components'];
-    renderDivider?: (message?: Message) => ReactNode;
+    renderDivider?: (message?: Message) => ReactNode
 }
 
 export interface ChatProps extends CommonChatsProps {
@@ -52,15 +52,63 @@ export interface ChatProps extends CommonChatsProps {
 export interface RenderInputAreaProps {
     defaultNode?: ReactNode;
     onSend?: (content?: string, attachment?: FileItem[]) => void;
-    onClear?: (e?: any) => void
+    onClear?: (e?: any) => void;
+    detailProps?: {
+        clearContextNode?: ReactNode;
+        uploadNode?: ReactNode;
+        inputNode?: ReactNode;
+        sendNode?: ReactNode;
+        onClick?: (e?: MouseEvent) => void
+    }
+}
+
+export interface RenderTitleProps {
+    message?: Message;
+    role?: Metadata;
+    defaultTitle?: ReactNode
+}
+
+export interface RenderAvatarProps {
+    message?: Message;
+    role?: Metadata; 
+    defaultAvatar?: ReactNode
+}
+
+export interface RenderContentProps {
+    message?: Message;
+    role?: Metadata;
+    defaultContent?: ReactNode | ReactNode[]; 
+    className?: string
+}
+
+export interface DefaultActionNodeObj {
+    copyNode: ReactNode;
+    likeNode: ReactNode;
+    dislikeNode: ReactNode;
+    resetNode: ReactNode;
+    deleteNode: ReactNode
+}
+
+export interface RenderActionProps {
+    message?: Message;
+    defaultActions?: ReactNode | ReactNode[];
+    className: string;
+    defaultActionsObj?: DefaultActionNodeObj
+}
+
+export interface RenderFullChatBoxProps {
+    message?: Message;
+    role?: Metadata;
+    defaultNodes?: FullChatBoxNodes;
+    className: string
 }
 
 export interface ChatBoxRenderConfig {
-    renderChatBoxTitle?: (props: {role?: Metadata; defaultTitle?: ReactNode}) => ReactNode;
-    renderChatBoxAvatar?: (props: { role?: Metadata; defaultAvatar?: ReactNode}) => ReactNode;
-    renderChatBoxContent?: (props: {message?: Message; role?: Metadata; defaultContent?: ReactNode | ReactNode[]; className?: string}) => ReactNode;
-    renderChatBoxAction?: (props: {message?: Message; defaultActions?: ReactNode | ReactNode[]; className: string}) => ReactNode;
-    renderFullChatBox?: (props: {message?: Message; role?: Metadata; defaultNodes?: FullChatBoxNodes; className: string}) => ReactNode
+    renderChatBoxTitle?: (props: RenderTitleProps) => ReactNode;
+    renderChatBoxAvatar?: (props: RenderAvatarProps) => ReactNode;
+    renderChatBoxContent?: (props: RenderContentProps) => ReactNode;
+    renderChatBoxAction?: (props: RenderActionProps) => ReactNode;
+    renderFullChatBox?: (props: RenderFullChatBoxProps) => ReactNode
 }
 
 export interface FullChatBoxNodes {

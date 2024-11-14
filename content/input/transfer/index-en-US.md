@@ -106,10 +106,11 @@ Using `renderSelectedItem` you can customize the rendering structure of each sel
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Transfer, Avatar, Checkbox } from '@douyinfe/semi-ui';
+import { Transfer, Avatar, Checkbox, Highlight } from '@douyinfe/semi-ui';
 import { IconClose } from '@douyinfe/semi-icons';
 
 () => {
+    const [searchText, setSearchText] = useState('');
     const renderSourceItem = item => {
         return (
             <div className="components-transfer-demo-source-item" key={item.label}>
@@ -125,8 +126,12 @@ import { IconClose } from '@douyinfe/semi-icons';
                         {item.abbr}
                     </Avatar>
                     <div className="info">
-                        <div className="name">{item.label}</div>
-                        <div className="email">{item.value}</div>
+                        <div className="name">
+                            <Highlight sourceString={item.label} searchWords={[searchText]}></Highlight>
+                        </div>
+                        <div className="email">
+                            <Highlight sourceString={item.value} searchWords={[searchText]}></Highlight>
+                        </div>
                     </div>
                 </Checkbox>
             </div>
@@ -171,6 +176,7 @@ import { IconClose } from '@douyinfe/semi-icons';
             renderSourceItem={renderSourceItem}
             inputProps={{ placeholder: 'Search for a name or email' }}
             onChange={(values, items) => console.log(values, items)}
+            onSearch={searchText => setSearchText(searchText)}
         />
     );
 };

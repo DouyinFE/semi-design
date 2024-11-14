@@ -141,17 +141,21 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
 
     render() {
         const { onClearContext, renderInputArea, onSend, style, className, showClearContext } = this.props;
+        const clearNode = this.renderClearButton();
+        const uploadNode = this.renderUploadButton();
+        const inputNode = this.renderInputArea();
+        const sendNode = this.renderSendButton();
         const nodes = (
             <div className={cls(PREFIX_INPUT_BOX, { [className]: className })} style={style}>
                 <div 
                     className={`${PREFIX_INPUT_BOX}-inner`}
                     onClick={this.onClick}
                 >
-                    {showClearContext && this.renderClearButton()}
+                    {showClearContext && clearNode}
                     <div className={`${PREFIX_INPUT_BOX}-container`}>
-                        {this.renderUploadButton()}
-                        {this.renderInputArea()}
-                        {this.renderSendButton()}
+                        {uploadNode}
+                        {inputNode}
+                        {sendNode}
                     </div>
                 </div>
             </div>
@@ -161,6 +165,13 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
                 defaultNode: nodes, 
                 onClear: onClearContext,
                 onSend: onSend,
+                detailProps: {
+                    clearContextNode: clearNode,
+                    uploadNode: uploadNode,
+                    inputNode: inputNode,
+                    sendNode: sendNode,
+                    onClick: this.onClick,
+                }
             });
         }
         return nodes; 

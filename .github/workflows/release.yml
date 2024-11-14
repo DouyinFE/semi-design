@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event.ref_type == 'tag' && !contains(github.event.ref, 'alpha')
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - name: release
               uses: actions/setup-node@v4
               with:

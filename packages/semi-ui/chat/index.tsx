@@ -228,7 +228,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                     if (oldChats.length === 0 || newLastChat.id !== oldLastChat.id) {
                         shouldScroll = true;
                     }
-                } else if (newChats.length === oldChats.length &&
+                } else if (newChats.length === oldChats.length && newChats.length && 
                     (newLastChat.status !== 'complete' || newLastChat.status !== oldLastChat.status)
                 ) {
                     shouldScroll = true;
