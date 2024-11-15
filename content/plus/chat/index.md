@@ -1,11 +1,12 @@
 ---
 localeCode: zh-CN
-order: 85
+order: 23
 category: Plus
 title:  Chat 对话
 icon: doc-chat
 dir: column
 brief: 用于快速搭建对话内容
+showNew: true
 ---
 
 ## 使用场景

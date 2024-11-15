@@ -1,11 +1,12 @@
 ---
 localeCode: en-US
-order: 33
+order: 36
 category: Input
 title: PinCode
 icon: doc-pincode
 width: 60%
 brief: For easy and intuitive verification code entry
+showNew: true
 ---
 
 ## Code demonstration

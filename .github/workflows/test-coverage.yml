@@ -14,7 +14,7 @@ jobs:
     jest:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: '20'
@@ -23,7 +23,7 @@ jobs:
             - name: Run Jest test
               run: npm run test:coverage
             - name: Archive Jest coverage
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   if-no-files-found: error
                   name: jest
@@ -31,7 +31,7 @@ jobs:
     cypress:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: '20'
@@ -48,7 +48,7 @@ jobs:
             - name: Run Cypress test
               run: npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run
             - name: Archive Cypress coverage
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   if-no-files-found: error
                   name: cypress
@@ -57,12 +57,12 @@ jobs:
         runs-on: ubuntu-latest
         needs: [jest, cypress]
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
               with:
                   node-version: '20'
             - name: Download Jest coverage
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                   # upload jest and cypress coverage to output dir
                   path: output

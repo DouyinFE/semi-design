@@ -1,16 +1,17 @@
 ---
 localeCode: en-US
-order: 85
+order: 23
 category: Plus
 title:  Chat
 icon: doc-chat
 dir: column
 brief: Used to quickly build conversation content
+showNew: true
 ---
 
 ## When to use
 
-The Chat component can be used in scenarios such as regular conversations or AI conversations.
+The `Chat` component can be used in scenarios such as regular conversations or AI conversations.
 
 The rendering of the conversation content is based on the MarkdownRender component, which supports Markdown and MDX. It allows for common rich text features such as images, tables, links, bold text, code blocks, and more. More complex and customized document writing and display requirements can be achieved using JSX.
 

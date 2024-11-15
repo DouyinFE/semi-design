@@ -24,7 +24,8 @@ Typography 版式
 CodeHighlight 代码高亮,
 Markdown 渲染器,
 Lottie 动画,
-Chat 聊天
+Chat 聊天,
+HotKeys 快捷键
 ```
 
 ## 输入类
@@ -36,7 +37,6 @@ Button 按钮,
 Checkbox 复选框,
 DatePicker 日期选择器,
 Form 表单,
-HotKeys 快捷键,
 Input 输入框,
 InputNumber 数字输入框,
 PinCode 验证码输入,

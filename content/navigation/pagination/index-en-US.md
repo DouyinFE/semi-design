@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 48
+order: 51
 category: Navigation
 title:  Pagination
 subTitle: Pagination

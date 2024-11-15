@@ -76,6 +76,7 @@ import ChildDidMount from './Debug/childDidMount';
 export { default as FormSubmit } from './FormSubmit';
 export { default as TabelForm } from './TableDemo';
 export { default as RemountInit } from './ArrayField/remountInit'
+export { default as MountAndAddLine} from './ArrayField/mountAndAdd';
 
 export const ScrollToError = () => <ScrollToErrorDemo></ScrollToErrorDemo>
 // export { default as ScrollToError } from './FormApi/scrollToError'

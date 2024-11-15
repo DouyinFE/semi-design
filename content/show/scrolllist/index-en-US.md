@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 69
+order: 71
 category: Show
 title:  ScrollList
 subTitle: ScrollList
@@ -131,7 +131,7 @@ class ScrollListDemo extends React.Component {
 | mode        | mode selection                                                                       | "normal" \| "wheel"      | "wheel"|
 | motion      | Whether to start the scroll animation                                                | Motion                  | true    |
 | onSelect    | Select callback                                                                      | (data: [ItemData](#ItemData)) => void                 | NOOP    |
-| selectIndex | Index of selected items                                                              | number                   | 0       |
+| selectedIndex | Index of selected items                                                              | number                   | 0       |
 | style | Inline style                                                              | CSSProperties                   | {}       |
 | transform   | For the Transformation of the selected item, the return value is displayed as a copy | (value: any, text: string) => string                 | v = > v |
 

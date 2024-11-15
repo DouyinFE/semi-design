@@ -1,13 +1,17 @@
 ---
 localeCode: en-US
-order: 30
-category: Input
+order: 26
+category: Plus
 title:  HotKeys
 icon: doc-configprovider
 width: 60%
 brief: used to facilitate the customization of keyboard shortcut
+showNew: true
 ---
 
+
+## When to use
+When it is necessary to express the usage method of shortcut key combinations to users, using the `Hotkeys` component can quickly render the corresponding UI elements and automatically obtain event bindings.
 
 ## Demos
 
