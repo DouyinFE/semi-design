@@ -349,49 +349,54 @@ import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNo
     const TopHeader = () => (
         <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
             <div>
-                <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
-                    <Nav.Header>
-                        <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />
-                    </Nav.Header>
-                    <span
-                        style={{
-                            color: 'var(--semi-color-text-2)',
-                        }}
-                    >
-                        <span
-                            style={{
-                                marginRight: '24px',
-                                color: 'var(--semi-color-text-0)',
-                                fontWeight: '600',
-                            }}
+                <Nav
+                    mode={'horizontal'}
+                    items={[
+                        { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                        { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect /> },
+                        {
+                            itemKey: 'approve-management',
+                            text: '审批管理',
+                            icon: <IconBreadcrumb />,
+                            items: [
+                                '入驻审核',
+                                {
+                                    itemKey: 'operation-management',
+                                    text: '运营管理',
+                                    items: [
+                                        '人员管理',
+                                        '人员变更'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text: '任务平台',
+                            icon: <IconSteps />,
+                            itemKey: 'job',
+                            items: ['任务管理', '用户任务查询'],
+                        },
+                    ]}
+                    onSelect={key => console.log(key)}
+                    header={{
+                        logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
+                        text: 'Semi 运营后台'
+                    }}
+                    footer={
+                        <Dropdown
+                            position="bottomRight"
+                            render={
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>详情</Dropdown.Item>
+                                    <Dropdown.Item>退出</Dropdown.Item>
+                                </Dropdown.Menu>
+                            }
                         >
-                            模版推荐
-                        </span>
-                        <span style={{ marginRight: '24px' }}>所有模版</span>
-                        <span>我的模版</span>
-                    </span>
-                    <Nav.Footer>
-                        <Button
-                            theme="borderless"
-                            icon={<IconBell size="large" />}
-                            style={{
-                                color: 'var(--semi-color-text-2)',
-                                marginRight: '12px',
-                            }}
-                        />
-                        <Button
-                            theme="borderless"
-                            icon={<IconHelpCircle size="large" />}
-                            style={{
-                                color: 'var(--semi-color-text-2)',
-                                marginRight: '12px',
-                            }}
-                        />
-                        <Avatar color="orange" size="small">
-                            YJ
-                        </Avatar>
-                    </Nav.Footer>
-                </Nav>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
+                            <span>Bytedancer</span>
+                        </Dropdown>
+                    }
+                />
             </div>
         </Header>
     );
@@ -497,6 +502,8 @@ import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNo
         </Layout>
     );
 };
+
+
 
 ```
 
