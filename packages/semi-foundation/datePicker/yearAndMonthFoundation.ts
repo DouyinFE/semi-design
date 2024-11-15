@@ -105,9 +105,9 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         const month = copy(currentMonth);
         month[panelType] = item.month;
 
-        // make sure the right panel time is always less than the left panel time
+        // Make sure the time on the right panel is always greater than or equal to the time on the left panel
         if (type === 'monthRange' && panelType === left && currentYear[left] === currentYear[right] && item.value > month[right]) {
-            month[right] = item.month + 1;
+            month[right] = item.month ;
         } 
 
         this._adapter.setCurrentMonth(month);
@@ -121,8 +121,19 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
         const { disabledDate, locale } = this._adapter.getProps();
         const { months, currentMonth } = this._adapter.getStates();
 
+        const oppositeType = panelType === strings.PANEL_TYPE_LEFT ? 'right' : 'left';
+
         const currentDate = setYear(Date.now(), item.year);
         const isCurrentMonthDisabled = disabledDate(setMonth(currentDate, currentMonth[panelType] - 1));
+        // whether the date on the opposite is legal
+        const isOppositeMonthDisabled = disabledDate(setMonth(setYear(Date.now(), year[oppositeType]), currentMonth[oppositeType] - 1));
+
+        if (!isCurrentMonthDisabled && !isOppositeMonthDisabled) {
+            // all panel Date is legal
+            return;
+        }
+        let finalYear = year;
+        let finalMonth = currentMonth;
         if (isCurrentMonthDisabled) {
             const currentIndex = months.findIndex(({ month }) => month === currentMonth[panelType]);
             let validMonth: typeof months[number];
@@ -131,15 +142,24 @@ export default class YearAndMonthFoundation extends BaseFoundation<YearAndMonthA
             if (!validMonth) {
                 validMonth = months.slice(0, currentIndex).find(({ month }) => !disabledDate(setMonth(currentDate, month - 1)));
             }
-            if (validMonth) {
-                const month = copy(currentMonth);
-                month[panelType] = validMonth.month;
-
-                // change year and month same time
-                this._adapter.setCurrentYearAndMonth(year, month);
-                this._adapter.notifySelectYearAndMonth(year, month);
+            if (validMonth && !isOppositeMonthDisabled) {
+                // only currentPanel Date is illegal
+                // just need to modify the month of the current panel
+                finalMonth[panelType] = validMonth.month; 
+            } else if (validMonth && isOppositeMonthDisabled) {
+                // all panel Date is illegal
+                // change the value to the legal value calculated by the current panel
+                finalYear = { 'left': item.year, 'right': item.year };
+                finalMonth = { 'left': validMonth.month, 'right': validMonth.month };
             }
+        } else if (!isCurrentMonthDisabled && isOppositeMonthDisabled) {
+            // only opposite panel Date is illegal
+            // change the value to the legal value in the current panel
+            finalYear = { 'left': item.year, 'right': item.year };
+            finalMonth = { 'left': currentMonth[panelType], 'right': currentMonth[panelType] };
         }
+        this._adapter.setCurrentYearAndMonth(finalYear, finalMonth);
+        this._adapter.notifySelectYearAndMonth(finalYear, finalMonth);
     }
 
     backToMain() {
