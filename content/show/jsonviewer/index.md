@@ -34,7 +34,7 @@ class SimpleList extends React.Component {
             <div>
                 <div style={{ marginRight: 16 }}>
                     <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={400} width={700} value={data} />
+                    <JsonViewer height={100} width={700} value={data} />
                 </div>
             </div>
         );
@@ -46,7 +46,7 @@ render(SimpleList);
 
 ### 设置行高
 
-配置 options 的 lineHeight 参数，设置固定行高（单位：px, 默认 20）。
+配置 options 的 lineHeight 参数，设置固定行高（单位：px, 默认 18）。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -61,7 +61,7 @@ class SimpleList extends React.Component {
             <div>
                 <div style={{ marginRight: 16 }}>
                     <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={400} width={700} value={data} options={{ lineHeight: 25 }} />
+                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 25 }} />
                 </div>
             </div>
         );
@@ -73,7 +73,7 @@ render(SimpleList);
 
 ### 自动换行
 
-配置 options 的 autoWrap 参数，设置组件是否自动换行。
+配置 options 的 autoWrap 参数，设置为 true 时，组件会根据内容长度自动换行。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -81,7 +81,7 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
     "name": "Semi",
     "version": "0.0.0",
-    "description": "lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit.lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components, helping us to more easily create a more consistent user experience."
 }`;
 class SimpleList extends React.Component {
     render() {
@@ -89,7 +89,7 @@ class SimpleList extends React.Component {
             <div>
                 <div style={{ marginRight: 16 }}>
                     <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={400} width={700} value={data} options={{ autoWrap: true }} />
+                    <JsonViewer height={200} width={700} value={data} options={{ autoWrap: true }} />
                 </div>
             </div>
         );
@@ -118,7 +118,7 @@ class SimpleList extends React.Component {
                 <div style={{ marginRight: 16 }}>
                     <h3 style={{ marginBottom: 16 }}>Default Size</h3>
                     <JsonViewer
-                        height={400}
+                        height={100}
                         width={700}
                         value={data}
                         options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
@@ -143,15 +143,15 @@ render(SimpleList);
 | width             | 设置宽度 属性                                     | number                                  | -  |
 | options           | 设置格式化配置 属性                                | JsonViewerOptions                       | -   |
 | onChange          | 设置 value 变化回调 属性                           | (value: string) => void                  | -   |
-| onValueHover      | 设置 value 悬浮回调 属性                           | ({value: string, target: HTMLElement}) => HTMLElement | -   |
+| onValueHover      | 设置 value 悬浮回调 属性                           | ({value: string, target: HTMLElement}) => HTMLElement | undefined | -   |
 
 ### JsonViewerOptions
 
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
 | lineHeight        | 设置行高 属性                                    | number                          | 20  |
-| autoWrap        | 设置是否自动换行 属性                             | boolean                          | true  |
-| formatOptions     | 设置格式化配置 属性                               | FormattingOptions                |           |
+| autoWrap        | 设置是否自动换行 属性                             | boolean                            | true  |
+| formatOptions     | 设置格式化配置 属性                               | FormattingOptions                |  -  |
 
 ### FormattingOptions
 
