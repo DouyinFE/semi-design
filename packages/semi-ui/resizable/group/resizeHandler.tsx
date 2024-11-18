@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeHandlerFoundation, ResizeHandlerAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
-import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
-import { directionStyles } from '@douyinfe/semi-foundation/resizable/groupConstants';
+import { Direction, HandlerCallback } from '@douyinfe/semi-foundation/resizable/types';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
 import { IconHandle } from '@douyinfe/semi-icons';
@@ -43,11 +42,14 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
         };
         this.handlerRef = createRef();
         this.foundation = new ResizeHandlerFoundation(this.adapter);
+        this.handlerIndex = -1;
     }
 
     componentDidMount() {
         this.foundation.init();
-        this.handlerIndex = this.context.registerHandler(this.handlerRef);
+        if (this.handlerIndex === -1) {
+            this.handlerIndex = this.context.registerHandler(this.handlerRef);
+        }
     }
 
     componentDidUpdate(_prevProps: ResizeHandlerProps) {
@@ -85,15 +87,12 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     handlerIndex: number;
 
     render() {
-        
         const { style, className, children } = this.props;
+        const { direction } = this.context;
         return (
             <div
-                className={classNames(className, prefixCls + '-handler')}
-                style={{
-                    ...directionStyles[this.context.direction],
-                    ...style
-                }}
+                className={classNames(className, prefixCls + '-handler', prefixCls + '-handler-' + direction)}
+                style={style}
                 ref={this.handlerRef}
             >
                 {children ?? <IconHandle size='inherit' style={{
