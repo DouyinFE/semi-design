@@ -1288,12 +1288,12 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             disabled,
             preventScroll,
         } = this.props;
+        const { inputValue, inputTriggerFocus } = this.state;
         const isDropdownPositionSearch = searchPosition === strings.SEARCH_POSITION_DROPDOWN;
         const inputcls = cls({
             [`${prefixTree}-input`]: isDropdownPositionSearch,
             [`${prefixcls}-inputTrigger`]: !isDropdownPositionSearch
         });
-        const { inputValue } = this.state;
         const baseInputProps = {
             value: inputValue,
             className: inputcls,
@@ -1314,6 +1314,7 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
         const wrapperCls = cls({
             [`${prefixTree}-search-wrapper`]: isDropdownPositionSearch,
             [`${prefixcls}-triggerSingleSearch-wrapper`]: !isDropdownPositionSearch && !multiple,
+            [`${prefixcls}-triggerSingleSearch-upper`]: !isDropdownPositionSearch && inputTriggerFocus,
         });
         const useCusSearch = typeof searchRender === 'function' || typeof searchRender === 'boolean';
         if (useCusSearch && !searchRender) {
