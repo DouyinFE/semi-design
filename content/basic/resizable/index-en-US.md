@@ -225,6 +225,7 @@ function Demo() {
 ```
 
 ### Control Width/Height
+
 You can control the size of the element through the size prop.
 
 ```jsx live=true
@@ -739,11 +740,9 @@ function Demo() {
 
 ### Resizable
 
-单个伸缩框组件。
-
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className | 类名                                                                          | string                  |            |        |
+| className | ClassName                                                                          | string                  |            |        |
 | size   | Controls the size of the resizable box, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
 | defaultSize   | Sets the initial width and height, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
 | minWidth | Specifies the minimum width of the resizable box      |  string \| number                  |   |        |
@@ -757,7 +756,7 @@ function Demo() {
 | handleNode     | Custom nodes for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)          |            |        |
 | handleStyle    | Styles for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)            |            |        |
 | handleClass   | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
-| style |  | CSSProperties |      |
+| style | Style | CSSProperties |      |
 | snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
 | snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
 | grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
@@ -769,25 +768,25 @@ function Demo() {
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
+| className   | ClassName | string                             |        |      |
 | direction | Specifies the resize direction within the group  | 'horizontal' \| 'vertical' | 'horizontal' |      |
 
 ### ResizeHandler
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
-| style |  | CSSProperties |      |
+| className   | ClassName | string  |        |      |
+| style | Style | CSSProperties |      |
 
 ### ResizeItem
 
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className |                                                                           | string                  |            |        |
+| className | ClassName                                                                     | string                  |            |        |
 | defaultSize   | Used to set the initial width and height. **The string supports % and px units, and when the string is a pure number or a number is set directly, it represents the proportional allocation of the remaining space based on the value.**  | string \| number                  |           |        |
 | min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
 | max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
-| style |  | CSSProperties |      |
+| style | Style | CSSProperties |      |
 | onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
 | onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
