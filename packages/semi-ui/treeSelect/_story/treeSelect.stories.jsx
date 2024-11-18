@@ -494,7 +494,7 @@ Searchable.story = {
 };
 
 export const SearchPosition = () => (
-  <>
+  <div style={{ background: 'var(--semi-color-bg-0)'}}>
     <TreeSelect
       searchPosition="trigger"
       style={{ width: 300 }}
@@ -540,7 +540,7 @@ export const SearchPosition = () => (
       maxTagCount={1}
       placeholder="maxTagCount=1"
     />
-  </>
+  </div>
 );
 
 SearchPosition.story = {
