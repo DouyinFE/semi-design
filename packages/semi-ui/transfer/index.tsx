@@ -410,7 +410,7 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
         // The selected option is 1,2,3,4, it is true
         // The selected option is 2,3,4, then it is false
         let filterDataAllDisabled = true;
-        const leftContainesNotInSelected = Boolean(filterData.find(f => {
+        const leftContainsNotInSelected = Boolean(filterData.find(f => {
             if (f.disabled) {
                 return false;
             } else {
@@ -425,12 +425,12 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
 
         const headerConfig: HeaderConfig = {
             totalContent: totalText,
-            allContent: leftContainesNotInSelected ? locale.selectAll : locale.clearSelectAll,
-            onAllClick: () => this.foundation.handleAll(leftContainesNotInSelected),
+            allContent: leftContainsNotInSelected ? locale.selectAll : locale.clearSelectAll,
+            onAllClick: () => this.foundation.handleAll(leftContainsNotInSelected),
             type: 'left',
             showButton: type !== strings.TYPE_TREE_TO_LIST && !filterDataAllDisabled,
             num: showNumber,
-            allChecked: !leftContainesNotInSelected
+            allChecked: !leftContainsNotInSelected
         };
         const inputCom = this.renderFilter(locale);
         const headerCom = this.renderHeader(headerConfig);
@@ -482,13 +482,13 @@ class Transfer extends BaseComponent<TransferProps, TransferState> {
             filterData,
             sourceData: data,
             propsDataSource: dataSource,
-            allChecked: !leftContainesNotInSelected,
+            allChecked: !leftContainsNotInSelected,
             showNumber,
             inputValue,
             selectedItems,
             value: values,
             onSelect: this.foundation.handleSelect.bind(this.foundation),
-            onAllClick: () => this.foundation.handleAll(leftContainesNotInSelected),
+            onAllClick: () => this.foundation.handleAll(leftContainsNotInSelected),
             onSearch: this.onInputChange,
             onSelectOrRemove: (item: ResolvedDataItem) => this.onSelectOrRemove(item),
         };
