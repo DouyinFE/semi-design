@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import JsonViewer from '../index';
-
+import Button from '../../button';
 export default {
     title: 'JsonViewer',
 };
@@ -76,14 +76,30 @@ export const DefaultJsonViewer = () => {
         console.log(value, 'value');
     };
 
+    const [autoWrap, setAutoWrap] = useState(true);
+    const [lineHeight, setLineHeight] = useState(20);
+    const jsonviewerRef = useRef(null);
+
     return (
-        <JsonViewer
-            value={baseStr}
-            width={700}
-            height={400}
-            options={{ lineHeight: 20, autoWrap: true }}
-            onValueHover={hoverHandler}
-            onChange={onChangeHandler}
-        />
+        <>
+            <JsonViewer
+                value={baseStr}
+                width={700}
+                height={400}
+                options={{ lineHeight: lineHeight, autoWrap: autoWrap }}
+                onValueHover={hoverHandler}
+                onChange={onChangeHandler}
+                ref={jsonviewerRef}
+            />
+            <Button onClick={() => setAutoWrap(!autoWrap)}>
+                {autoWrap ? 'Disable' : 'Enable'} Auto Wrap
+            </Button>
+            <Button onClick={() => setLineHeight(lineHeight + 5)}>
+                Increase Line Height
+            </Button>
+            <Button onClick={() => console.log(jsonviewerRef.current.jsonViewer.current.getValue())}>
+                Get Value
+            </Button>
+        </>
     );
 };

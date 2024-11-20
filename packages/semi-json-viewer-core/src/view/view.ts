@@ -124,6 +124,10 @@ export class View {
         return this._searchWidget;
     }
 
+    public dispose() {
+        this._container.removeChild(this._jsonViewerDom);
+    }
+
     private _attachEventListeners() {
         this._contentDom.addEventListener('scroll', e => {
             const scrollTop = this._contentDom.scrollTop;

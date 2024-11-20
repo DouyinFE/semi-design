@@ -39,6 +39,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         value: ''
     };
 
+    private jsonViewer: React.RefObject<{ getValue: () => string }> | null = null;
     private editorRef: React.RefObject<HTMLDivElement>;
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
@@ -50,6 +51,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         this.editorRef = React.createRef();
         this.searchInputRef = React.createRef();
         this.replaceInputRef = React.createRef();
+        this.jsonViewer = React.createRef();
         this.foundation = new JsonViewerFoundation(this.adapter);
         this.state = {
             searchOptions: {
@@ -63,12 +65,24 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.jsonViewer = {
+            current: {
+                getValue: () => this.foundation.jsonViewer.getModel().getValue()
+            }
+        };
+    }
+
+    componentDidUpdate(prevProps: JsonViewerProps): void {
+        if (prevProps.options !== this.props.options) {
+            this.foundation.jsonViewer.dispose();
+            this.foundation.init();
+        }
     }
 
     get adapter(): JsonViewerAdapter<JsonViewerProps, JsonViewerState> {
         return {
             ...super.adapter,
-            getJsonViewerRef: () => this.editorRef.current,
+            getEditorRef: () => this.editorRef.current,
             onValueChange: (value) => {
                 this.props.onChange?.(value);
             },

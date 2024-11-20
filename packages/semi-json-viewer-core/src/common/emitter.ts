@@ -28,6 +28,10 @@ class Emitter<Events extends Record<string, any>> {
         this.listeners[event] = this.listeners[event]!.filter(l => l !== listener);
     }
 
+    public offAll(): void {
+        this.listeners = {};
+    }
+
     public emit<K extends keyof Events>(event: K, data: Events[K]): void {
         if (!this.listeners[event]) return;
 

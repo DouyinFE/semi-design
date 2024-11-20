@@ -49,4 +49,9 @@ export class JsonViewer {
     getSearchWidget() {
         return this._view.searchWidget;
     }
+
+    dispose() {
+        this.emitter.offAll();
+        this._view.dispose();
+    }
 }

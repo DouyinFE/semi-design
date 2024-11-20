@@ -4,7 +4,7 @@ import { JsonViewer, JsonViewerOptions } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    getJsonViewerRef: () => HTMLElement;
+    getEditorRef: () => HTMLElement;
     onValueChange: (value: string) => void;
     onValueHover: (value: string, el: HTMLElement) => HTMLElement | undefined
 }
@@ -19,8 +19,8 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
 
     init() {
         const props = this.getProps();
-        const jsonViewerRef = this._adapter.getJsonViewerRef();
-        this.jsonViewer = new JsonViewer(jsonViewerRef, props.value, props.options);
+        const editorRef = this._adapter.getEditorRef();
+        this.jsonViewer = new JsonViewer(editorRef, props.value, props.options);
         this.jsonViewer.layout();
         this.jsonViewer.emitter.on('contentChanged', (e) => {
             this.onValueChange(this.jsonViewer?.getModel().getValue());
