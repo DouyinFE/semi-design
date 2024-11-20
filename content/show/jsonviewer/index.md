@@ -2,8 +2,8 @@
 localeCode: zh-CN
 order: 86
 category: 展示类
-title: Json-Viewer JSON编辑器
-icon: doc-list
+title: JsonViewer JSON编辑器
+icon: doc-jsonviewer
 dir: column
 noInline: true
 brief: 用于展示和编辑 JSON 数据
