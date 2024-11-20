@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M21 8.0412L13.3183 12.405C12.6314 12.7706 11.7962 12.7706 11.1093 12.405L3 7.79829L3 18H21V8.0412ZM4.29229 6L12.2138 10.5L20.1353 6H4.29229ZM1 6C1 4.89543 1.89543 4 3 4H21C22.1046 4 23 4.89543 23 6V6.90481L23.0001 6.90499L23 6.90505V18C23 19.1046 22.1046 20 21 20H3C1.89543 20 1 19.1046 1 18V6Z"
+                d="m21 8.04-7.68 4.37c-.69.36-1.52.36-2.21 0L3 7.8V18h18V8.04ZM4.3 6l7.91 4.5L20.14 6H4.29ZM1 6c0-1.1.9-2 2-2h18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'mail_stroked_1');
 export default IconComponent;

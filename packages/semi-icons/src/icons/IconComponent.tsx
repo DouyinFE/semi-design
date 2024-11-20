@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -13,13 +12,12 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
-            <path d="M6 4L11 0L16 4L11 9.5L6 4Z" fill="currentColor" />
-            <path d="M18 6L22 11L18 16L12.5 11L18 6Z" fill="currentColor" />
-            <path d="M4 16L0 11L4 6L9.5 11L4 16Z" fill="currentColor" />
-            <path d="M16 18L11 22L6 18L11 12.5L16 18Z" fill="currentColor" />
+            <path d="m6 4 5-4 5 4-5 5.5L6 4Z" fill="currentColor" />
+            <path d="m18 6 4 5-4 5-5.5-5L18 6Z" fill="currentColor" />
+            <path d="m4 16-4-5 4-5 5.5 5L4 16Z" fill="currentColor" />
+            <path d="m16 18-5 4-5-4 5-5.5 5 5.5Z" fill="currentColor" />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'component');
 export default IconComponent;

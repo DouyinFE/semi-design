@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,16 +15,15 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M3 4C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H14C15.1046 20 16 19.1046 16 18V6C16 4.89543 15.1046 4 14 4H3ZM7.9823 8H4.9823V11H7.9823V8Z"
+                d="M3 4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H3Zm4.98 4h-3v3h3V8Z"
                 fill="currentColor"
             />
             <path
-                d="M21.5526 6.72418C22.2176 6.39151 23.0001 6.875 23.0001 7.6185V16.3815C23.0001 17.125 22.2176 17.6085 21.5526 17.2758L17.5565 15.2765C17.2178 15.107 17.0039 14.7608 17.0039 14.3821V12V9.61786C17.0039 9.23918 17.2178 8.89298 17.5565 8.72354L21.5526 6.72418Z"
+                d="M21.55 6.72a1 1 0 0 1 1.45.9v8.76a1 1 0 0 1-1.45.9l-4-2a1 1 0 0 1-.55-.9V9.62a1 1 0 0 1 .56-.9l4-2Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'user_card_video');
 export default IconComponent;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M8.5 0.5C6.01472 0.5 4 2.51472 4 5V19C4 21.4853 6.01472 23.5 8.5 23.5H15.5C17.9853 23.5 20 21.4853 20 19V5C20 2.51472 17.9853 0.5 15.5 0.5H8.5ZM7 5C7 4.17157 7.67157 3.5 8.5 3.5H15.5C16.3284 3.5 17 4.17157 17 5V19C17 19.8284 16.3284 20.5 15.5 20.5H8.5C7.67157 20.5 7 19.8284 7 19V5ZM12 16C11.1716 16 10.5 16.6716 10.5 17.5C10.5 18.3284 11.1716 19 12 19C12.8284 19 13.5 18.3284 13.5 17.5C13.5 16.6716 12.8284 16 12 16Z"
+                d="M8.5.5A4.5 4.5 0 0 0 4 5v14a4.5 4.5 0 0 0 4.5 4.5h7A4.5 4.5 0 0 0 20 19V5A4.5 4.5 0 0 0 15.5.5h-7ZM7 5c0-.83.67-1.5 1.5-1.5h7c.83 0 1.5.67 1.5 1.5v14c0 .83-.67 1.5-1.5 1.5h-7A1.5 1.5 0 0 1 7 19V5Zm5 11a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'phone_stroke');
 export default IconComponent;

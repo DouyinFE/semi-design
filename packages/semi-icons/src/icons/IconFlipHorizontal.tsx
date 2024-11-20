@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,16 +15,15 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M11 3C11 2.39676 10.5692 1.87958 9.97588 1.77058C9.38257 1.66157 8.79606 1.99184 8.58164 2.55569L1.83164 20.3057C1.68555 20.6898 1.73764 21.1213 1.97096 21.4596C2.20428 21.798 2.58901 22 3.00001 22H9.75001C10.4404 22 11 21.4404 11 20.75V3ZM8.50001 19.5H4.81269L8.50001 9.80373V19.5Z"
+                d="M11 3a1.25 1.25 0 0 0-2.42-.44L1.83 20.3A1.25 1.25 0 0 0 3 22h6.75c.69 0 1.25-.56 1.25-1.25V3ZM8.5 19.5H4.81L8.5 9.8v9.7Z"
                 fill="currentColor"
             />
             <path
-                d="M14.0241 1.77058C13.4308 1.87958 13 2.39676 13 3V20.75C13 21.4404 13.5596 22 14.25 22H21C21.411 22 21.7957 21.798 22.029 21.4596C22.2624 21.1213 22.3145 20.6898 22.1684 20.3057L15.4184 2.55569C15.2039 1.99184 14.6174 1.66157 14.0241 1.77058Z"
+                d="M14.02 1.77C13.43 1.88 13 2.4 13 3v17.75c0 .69.56 1.25 1.25 1.25H21a1.25 1.25 0 0 0 1.17-1.7L15.42 2.57c-.22-.57-.8-.9-1.4-.79Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'flip_horizontal');
 export default IconComponent;

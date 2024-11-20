@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M6.99995 9.63222V4C6.17155 3.99997 5.5 3.32841 5.5 2.5C5.5 1.67157 6.17157 1 7 1H8.49995H15.5H17C17.8284 1 18.5 1.67157 18.5 2.5C18.5 3.32843 17.8284 4 17 4H17V9.63222L22.0668 19.3436C22.9351 21.008 21.7276 23 19.8503 23H4.14962C2.27229 23 1.06476 21.008 1.93315 19.3436L6.99995 9.63222ZM14 4H9.99995V10C9.99995 10.2416 9.94159 10.4796 9.82983 10.6938L8.62662 13H15.3733L14.1701 10.6938C14.0583 10.4796 14 10.2416 14 10V4Z"
+                d="M7 9.63V4a1.5 1.5 0 0 1 0-3h10a1.5 1.5 0 0 1 0 3v5.63l5.07 9.71A2.5 2.5 0 0 1 19.85 23H4.15a2.5 2.5 0 0 1-2.22-3.66L7 9.64ZM14 4h-4v6c0 .24-.06.48-.17.7L8.63 13h6.74l-1.2-2.3A1.5 1.5 0 0 1 14 10V4Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'beaker');
 export default IconComponent;
