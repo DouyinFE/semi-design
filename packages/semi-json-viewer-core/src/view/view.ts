@@ -129,20 +129,14 @@ export class View {
     }
 
     private _attachEventListeners() {
-        this._contentDom.addEventListener('scroll', e => {
-            const scrollTop = this._contentDom.scrollTop;
-            this.onScroll(scrollTop);
+        this._jsonViewerDom.addEventListener('scroll', e => {
+            this.onScroll(this._jsonViewerDom.scrollTop);
         });
 
         this._contentDom.addEventListener('click', e => {
             e.preventDefault();
             this._selectionModel.isSelectedAll = false;
             this._selectionModel.updateFromSelection();
-        });
-
-        this._lineNumberDom.addEventListener('scroll', () => {
-            const scrollTop = this._lineNumberDom.scrollTop;
-            this.onScroll(scrollTop);
         });
 
         emitter.on('contentChanged', () => {
@@ -169,8 +163,7 @@ export class View {
     }
 
     public onScroll(scrollTop: number) {
-        this._lineNumberDom.scrollTop = scrollTop;
-        this._contentDom.scrollTop = scrollTop;
+        this._jsonViewerDom.scrollTop = scrollTop;
         this.layout();
     }
 
@@ -187,7 +180,7 @@ export class View {
             position: 'relative',
             height: '100%',
             width: '100%',
-            overflow: 'hidden',
+            overflow: 'auto',
         });
         return renderContainer;
     }
@@ -200,8 +193,6 @@ export class View {
             left: '0',
             top: '0',
             width: '50px',
-            height: '100%',
-            overflow: 'scroll',
         });
         return lineNumberContainer;
     }
@@ -228,7 +219,6 @@ export class View {
             right: '0',
             overflowX: 'auto',
             overflowY: 'scroll',
-            height: '100%',
             outline: 'none',
         });
         contentContainer.contentEditable = 'true';
@@ -352,12 +342,12 @@ export class View {
 
         const visibleRange = this._scalingCellSizeAndPositionManager.getVisibleCellRange({
             containerSize: this._container.clientHeight,
-            offset: this._contentDom.scrollTop,
+            offset: this._jsonViewerDom.scrollTop,
         });
 
         const verticalOffsetAdjustment = this._scalingCellSizeAndPositionManager.getOffsetAdjustment({
             containerSize: this._container.clientHeight,
-            offset: this._contentDom.scrollTop,
+            offset: this._jsonViewerDom.scrollTop,
         });
         this._verticalOffsetAdjustment = verticalOffsetAdjustment;
         this.renderVisibleLines(visibleRange.start!, visibleRange.stop!);
