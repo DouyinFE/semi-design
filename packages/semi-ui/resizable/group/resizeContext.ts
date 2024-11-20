@@ -1,5 +1,5 @@
 import React, { createContext, RefObject } from 'react';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 
 export interface ResizeContextProps {
     direction: 'horizontal' | 'vertical';

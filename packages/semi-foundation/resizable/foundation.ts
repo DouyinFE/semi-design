@@ -1,26 +1,15 @@
-import { 
-    ResizableHandlerFoundation, 
-    ResizableFoundation, 
-} from './single';
-
-import { 
-    ResizeGroupFoundation,
-    ResizeItemFoundation,
-    ResizeHandlerFoundation
-} from './group';
-
-import type { ResizableHandlerAdapter, ResizableAdapter } from './single';
-import type { ResizeGroupAdapter, ResizeItemAdapter, ResizeHandlerAdapter } from './group';
-
-export { 
+export {
     ResizableHandlerAdapter, 
     ResizableHandlerFoundation, 
     ResizableFoundation, 
-    ResizableAdapter,
+    ResizableAdapter 
+} from './single';
+
+export {
     ResizeGroupAdapter,
     ResizeItemAdapter,
     ResizeHandlerAdapter,
     ResizeGroupFoundation,
     ResizeItemFoundation,
     ResizeHandlerFoundation
-}; 
+} from './group';

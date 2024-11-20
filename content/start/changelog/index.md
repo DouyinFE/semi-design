@@ -13,6 +13,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.70.0-beta.0 (2024-11-18)
+- 【Fix】
+    - 当 Transfer 的左侧面板中除去被禁用项外的其他项目都被选中时，操作按钮应当显示取消全选  [#2575 ](https://github.com/DouyinFE/semi-design/issues/2575) [#2574](https://github.com/DouyinFE/semi-design/pull/2574)
+    - 修复计算中浮点数导致伸缩框组件尺寸的误差，浏览器拖动导致的最大最小值失效的问题，以及strictMode引起的问题 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
+    - 修复当单选，搜索框在 trigger 时，TreeSelect 的 placeholder被遮挡问题 ，影响版本 2.61.0-2.69.0 [#2566](https://github.com/DouyinFE/semi-design/pull/2566)
+- 【Feat】
+    - ResizeGroup的伸缩方向支持动态切换 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
+    - MarkdownRender 新增 remarkGfm 开关用于防止低版本 safari 不支持环视断言报错的问题 [#2576](https://github.com/DouyinFE/semi-design/pull/2576)
+
+#### 🎉 2.69.1 (2024-11-15)
+- 【Fix】
+    - 修复 MonthRange DatePicker 在存在 disabledDate 情况下点击非禁用年份不跳转问题 [#2569](https://github.com/DouyinFE/semi-design/pull/2569)
+    - 修复 ArrayField 被条件渲染时，add第一次点击未能正确添加行的问题 [#2568](https://github.com/DouyinFE/semi-design/pull/2568)
+    - 修复日语场景下 Table pageText 翻译不正确问题 [#2573](https://github.com/DouyinFE/semi-design/pull/2573)
+
 #### 🎉 2.69.0 (2024-11-08)
 - 【Fix】
     - 插画包 @douyinfe/semi-illustrations 中的 clip-rule & stroke-width 修改为 clipRule & strokeWidth
