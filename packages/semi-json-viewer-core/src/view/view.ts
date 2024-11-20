@@ -260,6 +260,7 @@ export class View {
             overflow: 'scroll',
             top: '0',
             left: '0',
+            tabSize: (this._options?.formatOptions?.tabSize || 4).toString(),
             height: `${this._lineHeight * this._jsonModel.getLineCount()}px`,
         });
         if (this._options?.autoWrap) {
@@ -282,8 +283,6 @@ export class View {
             lineHeight: `${this._lineHeight}px`,
             width: '100%',
             position: 'absolute',
-            wordWrap: 'break-word',
-            whiteSpace: 'pre-wrap',
             top: `${rowDatum.offset + this._verticalOffsetAdjustment}px`,
         });
         if (!this._options?.autoWrap) {
@@ -479,6 +478,6 @@ export class View {
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/ /g, '&nbsp;')
-            .replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            .replace(/\t/g, '&#9;');
     }
 }

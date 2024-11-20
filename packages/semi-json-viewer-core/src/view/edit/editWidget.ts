@@ -195,7 +195,7 @@ export class EditWidget {
                         insertText += ' ';
                     }
                 } else {
-                    insertText = '    ';
+                    insertText = '\t';
                 }
                 const op: IModelContentChangeEvent = {
                     type: 'insert',
