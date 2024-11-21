@@ -13,12 +13,10 @@
     "lib/*"
   ],
   "dependencies": {
-    "esbuild": "0.24.0",
     "jsonc-parser": "^3.3.1"
   },
-  "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0"
+  "devDependencies": {
+    "esbuild": "^0.24.0"
   },
   "sideEffects": [
     "*.scss",
@@ -53,8 +51,5 @@
     "dist/umd/*.js"
   ],
   "author": "",
-  "license": "MIT",
-  "devDependencies": {
-
-  }
+  "license": "MIT"
 }
