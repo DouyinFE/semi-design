@@ -1,1 +1,0 @@
-../../../content/navigation/steps/index-en-US.md

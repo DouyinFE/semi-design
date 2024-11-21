@@ -70,7 +70,7 @@
     ],
     "author": "",
     "license": "MIT",
-    "gitHead": "e78045febe3e4645c8afe6d42cfbcb4e97a67923",
+    "gitHead": "8be8ae944d4c44416c774bd7ded8e2d33f2b1c26",
     "devDependencies": {
         "@babel/plugin-proposal-decorators": "^7.15.8",
         "@babel/plugin-transform-runtime": "^7.15.8",
