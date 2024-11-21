@@ -7,50 +7,40 @@ export default {
 };
 
 const baseStr = `{
-    "min_position": 9,
-    "has_more_items": true,
-    "items_html": "Bike",
-    "new_latent_count": 0,
-    "url": "https://picsum.photos/100/100",
-    "data": {
-       "length": 22,
-       "text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    "numericalArray": [
-       23,
-       29,
-       28,
-       26,
-       23
-    ],
-    "StringArray": [
-       "Oxygen",
-       "Oxygen",
-       "Oxygen",
-       "Carbon"
-    ],
-    "multipleTypesArray": 3,
-    "objArray": [
-       {
-          
-       },
-       {
-          "class": "upper",
-          "age": 7
-       },
-       {
-          "class": "upper",
-          "age": 1
-       },
-       {
-          "class": "lower",
-          "age": 5
-       },
-       {
-          "class": "lower",
-          "age": 3
-       }
-    ]
+	"min_position": 1,
+	"has_more_items": true,
+	"items_html": "Bike",
+	"new_latent_count": 0,
+	"data": {
+		"length": 22,
+		"text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+	},
+	"numericalArray": [23, 29, 28, 26, 23],
+	"StringArray": ["Oxygen", "Oxygen", "Oxygen", "Carbon"],
+	"multipleTypesArray": 3,
+	"objArray": [
+		{},
+		{
+			"class": "upper",
+			"name": "Mark",
+			"age": 7
+		},
+		{
+			"class": "upper",
+			"name": "Tom",
+			"age": 1
+		},
+		{
+			"class": "lower",
+			"name": "Jerry",
+			"age": 5
+		},
+		{
+			"class": "lower",
+			"name": "Alice",
+			"age": 3
+		}
+	]
 }`;
 
 export const DefaultJsonViewer = () => {
@@ -86,7 +76,7 @@ export const DefaultJsonViewer = () => {
                 value={baseStr}
                 width={700}
                 height={400}
-                options={{ lineHeight: lineHeight, autoWrap: autoWrap }}
+                options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
                 onValueHover={hoverHandler}
                 onChange={onChangeHandler}
                 ref={jsonviewerRef}
