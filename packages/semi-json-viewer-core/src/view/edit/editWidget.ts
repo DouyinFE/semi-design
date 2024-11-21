@@ -100,28 +100,26 @@ export class EditWidget {
                 op.rangeLength = 1;
                 break;
             case 'deleteContentBackward':
+                let oldText = '';
                 if (this._selectionModel.isCollapsed) {
-                    // if (this._selectionModel.col === 0) {
-                    // 	this._selectionModel.row -= 1;
-                    // 	this._selectionModel.col = this._jsonModel.getLineLength(
-                    // 		this._selectionModel.row
-                    // 	);
-                    // 	if (this._foldingModel.isLineCollapsed(this._selectionModel.row)) {
-                    // 		this._foldingModel.expandLine(this._selectionModel.row);
-                    // 	}
-                    // } else {
-                    // 	this._selectionModel.col -= 1;
-                    // }
-                    op.oldText = this._jsonModel.getValueInRange({
+                    oldText = this._jsonModel.getValueInRange({
+                        startLineNumber: startRow,
+                        startColumn: startCol,
+                        endLineNumber: endRow,
+                        endColumn: endCol + 1,
+                    } as Range);
+                    op.rangeOffset = startOffset - 1;
+                } else {
+                    oldText = this._jsonModel.getValueInRange({
                         startLineNumber: startRow,
                         startColumn: startCol + 1,
                         endLineNumber: endRow,
-                        endColumn: endCol,
+                        endColumn: endCol + 1,
                     } as Range);
-                    op.rangeOffset = startOffset - 1;
-                    op.rangeLength = 1;
                 }
+                op.oldText = oldText;
                 op.type = 'delete';
+                op.rangeLength = oldText.length;
                 break;
             case 'insertFromPaste':
                 const pasteData = e.dataTransfer?.getData('text/plain');
@@ -265,15 +263,15 @@ export class EditWidget {
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
         const endCol = this._selectionModel.endCol;
-        let startOffset, endOffset;
+        let startOffset;
         let oldText = '';
         const op: IModelContentChangeEvent = {
             type: 'replace',
             range: {
                 startLineNumber: startRow,
-                startColumn: 1,
+                startColumn: startCol,
                 endLineNumber: endRow,
-                endColumn: this._jsonModel.getLineLength(endRow),
+                endColumn: endCol,
             },
             rangeOffset: 0,
             rangeLength: 0,
@@ -281,36 +279,32 @@ export class EditWidget {
             newText: '',
         };
         if (!this._selectionModel.isCollapsed) {
-            startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
-            endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
             oldText = this._jsonModel.getValueInRange({
                 startLineNumber: startRow,
                 startColumn: startCol + 1,
                 endLineNumber: endRow,
                 endColumn: endCol + 1,
             } as Range);
-            op.rangeLength = endOffset - startOffset;
-            op.rangeOffset = startOffset;
-            op.range = {
-                startLineNumber: startRow,
-                startColumn: startCol,
-                endLineNumber: endRow,
-                endColumn: endCol,
-            };
+            startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         } else {
-            startOffset = this._jsonModel.getOffsetAt(startRow - 1, this._jsonModel.getLineEndOffset(startRow - 1));
-            endOffset = this._jsonModel.getOffsetAt(endRow, this._jsonModel.getLineEndOffset(endRow));
             oldText = this._jsonModel.getValueInRange({
                 startLineNumber: startRow,
                 startColumn: 1,
                 endLineNumber: endRow,
-                endColumn: this._jsonModel.getLineEndOffset(endRow),
+                endColumn: this._jsonModel.getLineLength(endRow) + 1,
             } as Range);
-            op.rangeLength = endOffset - startOffset;
-            op.rangeOffset = startOffset;
+            op.range = {
+                startLineNumber: startRow,
+                startColumn: 0,
+                endLineNumber: endRow,
+                endColumn: this._jsonModel.getLineLength(endRow) + 1,
+            };
+            startOffset = this._jsonModel.getOffsetAt(startRow, 0);
         }
 
         op.oldText = oldText;
+        op.rangeOffset = startOffset;
+        op.rangeLength = oldText.length;
 
         if (this._selectionModel.isSelectedAll) {
             op.range = {
@@ -325,5 +319,6 @@ export class EditWidget {
         }
         navigator.clipboard.writeText(op.oldText);
         this._jsonModel.applyOperation(op);
+        this._jsonModel.pushUndoStack(op);
     }
 }
