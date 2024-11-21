@@ -23,6 +23,7 @@ import {
     BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
 import { ScrollDirection, CSSDirection } from 'react-window';
+import { TableCellProps } from './TableCell';
 
 export interface TableProps<RecordType extends Record<string, any> = any> extends BaseProps {
     bordered?: boolean;
@@ -106,7 +107,11 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onFilter?: OnFilter<RecordType>;
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     onHeaderCell?: OnHeaderCell<RecordType>;
-    ellipsis?: BaseEllipsis
+    ellipsis?: BaseEllipsis;
+    /**
+     * self control whether to update cell for performance reasons
+     */
+    shouldCellUpdate?: (props: TableCellProps, prevProps: TableCellProps) => boolean
 }
 
 export type Align = BaseAlign;

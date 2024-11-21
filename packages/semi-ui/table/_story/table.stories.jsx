@@ -38,6 +38,7 @@ import {
   PerfRender,
   PerfResizableSelection,
   PerfVirtualized,
+  DeepEqual
 } from './Perf';
 import RenderPagination from './RenderPagination';
 import ControlledSortOrder from './ControlledSortOrder';
@@ -98,9 +99,11 @@ export {
     EllipsisNormalTable, EllipsisFixedTable, ShowTitleTable,
     Fixed1556,
     FixedColumnAlign,
-    FixOnChange
+    FixOnChange,
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
+
+export { DeepEqual };
 
 // empty table
 
