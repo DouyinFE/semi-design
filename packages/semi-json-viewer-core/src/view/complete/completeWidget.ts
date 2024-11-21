@@ -72,7 +72,7 @@ export class CompleteWidget {
         const root = parseJsonAst(this._jsonModel);
         const position = {
             lineNumber: this._jsonModel.lastChangeBufferPos.lineNumber,
-            column: this._jsonModel.lastChangeBufferPos.column + 1,
+            column: this._jsonModel.lastChangeBufferPos.column,
         } as Position;
         new JSONCompletion(this._view.options?.completionOptions || null)
             .doCompletion(this._jsonModel, position, root)
@@ -159,17 +159,17 @@ export class CompleteWidget {
                     return;
                 }
                 const { range } = textEdit;
-                const startOffset = this._jsonModel.getOffsetAt(range.startLineNumber, range.startColumn - 1);
+                const startOffset = this._jsonModel.getOffsetAt(range.startLineNumber, range.startColumn);
 
-                const endOffset = this._jsonModel.getOffsetAt(range.endLineNumber, range.endColumn - 1);
+                const endOffset = this._jsonModel.getOffsetAt(range.endLineNumber, range.endColumn);
 
                 const op: IModelContentChangeEvent = {
                     type: 'replace',
                     range: {
                         startLineNumber: range.startLineNumber,
-                        startColumn: range.startColumn - 1,
+                        startColumn: range.startColumn,
                         endLineNumber: range.endLineNumber,
-                        endColumn: range.endColumn - 1,
+                        endColumn: range.endColumn,
                     },
                     rangeLength: endOffset - startOffset,
                     rangeOffset: startOffset,

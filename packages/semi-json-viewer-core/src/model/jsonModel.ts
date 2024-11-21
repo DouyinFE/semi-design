@@ -19,7 +19,7 @@ export class JSONModel {
     private readonly MAX_STACK_SIZE = 20;
     public lastChangeBufferPos = {
         lineNumber: 1,
-        column: 0,
+        column: 1,
     };
 
     private _jsonWorkerManager: JsonWorkerManager | null = null;
@@ -112,15 +112,14 @@ export class JSONModel {
 
         switch (op.type) {
             case 'insert':
-                this._pieceTree.insert(op.rangeOffset + 1, op.newText);
+                this._pieceTree.insert(op.rangeOffset, op.newText);
                 break;
             case 'delete':
-                this._pieceTree.delete(op.rangeOffset + 1, op.rangeLength);
-
+                this._pieceTree.delete(op.rangeOffset, op.rangeLength);
                 break;
             case 'replace':
-                this._pieceTree.delete(op.rangeOffset + 1, op.oldText.length);
-                this._pieceTree.insert(op.rangeOffset + 1, op.newText);
+                this._pieceTree.delete(op.rangeOffset, op.oldText.length);
+                this._pieceTree.insert(op.rangeOffset, op.newText);
                 break;
         }
         if (!isInWorkerThread()) {
@@ -147,13 +146,13 @@ export class JSONModel {
                 this.lastChangeBufferPos.column += op.newText.length;
                 if (op.newText === '\n') {
                     this.lastChangeBufferPos.lineNumber += 1;
-                    this.lastChangeBufferPos.column = 0;
+                    this.lastChangeBufferPos.column = 1;
                 }
                 break;
             case 'delete':
-                if (this.lastChangeBufferPos.column === 0) {
+                if (this.lastChangeBufferPos.column === 1) {
                     this.lastChangeBufferPos.lineNumber -= 1;
-                    this.lastChangeBufferPos.column = this.getLineLength(this.lastChangeBufferPos.lineNumber);
+                    this.lastChangeBufferPos.column = this.getLineLength(this.lastChangeBufferPos.lineNumber) + 1;
                 } else {
                     const startColumn = op.range.startColumn;
                     const newColumn = op.rangeLength === 1 ? startColumn - 1 : startColumn;

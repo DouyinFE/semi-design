@@ -56,11 +56,11 @@ export class SearchWidget {
         const currentMatch = this.searchResults[this._currentResultIndex];
         const startOffset = this._jsonModel.getOffsetAt(
             currentMatch.range.startLineNumber,
-            currentMatch.range.startColumn - 1
+            currentMatch.range.startColumn
         );
         const endOffset = this._jsonModel.getOffsetAt(
             currentMatch.range.endLineNumber,
-            currentMatch.range.endColumn - 1
+            currentMatch.range.endColumn
         );
         const op: IModelContentChangeEvent = {
             range: currentMatch.range,
@@ -80,8 +80,8 @@ export class SearchWidget {
         const op: IModelContentChangeEvent[] = [];
         for (let i = this.searchResults.length - 1; i >= 0; i--) {
             const match = this.searchResults[i];
-            const startOffset = this._jsonModel.getOffsetAt(match.range.startLineNumber, match.range.startColumn - 1);
-            const endOffset = this._jsonModel.getOffsetAt(match.range.endLineNumber, match.range.endColumn - 1);
+            const startOffset = this._jsonModel.getOffsetAt(match.range.startLineNumber, match.range.startColumn);
+            const endOffset = this._jsonModel.getOffsetAt(match.range.endLineNumber, match.range.endColumn);
             op.push({
                 range: match.range,
                 newText: replaceText,

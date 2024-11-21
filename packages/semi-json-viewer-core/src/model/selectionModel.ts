@@ -93,7 +93,7 @@ export class SelectionModel {
             return;
         }
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
-        const col = this._jsonModel.lastChangeBufferPos.column;
+        const col = this._jsonModel.lastChangeBufferPos.column - 1;
 
         if (row < this._view.startLineNumber || row > this._view.startLineNumber + this._view.visibleLineCount) {
             selection.removeAllRanges();
@@ -146,6 +146,6 @@ export class SelectionModel {
             col = totalOffset;
         }
         row = (lineElement as any).lineNumber || 1;
-        return { row, col };
+        return { row, col: col + 1 };
     }
 }

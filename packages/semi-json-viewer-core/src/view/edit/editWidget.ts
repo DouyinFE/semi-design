@@ -87,9 +87,9 @@ export class EditWidget {
                 op.newText = e.data || '';
                 op.oldText = this._jsonModel.getValueInRange({
                     startLineNumber: startRow,
-                    startColumn: startCol + 1,
+                    startColumn: startCol,
                     endLineNumber: endRow,
-                    endColumn: endCol + 1,
+                    endColumn: endCol,
                 } as Range);
                 if (this._autoClosingPairs[op.newText]) {
                     op.newText += this._autoClosingPairs[op.newText];
@@ -102,19 +102,19 @@ export class EditWidget {
             case 'deleteContentBackward':
                 let oldText = '';
                 if (this._selectionModel.isCollapsed) {
+                    op.rangeOffset = startOffset - 1;
+                    oldText = this._jsonModel.getValueInRange({
+                        startLineNumber: startRow,
+                        startColumn: startCol - 1,
+                        endLineNumber: endRow,
+                        endColumn: endCol,
+                    } as Range);
+                } else {
                     oldText = this._jsonModel.getValueInRange({
                         startLineNumber: startRow,
                         startColumn: startCol,
                         endLineNumber: endRow,
-                        endColumn: endCol + 1,
-                    } as Range);
-                    op.rangeOffset = startOffset - 1;
-                } else {
-                    oldText = this._jsonModel.getValueInRange({
-                        startLineNumber: startRow,
-                        startColumn: startCol + 1,
-                        endLineNumber: endRow,
-                        endColumn: endCol + 1,
+                        endColumn: endCol,
                     } as Range);
                 }
                 op.oldText = oldText;
@@ -127,20 +127,20 @@ export class EditWidget {
                 op.newText = pasteData || '';
                 op.oldText = this._jsonModel.getValueInRange({
                     startLineNumber: startRow,
-                    startColumn: startCol + 1,
+                    startColumn: startCol,
                     endLineNumber: endRow,
-                    endColumn: endCol + 1,
+                    endColumn: endCol,
                 } as Range);
                 break;
         }
         if (this._selectionModel.isSelectedAll) {
             op.range = {
                 startLineNumber: 1,
-                startColumn: 0,
+                startColumn: 1,
                 endLineNumber: this._jsonModel.getLineCount(),
                 endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()),
             };
-            op.rangeOffset = -1;
+            op.rangeOffset = 0;
             op.rangeLength = this._jsonModel.getValue().length;
             op.oldText = this._jsonModel.getValue();
         }
@@ -259,6 +259,7 @@ export class EditWidget {
     }
 
     private _cutHandler() {
+        console.log('cut');
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
@@ -281,9 +282,9 @@ export class EditWidget {
         if (!this._selectionModel.isCollapsed) {
             oldText = this._jsonModel.getValueInRange({
                 startLineNumber: startRow,
-                startColumn: startCol + 1,
+                startColumn: startCol,
                 endLineNumber: endRow,
-                endColumn: endCol + 1,
+                endColumn: endCol,
             } as Range);
             startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         } else {
@@ -295,11 +296,11 @@ export class EditWidget {
             } as Range);
             op.range = {
                 startLineNumber: startRow,
-                startColumn: 0,
+                startColumn: 1,
                 endLineNumber: endRow,
                 endColumn: this._jsonModel.getLineLength(endRow) + 1,
             };
-            startOffset = this._jsonModel.getOffsetAt(startRow, 0);
+            startOffset = this._jsonModel.getOffsetAt(startRow, 1);
         }
 
         op.oldText = oldText;
@@ -309,11 +310,11 @@ export class EditWidget {
         if (this._selectionModel.isSelectedAll) {
             op.range = {
                 startLineNumber: 1,
-                startColumn: 0,
+                startColumn: 1,
                 endLineNumber: this._jsonModel.getLineCount(),
                 endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()) + 1,
             };
-            op.rangeOffset = -1;
+            op.rangeOffset = 0;
             op.rangeLength = this._jsonModel.getValue().length;
             op.oldText = this._jsonModel.getValue();
         }
