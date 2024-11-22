@@ -145,7 +145,8 @@ $module: #{$prefix}-table;
                 &.#{$module}-row-head-clickSort {
                     cursor: pointer;
                     &:hover {
-                        background: $color-table_th-clickSort-bg-hover;
+                        background-image: linear-gradient(0deg, $color-table_th-clickSort-bg-hover, $color-table_th-clickSort-bg-hover);
+                        background-color: $color-table_cell-bg-hover;
                         
                         &.#{$module}-cell-fixed {
                             &-left,

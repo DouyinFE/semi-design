@@ -22,6 +22,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - ResizeGroup的伸缩方向支持动态切换 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
     - MarkdownRender 新增 remarkGfm 开关用于防止低版本 safari 不支持环视断言报错的问题 [#2576](https://github.com/DouyinFE/semi-design/pull/2576)
 
+#### 🎉 2.69.2 (2024-11-19)
+- 【Fix】
+    - 修复点击触发排序的表头会透出被遮盖的内容问题，影响版本 2.65.0-2.69.1 [#2578](https://github.com/DouyinFE/semi-design/pull/2578)
+
 #### 🎉 2.69.1 (2024-11-15)
 - 【Fix】
     - 修复 MonthRange DatePicker 在存在 disabledDate 情况下点击非禁用年份不跳转问题 [#2569](https://github.com/DouyinFE/semi-design/pull/2569)
