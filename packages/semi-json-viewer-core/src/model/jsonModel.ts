@@ -7,6 +7,7 @@ import { EndOfLinePreference, FindMatch, SearchData } from '../common/model';
 import { SearchParams, TextModelSearch } from './textModelSearch';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { isInWorkerThread } from '../common/worker';
+import { Command, DeleteCommand, InsertCommand, ReplaceCommand } from './command';
 
 /**
  * JSONModel 类用于管理 JSON 数据模型
@@ -14,8 +15,8 @@ import { isInWorkerThread } from '../common/worker';
 export class JSONModel {
     private _pieceTree: PieceTreeBase;
     private _normalizeEOL: boolean;
-    private _undoStack: IModelContentChangeEvent[] = [];
-    private _redoStack: IModelContentChangeEvent[] = [];
+    private _undoStack: Command[] = [];
+    private _redoStack: Command[] = [];
     private readonly MAX_STACK_SIZE = 20;
     public lastChangeBufferPos = {
         lineNumber: 1,
@@ -30,6 +31,10 @@ export class JSONModel {
         if (!isInWorkerThread()) {
             this._jsonWorkerManager = getJsonWorkerManager();
         }
+    }
+
+    get pieceTree() {
+        return this._pieceTree;
     }
 
     createTextBufferFactory(value: string) {
@@ -102,26 +107,30 @@ export class JSONModel {
         return this.getOffsetAt(lineNumber, lineLength + 1);
     }
 
+    private _createCommand(op: IModelContentChangeEvent): Command {
+        switch (op.type) {
+            case 'insert':
+                return new InsertCommand(this, op);
+            case 'delete':
+                return new DeleteCommand(this, op);
+            case 'replace':
+                return new ReplaceCommand(this, op);
+            default:
+                throw new Error('Unknown operation type');
+        }
+    }
+
     applyOperation(op: IModelContentChangeEvent | IModelContentChangeEvent[]) {
         if (Array.isArray(op)) {
             op.forEach(o => this.applyOperation(o));
             return;
         }
 
-        this._updateLastChangeBufferPos(op);
+        this._redoStack = [];
+        const command = this._createCommand(op);
+        this.pushUndoStack(command);
+        command.execute();
 
-        switch (op.type) {
-            case 'insert':
-                this._pieceTree.insert(op.rangeOffset, op.newText);
-                break;
-            case 'delete':
-                this._pieceTree.delete(op.rangeOffset, op.rangeLength);
-                break;
-            case 'replace':
-                this._pieceTree.delete(op.rangeOffset, op.oldText.length);
-                this._pieceTree.insert(op.rangeOffset, op.newText);
-                break;
-        }
         if (!isInWorkerThread()) {
             emitter.emit('contentChanged', op);
         }
@@ -140,7 +149,7 @@ export class JSONModel {
         }
     }
 
-    private _updateLastChangeBufferPos(op: IModelContentChangeEvent) {
+    updateLastChangeBufferPos(op: IModelContentChangeEvent) {
         switch (op.type) {
             case 'insert':
                 this.lastChangeBufferPos.column += op.newText.length;
@@ -168,15 +177,15 @@ export class JSONModel {
         }
     }
 
-    pushUndoStack(op: IModelContentChangeEvent) {
-        this._undoStack.push({ ...op });
+    pushUndoStack(command: Command) {
+        this._undoStack.push(command);
         if (this._undoStack.length > this.MAX_STACK_SIZE) {
             this._undoStack.shift();
         }
     }
 
-    pushRedoStack(op: IModelContentChangeEvent) {
-        this._redoStack.push({ ...op });
+    pushRedoStack(command: Command) {
+        this._redoStack.push(command);
         if (this._redoStack.length > this.MAX_STACK_SIZE) {
             this._redoStack.shift();
         }
@@ -193,19 +202,19 @@ export class JSONModel {
     undo() {
         if (!this.canUndo()) return;
 
-        const op = this._undoStack.pop()!;
-        const reverseOp = this._createReverseOperation(op);
-
-        this.pushRedoStack(op);
-        this.applyOperation(reverseOp);
+        const command = this._undoStack.pop()!;
+        command.undo();
+        this._redoStack.push(command);
+        emitter.emit('contentChanged', command.operation);
     }
 
     redo() {
         if (!this.canRedo()) return;
-        const op = this._redoStack.pop()!;
 
-        this.pushUndoStack(op);
-        this.applyOperation(op);
+        const command = this._redoStack.pop()!;
+        command.execute();
+        this._undoStack.push(command);
+        emitter.emit('contentChanged', command.operation);
     }
 
     private _createReverseOperation(op: IModelContentChangeEvent): IModelContentChangeEvent {
