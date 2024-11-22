@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.69.2 (2024-11-19)
+- 【Fix】
+    - Fixed the problem that the covered content will be revealed in the table header that can be clicked to trigger sorting，Affected versions 2.65.0-2.69.1
+
+#### 🎉 2.69.1 (2024-11-15)
+- 【Fix】
+    - fix the issue that MonthRange DatePicker does not jump when clicking on a non-disabled year when there is a disabledDate
+    - Fixed the problem that when ArrayField is conditionally rendered, the first click of add fails to add rows correctly.
+    - fixed incorrect translation of Table pageText in Japanese scenarios
+
 #### 🎉 2.69.0 (2024-11-08)
 - 【Fix】
     - The clip-rule & stroke-width in the @douyinfe/semi-illustrations package are modified to clipRule & strokeWidth
