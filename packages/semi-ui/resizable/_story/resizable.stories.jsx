@@ -7,6 +7,108 @@ export default {
 
 import { ResizeItem, ResizeHandler, ResizeGroup } from '../../index'
 
+export const Group = () => {
+  const [text, setText] = useState('Drag to resize')
+  return (
+    <div style={{ width: '1118px', height: '600px' }}>
+      <ResizeGroup direction='vertical'>
+        <ResizeItem
+          defaultSize={"80%"}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"25%"}
+              min={'10%'}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' min:10% max:30%'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ height: '100%' }}>
+                <ResizeGroup direction='vertical'>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    onChange={(a, b, c) => { setText('resizing'); console.log(a, b, c)  }}
+                    onResizeEnd={() => { setText('Drag to resize') }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                    defaultSize={'33%'}
+                    min={'10%'}
+                    max={'40%'}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text + " min:10% max:40%"}
+                    </div>
+                  </ResizeItem>
+                  <ResizeHandler></ResizeHandler>
+                  <ResizeItem
+                    style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+                  >
+                    <div style={{ marginLeft: '20%' }}>
+                      {text}
+                    </div>
+                  </ResizeItem>
+                </ResizeGroup>
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"1"}
+              max={'30%'}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {text + ' max:30%'}
+              </div>
+            </ResizeItem>
+            
+          </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          defaultSize={"20%"}
+          onChange={() => { setText('resizing') }}
+        >
+          <ResizeGroup direction='horizontal'>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'tab'}
+              </div>
+            </ResizeItem>
+            <ResizeHandler></ResizeHandler>
+            <ResizeItem
+              style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', border: 'var(--semi-color-border) 1px solid' }}
+              defaultSize={"50%"}
+            >
+              <div style={{ marginLeft: '20%' }}>
+                {'content'}
+              </div>
+            </ResizeItem>
+          </ResizeGroup>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+
 export const Group_layout = () => {
   const [text, setText] = useState('test')
   const opts_1 = {
@@ -228,13 +330,13 @@ export const Group_horizontal = () => {
       <ResizeGroup direction='horizontal'>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
-          defaultSize={2}
-          min={'10%'}
+          defaultSize={'15%'}
+          min={'50px'}
           onChange={() => { setText('resizing') }}
           onResizeEnd={() => { setText('test') }}
         >
           <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
-            {text + " min:10%"}
+            {text + " min:50px"}
           </div>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
@@ -252,12 +354,68 @@ export const Group_horizontal = () => {
         <ResizeHandler></ResizeHandler>
         <ResizeItem
           style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
-          defaultSize={'600px'}
+          defaultSize={'300px'}
           onChange={() => { setText('resizing') }}
         >
           <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
             {text}
           </div>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
+          defaultSize={1.3}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+
+export const Group_dynamic_direction = () => {
+  const [text, setText] = useState('drag to resize')
+  const [direction, setDirection] = useState('horizontal')
+
+  const changeDirection = () => {
+    if (direction === 'horizontal') {
+      setDirection('vertical')
+    } else {
+      setDirection('horizontal')
+    }
+  }
+  return (
+    <div style={{ width: '1000px', height: '500px' }}>
+      <Button onClick={changeDirection}>{direction}</Button>
+      <ResizeGroup direction={direction}>
+        <ResizeItem
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { setText('drag to resize') }}
+          defaultSize={8}
+        >
+            <ResizeGroup direction='horizontal'>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+                onResizeEnd={() => { setText('drag to resize') }}
+              >
+                <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+              <ResizeHandler></ResizeHandler>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+              >
+                <div style={{ marginLeft: '20%', border: 'var(--semi-color-border) solid 1px', padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+            </ResizeGroup>
         </ResizeItem>
         <ResizeHandler></ResizeHandler>
         <ResizeItem
@@ -307,7 +465,7 @@ export const Single_defaultSize = () => {
   );
 }
 
-export const Single_Enabel = () => {
+export const Single_Enable = () => {
   const [b, setB] = useState(false)
   return (
     <div style={{ width: '500px', height: '60%' }}>

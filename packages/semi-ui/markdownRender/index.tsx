@@ -41,11 +41,13 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
         raw: PropTypes.string,
         remarkPlugins: PropTypes.arrayOf(PropTypes.object),
         rehypePlugins: PropTypes.arrayOf(PropTypes.object),
+        remarkGfm: PropTypes.bool,
     }
 
     static __SemiComponentName__ = "MarkdownRender";
     static defaultProps = getDefaultPropsFromGlobalConfig(MarkdownRender.__SemiComponentName__, {
-        format: "mdx"
+        format: "mdx",
+        remarkGfm: true,
     })
 
     componentDidUpdate(prevProps: Readonly<MarkdownRenderProps>, prevState: Readonly<MarkdownRenderState>, snapshot?: any) {
@@ -57,7 +59,7 @@ class MarkdownRender extends BaseComponent<MarkdownRenderProps, MarkdownRenderSt
     get adapter(): MarkdownRenderAdapter<MarkdownRenderProps, MarkdownRenderState> {
         return {
             ...super.adapter,
-            getRuntime: ()=>runtime
+            getRuntime: () => runtime
         };
     }
 

@@ -17,6 +17,7 @@ import type { TabsProps } from "../tabs";
 import type { TimePickerProps } from "../timePicker";
 import type { ToastReactProps } from "../toast";
 import type { TooltipProps } from "../tooltip";
+import type { MarkdownRenderProps } from "../markdownRender";
 
 class SemiGlobal {
 
@@ -25,6 +26,7 @@ class SemiGlobal {
             // "Anchor"?: Partial<AnchorProps>;
             "AutoComplete"?: Partial<AutoCompleteProps<any>>;
             "Avatar"?: Partial<AvatarProps>;
+            "MarkdownRender"?: Partial<MarkdownRenderProps>;
             // BackTop?: Partial<BackTopProps>;
             // Badge?: Partial<BadgeProps>;
             // Banner?: Partial<BannerProps>;

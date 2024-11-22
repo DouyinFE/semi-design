@@ -184,15 +184,16 @@ function Demo() {
 
 ### API
 
-| 属性         | 说明                         | 类型                                   | 默认值   |
-|------------|----------------------------|--------------------------------------|-------|
-| className | 类名                         | string                               | -   |
-| components | 用于覆盖 Markdown 元素，也可添加自定义组件 | Record<string, JSXElementConstructor> | -     |
-| format     | 传入的 raw 类型，是否是纯 Markdown   | 'md'\|'mdx'                          | 'mdx' |
-| raw        | Markdown 或 MDX 的纯文本        | string                               | -     |
-| remarkPlugins | 自定义 Remark Plugin          | Remark Plugin Array                | - |
-| rehypePlugins | 自定义 Rehype Plugin          | Rehype Plugin Array               | - |
-| style | 样式                         | CSSProperties                        | - |
+| 属性         | 说明                                          | 类型                                   | 默认值   |
+|------------|---------------------------------------------|--------------------------------------|-------|
+| className | 类名                                          | string                               | -   |
+| components | 用于覆盖 Markdown 元素，也可添加自定义组件                  | Record<string, JSXElementConstructor> | -     |
+| format     | 传入的 raw 类型，是否是纯 Markdown                    | 'md'\|'mdx'                          | 'mdx' |
+| raw        | Markdown 或 MDX 的纯文本                         | string                               | -     |
+| remarkGfm | 是否开启 Github GFM 语法，safari 16.3 之前不支持环视断言会报错 | bool | true |
+| remarkPlugins | 自定义 Remark Plugin                           | Remark Plugin Array                | - |
+| rehypePlugins | 自定义 Rehype Plugin                           | Rehype Plugin Array               | - |
+| style | 样式                                          | CSSProperties                        | - |
 
 ## 设计变量
 

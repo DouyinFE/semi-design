@@ -219,27 +219,27 @@ import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const [size, setSize] = useState({ width: 200, height: 300 });
+  const [size, setSize] = useState({ width: 200, height: 100 });
+  const onButtonClick = () => {
+    let realSize = { width: size.width + 10, height: size.height + 10 };
+    setSize(realSize);
+  };
+  const onChange = (s) => { setSize(s); }
 
-    const onChange = () => {
-        let realSize = { width: size.width + 10, height: size.height + 10 };
-        setSize(realSize);
-    };
-    return (
-        <div style={{ width: '500px', height: '60%' }}>
-            <Button onClick={onChange}>set += 10</Button>
-            <Resizable
-                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
-                defaultSize={{
-                    width: 100,
-                    height: 100,
-                }}
-                size={size}
-            >
-                <div style={{ marginLeft: '20%' }}>受控</div>
-            </Resizable>
+  return (
+    <div style={{ width: '500px', height: '60%' }}>
+      <Button onClick={onButtonClick}>set += 10</Button>
+      <Resizable
+        style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
+        size={size}
+        onChange={onChange}
+      >
+        <div style={{ marginLeft: '20%' }}>
+          受控
         </div>
-    );
+      </Resizable>
+    </div>
+  );
 }
 ```
 
@@ -698,62 +698,122 @@ function Demo() {
 }
 ```
 
+### 动态方向
+
+```jsx live=true
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('drag to resize')
+  const [direction, setDirection] = useState('horizontal')
+
+  const changeDirection = () => {
+    if (direction === 'horizontal') {
+      setDirection('vertical')
+    } else {
+      setDirection('horizontal')
+    }
+  }
+  return (
+    <div style={{ width: '400px', height: '300px' }}>
+      <Button onClick={changeDirection}>{direction}</Button>
+      <ResizeGroup direction={direction} >
+        <ResizeItem
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { setText('drag to resize') }}
+          defaultSize={5}
+        >
+            <ResizeGroup direction='horizontal'>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+                onResizeEnd={() => { setText('drag to resize') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+              <ResizeHandler></ResizeHandler>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+            </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
+          defaultSize={1.3}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%',  padding:'5px' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
 ## API 参考
 
 ### Resizable
 
 单个伸缩框组件。
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| className | 类名 | string |  |  |
-| size | 控制伸缩框的大小，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调) |  |  |
-| defaultSize | 用于设置初始宽高，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调) |  |  |
-| minWidth | 指定伸缩框最小宽度 | string \| number |  |  |
-| maxWidth | 指定伸缩框最大宽度 | string \| number |  |  |
-| minHeight | 指定伸缩框最小高度 | string \| number |  |  |
-| maxHeight | 指定伸缩框最大高度 | string \| number |  |
-| lockAspectRatio | 设置伸缩框横纵比，当为`true`时按照初始宽高锁定 | boolean \| number |  |  |
-| enable | 指定伸缩框可以伸缩的方向，没有设置为 false，则默认允许该方向的拖动 | [Enable](#控制伸缩方向) |
-| scale | 可伸缩元素被缩放的比例 | number | 1 |  |
-| boundElement | 用于限制可伸缩元素宽高的元素,传入 `parent` 设置父节点为限制节点 | string |  |  |
-| handleNode | 用于设置拖拽处理元素各个方向的自定义节点 | [HandleNode](#自定义边角handler样式) |  |  |
-| handleStyle | 用于设置拖拽处理元素各个方向的样式 | [HandleStyles](#自定义边角handler样式) |  |  |
-| handleClass | 用于设置拖拽处理元素各个方向的类名称 | [HandleClasses](#自定义边角handler样式) |  |  |
-| style | 样式 | CSSProperties |  |
-| snapGap | 用于指定移动到下一个目标所需的最小间隙。 | number | 0 |  |
-| snap | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴 | [Snap](#允许阶段性调整宽高) | null |  |
-| grid | 指定调整大小应对齐的增量 | \[number, number\] | \[1,1\] |  |
-| onChange | 拖拽过程中的回调 | (e: Event; direction: String;size: Size) => void | - |  |
-| onResizeStart | 开始伸缩的回调 | (e: Event; direction: String) => void | - |  |
-| onResizeEnd | 结束伸缩的回调 | (e: Event; direction: String) => void | - |  |
+| 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
+| --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
+| className | 类名                                                                          | string                  |            |        |
+| size   | 控制伸缩框的大小，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| defaultSize   | 用于设置初始宽高，支持数字和字符串（px/vw/vh/%）两种格式 | [Size](#基本使用与回调)                  |           |        |
+| minWidth | 指定伸缩框最小宽度      |  string \| number                  |   |        |
+| maxWidth | 指定伸缩框最大宽度      |  string \| number                  |   |        |
+| minHeight | 指定伸缩框最小高度      |  string \| number                  |   |        |
+| maxHeight | 指定伸缩框最大高度      |  string \| number                  |   |     
+| lockAspectRatio | 设置伸缩框横纵比，当为`true`时按照初始宽高锁定    |  boolean \| number                  |   |        |
+| enable | 指定伸缩框可以伸缩的方向，没有设置为 false，则默认允许该方向的拖动      |    [Enable](#控制伸缩方向) 
+| scale | 可伸缩元素被缩放的比例      |   number                  |  1 |        |   
+| boundElement | 用于限制可伸缩元素宽高的元素,传入 `parent` 设置父节点为限制节点    | string                  |            |        |
+| handleNode     | 用于设置拖拽处理元素各个方向的自定义节点             | [HandleNode](#自定义边角handler样式)          |            |        |
+| handleStyle    | 用于设置拖拽处理元素各个方向的样式              | [HandleStyles](#自定义边角handler样式)            |            |        |
+| handleClass  | 用于设置拖拽处理元素各个方向的类名称              | [HandleClasses](#自定义边角handler样式)            |            |        |
+| style | 样式 | CSSProperties |      |
+| snapGap      | 用于指定移动到下一个目标所需的最小间隙。                        | number                  | 0       |  |
+| snap      | 指定调整大小时应对齐的绝对像素值。 x 和 y 都是可选的，允许仅包含要定义的轴                        | [Snap](#允许阶段性调整宽高)                  | null       |  |
+| grid      | 指定调整大小应对齐的增量                           | \[number, number\]                  | \[1,1\]       |  |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
 ### ResizeGroup
 
-| 参数      | 说明                    | 类型                       | 默认值       | 版本 |
-| --------- | ----------------------- | -------------------------- | ------------ | ---- |
-| className | 类名                    | string                     |              |      |
-| direction | 指定 Group 内的伸缩方向 | 'horizontal' \| 'vertical' | 'horizontal' |      |
-
+| 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
+| className   | 类名                                                                                                                        | string                             |        |      |
+| direction | 指定Group内的伸缩方向  | 'horizontal' \| 'vertical' | 'horizontal' |      |
 ### ResizeHandler
-
-| 参数      | 说明 | 类型          | 默认值 | 版本 |
-| --------- | ---- | ------------- | ------ | ---- |
-| className | 类名 | string        |        |      |
-| style     | 样式 | CSSProperties |        |
-
+| 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
+| className   | 类名                                                                                                                        | string                             |        |      |
+| style | 样式 | CSSProperties |      |
 ### ResizeItem
+| 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
+| --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
+| className | 类名                                                                          | string                  |            |        |
+| defaultSize   | 用于设置初始宽高，**字符串支持%和px单位，当字符串为纯数字或直接设置数字时表示按照值的比例分配剩余空间** | string \| number                 |           |        |
+| min | 指定伸缩框最小尺寸（百分比或像素值）      |  string                   |   |        |
+| max | 指定伸缩框最大尺寸（百分比或像素值）     |  string                   |   |        |
+| style | 样式 | CSSProperties |      |
+| onChange  | 拖拽过程中的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
+| onResizeStart  | 开始伸缩的回调                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | 结束伸缩的回调                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 
-| 参数 | 说明 | 类型 | 默认值 | 版本 |
-| --- | --- | --- | --- | --- |
-| className | 类名 | string |  |  |
-| defaultSize | 用于设置初始宽高，**字符串支持%和 px 单位，当字符串为纯数字或直接设置数字时表示按照值的比例分配剩余空间** | string \| number |  |  |
-| min | 指定伸缩框最小尺寸（百分比或像素值） | string |  |  |
-| max | 指定伸缩框最大尺寸（百分比或像素值） | string |  |  |
-| style | 样式 | CSSProperties |  |
-| onChange | 拖拽过程中的回调 | (e: Event; direction: String;size: Size) => void | - |  |
-| onResizeStart | 开始伸缩的回调 | (e: Event; direction: String) => void | - |  |
-| onResizeEnd | 结束伸缩的回调 | (e: Event; direction: String) => void | - |  |
 
 ## 设计变量
 
