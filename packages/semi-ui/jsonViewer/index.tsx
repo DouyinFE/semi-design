@@ -59,7 +59,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
                 wholeWord: false,
                 regex: false,
             },
-            showSearchBar: true
+            showSearchBar: false
         };
     }
 
@@ -89,6 +89,19 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
             notifyHover: (value, el) => {
                 const res = this.props.renderTooltip?.(value, el);
                 return res;
+            },
+            setSearchOptions: (key: string) => {
+                this.setState({
+                    searchOptions: {
+                        ...this.state.searchOptions,
+                        [key]: !this.state.searchOptions[key]
+                    }
+                }, () => {
+                    this.searchHandler();
+                });
+            },
+            showSearchBar: () => {
+                this.setState({ showSearchBar: !this.state.showSearchBar });
             }
         };
     }
@@ -108,14 +121,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
 
     changeSearchOptions = (key: string) => {
-        this.setState({
-            searchOptions: {
-                ...this.state.searchOptions,
-                [key]: !this.state.searchOptions[key]
-            }
-        }, () => {
-            this.searchHandler();
-        });
+        this.foundation.setSearchOptions(key);
     }
 
     renderSearchOptions() {
@@ -155,7 +161,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
             <>
                 <div style={this.getStyle()} ref={this.editorRef} className={classNames(prefixCls, `${prefixCls}-background`)}></div>
                 <div>
-                    <Button onClick={() => this.setState({ showSearchBar: !this.state.showSearchBar })} icon={<IconSearch />} />
+                    <Button onClick={() => this.foundation.showSearchBar()} icon={<IconSearch />} />
                 </div>
                 {this.state.showSearchBar && <div className={`${prefixCls}-search-bar-container`}>
                     <div className={`${prefixCls}-search-bar`}>
@@ -185,7 +191,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         <Button icon={<IconClose />} size="small"
                             theme={'borderless'}
                             type={'tertiary'}
-                            onClick={() => this.setState({ showSearchBar: false })} />
+                            onClick={() => this.foundation.showSearchBar()} />
                     </div>
 
                     <div className={`${prefixCls}-replace-bar`}>

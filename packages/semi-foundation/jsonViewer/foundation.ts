@@ -5,8 +5,10 @@ import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation
 
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;
-    onValueChange: (value: string) => void;
-    onValueHover: (value: string, el: HTMLElement) => HTMLElement | undefined
+    notifyChange: (value: string) => void;
+    notifyHover: (value: string, el: HTMLElement) => HTMLElement | undefined;
+    setSearchOptions: (key: string) => void;
+    showSearchBar: () => void
 }
 
 
@@ -23,22 +25,14 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
         this.jsonViewer = new JsonViewer(editorRef, props.value, props.options);
         this.jsonViewer.layout();
         this.jsonViewer.emitter.on('contentChanged', (e) => {
-            this.onValueChange(this.jsonViewer?.getModel().getValue());
+            this._adapter.notifyChange(this.jsonViewer?.getModel().getValue());
         });
         this.jsonViewer.emitter.on('hoverNode', (e) => {
-            const el = this.onValueHover(e.value, e.target);
+            const el = this._adapter.notifyHover(e.value, e.target);
             if (el) {
                 this.jsonViewer.emitter.emit('renderHoverNode', { el });
             }
         });
-    }
-
-    onValueChange(value: string) {
-        this._adapter.onValueChange(value);
-    }
-
-    onValueHover(value: string, el: HTMLElement): HTMLElement | undefined {
-        return this._adapter.onValueHover(value, el);
     }
 
     search(searchText: string) {
@@ -61,6 +55,14 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
 
     replaceAll(replaceText: string) {
         this.jsonViewer?.getSearchWidget().replaceAll(replaceText);
+    }
+
+    setSearchOptions(key: string) {
+        this._adapter.setSearchOptions(key);
+    }
+
+    showSearchBar() {
+        this._adapter.showSearchBar();
     }
 }
 
