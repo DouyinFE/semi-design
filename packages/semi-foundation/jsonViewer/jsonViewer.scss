@@ -27,7 +27,7 @@ $module: #{$prefix}-json-viewer;
         color: $color-json-viewer-delimiter-comma;
     }
 
-    @each $type, $colors in $semi-json-viewer-delimiter-colors {
+    @each $type, $colors in $json-viewer-delimiter-colors {
         @each $level, $color in $colors {
             &-delimiter-#{$type}-#{$level} {
                 color: $color;
@@ -36,17 +36,17 @@ $module: #{$prefix}-json-viewer;
     }
 
     &-search-result {
-        background-color: $semi-json-viewer-search-result-background;
+        background-color: $json-viewer-search-result-background;
     }
 
     &-current-search-result {
-        background-color: $semi-json-viewer-current-search-result-background !important;
+        background-color: $json-viewer-current-search-result-background !important;
     }
 
     &-folding-icon {
         opacity: 0.7;
         transition: opacity 0.8s;
-        color: $semi-json-viewer-folding-icon-color;
+        color: $json-viewer-folding-icon-color;
     }
 
     &-view-line {
@@ -68,7 +68,7 @@ $module: #{$prefix}-json-viewer;
         font-feature-settings: 'liga' 0, 'calt' 0;
         font-variation-settings: normal;
         letter-spacing: 0px;
-        color: $semi-json-viewer-line-number-color;
+        color: $json-viewer-line-number-color;
         text-align: center;
         width: 50px;
     }
