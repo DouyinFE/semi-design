@@ -143,7 +143,7 @@ render(SimpleList);
 | width             | 设置宽度 属性                                     | number                                  | -  |
 | options           | 设置格式化配置 属性                                | JsonViewerOptions                       | -   |
 | onChange          | 设置 value 变化回调 属性                           | (value: string) => void                  | -   |
-| onValueHover      | 设置 value 悬浮回调 属性                           | ({value: string, target: HTMLElement}) => HTMLElement | undefined | -   |
+| renderTooltip     | 设置 value 悬浮回调 属性                           | ({value: string, target: HTMLElement}) => HTMLElement | undefined | -   |
 
 ### JsonViewerOptions
 

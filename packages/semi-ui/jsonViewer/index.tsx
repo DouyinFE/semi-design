@@ -16,7 +16,7 @@ export interface JsonViewerProps extends BaseProps {
     width: number;
     height: number;
     onChange?: (value: string) => void;
-    onValueHover?: (value: string, el: HTMLElement) => HTMLElement;
+    renderTooltip?: (value: string, el: HTMLElement) => HTMLElement;
     options?: JsonViewerOptions
 }
 
@@ -83,11 +83,11 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         return {
             ...super.adapter,
             getEditorRef: () => this.editorRef.current,
-            onValueChange: (value) => {
+            notifyChange: (value) => {
                 this.props.onChange?.(value);
             },
-            onValueHover: (value, el) => {
-                const res = this.props.onValueHover?.(value, el);
+            notifyHover: (value, el) => {
+                const res = this.props.renderTooltip?.(value, el);
                 return res;
             }
         };
