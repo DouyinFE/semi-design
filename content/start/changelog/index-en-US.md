@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.70.0 (2024-11-22)
+- 【Fix】
+    - Fixed an issue where the placement area was incorrectly displayed when dragging the internal files of the Chat component [#2569](https://github.com/DouyinFE/semi-design/issues/2569)
+
 #### 🎉 2.70.0-beta.0 (2024-11-18)
 - 【Fix】
     - When all items except the disabled item in the left panel of transfer are selected, the operation button should display Cancel all selections  [#2575 ](https://github.com/DouyinFE/semi-design/issues/2575)
