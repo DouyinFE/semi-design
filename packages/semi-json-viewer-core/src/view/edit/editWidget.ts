@@ -147,7 +147,6 @@ export class EditWidget {
         this._selectionModel.isSelectedAll = false;
 
         this._jsonModel.applyOperation(op);
-        this._jsonModel.pushUndoStack(op);
     }
 
     private _format() {
@@ -259,7 +258,6 @@ export class EditWidget {
     }
 
     private _cutHandler() {
-        console.log('cut');
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
@@ -320,6 +318,5 @@ export class EditWidget {
         }
         navigator.clipboard.writeText(op.oldText);
         this._jsonModel.applyOperation(op);
-        this._jsonModel.pushUndoStack(op);
     }
 }

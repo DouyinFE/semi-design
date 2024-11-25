@@ -1,6 +1,5 @@
 import { FindMatch } from '../../common/model';
 import { View } from '../view';
-import { elt, setStyles } from '../../common/dom';
 import { JSONModel } from '../../model/jsonModel';
 import { IModelContentChangeEvent } from '../../common/emitterEvents';
 

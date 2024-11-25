@@ -1,6 +1,10 @@
 /** Based on https://github.com/microsoft/vscode with modifications for custom requirements */
 import * as json from 'jsonc-parser';
-import { Token } from './token';
+
+export interface Token {
+    scopes: string;
+    startIndex: number
+}
 
 export interface JsonTokenizationSupport {
     getInitialState(): JSONState;

@@ -1,7 +1,7 @@
-/** reference from https://github.com/microsoft/vscode */
+/** Based on https://github.com/microsoft/vscode with modifications for custom requirements */
 import { JSONModel } from '../model/jsonModel';
 import { JsonBackgroundTokenizer, JsonTokenizerWithStateStoreAndModel } from './jsonModelToken';
-import { Token } from './token';
+import { Token } from './tokenize';
 import { createTokenizationSupport } from './tokenize';
 import { IModelContentChangeEvent } from '../common/emitterEvents';
 import { emitter } from '../common/emitter';

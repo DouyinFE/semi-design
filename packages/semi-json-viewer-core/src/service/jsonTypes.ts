@@ -224,7 +224,6 @@ export interface CompletionItem {
     filterText?: string;
     textEdit?: TextEdit
 }
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace CompletionItem {
     export function create(label: string): CompletionItem {
         return { label };

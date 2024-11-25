@@ -1,6 +1,6 @@
 import { JSONModel } from '../model/jsonModel';
 import { elt, setStyles } from '../common/dom';
-import { Token } from '../tokens/token';
+import { Token } from '../tokens/tokenize';
 import { emitter } from '../common/emitter';
 import { SelectionModel } from '../model/selectionModel';
 import { JsonViewerOptions } from '../json-viewer/jsonViewer';

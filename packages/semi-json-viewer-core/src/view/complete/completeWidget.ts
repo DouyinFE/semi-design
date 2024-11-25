@@ -177,7 +177,6 @@ export class CompleteWidget {
                     newText: textEdit?.newText || '',
                 };
                 this._jsonModel.applyOperation(op);
-                this._jsonModel.pushUndoStack(op);
                 this.hide();
                 break;
         }

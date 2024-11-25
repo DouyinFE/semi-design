@@ -72,9 +72,9 @@ export class JSONCompletion {
                 if (!existing) {
                     label = label.replace(/[\n]/g, '↵');
                     if (label.length > 60) {
-                        const shortendedLabel = label.substring(0, 57).trim() + '...';
-                        if (!proposed.has(shortendedLabel)) {
-                            label = shortendedLabel;
+                        const shortenedLabel = label.substring(0, 57).trim() + '...';
+                        if (!proposed.has(shortenedLabel)) {
+                            label = shortenedLabel;
                         }
                     }
                     suggestion.textEdit = TextEdit.replace(overwriteRange as Range, suggestion.insertText);
