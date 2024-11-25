@@ -13,6 +13,11 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.70.1 (2024-11-25)
+- 【Fix】
+    - 修复 Chat 组件对话框中的文件 url 错误导致点击文件无法正确打开文件问题 [#2589](https://github.com/DouyinFE/semi-design/pull/2589)
+
 #### 🎉 2.70.0 (2024-11-22)
 - 【Fix】
     - 修复拖动 Chat 组件内部文件时候，错误显示放置区域问题 [#2569](https://github.com/DouyinFE/semi-design/issues/2569)
