@@ -1,5 +1,5 @@
 import React,  { useEffect, useCallback } from 'react';
-import { IconHandle } from '@douyinfe/semi-icons';
+import { IconTransparentStroked } from '@douyinfe/semi-icons';
 import DragMove from '../index';
 
 export default {
@@ -24,14 +24,16 @@ export const Default = () => {
   return (
     <>
       <div 
-        style={{ backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 300, height: 300, 
-          position: 'relative', marginTop: 50, marginLeft: 50
+        style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', 
+          width: 300, height: 300, 
+          position: 'relative', marginTop: 50, marginLeft: 50,
+          color: 'rgba(var(--semi-white), 1)', fontWeight: 500,
         }}
       >
         <div 
           style={{ backgroundColor: 'var(--semi-color-primary)',width: 100, height: 100, 
             display: 'flex', alignItems: 'center',justifyContent: 'center', 
-            position: 'absolute', top: 50, left: 50
+            position: 'absolute', top: 50, left: 50, borderRadius: 10
           }} 
           ref={handlerRef}
         >Drag me</div>
@@ -71,14 +73,14 @@ export const Callback = () => {
   
   return (
     <div 
-      style={{ backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 300, height: 300, 
-        position: 'relative', marginTop: 50, marginLeft: 50
+      style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', width: 300, height: 300, 
+        position: 'relative', marginTop: 50, marginLeft: 50, color: 'rgba(var(--semi-white), 1)',
       }}
     >
         <div 
           style={{ backgroundColor: 'var(--semi-color-primary)',width: 100, height: 100, 
             display: 'flex', alignItems: 'center',justifyContent: 'center', 
-            position: 'absolute', top: 50, left: 50
+            position: 'absolute', top: 50, left: 50, borderRadius: 10
           }} 
           ref={handlerRef}
         >Drag me</div>
@@ -105,8 +107,9 @@ export const Constrain = () => {
   return (
     <div 
       style={{ 
-        backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 300, height: 300, 
-        position: 'relative', marginTop: 50, marginLeft: 50
+        backgroundColor: 'rgba(var(--semi-grey-2), 1)', width: 300, height: 300, 
+        position: 'relative', marginTop: 50, marginLeft: 50, 
+        color: 'rgba(var(--semi-white), 1)', fontWeight: 500,
       }} 
       ref={containerRef}
     >
@@ -114,7 +117,7 @@ export const Constrain = () => {
       <div style={{ backgroundColor: 'var(--semi-color-primary)', 
         width: 100, height: 100, 
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        position: 'absolute', top: 50, left: 50
+        position: 'absolute', top: 50, left: 50,  borderRadius: 10
         }} ref={handlerRef}>Drag me</div>
     </div>
   )
@@ -141,21 +144,23 @@ export const Handler = () => {
 
   return (
     <div 
-      style={{ backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 400, height: 400, 
-        position: 'relative', marginTop: 50, marginLeft: 50
+      style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', 
+        width: 300, height: 300, padding: 5, position: 'relative', 
+        color: 'rgba(var(--semi-white), 1)', fontWeight: 500,
       }} 
       ref={containerRef}
     >
       <span>constrainer</span>
       <div style={{ 
-        backgroundColor: 'rgba(var(--semi-lime-2), 1)', 
-        width: 150, height: 150,
-        position: 'absolute', top: 50, left: 50,
+        backgroundColor: 'var(--semi-color-primary)', 
+        width: 80, height: 80, borderRadius: 10,
+        position: 'absolute', top: 50, left: 50,  borderRadius: 10,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
       }} ref={elementRef}>
-        <div style={{ backgroundColor: 'var(--semi-color-primary)', 
-          width: 'fit-content', height: 'fit-content',
-          display: 'flex', alignItems: 'center',justifyContent: 'center',
-        }} ref={handlerRef}><IconHandle /></div>
+        <div 
+            style={{ width: 'fit-content', height: 'fit-content'}} 
+            ref={handlerRef}
+        ><IconTransparentStroked /></div>
       </div>
     </div>
   )
@@ -180,15 +185,16 @@ export const MultipleLayer = () => {
   return (
     <>
      <div 
-        style={{ backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 300, height: 300, 
-          position: 'relative', marginTop: 50, marginLeft: 50,
+        style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', width: 300, height: 300, 
+          position: 'relative', marginTop: 50, marginLeft: 50, 
+          color: 'rgba(var(--semi-white), 1)', fontWeight: 500,
         }}
         ref={constrainRef}
       >
         <span>Constrain node, relative position</span>
         <div 
-          style={{ backgroundColor: 'rgba(var(--semi-lime-2), 1)', width: 200, height: 200, 
-            position: 'relative', marginTop: 50, marginLeft: 50,
+          style={{ backgroundColor: 'rgba(var(--semi-light-blue-2), 1)', width: 200, height: 200, 
+            position: 'relative', 
             top: 80, left: 80,
           }}
         >
@@ -196,7 +202,53 @@ export const MultipleLayer = () => {
           <div 
             style={{ backgroundColor: 'var(--semi-color-primary)',width: 80, height: 80, 
               display: 'flex', alignItems: 'center',justifyContent: 'center', 
-              position: 'absolute', top: 50, left: 50
+              position: 'absolute', top: 50, left: 50,  borderRadius: 10
+            }} 
+            ref={handlerRef}
+          >Drag me</div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export const MultipleLayer2 = () => {
+  const handlerRef = React.useRef();
+  const constrainRef = React.useRef();
+
+  useEffect(() => {
+    let dragMove = new DragMove({ 
+      element: handlerRef.current,
+      constrainer: constrainRef.current,
+    });
+    dragMove.init();
+    return () => {
+      dragMove.destroy();
+      dragMove = null;
+    }
+  } , []);
+
+  return (
+    <>
+     <div 
+        style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', width: 300, height: 300, 
+          position: 'relative', marginTop: 50, marginLeft: 50, 
+          color: 'rgba(var(--semi-white), 1)', fontWeight: 500,
+        }}
+        ref={constrainRef}
+      >
+        <span>Constrain node, relative position</span>
+        <div 
+          style={{ backgroundColor: 'rgba(var(--semi-light-blue-2), 1)', width: 200, height: 200, 
+            position: 'absolute', 
+            top: 80, left: 80,
+          }}
+        >
+          <span>Absolute position</span>
+          <div 
+            style={{ backgroundColor: 'var(--semi-color-primary)',width: 80, height: 80, 
+              display: 'flex', alignItems: 'center',justifyContent: 'center', 
+              position: 'absolute', top: 50, left: 50,  borderRadius: 10
             }} 
             ref={handlerRef}
           >Drag me</div>

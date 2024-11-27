@@ -57,15 +57,13 @@ class DragMove {
         this.handler.addEventListener('touchstart', this.onTouchStart);
         // Calculate the range within which an element can move
         if (this.constrainNode) {
-            let node = this.element;
+            let node = this.element.offsetParent as HTMLElement;
             let startX = 0;
             let startY = 0;
             while (node !== this.constrainNode && node !== null) {
-                if (isRelative(node)) {
-                    startX -= node.offsetLeft;
-                    startY -= node.offsetTop;
-                }
-                node = node.parentNode as any;
+                startX -= node.offsetLeft;
+                startY -= node.offsetTop;
+                node = node.offsetParent as any;
             }
             this.xMin = startX;
             this.xMax = startX + this.constrainNode.offsetWidth - this.element.offsetWidth;
