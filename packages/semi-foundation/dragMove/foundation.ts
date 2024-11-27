@@ -14,10 +14,6 @@ interface DragMoveProps {
     onTouchCancel?: (e: TouchEvent) => void
 }
 
-export function isRelative(el) {
-    return window.getComputedStyle(el).position === 'relative';
-}
-
 export function maxMin(value: number, min: number, max: number) {
     return Math.min(Math.max(value, min), max);
 }
