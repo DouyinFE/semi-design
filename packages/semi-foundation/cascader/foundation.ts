@@ -168,6 +168,7 @@ export interface BasicCascaderProps {
     enableLeafClick?: boolean;
     preventScroll?: boolean;
     virtualizeInSearch?: Virtualize;
+    checkRelation?: string;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -774,70 +775,104 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     _handleMultipleSelect(item: BasicEntity | BasicData) {
         const { key } = item;
         const { checkedKeys, keyEntities, resolvedCheckedKeys } = this.getStates();
-        const { autoMergeValue, max, disableStrictly, leafOnly } = this.getProps();
-        // prev checked status
-        const prevCheckedStatus = checkedKeys.has(key);
-        // next checked status
-        const curCheckedStatus = disableStrictly ?
-            this.calcCheckedStatus(!prevCheckedStatus, key) :
-            !prevCheckedStatus;
-        // calculate all key of nodes that are checked or half checked
-        const {
-            checkedKeys: curCheckedKeys,
-            halfCheckedKeys: curHalfCheckedKeys
-        } = disableStrictly ?
-            this.calcNonDisabledCheckedKeys(key, curCheckedStatus) :
-            this.calcCheckedKeys(key, curCheckedStatus);
+        const { autoMergeValue, max, disableStrictly, leafOnly, checkRelation } = this.getProps();
+        if (checkRelation === strings.RELATED) {
+            // prev checked status
+            const prevCheckedStatus = checkedKeys.has(key);
+            // next checked status
+            const curCheckedStatus = disableStrictly ?
+                this.calcCheckedStatus(!prevCheckedStatus, key) :
+                !prevCheckedStatus;
+            // calculate all key of nodes that are checked or half checked
+            const {
+                checkedKeys: curCheckedKeys,
+                halfCheckedKeys: curHalfCheckedKeys
+            } = disableStrictly ?
+                this.calcNonDisabledCheckedKeys(key, curCheckedStatus) :
+                this.calcCheckedKeys(key, curCheckedStatus);
 
-        const mergeType = calcMergeType(autoMergeValue, leafOnly);
-        const isLeafOnlyMerge = mergeType === strings.LEAF_ONLY_MERGE_TYPE;
-        const isNoneMerge = mergeType === strings.NONE_MERGE_TYPE;
+            const mergeType = calcMergeType(autoMergeValue, leafOnly);
+            const isLeafOnlyMerge = mergeType === strings.LEAF_ONLY_MERGE_TYPE;
+            const isNoneMerge = mergeType === strings.NONE_MERGE_TYPE;
 
-        const curResolvedCheckedKeys = new Set(normalizeKeyList(curCheckedKeys, keyEntities, isLeafOnlyMerge));
+            const curResolvedCheckedKeys = new Set(normalizeKeyList(curCheckedKeys, keyEntities, isLeafOnlyMerge));
 
-        const curRealCheckedKeys = isNoneMerge
-            ? curCheckedKeys
-            : curResolvedCheckedKeys;
+            const curRealCheckedKeys = isNoneMerge
+                ? curCheckedKeys
+                : curResolvedCheckedKeys;
 
-        if (isNumber(max)) {
-            if (!isNoneMerge) {
-                // When it exceeds max, the quantity is allowed to be reduced, and no further increase is allowed
-                if (resolvedCheckedKeys.size < curResolvedCheckedKeys.size && curResolvedCheckedKeys.size > max) {
-                    const checkedEntities: BasicEntity[] = [];
-                    curResolvedCheckedKeys.forEach(itemKey => {
-                        checkedEntities.push(keyEntities[itemKey]);
-                    });
-                    this._adapter.notifyOnExceed(checkedEntities);
-                    return;
-                }
-            } else {
-                // When it exceeds max, the quantity is allowed to be reduced, and no further increase is allowed
-                if (checkedKeys.size < curCheckedKeys.size && curCheckedKeys.size > max) {
-                    const checkedEntities: BasicEntity[] = [];
-                    curCheckedKeys.forEach((itemKey: string) => {
-                        checkedEntities.push(keyEntities[itemKey]);
-                    });
-                    this._adapter.notifyOnExceed(checkedEntities);
-                    return;
+            if (isNumber(max)) {
+                if (!isNoneMerge) {
+                    // When it exceeds max, the quantity is allowed to be reduced, and no further increase is allowed
+                    if (resolvedCheckedKeys.size < curResolvedCheckedKeys.size && curResolvedCheckedKeys.size > max) {
+                        const checkedEntities: BasicEntity[] = [];
+                        curResolvedCheckedKeys.forEach(itemKey => {
+                            checkedEntities.push(keyEntities[itemKey]);
+                        });
+                        this._adapter.notifyOnExceed(checkedEntities);
+                        return;
+                    }
+                } else {
+                    // When it exceeds max, the quantity is allowed to be reduced, and no further increase is allowed
+                    if (checkedKeys.size < curCheckedKeys.size && curCheckedKeys.size > max) {
+                        const checkedEntities: BasicEntity[] = [];
+                        curCheckedKeys.forEach((itemKey: string) => {
+                            checkedEntities.push(keyEntities[itemKey]);
+                        });
+                        this._adapter.notifyOnExceed(checkedEntities);
+                        return;
+                    }
                 }
             }
-        }
-        if (!this._isControlledComponent()) {
-            this._adapter.updateStates({
-                checkedKeys: curCheckedKeys,
-                halfCheckedKeys: curHalfCheckedKeys,
-                resolvedCheckedKeys: curResolvedCheckedKeys
-            });
-        }
+            if (!this._isControlledComponent()) {
+                this._adapter.updateStates({
+                    checkedKeys: curCheckedKeys,
+                    halfCheckedKeys: curHalfCheckedKeys,
+                    resolvedCheckedKeys: curResolvedCheckedKeys
+                });
+            }
 
-        // The click event during multiple selection will definitely cause the checked state of node to change,
-        // so there is no need to judge the value to change.
-        this._notifyChange(curRealCheckedKeys);
+            // The click event during multiple selection will definitely cause the checked state of node to change,
+            // so there is no need to judge the value to change.
+            this._notifyChange(curRealCheckedKeys);
 
-        if (curCheckedStatus) {
-            this._notifySelect(curRealCheckedKeys);
+            if (curCheckedStatus) {
+                this._notifySelect(curRealCheckedKeys);
+            }
+        } else if (checkRelation === 'unRelated') {
+            const newCheckedKeys: Set<string> = new Set(checkedKeys);
+            let targetStatus: boolean;
+            const prevCheckedStatus = checkedKeys.has(key);
+            if (prevCheckedStatus) {
+                newCheckedKeys.delete(key);
+                targetStatus = false;
+            } else {
+                // 查看是否超出 max
+                if (isNumber(max)) {
+                    if (checkedKeys.size >= max) {
+                        const checkedEntities: BasicEntity[] = [];
+                        checkedKeys.forEach(itemKey => {
+                            checkedEntities.push(keyEntities[itemKey]);
+                        });
+                        this._adapter.notifyOnExceed(checkedEntities);
+                        return;
+                    }
+                }
+                newCheckedKeys.add(key);
+                targetStatus = true;
+            }
+            if (!this._isControlledComponent()) {
+                this._adapter.updateStates({
+                    checkedKeys: newCheckedKeys,
+                });
+            }
+
+            this._notifyChange(newCheckedKeys);
+
+            if (targetStatus) {
+                this._notifySelect(newCheckedKeys);
+            }
         }
-
         this._adapter.updateStates({ inputValue: '' });
     }
 
