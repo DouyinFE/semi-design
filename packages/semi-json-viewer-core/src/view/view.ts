@@ -211,7 +211,8 @@ export class View {
     }
 
     private createContentContainer(): HTMLElement {
-        const contentContainer = elt('div', 'content-container');
+        const contentClass = 'semi-json-viewer-content-container';
+        const contentContainer = elt('div', contentClass);
         setStyles(contentContainer, {
             position: 'absolute',
             left: '50px',
@@ -360,7 +361,7 @@ export class View {
     }
 
     private renderVisibleLines(startVisibleLine: number, endVisibleLine: number) {
-
+        this._tokenizationJsonModelPart.forceTokenize(endVisibleLine + 1);
         let actualLineNumber = this._foldingModel.getActualLineNumber(startVisibleLine + 1);
         let visibleLineNumber = startVisibleLine;
         while (visibleLineNumber <= endVisibleLine && actualLineNumber <= this._jsonModel.getLineCount()) {
@@ -379,7 +380,6 @@ export class View {
         // }
         const line = this._jsonModel.getLineContent(actualLineNumber);
 
-        this._tokenizationJsonModelPart.forceTokenize(actualLineNumber);
         const tokens = this._tokenizationJsonModelPart.getLineTokens(actualLineNumber);
 
         const lineNumberElement = this.renderLineNumber(actualLineNumber, visibleLineNumber);

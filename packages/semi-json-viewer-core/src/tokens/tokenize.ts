@@ -69,16 +69,13 @@ class ParentsStack {
             return false;
         }
         while (a && b) {
-            if (a === b) {
-                return true;
-            }
-            if (a.type !== b.type) {
+            if (a.type !== b.type || a.depth !== b.depth) {
                 return false;
             }
             a = a.parent;
             b = b.parent;
         }
-        return true;
+        return a === null && b === null;
     }
 }
 
