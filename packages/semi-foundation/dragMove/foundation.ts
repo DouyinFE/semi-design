@@ -122,7 +122,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         return true;
     }
 
-    _calOffset = (e: Touch | MouseEvent) => {
+    _calcOffset = (e: Touch | MouseEvent) => {
         this.startOffsetX = e.clientX - this.element.offsetLeft;
         this.startOffsetY = e.clientY - this.element.offsetTop;
     }
@@ -140,7 +140,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         }
         this._registerDocMouseEvent();
         // store origin offset
-        this._calOffset(e);
+        this._calcOffset(e);
         this._preventDefault(e);
     }
 
@@ -152,7 +152,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         }
         this._registerDocTouchEvent();
         const touch = e.targetTouches[0];
-        this._calOffset(touch);
+        this._calcOffset(touch);
         this._preventDefault(e);
     }
 

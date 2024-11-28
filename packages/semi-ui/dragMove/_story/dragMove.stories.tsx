@@ -5,19 +5,10 @@ import DragMove from '../index';
 export const Demo = () => {
   const handlerRef = React.useRef();
 
-  useEffect(() => {
-    let dragMove = new DragMove({ element: handlerRef.current });
-    dragMove.init();
-    return () => {
-      dragMove.destroy();
-      dragMove = null;
-    }
-  } , []);
-
   return (
-    <>
+    <DragMove>
       <div 
-        style={{ backgroundColor: 'rgba(var(--semi-lime-1), 1)', width: 300, height: 300, 
+        style={{ backgroundColor: 'rgba(var(--semi-grey-2), 1)', width: 300, height: 300, 
           position: 'relative', marginTop: 50, marginLeft: 50
         }}
       >
@@ -29,7 +20,7 @@ export const Demo = () => {
           ref={handlerRef}
         >Drag me</div>
       </div>
-    </>
+    </DragMove>
   )
 }
 
