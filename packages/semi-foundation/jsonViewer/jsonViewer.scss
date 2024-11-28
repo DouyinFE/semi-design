@@ -73,12 +73,12 @@ $module: #{$prefix}-json-viewer;
         width: 50px;
     }
 
-    &-line-number-container {
+    &-content-container {
         scrollbar-width: none; /* 隐藏滚动条（Firefox） */
         -ms-overflow-style: none; /* 隐藏滚动条（IE 和 Edge） */
     }
 
-    &-line-number-container::-webkit-scrollbar {
+    &-content-container::-webkit-scrollbar {
         display: none; /* 隐藏滚动条（Webkit 浏览器） */
     }
 
@@ -90,6 +90,7 @@ $module: #{$prefix}-json-viewer;
         flex-direction: column;
         padding: 8px;
         gap: 8px;
+        background-color: var(--semi-color-bg-0);
     }
 
 
