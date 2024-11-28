@@ -34,7 +34,7 @@ The prompt text of the upload button can be set through `uploadTipProps`. For de
 
 Dialogue is a scene involving multiple parties and multiple rounds of interaction. Role information (including name, avatar, etc.) can be passed in through `roleConfig`, and the specific parameter details are [RoleConfig](#roleConfig).
 
-Use the `align` attribute to set the alignment of the dialog, supporting left and right alignment (`leftRight`, default) and left alignment (`leftAlign`).
+Use the `align` attribute to set the layout of the dialog, supporting left and right layout (`leftRight`, default) and left alignment (`leftAlign`).
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -146,7 +146,7 @@ function DefaultChat() {
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                    Chat align
+                    Chat layout
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
                         <Radio value={'leftRight'}>leftRight</Radio>
                         <Radio value={'leftAlign'}>leftAlign</Radio>
@@ -1605,7 +1605,7 @@ render(DefaultChat);
 
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
-| align | Dialog alignment, supports `leftRight`,`leftAlign` | string | `leftRight` |
+| align | Dialog layout, supports `leftRight`,`leftAlign` | string | `leftRight` |
 | bottomSlot | bottom slot for chat | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox rendering configuration | ChatBoxRenderConfig | - |
 | chats | Controlled conversation list | Message | - |

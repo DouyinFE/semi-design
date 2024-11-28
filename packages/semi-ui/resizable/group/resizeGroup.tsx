@@ -1,11 +1,11 @@
-import React, { createContext, createRef, ReactNode, Ref, RefObject } from 'react';
+import React, { createRef, ReactNode, RefObject } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-foundation/resizable/foundation';
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/singleConstants';
+import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 import "@douyinfe/semi-foundation/resizable/resizable.scss";
 
 const prefixCls = cssClasses.PREFIX;
@@ -27,7 +27,8 @@ export interface ResizeGroupState {
         nextOffset: number
     };
     backgroundStyle: React.CSSProperties;
-    curHandler: number
+    curHandler: number;
+    contextValue: ResizeContextProps
 }
 
 class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
@@ -41,6 +42,8 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
 
     constructor(props: ResizeGroupProps) {
         super(props);
+        this.groupRef = createRef();
+        this.foundation = new ResizeGroupFoundation(this.adapter);
         this.state = {
             isResizing: false,
             originalPosition: {
@@ -52,68 +55,69 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 nextOffset: 0,
             },
             backgroundStyle: {
-                height: '100%',
-                width: '100%',
-                backgroundColor: 'rgba(0,0,0,0)',
                 cursor: 'auto',
-                opacity: 0,
-                position: 'fixed',
-                zIndex: 9999,
-                top: '0',
-                left: '0',
-                bottom: '0',
-                right: '0',
             },
             curHandler: null,
-        };
-        
-        this.groupRef = createRef();
-        this.foundation = new ResizeGroupFoundation(this.adapter);
-        this.contextValue = {
-            direction: props.direction,
-            registerItem: this.registerItem,
-            registerHandler: this.registerHandler,
-            notifyResizeStart: this.foundation.onResizeStart,
-            getGroupSize: this.getGroupSize,
+            contextValue: {
+                direction: props.direction,
+                registerItem: this.registerItem,
+                registerHandler: this.registerHandler,
+                notifyResizeStart: this.foundation.onResizeStart,
+                getGroupSize: this.getGroupSize,
+            },
         };
     }
 
-    contextValue: ResizeContextProps;
     foundation: ResizeGroupFoundation;
     groupRef: React.RefObject<HTMLDivElement>;
     groupSize: number;
     availableSize: number;
     static contextType = ResizeContext;
     context: ResizeGroupProps;
-    itemRefs: RefObject<HTMLDivElement>[] = [];
+    // 在context中使用的属性需要考虑在strictMode下会执行两次，所以用Map来维护
+    itemRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
     itemMinMap: Map<number, string> = new Map();
     itemMaxMap: Map<number, string> = new Map();
     itemMinusMap: Map<number, number> = new Map();
-    itemDefaultSizeList: (string|number)[] = []
+    itemDefaultSizeList: Map<number, (string|number)> = new Map();
     itemResizeStart: Map<number, ResizeStartCallback> = new Map();
     itemResizing: Map<number, ResizeCallback> = new Map();
     itemResizeEnd: Map<number, ResizeCallback> = new Map();
-    handlerRefs: RefObject<HTMLDivElement>[] = [];
+    handlerRefs: Map<number, RefObject<HTMLDivElement>> = new Map();
 
     componentDidMount() {
         this.foundation.init();
+        // 监听窗口大小变化，保证一些限制仍生效
+        window.addEventListener('resize', this.foundation.ensureConstraint);
     }
 
-    componentDidUpdate(_prevProps: ResizeGroupProps) {
+    componentDidUpdate(prevProps: ResizeGroupProps) {
+        // 支持动态调整伸缩direction
+        if (this.props.direction !== prevProps.direction) {
+            this.setState((prevState) => ({
+                ...prevState, // 保留其他状态
+                contextValue: {
+                    ...prevState.contextValue, // 保留其他上下文值
+                    direction: this.props.direction,
+                }
+            }));
+            this.foundation.direction = this.props.direction;
+        }
     }
 
     componentWillUnmount() {
         this.foundation.destroy();
+        window.removeEventListener('resize', this.foundation.ensureConstraint);
     }
 
     get adapter(): ResizeGroupAdapter<ResizeGroupProps, ResizeGroupState> {
         return {
             ...super.adapter,
             getGroupRef: () => this.groupRef.current,
-            getItem: (id: number) => this.itemRefs[id].current,
-            getItemCount: () => this.itemRefs.length,
-            getHandler: (id: number) => this.handlerRefs[id].current,
-            getHandlerCount: () => this.handlerRefs.length,
+            getItem: (id: number) => this.itemRefs.get(id).current,
+            getItemCount: () => this.itemRefs.size,
+            getHandler: (id: number) => this.handlerRefs.get(id).current,
+            getHandlerCount: () => this.handlerRefs.size,
             getItemMin: (index) => {
                 return this.itemMinMap.get(index);
             },
@@ -130,7 +134,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                 return this.itemResizeStart.get(index);
             },
             getItemDefaultSize: (index) => {
-                return this.itemDefaultSizeList[index];
+                return this.itemDefaultSizeList.get(index);
             },
             registerEvents: this.registerEvent,
             unregisterEvents: this.unregisterEvent,
@@ -161,11 +165,14 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         min: string, max: string, defaultSize: string|number,
         onResizeStart: ResizeStartCallback, onChange: ResizeCallback, onResizeEnd: ResizeCallback
     ) => {
-        this.itemRefs.push(ref);
-        let index = this.itemRefs.length - 1;
+        if (Array.from(this.itemRefs.values()).some(r => r === ref)) {
+            return -1;
+        }
+        let index = this.itemRefs.size;
+        this.itemRefs.set(index, ref);
         this.itemMinMap.set(index, min);
         this.itemMaxMap.set(index, max);
-        this.itemDefaultSizeList.push(defaultSize);
+        this.itemDefaultSizeList.set(index, defaultSize);
         this.itemResizeStart.set(index, onResizeStart);
         this.itemResizing.set(index, onChange);
         this.itemResizeEnd.set(index, onResizeEnd);
@@ -173,8 +180,12 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     }
 
     registerHandler = (ref: RefObject<HTMLDivElement>) => {
-        this.handlerRefs.push(ref);
-        return this.handlerRefs.length - 1;
+        if (Array.from(this.handlerRefs.values()).some(r => r === ref)) {
+            return -1;
+        }
+        let index = this.handlerRefs.size;
+        this.handlerRefs.set(index, ref);
+        return index;
     }
 
     getGroupSize = () => {
@@ -184,7 +195,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
     render() {
         const { children, direction, className, ...rest } = this.props;
         return (
-            <ResizeContext.Provider value={this.contextValue}>
+            <ResizeContext.Provider value={this.state.contextValue}>
                 <div
                     style={{
                         flexDirection: direction === 'vertical' ? 'column' : 'row',
@@ -193,7 +204,7 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
                     className={classNames(className, prefixCls + '-group')}
                     {...rest}
                 >
-                    {this.state.isResizing && <div style={this.state.backgroundStyle} />}
+                    {this.state.isResizing && <div style={this.state.backgroundStyle} className={classNames(className, prefixCls + '-background')}/>}
                     {children}
                 </div>
             </ResizeContext.Provider>

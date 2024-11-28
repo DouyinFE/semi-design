@@ -225,6 +225,7 @@ function Demo() {
 ```
 
 ### Control Width/Height
+
 You can control the size of the element through the size prop.
 
 ```jsx live=true
@@ -232,22 +233,20 @@ import React, { useState } from 'react';
 import { Resizable } from '@douyinfe/semi-ui';
 
 function Demo() {
-  const [size, setSize] = useState({ width: 200, height: 300 });
-
-  const onChange = (() => {
+  const [size, setSize] = useState({ width: 200, height: 100 });
+  const onButtonClick = (() => {
     let realSize = { width: size.width + 10, height: size.height + 10 };
     setSize(realSize);
   })
+  const onChange = (s) => { setSize(s); }
+
   return (
     <div style={{ width: '500px', height: '60%' }}>
-      <Button onClick={onChange}>set += 10</Button>
+      <Button onClick={onButtonClick}>set += 10</Button>
       <Resizable
         style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', marginTop: '10px' }}
-        defaultSize={{
-          width: 100,
-          height: 100,
-        }}
         size={size}
+        onChange={onChange}
       >
         <div style={{ marginLeft: '20%' }}>
           Control Width/Height
@@ -256,7 +255,6 @@ function Demo() {
     </div>
   );
 }
-
 ```
 
 
@@ -675,16 +673,76 @@ function Demo() {
 }
 ```
 
+### Dynamic Direction
+```jsx live=true 
+import React, { useState } from 'react';
+import { ResizeItem, ResizeHandler, ResizeGroup } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [text, setText] = useState('drag to resize')
+  const [direction, setDirection] = useState('horizontal')
+
+  const changeDirection = () => {
+    if (direction === 'horizontal') {
+      setDirection('vertical')
+    } else {
+      setDirection('horizontal')
+    }
+  }
+  return (
+    <div style={{ width: '400px', height: '300px' }}>
+      <Button onClick={changeDirection}>{direction}</Button>
+      <ResizeGroup direction={direction} >
+        <ResizeItem
+          onChange={() => { setText('resizing') }}
+          onResizeEnd={() => { setText('drag to resize') }}
+          defaultSize={5}
+        >
+            <ResizeGroup direction='horizontal'>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+                onResizeEnd={() => { setText('drag to resize') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+              <ResizeHandler></ResizeHandler>
+              <ResizeItem
+                style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)', }}
+                onChange={() => { setText('resizing') }}
+              >
+                <div style={{ marginLeft: '20%',  padding:'5px' }}>
+                  {text}
+                </div>
+              </ResizeItem>
+            </ResizeGroup>
+        </ResizeItem>
+        <ResizeHandler></ResizeHandler>
+        <ResizeItem
+          style={{ backgroundColor: 'rgba(var(--semi-grey-1), 1)',  }}
+          defaultSize={1.3}
+          onChange={() => { setText('resizing') }}
+        >
+          <div style={{ marginLeft: '20%',  padding:'5px' }}>
+            {text}
+          </div>
+        </ResizeItem>
+      </ResizeGroup>
+    </div>
+  );
+}
+```
+
 
 ## API
 
 ### Resizable
 
-单个伸缩框组件。
-
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className | 类名                                                                          | string                  |            |        |
+| className | ClassName                                                                          | string                  |            |        |
 | size   | Controls the size of the resizable box, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
 | defaultSize   | Sets the initial width and height, supports both numeric and string (px/vw/vh/%) formats | [Size](#basic-usage-and-callbacks)                  |           |        |
 | minWidth | Specifies the minimum width of the resizable box      |  string \| number                  |   |        |
@@ -698,40 +756,40 @@ function Demo() {
 | handleNode     | Custom nodes for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)          |            |        |
 | handleStyle    | Styles for the drag handles in each direction             | [HandleNode](#customizing-corner-handler-styles)            |            |        |
 | handleClass   | Class names for the drag handles in each direction              | [HandleNode](#customizing-corner-handler-styles)            |            |        |
-| style |  | CSSProperties |      |
+| style | Style | CSSProperties |      |
 | snapGap      | Specifies the minimum gap required to snap to the next target                        | number                  | 0       |  |
 | snap      | Specifies the pixel values to snap to during resizing. Both x and y are optional, allowing the definition of specific axes only                        | [Snap](#allowing-incremental-width-and-height-adjustment)                  | null       |  |
 | grid      | Specifies the increment to align to when resizing                          | \[number, number\]                  | \[1,1\]       |  |
-| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
 
 ### ResizeGroup
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
+| className   | ClassName | string                             |        |      |
 | direction | Specifies the resize direction within the group  | 'horizontal' \| 'vertical' | 'horizontal' |      |
 
 ### ResizeHandler
 
 | 参数        | 说明                                                                                                                        | 类型                               | 默认值 | 版本 |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------ | ---- |
-| className   |                                                                                                                         | string                             |        |      |
-| style |  | CSSProperties |      |
+| className   | ClassName | string  |        |      |
+| style | Style | CSSProperties |      |
 
 ### ResizeItem
 
 | 参数      | 说明                                                                          | 类型                    | 默认值     | 版本   |
 | --------- | ----------------------------------------------------------------------------- | ----------------------- | ---------- | ------ |
-| className |                                                                           | string                  |            |        |
+| className | ClassName                                                                     | string                  |            |        |
 | defaultSize   | Used to set the initial width and height. **The string supports % and px units, and when the string is a pure number or a number is set directly, it represents the proportional allocation of the remaining space based on the value.**  | string \| number                  |           |        |
 | min | Specifies the minimum size of the resizable box (as percentage or pixel)     |  string                  |   |        |
 | max | Specifies the maximum size of the resizable box (as percentage or pixel)     |  string                  |   |        |   
-| style |  | CSSProperties |      |
-| onChange  | Callback during the dragging process                                                    | (e: Event; direction: String;size: Size) => void | -          |  |
+| style | Style | CSSProperties |      |
+| onChange  | Callback during the dragging process                                                    | (size: Size; e: Event; direction: String) => void | -          |  |
 | onResizeStart  | Callback when resizing starts                                                  | (e: Event; direction: String) => void | -          |  |
-| onResizeEnd  | Callback when resizing ends                                                   | (e: Event; direction: String) => void | -          |  |
+| onResizeEnd  | Callback when resizing ends                                                   | (size: Size; e: Event; direction: String) => void | -          |  |
 
 
 ## Design Tokens

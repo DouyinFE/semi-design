@@ -36,7 +36,7 @@ import { Chat } from '@douyinfe/semi-ui';
 
 对话是多方参与，多轮交互的场景。可通过 `roleConfig` 传入角色信息（包括名称，头像等），具体参数细节 [RoleConfig](#roleConfig)。
 
-使用 `align` 属性可以设置对话的对齐方式，支持左右对齐（`leftRight`， 默认）和左对齐（`leftAlign`）。
+使用 `align` 属性可以设置对话的布局，支持左右分布（`leftRight`， 默认）和左对齐（`leftAlign`）。
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -148,7 +148,7 @@ function DefaultChat() {
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                    会话对齐方式
+                    会话布局方式
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
                         <Radio value={'leftRight'}>左右分布</Radio>
                         <Radio value={'leftAlign'}>左对齐</Radio>
@@ -1608,7 +1608,7 @@ render(DefaultChat);
 
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
-| align | 对话对齐方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
+| align | 对话布局方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
 | bottomSlot | 底部插槽 | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox 渲染配置 | ChatBoxRenderConfig | - |
 | chats | 受控对话列表 | Message | - |

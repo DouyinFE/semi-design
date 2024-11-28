@@ -165,13 +165,16 @@ $module: #{$prefix}-tree-select;
             
             &-placeholder {
                 opacity: .6;
-                z-index: -1;
             }
 
             &-disabled {
                 cursor: not-allowed;
                 color: $color-treeSelect_selection_TriggerSearchItem_disabled-text-default;
             }
+        }
+
+        .#{$module}-triggerSingleSearch-upper {
+            z-index: 1;
         }
 
         .#{$module}-triggerSingleSearch-wrapper{

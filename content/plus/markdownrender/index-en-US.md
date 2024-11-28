@@ -172,6 +172,7 @@ Support all RemarkPlugin and RehypePlugins plugins of MDXJS through `remarkPlugi
 | components | Used to override Markdown elements and add custom components | Record<string, JSXElementConstructor> | - |
 | format | The incoming raw type, whether it is pure Markdown | 'md'\|'mdx' | 'mdx' |
 | raw | plain text in Markdown or MDX | string | - |
+| remarkGfm | Whether to enable Github GFM syntax. Safari 16.3 and earlier does not support lookaround assertions and will report an error. | bool | true |
 | remarkPlugins | custom Remark Plugin          | Remark Plugin Array                | - |
 | rehypePlugins | custom Rehype Plugin          | Rehype Plugin Array               | - |
 | style | style | CSSProperties | - |
