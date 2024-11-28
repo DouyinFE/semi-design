@@ -32,7 +32,8 @@ export interface IModelContentChangeEvent {
     rangeOffset: number;
     rangeLength: number;
     oldText: string;
-    newText: string
+    newText: string;
+    keepPosition?: { lineNumber: number; column: number }
 }
 
 export interface IProblemsChangedEvent {

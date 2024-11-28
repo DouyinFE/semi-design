@@ -1,4 +1,7 @@
 /** reference from https://github.com/microsoft/vscode */
+
+import { CharCode } from './charCode';
+
 /**
  * Escapes regular expression characters in a given string
  * 转义正则表达式中的特殊字符。它将输入字符串中的正则表达式特殊字符（如 \ { } * + ? | ^ $ . [ ] ( )）前面加上反斜杠，
@@ -114,4 +117,24 @@ export function createRegExp(searchString: string, isRegex: boolean, options: Re
     }
 
     return new RegExp(searchString, modifiers);
+}
+
+export function getLeadingWhitespace(str: string, start: number = 0, end: number = str.length): string {
+    for (let i = start; i < end; i++) {
+        const chCode = str.charCodeAt(i);
+        if (chCode !== CharCode.Space && chCode !== CharCode.Tab) {
+            return str.substring(start, i);
+        }
+    }
+    return str.substring(start, end);
+}
+
+export function firstNonWhitespaceIndex(str: string): number {
+    for (let i = 0, len = str.length; i < len; i++) {
+        const chCode = str.charCodeAt(i);
+        if (chCode !== CharCode.Space && chCode !== CharCode.Tab) {
+            return i;
+        }
+    }
+    return -1;
 }

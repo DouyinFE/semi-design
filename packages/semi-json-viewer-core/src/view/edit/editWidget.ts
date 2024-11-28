@@ -7,7 +7,8 @@ import { FoldingModel } from '../../model/foldingModel';
 import { emitter } from '../../common/emitter';
 import { IModelContentChangeEvent } from '../../common/emitterEvents';
 import { Range } from '../../common/range';
-
+import { IndentAction, processJsonEnterAction } from './getEnterAction';
+import { firstNonWhitespaceIndex, getLeadingWhitespace } from '../../common/strings';
 /**
  * EditWidget 类用于管理 JSON Viewer 中的编辑功能
  */
@@ -97,7 +98,41 @@ export class EditWidget {
                 break;
             case 'insertParagraph':
                 op.newText = '\n';
-                op.rangeLength = 1;
+                op.keepPosition = {
+                    lineNumber: startRow + 1,
+                    column: 1,
+                };
+                const enterAction = processJsonEnterAction(this._jsonModel, {
+                    startLineNumber: startRow,
+                    startColumn: startCol,
+                    endLineNumber: endRow,
+                    endColumn: endCol,
+                } as Range);
+                if (enterAction) {
+                    if (enterAction.indentAction === IndentAction.Indent) {
+                        op.newText = '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
+                        op.keepPosition = {
+                            lineNumber: startRow + 1,
+                            column: enterAction.appendText.length + enterAction.indentation.length + 1,
+                        };
+                    } else {
+                        const normalIndent = this.normalizeIndentation(enterAction.indentation);
+                        const increasedIndent = this.normalizeIndentation(enterAction.indentation + enterAction.appendText);
+                        op.newText = '\n' + increasedIndent + '\n' + normalIndent;
+                        op.keepPosition = {
+                            lineNumber: startRow + 1,
+                            column: increasedIndent.length + 1,
+                        };
+                    }
+                } else {
+                    const lineText = this._jsonModel.getLineContent(startRow);
+                    const indentation = getLeadingWhitespace(lineText).substring(0, startCol - 1);
+                    op.newText = '\n' + this.normalizeIndentation(indentation) || '';
+                    op.keepPosition = {
+                        lineNumber: startRow + 1,
+                        column: indentation.length + 1,
+                    };
+                }
                 break;
             case 'deleteContentBackward':
                 let oldText = '';
@@ -158,14 +193,65 @@ export class EditWidget {
                 }
             )
             .then((edits: Edit[]) => {
-                //TODO: 格式化后更新模型
-                this._jsonModel.setValue(applyEdits(this._jsonModel.getValue(), edits));
-                this._view.tokenizationJsonModelPart.requestTokens({
-                    from: 1,
-                    to: this._jsonModel.getLineCount(),
-                });
-                this._view.layout();
+                const newValue = applyEdits(this._jsonModel.getValue(), edits);
+                const op: IModelContentChangeEvent = {
+                    type: 'replace',
+                    range: {
+                        startLineNumber: 1,
+                        startColumn: 1,
+                        endLineNumber: this._jsonModel.getLineCount(),
+                        endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()) + 1,
+                    },
+                    rangeOffset: 0,
+                    rangeLength: this._jsonModel.getValue().length,
+                    oldText: this._jsonModel.getValue(),
+                    newText: newValue,
+                };
+                this._jsonModel.applyOperation(op);
             });
+    }
+
+    private normalizeIndentation(str: string) {
+        const indentSize = this._view.options?.formatOptions?.tabSize || 4;
+        const insertSpaces = !!this._view.options?.formatOptions?.insertSpaces;
+        let firstIndex = firstNonWhitespaceIndex(str);
+        if (firstIndex === -1) {
+            firstIndex = str.length;
+        }
+        return (
+            this._normalizeIndentationFromWhitespace(str.substring(0, firstIndex), indentSize, insertSpaces) +
+            str.substring(firstIndex)
+        );
+    }
+
+    private _normalizeIndentationFromWhitespace(str: string, indentSize: number, insertSpaces: boolean) {
+        let spacesCnt = 0;
+        for (let i = 0; i < str.length; i++) {
+            if (str.charAt(i) === '\t') {
+                spacesCnt = this.nextIndentTabStop(spacesCnt, indentSize);
+            } else {
+                spacesCnt++;
+            }
+        }
+
+        let result = '';
+        if (!insertSpaces) {
+            const tabsCnt = Math.floor(spacesCnt / indentSize);
+            spacesCnt = spacesCnt % indentSize;
+            for (let i = 0; i < tabsCnt; i++) {
+                result += '\t';
+            }
+        }
+
+        for (let i = 0; i < spacesCnt; i++) {
+            result += ' ';
+        }
+
+        return result;
+    }
+
+    private nextIndentTabStop(spacesCnt: number, indentSize: number) {
+        return spacesCnt + indentSize - (spacesCnt % indentSize);
     }
 
     private _handleKeyDown(e: KeyboardEvent) {

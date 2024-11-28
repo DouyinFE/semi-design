@@ -150,13 +150,13 @@ export class JSONModel {
     }
 
     updateLastChangeBufferPos(op: IModelContentChangeEvent) {
+        if (op.keepPosition) {
+            this.lastChangeBufferPos = op.keepPosition;
+            return;
+        }
         switch (op.type) {
             case 'insert':
                 this.lastChangeBufferPos.column += op.newText.length;
-                if (op.newText === '\n') {
-                    this.lastChangeBufferPos.lineNumber += 1;
-                    this.lastChangeBufferPos.column = 1;
-                }
                 break;
             case 'delete':
                 if (this.lastChangeBufferPos.column === 1) {
