@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 41
+order: 45
 category: 输入类
 title: Transfer 穿梭框
 icon: doc-transfer
@@ -103,15 +103,16 @@ import { Transfer } from '@douyinfe/semi-ui';
 
 使用`filter`自定义搜索逻辑，返回 true 时表示当前项符合筛选规则，保留当前项在列表中的显示，返回 false 则表示不符合，当前项会被隐藏。  
 当 type 为 `treeList`时，如需要自定义搜索逻辑，需设置 `filter` 为 true，并通过 `treeProps` 的 `filterTreeNode` 设置自定义的搜索函数。  
-使用`renderSourceItem`，你可以自定义左侧每一条源数据的渲染结构。  
+使用`renderSourceItem`，你可以自定义左侧每一条源数据的渲染结构。例如结合 Highlight 组件高亮搜索匹配文本    
 使用`renderSelectedItem` 你可以自定义右侧每一条已选项的渲染结构。
 
 ```jsx live=true dir="column"
 import React from 'react';
-import { Transfer, Checkbox, Avatar } from '@douyinfe/semi-ui';
+import { Transfer, Checkbox, Avatar, Highlight } from '@douyinfe/semi-ui';
 import { IconClose } from '@douyinfe/semi-icons';
 
 () => {
+    const [searchText, setSearchText] = useState('');
     const renderSourceItem = item => {
         return (
             <div className="components-transfer-demo-source-item" key={item.label}>
@@ -127,8 +128,12 @@ import { IconClose } from '@douyinfe/semi-icons';
                         {item.abbr}
                     </Avatar>
                     <div className="info">
-                        <div className="name">{item.label}</div>
-                        <div className="email">{item.value}</div>
+                        <div className="name">
+                            <Highlight sourceString={item.label} searchWords={[searchText]}></Highlight>
+                        </div>
+                        <div className="email">
+                            <Highlight sourceString={item.value} searchWords={[searchText]}></Highlight>
+                        </div>
                     </div>
                 </Checkbox>
             </div>
@@ -172,10 +177,12 @@ import { IconClose } from '@douyinfe/semi-icons';
             renderSelectedItem={renderSelectedItem}
             renderSourceItem={renderSourceItem}
             inputProps={{ placeholder: '搜索姓名或邮箱' }}
+            onSearch={searchText => setSearchText(searchText)}
             onChange={(values, items) => console.log(values, items)}
         />
     );
 };
+
 ```
 
 ```css

@@ -1,17 +1,17 @@
 ---
 localeCode: zh-CN
-order: 0
+order: 24
 category: Plus
 title:  CodeHighlight 代码高亮
 icon: doc-codehighlight
 dir: column
 brief: 根据语法高亮页面中的代码块
+showNew: true
 ---
 
-Semi 代码高亮组件使用了 prismjs，支持297 种编程语言的高亮（已自动配置 `JavaScript` `CSS` `类 C` `html` `svg` 等，其他语言需要手动引入），同时具有高扩展性和丰富的插件生态。
-
-向 `code` props 传入代码纯文本，并在 `language` 传入编程语言名称。支持的编程语言和对应名称在 [Prismjs 官网](https://prismjs.com/#supported-languages) 查看
-
+## 使用场景
+Semi 代码高亮组件基于 prismjs 封装，支持297 种编程语言的高亮（已自动配置 `JavaScript` `CSS` `类 C` `html` `svg` 等，其他语言需要手动引入），同时具有高扩展性和丰富的插件生态。  
+需要展示代码片段时推荐使用 CodeHighlight 组件
 
 ## 代码演示
 
@@ -24,6 +24,7 @@ import { CodeHighlight } from '@douyinfe/semi-ui';
 ```
 
 ### 基本用法
+向 `code` props 传入代码纯文本，并在 `language` 传入编程语言名称。支持的编程语言和对应名称在 [Prismjs 官网](https://prismjs.com/#supported-languages) 查看
 
 ```jsx live=true dir=column
 import { CodeHighlight } from '@douyinfe/semi-ui';
@@ -33,7 +34,7 @@ function Demo() {
     return <CodeHighlight
         language={"javascript"} 
         code={
-        `
+            `
 import * as React from 'react"
 const Test = ()=>{
     const handleClick = ()=>{
@@ -41,7 +42,7 @@ const Test = ()=>{
     }
     return <div onClick={handleClick}>test</div>
 }`
-    }/>
+    }/>;
 }
 
 ```
@@ -56,7 +57,7 @@ function Demo() {
     return <CodeHighlight
         language={"css"} 
         code={
-        `.grid {
+            `.grid {
     .semi-row,
     .semi-row-flex {
         text-align: center;
@@ -69,7 +70,7 @@ function Demo() {
     }
 }
 `
-    }/>
+    }/>;
 }
 
 ```
@@ -88,13 +89,13 @@ import "prismjs/components/prism-vala.js"
 
 ```jsx live=true dir="column"
 import { CodeHighlight } from '@douyinfe/semi-ui';
-import "prismjs/components/prism-vala.js"
+import "prismjs/components/prism-vala.js";
 
 function Demo() {
     return <CodeHighlight
         language={"vala"} 
         code={
-        `public class ExampleApp : Gtk.Application {
+            `public class ExampleApp : Gtk.Application {
     public ExampleApp () {
         Object (application_id: "com.example.App");
     }
@@ -115,7 +116,7 @@ function Demo() {
     }
 }
 `
-    }/>
+    }/>;
 }
 
 ```

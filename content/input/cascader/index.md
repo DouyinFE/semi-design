@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 30
 category: 输入类
 title:  Cascader 级联选择
 icon: doc-cascader
@@ -140,7 +140,11 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### 可搜索的
 
-通过设置 `filterTreeNode` 属性可支持搜索功能。默认对 `label` 值进行搜索，可通过 `treeNodeFilterProp` 更改。
+通过设置 `filterTreeNode` 属性可支持搜索功能。
+
+默认对 `label` 值进行搜索（使用字符串的 includes 方法进行匹配，不区分大小写），可通过 `treeNodeFilterProp` 指定其他属性值进行搜索。
+如 `label` 为 ReactNode，可在 treeData 中使用其他字段存储纯文本，并通过 `treeNodeFilterProp` 指定该字段进行搜索。
+
 默认搜索结果只会展示叶子结点的路径，想要显示更多的结果，可以设置 `filterLeafOnly` 为 `false`。
 
 ```jsx live=true
@@ -188,6 +192,55 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             ],
         }
     ];
+    const labelNodeTreeData = [
+        {
+            label: <Tooltip content="说明">浙江省</Tooltip>,
+            labelText: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: <Tooltip content="说明">杭州市</Tooltip>,
+                    labelText: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: <Tooltip content="说明">西湖区</Tooltip>,
+                            labelText: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: <Tooltip content="说明">萧山区</Tooltip>,
+                            labelText: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: <Tooltip content="说明">临安区</Tooltip>,
+                            labelText: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: <Tooltip content="说明">宁波市</Tooltip>,
+                    labelText: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: <Tooltip content="说明">海曙区</Tooltip>,
+                            labelText: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: <Tooltip content="说明">江北区</Tooltip>,
+                            labelText: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+
     return (
         <div>
             <Cascader
@@ -211,14 +264,26 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             <Cascader
                 style={{ width: 300 }}
                 treeData={treeData}
-                placeholder="默认对label值进行搜索"
+                placeholder="filterLeafOnly=false"
                 filterTreeNode
                 filterLeafOnly={false}
+            />
+            <br/>
+            <br/>
+            <Typography.Title heading={6}>Label 为 ReactNode，指定其他属性进行搜索</Typography.Title>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={labelNodeTreeData}
+                placeholder="Search for labelText"
+                filterTreeNode
+                treeNodeFilterProp='labelText'
             />
         </div>
     );
 };
 ```
+
+
 
 ### 可搜索的多选
 

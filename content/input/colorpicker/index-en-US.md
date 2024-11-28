@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 27
+order: 32
 category: Input
 title: ColorPicker
 icon: doc-colorPlatteNew

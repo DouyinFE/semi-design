@@ -1,7 +1,7 @@
-import { Anchor } from "@douyinfe/semi-ui";
-import React from "react";
+import { Anchor } from '@douyinfe/semi-ui';
+import React from 'react';
 import sha1 from 'sha1';
-import "./index.scss";
+import './index.scss';
 
 const makeAnchorId = id => {
     if (typeof id === 'object') {
@@ -10,7 +10,7 @@ const makeAnchorId = id => {
     if (!id) {
         return null;
     }
-    return 'sha1'+sha1(id);
+    return 'sha1' + sha1(id);
 };
 
 const PageAnchor = props => {
@@ -24,41 +24,47 @@ const PageAnchor = props => {
 
         return data.map(item => {
             if (layer && Array.isArray(item.items)) {
-                return <span onClickCapture={(e)=>{
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const iframeDOM=document.querySelector('iframe');
-                    const dom = iframeDOM?.contentWindow?.document?.querySelector("#" + makeAnchorId(item.title));
-                    dom?.scrollIntoView();
-                }}>
-                    <Anchor.Link href={"#" + makeAnchorId(item.title)} title={item.title} key={item.title}>
-                        {getAnchorLink(item.items, currentLayer + 1)}
-                    </Anchor.Link>
-                </span>;
-
+                return (
+                    <span
+                        key={item.title}
+                        onClickCapture={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const iframeDOM = document.querySelector('iframe');
+                            const dom = iframeDOM?.contentWindow?.document?.querySelector(
+                                '#' + makeAnchorId(item.title)
+                            );
+                            dom?.scrollIntoView();
+                        }}
+                    >
+                        <Anchor.Link href={'#' + makeAnchorId(item.title)} title={item.title} key={item.title}>
+                            {getAnchorLink(item.items, currentLayer + 1)}
+                        </Anchor.Link>
+                    </span>
+                );
             } else {
-                return <span onClickCapture={(e)=>{
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const iframeDOM=document.querySelector('iframe');
-                    const dom = iframeDOM?.contentWindow?.document?.querySelector("#" + makeAnchorId(item.title));
-                    dom?.scrollIntoView();
-                }}>
-                    <Anchor.Link href={"#" + makeAnchorId(item.title)} title={item.title} key={item.title} />
-                </span>;
+                return (
+                    <span
+                        key={item.title}
+                        onClickCapture={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const iframeDOM = document.querySelector('iframe');
+                            const dom = iframeDOM?.contentWindow?.document?.querySelector(
+                                '#' + makeAnchorId(item.title)
+                            );
+                            dom?.scrollIntoView();
+                        }}
+                    >
+                        <Anchor.Link href={'#' + makeAnchorId(item.title)} title={item.title} key={item.title} />
+                    </span>
+                );
             }
-        }
-        );
+        });
     };
 
     return (
-        <Anchor
-            showTooltip
-            scrollMotion
-            offsetTop={200}
-            className='category-anchor'
-            targetOffset={100}
-        >
+        <Anchor showTooltip scrollMotion offsetTop={200} className="category-anchor" targetOffset={100}>
             {getAnchorLink(data)}
         </Anchor>
     );

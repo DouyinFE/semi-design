@@ -16,7 +16,8 @@ export interface MarkdownRenderBaseProps{
     components: MDXProps['components'];
     format: "md"|"mdx";
     remarkPlugins?: PluggableList;
-    rehypePlugins?: PluggableList
+    rehypePlugins?: PluggableList;
+    remarkGfm?: boolean
 }
 
 
@@ -26,16 +27,21 @@ export interface MarkdownRenderBaseState{
 
 class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
 
-    private getOptions = ()=>{
+    private getOptions = () => {
+        const enableRemarkGfm = this._adapter.getProp("remarkGfm");
+        const remarkPlugins = [...(this.getProp("remarkPlugins") ?? [])];
+        if (enableRemarkGfm) {
+            remarkPlugins.unshift(remarkGfm);
+        }
         return {
             evaluateOptions: {
-                remarkPlugins: [remarkGfm, ...(this.getProp("remarkPlugins") ?? [])],
+                remarkPlugins: remarkPlugins,
                 rehypePlugins: this.getProp("rehypePlugins") ?? [],
                 format: this.getProp("format")
             },
             compileOptions: {
                 format: this.getProp("format"),
-                remarkPlugins: [remarkGfm, ...(this.getProp("remarkPlugins") ?? [])],
+                remarkPlugins: remarkPlugins,
                 rehypePlugins: this.getProp("rehypePlugins") ?? [],
             },
             runOptions: {
@@ -47,11 +53,11 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
         };
     }
 
-    compile = async (mdxRaw: string)=>{
+    compile = async (mdxRaw: string) => {
         return await compile(mdxRaw, this.getOptions().compileOptions);
     }
 
-    evaluate = async (mdxRaw: string)=>{
+    evaluate = async (mdxRaw: string) => {
         return (await evaluate(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,
@@ -59,7 +65,7 @@ class MarkdownRenderFoundation extends BaseFoundation<MarkdownRenderAdapter> {
         })).default;
     }
 
-    evaluateSync = (mdxRaw: string)=>{
+    evaluateSync = (mdxRaw: string) => {
         return ( evaluateSync(mdxRaw, {
             ...this.getOptions().runOptions,
             ...this.getOptions().evaluateOptions,

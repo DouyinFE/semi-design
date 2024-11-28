@@ -1,23 +1,18 @@
 ---
 localeCode: en-US
-order: 23
+order: 27
 category: Plus
 title: Lottie Animation
 icon: doc-lottie
 dir: column
 brief: Display Lottie animation on the web page
+showNew: true
 ---
 
-## Overview
+## When to use
 
 The Lottie component can render Lottie animations conveniently and simply, and provides a way to obtain global Lottie and animation instances to meet a wider range of configuration needs.
-
-`lottie-web` is used internally to render Lottie animations.
-
-## Usage scenarios
-
-Compared to using `lottie-web` directly, use the Semi Lottie component
-
+`lottie-web` is used internally to render Lottie animations. Compared to using `lottie-web` directly, use the Semi Lottie component  
 -   No need to worry about the creation and destruction of animation containers
 -   No need to worry about the life cycle of the animation itself
 -   Easier to use with React projects

@@ -30,7 +30,9 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    expandIcon?: React.ReactNode
+    expandIcon?: React.ReactNode;
+    dropdownProps?: DropdownProps;
+    subDropdownProps?: DropdownProps
 }
 
 export interface SubNavState {
@@ -293,7 +295,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
 
     wrapDropdown(elem: React.ReactNode = '') {
         let _elem: React.ReactNode = elem;
-        const { children, dropdownStyle, disabled } = this.props;
+        const { children, dropdownStyle, disabled, subDropdownProps, dropdownProps: userDropdownProps } = this.props;
 
         const { mode, isInSubNav, isCollapsed, subNavCloseDelay, subNavOpenDelay, prefixCls, getPopupContainer } = this.context;
 
@@ -333,6 +335,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     mouseEnterDelay={subNavOpenDelay}
                     mouseLeaveDelay={subNavCloseDelay}
                     onVisibleChange={this.handleDropdownVisible}
+                    {...(userDropdownProps ? userDropdownProps : subDropdownProps)}
                     {...dropdownProps}
                 >
                     {_elem}

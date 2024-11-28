@@ -13,6 +13,38 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.70.0-beta.0 (2024-11-18)
+- 【Fix】
+    - 当 Transfer 的左侧面板中除去被禁用项外的其他项目都被选中时，操作按钮应当显示取消全选  [#2575 ](https://github.com/DouyinFE/semi-design/issues/2575) [#2574](https://github.com/DouyinFE/semi-design/pull/2574)
+    - 修复计算中浮点数导致伸缩框组件尺寸的误差，浏览器拖动导致的最大最小值失效的问题，以及strictMode引起的问题 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
+    - 修复当单选，搜索框在 trigger 时，TreeSelect 的 placeholder被遮挡问题 ，影响版本 2.61.0-2.69.0 [#2566](https://github.com/DouyinFE/semi-design/pull/2566)
+- 【Feat】
+    - ResizeGroup的伸缩方向支持动态切换 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
+    - MarkdownRender 新增 remarkGfm 开关用于防止低版本 safari 不支持环视断言报错的问题 [#2576](https://github.com/DouyinFE/semi-design/pull/2576)
+
+#### 🎉 2.69.2 (2024-11-19)
+- 【Fix】
+    - 修复点击触发排序的表头会透出被遮盖的内容问题，影响版本 2.65.0-2.69.1 [#2578](https://github.com/DouyinFE/semi-design/pull/2578)
+
+#### 🎉 2.69.1 (2024-11-15)
+- 【Fix】
+    - 修复 MonthRange DatePicker 在存在 disabledDate 情况下点击非禁用年份不跳转问题 [#2569](https://github.com/DouyinFE/semi-design/pull/2569)
+    - 修复 ArrayField 被条件渲染时，add第一次点击未能正确添加行的问题 [#2568](https://github.com/DouyinFE/semi-design/pull/2568)
+    - 修复日语场景下 Table pageText 翻译不正确问题 [#2573](https://github.com/DouyinFE/semi-design/pull/2573)
+
+#### 🎉 2.69.0 (2024-11-08)
+- 【Fix】
+    - 插画包 @douyinfe/semi-illustrations 中的 clip-rule & stroke-width 修改为 clipRule & strokeWidth
+
+#### 🎉 2.69.0-beta.0 (2024-11-04)
+- 【Feat】
+    - Chat 的自定义渲染会话框中的 renderChatBoxAvatar 增加 message 参数 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat 的自定义渲染会话框中的 renderChatBoxContent 增加 defaultActionsObj 参数，用于透出详细节点参数信息 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat 的自定义渲染输入框增加 detailProps 参数用于透出传递详细节点参数信息 [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Navigation 新增 subDropdownProps 支持 [#2555](https://github.com/DouyinFE/semi-design/pull/2555)
+- 【Fix】
+    - 修复 Chat 的消息对比逻辑在前后消息为不同的空数组时的 TypeError [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+
 #### 🎉 2.68.4 (2024-11-04)
 - 【Fix】
     - 修复 Chat Foundation 存在 React 特有的 event.persist 调用，其他框架 Adapter 兼容时存在的问题 [#2543](https://github.com/DouyinFE/semi-design/pull/2543) [@rashagu](https://github.com/rashagu)
@@ -67,7 +99,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 PinCode 在非受控模式下，onChange 不触发的问题 [#2509](https://github.com/DouyinFE/semi-design/pull/2509)
     - 修复 PinCode value 为空字符串时 onChange 不触发的问题 [#2502](https://github.com/DouyinFE/semi-design/issues/2502) [@koderx](https://github.com/koderx)
     - 修复 AutoComplete 选项多于一页时，使用键盘 ArrowUp、ArrowDown切换时无法自动滚动至视图中的问题 [#1530](https://github.com/DouyinFE/semi-design/issues/1530)
-    - 修复 AutoComplete 的子组件 className 大小写与父组件(.semi-autocomplete)不一致的问题（.semi-autoComplete-option -> .semi-autocompelte-option），一致改为小写 [#2501](https://github.com/DouyinFE/semi-design/pull/2501)
+    - **修复 AutoComplete 的子组件 className 大小写与父组件(.semi-autocomplete)不一致的问题（.semi-autoComplete-option -> .semi-autocompelte-option），一致改为小写** [#2501](https://github.com/DouyinFE/semi-design/pull/2501)
     - 修改 Cascader, TreeSelect 当 emptyContent 为 null 的行为，同 Select 保持一致 [#2476](https://github.com/DouyinFE/semi-design/pull/2476)
     - 修复 Select 在 使用 IrenderOptionItem 时使用键盘上下键选择选项后，未能自动滚动至视图内的问题 [#2263](https://github.com/DouyinFE/semi-design/issues/2263)
     - Upload 在 React StrictMode 下上传请求无法正确发出的问题（影响范围 v2.64.0-2.66.1）[#2410](https://github.com/DouyinFE/semi-design/issues/2410)
@@ -76,7 +108,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修改 Chat 组件聊天框中的图片展示以及输入框中的上传图片展示效果，从填充到保持宽高比例填充(object-fit 从 fill -> cover)，防止图片变形 [#2496](https://github.com/DouyinFE/semi-design/pull/2496)
     - 将 Cascader 的 trigger 中内容区域和 icon 间距和 select/treeSelect 保持一致 [#2472](https://github.com/DouyinFE/semi-design/issues/2472) 
     - 修复 Cascader 面板选项在 rtl 模式下，样式不符合预期问题 [#2475](https://github.com/DouyinFE/semi-design/pull/2475)
-    - 修改 Cascader 中样式名称不合理的命名， undisabled -> enable [#2494](https://github.com/DouyinFE/semi-design/pull/2494)
+    - **修改 Cascader 中样式名称不合理的命名， undisabled -> enable** [#2494](https://github.com/DouyinFE/semi-design/pull/2494)
     - 修改 Select 在设置 suffix 情况下，后缀和下拉图标的位置关系未与 TreeSelect/Cascader 保持一致问题（如有其他位置需求，可通过设置 flex 的 order 属性自行调整位置）[#2493](https://github.com/DouyinFE/semi-design/pull/2493)
     - 修复位于InputGroup中间位置的 InputNumber，DatePicker， Time Pick，AutoComplete的圆角不为 0 问题 [#2489](https://github.com/DouyinFE/semi-design/issues/2489)
 
@@ -251,7 +283,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - 修复 Toast 在多条长度不同的 toast 弹出时，没有居中而是左对齐的问题 [#2257](https://github.com/DouyinFE/semi-design/pull/2257)
     - 修复 TreeSelect 在 defaultOpen 模式时候，点击外部没有无法关闭弹出层问题 [#2254](https://github.com/DouyinFE/semi-design/pull/2254)
     - 修复 Avatar 在设置了 border/topSlot/bottomSlot API 情况下，无法触发 onClick、onMouseEnter、onMouseLeave 事件问题 [#2255](https://github.com/DouyinFE/semi-design/pull/2255)
-    - 修复 Badge className 作用范围不正确的问题，功能对齐其他组件，作用于 DOM 最外层 
+    - **修复 Badge className 作用范围不正确的问题，功能对齐其他组件，作用于 DOM 最外层** 
     - 修正 Badge API 定义，增加更语义的 countStyle API，作用与现有 style API 保持一致（旧 API props.style 仍可使用，效果不变，但不再于文档中推荐）
 - 【Chore】
     - 修复 FormApi 在未传入泛型时，调用 setValue时会有 string类型不能赋值给 never 的类型报错问题（影响范围，v2.59.0） [#2259](https://github.com/DouyinFE/semi-design/pull/2259)

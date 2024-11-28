@@ -1,16 +1,17 @@
 ---
 localeCode: en-US
-order: 85
+order: 23
 category: Plus
 title:  Chat
 icon: doc-chat
 dir: column
 brief: Used to quickly build conversation content
+showNew: true
 ---
 
 ## When to use
 
-The Chat component can be used in scenarios such as regular conversations or AI conversations.
+The `Chat` component can be used in scenarios such as regular conversations or AI conversations.
 
 The rendering of the conversation content is based on the MarkdownRender component, which supports Markdown and MDX. It allows for common rich text features such as images, tables, links, bold text, code blocks, and more. More complex and customized document writing and display requirements can be achieved using JSX.
 
@@ -33,7 +34,7 @@ The prompt text of the upload button can be set through `uploadTipProps`. For de
 
 Dialogue is a scene involving multiple parties and multiple rounds of interaction. Role information (including name, avatar, etc.) can be passed in through `roleConfig`, and the specific parameter details are [RoleConfig](#roleConfig).
 
-Use the `align` attribute to set the alignment of the dialog, supporting left and right alignment (`leftRight`, default) and left alignment (`leftAlign`).
+Use the `align` attribute to set the layout of the dialog, supporting left and right layout (`leftRight`, default) and left alignment (`leftAlign`).
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -145,7 +146,7 @@ function DefaultChat() {
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                    Chat align
+                    Chat layout
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
                         <Radio value={'leftRight'}>leftRight</Radio>
                         <Radio value={'leftAlign'}>leftAlign</Radio>
@@ -543,17 +544,65 @@ render(DefaultChat);
 Pass in custom rendering configuration through `chatBoxRenderConfig`, the chatBoxRenderConfig type is as follows
 
 ```ts
-interface ChatBoxRenderConfig {
+export interface RenderTitleProps {
+    message?: Message;
+    role?: Metadata;
+    defaultTitle?: ReactNode
+}
+
+export interface RenderAvatarProps {
+    message?: Message;  /* Supported in  2.69.0*/
+    role?: Metadata, 
+    defaultAvatar?: ReactNode
+}
+
+export interface RenderContentProps {
+    message?: Message;
+    role?: Metadata;
+    defaultContent?: ReactNode | ReactNode[]; 
+    className?: string;
+}
+
+export interface DefaultActionNodeObj {
+    copyNode: ReactNode;
+    likeNode: ReactNode;
+    dislikeNode: ReactNode;
+    resetNode: ReactNode;
+    deleteNode: ReactNode;
+}
+
+export interface RenderActionProps {
+    message?: Message;
+    defaultActions?: ReactNode | ReactNode[];
+    className: string;
+    defaultActionsObj?: DefaultActionNodeObj; /* Supported in  2.69.0*/
+};
+
+export interface FullChatBoxNodes {
+    avatar?: ReactNode;
+    title?: ReactNode; 
+    content?: ReactNode; 
+    action?: ReactNode
+}
+
+export interface RenderFullChatBoxProps {
+    message?: Message;
+    role?: Metadata;
+    defaultNodes?: FullChatBoxNodes;
+    className: string;
+}
+
+export interface ChatBoxRenderConfig {
     /* Custom rendering title */
-    renderChatBoxTitle?: (props: {role?: Metadata, defaultTitle?: ReactNode}) => ReactNode;
-    /* Custom rendering avatr */
-    renderChatBoxAvatar?: (props: { role?: Metadata, defaultAvatar?: ReactNode}) => ReactNode;
+    renderChatBoxTitle?: (props: RenderTitleProps) => ReactNode;
+     /* Custom rendering avatar */
+    renderChatBoxAvatar?: (props: RenderAvatarProps) => ReactNode;
     /* Custom rendering content */
-    renderChatBoxContent?: (props: {message?: Message, role?: Metadata, defaultContent?: ReactNode | ReactNode[], className?: string}) => ReactNode;
-    /* Custom rendering message action bar */
-    renderChatBoxAction?: (props: {message?: Message, defaultActions?: ReactNode | ReactNode[], className: string}) => ReactNode;
-    /* Fully customized rendering of the entire chat box */
-    renderFullChatBox?: (props: {message?: Message, role?: Metadata, defaultNodes?: FullChatBoxNodes, className: string}) => ReactNode;
+    renderChatBoxContent?: (props: RenderContentProps) => ReactNode;
+   /* Custom rendering content */
+    renderChatBoxAction?: (props: RenderActionProps) => ReactNode;
+   /* Fully customized rendering of the entire chat box */
+    renderFullChatBox?: (props: RenderFullChatBoxProps) => ReactNode
 }
 ```
 
@@ -1172,10 +1221,41 @@ export interface RenderInputAreaProps {
     onSend?: (content?: string, attachment?: FileItem[]) => void;
     /* If you customize the clear context button, it needs to be called when you click to clear the context */
     onClear?: (e?: any) => void;
+    /* DetailProps supported since 2.69.0 */
+    detailProps: {
+        /* clear context button */
+        clearContextNode?: ReactNode;
+        /* upload button */
+        uploadNOde?: ReactNode;
+        /* text input area */
+        inputNode?: ReactNode;
+        /* send button */
+        sendNode?: ReactNode;
+        /* The processing function that triggers the focus of the text input box after clicking */
+        onClick?: (e?: MouseEvent) => void;
+    }
 }
 ```
 
-Example:
+Example of `detailProps`
+
+```jsx
+function CustomInputRender(props) {
+     const { detailProps } = props;
+    const { clearContextNode, uploadNode, inputNode, sendNode, onClick } = detailProps;
+   
+    return <div style={{margin: '8px 16px', display: 'flex', flexDirection:'row',
+      alignItems: 'flex-end', borderRadius: 16,padding: 10, border: '1px solid var(--semi-color-border)'}}
+      onClick={onClick} 
+    >
+        {uploadNode}
+        {inputNode}
+        {sendNode}
+    </div>
+}
+```
+
+Other Example:
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -1525,7 +1605,7 @@ render(DefaultChat);
 
 | PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |------|--------|-------|-------|
-| align | Dialog alignment, supports `leftRight`,`leftAlign` | string | `leftRight` |
+| align | Dialog layout, supports `leftRight`,`leftAlign` | string | `leftRight` |
 | bottomSlot | bottom slot for chat | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox rendering configuration | ChatBoxRenderConfig | - |
 | chats | Controlled conversation list | Message | - |

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 47
+order: 51
 category: Navigation
 title:  Navigation
 subTitle: Navigation
@@ -444,35 +444,53 @@ class NavApp extends React.Component {
         return (
             <Nav
                 mode={'horizontal'}
+                items={[
+                    { itemKey: 'user', text: 'User Management', icon: <IconUser /> },
+                    { itemKey: 'union', text: 'Union Center', icon: <IconStar /> },
+                    {
+                        itemKey: 'approve-management',
+                        text: 'Approval Management',
+                        icon: <IconEdit />,
+                        items: [
+                            'Check-in Review',
+                            {
+                                itemKey: 'operation-management',
+                                text: 'Operations Management',
+                                items: [
+                                    'Personnel Management',
+                                    'Personnel Change'
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Task Platform',
+                        icon: <IconSetting />,
+                        itemKey: 'job',
+                        items: ['Task Management', 'User Task Query'],
+                    },
+                ]}
                 onSelect={key => console.log(key)}
                 header={{
                     logo: <img src="https://sf6-cdn-tos.douyinstatic.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/webcast_logo.svg" />,
                     text: 'Live Platform'
                 }}
                 footer={
-                    <>
-                        <Select defaultValue='English' style={{ width: 120, marginRight: 10 }} insetLabel={<IconLanguage />}>
-                            <Select.Option value='Chinese'>中文</Select.Option>
-                            <Select.Option value='English'>English</Select.Option>
-                            <Select.Option value='Korean'>한국어</Select.Option>
-                            <Select.Option value='Japanese'>日本語</Select.Option>
-                        </Select>
-                        <Button style={{ marginRight: 10 }}>Switch to Overseas Version</Button>
-                        <Dropdown
-                            position="bottomRight"
-                            render={
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>Detail</Dropdown.Item>
-                                    <Dropdown.Item>Quit</Dropdown.Item>
-                                </Dropdown.Menu>
-                            }
-                        >
-                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
-                            <span>Bytedancer</span>
-                        </Dropdown>
-                    </>
+                    <Dropdown
+                        position="bottomRight"
+                        render={
+                            <Dropdown.Menu>
+                                <Dropdown.Item>Detail</Dropdown.Item>
+                                <Dropdown.Item>Quit</Dropdown.Item>
+                            </Dropdown.Menu>
+                        }
+                    >
+                        <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
+                        <span>Bytedancer</span>
+                    </Dropdown>
                 }
             />
+
         );
     }
 
@@ -498,6 +516,7 @@ class NavApp extends React.Component {
         );
     }
 }
+
 ```
 
 ### Expand and collapse arrow position
@@ -735,6 +754,7 @@ function NavApp (props = {}) {
 | defaultIsCollapsed  | Whether the default is put away, valid only when `mode = "vertical"`                                                                                                                       | boolean                                                                                                                                                                  | false     |
 | defaultOpenKeys     | Initially open sub navigation `itemKey` array, valid only `mode = "vertical"`and the sidebar is in an expanded state                                                                       | string[]                                                                                                                                                                 | []        |
 | defaultSelectedKeys | Originally selected navigation item `itemKey` array                                                                                                                                        | string[]                                                                                                                                                                 | []        |
+| subDropdownProps | Control the dropdown parameters in nav.sub under `horizontal` or `vertical && isCollapsed` (v >= 2.69) | DropdownProps | |
 | expandIcon          | Default Arrow Icon             | ReactNode                                                       |         |
 | footer              | The bottom area configure objects or elements, see [Nav.Footer](#Nav.Footer)                                                                                                               | object\|ReactNode                                                                                                                                                        |           |
 | getPopupContainer   | Dropdown's getPopupContainer config of vertical collapsed Nav or horizontal Nav. >= v2.24                                                                                                  | Function                                                                                                                                                                 |           |
@@ -779,6 +799,7 @@ function NavApp (props = {}) {
 | Properties    | Description                                                                                                       | Type                | Default  |
 | ------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------- | -------- |
 | disabled      | Disabled state                                                                                                    | boolean             | false    |
+| dropdownProps | Popup layer `dropdown` parameter configuration (v >= 2.69)                        | DropdownProps     |          |  |
 | dropdownStyle | Style of dropdown layer                                                                                           | CSSProperties       |          |
 | icon          | Navigation project icon name or component                                                                         | ReactNode           |          |
 | indent        | If the icon is empty, keep its space or not. Only effective for first level navigation                            | boolean             | false    |

@@ -1,22 +1,18 @@
 ---
 localeCode: zh-CN
-order: 23
+order: 27
 category: Plus
 title: Lottie 动画
 icon: doc-lottie
 dir: column
 brief: 在网页中展示 Lottie 动画
+showNew: true
 ---
-
-## 概述
-
-Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获取到全局 Lottie 和 动画实例满足更广泛的配置需求。
-
-内部使用 `lottie-web` 渲染 Lottie 动画。
 
 ## 使用场景
 
-相较于直接使用 `lottie-web`，使用 Semi Lottie 组件
+Lottie 组件能够便捷简单地渲染 Lottie 动画，同时提供方式获取到全局 Lottie 和 动画实例满足更广泛的配置需求。内部基于 `lottie-web` 渲染 Lottie 动画。  
+相较于直接使用 `lottie-web`，使用 Semi Lottie 组件的优势在于
 
 -   无需关心动画容器的创建与销毁
 -   无需关心动画本身的生命周期

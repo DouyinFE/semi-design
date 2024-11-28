@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 47
+order: 51
 category: 导航类
 title:  Navigation 导航
 icon: doc-navigation
@@ -349,49 +349,54 @@ import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNo
     const TopHeader = () => (
         <Header style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
             <div>
-                <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
-                    <Nav.Header>
-                        <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />
-                    </Nav.Header>
-                    <span
-                        style={{
-                            color: 'var(--semi-color-text-2)',
-                        }}
-                    >
-                        <span
-                            style={{
-                                marginRight: '24px',
-                                color: 'var(--semi-color-text-0)',
-                                fontWeight: '600',
-                            }}
+                <Nav
+                    mode={'horizontal'}
+                    items={[
+                        { itemKey: 'user', text: '用户管理', icon: <IconBadge /> },
+                        { itemKey: 'union', text: '活动管理', icon: <IconTreeSelect /> },
+                        {
+                            itemKey: 'approve-management',
+                            text: '审批管理',
+                            icon: <IconBreadcrumb />,
+                            items: [
+                                '入驻审核',
+                                {
+                                    itemKey: 'operation-management',
+                                    text: '运营管理',
+                                    items: [
+                                        '人员管理',
+                                        '人员变更'
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            text: '任务平台',
+                            icon: <IconSteps />,
+                            itemKey: 'job',
+                            items: ['任务管理', '用户任务查询'],
+                        },
+                    ]}
+                    onSelect={key => console.log(key)}
+                    header={{
+                        logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
+                        text: 'Semi 运营后台'
+                    }}
+                    footer={
+                        <Dropdown
+                            position="bottomRight"
+                            render={
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>详情</Dropdown.Item>
+                                    <Dropdown.Item>退出</Dropdown.Item>
+                                </Dropdown.Menu>
+                            }
                         >
-                            模版推荐
-                        </span>
-                        <span style={{ marginRight: '24px' }}>所有模版</span>
-                        <span>我的模版</span>
-                    </span>
-                    <Nav.Footer>
-                        <Button
-                            theme="borderless"
-                            icon={<IconBell size="large" />}
-                            style={{
-                                color: 'var(--semi-color-text-2)',
-                                marginRight: '12px',
-                            }}
-                        />
-                        <Button
-                            theme="borderless"
-                            icon={<IconHelpCircle size="large" />}
-                            style={{
-                                color: 'var(--semi-color-text-2)',
-                                marginRight: '12px',
-                            }}
-                        />
-                        <Avatar color="orange" size="small">
-                            YJ
-                        </Avatar>
-                    </Nav.Footer>
-                </Nav>
+                            <Avatar size="small" color='light-blue' style={{ margin: 4 }}>BD</Avatar>
+                            <span>Bytedancer</span>
+                        </Dropdown>
+                    }
+                />
             </div>
         </Header>
     );
@@ -497,6 +502,8 @@ import { IconTreeSelect, IconForm, IconBreadcrumb, IconBanner, IconBadge, IconNo
         </Layout>
     );
 };
+
+
 
 ```
 
@@ -739,6 +746,7 @@ function NavApp (props = {}) {
 | defaultIsCollapsed  | 默认是否处于收起状态，仅 `mode = "vertical"` 时有效                                                                                         | boolean                                                                                                                                                               | false      |
 | defaultOpenKeys     | 初始打开的子导航 `itemKey` 数组，仅 `mode = "vertical"` 且侧边栏处于展开状态时有效                                                          | string[]                                                                                                                                                              | []         |
 | defaultSelectedKeys | 初始选中的导航项 `itemKey` 数组                                                                                                             | string[]                                                                                                                                                              | []         |
+| subDropdownProps | 用于控制 `horizontal` 或者 `vertical && isCollapsed` 下 nav.sub 中的 dropdown 参数(v >= 2.69)                                                                                                             | DropdownProps                                                                                                                                                              |          |
 | expandIcon          | 默认下拉箭头Icon, v>=2.36                                                                                                                   | ReactNode                                                                                                                                                             |            |
 | footer              | 底部区域配置对象或元素，详见 [Nav.Footer](#Nav.Footer)                                                                                      | object\|ReactNode                                                                                                                                                     |            |
 | getPopupContainer   | 垂直 Nav 折叠或 水平 Nav中 Dropdown 的 getPopupContainer 配置，可指定弹出层容器 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 v>=2.24.0 | Function                                                                                                                                                              |            |
@@ -784,6 +792,7 @@ function NavApp (props = {}) {
 | 属性          | 描述                                                          | 类型              | 默认值   |
 | ------------- | ------------------------------------------------------------- | ----------------- | -------- |
 | disabled      | 是否禁用                                                      | boolean           | false    |  |
+| dropdownProps | 弹出层 `dropdown` 参数配置 (v >= 2.69)                        | DropdownProps     |          |  |
 | dropdownStyle | 弹出层的 style                                                | CSSProperties     |          |  |
 | icon          | 导航项目图标                                                  | ReactNode         |          |
 | indent        | 如果 icon 为空，是否保留其占位，仅对一级导航生效              | boolean           | false    |

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 84
+order: 87
 category: Other
 title: LocaleProvider
 subTitle: LocaleProvider

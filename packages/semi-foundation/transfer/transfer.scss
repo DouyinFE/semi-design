@@ -53,6 +53,7 @@ $module: #{$prefix}-transfer;
         margin-bottom: $spacing-transfer_header-marginBottom;
         margin-left: $spacing-transfer_header-marginLeft;
         color: $color-transfer_header-text;
+        flex-shrink: 0;
 
         &-all {
             font-weight: $font-transfer_header_all-fontWeight;

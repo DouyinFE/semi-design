@@ -15,7 +15,37 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.70.0-beta.0 (2024-11-18)
+- 【Fix】
+    - When all items except the disabled item in the left panel of transfer are selected, the operation button should display Cancel all selections  [#2575 ](https://github.com/DouyinFE/semi-design/issues/2575)
+    - fix resizeItem size offset caused by float，invalid min/max setting caused by browser resizing and incorrect behavior in react strictMode  [@Nathon2Y](https://github.com/Nathon2Y)
+    - Fix the problem that the placeholder of TreeSelect is blocked when single selection and search box are in trigger,  affecting versions v2.61.0 - 2.69.0
+- 【Feat】
+    - direction in ResizeGroup can be dynamic [@Nathon2Y](https://github.com/Nathon2Y)
+    - MarkdownRender adds the remarkGfm switch to prevent errors reported by lower versions of Safari that do not support lookaround assertions
 
+#### 🎉 2.69.2 (2024-11-19)
+- 【Fix】
+    - Fixed the problem that the covered content will be revealed in the table header that can be clicked to trigger sorting，Affected versions 2.65.0-2.69.1
+
+#### 🎉 2.69.1 (2024-11-15)
+- 【Fix】
+    - fix the issue that MonthRange DatePicker does not jump when clicking on a non-disabled year when there is a disabledDate
+    - Fixed the problem that when ArrayField is conditionally rendered, the first click of add fails to add rows correctly.
+    - fixed incorrect translation of Table pageText in Japanese scenarios
+
+#### 🎉 2.69.0 (2024-11-08)
+- 【Fix】
+    - The clip-rule & stroke-width in the @douyinfe/semi-illustrations package are modified to clipRule & strokeWidth
+
+#### 🎉 2.69.0-beta.0 (2024-11-04)
+- 【Feat】
+    - In Chat's custom rendering message box, renderChatBoxAvatar adds message parameter. [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Add defaultActionsObj parameter to renderChatBoxContent in Chat's custom rendering session box to reveal detailed node parameter information [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Chat's custom rendering input box adds the detailProps parameter to transmit detailed node parameter information [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
+    - Navigation adds subDropdownProps support [#2555](https://github.com/DouyinFE/semi-design/pull/2555)
+- 【Fix】
+    - Fixed a TypeError in Chat's message comparison logic when the previous and later messages are different empty arrays [#2557](https://github.com/DouyinFE/semi-design/pull/2557)
 
 #### 🎉 2.68.4 (2024-11-04)
 - 【Fix】

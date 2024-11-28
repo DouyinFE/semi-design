@@ -1,11 +1,12 @@
 ---
 localeCode: zh-CN
-order: 85
+order: 23
 category: Plus
 title:  Chat 对话
 icon: doc-chat
 dir: column
 brief: 用于快速搭建对话内容
+showNew: true
 ---
 
 ## 使用场景
@@ -35,7 +36,7 @@ import { Chat } from '@douyinfe/semi-ui';
 
 对话是多方参与，多轮交互的场景。可通过 `roleConfig` 传入角色信息（包括名称，头像等），具体参数细节 [RoleConfig](#roleConfig)。
 
-使用 `align` 属性可以设置对话的对齐方式，支持左右对齐（`leftRight`， 默认）和左对齐（`leftAlign`）。
+使用 `align` 属性可以设置对话的布局，支持左右分布（`leftRight`， 默认）和左对齐（`leftAlign`）。
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -147,7 +148,7 @@ function DefaultChat() {
                     </RadioGroup>
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', columnGap: '10px'}}>
-                    会话对齐方式
+                    会话布局方式
                     <RadioGroup onChange={onAlignChange} value={align} type={"button"}>
                         <Radio value={'leftRight'}>左右分布</Radio>
                         <Radio value={'leftAlign'}>左对齐</Radio>
@@ -546,17 +547,65 @@ render(DefaultChat);
 通过 `chatBoxRenderConfig` 传入自定义渲染配置, chatBoxRenderConfig 类型如下
 
 ```ts
-interface ChatBoxRenderConfig {
+export interface RenderTitleProps {
+    message?: Message;
+    role?: Metadata;
+    defaultTitle?: ReactNode
+}
+
+export interface RenderAvatarProps {
+    message?: Message; /* Supported in  2.69.0*/
+    role?: Metadata, 
+    defaultAvatar?: ReactNode
+}
+
+export interface RenderContentProps {
+    message?: Message;
+    role?: Metadata;
+    defaultContent?: ReactNode | ReactNode[]; 
+    className?: string;
+}
+
+export interface DefaultActionNodeObj {
+    copyNode: ReactNode;
+    likeNode: ReactNode;
+    dislikeNode: ReactNode;
+    resetNode: ReactNode;
+    deleteNode: ReactNode;
+}
+
+export interface RenderActionProps {
+    message?: Message;
+    defaultActions?: ReactNode | ReactNode[];
+    className: string;
+    defaultActionsObj?: DefaultActionNodeObj; /* Supported in  2.69.0*/
+};
+
+export interface FullChatBoxNodes {
+    avatar?: ReactNode;
+    title?: ReactNode; 
+    content?: ReactNode; 
+    action?: ReactNode
+}
+
+export interface RenderFullChatBoxProps {
+    message?: Message;
+    role?: Metadata;
+    defaultNodes?: FullChatBoxNodes;
+    className: string;
+}
+
+export interface ChatBoxRenderConfig {
     /* 自定义渲染标题 */
-    renderChatBoxTitle?: (props: {role?: Metadata, defaultTitle?: ReactNode}) => ReactNode;
+    renderChatBoxTitle?: (props: RenderTitleProps) => ReactNode;
     /* 自定义渲染头像 */
-    renderChatBoxAvatar?: (props: { role?: Metadata, defaultAvatar?: ReactNode}) => ReactNode;
+    renderChatBoxAvatar?: (props: RenderAvatarProps) => ReactNode;
     /* 自定义渲染内容区域 */
-    renderChatBoxContent?: (props: {message?: Message, role?: Metadata, defaultContent?: ReactNode | ReactNode[], className?: string}) => ReactNode;
+    renderChatBoxContent?: (props: RenderContentProps) => ReactNode;
     /* 自定义渲染消息操作栏 */
-    renderChatBoxAction?: (props: {message?: Message, defaultActions?: ReactNode | ReactNode[], className: string}) => ReactNode;
+    renderChatBoxAction?: (props: RenderActionProps) => ReactNode;
     /* 完全自定义渲染整个聊天框 */
-    renderFullChatBox?: (props: {message?: Message, role?: Metadata, defaultNodes?: FullChatBoxNodes, className: string}) => ReactNode;
+    renderFullChatBox?: (props: RenderFullChatBoxProps) => ReactNode
 }
 ```
 
@@ -1175,10 +1224,41 @@ export interface RenderInputAreaProps {
     onSend?: (content?: string, attachment?: FileItem[]) => void;
     /* 如果自定义清除上下文按钮，点击清除上下文时需调用 */
     onClear?: (e?: any) => void;
+    /* detailProps 自 2.69.0 版本开始支持 */
+    detailProps: {
+        /* 清除上下文按钮 */
+        clearContextNode?: ReactNode;
+        /* 上传按钮 */
+        uploadNOde?: ReactNode;
+        /* 文本输入框 */
+        inputNode?: ReactNode;
+        /* 发送按钮 */
+        sendNode?: ReactNode;
+        /* 点击触发聚焦文本输入框的处理函数*/
+        onClick?: (e?: MouseEvent) => void;
+    }
 }
 ```
 
-使用示例如下
+`detailProps` 的使用示例如下
+
+```jsx
+function CustomInputRender(props) {
+     const { detailProps } = props;
+    const { clearContextNode, uploadNode, inputNode, sendNode, onClick } = detailProps;
+   
+    return <div style={{margin: '8px 16px', display: 'flex', flexDirection:'row',
+      alignItems: 'flex-end', borderRadius: 16,padding: 10, border: '1px solid var(--semi-color-border)'}}
+      onClick={onClick} 
+    >
+        {uploadNode}
+        {inputNode}
+        {sendNode}
+    </div>
+}
+```
+
+其他使用示例如下
 
 ```jsx live=true noInline=true dir="column"
 import React, {useState, useCallback} from 'react';
@@ -1528,7 +1608,7 @@ render(DefaultChat);
 
 | 属性  | 说明   | 类型   | 默认值 |
 |------|--------|-------|-------|
-| align | 对话对齐方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
+| align | 对话布局方式，支持 `leftRight`、`leftAlign` | string | `leftRight` |
 | bottomSlot | 底部插槽 | React.ReactNode | - |
 | chatBoxRenderConfig | chatBox 渲染配置 | ChatBoxRenderConfig | - |
 | chats | 受控对话列表 | Message | - |

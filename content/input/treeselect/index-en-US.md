@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 46
 category: Input
 title:  TreeSelect
 subTitle: TreeSelect

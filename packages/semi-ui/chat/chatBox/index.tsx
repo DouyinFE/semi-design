@@ -30,7 +30,7 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
 
     const continueSend = useMemo(() => {
         return message?.role === previousMessage?.role;
-    }, [message.role, previousMessage])
+    }, [message.role, previousMessage]);
 
     const info = useMemo(() => {
         let info = {};
@@ -44,9 +44,10 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
         return (<ChatBoxAvatar
             continueSend={continueSend}
             role={info} 
+            message={message}
             customRenderFunc={renderChatBoxAvatar}
         />);
-    }, [info, renderChatBoxAvatar]);
+    }, [info, message, renderChatBoxAvatar]);
 
     const titleNode = useMemo(() => {
         return (<ChatBoxTitle 

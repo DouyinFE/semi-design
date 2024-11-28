@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 26
+order: 31
 category: 输入类
 title: Checkbox 复选框
 icon: doc-checkbox
