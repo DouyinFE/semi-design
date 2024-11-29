@@ -16,6 +16,17 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.71.0-beta.0 (2024-12-02)
+- 【Feat】
+    - Table added shouldCellUpdate API, which is used to customize whether cells need to be re-rendered or not. [#2584](https://github.com/DouyinFE/semi-design/pull/2584)
+    - Cascader supports the checkRelation API for setting the relevance of options  [#2582](https://github.com/DouyinFE/semi-design/issues/2582)
+    - `@douyinfe/semi-icons-lab` add new color icons： IconChart、IconChat、IconCodeHighlight、IconLottie、IconMarkdown、IconPincode、IconVersionOne、IconWebComponents、IconJsonViewer [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+- 【Chore】
+    - The digital precision of the SVG path in @douyinfe/semi-icons has been modified, keeping two decimal places. The volume of the minimized package for all icons has been reduced from 450 kb to 278 kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - Fixed type error reporting for the Lottie component [#2593](https://github.com/DouyinFE/semi-design/pull/2593)
+- 【Perf】
+    - The logic related to Select's renderOption will be postponed until after the candidate options are displayed. Reduce unnecessary rendering. [#2598](https://github.com/DouyinFE/semi-design/issues/2598)
+
 
 #### 🎉 2.70.1 (2024-11-25)
 - 【Fix】
