@@ -30,7 +30,7 @@ export class JsonWorker {
         return doValidate(this._model);
     }
 
-    updateModel(op: IModelContentChangeEvent) {
+    updateModel(op: IModelContentChangeEvent | IModelContentChangeEvent[]) {
         this._model?.applyOperation(op);
         return op;
     }
