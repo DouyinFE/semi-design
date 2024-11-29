@@ -10,7 +10,7 @@ export interface LottieAdapter<P = Record<string, any>, S = Record<string, any>>
 export interface LottieBaseProps {
     width?: string;
     height?: string;
-    params: ArgsType<typeof lottie.loadAnimation>[0];
+    params: Partial<ArgsType<typeof lottie.loadAnimation>[0]>;
     getAnimationInstance?: (instance: AnimationItem|null) => void;
     getLottie?: (lottiePKG: typeof lottie) => void
 

@@ -15,9 +15,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+
+#### 🎉 2.70.1 (2024-11-25)
+- 【Fix】
+    - Fixed the problem that the URL of the file attachment in the Chat component's dialog box was incorrect, causing the file to fail to open when clicking on the file [#2589](https://github.com/DouyinFE/semi-design/pull/2589)
+
+#### 🎉 2.70.0 (2024-11-22)
+- 【Fix】
+    - Fixed an issue where the placement area was incorrectly displayed when dragging the internal files of the Chat component [#2569](https://github.com/DouyinFE/semi-design/issues/2569)
+
 #### 🎉 2.70.0-beta.0 (2024-11-18)
 - 【Fix】
-    - When all items except the disabled item in the left panel of transfer are selected, the operation button should display Cancel all selections  [#2575 ](https://github.com/DouyinFE/semi-design/issues/2575)
+    - When all items except the disabled item in the left panel of transfer are selected, the operation button should display Cancel all selections  [#2575](https://github.com/DouyinFE/semi-design/issues/2575)
     - fix resizeItem size offset caused by float，invalid min/max setting caused by browser resizing and incorrect behavior in react strictMode  [@Nathon2Y](https://github.com/Nathon2Y)
     - Fix the problem that the placeholder of TreeSelect is blocked when single selection and search box are in trigger,  affecting versions v2.61.0 - 2.69.0
 - 【Feat】
