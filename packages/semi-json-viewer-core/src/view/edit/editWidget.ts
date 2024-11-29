@@ -94,6 +94,10 @@ export class EditWidget {
                 } as Range);
                 if (this._autoClosingPairs[op.newText]) {
                     op.newText += this._autoClosingPairs[op.newText];
+                    op.keepPosition = {
+                        lineNumber: startRow,
+                        column: endCol + 1,
+                    };
                 }
                 break;
             case 'insertParagraph':
