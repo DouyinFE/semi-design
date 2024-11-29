@@ -51,10 +51,16 @@ export class GrammarTokens {
     constructor(jsonModel: JSONModel) {
         this._jsonModel = jsonModel;
         emitter.on('contentChanged', (e: IModelContentChangeEvent | IModelContentChangeEvent[]) => {
-            if (Array.isArray(e)) return;
+            let from = 0;
+            let to = this._jsonModel.getLineCount();
+            if (Array.isArray(e)) {
+                from = e[e.length - 1].range.startLineNumber;
+            } else {
+                from = e.range.startLineNumber;
+            }
             this._backgroundTokenizer?.requestTokens({
-                from: e.range.startLineNumber,
-                to: this._jsonModel.getLineCount(),
+                from,
+                to,
             });
             this._backgroundTokenizer?.handleChanges();
         });

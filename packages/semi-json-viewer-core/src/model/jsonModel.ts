@@ -7,7 +7,7 @@ import { EndOfLinePreference, FindMatch, SearchData } from '../common/model';
 import { SearchParams, TextModelSearch } from './textModelSearch';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { isInWorkerThread } from '../common/worker';
-import { Command, DeleteCommand, InsertCommand, ReplaceCommand } from './command';
+import { Command, DeleteCommand, InsertCommand, MultiCommand, ReplaceCommand } from './command';
 
 /**
  * JSONModel 类用于管理 JSON 数据模型
@@ -107,7 +107,10 @@ export class JSONModel {
         return this.getOffsetAt(lineNumber, lineLength + 1);
     }
 
-    private _createCommand(op: IModelContentChangeEvent): Command {
+    private _createCommand(op: IModelContentChangeEvent | IModelContentChangeEvent[]): Command {
+        if (Array.isArray(op)) {
+            return new MultiCommand(this, op);
+        }
         switch (op.type) {
             case 'insert':
                 return new InsertCommand(this, op);
@@ -121,11 +124,6 @@ export class JSONModel {
     }
 
     applyOperation(op: IModelContentChangeEvent | IModelContentChangeEvent[]) {
-        if (Array.isArray(op)) {
-            op.forEach(o => this.applyOperation(o));
-            return;
-        }
-
         this._redoStack = [];
         const command = this._createCommand(op);
         this.pushUndoStack(command);

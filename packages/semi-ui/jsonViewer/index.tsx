@@ -1,5 +1,4 @@
-import JsonViewerFoundation, { JsonViewerOptions, JsonViewer, JsonViewerAdapter } from "@douyinfe/semi-foundation/jsonViewer/foundation";
-import { PureComponent } from "react";
+import JsonViewerFoundation, { JsonViewerOptions, JsonViewerAdapter } from "@douyinfe/semi-foundation/jsonViewer/foundation";
 import React from "react";
 import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.scss';
 import classNames from "classnames";
@@ -7,6 +6,7 @@ import { cssClasses } from "@douyinfe/semi-foundation/jsonViewer/constants";
 import ButtonGroup from "../button/buttonGroup";
 import Button from "../iconButton";
 import Input from "../input";
+import DragMove from "../dragMove";
 import { IconCaseSensitive, IconChevronLeft, IconChevronRight, IconClose, IconRegExp, IconSearch, IconWholeWord } from "@douyinfe/semi-icons";
 import BaseComponent, { BaseProps } from "../_base/baseComponent";
 const prefixCls = cssClasses.PREFIX;
@@ -43,6 +43,8 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
     private editorRef: React.RefObject<HTMLDivElement>;
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
+    private dragHandlerRef: React.RefObject<HTMLDivElement>;
+    private dragMove: any;
 
     foundation: JsonViewerFoundation;
 
@@ -52,6 +54,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         this.searchInputRef = React.createRef();
         this.replaceInputRef = React.createRef();
         this.jsonViewer = React.createRef();
+        this.dragHandlerRef = React.createRef();
         this.foundation = new JsonViewerFoundation(this.adapter);
         this.state = {
             searchOptions: {
@@ -63,6 +66,7 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         };
     }
 
+
     componentDidMount() {
         this.foundation.init();
         this.jsonViewer = {
@@ -70,7 +74,10 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
                 getValue: () => this.foundation.jsonViewer.getModel().getValue()
             }
         };
+        this.dragMove = new DragMove({ element: this.dragHandlerRef.current });
+        this.dragMove.init();
     }
+
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
         if (prevProps.options !== this.props.options) {
@@ -79,10 +86,18 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
         }
     }
 
+    componentWillUnmount() {
+        if (this.dragMove) {
+            this.dragMove.destroy();
+            this.dragMove = null;
+        }
+    }
+
     get adapter(): JsonViewerAdapter<JsonViewerProps, JsonViewerState> {
         return {
             ...super.adapter,
             getEditorRef: () => this.editorRef.current,
+            getSearchRef: () => this.searchInputRef.current,
             notifyChange: (value) => {
                 this.props.onChange?.(value);
             },
@@ -159,60 +174,61 @@ class JsonViewerCpn extends BaseComponent<JsonViewerProps, JsonViewerState> {
     render() {
         return (
             <>
-                <div style={this.getStyle()} ref={this.editorRef} className={classNames(prefixCls, `${prefixCls}-background`)}></div>
-                <div>
-                    <Button onClick={() => this.foundation.showSearchBar()} icon={<IconSearch />} />
-                </div>
-                {this.state.showSearchBar && <div className={`${prefixCls}-search-bar-container`}>
-                    <div className={`${prefixCls}-search-bar`}>
-                        <Input
-                            placeholder="查找"
-                            style={{ width: 200 }}
-                            onChange={(_value, e) => {
-                                e.preventDefault();
-                                this.searchHandler();
-                                this.searchInputRef.current?.focus();
-                            }}
-                            ref={this.searchInputRef}
-                        />
-                        {this.renderSearchOptions()}
-                        <div >
-                            <ButtonGroup>
-                                <Button icon={<IconChevronLeft />} onClick={(e) => {
-                                    e.preventDefault();
-                                    this.foundation.prevSearch();
-                                }} />
-                                <Button icon={<IconChevronRight />} onClick={(e) => {
-                                    e.preventDefault();
-                                    this.foundation.nextSearch();
-                                }} />
-                            </ButtonGroup>
-                        </div>
-                        <Button icon={<IconClose />} size="small"
-                            theme={'borderless'}
-                            type={'tertiary'}
-                            onClick={() => this.foundation.showSearchBar()} />
-                    </div>
+                <div style={{ position: 'relative' }}>
+                    <div style={this.getStyle()} ref={this.editorRef} className={classNames(prefixCls, `${prefixCls}-background`)}></div>
+                    <div ref={this.dragHandlerRef} style={{ position: 'absolute', top: 0, left: this.getStyle().width }}>
+                        {!this.state.showSearchBar ? <Button onClick={() => this.foundation.showSearchBar()} icon={<IconSearch />} /> : <div className={`${prefixCls}-search-bar-container`}>
+                            <div className={`${prefixCls}-search-bar`}>
+                                <Input
+                                    placeholder="查找"
+                                    style={{ width: 200 }}
+                                    onChange={(_value, e) => {
+                                        e.preventDefault();
+                                        this.searchHandler();
+                                        this.searchInputRef.current?.focus();
+                                    }}
+                                    ref={this.searchInputRef}
+                                />
+                                {this.renderSearchOptions()}
+                                <div >
+                                    <ButtonGroup>
+                                        <Button icon={<IconChevronLeft />} onClick={(e) => {
+                                            e.preventDefault();
+                                            this.foundation.prevSearch();
+                                        }} />
+                                        <Button icon={<IconChevronRight />} onClick={(e) => {
+                                            e.preventDefault();
+                                            this.foundation.nextSearch();
+                                        }} />
+                                    </ButtonGroup>
+                                </div>
+                                <Button icon={<IconClose />} size="small"
+                                    theme={'borderless'}
+                                    type={'tertiary'}
+                                    onClick={() => this.foundation.showSearchBar()} />
+                            </div>
 
-                    <div className={`${prefixCls}-replace-bar`}>
-                        <Input
-                            placeholder="替换"
-                            style={{ width: 260 }}
-                            onChange={(value, e) => {
-                                e.preventDefault();
-                            }}
-                            ref={this.replaceInputRef}
-                        />
-                        <Button onClick={() => {
-                            const value = this.replaceInputRef.current?.value;
-                            this.foundation.replace(value);
-                        }}>替换</Button>
-                        <Button onClick={() => {
-                            const value = this.replaceInputRef.current?.value;
-                            this.foundation.replaceAll(value);
-                        }}>全部替换</Button>
+                            <div className={`${prefixCls}-replace-bar`}>
+                                <Input
+                                    placeholder="替换"
+                                    style={{ width: 260 }}
+                                    onChange={(value, e) => {
+                                        e.preventDefault();
+                                    }}
+                                    ref={this.replaceInputRef}
+                                />
+                                <Button onClick={() => {
+                                    const value = this.replaceInputRef.current?.value;
+                                    this.foundation.replace(value);
+                                }}>替换</Button>
+                                <Button onClick={() => {
+                                    const value = this.replaceInputRef.current?.value;
+                                    this.foundation.replaceAll(value);
+                                }}>全部替换</Button>
+                            </div>
+                        </div>}
                     </div>
-                </div>}
+                </div>
             </>
         );
     }

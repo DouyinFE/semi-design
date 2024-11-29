@@ -5,6 +5,7 @@ import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation
 
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;
+    getSearchRef: () => HTMLInputElement;
     notifyChange: (value: string) => void;
     notifyHover: (value: string, el: HTMLElement) => HTMLElement | undefined;
     setSearchOptions: (key: string) => void;
@@ -26,6 +27,9 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
         this.jsonViewer.layout();
         this.jsonViewer.emitter.on('contentChanged', (e) => {
             this._adapter.notifyChange(this.jsonViewer?.getModel().getValue());
+            if (this.getState('showSearchBar')) {
+                this.search(this._adapter.getSearchRef().value);
+            }
         });
         this.jsonViewer.emitter.on('hoverNode', (e) => {
             const el = this._adapter.notifyHover(e.value, e.target);
