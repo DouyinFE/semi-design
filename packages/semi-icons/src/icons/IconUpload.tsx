@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M17.8395 8.05827C17.1837 5.16226 14.5944 3 11.5 3C7.91015 3 5 5.91015 5 9.5C5 10.0204 5.06115 10.5264 5.17665 11.0114C2.84229 11.1772 1 13.1234 1 15.5C1 17.9853 3.01469 20 5.49995 20H17C20.3137 20 23 17.3137 23 14C23 10.9712 20.7558 8.46659 17.8395 8.05827ZM12.3201 8.26674C12.1347 8.11222 11.8653 8.11222 11.6799 8.26674L6.53047 12.5579C6.35084 12.7076 6.45669 13 6.69051 13H10V17.5C10 17.7761 10.2239 18 10.5 18H13.5C13.7761 18 14 17.7761 14 17.5V13H17.3095C17.5433 13 17.6492 12.7076 17.4695 12.5579L12.3201 8.26674Z"
+                d="M17.84 8.06A6.5 6.5 0 1 0 5.18 11 4.5 4.5 0 0 0 5.5 20H17a6 6 0 0 0 .84-11.94Zm-5.52.2a.5.5 0 0 0-.64 0l-5.15 4.3a.25.25 0 0 0 .16.44H10v4.5c0 .28.22.5.5.5h3a.5.5 0 0 0 .5-.5V13h3.31c.23 0 .34-.3.16-.44l-5.15-4.3Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'upload');
 export default IconComponent;

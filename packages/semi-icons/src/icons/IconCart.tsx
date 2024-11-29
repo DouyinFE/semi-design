@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M0.5 4C0.5 3.17157 1.17157 2.5 2 2.5H5C5.74036 2.5 6.36998 3.04017 6.48256 3.77191L6.67149 5H21.7534C22.3931 5 22.8684 5.59242 22.7296 6.21693L21.174 13.2169C21.0723 13.6745 20.6665 14 20.1978 14H8.05611L8.28688 15.5H19C19.8284 15.5 20.5 16.1716 20.5 17C20.5 17.8284 19.8284 18.5 19 18.5H7C6.25964 18.5 5.63002 17.9598 5.51744 17.2281L3.71312 5.5H2C1.17157 5.5 0.5 4.82843 0.5 4ZM9 23C10.1046 23 11 22.1046 11 21C11 19.8954 10.1046 19 9 19C7.89543 19 7 19.8954 7 21C7 22.1046 7.89543 23 9 23ZM18 23C19.1046 23 20 22.1046 20 21C20 19.8954 19.1046 19 18 19C16.8954 19 16 19.8954 16 21C16 22.1046 16.8954 23 18 23Z"
+                d="M.5 4c0-.83.67-1.5 1.5-1.5h3c.74 0 1.37.54 1.48 1.27L6.68 5h15.07a1 1 0 0 1 .98 1.22l-1.56 7a1 1 0 0 1-.97.78H8.06l.23 1.5H19a1.5 1.5 0 0 1 0 3H7a1.5 1.5 0 0 1-1.48-1.27L3.72 5.5H2A1.5 1.5 0 0 1 .5 4ZM9 23a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'cart');
 export default IconComponent;

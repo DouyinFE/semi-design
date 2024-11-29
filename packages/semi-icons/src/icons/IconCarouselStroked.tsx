@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M1 6H3V18H1V20H4C4.55228 20 5 19.5523 5 19V5C5 4.44772 4.55228 4 4 4H1V6ZM7 5C7 4.44772 7.44772 4 8 4H16C16.5523 4 17 4.44772 17 5V19C17 19.5523 16.5523 20 16 20H8C7.44772 20 7 19.5523 7 19V5ZM9 6V18H15V6H9ZM19 5C19 4.44772 19.4477 4 20 4H23V6H21V18H23V20H20C19.4477 20 19 19.5523 19 19V5Z"
+                d="M1 6h2v12H1v2h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H1v2Zm6-1a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V5Zm2 1v12h6V6H9Zm10-1a1 1 0 0 1 1-1h3v2h-2v12h2v2h-3a1 1 0 0 1-1-1V5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'carousel_stroked');
 export default IconComponent;

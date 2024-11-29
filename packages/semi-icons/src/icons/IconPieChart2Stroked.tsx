@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M11 3.05493C6.50005 3.55237 3 7.36745 3 12C3 16.9706 7.02944 21 12 21C14.125 21 16.078 20.2635 17.6177 19.0319L11.1464 12.5607C11.0527 12.4669 11 12.3397 11 12.2071V3.05493ZM13 3.05493V11L20.9451 11C20.4839 6.82838 17.1716 3.51608 13 3.05493ZM14.4142 13L19.0319 17.6177C20.0676 16.3229 20.7532 14.7359 20.9451 13L14.4142 13ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z"
+                d="M11 3.05a9 9 0 1 0 6.62 15.98l-6.47-6.47a.5.5 0 0 1-.15-.35V3.05Zm2 0V11h7.95A9 9 0 0 0 13 3.05ZM14.41 13l4.62 4.62A8.96 8.96 0 0 0 20.95 13H14.4ZM1 12a11 11 0 1 1 22 0 11 11 0 0 1-22 0Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'pie_chart_2_stroked');
 export default IconComponent;
