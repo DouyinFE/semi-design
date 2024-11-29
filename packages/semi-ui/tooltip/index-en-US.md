@@ -1,1 +1,0 @@
-../../../content/show/tooltip/index-en-US.md

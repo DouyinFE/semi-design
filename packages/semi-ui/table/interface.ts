@@ -239,7 +239,11 @@ export interface RowSelectionProps<RecordType> {
     width?: string | number;
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
-    onSelectAll?: RowSelectionOnSelectAll<RecordType>
+    onSelectAll?: RowSelectionOnSelectAll<RecordType>;
+    /**
+     * self control whether to update cell for performance reasons
+     */
+    shouldCellUpdate?: (props: TableCellProps, prevProps: TableCellProps) => boolean
 }
 
 export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
