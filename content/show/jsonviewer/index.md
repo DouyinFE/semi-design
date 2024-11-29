@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 86
+order: 89
 category: 展示类
 title: JsonViewer JSON编辑器
 icon: doc-jsonviewer
@@ -8,6 +8,31 @@ dir: column
 noInline: true
 brief: 用于展示和编辑 JSON 数据
 ---
+
+### 使用场景
+JsonViewer 组件可用于 JSON 数据的展示与编辑。
+Semi 重点参考了 [VS Code](https://github.com/microsoft/vscode)的 text-buffer 数据结构设计思路，复用了部分 utils与数据类型定义（Token解析，语言服务等），结合我们的功能/样式定制需求，实现了 JsonViewer 组件, 视觉上会与 Semi Design 体系内的其他组件更协调，对于特定数据类型的定制化渲染定制会更方便。  
+相比于直接使用 MonacoEditor，Semi JsonViewer 在工程化构建上做了额外处理，使用更为简单，无需关注 Webpack插件、worker loader等复杂的配置。  
+同时由于我们仅关注 Json 数据格式，更轻量化，在开箱即用的同时，拥有更小的体积**（📦 -96%）** ，更极致的加载速度**（🚀 -53.5%）** ，更少的内存占用**（⬇️ 71.6%）**。  
+对于五百万行及以下的数据，均可以做到1s内完成数据加载与解析。
+详细的对比数据可查阅 [Performance](#Performance) 章节
+- 如果你仅需要对 Json 做预览/编辑，无需对更复杂的其他编程语言作修改，我们建议你选用 JsonViewer
+- 如果你还需要处理其他格式的数据/代码文件，完整的代码编辑器能力（语法高亮、代码不全、错误提示、复杂编辑等）是刚需，构建产物体积不是关注重点，我们建议你选用 Monaco Editor
+### Performance 
+#### Bundle Size 
+| 组件         | 体积     | 体积(Gzip) |
+| ------------ | -------- | ---------- |
+| JsonViewer   | 203.14kb |   51.23kb  |
+| MonacoEditor | 5102.0 KB|   1322.7 KB|
+#### 渲染不同量级数据耗时
+> 注：测试数据生成方式详情可查阅 [url](https://github.com/DouyinFE/semi-design/blob/main/packages/semi-ui/jsonViewer/_story/jsonViewer.stories.jsx)
+
+| 组件          | 1k行     |  5k行       | 1w行      | 10w行        | 50w行        | 100w行       | 300w行       |
+| ------------ | -------- | ---------- | --------| ---------- | ---------- | ---------- | ---------- |
+| JsonViewer   |  30.42ms | 30.66ms  |  36.87ms|  52.73ms   |  111.02ms  |  178.81ms  |  506.25ms  |
+| ReactMonacoEditor |  72.01ms | 73.76ms  |  76.64ms|  97.89ms   |  133.31ms  |  202.79ms  |  495.53ms  |
+| 性能提升 | 57.70% | 58.41% | 51.87% | 46.11% | -|- |- |
+> 注：当数据量级超出50w行时，ReactMonacoEditor 默认关闭高亮等行为，数据对比不遵循单一变量原则
 
 ## 代码演示
 
@@ -103,9 +128,9 @@ render(SimpleList);
 
 配置 options 的 formatOptions 参数，设置组件的格式化配置。
 
--   tabSize: number, 设置缩进大小,4 表示每级缩进 4 个空格
--   insertSpaces: boolean, true 表示使用空格进行缩进，false 表示使用制表符(Tab)
--   eol: string, 设置换行符,可以是\n,\r\n,
+-   tabSize: number，设置缩进大小为4，表示每级缩进 4 个空格
+-   insertSpaces: boolean，true 表示使用空格进行缩进，false 表示使用制表符(Tab)
+-   eol: string，设置换行符，可以是\n，\r\n，
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -132,52 +157,77 @@ class SimpleList extends React.Component {
 render(SimpleList);
 ```
 
+### 自定义渲染
+
+配置 renderTooltip回调函数，在hover到特定节点时，自定义渲染内容。
+
+```jsx live=true dir="column" noInline=true
+import React from 'react';
+import { JsonViewer } from '@douyinfe/semi-ui';
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0",
+    "image": "https://picsum.photos/100/100",
+}`;
+class SimpleList extends React.Component {
+    render() {
+        const renderTooltip = (value, target) => {
+            const el = document.createElement('div');
+            el.style.backgroundColor = '#f5f5f5';
+            el.style.width = '100px';
+            el.style.height = '100px';
+            el.style.border = '1px solid #0080ff';
+            if (value.includes('https')) {
+                el.innerHTML = `<img src=${value} alt="picture" />`;
+                return el;
+            }
+        };
+        return (
+            <div>
+                <div style={{ marginRight: 16 }}>
+                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
+                    <JsonViewer
+                        height={400}
+                        width={700}
+                        value={data}
+                        renderTooltip={renderTooltip}
+                        options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
+
+render(SimpleList);
+```
+
 ## API 参考
 
 ### JsonViewer
 
 | 属性                | 说明                                             | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|--------------|
-| value             | 设置 value 属性                                  | string                                  | -  |
-| height            | 设置高度 属性                                     | number                                  | -  |
-| width             | 设置宽度 属性                                     | number                                  | -  |
-| options           | 设置格式化配置 属性                                | JsonViewerOptions                       | -   |
-| onChange          | 设置 value 变化回调 属性                           | (value: string) => void                  | -   |
-| renderTooltip     | 设置 value 悬浮回调 属性                           | ({value: string, target: HTMLElement}) => HTMLElement | undefined | -   |
+| value             | 展示内容                                    | string                                  | -  |
+| height            | 高度                                     | number                                  | -  |
+| width             | 宽度                                     | number                                  | -  |
+| options           | 格式化配置                                | JsonViewerOptions                       | -   |
+| onChange          | 内容变化回调                           | (value: string) => void                  | -   |
+| renderTooltip     | 自定义内容悬浮提示                          | (value: string, target: HTMLElement) => HTMLElement \| void 0 | -   |
 
 ### JsonViewerOptions
 
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| lineHeight        | 设置行高 属性                                    | number                          | 20  |
-| autoWrap        | 设置是否自动换行 属性                             | boolean                            | true  |
-| formatOptions     | 设置格式化配置 属性                               | FormattingOptions                |  -  |
+| lineHeight        | 行高                                    | number                          | 20  |
+| autoWrap        | 是否自动换行                             | boolean                            | true  |
+| formatOptions     | 格式化配置                               | FormattingOptions                |  -  |
 
 ### FormattingOptions
 
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| tabSize           | 设置缩进大小 属性                                 | number                          | 4  |
-| insertSpaces      | 设置是否使用空格进行缩进 属性                       | boolean                         | true  |
-| eol               | 设置换行符 属性                                   | string                          | '\n'  |
+| tabSize           | 缩进大小                                 | number                          | 4  |
+| insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
+| eol               | 换行符                                   | string                          | '\n'  |
 
-
-
-
-## 使用场景
-
-JsonViewer 和 Monaco Editor 各有其适用场景：
-
-- **JsonViewer 适用于**：
-  - 仅需 JSON 查看和基础编辑的场景
-  - 对加载速度和性能要求较高的场景
-  - 需要更轻量级组件的场景
-
-- **Monaco Editor 适用于**：
-  - 需要完整 IDE 功能的场景（如语法高亮、代码补全、错误提示等）
-  - 需要多语言支持的场景
-  - 需要更复杂编辑功能的场景
-
-### 技术实现
-
-JsonViewer 底层使用 jsonc-parser 进行 JSON 词法解析和格式化，并在此基础上实现了 JSON 的 AST 解析，代码提示等功能。
