@@ -207,17 +207,6 @@ const treeDataWithIcon = [
   },
 ];
 
-const OneLevelData = [
-  {
-    label: '亚洲',
-    key: 'yazhou',
-  },
-  {
-    label: '北美洲',
-    key: 'beimeizhou',
-  },
-]
-
 let opts = {
   content: 'Hi, Bytedance dance dance',
   duration: 3,
@@ -3088,14 +3077,6 @@ export const ShowLine = () => {
       multiple
       defaultExpandAll
       disableStrictly
-    />
-    <>单选，单层节点</>
-    <Tree
-      showLine={showLine}
-      treeData={OneLevelData}
-      // value="meiguo"
-      defaultExpandAll
-      onChange={(...args) => console.log(args)}
     />
   </div>
   )
