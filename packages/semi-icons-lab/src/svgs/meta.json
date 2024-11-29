@@ -45,6 +45,10 @@
     { "name": "input-number", "category": "Common" },
     { "name": "input", "category": "Common" },
     { "name": "intro", "category": "Common" },
+    {
+        "name": "json-viewer",
+        "category": "Common"
+    },
     { "name": "layout", "category": "Common" },
     { "name": "list", "category": "Common" },
     { "name": "locale-provider", "category": "Common" },

@@ -38,6 +38,7 @@ export { default as IconImage } from './IconImage';
 export { default as IconInputNumber } from './IconInputNumber';
 export { default as IconInput } from './IconInput';
 export { default as IconIntro } from './IconIntro';
+export { default as IconJsonViewer } from './IconJsonViewer';
 export { default as IconLayout } from './IconLayout';
 export { default as IconList } from './IconList';
 export { default as IconLocaleProvider } from './IconLocaleProvider';
