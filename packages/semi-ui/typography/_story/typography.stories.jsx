@@ -224,6 +224,20 @@ export const EllipsisSingle = () => (
       Web 应用。 区别于其他的设计系统而言，Semi Design
       以用户中心、内容优先、设计人性化为设计理念，具有四大优势。
     </Paragraph>
+    <br />
+    <div style={{ width: 300}} >
+      <Typography.Text
+        copyable={true}
+        link={{ href: '---' }}
+        ellipsis={{
+          showTooltip: {
+            opts: { content: '我是一个超长超长超长超长超长超长超长超长超长的链接' },
+          },
+        }}
+      >
+      我是一个超长超长超长超长超长超长超长超长超长的链接我是一个超长超长超长超长超长超长超长超长超长的链接
+      </Typography.Text>
+    </div>
   </div>
 );
 
