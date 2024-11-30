@@ -7,13 +7,13 @@ import type { SearchWords, Chunk } from '@douyinfe/semi-foundation/highlight/fou
 
 import '@douyinfe/semi-foundation/highlight/highlight.scss';
 
-export interface GetHighLightTextHTMLProps {
+interface GetHighLightTextHTMLProps {
     sourceString?: string;
     searchWords?: SearchWords;
     option: HighLightTextHTMLOption
 }
 
-export interface HighLightTextHTMLOption {
+interface HighLightTextHTMLOption {
     highlightTag?: string;
     highlightClassName?: string;
     highlightStyle?: React.CSSProperties;
@@ -21,7 +21,7 @@ export interface HighLightTextHTMLOption {
     autoEscape: boolean
 }
 
-export interface HighLightTextHTMLChunk extends Chunk { }
+interface HighLightTextHTMLChunk extends Chunk { }
 
 export interface HighlightProps {
     autoEscape?: boolean;
