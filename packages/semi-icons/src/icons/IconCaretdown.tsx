@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -14,12 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M17.549 15.659L12.753 21.139C12.6591 21.2464 12.5434 21.3325 12.4135 21.3915C12.2836 21.4505 12.1427 21.481 12 21.481C11.8574 21.481 11.7164 21.4505 11.5865 21.3915C11.4566 21.3325 11.3409 21.2464 11.247 21.139L6.45101 15.659C5.88501 15.011 6.34501 14 7.20401 14H16.796C17.656 14 18.115 15.012 17.549 15.659Z"
+                d="m17.55 15.66-4.8 5.48a1 1 0 0 1-1.5 0l-4.8-5.48A1 1 0 0 1 7.2 14h9.6a1 1 0 0 1 .75 1.66Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'caretdown');
 export default IconComponent;

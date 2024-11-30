@@ -2443,3 +2443,31 @@ export const CustomExpandIcon = () => {
     </>
   );
 }
+
+export const UnRelated = () => {
+  const [value, setValue] = useState([
+    [ "yazhou" ],
+    [ "beimeizhou", "meiguo"],
+  ]);
+
+  const onChange = useCallback((value) => {
+    setValue(value);
+  }, [])
+
+  const onSelect = useCallback((value) => {
+    console.log('onSelect', value);
+  }, [])
+
+  return (
+    <Cascader
+      style={{ width: 400 }}
+      treeData={treeData2}
+      value={value}
+      filterTreeNode
+      multiple
+      checkRelation='unRelated'
+      onChange={onChange}
+      onSelect={onSelect}
+    />
+  )
+}

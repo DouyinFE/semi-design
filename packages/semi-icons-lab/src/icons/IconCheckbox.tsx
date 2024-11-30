@@ -22,7 +22,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 fill="#4CC3FA"
             />
             <path
-                d="M8.07416 12.9153L11.4236 16.0826L15.6645 8.59828"
+                d="m8.07 12.92 3.35 3.16 4.24-7.48"
                 stroke="white"
                 strokeWidth={3}
                 strokeLinecap="round"

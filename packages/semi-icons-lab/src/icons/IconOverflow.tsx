@@ -19,5 +19,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-const IconComponent = convertIcon(SvgComponent, 'overflowList');
+const IconComponent = convertIcon(SvgComponent, 'overflow');
 export default IconComponent;

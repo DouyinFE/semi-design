@@ -128,5 +128,16 @@ describe('cascader', () => {
         cy.get('.semi-input').type('{esc}', { force: true });
         cy.get('.semi-cascader-popover').should('not.exist');
     })
+
+    it('unRelated', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=cascader--un-related');
+        cy.get('.semi-cascader-selection-tag').should('have.length', 2);
+        cy.get('.semi-cascader-selection-tag').eq(0).contains('亚洲');
+        cy.get('.semi-cascader-selection-tag').eq(1).contains('美国');
+        cy.get('.semi-cascader-selection').eq(0).trigger('click');
+        cy.get('.semi-checkbox').eq(1).click();
+        cy.get('.semi-cascader-selection-tag').should('have.length', 3);
+        cy.get('.semi-cascader-selection-tag').eq(2).contains('北美洲');
+    })
     
 });

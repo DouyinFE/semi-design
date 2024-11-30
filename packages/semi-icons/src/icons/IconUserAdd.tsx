@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -17,19 +16,19 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
-                    d="M19.0796 19.8369C17.7027 17.6014 14.7559 15.5 10.4593 15.5C6.16267 15.5 3.21588 17.6014 1.83892 19.8369C1.19533 20.8817 2.10818 22 3.33535 22H17.5832C18.8104 22 19.7232 20.8817 19.0796 19.8369Z"
+                    d="M19.08 19.84c-1.38-2.24-4.32-4.34-8.62-4.34-4.3 0-7.24 2.1-8.62 4.34C1.2 20.88 2.1 22 3.34 22h14.24c1.23 0 2.14-1.12 1.5-2.16Z"
                     fill="currentColor"
                 />
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
-                    d="M14.0499 10.4204C14.5723 10.2065 15.0693 9.55774 15.2962 8.71085C15.5913 7.60959 15.5327 6.62629 14.7285 6.3203C14.6504 2.48444 13.1369 1 9.96023 1C6.7838 1 5.27021 2.48424 5.19199 6.31952C4.38589 6.62467 4.32701 7.60866 4.62233 8.7108C4.84958 9.55892 5.34768 10.2083 5.87087 10.4213C6.71146 12.5727 8.24123 14.013 9.96023 14.013C11.6795 14.013 13.2094 12.5723 14.0499 10.4204Z"
+                    d="M14.05 10.42c.52-.21 1.02-.86 1.25-1.7.3-1.11.23-2.1-.57-2.4C14.65 2.48 13.13 1 9.96 1 6.78 1 5.27 2.48 5.19 6.32c-.8.3-.86 1.29-.57 2.4.23.84.73 1.49 1.25 1.7.84 2.15 2.37 3.6 4.09 3.6 1.72 0 3.25-1.45 4.09-3.6Z"
                     fill="currentColor"
                 />
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
-                    d="M20 1C19.4478 1 19 1.44772 19 2V4H17C16.4478 4 16 4.44772 16 5C16 5.55228 16.4478 6 17 6H19V8C19 8.55228 19.4478 9 20 9C20.5523 9 21 8.55228 21 8V6H23C23.5523 6 24 5.55228 24 5C24 4.44772 23.5523 4 23 4H21V2C21 1.44772 20.5523 1 20 1Z"
+                    d="M20 1a1 1 0 0 0-1 1v2h-2a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0V6h2a1 1 0 1 0 0-2h-2V2a1 1 0 0 0-1-1Z"
                     fill="currentColor"
                 />
             </g>
@@ -41,6 +40,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'user_add');
 export default IconComponent;

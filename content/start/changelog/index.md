@@ -14,6 +14,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.71.0-beta.0 (2024-12-02)
+- 【Feat】
+    - Table 新增 shouldCellUpdate API，用于自定义单元格的是否需重新渲染 [#2584](https://github.com/DouyinFE/semi-design/pull/2584)
+    - Cascader 支持 checkRelation API 用于设置选项关联性  [#2582](https://github.com/DouyinFE/semi-design/issues/2582)
+    - Highlight Highlight 支持针对不同关键字使用不同高亮样式  [#2600](https://github.com/DouyinFE/semi-design/pull/2600)
+    - `@douyinfe/semi-icons-lab` 增加新图标： IconChart、IconChat、IconCodeHighlight、IconLottie、IconMarkdown、IconPincode、IconVersionOne、IconWebComponents、IconJsonViewer [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+- 【Chore】
+    - 修改 @douyinfe/semi-icons 中 svg path 数字精度，保留两位小数，全量图标 min 包体积 450 kb -> 278kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - 修复 Lottie 组件类型报错问题 [#2593](https://github.com/DouyinFE/semi-design/pull/2593)
+- 【Perf】
+    - Select renderOption 相关的逻辑推迟在候选项展示后再执行, 减少不必要的渲染 [#2598](https://github.com/DouyinFE/semi-design/issues/2598)
+- 【Fix】
+    - 修复 js 省略 的Typography 未设置宽度时，省略计算错误问题 [#2591](https://github.com/DouyinFE/semi-design/issues/2591)
+    - 修复 MarkdownRender 的 table 在一些 markdown 内容语法不正确时候的报错, 增加兜底尝试 [#2590](https://github.com/DouyinFE/semi-design/pull/2590)
+
 #### 🎉 2.70.1 (2024-11-25)
 - 【Fix】
     - 修复 Chat 组件对话框中的文件 url 错误导致点击文件无法正确打开文件问题 [#2589](https://github.com/DouyinFE/semi-design/pull/2589)
@@ -24,7 +39,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 #### 🎉 2.70.0-beta.0 (2024-11-18)
 - 【Fix】
-    - 当 Transfer 的左侧面板中除去被禁用项外的其他项目都被选中时，操作按钮应当显示取消全选  [#2575](https://github.com/DouyinFE/semi-design/issues/2575) [#2574](https://github.com/DouyinFE/semi-design/pull/2574)
+    - 当 Transfer 的左侧面板中除去被禁用项外的其他项目都被选中时，操作按钮应当显示取消全选 [#2575](https://github.com/DouyinFE/semi-design/issues/2575)
     - 修复计算中浮点数导致伸缩框组件尺寸的误差，浏览器拖动导致的最大最小值失效的问题，以及strictMode引起的问题 [@Nathon2Y](https://github.com/Nathon2Y) [#2551](https://github.com/DouyinFE/semi-design/pull/2551)
     - 修复当单选，搜索框在 trigger 时，TreeSelect 的 placeholder被遮挡问题 ，影响版本 2.61.0-2.69.0 [#2566](https://github.com/DouyinFE/semi-design/pull/2566)
 - 【Feat】
