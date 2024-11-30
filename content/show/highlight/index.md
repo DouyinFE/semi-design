@@ -93,22 +93,24 @@ import { Highlight } from '@douyinfe/semi-ui';
 v2.71.0 后，支持针对不同的高亮文本使用不同的高亮样式
 searchWords 默认为字符串数组。当传入对象数组时，可以通过 text指定高亮文本，同时单独指定 className、style
 
-```jsx live=true
+```jsx live=true dir="column"
 import React from 'react';
 import { Highlight } from '@douyinfe/semi-ui';
 
 () => {
     return (
-        <Highlight
-            component='span'
-            sourceString='semi design connect designOps & devOps'
-            searchWords={[
-                { text: 'semi', style: { backgroundColor: 'rgba(var(--semi-teal-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword1' },
-                { text: 'connect', style: { backgroundColor: 'var(--semi-color-primary)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword2' },
-                { text: 'devOps', style: { backgroundColor: 'rgba(var(--semi-violet-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword3' },
-            ]}
-            highlightStyle={{ borderRadius: 4 }}
-        />
+        <h2>
+            <Highlight
+                component='span'
+                sourceString='从 Semi Design 到 Any Design  快速定义你的设计系统，并应用在设计稿和代码中'
+                searchWords={[
+                    { text: 'Semi', style: { backgroundColor: 'rgba(var(--semi-teal-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword1' },
+                    { text: '设计系统', style: { backgroundColor: 'var(--semi-color-primary)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword2' },
+                    { text: '设计稿和代码', style: { backgroundColor: 'rgba(var(--semi-violet-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword3' },
+                ]}
+                highlightStyle={{ borderRadius: 4 }}
+            />
+        </h2>
     );
 };
 ```
