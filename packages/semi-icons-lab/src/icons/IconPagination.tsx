@@ -12,10 +12,10 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
-            <path d="M1 8C1 6.34315 2.34315 5 4 5H12V19H4C2.34315 19 1 17.6569 1 16V8Z" fill="#6A6F7F" />
-            <path d="M8 9L5 12L8 15" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 5H20C21.6569 5 23 6.34315 23 8V16C23 17.6569 21.6569 19 20 19H12V5Z" fill="#DDE3E8" />
-            <path d="M16 9L19 12L16 15" stroke="#AAB2BF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 8a3 3 0 0 1 3-3h8v14H4a3 3 0 0 1-3-3V8Z" fill="#6A6F7F" />
+            <path d="m8 9-3 3 3 3" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 5h8a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-8V5Z" fill="#DDE3E8" />
+            <path d="m16 9 3 3-3 3" stroke="#AAB2BF" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }

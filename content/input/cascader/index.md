@@ -1516,6 +1516,56 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### 节点选中关系
+
+版本：>= 2.71.0
+
+多选时，可以使用 `checkRelation` 来设置节点之间选中关系的类型，可选：'related'（默认）、'unRelated'。当选中关系为 'unRelated' 时，意味着节点之间的选中互不影响。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+        }
+    ];
+    return (
+        <Cascader
+            multiple
+            defaultValue={[
+                ['Asia'],
+                ['Asia', 'China', 'Beijing']
+            ]}
+            checkRelation='unRelated'
+            style={{ width: 300 }}
+            treeData={treeData}
+        />
+    );
+};
+```
 
 ### 动态更新数据
 
@@ -1872,6 +1922,7 @@ function Demo() {
 | bottomSlot           | 底部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | 1.27.0 |
 | borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
 | changeOnSelect       | 是否允许选择非叶子节点                                                                                                                                         | boolean                                                                                   | false                          | -      |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。  | string | 'related' | v2.71.0 |
 | className            | 选择框的 className 属性                                                                                                                                   | string                                                                                    | -                              | -      |
 | clearIcon            | 可用于自定义清除按钮, showClear为true时有效                                                                                                                       | ReactNode                                                                                 | -                              | 2.25.0 |
 | defaultOpen          | 设置是否默认打开下拉菜单                                                                                                                                        | boolean                                                                                   | false                          | -      |

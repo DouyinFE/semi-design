@@ -137,6 +137,8 @@ $module: #{$prefix}-tree;
         &-highlight {
             font-weight: $font-tree_option_hightlight-fontWeight;
             color: $color-tree_option_hightlight-text;
+            // set inherit to override highlight component default bgc
+            background-color: inherit;
         }
 
         &-hidden {

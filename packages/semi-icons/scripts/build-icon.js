@@ -35,6 +35,12 @@ const svgoPlugins = [
         params: { currentColor: /^(?!url|none)./ },
     },
     {
+        name: 'convertPathData',
+        params: {
+            floatPrecision: 2
+        }
+    },
+    {
         name: 'cleanupListOfValues',
         active: true,
     },

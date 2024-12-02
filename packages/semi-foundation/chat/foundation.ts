@@ -53,7 +53,9 @@ export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> e
     notifyHintClick: (hint: string) => void;
     setUploadAreaVisible: (visible: boolean) => void;
     manualUpload: (e: any) => void;
-    getDropAreaElement: () => HTMLDivElement
+    getDropAreaElement: () => HTMLDivElement;
+    getDragStatus: () => boolean;
+    setDragStatus: (status: boolean) => void
 }
 
 
@@ -265,7 +267,19 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
     }
 
     handleDragOver = (e: any) => {
+        const dragStatus = this._adapter.getDragStatus();
+        if (dragStatus) {
+            return;
+        }
         this._adapter.setUploadAreaVisible(true);
+    };
+
+    handleDragStart = (e: any) => {
+        this._adapter.setDragStatus(true);
+    }
+
+    handleDragEnd = (e: any) => {
+        this._adapter.setDragStatus(false);
     }
 
     handleContainerDragOver = (e: any) => {
@@ -285,7 +299,8 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         // 鼠标移动至 container 的子元素，则不做任何操作
         // If the mouse moves to the child element of container, no operation will be performed.
         const dropAreaElement = this._adapter.getDropAreaElement();
-        if (dropAreaElement !== e.target && dropAreaElement.contains(e.target)) {
+        const enterTarget = e.relatedTarget;
+        if (dropAreaElement.contains(enterTarget)) {
             return;
         }
         /**

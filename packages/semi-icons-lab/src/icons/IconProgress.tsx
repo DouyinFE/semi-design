@@ -14,7 +14,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         >
             <circle cx={12} cy={12} r={8} stroke="#3BCE4A" strokeWidth={6} />
             <path
-                d="M12.1378 4C16.48 4 20 7.58172 20 12C20 16.4183 16.48 20 12.1378 20C9.65493 20 7.44087 18.8289 6 17"
+                d="M12.14 4A7.93 7.93 0 0 1 20 12c0 4.42-3.52 8-7.86 8A7.8 7.8 0 0 1 6 17"
                 stroke="#3BCE4A"
                 strokeWidth={6}
                 strokeLinecap="round"

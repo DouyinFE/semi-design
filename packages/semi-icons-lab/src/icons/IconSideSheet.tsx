@@ -12,8 +12,8 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
-            <path d="M2 5C2 3.34315 3.34315 2 5 2H14V22H5C3.34315 22 2 20.6569 2 19V5Z" fill="#DDE3E8" />
-            <path d="M14 2H19C20.6569 2 22 3.34315 22 5V19C22 20.6569 20.6569 22 19 22H14V2Z" fill="#4CC3FA" />
+            <path d="M2 5a3 3 0 0 1 3-3h9v20H5a3 3 0 0 1-3-3V5Z" fill="#DDE3E8" />
+            <path d="M14 2h5a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3h-5V2Z" fill="#4CC3FA" />
             <rect x={11} y={8} width={2} height={8} rx={1} fill="#AAB2BF" />
         </svg>
     );
