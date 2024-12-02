@@ -38,6 +38,7 @@ export const renderButton = () => {
     <div>
       <pre id='pre'>{" cnt:" + cnt}</pre>
       <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} render={button}></HotKeys>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey}>{button()}</HotKeys>
     </div>
 
   );
@@ -86,7 +87,26 @@ export const target = () => {
     <div>
       {target}
       <pre id='pre'>{cnt}</pre>
-      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} getListenerTarget={() => document.getElementById("test")}></HotKeys>
+      <HotKeys hotKeys={hotKeys} preventDefault onHotKey={onHotKey} getListenerTarget={() => document.getElementById("test")}></HotKeys>
+    </div>
+    
+  );
+}
+
+export const listenerOptions = () => {
+  const hotKeys = [HotKeys.Keys.A]
+  const [cnt, setCnt] = useState(0)
+  const onHotKey = () => {
+    setCnt(cnt+1)
+  }
+  const options = {
+    once: true,
+  }
+
+  return (
+    <div>
+      <pre id='pre'>{cnt}</pre>
+      <HotKeys hotKeys={hotKeys} onHotKey={onHotKey} listenerOptions={options} preventDefault></HotKeys>
     </div>
     
   );
