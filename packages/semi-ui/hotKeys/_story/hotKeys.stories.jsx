@@ -94,13 +94,13 @@ export const target = () => {
 }
 
 export const listenerOptions = () => {
-  const hotKeys = [HotKeys.Keys.A]
+  const hotKeys = ['Shift', HotKeys.Keys.A]
   const [cnt, setCnt] = useState(0)
   const onHotKey = () => {
     setCnt(cnt+1)
   }
   const options = {
-    once: true,
+    passive: true,
   }
 
   return (
