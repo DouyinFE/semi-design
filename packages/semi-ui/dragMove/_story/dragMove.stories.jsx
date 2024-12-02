@@ -1,6 +1,7 @@
 import React,  { useEffect, useCallback } from 'react';
 import { IconCommand } from '@douyinfe/semi-icons';
 import DragMove from '../index';
+import { Button } from '@douyinfe/semi-ui';
 
 export default {
   title: 'DragMove',
@@ -289,4 +290,13 @@ export const CustomMove = () => {
       </div> 
     </>
   )
+}
+
+export const SemiComponent = () => {
+  const ref = React.useRef();
+  return (
+    <DragMove>
+      <Button>Moveable button</Button>
+    </DragMove>
+  );
 }

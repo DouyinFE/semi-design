@@ -46,13 +46,6 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this.element = element;
         this.element.style.position = 'absolute';
         this.handler.style.cursor = 'move';
-        this._registerHandlerEvent();
-    }
-
-    _registerHandlerEvent() {
-        // Bind events
-        this.handler.addEventListener('mousedown', this._onMouseDown);
-        this.handler.addEventListener('touchstart', this._onTouchStart);
     }
 
     destroy() {
@@ -82,10 +75,8 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
     }
 
     _unRegisterEvent() {
-        this.handler.removeEventListener('mousedown', this._onMouseDown);
         this._unRegisterDocMouseEvent();
 
-        this.handler.removeEventListener('touchstart', this._onTouchStart);
         this._unRegisterDocTouchEvent();
     }
 
@@ -132,7 +123,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         e.preventDefault();
     }
 
-    _onMouseDown = (e: MouseEvent) => {
+    onMouseDown = (e: MouseEvent) => {
         this._calcMoveRange();
         this._adapter.notifyMouseDown(e);
         if (!this._allowMove(e)) {
@@ -144,7 +135,7 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this._preventDefault(e);
     }
 
-    _onTouchStart = (e: TouchEvent) => {
+    onTouchStart = (e: TouchEvent) => {
         this._calcMoveRange();
         this._adapter.notifyTouchStart(e);
         if (!this._allowMove(e)) {

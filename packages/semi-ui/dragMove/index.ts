@@ -3,6 +3,8 @@ import BaseComponent from '../_base/baseComponent';
 import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { isHTMLElement } from '../_base/reactUtils';
+import ReactDOM from 'react-dom';
 
 export interface DragMoveProps {
     // The element that triggers the drag event，default is element
@@ -58,7 +60,13 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
     get adapter(): DragMoveAdapter<DragMoveProps, null> {
         return {
             ...super.adapter,
-            getDragElement: () => this.elementRef.current as HTMLElement,
+            getDragElement: () => {
+                let elementDom = this.elementRef.current;
+                if (!isHTMLElement(elementDom)) {
+                    elementDom = ReactDOM.findDOMNode(elementDom as React.ReactInstance);
+                }
+                return elementDom as HTMLElement;
+            },
             getConstrainer: () => {
                 const { constrainer } = this.props;
                 if (typeof constrainer === 'string' && constrainer === 'parent') {
@@ -74,7 +82,7 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
                 if (typeof handler === 'function') {
                     return handler() as any;
                 } else {
-                    return this.elementRef.current as HTMLElement;
+                    return this.adapter.getDragElement() as HTMLElement;
                 }
             },
             notifyMouseDown: (e: MouseEvent) => {
@@ -121,7 +129,21 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
                 } else if (ref && typeof ref === 'object') {
                     ref.current = node;
                 }
-            }
+            },
+            onMouseDown: (e: MouseEvent) => {
+                this.foundation.onMouseDown(e);
+                const { onMouseDown } = children.props;
+                if (typeof onMouseDown === 'function') {
+                    onMouseDown(e);
+                }
+            },
+            onTouchStart: (e: TouchEvent) => {
+                this.foundation.onTouchStart(e);
+                const { onMouseMove } = children.props;
+                if (typeof onMouseMove === 'function') {
+                    onMouseMove(e);
+                }
+            },
         });
         return newChildren;
     }
