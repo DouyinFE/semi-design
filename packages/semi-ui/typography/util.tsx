@@ -64,6 +64,11 @@ const getRenderText = (
     ellipsisContainer.setAttribute('style', originCSS);
     ellipsisContainer.style.position = 'fixed';
     ellipsisContainer.style.left = '0';
+    // 当 window.getComputedStyle 得到的 width 值为 auto 时，通过 getBoundingClientRect 得到准确宽度
+    // When the width value obtained by window.getComputedStyle is auto, get the exact width through getBoundingClientRect
+    if (originStyle.getPropertyValue('width') === 'auto') {
+        ellipsisContainer.style.width = `${originEle.offsetWidth}px`;
+    } 
     ellipsisContainer.style.height = 'auto';
     ellipsisContainer.style.top = '-999999px';
     ellipsisContainer.style.zIndex = '-1000';

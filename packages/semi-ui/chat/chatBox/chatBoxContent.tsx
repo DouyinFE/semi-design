@@ -68,7 +68,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                     } else if (item.type === 'file_url') {
                         const { name, size, url, type } = item.file_url;
                         const realType = name.split('.').pop() ?? type?.split('/').pop();
-                        return <FileAttachment key={`index`} url={name} name={name} size={size} type={realType}></FileAttachment>;
+                        return <FileAttachment key={`index`} url={url} name={name} size={size} type={realType}></FileAttachment>;
                     }
                     return null;
                 });

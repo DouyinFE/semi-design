@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M5.00002 4.99872C5.00003 3.89388 5.89382 3 6.99805 3L18.9996 3L19 17H6C5.64937 17 5.31278 17.0602 5 17.1707L5.00002 4.99872ZM3 20L3.00002 4.9987C3.00004 2.78991 4.78865 1 6.99805 1L18.9996 1C20.1038 1 21 1.89497 21 3V18V22C21 22.5523 20.5523 23 20 23H6C4.34314 23 3 21.6568 3 20ZM5 20C5 19.4477 5.44772 19 6 19H19V21H6C5.44772 21 5 20.5523 5 20Z"
+                d="M5 5c0-1.1.9-2 2-2h12v14H6a3 3 0 0 0-1 .17V5ZM3 20V5a4 4 0 0 1 4-4h12a2 2 0 0 1 2 2v19a1 1 0 0 1-1 1H6a3 3 0 0 1-3-3Zm2 0a1 1 0 0 1 1-1h13v2H6a1 1 0 0 1-1-1Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'book_stroked');
 export default IconComponent;

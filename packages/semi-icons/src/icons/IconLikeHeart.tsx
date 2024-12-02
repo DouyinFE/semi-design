@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M12 5.99999C10.5 2.12432 5.75193 2.0557 3.40383 4.4038C0.865423 6.94221 0.999999 10.5 3.50001 14C5.52139 16.8299 9.83088 20.3136 11.4069 21.5438C11.7573 21.8172 12.2427 21.8172 12.5931 21.5438C14.1691 20.3136 18.4786 16.8299 20.5 14C23 10.5 23.1346 6.94221 20.5962 4.4038C18.2481 2.0557 14.5 2.12432 12 5.99999Z"
+                d="M12 6c-1.5-3.88-6.25-3.94-8.6-1.6C.87 6.94 1 10.5 3.5 14c2.02 2.83 6.33 6.31 7.9 7.54.36.28.84.28 1.2 0 1.57-1.23 5.88-4.71 7.9-7.54 2.5-3.5 2.63-7.06.1-9.6C18.25 2.06 14.5 2.12 12 6Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'like_heart');
 export default IconComponent;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M4.5 3C4.5 1.89543 5.39543 1 6.5 1H17.5C18.6046 1 19.5 1.89543 19.5 3V21C19.5 22.1046 18.6046 23 17.5 23H6.5C5.39543 23 4.5 22.1046 4.5 21V3ZM17.5 3L6.5 3V21H17.5V3ZM10 18C9.44772 18 9 18.4477 9 19C9 19.5523 9.44772 20 10 20H14C14.5523 20 15 19.5523 15 19C15 18.4477 14.5523 18 14 18H10ZM14.7682 9.64021C15.1218 9.21593 15.0645 8.58537 14.6402 8.2318C14.2159 7.87824 13.5853 7.93556 13.2318 8.35984L11.4328 10.5186L10.7071 9.79292C10.3166 9.40239 9.68342 9.40239 9.29289 9.79292C8.90237 10.1834 8.90237 10.8166 9.29289 11.2071L10.7929 12.7071C10.9916 12.9058 11.2646 13.0117 11.5453 12.999C11.826 12.9863 12.0884 12.856 12.2682 12.6402L14.7682 9.64021Z"
+                d="M4.5 3c0-1.1.9-2 2-2h11a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2V3Zm13 0h-11v18h11V3ZM10 18a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-4Zm4.77-8.36a1 1 0 1 0-1.54-1.28l-1.8 2.16-.72-.73a1 1 0 1 0-1.42 1.42l1.5 1.5a1 1 0 0 0 1.48-.07l2.5-3Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'smartphone_check_stroked');
 export default IconComponent;

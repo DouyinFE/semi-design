@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M11 3.05493C6.50005 3.55237 3 7.36745 3 12C3 16.9706 7.02944 21 12 21V23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 13.04 22.8557 14.0463 22.5859 15H20.4879C20.713 14.3632 20.8684 13.6935 20.9451 13L14.4142 13L16.4142 15H13.5858L11 12.4142V3.05493ZM13 3.05493V11L20.9451 11C20.4839 6.82838 17.1716 3.51608 13 3.05493ZM13 22V16H14.5V18.25H16V16H17.5V22H16V19.75H14.5V22H13ZM18.75 17.5V18.25V19V19.75H21.25V20.5H18.75V22H21.25H22.75V20.5V19.75V19V18.25H20.25V17.5H22.75V16H20.25H18.75V17.5Z"
+                d="M11 3.05A9 9 0 0 0 12 21v2a11 11 0 1 1 10.59-8h-2.1c.22-.64.38-1.3.46-2H14.4l2 2H13.6L11 12.41V3.05Zm2 0V11h7.95A9 9 0 0 0 13 3.05ZM13 22v-6h1.5v2.25H16V16h1.5v6H16v-2.25h-1.5V22H13Zm5.75-4.5v2.25h2.5v.75h-2.5V22h4v-3.75h-2.5v-.75h2.5V16h-4v1.5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'piechart_h5_stroked');
 export default IconComponent;
