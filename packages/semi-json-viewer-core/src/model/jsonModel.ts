@@ -1,8 +1,8 @@
 import { IModelContentChangeEvent } from '../common/emitterEvents';
-import { BufferCursor, DefaultEndOfLine, PieceTreeBase, PieceTreeTextBufferBuilder } from '../pieceTreeTextBuffer';
+import { DefaultEndOfLine, PieceTreeBase, PieceTreeTextBufferBuilder } from '../pieceTreeTextBuffer';
 import { Range } from '../common/range';
 import { emitter } from '../common/emitter';
-import { IPosition, Position } from '../common/position';
+import { Position } from '../common/position';
 import { EndOfLinePreference, FindMatch, SearchData } from '../common/model';
 import { SearchParams, TextModelSearch } from './textModelSearch';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
@@ -86,25 +86,6 @@ export class JSONModel {
     positionAt(offset: number): Position {
         offset = Math.min(this._pieceTree.getLength(), Math.max(0, offset));
         return this._pieceTree.getPositionAt(offset);
-    }
-
-    /**
-     * 获取行首偏移
-     * @param lineNumber 行号
-     * @returns 行首偏移
-     */
-    getLineStartOffset(lineNumber: number): number {
-        return this.getOffsetAt(lineNumber, 1);
-    }
-
-    /**
-     * 获取行尾偏移
-     * @param lineNumber 行号
-     * @returns 行尾偏移
-     */
-    getLineEndOffset(lineNumber: number): number {
-        const lineLength = this.getLineLength(lineNumber);
-        return this.getOffsetAt(lineNumber, lineLength + 1);
     }
 
     private _createCommand(op: IModelContentChangeEvent | IModelContentChangeEvent[]): Command {
@@ -215,33 +196,6 @@ export class JSONModel {
         emitter.emit('contentChanged', command.operation);
     }
 
-    private _createReverseOperation(op: IModelContentChangeEvent): IModelContentChangeEvent {
-        const reverseOp: IModelContentChangeEvent = {
-            ...op,
-            oldText: op.newText,
-            newText: op.oldText,
-        };
-
-        switch (op.type) {
-            case 'insert':
-                reverseOp.type = 'delete';
-                reverseOp.rangeLength = op.newText.length;
-                break;
-            case 'delete':
-                reverseOp.type = 'insert';
-                reverseOp.rangeLength = 0;
-                break;
-            case 'replace':
-                reverseOp.rangeLength = op.newText.length;
-                const preNewText = op.newText;
-                reverseOp.oldText = preNewText;
-                reverseOp.newText = op.oldText;
-
-                break;
-        }
-
-        return reverseOp;
-    }
 
     /**
      * 获取值
