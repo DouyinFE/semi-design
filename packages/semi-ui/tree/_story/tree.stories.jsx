@@ -287,8 +287,13 @@ const treeDataWithNode = [
 
 const treeJson = {
   Node1: {
-    Child1: '0-0-1',
-    Child2: '0-0-2',
+    Child1: {
+      child11: '0-0-1',
+      child12: '0-0-2'
+    },
+    Child2: {
+      child21: '0-1-1',
+    },
   },
   Node2: '0-1',
 };
@@ -2937,7 +2942,7 @@ export const KeyMaps = () => {
   }, []);
 
   const normalExpanded = useCallback((expandedKeys, { expanded, node }) => {
-    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+    console.log('onExpanded', expandedKeys, expanded, copy(node));
 
   }, []);
 
