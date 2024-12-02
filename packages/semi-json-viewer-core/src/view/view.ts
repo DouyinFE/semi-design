@@ -1,7 +1,7 @@
 import { JSONModel } from '../model/jsonModel';
 import { elt, setStyles } from '../common/dom';
 import { Token } from '../tokens/tokenize';
-import { emitter } from '../common/emitter';
+import { Emitter, getEmitter } from '../common/emitter';
 import { SelectionModel } from '../model/selectionModel';
 import { JsonViewerOptions } from '../json-viewer/jsonViewer';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
@@ -14,6 +14,7 @@ import { TokenizationJsonModelPart } from '../tokens/tokenizationJsonModelPart';
 import { ScalingCellSizeAndPositionManager } from './virtualized/ScalingCellSizeAndPositionManager';
 import { CompleteWidget } from './complete/completeWidget';
 import { HoverWidget } from './hover/hoverWidget';
+import { GlobalEvents } from '../common/emitterEvents';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -49,6 +50,8 @@ export class View {
     private _scalingCellSizeAndPositionManager: ScalingCellSizeAndPositionManager;
 
     private _measuredHeights: { [index: number]: number } = {};
+
+    private emitter: Emitter<GlobalEvents> = getEmitter();
 
     constructor(container: HTMLElement, model: JSONModel, options?: JsonViewerOptions) {
         this._container = container;
@@ -139,7 +142,7 @@ export class View {
             this._selectionModel.updateFromSelection();
         });
 
-        emitter.on('contentChanged', () => {
+        this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
             this.layout();
         });

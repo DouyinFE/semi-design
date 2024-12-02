@@ -1,34 +1,33 @@
 import { GlobalEvents } from './emitterEvents';
+import { getCurrentNameSpaceId } from './nameSpace';
 
 type EventHandler<T> = (event: T) => void;
 
-class Emitter<Events extends Record<string, any>> {
-    static instance: Emitter<any> | null = null;
+const emitterMap = new Map<string, Emitter<GlobalEvents>>();
+
+export class Emitter<Events extends Record<string, any>> {
     public listeners: { [K in keyof Events]?: EventHandler<Events[K]>[] } = {};
 
     constructor() {}
-
-    public static getInstance<Events extends Record<string, any>>(): Emitter<Events> {
-        if (!Emitter.instance) {
-            Emitter.instance = new Emitter<Events>();
-        }
-        return Emitter.instance as Emitter<Events>;
-    }
 
     public on<K extends keyof Events>(event: K, listener: EventHandler<Events[K]>): void {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
-        this.listeners[event]!.push(listener);
+        this.listeners[event]?.push(listener);
     }
 
     public off<K extends keyof Events>(event: K, listener: EventHandler<Events[K]>): void {
         if (!this.listeners[event]) return;
 
-        this.listeners[event] = this.listeners[event]!.filter(l => l !== listener);
+        this.listeners[event] = this.listeners[event]?.filter(l => l !== listener);
     }
 
-    public offAll(): void {
+    public dispose() {
+        this.listeners = {};
+    }
+
+    public removeAllListeners() {
         this.listeners = {};
     }
 
@@ -41,4 +40,23 @@ class Emitter<Events extends Record<string, any>> {
     }
 }
 
-export const emitter = Emitter.getInstance<GlobalEvents>();
+export const getEmitter = () => {
+    const currentNameSpaceId = getCurrentNameSpaceId();
+    if (!currentNameSpaceId) {
+        throw new Error('currentNameSpaceId is not set');
+    }
+    let emitter = emitterMap.get(currentNameSpaceId);
+    if (!emitter) {
+        emitter = new Emitter<GlobalEvents>();
+        emitterMap.set(currentNameSpaceId, emitter);
+    }
+    return emitter;
+};
+
+export const disposeEmitter = (id: string) => {
+    const emitter = emitterMap.get(id);
+    if (emitter) {
+        emitter.dispose();
+        emitterMap.delete(id);
+    }
+};

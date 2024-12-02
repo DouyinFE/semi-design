@@ -1,9 +1,9 @@
-import { IModelContentChangeEvent } from '../../common/emitterEvents';
+import { GlobalEvents, IModelContentChangeEvent } from '../../common/emitterEvents';
 import { elt, setStyles } from '../../common/dom';
 import { JSONModel } from '../../model/jsonModel';
 import { CompletionItem, CompletionItemKind, TextEdit } from '../../service/jsonTypes';
 import { View } from '../view';
-import { emitter } from '../../common/emitter';
+import { Emitter, getEmitter } from '../../common/emitter';
 import { doValidate, parseJsonAst } from '../../service/jsonService';
 import { JSONCompletion } from '../../service/completion';
 import { SelectionModel } from '../../model/selectionModel';
@@ -21,6 +21,7 @@ export class CompleteWidget {
     private _selectedIndex: number = 0;
     private _suggestions: CompletionItem[] = [];
     public isVisible: boolean = false;
+    private emitter: Emitter<GlobalEvents> = getEmitter();
 
     constructor(view: View, jsonModel: JSONModel, selectionModel: SelectionModel) {
         this._view = view;
@@ -52,7 +53,7 @@ export class CompleteWidget {
             return true;
         };
 
-        emitter.on('contentChanged', e => {
+        this.emitter.on('contentChanged', e => {
             // 如果是批量操作，直接返回
             if (Array.isArray(e)) {
                 return;

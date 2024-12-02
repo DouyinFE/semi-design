@@ -4,8 +4,8 @@ import { JSONModel } from '../../model/jsonModel';
 import { applyEdits, Edit } from 'jsonc-parser';
 import { getJsonWorkerManager, JsonWorkerManager } from '../../worker/jsonWorkerManager';
 import { FoldingModel } from '../../model/foldingModel';
-import { emitter } from '../../common/emitter';
-import { IModelContentChangeEvent } from '../../common/emitterEvents';
+import { Emitter, getEmitter } from '../../common/emitter';
+import { GlobalEvents, IModelContentChangeEvent } from '../../common/emitterEvents';
 import { Range } from '../../common/range';
 import { IndentAction, processJsonEnterAction } from './getEnterAction';
 import { firstNonWhitespaceIndex, getLeadingWhitespace } from '../../common/strings';
@@ -23,6 +23,7 @@ export class EditWidget {
         '(': ')',
         '"': '"',
     };
+    private emitter: Emitter<GlobalEvents> = getEmitter();
     constructor(
         view: View,
         jsonModel: JSONModel,
@@ -40,7 +41,7 @@ export class EditWidget {
 
     private attachEventListeners() {
         this._jsonWorkerManager.validate().then(result => {
-            emitter.emit('problemsChanged', {
+            this.emitter.emit('problemsChanged', {
                 problems: result.problems,
                 root: result.root,
             });

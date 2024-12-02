@@ -1,6 +1,6 @@
 import { IModelContentChangeEvent } from '../common/emitterEvents';
 import { FormattingOptions } from 'jsonc-parser';
-
+import { getCurrentNameSpaceId } from '../common/nameSpace';
 
 //TODO 修改封装方式
 
@@ -14,12 +14,14 @@ type WorkerParams = {
     op?: IModelContentChangeEvent | IModelContentChangeEvent[]
 };
 
+const workerManagerMap = new Map<string, JsonWorkerManager>();
+
 export class JsonWorkerManager {
     private _worker: Worker;
     private _callbacks: Map<number, (result: any) => void>;
 
     constructor() {
-        const workerRaw = decodeURIComponent("%WORKER_RAW%");
+        const workerRaw = decodeURIComponent('%WORKER_RAW%');
         const blob = new Blob([workerRaw], { type: 'application/javascript' });
         const workerURL = URL.createObjectURL(blob);
         this._worker = new Worker(workerURL);
@@ -68,12 +70,31 @@ export class JsonWorkerManager {
             this._callbacks.delete(messageId);
         }
     }
+
+    public dispose() {
+        this._worker.terminate();
+        this._callbacks.clear();
+    }
 }
-let jsonWorkerManager: JsonWorkerManager | null = null;
 
 export function getJsonWorkerManager() {
-    if (!jsonWorkerManager) {
-        jsonWorkerManager = new JsonWorkerManager();
+    const currentNameSpaceId = getCurrentNameSpaceId();
+    if (!currentNameSpaceId) {
+        throw new Error('No active worker ID set');
     }
-    return jsonWorkerManager;
+
+    let workerManager = workerManagerMap.get(currentNameSpaceId);
+    if (!workerManager) {
+        workerManager = new JsonWorkerManager();
+        workerManagerMap.set(currentNameSpaceId, workerManager);
+    }
+    return workerManager;
+}
+
+export function disposeWorkerManager(id: string) {
+    const workerManager = workerManagerMap.get(id);
+    if (workerManager) {
+        workerManagerMap.delete(id);
+        workerManager.dispose();
+    }
 }

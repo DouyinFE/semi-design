@@ -1,6 +1,7 @@
 import { View } from '../view';
-import { emitter } from '../../common/emitter';
+import { Emitter, getEmitter } from '../../common/emitter';
 import { elt, setStyles } from '../../common/dom';
+import { GlobalEvents } from '../../common/emitterEvents';
 /**
  * HoverWidget 类用于管理 JSON Viewer 中的悬浮提示功能
  * 当鼠标悬停在字符串值上时，显示一个自定义的提示框
@@ -10,6 +11,7 @@ export class HoverWidget {
     private _hoverDom: HTMLElement | null = null;
     private _tooltipDom: HTMLElement;
     private _hoverTimer: number | null = null;
+    private emitter: Emitter<GlobalEvents> = getEmitter();
 
     constructor(view: View) {
         this._view = view;
@@ -31,7 +33,7 @@ export class HoverWidget {
                 this._hoverDom = e.target;
                 this._hoverTimer = window.setTimeout(() => {
                     if (this._hoverDom) {
-                        emitter.emit('hoverNode', {
+                        this.emitter.emit('hoverNode', {
                             value: this._hoverDom.textContent ?? '',
                             target: this._hoverDom,
                         });
@@ -55,7 +57,7 @@ export class HoverWidget {
             }
         });
 
-        emitter.on('renderHoverNode', e => {
+        this.emitter.on('renderHoverNode', e => {
             this.render(e.el);
         });
     }

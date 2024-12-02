@@ -78,7 +78,6 @@ export class MultiCommand implements Command {
     }
 
     execute(): void {
-        console.log(this.operation);
         for (let i = 0; i < this.operation.length; i++) {
             const op = this.operation[i];
             switch (op.type) {

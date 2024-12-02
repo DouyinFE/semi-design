@@ -3,8 +3,8 @@ import { JSONModel } from '../model/jsonModel';
 import { JsonBackgroundTokenizer, JsonTokenizerWithStateStoreAndModel } from './jsonModelToken';
 import { Token } from './tokenize';
 import { createTokenizationSupport } from './tokenize';
-import { IModelContentChangeEvent } from '../common/emitterEvents';
-import { emitter } from '../common/emitter';
+import { GlobalEvents, IModelContentChangeEvent } from '../common/emitterEvents';
+import { Emitter, getEmitter } from '../common/emitter';
 
 export interface IBackgroundTokenizationStore {
     setTokens(lineNumber: number, tokens: Token[]): void
@@ -21,6 +21,7 @@ export interface IBackgroundTokenizationStore {
 export class TokenizationJsonModelPart {
     private readonly tokens: GrammarTokens;
     private _jsonModel: JSONModel | null = null;
+    private emitter: Emitter<GlobalEvents> = getEmitter();
     constructor(jsonModel: JSONModel) {
         this._jsonModel = jsonModel;
         this.tokens = new GrammarTokens(this._jsonModel);
@@ -48,9 +49,10 @@ export class GrammarTokens {
     private _tokenizer: JsonTokenizerWithStateStoreAndModel | null = null;
     private _backgroundTokenizer: JsonBackgroundTokenizer | null = null;
     private _jsonModel: JSONModel;
+    private emitter: Emitter<GlobalEvents> = getEmitter();
     constructor(jsonModel: JSONModel) {
         this._jsonModel = jsonModel;
-        emitter.on('contentChanged', (e: IModelContentChangeEvent | IModelContentChangeEvent[]) => {
+        this.emitter.on('contentChanged', (e: IModelContentChangeEvent | IModelContentChangeEvent[]) => {
             let from = 0;
             let to = this._jsonModel.getLineCount();
             if (Array.isArray(e)) {

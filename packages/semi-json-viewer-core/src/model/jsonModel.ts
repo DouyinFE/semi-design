@@ -1,7 +1,7 @@
-import { IModelContentChangeEvent } from '../common/emitterEvents';
+import { GlobalEvents, IModelContentChangeEvent } from '../common/emitterEvents';
 import { DefaultEndOfLine, PieceTreeBase, PieceTreeTextBufferBuilder } from '../pieceTreeTextBuffer';
 import { Range } from '../common/range';
-import { emitter } from '../common/emitter';
+import { Emitter, getEmitter } from '../common/emitter';
 import { Position } from '../common/position';
 import { EndOfLinePreference, FindMatch, SearchData } from '../common/model';
 import { SearchParams, TextModelSearch } from './textModelSearch';
@@ -24,12 +24,14 @@ export class JSONModel {
     };
 
     private _jsonWorkerManager: JsonWorkerManager | null = null;
+    private emitter: Emitter<GlobalEvents> | null = null;
 
     constructor(value: string, normalizeEOL: boolean = true) {
         this._normalizeEOL = normalizeEOL;
         this._pieceTree = this.createTextBuffer(value);
         if (!isInWorkerThread()) {
             this._jsonWorkerManager = getJsonWorkerManager();
+            this.emitter = getEmitter();
         }
     }
 
@@ -111,7 +113,7 @@ export class JSONModel {
         command.execute();
 
         if (!isInWorkerThread()) {
-            emitter.emit('contentChanged', op);
+            this.emitter?.emit('contentChanged', op);
         }
         if (this._jsonWorkerManager) {
             this._jsonWorkerManager
@@ -120,7 +122,7 @@ export class JSONModel {
                     return this._jsonWorkerManager?.validate();
                 })
                 .then(result => {
-                    emitter.emit('problemsChanged', {
+                    this.emitter?.emit('problemsChanged', {
                         problems: result.problems,
                         root: result.root,
                     });
@@ -184,7 +186,7 @@ export class JSONModel {
         const command = this._undoStack.pop()!;
         command.undo();
         this._redoStack.push(command);
-        emitter.emit('contentChanged', command.operation);
+        this.emitter?.emit('contentChanged', command.operation);
     }
 
     redo() {
@@ -193,7 +195,7 @@ export class JSONModel {
         const command = this._redoStack.pop()!;
         command.execute();
         this._undoStack.push(command);
-        emitter.emit('contentChanged', command.operation);
+        this.emitter?.emit('contentChanged', command.operation);
     }
 
 
