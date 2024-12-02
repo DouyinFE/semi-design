@@ -280,6 +280,7 @@ export class View {
         const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
         const lineElementClass = 'semi-json-viewer-view-line';
         const lineElement = elt('div', lineElementClass);
+        lineElement.setAttribute('data-line-element', 'true');
         setStyles(lineElement, {
             lineHeight: `${this._lineHeight}px`,
             width: '100%',
