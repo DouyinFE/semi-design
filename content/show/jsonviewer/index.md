@@ -176,7 +176,10 @@ render(SimpleList);
 ```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
-const data = `{"name": "Semi", "version": "0.0.0"}`;
+const data = `{
+  "name": "Semi",
+  "version": "0.0.0"
+}`;
 class SimpleList extends React.Component {
     render() {
         return (
