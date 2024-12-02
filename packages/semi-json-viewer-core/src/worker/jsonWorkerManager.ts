@@ -11,7 +11,7 @@ type WorkerMethod = 'init' | 'updateModel' | 'format' | 'foldRange' | 'validate'
 type WorkerParams = {
     value?: string;
     options?: FormattingOptions;
-    op?: IModelContentChangeEvent
+    op?: IModelContentChangeEvent | IModelContentChangeEvent[]
 };
 
 export class JsonWorkerManager {
@@ -32,7 +32,7 @@ export class JsonWorkerManager {
         await this._sendRequest('init', { value });
     }
 
-    updateModel(op: IModelContentChangeEvent) {
+    updateModel(op: IModelContentChangeEvent | IModelContentChangeEvent[]) {
         return this._sendRequest('updateModel', { op });
     }
 
