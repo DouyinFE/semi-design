@@ -46,7 +46,7 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 
 JsonViewer 的基本用法。传入 value height 和 width 参数，设置组件的高度和宽度和初始值。
 
-```jsx live=true dir="column" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -58,8 +58,7 @@ class SimpleList extends React.Component {
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={100} width={700} value={data} />
+                    <JsonViewer height={100} width={400} value={data} />
                 </div>
             </div>
         );
@@ -73,7 +72,7 @@ render(SimpleList);
 
 配置 options 的 lineHeight 参数，设置固定行高（单位：px, 默认 18）。
 
-```jsx live=true dir="column" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -85,8 +84,51 @@ class SimpleList extends React.Component {
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 25 }} />
+                    <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 20 }} />
+                </div>
+            </div>
+        );
+    }
+}
+
+render(SimpleList);
+```
+
+```jsx live=true dir="row" noInline=true half=true
+import React from 'react';
+import { JsonViewer } from '@douyinfe/semi-ui';
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
+class SimpleList extends React.Component {
+    render() {
+        return (
+            <div>
+                <div style={{ marginRight: 16 }}>
+                    <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 24 }} />
+                </div>
+            </div>
+        );
+    }
+}
+
+render(SimpleList);
+```
+
+```jsx live=true dir="row" noInline=true half=true
+import React from 'react';
+import { JsonViewer } from '@douyinfe/semi-ui';
+const data = `{
+    "name": "Semi",
+    "version": "0.0.0"
+}`;
+class SimpleList extends React.Component {
+    render() {
+        return (
+            <div>
+                <div style={{ marginRight: 16 }}>
+                    <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 26 }} />
                 </div>
             </div>
         );
@@ -100,21 +142,20 @@ render(SimpleList);
 
 配置 options 的 autoWrap 参数，设置为 true 时，组件会根据内容长度自动换行。
 
-```jsx live=true dir="column" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
     "name": "Semi",
     "version": "0.0.0",
-    "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components, helping us to more easily create a more consistent user experience."
+    "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components."
 }`;
 class SimpleList extends React.Component {
     render() {
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                    <JsonViewer height={200} width={700} value={data} options={{ autoWrap: true }} />
+                    <JsonViewer height={200} width={400} value={data} options={{ autoWrap: true }} />
                 </div>
             </div>
         );
@@ -132,7 +173,7 @@ render(SimpleList);
 -   insertSpaces: boolean，true 表示使用空格进行缩进，false 表示使用制表符(Tab)
 -   eol: string，设置换行符，可以是\n，\r\n，
 
-```jsx live=true dir="column" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{"name": "Semi", "version": "0.0.0"}`;
@@ -141,10 +182,9 @@ class SimpleList extends React.Component {
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
                     <JsonViewer
                         height={100}
-                        width={700}
+                        width={400}
                         value={data}
                         options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
                     />
@@ -161,7 +201,7 @@ render(SimpleList);
 
 配置 renderTooltip回调函数，在hover到特定节点时，自定义渲染内容。
 
-```jsx live=true dir="column" noInline=true
+```jsx live=true dir="row" noInline=true half=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -185,10 +225,9 @@ class SimpleList extends React.Component {
         return (
             <div>
                 <div style={{ marginRight: 16 }}>
-                    <h3 style={{ marginBottom: 16 }}>Default Size</h3>
                     <JsonViewer
                         height={400}
-                        width={700}
+                        width={400}
                         value={data}
                         renderTooltip={renderTooltip}
                         options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
