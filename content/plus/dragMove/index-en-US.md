@@ -100,7 +100,7 @@ Passing in `handler`, this function returns the element that triggered the drag.
 
 ```jsx live=true
 import React, { useRef, useEffect } from'react';
-import { IconCommand } from '@douyinfe/semi-icons';
+import { IconTransparentStroked } from '@douyinfe/semi-icons';
 import { DragMove } from '@douyinfe/semi-ui';
 
 function Demo(){
@@ -131,7 +131,7 @@ function Demo(){
           <div 
               style={{ width: 'fit-content', height: 'fit-content' }} 
               ref={handlerRef}
-          ><IconCommand size={'large'}/></div>
+          ><IconTransparentStroked size={'large'}/></div>
         </div>
       </DragMove>
     </div>

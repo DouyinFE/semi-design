@@ -1,5 +1,5 @@
 import React,  { useEffect, useCallback } from 'react';
-import { IconCommand } from '@douyinfe/semi-icons';
+import { IconTransparentStroked } from '@douyinfe/semi-icons';
 import DragMove from '../index';
 import { Button } from '@douyinfe/semi-ui';
 
@@ -123,7 +123,7 @@ export const Handler = () => {
           <div 
             style={{ width: 'fit-content', height: 'fit-content'}} 
             ref={handlerRef}
-          ><IconCommand size="large" /></div>
+          ><IconTransparentStroked size="large" /></div>
         </div>
       </DragMove>
     </div>
