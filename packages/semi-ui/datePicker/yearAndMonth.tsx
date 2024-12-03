@@ -63,6 +63,9 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
         let { currentYear, currentMonth } = props;
 
+        const rightMonth = currentMonth.right || (now.getMonth() + 2);
+        const rightYear = currentYear.right || (rightMonth <= 12 ? now.getFullYear() : now.getFullYear() + 1);
+
         this.state = {
             years: getYears(props.startYear, props.endYear).map(year => ({
                 value: year,
@@ -74,8 +77,10 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
                     value: idx + 1,
                     month: idx + 1,
                 })),
-            currentYear: { left: currentYear.left || now.getFullYear(), right: currentYear.right || now.getFullYear() },
-            currentMonth: { left: currentMonth.left || now.getMonth() + 1, right: currentMonth.right || now.getMonth() + 2 },
+            currentYear: { left: currentYear.left || now.getFullYear(), right: rightYear },
+            currentMonth: {
+                left: currentMonth.left || now.getMonth() + 1, right: rightMonth <= 12 ? rightMonth : 1
+            },
         };
 
         this.yearRef = React.createRef();
@@ -112,15 +117,18 @@ class YearAndMonth extends BaseComponent<YearAndMonthProps, YearAndMonthState> {
 
     static getDerivedStateFromProps(props: YearAndMonthProps, state: YearAndMonthState) {
         const willUpdateStates: Partial<YearAndMonthState> = {};
+        const nowYear = new Date().getFullYear();
+        const nowMonth = new Date().getMonth();
+
+        const rightMonth = props.currentMonth.right || (nowMonth + 2);
+        const rightYear = props.currentYear.right || (rightMonth <= 12 ? nowYear : nowYear + 1);
 
         if (!isEqual(props.currentYear, state.currentYear)) {
-            const nowYear = new Date().getFullYear();
-            willUpdateStates.currentYear = { left: props.currentYear.left || nowYear, right: props.currentYear.right || nowYear };
+            willUpdateStates.currentYear = { left: props.currentYear.left || nowYear, right: rightYear };
         }
 
         if (!isEqual(props.currentMonth, state.currentMonth)) {
-            const nowMonth = new Date().getMonth();
-            willUpdateStates.currentMonth = { left: props.currentMonth.left || nowMonth + 1, right: props.currentMonth.right || nowMonth + 2 };
+            willUpdateStates.currentMonth = { left: props.currentMonth.left || nowMonth + 1, right: rightMonth <= 12 ? rightMonth : 1 };
         }
 
         return willUpdateStates;
