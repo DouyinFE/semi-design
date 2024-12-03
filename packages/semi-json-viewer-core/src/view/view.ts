@@ -119,6 +119,10 @@ export class View {
         return this._completeWidget;
     }
 
+    get editWidget() {
+        return this._editWidget;
+    }
+
     get scalingCellSizeAndPositionManager() {
         return this._scalingCellSizeAndPositionManager;
     }

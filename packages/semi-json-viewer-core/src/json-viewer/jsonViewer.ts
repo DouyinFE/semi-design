@@ -56,6 +56,10 @@ export class JsonViewer {
         return this._view.searchWidget;
     }
 
+    format() {
+        this._view.editWidget.format();
+    }
+
     dispose() {
         disposeEmitter(this._id);
         disposeWorkerManager(this._id);

@@ -189,7 +189,7 @@ export class EditWidget {
         this._jsonModel.applyOperation(op);
     }
 
-    private _format() {
+    public format() {
         this._jsonWorkerManager
             .formatJson(
                 this._view.options?.formatOptions || {
@@ -303,7 +303,7 @@ export class EditWidget {
             case 'f':
                 if (e.shiftKey && e.metaKey) {
                     e.preventDefault();
-                    this._format();
+                    this.format();
                 }
                 break;
             case 'ArrowRight':

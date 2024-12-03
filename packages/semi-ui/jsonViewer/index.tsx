@@ -26,6 +26,8 @@ export interface JsonViewerProps extends BaseProps {
     value: string;
     width: number;
     height: number;
+    className?: string;
+    style?: React.CSSProperties;
     onChange?: (value: string) => void;
     renderTooltip?: (value: string, el: HTMLElement) => HTMLElement;
     options?: JsonViewerOptions
@@ -49,11 +51,9 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         value: '',
     };
 
-    private jsonViewer: React.RefObject<{ getValue: () => string }> | null = null;
     private editorRef: React.RefObject<HTMLDivElement>;
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
-    private dragMove: any;
 
     foundation: JsonViewerFoundation;
 
@@ -62,7 +62,6 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         this.editorRef = React.createRef();
         this.searchInputRef = React.createRef();
         this.replaceInputRef = React.createRef();
-        this.jsonViewer = React.createRef();
         this.foundation = new JsonViewerFoundation(this.adapter);
         this.state = {
             searchOptions: {
@@ -76,11 +75,6 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     componentDidMount() {
         this.foundation.init();
-        this.jsonViewer = {
-            current: {
-                getValue: () => this.foundation.jsonViewer.getModel().getValue(),
-            },
-        };
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
@@ -119,6 +113,14 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                 this.setState({ showSearchBar: !this.state.showSearchBar });
             },
         };
+    }
+
+    getValue() {
+        return this.foundation.jsonViewer.getModel().getValue();
+    }
+
+    format() {
+        this.foundation.jsonViewer.format();
     }
 
     getStyle() {
@@ -255,11 +257,12 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     render() {
         let isDragging = false;
+        const { className, style } = this.props;
         return (
             <>
-                <div style={{ position: 'relative' }}>
+                <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className}>
                     <div
-                        style={this.getStyle()}
+                        style={{ ...this.getStyle(), padding: '12px 0' }}
                         ref={this.editorRef}
                         className={classNames(prefixCls, `${prefixCls}-background`)}
                     ></div>
@@ -271,7 +274,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                             isDragging = true;
                         }}
                     >
-                        <div style={{ position: 'absolute', top: 0, left: this.getStyle().width }}>
+                        <div style={{ position: 'absolute', top: 20, right: 20 }}>
                             {!this.state.showSearchBar ? (
                                 <Button
                                     onClick={e => {
