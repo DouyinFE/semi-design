@@ -191,7 +191,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
-    updateStateIfCursorOnTrigger = (trigger: HTMLElement)=>{
+    updateStateIfCursorOnTrigger = (trigger: HTMLElement) => {
         if (trigger?.matches?.(":hover")) {
             const eventNames = this._adapter.getEventName();
             const triggerEventSet = this.getState("triggerEventSet");
@@ -379,7 +379,8 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
 
     _togglePortalVisible(isVisible: boolean) {
         const nowVisible = this.getState('visible');
-        if (nowVisible !== isVisible) {
+        const isInsert = this.getState("isInsert");
+        if (nowVisible !== isVisible || isInsert !== isVisible) {
             this._adapter.togglePortalVisible(isVisible, () => {
                 if (isVisible) {
                     this._adapter.setInitialFocus();
