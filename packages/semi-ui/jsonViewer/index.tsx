@@ -1,10 +1,10 @@
+import React from 'react';
+import classNames from 'classnames';
 import JsonViewerFoundation, {
     JsonViewerOptions,
     JsonViewerAdapter,
 } from '@douyinfe/semi-foundation/jsonViewer/foundation';
-import React from 'react';
 import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.scss';
-import classNames from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/jsonViewer/constants';
 import ButtonGroup from '../button/buttonGroup';
 import Button from '../iconButton';
@@ -22,6 +22,7 @@ import {
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 const prefixCls = cssClasses.PREFIX;
 
+export { JsonViewerOptions };
 export interface JsonViewerProps extends BaseProps {
     value: string;
     width: number;

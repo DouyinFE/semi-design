@@ -1,5 +1,4 @@
 
-export * from '@douyinfe/semi-json-viewer-core';
 import { JsonViewer, JsonViewerOptions } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 
@@ -11,7 +10,6 @@ export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, a
     setSearchOptions: (key: string) => void;
     showSearchBar: () => void
 }
-
 
 class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
     constructor(adapter: JsonViewerAdapter) {

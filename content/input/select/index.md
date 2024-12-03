@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 40
+order: 41
 category: 输入类
 title: Select 选择器
 icon: doc-select
