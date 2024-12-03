@@ -6,7 +6,8 @@
   "module": "lib/index.js",
   "typings": "src/index.ts",
   "scripts": {
-    "build:lib": "node ./script/compileLib.js"
+    "build:lib": "node ./script/compileLib.js",
+    "prepublishOnly": "npm run build:lib"
   },
   "files": [
     "dist/*",
