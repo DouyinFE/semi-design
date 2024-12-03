@@ -64,6 +64,7 @@ let config = {
         '@douyinfe/semi-foundation(.*)$': '<rootDir>/packages/semi-foundation/$1',
         '@douyinfe/semi-illustrations(.*)$': '<rootDir>/packages/semi-illustrations/src/$1',
         '@douyinfe/semi-icons(.*)$': '<rootDir>/packages/semi-icons/src/$1',
+        '@douyinfe/semi-json-viewer-core(.*)$': '<rootDir>/packages/semi-json-viewer-core/src/$1',
         // 将semi-animation相关的直接指向它的cjs版本，这样不用再走一次babel-jest的编译
         '@douyinfe/semi-animation-styled(.*)$': '<rootDir>/packages/semi-animation-styled',
         '@douyinfe/semi-animation-react(.*)$': '<rootDir>/packages/semi-animation-react',

@@ -25,6 +25,7 @@ const order = [
     'codehighlight',
     "markdownrender",
     "dragMove",
+    "jsonviewer",
     'hotkeys',
     "lottie",
     'autocomplete',
@@ -85,7 +86,8 @@ const order = [
     'spin',
     'toast',
     'configprovider',
-    'locale'
+    'locale',
+    'jsonviewer',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');

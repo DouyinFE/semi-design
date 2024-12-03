@@ -112,6 +112,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 'univers-webview': process.env.SEMI_SITE_UNIVERS_WEBVIEW || resolve('packages/semi-ui'),
+                '@douyinfe/semi-json-viewer-core': resolve('packages/semi-json-viewer-core'),
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
@@ -155,7 +156,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 },
                 {
                     test: /\.m?js/,
-                    include: [/micromark-util-sanitize-uri/, /mdast-util-from-markdown/, /micromark/, /mdast-util-to-markdown/, /semi-foundation\/node_modules\/@mdx-js/],
+                    include: [/micromark-util-sanitize-uri/, /mdast-util-from-markdown/, /micromark/, /mdast-util-to-markdown/, /semi-foundation\/node_modules\/@mdx-js/, /jsonc-parser/],
                     use: ["esbuild-loader"]
                 },
                 {
@@ -184,7 +185,8 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                     test: /\.mjs$/,
                     include: /node_modules/,
                     type: "javascript/auto"
-                }
+                },
+                { test: /\.worker\.ts$/, use: ['worker-loader', 'ts-loader'] }
             ],
         },
         plugins: [plugins.extractText(), plugins.define({

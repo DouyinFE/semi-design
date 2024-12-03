@@ -17,6 +17,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.71.0-beta.0 (2024-12-02)
+
 - 【New Component】
     - Add `DragMove` Component，Change the positioning by dragging. [#2595](https://github.com/DouyinFE/semi-design/pull/2595)
     - Add `JsonViewer` Component，support the display and editing of JSON data at the million-line level. [#2561](https://github.com/DouyinFE/semi-design/pull/2561)
