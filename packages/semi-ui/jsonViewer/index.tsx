@@ -22,7 +22,7 @@ import {
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 const prefixCls = cssClasses.PREFIX;
 
-export { JsonViewerOptions };
+export type { JsonViewerOptions };
 export interface JsonViewerProps extends BaseProps {
     value: string;
     width: number;
