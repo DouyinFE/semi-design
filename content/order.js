@@ -26,6 +26,7 @@ const order = [
     "markdownrender",
     'hotkeys',
     "lottie",
+    "dragMove",
     'autocomplete',
     'cascader',
     'checkbox',
