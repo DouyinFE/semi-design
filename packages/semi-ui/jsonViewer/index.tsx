@@ -257,7 +257,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     render() {
         let isDragging = false;
-        const { className, style, ...rest } = this.props;
+        const { width, className, style, ...rest } = this.props;
         return (
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
@@ -274,7 +274,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                             isDragging = true;
                         }}
                     >
-                        <div style={{ position: 'absolute', top: 20, right: 20 }}>
+                        <div style={{ position: 'absolute', top: 20, left: width - 52 }}>
                             {!this.state.showSearchBar ? (
                                 <Button
                                     onClick={e => {

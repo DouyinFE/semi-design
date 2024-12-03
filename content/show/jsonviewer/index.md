@@ -46,7 +46,7 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 
 JsonViewer 的基本用法。传入 value height 和 width 参数，设置组件的高度和宽度和初始值。
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -57,7 +57,7 @@ class SimpleJsonViewer extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer height={100} width={400} value={data} />
                 </div>
             </div>
@@ -72,7 +72,7 @@ render(SimpleJsonViewer);
 
 配置 options 的 lineHeight 参数，设置固定行高（单位：px, 默认 18）。
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -83,7 +83,7 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 20 }} />
                 </div>
             </div>
@@ -94,7 +94,7 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
 render(SimpleJsonViewerWithLineHeight);
 ```
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -105,7 +105,7 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 24 }} />
                 </div>
             </div>
@@ -116,7 +116,7 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
 render(SimpleJsonViewerWithLineHeight);
 ```
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -127,7 +127,7 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer height={100} width={400} value={data} options={{ lineHeight: 26 }} />
                 </div>
             </div>
@@ -142,7 +142,7 @@ render(SimpleJsonViewerWithLineHeight);
 
 配置 options 的 autoWrap 参数，设置为 true 时，组件会根据内容长度自动换行。
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -154,7 +154,7 @@ class SimpleJsonViewerWithAutoWrap extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer height={200} width={400} value={data} options={{ autoWrap: true }} />
                 </div>
             </div>
@@ -173,7 +173,7 @@ render(SimpleJsonViewerWithAutoWrap);
 -   insertSpaces: boolean，true 表示使用空格进行缩进，false 表示使用制表符(Tab)
 -   eol: string，设置换行符，可以是\n，\r\n，
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React, { useRef } from 'react';
 import { JsonViewer, Button } from '@douyinfe/semi-ui';
 const data = `{
@@ -185,7 +185,7 @@ function FormatJsonComponent() {
     return (
         <div>
             <Button onClick={() => console.log(jsonviewerRef.current.format())}>格式化</Button>
-            <div style={{ marginRight: 16, marginTop: 16 }}>
+            <div style={{ marginBottom: 16, marginTop: 16 }}>
                 <JsonViewer
                     ref={jsonviewerRef}
                     height={100}
@@ -205,7 +205,7 @@ render(FormatJsonComponent);
 
 配置 renderTooltip回调函数，在hover到特定节点时，自定义渲染内容。
 
-```jsx live=true dir="row" noInline=true half=true
+```jsx live=true dir="column" noInline=true
 import React from 'react';
 import { JsonViewer } from '@douyinfe/semi-ui';
 const data = `{
@@ -228,7 +228,7 @@ class SimpleJsonViewerWithCustomRender extends React.Component {
         };
         return (
             <div>
-                <div style={{ marginRight: 16 }}>
+                <div style={{ marginBottom: 16 }}>
                     <JsonViewer
                         height={400}
                         width={400}
