@@ -225,19 +225,19 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         const { wheelScroll } = this.state;
         let shouldScroll = false;
         if (newChats !== oldChats) {
-            if (Array.isArray(newChats) && Array.isArray(oldChats)) {
-                const newLastChat = newChats[newChats.length - 1];
-                const oldLastChat = oldChats[oldChats.length - 1];
-                if (newChats.length > oldChats.length) {
-                    if (oldChats.length === 0 || newLastChat.id !== oldLastChat.id) {
-                        shouldScroll = true;
-                    }
-                } else if (newChats.length === oldChats.length && newChats.length && 
-                    (newLastChat.status !== 'complete' || newLastChat.status !== oldLastChat.status)
-                ) {
-                    shouldScroll = true;
-                }
+          if (Array.isArray(newChats) && Array.isArray(oldChats)) {
+            const newLastChat = newChats[newChats.length - 1];
+            const oldLastChat = oldChats[oldChats.length - 1];
+            if (newChats.length > oldChats.length) {
+              if (oldChats.length === 0 || newLastChat.id !== oldLastChat.id) {
+                shouldScroll = true;
+              }
+            } else if (newChats.length === oldChats.length && newChats.length > 0) {
+              if (newLastChat.status !== 'complete' || newLastChat.status !== oldLastChat.status) {
+                shouldScroll = true;
+              }
             }
+          }
         }
         if (newHints !== cacheHints) {
             if (newHints.length > cacheHints.length) {
