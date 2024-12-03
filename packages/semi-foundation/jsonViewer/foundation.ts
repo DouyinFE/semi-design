@@ -2,6 +2,7 @@
 import { JsonViewer, JsonViewerOptions } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
 
+export type { JsonViewerOptions };
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;
     getSearchRef: () => HTMLInputElement;

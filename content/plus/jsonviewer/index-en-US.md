@@ -71,17 +71,17 @@ const data = `{
 class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
-            <Space>
-                <div style={{ marginBottom: 16 }}>
+            <div>
+                <div style={{ marginBottom: 20 }}>
                     <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 20 }} />
                 </div>
-                <div style={{ marginBottom: 16 }}>
+                <div style={{ marginBottom: 20 }}>
                     <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 24 }} />
                 </div>
-                <div style={{ marginBottom: 16 }}>
+                <div style={{ marginBottom: 20 }}>
                     <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 26 }} />
                 </div>
-            </Space>
+            </div>
         );
     }
 }
