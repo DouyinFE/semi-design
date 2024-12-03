@@ -15,13 +15,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 
 
 #### 🎉 2.71.0-beta.0 (2024-12-02)
+- 【New Component】
+    - 新增 DragMove 组件，通过拖拽改变定位 [#2595](https://github.com/DouyinFE/semi-design/pull/2595)
+    - 新增 JsonViewer 组件，支持百万行级 JSON 数据的展示与编辑 [#2561](https://github.com/DouyinFE/semi-design/pull/2561)
 - 【Feat】
     - Table 新增 shouldCellUpdate API，用于自定义单元格的是否需重新渲染 [#2584](https://github.com/DouyinFE/semi-design/pull/2584)
     - Cascader 支持 checkRelation API 用于设置选项关联性  [#2582](https://github.com/DouyinFE/semi-design/issues/2582)
     - Highlight Highlight 支持针对不同关键字使用不同高亮样式  [#2600](https://github.com/DouyinFE/semi-design/pull/2600)
     - `@douyinfe/semi-icons-lab` 增加新图标： IconChart、IconChat、IconCodeHighlight、IconLottie、IconMarkdown、IconPincode、IconVersionOne、IconWebComponents、IconJsonViewer [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
 - 【Chore】
-    - 修改 @douyinfe/semi-icons 中 svg path 数字精度，保留两位小数，全量图标 min 包体积 450 kb -> 278kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - 修改 `@douyinfe/semi-icons` 中 SVG Path 数字精度，保留两位小数，全量图标 min 包体积 450 kb -> 278kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - 修改 `@douyinfe/semi-illustrations` SVG Path 数字精度，保留两位小数，减少构建体积，全量插画 min 包体积 283k -> 165k [#2602](https://github.com/DouyinFE/semi-design/pull/2602)
     - 修复 Lottie 组件类型报错问题 [#2593](https://github.com/DouyinFE/semi-design/pull/2593)
 - 【Perf】
     - Select renderOption 相关的逻辑推迟在候选项展示后再执行, 减少不必要的渲染 [#2598](https://github.com/DouyinFE/semi-design/issues/2598)

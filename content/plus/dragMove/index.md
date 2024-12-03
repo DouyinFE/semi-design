@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 28
+order: 26
 category: Plus
 title:  DragMove 拖拽移动
 icon: doc-configprovider
