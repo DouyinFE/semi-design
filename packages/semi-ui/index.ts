@@ -122,3 +122,5 @@ export {
     ResizeHandler,
     ResizeGroup
 } from './resizable';
+
+export { default as DragMove } from './dragMove';
