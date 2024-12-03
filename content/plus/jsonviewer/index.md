@@ -146,49 +146,6 @@ function FormatJsonComponent() {
 render(FormatJsonComponent);
 ```
 
-### 自定义渲染
-
-配置 renderTooltip回调函数，在hover到特定节点时，自定义渲染内容。
-
-```jsx live=true dir="column" noInline=true
-import React from 'react';
-import { JsonViewer } from '@douyinfe/semi-ui';
-const data = `{
-    "name": "Semi",
-    "version": "0.0.0",
-    "image": "https://picsum.photos/100/100",
-}`;
-class SimpleJsonViewerWithCustomRender extends React.Component {
-    render() {
-        const renderTooltip = (value, target) => {
-            const el = document.createElement('div');
-            el.style.backgroundColor = '#f5f5f5';
-            el.style.width = '100px';
-            el.style.height = '100px';
-            el.style.border = '1px solid #0080ff';
-            if (value.includes('https')) {
-                el.innerHTML = `<img src=${value} alt="picture" />`;
-                return el;
-            }
-        };
-        return (
-            <div>
-                <div style={{ marginBottom: 16 }}>
-                    <JsonViewer
-                        height={400}
-                        width={400}
-                        value={data}
-                        renderTooltip={renderTooltip}
-                        options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-render(SimpleJsonViewerWithCustomRender);
-```
 
 ## API 参考
 
@@ -203,7 +160,6 @@ render(SimpleJsonViewerWithCustomRender);
 | style             | 内联样式                           | object                                  | -   |
 | options           | 格式化配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
-| renderTooltip     | 自定义内容悬浮提示                          | (value: string, target: HTMLElement) => HTMLElement \| void 0 | -   |
 
 ### JsonViewerOptions
 

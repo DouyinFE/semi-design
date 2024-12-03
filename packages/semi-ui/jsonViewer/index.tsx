@@ -276,6 +276,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         <div style={{ position: 'absolute', top: 20, left: width - 52 }}>
                             {!this.state.showSearchBar ? (
                                 <Button
+                                    className={`${prefixCls}-search-bar-trigger`}
                                     onClick={e => {
                                         e.preventDefault();
                                         if (isDragging) {

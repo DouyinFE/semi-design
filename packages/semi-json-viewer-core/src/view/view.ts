@@ -273,8 +273,6 @@ export class View {
         });
         if (this._options?.autoWrap) {
             scrollEl.style.width = '100%';
-        } else {
-            scrollEl.style.width = '1000px';
         }
         return scrollEl;
     }
@@ -313,6 +311,10 @@ export class View {
 
     private _measureAndUpdateItemHeight(item: HTMLElement, index: number) {
         const height = item.offsetHeight;
+        const width = item.textContent?.length * 10;
+        if (!this._options?.autoWrap && width > this._scrollDom.offsetWidth) {
+            this._scrollDom.style.width = `${width}px`;
+        }
         if (height === 0) {
             item.style.height = `${this._lineHeight}px`;
             return;
