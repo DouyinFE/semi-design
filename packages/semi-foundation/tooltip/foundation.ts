@@ -108,7 +108,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const { triggerEventSet, portalEventSet } = this._generateEvent(trigger);
         this._bindTriggerEvent(triggerEventSet);
         this._bindPortalEvent(portalEventSet);
-        this._bindResizeEvent();
+        // this._bindResizeEvent();
     }
 
     unBindEvent() {
@@ -191,7 +191,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
-    updateStateIfCursorOnTrigger = (trigger: HTMLElement)=>{
+    updateStateIfCursorOnTrigger = (trigger: HTMLElement) => {
         if (trigger?.matches?.(":hover")) {
             const eventNames = this._adapter.getEventName();
             const triggerEventSet = this.getState("triggerEventSet");
