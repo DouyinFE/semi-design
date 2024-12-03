@@ -120,6 +120,7 @@ $module: #{$prefix}-json-viewer;
         cursor: pointer;
         margin: 0 4px;
         border-radius: var(--semi-border-radius-small);
+        color: var(--semi-color-text-2);
     }
 
     &-search-options-item:hover {
