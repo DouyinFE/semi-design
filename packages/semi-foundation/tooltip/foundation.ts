@@ -108,7 +108,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         const { triggerEventSet, portalEventSet } = this._generateEvent(trigger);
         this._bindTriggerEvent(triggerEventSet);
         this._bindPortalEvent(portalEventSet);
-        // this._bindResizeEvent();
+        this._bindResizeEvent();
     }
 
     unBindEvent() {
@@ -284,6 +284,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     onResize = () => {
         // this.log('resize');
         // rePosition when window resize
+        const visible = this.getState('visible');
+        if (!visible) {
+            return;
+        }
         this.calcPosition();
     };
 
