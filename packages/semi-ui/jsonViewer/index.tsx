@@ -257,10 +257,10 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     render() {
         let isDragging = false;
-        const { className, style } = this.props;
+        const { className, style, ...rest } = this.props;
         return (
             <>
-                <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className}>
+                <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
                     <div
                         style={{ ...this.getStyle(), padding: '12px 0' }}
                         ref={this.editorRef}
