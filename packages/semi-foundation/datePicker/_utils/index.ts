@@ -11,6 +11,7 @@ import getDefaultFormatToken from './getDefaultFormatToken';
 import getYears from './getYears';
 import getMonthsInYear from './getMonthsInYear';
 import getFullDateOffset from './getFullDateOffset';
+import getYearAndMonth from './getYearAndMonth';
 
 export {
     isAfter,
@@ -24,5 +25,6 @@ export {
     getDefaultFormatToken,
     getYears,
     getMonthsInYear,
-    getFullDateOffset
+    getFullDateOffset,
+    getYearAndMonth
 };
