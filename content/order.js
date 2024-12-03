@@ -24,6 +24,7 @@ const order = [
     'chat',
     'codehighlight',
     "markdownrender",
+    "dragMove",
     'hotkeys',
     "lottie",
     "dragMove",

@@ -17,13 +17,18 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.71.0-beta.0 (2024-12-02)
+
+- 【New Component】
+    - Add `DragMove` Component，Change the positioning by dragging. [#2595](https://github.com/DouyinFE/semi-design/pull/2595)
+    - Add `JsonViewer` Component，support the display and editing of JSON data at the million-line level. [#2561](https://github.com/DouyinFE/semi-design/pull/2561)
 - 【Feat】
     - Table added shouldCellUpdate API, which is used to customize whether cells need to be re-rendered or not. [#2584](https://github.com/DouyinFE/semi-design/pull/2584)
     - Cascader supports the checkRelation API for setting the relevance of options  [#2582](https://github.com/DouyinFE/semi-design/issues/2582)
     - Highlight supports using different highlight styles for different keywords [#2600](https://github.com/DouyinFE/semi-design/pull/2600)
     - `@douyinfe/semi-icons-lab` add new color icons： IconChart、IconChat、IconCodeHighlight、IconLottie、IconMarkdown、IconPincode、IconVersionOne、IconWebComponents、IconJsonViewer [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
 - 【Chore】
-    - The digital precision of the SVG path in @douyinfe/semi-icons has been modified, keeping two decimal places. The volume of the minimized package for all icons has been reduced from 450 kb to 278 kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - The digital precision of the SVG path in `@douyinfe/semi-icons` has been modified, keeping two decimal places. The volume of the minimized package for all icons has been reduced from 450 kb to 278 kb [#2583](https://github.com/DouyinFE/semi-design/pull/2583)
+    - The digital precision of the SVG path in `@douyinfe/semi-illustrations` has been modified, keeping two decimal places. The volume of the minimized package for all icons has been reduced from 283k -> 165k [#2602](https://github.com/DouyinFE/semi-design/pull/2602)
     - Fixed type error reporting for the Lottie component [#2593](https://github.com/DouyinFE/semi-design/pull/2593)
 - 【Perf】
     - The logic related to Select's renderOption will be postponed until after the candidate options are displayed. Reduce unnecessary rendering. [#2598](https://github.com/DouyinFE/semi-design/issues/2598)
