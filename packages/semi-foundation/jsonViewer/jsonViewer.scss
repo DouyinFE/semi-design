@@ -94,7 +94,8 @@ $module: #{$prefix}-json-viewer;
     }
 
     &-search-bar-container {
-        width: 440px;
+        width: 458px;
+        box-sizing: border-box;
         border: 1px solid var(--semi-color-border);
         border-radius: var(--semi-border-radius-small);
         display: flex;
@@ -104,12 +105,42 @@ $module: #{$prefix}-json-viewer;
         background-color: var(--semi-color-bg-0);
     }
 
-
-    &-replace-bar,
     &-search-bar {
         display: flex;
         align-items: flex-start;
         gap: 8px;
+        &-input {
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .#{$prefix}-button-group {
+            flex-wrap: nowrap;
+        }
+        // next icon btn
+        .#{$prefix}-button:nth-of-type(1) {
+            width: 40px;
+        }
+        // prev icon btn
+        .#{$prefix}-button:nth-of-type(2) {
+            width: 40px;
+        }
+    }
+
+    &-replace-bar {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        &-input {
+            width: 261px;
+        }
+        // replace btn
+        .#{$prefix}-button:nth-of-type(1) {
+            width: 52px;
+        }
+        // all replace btn
+        .#{$prefix}-button:nth-of-type(2) {
+            width: 80px;
+        }
     }
 
     &-search-options {
@@ -120,6 +151,7 @@ $module: #{$prefix}-json-viewer;
         padding-inline-start: 0;
         margin-block-start: 0;
         margin-block-end: 0;
+        gap: 8px;
     }
 
     &-search-options-item {
@@ -129,7 +161,6 @@ $module: #{$prefix}-json-viewer;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        margin: 0 4px;
         border-radius: var(--semi-border-radius-small);
         color: var(--semi-color-text-2);
     }

@@ -7,7 +7,7 @@ import JsonViewerFoundation, {
 import '@douyinfe/semi-foundation/jsonViewer/jsonViewer.scss';
 import { cssClasses } from '@douyinfe/semi-foundation/jsonViewer/constants';
 import ButtonGroup from '../button/buttonGroup';
-import Button from '../iconButton';
+import Button from '../button';
 import Input from '../input';
 import DragMove from '../dragMove';
 import {
@@ -187,7 +187,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             <div className={`${prefixCls}-search-bar`}>
                 <Input
                     placeholder="查找"
-                    style={{ width: 200 }}
+                    className={`${prefixCls}-search-bar-input`}
                     onChange={(_value, e) => {
                         e.preventDefault();
                         this.searchHandler();
@@ -196,24 +196,22 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     ref={this.searchInputRef}
                 />
                 {this.renderSearchOptions()}
-                <div>
-                    <ButtonGroup>
-                        <Button
-                            icon={<IconChevronLeft />}
-                            onClick={e => {
-                                e.preventDefault();
-                                this.foundation.prevSearch();
-                            }}
-                        />
-                        <Button
-                            icon={<IconChevronRight />}
-                            onClick={e => {
-                                e.preventDefault();
-                                this.foundation.nextSearch();
-                            }}
-                        />
-                    </ButtonGroup>
-                </div>
+                <ButtonGroup>
+                    <Button
+                        icon={<IconChevronLeft />}
+                        onClick={e => {
+                            e.preventDefault();
+                            this.foundation.prevSearch();
+                        }}
+                    />
+                    <Button
+                        icon={<IconChevronRight />}
+                        onClick={e => {
+                            e.preventDefault();
+                            this.foundation.nextSearch();
+                        }}
+                    />
+                </ButtonGroup>
                 <Button
                     icon={<IconClose />}
                     size="small"
@@ -230,7 +228,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             <div className={`${prefixCls}-replace-bar`}>
                 <Input
                     placeholder="替换"
-                    style={{ width: 260 }}
+                    className={`${prefixCls}-replace-bar-input`}
                     onChange={(value, e) => {
                         e.preventDefault();
                     }}
