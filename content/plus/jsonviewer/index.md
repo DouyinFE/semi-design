@@ -72,10 +72,10 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
                     <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 20 }} />
                 </div>
                 <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 24 }} />
+                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 24 }} />
                 </div>
                 <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 26 }} />
+                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 26 }} />
                 </div>
             </div>
         );
