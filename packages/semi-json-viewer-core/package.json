@@ -6,7 +6,8 @@
     "module": "lib/index.js",
     "typings": "src/index.ts",
     "scripts": {
-        "build:lib": "node ./script/compileLib.js"
+        "build:lib": "node ./script/compileLib.js",
+        "prepublishOnly": "npm run build:lib"
     },
     "files": [
         "dist/*",
@@ -52,5 +53,5 @@
     ],
     "author": "",
     "license": "MIT",
-    "gitHead": "b1325a0ac5b359c12cc34ca48ea031f3bef2af29"
+    "gitHead": "6080fcd39005e623669d3efa6acd7b1ea6d0ad2d"
 }
