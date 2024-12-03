@@ -1,14 +1,14 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.70.1",
+    "version": "2.71.0-alpha.0",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-json-viewer-core": "2.68.4",
-        "@douyinfe/semi-animation": "2.70.1",
+        "@douyinfe/semi-animation": "2.71.0-alpha.0",
+        "@douyinfe/semi-json-viewer-core": "2.71.0-alpha.0",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
         "classnames": "^2.2.6",
@@ -31,7 +31,6 @@
     ],
     "gitHead": "eb34a4f25f002bb4cbcfa51f3df93bed868c831a",
     "devDependencies": {
-        "esbuild": "0.24.0",
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@types/lodash": "^4.14.176",
@@ -39,6 +38,7 @@
         "@types/prismjs": "^1.26.3",
         "babel-plugin-lodash": "^3.3.4",
         "del": "^6.0.0",
+        "esbuild": "0.24.0",
         "gulp": "^4.0.2",
         "gulp-babel": "^8.0.0",
         "gulp-replace": "^1.1.3",
