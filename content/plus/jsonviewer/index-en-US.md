@@ -150,50 +150,6 @@ function FormatJsonComponent() {
 render(FormatJsonComponent);
 ```
 
-### Custom Render For Special Content
-
-Configure the `renderTooltip` callback function to customize the rendered content when hovering over specific nodes.
-
-```jsx live=true dir="column" noInline=true
-import React from 'react';
-import { JsonViewer } from '@douyinfe/semi-ui';
-const data = `{
-    "name": "Semi",
-    "version": "0.0.0",
-    "image": "https://picsum.photos/100/100",
-}`;
-class SimpleJsonViewerWithCustomRender extends React.Component {
-    render() {
-        const renderTooltip = (value, target) => {
-            const el = document.createElement('div');
-            el.style.backgroundColor = '#f5f5f5';
-            el.style.width = '100px';
-            el.style.height = '100px';
-            el.style.border = '1px solid #0080ff';
-            if (value.includes('https')) {
-                el.innerHTML = `<img src=${value} alt="picture" />`;
-                return el;
-            }
-        };
-        return (
-            <div>
-                <div style={{ marginBottom: 16 }}>
-                    <JsonViewer
-                        height={400}
-                        width={400}
-                        value={data}
-                        renderTooltip={renderTooltip}
-                        options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
-                    />
-                </div>
-            </div>
-        );
-    }
-}
-
-render(SimpleJsonViewerWithCustomRender);
-```
-
 ## API Reference
 
 ### JsonViewer
@@ -207,7 +163,6 @@ render(SimpleJsonViewerWithCustomRender);
 | style | InlineStyle of wrapper DOM | object | - |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
-| renderTooltip | Customize the tooltip for content | (value: string, target: HTMLElement) => HTMLElement \| void 0 | - |
 
 ### JsonViewerOptions
 
