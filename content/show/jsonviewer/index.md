@@ -53,7 +53,7 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewer extends React.Component {
     render() {
         return (
             <div>
@@ -65,7 +65,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewer);
 ```
 
 ### 设置行高
@@ -79,7 +79,7 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
@@ -91,7 +91,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewerWithLineHeight);
 ```
 
 ```jsx live=true dir="row" noInline=true half=true
@@ -101,7 +101,7 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
@@ -113,7 +113,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewerWithLineHeight);
 ```
 
 ```jsx live=true dir="row" noInline=true half=true
@@ -123,7 +123,7 @@ const data = `{
     "name": "Semi",
     "version": "0.0.0"
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewerWithLineHeight extends React.Component {
     render() {
         return (
             <div>
@@ -135,7 +135,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewerWithLineHeight);
 ```
 
 ### 自动换行
@@ -150,7 +150,7 @@ const data = `{
     "version": "0.0.0",
     "description": "Semi Design is a design system that defines a set of mid_back design and front_end basic components."
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewerWithAutoWrap extends React.Component {
     render() {
         return (
             <div>
@@ -162,7 +162,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewerWithAutoWrap);
 ```
 
 ### 格式化配置
@@ -174,30 +174,31 @@ render(SimpleList);
 -   eol: string，设置换行符，可以是\n，\r\n，
 
 ```jsx live=true dir="row" noInline=true half=true
-import React from 'react';
-import { JsonViewer } from '@douyinfe/semi-ui';
+import React, { useRef } from 'react';
+import { JsonViewer, Button } from '@douyinfe/semi-ui';
 const data = `{
   "name": "Semi",
   "version": "0.0.0"
 }`;
-class SimpleList extends React.Component {
-    render() {
-        return (
-            <div>
-                <div style={{ marginRight: 16 }}>
-                    <JsonViewer
-                        height={100}
-                        width={400}
-                        value={data}
-                        options={{ formatOptions: { tabSize: 2, insertSpaces: true, eol: '\n' } }}
-                    />
-                </div>
+function FormatJsonComponent() {
+    const jsonviewerRef = useRef();
+    return (
+        <div>
+            <Button onClick={() => console.log(jsonviewerRef.current.format())}>格式化</Button>
+            <div style={{ marginRight: 16, marginTop: 16 }}>
+                <JsonViewer
+                    ref={jsonviewerRef}
+                    height={100}
+                    width={400}
+                    value={data}
+                    options={{ formatOptions: { tabSize: 4, insertSpaces: true, eol: '\n' } }}
+                />
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-render(SimpleList);
+render(FormatJsonComponent);
 ```
 
 ### 自定义渲染
@@ -212,7 +213,7 @@ const data = `{
     "version": "0.0.0",
     "image": "https://picsum.photos/100/100",
 }`;
-class SimpleList extends React.Component {
+class SimpleJsonViewerWithCustomRender extends React.Component {
     render() {
         const renderTooltip = (value, target) => {
             const el = document.createElement('div');
@@ -241,7 +242,7 @@ class SimpleList extends React.Component {
     }
 }
 
-render(SimpleList);
+render(SimpleJsonViewerWithCustomRender);
 ```
 
 ## API 参考
@@ -253,6 +254,8 @@ render(SimpleList);
 | value             | 展示内容                                    | string                                  | -  |
 | height            | 高度                                     | number                                  | -  |
 | width             | 宽度                                     | number                                  | -  |
+| className         | 类名                           | string                                  | -   |
+| style             | 内联样式                           | object                                  | -   |
 | options           | 格式化配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 | renderTooltip     | 自定义内容悬浮提示                          | (value: string, target: HTMLElement) => HTMLElement \| void 0 | -   |
@@ -273,3 +276,11 @@ render(SimpleList);
 | insertSpaces      | 是否使用空格进行缩进                       | boolean                         | true  |
 | eol               | 换行符                                   | string                          | '\n'  |
 
+## Methods
+
+绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+
+| 名称    | 描述     |
+|---------|--------|
+| getValue()  | 获取当前值 |
+| format() | 格式化 |
