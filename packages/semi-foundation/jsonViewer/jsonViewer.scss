@@ -27,26 +27,37 @@ $module: #{$prefix}-json-viewer;
         color: $color-json-viewer-delimiter-comma;
     }
 
-    @each $type, $colors in $json-viewer-delimiter-colors {
-        @each $level, $color in $colors {
-            &-delimiter-#{$type}-#{$level} {
-                color: $color;
-            }
-        }
+    &-delimiter-bracket-0 {
+        color: rgba(var(--semi-blue-7), 1);
+    }
+    &-delimiter-bracket-1 {
+        color: rgba(var(--semi-green-7), 1);
+    }
+    &-delimiter-bracket-2 {
+        color: rgba(var(--semi-orange-7), 1);
+    }
+    &-delimiter-array-0 {
+        color: rgba(var(--semi-blue-7), 1);
+    }
+    &-delimiter-array-1 {
+        color: rgba(var(--semi-green-7), 1);
+    }
+    &-delimiter-array-2 {
+        color: rgba(var(--semi-orange-7), 1);
     }
 
     &-search-result {
-        background-color: $json-viewer-search-result-background;
+        background-color: $color-json-viewer-search-result-background;
     }
 
     &-current-search-result {
-        background-color: $json-viewer-current-search-result-background !important;
+        background-color: $color-json-viewer-current-search-result-background !important;
     }
 
     &-folding-icon {
         opacity: 0.7;
         transition: opacity 0.8s;
-        color: $json-viewer-folding-icon-color;
+        color: $color-json-viewer-folding-icon;
     }
 
     &-view-line {
@@ -68,7 +79,7 @@ $module: #{$prefix}-json-viewer;
         font-feature-settings: 'liga' 0, 'calt' 0;
         font-variation-settings: normal;
         letter-spacing: 0px;
-        color: $json-viewer-line-number-color;
+        color: $color-json-viewer-line-number;
         text-align: center;
         width: 50px;
     }
@@ -153,4 +164,6 @@ $module: #{$prefix}-json-viewer;
         color: var(--semi-color-text-0);
         cursor: pointer;
     }
+
+
 }
