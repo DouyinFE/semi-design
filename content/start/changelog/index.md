@@ -13,6 +13,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.70.2 (2024-12-04)
+- 【Fix】
+    - 修复 Datepicker 类型为 monthRange 时，面板默认选中的年月无法选中跨年情况 [#2608](https://github.com/DouyinFE/semi-design/pull/2608)
 
 #### 🎉 2.70.1 (2024-11-25)
 - 【Fix】
