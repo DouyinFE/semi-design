@@ -15,7 +15,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
-
+#### 🎉 2.70.2 (2024-12-04)
+- 【Fix】
+    - Fixed the issue that when the Datepicker type is monthRange, the default selected year and month in the panel cannot be selected across the year
 
 #### 🎉 2.70.1 (2024-11-25)
 - 【Fix】
