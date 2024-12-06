@@ -18,6 +18,8 @@ const strings = {
     NONE_MERGE_TYPE: 'none',
     SEARCH_POSITION_TRIGGER: 'trigger',
     SEARCH_POSITION_CUSTOM: 'custom',
+    RELATED: 'related',
+    UN_RELATED: 'unRelated'
 } as const;
 
 const numbers = {};

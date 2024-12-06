@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M18.605 3L22 3.86879V19.5071L18.605 20.5V3ZM2 3.99291L5.33333 4.79964V18.7004L2 19.6312V3.99291ZM7.49384 10.9433L10.8272 11.8741V19.1347L7.49384 20.0656V10.9433ZM16.4444 8.70922L13.1728 9.51595V16.8386L16.4444 17.8316V8.70922Z"
+                d="m18.6 3 3.4.87V19.5l-3.4.99V3ZM2 4l3.33.8v13.9L2 19.63V4Zm5.5 6.94 3.33.93v7.26l-3.34.94v-9.13Zm8.94-2.23-3.27.8v7.33l3.27 1V8.7Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'bytedance_logo');
 export default IconComponent;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -13,17 +12,13 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             aria-hidden={true}
             {...props}
         >
+            <path d="M10.5 7V2.5a1.5 1.5 0 0 1 3 0V7h-.09a1.5 1.5 0 0 0-2.82 0h-.09Z" fill="currentColor" />
             <path
-                d="M10.5 7V2.5C10.5 1.67157 11.1716 1 12 1C12.8284 1 13.5 1.67157 13.5 2.5V7H13.4146C13.2087 6.4174 12.6531 6 12 6C11.3469 6 10.7913 6.4174 10.5854 7H10.5Z"
-                fill="currentColor"
-            />
-            <path
-                d="M10.5 7H5C3.34315 7 2 8.34315 2 10V20C2 21.6569 3.34315 23 5 23H19C20.6569 23 22 21.6569 22 20V10C22 8.34315 20.6569 7 19 7H13.5V13.3787L14.9393 11.9393C15.5251 11.3536 16.4749 11.3536 17.0607 11.9393C17.6464 12.5251 17.6464 13.4749 17.0607 14.0607L13.0607 18.0607C12.4749 18.6464 11.5251 18.6464 10.9393 18.0607L6.93934 14.0607C6.35355 13.4749 6.35355 12.5251 6.93934 11.9393C7.52513 11.3536 8.47487 11.3536 9.06066 11.9393L10.5 13.3787V7Z"
+                d="M10.5 7H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V10a3 3 0 0 0-3-3h-5.5v6.38l1.44-1.44a1.5 1.5 0 0 1 2.12 2.12l-4 4a1.5 1.5 0 0 1-2.12 0l-4-4a1.5 1.5 0 0 1 2.12-2.12l1.44 1.44V7Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'import');
 export default IconComponent;

@@ -11,6 +11,12 @@ const outDir = resolve(__dirname, '../src/illustrations');
 
 const svgoPlugins = [
     {
+        name: 'convertPathData',
+        params: {
+            floatPrecision: 2
+        }
+    },
+    {
         name: 'cleanupListOfValues',
         active: true,
     },
@@ -22,6 +28,7 @@ const svgoPlugins = [
         name: 'removeViewBox',
         active: false,
     },
+    
 ];
 
 build(entryDir, outDir, 'Illustration', '', svgoPlugins, { typescript: true });

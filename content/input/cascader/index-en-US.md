@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 29
+order: 31
 category: Input
 title:  Cascader
 subTitle: Cascade
@@ -1537,6 +1537,63 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### Checked RelationShip
+
+Version: >= 2.71.0
+
+In multiple, `checkRelation` can be used to set the type of node selection relationship, optional: 'related' (default), 'unRelated'. When the selection relationship is 'unRelated', it means that selections between nodes do not affect each other.
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: 'Asia',
+            value: 'Asia',
+            key: '0',
+            children: [
+                {
+                    label: 'China',
+                    value: 'China',
+                    key: '0-0',
+                    children: [
+                        {
+                            label: 'Beijing',
+                            value: 'Beijing',
+                            key: '0-0-0',
+                        },
+                        {
+                            label: 'Shanghai',
+                            value: 'Shanghai',
+                            key: '0-0-1',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: 'North America',
+            value: 'North America',
+            key: '1',
+        }
+    ];
+    
+    return (
+        <Cascader
+            multiple
+            defaultValue={[
+                ['Asia'],
+                ['Asia', 'China', 'Beijing']
+            ]}
+            checkRelation='unRelated'
+            style={{ width: 300 }}
+            treeData={treeData}
+        />
+    );
+};
+```
+
 ### Dynamic Update of Data
 
 ```jsx live=true
@@ -1895,6 +1952,7 @@ function Demo() {
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                                                                     | boolean                         |           |
 | bottomSlot | bottom slot                                                                                                                                                                                                                                   | ReactNode | - |  1.27.0 |
 | changeOnSelect | Toggle whether non-leaf nodes are selectable                                                                                                                                                                                                  | boolean | false | - |
+| checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated'.  | string | 'related' | v2.71.0 |
 | className | ClassName                                                                                                                                                                                                                                     | string | - | - |
 | clearIcon | Can be used to customize the clear button, valid when showClear is true                                                                                                                                                                       | ReactNode | - | 2.25.0 |
 | defaultOpen | Set whether to open the dropDown by default                                                                                                                                                                                                   | boolean | false | - |

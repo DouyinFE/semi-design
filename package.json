@@ -12,10 +12,10 @@
         "bootstrap": "lerna bootstrap -- --legacy-peer-deps",
         "docsite": "npm run develop",
         "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
-        "develop": "npm run pre-develop && gatsby clean && lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && gatsby develop -H 0.0.0.0 --port=3666 --verbose",
+        "develop": "npm run pre-develop && gatsby clean && lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && gatsby develop -H 0.0.0.0 --port=3666 --verbose",
         "scripts:changelog": "node scripts/changelog.js",
         "start": "npm run story",
-        "pre-story": "lerna exec --scope=@douyinfe/semi-ui --scope=@douyinfe/semi-foundation -- rimraf ./lib && lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design",
+        "pre-story": "lerna exec --scope=@douyinfe/semi-ui --scope=@douyinfe/semi-foundation -- rimraf ./lib && lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design",
         "story": "npm run pre-story && sb dev -c ./.storybook/js/ -p 6006",
         "story:ts": "npm run pre-story && sb dev -c ./.storybook/ts/ -p 6007",
         "story:ani": "npm run pre-story && sb dev -c ./.storybook/animation/react -p 6008",
@@ -35,7 +35,7 @@
         "build:css": "lerna run build:css",
         "build-storybook": "sb build  -c ./.storybook/js/ -o ./storybook && cp -r storybook storybook-static",
         "build-storybook-static": "sb build  -c ./.storybook/js/",
-        "build:gatsbydoc": "lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rimraf build && mv public build",
+        "build:gatsbydoc": "lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rimraf build && mv public build",
         "build:icon": "lerna run build:icon --scope='@douyinfe/semi-{icons,illustrations}'",
         "cypress:coverage": "npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run",
         "postcypress:coverage": "yarn coverage:merge",
@@ -217,7 +217,8 @@
         "webpack": "^5.77.0",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^3.11.2",
-        "webpackbar": "^5.0.0-3"
+        "webpackbar": "^5.0.0-3",
+        "worker-loader": "^3.0.8"
     },
     "husky": {
         "hooks": {
@@ -242,5 +243,6 @@
             "stylelint"
         ]
     },
-    "license": "MIT"
+    "license": "MIT",
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

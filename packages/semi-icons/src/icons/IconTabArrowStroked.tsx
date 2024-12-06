@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,18 +15,17 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M2 5C2 3.89543 2.89543 3 4 3H15C15.5523 3 16 3.44772 16 4C16 4.55228 15.5523 5 15 5H4V19H20V11C20 10.4477 20.4477 10 21 10C21.5523 10 22 10.4477 22 11V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V5Z"
+                d="M2 5c0-1.1.9-2 2-2h11a1 1 0 1 1 0 2H4v14h16v-8a1 1 0 1 1 2 0v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Z"
                 fill="currentColor"
             />
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M18.2929 8.70711C17.9024 8.31658 17.9024 7.68342 18.2929 7.29289L19.5858 6L18.2929 4.70711C17.9024 4.31658 17.9024 3.68342 18.2929 3.29289C18.6834 2.90237 19.3166 2.90237 19.7071 3.29289L21.7071 5.29289C21.8946 5.48043 22 5.73478 22 6C22 6.26522 21.8946 6.51957 21.7071 6.70711L19.7071 8.70711C19.3166 9.09763 18.6834 9.09763 18.2929 8.70711Z"
+                d="M18.3 8.7a1 1 0 0 1 0-1.4L19.58 6l-1.3-1.3a1 1 0 0 1 1.42-1.4l2 2a1 1 0 0 1 0 1.4l-2 2a1 1 0 0 1-1.42 0Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'tab_arrow_stroked');
 export default IconComponent;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -14,12 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M6.95249 7.72265L17.084 7.72265C17.4833 7.72265 17.7215 8.16772 17.5 8.5L12.4343 16.0986C12.2363 16.3955 11.8001 16.3955 11.6022 16.0986L6.53647 8.5C6.31495 8.16772 6.55315 7.72265 6.95249 7.72265Z"
+                d="M6.95 7.72h10.13c.4 0 .64.45.42.78l-5.07 7.6a.5.5 0 0 1-.83 0L6.54 8.5a.5.5 0 0 1 .41-.78Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'small_triangle_down');
 export default IconComponent;

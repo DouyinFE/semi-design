@@ -5,7 +5,7 @@ import { isString } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/select/constants';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';
-import { getHighLightTextHTML } from '../_utils/index';
+import Highlight, { HighlightProps } from '../highlight';
 import { Locale } from '../locale/interface';
 import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
 import type { BasicOptionProps } from '@douyinfe/semi-foundation/select/optionFoundation';
@@ -19,15 +19,6 @@ export interface OptionProps extends BasicOptionProps {
     showTick?: boolean;
     className?: string;
     style?: React.CSSProperties
-}
-interface renderOptionContentArgument {
-    config: {
-        searchWords: any;
-        sourceString: React.ReactNode
-    };
-    children: React.ReactNode;
-    inputValue: string;
-    prefixCls: string
 }
 class Option extends PureComponent<OptionProps> {
     static isSelectOption = true;
@@ -63,9 +54,15 @@ class Option extends PureComponent<OptionProps> {
         }
     }
 
-    renderOptionContent({ config, children, inputValue, prefixCls }: renderOptionContentArgument) {
+    renderOptionContent({ config, children, inputValue, prefixCls }) {
         if (isString(children) && inputValue) {
-            return getHighLightTextHTML(config as any);
+            return (
+                <Highlight
+                    searchWords={config.searchWords as HighlightProps['searchWords']}
+                    sourceString={config.sourceString as string}
+                    highlightClassName={config.highlightClassName as string}
+                />
+            );
         }
         return children;
     }
@@ -139,12 +136,11 @@ class Option extends PureComponent<OptionProps> {
         }
 
         const config = {
-            searchWords: inputValue,
+            searchWords: [inputValue],
             sourceString: children,
-            option: {
-                highlightClassName: `${prefixCls}-keyword`
-            }
+            highlightClassName: `${prefixCls}-keyword`
         };
+
         return (
             // eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events
             <div

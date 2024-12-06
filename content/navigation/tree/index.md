@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 54
+order: 56
 category: 导航类
 title:  Tree 树形控件
 icon: doc-tree

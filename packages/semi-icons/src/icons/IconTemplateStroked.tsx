@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,22 +15,21 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M3 3C3 1.89543 3.89543 1 5 1H19C20.1046 1 21 1.89543 21 3V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V3ZM19 3L5 3V21H19V3Z"
+                d="M3 3c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3Zm16 0H5v18h14V3Z"
                 fill="currentColor"
             />
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M7 10C7 9.44772 7.44772 9 8 9H16C16.5523 9 17 9.44772 17 10V18C17 18.5523 16.5523 19 16 19H8C7.44772 19 7 18.5523 7 18V10ZM9 11V17H15V11H9Z"
+                d="M7 10a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-8Zm2 1v6h6v-6H9Z"
                 fill="currentColor"
             />
             <path
-                d="M7 5.5C7 5.22386 7.22386 5 7.5 5H16.5C16.7761 5 17 5.22386 17 5.5V6.5C17 6.77614 16.7761 7 16.5 7H7.5C7.22386 7 7 6.77614 7 6.5V5.5Z"
+                d="M7 5.5c0-.28.22-.5.5-.5h9c.28 0 .5.22.5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'template_stroked');
 export default IconComponent;

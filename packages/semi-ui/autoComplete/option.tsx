@@ -5,7 +5,7 @@ import { isString } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/autoComplete/constants';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';
-import { getHighLightTextHTML } from '../_utils/index';
+import Highlight from '../highlight';
 import { Locale } from '../locale/interface';
 import { BasicOptionProps } from '@douyinfe/semi-foundation/autoComplete/optionFoundation';
 
@@ -18,15 +18,6 @@ export interface OptionProps extends BasicOptionProps {
     showTick?: boolean;
     className?: string;
     style?: React.CSSProperties
-}
-interface renderOptionContentArgument {
-    config: {
-        searchWords: any;
-        sourceString: React.ReactNode
-    };
-    children: React.ReactNode;
-    inputValue: string;
-    prefixCls: string
 }
 class Option extends PureComponent<OptionProps> {
     static isSelectOption = true;
@@ -62,9 +53,13 @@ class Option extends PureComponent<OptionProps> {
         }
     }
 
-    renderOptionContent({ config, children, inputValue, prefixCls }: renderOptionContentArgument) {
+    renderOptionContent({ children, inputValue, prefixCls }) {
         if (isString(children) && inputValue) {
-            return getHighLightTextHTML(config as any);
+            return (<Highlight 
+                searchWords={[inputValue]}
+                sourceString={children}
+                highlightClassName={`${prefixCls}-keyword`}
+            />);
         }
         return children;
     }
@@ -129,13 +124,6 @@ class Option extends PureComponent<OptionProps> {
             });
         }
 
-        const config = {
-            searchWords: inputValue,
-            sourceString: children,
-            option: {
-                highlightClassName: `${prefixCls}-keyword`
-            }
-        };
         return (
             // eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events
             <div
@@ -154,7 +142,7 @@ class Option extends PureComponent<OptionProps> {
                         <IconTick />
                     </div>
                 ) : null}
-                {isString(children) ? <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, config, inputValue, prefixCls })}</div> : children}
+                {isString(children) ? <div className={`${prefixCls}-text`}>{this.renderOptionContent({ children, inputValue, prefixCls })}</div> : children}
             </div>
         );
     }

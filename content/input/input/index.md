@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 34
+order: 36
 category: 输入类
 title:  Input 输入框
 icon: doc-input

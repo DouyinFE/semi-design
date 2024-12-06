@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 85
+order: 87
 category: Other
 title: ConfigProvider
 icon: doc-configprovider
