@@ -369,7 +369,7 @@ describe('Select', () => {
     });
 
     it('innerTopSlot', () => {
-        let innerTopSlot = <div class="inner-slot">inner</div>;
+        let innerTopSlot = <div className="inner-slot">inner</div>;
         let props = {
             innerTopSlot: innerTopSlot,
             defaultOpen: true,
@@ -379,7 +379,7 @@ describe('Select', () => {
     });
 
     it('outerTopSlot', () => {
-        let outerTopSlot = <div class="outer-slot">outer</div>;
+        let outerTopSlot = <div className="outer-slot">outer</div>;
         let props = {
             outerTopSlot: outerTopSlot,
             defaultOpen: true,
@@ -390,7 +390,7 @@ describe('Select', () => {
 
     // TODO
     it('innerBottomSlot', () => {
-        let innerBottomSlot = <div class="inner-slot">inner</div>;
+        let innerBottomSlot = <div className="inner-slot">inner</div>;
         let props = {
             innerBottomSlot: innerBottomSlot,
             defaultOpen: true,
@@ -400,7 +400,7 @@ describe('Select', () => {
     });
 
     it('outerBottomSlot', () => {
-        let outerBottomSlot = <div class="outer-slot">outer</div>;
+        let outerBottomSlot = <div className="outer-slot">outer</div>;
         let props = {
             outerBottomSlot: outerBottomSlot,
             defaultOpen: true,
