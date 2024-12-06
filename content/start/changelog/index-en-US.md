@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.71.0 (2024-12-06)
+- 【Fix】
+    - For invisible Tooltips, position calculation is not performed when resizing [#2606](https://github.com/DouyinFE/semi-design/pull/2606)
+
 #### 🎉 2.70.2 (2024-12-04)
 - 【Fix】
     - Fixed the issue that when the Datepicker type is monthRange, the default selected year and month in the panel cannot be selected across the year
