@@ -5414,7 +5414,7 @@ render(App);
 | virtualized | 虚拟化配置                                                               | Virtualized | false | **0.33.0** |
 | virtualized.itemSize | 每行的高度                                                               | number\|(index: number) => number | 56 | **0.33.0** |
 | virtualized.onScroll | 虚拟化滚动回调方法                                                           | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
-| onChange | 分页、排序、筛选变化时触发                                                       | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
+| onChange | 分页、排序、筛选变化时触发                                                       | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: { changeType: 'sorter' \| 'filter' \| 'pagination' } }) => void |  |
 | onExpand | 点击行展开图标时进行触发                                                        | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | 第三个参数 DOMEvent 需版本 **>=0.28.0** |
 | onExpandedRowsChange | 展开的行变化时触发                                                           | (rows: RecordType[]) => void |  |
 | onGroupedRow | 类似于 onRow，不过这个参数单独用于定义分组表头的行属性                                      | (record: RecordType, index: number) => object |  | **0.29.0** |
