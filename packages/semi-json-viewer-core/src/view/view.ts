@@ -149,20 +149,23 @@ export class View {
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
+            if (
+                this._jsonModel.lastChangeBufferPos.lineNumber >=
+                this.visibleLineCount + this.startLineNumber
+            ) {
+                this.scrollToLine(
+                    this._jsonModel.lastChangeBufferPos.lineNumber -
+                        this.visibleLineCount +
+                        1
+                );
+                return;
+            }
             this.layout();
         });
     }
 
     public getLineElement(lineNumber: number): HTMLElement | null {
-        const visibleLineNumber = this._foldingModel.getVisibleLineNumber(lineNumber);
-        if (
-            visibleLineNumber > this.visibleLineCount + this.startLineNumber ||
-            visibleLineNumber < this.startLineNumber
-        )
-            return null;
-        return this._scrollDom.children[
-            visibleLineNumber - this._foldingModel.getVisibleLineNumber(this.startLineNumber)
-        ] as HTMLElement;
+        return this.scrollDom.querySelector(`[data-line-number="${lineNumber}"]`);
     }
 
     public updateVisibleRange(start: number, end: number) {
@@ -385,20 +388,12 @@ export class View {
     }
 
     private renderLine(actualLineNumber: number, visibleLineNumber: number) {
-        // const cache = this._domCache.get(actualLineNumber);
-        // if (cache) {
-        // 	return;
-        // }
         const line = this._jsonModel.getLineContent(actualLineNumber);
 
         const tokens = this._tokenizationJsonModelPart.getLineTokens(actualLineNumber);
 
         const lineNumberElement = this.renderLineNumber(actualLineNumber, visibleLineNumber);
         const lineElement = this.renderLineContent(actualLineNumber, visibleLineNumber, tokens, line);
-        // this._domCache.set(actualLineNumber, {
-        // 	lineElement,
-        // 	lineNumberElement
-        // });
     }
     
 
@@ -413,7 +408,6 @@ export class View {
         const lineElement = this.createLineContentElement(lineContent, actualLineNumber, visibleLineNumber);
         this._scrollDom.appendChild(lineElement);
 
-        // this._options?.autoWrap &&
         this._measureAndUpdateItemHeight(lineElement, visibleLineNumber);
         return lineElement;
     }
