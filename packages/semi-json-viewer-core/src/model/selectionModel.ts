@@ -13,6 +13,10 @@ export class SelectionModel {
     public startCol: number;
     public endRow: number;
     public endCol: number;
+    public preStartRow: number;
+    public preStartCol: number;
+    public preEndRow: number;
+    public preEndCol: number;
     public isCollapsed: boolean;
     public isSelectedAll: boolean = false;
     private _view: View;
@@ -147,5 +151,23 @@ export class SelectionModel {
         }
         row = (lineElement as any).lineNumber || 1;
         return { row, col: col + 1 };
+    }
+
+    public savePreviousSelection() {
+        this.preStartRow = this.startRow;
+        this.preStartCol = this.startCol;
+        this.preEndRow = this.endRow;
+        this.preEndCol = this.endCol;
+    }
+
+    public restorePreviousSelection() {
+        this.startRow = this.preStartRow;
+        this.startCol = this.preStartCol;
+        this.endRow = this.preEndRow;
+        this.endCol = this.preEndCol;
+        this._jsonModel.lastChangeBufferPos = {
+            lineNumber: this.startRow,
+            column: this.startCol,
+        };
     }
 }
