@@ -965,7 +965,8 @@ function Demo() {
     const ref = useRef();
     // Typescript
     // const ref = useRef<BaseDatePicker>();
-    // Why not import the DatePicker exported by the entry? -> The entry component is a forwardRef component, and the ref is transparently passed to this component
+    // Why not import the DatePicker exported by the entry? 
+    // The entry component is a forwardRef component, and the ref is transparently passed to this component
 
     const handleClickOutside = () => {
         console.log('click outside');
