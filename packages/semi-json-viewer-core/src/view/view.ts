@@ -142,6 +142,7 @@ export class View {
 
         this._contentDom.addEventListener('click', e => {
             e.preventDefault();
+            this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
             this._selectionModel.updateFromSelection();
         });
