@@ -389,6 +389,14 @@ $module: #{$prefix}-navigation;
         .#{$module}-collapse-btn {
             text-overflow: ellipsis;
             white-space: nowrap;
+            width: 100%;
+            display: flex;
+            &-inner {
+                flex: 1;
+                span{
+                    margin-right: auto;
+                }
+            }
         }
     }
 }
