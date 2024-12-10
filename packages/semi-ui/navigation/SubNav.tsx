@@ -14,7 +14,7 @@ import NavItem from './Item';
 import Dropdown, { DropdownProps } from '../dropdown';
 import NavContext, { NavContextType } from './nav-context';
 
-import { times, get } from 'lodash';
+import { times, get, isNumber, isString } from 'lodash';
 import Collapsible from "../collapsible";
 import CSSAnimation from "../_cssAnimation";
 export interface SubNavProps extends BaseProps {
@@ -30,7 +30,9 @@ export interface SubNavProps extends BaseProps {
     onMouseEnter?: React.MouseEventHandler<HTMLLIElement>;
     onMouseLeave?: React.MouseEventHandler<HTMLLIElement>;
     text?: React.ReactNode;
-    expandIcon?: React.ReactNode
+    expandIcon?: React.ReactNode;
+    dropdownProps?: DropdownProps;
+    subDropdownProps?: DropdownProps
 }
 
 export interface SubNavState {
@@ -141,8 +143,10 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
             notifyGlobalOnSelect: (...args) => this._invokeContextFunc('onSelect', ...args),
             notifyGlobalOnClick: (...args) => this._invokeContextFunc('onClick', ...args),
             getIsSelected: itemKey => Boolean(!isNullOrUndefined(itemKey) && get(this.context, 'selectedKeys', []).includes(String(itemKey))),
-            getIsOpen: () =>
-                Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(String(this.props.itemKey))),
+            getIsOpen: () => {
+                const { itemKey } = this.props;
+                return Boolean(this.context && this.context.openKeys && this.context.openKeys.includes(this.props.itemKey));
+            }
         };
     }
 
@@ -172,8 +176,8 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
         const isOpen = this.adapter.getIsOpen();
 
         const iconElem = React.isValidElement(icon) ? (withTransition ? (
-            <CSSAnimation animationState={isOpen?"enter":"leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen?"180":"0"}`}>
-                {({ animationClassName })=>{
+            <CSSAnimation animationState={isOpen ? "enter" : "leave"} startClassName={`${cssClasses.PREFIX}-icon-rotate-${isOpen ? "180" : "0"}`}>
+                {({ animationClassName }) => {
                     // @ts-ignore
                     return React.cloneElement(icon, { size: iconSize, className: animationClassName });
                 }}
@@ -275,7 +279,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     className={subNavCls}
                 >
                     {children}
-                </ul>: null
+                </ul> : null
             }
         </Collapsible>;
 
@@ -291,7 +295,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
 
     wrapDropdown(elem: React.ReactNode = '') {
         let _elem: React.ReactNode = elem;
-        const { children, dropdownStyle, disabled } = this.props;
+        const { children, dropdownStyle, disabled, subDropdownProps, dropdownProps: userDropdownProps } = this.props;
 
         const { mode, isInSubNav, isCollapsed, subNavCloseDelay, subNavOpenDelay, prefixCls, getPopupContainer } = this.context;
 
@@ -331,6 +335,7 @@ export default class SubNav extends BaseComponent<SubNavProps, SubNavState> {
                     mouseEnterDelay={subNavOpenDelay}
                     mouseLeaveDelay={subNavCloseDelay}
                     onVisibleChange={this.handleDropdownVisible}
+                    {...(userDropdownProps ? userDropdownProps : subDropdownProps)}
                     {...dropdownProps}
                 >
                     {_elem}

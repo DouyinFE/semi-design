@@ -32,14 +32,15 @@ body[theme-mode="dark"] {
     }
 }
 
-code,
-pre {
+pre,code:not(.semi-codeHighlight *) {
     font-family: Inconsolata, monospace;
     background-color: var(--semi-color-fill-1);
     margin-left: 4px;
     margin-right: 4px;
     letter-spacing: -0.01em;
 }
+
+
 
 body[theme-mode="dark"] {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
@@ -503,3 +504,12 @@ $spCol: var(--semi-color-primary);
     letter-spacing: unset;
     line-height: unset;
 }
+
+
+
+
+
+
+
+
+

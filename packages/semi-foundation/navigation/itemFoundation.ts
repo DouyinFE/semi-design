@@ -17,10 +17,12 @@ export interface ItemProps {
     children?: any
 }
 
+export type ItemKey = string | number;
+
 export interface SelectedItemProps<Props = ItemProps> {
-    itemKey: string | number;
+    itemKey: ItemKey;
     text?: any;
-    selectedKeys?: string | number[];
+    selectedKeys?: ItemKey[];
     selectedItems?: Props[];
     domEvent?: any
 }
@@ -29,8 +31,8 @@ export interface ItemAdapter<P = Record<string, any>, S = Record<string, any>> e
     cloneDeep(value: any, customizer?: (value: any) => void): any;
     updateTooltipShow(showTooltip: boolean): void;
     updateSelected(selected: boolean): void;
-    updateGlobalSelectedKeys(keys: string[]): void;
-    getSelectedKeys(): string[];
+    updateGlobalSelectedKeys(keys: ItemKey[]): void;
+    getSelectedKeys(): ItemKey[];
     getSelectedKeysIsControlled(): boolean;
     notifyGlobalOnSelect(item: SelectedItemProps): void;
     notifyGlobalOnClick(item: SelectedItemProps): void;

@@ -123,11 +123,11 @@ const AutoFocusDemo = () => {
         onFocus={() => console.log('onFocus')}
         onBlur={() => console.log('onBlur')}
       >
-        <Option value="abc">抖音</Option>
-        <Option value="hotsoon">火山</Option>
-        <Option value="pipixia">皮皮虾</Option>
-        <Option value="duoshan">多闪</Option>
-        <Option value="xigua">西瓜视频</Option>
+        <Option value="abc" data-test-id='douyin' data-shortcut='dy'>抖音</Option>
+        <Option value="hotsoon" data-test-id='hotsoon'>火山</Option>
+        <Option value="capcut" data-test-id='capcut'>剪映</Option>
+        <Option value="duoshan" data-test-id='duoshan'>多闪</Option>
+        <Option value="xigua" data-test-id='xigua'>西瓜视频</Option>
       </Select>
       <div className="test-div">test-div</div>
     </>
@@ -790,6 +790,7 @@ export const SelectFilterSingle = () => (
       }}
       showClear
       autoFocus
+      placeholder='singe filter select'
       onSearch={(val) => console.log(`onSearch:${val}`)}
       onFocus={() => console.log('onFocus')}
       onBlur={() => console.log('onBlur')}
@@ -2201,9 +2202,9 @@ class OptionGroupDemo extends React.Component {
 
   renderGroup(group, index) {
     const options = group.children.map(option => (
-      <Select.Option value={option.value} label={option.label} key={option.label} />
+      <Select.Option value={option.value} label={option.label} key={option.label} data-test-id={option.label} />
     ));
-    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label}>{options}</Select.OptGroup>;
+    return <Select.OptGroup key={`${index}-${group.label}`} label={group.label} data-test-id={group.label}>{options}</Select.OptGroup>;
   }
 
   render() {
@@ -2217,6 +2218,7 @@ class OptionGroupDemo extends React.Component {
             width: 180,
           }}
           filter
+          showClear
         >
           {groups.map((group, index) => this.renderGroup(group, index))}
         </Select>
@@ -2227,6 +2229,7 @@ class OptionGroupDemo extends React.Component {
               let sug = sugInput.toUpperCase();
               return label.includes(sug);
           }}
+          showClear
           id='without-key'
           style={{ width: "180px" }}
           placeholder="without key"
@@ -2255,10 +2258,6 @@ class OptionGroupDemo extends React.Component {
 }
 
 export const SelectOptionGroup = () => <OptionGroupDemo />;
-
-SelectOptionGroup.story = {
-  name: 'Select OptionGroup',
-};
 
 const BlurDemo = () => {
   const onBlur = (value, e) => {
@@ -2695,6 +2694,18 @@ SelectPosition.story = {
 }
 
 const RenderOptionDemo = () => {
+
+  const optionList = [
+      { value: 'db-4', label: 'Doubao-Pro-4k', otherKey: 0, 'data-cy': 'option-1' },
+      { value: 'db-32', label: 'Doubao-Pro-32K', otherKey: 1, 'data-cy': 'option-2' },
+      { value: 'db-128', label: 'Doubao-Pro-128K', otherKey: 2, 'data-cy': 'option-3' },
+      { value: 'db-lite-2', label: 'Doubao-Lite-4K', otherKey: 4, 'data-cy': 'option-4' },
+      { value: 'db-lite-32', label: 'Doubao-Lite-32K', otherKey: 5, 'data-cy': 'option-5' },
+      { value: 'db-lite-128', label: 'Doubao-Lite-128K', otherKey: 6, 'data-cy': 'option-6' },
+      { value: 'gpt-4', label: 'GPT-4', otherKey: 6, 'data-cy': 'option-7' },
+      { value: 'gpt-4-32', label: 'GPT-4-32K', otherKey: 7, 'data-cy': 'option-8' },
+  ];
+
   const renderOptionItem = renderProps => {
     const {
       disabled,
@@ -2715,10 +2726,12 @@ const RenderOptionDemo = () => {
       ['custom-option-render-focused']: focused,
       ['custom-option-render-disabled']: disabled,
       ['custom-option-render-selected']: selected,
-    }); // Notice：
+    }, className); // Notice：
+
     // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
     // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
     // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
+    // 4.props传入的className需在wrapper dom上绑定，否则上下键盘操作时可能存在无法自动滚动展示的问题
 
     return (
       <div
@@ -2726,6 +2739,7 @@ const RenderOptionDemo = () => {
         className={optionCls}
         onClick={() => onClick()}
         onMouseEnter={e => onMouseEnter()}
+        {...rest}
       >
         <Checkbox checked={selected} />
         <div className="option-right">{label}</div>
@@ -2742,6 +2756,8 @@ const RenderOptionDemo = () => {
         style={{
           width: 300,
         }}
+        data-cy="single"
+        maxHeight={180}
         renderOptionItem={renderOptionItem}
       />
       <br />
@@ -2751,6 +2767,8 @@ const RenderOptionDemo = () => {
         multiple
         dropdownClassName="components-select-demo-renderOptionItem"
         optionList={optionList}
+        maxHeight={180}
+        data-cy="multiple"
         style={{
           width: 450,
         }}
@@ -3568,3 +3586,127 @@ export const UpdateOtherKeyNotInList = () => {
     </>
   );
 };
+
+
+export const ControledSameLabelInNode = () => {
+    const [value, setValue] = useState();
+    return <Select style={{ width: 180 }} 
+        value={value}
+        id='test'
+        // motion={false}
+        data-cy="singleControl"
+        onChange={(value) => {
+            console.log('change');
+            console.log(value)
+            setValue(value)
+        }}>
+        <Select.OptGroup label="Asia">
+            <Select.Option value="a-1" label={<div>China</div>} className='a-1' data-cy='a-1' key={'a-1'}></Select.Option>
+            <Select.Option value="a-2" label={<div>China</div>} className='a-2' data-cy='a-2' key={'a-2'}></Select.Option>
+            <Select.Option value="a-3" label={<div>Korea</div>} className='a-3'></Select.Option>
+        </Select.OptGroup>
+        <Select.OptGroup label="Europe">
+            <Select.Option value="b-1" label={<div>Germany</div>}></Select.Option>
+            <Select.Option value="b-2" label={<div>France</div>}></Select.Option>
+        </Select.OptGroup>
+    </Select>
+}
+
+export const SearchPosition = () => {
+  
+  return (<>
+        <Select
+          filter
+          searchPosition='dropdown'
+          onChangeWithObject
+          placeholder={'single searchPosition=dropdown'}
+          optionList={optionList}
+          searchPlaceholder='dropdown input place'
+          showClear
+          autoFocus
+          style={{ width: 320 }}
+        />
+        <Select
+          filter
+          multiple
+          placeholder={'multiple searchPosition=dropdown'}
+          searchPosition='dropdown'
+          onChangeWithObject
+          showClear
+          searchPlaceholder='dropdown input place'
+          autoClearSearchValue={false}
+          optionList={optionList}
+          style={{ width: 320 }}
+        />
+    </>
+  )
+}
+
+export const fix2465 = () => {
+  let singleSelectBox = useRef(null);
+  let multipleSelectBox = useRef(null);
+
+    let outSlotStyle = {
+        backgroundColor: 'var(--semi-color-fill-0)',
+        height: '36px',
+        display: 'flex',
+        paddingLeft: 32,
+        color: 'var(--semi-color-link)',
+        alignItems: 'center',
+        cursor: 'pointer',
+        borderTop: '1px solid var(--semi-color-border)',
+        borderRadius: '0 0 6px 6px',
+    };
+    let singleOutSlotNode = (
+        <div style={outSlotStyle}>
+            <button onClick={(e)=>{singleSelectBox.current.close()}}>single close</button>
+        </div>
+    );
+    let multipleOutSlotNode = (
+        <div style={outSlotStyle}>
+            <button onClick={(e)=>{multipleSelectBox.current.close()}}>multiple close</button>
+        </div>
+    );
+
+    return (
+        <div>
+            <p>点击 Select 展开弹层后，点击 close 按钮关闭弹层，最后点击外部，检查 Select 聚焦样式是否消失 </p>
+            <Select
+                ref={singleSelectBox}
+                style={{ width: 300 }}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={singleOutSlotNode}
+                placeholder="单选"
+                autoAdjustOverflow={false}
+                position="bottom"
+            >
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                <Select.Option value="jianying">剪映</Select.Option>
+                <Select.Option value="duoshan">多闪</Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+            <br />
+            <br />
+            <Select
+                ref={multipleSelectBox}
+                style={{ width: 300 }}
+                dropdownStyle={{ width: 180 }}
+                maxHeight={150}
+                outerBottomSlot={multipleOutSlotNode}
+                placeholder="多选"
+                autoAdjustOverflow={false}
+                multiple
+                position="bottom"
+            >
+                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="ulikecam">轻颜相机</Select.Option>
+                <Select.Option value="jianying">剪映</Select.Option>
+                <Select.Option value="duoshan">多闪</Select.Option>
+                <Select.Option value="xigua">西瓜视频</Select.Option>
+            </Select>
+            <Button onClick={()=>{multipleSelectBox.current.close()}}>close</Button>
+        </div>
+    );
+}

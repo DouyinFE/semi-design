@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 44
+order: 56
 category: Navigation
 title:  Tree
 subTitle: Tree
@@ -2271,6 +2271,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | ------------------- | --------------------- | ------------------------------------------------- | ------- | ------ |
 | autoExpandParent | Toggle whether to expand parent node automatically | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | Toggle whether allow autoExpand when drag enter node | boolean | true | 1.8.0 | 
+| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, value will include that node and its children. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
 | blockNode           | Toggle whether to display node as row     | boolean                     | true    | - |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className           | Class name| string                      | -       | - |
@@ -2288,7 +2289,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
 | filterTreeNode      | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean)  | false   | - |
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 
-| icon       | Icon | ReactNode         | -       | - |
+| icon       | Icon | ReactNode \|(props: TreeNodeProps) => ReactNode         | -       | - |
 | labelEllipsis | Toggle whether to ellipsis label when overflow. Set to false iff there are other requirements | boolean | false\|true(virtualized) | 1.8.0 | 
 | leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | 1.18.0 |
 | loadData | Load data asynchronously and the return value should be a promise | (treeNode?: TreeNodeData) => Promise< void > |-| 1.0.0|
@@ -2298,7 +2299,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
 | renderDraggingNode | Custom render function to render html element of dragImg for dragging node | (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement | - | 1.8.0 | 
 | renderFullLabel | Custom option render function | (data: object) => ReactNode | - | 1.7.0 | 
-| renderLabel | Custom label render function | (label: ReactNode, data: TreeNodeData) => ReactNode | - | 1.6.0 | 
+| renderLabel | Custom label render function. The searchWord parameter is supported since 2.65.0 | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | - | 1.6.0 | 
 | searchClassName     | Classname property for search box  | string                      | -       | - |
 | searchPlaceholder   | Placeholder for search box         | string                      | -       | - |
 | searchRender | Custom method to render search input; hide search box if set to false(**V>=1.0.0**) | ((searchRenderProps: object) => ReactNode) \| false | - | 0.35.0 |

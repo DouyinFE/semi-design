@@ -62,7 +62,7 @@ export type CommonexcludeType = {
 
 export type RadioCheckboxExcludeProps = {
     defaultValue?: any;
-    chekced?: boolean;
+    checked?: boolean;
     defaultChecked?: boolean;
     field: string
 };
@@ -97,13 +97,13 @@ export interface FormFCChild<K extends Record<string, any> = any> {
 }
 
 
-
 export interface BaseFormProps <Values extends Record<string, any> = any> extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange' | 'onSubmit' | 'onReset'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
     onSubmit?: (values: Values, e?: React.FormEvent<HTMLFormElement>) => void;
     onSubmitFail?: (errors: Record<keyof Values, FieldError>, values: Partial<Values>, e?: React.FormEvent<HTMLFormElement>) => void;
     onReset?: () => void;
     onValueChange?: (values: Values, changedValue: Partial<Values>) => void;
+    onErrorChange?: (errors: Record<keyof Values, FieldError>, changedError?: Partial<Record<keyof Values, FieldError>>) => void;
     onChange?: (formState: FormState<Values>) => void;
     allowEmpty?: boolean;
     validateFields?: (values: Values) => string | Partial<AllErrors<Values>>;
@@ -128,5 +128,9 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     disabled?: boolean;
     showValidateIcon?: boolean;
     stopValidateWithError?: boolean;
+    stopPropagation?: {
+        submit?: boolean;
+        reset?: boolean
+    };
     trigger?: FieldValidateTriggerType
 }

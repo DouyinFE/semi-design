@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 63
+order: 75
 category: Show
 title: Table
 subTitle: Table
@@ -488,7 +488,7 @@ function App() {
                             style={{ marginRight: 12 }}
                         ></Avatar>
                         {/* The width calculation method is the cell setting width minus the non-text content width */}
-                        <Text heading={5} ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
+                        <Text ellipsis={{ showTooltip: true }} style={{ width: 'calc(400px - 76px)' }}>
                             {text}
                         </Text>
                     </span>
@@ -945,6 +945,8 @@ render(App);
 
 The header can be fixed to the top of the page with the `sticky` property. v2.21 version support. When passing `top`, you can control the distance from the scroll container.
 
+After turning on sticky, Table will automatically turn on the fixed layout, and the column width will be determined by `column.width`. Columns without a given width are automatically assigned by the browser.
+
 <StickyHeaderTable />
 
 ```jsx live=false noInline=true dir="column"
@@ -1197,6 +1199,10 @@ render(App);
 ```
 
 When sorter is a function type, the sortOrder status can be obtained through the third parameter of the function. The function type is `(a?: RecordType, b?: RecordType, sortOrder?: 'ascend' | 'descend') => number`. Supported by version v2.47.
+
+You can control whether to display the sorting tip through the `showSortTip` attribute. It is supported since v2.65 and defaults to `false`. When the tip is turned on, when there is only sorting function, the sorting prompt will be displayed when the mouse is moved to the table header; in other cases, the sorting prompt will be displayed only when the mouse is moved to the sorting icon.
+
+**Note**: When using the `sortOrder` attribute for controlled sorting, since the next sort order cannot be predicted, `showSortTip` does not take effect and the prompt will not be displayed.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -5301,7 +5307,6 @@ interface TablePaginationProps extends PaginationProps {
     formatPageText?: FormatPageText;
 }
 
-type VirtualizedMode = 'list' | 'grid';
 type VirtualizedItemSizeFn = (index?: number) => number;
 type VirtualizedOnScrollArgs = {
     scrollDirection?: 'forward' | 'backward';
@@ -5313,7 +5318,6 @@ type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 type Virtualized =
     | boolean
     | {
-          mode?: VirtualizedMode;
           itemSize?: number | VirtualizedItemSizeFn;
           onScroll?: VirtualizedOnScroll;
       };
@@ -5420,10 +5424,12 @@ import { Table } from '@douyinfe/semi-ui';
 | renderFilterDropdown | Custom filter dropdown panel, for usage details, see [Custom Filter Rendering](#Custom-Filter-Rendering) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | Customize the rendering method of each filter item. For usage details, see [Custom Filter Item Rendering](#Custom-Filter-Item-Rendering) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | Whether to enable resize mode, this property will take effect only after Table resizable is enabled | boolean |  | **2.42.0** |
+| showSortTip | Whether to display sorting tips, If sortOrder is set and sorting is controlled, this parameter will not take effect | boolean | false | **2.65.0** |
 | sortChildrenRecord | Whether to sort child data locally | boolean |  | **0.29.0** |
 | sortOrder | The controlled property of the sorting, the sorting of this control column can be set to 'ascend'\|'descended '\|false | boolean | false |
 | sorter | Sorting function, local sorting uses a function (refer to the compareFunction of Array.sort), requiring a server-side sorting can be set to true. **An independent dataIndex must be set for the sort column, and an independent key must be set for each data item in the dataSource** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon |Customize the sort icon. The returned node controls the entire sort button, including ascending and descending buttons. Need to control highlighting behavior based on sortOrder | (props: { sortOrder }) => ReactNode | | **2.50.0** |
+| shouldCellUpdate | Self control whether cell should be updated | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
 | title | Column header displays text. When a function is passed in, title will use the return value of the function; when other types are passed in, they will be aggregated with sorter and filter. It needs to be used with useFullRender to obtain parameters such as filter in the function type | string \| ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode. |  | Function type requires **0.34.0** |
 | useFullRender | Whether to completely customize the rendering, see [Full Custom Rendering](#Fully-custom-rendering) for usage details, enabling this feature will cause a certain performance loss | boolean | false | **0.34.0** |
 | width | Column width | string \| number |  |
@@ -5454,6 +5460,7 @@ type Filter = {
 | getCheckboxProps | Default property configuration for the selection box | (record: RecordType) => object |  |  |
 | hidden | Hide selection column or not | boolean | false | **0.34.0** |
 | selectedRowKeys | Specifies the key array of the selected item, which needs to work with onChange | string [] |  |  |
+| shouldCellUpdate | Self control whether cell should be updated | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
 | renderCell         | Custom rendering checkbox                                                                                 | ({ selected: boolean, record: RecordType, originNode: JSX.Element, inHeader: boolean, disabled: boolean, indeterminate: boolean, index?: number, selectRow?: (selected: boolean, e: Event) => void, selectAll?: (selected: boolean, e: Event) => void }) => ReactNode |        |      **2.52.0**      |
 | width | Custom list selection box width | string | number |  |
 | onChange | A callback in the event of a change in the selected item. The first parameter will save the row keys selected last time, even if you do paging control or update the dataSource [FAQ](#faq) | (selectedRowKeys: number[]\|string[], selectedRows: RecordType[]) => void |  |  |

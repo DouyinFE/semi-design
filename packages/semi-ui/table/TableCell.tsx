@@ -1,11 +1,11 @@
 import React, { createRef, Fragment, ReactNode } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, noop, set, omit, isEqual, merge } from 'lodash';
+import { get, noop, set, omit, merge, isEqual } from 'lodash';
 
 import { cssClasses, numbers } from '@douyinfe/semi-foundation/table/constants';
 import TableCellFoundation, { TableCellAdapter } from '@douyinfe/semi-foundation/table/cellFoundation';
-import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle } from '@douyinfe/semi-foundation/table/utils';
+import { isSelectionColumn, isExpandedColumn, getRTLAlign, shouldShowEllipsisTitle, getRTLFlexAlign } from '@douyinfe/semi-foundation/table/utils';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import Context, { TableContextProps } from './table-context';
@@ -130,6 +130,11 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
         const props = this.props;
         const { column, expandIcon } = props;
         const cellInSelectionColumn = isSelectionColumn(column);
+
+        const { shouldCellUpdate } = column;
+        if (typeof shouldCellUpdate === 'function') {
+            return shouldCellUpdate(nextProps, props);
+        }
         // The expand button may be in a separate column or in the first data column
         const columnHasExpandIcon = isExpandedColumn(column) || expandIcon;
         if ((cellInSelectionColumn || columnHasExpandIcon) && !isEqual(nextProps, this.props)) {
@@ -202,7 +207,8 @@ export default class TableCell extends BaseComponent<TableCellProps, Record<stri
 
         if (column.align) {
             const textAlign = getRTLAlign(column.align, direction);
-            tdProps.style = { ...tdProps.style, textAlign };
+            const justifyContent = getRTLFlexAlign(column.align, direction);
+            tdProps.style = { ...tdProps.style, textAlign, justifyContent };
         }
 
         return { tdProps, customCellProps };

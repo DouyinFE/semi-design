@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 61
+order: 73
 category: 展示类
 title: ScrollList 滚动列表
 icon: doc-scrolllist
@@ -153,7 +153,7 @@ class ScrollListDemo extends React.Component {
 | mode        | 模式选择                                            | "normal" \| "wheel"                  | "wheel"|
 | motion      | 是否开启滚动动画                                     | Motion                                | true   |
 | onSelect    | 选中回调                                            | (data: [ItemData](#ItemData)) => void| NOOP   |
-| selectIndex | 选中项的索引                                         | number                               | 0      |
+| selectedIndex | 选中项的索引                                         | number                               | 0      |
 | style       | 内联样式                                            | CSSProperties                        | {}      |
 | transform   | 对选中项的变换，返回值会作为文案进行显示                  | (value: any, text: string) => string | v => v |
 

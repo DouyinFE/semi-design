@@ -7,6 +7,7 @@ import {
 } from 'lodash';
 import calculateNodeHeight from './util/calculateNodeHeight';
 import getSizingData from './util/getSizingData';
+import truncateValue from './util/truncateValue';
 
 export interface TextAreaDefaultAdapter {
     notifyChange: noopFunction;
@@ -124,20 +125,7 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
      */
     handleTruncateValue(value: string, maxLength: number) {
         const { getValueLength } = this._adapter.getProps();
-        if (isFunction(getValueLength)) {
-            let truncatedValue = '';
-            for (let i = 1, len = value.length; i <= len; i++) {
-                const currentValue = value.slice(0, i);
-                if (getValueLength(currentValue) > maxLength) {
-                    return truncatedValue;
-                } else {
-                    truncatedValue = currentValue;
-                }
-            }
-            return truncatedValue;
-        } else {
-            return value.slice(0, maxLength);
-        }
+        return truncateValue({ value, maxLength, getValueLength });
     }
 
     handleFocus(e: any) {
@@ -171,6 +159,11 @@ export default class TextAreaFoundation extends BaseFoundation<TextAreaAdapter> 
     }
 
     handleKeyDown(e: any) {
+        const { disabledEnterStartNewLine } = this.getProps();
+        if (disabledEnterStartNewLine && e.key === 'Enter' && !e.shiftKey) {
+            // Prevent default line wrapping behavior
+            e.preventDefault(); 
+        }
         this._adapter.notifyKeyDown(e);
         if (e.keyCode === 13) {
             this._adapter.notifyPressEnter(e);

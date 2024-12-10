@@ -108,6 +108,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Geen resultaten gevonden',
         pageText: '${currentStart} tot ${currentEnd} van ${total} wordt weergegeven',
+        descend: 'Klik om af te dalen',
+        ascend: 'Klik om op te stijgen',
+        cancelSort: 'Sorteren annuleren',
     },
     Select: {
         emptyText: 'Geen resultaten gevonden',
@@ -176,6 +179,15 @@ const local: Locale = {
         downloadTip: 'Downloaden',
         adaptiveTip: 'Adaptieve weergave',
         originTip: 'Standaardweergave',
+    },
+    Chat: {
+        deleteConfirm: 'Weet u zeker dat u deze conversatie wilt verwijderen?',
+        clearContext: 'De context is gewist',
+        copySuccess: 'Succesvol gekopieerd',
+        stop: 'Stoppen',
+        copy: 'Kopiëren',
+        copied: 'Gekopieerd',
+        dropAreaText: 'Plaats het bestand hier',
     },
 };
 

@@ -4,9 +4,9 @@
 $module: #{$prefix};
 
 .#{$module}-row {
-    @include make-row();
     display: block;
     box-sizing: border-box;
+    @include make-row();
 }
 
 .#{$module}-row-flex {

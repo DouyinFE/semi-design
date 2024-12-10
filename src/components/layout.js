@@ -33,6 +33,7 @@ import Footer from './Footer';
 import { itemsArr } from 'utils/category';
 import { getLocale, _t } from 'utils/locale';
 import { useIde } from './useIde';
+import "prismjs/components/prism-vala.js";
 
 
 const insertScript = scriptText => {
@@ -135,6 +136,7 @@ const AppLayout = ({ type, location, children }) => {
                             localeCode
                             icon
                             order
+                            showNew
                         }
                     }
                 }

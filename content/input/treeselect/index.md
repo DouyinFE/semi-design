@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 35
+order: 47
 category: 输入类
 title: TreeSelect 树选择器
 icon: doc-treeselect
@@ -67,7 +67,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### 多选
 
 设置 `multiple`，可以进行多选。多选情况下所有子项都被选择时，自动勾选显示其父项。  
-通过 `leafOnly` (>= v0.32.0) 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
+通过 `leafOnly` 属性，可以设置只展示叶子节点，同时 onChange 的回调入参也会只有叶子节点的值。  
 
 ```jsx live=true
 import React from 'react';
@@ -571,8 +571,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 `defaultExpandAll` 和 `expandAll` 均可以设置 `TreeSelect` 的默认展开/收起状态。二者的区别是，`defaultExpandAll` 只在初始化时生效，而 `expandAll` 不仅会在初始化时生效，当数据(`treeData`)发生动态更新时，`expandAll` 也仍然生效。
 
-其中，`expandAll` 是从 1.30.0 开始支持的。
-
 在下面的 demo 中，`TreeData` 更新后，`defaultExpandAll` 失效，`expandAll` 仍然生效。
 
 ```jsx live=true
@@ -708,8 +706,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ```
 
 ### 严格禁用
-
-version: >= 1.30.0
 
 可以使用 `disableStrictly` 来开启严格禁用。开启严格禁用后，当节点是 disabled 的时候，则不能通过子级或者父级的关系改变选中状态。
 
@@ -1390,87 +1386,87 @@ function Demo() {
 
 ### TreeSelect
 
-| 属性            | 说明                                                                                                                                         | 类型           | 默认值          |  版本  |
-|-------------   |--------------------------------------------------------------------------------------------------------------------------------------------| -------------- | -------------- |-------- |
-| arrowIcon| 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon                                                                                  | ReactNode | | 1.15.0|
-| autoAdjustOverflow| 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                     |boolean | true| 0.34.0|
-| autoExpandParent | 是否自动展开父节点                                                                                                                                  | boolean | false | 0.34.0 |
-| borderless        | 无边框模式  >=2.33.0                                                                                                                            | boolean                         |           |
-| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'                                                                                                   | string | 'related' | 2.5.0 |
-| className | 选择框的 `className` 属性                                                                                                                        | string | - | - |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                              | ReactNode | |2.25.0  |
-| clickToHide  | 选择后是否自动关闭下拉弹层，仅单选模式有效                                                                                                                      | boolean    | true | 1.5.0      |
-| clickTriggerToHide  | 面板打开状态下，点击 Trigger 后是否关闭面板                                                                                                                 | boolean    | true | 2.32.0      |
-| defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`)发生改变，这个 api 是无法影响节点的展开情况的，如果有这个需要可以使用 `expandAll`                                                       | boolean | false | 0.32.0 |
-| defaultExpandedKeys | 默认展开的节点，显示其直接子级                                                                                                                            | string\[] | - | 0.32.0 |
-| defaultOpen | 默认展开下拉菜单                                                                                                                                   | boolean | false | 0.32.0 |
-| defaultValue | 指定默认选中的条目                                                                                                                                  | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType> | - | - |
-| disabled | 是否禁用                                                                                                                                       | boolean | false | - |
-| disableStrictly | 是否严格禁用                                                                                                                                     | boolean | false | 1.30.0 |
-| dropdownClassName | 下拉菜单的 `className` 属性                                                                                                                       | string | - | - |
-| dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于Select                                                                                                                         |    boolean        | true | - |
-| dropdownMargin | 下拉菜单计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                                      | object\|number  |  | 2.25.0
-| dropdownStyle | 下拉菜单的样式                                                                                                                                    | CSSProperties | - | - |
-| emptyContent | 当搜索无结果时展示的内容                                                                                                                               | ReactNode | `暂无数据` | - |
-| expandAction             | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开                                                                            | boolean \| string   | false | 1.4.0      |
-| expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`)发生改变，默认的展开情况也是会受到这个 api 影响的                                                                                  | boolean | false | 1.30.0 |
-| expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级                                                                                                                    | string[] | - | 0.32.0 |
-| keyMaps | 自定义节点中 key、label、value 的字段 | object |  - | 2.47.0 |
-| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                                                   | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false | - |
-| getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - | - |
-| insetLabel | 前缀标签别名，主要用于 Form                                                                                                                           | ReactNode | - |0.28.0 |
-| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                                  | boolean | false\|true | 1.8.0 | 
-| leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                                         | boolean | false |0.32.0 |
-| loadData | 异步加载数据，需要返回一个Promise                                                                                                                       | (treeNode: TreeNodeData) => Promise |- |  1.32.0|
-| loadedKeys | （受控）已经加载的节点，配合 loadData 使用                                                                                                                 | Set< string > | - | 1.32.0|
-| maxTagCount | 最多显示多少个 tag                                                                                                                                | number | - | - |
-| motionExpand | 是否开启选项树节点动画                                                                                                                                | boolean | true | - |
+| 属性            | 说明                                                                                                                                        | 类型          | 默认值          |
+|-------------   |--------------------------------------------------------------------------------------------------------------------------------------------| -------------- | -------------- |
+| arrowIcon | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon                                                            |  ReactNode |       | 
+| autoAdjustOverflow| 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                    | boolean | true| 
+| autoExpandParent | 是否自动展开父节点                                                                                                                  | boolean | false | 
+| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将包括该节点以及该子孙节点。（在leafOnly为false的情况下生效）。v2.61.0 后提供     | boolean | true |
+| borderless        | 无边框模式，v2.33.0后提供                                                                                                          | boolean | false |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。v2.5.0后提供                                                                  | string | 'related' |
+| className | 选择框的 `className` 属性                                                                                                                 | string | - | - |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效。v2.25.0后提供                                                                                     | ReactNode | - |
+| clickToHide  | 选择后是否自动关闭下拉弹层，仅单选模式有效                                                                                                   | boolean| true |
+| clickTriggerToHide  | 面板打开状态下，点击 Trigger 后是否关闭面板。v2.32.0后提供                                                                            | boolean| true |
+| defaultExpandAll | 设置在初始化时是否展开所有节点。而如果后续数据(`treeData`)发生改变，这个 api 是无法影响节点的展开情况的，如果有这个需要可以使用 `expandAll`          | boolean | false |
+| defaultExpandedKeys | 默认展开的节点，显示其直接子级                                                                                                       | string\[] | - |
+| defaultOpen | 默认展开下拉菜单                                                                                                                           | boolean | false |
+| defaultValue | 指定默认选中的条目                                    | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType> | - |
+| disabled | 是否禁用                                                                                                                                     | boolean | false |
+| disableStrictly | 是否严格禁用                                                                                                                           | boolean | false |
+| dropdownClassName | 下拉菜单的 `className` 属性                                                                                                          | string | - |
+| dropdownMatchSelectWidth | 下拉菜单最小宽度是否等于Select                                                                                                  | boolean | true |
+| dropdownMargin | 下拉菜单计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin。v2.25.0后提供    | object\|number |
+| dropdownStyle | 下拉菜单的样式                                                                                                                            | CSSProperties | - |
+| emptyContent | 当搜索无结果时展示的内容                                                                                                                     | ReactNode | `暂无数据` |
+| expandAction | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开                                                        | boolean \| string | false |
+| expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`)发生改变，默认的展开情况也是会受到这个 api 影响的                                                         | boolean | false |
+| expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级                                                                                                   | string[] | - |
+| keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供                                                                                                | object |  - |
+| filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
+| getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |
+| insetLabel | 前缀标签别名，主要用于 Form                                                                                                                     | ReactNode | - |
+| labelEllipsis | 是否开启label的超出省略，默认虚拟化状态下开启                                                                                                   | boolean | false\|true(虚拟化) | 
+| leafOnly | 多选模式下是否开启 onChange 回调入参及展示标签只有叶子节点                                                                                            | boolean | false |
+| loadData | 异步加载数据，需要返回一个Promise                                                                                                                 | (treeNode: TreeNodeData) => Promise |- |
+| loadedKeys | （受控）已经加载的节点，配合 loadData 使用                                                                                                       | Set< string > | - |
+| maxTagCount | 最多显示多少个 tag                                                                                                                           | number | - |
+| motionExpand | 是否开启选项树节点动画                                                                                                                        | boolean | true |
 | multiple | 是否支持多选                                                                                                                                     | boolean | false | - |
-| optionListStyle | optionList的样式                                                                                                                              | CSSProperties | - | 1.8.0 |
-| outerBottomSlot          | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                                          | ReactNode  |  - | 1.1.0|
-| outerTopSlot| 渲染在弹出层顶部，与 optionList 平级的自定义 slot，注意如果开启了 filterTreeNode 会取代搜索框，可以通过 search 方法来自行处理                                                        |  ReactNode  |  - | 1.9.0|
-| placeholder | 选择框默认文字                                                                                                                                    | string | - | - |
-| position | 下拉菜单位置，可选值参考 Tooltip position                                                                                                              | string | bottomLeft | 2.25.0 |
-| prefix | 前缀标签                                                                                                                                       | ReactNode | - |0.28.0 |
-| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                                     | boolean |  |  |
-| renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制)                                                                                     | (obj) => ReactNode | - | 1.7.0 | 
-| renderLabel | 自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                                    | <ApiType detail='(label:ReactNode, data:TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | - | 1.6.0 | 
-| renderSelectedItem | 自定义渲染已选项                                                                                                                                   | Function | - | 1.26.0 | 
-| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                                   | PopoverProps     | {} | 2.22.0 |
-| searchAutoFocus | 搜索框自动聚焦                                                                                                                                    | boolean | false | 1.27.0 |
-| searchPlaceholder | 搜索框默认文字                                                                                                                                    | string | - | - |
-| searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                          | string | `dropdown` | 1.29.0 |
-| showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                                    | boolean | false |  |
-| showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                                           | boolean | false | 0.32.0 |
-| showLine | 选项面板中选项显示连接线 | boolean | false | 2.50.0 |
-| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容                                                                                           | boolean | false | 2.22.0 |
-| showSearchClear | 是否显示搜索框的清除按钮                                                                                                                               | boolean | true | 0.35.0 |
-| size | 选择框大小，可选 `large`，`small`，`default`                                                                                                         | string | `default` | - |
-| style | 选择框的样式                                                                                                                                     | CSSProperties | - | - |
-| suffix | 后缀标签                                                                                                                                       | ReactNode | - |0.28.0|
-| treeData | `treeNodes` 数据，如果设置则不需要手动构造 `TreeNode` 节点（`key` 值在整个树范围内唯一）                                                                                | TreeNodeData[] | \[] | - |
-| treeNodeFilterProp | 搜索时输入项过滤对应的 `TreeNodeData` 属性                                                                                                              | string | `label` | - |
-| treeNodeLabelProp | 作为显示的 `prop` 设置                                                                                                                            | string | `label` | - |
-| triggerRender | 自定义触发器渲染方法                                                                                                                                 | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
-| validateStatus | 校验结果，可选 `warning`、`error`、 `default`（只影响样式背景色）                                                                                             | string | - | 0.32.0 |
-| value | 当前选中的节点的value值，传入该值时将作为受控组件                                                                                                                | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>| - | - |
-| virtualize | 列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成，参考 Tree - Virtualize Object。开启后将关闭动画效果。                                                      | object | - | 0.32.0 |
-| zIndex | treeSelect下拉菜单的zIndex                                                                                                                      | number | 1030 | 0.30.0 |
-| onBlur | 失去焦点时的回调                                                                                                                                   | function(event) | - | - |
-| onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值及节点属性；如果是通过tag关闭，event参数为null                                                                              | Function | - | - |
-| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型Function(node\|node[], e) 此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。    | boolean | false | 1.0.0 |
-| onClear     | 点击清除按钮时触发的回调                                                                                                                             | (e: Event) => void |  -  |   2.52.0  |
-| onExpand | 展示节点时调用                                                                                                                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType> | - | - |
-| onFocus | 聚焦时的回调                                                                                                                                     | function(event) | - | - |
-| onLoad | 节点加载完毕时触发的回调                                                                                                                               | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> |- |  1.32.0|
-| onSearch | 文本框值变化时回调。 <br/>入参 `filteredExpandedKeys` 表示因为搜索或 value / defaultValue 而展开的节点的 key, 可以配合 expandedKeys 受控时使用。**filteredExpandedKeys 在 2.6.0 中新增**；<br/>入参 `filteredNodes` 是搜索命中的节点。**filteredNodes 在 2.57.0 中新增**|  <ApiType detail='function(sugInput: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])'>(sugInput, filteredExpandedKeys, filteredNodes)=>void</ApiType>  |  |  |
-| onSelect | 被选中时调用，返回值为当前事件选项的key值                                                                                                                     | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType> | - | - |
-| onVisibleChange     | 弹出层展示/隐藏时触发的回调                                                                                                                             | function(isVisible:boolean) |     |   1.4.0  |
+| optionListStyle | optionList的样式                                                                                                                          | CSSProperties | - |
+| outerBottomSlot  | 渲染在弹出层底部，与 optionList 平级的自定义 slot                                                                                            | ReactNode  |  - | 
+| outerTopSlot| 渲染在弹出层顶部，与 optionList 平级的自定义 slot，注意如果开启了 filterTreeNode 会取代搜索框，可以通过 search 方法来自行处理                              |  ReactNode  |  - | 
+| placeholder | 选择框默认文字                                                                                                                                  | string | - | 
+| position | 下拉菜单位置，可选值参考 Tooltip position。v2.25.0后提供                                                                                              | string | bottomLeft |
+| prefix | 前缀标签                                                                                                                                            | ReactNode | - |
+| preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法                                                                                 | boolean | - |
+| renderFullLabel | 完全自定义label的渲染函数，[入参及用法详见](/zh-CN/navigation/tree#高级定制)                                                                     | (obj) => ReactNode | - |
+| renderLabel | 自定义label的渲染函数，searchWord 参数自 2.65.0 开始支持。[入参及用法详见](/zh-CN/navigation/tree#自定义节点内容)                                                                        | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | - |
+| renderSelectedItem | 自定义渲染已选项                                                                                                                         | Function | - |
+| restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83) 。v2.22.0后提供  | PopoverProps | {} |
+| searchAutoFocus | 搜索框自动聚焦                                                                                                                              | boolean | false |
+| searchPlaceholder | 搜索框默认文字                                                                                                                            | string | - | 
+| searchPosition | 设置搜索框的位置，可选: `dropdown`、`trigger`                                                                                                  | string | `dropdown` |
+| showClear | 当值不为空时，trigger 是否展示清除按钮                                                                                                               | boolean | false | 
+| showFilteredOnly | 搜索状态下是否只展示过滤后的结果                                                                                                               | boolean | false | 
+| showLine | 选项面板中选项显示连接线。v2.50.0后提供                                                                                                                | boolean | false |
+| showRestTagsPopover | 当超过 maxTagCount，hover 到 +N 时，是否通过 Popover 显示剩余内容。v2.22.0后提供                                                              | boolean | false |
+| showSearchClear | 是否显示搜索框的清除按钮                                                                                                                       | boolean | true |
+| size | 选择框大小，可选 `large`，`small`，`default`                                                                                                             | string | `default` |
+| style | 选择框的样式                                                                                                                                           | CSSProperties | - |
+| suffix | 后缀标签                                                                                                                                             | ReactNode | - |
+| treeData | `treeNodes` 数据，如果设置则不需要手动构造 `TreeNode` 节点（`key` 值在整个树范围内唯一）                                                                    | TreeNodeData[] | \[] |
+| treeNodeFilterProp | 搜索时输入项过滤对应的 `TreeNodeData` 属性                                                                                                   | string | `label` |
+| treeNodeLabelProp | 作为显示的 `prop` 设置                                                                                                                      | string | `label` | 
+| triggerRender | 自定义触发器渲染方法                                                                                                                             | (props: TriggerRenderProps) => ReactNode | - |
+| validateStatus | 校验结果，可选 `warning`、`error`、 `default`（只影响样式背景色）                                                                                  | string | - |
+| value | 当前选中的节点的value值，传入该值时将作为受控组件     | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>| - |
+| virtualize | 列表虚拟化，用于大量树节点的情况，由 height, width, itemSize 组成，参考 Tree - Virtualize Object。开启后将关闭动画效果。                                     | object | - |
+| zIndex | treeSelect下拉菜单的zIndex                                                                                                                             | number | 1030 |
+| onBlur | 失去焦点时的回调                                                                                                                                        | Function(event) | - |
+| onChange | 选中树节点时调用此函数，默认返回值为当前所有选中项的value值及节点属性；如果是通过tag关闭，event参数为null                                                         | Function | - |
+| onChangeWithObject | 是否将选中项 option 的其他属性作为回调。设为 true 时，onChange 的入参类型Function(node\|node[], e) 此时如果是受控，也需要把 value 设置成 object，且必须含有 value 的键值；defaultValue同理。    | boolean | false |
+| onClear     | 点击清除按钮时触发的回调。v2.52.0后提供                                                                                                               | (e: Event) => void |  -  |
+| onExpand | 展示节点时调用                                           | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType> | - |
+| onFocus | 聚焦时的回调                                                                                                                                           | Function(event) | - |
+| onLoad | 节点加载完毕时触发的回调                            | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - |
+| onSearch | 文本框值变化时回调。 <br/>入参 `filteredExpandedKeys` 表示因为搜索或 value / defaultValue 而展开的节点的 key, 可以配合 expandedKeys 受控时使用。**filteredExpandedKeys 在 2.6.0 中新增**；<br/>入参 `filteredNodes` 是搜索命中的节点。**filteredNodes 在 2.57.0 中新增**|  <ApiType detail='function(input: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])'>(input, filteredExpandedKeys, filteredNodes)=>void</ApiType>  |  |
+| onSelect | 被选中时调用，返回值为当前事件选项的key值              | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType> | - |
+| onVisibleChange     | 弹出层展示/隐藏时触发的回调                                                                                                                    | Function(isVisible:boolean) |     |
 
 ### TreeNodeData
 
-> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。**v>=1.7.0** 之前 value 值要求必须必填且唯一。
-> **v>=1.7.0** 之后 value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
+> __不同 `TreeNodeData` 的 key 值要求必填且唯一。__`label` 允许重复。value 值非必填。此时 onChange, value, defaultValue 及 onChangeWithObject 中所取的 value 属性值将改为 key 值。
 > 为了保证行为的符合预期，treeData 中的 value 值或者全部不填写，或者全部填写且唯一，不建议混写。
 
 | 属性            | 说明         | 类型           | 默认值          |

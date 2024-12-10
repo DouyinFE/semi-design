@@ -4,6 +4,7 @@ import componentVariablePathList from './componentName';
 
 export default function SemiThemeLoader(source: string) {
     const query = loaderUtils.getOptions ? loaderUtils.getOptions(this) : loaderUtils.parseQuery(this.query);
+    const cssLayer = query.cssLayer ?? false as boolean;
     const theme = query.name || '@douyinfe/semi-theme-default';
     // always inject
     const scssVarStr = `@import "~${theme}/scss/index.scss";\n`;
@@ -57,6 +58,7 @@ export default function SemiThemeLoader(source: string) {
 
     const prefixClsStr = `$prefix: '${prefixCls}';\n`;
 
+    let finalCSS: string = "";
     if (shouldInject) {
 
         const customStr = (() => {
@@ -82,9 +84,14 @@ export default function SemiThemeLoader(source: string) {
             return `body:not(:not(body)){${customStr}};`;
         })();
 
-        return `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
+        finalCSS = `${animationStr}${cssVarStr}${scssVarStr}${prefixClsStr}${fileStr}${customStr}`;
     } else {
-        return `${scssVarStr}${prefixClsStr}${fileStr}`;
+        finalCSS = `${scssVarStr}${prefixClsStr}${fileStr}`;
     }
+
+    if (cssLayer) {
+        finalCSS = `@layer semi{${finalCSS}}`;
+    }
+    return finalCSS;
 }
 

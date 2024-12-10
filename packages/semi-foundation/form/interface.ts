@@ -17,11 +17,13 @@ export interface BaseFormAdapter<P = Record<string, any>, S = Record<string, any
     forceUpdate: (callback?: () => void) => void;
     notifyChange: (formState: FormState) => void;
     notifyValueChange: (values: any, changedValues: any) => void;
+    notifyErrorChange: (errors: any, changedError: any) => void;
     notifyReset: () => void;
     getInitValues: () => Partial<Values>;
     getFormProps: (keys: undefined | string | Array<string>) => any;
     getAllErrorDOM: () => NodeList;
     getFieldDOM: (field: string) => Node;
+    getFieldErrorDOM: (field: string) => Node;
     initFormId: () => void
 }
 
@@ -36,12 +38,44 @@ export interface setValuesConfig {
     isOverride: boolean
 }
 
+// FieldPath 类型定义，用于生成对象字段的路径字符串
+export type FieldPath<T> = T extends object ? {
+    // 遍历对象的每个键 K
+    [K in keyof T]: T[K] extends object
+        // 如果键 K 对应的值是对象，则生成嵌套路径（递归调用 FieldPath）
+        ? `${string & K}.${FieldPath<T[K]>}` | `${string & K}`
+        // 否则，仅生成当前键的路径
+        : `${string & K}`;
+}[keyof T]
+    : never;
+
+// FieldPathValue 类型定义，用于从路径字符串中推导出实际的类型
+export type FieldPathValue<T, P extends FieldPath<T>> =
+  // 如果路径字符串 P 包含嵌套路径（使用模板字符串类型进行匹配）
+  P extends `${infer K}.${infer Rest}`
+      ? K extends keyof T
+          // 递归解析嵌套路径，逐层深入对象结构
+          ? Rest extends FieldPath<T[K]>
+              ? FieldPathValue<T[K], Rest>
+              : never
+          : never
+      // 如果路径字符串 P 是顶层键
+      : P extends keyof T
+          ? T[P]
+          : never;
+
+export type ScrollToErrorOptions<K> = {
+    field?: K;
+    index?: number;
+    scrollConfig?: ScrollIntoViewOptions
+}
+
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<T extends object = any> {
     /** get value of field */
-    getValue: <K extends keyof T>(field?: K) => T[K];
+    getValue: <P extends FieldPath<T>>(field?: P) => FieldPathValue<T, P>;
     /** set value of field */
-    setValue: <K extends keyof T>(field: K, newFieldValue: T[K]) => void;
+    setValue: <K extends FieldPath<T>>(field: K, newFieldValue: any) => void;
     /** get error of field */
     getError: <K extends keyof T>(field: K) => any;
     /** set error of field */
@@ -54,6 +88,8 @@ export interface BaseFormApi<T extends object = any> {
     getFieldExist: <K extends keyof T>(field: K) => boolean;
     /** get formState of form */
     getFormState: () => FormState<T extends object ? T : object>;
+    /** get formProps of form */
+    getFormProps: (keys?: Array<string>) => ComponentProps;
     /** submit form manual */
     submitForm: () => void;
     /** reset form manual */
@@ -65,7 +101,8 @@ export interface BaseFormApi<T extends object = any> {
     getValues: () => T;
     /** set value of multiple fields */
     setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void
+    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void;
+    scrollToError: <K extends keyof T>(config?: ScrollToErrorOptions<K>) => void
 }
 
 export interface CallOpts {

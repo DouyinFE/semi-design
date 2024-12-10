@@ -102,6 +102,9 @@ const local: Locale = {
     Table: {
         emptyText: '暂无数据',
         pageText: '显示第 ${currentStart} 条-第 ${currentEnd} 条，共 ${total} 条',
+        descend: '点击降序',
+        ascend: '点击升序',
+        cancelSort: '取消排序',
     },
     Select: {
         emptyText: '暂无数据',
@@ -170,6 +173,15 @@ const local: Locale = {
         downloadTip: '下载',
         adaptiveTip: '适应页面',
         originTip: '原始尺寸',
+    },
+    Chat: {
+        deleteConfirm: '确认删除该会话吗？',
+        clearContext: '上下文已清除',
+        copySuccess: '复制成功',
+        stop: '停止',
+        copy: '复制',
+        copied: '复制成功',
+        dropAreaText: '将文件放到这里',
     },
 };
 

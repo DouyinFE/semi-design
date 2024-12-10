@@ -66,12 +66,12 @@ $module: #{$prefix}-table;
 
     &-header {
         overflow: hidden;
+        scrollbar-base-color: transparent;
 
         &::-webkit-scrollbar {
             background-color: transparent;
             border-bottom: $width-table_header_border $border-table_base-borderStyle $color-table_th-border-default;
         }
-        scrollbar-base-color: transparent;
 
         &-sticky {
             position: sticky;
@@ -140,6 +140,24 @@ $module: #{$prefix}-table;
                 // word-break: break-all;
                 // word-wrap: break-word;
                 position: relative;
+                transition: background-color $transition_duration-table_row-head-bg $transition_function-table_row-head-bg;
+
+                &.#{$module}-row-head-clickSort {
+                    cursor: pointer;
+                    &:hover {
+                        background-image: linear-gradient(0deg, $color-table_th-clickSort-bg-hover, $color-table_th-clickSort-bg-hover);
+                        background-color: $color-table_cell-bg-hover;
+                        
+                        &.#{$module}-cell-fixed {
+                            &-left,
+                            &-right {
+                                &::before {
+                                    background-color: transparent;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 &.#{$module}-cell-fixed {
                     &-left,
@@ -541,7 +559,6 @@ $module: #{$prefix}-table;
         text-align: center;
         background: $color-table_pl-bg-default;
         border-bottom: $width-table_base_border $border-table_base-borderStyle $color-table-border-default;
-        border-radius: 0 0 #{$radius-table_base} #{$radius-table_base};
     }
 
     &-fixed {

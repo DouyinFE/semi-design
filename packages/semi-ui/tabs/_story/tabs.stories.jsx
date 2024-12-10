@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Tabs from '../index';
 import Button from '@douyinfe/semi-ui/button/index';
 import Typography from '@douyinfe/semi-ui/typography/index';
@@ -363,12 +363,40 @@ Level2Card.story = {
   name: 'Level 2-卡片Tab',
 };
 
+export const SlashTab = () => {
+  return (
+  <>
+    <Tabs defaultActiveKey="1" type="slash">
+      <TabPane tab="文档" itemKey="1">文档</TabPane>
+      <TabPane tab="快速起步" itemKey="2" disabled>快速起步</TabPane>
+      <TabPane tab="帮助" itemKey="3">帮助</TabPane>
+      <TabPane tab="关于" itemKey="4">关于</TabPane>
+      <TabPane tab="资源工具" itemKey="5">资源工具</TabPane>
+    </Tabs>
+    <br />
+    <br />
+    <Tabs defaultActiveKey="1" type="slash">
+      <TabPane tab={<span><IconFile />文档</span>} itemKey="1">文档</TabPane>
+      <TabPane tab={<span><IconGlobe />快速起步</span>} itemKey="2" disabled>快速起步</TabPane>
+      <TabPane tab={<span><IconHelpCircle />帮助</span>} itemKey="3">帮助</TabPane>
+    </Tabs>
+    <br />
+    <Tabs style={{ width: '400px'}} type="slash" collapsible dropdownProps={{ start: { showTick: false}, end: { showTick: false}}}>
+          {['文档', "快速起步", "帮助", "关于", "资源工具", "主页"].map((i, index) => (
+              <TabPane tab={i} itemKey={i} key={i} >
+                  Content of card tab {i}
+              </TabPane>
+          ))}
+    </Tabs>
+  </>)
+}
+
 export const Level3ButtonTab = () => (
   <Tabs style={style} defaultActiveKey="1" type="button">
     <TabPane tab="文档" itemKey="1">
       文档
     </TabPane>
-    <TabPane tab="快速起步" itemKey="2">
+    <TabPane tab="快速起步" itemKey="2" disabled>
       快速起步
     </TabPane>
     <TabPane tab="帮助" itemKey="3">
@@ -889,11 +917,35 @@ class TabClosableDemo extends React.Component {
 
   render() {
     return (
-      <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+      <>
+        <br />
+        <Tabs type="card" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
           {
-            this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey}>{t.text}</TabPane>)
+            this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey} >{t.text}</TabPane>)
           }
-      </Tabs>
+        </Tabs>
+        <br />
+        <br />
+        <Tabs type="line" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+          {
+            this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey} >{t.text}</TabPane>)
+          }
+        </Tabs>
+        <br />
+        <br />
+        <Tabs type="button" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+          {
+            this.state.tabList.map(t=><TabPane closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey} >{t.text}</TabPane>)
+          }
+        </Tabs>
+        <br />
+        <br />
+        <Tabs type="slash" defaultActiveKey="1" onTabClose={this.close.bind(this)}>
+          {
+            this.state.tabList.map(t=><TabPane  closable={t.closable} tab={t.tab} itemKey={t.itemKey} key={t.itemKey} >{t.text}</TabPane>)
+          }
+        </Tabs>
+      </>
     );
   }
 }
@@ -1038,4 +1090,69 @@ export const Fix2239 = () => {
 
 Fix2239.story = {
   name: 'Fix 2239',
+};
+
+export const ShowRestInDropdownDemo = () => {
+  return (
+    <Tabs
+      style={{
+        width: '60%',
+        margin: '20px',
+      }}
+      type="card"
+      collapsible
+      showRestInDropdown={false}
+    >
+      {[...Array(30).keys()].map(i => (
+        <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={`${i}`}>
+          Content of card tab {i}
+        </TabPane>
+      ))}
+    </Tabs>
+  )
+}
+
+export const Fix2415 = () => {
+  return (
+     <Tabs style={{ width: 250, margin: '20px' }} type="card" collapsible>
+        {[10,2324325324324,1111].map(i => (
+            <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                Content of card tab {i}.Quickly click the right arrow and observe that the arrow is disabled correctly.
+            </TabPane>   
+        ))}    
+    </Tabs>
+  )
+}
+export const DynamicShowArrow = () => {
+  const [hidden, setHidden] = useState(true);
+  const renderArrow = (items, pos, handleArrowClick, defaultNode) => {
+      const style = { visibility: hidden ? 'hidden': 'visible'};
+      return <span style={style}>
+        {defaultNode}
+      </span>
+  };
+  const onVisibleTabsChange = useCallback((visibleState) => {
+      let values = Object.values(Object.fromEntries(visibleState));
+      if (values.includes(false)) {
+          setHidden(false);
+      } else {
+          setHidden(true);
+      }
+  }, []);
+  return (
+      <Tabs
+          renderArrow={renderArrow}
+          style={{ margin: '20px' }}
+          type="line"
+          arrowPosition={"end"}
+          collapsible
+          onVisibleTabsChange={onVisibleTabsChange}
+      >
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
+              <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>
+                  Content of card tab {i}
+              </TabPane>
+          ))}
+      </Tabs>
+  );
 };

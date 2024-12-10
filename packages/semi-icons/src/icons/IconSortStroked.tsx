@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,18 +15,17 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M6.61422 14.0359C6.78685 13.7064 7.12806 13.5 7.5 13.5H16.5C16.8719 13.5 17.2132 13.7064 17.3858 14.0359C17.5584 14.3654 17.5339 14.7634 17.3222 15.0692L12.8222 21.5692C12.6354 21.839 12.3281 22 12 22C11.6719 22 11.3646 21.839 11.1778 21.5692L6.67781 15.0692C6.4661 14.7634 6.4416 14.3654 6.61422 14.0359ZM9.40857 15.5L12 19.2432L14.5914 15.5H9.40857Z"
+                d="M6.61 14.04a1 1 0 0 1 .89-.54h9a1 1 0 0 1 .82 1.57l-4.5 6.5a1 1 0 0 1-1.64 0l-4.5-6.5a1 1 0 0 1-.07-1.03Zm2.8 1.46L12 19.24l2.6-3.74H9.4Z"
                 fill="currentColor"
             />
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M12 2C12.3281 2 12.6354 2.16099 12.8222 2.43079L17.3222 8.93079C17.5339 9.2366 17.5584 9.63465 17.3858 9.96411C17.2132 10.2936 16.8719 10.5 16.5 10.5H7.5C7.12806 10.5 6.78685 10.2936 6.61422 9.96411C6.4416 9.63465 6.4661 9.2366 6.67781 8.93079L11.1778 2.43079C11.3646 2.16099 11.6719 2 12 2ZM9.40857 8.5H14.5914L12 4.75682L9.40857 8.5Z"
+                d="M12 2a1 1 0 0 1 .82.43l4.5 6.5a1 1 0 0 1-.82 1.57h-9a1 1 0 0 1-.82-1.57l4.5-6.5A1 1 0 0 1 12 2ZM9.4 8.5h5.2L12 4.76 9.4 8.5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'sort_stroked');
 export default IconComponent;

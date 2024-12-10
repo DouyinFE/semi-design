@@ -106,6 +106,9 @@ const locale: Locale = {
     Table: {
         emptyText: 'Sin resultados',
         pageText: 'Mostrando del ${currentStart} al ${currentEnd} de ${total}',
+        descend: 'Hacer clic para descender',
+        ascend: 'Hacer clic para ascender',
+        cancelSort: 'Cancelar ordenación',
     },
     Select: {
         emptyText: 'Sin resultados',
@@ -174,6 +177,15 @@ const locale: Locale = {
         downloadTip: 'descargar',
         adaptiveTip: 'Adaptarse a la página',
         originTip: 'Tamaño original',
+    },
+    Chat: {
+        deleteConfirm: '¿Estás seguro de que quieres eliminar esta conversación?',
+        clearContext: 'El contexto ha sido eliminado',
+        copySuccess: 'Copiado exitosamente',
+        stop: 'Detener',
+        copy: 'Copiar',
+        copied: 'Copiado',
+        dropAreaText: 'Coloca el archivo aquí',
     },
 };
 

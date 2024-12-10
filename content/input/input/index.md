@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 25
+order: 36
 category: 输入类
 title:  Input 输入框
 icon: doc-input
@@ -306,6 +306,48 @@ import { TextArea } from '@douyinfe/semi-ui';
     </div>
 );
 ```
+
+### 使用 Shift + Enter 换行的多行输入框
+TextArea 默认情况下 Enter 回车与 Shift + Enter 均可实现换行  
+通过适当的事件监听与禁用默认行为，你可以实现禁用 Enter 换行，仅 Shift + Enter 才能换行
+
+```jsx live=true
+import React from 'react';
+import { TextArea, HotKeys } from '@douyinfe/semi-ui';
+
+() => {
+    const [text, setText] = useState('');
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); // 阻止默认的换行行为
+        }
+    };
+
+    const handleChange = (value, event) => {
+        setText(event.target.value);
+    };
+
+    return (
+        <>  
+            <p style={{ display: 'flex' }}>
+                使用
+                <HotKeys
+                    hotKeys={['shift', 'enter']}
+                    style={{ marginBottom: 12, marginLeft: 4, marginRight: 4 }}
+                />
+                换行的 TextArea
+            </p>
+            <TextArea
+                value={text}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+            />
+        </>
+    );
+};
+```
+
 
 ### 自动扩展的多行输入框
 

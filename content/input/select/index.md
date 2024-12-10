@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 29
+order: 41
 category: 输入类
 title: Select 选择器
 icon: doc-select
@@ -31,8 +31,8 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select defaultValue="abc" style={{ width: 120 }}>
-            <Select.Option value="abc">抖音</Select.Option>
+        <Select defaultValue="douyin" style={{ width: 120 }}>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying" disabled>
                 剪映
@@ -41,14 +41,14 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
         <br />
         <br />
-        <Select defaultValue="abc" disabled style={{ width: 120 }}>
-            <Select.Option value="abc">抖音</Select.Option>
+        <Select defaultValue="douyin" disabled style={{ width: 120 }}>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
         </Select>
         <br />
         <br />
         <Select placeholder="请选择业务线" style={{ width: 120 }}>
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying" disabled>
                 剪映
@@ -69,7 +69,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音', otherKey: 0 },
+        { value: 'douyin', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -99,8 +99,8 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'ulikecam']}>
-            <Select.Option value="abc">抖音</Select.Option>
+        <Select multiple style={{ width: '320px' }} defaultValue={['douyin', 'ulikecam']}>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -113,9 +113,9 @@ import { Select } from '@douyinfe/semi-ui';
             showRestTagsPopover={true}
             restTagsPopoverProps={{ position: 'top' }}
             style={{ width: '320px' }}
-            defaultValue={['abc', 'ulikecam', 'jianying']}
+            defaultValue={['douyin', 'ulikecam', 'jianying']}
         >
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -126,11 +126,11 @@ import { Select } from '@douyinfe/semi-ui';
         <Select
             multiple
             style={{ width: '320px' }}
-            defaultValue={['abc']}
+            defaultValue={['douyin']}
             max={2}
             onExceed={() => Toast.warning('最多只允许选择两项')}
         >
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -143,11 +143,11 @@ import { Select } from '@douyinfe/semi-ui';
             showRestTagsPopover={true}
             restTagsPopoverProps={{ position: 'top' }}
             style={{ width: '220px' }}
-            defaultValue={['xigua', 'ulikecam', 'jianying', 'abc']}
+            defaultValue={['xigua', 'ulikecam', 'jianying', 'douyin']}
             ellipsisTrigger
             expandRestTagsOnClick
         >
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -298,7 +298,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 () => (
     <>
         <Select style={{ width: '320px' }} defaultValue={'ulikecam'} prefix={<IconVigoLogo />} showClear={true}>
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -312,7 +312,7 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
             suffix={<IconGift />}
             showArrow={false}
         >
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -332,7 +332,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音' },
+        { value: 'douyin', label: '抖音' },
         { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
@@ -354,7 +354,7 @@ import { Select } from '@douyinfe/semi-ui';
     const [colorVal, setColotVal] = useState('--semi-light-blue-3');
     return (
         <>
-            <Select style={{ width: 300 }} optionList={list} insetLabel="业务线" defaultValue="abc"></Select>
+            <Select style={{ width: 300 }} optionList={list} insetLabel="业务线" defaultValue="douyin"></Select>
             <br />
             <br />
             <Select
@@ -442,7 +442,7 @@ import { Select } from '@douyinfe/semi-ui';
                 autoAdjustOverflow={false}
                 position="bottom"
             >
-                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="douyin">抖音</Select.Option>
                 <Select.Option value="ulikecam">轻颜相机</Select.Option>
                 <Select.Option value="jianying">剪映</Select.Option>
                 <Select.Option value="duoshan">多闪</Select.Option>
@@ -456,7 +456,7 @@ import { Select } from '@douyinfe/semi-ui';
                 innerBottomSlot={innerSlotNode}
                 placeholder="自定义内侧底部slot，滚动至底部显示"
             >
-                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="douyin">抖音</Select.Option>
                 <Select.Option value="ulikecam">轻颜相机</Select.Option>
                 <Select.Option value="jianying">剪映</Select.Option>
                 <Select.Option value="duoshan">多闪</Select.Option>
@@ -496,7 +496,7 @@ import { Select } from '@douyinfe/semi-ui';
 
     const [key, setKey] = useState('component');
     const [value, setValue] = useState({ value: 'faq', label: '常见问题' });
-    const handleTabClick = itemKey => {
+    const handleTdouyinlick = itemKey => {
         setKey(itemKey);
     };
 
@@ -527,7 +527,7 @@ import { Select } from '@douyinfe/semi-ui';
             {tabOptions.map((item, index) => {
                 style = item.itemKey === key ? tabActiveStyle : tabStyle;
                 return (
-                    <div style={style} key={item.itemKey} onClick={() => handleTabClick(item.itemKey)}>
+                    <div style={style} key={item.itemKey} onClick={() => handleTdouyinlick(item.itemKey)}>
                         {item.label}
                     </div>
                 );
@@ -562,7 +562,7 @@ import { Select } from '@douyinfe/semi-ui';
     return (
         <>
             <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder="受控的Select">
-                <Select.Option value="abc">抖音</Select.Option>
+                <Select.Option value="douyin">抖音</Select.Option>
                 <Select.Option value="ulikecam">轻颜相机</Select.Option>
                 <Select.Option value="jianying">剪映</Select.Option>
                 <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -681,7 +681,7 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select filter style={{ width: 180 }} placeholder="带搜索功能的单选">
-            <Select.Option value="abc">抖音</Select.Option>
+            <Select.Option value="douyin">抖音</Select.Option>
             <Select.Option value="ulikecam">轻颜相机</Select.Option>
             <Select.Option value="jianying">剪映</Select.Option>
             <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -699,11 +699,58 @@ import { Select } from '@douyinfe/semi-ui';
 );
 ```
 
+### 搜索框位置
+默认搜索框展示于 Select 的 Trigger 触发器上。通过 `searchPosition` 可以指定不同的位置，可选 `dropdown`、`trigger`。 在 v2.61.0后提供
+若希望定制位于 dropdown 中的 Input 搜索框的 placeholder，可以通过 `searchPlaceholder` 控制  
+若 `searchPosition` 值为 `trigger`，当showClear=true 时，点击Trigger区域的清空按钮，将同时清空已选项以及搜索框中的文本  
+若 `searchPosition` 值为 `dropdown`，当showClear=true 时，点击Trigger区域清空按钮，仅清空已选项。点击搜索框中的清空按钮，仅清空搜索文本  
+
+```jsx live=true
+import React from 'react';
+import { Select } from '@douyinfe/semi-ui';
+
+() => (
+    <>
+        <Select
+            filter
+            searchPosition='dropdown'
+            style={{ width: 200 }}
+            defaultValue={'ulikecam'}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的单选"
+        >
+            <Select.Option value="douyin">抖音</Select.Option>
+            <Select.Option value="ulikecam">轻颜相机</Select.Option>
+            <Select.Option value="jianying">剪映</Select.Option>
+            <Select.Option value="xigua">西瓜视频</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            filter
+            searchPosition='dropdown'
+            multiple
+            style={{ width: 300 }}
+            defaultValue={['semi-1']}
+            placeholder='我的搜索框在下拉菜单中'
+            searchPlaceholder="带搜索功能的多选"
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
+        </Select>
+    </>
+);
+```
+
 ### 远程搜索
 
 带有远程搜索，防抖请求，加载状态的多选示例  
 通过`filter`开启搜索能力  
-将`remote`设置为 true 关闭对当前数据的筛选过滤(在 v0.24.0 后提供)  
+将`remote`设置为 true 关闭对当前数据的筛选过滤
 通过动态更新`optionList`更新下拉菜单中的备选项  
 使用受控的 value 属性
 
@@ -779,8 +826,8 @@ import { Select } from '@douyinfe/semi-ui';
         return label.includes(sug);
     }
     return (
-        <Select filter={searchLabel} style={{ width: '180px' }} placeholder="try abc">
-            <Select.Option value="abc">ABC</Select.Option>
+        <Select filter={searchLabel} style={{ width: '180px' }} placeholder="try douyin">
+            <Select.Option value="douyin">douyin</Select.Option>
             <Select.Option value="ulikecam">HOTSOON</Select.Option>
             <Select.Option value="jianying">PIPIXIA</Select.Option>
             <Select.Option value="xigua">XIGUA</Select.Option>
@@ -940,7 +987,7 @@ import { Select } from '@douyinfe/semi-ui';
         dropdownStyle={{ width: 250 }}
         dropdownClassName="test"
     >
-        <Select.Option value="abc">抖音</Select.Option>
+        <Select.Option value="douyin">抖音</Select.Option>
         <Select.Option value="ulikecam">轻颜相机</Select.Option>
         <Select.Option value="jianying">剪映</Select.Option>
         <Select.Option value="xigua">西瓜视频</Select.Option>
@@ -963,7 +1010,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: '抖音', type: 1 },
+        { value: 'douyin', label: '抖音', type: 1 },
         { value: 'ulikecam', label: '轻颜相机', type: 2 },
         { value: 'jianying', label: '剪映', type: 3 },
         { value: 'toutiao', label: '今日头条', type: 4 },
@@ -1087,41 +1134,29 @@ virtualize 是一个包含下列值的对象：
 import React from 'react';
 import { Select } from '@douyinfe/semi-ui';
 
-class VirtualizeDemo extends React.Component {
-    constructor(props) {
-        super(props);
-        let newOptions = Array.from({ length: 3000 }, (v, i) => ({ label: `option-${i}`, value: i }));
-        this.state = {
-            optionList: newOptions,
-        };
-    }
-
-    render() {
-        let { groups, optionList } = this.state;
-        let virtualize = {
-            height: 270,
-            width: '100%',
-            itemSize: 36, // px
-        };
-        return (
-            <>
-                <Select
-                    placeholder="拥有3k个Option的Select"
-                    style={{ width: 260 }}
-                    filter
-                    onSearch={this.handleSearch}
-                    virtualize={virtualize}
-                    optionList={optionList}
-                ></Select>
-            </>
-        );
-    }
-}
+() => {
+    const newOptions = Array.from({ length: 3000 }, (v, i) => ({ label: `option-${i}`, value: i }));
+    let virtualize = {
+        height: 270,
+        width: '100%',
+        itemSize: 36, // px
+    };
+    return (
+        <Select
+            placeholder="拥有3k个Option的Select"
+            style={{ width: 260 }}
+            filter
+            virtualize={virtualize}
+            optionList={newOptions}
+        ></Select>
+    );
+};
 ```
 
 ### 自定义触发器
 
-如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示
+如果 Select 默认的触发器样式满足不了你的需求，可以用`triggerRender`自定义选择框的展示  
+如果想保留搜索筛选能力，又不希望自己渲染 Input 相关的结构，可以同时通过 searchPosition='dropdown'，将默认的搜索框置于下拉列表中
 
 triggerRender 入参如下
 
@@ -1140,14 +1175,13 @@ interface TriggerRenderProps {
 
 ```jsx live=true
 import React, { useState } from 'react';
-import { Select } from '@douyinfe/semi-ui';
+import { Select, Tag } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-    const [valList, setValList] = useState(['abc', 'ulikecam']);
-    const [val, setVal] = useState('abc');
+    const [valList, setValList] = useState(['douyin', 'ulikecam']);
     const list = [
-        { value: 'abc', label: '抖音' },
+        { value: 'douyin', label: '抖音' },
         { value: 'ulikecam', label: '轻颜相机' },
         { value: 'jianying', label: '剪映' },
         { value: 'toutiao', label: '今日头条' },
@@ -1195,28 +1229,18 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
         return (
             <div
                 style={{
-                    minWidth: '112',
-                    height: 32,
+                    margin: 4,
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    flexGrow: 1,
+                    overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: 8,
-                    borderRadius: 3,
                 }}
             >
-                <div
-                    style={{
-                        margin: 4,
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        flexGrow: 1,
-                        overflow: 'hidden',
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    {value.map(item => item.label).join(' , ')}
-                    <IconChevronDown style={{ margin: '0 8px', flexShrink: 0 }} />
-                </div>
+                <Tag size='large' color='cyan' shape='circle' suffixIcon={<IconChevronDown />}>
+                    {value.map(item => item.label).join(' / ')}
+                </Tag>
             </div>
         );
     };
@@ -1230,19 +1254,81 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                 optionList={list}
                 onChange={value => setValList(value)}
                 multiple
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240 }}
             ></Select>
             <br />
             <br />
-            <h4>无边框无背景色的触发器</h4>
+            <h4>使用 circle Tag 作为触发器</h4>
             <Select
-                value={val}
-                onChange={value => setVal(value)}
+                value={valList}
+                onChange={value => setValList(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
+                filter
+                multiple
+                searchPosition='dropdown'
                 style={{ width: 240, marginTop: 20, outline: 0 }}
             ></Select>
         </div>
+    );
+};
+
+```
+
+下例是更复杂的例子：复用了 TagInput 拖拽排序能力，通过 triggerRender 为 Select 增加排序
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Select, TagInput } from '@douyinfe/semi-ui';
+
+() => {
+    const [valList, setValList] = useState(['douyin', 'ulikecam']);
+    const [inputVal, setInputVal] = useState('');
+    const list = [
+        { value: 'douyin', label: '抖音' },
+        { value: 'ulikecam', label: '轻颜相机' },
+        { value: 'jianying', label: '剪映' },
+        { value: 'toutiao', label: '今日头条' },
+    ];
+     
+    const handleSort = (currentLabels) => {
+        const newValue = currentLabels.map(item => list.find((i) => i.label === item).value)
+        setValList(newValue);
+    };
+
+    const triggerRender = ({ value, onSearch, onClear }) => {
+        return (
+            <TagInput
+                draggable
+                allowDuplicates={false}
+                value={value.map(item => item.label)}
+                inputValue={inputVal}
+                onInputChange={(word) => {
+                    onSearch(word);
+                    setInputVal(word);
+                }}
+                onChange={handleSort}
+                onClear={() => onClear()}
+                showClear
+            />
+        );
+    }; 
+  
+    return (
+        <>
+            <h4>可对已选项拖拽重新排序的 Select </h4>
+            <Select
+                value={valList}
+                triggerRender={triggerRender}
+                optionList={list}
+                onChange={value => setValList(value)}
+                multiple
+                filter
+                style={{ width: 240 }}
+            ></Select>
+        </>
     );
 };
 ```
@@ -1253,8 +1339,8 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 -   完全自定义：通过传入`renderOptionItem`，你可以完全接管列表中候选项的渲染，并且从回调入参中，获取到相关的状态值。实现更高自由度的结构渲染  
     注意事项：
     1. props 传入的 style 需在 wrapper dom 上进行消费，否则在虚拟化场景下会无法正常使用
-    2. 选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从 props 中获取到相对的 boolean 值
-    3. onMouseEnter 需在 wrapper dom 上绑定，否则上下键盘操作时显示会有问题
+    2. props 传入的 className、onMouseEnter 需在 wrapper dom 上进行消费，否则上下键盘操作时显示会有问题
+    3. 选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从 props 中获取到相对的 boolean 值
     4. 如果你的自定义 item 为 Select.Option，需要将 renderProps.onClick 透传给 Option 的 onSelect prop
 
 ```jsx live=true
@@ -1283,13 +1369,14 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
             ['custom-option-render-focused']: focused,
             ['custom-option-render-disabled']: disabled,
             ['custom-option-render-selected']: selected,
+            className
         });
         const searchWords = [inputValue];
 
         // Notice：
         // 1.props传入的style需在wrapper dom上进行消费，否则在虚拟化场景下会无法正常使用
         // 2.选中(selected)、聚焦(focused)、禁用(disabled)等状态的样式需自行加上，你可以从props中获取到相对的boolean值
-        // 3.onMouseEnter需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
+        // 3.onMouseEnter、className需在wrapper dom上绑定，否则上下键盘操作时显示会有问题
         
         return (
             <div style={style} className={optionCls} onClick={() => onClick()} onMouseEnter={e => onMouseEnter()}>
@@ -1302,7 +1389,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: '抖音', otherKey: 0 },
+        { value: 'douyin', label: '抖音', otherKey: 0 },
         { value: 'ulikecam', label: '轻颜相机', disabled: true, otherKey: 1 },
         { value: 'jianying', label: '剪映', otherKey: 2 },
         { value: 'toutiao', label: '今日头条', otherKey: 3 },
@@ -1388,13 +1475,13 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | 属性 | 说明                                                                                                                                    | 类型 | 默认值 | 版本 |
 | --- |---------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | allowCreate | 是否允许用户创建新条目，需配合 filter 使用。该项为true时不再响应 optionList的变更                                                                                  | boolean | false |
-| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                        | ReactNode |  | 1.15.0 |
+| arrowIcon | 自定义右侧下拉箭头 Icon，当 showClear 开关打开且当前有选中值时，hover 会优先显示 clear icon                                                                        | ReactNode |  |  |
 | autoAdjustOverflow | 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                                                | boolean | true |
 | autoClearSearchValue | 选中选项后，是否自动清空搜索关键字，当 mutilple、filter 都开启时生效                                                                                            | boolean | true | 2.3.0 |
 | autoFocus | 初始渲染时是否自动 focus                                                                                                                       | boolean | false |
 | borderless        | 无边框模式  >=2.33.0                                                                                                                       | boolean                         |           |
 | className | 类名                                                                                                                                    | string |  |
-| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode | 2.25.0  |
+| clearIcon | 可用于自定义清除按钮, showClear为true时有效                                                                                                         | ReactNode |   | 2.25.0
 | clickToHide | 已展开时，点击选择框是否自动收起下拉列表                                                                                                                  | boolean | false |
 | defaultValue | 初始选中的值                                                                                                                                | string\|number\|array |  |
 | defaultOpen | 是否默认展开下拉列表                                                                                                                            | boolean | false |
@@ -1430,6 +1517,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | renderOptionItem | 通过 renderOptionItem 完全自定义下拉列表中候选项的渲染                                                                                                  | function(props) 入参详见 Demo |  |
 | restTagsPopoverProps | Popover 的配置属性，可以控制 position、zIndex、trigger 等，具体参考[Popover](/zh-CN/show/popover#API%20%E5%8F%82%E8%80%83)                              | PopoverProps | {} | 2.22.0 |
 | remote | 是否开启远程搜索，当 remote 为 true 时，input 内容改变后不会进行本地筛选匹配                                                                                      | boolean | false |
+| searchPosition | filter开启时，搜索框的位置，默认在 trigger中，可以通过设为 'dropdown' 将搜索框置于下拉列表顶部。搭配 triggerRender 使用可以实现更高自由度的交互   | string | 'trigger' | 2.61.0
 | size | 大小，可选值 `default`/`small`/`large`                                                                                                      | string | 'default' |
 | style | 样式                                                                                                                                    | object |  |
 | stopPropagation | 是否阻止浮层上的点击事件冒泡                                                                                                                        | boolean | true |  |
@@ -1475,11 +1563,11 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 
 ---
 
-| 属性      | 说明       | 类型      | 版本    |
-| --------- | ---------- | --------- | ------- |
-| className | 样式类名   | string    | v0.31.0 |
-| label     | 展示的文本 | ReactNode | v0.31.0 |
-| style     | 样式       | object    | v0.31.0 |
+| 属性      | 说明       | 类型      | 
+| --------- | ---------- | --------- | 
+| className | 样式类名   | string    | 
+| label     | 展示的文本 | ReactNode |
+| style     | 样式       | object    |
 
 ## Methods
 
@@ -1487,12 +1575,12 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 
 | 方法        | 说明                                | 版本    |
 | ----------- | ----------------------------------- | ------- |
-| close       | 调用时可以手动关闭下拉列表          | v0.34.0 |
-| open        | 调用时可以手动展开下拉列表          | v0.34.0 |
-| focus       | 调用时可以手动聚焦                  | v1.11.0 |
-| clearInput  | 调用时可以手动清空 input 搜索框的值 | v1.18.0 |
-| deselectAll | 调用时可以手动清空所有已选项        | v1.18.0 |
-| selectAll   | 调用时可以选中所有 Option           | v1.18.0 |
+| close       | 调用时可以手动关闭下拉列表          |  |
+| open        | 调用时可以手动展开下拉列表          |  |
+| focus       | 调用时可以手动聚焦                  |  |
+| clearInput  | 调用时可以手动清空 input 搜索框的值 | |
+| deselectAll | 调用时可以手动清空所有已选项        |  |
+| selectAll   | 调用时可以选中所有 Option           |  |
 | search(value: string, event: event)| 可通过 ref 调用该方法进行搜索，该搜索值会被置给 Input   | v2.35.0 |
 
 ## Accessibility
@@ -1564,7 +1652,7 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
             ```
               <Select placeholder='choose company by app'>
                 <Option label='vigo' value='bytedance' />
-                <Option label='abc' value='bytedance' />
+                <Option label='douyin' value='bytedance' />
               </Select>
             ```
     -   分组情况下，重复 label 并不会造成用户困惑为什么仍要求 label 必须唯一？
@@ -1603,4 +1691,4 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 3,4,44,54,58,62,72
 ``` -->
 ## 相关物料
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>

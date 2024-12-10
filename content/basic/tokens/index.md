@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 16
+order: 14
 category: 基础
 title:  Tokens 设计变量
 icon: doc-token
@@ -9,9 +9,9 @@ brief: Semi Design Tokens
 
 <JumpToToken/>
 
-## 为什么要使用变量
+## 为什么要使用 Design Token
 
-变量实际上是将设计中的基础元素与具体的样式进行解耦。
+Design Token 设计变量实际上是将设计中的基础元素与具体的样式进行解耦。
 
 对于设计师来说，如果产品的风格需要迭代更新，比如需要更新 危险 的功能色，即 color-danger，只需要修改其对应的颜色默认值，既可以完成整套产品的 UI 迭代。
 

@@ -17,6 +17,7 @@ import type { Ellipsis, EllipsisPos, ShowTooltip, TypographyBaseSize, Typography
 import { CopyableConfig, LinkType } from './title';
 import { BaseProps } from '../_base/baseComponent';
 import { isSemiIcon, runAfterTicks } from '../_utils';
+import SizeContext from './context';
 import ResizeObserver, { ObserverProperty, ResizeEntry } from '../resizeObserver';
 
 export interface BaseTypographyProps extends BaseProps {
@@ -165,6 +166,9 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         className: '',
     };
 
+    static contextType = SizeContext;
+
+    context: TypographyBaseSize;
     wrapperRef: React.RefObject<any>;
     expandRef: React.RefObject<any>;
     copyRef: React.RefObject<any>;
@@ -347,7 +351,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     getEllipsisState = async ()=> {
         const { rows, suffix, pos } = this.getEllipsisOpt();
-        const { children } = this.props;
+        const { children, strong } = this.props;
         // wait until element mounted
         if (!this.wrapperRef || !this.wrapperRef.current) {
             await this.onResize();
@@ -402,7 +406,8 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             extraNode,
             ELLIPSIS_STR,
             suffix,
-            pos
+            pos,
+            strong
         );
         return new Promise<void>(resolve=>{
             this.setState({
@@ -615,10 +620,11 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
 
     renderIcon() {
         const { icon, size } = this.props;
+        const realSize = size === 'inherit' ? this.context : size;
         if (!icon) {
             return null;
         }
-        const iconSize: Size = size === 'small' ? 'small' : 'default';
+        const iconSize: Size = realSize === 'small' ? 'small' : 'default';
         return (
             <span className={`${prefixCls}-icon`} x-semi-prop="icon">
                 {isSemiIcon(icon) ? React.cloneElement((icon as React.ReactElement), { size: iconSize }) : icon}
@@ -653,6 +659,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
             // 'link',
             'delete',
         ]);
+        const realSize = size === 'inherit' ? this.context : size;
         const iconNode = this.renderIcon();
         const ellipsisOpt = this.getEllipsisOpt();
         const { ellipsisCls, ellipsisStyle } = this.getEllipsisStyle();
@@ -673,7 +680,7 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
         const wrapperCls = cls(className, ellipsisCls, {
             // [`${prefixCls}-primary`]: !type || type === 'primary',
             [`${prefixCls}-${type}`]: type && !link,
-            [`${prefixCls}-${size}`]: size,
+            [`${prefixCls}-${realSize}`]: realSize,
             [`${prefixCls}-link`]: link,
             [`${prefixCls}-disabled`]: disabled,
             [`${prefixCls}-${spacing}`]: spacing,
@@ -728,14 +735,18 @@ export default class Base extends Component<BaseTypographyProps, BaseTypographyS
     }
 
     render() {
+        const { size } = this.props;
+        const realSize = size === 'inherit' ? this.context : size;
         const content = (
-            <LocaleConsumer componentName="Typography">
-                {(locale: Locale['Typography']) => {
-                    this.expandStr = locale.expand;
-                    this.collapseStr = locale.collapse;
-                    return this.renderTipWrapper();
-                }}
-            </LocaleConsumer>
+            <SizeContext.Provider value={realSize}>
+                <LocaleConsumer componentName="Typography">
+                    {(locale: Locale['Typography']) => {
+                        this.expandStr = locale.expand;
+                        this.collapseStr = locale.collapse;
+                        return this.renderTipWrapper();
+                    }}
+                </LocaleConsumer>
+            </SizeContext.Provider>
         );
         if (this.props.ellipsis) {
             return (

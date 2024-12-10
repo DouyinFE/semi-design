@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 75
+order: 87
 category: 其他
 title:  ConfigProvider 全局配置
 icon: doc-configprovider
@@ -8,6 +8,17 @@ dir: column
 brief: 为组件提供统一的全局化配置。
 ---
 
+## 使用场景
+
+覆盖配置分为两种场景
+
+- 需要覆盖多个组件公有 Props 配置（例如 `timezone`、`rtl`），使用 `ConfigProvider`
+- 当 `ConfigProvider` 暴露参数未能满足，希望修改全局修改某个组件的 某类 Props（例如期望将所有`Button`的 `theme` 都配置为 `solid` 或所有 `Popover`的 `zIndex`），使用 `semiGlobal`
+
+
+## ConfigProvider
+
+ConfigProvider 借助 React Context 机制实现，因此它能影响 React 节点树中的子组件
 
 ## 代码演示
 
@@ -65,6 +76,48 @@ function Demo(props = {}) {
     );
 }
 ```
+
+### 手动获取值
+通常情况下，组件内部会自动获取 ConfigProvider 的值自动消费，无需关心。但是一些特殊场景，你可能需要手动获取值来进行其他操作。
+
+使用 ConfigConsumer 获取 ConfigProvider 的值
+
+```jsx live=true dir="column" hideInDSM
+import React, { useMemo, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Select, DatePicker, TimePicker, Typography } from '@douyinfe/semi-ui';
+
+function Demo(props = {}) {
+  const [timeZone, setTimeZone] = useState('GMT+08:00');
+  const defaultTimestamp = 1581599305265;
+  const gmtList = useMemo(() => {
+    const list = [];
+    for (let hourOffset = -11; hourOffset <= 14; hourOffset++) {
+      const prefix = hourOffset >= 0 ? '+' : '-';
+      const hOffset = Math.abs(parseInt(hourOffset, 10));
+      list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
+    }
+    return list;
+  }, []);
+
+  return (
+          <ConfigProvider timeZone={timeZone}>
+            {/*...*/}
+            <ConfigConsumer>
+              {(value) => {
+                return <Typography.Text ellipsis={{ showTooltip: {opts:{style:{minWidth:"1200px"}} }}}  style={{ width: 600 }}>
+                  {JSON.stringify(value)}
+                </Typography.Text>
+             }}
+            </ConfigConsumer>
+            {/*...*/}
+          </ConfigProvider>
+          );
+}
+
+```
+
+
+
 
 ### RTL/LTR
 全局配置 `direction` 可以改变组件的文本方向（1.8.0）。
@@ -416,3 +469,35 @@ module.exports = {
 +    plugins: [new SemiWebpackPlugin({ prefixCls: 'imes' })],
 }
 ```
+
+
+## semiGlobal
+
+除了 ConfigProvider外，你还可以通过 semiGlobal 配置覆盖全局组件的默认 Props。该能力在 v2.59.0后提供    
+
+在 `semiGlobal.config.overrideDefaultProps` 可配置组件默认 Props，你需要将你的配置放到整个站点的入口处，即优先于所有 Semi 组件执行。
+
+<Notice title={"注意事项"}>
+semiGlobal 是单例模式，会影响整个站点，如果你只想覆盖某些地方的某些组件 Props ，建议不要使用 semiGlobal，而是将对应需要覆盖的组件封装一层并传入修改后的默认 props。
+</Notice>
+
+比如下方配置就是将所有的 Button 默认设置为 warning，Select 的 zIndex 默认设置为 2000 等
+
+```js
+import { semiGlobal } from "@douiyinfe/semi-ui";
+
+semiGlobal.config.overrideDefaultProps = {
+    Button: {
+        type: 'warning',
+    },
+    Select: {
+        zIndex: 2000,
+    },
+    Tooltip: {
+        zIndex: 2001,
+        trigger: 'click'
+    },
+};
+
+```
+

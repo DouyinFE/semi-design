@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 35
+order: 47
 category: Input
 title:  TreeSelect
 subTitle: TreeSelect
@@ -76,7 +76,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### Multi-choice
 
 You could use `multiple` to set mode to multi-choice. When all child items are selected, the parent item will be selected.  
-Use `leafOnly` (>= v0.32.0) if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.  
+Use `leafOnly` if you prefer to render leaf nodes only and the corresponding params for onChange will also be leaf nodes values.  
 
 ```jsx live=true
 import React from 'react';
@@ -676,8 +676,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 
 ### Disable Strictly
 
-version: >= 1.30.0
-
 You can use `disableStrictly` to enable strict disabling. After enabling strict disabling, when the node is disabled, the selected state cannot be changed through the relationship between the child or the parent.
 
 Take the following demo as an example, the node "China" is strictly disabled. Therefore, when we change the selected state of its parent node "Asia", it will not affect the selected state of the node "China".
@@ -742,8 +740,6 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 ### Default Expand All
 
 Both `defaultExpandAll` and `expandAll` can set the default expanded/collapsed state of `TreeSelect`. The difference between the two is that `defaultExpandAll` only takes effect during initialization, while `expandAll` will take effect not only during initialization, but also when the data (`treeData`) is dynamically updated.
-
-Among them, `expandAll` is supported starting from 1.30.0.
 
 In the demo below, after `TreeData` is updated, `defaultExpandAll` becomes invalid, and `expandAll` still takes effect.
 
@@ -1409,85 +1405,85 @@ function Demo() {
 
 | Properties               | Instructions                                                                        | type                                                              | Default     | Version |
 | ------------------------ | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ----------- | ------- |
-| arrowIcon|Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon| ReactNode | | 1.15.0|
-|autoAdjustOverflow|Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)|boolean | true| 0.34.0|
-| autoExpandParent | Toggle whether to expand parent nodes automatically | boolean | false | 0.34.0 |
+| arrowIcon|Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon| ReactNode | | - |
+|autoAdjustOverflow|Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)|boolean | true| - |
+| autoExpandParent | Toggle whether to expand parent nodes automatically | boolean | false | - |
+| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, value will include that node and its children. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className                | Class name                                                                          | string                                                            | -           | -       |
 | clearIcon    | Can be used to customize the clear button, valid when showClear is true                       | ReactNode                |       | 2.25.0    |
-| clickToHide  | Whether to close the drop-down layer automatically when selecting, only works in single-selection mode  | boolean    | true | 1.5.0      |
+| clickToHide  | Whether to close the drop-down layer automatically when selecting, only works in single-selection mode  | boolean    | true | - |
 | clickTriggerToHide  | When the panel is open, whether to close the panel after clicking the Trigger  | boolean    | true | 2.32.0      |
-| defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | 0.32.0 |
-| defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | 0.32.0 |
-| defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | 0.32.0 |
+| defaultExpandAll    | Set whether to expand all nodes during initialization. And if the data (`treeData`) changes, this api cannot affect the expansion of the node. If you need this, you can use `expandAll`    | boolean                     | false   | - |
+| defaultExpandedKeys | Keys of default expanded nodes. Direct child nodes will be displayed. | string\[] | - | - |
+| defaultOpen | Toggle whether to open dropdown menu by default | boolean | false | - |
 | defaultValue             | Default value         | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>   | -   | -     |
 | disabled                 | Disabled                                                                            | boolean                                                           | false       | -       |
-| disableStrictly | Disable Strictly | boolean | false | 1.30.0 |
+| disableStrictly | Disable Strictly | boolean | false | - |
 | dropdownClassName        | `className` property for dropDown                                                   | string                                                            | -           | -       |
 | dropdownMatchSelectWidth | Toggle if min-width of dropDown menu should be same as width of select box          | boolean                                                           | true        | -       |
 | dropdownMargin | Popup layer calculates the size of the safe area when the current direction overflows, used in scenes covered by fixed elements, more detail refer to [issue#549](https://github.com/DouyinFE/semi-design/issues/549), same as Tooltip margin | object\|number |  | 2.25.0 |
 | dropdownStyle            | Style for dropDown                                                                  | CSSProperties                                                            | -           | -       |
 | emptyContent             | Empty content when no data                                                          | ReactNode                                                         | `no result` | -       |
-| expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | 1.4.0        |
-| expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false | 1.30.0 |
-| expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | 0.32.0 |
+| expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | - |
+| expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false |- |
+| expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | - |
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
 | filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false       | -       |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |
-| insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | 0.28.0  |
-| labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | 1.8.0 |  
-| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false |0.32.0 |
-| loadData | Load data asynchronously and the return value should be a promise | (treeNode: TreeNodeData) => Promise |-| 1.32.0|
-| loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | Set< string > | - | 1.32.0|
+| insetLabel               | Prefix alias，used mainly in Form                                                   | ReactNode                                                         | -           | - |
+| labelEllipsis | Toggle whether to ellipsis label when overflow | boolean | false\|true(virtualized) | - |  
+| leafOnly | Toggle whether to display tags for leaf nodes only and for onChange callback params in multiple mode | boolean | false | - |
+| loadData | Load data asynchronously and the return value should be a promise | (treeNode: TreeNodeData) => Promise |-| - |
+| loadedKeys | （Controlled）Mark node as loaded, working with `loadData` | Set< string > | - | -|
 | maxTagCount              | Maximum number of tags displayed                                                    | number                                                            | -           | -       |
 | motionExpand             | Toggle whether to turn on animation for expansion                                   | boolean                                                           | true        | -       |
 | multiple                 | Toggle whether in multi-choice mode                                                 | boolean                                                           | false       | -       |
-| optionListStyle          | Style for optionList                                                                | CSSProperties                                                     | -           | 1.8.0  |
-| outerBottomSlot          | Rendered at the bottom of the pop-up layer, custom slot level with optionList    | ReactNode  |  - | 1.1.0 |
-| outerTopSlot| Rendered at the top of the pop-up layer, custom slot level with optionList. If turn on filterTreeNode, it will replace search box as well. You could use static search method to customize instead. |  ReactNode  |  - | 1.9.0|
+| optionListStyle          | Style for optionList                                                                | CSSProperties                                                     | -           |- |
+| outerBottomSlot          | Rendered at the bottom of the pop-up layer, custom slot level with optionList    | ReactNode  |  - |- |
+| outerTopSlot| Rendered at the top of the pop-up layer, custom slot level with optionList. If turn on filterTreeNode, it will replace search box as well. You could use static search method to customize instead. |  ReactNode  |  - |- |
 | placeholder              | Placeholder for input box                                                           | string                                                            | -           | -       |
 | position                 | Pop-up position, optional values refer to Tooltip position     | string          | bottomLeft           | 2.25.0       |
-| prefix                   | Prefix                                                                              | ReactNode                                                         | -           | 0.28.0  |
+| prefix                   | Prefix                                                                              | ReactNode                                                         | -           | -  |
 | preventScroll | Indicates whether the browser should scroll the document to display the newly focused element, acting on the focus method inside the component, excluding the component passed in by the user | boolean |  |  |
-| renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode | 1.7.0 |
-| renderLabel | Custom label render function | <ApiType detail='(label: ReactNode, data: TreeNodeData) => ReactNode'>(label, data) => ReactNode</ApiType> | 1.6.0 | 
-| renderSelectedItem | render selected item | Function | - | 1.26.0 | 
+| renderFullLabel | Custom option render function, [Detailed Params and Usage](/en-US/navigation/tree#Advanced%20FullRender) | (obj) => ReactNode |- |
+| renderLabel | Custom label render function. The searchWord parameter is supported since 2.65.0 | <ApiType detail='(label: ReactNode, data: TreeNodeData, searchWord: string) => ReactNode'>(label, data, searchWord) => ReactNode</ApiType> | -| 
+| renderSelectedItem | render selected item | Function | - |- | 
 | restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)     | PopoverProps     | {}        | 2.22.0 |
-| searchAutoFocus        | Whether autofocus for search box           | boolean      | false           | 1.27.0       |
+| searchAutoFocus        | Whether autofocus for search box           | boolean      | false           |-|
 | searchPlaceholder        | Placeholder for search box                                                          | string                                                            | -           | -       |
-| searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | 1.29.0 |
+| searchPosition | Set the position of the search box, one of: `dropdown`、`trigger` | string | `dropdown` | - |
 | showClear | When the value is not empty, whether the trigger displays the clear button | boolean | false |  |
-| showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | 0.32.0 |
+| showFilteredOnly | Toggle whether to displayed filtered result only in search mode | boolean | false | - |
 | showLine | The option in the options panel shows connecting lines | boolean | false | 2.50.0 |
 | showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover | boolean | false | 2.22.0 |
-| showSearchClear | Toggle whether to support clear search box | boolean | true | 0.35.0 |
+| showSearchClear | Toggle whether to support clear search box | boolean | true | - |
 | size                     | Size for input box，one of `large`，`small`，`default`                              | string                                                            | `default`   | -       |
 | style                    | Inline style                                                            | CSSProperties             | -           | -       |
-| suffix                   | Suffix                                                                              | ReactNode                                                         | -           | 0.28.0  |
+| suffix                   | Suffix                                                                              | ReactNode                                                         | -           |  - |
 | treeData                 | Data for treeNodes                                                                  | TreeNodeData[]                                                  | \[]         | -       |
 | treeNodeFilterProp       | Property in a `TreeNodeData` used to search                                             | string                                                            | `label`     | -       |
 | treeNodeLabelProp        | Property in a `TreeNodeData` used to display                                            | string                                                            | `label`     | -       |
-| triggerRender | Method to create a custom trigger  | (props: TriggerRenderProps) => ReactNode | - | 0.34.0 |
-| validateStatus | Validate status，one of `warning`、`error`、 `default`, only affects the background color of the component | string | - | 0.32.0 |
+| triggerRender | Method to create a custom trigger  | (props: TriggerRenderProps) => ReactNode | - | - |
+| validateStatus | Validate status，one of `warning`、`error`、 `default`, only affects the background color of the component | string | - | - |
 | value                    | Value data of current item, used when TreeSelect is a controlled component     | <ApiType detail='string \| number \| TreeNodeData \| (string \| number \| TreeNodeData)[]'>ValueType</ApiType>    | -           | -       |
-| virtualize | Efficiently rendering large lists, refer to Tree - VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | object | - | 0.32.0 |
-| zIndex | zIndex for treeSelect dropDown menu | number | 1030 | 0.30.0 |
+| virtualize | Efficiently rendering large lists, refer to Tree - VirtualizeObj. Motion is disabled when tree is rendered as virtualized list. | object | - | - |
+| zIndex | zIndex for treeSelect dropDown menu | number | 1030 | - |
 | onBlur                 | Callback function when treeSelect blur | function(event)                            | -           | -       |
 | onFocus                 | Callback function when treeSelect focus  | function(event)                            | -           | -       |
 | onChange                 | Callback function when the tree node is selected, return the value property of data | Function                           | -           | -       |
-| onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, onChange turn to Function(node, e)   | boolean                     | false   | 1.0.0 |
+| onChangeWithObject        | Toggle whether to return all properties in an option as a return value. When set to true, onChange turn to Function(node, e)   | boolean                     | false   | - |
 | onClear     | Callback triggered when clear button is clicked   | (e: Event) => void |  -  |   2.52.0  |
 | onExpand                 | Callback function when expand or collapse a node                                    | <ApiType detail='(expandedKeys:array, {expanded: bool, node}) => void'>(expandedKeys, object) => void</ApiType>             | -           | -       |
-| onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - | 1.32.0|
+| onLoad | Callback function when a node is loaded | <ApiType detail='(loadedKeys: Set<string\>, treeNode: TreeNodeData) => void'>(loadedKeys, treeNode) => void</ApiType> | - |-|
 | onSearch                 | Callback function when search value changes. <br/>`filteredExpandedKeys` represents the key of the node expanded due to search or value/defaultValue, which can be used when expandedKeys is controlled<br/> **filteredExpandedKeys is supported in 2.6.0**. <br/>`filteredNodes` represents the nodes hit by the search. **filteredNodes is supported in 2.57.0**       | function(input: string, filteredExpandedKeys: string[], filteredNodes: TreeNodeData[])                                        | -           |     |
 | onSelect                 | Callback function when selected, return the key property of data                    | <ApiType detail='(selectedKey:string, selected: bool, selectedNode: TreeNodeData) => void'>(selectedKey, selected, selectedNode)=>void</ApiType>                      | -           | -       |
-| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |   1.4.0  |
+| onVisibleChange     | A callback triggered when the pop-up layer is displayed/hidden   | function(isVisible:boolean) |     |  - |
 
 ### TreeNodeData
 
-> **Key for `TreeNodeData` is required and must be unique**, `label` can be duplicated. Before **v>=1.7.0** value is also required and must be unique.
-> After **v>=1.7.0**, value is not required. In this case, the value property in `onChange`, `value`, `defaultValue` and `onChangeWithObject` will point to key property.
+> **Key for `TreeNodeData` is required and must be unique**, `label` can be duplicated. Value is not required. In this case, the value property in `onChange`, `value`, `defaultValue` and `onChangeWithObject` will point to key property.
 > To ensure everything behave as expected, keep a consistency of whether to have value or not to have value.
 
 | Properties | Instructions| type              | Default |

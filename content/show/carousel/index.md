@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 49
+order: 61
 category: 展示类
 title: Carousel 轮播图
 icon: doc-carousel

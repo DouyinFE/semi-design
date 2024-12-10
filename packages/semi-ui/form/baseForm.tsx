@@ -13,7 +13,7 @@ import { cloneDeep } from '../_utils/index';
 import Slot from './slot';
 import Section from './section';
 import Label from './label';
-import ErrorMessage from './errorMessage';
+import ErrorMessage, { ReactFieldError } from './errorMessage';
 import FormInputGroup from './group';
 import { noop } from 'lodash';
 import '@douyinfe/semi-foundation/form/form.scss';
@@ -75,6 +75,10 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         style: PropTypes.object,
         showValidateIcon: PropTypes.bool,
         stopValidateWithError: PropTypes.bool,
+        stopPropagation: PropTypes.shape({
+            submit: PropTypes.bool,
+            reset: PropTypes.bool,
+        }),
         id: PropTypes.string,
         wrapperCol: PropTypes.object, // Control wrapperCol {span: number, offset: number} for all field child nodes
         trigger: PropTypes.oneOfType([
@@ -89,6 +93,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
         onSubmit: noop,
         onReset: noop,
         onValueChange: noop,
+        onErrorChange: noop,
         layout: 'vertical',
         labelPosition: 'top',
         allowEmpty: false,
@@ -176,6 +181,9 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             notifyValueChange: (values: Values, changedValues: Partial<Values>) => {
                 this.props.onValueChange(values, changedValues);
             },
+            notifyErrorChange: (errors: Record<keyof Values, ReactFieldError>, changedError: Partial<Record<keyof Values, ReactFieldError>>) => {
+                this.props.onErrorChange(errors, changedError);
+            },
             notifyReset: () => {
                 this.props.onReset();
             },
@@ -208,6 +216,13 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             },
             getFieldDOM: (field: string) =>
                 document.querySelector(`.${cssClasses.PREFIX}-field[x-field-id="${field}"]`),
+            getFieldErrorDOM: (field: string) => {
+                const { formId } = this.state;
+                const { id } = this.props;
+                const xId = id ? id : formId;
+                let selector = `form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field[x-field-id="${field}"] .${cssClasses.PREFIX}-field-error-message`;
+                return document.querySelector(selector);
+            }
         };
     }
 
@@ -233,11 +248,17 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
 
     submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (this.props.stopPropagation && this.props.stopPropagation.submit) {
+            e.stopPropagation();
+        }
         this.foundation.submit(e);
     }
 
     reset(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        if (this.props.stopPropagation && this.props.stopPropagation.reset) {
+            e.stopPropagation();
+        }
         this.foundation.reset();
     }
 
@@ -252,6 +273,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
             onChange,
             onSubmit,
             onSubmitFail,
+            onErrorChange,
             onValueChange,
             component,
             render,
@@ -288,6 +310,7 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
                 onReset={this.reset}
                 onSubmit={this.submit}
                 className={formCls}
+                id={id ? id : formId}
                 x-form-id={id ? id : formId}
             >
                 {this.content}

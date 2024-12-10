@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 72
+order: 84
 category: Feedback
 title: Skeleton
 subTitle: Skeleton
@@ -10,7 +10,7 @@ brief: A placeholder preview of content before the data loaded.
 
 ## Overview
 
--   `Avatar`: Avatar placeholder, by default uses Avatar medium sizing: `width: 48px`, `height: 48px`. Supports Avatar's size (after v1.0) and shape attributes (after v2.20)
+-   `Avatar`: Avatar placeholder, by default uses Avatar medium sizing: `width: 48px`, `height: 48px`. Supports Avatar's size and shape attributes (after v2.20)
 -   `Image`: Image placeholder, default size: `width: 100%`, `height: 100%`.
 -   `Title`: Title placeholder, default size: `width: 100%`, `height: 24px`.
 -   `Paragraph`: Content part placeholder, default size: `width: 100%`, `height: 16px`, `margin-bottom: 10px`.
@@ -391,7 +391,7 @@ import { Skeleton, Avatar } from '@douyinfe/semi-ui';
 | Property | Instructions | type | Default |
 | --- | --- | --- | --- |
 | class Name | Class name | string | - |
-| size | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `medium`, `large`, `extra-large`, **v>=1.0** | string | `medium` |
+| size | Size of the avatar, one of `extra-extra-small`, `extra-small`, `small`, `medium`, `large`, `extra-large` | string | `medium` |
 | style | Inline style | CSSProperties | - |
 | shape | Shape of the avatar, one of `circle`, `square` | string | `circle` |
 

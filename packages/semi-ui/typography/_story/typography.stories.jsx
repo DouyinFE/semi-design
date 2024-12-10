@@ -224,6 +224,20 @@ export const EllipsisSingle = () => (
       Web 应用。 区别于其他的设计系统而言，Semi Design
       以用户中心、内容优先、设计人性化为设计理念，具有四大优势。
     </Paragraph>
+    <br />
+    <div style={{ width: 300}} >
+      <Typography.Text
+        copyable={true}
+        link={{ href: '---' }}
+        ellipsis={{
+          showTooltip: {
+            opts: { content: '我是一个超长超长超长超长超长超长超长超长超长的链接' },
+          },
+        }}
+      >
+      我是一个超长超长超长超长超长超长超长超长超长的链接我是一个超长超长超长超长超长超长超长超长超长的链接
+      </Typography.Text>
+    </div>
   </div>
 );
 
@@ -897,4 +911,78 @@ export const SingleRowCssEllipsisAccurate = () => {
       </Text>
     </div>
   );
+}
+
+export const InheritSize = () => {
+  const { Text } = Typography;
+  return (
+    <Text size="small">这是一段文本，样式为 small
+      <Text link size="inherit">这是一段链接，设置 size 为 inherit 继承外部样式设置</Text>
+    </Text>
+  )
+}
+
+export const SizeAffectIcon = () => {
+  // 增加用例，观察 size 设置对 icon 大小的影响
+  return (
+      <>
+          <Text size="normal"  icon={<IconLink />} underline>带下划线的网页链接</Text> 
+          <br />   
+          <br />     
+          <Text size="small"  icon={<IconLink />} underline>带下划线的网页链接</Text>
+      </>
+  )
+}
+
+export const StrongEllipsis = () =>{
+    return (
+      // 用于测试 strong 类型的 ellipsis 效果是否符合预期
+      // https://github.com/DouyinFE/semi-design/pull/2506
+      <div className="App">
+        <Typography.Title heading={2}>windows</Typography.Title>
+        {/* case 1 */}
+        <Typography.Paragraph
+          strong
+          ellipsis={{ rows: 3, suffix: "HELLO WORLD" }}
+          style={{ width: 300 }}
+        >
+          这是一个多行截断的例子：Semi Design 是由抖音前端团队与 UED
+          团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+          Web 应用。
+        </Typography.Paragraph>
+        <br />
+        {/* case 2 */}
+        <Typography.Paragraph
+          strong
+          ellipsis={{ rows: 3, suffix: "HELLO WORLD" }}
+          style={{ width: 300, wordBreak: "break-all" }}
+        >
+          这是一个多行截断的例子：Semi Design 是由抖音前端团队与 UED
+          团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+          Web 应用。
+        </Typography.Paragraph>
+        <Typography.Title heading={2}>macOS</Typography.Title>
+        {/* case 3 */}
+        <Typography.Paragraph
+          strong
+          ellipsis={{ rows: 3, suffix: "1234567891011" }}
+          style={{ width: 300 }}
+        >
+          这是一个多行截断的例子：Semi Design 是由抖音前端团队与 UED
+          团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+          Web 应用。
+        </Typography.Paragraph>
+        <br />
+        {/* case 4 */}
+        <Typography.Paragraph
+          strong
+          ellipsis={{ rows: 3, suffix: "123456" }}
+          style={{ width: 300, wordBreak: "break-all" }}
+        >
+          这是一个多行截断的例子：Semi Design 是由抖音前端团队与 UED
+          团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+          Web 应用。
+        </Typography.Paragraph>
+      </div>
+    );
 }

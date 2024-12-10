@@ -8,29 +8,29 @@ import NavigationFoundation, { NavigationAdapter } from '@douyinfe/semi-foundati
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/navigation/constants';
 
 import SubNav, { SubNavProps } from './SubNav';
-import Item, { NavItemProps } from './Item';
+import Item, { NavItemProps, ItemKey } from './Item';
 import Footer, { NavFooterProps } from './Footer';
 import Header, { NavHeaderProps } from './Header';
 import NavContext from './nav-context';
 import LocaleConsumer from '../locale/localeConsumer';
 import '@douyinfe/semi-foundation/navigation/navigation.scss';
 import { getDefaultPropsFromGlobalConfig } from "../_utils";
+import { DropdownProps } from '../dropdown';
 
 export type { CollapseButtonProps } from './CollapseButton';
 export type { NavFooterProps } from './Footer';
 export type { NavHeaderProps } from './Header';
-export type { NavItemProps } from './Item';
+export type { NavItemProps, ItemKey } from './Item';
 export type { SubNavProps } from './SubNav';
 export type Mode = 'vertical' | 'horizontal';
 
 export interface OnSelectedData {
-    itemKey: React.ReactText;
+    itemKey: ItemKey;
     selectedKeys: React.ReactText[];
     selectedItems: (NavItemProps | SubNavProps)[];
     domEvent: React.MouseEvent;
     isOpen: boolean
 }
-
 export interface SubNavPropsWithItems extends SubNavProps {
     items?: (SubNavPropsWithItems | string)[]
 }
@@ -44,10 +44,11 @@ export type NavItems = (string | SubNavPropsWithItems | NavItemPropsWithItems)[]
 export interface NavProps extends BaseProps {
     bodyStyle?: React.CSSProperties;
     children?: React.ReactNode;
-    
+
     defaultIsCollapsed?: boolean;
     defaultOpenKeys?: React.ReactText[];
     defaultSelectedKeys?: React.ReactText[];
+    subDropdownProps?: DropdownProps;
     expandIcon?: React.ReactNode;
     footer?: React.ReactNode | NavFooterProps;
     header?: React.ReactNode | NavHeaderProps;
@@ -66,21 +67,21 @@ export interface NavProps extends BaseProps {
     tooltipHideDelay?: number;
     tooltipShowDelay?: number;
     getPopupContainer?: () => HTMLElement;
-    onClick?: (data: { itemKey?: React.ReactText; domEvent?: MouseEvent; isOpen?: boolean }) => void;
+    onClick?: (data: { itemKey?: ItemKey; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onCollapseChange?: (isCollapse: boolean) => void;
     onDeselect?: (data?: any) => void;
-    onOpenChange?: (data: { itemKey?: (string | number); openKeys?: (string | number)[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
+    onOpenChange?: (data: { itemKey?: ItemKey; openKeys?: ItemKey[]; domEvent?: MouseEvent; isOpen?: boolean }) => void;
     onSelect?: (data: OnSelectedData) => void;
-    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement;isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
+    renderWrapper?: ({ itemElement, isSubNav, isInSubNav, props }: { itemElement: ReactElement; isInSubNav: boolean; isSubNav: boolean; props: NavItemProps | SubNavProps }) => ReactNode
 }
 
 export interface NavState {
     isCollapsed: boolean;
     // calc state
-    openKeys: (string | number)[];
+    openKeys: ItemKey[];
     items: any[];
-    itemKeysMap: { [itemKey: string]: (string | number)[] };
-    selectedKeys: (string | number)[]
+    itemKeysMap: { [itemKey: string]: ItemKey[] };
+    selectedKeys: ItemKey[]
 }
 
 function createAddKeysFn(context: Nav, keyName: string | number) {
@@ -271,7 +272,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
      * @returns {JSX.Element}
      */
     renderItems(items: (SubNavPropsWithItems | NavItemPropsWithItems)[] = [], level = 0) {
-        const { expandIcon } = this.props;
+        const { expandIcon, subDropdownProps } = this.props;
         const finalDom = (
             <>
                 {items.map((item, idx) => {
@@ -282,6 +283,7 @@ class Nav extends BaseComponent<NavProps, NavState> {
                                 {...item as SubNavPropsWithItems}
                                 level={level}
                                 expandIcon={expandIcon}
+                                subDropdownProps={subDropdownProps}
                             >
                                 {this.renderItems(item.items as (SubNavPropsWithItems | NavItemPropsWithItems)[], level + 1)}
                             </SubNav>

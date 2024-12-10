@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import CustomTrigger from './CustomTrigger';
-import { IconChevronDown, IconClose } from '@douyinfe/semi-icons';
+import { IconChevronDown, IconClose, IconGift, IconTreeTriangleRight  } from '@douyinfe/semi-icons';
 import { Button, Typography, Toast, Cascader, Checkbox, Input, Tag, TagInput } from '../../index';
 
 const { Text } = Typography;
@@ -2396,4 +2396,78 @@ export const SearchInTopSlot = () => {
           placeholder="请选择所在地区"
       />
   );
+}
+
+export const suffix = () => {
+  return (<Cascader
+    suffix={<IconGift />}
+    style={{ width: 300 }}
+    treeData={treeData1}
+    placeholder="请选择所在地区"
+  />);
+}
+
+export const EmptyContent = () => {
+  return (
+  <>
+    <Cascader
+      emptyContent={null}
+      style={{ width: 400 }}
+      treeData={[]}
+      placeholder="点击 trigger 查看 emptyContent 为 null 效果 "
+      filterTreeNode
+    />
+    <br /><br />
+    <Cascader
+      emptyContent={null}
+      style={{ width: 400 }}
+      treeData={treeData1}
+      placeholder="输入 v 查看搜索状态下 emptyContent 为 null 效果"
+      filterTreeNode
+    />
+    <br />
+  </>)
+}
+
+export const CustomExpandIcon = () => {
+  const expandIcon = <IconTreeTriangleRight style={{ color: 'var(--semi-color-text-1)'}} />
+  return (
+    <>
+      <Cascader
+        expandIcon={expandIcon}
+        style={{ width: 400 }}
+        treeData={treeData2}
+        placeholder="custom expandIcon"
+        filterTreeNode
+      />
+    </>
+  );
+}
+
+export const UnRelated = () => {
+  const [value, setValue] = useState([
+    [ "yazhou" ],
+    [ "beimeizhou", "meiguo"],
+  ]);
+
+  const onChange = useCallback((value) => {
+    setValue(value);
+  }, [])
+
+  const onSelect = useCallback((value) => {
+    console.log('onSelect', value);
+  }, [])
+
+  return (
+    <Cascader
+      style={{ width: 400 }}
+      treeData={treeData2}
+      value={value}
+      filterTreeNode
+      multiple
+      checkRelation='unRelated'
+      onChange={onChange}
+      onSelect={onSelect}
+    />
+  )
 }

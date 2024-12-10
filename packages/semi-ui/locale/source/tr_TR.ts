@@ -107,7 +107,11 @@ const local: Locale = {
     {
         emptyText: 'Henüz veri yok',
         pageText:
-            '${currentStart} öğesini görüntüle - ${currentEnd} öğe, toplam ${total} öğe '
+            '${currentStart} öğesini görüntüle - ${currentEnd} öğe, toplam ${total} öğe ',
+        descend: 'Azalan sıralama için tıklayın',
+        ascend: 'Artan sıralama için tıklayın',
+        cancelSort: 'Sıralamayı iptal et',
+    
     },
     Select: { emptyText: 'Henüz veri yok', createText: 'Oluştur' },
     Cascader: { emptyText: 'Henüz veri yok' },
@@ -169,6 +173,15 @@ const local: Locale = {
         downloadTip: 'indir',
         adaptiveTip: 'Sayfaya uyarla',
         originTip: 'Orijinal boyut',
+    },
+    Chat: {
+        deleteConfirm: 'Bu sohbeti silmek istediğinize emin misiniz?',
+        clearContext: 'Bağlam temizlendi',
+        copySuccess: 'Başarıyla kopyalandı',
+        stop: 'Durmak',
+        copy: 'Kopyala',
+        copied: 'Kopyalama başarılı',
+        dropAreaText: 'Dosyayı buraya yerleştirin',
     },
 };
 

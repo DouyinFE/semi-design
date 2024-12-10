@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Suspense } from 'react';
-import { Nav, Icon } from '@douyinfe/semi-ui';
+import { Nav, Icon, Tag } from '@douyinfe/semi-ui';
 import { withPrefix, Link } from 'gatsby';
 import { getLocale } from 'utils/locale';
 import IconMap from '../images/docIcons';
@@ -31,7 +31,7 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
                 navData[categoryIndex].items = navData[categoryIndex].items || [];
                 navData[categoryIndex].items.push({
                     itemKey: `/${node.fields.slug}`,
-                    text: node.frontmatter.title,
+                    text: node.frontmatter.showNew ? <div style={{ display: 'flex', alignItems: 'center' }}><span>{node.frontmatter.title}</span> <Tag color='purple' size='small' style={{ marginLeft: 4 }}>New</Tag></div> : node.frontmatter.title,
                     icon: <Icon svg={<IconNode />} size={'extra-large'} aria-hidden={true} /> || '',
                     order: node.frontmatter.order || 0,
                     // link: `/${node.fields.slug}`,
@@ -49,10 +49,10 @@ const SideNav = ({ location = null, type = null, itemsArr, edges, style, hasBann
             const { items, ...rest } = category;
             return (
                 <Nav.Sub {...rest} key={rest.itemKey}>
-                    {items.map(item=>{
+                    {items?.map(item=>{
                         return (
                             <Link to={item.itemKey} key={item.itemKey} >
-                                <Nav.Item {...item} tabIndex={-1}/>
+                                <Nav.Item {...item} tabIndex={-1} />
                             </Link>
                         );
                     })}

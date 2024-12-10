@@ -20,8 +20,8 @@ import type {
     BaseIncludeGroupRecord,
     BaseEllipsis
 } from '@douyinfe/semi-foundation/table/foundation';
-import type { ScrollDirection, CSSDirection } from 'react-window';
 import type { ColumnFilterProps } from './ColumnFilter';
+import { TableCellProps } from './TableCell';
 
 export interface TableProps<RecordType extends Record<string, any> = any> extends BaseProps {
     bordered?: boolean;
@@ -116,7 +116,12 @@ export interface ColumnProps<RecordType extends Record<string, any> = any> {
     onFilterDropdownVisibleChange?: OnFilterDropdownVisibleChange;
     onHeaderCell?: OnHeaderCell<RecordType>;
     ellipsis?: BaseEllipsis;
-    resize?: boolean
+    resize?: boolean;
+    showSortTip?: boolean;
+    /**
+     * self control whether to update cell for performance reasons
+     */
+    shouldCellUpdate?: (props: TableCellProps, prevProps: TableCellProps) => boolean
 }
 
 export type Align = BaseAlign;
@@ -248,7 +253,13 @@ export interface RowSelectionProps<RecordType> {
     onChange?: RowSelectionOnChange<RecordType>;
     onSelect?: RowSelectionOnSelect<RecordType>;
     onSelectAll?: RowSelectionOnSelectAll<RecordType>;
-    renderCell?: RowSelectionRenderCell<RecordType>
+    onCell?: ColumnProps['onCell'];
+    onHeaderCell?: ColumnProps['onHeaderCell'];
+    renderCell?: RowSelectionRenderCell<RecordType>;
+    /**
+     * self control whether to update cell for performance reasons
+     */
+    shouldCellUpdate?: (props: TableCellProps, prevProps: TableCellProps) => boolean
 }
 
 export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
@@ -262,7 +273,7 @@ export type RowSelectionRenderCell<RecordType> = (renderCellArgs: {
     selectRow?: (selected: boolean, e: Event) => void;
     selectAll?: (selected: boolean, e: Event) => void
 }) => ReactNode;
-export type GetCheckboxProps<RecordType> = (record: RecordType) => CheckboxProps;
+export type GetCheckboxProps<RecordType> = (record: RecordType) => Omit<CheckboxProps, 'defaultChecked' | 'checked' | 'indeterminate' | 'onChange'>;
 export type RowSelectionOnChange<RecordType> = (selectedRowKeys?: (string | number)[], selectedRows?: RecordType[]) => void;
 export type RowSelectionOnSelect<RecordType> = (
     record?: RecordType,
@@ -275,7 +286,35 @@ export type ExpandIcon = ((expanded?: boolean) => React.ReactNode) | React.React
 export type ExpandedRowRender<RecordType> = (record?: RecordType, index?: number, expanded?: boolean) => React.ReactNode;
 export type Footer<RecordType> = ReactNode | ((pageData?: RecordType[]) => React.ReactNode);
 export type FormatPageText = ((pageInfo?: { currentStart?: number; currentEnd?: number; total?: number }) => React.ReactNode) | boolean;
-export type GetVirtualizedListRef = (ref: MutableRefObject<any>) => void;
+/**
+ * ref to react-window `VariableSizeList` instance
+ * 
+ * only work when `virtualized` is truthy
+ * 
+ * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/58aabc0cfd2baf08f5f71a2712ae7baa6cb2a3ce/types/react-window/index.d.ts#L378
+ */
+export type GetVirtualizedListRef = (ref: MutableRefObject<{
+    /**
+     * Scroll to the specified offset (scrollTop or scrollLeft, depending on the direction prop).
+     */
+    scrollTo(scrollOffset: number): void;
+    /**
+     * Scroll to the specified item.
+     *
+     * By default, the List will scroll as little as possible to ensure the item is visible.
+     * You can control the alignment of the item though by specifying a second alignment parameter. Acceptable values are:
+     *
+     * - auto (default) - Scroll as little as possible to ensure the item is visible. (If the item is already visible, it won't scroll at all.)
+     * - smart
+     *   - If the item is already visible, don't scroll at all.
+     *   - If it is less than one viewport away, scroll as little as possible so that it becomes visible.
+     *   - If it is more than one viewport away, scroll so that it is centered within the list.
+     * - center - Center align the item within the list.
+     * - end - Align the item to the end of the list (the bottom for vertical lists or the right for horizontal lists).
+     * - start - Align the item to the beginning of the list (the top for vertical lists or the left for horizontal lists).
+     */
+    scrollToItem(index: number, align?: "auto" | "smart" | "center" | "end" | "start"): void
+}>) => void;
 export type GroupByFunction<RecordType> = BaseGroupByFn<RecordType>;
 export type GroupBy<RecordType> = BaseGroupBy<RecordType>;
 export type Size = ArrayElement<typeof strings.SIZES>;
@@ -310,7 +349,7 @@ export type RowKey<RecordType> = BaseRowKeyType | ((record?: RecordType) => stri
 export type RowSelection<RecordType> = RowSelectionProps<RecordType> | boolean;
 
 export type VirtualizedOnScrollArgs = {
-    scrollDirection?: ScrollDirection;
+    scrollDirection?: "forward" | "backward";
     scrollOffset?: number;
     scrollUpdateWasRequested?: boolean
 };
@@ -319,13 +358,11 @@ export type VirtualizeItemSizeRow = {
     sectionRow?: boolean; 
     expandedRow?: boolean
 };
-export type VirtualizedMode = 'list' | 'grid';
 export type VirtualizedItemSizeFn = (index?: number, row?: VirtualizeItemSizeRow) => number;
 export type VirtualizedItemSize = number | VirtualizedItemSizeFn;
 export type VirtualizedOnScroll = (object: VirtualizedOnScrollArgs) => void;
 export interface VirtualizedProps {
     [x: string]: any;
-    mode?: VirtualizedMode;
     itemSize?: VirtualizedItemSize;
     onScroll?: VirtualizedOnScroll
 }
@@ -353,7 +390,7 @@ export interface BodyScrollEvent extends React.UIEvent {
 export type BodyScrollPosition = 'both' | 'middle' | 'left' | 'right';
 
 export type TableLocale = Locale['Table'];
-export type Direction = CSSDirection;
+export type Direction = "ltr" | "rtl";
 export type IncludeGroupRecord<RecordType> = BaseIncludeGroupRecord<RecordType>;
 export type Sticky = boolean | {
     top?: number

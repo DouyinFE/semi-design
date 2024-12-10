@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 59
+order: 71
 category: Show
 title: OverflowList
 subTitle: OverflowList
@@ -215,11 +215,12 @@ import { IconAlarm, IconBookmark, IconCamera, IconDuration, IconEdit, IconFolder
 
 ## API Reference
 
-| Properties | Instructions  | type                  | Default | version |
-| ---------- | ------------- | --------------------- | ------- | ------- |
-| className  | Class name.   | string                | -       | 1.1.0   |
-| renderMode | Render mode.  | `collapse`\| `scroll` | `true`  | -       |
-| style      | OverflowList style  | React.CSSProperties   | -       | 1.1.0   |
+| Properties | Instructions                           | type                  | Default | version |
+| ---------- |----------------------------------------| --------------------- | ------- | ------- |
+| className  | Class name.                            | string                | -       | 1.1.0   |
+| onVisibleStateChange | Hide and display state change callback | (visibleState: Map\<string, boolean\>) => void; | -          | 2.61.0 |
+| renderMode | Render mode.                           | `collapse`\| `scroll` | `true`  | -       |
+| style      | OverflowList style                     | React.CSSProperties   | -       | 1.1.0   |
 
 ### renderMode='collapse'
 

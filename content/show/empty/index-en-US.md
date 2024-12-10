@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 54
+order: 66
 category: Show
 title: Empty
 subTitle: Empty
@@ -114,8 +114,6 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 
 Currently the following illustrations are supported in `@douyinfe/semi-illustrations`.
 
-> As the illustration library is still under construction, please keep an eye on possible changes in the future.
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Empty } from '@douyinfe/semi-ui';
@@ -184,13 +182,13 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | className | class name | string |-|
-| darkModeImage | The placeholder image after the dark mode is turned on, in response to the change of the theme-mode property of document.body **v>=1.13.0** | ReactNode |-|
+| darkModeImage | The placeholder image after the dark mode is turned on, in response to the change of the theme-mode property of document.body | ReactNode |-|
 | description | Content description | ReactNode |-|
 | image | Placeholder image | ReactNode \| { id?: string; viewBox?: string; url?: string;} |-|
 | imageStyle | Placeholder image style | CSSProperties |-|
 | layout | Layout mode, support `vertical`, `horizontal` | string | `vertical` |
 | style | Style name | CSSProperties |-|
-| title | Title **v>=1.0.0** | ReactNode |-|
+| title | Title | ReactNode |-|
 
 ## Accessibility
 

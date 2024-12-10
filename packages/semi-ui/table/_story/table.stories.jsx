@@ -38,6 +38,7 @@ import {
   PerfRender,
   PerfResizableSelection,
   PerfVirtualized,
+  DeepEqual
 } from './Perf';
 import RenderPagination from './RenderPagination';
 import ControlledSortOrder from './ControlledSortOrder';
@@ -116,9 +117,14 @@ export {
     FixedDefaultExpandedGroupedRows,
     FixedRowSelectionEmpty,
     DndKitDrag,
-    FixedOnGroupedRowClassName
+    FixedOnGroupedRowClassName,
+    FixedVirtualizedRef,
+    RowSelectionOnCell,
+    FixedIndent
 } from './v2';
 export { default as FixSelectAll325 } from './Demos/rowSelection';
+
+export { DeepEqual };
 
 // empty table
 

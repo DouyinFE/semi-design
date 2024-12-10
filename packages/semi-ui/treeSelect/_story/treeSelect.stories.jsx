@@ -494,7 +494,7 @@ Searchable.story = {
 };
 
 export const SearchPosition = () => (
-  <>
+  <div style={{ background: 'var(--semi-color-bg-0)'}}>
     <TreeSelect
       searchPosition="trigger"
       style={{ width: 300 }}
@@ -540,7 +540,7 @@ export const SearchPosition = () => (
       maxTagCount={1}
       placeholder="maxTagCount=1"
     />
-  </>
+  </div>
 );
 
 SearchPosition.story = {
@@ -666,6 +666,7 @@ export const Multiple = () => (
       multiple
       placeholder="Please select"
     />
+    <span id={'invisible-span'} style={{ width: 10, height: 10, position: 'fixed', top: 0, right: 0 }} />
   </div>
 );
 
@@ -2790,3 +2791,173 @@ export const CustomSelectAll = () => {
     </>  
   );
 };
+
+export const AutoMerge = () => {
+  const [value, setValue] = useState([]);
+
+  const onChange = useCallback((val) => {
+    console.log('onChange', val);
+    setValue(val);
+  }, []);
+
+  return (
+    <>
+      <TreeSelect
+        autoMergeValue={false}
+        style={{ width: 300}}
+        multiple
+        value={value}
+        onChange={onChange}
+        treeData={treeData1}
+      />
+    </>
+  )
+}
+
+export const showFilteredOnly = () => {
+  return (
+      <>
+          <span id='info'>searchPosition="trigger", showFilteredOnly, multiple</span>
+          <br />
+          <TreeSelect
+              searchPosition="trigger"
+              style={{ width: 300 }}
+              dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+              treeData={treeData2}
+              multiple
+              filterTreeNode
+              showFilteredOnly
+              maxTagCount={2}
+              placeholder="多选"
+          />
+      </>
+  );
+}
+
+export const EmptyContent = () => {
+  const treeData = [
+    {
+        label: '亚洲',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                label: '中国',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        label: '北京',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        label: '上海',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        label: '北美洲',
+        value: 'North America',
+        key: '1',
+    }
+  ];
+  return ( 
+      <>
+        <TreeSelect
+          style={{ width: 400 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={[]}
+          placeholder="点击 trigger 查看 emptyContent 为 null 效果"
+          emptyContent={null}
+        />
+        <br /><br />
+        <TreeSelect
+          style={{ width: 400 }}
+          dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+          treeData={treeData}
+          placeholder="输入 v 查看 emptyContent 为 null 效果"
+          filterTreeNode
+          showFilteredOnly
+          searchPosition={"trigger"}
+          emptyContent={null}
+        />
+      </>
+  );
+}
+
+export const filterAndKeyMaps = () => {
+  const treeData = [
+    {
+        name: 'Asia',
+        value: 'Asia',
+        key: '0',
+        children: [
+            {
+                name: 'China',
+                value: 'China',
+                key: '0-0',
+                children: [
+                    {
+                        name: 'Beijing',
+                        value: 'Beijing',
+                        key: '0-0-0',
+                    },
+                    {
+                        name: 'Shanghai',
+                        value: 'Shanghai',
+                        key: '0-0-1',
+                    },
+                ],
+            },
+            {
+                name: 'Japan',
+                value: 'Japan',
+                key: '0-1',
+                children: [
+                    {
+                        name: 'Osaka',
+                        value: 'Osaka',
+                        key: '0-1-0'
+                    }
+                ]
+            },
+        ],
+    },
+    {
+        name: 'North America',
+        value: 'North America',
+        key: '1',
+        children: [
+            {
+                name: 'United States',
+                value: 'United States',
+                key: '1-0'
+            },
+            {
+                name: 'Canada',
+                value: 'Canada',
+                key: '1-1'
+            }
+          ]
+      }
+  ];
+  return (
+    <TreeSelect
+      style={{ width: 300 }}
+      dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+      treeData={treeData}
+      filterTreeNode
+      keyMaps={{
+        key: 'key',
+        value: 'value',
+        label: 'name',
+      }}
+      placeholder="单选可搜索的"
+    />
+  )
+}

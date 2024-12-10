@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 39
+order: 51
 category: Navigation
 title:  Breadcrumb
 subTitle: Breadcrumb
@@ -297,20 +297,21 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 
 ### Breadcrumb
 
-| Properties | Instructions                                                                                      | type                                         | Default   | version |
-| ---------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------- | --------- | ------- |
-| autoCollapse      | Toggle whether to auto collapse when exceed maxItemCount                                                                                     | boolean                                     | true     |    1.9.0   |
-| className  | Class name                                                                                        | string                                       | -         |         |
-| compact    | Compact sizing                                                                                    | boolean                                      | true      |         |
-| maxItemCount      | Set the number of item when reached to collapse                                                                                      | number                                     | 4    | 1.9.0       |
-|moreType|...area rendering type，one of 'default'、'popover'|string|'default'|1.27.0|
-| renderItem | Custom function, used with routes                                                                 | (Route: [Route](#Route)) => React Node               | -         | 0.27.0  |
-|renderMore|Custom ... area rendering|(restItem: ReactNode[]) => ReactNode|-|1.27.0|
-| routes     | Routing information, an array of route objects or strings, format reference: [Route](#Route) | Array<[Route](#Route) \| string\>                              | -         |         |
-| separator  | Customized delimiter                                                                              | string                                       | ReactNode | '/'     |  |
-| showTooltip | Toggle whether to show tooltip if text overflowed. If passed in as an object: width, overflowed width; ellipsisPos, ways of truncation;  opts, passed directly to Tooltip component                              | boolean \| showToolTipProps             | {width: 150, ellipsisPos: 'end', opts: { autoAdjustOverflow: true, position: "bottomLeft" }}      | 0.34.0 |
-| style      | Inline style                                                                                      | CSSProperties                                       | -         |         |
-| onClick    | Click event                                                                                       |  (item: [Route](#Route), e: Event) => void| -         | 0.27.0  |
+| Properties | Instructions                                                                                                                                                                        | type                                         | Default   | version |
+| ---------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------------------------------------------- | --------- | ------- |
+| activeIndex| Controlled use, currently selected navigation index                                                                                                                                 | - | 2.61.0 |
+| autoCollapse      | Toggle whether to auto collapse when exceed maxItemCount                                                                                                                            | boolean                                     | true     |    1.9.0   |
+| className  | Class name                                                                                                                                                                          | string                                       | -         |         |
+| compact    | Compact sizing                                                                                                                                                                      | boolean                                      | true      |         |
+| maxItemCount      | Set the number of item when reached to collapse                                                                                                                                     | number                                     | 4    | 1.9.0       |
+|moreType| ...area rendering type，one of 'default'、'popover'                                                                                                                                   |string|'default'|1.27.0|
+| renderItem | Custom function, used with routes                                                                                                                                                   | (Route: [Route](#Route)) => React Node               | -         | 0.27.0  |
+|renderMore| Custom ... area rendering                                                                                                                                                           |(restItem: ReactNode[]) => ReactNode|-|1.27.0|
+| routes     | Routing information, an array of route objects or strings, format reference: [Route](#Route)                                                                                        | Array<[Route](#Route) \| string\>                              | -         |         |
+| separator  | Customized delimiter                                                                                                                                                                | string                                       | ReactNode | '/'     |  |
+| showTooltip | Toggle whether to show tooltip if text overflowed. If passed in as an object: width, overflowed width; ellipsisPos, ways of truncation;  opts, passed directly to Tooltip component | boolean \| showToolTipProps             | {width: 150, ellipsisPos: 'end', opts: { autoAdjustOverflow: true, position: "bottomLeft" }}      | 0.34.0 |
+| style      | Inline style                                                                                                                                                                        | CSSProperties                                       | -         |         |
+| onClick    | Click event                                                                                                                                                                         |  (item: [Route](#Route), e: Event) => void| -         | 0.27.0  |
 
 ### Breadcrumb.Item
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 54
 category: Navigation
 title: Steps
 subTitle: Steps

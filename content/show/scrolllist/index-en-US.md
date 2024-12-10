@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 61
+order: 73
 category: Show
 title:  ScrollList
 subTitle: ScrollList
@@ -18,7 +18,7 @@ import { ScrollList, ScrollItem } from '@douyinfe/semi-ui';
 ```
 ### Basic Usage
 
-The scrolling list provides a scrolling selection mode similar to the IOS operating system, while supporting scrolling to the specified window location selection and click selection.
+The scrolling list provides a scrolling selection mode similar to the iOS operating system, while supporting scrolling to the specified window location selection and click selection.
 
 ```jsx live=true
 import React from 'react';
@@ -131,7 +131,7 @@ class ScrollListDemo extends React.Component {
 | mode        | mode selection                                                                       | "normal" \| "wheel"      | "wheel"|
 | motion      | Whether to start the scroll animation                                                | Motion                  | true    |
 | onSelect    | Select callback                                                                      | (data: [ItemData](#ItemData)) => void                 | NOOP    |
-| selectIndex | Index of selected items                                                              | number                   | 0       |
+| selectedIndex | Index of selected items                                                              | number                   | 0       |
 | style | Inline style                                                              | CSSProperties                   | {}       |
 | transform   | For the Transformation of the selected item, the return value is displayed as a copy | (value: any, text: string) => string                 | v = > v |
 

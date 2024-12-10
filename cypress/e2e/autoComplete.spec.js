@@ -13,7 +13,7 @@ describe('autoComplete', () => {
 
         // close panel
         cy.get('input').type('{enter}');
-        cy.get('.semi-popover').not('.exit');
+        cy.get('.semi-popover').should('not.exist');
         cy.get('input').should('have.value', '123');
     
         // test downArrow and upArrow

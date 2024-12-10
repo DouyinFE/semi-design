@@ -1,11 +1,11 @@
 import { RuleSetRule } from 'webpack';
-import { SOURCE_SUFFIX_LOADER, THEME_LOADER, OMIT_CSS_LOADER, PREFIX_LOADER } from './constants';
+import { SOURCE_SUFFIX_LOADER, THEME_LOADER, OMIT_CSS_LOADER, PREFIX_LOADER, WEB_COMPONENT_LOADER, EXTRACT_CSS_LOADER } from './constants';
 import { SemiWebpackPluginOptions, SemiThemeOptions } from './types';
 import { stringifyVariableRecord } from './utils';
 
 export function createSourceSuffixLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe\/semi-(ui|icons)\/lib\/.+\.js$/,
+        test: /@douyinfe(\/|\\)+semi-(ui|icons)(\/|\\)+.+\.js$/,
         use: [{ loader: SOURCE_SUFFIX_LOADER }],
     };
 }
@@ -22,16 +22,33 @@ export function createThemeLoaderRule(opts?: SemiWebpackPluginOptions) {
         prefixCls: opts.prefixCls,
         variables: stringifyVariableRecord(opts.variables),
         include: opts.include,
+        cssLayer: opts.cssLayer
     };
-    return {
-        test: /@douyinfe\/semi-(ui|icons|foundation)\/lib\/.+\.scss$/,
+    const loaderInfo = {
+        test: /@douyinfe(\/|\\)+semi-(ui|icons|foundation)(\/|\\)+lib(\/|\\)+.+\.scss$/,
         use: [{ loader: THEME_LOADER, options }],
     };
+    if (opts.webComponentPath) {
+        const commonLoader = [
+            { loader: "raw-loader" },
+            { loader: EXTRACT_CSS_LOADER },
+            {
+                loader: 'css-loader',
+                options: { sourceMap: false }
+            },
+            { loader: 'sass-loader' }
+        ];
+        loaderInfo.use = [
+            ...commonLoader,
+            ...loaderInfo.use
+        ] as any;
+    }
+    return loaderInfo;
 }
 
 export function createOmitCssLoaderRule(_opts?: SemiWebpackPluginOptions) {
     return {
-        test: /@douyinfe\/semi-[^/]+\/.+env\.js$/,
+        test: /@douyinfe(\/|\\)+semi-[^/]+(\/|\\)+.+env\.js$/,
         use: [{ loader: OMIT_CSS_LOADER }],
     };
 }
@@ -41,8 +58,17 @@ export function createPrefixLoaderRule(opts?: SemiWebpackPluginOptions) {
         replacers: { BASE_CLASS_PREFIX: opts.prefixCls },
     };
     return {
-        test: /@douyinfe\/semi-[^/]+\/.+env\.js$/,
+        test: /@douyinfe(\/|\\)+semi-[^/]+(\/|\\)+.+env\.js$/,
         use: [{ loader: PREFIX_LOADER, options }],
+    };
+}
+
+export function createWebComponentLoaderRule(opts?: SemiWebpackPluginOptions) {
+    return {
+        test: opts.webComponentPath instanceof RegExp ? opts.webComponentPath : /src\/([^/]+\/)*[^/]+\.(ts|tsx|js|jsx)$/,
+        type: 'javascript/auto',
+        exclude: /node_modules/,
+        use: [{ loader: WEB_COMPONENT_LOADER }],
     };
 }
 
@@ -50,12 +76,17 @@ export function applySemiRules(opts?: SemiWebpackPluginOptions) {
     const rules: RuleSetRule[] = [];
     if (opts.omitCss) {
         rules.push(createOmitCssLoaderRule(opts));
-        return rules;
+        if (!opts.webComponentPath) {
+            return rules;
+        }
     }
     rules.push(createSourceSuffixLoaderRule(opts));
     rules.push(createThemeLoaderRule(opts));
     if (opts.prefixCls) {
         rules.push(createPrefixLoaderRule(opts));
+    }
+    if (opts.webComponentPath) {
+        rules.push(createWebComponentLoaderRule(opts));
     }
     return rules;
 }

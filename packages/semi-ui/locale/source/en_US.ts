@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'No Result',
         pageText: 'Showing ${currentStart} to ${currentEnd} of ${total}',
+        descend: 'Click to descend',
+        ascend: 'Click to ascend',
+        cancelSort: 'Cancel sorting',
     },
     Select: {
         emptyText: 'No Result',
@@ -170,6 +173,15 @@ const local: Locale = {
         adaptiveTip: 'Adapt to the page',
         originTip: 'Original size',
     },
+    Chat: {
+        deleteConfirm: 'Are you sure you want to delete this session?',
+        clearContext: 'Context cleared',
+        copySuccess: 'Copy successful.',
+        stop: 'Stop',
+        copy: 'Copy',
+        copied: 'Copied',
+        dropAreaText: 'Put the file here',
+    }
 };
 
 // [i18n-English(US)]

@@ -78,13 +78,13 @@ const local: Locale = {
             12: 'Disember',
         },
         weeks: {
-            Mon: 'Isnin',
-            Tue: 'Selasa',
-            Wed: 'Rabu',
-            Thu: 'Khamis',
-            Fri: 'Jumaat',
-            Sat: 'Sabtu',
-            Sun: 'Ahad',
+            Mon: 'Isn',
+            Tue: 'Sel',
+            Wed: 'Rab',
+            Thu: 'Kha',
+            Fri: 'Jum',
+            Sat: 'Sab',
+            Sun: 'Aha',
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Tiada kandungan',
         pageText: 'Papar halaman ${currentStart} hingga ${currentEnd} daripada ${total}',
+        descend: 'Klik untuk menurun',
+        ascend: 'Klik untuk menaik',
+        cancelSort: 'Batal mengurutkan',
     },
     Select: {
         emptyText: 'Tiada kandungan',
@@ -169,6 +172,15 @@ const local: Locale = {
         downloadTip: 'muat turun',
         adaptiveTip: 'Menyesuaikan diri dengan halaman',
         originTip: 'Saiz asal',
+    },
+    Chat: {
+        deleteConfirm: 'Adakah anda pasti ingin memadam sesi ini?',
+        clearContext: 'Konteks telah dibersihkan',
+        copySuccess: 'Berjaya disalin',
+        stop: 'Berhenti',
+        copy: 'Samin',
+        copied: 'Disalin',
+        dropAreaText: 'Letakkan fail di sini',
     },
 };
 

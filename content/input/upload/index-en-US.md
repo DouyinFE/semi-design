@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 36
+order: 48
 category: Input
 title: Upload
 icon: doc-upload
@@ -449,41 +449,6 @@ import { IconUpload } from '@douyinfe/semi-icons';
 };
 ```
 
-### Custom preview logic
-
-When `listType` is `list`, you can pass in `previewFile` to view the logic.
-For example, when you do not need to preview the image type by thumbnail, you can always return a `<IconFile />` in `previewFile`
-
-```jsx live=true width=48%
-import React from 'react';
-import { Upload, Button } from '@douyinfe/semi-ui';
-import { IconUpload, IconFile } from '@douyinfe/semi-icons';
-
-() => {
-    let action = '//semi.design/api/upload';
-    const defaultFileList = [
-        {
-            uid: '1',
-            name: 'dyBag.jpeg',
-            status: 'success',
-            size: '130KB',
-            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
-        },
-    ];
-    return (
-        <Upload
-            defaultFileList={defaultFileList}
-            action={action}
-            previewFile={file => <IconFile size="large" />}
-        >
-            <Button icon={<IconUpload />} theme="light">
-                Click upload
-            </Button>
-        </Upload>
-    );
-};
-```
-
 ### Custom list operation area
 
 When `listType` is `list`, you can customize the list operation area by passing in `renderFileOperation`
@@ -520,6 +485,95 @@ import { IconUpload, IconDownload, IconEyeOpened, IconDelete } from '@douyinfe/s
     );
 };
 ```
+
+### Custom preview logic
+
+When `listType` is list, the preview logic can be implemented by passing in `previewFile`.  
+For example, when you don't need thumbnail preview for image types, you can constantly return a `<IconFile />` in previewFile.  
+If you want to enlarge and preview the image when clicked, you can use the `Image` component in `previewFile`.  
+Or if you want to use an additional operation area to achieve enlarged preview when clicked, you can also combine `renderFileOperation` to place some custom elements such as Icon to achieve enlarged preview when clicked.
+
+```jsx live=true width=48%
+import React from 'react';
+import { Upload, Button, Image } from '@douyinfe/semi-ui';
+import { IconUpload, IconFile } from '@douyinfe/semi-icons';
+
+() => {
+    let action = '//semi.design/api/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'dyBag.jpeg',
+            status: 'success',
+            size: '130KB',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        },
+        {
+            uid: '2',
+            name: 'dyBag2.png',
+            status: 'success',
+            size: '130KB',
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        },
+    ];
+    return (
+        <Upload
+            defaultFileList={defaultFileList}
+            action={action}
+            previewFile={file => file.uid === '1' ? <IconFile size="large" /> : <Image src={file.url} />}
+        >
+            <Button icon={<IconUpload />} theme="light">
+                Click upload
+            </Button>
+        </Upload>
+    );
+};
+```
+The following is an example of combining `renderFileOperation` and `ImagePreview`. In this example, clicking the first Icon on the right can enlarge the image for preview.
+```jsx live=true
+import React, { useStae } from 'react';
+import { Upload, Button, ImagePreview } from '@douyinfe/semi-ui';
+import { IconUpload, IconDownload, IconEyeOpened, IconDelete, IconExpand } from '@douyinfe/semi-icons';
+
+() => {
+    let action = 'https://api.semi.design/upload';
+    const [visible, setVisible] = useState(false);
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'dyBag.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/edit-bag.jpeg',
+        }
+    ];
+    const renderFileOperation = (fileItem) => (
+        <div style={{ display: 'flex', columnGap: 8, padding: '0 8px' }}>
+            <Button
+                icon={<IconExpand></IconExpand>}
+                type="tertiary"
+                theme="borderless"
+                size="small"
+                onClick={()=> setVisible(true)}
+            >
+            </Button>
+            <Button icon={<IconDownload></IconDownload>} type="tertiary" theme="borderless" size="small"></Button>
+            <Button onClick={e=>fileItem.onRemove()} icon={<IconDelete></IconDelete>} type="tertiary" theme="borderless" size="small"></Button>
+            <ImagePreview
+                src={fileItem.url}
+                visible={visible}
+                onVisibleChange={setVisible}
+            />
+        </div>
+    );
+    return <Upload action={action} defaultFileList={defaultFileList} itemStyle={{ width: 300 }} renderFileOperation={renderFileOperation}>
+        <Button icon={<IconUpload />} theme="light">Click upload</Button>
+    </Upload>;
+};
+
+```
+
 
 ### Default file list
 
@@ -1181,10 +1235,13 @@ afterUpload is triggered when the upload is completed (xhr.onload) and no error 
 ```ts
 // afterUploadResult:
 {
-     status?:'success' |'uploadFail' |'validateFail' |'validating' |'uploading' |'wait',
-     validateMessage?: React.ReactNode | string, // file validation information
-     autoRemove: boolean, // Whether to remove the file from the fileList, the default is false
-     name: string,
+    status?:'success' |'uploadFail' |'validateFail' |'validating' |'uploading' |'wait',
+    validateMessage?: React.ReactNode | string, // file validation information
+    autoRemove?: boolean, // Whether to remove the file from the fileList, the default is false
+    name?: string;
+    // The URL for previewing image file, usually the storage address returned by the Server after receiving response, supported since v2.63.
+    // Previous versions can also manually update the controlled properties in the fileList through onChange callback.
+    url?: string; // support after v2.63
 }
 ```
 

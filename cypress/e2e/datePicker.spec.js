@@ -539,6 +539,7 @@ describe('DatePicker', () => {
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('[data-cy=dateTimeRange] .semi-input').eq(0).clear().type('2021-0');
         cy.get('.semi-datepicker-footer .semi-button').eq(0).click();
+        cy.wait(300);
         cy.get('[data-cy=dateTimeRange] .semi-input').first().click();
         cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
         cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
@@ -820,9 +821,9 @@ describe('DatePicker', () => {
         cy.get('.semi-datepicker .semi-input').eq(-1).click();
         cy.get('.semi-datepicker .semi-input-clearbtn').click();
         cy.get('.semi-scrolllist-item-sel').eq(0).contains(`${year}年`);
-        cy.get('.semi-scrolllist-item-sel').eq(2).contains(`${year}年`);
+        cy.get('.semi-scrolllist-item-sel').eq(2).contains(`${month+1 <= 12 ? year : year + 1}年`);
         cy.get('.semi-scrolllist-item-sel').eq(1).contains(`${month}月`);
-        cy.get('.semi-scrolllist-item-sel').eq(3).contains(`${month+1}月`);
+        cy.get('.semi-scrolllist-item-sel').eq(3).contains(`${month+1 <= 12 ? month+1 : 1}月`);
     });
 
     it('test split first inset input + dateTimeRange', () => {
@@ -832,6 +833,7 @@ describe('DatePicker', () => {
         cy.get('.semi-input').should('have.value', '2024-02-15 00:00:00');
         cy.get('button').contains('确定').trigger('click');
         cy.get('.semi-input').should('have.value', '');
+        cy.wait(300);
         cy.get('.semi-input').eq(1).click();
         cy.get('.semi-datepicker-day').contains('15').trigger('click');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-15 00:00:00');
@@ -858,4 +860,71 @@ describe('DatePicker', () => {
         cy.get('.semi-input').eq(0).should('have.value', '2024-01-24');
         cy.get('.semi-input').eq(1).should('have.value', '2024-02-26');
     });
+
+    it('fixed selected status bug when double click', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-selected-status&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-day-selected').contains("15");
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-day-selected').contains("15");
+    })
+      
+    it('fixed selected is not update when close panel', () => {
+        cy.visit('http://localhost:6006/iframe.html?id=datepicker--fixed-controlled&viewMode=story');
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('15');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-day').contains('10')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('8');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('9');
+    });
+
+    it('fixed selected value does not show when value is controlled', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=datepicker--fixed-controlled-value&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-datepicker-month-grid-left .semi-datepicker-day').contains('15')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-datepicker-month-grid-right .semi-datepicker-day').contains('20')
+            .then($day => {
+                $day.trigger('click');
+            });
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-popover .semi-datepicker-day-selected-start').contains('15');
+        cy.get('.semi-popover .semi-datepicker-day-selected-end').contains('20');
+    });
+
+    it('auto Correction month under month range', () => {
+        cy.visit('http://localhost:6006/iframe.html?args=&id=datepicker--fix-2567&viewMode=story');
+        cy.get('.semi-input').eq(0).click();
+        cy.get('.semi-scrolllist').eq(1).contains('2024').click();
+        cy.get('.semi-input').eq(0).should("have.value", "2024-11 ~ 2024-11");
+        cy.root().click('right');
+
+        cy.get('.semi-input').eq(1).click();
+        cy.get('.semi-scrolllist').eq(1).contains('2024').click();
+        cy.get('.semi-input').eq(1).should("have.value", "2024-11 ~ 2024-11");
+        cy.root().click('right');
+
+        cy.get('.semi-input').eq(2).click();
+        cy.get('.semi-scrolllist').eq(0).contains('2025').click();
+        cy.get('.semi-input').eq(2).should("have.value", "2025-01 ~ 2025-01");
+    })
 });

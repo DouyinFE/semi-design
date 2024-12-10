@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 23
+order: 34
 category: Input
 title: DatePicker
 subTitle: Date Selector
@@ -77,7 +77,7 @@ class App extends React.Component {
 ### Date and Time Selection
 
 Set `type` to `dateTime`, can choose date and time.  
-If you want to remove the infinite loop scrolling interaction of TimePicker, you can pass timePickerOpts into a specific configuration to close it.
+Starting from version V2.22.0, we changed the default mode of ScrollItem in TimePicker from wheel to normal. If you want to apply the infinite scrolling effect again, you can enable it by passing in a specific configuration through timePickerOpts.
 
 ```jsx live=true
 import React from 'react';
@@ -91,8 +91,8 @@ class App extends React.Component {
                 <DatePicker type="dateTime" />
                 <br />
                 <br />
-                <h4>Turn off cycled mode</h4>
-                <DatePicker type="dateTime" timePickerOpts={{ scrollItemProps: { cycled: false } }} />
+                <h4>Turn on cycled mode</h4>
+                <DatePicker type="dateTime" timePickerOpts={{ scrollItemProps: { mode: "wheel", cycled: true } }} />
             </>
         );
     }
@@ -939,7 +939,7 @@ function Demo() {
 | onCancel           | Cancel the callback when selected, enter the reference as the value of the last confirmed selection, only `type` equals "dateTime"or "dateTimeRange" and `needConfirm` equals true                                                            | <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>                                                              |                                                                                       | **0.18.0**                |
 | onChange           | A callback when the value changes                                                                                                                                                                                                             |   <ApiType detail='(date: DateType, dateString: StringType) => void'>(date, dateString) => void</ApiType>       |                                                                                       |                           |
 | onClear            | A callback when click the clear button                                                                                                                                                                                                        | (event) => void                                                                                                                                                                                     | () => {}                                                                              | **1.16.0**           |
-| onClickOutSide    | When the pop-up layer is in a display state, click the non-popup layer and trigger callback                                                                                                                                                   | () => void | () => {} | **2.31.0** |
+| onClickOutSide    | When the pop-up layer is in a display state, click the non-popup layer and trigger callback, event parameter is supported since 2.68.0 | (event: React.mouseEvent) => void | () => {} | **2.31.0** |
 | onConfirm          | Confirm the callback at the time of selection, enter the reference as the value of the current selection, only `type` equals "dateTime" or "dateTimeRange" and `needConfirm` equals true                                                      |  <ApiType detail='(date: DateType, dateStr: StringType) => void'>(date, dateString) => void</ApiType>|                                                                                       | **0.18.0**                |
 | onFocus | Callback when focus is obtained. It is not recommended to use this API in range selection                                                                                                                                                     | (event) => void | () => {} | **1.0.0** |
 | onOpenChange       | Callback when popup open or close                                                                                                                                                                                                             | (isOpen) => void                                                                                                                                                                                 |                                                                                       |                           |
@@ -965,7 +965,8 @@ function Demo() {
     const ref = useRef();
     // Typescript
     // const ref = useRef<BaseDatePicker>();
-    // Why not import the DatePicker exported by the entry? -> The entry component is a forwardRef component, and the ref is transparently passed to this component
+    // Why not import the DatePicker exported by the entry? 
+    // The entry component is a forwardRef component, and the ref is transparently passed to this component
 
     const handleClickOutside = () => {
         console.log('click outside');
@@ -1057,7 +1058,7 @@ Multiple dates or times are used by default `","` (English comma) separated.
 ## FAQ
 
 -   **Date time picker, when you choose time, minute and second, you don't want to scroll infinitely. How to achieve the effect?**  
-    This behavior can be controlled by a specific switch in timePickerOpts, timePickerOpts={{scrollItemProps: {cycled: false}}}, and cycled is set to false
+    Starting from version V2.22.0, we changed the default mode of ScrollItem in TimePicker from wheel to normal. If you want to apply the infinite scrolling effect again, you can control this behavior through a specific switch in timePickerOpts, that is, timePickerOpts={{ scrollItemProps: { mode: "wheel", cycled: true } }}.
 
 -   **How to set the default display time when the panel is opened?**  
     You can use the defaultPickerValue property.

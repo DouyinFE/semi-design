@@ -46,8 +46,8 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     showClear?: boolean;
     onClear?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onChange?: (value: string, e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onBlur?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
-    onFocus?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
+    onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+    onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
     onInput?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onKeyUp?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -56,7 +56,12 @@ export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
     onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
     onResize?: (data: { height: number }) => void;
     getValueLength?: (value: string) => number;
-    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null
+    forwardRef?: ((instance: HTMLTextAreaElement) => void) | React.MutableRefObject<HTMLTextAreaElement> | null;
+    /* Inner params for TextArea, Chat use it, 。
+       Used to disable line breaks by pressing the enter key。
+       Press enter + shift at the same time can start new line.
+    */
+    disabledEnterStartNewLine?: boolean
 }
 
 export interface TextAreaState {
@@ -85,6 +90,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
         onClear: PropTypes.func,
         onResize: PropTypes.func,
         getValueLength: PropTypes.func,
+        disabledEnterStartNewLine: PropTypes.bool,
         // TODO
         // resize: PropTypes.bool,
     };
@@ -145,8 +151,8 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
                 this.props.onChange(val, e);
             },
             notifyClear: (e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onClear(e),
-            notifyBlur: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onBlur(e),
-            notifyFocus: (val: string, e: React.MouseEvent<HTMLTextAreaElement>) => this.props.onFocus(e),
+            notifyBlur: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onBlur(e),
+            notifyFocus: (val: string, e: React.FocusEvent<HTMLTextAreaElement>) => this.props.onFocus(e),
             notifyKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
                 this.props.onKeyDown(e);
             },
@@ -284,7 +290,7 @@ class TextArea extends BaseComponent<TextAreaProps, TextAreaState> {
             [`${prefixCls}-textarea-showClear`]: showClear,
         });
         const itemProps = {
-            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear'),
+            ...omit(rest, 'insetLabel', 'insetLabelId', 'getValueLength', 'onClear', 'showClear', 'disabledEnterStartNewLine'),
             autoFocus: autoFocus || this.props['autofocus'],
             className: itemCls,
             disabled,

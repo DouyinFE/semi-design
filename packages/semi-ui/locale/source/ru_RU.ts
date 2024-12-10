@@ -83,11 +83,11 @@ const local: Locale = {
         weeks: {
             Mon: 'Пн',
             Tue: 'Вт',
-            Wed: 'среда',
+            Wed: 'Ср',
             Thu: 'Чт',
             Fri: 'Пт',
             Sat: 'Сб',
-            Sun: 'Солнце',
+            Sun: 'Вс',
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'dd.MM.yyyy',
@@ -104,6 +104,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Нет результата',
         pageText: 'Отображение ${currentStart} до ${currentEnd} из ${total}',
+        descend: 'Щелкните, чтобы упорядочить по убыванию',
+        ascend: 'Щелкните, чтобы упорядочить по возрастанию',
+        cancelSort: 'Отменить сортировку',
     },
     Select: {
         emptyText: 'Нет результата',
@@ -172,6 +175,15 @@ const local: Locale = {
         downloadTip: 'скачать',
         adaptiveTip: 'Адаптировать к странице',
         originTip: 'Исходный размер',
+    },
+    Chat: {
+        deleteConfirm: 'Вы уверены, что хотите удалить эту сессию?',
+        clearContext: 'Контекст очищен',
+        copySuccess: 'Скопировано успешно',
+        stop: 'остановить',
+        copy: 'Копировать',
+        copied: 'Скопировано',
+        dropAreaText: 'Положите файл здесь',
     },
 };
 

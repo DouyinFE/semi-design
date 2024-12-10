@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 53
+order: 65
 category: Show
 title: Dropdown
 subTitle: Dropdown
@@ -18,27 +18,65 @@ import { Dropdown } from '@douyinfe/semi-ui';
 
 ### Basic Usage
 
+- For the Trigger of the Dropdown within its children: By default, it is displayed on hover. You can modify it to values like `click`, `custom`, `contextMenu`, etc. through the `props.trigger` to specify different triggering methods.
+- Use `render` to specify the specific content of the dropdown box: Use `Dropdown.Menu` as the parent container, and use `Dropdown.Item`, `Dropdown.Divider`, and `Dropdown.Title` in combination. Of course, in simple scenarios, you can also just combine `Dropdown.Menu` with `Dropdown.Item`, and the other elements are not mandatory.
+- `Dropdown.Item` can disable a certain option by setting `disabled`. By configuring `type`, text in different colors can be displayed. By setting `icon`, icons can be quickly configured. For more complex custom structures, you can pass in `ReactNode` through `children` for custom rendering. 
+
 ```jsx live=true
 import React from 'react';
-import { Dropdown, Tag } from '@douyinfe/semi-ui';
+import { Dropdown, Button, HotKeys } from '@douyinfe/semi-ui';
+import { IconBox, IconSetting, IconForward, IconRefresh, IconSearch, IconAlertCircle } from "@douyinfe/semi-icons";
+import { IconToken } from "@douyinfe/semi-icons-lab";
 
 function Demo() {
     return (
         <Dropdown
+            position="bottomLeft"
             render={
                 <Dropdown.Menu>
-                    <Dropdown.Item>Menu Item 1</Dropdown.Item>
-                    <Dropdown.Item>Menu Item 2</Dropdown.Item>
-                    <Dropdown.Item>Menu Item 3</Dropdown.Item>
+                    <Dropdown.Title>Group 1</Dropdown.Title>
+                    <Dropdown.Item icon={<IconBox />}>
+                        Menu Item 1
+                        <HotKeys
+                            style={{ marginLeft: 20 }}
+                            hotKeys={[HotKeys.Keys.Control, HotKeys.Keys.B]}
+                            content={['Ctrl', 'B']}
+                        ></HotKeys>
+                    </Dropdown.Item>
+                    <Dropdown.Item icon={<IconSetting />}>
+                        Menu Item 2
+                        <HotKeys
+                            style={{ marginLeft: 20 }}
+                            hotKeys={[HotKeys.Keys.Control, HotKeys.Keys.V]}
+                            content={['Ctrl', 'V']}
+                        ></HotKeys>
+                    </Dropdown.Item>
+                    <Dropdown.Item disabled icon={<IconForward />}>
+                        Menu Item 3
+                        <HotKeys
+                            style={{ marginLeft: 20 }}
+                            hotKeys={[HotKeys.Keys.Control, HotKeys.Keys.F3]}
+                            content={['Ctrl', 'F3']}
+                        ></HotKeys>
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Title>Group 2</Dropdown.Title>
+                    <Dropdown.Item type="tertiary" icon={<IconRefresh />}>Tertiary text</Dropdown.Item>
+                    <Dropdown.Item type="warning" icon={<IconSearch />}>
+                        Warning Text
+                    </Dropdown.Item>
+                    <Dropdown.Item type="danger" icon={<IconAlertCircle />}>Danger text</Dropdown.Item>
                 </Dropdown.Menu>
             }
         >
-            <Tag>Hover Me</Tag>
+            <Button theme="outline" type="tertiary" icon={<IconToken />}>
+                Hover Me
+            </Button>
         </Dropdown>
     );
 }
-```
 
+```
 ### Nested Usage
 
 Users can nested `Dropdown`, which is suitable for situations with multiple sublevel options.
@@ -75,96 +113,6 @@ function Demo() {
                 }
             >
                 <Tag>Hover Me</Tag>
-            </Dropdown>
-        </div>
-    );
-}
-```
-
-### Element Properties
-
-By configuing `disabled` for `Dropdown.Item`, you can disabled an item.  
-By configuring `type` on `Dropdown.Item`, you can display text in different colors.  
-By configuring `icon` on `Dropdown.Item` (`icon` needs to be ReactNode), you can quickly configured icon of item.
-
-```jsx live=true
-import React from 'react';
-import { Dropdown, Button } from '@douyinfe/semi-ui';
-import { IconBox, IconSimilarity, IconSetting, IconForward, IconColorPalette, IconRefresh, IconSearch, IconBranch } from '@douyinfe/semi-icons';
-
-function Demo() {
-    return (
-        <div>
-            <Dropdown
-                trigger="custom"
-                position="bottomLeft"
-                visible
-                render={
-                    <Dropdown.Menu>
-                        <Dropdown.Item icon={<IconBox />}>Menu Item 1</Dropdown.Item>
-                        <Dropdown.Item icon={<IconSetting />}>Menu Item 2</Dropdown.Item>
-                        <Dropdown.Item disabled icon={<IconForward />}>
-                            Menu Item 3
-                        </Dropdown.Item>
-                        <Dropdown.Item type="primary" icon={<IconBranch />}>
-                            primary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconColorPalette />} type="secondary">
-                            secondary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconRefresh />} type="tertiary">
-                            tertiary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconSearch />} type="warning">
-                            warning
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            icon={<IconSimilarity style={{ color: 'var(--semi-color-tertiary)' }} />}
-                            type="danger"
-                        >
-                            danger
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                }
-            >
-                <Button>Always Show</Button>
-            </Dropdown>
-            <Dropdown
-                trigger="custom"
-                position="bottomLeft"
-                showTick
-                visible
-                render={
-                    <Dropdown.Menu>
-                        <Dropdown.Item icon={<IconBox />} active>
-                            Menu Item 1
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconSetting />}>Menu Item 2</Dropdown.Item>
-                        <Dropdown.Item disabled icon={<IconForward />}>
-                            Menu Item 3
-                        </Dropdown.Item>
-                        <Dropdown.Item type="primary" icon={<IconBranch />}>
-                            primary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconColorPalette />} type="secondary">
-                            secondary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconRefresh />} type="tertiary">
-                            tertiary
-                        </Dropdown.Item>
-                        <Dropdown.Item icon={<IconSearch />} type="warning">
-                            warning
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                            icon={<IconSimilarity style={{ color: 'var(--semi-color-tertiary)' }} />}
-                            type="danger"
-                        >
-                            danger
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                }
-            >
-                <Button style={{ marginLeft: 90 }}>Always ShowTick</Button>
             </Dropdown>
         </div>
     );
@@ -300,99 +248,36 @@ Click on the menu item to trigger different mouse events, support `onClick`, `on
 ```jsx live=true
 import React from 'react';
 import { Dropdown, Button, Toast } from '@douyinfe/semi-ui';
+import { IconToken } from "@douyinfe/semi-icons-lab";
 
-class DropdownEvents extends React.Component {
-    constructor() {
-        super();
-        this.click = this.click.bind(this);
-        this.mouseEnter = this.mouseEnter.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
-        this.rightClick = this.rightClick.bind(this);
-    }
-
-    click(value) {
-        Toast.info({ content: 'You clicked me!' });
-    }
-
-    mouseEnter(value) {
-        Toast.info({ content: 'Nice to meet you!' });
-    }
-
-    mouseLeave(value) {
-        Toast.info({ content: 'See ya!' });
-    }
-
-    rightClick(value) {
-        Toast.info({ content: 'Right clicked!' });
-    }
-
-    render() {
-        return (
-            <Dropdown
-                trigger={'click'}
-                position={'bottomLeft'}
-                render={
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={this.click}>1: click me!</Dropdown.Item>
-                        <Dropdown.Item onMouseEnter={this.mouseEnter}>2: mouse enter</Dropdown.Item>
-                        <Dropdown.Item onMouseLeave={this.mouseLeave}>3: mouse leave</Dropdown.Item>
-                        <Dropdown.Item onContextMenu={this.rightClick}>4: right click</Dropdown.Item>
-                    </Dropdown.Menu>
-                }
-            >
-                <Button>Click me</Button>
-            </Dropdown>
-        );
-    }
-}
-```
-
-### Group Combinations
-
-Combination uses`Dropdown.Title`, `Dropdown.Divider`, `Dropdown.Item`.
-
-Configure type `Dropdown.Item` to show different colors of text.
-
-```jsx live=true
-import React from 'react';
-import { Dropdown, Button, Toast } from '@douyinfe/semi-ui';
-
-class DropdownEvents extends React.Component {
-    constructor() {
-        super();
-        this.click = this.click.bind(this);
-    }
-
-    click(value) {
-        Toast.info({ content: 'You clicked me!' });
-    }
-
-    render() {
-        return (
-            <Dropdown
-                trigger={'click'}
-                showTick
-                position={'bottomLeft'}
-                render={
-                    <Dropdown.Menu>
-                        <Dropdown.Title>Group 1</Dropdown.Title>
-                        <Dropdown.Item type="primary">primary</Dropdown.Item>
-                        <Dropdown.Item type="secondary">secondary</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Title>Group 2</Dropdown.Title>
-                        <Dropdown.Item type="tertiary">tertiary</Dropdown.Item>
-                        <Dropdown.Item type="warning" active>
-                            warning
-                        </Dropdown.Item>
-                        <Dropdown.Item type="danger">danger</Dropdown.Item>
-                    </Dropdown.Menu>
-                }
-            >
-                <Button>Click me</Button>
-            </Dropdown>
-        );
-    }
-}
+() => {
+    return (
+        <Dropdown
+            trigger={'click'}
+            position={'bottomLeft'}
+            render={
+                <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => Toast.info({ content: 'You clicked me!' })}>
+                        1: click me!
+                    </Dropdown.Item>
+                    <Dropdown.Item onMouseEnter={() => Toast.info({ content: 'Nice to meet you!' })}>
+                        2: mouse enter
+                    </Dropdown.Item>
+                    <Dropdown.Item onMouseLeave={() => Toast.info({ content: 'See ya!' })}>
+                        3: mouse leave
+                    </Dropdown.Item>
+                    <Dropdown.Item onContextMenu={() => Toast.info({ content: 'Right clicked!' })}>
+                        4: right click
+                    </Dropdown.Item>
+                </Dropdown.Menu>
+            }
+        >
+            <Button theme="outline" type="tertiary" icon={<IconToken />}>
+                Click Me
+            </Button>
+        </Dropdown>
+    );
+};
 ```
 
 ### Json Usage
@@ -402,6 +287,7 @@ Can use the menu attribute to configure the Dropdown content menu
 ```jsx live=true
 import React from 'react';
 import { Dropdown, Button } from '@douyinfe/semi-ui';
+import { IconToken } from "@douyinfe/semi-icons-lab";
 
 function DropdownEvents() {
     const menu = [
@@ -416,7 +302,9 @@ function DropdownEvents() {
     ];
     return (
         <Dropdown trigger={'click'} showTick position={'bottomLeft'} menu={menu}>
-            <Button>Click me</Button>
+            <Button theme="outline" type="tertiary" icon={<IconToken />}>
+                Click Me
+            </Button>
         </Dropdown>
     );
 }

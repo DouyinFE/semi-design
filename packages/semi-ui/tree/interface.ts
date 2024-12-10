@@ -67,7 +67,7 @@ export interface TreeProps extends BasicTreeProps {
     style?: React.CSSProperties;
     treeData?: TreeNodeData[];
     value?: Value;
-    icon?: ReactNode;
+    icon?: ReactNode | ((props: TreeNodeProps) => ReactNode);
     keyMaps?: KeyMapProps;
     loadData?: (treeNode?: TreeNodeData) => Promise<void>;
     onChange?: (value?: Value) => void;
@@ -84,7 +84,8 @@ export interface TreeProps extends BasicTreeProps {
     onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderDraggingNode?: (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => ReactNode;
-    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData) => ReactNode
+    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData, searchWord?: string) => ReactNode;
+    autoMergeValue?: boolean
 }
 export interface OptionProps {
     index: number;

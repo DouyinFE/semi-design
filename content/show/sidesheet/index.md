@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 62
+order: 74
 category: 展示类
 title: SideSheet 滑动侧边栏
 icon: doc-sidesheet
@@ -256,7 +256,7 @@ class Demo extends React.Component {
                         />
                         <RadioGroup field="type" label="目标操作系统" direction="horizontal" initValue={'all'}>
                             <Radio value="all">全平台</Radio>
-                            <Radio value="ios">IOS</Radio>
+                            <Radio value="ios">iOS</Radio>
                             <Radio value="android">Android</Radio>
                             <Radio value="web">Web</Radio>
                         </RadioGroup>
@@ -304,7 +304,7 @@ class Demo extends React.Component {
 
 | 属性 | 说明                                                                            | 类型 | 默认值 | 版本 |
 | --- |-------------------------------------------------------------------------------| --- | --- | --- |
-| afterVisibleChange | 面板展示/隐藏时动画结束触发的回调                                                             | (isVisble: boolean) => void | - | 1.0.0 |
+| afterVisibleChange | 面板展示/隐藏时动画结束触发的回调                                                             | (isVisible: boolean) => void | - | 1.0.0 |
 | bodyStyle | 面板内容的样式                                                                       | CSSProperties | - | - |
 | className | 类名                                                                            | string | - | - |
 | closable | 是否允许通过右上角的关闭按钮关闭                                                              | boolean | true | - |

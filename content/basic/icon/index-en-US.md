@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 14
+order: 21
 category: Basic
 title: Icon
 subTitle: Icon

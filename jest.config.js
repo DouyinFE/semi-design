@@ -3,7 +3,25 @@ let ModuleNeedCompile2Cjs = [
     'lodash-es',
     'react-dnd',
     'dnd-core',
-    'react-dnd-html5-backend'
+    'react-dnd-html5-backend',
+    'lottie'
+    // 'remark-gfm',
+    // 'mdast-util-gfm',
+    // 'mdast-util-find-and-replace',
+    // 'mdast-util-to-markdown',
+    // 'mdast-util-phrasing',
+    // 'micromark-util-character',
+    // 'micromark-util-normalize-identifier',
+    // 'unist-util-visit-parents',
+    // 'unist-util-stringify-position',
+    // 'decode-named-character-reference'
+    // 'devlop',
+    // 'vfile',
+    // 'vfile-location',
+    // 'vfile-message',
+    // 'markdown-extensions',
+    // '@mdx-js/mdx',
+    // 'mdast-util-mdx',
 ].join('|');
 
 let config = {
@@ -22,15 +40,31 @@ let config = {
     // 忽略出lodash-es、react-dnd、dnd-core外的node_modules中的所有内容，即node_modules中只有lodash-es、react-dnd、dnd-core需要被babel-jest处理
     transformIgnorePatterns: [`<rootDir>/node_modules/(?!(${ModuleNeedCompile2Cjs}))`],
     snapshotSerializers: ['enzyme-to-json/serializer'],
+    moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
     // moduleDirectories: ["node_modules"],
     moduleNameMapper: {
         '\\.(css|scss)$': '<rootDir>/test/__mocks__/styleMock.js',
         '\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
             '<rootDir>/test/__mocks__/fileMock.js',
+        // 'vfile': '<rootDir>/packages/semi-foundation/node_modules/vfile',
+        // 'remark-mdx': '<rootDir>/packages/semi-foundation/node_modules/remark-mdx',
+        // 'unist-util-is': '<rootDir>/packages/semi-foundation/node_modules/unist-util-is',
+        // 'unist-util-visit': '<rootDir>/packages/semi-foundation/node_modules/unist-util-visit',
+        // 'vfile/do-not-use-conditional-minpath': '<rootDir>/packages/semi-foundation/node_modules/vfile/lib/minpath.js',
+        // 'vfile/do-not-use-conditional-minproc': '<rootDir>/packages/semi-foundation/node_modules/vfile/lib/minproc.js',
+        // 'vfile/do-not-use-conditional-minurl': '<rootDir>/packages/semi-foundation/node_modules/vfile/lib/minurl.js',
+        // 'devlop': '<rootDir>/test/__mocks__/devlop.js',
+        // 'unist-util-visit-parents/do-not-use-color': '<rootDir>/node_modules/unist-util-visit-parents/lib/color.node.js',
+        
+        '@mdx-js/mdx': '<rootDir>/test/__mocks__/mdx-3.0.1-cjs.js',
+        'remark-gfm': '<rootDir>/test/__mocks__/remark-gfm-4.0.0-cjs.js',
+        "@testing-library/react": "<rootDir>/node_modules/@testing-library/react",
+        "@testing-library/dom": "<rootDir>/node_modules/@testing-library/dom",
         '@douyinfe/semi-ui(.*)$': '<rootDir>/packages/semi-ui/$1',
         '@douyinfe/semi-foundation(.*)$': '<rootDir>/packages/semi-foundation/$1',
         '@douyinfe/semi-illustrations(.*)$': '<rootDir>/packages/semi-illustrations/src/$1',
         '@douyinfe/semi-icons(.*)$': '<rootDir>/packages/semi-icons/src/$1',
+        '@douyinfe/semi-json-viewer-core(.*)$': '<rootDir>/packages/semi-json-viewer-core/src/$1',
         // 将semi-animation相关的直接指向它的cjs版本，这样不用再走一次babel-jest的编译
         '@douyinfe/semi-animation-styled(.*)$': '<rootDir>/packages/semi-animation-styled',
         '@douyinfe/semi-animation-react(.*)$': '<rootDir>/packages/semi-animation-react',

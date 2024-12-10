@@ -34,7 +34,7 @@ function Demo() {
     return (
         <div>
             <Title style={{ margin: '8px 0' }} >h1. Semi Design</Title>
-            <Title with={2} style={{ margin: '8px 0' }} >h2. Semi Design</Title>
+            <Title heading={2} style={{ margin: '8px 0' }} >h2. Semi Design</Title>
             <Title heading={3} style={{ margin: '8px 0' }} >h3. Semi Design</Title>
             <Title heading={4} style={{ margin: '8px 0' }} >h4. Semi Design</Title>
             <Title heading={5} style={{ margin: '8px 0' }} >h5. Semi Design</Title>
@@ -258,6 +258,8 @@ function Demo() {
 
 Paragraph and Text component support two sizes, `small`(12px) and `normal`(14px). By default it is set to `normal`。
 
+When the paragraph component or text component are used nested, set the `size` property of the inner component to `inherit`, and the size of the inner component will inherit the size setting of the outer component.
+
 ```jsx live=true
 import React from 'react';
 import { Typography } from '@douyinfe/semi-ui';
@@ -275,6 +277,10 @@ function Demo() {
             <Paragraph size='small'>
                 {`Life's but a walking shadow, a poor player, that struts and frets his hour upon the stage, and then is heard no more; it is a tale told by an idiot, full of sound and fury, signifying nothing.`}
             </Paragraph>
+            <br />
+            <Text size="small">This is a Text, size is small
+                <Text link size="inherit">This is a Text，size is inherit, inherit parent's size</Text>
+            </Text>
         </div>
     );
 }
@@ -286,10 +292,11 @@ Copying of text can be supported by configuring the `copyable` property.
 When copyable is configured as true, the default copied content is children itself. Note that at this time, children only support string type.    
 When copyable is configured as object, you can specify the content copied to the clipboard through `copyable.content`, which is no longer strongly associated with children.   
 At this time, children will no longer limit the type, but `copyable.content` still needs to be a string.  
+You can use the `copyable.render` attribute to customize the copyable button render.
 
 ```jsx live=true
 import React from 'react';
-import { Typography, TextArea } from '@douyinfe/semi-ui';
+import { Typography, TextArea, Button } from '@douyinfe/semi-ui';
 import { IconSetting } from '@douyinfe/semi-icons';
 
 function Demo() {
@@ -302,6 +309,18 @@ function Demo() {
             <Paragraph copyable={{ onCopy: () => Toast.success({ content: 'Successfully copied.' }) }}>Click the right icon to copy.</Paragraph>
             Timestamp: <Numeral truncate="ceil" copyable underline>{new Date().getTime()/1000}s</Numeral>
             <Paragraph copyable={{ icon: <IconSetting style={{ color: 'var(--semi-color-link)' }}/> }}>Custom Copy Node</Paragraph>
+            <Paragraph copyable={{
+                content: 'Custom render!',
+                render: (copied, doCopy, config) => {
+                    return (
+                        <Button size="small" onClick={doCopy}>
+                            <span>{copied ? 'Copy success' : `Click to copy: ${config.content}`}</span>
+                        </Button>
+                    );
+                }
+            }}>
+                Custom Copy Render
+            </Paragraph>
             <br/>
             <br/>
             <Text type="secondary">Paste here: </Text>
@@ -453,53 +472,53 @@ function Demo() {
 
 | Properties | Instructions                                                                                                                             | type                                                  | Default   | version |
 | ---------- |------------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
-| copyable   | Toggle whether to be copyable                                                                                                            | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
+| copyable   | Toggle whether to be copyable                                                                                                            | boolean \| object:[Copyable Config](#Copyable-Config) | false     |   |
 | code       | wrap with `code` element                                                                                                                 | boolean                                               | -         |         |
 | component  | Custom rendering html element                                                                                                            | html element                                          | span      |         |
-| delete     | Deleted style                                                                                                                            | boolean                                               | false     | 0.27.0  |
-| disabled   | Disabled style                                                                                                                           | boolean                                               | false     | 0.27.0  |
-| ellipsis   | Display ellipsis when text overflows                                                                                                     | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
-| icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         | 0.27.0  |
-| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     | 0.27.0  |
-| mark       | Marked style                                                                                                                             | boolean                                               | false     | 0.27.0  |
-| size       | Size, one of `normal`，`small`                                                                                                            | string                                                | `normal`  | 0.27.0  |
-| strong     | Bold style                                                                                                                               | boolean                                               | false     | 0.27.0  |
-| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
-| underline  | Underlined style                                                                                                                         | boolean                                               | false     | 0.27.0  |
+| delete     | Deleted style                                                                                                                            | boolean                                               | false     |   |
+| disabled   | Disabled style                                                                                                                           | boolean                                               | false     |   |
+| ellipsis   | Display ellipsis when text overflows                                                                                                     | boolean\|object:Ellipsis Config                       | false     | |
+| icon       | Prefix icon.                                                                                                                             | ReactNode                                             | -         |   |
+| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                       | boolean\|object                                       | false     |   |
+| mark       | Marked style                                                                                                                             | boolean                                               | false     |   |
+| size       | Size, one of `normal`, `small`, `inherit`                                                                                                          | string                                                | `normal`  |   |
+| strong     | Bold style                                                                                                                               | boolean                                               | false     |   |
+| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**) , `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` |   |
+| underline  | Underlined style                                                                                                                         | boolean                                               | false     |  |
 | weight | set font weight                                                                                                                          |  number                                        |  | 2.34.0 |
 
 ### Typography.Title
 
 | Properties | Instructions                                                                                                                            | type                                                  | Default   | version |
 | ---------- |-----------------------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------- | --------- | ------- |
-| copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
+| copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     |   |
 | component  | Custom rendering html element. The default is determined by heading prop                                                                | html element                                          | h1~h6     |         |
-| delete     | Deleted style                                                                                                                           | boolean                                               | false     | 0.27.0  |
-| disabled   | Disabled style                                                                                                                          | boolean                                               | false     | 0.27.0  |
-| ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
-| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                     | number                                                | 1         | 0.27.0  |
-| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     | 0.27.0  |
-| mark       | Marked style                                                                                                                            | boolean                                               | false     | 0.27.0  |
-| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
-| underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
+| delete     | Deleted style                                                                                                                           | boolean                                               | false     |   |
+| disabled   | Disabled style                                                                                                                          | boolean                                               | false     |   |
+| ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     |   |
+| heading    | Heading level, one of 1， 2， 3，4，5，6                                                                                                     | number                                                | 1         |   |
+| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     |   |
+| mark       | Marked style                                                                                                                            | boolean                                               | false     |   |
+| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` |   |
+| underline  | Underlined style                                                                                                                        | boolean                                               | false     |   |
 | weight | set font weight, one of `light`, `regular`, `medium`, `semibold`, `bold`, `default`                                                     | string, number                                        |  | 2.34.0 |
 
 ### Typography.Paragraph
 
 | Properties | Instructions                                                                                                                            | type                                                  | Default   | version |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------- | ------- |
-| copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     | 0.27.0  |
+| copyable   | Toggle whether to be copyable                                                                                                           | boolean \| object:[Copyable Config](#Copyable-Config) | false     |   |
 | component  | Custom rendering html element                                                                                                           | html element                                          | p         |         |
-| delete     | Deleted style                                                                                                                           | boolean                                               | false     | 0.27.0  |
-| disabled   | Disabled style                                                                                                                          | boolean                                               | false     | 0.27.0  |
-| ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     | 0.34.0  |
-| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     | 0.27.0  |
-| mark       | Marked style                                                                                                                            | boolean                                               | false     | 0.27.0  |
-| size       | Size, one of `normal`，`small`                                                                                                          | string                                                | `normal`  | 0.27.0  |
-| spacing    | paragraph spacing, one of `normal`, `extended`                                                                                          | string                                                | `normal`  | 0.27.0  |
-| strong     | Bold style                                                                                                                              | boolean                                               | false     | 0.27.0  |
-| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` | 0.27.0  |
-| underline  | Underlined style                                                                                                                        | boolean                                               | false     | 0.27.0  |
+| delete     | Deleted style                                                                                                                           | boolean                                               | false     |   |
+| disabled   | Disabled style                                                                                                                          | boolean                                               | false     |   |
+| ellipsis   | Display ellipsis when text overflows                                                                                                    | boolean\|object:Ellipsis Config                       | false     |   |
+| link       | Toggle whether to display as a link. When passing object, the attributes will be transparently passed to the a tag                      | boolean\|object                                       | false     |   |
+| mark       | Marked style                                                                                                                            | boolean                                               | false     |  |
+| size       | Size, one of `normal`，`small`                                                                                                          | string                                                | `normal`  |   |
+| spacing    | paragraph spacing, one of `normal`, `extended`                                                                                          | string                                                | `normal`  |   |
+| strong     | Bold style                                                                                                                              | boolean                                               | false     |   |
+| type       | Type, one of `primary`, `secondary`, `warning`, `danger`, `tertiary`(**v>=1.2.0**), `quaternary`(**v>=1.2.0**), `success`(**v>=1.7.0**) | string                                                | `primary` |   |
+| underline  | Underlined style                                                                                                                        | boolean                                               | false     |   |
 
 ### Typography.Numeral
 
@@ -524,7 +543,6 @@ function Demo() {
 | underline  | Underlined style                                                                                                                        | boolean               | false                                      | 2.22.0  |
 
 ### Ellipsis Config
-**v >= 0.34.0**
 
 | Properties   | Instructions                                                                                                                                                                                 | type                                                | Default    |
 | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ---------- |
@@ -542,11 +560,12 @@ function Demo() {
 ### Copyable Config
 | Properties | Instructions                            | Type                                           | Default | Version |
 | ---------- | --------------------------------------- | ---------------------------------------------- | ------- | ------- |
-| content    | Copied content                          | string                                         | -       | 0.27.0  |
-| copyTip    | Tooltip content when hovering over icon | React.node                                     | -       | 1.0.0   |
-| icon       | Custom Render Duplicate Node            | React.node                                     | -       | 2.31.0  |
-| onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       | 0.27.0  |
-| successTip | Successful tip content                  | React.node                                     | -       | 0.33.0  |
+| content    | Copied content                          | string                                         | -       |   |
+| copyTip    | Tooltip content when hovering over icon | React.node                                     | -       |    |
+| icon       | Custom render duplicate node            | React.node                                     | -       | 2.31.0  |
+| onCopy     | Callback for copy action                | Function(e:Event, content:string, res:boolean) | -       |   |
+| render | Custom render copy node       | <ApiType detail='(copied: boolean, doCopy: (e: React.MouseEvent) => void, configs: CopyableConfig) => React.ReactNode'>function(copied, doCopy, configs)</ApiType> | -      | 2.65.0 |
+| successTip | Successful tip content                  | React.node                                     | -       |   |
 
 ## Content Guidelines
 

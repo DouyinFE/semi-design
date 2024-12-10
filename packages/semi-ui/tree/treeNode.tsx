@@ -9,7 +9,7 @@ import { Checkbox } from '../checkbox';
 import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
-import { getHighLightTextHTML } from '../_utils/index';
+import Highlight from '../highlight';
 import Indent from './indent';
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -263,22 +263,22 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
             directory,
             treeIcon
         } = this.context;
-        const { expanded, icon } = this.props;
-        const hasChild = !this.isLeaf();
-        const hasIcon = icon || treeIcon;
-        let itemIcon;
-        if (hasIcon || directory) {
-            if (hasIcon) {
-                itemIcon = icon || treeIcon;
+        const { expanded, icon, data } = this.props;
+        if (icon) {
+            return icon;
+        }
+        if (treeIcon) {
+            return typeof treeIcon === 'function' ? treeIcon(this.props) : treeIcon;
+        }
+        if (directory) {
+            const hasChild = !this.isLeaf();
+            if (!hasChild) {
+                return <IconFile className={`${prefixcls}-item-icon`} />;
             } else {
-                if (!hasChild) {
-                    itemIcon = <IconFile className={`${prefixcls}-item-icon`} />;
-                } else {
-                    itemIcon = expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
-                }
+                return expanded ? <IconFolderOpen className={`${prefixcls}-item-icon`} /> : <IconFolder className={`${prefixcls}-item-icon`} />;
             }
         }
-        return itemIcon;
+        return null;
     }
 
     renderEmptyNode() {
@@ -299,16 +299,16 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         const { renderLabel } = this.context;
         const { label, keyword, data, filtered, treeNodeFilterProp } = this.props;
         if (isFunction(renderLabel)) {
-            return renderLabel(label, data);
+            return renderLabel(label, data, keyword);
         } else if (isString(label) && filtered && keyword) {
-            return getHighLightTextHTML({
-                sourceString: label,
-                searchWords: [keyword],
-                option: {
-                    highlightTag: 'span',
-                    highlightClassName: `${prefixcls}-highlight`,
-                },
-            } as any);
+            return (
+                <Highlight
+                    highlightClassName={`${prefixcls}-highlight`}
+                    component='span'
+                    sourceString={label}
+                    searchWords={[keyword]}
+                />
+            );
         } else {
             return label;
         }

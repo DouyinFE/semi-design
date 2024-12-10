@@ -3,7 +3,7 @@ category: Getting Started
 title: Content Guidelines
 icon: doc-contentguidelines
 localeCode: en-US
-order: 9
+order: 11
 brief: We are all keen to use Semi to create products that users like, and copywriting is the most direct communication method between products and users, and outputting correct and consistent copywriting is an indispensable part of product design.
 ---
 
@@ -473,7 +473,7 @@ Avoid emoji, opt for an icon instead; use it at the end of a segment if you must
 
 > Example: Jan 1, 2018, 2018–01–01
 
-- If there is enough space, write the date in full. Such as: March 12, 020
+- If there is enough space, write the date in full. Such as: March 12, 2020
 - If space is limited, the month can be abbreviated. Such as: Mar 12, 2020
 - Use dashes – (Option and -) to connect year, month and day, do not use / , such as: en: 03/01/2022; zh: 2022-03-01
 - Month abbreviations use three letters, Jan, Feb, Mar, Apr

@@ -4,11 +4,12 @@ import React from 'react';
 import sinon from 'sinon';
 import enzymeToJson from 'enzyme-to-json';
 import jest from 'jest';
-
+import { render as testRender } from '@testing-library/react';
 import jsdom from 'jsdom';
 import crypto from 'crypto';
 import { advanceBy, advanceTo, clear } from 'jest-date-mock';
 import { mockRandom } from 'jest-mock-random';
+import 'jest-canvas-mock';
 
 import { IntersectionObserver } from '@shopify/jest-dom-mocks';
 // window.requestAnimationFrame = function (callback) {
@@ -41,6 +42,7 @@ global.shallow = shallow;
 global.render = render;
 global.mount = mount;
 global.sinon = sinon;
+global.testRender = testRender
 
 Object.defineProperty(global.self, 'crypto', {
     value: {

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 56
+order: 68
 category: 展示类
 title: Image 图片
 icon: doc-image
@@ -482,6 +482,8 @@ import { Image, ImagePreview } from '@douyinfe/semi-ui';
 | style             | 自定义样式                              | CSSProperties     | - | |
 | width             | 图片显示宽度                             | number            | - | |
 | setDownloadName   | 设置图片下载名称                         | (src: string) => string | - | 2.40.0 |
+
+其他支持的属性同 [img](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes)。其他属性将透传至底层的 img 节点。
 
 ### ImagePreview
 

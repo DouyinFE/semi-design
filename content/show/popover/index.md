@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 60
+order: 72
 category: 展示类
 title: Popover 气泡卡片
 icon: doc-popover
@@ -551,7 +551,7 @@ import { Button, Input, Popover, Space } from '@douyinfe/semi-ui';
 | zIndex             | 弹出层 z-index 值                                                                                                                             | number                     | 1030                                        |            |
 | onClickOutSide     | 当弹出层处于展示状态，点击非Children、非浮层内部区域时的回调（仅trigger为custom、click时有效）| function(e:event) |  | **2.1.0**  |
 | onEscKeyDown       | 在 trigger 或 弹出层按 Esc 键时调用        | function(e:event) | | **2.8.0**  |
-| onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisble:boolean) |                                             |            |
+| onVisibleChange    | 弹出层展示/隐藏时触发的回调                                                                                                                 | function(isVisible:boolean) |                                             |            |
 
 ## Accessibility
 

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 16
+order: 14
 category: Basic
 title: Tokens 
 icon: doc-token

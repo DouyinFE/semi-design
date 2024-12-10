@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M2 5C2 3.89543 2.89543 3 4 3H8H10H14H16H20C21.1046 3 22 3.89543 22 5V19C22 20.1046 21.1046 21 20 21H4C2.89543 21 2 20.1046 2 19V5ZM14 5H10V7H14V5ZM16 7H20V5H16V7ZM4 5H8V8C8 8.55228 8.44772 9 9 9H20V19H4V5Z"
+                d="M2 5c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Zm12 0h-4v2h4V5Zm2 2h4V5h-4v2ZM4 5h4v3a1 1 0 0 0 1 1h11v10H4V5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'tabs_stroked');
 export default IconComponent;

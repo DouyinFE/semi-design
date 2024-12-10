@@ -15,7 +15,7 @@ Semi 团队会维护两个常驻分支：`main` 和 `release`，根据我们的[
 Semi Design 团队会认真对待每一个 Pull Request。我们会 review 并合并你的代码。也有可能对你的代码提出一些修改意见。
 
 要提交一个 Pull Request，请遵循以下步骤：
- - Node.js > v16
+ - Node.js > v20
  - Fork 项目并克隆下来
 ```bash
 git clone https://github.com/<your-username>/semi-design.git
@@ -35,8 +35,9 @@ npm install --global lerna
 npm run bootstrap
 ```
  - 接下来进行你想要做的修改，可以是 bug 修复，也可以是新功能的开发
- - 你可以通过运行 storybook(`npm start`)和官网(`npm run docsite`)来验证逻辑
- - 为你的修改编写测试用例，并确保测试通过
+ - 你可以通过运行 storybook(`npm start`)和文档站官网(`npm run docsite`)来验证逻辑
+ - 为你的修改编写测试用例（可以是 Jest Unit Test，也可以是 Cypress E2E Test），并确保测试通过
+    - 如果你想详细了解 Semi Design的测试机制，可查阅 [How We Test Semi Design Component Libraries](https://medium.com/front-end-weekly/how-we-test-semi-design-component-libraries-64b854f63b65)
 ```bash
 npm run test:unit
 ```
@@ -50,10 +51,10 @@ npm run test:unit
 ## 帮助改善文档
 文档站基于 [gatsby](https://www.gatsbyjs.com/) 构建，核心代码在 `src` 目录。
 
-**组件文档位于 `semi-ui` 组件文件夹下的 md 文件。** 以 tooltip 为例：
+**组件文档位于 `content` 组件文件夹下, 根据组件分类对应不同的二级目录下的 md 文件** 以 banner 为例：
 
-* 中文文档 `packages/semi-ui/tooltip/index.md` 
-* 英文文档 `packages/semi-ui/tooltip/index-en-US.md`
+* 中文文档 `content/feedback/banner/index.md` 
+* 英文文档 `content/feedback/banner/index-en-US.md`
 
 启动文档站点
 ```sh

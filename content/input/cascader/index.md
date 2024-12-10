@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 21
+order: 31
 category: 输入类
 title:  Cascader 级联选择
 icon: doc-cascader
@@ -140,7 +140,11 @@ import { Cascader } from '@douyinfe/semi-ui';
 
 ### 可搜索的
 
-通过设置 `filterTreeNode` 属性可支持搜索功能。默认对 `label` 值进行搜索，可通过 `treeNodeFilterProp` 更改。
+通过设置 `filterTreeNode` 属性可支持搜索功能。
+
+默认对 `label` 值进行搜索（使用字符串的 includes 方法进行匹配，不区分大小写），可通过 `treeNodeFilterProp` 指定其他属性值进行搜索。
+如 `label` 为 ReactNode，可在 treeData 中使用其他字段存储纯文本，并通过 `treeNodeFilterProp` 指定该字段进行搜索。
+
 默认搜索结果只会展示叶子结点的路径，想要显示更多的结果，可以设置 `filterLeafOnly` 为 `false`。
 
 ```jsx live=true
@@ -188,6 +192,55 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             ],
         }
     ];
+    const labelNodeTreeData = [
+        {
+            label: <Tooltip content="说明">浙江省</Tooltip>,
+            labelText: '浙江省',
+            value: 'zhejiang',
+            children: [
+                {
+                    label: <Tooltip content="说明">杭州市</Tooltip>,
+                    labelText: '杭州市',
+                    value: 'hangzhou',
+                    children: [
+                        {
+                            label: <Tooltip content="说明">西湖区</Tooltip>,
+                            labelText: '西湖区',
+                            value: 'xihu',
+                        },
+                        {
+                            label: <Tooltip content="说明">萧山区</Tooltip>,
+                            labelText: '萧山区',
+                            value: 'xiaoshan',
+                        },
+                        {
+                            label: <Tooltip content="说明">临安区</Tooltip>,
+                            labelText: '临安区',
+                            value: 'linan',
+                        },
+                    ],
+                },
+                {
+                    label: <Tooltip content="说明">宁波市</Tooltip>,
+                    labelText: '宁波市',
+                    value: 'ningbo',
+                    children: [
+                        {
+                            label: <Tooltip content="说明">海曙区</Tooltip>,
+                            labelText: '海曙区',
+                            value: 'haishu',
+                        },
+                        {
+                            label: <Tooltip content="说明">江北区</Tooltip>,
+                            labelText: '江北区',
+                            value: 'jiangbei',
+                        }
+                    ]
+                },
+            ],
+        }
+    ];
+
     return (
         <div>
             <Cascader
@@ -211,14 +264,26 @@ import { Cascader, Typography } from '@douyinfe/semi-ui';
             <Cascader
                 style={{ width: 300 }}
                 treeData={treeData}
-                placeholder="默认对label值进行搜索"
+                placeholder="filterLeafOnly=false"
                 filterTreeNode
                 filterLeafOnly={false}
+            />
+            <br/>
+            <br/>
+            <Typography.Title heading={6}>Label 为 ReactNode，指定其他属性进行搜索</Typography.Title>
+            <Cascader
+                style={{ width: 300 }}
+                treeData={labelNodeTreeData}
+                placeholder="Search for labelText"
+                filterTreeNode
+                treeNodeFilterProp='labelText'
             />
         </div>
     );
 };
 ```
+
+
 
 ### 可搜索的多选
 
@@ -1451,6 +1516,56 @@ import { Cascader } from '@douyinfe/semi-ui';
 };
 ```
 
+### 节点选中关系
+
+版本：>= 2.71.0
+
+多选时，可以使用 `checkRelation` 来设置节点之间选中关系的类型，可选：'related'（默认）、'unRelated'。当选中关系为 'unRelated' 时，意味着节点之间的选中互不影响。
+
+```jsx live=true
+import React from 'react';
+import { Cascader } from '@douyinfe/semi-ui';
+() => {
+    const treeData = [
+        {
+            label: '亚洲',
+            value: 'Asia',
+            children: [
+                {
+                    label: '中国',
+                    value: 'China',
+                    children: [
+                        {
+                            label: '北京',
+                            value: 'Beijing',
+                        },
+                        {
+                            label: '上海',
+                            value: 'Shanghai',
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            value: 'North America',
+        }
+    ];
+    return (
+        <Cascader
+            multiple
+            defaultValue={[
+                ['Asia'],
+                ['Asia', 'China', 'Beijing']
+            ]}
+            checkRelation='unRelated'
+            style={{ width: 300 }}
+            treeData={treeData}
+        />
+    );
+};
+```
 
 ### 动态更新数据
 
@@ -1807,6 +1922,7 @@ function Demo() {
 | bottomSlot           | 底部插槽                                                                                                                                                | ReactNode                                                                                 | -                              | 1.27.0 |
 | borderless        | 无边框模式  >=2.33.0                                                                                                                                     | boolean                         |           |
 | changeOnSelect       | 是否允许选择非叶子节点                                                                                                                                         | boolean                                                                                   | false                          | -      |
+| checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。  | string | 'related' | v2.71.0 |
 | className            | 选择框的 className 属性                                                                                                                                   | string                                                                                    | -                              | -      |
 | clearIcon            | 可用于自定义清除按钮, showClear为true时有效                                                                                                                       | ReactNode                                                                                 | -                              | 2.25.0 |
 | defaultOpen          | 设置是否默认打开下拉菜单                                                                                                                                        | boolean                                                                                   | false                          | -      |
@@ -1817,6 +1933,7 @@ function Demo() {
 | dropdownMargin       | 下拉菜单计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin                                               | object\|number                                                                            | -                              | 2.25.0 |
 | dropdownClassName    | 下拉菜单的 className 属性                                                                                                                                  | string                                                                                    | -                              | -      |
 | dropdownStyle        | 下拉菜单的样式                                                                                                                                             | object                                                                                    | -                              | -      |
+| expandIcon | 自定义展开 icon | ReactNode | - | 2.68.0 |
 | emptyContent         | 当搜索无结果时展示的内容                                                                                                                                        | ReactNode                                                                                 | `暂无数据`                     | -      |
 | filterLeafOnly       | 搜索结果是否只展示叶子结点路径                                                                                                                                     | boolean                                                                                   | true                           | 1.26.0 |
 | filterRender         | 自定义渲染筛选后的选项                                                                                                                                         | (props: FilterRenderProps) => ReactNode;                                                  | -                              | 2.28.0 |

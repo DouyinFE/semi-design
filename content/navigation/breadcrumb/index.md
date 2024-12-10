@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 39
+order: 51
 category: 导航类
 title:  Breadcrumb 面包屑
 icon: doc-breadcrumb
@@ -300,20 +300,21 @@ import { IconHome, IconArticle } from '@douyinfe/semi-icons';
 
 ### Breadcrumb
 
-| 属性       | 说明                                                                                      | 类型                                       | 默认值 | 版本   |
-| ---------- | ----------------------------------------------------------------------------------------- | ------------------------------------------ | ------ | ------ |
-| autoCollapse      | 是否超出maxItemCount后自动折叠                                                                                     | boolean                                     | true     |    1.9.0   |
-| className  | 类名                                                                                      | string                                     | -      |        |
-| compact    | 显示尺寸，是否紧凑                                                                         | boolean                                    | true   |        |
-| maxItemCount      | 超出多少个进行自动折叠                                                                                      | number                                     | 4    | 1.9.0       |
-|moreType|内置的...区域的渲染类型，可选值为 'default'、'popover'|string|'default'|1.27.0|
-| renderItem | 自定义链接函数，配合 routes 使用                                                          | (Route: [Route](#Route)) => ReactNode             | -      | 0.27.0 |
-| renderMore|自定义...区域的渲染|(restItem: ReactNode[]) => ReactNode|-|1.27.0|
-| routes     | router 的路由信息，由路由对象或字符串组成的数组，路由对象格式参考: [Route](#Route) | Array<[Route](#Route) \| string\>                            | -      |        |
-| separator  | 自定义的分隔符                                                                            | ReactNode                          | '/'    |        |
-| showTooltip | 是否展示 Tooltip 及相关配置: width，溢出宽度；   ellipsisPos，截断方式，从中间/末尾截断；                         opts，透传给Tooltip的属性                              | boolean \| showToolTipProps             | {width: 150, ellipsisPos: 'end', opts: { autoAdjustOverflow: true, position: "bottomLeft" }}      | 0.34.0 |
-| style      | 内联样式                                                                                      | CSSProperties                                     | -      |        |
-| onClick    | 单击事件                                                                                  | (item: [Route](#Route) , e: Event) => void | -      | 0.27.0 |
+| 属性       | 说明                                                                                                      | 类型                                       | 默认值 | 版本   |
+| ---------- |---------------------------------------------------------------------------------------------------------| ------------------------------------------ | ------ | ------ |
+| activeIndex| 受控使用，当前选择的导航序号                                                                                          | - | 2.61.0 |
+| autoCollapse      | 是否超出maxItemCount后自动折叠                                                                                   | boolean                                     | true     |    1.9.0   |
+| className  | 类名                                                                                                      | string                                     | -      |        |
+| compact    | 显示尺寸，是否紧凑                                                                                               | boolean                                    | true   |        |
+| maxItemCount      | 超出多少个进行自动折叠                                                                                             | number                                     | 4    | 1.9.0       |
+|moreType| 内置的...区域的渲染类型，可选值为 'default'、'popover'                                                                  |string|'default'|1.27.0|
+| renderItem | 自定义链接函数，配合 routes 使用                                                                                    | (Route: [Route](#Route)) => ReactNode             | -      | 0.27.0 |
+| renderMore| 自定义...区域的渲染                                                                                             |(restItem: ReactNode[]) => ReactNode|-|1.27.0|
+| routes     | router 的路由信息，由路由对象或字符串组成的数组，路由对象格式参考: [Route](#Route)                                                   | Array<[Route](#Route) \| string\>                            | -      |        |
+| separator  | 自定义的分隔符                                                                                                 | ReactNode                          | '/'    |        |
+| showTooltip | 是否展示 Tooltip 及相关配置: width，溢出宽度；   ellipsisPos，截断方式，从中间/末尾截断；                         opts，透传给Tooltip的属性 | boolean \| showToolTipProps             | {width: 150, ellipsisPos: 'end', opts: { autoAdjustOverflow: true, position: "bottomLeft" }}      | 0.34.0 |
+| style      | 内联样式                                                                                                    | CSSProperties                                     | -      |        |
+| onClick    | 单击事件                                                                                                    | (item: [Route](#Route) , e: Event) => void | -      | 0.27.0 |
 
 ### Breadcrumb.Item
 

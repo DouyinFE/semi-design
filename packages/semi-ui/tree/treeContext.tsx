@@ -10,7 +10,7 @@ import {
 
 export interface TreeContextValue {
     treeDisabled?: boolean;
-    treeIcon?: ReactNode;
+    treeIcon?: ReactNode | ((props: TreeNodeProps) => ReactNode);
     motion?: boolean;
     motionKeys?: Set<string>;
     motionType?: string;
@@ -36,7 +36,7 @@ export interface TreeContextValue {
     isSearching?: boolean;
     loadData?: (treeNode?: TreeNodeData) => Promise<void>;
     onNodeLoad?: (data: TreeNodeData) => Promise<unknown>;
-    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData) => ReactNode;
+    renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData, searchWord?: string) => ReactNode;
     draggable?: boolean;
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => React.ReactNode;
     dragOverNodeKey?: string | string[];

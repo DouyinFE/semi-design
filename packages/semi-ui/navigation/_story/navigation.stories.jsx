@@ -15,6 +15,7 @@ import GetPopupNav from './Popup';
 import CustomArrowIcon from './CustomIcon';
 import FixedSelectedKeys from './FixedSelectedKeys';
 import FixedOpenKeys from './FixedOpenKeys';
+import NumberItemKey from './NumberItemKey';
 
 import {
   IconMail,
@@ -41,7 +42,8 @@ export default {
 
 export {
   FixedSelectedKeys,
-  FixedOpenKeys
+  FixedOpenKeys,
+  NumberItemKey
 }
 
 export const Default = () => {
@@ -117,7 +119,7 @@ class NavApp extends React.Component {
           </Nav.Sub>
           <Nav.Item key={3} itemKey={'3'} text={'Option 3'} icon={<IconCamera />} />
           <Nav.Item key={4} itemKey={'4'} text={'Option 4'} icon={<IconArticle />} />
-          <Nav.Sub text={'Group 5'} stayWhenClick={true} icon={<IconFolder />}>
+          <Nav.Sub text={'Group 5'} stayWhenClick={true} icon={<IconFolder />} dropdownProps={{ spacing: 20 }}>
             {['5-1', '5-2'].map(k => (
               <Nav.Item key={k} itemKey={String(k)} text={'Option ' + k} />
             ))}
@@ -171,6 +173,10 @@ export const Horizontal = () => (
         },
       ]}
       onSelect={key => console.log(key)}
+      subDropdownProps={{
+        clickToHide: true,
+        spacing: 12
+      }}
     />
   </div>
 );

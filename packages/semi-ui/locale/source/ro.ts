@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Nici un rezultat',
         pageText: 'Arată ${currentStart} la ${currentEnd} de ${total}',
+        descend: 'Faceți clic pentru a coborî',
+        ascend: 'Faceți clic pentru a urca',
+        cancelSort: 'Anulați sortarea',
     },
     Select: {
         emptyText: 'Nici un rezultat',
@@ -169,6 +172,15 @@ const local: Locale = {
         downloadTip: 'Descarcă',
         adaptiveTip: 'Afișaj adaptabil',
         originTip: 'Afișaj implicit',
+    },
+    Chat: {
+        deleteConfirm: 'Sunteți sigur că doriți să ștergeți această conversație?',
+        clearContext: 'Contextul a fost șters',
+        copySuccess: 'Copiere reușită',
+        stop: 'Oprire',
+        copy: 'Copiază',
+        copied: 'Copiat',
+        dropAreaText: 'Puneți fișierul aici',
     },
 };
 

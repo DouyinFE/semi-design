@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 29
+order: 41
 category: Input
 title: Select
 subTitle: Select
@@ -28,21 +28,15 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select defaultValue="abc" style={{ width: 120 }}>
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-        </Select>
-        <br />
-        <br />
-        <Select defaultValue="abc" style={{ width: 120 }}>
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+        <Select defaultValue="douyin" style={{ width: 120 }}>
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
         </Select>
         <br />
         <br />
         <Select placeholder="Select line of business" style={{ width: 120 }}>
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
         </Select>
     </>
 );
@@ -58,9 +52,9 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: 'Semi' },
-        { value: 'hotsoon', label: 'Hotsoon' },
-        { value: 'pipixia', label: 'Pipixia' },
+        { value: 'douyin', label: 'Douyin' },
+        { value: 'capcut', label: 'Capcut' },
+        { value: 'coze', label: 'Coze' },
         { value: 'toutiao', label: 'TooBuzz' },
     ];
     return <Select placeholder="Business line" style={{ width: 180 }} optionList={list}></Select>;
@@ -88,10 +82,10 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select multiple style={{ width: '320px' }} defaultValue={['abc', 'hotsoon']}>
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+        <Select multiple style={{ width: '320px' }} defaultValue={['douyin', 'coze']}>
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
         <br />
@@ -102,11 +96,11 @@ import { Select } from '@douyinfe/semi-ui';
             showRestTagsPopover={true}
             restTagsPopoverProps={{ position: 'top' }}
             style={{ width: '320px' }}
-            defaultValue={['abc', 'hotsoon', 'pipixia']}
+            defaultValue={['douyin', 'coze', 'capcut']}
         >
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="douyin">Semi</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
 
@@ -115,13 +109,13 @@ import { Select } from '@douyinfe/semi-ui';
         <Select
             multiple
             style={{ width: '320px' }}
-            defaultValue={['abc']}
+            defaultValue={['douyin']}
             max={2}
             onExceed={() => Toast.warning('Only two options are allowed')}
         >
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="douyin">Semi</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
         <br />
@@ -132,13 +126,13 @@ import { Select } from '@douyinfe/semi-ui';
             showRestTagsPopover={true}
             restTagsPopoverProps={{ position: 'top' }}
             style={{ width: '220px' }}
-            defaultValue={['xigua', 'hotsoon', 'pipixia', 'abc']}
+            defaultValue={['xigua', 'coze', 'capcut', 'douyin']}
             ellipsisTrigger
             expandRestTagsOnClick
         >
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="douyin">Semi</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
     </>
@@ -222,17 +216,17 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select placeholder="Business line" style={{ width: '200px' }} size="small">
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="douyin">Douyin</Select.Option>
         </Select>
         <br />
         <br />
         <Select placeholder="Business line" style={{ width: '200px' }}>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="douyin">Douyin</Select.Option>
         </Select>
         <br />
         <br />
         <Select placeholder="Business line" style={{ width: '200px' }} size="large">
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
+            <Select.Option value="douyin">Douyin</Select.Option>
         </Select>
     </>
 );
@@ -248,17 +242,17 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <>
-        <Select style={{ width: '180px' }}>
+        <Select style={{ width: '180px' }} defaultValue='Capcut'>
             <Select.Option value="Capcut">Capcut</Select.Option>
         </Select>
         <br />
         <br />
-        <Select style={{ width: '180px' }} validateStatus="warning">
+        <Select style={{ width: '180px' }} validateStatus="warning" defaultValue='Capcut'>
             <Select.Option value="Capcut">Capcut</Select.Option>
         </Select>
         <br />
         <br />
-        <Select style={{ width: '180px' }} validateStatus="error">
+        <Select style={{ width: '180px' }} validateStatus="error" defaultValue='Capcut'>
             <Select.Option value="Capcut">Capcut</Select.Option>
         </Select>
     </>
@@ -279,24 +273,24 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 
 () => (
     <>
-        <Select style={{ width: '320px' }} defaultValue={'hotsoon'} prefix={<IconVigoLogo />} showClear={true}>
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+        <Select style={{ width: '320px' }} defaultValue={'douyin'} prefix={<IconVigoLogo />} showClear={true}>
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
         <br />
         <br />
         <Select
             style={{ width: '320px' }}
-            defaultValue={'hotsoon'}
+            defaultValue={'capcut'}
             prefix={<IconVigoLogo />}
             suffix={<IconGift />}
             showArrow={false}
         >
-            <Select.Option value="abc">Semi</Select.Option>
-            <Select.Option value="hotsoon">Hotsoon</Select.Option>
-            <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="capcut">Capcut</Select.Option>
+            <Select.Option value="coze">Coze</Select.Option>
             <Select.Option value="xigua">BuzzVideo</Select.Option>
         </Select>
     </>
@@ -314,13 +308,13 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: 'Semi' },
+        { value: 'douyin', label: 'Douyin' },
         { value: 'capcut', label: 'Capcut' },
         { value: 'xigua', label: 'BuzzVideo' },
     ];
     return (
         <>
-            <Select style={{ width: 320 }} optionList={list} insetLabel="Application" defaultValue="abc"></Select>
+            <Select style={{ width: 320 }} optionList={list} insetLabel="Application" defaultValue="douyin"></Select>
             <br />
             <br />
             <Select
@@ -385,21 +379,21 @@ import { IconClock } from '@douyinfe/semi-icons';
                 style={selectStyle}
                 dropdownStyle={{ width: 180 }}
                 maxHeight={213}
-                efaultOpen
+                defaultOpen
                 autoAdjustOverflow={false}
                 position="bottom"
                 outerBottomSlot={outSlotNode}
             >
-                <Select.Option value="abc">Semi</Select.Option>
-                <Select.Option value="hotsoon">Hotsoon</Select.Option>
-                <Select.Option value="pipixia">Pipixia</Select.Option>
+                <Select.Option value="douyin">Douyin</Select.Option>
+                <Select.Option value="capcut">Capcut</Select.Option>
+                <Select.Option value="coze">Coze</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
             </Select>
             <p>innerBottomSlot:</p>
-            <Select style={selectStyle} dropdownStyle={{ width: 180 }} innerBottomSlot={innerSlotNode}>
-                <Select.Option value="abc">Semi</Select.Option>
-                <Select.Option value="hotsoon">Hotsoon</Select.Option>
-                <Select.Option value="pipixia">Pipixia</Select.Option>
+            <Select style={selectStyle} dropdownStyle={{ width: 180 }} innerBottomSlot={innerSlotNode} >
+                <Select.Option value="douyin">Douyin</Select.Option>
+                <Select.Option value="capcut">Capcut</Select.Option>
+                <Select.Option value="coze">Coze</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
             </Select>
         </div>
@@ -454,12 +448,13 @@ import { Select } from '@douyinfe/semi-ui';
         display: 'flex',
         paddingTop: 8,
         paddingLeft: 32,
+        paddingRight: 32,
         borderBottom: '0.5px solid var(--semi-color-border)',
     };
     const tabOptions = [
-        { itemKey: 'component', label: '组件' },
-        { itemKey: 'design', label: '设计' },
-        { itemKey: 'feedback', label: '反馈' },
+        { itemKey: 'component', label: 'Compoonent' },
+        { itemKey: 'design', label: 'Design' },
+        { itemKey: 'feedback', label: 'Feedback' },
     ];
 
     const outerTopSlotNode = (
@@ -502,7 +497,7 @@ import { Select } from '@douyinfe/semi-ui';
     return (
         <>
             <Select value={value} style={{ width: '300px' }} onChange={setValue} placeholder="Controlled Component">
-                <Select.Option value="abc">Semi</Select.Option>
+                <Select.Option value="douyin">Douyin</Select.Option>
                 <Select.Option value="capcut">Capcut</Select.Option>
                 <Select.Option value="xigua">BuzzVideo</Select.Option>
             </Select>
@@ -592,9 +587,9 @@ import { Select } from '@douyinfe/semi-ui';
 () => (
     <>
         <Select filter style={{ width: 180 }} placeholder="Searchable Select">
-            <Select.Option value="app1">Semi</Select.Option>
-            <Select.Option value="app2">Hotsoon</Select.Option>
-            <Select.Option value="app3">Pipixia</Select.Option>
+            <Select.Option value="app1">Douyin</Select.Option>
+            <Select.Option value="app2">Coze</Select.Option>
+            <Select.Option value="app3">Capcut</Select.Option>
             <Select.Option value="app4">BuzzVideo</Select.Option>
         </Select>
         <br />
@@ -614,6 +609,52 @@ import { Select } from '@douyinfe/semi-ui';
         </Select>
     </>
 );
+```
+
+
+### Search position
+The default search input is displayed on the Select Trigger. You can specify different positions through `searchPosition`, and you can choose `dropdown` or `trigger`. Available after `v2.61.0`  
+If you want to customize the placeholder of the Input search box in the dropdown, you can control it through `searchPlaceholder`  
+If the `searchPosition` is `trigger`, when `showClear=true`, clicking the clear button of the input will clear the selected items and the search text in the input at the same time   
+If the `searchPosition` is `dropdown`, when `showClear=true`, clicking the clear button of the trigger will clear the selected items,  clicking the clear button in the dropdown input will clear search text  
+
+
+```jsx live=true
+import React from 'react';
+import { Select } from '@douyinfe/semi-ui';
+
+() => (
+    <>
+        <Select
+            filter
+            searchPosition='dropdown'
+            style={{ width: 200 }}
+            defaultValue={'ulikecam'}
+        >
+            <Select.Option value="douyin">Douyin</Select.Option>
+            <Select.Option value="ulikecam">UlikeCam</Select.Option>
+            <Select.Option value="jianying">Capcut</Select.Option>
+            <Select.Option value="xigua">XiguaVideo</Select.Option>
+        </Select>
+        <br />
+        <br />
+        <Select
+            filter
+            searchPosition='dropdown'
+            multiple
+            style={{ width: 300 }}
+            defaultValue={['semi-1']}
+            autoClearSearchValue={false}
+        >
+            <Select.Option value="semi-0">Semi-0</Select.Option>
+            <Select.Option value="semi-1">Semi-1</Select.Option>
+            <Select.Option value="semi-2">Semi-2</Select.Option>
+            <Select.Option value="semi-3">Semi-3</Select.Option>
+            <Select.Option value="semi-4">Semi-4</Select.Option>
+        </Select>
+    </>
+);
+
 ```
 
 ### Remote search
@@ -699,8 +740,8 @@ import { Select } from '@douyinfe/semi-ui';
         return label.includes(sug) || value.includes(sug);
     }
     return (
-        <Select filter={search} style={{ width: '180px' }} placeholder="try hello or abc">
-            <Select.Option value="hello">Semi</Select.Option>
+        <Select filter={search} style={{ width: '180px' }} placeholder="try hello or douyin">
+            <Select.Option value="hello">Douyin</Select.Option>
             <Select.Option value="bytedance">UlikeCam</Select.Option>
             <Select.Option value="semi">BuzzVideo</Select.Option>
         </Select>
@@ -869,9 +910,9 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => (
     <Select style={{ width: 180 }} dropdownStyle={{ width: 250 }} dropdownClassName="test">
-        <Select.Option value="abc">Semi</Select.Option>
-        <Select.Option value="hotsoon">Hotsoon</Select.Option>
-        <Select.Option value="pipixia">Pipixia</Select.Option>
+        <Select.Option value="douyin">Douyin</Select.Option>
+        <Select.Option value="coze">Coze</Select.Option>
+        <Select.Option value="capcut">Capcut</Select.Option>
         <Select.Option value="xigua">BuzzVideo</Select.Option>
     </Select>
 );
@@ -922,7 +963,7 @@ import { Select, TextArea } from '@douyinfe/semi-ui';
 
 () => {
     const list = [
-        { value: 'abc', label: 'Semi', type: 1 },
+        { value: 'douyin', label: 'Douyin', type: 1 },
         { value: 'capcut', label: 'Capcut', type: 2 },
         { value: 'xigua', label: 'BuzzVideo', type: 3 },
     ];
@@ -983,7 +1024,7 @@ import { Select } from '@douyinfe/semi-ui';
 
 () => {
     const optionList = [
-        { value: 'abc', label: 'Semi' },
+        { value: 'douyin', label: 'Douyin' },
         { value: 'capcut', label: 'Capcut' },
         { value: 'xigua', label: 'BuzzVideo' },
     ];
@@ -1079,18 +1120,17 @@ interface TriggerRenderProps {
 ```
 
 ```jsx live=true
-import React from 'react';
-import { Select } from '@douyinfe/semi-ui';
+import React, { useState } from 'react';
+import { Select, Tag } from '@douyinfe/semi-ui';
 import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
 
 () => {
-    const [valList, setValList] = useState(['abc', 'hotsoon']);
-    const [val, setVal] = useState('abc');
+    const [valList, setValList] = useState(['douyin', 'ulikecam']);
     const list = [
-        { value: 'abc', label: 'Semi' },
-        { value: 'hotsoon', label: 'Hotsoon' },
-        { value: 'pipixia', label: 'Pipixia' },
-        { value: 'toutiao', label: 'TooBuzz' },
+        { value: 'douyin', label: 'Douyin' },
+        { value: 'ulikecam', label: 'UlikeCam' },
+        { value: 'jianying', label: 'Capcut' },
+        { value: 'doubao', label: 'Cici' },
     ];
     const triggerRender = ({ value }) => {
         return (
@@ -1101,7 +1141,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                     height: 32,
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: 8,
+                    paddingLeft: 12,
                     borderRadius: 3,
                     color: 'var(--semi-color-primary)',
                 }}
@@ -1113,7 +1153,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
                         fontSize: 14,
                     }}
                 >
-                    Business Line
+                    AppName
                 </div>
                 <div
                     style={{
@@ -1131,58 +1171,110 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
         );
     };
 
-    const triggerRender2 = ({ value }) => {
+    const triggerRender2 = ({ value, ...rest }) => {
         return (
             <div
                 style={{
-                    minWidth: '112',
-                    height: 32,
+                    margin: 4,
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    flexGrow: 1,
+                    overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: 8,
-                    borderRadius: 3,
                 }}
             >
-                <IconChevronDown style={{ color: 'var(--semi-color-tertiary)' }} />
-                <div
-                    style={{
-                        margin: 4,
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        flexGrow: 1,
-                        overflow: 'hidden',
-                        display: 'flex',
-                        alignItems: 'center',
-                        color: 'var(--semi-color-tertiary)',
-                    }}
-                >
-                    {value.map(item => item.label).join(' , ')}
-                </div>
+                <Tag size='large' color='cyan' shape='circle' suffixIcon={<IconChevronDown />}>
+                    {value.map(item => item.label).join(' / ')}
+                </Tag>
             </div>
         );
     };
+
     return (
         <div>
-            <h4>Different background Trigger</h4>
+            <h4>Different Background Trigger</h4>
             <Select
                 value={valList}
                 triggerRender={triggerRender}
                 optionList={list}
                 onChange={value => setValList(value)}
                 multiple
+                filter
+                searchPosition='dropdown'
                 style={{ width: 240 }}
             ></Select>
             <br />
             <br />
-            <h4>Borderless and transparent Trigger</h4>
+            <h4>Use circle Tag as trigger</h4>
             <Select
-                value={val}
-                onChange={value => setVal(value)}
+                value={valList}
+                onChange={value => setValList(value)}
                 triggerRender={triggerRender2}
                 optionList={list}
+                filter
+                multiple
+                searchPosition='dropdown'
                 style={{ width: 240, marginTop: 20, outline: 0 }}
             ></Select>
         </div>
+    );
+};
+```
+
+
+The following is a more complex example: Reusing the drag-and-sort capability of TagInput and adding sorting to Select through triggerRender.
+
+```jsx live=true
+import React, { useState } from 'react';
+import { Select, TagInput } from '@douyinfe/semi-ui';
+
+() => {
+    const [valList, setValList] = useState(['douyin', 'ulikecam']);
+    const [inputVal, setInputVal] = useState('');
+    const list = [
+        { value: 'douyin', label: 'Douyin' },
+        { value: 'ulikecam', label: 'UlikeCam' },
+        { value: 'jianying', label: 'Capcut' },
+        { value: 'doubao', label: 'Cici' },
+    ];
+     
+    const handleSort = (currentLabels) => {
+        const newValue = currentLabels.map(item => list.find((i) => i.label === item).value)
+        setValList(newValue);
+    };
+
+    const triggerRender = ({ value, onSearch, onClear }) => {
+        return (
+            <TagInput
+                draggable
+                allowDuplicates={false}
+                value={value.map(item => item.label)}
+                inputValue={inputVal}
+                onInputChange={(word) => {
+                    onSearch(word);
+                    setInputVal(word);
+                }}
+                onChange={handleSort}
+                onClear={() => onClear()}
+                showClear
+            />
+        );
+    }; 
+  
+    return (
+        <>
+            <h4>Select that can reorder selected options by dragging</h4>
+            <Select
+                value={valList}
+                triggerRender={triggerRender}
+                optionList={list}
+                onChange={value => setValList(value)}
+                multiple
+                filter
+                style={{ width: 240 }}
+            ></Select>
+        </>
     );
 };
 ```
@@ -1194,7 +1286,7 @@ import { IconAppCenter, IconChevronDown } from '@douyinfe/semi-icons';
     Notice:
     1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios
     2. The styles of selected, focused, disabled, etc. state need to be added by yourself, and you can get the relative boolean value from props
-    3. onMouseEnter needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
+    3. `onMouseEnter`、`className` needs to be bound on the wrapper dom, otherwise the display will be problematic when the upper and lower keyboards are operated
     4. If your custom item is Select.Option, you need to pass renderProps.onClick transparently to the onSelect prop of Option
 
 ```jsx live=true
@@ -1222,6 +1314,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             ['custom-option-render-focused']: focused,
             ['custom-option-render-disabled']: disabled,
             ['custom-option-render-selected']: selected,
+            className,
         });
         // Notice：
         // 1. The style passed in by props needs to be consumed on wrapper dom, otherwise it will not be able to be used normally in virtualization scenarios
@@ -1237,7 +1330,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
     };
 
     const optionList = [
-        { value: 'abc', label: 'Semi', otherKey: 0 },
+        { value: 'douyin', label: 'Semi', otherKey: 0 },
         { value: 'capcut', label: 'Capcut', disabled: true, otherKey: 1 },
         { value: 'cam', label: 'UlikeCam', otherKey: 2 },
         { value: 'buzz', label: 'Buzz', otherKey: 3 },
@@ -1248,7 +1341,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
             <Select
                 filter
                 defaultOpen
-                defaultValue="abc"
+                defaultValue="douyin"
                 dropdownClassName="components-select-demo-renderOptionItem"
                 optionList={optionList}
                 style={{ width: 180 }}
@@ -1322,7 +1415,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | Properties | Instructions                                                                                                                                                                                                                                                                                                                                                       | Type | Default | version |
 | --- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
 | allowCreate | Whether to allow the user to create new entries. Needs to be used with `filter`. When allowCreate is enabled, it will no longer respond to updates to children or optionList                                                                                                                                                                                       | boolean | false |
-| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                                                                                                                                               | ReactNode |  | 1.15.0|
+| arrowIcon | Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon                                                                                                                                                                                               | ReactNode |  | |
 | autoAdjustOverflow | Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)                                                                                                                                                                                        | boolean | true |
 | autoClearSearchValue | After selecting the option, whether to automatically clear the search keywords, it will take effect when mutilple and filter are both enabled                                                                                                                                                                                                                      | boolean | true | 2.3.0|
 | autoFocus | Whether automatically focus when component mount                                                                                                                                                                                                                                                                                                                   | boolean | false |
@@ -1353,7 +1446,7 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | maxHeight | Maximum height of `optionList` in the pop-up layer                                                                                                                                                                                                                                                                                                                 | string \| number | 270 |
 | multiple | Whether allow multiple selection                                                                                                                                                                                                                                                                                                                                   | boolean | false |
 | outerBottomSlot | Rendered at the bottom of the popup layer, custom slot level with optionList                                                                                                                                                                                                                                                                                       | ReactNode |  |
-| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList                                                                                                                                                                                                                                                                                         | ReactNode | |1.6.0 |
+| outerTopSlot | Rendered at the top of the pop-up layer, custom slot level with optionList                                                                                                                                                                                                                                                                                         | ReactNode | | |
 | optionList | You can pass Option through this property, make sure that each element in the array has `label`, `value` properties                                                                                                                                                                                                                                                | Array (\[{value, label}\]) |  |
 | placeholder | placeholder                                                                                                                                                                                                                                                                                                                                                        | ReactNode |  |
 | position | Pop-up layer position, refer to [Popover·API reference·position](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                              | string | 'bottomLeft' |
@@ -1363,16 +1456,17 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | renderCreateItem | When allowCreate is true, you can customize the rendering of the creation label                                                                                                                                                                                                                                                                                    | function(inputValue: string) | InputValue => 'Create' + InputValue |
 | renderSelectedItem | Customize the rendering of selected tabs in the selection box                                                                                                                                                                                                                                                                                                      | function(option) |  |
 | restTagsPopoverProps | The configuration properties of the [Popover](/en-US/show/popover#API%20Reference)                                                                                                                                                                                                                                                                                 | PopoverProps | {} | 2.22.0 |
+| size | Size, optional value `default` / `small` / `large`   
+| searchPosition | When the filter is turned on, the search box is in the trigger by default. You can set it to 'dropdown' to put the search box at the top of the popup list.  | string | 'trigger' | 2.61.0
 | showArrow | Whether to show arrow icon                                                                                                                                                                                                                                                                                                                                         | boolean | true |
 | showClear | Whether to show the clear button                                                                                                                                                                                                                                                                                                                                   | boolean | false |
 | showRestTagsPopover | When the number of tags exceeds maxTagCount and hover reaches +N, whether to display the remaining content through Popover                                                                                                                                                                                                                                         | boolean | false | 2.22.0 |
-| size | Size, optional value `default` / `small` / `large`                                                                                                                                                                                                                                                                                                                 | string | 'default' |
 | spacing | Spacing between popup layer and trigger                                                                                                                                                                                                                                                                                                                            | number | 4 |
 | stopPropagation | Whether to prevent click events on the popup layer from bubbling                                                                                                                                                                                                                                                                                                   | boolean | true |  |
 | style | Inline Style                                                                                                                                                                                                                                                                                                                                                       | object |  |
 | suffix | An input helper rendered after                                                                                                                                                                                                                                                                                                                                     | ReactNode |  |
 | triggerRender | Custom DOM of trigger                                                                                                                                                                                                                                                                                                                                              | function |  |
-| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize                                                                                                                                                                                                                                  | object |  | 0.37.0 |
+| virtualize | List virtualization, used to optimize performance in the case of a large number of nodes, composed of height, width, and itemSize                                                                                                                                                                                                                                  | object |  |  |
 | validateStatus | Verification result, optional `warning`, `error`, `default` (only affect the style background color)                                                                                                                                                                                                                                                               | string | 'default' |
 | value | The currently selected value is passed as a controlled component, used in conjunction with `onchange`                                                                                                                                                                                                                                                              | string\|number\|array |  |
 | zIndex | Popup layer z-index                                                                                                                                                                                                                                                                                                                                                | number | 1030 |
@@ -1403,23 +1497,23 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 
 ### OptGroup Props
 
-| Properties | Instructions       | Type      | Version |
-| ---------- | ------------------ | --------- | ------- |
-| className  | The CSS class name | string    | v0.31.0 |
-| label      | Text displayed.    | ReactNode | v0.31.0 |
-| style      | Inline Style       | object    | v0.31.0 |
+| Properties | Instructions       | Type      | 
+| ---------- | ------------------ | --------- | 
+| className  | The CSS class name | string    | 
+| label      | Text displayed.    | ReactNode | 
+| style      | Inline Style       | object    | 
 
 ## Methods
 Some internal methods provided by Select can be accessed through ref:
 
 | Method      | Instructions                    | Version |
 | ----------- | ------------------------------- | ------- |
-| close       | Manually close dropdown list    | v0.34.0 |
-| clearInput  | Manually clear value of input   | v1.18.0 |
-| deselectAll | Manually clear selected options | v1.18.0 |
-| focus       | Manually focus select           | v1.11.0 |
-| open        | Manually open dropdown list     | v0.34.0 |
-| selectAll   | Manually select all options     | v1.18.0 |
+| close       | Manually close dropdown list    |  |
+| clearInput  | Manually clear value of input   |  |
+| deselectAll | Manually clear selected options |  |
+| focus       | Manually focus select           |  |
+| open        | Manually open dropdown list     |  |
+| selectAll   | Manually select all options     |  |
 | search(value: string, event: event)  | You can call this method through ref to search, and the search value will be set to Input          | v2.35.0 |
 
 ## Accessibility
@@ -1472,7 +1566,7 @@ Some internal methods provided by Select can be accessed through ref:
 <DesignToken/>
 
 ## Related Material
-<semi-material-list code="3, 4, 58, 62"></semi-material-list>
+<semi-material-list code="3, 4, 58, 62, 696"></semi-material-list>
 
 ## FAQ
 

@@ -173,6 +173,10 @@ $module: #{$prefix}-tree-select;
             }
         }
 
+        .#{$module}-triggerSingleSearch-upper {
+            z-index: 1;
+        }
+
         .#{$module}-triggerSingleSearch-wrapper{
             width: 100%;
 
@@ -372,6 +376,10 @@ $module: #{$prefix}-tree-select;
         .#{$prefix}-tree-option-list {
             flex: 1;
             min-width: $width-treeSelect_option;
+
+            &-hidden {
+                padding: 0;
+            }
         }
 
         .#{$prefix}-tree-search-wrapper {

@@ -5,9 +5,10 @@ import { isString } from 'lodash';
 import { cssClasses } from '@douyinfe/semi-foundation/select/constants';
 import LocaleConsumer from '../locale/localeConsumer';
 import { IconTick } from '@douyinfe/semi-icons';
-import { getHighLightTextHTML } from '../_utils/index';
+import Highlight, { HighlightProps } from '../highlight';
 import { Locale } from '../locale/interface';
-import { BasicOptionProps } from '@douyinfe/semi-foundation/select/optionFoundation';
+import getDataAttr from '@douyinfe/semi-foundation/utils/getDataAttr';
+import type { BasicOptionProps } from '@douyinfe/semi-foundation/select/optionFoundation';
 
 export interface OptionProps extends BasicOptionProps {
     [x: string]: any;
@@ -18,15 +19,6 @@ export interface OptionProps extends BasicOptionProps {
     showTick?: boolean;
     className?: string;
     style?: React.CSSProperties
-}
-interface renderOptionContentArgument {
-    config: {
-        searchWords: any;
-        sourceString: React.ReactNode
-    };
-    children: React.ReactNode;
-    inputValue: string;
-    prefixCls: string
 }
 class Option extends PureComponent<OptionProps> {
     static isSelectOption = true;
@@ -62,9 +54,15 @@ class Option extends PureComponent<OptionProps> {
         }
     }
 
-    renderOptionContent({ config, children, inputValue, prefixCls }: renderOptionContentArgument) {
+    renderOptionContent({ config, children, inputValue, prefixCls }) {
         if (isString(children) && inputValue) {
-            return getHighLightTextHTML(config as any);
+            return (
+                <Highlight
+                    searchWords={config.searchWords as HighlightProps['searchWords']}
+                    sourceString={config.sourceString as string}
+                    highlightClassName={config.highlightClassName as string}
+                />
+            );
         }
         return children;
     }
@@ -116,6 +114,12 @@ class Option extends PureComponent<OptionProps> {
 
         // Since there are empty, locale and other logic, the custom renderOptionItem is directly converged to the internal option instead of being placed in Select/index
         if (typeof renderOptionItem === 'function') {
+            const customRenderClassName = classNames(className,
+                {
+                    [`${prefixCls}-custom`]: true,
+                    [`${prefixCls}-custom-selected`]: selected
+                }
+            );
             return renderOptionItem({
                 disabled,
                 focused,
@@ -126,18 +130,17 @@ class Option extends PureComponent<OptionProps> {
                 inputValue,
                 onMouseEnter: (e: React.MouseEvent) => onMouseEnter(e),
                 onClick: (e: React.MouseEvent) => this.onClick({ value, label, children, ...rest }, e),
-                className,
+                className: customRenderClassName,
                 ...rest
             });
         }
 
         const config = {
-            searchWords: inputValue,
+            searchWords: [inputValue],
             sourceString: children,
-            option: {
-                highlightClassName: `${prefixCls}-keyword`
-            }
+            highlightClassName: `${prefixCls}-keyword`
         };
+
         return (
             // eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/click-events-have-key-events
             <div
@@ -151,6 +154,7 @@ class Option extends PureComponent<OptionProps> {
                 aria-selected={selected ? "true" : "false"}
                 aria-disabled={disabled ? "true" : "false"}
                 style={style}
+                {...getDataAttr(rest)}
             >
                 {showTick ? (
                     <div className={selectedIconClassName}>

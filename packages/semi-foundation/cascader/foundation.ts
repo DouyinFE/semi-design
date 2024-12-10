@@ -20,6 +20,7 @@ import {
 } from './util';
 import { strings } from './constants';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 export interface BasicData {
     data: BasicCascaderData;
@@ -167,6 +168,7 @@ export interface BasicCascaderProps {
     enableLeafClick?: boolean;
     preventScroll?: boolean;
     virtualizeInSearch?: Virtualize;
+    checkRelation?: string;
     onClear?: () => void;
     triggerRender?: (props: BasicTriggerRenderProps) => any;
     onListScroll?: (e: any, panel: BasicScrollPanelProps) => void;
@@ -255,6 +257,13 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (isOpen && !this._isDisabled()) {
             this.open();
         }
+    }
+
+    handleKeyDown = (e: any) => {
+        if (e.key === ESC_KEY) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
     }
 
     destroy() {
@@ -583,7 +592,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
     }
 
-    updateSearching = (isSearching: boolean)=>{
+    updateSearching = (isSearching: boolean) => {
         this._adapter.updateStates({ isSearching: false });
     }
 
@@ -764,6 +773,16 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
     }
 
     _handleMultipleSelect(item: BasicEntity | BasicData) {
+        const { checkRelation } = this.getProps();
+        if (checkRelation === strings.RELATED) {
+            this._handleRelatedMultipleSelect(item);
+        } else if (checkRelation === 'unRelated') {
+            this._handleUnRelatedMultipleSelect(item);
+        }
+        this._adapter.updateStates({ inputValue: '' });
+    }
+
+    _handleRelatedMultipleSelect(item: BasicEntity | BasicData) {
         const { key } = item;
         const { checkedKeys, keyEntities, resolvedCheckedKeys } = this.getStates();
         const { autoMergeValue, max, disableStrictly, leafOnly } = this.getProps();
@@ -829,8 +848,44 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (curCheckedStatus) {
             this._notifySelect(curRealCheckedKeys);
         }
+    }
 
-        this._adapter.updateStates({ inputValue: '' });
+    _handleUnRelatedMultipleSelect(item: BasicEntity | BasicData) {
+        const { key } = item;
+        const { checkedKeys, keyEntities } = this.getStates();
+        const { max } = this.getProps();
+        const newCheckedKeys: Set<string> = new Set(checkedKeys);
+        let targetStatus: boolean;
+        const prevCheckedStatus = checkedKeys.has(key);
+        if (prevCheckedStatus) {
+            newCheckedKeys.delete(key);
+            targetStatus = false;
+        } else {
+            // 查看是否超出 max
+            if (isNumber(max)) {
+                if (checkedKeys.size >= max) {
+                    const checkedEntities: BasicEntity[] = [];
+                    checkedKeys.forEach(itemKey => {
+                        checkedEntities.push(keyEntities[itemKey]);
+                    });
+                    this._adapter.notifyOnExceed(checkedEntities);
+                    return;
+                }
+            }
+            newCheckedKeys.add(key);
+            targetStatus = true;
+        }
+        if (!this._isControlledComponent()) {
+            this._adapter.updateStates({
+                checkedKeys: newCheckedKeys,
+            });
+        }
+
+        this._notifyChange(newCheckedKeys);
+
+        if (targetStatus) {
+            this._notifySelect(newCheckedKeys);
+        }
     }
 
     calcNonDisabledCheckedKeys(eventKey: string, targetStatus: boolean) {
@@ -918,6 +973,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
             filteredKeys: new Set(filteredKeys),
         });
         this._adapter.notifyOnSearch(sugInput);
+        this._adapter.rePositionDropdown();
     }
 
     handleClear() {
@@ -1031,6 +1087,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         const removedItem = keyEntities[key] ?? {};
         !removedItem?.data?.disable && this._handleMultipleSelect(removedItem);
+        this._adapter.rePositionDropdown();
     }
 
     handleTagRemoveInTrigger = (pos: string) => {

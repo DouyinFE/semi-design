@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 17
+order: 18
 category: Input
 title:  Button
 subTitle: Button
@@ -523,10 +523,11 @@ function SplitButtonDemo(){
 ### Button
 
 | Properties          | Instructions                                                                                                                                                                              | Type                             | Default   |
-| ------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------------------------------- | --------- |
-| aria-label          | Label of the button                                                                                                                                                                       | string                            | -    |
+| ------------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------------------------------- |-----------|
+| aria-label          | Label of the button                                                                                                                                                                       | string                            | -         |
 | block               | Set the button to the block level button                                                                                                                                                  | boolean                          | false     |
 | className           | Class name                                                                                                                                                                                | string                           |           |
+| contentClassName | content className                                                                                                                                                                         |  string | -         |
 | disabled            | Prohibited status                                                                                                                                                                         | boolean                          | false     |
 | htmlType           | Set the `button` native `type` value, optional values: `"button"`, `"reset"`, `"submit"`                                                                                                  | string                           | "button"  |
 | icon                | Icon                                                                                                                                                                                      | ReactNode              |           |
@@ -535,7 +536,7 @@ function SplitButtonDemo(){
 | noHorizontalPadding | Set whether to remove the inner margin in the horizontal direction, only valid for iconButton, optional: `true` (equivalent to \["left", "right"\]), "left", "right", \["left", "right"\] | boolean\|string\| Array<string\> | false     |
 | size                | Button size, optional value: `"large"`,`"default"`,`"small"`                                                                                                                              | string                           | "default" |
 | style               | Custom style                                                                                                                                                                              | CSSProperties                           |           |
-| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color), `"outline"`(Border Mode)                    | string                           | "light"   |
+| theme               | Button theme, optional value: `"solid"` (with background color), `"borderless"` (no background color), `"light"` (light background color), `"outline"`(Border Mode)                       | string                           | "light"   |
 | type                | Type, optional values: `"primary"`,`"secondary"`, `"tertiary"`, `"warning"`, `"danger"`                                                                                                   | string                           | "primary" |
 | onClick             | Click event                                                                                                                                                                               | Function(MouseEvent)                         |           |
 | onMouseDown             | Mouse down                                                                                                                                                                                | Function(MouseEvent)                        |           |

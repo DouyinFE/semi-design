@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 55
+order: 67
 category: Show
 title: Highlight 
 icon: doc-highlight
@@ -68,6 +68,32 @@ import { Highlight } from '@douyinfe/semi-ui';
             }}
         />
     </h2>);
+};
+```
+
+### Use Different Styles for Different Texts
+After v2.71.0, it supports using different highlight styles for different highlighted texts.
+The `searchWords` is a string array by default. When an array of objects is passed in, the highlighted text can be specified through `text`, and the `className` and `style` can be specified separately at the same time. 
+
+```jsx live=true dir="column"
+import React from 'react';
+import { Highlight } from '@douyinfe/semi-ui';
+
+() => {
+    return (
+        <h2>
+            <Highlight
+                component='span'
+                sourceString='From Semi Design，To Any Design. Quickly define your design system and apply it to design drafts and code'
+                searchWords={[
+                    { text: 'Semi', style: { backgroundColor: 'rgba(var(--semi-teal-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword1' },
+                    { text: 'Quickly', style: { backgroundColor: 'var(--semi-color-primary)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword2' },
+                    { text: 'code', style: { backgroundColor: 'rgba(var(--semi-violet-5), 1)', color: 'rgba(var(--semi-white), 1)', padding: 4 }, className: 'keyword3' },
+                ]}
+                highlightStyle={{ borderRadius: 4 }}
+            />
+        </h2>
+    );
 };
 ```
 

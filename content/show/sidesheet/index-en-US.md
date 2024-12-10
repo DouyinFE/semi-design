@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 62
+order: 74
 category: Show
 title: SideSheet
 subTitle: SideSheet
@@ -254,7 +254,7 @@ class Demo extends React.Component {
                             initValue={'all'}
                         >
                             <Radio value="all">All</Radio>
-                            <Radio value="ios">IOS</Radio>
+                            <Radio value="ios">iOS</Radio>
                             <Radio value="android">Android</Radio>
                             <Radio value="web">Web</Radio>
                         </RadioGroup>
@@ -299,7 +299,7 @@ class Demo extends React.Component {
 
 | Properties | Instructions                                                                                                               | type | Default | Version |
 | --- |----------------------------------------------------------------------------------------------------------------------------| --- | --- | --- |
-| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisble: boolean) => void | - | 1.0.0 |
+| afterVisibleChange | Callback function when animation of SideSheet ends                                                                         | (isVisible: boolean) => void | - | 1.0.0 |
 | bodyStyle | Content style                                                                                                              | CSSProperties | - | - |
 | className | Class name                                                                                                                 | string | - | - |
 | closable | Toggle whether to show close button                                                                                        | boolean | true | - |

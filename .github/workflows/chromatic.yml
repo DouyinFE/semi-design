@@ -29,10 +29,12 @@ jobs:
         if: github.event_name == 'push' && github.repository_owner == 'DouyinFE' || github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == 'DouyinFE/semi-design'
         # Job steps
         steps:
-            - uses: actions/checkout@v1
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
               with:
-                  node-version: '16'
+                  fetch-depth: 0
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
             - name: Install dependencies
               run: npx lerna@^6 bootstrap
             - name: Pre-build libs

@@ -72,7 +72,7 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
 
     cacheFieldValues: any[];
     shouldUseInitValue: boolean;
-    cacheUpdateKey: string;
+    cacheUpdateKey: string | number;
     context: FormUpdaterContextType;
 
     constructor(props: ArrayFieldProps, context: FormUpdaterContextType) {
@@ -133,16 +133,22 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
 
     add() {
         const { keys } = this.state;
+        const { field } = this.props;
+        const updater = this.context;
         keys.push(getUuidv4());
         this.shouldUseInitValue = true;
         this.setState({ keys });
+        let updateKey = new Date().valueOf();
+        updater.updateArrayField(field, { updateKey });
+        this.cacheUpdateKey = updateKey;
     }
 
     addWithInitValue(rowVal: Record<string, any> | string) {
         const updater = this.context;
         const { field } = this.props;
         const newArrayFieldVal = updater.getValue(field) ? updater.getValue(field).slice() : [];
-        newArrayFieldVal.push(rowVal);
+        const cloneRowVal = copy(rowVal);
+        newArrayFieldVal.push(cloneRowVal);
         updater.updateStateValue(field, newArrayFieldVal, {});
         updater.updateArrayField(field, { updateKey: new Date().valueOf() });
     }

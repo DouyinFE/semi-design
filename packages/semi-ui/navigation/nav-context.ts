@@ -1,16 +1,16 @@
 import React from 'react';
 
-import type { NavProps } from './index';
+import type { NavProps, ItemKey } from './index';
 import { Locale } from '../locale/interface';
  
 import type { DropdownProps } from '../dropdown';
 export interface NavContextType {
     isCollapsed?: boolean;
     mode?: NavProps['mode'];
-    openKeys?: string[];
+    openKeys?: ItemKey[];
     onCollapseChange?: NavProps['onCollapseChange'];
     prefixCls?: string;
-    selectedKeys?: string[];
+    selectedKeys?: ItemKey[];
     toggleIconPosition?: string;
     selectedKeysIsControlled?: boolean;
     openKeysIsControlled?: boolean;

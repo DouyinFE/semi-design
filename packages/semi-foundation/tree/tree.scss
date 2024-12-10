@@ -137,6 +137,8 @@ $module: #{$prefix}-tree;
         &-highlight {
             font-weight: $font-tree_option_hightlight-fontWeight;
             color: $color-tree_option_hightlight-text;
+            // set inherit to override highlight component default bgc
+            background-color: inherit;
         }
 
         &-hidden {
@@ -211,11 +213,12 @@ $module: #{$prefix}-tree;
 
         &-drag-over.#{$module}-option-draggable,
         &-drag-over.#{$module}-option-fullLabel-draggable {
+            border: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
+
             .#{$module}-option-label {
                 border-top: 0;
                 border-bottom: 0;
             }
-            border: $width-tree_option_draggable-border solid $color-tree_option_draggable_insert-border-default;
 
             // selected solid background will overlap with drag over border-bottom
             // add an extra border to complement
@@ -397,11 +400,12 @@ $module: #{$prefix}-tree;
         &-spin-icon {
             display: flex;
             line-height: 0; // make the spin icon in the center
+            color: $color-tree_option_loading-icon-default;
+
             & svg {
                 width: $width-tree_spinIcon;
                 height: $width-tree_spinIcon;
             }
-            color: $color-tree_option_loading-icon-default;
         }
 
         &-selected {

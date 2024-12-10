@@ -308,7 +308,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         } = this.props;
         const { direction } = this.context;
         const classList = cls(className, {
-            [`${cssClasses.DIALOG}-popup`]: getPopupContainer && !maskFixed,
+            [`${cssClasses.DIALOG}-popup`]: getPopupContainer && getPopupContainer() !== globalThis?.document?.body && !maskFixed,
             [`${cssClasses.DIALOG}-fixed`]: maskFixed,
             [`${cssClasses.DIALOG}-rtl`]: direction === 'rtl',
         });

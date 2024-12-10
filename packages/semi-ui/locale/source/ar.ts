@@ -78,13 +78,13 @@ const local: Locale = {
             12: 'ديسمبر',
         },
         weeks: {
-            Mon: 'الاثنين‬',
-            Tue: 'الثلاثاء‬',
-            Wed: 'الأربعاء‬',
-            Thu: 'الخميس‬',
-            Fri: 'الجمعة‬',
-            Sat: 'السبت‬',
-            Sun: 'الأحد‬',
+            Mon: 'اثنين',
+            Tue: 'ثلاثاء',
+            Wed: 'أربعاء',
+            Thu: 'خميس',
+            Fri: 'جمعة',
+            Sat: 'سبت',
+            Sun: 'أحد',
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'yyyy/MM/dd',
@@ -101,6 +101,9 @@ const local: Locale = {
     Table: {
         emptyText: 'لا نتيجة',
         pageText: 'عرض ${currentStart} إلى ${currentEnd} من ${total}',
+        descend: 'انقر للهبوط',
+        ascend: 'انقر للصعود',
+        cancelSort: 'إلغاء الترتيب',
     },
     Select: {
         emptyText: 'لا نتيجة',
@@ -169,6 +172,15 @@ const local: Locale = {
         downloadTip: "تنزيل",
         adaptiveTip: "التكيف مع الصفحة",
         originTip: "الحجم الأصلي",
+    },
+    Chat: {
+        deleteConfirm: 'هل ترغب في حذف هذه الجلسة؟',
+        clearContext: 'تم مسح السياق',
+        copySuccess: 'تم النسخ بنجاح',
+        stop: 'توقف',
+        copy: 'نسخ',
+        copied: 'نسخ',
+        dropAreaText: 'ضع الملف هنا',
     },
 };
 

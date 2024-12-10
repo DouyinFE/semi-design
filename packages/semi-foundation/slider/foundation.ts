@@ -40,7 +40,7 @@ export interface SliderProps{
     handleDot?: {
         size?: string;
         color?: string
-    } & ({
+    } | ({
         size?: string;
         color?: string
     }[])
@@ -400,7 +400,12 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         })();
         
         if (Array.isArray(inputValue)) {
-            return [transWay(inputValue[0]), transWay(inputValue[1])];
+            const min = transWay(inputValue[0]);
+            const max = transWay(inputValue[1]);
+            if (min > max) {
+                return this.getState("focusPos") === "min" ? [max, max] : [min, min];
+            }
+            return [min, max];
         } else {
             return transWay(inputValue);
         }
@@ -686,7 +691,16 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
         }
     }
 
+    _noTooltip = () => {
+        const { tipFormatter, tooltipVisible } = this.getProps();
+        return tipFormatter === null || tooltipVisible === false;
+    }
+
     onFocus = (e: any, handler: 'min'| 'max') => {
+        const noTooltip = this._noTooltip();
+        if (noTooltip) {
+            return;
+        }
         handlePrevent(e);
         const { target } = e;
         try {
@@ -703,6 +717,10 @@ export default class SliderFoundation extends BaseFoundation<SliderAdapter> {
     }
 
     onBlur = (e: any, handler: 'min'| 'max') => {
+        const noTooltip = this._noTooltip();
+        if (noTooltip) {
+            return;
+        }
         const { firstDotFocusVisible, secondDotFocusVisible } = this.getStates();
         if (handler === 'min') {
             firstDotFocusVisible && this._adapter.setStateVal('firstDotFocusVisible', false);

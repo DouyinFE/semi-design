@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 50
+order: 62
 category: Show
 title: Collapse
 subTitle: Collapse
@@ -183,7 +183,7 @@ import { IconCopy } from '@douyinfe/semi-icons';
 | keepDOM | Whether to keep the hidden panel in DOM tree, destroyed by default | boolean | `false` | 0.25.0  |
 | motion | Toggle whether to have animation | boolean | `true` | 1.4.0   |
 | expandIconPosition | Expand icon position | `left`, `right` | `right` | 1.12.0  |
-| lazyRender | Used with keepDOM, when true, the component will not be rendered when mounting                                         | boolean | `false` | 2.25.1  |
+| lazyRender | Used with keepDOM, when true, the component will not be rendered when mounting                                         | boolean | `false` | 2.54.1  |
 | style | Inline CSS style | CSSProperties | {} | -       |
 | onChange | Callback function when switching panel | function(activeKey: string \| string[], e: event) | - | -       |
 

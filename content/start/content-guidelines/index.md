@@ -3,7 +3,7 @@ category: 开始
 title: Content Guidelines 文案规范
 icon: doc-contentguidelines
 localeCode: zh-CN
-order: 9
+order: 11
 brief: 我们都热衷于使用 Semi 创造用户喜欢的产品，而文案是产品与用户最直接的沟通方式，输出正确、一致的文案，是产品设计中不可或缺的一部分。
 ---
 
@@ -470,7 +470,7 @@ Voice 传达的是品牌独特的观点、视角和认同的价值观，也就�
 
 > 例：Jan 1, 2018，2018–01–01
 
-- 如果空间足够，将日期写全。如：March 12, 020
+- 如果空间足够，将日期写全。如：March 12, 2020
 - 如果空间有限，可缩写月份。如：Mar 12, 2020
 - 使用短线–（Option和-）连接年月日，不使用 / ，如：en：03/01/2022；   zh：2022-03-01
 - 月份缩写均采用三位字母，如：Jan、Feb、Mar、Apr；

@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 74
+order: 86
 category: Feedback
 title: Toast
 subTitle: Toast
@@ -12,6 +12,9 @@ brief: Toast component is used to give timely feedback to user's operations. It 
 ## Demos
 
 ### How to import
+
+Calling Toast's related methods to show timely feedback to user's operations.
+It is recommended to set the `stack` property to apply the stacking style to multiple Toasts on the same screen, and expand them by hovering, which can effectively prevent multiple parallel Toasts at one time. (this API is supported after v2.42.0)
 
 ```jsx
 import { Toast } from '@douyinfe/semi-ui';
@@ -28,6 +31,7 @@ function Demo() {
     const opts = {
         content: 'Hi, Bytedance dance dance',
         duration: 3,
+        stack: true,
     };
 
     const handleClose = () => {
@@ -37,6 +41,7 @@ function Demo() {
         content: 'Hi, Bytedance dance dance',
         duration: 10,
         onClose: handleClose,
+        stack: true,
     };
     const throttled = throttle(() => Toast.info(throttleOpts), 10000, { trailing: false });
 
@@ -51,10 +56,6 @@ function Demo() {
 }
 render(Demo);
 ```
-
-<Notice>
-If there are scenarios in your website where multiple Toasts pop up at the same time, such as a request failure interceptor, it is recommended to use the stacking function below.
-</Notice>
 
 ### Other Types
 

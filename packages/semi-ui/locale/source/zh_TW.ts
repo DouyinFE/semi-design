@@ -102,6 +102,9 @@ const local: Locale = {
     Table: {
         emptyText: '暫無數據',
         pageText: '顯示第 ${currentStart} 條-第 ${currentEnd} 條，共 ${total} 條',
+        descend: '點擊降序',
+        ascend: '點擊升序',
+        cancelSort: '取消排序',
     },
     Select: {
         emptyText: '暫無數據',
@@ -170,6 +173,15 @@ const local: Locale = {
         downloadTip: '下載',
         adaptiveTip: '適應頁面',
         originTip: '原始尺寸',
+    },
+    Chat: {
+        deleteConfirm: '確認刪除該對話嗎？',
+        clearContext: '上下文已清除',
+        copySuccess: '複製成功',
+        stop: '停止',
+        copy: '複制',
+        copied: '複制成功',
+        dropAreaText: '將文件放到這裡',
     },
 };
 

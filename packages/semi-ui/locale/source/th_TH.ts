@@ -105,6 +105,9 @@ const local: Locale = {
     Table: {
         emptyText: 'ไม่มีข้อมูล',
         pageText: 'แสดงรายการ ${currentStart} - ${currentEnd} จาก ${total}',
+        descend: 'คลิกเพื่อเรียงจากมากไปหาน้อย',
+        ascend: 'คลิกเพื่อเรียงจากน้อยไปหามาก',
+        cancelSort: 'ยกเลิกการเรียงลำดับ',
     },
     Select: {
         emptyText: 'ไม่มีข้อมูล',
@@ -173,6 +176,15 @@ const local: Locale = {
         downloadTip: 'ดาวน์โหลด',
         adaptiveTip: 'ปรับให้เข้ากับหน้า',
         originTip: 'ขนาดเดิม',
+    },
+    Chat: {
+        deleteConfirm: 'คุณต้องการลบการสนทนานี้ใช่หรือไม่?',
+        clearContext: 'ล้างความเข้าใจเรียบร้อยแล้ว',
+        copySuccess: 'คัดลอกสำเร็จ',
+        stop: 'หยุด',
+        copy: 'สำเนา"',
+        copied: 'คัดลอกสำเร็จ',
+        dropAreaText: 'วางไฟล์ที่นี่',
     },
 };
 

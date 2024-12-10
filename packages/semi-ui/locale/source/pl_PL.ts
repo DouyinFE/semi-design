@@ -109,6 +109,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Nie znaleziono żadnych wyników',
         pageText: 'Wyświetlanie od ${currentStart} do ${currentEnd} z ${total}',
+        descend: 'Kliknij, aby sortować malejąco',
+        ascend: 'Kliknij, aby sortować rosnąco',
+        cancelSort: 'Anuluj sortowanie',
     },
     Select: {
         emptyText: 'Nie znaleziono żadnych wyników',
@@ -177,6 +180,15 @@ const local: Locale = {
         downloadTip: 'Pobierz',
         adaptiveTip: 'Dostosowywanie ekranu',
         originTip: 'Wyświetlacz domyślny',
+    },
+    Chat: {
+        deleteConfirm: 'Czy na pewno chcesz usunąć tę rozmowę?',
+        clearContext: 'Kontekst został wyczyszczony',
+        copySuccess: 'Skopiowano pomyślnie',
+        stop: 'Zatrzymać',
+        copy: 'Kopiuj',
+        copied: 'Skopiowano',
+        dropAreaText: 'Umieść plik tutaj',
     },
 };
 

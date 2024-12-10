@@ -1,1 +1,0 @@
-../../../content/input/checkbox/index-en-US.md

@@ -6,6 +6,7 @@ const cssClasses = {
     TABS_BAR_LINE: `${BASE_CLASS_PREFIX}-tabs-bar-line`,
     TABS_BAR_CARD: `${BASE_CLASS_PREFIX}-tabs-bar-card`,
     TABS_BAR_BUTTON: `${BASE_CLASS_PREFIX}-tabs-bar-button`,
+    TABS_BAR_SLASH: `${BASE_CLASS_PREFIX}-tabs-bar-slash`,
     TABS_BAR_EXTRA: `${BASE_CLASS_PREFIX}-tabs-bar-extra`,
     TABS_TAB: `${BASE_CLASS_PREFIX}-tabs-tab`,
     TABS_TAB_ACTIVE: `${BASE_CLASS_PREFIX}-tabs-tab-active`,
@@ -29,7 +30,7 @@ const numbers = {
 };
 
 const strings = {
-    TYPE_MAP: ['line', 'card', 'button'],
+    TYPE_MAP: ['line', 'card', 'button', 'slash'],
     SIZE: ['small', 'medium', 'large'],
     POSITION_MAP: ['top', 'left']
 };

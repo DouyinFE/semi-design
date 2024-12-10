@@ -24,6 +24,7 @@ import {
 } from '../tree/foundation';
 import { Motion } from '../utils/type';
 import isEnterPress from '../utils/isEnterPress';
+import { ESC_KEY } from '../utils/keyCode';
 
 /* Here ValidateStatus is the same as ValidateStatus in baseComponent */
 export type ValidateStatus = 'error' | 'warning' | 'default';
@@ -199,9 +200,7 @@ export interface TreeSelectAdapter<P = Record<string, any>, S = Record<string, a
     notifyLoad: (newLoadedKeys: Set<string>, data: BasicTreeNodeData) => void;
     updateInputFocus: (bool: boolean) => void;
     updateLoadKeys: (data: BasicTreeNodeData, resolve: (value?: any) => void) => void;
-    updateIsFocus: (bool: boolean) => void;
-    setClearInputFlag: (flag: boolean) => void;
-    getClearInputFlag: () => boolean
+    updateIsFocus: (bool: boolean) => void
 }
 
 export default class TreeSelectFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<TreeSelectAdapter<P, S>, P, S> {
@@ -215,11 +214,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         const triggerSearch = searchPosition === strings.SEARCH_POSITION_TRIGGER && filterTreeNode;
         const triggerSearchAutoFocus = searchAutoFocus && triggerSearch;
         this._setDropdownWidth();
-        const isOpen = (this.getProp('defaultOpen') || triggerSearchAutoFocus) && !this._isDisabled();
+        const able = !this._isDisabled();
+        const isOpen = (this.getProp('defaultOpen') || triggerSearchAutoFocus) && able;
         if (isOpen) {
             this.open();
+            this._registerClickOutsideHandler();
         }
-        if (triggerSearchAutoFocus) {
+        if (triggerSearchAutoFocus && able) {
             this.handleTriggerFocus(null);
         }
     }
@@ -306,6 +307,13 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         } else {
             return this.constructDataForValue(value);
         }
+    }
+
+    handleKeyDown = (e: any) => {
+        if (e.key === ESC_KEY) {
+            const isOpen = this.getState('isOpen');
+            isOpen && this.close(e);
+        } 
     }
 
     getTreeNodeProps(key: string) {
@@ -397,10 +405,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     _notifyMultipleChange(key: string[], e: any) {
         const { keyEntities } = this.getStates();
-        const { leafOnly, checkRelation, keyMaps } = this.getProps();
+        const { leafOnly, checkRelation, keyMaps, autoMergeValue } = this.getProps();
         let keyList = [];
         if (checkRelation === 'related') {
-            keyList = normalizeKeyList(key, keyEntities, leafOnly, true);
+            keyList = autoMergeValue ? normalizeKeyList(key, keyEntities, leafOnly, true) : key;
         } else if (checkRelation === 'unRelated') {
             keyList = key as string[];
         }
@@ -429,7 +437,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         }
     }
 
-    _registerClickOutsideHandler = (e) => {
+    _registerClickOutsideHandler = () => {
         this._adapter.registerClickOutsideHandler(e => {
             this.handlerTriggerBlur(e);
             this.close(e);
@@ -450,7 +458,11 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     handleTriggerFocus(e: any) {
         this._adapter.updateIsFocus(true);
         this._notifyFocus(e);
-        this._registerClickOutsideHandler(e);
+        this._registerClickOutsideHandler();
+    }
+
+    onClickSingleTriggerSearchItem = (e: any) => {
+        this.focusInput(true);
     }
 
     // Scenes that may trigger blur
@@ -462,6 +474,10 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
     }
 
     handlerTriggerBlur(e) {
+        const isFocus = this.getState('isFocus');
+        if (!isFocus) {
+            return;
+        }
         this._adapter.updateIsFocus(false);
         this._notifyBlur(e);
         this._adapter.unregisterClickOutsideHandler();
@@ -760,7 +776,8 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         return !allChecked;
     }
     handleNodeExpandInSearch(e: any, treeNode: BasicTreeNodeProps) {
-        const { treeData, filteredShownKeys, keyEntities, keyMaps } = this.getStates();
+        const { treeData, filteredShownKeys, keyEntities } = this.getStates();
+        const { keyMaps } = this.getProps();
         const showFilteredOnly = this._showFilteredOnly();
         // clone otherwise will be modified unexpectedly
         const filteredExpandedKeys = new Set(this.getState('filteredExpandedKeys')) as Set<string>;
@@ -877,8 +894,7 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
      * When the search box is on the trigger, the focus event processing method
      */
     handleInputTriggerFocus() {
-        const inputValue = this.getState('inputValue');
-        inputValue && this.clearInput();
+        this.clearInput();
         this._adapter.updateState({
             inputTriggerFocus: true
         });
@@ -890,11 +906,9 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
 
     handlePopoverVisibleChange(isVisible: boolean) {
         const { filterTreeNode, searchAutoFocus, searchPosition } = this.getProps();
-        const inputValue = this.getState('inputValue');
         // 将 inputValue 清空，如果有选中值的话，选中项能够快速回显
         // Clear the inputValue. If there is a selected value, the selected item can be quickly echoed.
         if (isVisible === false && filterTreeNode) {
-            inputValue && this._adapter.setClearInputFlag(true);
             this.clearInputValue(); 
         }
         if (filterTreeNode && searchPosition === strings.SEARCH_POSITION_DROPDOWN && isVisible && searchAutoFocus) {
@@ -910,7 +924,6 @@ export default class TreeSelectFoundation<P = Record<string, any>, S = Record<st
         // After the pop-up layer is completely closed, recalculate the expandedKey and flattenNode in the state through clearInput.
         // Prevent the pop-up layer from flickering visually due to changes in the number of options in the pop-up panel when the pop-up layer is not collapsed.
         const { filterTreeNode } = this.getProps();
-        const shouldClear = this._adapter.getClearInputFlag();
-        filterTreeNode && shouldClear && this.clearInput();
+        filterTreeNode && this.clearInput();
     }
 }

@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 32
+order: 44
 category: 输入类
 title: TagInput 标签输入框
 icon: doc-tagInput

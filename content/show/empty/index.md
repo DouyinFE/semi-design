@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 54
+order: 66
 category: 展示类
 title: Empty 空状态
 icon: doc-empty
@@ -113,8 +113,6 @@ import { IllustrationSuccess, IllustrationSuccessDark } from '@douyinfe/semi-ill
 
 目前 `@douyinfe/semi-illustrations` 中支持以下插画。
 
-> 由于插画库还在建设中，请随时留意后续可能发生的改变。
-
 ```jsx live=true dir="column"
 import React from 'react';
 import { Empty } from '@douyinfe/semi-ui';
@@ -187,13 +185,13 @@ import { IllustrationIdle, IllustrationIdleDark, IllustrationConstructionDark, I
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | className | 类名 | string | - |
-| darkModeImage | 暗色模式开启后的占位图，响应 document.body 的 theme-mode 属性变化 **v>=1.13.0** | ReactNode | - |
+| darkModeImage | 暗色模式开启后的占位图，响应 document.body 的 theme-mode 属性变化 | ReactNode | - |
 | description | 内容描述 | ReactNode | - |
 | image | 占位图 | ReactNode \| { id?: string; viewBox?: string; url?: string;} | - |
 | imageStyle | 占位图样式 | CSSProperties | - |
 | layout | 布局方式，支持 `vertical`, `horizontal` | string | `vertical` |
 | style | 样式名 | CSSProperties | - |
-| title | 标题 **v>=1.0.0** | ReactNode | - |
+| title | 标题 | ReactNode | - |
 
 ## Accessibility
 

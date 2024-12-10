@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 75
+order: 87
 category: Other
 title: ConfigProvider
 icon: doc-configprovider
@@ -8,6 +8,15 @@ dir: column
 brief: Provide a unified global configuration for components.
 ---
 
+## Scenes to be used
+
+Coverage configuration is divided into two scenarios
+
+- When you need to override the public Props configuration of multiple components (such as `timezone`, `rtl`), use ConfigProvider
+- When the ConfigProvirder props are not met and you want to modify a certain type of Props of a certain component globally (for example, if you want to configure the `theme` of all `Buttons to `Solid` or the `zIndex` of all `Popover`), use semiGlobal
+
+
+## ConfigProvider
 
 ## Demos
 
@@ -63,6 +72,45 @@ function Demo(props = {}) {
         </ConfigProvider>
     );
 }
+```
+
+### Manually obtain values
+Usually, the value of ConfigProvider is automatically obtained and consumed within the component, so you don't need to worry about it. However, in some special scenarios, you may need to manually obtain the value to perform other operations.
+
+Use ConfigConsumer to obtain the value of ConfigProvider
+
+```jsx live=true dir="column" hideInDSM
+import React, { useMemo, useState } from 'react';
+import { ConfigProvider, ConfigConsumer, Select, DatePicker, TimePicker, Typography } from '@douyinfe/semi-ui';
+
+function Demo(props = {}) {
+  const [timeZone, setTimeZone] = useState('GMT+08:00');
+  const defaultTimestamp = 1581599305265;
+  const gmtList = useMemo(() => {
+    const list = [];
+    for (let hourOffset = -11; hourOffset <= 14; hourOffset++) {
+      const prefix = hourOffset >= 0 ? '+' : '-';
+      const hOffset = Math.abs(parseInt(hourOffset, 10));
+      list.push(`GMT${prefix}${String(hOffset).padStart(2, '0')}:00`);
+    }
+    return list;
+  }, []);
+
+  return (
+          <ConfigProvider timeZone={timeZone}>
+            {/*...*/}
+            <ConfigConsumer>
+              {(value) => {
+                return <Typography.Text ellipsis={{ showTooltip: {opts:{style:{minWidth:"1200px"}} }}}  style={{ width: 600 }}>
+                  {JSON.stringify(value)}
+                </Typography.Text>
+              }}
+            </ConfigConsumer>
+            {/*...*/}
+          </ConfigProvider>
+  );
+}
+
 ```
 
 ### RTL/LTR
@@ -413,4 +461,36 @@ const SemiWebpackPlugin = require('@douyinfe/semi-webpack-plugin').default;
 module.exports = {
 +    plugins: [new SemiWebpackPlugin({ prefixCls: 'imes' })],
 }
+```
+
+
+## semiGlobal
+
+You can override the default Props of global components
+
+In `semiGlobal.config.overrideDefaultProps` you can configure the component default Props. You need to put your configuration at the entrance of the entire site, that is, it will be executed before all semi components.
+
+<Notice title={"Notes"}>
+semiGlobal is a singleton mode that affects the entire site. If you only want to cover certain components in certain places, it is recommended not to use semiGlobal. Instead, encapsulate the corresponding components that need to be covered and pass in the modified default props.
+</Notice>
+
+For example, the configuration below sets all Buttons to warning by default, and the zIndex of Select to 2000 by default, etc.
+
+```js
+import { semiGlobal } from "@douiyinfe/semi-ui"
+
+semiGlobal.config.overrideDefaultProps = {
+   Button: {
+     type: 'warning',
+   },
+   Select: {
+     zIndex: 2000,
+   },
+   Tooltip: {
+     zIndex: 2001,
+     trigger:"click"
+   },
+};
+
+
 ```

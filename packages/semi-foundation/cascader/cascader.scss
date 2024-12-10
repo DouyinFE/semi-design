@@ -227,7 +227,6 @@ $module: #{$prefix}-cascader;
         justify-content: center;
         width: $width-cascader-icon;
         color: $color-cascader-icon-default;
-        margin-right: $spacing-cascader_clearBtn-marginRight;
     }
 
     &-clearbtn {
@@ -283,12 +282,11 @@ $module: #{$prefix}-cascader;
     &-disabled {
         cursor: not-allowed;
         user-select: none;
+        background-color: $color-cascader_input_disabled-bg-default;
 
         .#{$module}-selection {
             cursor: not-allowed;
         }
-
-        background-color: $color-cascader_input_disabled-bg-default;
 
         &:hover {
             background-color: $color-cascader_input_disabled-bg-hover;
@@ -316,6 +314,7 @@ $module: #{$prefix}-cascader;
 
     .#{$module}-option-empty {
         @include font-size-regular;
+        border-radius: $radius-cascader_option_empty;
         min-width: $width-cascader_option;
         color: $color-cascader_option_empty-text-default;
         margin: 0;
@@ -425,6 +424,7 @@ $module: #{$prefix}-cascader;
         color: $color-cascader_option_main-text-default;
         position: relative;
 
+
         &:hover {
             background-color: $color-cascader_option-bg-hover;
         }
@@ -436,7 +436,7 @@ $module: #{$prefix}-cascader;
         &-icon {
             display: inline-flex;
             flex-shrink: 0;
-            width: $width-cascader-icon;
+            width:$width-cascader-option-icon;
             color: $color-cascader_option-icon-default;
 
             &-active,
@@ -450,13 +450,13 @@ $module: #{$prefix}-cascader;
         }
 
         &-spin-icon {
-            width: $width-cascader-icon;
-            height: $width-cascader-icon;
+            width: $width-cascader-option-icon;
+            height: $width-cascader-option-icon;
             line-height: 0;
 
             & svg {
-                width: $width-cascader-icon;
-                height: $width-cascader-icon;
+                width: $width-cascader-option-icon;
+                height: $width-cascader-option-icon;
             }
         }
 

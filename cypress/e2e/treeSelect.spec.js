@@ -120,7 +120,7 @@ describe('treeSelect', () => {
 
     it('expanded controlled + showFilteredOnly', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--issue-1542');
-        cy.get('.semi-tree-select-selection').eq(0).trigger('click');
+        // cy.get('.semi-tree-select-selection').eq(0).trigger('click');
         cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('b');
         // showFilteredOnly，因此搜索后的选项应该只有 3 项
         cy.get('.semi-tree-option').should('have.length', 3);
@@ -139,6 +139,9 @@ describe('treeSelect', () => {
         // 等待弹出层展开
         cy.wait(500);
         cy.get('.semi-tree-option').should('have.length', 2);
+        cy.get('body').click();
+        // 等待弹出层收起
+        cy.wait(500);
         cy.get('.semi-tree-select-inputTrigger').eq(0).children(".semi-input").eq(0).type('o');
         cy.get('.semi-tree-option').should('have.length', 4);
         cy.get('.semi-tree-option').eq(3).trigger('click');
@@ -186,6 +189,41 @@ describe('treeSelect', () => {
         cy.get('.semi-button').eq(0).trigger('click');
         cy.get('.semi-tree-option').eq(0).trigger('click');
         cy.get('.semi-button-content-left').eq(0).contains('亚洲');
+    })
+
+    it('default open', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--multiple')
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('#invisible-span').eq(0).trigger('mousedown');
+        cy.get('.semi-tree-select-popover').should('not.exist');
+    })
+
+    it('esc close panel', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--search-position-in-trigger-and-virtualize');
+        // cy.get('.semi-input').trigger('click');
+        cy.get('.semi-input').type('中');
+        cy.get('.semi-tree-select-popover').should('have.length', 1);
+        cy.get('.semi-input').type('{esc}', { force: true });
+        cy.get('.semi-tree-select-popover').should('not.exist');
+    })
+
+    it('showFilteredOnly + searchPosition in trigger', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--show-filtered-only');
+        // cy.get('.semi-tree-select').trigger('click');
+        cy.get('.semi-input').type('上');
+        cy.get('.semi-tree-option').should('have.length', 3);
+        cy.get('#info').trigger('mousedown');
+        cy.wait(500);
+        cy.get('.semi-tree-select').trigger('click');
+        cy.get('.semi-tree-option').should('have.length', 2);
+    })
+
+    it('keyMaps + search', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=treeselect--filter-and-key-maps');
+        cy.get('.semi-tree-select').trigger('click');
+        cy.get('.semi-input').type('1');
+        cy.get('.semi-tree-option-expand-icon').eq(0).trigger('click');
+        cy.get('.semi-tree-option-label-text').eq(0).contains('Asia');
     })
 });
 

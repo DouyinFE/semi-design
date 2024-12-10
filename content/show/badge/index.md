@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 46
+order: 58
 category: 展示类
 title:  Badge 徽章
 icon: doc-badge
@@ -274,17 +274,18 @@ import { Badge } from '@douyinfe/semi-ui';
 
 ## API参考
 
-| 属性  | 说明        | 类型   | 默认值 |
-|-------|-------------|-----------------|--------|
-| children | 徽章的 base | ReactNode | 无 | 
-| count  | 展示的内容 | ReactNode  | 无  |
-| dot  | 不展示数字，显示小圆点 | boolean  | false |
-| overflowCount | 最大的展示数字值 | number | 无 |
-| position | 徽章位置，可选 `leftTop`、 `leftBottom`、 `rightTop`、 `rightBottom` | string | `rightTop`  |
-| style | 徽章的样式 | CSSProperties | 无 | 
-| theme | 徽章主题，可选 `solid`、 `light`、 `inverted` | string | `solid` |
-| type | 徽章类型，可选 `primary`、 `secondary`、 `tertiary`、 `danger`、 `warning`、 `success` | string | `primary`  |
-
+| 属性             | 说明                                                                         | 类型   | 默认值 |
+|----------------|----------------------------------------------------------------------------|-----------------|---|
+| children       | 徽章的 base                                                                   | ReactNode | 无 | 
+| className      | 外侧 className                                                               | string | - |
+| count          | 展示的内容                                                                      | ReactNode  | 无 |
+| countClassName | 内容区域 className                                                             |  string | 无 |
+| dot            | 不展示数字，显示小圆点                                                                | boolean  | false |
+| overflowCount  | 最大的展示数字值                                                                   | number | 无 |
+| position       | 徽章位置，可选 `leftTop`、 `leftBottom`、 `rightTop`、 `rightBottom`                 | string | `rightTop` |
+| countStyle     | 徽章内容的样式, v2.59.1后生效                                                        | CSSProperties | 无 | 
+| theme          | 徽章主题，可选 `solid`、 `light`、 `inverted`                                       | string | `solid` |
+| type           | 徽章类型，可选 `primary`、 `secondary`、 `tertiary`、 `danger`、 `warning`、 `success` | string | `primary` |
 
 ## 文案规范
 - Badge内容若为英文时，首字母应大写

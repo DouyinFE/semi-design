@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 46
+order: 58
 category: Show
 title:  Badge
 subTitle: Badge
@@ -276,16 +276,18 @@ import { Badge } from '@douyinfe/semi-ui';
 
 ## API Reference
 
-| Properties    | Instructions                                                                    | type       | Default    |
-| ------------- | ------------------------------------------------------------------------------- | ---------- | ---------- |
-| children      | Base                                                                            | ReactNode  | -          |
-| count         | Display content                                                                 | ReactNode | -          |
-| dot           | Displayed as a little dot.                                                      | boolean    | false      |
-| overflowCount | Cap number value                                                                | number     | -          |
-| position      | Badge position, optional `left Top`, `left Bottom`, `right Top`, `right Bottom` | string     | `rightTop` |
-| style         | style                                                                           | CSSProperties     | -          |
-| theme         | Badge theme, one of `solid`, `light`, `inverted`                                | string     | `solid`    |
-| type          | Badge type, one of `primary`, `secondary`, `tertiary`, `danger`, `warning`,`success`,         | string     | `primary`  |
+| Properties     | Instructions                                                                          | type       | Default    |
+|----------------|---------------------------------------------------------------------------------------| ---------- |------------|
+| children       | Base                                                                                  | ReactNode  | -          |
+| className      | className                                                                             | string | - |
+| count          | Display content                                                                       | ReactNode | -          |
+| countClassName | count className                                                                       |  string | -          |
+| dot            | Displayed as a little dot.                                                            | boolean    | false      |
+| overflowCount  | Cap number value                                                                      | number     | -          |
+| position       | Badge position, optional `left Top`, `left Bottom`, `right Top`, `right Bottom`       | string     | `rightTop` |
+| countStyle     | style of content (>=v2.59.1)                                                          | CSSProperties     | -          |
+| theme          | Badge theme, one of `solid`, `light`, `inverted`                                      | string     | `solid`    |
+| type           | Badge type, one of `primary`, `secondary`, `tertiary`, `danger`, `warning`,`success`, | string     | `primary`  |
 
 ## Content Guidelines
 

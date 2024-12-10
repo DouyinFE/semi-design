@@ -36,6 +36,11 @@ $module: #{$prefix}-button;
         }
     }
 
+    &-content{
+        display: flex;
+        align-items: center;
+    }
+
     &-danger {
         background-color: $color-button_danger-bg-default;
         color: $color-button_danger-text-default;
@@ -243,12 +248,11 @@ $module: #{$prefix}-button;
 
     &-disabled {
         color: $color-button_disabled_solid-text-default;
+        cursor: not-allowed;
 
         &:not(.#{$module}-borderless):not(.#{$module}-light):hover {
             color: $color-button_disabled-text-hover;
         }
-
-        cursor: not-allowed;
 
         &.#{$module}-light,
         &.#{$module}-borderless {
@@ -386,6 +390,11 @@ $module: #{$prefix}-button;
             &:last-child {
                 border-top-right-radius: $radius-button_group;
                 border-bottom-right-radius: $radius-button_group;
+            }
+
+            &-outline:not(:last-child) {
+               border-right-color: transparent;
+               margin-right: -1 * $width-button_outline-border;
             }
         }
 

@@ -57,6 +57,7 @@ export interface CascaderProps extends BasicCascaderProps {
     'aria-label'?: React.AriaAttributes['aria-label'];
     arrowIcon?: ReactNode;
     clearIcon?: ReactNode;
+    expandIcon?: ReactNode;
     defaultValue?: Value;
     dropdownStyle?: CSSProperties;
     dropdownMargin?: PopoverProps['margin'];
@@ -218,6 +219,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         enableLeafClick: false,
         'aria-label': 'Cascader',
         searchPosition: strings.SEARCH_POSITION_TRIGGER,
+        checkRelation: strings.RELATED,
     })
 
     options: any;
@@ -378,9 +380,19 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (loadData) {
                     new Promise<void>(resolve => {
                         loadData(selectedOpt).then(() => {
-                            callback();
-                            this.setState({ loading: false });
-                            resolve();
+                            /** Why update loading status & call callback function in setTimeout?
+                             *  loadData func will update treeData, treeData change may trigger 
+                             *  selectedKeys & activeKeys change. For Loading data asynchronously，
+                             *  activeKeys should not change， Its implementation depends on loading 
+                             *  & loadedKeys. The update time of Loading & loadedKeys(in callback func)
+                             *  should be later than the update time of treeData(in loaData func) 
+                             *  In React 18, we need to use setTimeout to ensure the above time requirements.
+                             * */ 
+                            setTimeout(() => {
+                                callback();
+                                this.setState({ loading: false });
+                                resolve();
+                            })
                         });
                     });
                 }
@@ -418,7 +430,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     static getDerivedStateFromProps(props: CascaderProps, prevState: CascaderState) {
-        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue } = props;
+        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue, checkRelation } = props;
         const { prevProps } = prevState;
         let keyEntities = prevState.keyEntities || {};
         const newState: Partial<CascaderState> = {};
@@ -487,18 +499,22 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 if (isSet(realKeys)) {
                     realKeys = [...realKeys];
                 }
-                const calRes = calcCheckedKeys(realKeys, keyEntities);
-                const checkedKeys = new Set(calRes.checkedKeys);
-                const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
-                // disableStrictly
-                if (props.disableStrictly) {
-                    newState.disabledKeys = calcDisabledKeys(keyEntities);
+                if (checkRelation === strings.RELATED) {
+                    const calRes = calcCheckedKeys(realKeys, keyEntities);
+                    const checkedKeys = new Set(calRes.checkedKeys);
+                    const halfCheckedKeys = new Set(calRes.halfCheckedKeys);
+                    // disableStrictly
+                    if (props.disableStrictly) {
+                        newState.disabledKeys = calcDisabledKeys(keyEntities);
+                    }
+                    const isLeafOnlyMerge = calcMergeType(autoMergeValue, leafOnly) === strings.LEAF_ONLY_MERGE_TYPE;
+                    newState.checkedKeys = checkedKeys;
+                    newState.halfCheckedKeys = halfCheckedKeys;
+                    newState.resolvedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities, isLeafOnlyMerge));
+                } else {
+                    newState.checkedKeys = new Set(realKeys);
                 }
-                const isLeafOnlyMerge = calcMergeType(autoMergeValue, leafOnly) === strings.LEAF_ONLY_MERGE_TYPE;
                 newState.prevProps = props;
-                newState.checkedKeys = checkedKeys;
-                newState.halfCheckedKeys = halfCheckedKeys;
-                newState.resolvedCheckedKeys = new Set(normalizeKeyList(checkedKeys, keyEntities, isLeafOnlyMerge));
             }
         }
         return newState;
@@ -583,10 +599,11 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderTagInput() {
-        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps } = this.props;
+        const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation } = this.props;
         const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
-        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE ? checkedKeys : resolvedCheckedKeys;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE  || checkRelation === strings.UN_RELATED ?
+            checkedKeys : resolvedCheckedKeys;
         return (
             <TagInput
                 className={tagInputcls}
@@ -693,13 +710,14 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             showNext,
             multiple,
             filterRender,
-            virtualizeInSearch
+            virtualizeInSearch,
+            expandIcon
         } = this.props;
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
         const content = (
-            <div className={popoverCls} role="listbox" style={dropdownStyle}>
+            <div className={popoverCls} role="listbox" style={dropdownStyle} onKeyDown={this.foundation.handleKeyDown}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}
@@ -722,6 +740,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                     halfCheckedKeys={halfCheckedKeys}
                     filterRender={filterRender}
                     virtualize={virtualizeInSearch}
+                    expandIcon={expandIcon}
                 />
                 {bottomSlot}
             </div>
@@ -752,9 +771,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     };
 
     renderMultipleTags = () => {
-        const { autoMergeValue, maxTagCount } = this.props;
+        const { autoMergeValue, maxTagCount, checkRelation } = this.props;
         const { checkedKeys, resolvedCheckedKeys } = this.state;
-        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE ? checkedKeys : resolvedCheckedKeys;
+        const realKeys = this.mergeType === strings.NONE_MERGE_TYPE || checkRelation === strings.UN_RELATED ? 
+            checkedKeys : resolvedCheckedKeys;
         const displayTag: Array<ReactNode> = [];
         const hiddenTag: Array<ReactNode> = [];
         [...realKeys].forEach((checkedKey, idx) => {
@@ -1004,8 +1024,8 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 <Fragment key={'selection'}>
                     <div className={sectionCls}>{this.renderSelectContent()}</div>
                 </Fragment>,
-                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
                 <Fragment key={'suffix'}>{suffix ? this.renderSuffix() : null}</Fragment>,
+                <Fragment key={'clearbtn'}>{this.renderClearBtn()}</Fragment>,
                 <Fragment key={'arrow'}>{this.renderArrow()}</Fragment>,
             ];
         /**
@@ -1026,6 +1046,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 aria-describedby={this.props['aria-describedby']}
                 aria-required={this.props['aria-required']}
                 id={id}
+                onKeyDown={this.foundation.handleKeyDown}
                 {...mouseEvent}
                 // eslint-disable-next-line jsx-a11y/role-has-required-aria-props
                 role="combobox"

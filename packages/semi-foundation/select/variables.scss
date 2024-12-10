@@ -8,6 +8,8 @@ $color-select-border-hover: $color-select-border-default;  // 选择器输入框
 $color-select-border-active: var(--semi-color-focus-border); // 选择器输入框描边颜色 - 按下态
 $color-select-border-focus: $color-select-border-active;// 选择器输入框描边颜色 - 选中态
 
+$color-select_dropdown_input-border: $color-select-border-default; // 下拉搜索框底部描边颜色
+
 $color-select_warning-bg-default: var(--semi-color-warning-light-default); // 警示选择器输入框背景色 - 默认态
 $color-select_warning-border-default: var(--semi-color-warning-light-default); // 警示选择器输入框描边颜色 - 默认态
 $color-select_warning-bg-hover: var(--semi-color-warning-light-hover); // 警示选择器输入框背景色 - 悬停态
@@ -35,8 +37,11 @@ $color-select_clearBtn-text-hover: var(--semi-color-primary); // 选择器输入
 $color-select_input-bg-default: transparent; // 选择器输入框清空按钮颜色 - 悬停态
 $color-select_input_disabled-bg: var(--semi-color-disabled-fill); // 禁用选择器输入框背景色
 $color-select_input_disabled-border: var(--semi-color-border); // 禁用选择器输入框描边颜色
+$color-select_input_disabled-border-focus: transparent; // 禁用选择器输入框描边颜色 - 聚焦态
 $color-select_input_disabled-text: var(--semi-color-disabled-text); // 禁用选择器输入框回填内容文字颜色
 $color-select_input_disabled-bg-hover: var(--semi-color-disabled-fill); // 选择器输入框回填内容文字颜色 - 悬停态
+$color-select_input_disabled-bg-focus: var(--semi-color-disabled-fill); // 选择器输入框回填内容文字颜色 - 聚焦态
+
 $color-select_input_placeholder-text: var(--semi-color-text-2); // 选择器输入框占位文本文字颜色
 
 $color-select_option_main-text: var(--semi-color-text-0); // 选择器菜单选项文本颜色
@@ -108,6 +113,11 @@ $spacing-select_option_list-paddingTop: $spacing-extra-tight; // 选择器内容
 $spacing-select_option_list-paddingRight: 0px; // 选择器内容区右侧内边距
 $spacing-select_option_list-paddingBottom: $spacing-extra-tight; // 选择器内容区底部内边距
 $spacing-select_option_list-paddingLeft: 0px; // 选择器内容区左侧内边距
+
+$spacing-select_dropdown_input_paddingTop: 8px; // 下拉搜索框顶部内边距
+$spacing-select_dropdown_input_paddingBottom: 8px; // 下拉搜索框底部内边距
+$spacing-select_dropdown_input_paddingRight: 12px; // 下拉搜索框右侧内边距
+$spacing-select_dropdown_input_paddingLeft: 12px; // 下拉搜索框左侧内边距
 
 // Radius
 $radius-select: var(--semi-border-radius-small); // 选择器输入框圆角

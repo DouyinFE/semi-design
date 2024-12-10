@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 40
 category: Input
 title: Rating
 subTitle: Rating
@@ -19,7 +19,7 @@ import { Rating } from '@douyinfe/semi-ui';
 
 Support two sizes: `default`, `small`.
 
-**v >= 0.35.0** supports customized size if pass in a number. Refer to [Customize](#Customize)
+Supports customized size if pass in a number. Refer to [Customize](#Customize)
 
 ```jsx live=true
 import React from 'react';
@@ -37,7 +37,7 @@ import { Rating } from '@douyinfe/semi-ui';
 
 ### Half Star
 
-Use `allowHalf` to support selection of half stars. After `v0.28.0`, it also supports to **display** decimals ratings other than 0.5.
+Use `allowHalf` to support selection of half stars. Support to **display** decimals ratings other than 0.5.
 
 ```jsx live=true
 import React from 'react';

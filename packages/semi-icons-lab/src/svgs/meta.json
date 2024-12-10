@@ -12,12 +12,12 @@
     { "name": "calendar", "category": "Common" },
     { "name": "card", "category": "Common" },
     { "name": "cascader", "category": "Common" },
-    {
-        "name": "carousel",
-        "category": "Common"
-    },
+    { "name": "carousel", "category": "Common" },
     { "name": "changelog", "category": "Common" },
+    { "name": "chart", "category": "Common" },
+    { "name": "chat", "category": "Common" },
     { "name": "checkbox", "category": "Common" },
+    { "name": "code-highlight", "category": "Common" },
     { "name": "collapse", "category": "Common" },
     { "name": "collapsible", "category": "Common" },
     { "name": "color-platte-new", "category": "Common" },
@@ -45,18 +45,21 @@
     { "name": "input-number", "category": "Common" },
     { "name": "input", "category": "Common" },
     { "name": "intro", "category": "Common" },
+    {
+        "name": "json-viewer",
+        "category": "Common"
+    },
     { "name": "layout", "category": "Common" },
     { "name": "list", "category": "Common" },
     { "name": "locale-provider", "category": "Common" },
+    { "name": "lottie", "category": "Common" },
+    { "name": "markdown", "category": "Common" },
     { "name": "modal", "category": "Common" },
     { "name": "navigation", "category": "Common" },
     { "name": "notification", "category": "Common" },
-
     { "name": "overflow", "category": "Common" },
-    {
-        "name": "pagination",
-        "category": "Common"
-    },
+    { "name": "pagination", "category": "Common" },
+    { "name": "pincode", "category": "Common" },
     { "name": "popconfirm", "category": "Common" },
     { "name": "popover", "category": "Common" },
     { "name": "progress", "category": "Common" },
@@ -91,6 +94,7 @@
     { "name": "tree", "category": "Common" },
     { "name": "typography", "category": "Common" },
     { "name": "upload", "category": "Common" },
+    { "name": "version-one", "category": "Common" },
     { "name": "version-two", "category": "Common" },
     { "name": "wheel-chair", "category": "Common" }
 ]

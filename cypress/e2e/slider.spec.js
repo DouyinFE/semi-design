@@ -9,7 +9,7 @@ describe('slider', () => {
         const parentSelector = '[data-cy=horizontalNoChangeSlider]';
         const sliderTrackSelector = `${parentSelector} .semi-slider-rail`;
         const sliderHandleSelector = `${parentSelector} .semi-slider-handle`;
-        
+
         // test track click
         let handleInitialPos;
         cy.get(sliderHandleSelector).then(($handle) => {
@@ -18,7 +18,7 @@ describe('slider', () => {
 
         cy.get(sliderTrackSelector).trigger('click', 'right');
         cy.get('@consoleLog').should('be.calledWith', 'value改变了100');
-        
+
         cy.get(sliderHandleSelector).should(($button) => {
             expect($button.position()).deep.equal(handleInitialPos);
         });
@@ -28,7 +28,7 @@ describe('slider', () => {
             .trigger('mousedown')
             .trigger('mousemove', { pageX: 600, pageY: 0 })
             .trigger('mouseup', { force: true });
-        
+
         cy.get(sliderHandleSelector).should(($button) => {
             expect($button.position()).deep.equal(handleInitialPos);
         });
@@ -53,14 +53,14 @@ describe('slider', () => {
         // test knob slide (pageX 300 = 32%)
         cy.get(sliderHandleSelector)
             .realMouseDown()
-            .realMouseMove(-530, 0, { position: "center" })
+            .realMouseMove(-(774 - 774 * 0.32), 0, { position: "center" })
             .realMouseUp({ force: true });
-        
+
         // left 32% = 247.68px;
-        // cy.get(sliderHandleSelector).should('have.css', 'left', '247.68px');
+        // cy.get(sliderHandleSelector).should('have.css', 'left', '32%');
         cy.window().then(window => {
-            const style = window.getComputedStyle(window.document.querySelector(sliderHandleSelector));
-            expect(Math.ceil(parseFloat(style.left))).eq(248);
+            const left = (window.document.querySelector(sliderHandleSelector))['style']['left'];
+            expect(left).eq("32%");
         });
     });
 
@@ -140,7 +140,7 @@ describe('slider', () => {
             .trigger('mousedown')
             .trigger('mousemove', { pageX: 0, pageY: 600 })
             .trigger('mouseup', { force: true });
-        
+
         cy.get(sliderHandleSelector).should(($button) => {
             expect($button.position()).deep.equal(handleInitialPos);
         });
@@ -219,7 +219,7 @@ describe('slider', () => {
         cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '50');
         cy.get('.semi-slider-handle').eq(2).type('{Home}');
         cy.get('.semi-slider-handle').eq(2).should('have.attr', 'aria-valuenow', '0');
-    });  
+    });
 
     it('should show tooltip when hovering slider handler', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=slider--controlled-slider-demo&args=&viewMode=story', {

@@ -81,13 +81,13 @@ const local: Locale = {
             12: 'Tháng Mười hai',
         },
         weeks: {
-            Mon: 'Thứ Hai',
-            Tue: 'Thứ Ba',
-            Wed: 'Thứ Tư',
-            Thu: 'Thứ Năm',
-            Fri: 'Thứ Sáu',
-            Sat: 'Thứ bảy',
-            Sun: 'Chủ nhật',
+            Mon: 'T2',
+            Tue: 'T3',
+            Wed: 'T4',
+            Thu: 'T5',
+            Fri: 'T6',
+            Sat: 'T7',
+            Sun: 'CN',
         },
         localeFormatToken: {
             FORMAT_SWITCH_DATE: 'dd/MM/yyyy',
@@ -104,6 +104,9 @@ const local: Locale = {
     Table: {
         emptyText: 'Không kết quả',
         pageText: 'Hiển thị ${currentStart} đến ${currentEnd} trong tổng số ${total}',
+        descend: 'Nhấp để sắp xếp giảm dần',
+        ascend: 'Nhấp để sắp xếp tăng dần',
+        cancelSort: 'Hủy sắp xếp',
     },
     Select: {
         emptyText: 'Không kết quả',
@@ -173,6 +176,15 @@ const local: Locale = {
         adaptiveTip: 'Thích ứng với trang',
         originTip: 'Kích thước ban đầu',
     },
+    Chat: {
+        deleteConfirm: 'Bạn có chắc muốn xóa phiên này không?',
+        clearContext: 'Ngữ cảnh đã được xóa',
+        copySuccess: 'Sao chép thành công',
+        stop: 'Dừng',
+        copy: 'Sao chép',
+        copied: 'Đã sao chép',
+        dropAreaText: 'Đặt tệp vào đây',
+    }, 
 };
 
 // [i18n-Vietnam] 越南语

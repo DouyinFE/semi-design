@@ -2,7 +2,7 @@
     "name": "semi",
     "version": "0.0.1",
     "description": "Semi monorepo main project",
-    "author": "",
+    "author": "DouyinFe",
     "workspaces": [
         "packages/**"
     ],
@@ -12,10 +12,10 @@
         "bootstrap": "lerna bootstrap -- --legacy-peer-deps",
         "docsite": "npm run develop",
         "pre-develop": "npm run scripts:changelog && node ./scripts/designToken.js ./static/designToken.json",
-        "develop": "npm run pre-develop && gatsby clean && lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && gatsby develop -H 0.0.0.0 --port=3666 --verbose",
+        "develop": "npm run pre-develop && gatsby clean && lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && gatsby develop -H 0.0.0.0 --port=3666 --verbose",
         "scripts:changelog": "node scripts/changelog.js",
         "start": "npm run story",
-        "pre-story": "lerna exec --scope=@douyinfe/semi-ui --scope=@douyinfe/semi-foundation -- rimraf ./lib && lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design",
+        "pre-story": "lerna exec --scope=@douyinfe/semi-ui --scope=@douyinfe/semi-foundation -- rimraf ./lib && lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design",
         "story": "npm run pre-story && sb dev -c ./.storybook/js/ -p 6006",
         "story:ts": "npm run pre-story && sb dev -c ./.storybook/ts/ -p 6007",
         "story:ani": "npm run pre-story && sb dev -c ./.storybook/animation/react -p 6008",
@@ -35,7 +35,7 @@
         "build:css": "lerna run build:css",
         "build-storybook": "sb build  -c ./.storybook/js/ -o ./storybook && cp -r storybook storybook-static",
         "build-storybook-static": "sb build  -c ./.storybook/js/",
-        "build:gatsbydoc": "lerna run build:lib --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rimraf build && mv public build",
+        "build:gatsbydoc": "lerna run build:lib --scope @douyinfe/semi-json-viewer-core --scope @douyinfe/semi-webpack-plugin --scope eslint-plugin-semi-design && cross-env NODE_ENV=production node --max_old_space_size=16384 ./node_modules/gatsby/cli.js build --prefix-paths --verbose && rimraf build && mv public build",
         "build:icon": "lerna run build:icon --scope='@douyinfe/semi-{icons,illustrations}'",
         "cypress:coverage": "npx wait-on http://127.0.0.1:6006 && ./node_modules/.bin/cypress run",
         "postcypress:coverage": "yarn coverage:merge",
@@ -43,14 +43,14 @@
         "coverage:merge": "npx istanbul-combine -d test/merged -p detail -r lcov -r json cypress/coverage/coverage-final.json test/coverage/coverage-final.json"
     },
     "engines": {
-        "node": ">= 16.0.0"
+        "node": ">= 20.0.0"
     },
     "dependencies": {
         "@dnd-kit/modifiers": "^7.0.0",
-        "@douyinfe/semi-site-banner": "^0.1.3",
-        "@douyinfe/semi-site-doc-style": "0.0.1",
+        "@douyinfe/semi-site-banner": "^0.1.5",
+        "@douyinfe/semi-site-doc-style": "0.0.5",
         "@douyinfe/semi-site-header": "^0.0.29",
-        "@douyinfe/semi-site-markdown-blocks": "^0.0.9",
+        "@douyinfe/semi-site-markdown-blocks": "^0.0.18",
         "@mdx-js/mdx": "1.6.22",
         "@mdx-js/react": "^1.6.22",
         "@storybook/react-webpack5": "^7.0.7",
@@ -60,6 +60,7 @@
         "@visactor/vchart-semi-theme": "^1.10.4",
         "aos": "^2.3.4",
         "camelcase": "^6.2.0",
+        "chalk": "^5.3.0",
         "chroma-js": "^2.1.2",
         "classnames": "^2.3.1",
         "copy-text-to-clipboard": "^2.2.0",
@@ -79,6 +80,7 @@
         "gatsby-source-filesystem": "^2.11.1",
         "grapheme-splitter": "^1.0.4",
         "immutability-helper": "^3.1.1",
+        "jest-canvas-mock": "^2.5.2",
         "lodash-es": "^4.17.21",
         "memoize-one": "^5.2.1",
         "normalize.css": "^8.0.1",
@@ -137,6 +139,7 @@
         "@storybook/cli": "^7.0.7",
         "@storybook/react": "^7.0.7",
         "@svgr/webpack": "^5.5.0",
+        "@testing-library/react": "^12",
         "@types/classnames": "^2.3.0",
         "@types/enhanced-resolve": "^3.0.7",
         "@types/fs-extra": "^9.0.12",
@@ -152,7 +155,6 @@
         "@types/webpack": "^4.41.30",
         "@typescript-eslint/eslint-plugin": "^4.29.1",
         "@typescript-eslint/parser": "^4.29.1",
-        "awesome-typescript-loader": "^5.2.1",
         "axios": "^0.21.1",
         "babel-core": "^7.0.0-bridge.0",
         "babel-jest": "^24.9.0",
@@ -182,7 +184,7 @@
         "eslint-plugin-semi-design": "^2.33.0",
         "fs-extra": "^8.1.0",
         "glob": "^7.1.7",
-        "html-webpack-plugin": "^3.2.0",
+        "html-webpack-plugin": "^5.6.0",
         "husky": "^1.3.1",
         "jest": "^24.9.0",
         "jest-date-mock": "^1.0.8",
@@ -193,10 +195,10 @@
         "lint-staged": "^10.5.4",
         "marked": "^2.1.3",
         "mini-css-extract-plugin": "^0.12.0",
-        "null-loader": "^3.0.0",
+        "null-loader": "^4.0.1",
         "postcss-loader": "^2.1.6",
         "prettier": "^1.19.1",
-        "progress-bar-webpack-plugin": "^1.12.1",
+        "progress-bar-webpack-plugin": "^2.1.0",
         "react-dnd-cjs": "^9.5.1",
         "react-storybook-addon-props-combinations": "^1.1.0",
         "rimraf": "^2.7.1",
@@ -213,9 +215,10 @@
         "ts-loader": "^5.4.5",
         "typescript": "^4.8.3",
         "webpack": "^5.77.0",
-        "webpack-cli": "^3.3.12",
+        "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^3.11.2",
-        "webpackbar": "^5.0.0-3"
+        "webpackbar": "^5.0.0-3",
+        "worker-loader": "^3.0.8"
     },
     "husky": {
         "hooks": {
@@ -226,7 +229,8 @@
     "resolutions": {
         "@types/react": "^18.0.5",
         "@types/react-dom": "^18.0.1",
-        "babel-plugin-lodash/@babel/types": "~7.20.0"
+        "babel-plugin-lodash/@babel/types": "~7.20.0",
+        "cheerio": "1.0.0-rc.12"
     },
     "lint-staged": {
         "src/**/*.{js,jsx,ts,tsx}": [
@@ -239,5 +243,6 @@
             "stylelint"
         ]
     },
-    "license": "MIT"
+    "license": "MIT",
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

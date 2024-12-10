@@ -468,6 +468,7 @@ export const CustomContainer = () => {
                 style={{ 
                     height: 400, 
                     position: "relative",
+                    margin: '100px 200px',
                 }} 
             >
                 <ImagePreview

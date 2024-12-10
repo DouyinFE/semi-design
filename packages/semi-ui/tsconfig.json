@@ -6,7 +6,7 @@
         "sourceMap": true,
         "allowJs": true,
         "module": "es6",
-        "lib": ["es7", "dom"],
+        "lib": ["esnext", "dom"],
         "moduleResolution": "node",
         "noImplicitAny": false,
         "jsx": "react",
@@ -16,7 +16,6 @@
             "@douyinfe/semi-theme-default/*": ["../semi-theme-default/*"],
             "@douyinfe/semi-icons": ["../semi-icons/src"]
         },
-        "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
