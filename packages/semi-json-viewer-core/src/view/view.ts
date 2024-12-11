@@ -265,7 +265,7 @@ export class View {
 
         setStyles(scrollEl, {
             position: 'relative',
-            overflow: 'scroll',
+            overflow: 'hidden',
             top: '0',
             left: '0',
             tabSize: (this._options?.formatOptions?.tabSize || 4).toString(),
