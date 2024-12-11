@@ -3,9 +3,6 @@
     "version": "0.0.1",
     "description": "Semi monorepo main project",
     "author": "DouyinFe",
-    "workspaces": [
-        "packages/**"
-    ],
     "private": true,
     "scripts": {
         "install:codesandbox": "npm i lerna@^6 -g && npm run bootstrap",
