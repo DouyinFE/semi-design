@@ -131,13 +131,19 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         }
     }
 
-    add() {
+    add = (index?: number) => {
         const { keys } = this.state;
         const { field } = this.props;
         const updater = this.context;
-        keys.push(getUuidv4());
+        const newKey = getUuidv4();
+        if (index === undefined) {
+            keys.push(newKey);
+        } else {
+            keys.splice(index, 0, newKey);
+        }
         this.shouldUseInitValue = true;
         this.setState({ keys });
+
         let updateKey = new Date().valueOf();
         updater.updateArrayField(field, { updateKey });
         this.cacheUpdateKey = updateKey;
