@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -14,16 +13,15 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M12 3.5C12 2.67157 12.6716 2 13.5 2H19.5C20.8807 2 22 3.11929 22 4.5V10.5C22 11.3284 21.3284 12 20.5 12C19.6716 12 19 11.3284 19 10.5V7L11.0607 14.9394C10.4749 15.5251 9.52513 15.5251 8.93934 14.9394C8.35355 14.3536 8.35355 13.4038 8.93934 12.818L16.7574 5H13.5C12.6716 5 12 4.32843 12 3.5Z"
+                d="M12 3.5c0-.83.67-1.5 1.5-1.5h6A2.5 2.5 0 0 1 22 4.5v6a1.5 1.5 0 0 1-3 0V7l-7.94 7.94a1.5 1.5 0 0 1-2.12-2.12L16.76 5H13.5A1.5 1.5 0 0 1 12 3.5Z"
                 fill="currentColor"
             />
             <path
-                d="M5 8.5V18.5C5 18.7761 5.22386 19 5.5 19H15.5C15.7761 19 16 18.7761 16 18.5V15.5C16 14.6716 16.6716 14 17.5 14C18.3284 14 19 14.6716 19 15.5V18.5C19 20.433 17.433 22 15.5 22H5.5C3.567 22 2 20.433 2 18.5V8.5C2 6.567 3.567 5 5.5 5H8.5C9.32843 5 10 5.67157 10 6.5C10 7.32843 9.32843 8 8.5 8H5.5C5.22386 8 5 8.22386 5 8.5Z"
+                d="M5 8.5v10c0 .28.22.5.5.5h10a.5.5 0 0 0 .5-.5v-3a1.5 1.5 0 0 1 3 0v3a3.5 3.5 0 0 1-3.5 3.5h-10A3.5 3.5 0 0 1 2 18.5v-10A3.5 3.5 0 0 1 5.5 5h3a1.5 1.5 0 1 1 0 3h-3a.5.5 0 0 0-.5.5Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'external_open');
 export default IconComponent;

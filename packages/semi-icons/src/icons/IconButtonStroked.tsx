@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M2 6C1.44772 6 1 6.44772 1 7V17C1 17.5523 1.44772 18 2 18H22C22.5523 18 23 17.5523 23 17V7C23 6.44772 22.5523 6 22 6H2ZM3 16V8H21V16H3ZM7 11C6.44772 11 6 11.4477 6 12C6 12.5523 6.44771 13 7 13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H7Z"
+                d="M2 6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h20a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H2Zm1 10V8h18v8H3Zm4-5a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2H7Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'button_stroked');
 export default IconComponent;

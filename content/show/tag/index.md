@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 74
+order: 76
 category: 展示类
 title: Tag 标签
 icon: doc-tag

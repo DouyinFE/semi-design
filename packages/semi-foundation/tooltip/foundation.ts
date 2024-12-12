@@ -191,7 +191,7 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
         }
     }
 
-    updateStateIfCursorOnTrigger = (trigger: HTMLElement)=>{
+    updateStateIfCursorOnTrigger = (trigger: HTMLElement) => {
         if (trigger?.matches?.(":hover")) {
             const eventNames = this._adapter.getEventName();
             const triggerEventSet = this.getState("triggerEventSet");
@@ -284,6 +284,10 @@ export default class Tooltip<P = Record<string, any>, S = Record<string, any>> e
     onResize = () => {
         // this.log('resize');
         // rePosition when window resize
+        const visible = this.getState('visible');
+        if (!visible) {
+            return;
+        }
         this.calcPosition();
     };
 

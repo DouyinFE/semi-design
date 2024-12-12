@@ -7,9 +7,13 @@ icon: doc-gettingstarted
 order: 2
 ---
 
-## 1、安装 Semi
+Semi Design 由抖音前端团队负责维护，提供 React 版本开箱即用的70+ 组件、 Figam Variant UI Kit  
+你可在任意 React 项目中引入使用 （新项目更推荐通过 Rsbuild、CreateReactApp、Vite 新建），当前支持搭配 React v16、v17、v18 版本使用  
 
-Semi 支持搭配 React v16、v17、v18 版本使用
+若你需要使用 prefixCls、主题、CSS Layer等编译时定制能力的场景，我们更推荐使用 Webpack 或 Rspack/Rsbuild 作为工程化构建方案  
+（字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi工程化 FAQ</a>）
+
+## 1、安装 Semi
 
 ```bash
 # 使用 npm
@@ -25,7 +29,6 @@ pnpm add @douyinfe/semi-ui
 ## 2、使用组件
 
 在 Webpack、Rspack、create-react-app 或 Vite 项目中使用时，无需进行任何编译项配置，直接使用即可。构建时所有相关资源均会按需打包    
-（字节跳动用户，若使用的是公司内部相关工程化方案，配置请查阅飞书文档：<a href="https://bytedance.larkoffice.com/wiki/FaRwweDLmigrD0k8wLgcDaQtnbb" target="_blank">Semi工程化 FAQ</a>）
 
 ```jsx
 import React, { Component } from 'react';
@@ -34,8 +37,8 @@ import { Button, Toast } from '@douyinfe/semi-ui';
 const SemiApp = () => {
     return (
         <Button onClick={() => Toast.warning({ content: 'welcome' })}>Hello Semi</Button>
-    )
-}
+    );
+};
 ```
 
 > 推荐在项目中引入 [reset.css](https://www.npmjs.com/package/reset-css)，它可以重置浏览器自带的默认样式，避免不同UA之间的样式差异。

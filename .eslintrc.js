@@ -121,6 +121,8 @@ module.exports = {
                 "space-infix-ops": ["error", { "int32Hint": false }],
                 'space-before-blocks': ['error', 'always'],
                 "space-infix-ops": "error",
+                '@typescript-eslint/prefer-as-const': 'off',
+                '@typescript-eslint/no-namespace': 'off',
                 "@typescript-eslint/type-annotation-spacing": ['error', {"after": true}],
                 "@typescript-eslint/member-delimiter-style": [
                     "error",

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -14,12 +13,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             {...props}
         >
             <path
-                d="M20.8889 2H3.11111C2.49667 2 2 2.49778 2 3.11111V20.8889C2 21.5022 2.49667 22 3.11111 22H12.6833V14.2667H10.0856V11.2389H12.6833V9.01667C12.6833 6.43333 14.2611 5.02556 16.5722 5.02556C17.3489 5.02333 18.1267 5.06333 18.9 5.14444V7.83333H17.3056C16.0522 7.83333 15.8078 8.43111 15.8078 9.30556V11.2333H18.8044L18.4156 14.2611H15.8067V22H20.8889C21.5033 22 22 21.5022 22 20.8889V3.11111C22 2.49778 21.5033 2 20.8889 2Z"
+                d="M20.89 2H3.1C2.5 2 2 2.5 2 3.11V20.9C2 21.5 2.5 22 3.11 22h9.57v-7.73h-2.6v-3.03h2.6V9.02c0-2.59 1.58-4 3.9-4 .77 0 1.55.04 2.32.12v2.7h-1.6c-1.25 0-1.5.6-1.5 1.47v1.92h3l-.38 3.03H15.8V22h5.08c.61 0 1.11-.5 1.11-1.11V3.1C22 2.5 21.5 2 20.89 2Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'facebook');
 export default IconComponent;

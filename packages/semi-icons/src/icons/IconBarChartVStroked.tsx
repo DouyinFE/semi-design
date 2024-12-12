@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,12 +15,11 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M9 3C9 2.44772 9.44772 2 10 2H14C14.5523 2 15 2.44772 15 3V21C15 21.5523 14.5523 22 14 22H10C9.44772 22 9 21.5523 9 21V3ZM11 4V20H13V4H11ZM2 8C2 7.44772 2.44772 7 3 7H7C7.55228 7 8 7.44772 8 8V21C8 21.5523 7.55228 22 7 22H3C2.44772 22 2 21.5523 2 21V8ZM4 9V20H6V9H4ZM17 10C16.4477 10 16 10.4477 16 11V21C16 21.5523 16.4477 22 17 22H21C21.5523 22 22 21.5523 22 21V11C22 10.4477 21.5523 10 21 10H17ZM18 20V12H20V20H18Z"
+                d="M9 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V3Zm2 1v16h2V4h-2ZM2 8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8Zm2 1v11h2V9H4Zm13 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1h-4Zm1 10v-8h2v8h-2Z"
                 fill="currentColor"
             />
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'bar_chart_v_stroked');
 export default IconComponent;

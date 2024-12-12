@@ -1508,7 +1508,6 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             dropdownMargin,
         } = this.props;
         const { isOpen, optionKey } = this.state;
-        const optionList = this.renderOptions(children);
         const selection = this.renderSelection();
         return (
             <Popover
@@ -1518,10 +1517,9 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 autoAdjustOverflow={autoAdjustOverflow}
                 mouseLeaveDelay={mouseLeaveDelay}
                 mouseEnterDelay={mouseEnterDelay}
-                // transformFromCenter TODO: check no such property
                 zIndex={zIndex}
                 ref={this.optionsRef}
-                content={optionList}
+                content={() => this.renderOptions(children)}
                 visible={isOpen}
                 trigger="custom"
                 rePosKey={optionKey}

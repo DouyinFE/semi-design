@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { convertIcon } from '../components/Icon';
-
 function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
@@ -16,7 +15,7 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                d="M12.9393 2.9393C15.1819 0.69666 18.818 0.696668 21.0606 2.93931C23.3033 5.18195 23.3033 8.81799 21.0606 11.0606L17.5104 14.6109L15.3891 12.4896L18.9393 8.93931C20.0104 7.86824 20.0104 6.13169 18.9393 5.06063C17.8682 3.98956 16.1317 3.98956 15.0606 5.06062L11.5104 8.61088L9.38905 6.48956L12.9393 2.9393ZM2.9393 12.9393L5.98952 9.88911L8.11084 12.0104L5.06062 15.0606C3.98956 16.1317 3.98956 17.8683 5.06063 18.9393C6.13169 20.0104 7.86824 20.0104 8.9393 18.9393L11.9895 15.8891L14.1108 18.0104L11.0606 21.0606C8.81798 23.3033 5.18194 23.3033 2.9393 21.0606C0.696665 18.818 0.696663 15.182 2.9393 12.9393Z"
+                d="M12.94 2.94a5.74 5.74 0 1 1 8.12 8.12l-3.55 3.55-2.12-2.12 3.55-3.55a2.74 2.74 0 1 0-3.88-3.88l-3.55 3.55L9.39 6.5l3.55-3.55Zm-10 10 3.05-3.05L8.11 12l-3.05 3.05a2.74 2.74 0 0 0 3.88 3.88l3.05-3.05L14.11 18l-3.05 3.05a5.74 5.74 0 1 1-8.12-8.12Z"
                 fill="currentColor"
             />
             <rect x={5.379} y={7.5} width={2} height={3.85} transform="rotate(-45 5.37866 7.5)" fill="currentColor" />
@@ -31,6 +30,5 @@ function SvgComponent(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     );
 }
-
 const IconComponent = convertIcon(SvgComponent, 'unlink');
 export default IconComponent;

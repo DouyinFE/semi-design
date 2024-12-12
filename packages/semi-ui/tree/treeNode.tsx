@@ -9,7 +9,7 @@ import { Checkbox } from '../checkbox';
 import TreeContext, { TreeContextValue } from './treeContext';
 import Spin from '../spin';
 import { TreeNodeProps, TreeNodeState } from './interface';
-import { getHighLightTextHTML } from '../_utils/index';
+import Highlight from '../highlight';
 import Indent from './indent';
 
 const prefixcls = cssClasses.PREFIX_OPTION;
@@ -203,7 +203,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading, expanded, showLine, level } = this.props;
+        const { loading, expanded, showLine } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
@@ -218,8 +218,7 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
                 />
             );
         }
-        // when leaf node 's level is 0, no switcher
-        if (showLine && level) {
+        if (showLine) {
             return this.renderSwitcher();
         }
         return (
@@ -302,14 +301,14 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         if (isFunction(renderLabel)) {
             return renderLabel(label, data, keyword);
         } else if (isString(label) && filtered && keyword) {
-            return getHighLightTextHTML({
-                sourceString: label,
-                searchWords: [keyword],
-                option: {
-                    highlightTag: 'span',
-                    highlightClassName: `${prefixcls}-highlight`,
-                },
-            } as any);
+            return (
+                <Highlight
+                    highlightClassName={`${prefixcls}-highlight`}
+                    component='span'
+                    sourceString={label}
+                    searchWords={[keyword]}
+                />
+            );
         } else {
             return label;
         }
