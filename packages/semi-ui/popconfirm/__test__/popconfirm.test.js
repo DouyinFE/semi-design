@@ -113,19 +113,48 @@ describe(`Popconfirm`, () => {
         expect(document.querySelectorAll(wrapSelector).length > 0).toBeTruthy();
 
         // click cancel button and check if hid and trigger onCancel
-        const buttons = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-popconfirm-footer button`);
+        let buttons = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-popconfirm-footer button`);
         const cancelButton = buttons[0];
         cancelButton.click();
 
         expect(onCancel.called).toBeTruthy();
         expect(elem.state('visible')).toBeFalsy();
-
-        // click confirm button and check if showd and trigger onConfirm
+        // must reFind since document has changed
+        buttons = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-popconfirm-footer button`);
         const confirmButton = buttons[1];
-        elem.setState({ visible: true });
+        expect(confirmButton).toBe(undefined)
+    });
+
+    it(`test buttons 2`, async () => {
+        const onCancel = sinon.spy();
+        const onConfirm = sinon.spy();
+        const elem = mount(
+            <Popconfirm
+                position="bottomLeft"
+                title="确定是否要保存此修改？"
+                content="此修改将不可逆"
+                trigger={'click'}
+                onCancel={onCancel}
+                onConfirm={onConfirm}
+                defaultVisible={true}
+            >
+                <Button className={triggerCls}>Save</Button>
+            </Popconfirm>
+        );
+
+        // check if popconfirm showed or not
+        expect(document.querySelectorAll(wrapSelector).length > 0).toBeTruthy();
+
+        // click cancel button and check if hid and trigger onCancel
+        let buttons = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-popconfirm-footer button`);
+        const confirmButton = buttons[1];
         confirmButton.click();
 
         expect(onConfirm.called).toBeTruthy();
         expect(elem.state('visible')).toBeFalsy();
+        // must reFind since document has changed
+        buttons = document.querySelectorAll(`.${BASE_CLASS_PREFIX}-popconfirm-footer button`);
+        const cancelButton = buttons[0];
+        expect(cancelButton).toBe(undefined)
     });
 });
