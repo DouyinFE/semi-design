@@ -14,6 +14,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.71.2 (2024-12-13)
+- 【Fix】
+    - 去除 Collapsible 组件更新时多余的属性前后是否变化对比 [#2631](https://github.com/DouyinFE/semi-design/pull/2631)
+    - 修复在 React18 下无论是否动画开启，快速移动鼠标在 tooltip trigger 上时，概率性 dom 只透明但不消失，导致无法点击页面元素的问题 [#2605](https://github.com/DouyinFE/semi-design/pull/2605)
+    - 修复 Chat 组件 mode 动态变化未生效问题 [#2625](https://github.com/DouyinFE/semi-design/pull/2625)
+    - 设置图片预览的 img 节点的 max-width 为 none，避免同时使用 tailwind 时放大显示错误问题 [#2624](https://github.com/DouyinFE/semi-design/pull/2624)
+
+####  🎉 2.71.1 (2024-12-11)
+- 【Feat】
+    - 图标模式按钮新增 $height-button_iconOnly_small $width-button_iconOnly_small $height-button_iconOnly_default $width-button_iconOnly_default $height-button_iconOnly_large $width-button_iconOnly_large token [#2618](https://github.com/DouyinFE/semi-design/pull/2618)
+
 #### 🎉 2.71.0 (2024-12-06)
 - 【Fix】
     - 对于非展示状态的 Tooltip，页面尺寸变化时不做位置计算 [#2606](https://github.com/DouyinFE/semi-design/pull/2606) 
