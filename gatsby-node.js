@@ -112,7 +112,7 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                 'semi-site-header': process.env.SEMI_SITE_HEADER || '@douyinfe/semi-site-header',
                 'semi-site-banner': process.env.SEMI_SITE_BANNER || '@douyinfe/semi-site-banner',
                 'univers-webview': process.env.SEMI_SITE_UNIVERS_WEBVIEW || resolve('packages/semi-ui'),
-                '@douyinfe/semi-json-viewer-core': resolve('packages/semi-json-viewer-core'),
+                '@douyinfe/semi-json-viewer-core': resolve('packages/semi-json-viewer-core/src'),
                 '@douyinfe/semi-ui': resolve('packages/semi-ui'),
                 '@douyinfe/semi-foundation': resolve('packages/semi-foundation'),
                 '@douyinfe/semi-icons': resolve('packages/semi-icons/src/'),
@@ -171,15 +171,30 @@ exports.onCreateWebpackConfig = ({ stage, rules, loaders, plugins, actions }) =>
                     },
                 },
                 {
+                    test: /jsonWorkerManager\.ts$/,
+                    use: [{
+                        loader: 'webpack-replace-loader',
+                        options: {
+                            search: '%WORKER_RAW%',
+                            replace: () => {
+                                const workFilePath = resolve('packages/semi-json-viewer-core/workerLib/worker.js');
+                                const result = fs.readFileSync(workFilePath, 'utf-8');
+                                const encodedResult = encodeURIComponent(result);
+                                return encodedResult;
+                            }
+                        }
+                    }],
+                },
+                {
                     test: [/\.tsx?$/],
                     include: [path.resolve(__dirname, 'src')],
-                    use: {
+                    use: [{
                         loader: 'esbuild-loader',
                         options: {
                             loader: 'tsx', // Remove this if you're not using JSX
                             target: 'esnext' // Syntax to compile to (see options below for possible values)
                         },
-                    },
+                    }],
                 },
                 {
                     test: /\.mjs$/,
