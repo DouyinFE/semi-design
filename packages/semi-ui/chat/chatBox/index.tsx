@@ -65,7 +65,7 @@ const ChatBox = React.memo((props: ChatBoxProps) => {
             customMarkDownComponents={customMarkDownComponents}
             customRenderFunc={renderChatBoxContent}
         />);
-    }, [message, info, renderChatBoxContent]);
+    }, [message, info, renderChatBoxContent, mode]);
 
     const actionNode = useMemo(() => {
         return (<ChatBoxAction 

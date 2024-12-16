@@ -250,8 +250,14 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
                     },
                     () => {
                         setTimeout(() => {
+                            this.setState((oldState) => {
+                                if ( oldState.transitionState === 'enter' ) {
+                                    this.eventManager.emit('portalInserted');
+                                }
+                                return {};
+                            });
                             // waiting child component mounted
-                            this.eventManager.emit('portalInserted');
+
                         }, 0);
                     }
                 );
