@@ -16,6 +16,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.72.0-beta.0 (2024-12-16)
+- 【Feat】
+    - Table onChange add extra.changeType API to idetify the type of changing  [#1238](https://github.com/DouyinFE/semi-design/issues/1238)
+- 【Fix】
+    - fix render state value in Carousel children always get the init one
 
 #### 🎉 2.71.2 (2024-12-13)
 - 【Fix】
