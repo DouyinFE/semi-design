@@ -168,7 +168,7 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
                 mouseEnterDelay={showDelay}
                 mouseLeaveDelay={hideDelay}
             >
-                {node}
+                <span>{node}</span>
             </Tooltip>
         );
     };
