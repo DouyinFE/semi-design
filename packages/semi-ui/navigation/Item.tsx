@@ -163,12 +163,13 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         return (
             <Tooltip
                 content={text}
+                wrapWhenSpecial={false}
                 position="right"
                 trigger={'hover'}
                 mouseEnterDelay={showDelay}
                 mouseLeaveDelay={hideDelay}
             >
-                <span>{node}</span>
+                {node}
             </Tooltip>
         );
     };
