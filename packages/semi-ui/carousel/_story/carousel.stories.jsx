@@ -518,3 +518,22 @@ export const OnlyOneChildrenNotPlay = () => (
       </div>
     </Carousel>
 );
+
+export const renderStateInChildren = () => {
+  const [curIndex, setCurIndex] = useState(0);
+
+  return (
+    <Carousel style={style}
+      autoPlay={false}
+      activeIndex={curIndex}
+      onChange={(index) => {setCurIndex(index)}}>
+        {[1, 2, 3, 4].map((src, index) => {
+          return (
+            <div style={contentPinkStyle} key={index}>
+              {curIndex}
+            </div>
+          )
+        })}
+    </Carousel>
+  )
+};
