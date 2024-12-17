@@ -13,7 +13,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
-#### 🎉 2.72.1 (2024-12-17)
+#### 🎉 2.71.3 (2024-12-17)
 - 【Fix】
     - 修复 Tree 组件 treeDataSimpleJson 模式下，onChange 回调结果错误问题  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508) [#2601](https://github.com/DouyinFE/semi-design/pull/2601)
     - 修复竖向 Navigation 在收起状态下 disabled subNavItem 展示不符合预期问题 [#2637](https://github.com/DouyinFE/semi-design/pull/2637)

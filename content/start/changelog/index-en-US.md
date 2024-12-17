@@ -16,7 +16,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
-#### 🎉 2.72.1 (2024-12-17)
+#### 🎉 2.71.3 (2024-12-17)
 - 【Fix】
     - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
     - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
