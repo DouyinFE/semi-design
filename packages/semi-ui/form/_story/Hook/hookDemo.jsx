@@ -59,7 +59,11 @@ const UseFormApiDemo = () => {
 };
 
 const CustomStringify = values => {
-    return JSON.stringify(values, (k, v) => (v === undefined ? '__undefined' : v)).replace(
+    return JSON.stringify(
+        values, 
+        (k, v) => (v === undefined ? '__undefined' : v), 
+        2
+    ).replace(
         '"__undefined"',
         'undefined'
     );
@@ -97,15 +101,44 @@ const ComponentUsingFormApi = () => {
     );
 };
 
+ 
 
+// const ComponentUsingFormState = () => {
+//     const formState = useFormState();
+//     return (
+//         <pre>
+//             <code style={{ wordBreak: 'break-all', width: 600, whiteSpace: 'normal' }}>{JSON.stringify(formState)}</code>
+//             {/* <code style={{wordBreak:'break-all', width: 600, whiteSpace: 'normal'}}>{CustomStringify(formState)}</code> */}
+//         </pre>
+//     );
+// };
 /** */
 const ComponentUsingFormState = () => {
     const formState = useFormState();
     return (
-        <pre>
-            <code style={{ wordBreak: 'break-all', width: 600, whiteSpace: 'normal' }}>{JSON.stringify(formState)}</code>
-            {/* <code style={{wordBreak:'break-all', width: 600, whiteSpace: 'normal'}}>{CustomStringify(formState)}</code> */}
-        </pre>
+        <div 
+            style={{
+                backgroundColor: '#f4f4f4',
+                borderRadius: '8px',
+                padding: '16px',
+                border: '1px solid #e0e0e0',
+                margin: '16px 0',
+            }}
+        >
+            <pre>
+                <code 
+                    style={{ 
+                        fontSize: '14px',
+                        lineHeight: '1.5',
+                        color: '#333',
+                        whiteSpace: 'pre-wrap',
+                        wordBreak: 'break-all'
+                    }}
+                >
+                    {JSON.stringify(formState, null, 2)}
+                </code>
+            </pre>
+        </div>
     );
 };
 
