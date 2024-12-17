@@ -7,6 +7,7 @@ const cssClasses = {
 
 const strings = {
     EXPAND_ACTION: [false, 'click', 'doubleClick'],
+    JSON_KEY_SPLIT: '_SEMI_TREE_SPLIT_',
 };
 
 const numbers = {};
