@@ -17,9 +17,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.72.0 (2024-12-20)
-- 【Feat】
-  - Added Json format error information prompt function [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
-  - JsonViewer Core package hot update problem [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
 - 【Fix】
   - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
   - Fix The problem that the code prompt box cannot be hidden when clicked [#2616](https://github.com/DouyinFE/semi-design/pull/2616)

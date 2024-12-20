@@ -14,15 +14,13 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 #### 🎉 2.72.0 (2024-12-20)
-- 【Feat】
-  - 新增Json格式错误信息提示功能 [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
-  - JsonViewer Core包热更新问题 [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
 - 【Fix】
   - 修复 JsonViewer使用中文输入法错误的问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
   - 修复 代码提示框点击无法隐藏的问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
   - 修复多次回车导致的渲染问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
   - 修复滚动条显示异常的问题 [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
-  - #### 🎉 2.72.0 (2024-12-20)
+
+#### 🎉 2.72.0 (2024-12-20)
 - 【PR Format Error】
   - 新增 JsonViewer E2E 测试  [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
 - 【Feat】
