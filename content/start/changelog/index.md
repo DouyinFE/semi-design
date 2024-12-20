@@ -20,14 +20,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
   - 修复多次回车导致的渲染问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
   - 修复滚动条显示异常的问题 [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
 
-#### 🎉 2.72.0 (2024-12-20)
-- 【PR Format Error】
-  - 新增 JsonViewer E2E 测试  [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
-- 【Feat】
-  - 新增Json格式错误信息提示功能 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
-  - JsonViewer Core包热更新问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
-- 【Fix】
-  - 修复Undo&Redo文本模型不同步问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
 #### 🎉 2.72.0-beta.0 (2024-12-16)
 - 【Feat】
     - Table onChange 新增 extra.changeType API，用于表示 change 类型  [#1238](https://github.com/DouyinFE/semi-design/issues/1238) [#2617](https://github.com/DouyinFE/semi-design/pull/2617)
