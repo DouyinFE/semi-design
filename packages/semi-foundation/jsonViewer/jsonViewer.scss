@@ -196,5 +196,9 @@ $module: #{$prefix}-json-viewer;
         cursor: pointer;
     }
 
-
+    &-error {
+        text-decoration: underline wavy var(--semi-color-danger);
+        text-decoration-thickness: 1px;
+        text-underline-position: under;
+    }
 }
