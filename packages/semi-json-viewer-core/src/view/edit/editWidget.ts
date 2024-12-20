@@ -17,6 +17,7 @@ export class EditWidget {
     private _selectionModel: SelectionModel;
     private _jsonModel: JSONModel;
     private _foldingModel: FoldingModel;
+    private _isComposition: boolean = false;
     private _autoClosingPairs: Record<string, string> = {
         '{': '}',
         '[': ']',
@@ -51,14 +52,20 @@ export class EditWidget {
             this._handleBeforeInput(e);
         });
 
+        this._view.contentDom.addEventListener('compositionstart', (e: CompositionEvent) => {
+            this._handleCompositionStart(e);
+        });
+
+        this._view.contentDom.addEventListener('compositionend', (e: CompositionEvent) => {
+            this._handleCompositionEnd(e);
+        });
+
         this._view.contentDom.addEventListener('keydown', (e: KeyboardEvent) => {
             this._handleKeyDown(e);
         });
     }
 
-    private _handleBeforeInput(e: InputEvent) {
-        e.preventDefault();
-        this._selectionModel.updateFromSelection();
+    private buildBaseOperation(type: IModelContentChangeEvent['type'] = 'insert') {
         const startRow = this._selectionModel.startRow;
         const startCol = this._selectionModel.startCol;
         const endRow = this._selectionModel.endRow;
@@ -66,7 +73,7 @@ export class EditWidget {
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
         const op: IModelContentChangeEvent = {
-            type: 'insert',
+            type,
             range: {
                 startLineNumber: startRow,
                 startColumn: startCol,
@@ -75,9 +82,50 @@ export class EditWidget {
             },
             rangeOffset: startOffset,
             rangeLength: endOffset - startOffset,
-            oldText: '',
+            oldText: this._jsonModel.getValueInRange({
+                startLineNumber: startRow,
+                startColumn: startCol,
+                endLineNumber: endRow,
+                endColumn: endCol,
+            } as Range),
             newText: '',
         };
+        if (this._selectionModel.isSelectedAll) {
+            op.range = {
+                startLineNumber: 1,
+                startColumn: 1,
+                endLineNumber: this._jsonModel.getLineCount(),
+                endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()) + 1,
+            };
+            op.rangeOffset = 0;
+            op.rangeLength = this._jsonModel.getValue().length;
+            op.oldText = this._jsonModel.getValue();
+        }
+        return op;
+    }
+
+    private _handleCompositionStart(e: CompositionEvent) {
+        e.preventDefault();
+        this._isComposition = true;
+        this._selectionModel.savePreviousSelection();
+    }
+
+    private _handleCompositionEnd(e: CompositionEvent) {
+        e.preventDefault();
+        this._isComposition = false;
+        this._selectionModel.restorePreviousSelection();
+        const op = this.buildBaseOperation('replace');
+        op.newText = e.data || '';
+        this._selectionModel.isSelectedAll = false;
+        this._jsonModel.applyOperation(op);
+    }
+
+    private _handleBeforeInput(e: InputEvent) {
+        if (this._isComposition) return;
+        e.preventDefault();
+        this._selectionModel.updateFromSelection();
+        const op = this.buildBaseOperation();
+        const { startLineNumber, startColumn, endLineNumber, endColumn } = op.range;
 
         switch (e.inputType) {
             case 'insertText':
@@ -87,37 +135,31 @@ export class EditWidget {
                     op.type = 'replace';
                 }
                 op.newText = e.data || '';
-                op.oldText = this._jsonModel.getValueInRange({
-                    startLineNumber: startRow,
-                    startColumn: startCol,
-                    endLineNumber: endRow,
-                    endColumn: endCol,
-                } as Range);
                 if (this._autoClosingPairs[op.newText]) {
                     op.newText += this._autoClosingPairs[op.newText];
                     op.keepPosition = {
-                        lineNumber: startRow,
-                        column: endCol + 1,
+                        lineNumber: startLineNumber,
+                        column: startColumn + 1,
                     };
                 }
                 break;
             case 'insertParagraph':
                 op.newText = '\n';
                 op.keepPosition = {
-                    lineNumber: startRow + 1,
+                    lineNumber: startLineNumber + 1,
                     column: 1,
                 };
                 const enterAction = processJsonEnterAction(this._jsonModel, {
-                    startLineNumber: startRow,
-                    startColumn: startCol,
-                    endLineNumber: endRow,
-                    endColumn: endCol,
+                    startLineNumber: startLineNumber,
+                    startColumn: startColumn,
+                    endLineNumber: endLineNumber,
+                    endColumn: endColumn,
                 } as Range);
                 if (enterAction) {
                     if (enterAction.indentAction === IndentAction.Indent) {
                         op.newText = '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
                         op.keepPosition = {
-                            lineNumber: startRow + 1,
+                            lineNumber: startLineNumber + 1,
                             column: enterAction.appendText.length + enterAction.indentation.length + 1,
                         };
                     } else {
@@ -125,64 +167,38 @@ export class EditWidget {
                         const increasedIndent = this.normalizeIndentation(enterAction.indentation + enterAction.appendText);
                         op.newText = '\n' + increasedIndent + '\n' + normalIndent;
                         op.keepPosition = {
-                            lineNumber: startRow + 1,
+                            lineNumber: startLineNumber + 1,
                             column: increasedIndent.length + 1,
                         };
                     }
                 } else {
-                    const lineText = this._jsonModel.getLineContent(startRow);
-                    const indentation = getLeadingWhitespace(lineText).substring(0, startCol - 1);
+                    const lineText = this._jsonModel.getLineContent(startLineNumber);
+                    const indentation = getLeadingWhitespace(lineText).substring(0, startColumn - 1);
                     op.newText = '\n' + this.normalizeIndentation(indentation) || '';
                     op.keepPosition = {
-                        lineNumber: startRow + 1,
+                        lineNumber: startLineNumber + 1,
                         column: indentation.length + 1,
                     };
                 }
                 break;
             case 'deleteContentBackward':
-                let oldText = '';
                 if (this._selectionModel.isCollapsed) {
-                    op.rangeOffset = startOffset - 1;
-                    oldText = this._jsonModel.getValueInRange({
-                        startLineNumber: startRow,
-                        startColumn: startCol - 1,
-                        endLineNumber: endRow,
-                        endColumn: endCol,
-                    } as Range);
-                } else {
-                    oldText = this._jsonModel.getValueInRange({
-                        startLineNumber: startRow,
-                        startColumn: startCol,
-                        endLineNumber: endRow,
-                        endColumn: endCol,
+                    op.rangeOffset -= 1;
+                    op.oldText = this._jsonModel.getValueInRange({
+                        startLineNumber: startLineNumber,
+                        startColumn: startColumn - 1,
+                        endLineNumber: endLineNumber,
+                        endColumn: endColumn,
                     } as Range);
                 }
-                op.oldText = oldText;
                 op.type = 'delete';
-                op.rangeLength = oldText.length;
+                op.rangeLength = op.oldText.length;
                 break;
             case 'insertFromPaste':
                 const pasteData = e.dataTransfer?.getData('text/plain');
                 op.type = 'replace';
                 op.newText = pasteData || '';
-                op.oldText = this._jsonModel.getValueInRange({
-                    startLineNumber: startRow,
-                    startColumn: startCol,
-                    endLineNumber: endRow,
-                    endColumn: endCol,
-                } as Range);
                 break;
-        }
-        if (this._selectionModel.isSelectedAll) {
-            op.range = {
-                startLineNumber: 1,
-                startColumn: 1,
-                endLineNumber: this._jsonModel.getLineCount(),
-                endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()),
-            };
-            op.rangeOffset = 0;
-            op.rangeLength = this._jsonModel.getValue().length;
-            op.oldText = this._jsonModel.getValue();
         }
         this._selectionModel.isSelectedAll = false;
 
@@ -267,6 +283,7 @@ export class EditWidget {
         const endCol = this._selectionModel.endCol;
         const startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
         const endOffset = this._jsonModel.getOffsetAt(endRow, endCol);
+        const op = this.buildBaseOperation();
         switch (e.key) {
             case 'Tab':
                 if (this._view.completeWidget.isVisible) {
@@ -285,19 +302,7 @@ export class EditWidget {
                 } else {
                     insertText = '\t';
                 }
-                const op: IModelContentChangeEvent = {
-                    type: 'insert',
-                    range: {
-                        startLineNumber: startRow,
-                        startColumn: startCol,
-                        endLineNumber: endRow,
-                        endColumn: endCol,
-                    },
-                    rangeOffset: startOffset,
-                    rangeLength: endOffset - startOffset,
-                    oldText: '',
-                    newText: insertText,
-                };
+                op.newText = insertText;
                 this._jsonModel.applyOperation(op);
                 break;
             case 'f':
@@ -349,63 +354,22 @@ export class EditWidget {
     }
 
     private _cutHandler() {
-        const startRow = this._selectionModel.startRow;
-        const startCol = this._selectionModel.startCol;
-        const endRow = this._selectionModel.endRow;
-        const endCol = this._selectionModel.endCol;
-        let startOffset;
-        let oldText = '';
-        const op: IModelContentChangeEvent = {
-            type: 'replace',
-            range: {
-                startLineNumber: startRow,
-                startColumn: startCol,
-                endLineNumber: endRow,
-                endColumn: endCol,
-            },
-            rangeOffset: 0,
-            rangeLength: 0,
-            oldText: '',
-            newText: '',
-        };
-        if (!this._selectionModel.isCollapsed) {
-            oldText = this._jsonModel.getValueInRange({
-                startLineNumber: startRow,
-                startColumn: startCol,
-                endLineNumber: endRow,
-                endColumn: endCol,
-            } as Range);
-            startOffset = this._jsonModel.getOffsetAt(startRow, startCol);
-        } else {
-            oldText = this._jsonModel.getValueInRange({
-                startLineNumber: startRow,
+        const op = this.buildBaseOperation('replace');
+        if (this._selectionModel.isCollapsed) {
+            const { startLineNumber, endLineNumber } = op.range;
+            op.rangeOffset = this._jsonModel.getOffsetAt(startLineNumber, 1);
+            op.oldText = this._jsonModel.getValueInRange({
+                startLineNumber,
                 startColumn: 1,
-                endLineNumber: endRow,
-                endColumn: this._jsonModel.getLineLength(endRow) + 1,
+                endLineNumber,
+                endColumn: this._jsonModel.getLineLength(endLineNumber) + 1,
             } as Range);
             op.range = {
-                startLineNumber: startRow,
+                startLineNumber,
                 startColumn: 1,
-                endLineNumber: endRow,
-                endColumn: this._jsonModel.getLineLength(endRow) + 1,
+                endLineNumber,
+                endColumn: this._jsonModel.getLineLength(endLineNumber) + 1,
             };
-            startOffset = this._jsonModel.getOffsetAt(startRow, 1);
-        }
-
-        op.oldText = oldText;
-        op.rangeOffset = startOffset;
-        op.rangeLength = oldText.length;
-
-        if (this._selectionModel.isSelectedAll) {
-            op.range = {
-                startLineNumber: 1,
-                startColumn: 1,
-                endLineNumber: this._jsonModel.getLineCount(),
-                endColumn: this._jsonModel.getLineLength(this._jsonModel.getLineCount()) + 1,
-            };
-            op.rangeOffset = 0;
-            op.rangeLength = this._jsonModel.getValue().length;
-            op.oldText = this._jsonModel.getValue();
         }
         navigator.clipboard.writeText(op.oldText);
         this._jsonModel.applyOperation(op);

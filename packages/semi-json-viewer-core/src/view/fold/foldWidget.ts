@@ -8,6 +8,7 @@ import { FoldingModel } from '../../model/foldingModel';
 export class FoldWidget {
     private _view: View;
     private _foldingModel: FoldingModel;
+    private _isMouseOver: boolean = false;
 
     constructor(view: View, foldingModel: FoldingModel) {
         this._view = view;
@@ -26,13 +27,16 @@ export class FoldWidget {
 
     private _handleLineNumberHover(e: MouseEvent) {
         this._showFoldingIcon();
+        this._isMouseOver = true;
     }
 
     private _handleLineNumberContainerLeave() {
         this.removeAllFoldingIcons();
+        this._isMouseOver = false;
     }
 
     private _showFoldingIcon() {
+        if (this._isMouseOver) return;
         const lineNumberElement = this._view.lineScrollDom.children;
         for (let i = 0; i < lineNumberElement.length; i++) {
             const element: HTMLElement = lineNumberElement[i] as HTMLElement;
@@ -86,6 +90,7 @@ export class FoldWidget {
             this._foldingModel.toggleFoldingRange(lineNumber);
             this._view.scalingCellSizeAndPositionManager.resetCell(0);
             this._view.layout();
+            this._isMouseOver = false;
         });
 
         return foldingIcon;
