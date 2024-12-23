@@ -23,6 +23,7 @@ const order = [
     'space',
     'chat',
     'codehighlight',
+    "cropper",
     "markdownrender",
     "dragMove",
     "jsonviewer",
