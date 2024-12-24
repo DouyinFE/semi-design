@@ -8,7 +8,7 @@ import Dropdown from '../dropdown';
 import Image from '../image';
 import Tooltip from '../tooltip';
 import Popover from '../popover';
-import { IconBackward, IconFastForward, IconMiniPlayer, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2 } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconBackward, IconFastForward, IconMiniPlayer, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2 } from '@douyinfe/semi-icons';
 import AudioSlider from './audioSlider';
 import AudioPlayerFoundation from '@douyinfe/semi-foundation/audioPlayer/foundation';
 import { AudioPlayerAdapter } from '@douyinfe/semi-foundation/audioPlayer/foundation';
@@ -25,12 +25,14 @@ type AudioInfoArray = AudioInfo[]
 
 type AudioUrl = AudioSrc | AudioSrcArray | AudioInfo | AudioInfoArray
 
+type AudioPlayerTheme = 'dark' | 'light'
+
 export interface AudioPlayerProps extends BaseProps {
     audioUrl: AudioUrl;
     autoPlay: boolean;
     showToolbar?: boolean;
     skipDuration?: number;
-    theme?: 'dark' | 'light';
+    theme?: AudioPlayerTheme;
     className?: string;
     style?: React.CSSProperties
 }
@@ -41,7 +43,8 @@ export interface AudioPlayerState {
     totalTime: number;
     currentTime: number;
     currentRate: { label: string; value: number };
-    volume: number
+    volume: number;
+    error: boolean
 }
 
 
@@ -74,6 +77,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
             currentTime: 0,
             currentRate: { label: '1.0x', value: 1 },
             volume: 100,
+            error: false,
         };
         this.audioRef = React.createRef<HTMLAudioElement>();
         this.foundation = new AudioPlayerFoundation(this.adapter);
@@ -89,6 +93,11 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                             totalTime: this.audioRef.current?.duration || 0,
                             volume: this.audioRef.current?.volume * 100 || 100,
                             currentRate: { label: '1.0x', value: this.audioRef.current?.playbackRate || 1 },
+                        });
+                    });
+                    this.audioRef.current.addEventListener('error', () => {
+                        this.setState({
+                            error: true,
                         });
                     });
                 }
@@ -132,10 +141,12 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     if (direction === 'next') {
                         this.setState({
                             currentIndex: (this.state.currentIndex + 1) % audioUrl.length,
+                            error: false,
                         });
                     } else {
                         this.setState({
                             currentIndex: (this.state.currentIndex - 1 + audioUrl.length) % audioUrl.length,
+                            error: false,
                         });
                     }
                 }
@@ -150,10 +161,14 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
             },
             handleRefresh: () => {
                 if (!this.audioRef.current) return;
-                this.audioRef.current.currentTime = 0;
-                this.setState({
-                    currentTime: 0,
-                });
+                if (this.state.error) {
+                    this.audioRef.current.load();
+                } else {
+                    this.audioRef.current.currentTime = 0;
+                    this.setState({
+                        currentTime: 0,
+                    });
+                }
             },
             handleSpeedChange: (value: { label: string; value: number }) => {
                 if (!this.audioRef.current) return;
@@ -180,6 +195,10 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                 });
             },
         };
+    }
+
+    componentDidMount() {
+        this.foundation.initAudio();
     }
 
     handleStatusClick = () => {
@@ -214,11 +233,6 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         this.foundation.handleVolumeChange(value);
     }
 
-
-    componentDidMount() {
-        this.foundation.initAudio();
-    }
-
     getAudioInfo = (audioUrl: AudioUrl) => {
         const isAudioUrlArray = Array.isArray(audioUrl);
         if (isAudioUrlArray) {
@@ -235,11 +249,9 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         }
     }
 
-    render() {
-        const { audioUrl, autoPlay, className, style, showToolbar = true, skipDuration = 10, theme = 'dark' } = this.props as AudioPlayerProps;
-        const { currentTime, totalTime, volume } = this.state;
-        const isAudioUrlArray = Array.isArray(audioUrl);
-        const { src, audioTitle, audioCover } = this.getAudioInfo(audioUrl);
+    renderControl = () => {
+        const { error } = this.state;
+        const isAudioUrlArray = Array.isArray(this.props.audioUrl);
         const iconClass = cls(`${prefixCls}-control-button-icon`);
         const circleStyle = {
             borderRadius: '50%',
@@ -247,70 +259,97 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         const transparentStyle = {
             background: 'transparent',
         };
+        return <div className={cls(`${prefixCls}-control`)}>
+            {isAudioUrlArray && <Tooltip content='Previous' autoAdjustOverflow showArrow={false}>
+                <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' className={iconClass} />} onClick={() => this.handleTrackChange('prev')} />
+            </Tooltip>}
+            <Button style={circleStyle} size='large' disabled={error} onClick={this.handleStatusClick} icon={this.state.isPlaying ? <IconPause size='large' /> : <IconPlay size='large' />} className={cls(`${cssClasses.PREFIX}-control-button-play`, { [`${cssClasses.PREFIX}-control-button-play-disabled`]: error })} />
+            {isAudioUrlArray && <Tooltip content='Next' autoAdjustOverflow showArrow={false}>
+                <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' rotate={180} className={iconClass} />} onClick={() => this.handleTrackChange('next')} />
+            </Tooltip>}
+        </div>;
+    }
+
+    renderInfo = () => {
+        const { audioTitle, audioCover } = this.getAudioInfo(this.props.audioUrl);
+        const { currentTime, totalTime, error } = this.state;
+        return <div className={cls(`${prefixCls}-info-container`)}>
+            {audioCover && <Image src={audioCover} width={50} height={50} />}
+            <div className={cls(`${prefixCls}-info`)}>
+                {audioTitle && <div className={cls(`${prefixCls}-info-title`)}>{audioTitle}{error && this.renderError()}</div>}
+                {!error && <div className={cls(`${prefixCls}-info-time`)}>
+                    <span style={{ width: '38px' }}>{formatTime(currentTime)}</span>
+                    <div className={cls(`${prefixCls}-slider-container`)}>
+                        <AudioSlider value={currentTime} max={totalTime} onChange={this.handleTimeChange} />
+                    </div>
+                    <span style={{ width: '38px' }}>{formatTime(totalTime)}</span>
+                </div>}
+            </div>
+        </div>;
+    }
+
+    renderToolbar = () => {
+        const { volume, error } = this.state;
+        const { skipDuration = 10 } = this.props;
+        const iconClass = cls(`${prefixCls}-control-button-icon`);
+        const transparentStyle = {
+            background: 'transparent',
+        };
+        return !error ? (<div className={cls(`${prefixCls}-control`)}>
+            <Popover content={
+                <div className={cls(`${prefixCls}-control-volume`)}>
+                    <div className={cls(`${prefixCls}-control-volume-title`)}>{volume}%</div>
+                    <AudioSlider value={volume} max={100} vertical height={120} showTooltip={false} onChange={this.handleVolumeChange} />
+                </div>
+            }>
+                <Button style={transparentStyle} icon={<IconVolume2 className={iconClass} />} />
+            </Popover>
+            <Tooltip content={`Backward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
+                <Button
+                    style={transparentStyle}
+                    icon={<IconBackward className={iconClass} />}
+                    onClick={() => this.handleSeek(-1)}
+                />
+            </Tooltip>
+            <Tooltip content={`Forward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
+                <Button
+                    style={transparentStyle}
+                    icon={<IconFastForward className={iconClass} />}
+                    onClick={() => this.handleSeek(1)}
+                />
+            </Tooltip>
+            <Dropdown render={<Dropdown.Menu className={cls(`${prefixCls}-control-speed-menu`)}>
+                {this.rateOptions.map((option) => (
+                    <Dropdown.Item className={cls(`${prefixCls}-control-speed-menu-item`)} key={option.value} onClick={() => this.handleSpeedChange(option)} active={option.value === this.state.currentRate.value}>
+                        {option.label}
+                    </Dropdown.Item>
+                ))}
+            </Dropdown.Menu>} onChange={this.handleSpeedChange}>
+                <div className={cls(`${prefixCls}-control-speed`)}>
+                    <span>{this.state.currentRate.label}</span>
+                </div>
+            </Dropdown>
+            <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
+            <Button style={transparentStyle} icon={<IconMiniPlayer className={iconClass} />} />
+        </div>) : (<div className={cls(`${prefixCls}-control`)}>
+            <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
+        </div>);
+    }
+
+
+    renderError = () => <div className={cls(`${prefixCls}-error`)}><IconAlertCircle size='large' />音频加载失败</div>
+
+    render() {
+        const { audioUrl, autoPlay, className, style, showToolbar = true, theme = 'dark' } = this.props as AudioPlayerProps;
+        const src = this.getAudioInfo(audioUrl).src;
         return (
             <div className={cls(prefixCls, className, `${prefixCls}-${theme}`)} style={style}>
                 <audio src={src} autoPlay={autoPlay} className={cls(prefixCls, className)} style={style} ref={this.audioRef} onTimeUpdate={this.handleTimeUpdate}>
                     <track kind="captions" src={src} />
                 </audio>
-                <div className={cls(`${prefixCls}-control`)}>
-                    {isAudioUrlArray && <Tooltip content='Previous' autoAdjustOverflow showArrow={false}>
-                        <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' className={iconClass} />} onClick={() => this.handleTrackChange('prev')} />
-                    </Tooltip>}
-                    <Button style={circleStyle} size='large' onClick={this.handleStatusClick} icon={this.state.isPlaying ? <IconPause size='large' /> : <IconPlay size='large' />} className={cls(`${cssClasses.PREFIX}-control-button-play`)} />
-                    {isAudioUrlArray && <Tooltip content='Next' autoAdjustOverflow showArrow={false}>
-                        <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' rotate={180} className={iconClass} />} onClick={() => this.handleTrackChange('next')} />
-                    </Tooltip>}
-                </div>
-                <div className={cls(`${prefixCls}-info-cover`)}>
-                    {audioCover && <Image src={audioCover} width={50} height={50} />}
-                    <div className={cls(`${prefixCls}-info`)}>
-                        {audioTitle && <div className={cls(`${prefixCls}-info-title`)}>{audioTitle}</div>}
-                        <div className={cls(`${prefixCls}-info-time`)}>
-                            <span>{formatTime(currentTime)}</span>
-                            <div className={cls(`${prefixCls}-slider-container`)}>
-                                <AudioSlider value={currentTime} max={totalTime} onChange={this.handleTimeChange} />
-                            </div>
-                            <span>{formatTime(totalTime)}</span>
-                        </div>
-                    </div>
-                </div>
-                {showToolbar && <div className={cls(`${prefixCls}-control`)}>
-                    <Popover content={
-                        <div className={cls(`${prefixCls}-control-volume`)}>
-                            <div className={cls(`${prefixCls}-control-volume-title`)}>{volume}%</div>
-                            <AudioSlider value={volume} max={100} vertical height={120} showTooltip={false} onChange={this.handleVolumeChange} />
-                        </div>
-                    }>
-                        <Button style={transparentStyle} icon={<IconVolume2 className={iconClass} />} />
-                    </Popover>
-                    <Tooltip content={`Backward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
-                        <Button
-                            style={transparentStyle}
-                            icon={<IconBackward className={iconClass} />}
-                            onClick={() => this.handleSeek(-1)}
-                        />
-                    </Tooltip>
-                    <Tooltip content={`Forward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
-                        <Button
-                            style={transparentStyle}
-                            icon={<IconFastForward className={iconClass} />}
-                            onClick={() => this.handleSeek(1)}
-                        />
-                    </Tooltip>
-                    <Dropdown render={<Dropdown.Menu className={cls(`${prefixCls}-control-speed-menu`)}>
-                        {this.rateOptions.map((option) => (
-                            <Dropdown.Item className={cls(`${prefixCls}-control-speed-menu-item`)} key={option.value} onClick={() => this.handleSpeedChange(option)} active={option.value === this.state.currentRate.value}>
-                                {option.label}
-                            </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>} onChange={this.handleSpeedChange}>
-                        <div className={cls(`${prefixCls}-control-speed`)}>
-                            <span>{this.state.currentRate.label}</span>
-                        </div>
-                    </Dropdown>
-                    <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
-                    <Button style={transparentStyle} icon={<IconMiniPlayer className={iconClass} />} />
-                </div>}
+                {this.renderControl()}
+                {this.renderInfo()}
+                {showToolbar && this.renderToolbar()}
             </div>
         );
     }

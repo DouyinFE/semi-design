@@ -78,7 +78,6 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
         const total = this.props.vertical ? rect.height : rect.width;
         const percentage = Math.min(Math.max(offset / total, 0), 1);
         const value = percentage * this.props.max;
-
         if (shouldSetValue && (this.state.isDragging || e.type === 'mousedown')) {
             this.props.onChange(value);
         }
@@ -110,15 +109,16 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 onMouseMove={this.handleMouseMove}
-                style={{
-                    cursor: 'pointer'
-                }}
+                className={cls(`${prefixCls}-slider-wrapper`, {
+                    [`${prefixCls}-slider-wrapper-vertical`]: vertical,
+                    [`${prefixCls}-slider-wrapper-horizontal`]: !vertical,
+                })}
             >
                 <div
                     ref={this.sliderRef}
-                    className={cls(`${prefixCls}-slide`, {
-                        [`${prefixCls}-slide-vertical`]: vertical,
-                        [`${prefixCls}-slide-horizontal`]: !vertical,
+                    className={cls(`${prefixCls}-slider`, {
+                        [`${prefixCls}-slider-vertical`]: vertical,
+                        [`${prefixCls}-slider-horizontal`]: !vertical,
                     })}
                     style={{
                         width: vertical ? (isHovering ? 8 : 4) : width,
@@ -126,9 +126,9 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
                     }}
                 >
                     <div
-                        className={cls(`${prefixCls}-slide-progress`, {
-                            [`${prefixCls}-slide-progress-vertical`]: vertical,
-                            [`${prefixCls}-slide-progress-horizontal`]: !vertical,
+                        className={cls(`${prefixCls}-slider-progress`, {
+                            [`${prefixCls}-slider-progress-vertical`]: vertical,
+                            [`${prefixCls}-slider-progress-horizontal`]: !vertical,
                         })}
                         style={{
                             height: vertical ? `${(currentValue / max) * 100}%` : '100%',
@@ -137,7 +137,7 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
                     />
                     <div
                         ref={this.handleRef}
-                        className={cls(`${prefixCls}-slide-dot`)}
+                        className={cls(`${prefixCls}-slider-dot`)}
                         style={{
                             left: vertical ? '50%' : `calc(${(currentValue / max) * 100}% - 8px)`,
                             bottom: vertical ? `calc(${(currentValue / max) * 100}% - 8px)` : undefined,
