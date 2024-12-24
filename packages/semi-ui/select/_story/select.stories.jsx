@@ -3743,11 +3743,11 @@ export const FilterVirtualizedOptGroupSelect = () => {
       defaultOpen
       value={value}
       onChange={val => setValue(val)}
-      // virtualize={{
-      //   height: 300,
-      //   width: '100%',
-      //   itemSize: 36,
-      // }}
+      virtualize={{
+        height: 300,
+        width: '100%',
+        itemSize: 36,
+      }}
     >
       <Select.OptGroup label="Asia" virtualize>
         {asiaOptions.map(option => (
