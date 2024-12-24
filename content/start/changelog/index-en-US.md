@@ -16,6 +16,36 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.72.0 (2024-12-20)
+- 【Fix】
+  - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fix The problem that the code prompt box cannot be hidden when clicked [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the rendering problem caused by multiple carriage returns [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the abnormal display of the scroll bar [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
+
+#### 🎉 2.72.0-beta.0 (2024-12-16)
+- 【Feat】
+    - Table onChange add extra.changeType API to idetify the type of changing  [#1238](https://github.com/DouyinFE/semi-design/issues/1238)
+- 【Fix】
+    - fix render state value in Carousel children always get the init one
+
+#### 🎉 2.71.3 (2024-12-17)
+- 【Fix】
+    - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
+    - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
+    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time.[#2624](https://github.com/DouyinFE/semi-design/pull/2624)
+
+#### 🎉 2.71.2 (2024-12-13)
+- 【Fix】
+    - Remove redundant calculations to determine whether the properties have changed when the Collapsible component is updated. [#2631](https://github.com/DouyinFE/semi-design/pull/2631)
+    - Fixed the issue where in react18, regardless of whether animation is on or not, when the mouse is quickly moved over the tooltip trigger, the DOM would become transparent but not disappear, causing the page element to be unclickable [#2605](https://github.com/DouyinFE/semi-design/pull/2605)
+    - Fixed the problem that the dynamic mode change of the Chat component did not take effect [#2625](https://github.com/DouyinFE/semi-design/pull/2625)
+    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time. [#2624](https://github.com/DouyinFE/semi-design/pull/2624)
+
+#### 🎉 2.71.1 (2024-12-11)
+- 【Feat】
+    - Button icon mode add $height-button_iconOnly_small $width-button_iconOnly_small $height-button_iconOnly_default $width-button_iconOnly_default $height-button_iconOnly_large $width-button_iconOnly_large token [#2618](https://github.com/DouyinFE/semi-design/pull/2618)
+
 #### 🎉 2.71.0 (2024-12-06)
 - 【Fix】
     - For invisible Tooltips, position calculation is not performed when resizing [#2606](https://github.com/DouyinFE/semi-design/pull/2606)

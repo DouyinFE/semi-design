@@ -149,6 +149,17 @@ Semi UI 支持所有主流浏览器。
 
 感谢 [Cypress](https://www.cypress.io/) 提供 E2E 测试。
 
+<div>
+  <a href="https://github.com/VisActor#gh-light-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="60" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_light.svg"/>
+  </a>
+  <a href="https://github.com/VisActor#gh-dark-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="60" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_dark.svg"/>
+  </a>
+</div>
+
+感谢 [VisActor](https://www.visactor.com/) 提供数据可视化解决方案。
+
 ## 👐 参与共建
 Semi Design 欢迎社区开发者参与共建，衷心感谢每一位协作者的付出
 

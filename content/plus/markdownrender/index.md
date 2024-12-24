@@ -23,6 +23,8 @@ Semi 提供的 MarkdownRender 组件支持渲染 Markdown 和 MDX，无需特别
 - 偏内容展示的轻交互网站
 
 
+**注意：Safari 16.3 之前的版本不支持正则环视断言，会导致上游依赖 mdxjs [报错]( https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/issues/10)，可以传入 remarkGfm 为 false 关闭 gfm 语法解析（会导致table 等markdown 特性无法解析），并且在项目编译时使用 null-loader 或 alias 其他方式忽略掉 remark-gfm 这个包。**
+
 ## 代码演示
 
 ### 如何引入

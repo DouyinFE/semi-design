@@ -162,6 +162,19 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 
 Thanks to [Cypress](https://www.cypress.io/) for providing E2E testing.
 
+
+<div>
+  <a href="https://www.visactor.com#gh-light-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="30" src="https://lf-dp.bytetos.com/obj/dp-open-internet-cn/visactor-site/bytedance/client/img/visactor/navigator-logo.svg"/>
+  </a>
+  <a href="https://www.visactor.com#gh-dark-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="30" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_dark.svg"/>
+  </a>
+</div>
+
+Thanks to [VisActor](https://www.visactor.com/) for providing the data visualization solution.
+
+
 ## 👐 Contributing
 Thanks to all the people who already contributed!
 
