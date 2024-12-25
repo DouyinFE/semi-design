@@ -8,7 +8,7 @@ import Dropdown from '../dropdown';
 import Image from '../image';
 import Tooltip from '../tooltip';
 import Popover from '../popover';
-import { IconAlertCircle, IconBackward, IconFastForward, IconMiniPlayer, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2 } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconBackward, IconFastForward, IconMiniPlayer, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2, IconVolumnSilent } from '@douyinfe/semi-icons';
 import AudioSlider from './audioSlider';
 import AudioPlayerFoundation from '@douyinfe/semi-foundation/audioPlayer/foundation';
 import { AudioPlayerAdapter } from '@douyinfe/semi-foundation/audioPlayer/foundation';
@@ -100,6 +100,16 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                             error: true,
                         });
                     });
+                    this.audioRef.current.addEventListener('ended', () => {
+                        console.log('ended');
+                        if (Array.isArray(this.props.audioUrl)) {
+                            this.handleTrackChange('next');
+                        } else {
+                            this.setState({
+                                isPlaying: false,
+                            });
+                        }
+                    });
                 }
             },
             handleStatusClick: () => {
@@ -188,7 +198,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
             },
             handleVolumeChange: (value: number) => {
                 if (!this.audioRef.current) return;
-                const volume = Math.round(value);
+                const volume = Math.floor(value);
                 this.audioRef.current.volume = volume / 100;
                 this.setState({
                     volume: volume,
@@ -231,6 +241,14 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
 
     handleVolumeChange = (value: number) => {
         this.foundation.handleVolumeChange(value);
+    }
+
+    handleVolumeSilent = () => {
+        if (!this.audioRef.current) return;
+        this.audioRef.current.volume = this.state.volume === 0 ? 0.5 : 0;
+        this.setState({
+            volume: this.state.volume === 0 ? 50 : 0,
+        });
     }
 
     getAudioInfo = (audioUrl: AudioUrl) => {
@@ -295,6 +313,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         const transparentStyle = {
             background: 'transparent',
         };
+        const isVolumeSilent = volume === 0;
         return !error ? (<div className={cls(`${prefixCls}-control`)}>
             <Popover content={
                 <div className={cls(`${prefixCls}-control-volume`)}>
@@ -302,7 +321,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     <AudioSlider value={volume} max={100} vertical height={120} showTooltip={false} onChange={this.handleVolumeChange} />
                 </div>
             }>
-                <Button style={transparentStyle} icon={<IconVolume2 className={iconClass} />} />
+                <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />
             </Popover>
             <Tooltip content={`Backward ${skipDuration}s`} autoAdjustOverflow showArrow={false}>
                 <Button
@@ -330,7 +349,6 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                 </div>
             </Dropdown>
             <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
-            <Button style={transparentStyle} icon={<IconMiniPlayer className={iconClass} />} />
         </div>) : (<div className={cls(`${prefixCls}-control`)}>
             <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
         </div>);

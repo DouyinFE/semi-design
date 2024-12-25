@@ -20,7 +20,7 @@ export const DefaultAutoPlay = () => {
         {
             title: '音频标题1',
             cover: 'https://picsum.photos/50/50',
-            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp',
         },
         {
             title: '音频标题2',
@@ -34,12 +34,10 @@ export const DefaultAutoPlay = () => {
         },
     ];
     return (
-        <div style={{ width: 300 }}>
+        <div>
             <AudioPlayer
                 autoPlay={false}
                 audioUrl={audioInfoArray}
-                skipDuration={20}
-                theme='light'
             />
         </div>
     );

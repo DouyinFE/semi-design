@@ -159,7 +159,6 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
                 content={formatTime(movingInfo?.progress * max)}
                 style={{
                     [vertical ? 'top' : 'left']: movingInfo?.offset,
-                    [vertical ? 'right' : 'top']: -10
                 }}
             >
                 {sliderContent}
