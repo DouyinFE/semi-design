@@ -88,6 +88,7 @@ const order = [
     'configprovider',
     'locale',
     'jsonviewer',
+    'audioPlayer',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');
