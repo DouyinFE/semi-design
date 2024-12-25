@@ -29,24 +29,24 @@ import React from 'react';
 import { AudioPlayer } from '@douyinfe/semi-ui';
 
 function Demo() {
-    const audioUrl = 'http://music.163.com/song/media/outer/url?id=447925558.mp3';
+    const audioUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3';
     const audioUrlArr = [
-        'http://music.163.com/song/media/outer/url?id=447925558.mp3',
-        'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
+        'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3',
     ];
     const audioUrlObj = {
-        src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+        src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
         title: '音频标题',
         cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
     };
     const audioUrlArrObj = [
         {
-            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+            src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
             title: '音频标题1',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
         {
-            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+            src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3',
             title: '音频标题2',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
@@ -98,7 +98,7 @@ import { AudioPlayer } from '@douyinfe/semi-ui';
 
 function Demo() {
     const audioUrlObj = {
-        src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+        src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
         title: '音频标题'
     };
   
@@ -129,12 +129,12 @@ import { AudioPlayer } from '@douyinfe/semi-ui';
 function Demo() {
     const audioUrlArrObj = [
         {
-            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+            src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
             title: '音频标题1',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
         {
-            src: 'http://music.163.com/song/media/outer/url?id=447925558.mp3',
+            src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3',
             title: '音频标题2',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
