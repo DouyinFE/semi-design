@@ -353,3 +353,42 @@ export const CustomArrowIconDemo = () => <CustomArrowIcon></CustomArrowIcon>
 CustomArrowIconDemo.story = {
   name: 'CustomArrowIcon'
 }
+
+
+class DisabledSub extends React.Component {
+    render() {
+        return (
+            <Nav
+                style={{ height: 520 }}
+                bodyStyle={{ height: 300 }}
+                items={[
+                    {
+                        text: '任务平台',
+                        itemKey: '1',
+                        icon: <IconMail />,
+                        items: [{
+                            text: '任务平台1',
+                            disabled: true,
+                            itemKey: '11',
+                            items: ['任务1管理', '用户2任务查询'],
+                        }, {
+                            text: '任务平台2',
+                            disabled: true,
+                            itemKey: '12',
+                            items: ['任务11管理', '用户22任务查询'],
+                        }],
+                    },
+                ]}
+                onSelect={key => console.log(key)}
+                footer={{
+                    collapseButton: true,
+                }}
+            />
+        );
+    }
+}
+
+export const DisabledSubDemo = () => <DisabledSub></DisabledSub>
+DisabledSubDemo.story = {
+  name: 'DisabledSubDemo'
+}

@@ -13,12 +13,24 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.72.0 (2024-12-20)
+- 【Fix】
+  - 修复 JsonViewer使用中文输入法错误的问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - 修复 代码提示框点击无法隐藏的问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - 修复多次回车导致的渲染问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - 修复滚动条显示异常的问题 [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
 
 #### 🎉 2.72.0-beta.0 (2024-12-16)
 - 【Feat】
     - Table onChange 新增 extra.changeType API，用于表示 change 类型  [#1238](https://github.com/DouyinFE/semi-design/issues/1238) [#2617](https://github.com/DouyinFE/semi-design/pull/2617)
 - 【Fix】
     - 修复 Carousel 在 children 中渲染 state 的值不更新问题 [#2634](https://github.com/DouyinFE/semi-design/pull/2634)
+
+#### 🎉 2.71.3 (2024-12-17)
+- 【Fix】
+  - 修复 Tree 组件 treeDataSimpleJson 模式下，onChange 回调结果错误问题  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508) [#2601](https://github.com/DouyinFE/semi-design/pull/2601)
+  - 修复竖向 Navigation 在收起状态下 disabled subNavItem 展示不符合预期问题 [#2637](https://github.com/DouyinFE/semi-design/pull/2637)
+  - 设置图片预览的 img 节点的 max-width 为none，避免同时使用 tailwind 时放大显示错误问题[#2624](https://github.com/DouyinFE/semi-design/pull/2624)_
 
 
 #### 🎉 2.71.2 (2024-12-13)

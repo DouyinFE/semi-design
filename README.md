@@ -51,7 +51,7 @@ English | [简体中文](./README-zh_CN.md)
 
 # 🎉 Features
 
-- 💪 Up to 60+ high-quality Components. Stable update since 2019
+- 💪 Up to 70+ high-quality Components. Stable update since 2019
 - 🚀 Official Design to Code (D2C) support, convert figma draft to real code in a few seconds
 - 💅 Code to Design (C2D), automatically generate Figma UI Kit according to different themes, keep same between design and code
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
@@ -161,6 +161,19 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 <a href="https://www.cypress.io/"><img src="https://user-images.githubusercontent.com/26477537/147624641-1274a91d-bc4c-463e-af1a-dbf15de54c49.png" width="90" height="30" alt="Cypress" /></a>
 
 Thanks to [Cypress](https://www.cypress.io/) for providing E2E testing.
+
+
+<div>
+  <a href="https://www.visactor.com#gh-light-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="30" src="https://lf-dp.bytetos.com/obj/dp-open-internet-cn/visactor-site/bytedance/client/img/visactor/navigator-logo.svg"/>
+  </a>
+  <a href="https://www.visactor.com#gh-dark-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="30" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_dark.svg"/>
+  </a>
+</div>
+
+Thanks to [VisActor](https://www.visactor.com/) for providing the data visualization solution.
+
 
 ## 👐 Contributing
 Thanks to all the people who already contributed!

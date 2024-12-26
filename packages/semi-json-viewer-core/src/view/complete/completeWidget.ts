@@ -199,6 +199,7 @@ export class CompleteWidget {
     }
 
     public hide() {
+        if (!this.isVisible) return;
         this.isVisible = false;
         this._container.style.display = 'none';
         this._suggestions = [];
