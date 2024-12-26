@@ -12,6 +12,7 @@ import { setCurrentNameSpaceId } from '../common/nameSpace';
 export interface JsonViewerOptions {
     lineHeight?: number;
     autoWrap?: boolean;
+    readOnly?: boolean;
     formatOptions?: FormattingOptions;
     completionOptions?: CompletionOptions
 }

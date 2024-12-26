@@ -233,9 +233,11 @@ export class View {
             overflowY: 'scroll',
             outline: 'none',
         });
-        contentContainer.contentEditable = 'true';
-        contentContainer.style.caretColor = 'black';
-        contentContainer.spellcheck = false;
+        if (!this._options?.readOnly) {
+            contentContainer.contentEditable = 'true';
+            contentContainer.style.caretColor = 'black';
+            contentContainer.spellcheck = false;
+        }
         return contentContainer;
     }
 
