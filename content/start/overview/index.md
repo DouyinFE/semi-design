@@ -25,7 +25,9 @@ CodeHighlight 代码高亮,
 Markdown 渲染器,
 Lottie 动画,
 Chat 聊天,
-HotKeys 快捷键
+HotKeys 快捷键,
+JsonViewer Json编辑器,
+AudioPlayer 音频播放器
 ```
 
 ## 输入类
