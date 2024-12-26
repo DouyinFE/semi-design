@@ -12,7 +12,6 @@ showNew: true
 ## 代码演示
 
 ### 如何引入
-AudioPlayer 从  开始支持
 
 ```jsx import
 import { AudioPlayer } from '@douyinfe/semi-ui';
@@ -162,8 +161,8 @@ render(Demo);
 |-------------------|------------------------------------------------|---------------------------------|--------------|
 | audioUrl             | 音频地址                                    | string ｜ string[] ｜ AudioInfo ｜ AudioInfo[]                                 | -  |
 | autoPlay            | 自动播放                                     | boolean                                  | false  |
-| theme             | 主题                                     | string                                  | dark  |
-| showToolbar       | 是否显示工具栏                           | boolean                                  | false   |
+| theme             | 主题,可选值：`dark` 和 `light`                  | string        |                         "dark"  |
+| showToolbar       | 是否显示工具栏                           | boolean                                  | true      |
 | skipDuration       | 跳转时间                                     | number                                  | 10   |
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
