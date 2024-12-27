@@ -350,6 +350,12 @@ export class EditWidget {
                     this._jsonModel.redo();
                 }
                 break;
+            case 'c':
+                if (e.metaKey) {
+                    e.preventDefault();
+                    this._copyHandler();
+                }
+                break;
         }
     }
 
@@ -373,5 +379,11 @@ export class EditWidget {
         }
         navigator.clipboard.writeText(op.oldText);
         this._jsonModel.applyOperation(op);
+    }
+
+    private _copyHandler() {
+        const op = this.buildBaseOperation('replace');
+        console.log(op);
+        navigator.clipboard.writeText(op.oldText);
     }
 }
