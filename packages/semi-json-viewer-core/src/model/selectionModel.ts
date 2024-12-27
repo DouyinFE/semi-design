@@ -99,10 +99,6 @@ export class SelectionModel {
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
 
-        if (row < this._view.startLineNumber || row > this._view.startLineNumber + this._view.visibleLineCount) {
-            selection.removeAllRanges();
-            return;
-        }
         const lineElement = this._view.getLineElement(row);
         if (!lineElement) return;
         if (col === 0) {
