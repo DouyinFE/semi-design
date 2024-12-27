@@ -39,7 +39,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
             [`${PREFIX_CHAT_BOX}-content-user`]: (bubble && isUser) || userBubble,
             [`${PREFIX_CHAT_BOX}-content-error`]: status === MESSAGE_STATUS.ERROR && (bubble || userBubble)
         });
-    }, [role, status]);
+    }, [role, status, mode]);
 
     const node = useMemo(() => {
         if (status === MESSAGE_STATUS.LOADING) {

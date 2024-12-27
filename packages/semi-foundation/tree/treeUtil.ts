@@ -4,6 +4,7 @@
  */
 
 import { difference, uniq, max, isObject, isNull, isUndefined, isEmpty, pick, get, omit } from 'lodash';
+import { strings } from './constants';
 
 export interface KeyEntities {
     [x: string]: any
@@ -98,7 +99,7 @@ export function convertJsonToData(treeJson: TreeDataSimpleJson) {
     const treeData: any[] = [];
     const traverseNode = (key: string, children: any, path: any, res: any[]) => {
         const currPath = [...path, key];
-        const itemKey = currPath.join('-');
+        const itemKey = currPath.join(strings.JSON_KEY_SPLIT);
 
         const newNode: NodeData = {
             key: itemKey,
