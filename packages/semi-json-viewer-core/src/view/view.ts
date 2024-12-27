@@ -139,9 +139,16 @@ export class View {
         this._jsonViewerDom.addEventListener('scroll', e => {
             this.onScroll(this._jsonViewerDom.scrollTop);
         });
+        
+        this._jsonViewerDom.addEventListener('click', e => {
+            e.preventDefault();
+            this._selectionModel.toLastPosition();
+        });
+        
 
         this._contentDom.addEventListener('click', e => {
             e.preventDefault();
+            e.stopPropagation();
             this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
             this._selectionModel.updateFromSelection();
