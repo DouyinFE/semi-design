@@ -7,11 +7,17 @@ import { getCurrentNameSpaceId } from '../common/nameSpace';
 /**
  * JsonWorkerManager 类用于管理 JSON Worker
  */
-type WorkerMethod = 'init' | 'updateModel' | 'format' | 'foldRange' | 'validate';
-type WorkerParams = {
-    value?: string;
-    options?: FormattingOptions;
-    op?: IModelContentChangeEvent | IModelContentChangeEvent[]
+
+type WorkerService = {
+    init: { value: string };
+    updateModel: {
+        op: IModelContentChangeEvent | IModelContentChangeEvent[]
+    };
+    format: { options: FormattingOptions };
+    foldRange: Record<string, never>;
+    validate: Record<string, never>;
+    undo: Record<string, never>;
+    redo: Record<string, never>
 };
 
 const workerManagerMap = new Map<string, JsonWorkerManager>();
@@ -21,7 +27,7 @@ export class JsonWorkerManager {
     private _callbacks: Map<number, (result: any) => void>;
 
     constructor() {
-        const workerRaw = decodeURIComponent('%WORKER_RAW%');
+        const workerRaw = decodeURIComponent(`%WORKER_RAW%`);
         const blob = new Blob([workerRaw], { type: 'application/javascript' });
         const workerURL = URL.createObjectURL(blob);
         this._worker = new Worker(workerURL);
@@ -38,6 +44,14 @@ export class JsonWorkerManager {
         return this._sendRequest('updateModel', { op });
     }
 
+    undo() {
+        return this._sendRequest('undo', {});
+    }
+
+    redo() {
+        return this._sendRequest('redo', {});
+    }
+
     formatJson(options: FormattingOptions) {
         return this._sendRequest('format', { options });
     }
@@ -50,7 +64,7 @@ export class JsonWorkerManager {
         return this._sendRequest('validate', {});
     }
 
-    private _sendRequest(method: WorkerMethod, params: WorkerParams): Promise<any> {
+    private _sendRequest<T extends keyof WorkerService>(method: T, params: WorkerService[T]): Promise<any> {
         return new Promise((resolve, reject) => {
             const messageId = Date.now() + Math.random();
             this._callbacks.set(messageId, resolve);

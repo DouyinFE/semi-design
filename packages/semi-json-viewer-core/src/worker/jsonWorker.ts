@@ -35,6 +35,14 @@ export class JsonWorker {
         return op;
     }
 
+    undo() {
+        this._model?.undo();
+    }
+
+    redo() {
+        this._model?.redo();
+    }
+
     parse() {
         if (!this._model) throw new Error('Model not initialized');
         return parseJsonAst(this._model);

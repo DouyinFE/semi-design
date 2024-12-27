@@ -3,7 +3,7 @@ const path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk').default;
 const utils = require('./utils');
-
+const fs = require('fs');
 let AnalyzePlugin = null
 if(process.env.__ENABLE_ANALYZE__ === 'true') {
     AnalyzePlugin = require("@ies/semi-page-analyze-inject/src/AnalyzePlugin")
@@ -79,6 +79,23 @@ module.exports = {
                 },
             ]
         })
+        rules.push({
+            test: /jsonWorkerManager\.ts$/,
+            use: [
+                {
+                    loader: 'webpack-replace-loader',
+                    options: {
+                        search: '%WORKER_RAW%',
+                        replace: () => {
+                            const workFilePath = resolve('packages/semi-json-viewer-core/workerLib/worker.js');
+                            const result = fs.readFileSync(workFilePath, 'utf-8');
+                            const encodedResult = encodeURIComponent(result);
+                            return encodedResult;
+                        }
+                    }
+                }
+            ]
+        });
         config.module.rules = rules;
         config.resolve.extensions.push('.js', '.jsx', '.ts', '.tsx');
         config.resolve.symlinks = false;
@@ -92,7 +109,8 @@ module.exports = {
             '@douyinfe/semi-illustrations': resolve('packages/semi-illustrations/src'),
             '@douyinfe/semi-animation': resolve('packages/semi-animation'),
             '@douyinfe/semi-animation-react': resolve('packages/semi-animation-react'),
-            '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled')
+            '@douyinfe/semi-animation-styled': resolve('packages/semi-animation-styled'),
+            '@douyinfe/semi-json-viewer-core': resolve('packages/semi-json-viewer-core/src'),
         };
         config.devtool = 'source-map';
         // config.output.publicPath = "/storybook/"

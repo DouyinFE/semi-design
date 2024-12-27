@@ -15,6 +15,7 @@ import { ScalingCellSizeAndPositionManager } from './virtualized/ScalingCellSize
 import { CompleteWidget } from './complete/completeWidget';
 import { HoverWidget } from './hover/hoverWidget';
 import { GlobalEvents } from '../common/emitterEvents';
+import { ErrorWidget } from './error/errorWidget';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -45,6 +46,7 @@ export class View {
     private _foldWidget: FoldWidget;
     private _completeWidget: CompleteWidget;
     private _hoverWidget: HoverWidget;
+    private _errorWidget: ErrorWidget;
     private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager();
     private _tokenizationJsonModelPart: TokenizationJsonModelPart;
     private _scalingCellSizeAndPositionManager: ScalingCellSizeAndPositionManager;
@@ -79,6 +81,7 @@ export class View {
         this._editWidget = new EditWidget(this, this._jsonModel, this._selectionModel, this._foldingModel);
         this._completeWidget = new CompleteWidget(this, this._jsonModel, this._selectionModel);
         this._hoverWidget = new HoverWidget(this);
+        this._errorWidget = new ErrorWidget(this);
 
         this._tokenizationJsonModelPart = new TokenizationJsonModelPart(this._jsonModel);
 
