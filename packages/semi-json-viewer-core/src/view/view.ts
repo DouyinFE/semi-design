@@ -186,6 +186,7 @@ export class View {
     public onScroll(scrollTop: number) {
         this._jsonViewerDom.scrollTop = scrollTop;
         this.layout();
+        this._errorWidget.renderErrorLine();
     }
 
     public scrollToLine(lineNumber: number): void {
