@@ -160,7 +160,7 @@ export class EditWidget {
                         op.newText = '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
                         op.keepPosition = {
                             lineNumber: startLineNumber + 1,
-                            column: enterAction.appendText.length + enterAction.indentation.length + 1,
+                            column: op.newText.length,
                         };
                     } else {
                         const normalIndent = this.normalizeIndentation(enterAction.indentation);
@@ -177,7 +177,7 @@ export class EditWidget {
                     op.newText = '\n' + this.normalizeIndentation(indentation) || '';
                     op.keepPosition = {
                         lineNumber: startLineNumber + 1,
-                        column: indentation.length + 1,
+                        column: op.newText.length,
                     };
                 }
                 break;
