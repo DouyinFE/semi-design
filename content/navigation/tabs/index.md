@@ -840,7 +840,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 
 -   **为什么在 Tabs 中使用 Typography 的省略 ellipsis 失效？**
 
-    因为 Tabs 渲染 TabPane 时，默认是全部渲染 display: none。此时这些组件无法获取到正确的宽度或高度值。建议 1.x 的版本开启 lazyRender，或者关闭 keepDOM。0.x 的版本需要使用 tabList 的写法。
+    因为 Tabs 渲染 TabPane 时，默认是全部渲染 display: none。此时这些组件无法获取到正确的宽度或高度值。建议开启 lazyRender，或者关闭 keepDOM。
 
 -   **为什么在 Tabs 中使用 Collapse/Collapsible/Resizable Table 等组件的高度或宽度值不对？**
 

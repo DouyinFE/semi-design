@@ -824,7 +824,7 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/
 
 -   **Why typography with ellipses in Tabs doesn't work?**
 
-    Because when Tabs renders TabPane, the default is to render display: none. At this point these components cannot get the correct width or height values. It is recommended to enable lazyRender in version 1.x, or disable keepDOM. Version 0.x needs to use tabList notation.
+    Because when Tabs renders TabPane, the default is to render display: none. At this point these components cannot get the correct width or height values. It is recommended to enable lazyRender in or disable keepDOM.
 
 -   **Why are the height or width values ​​wrong when using components such as Collapse/Collapsible/Resizable Table in Tabs?**
 
