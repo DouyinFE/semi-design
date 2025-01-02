@@ -43,7 +43,7 @@
 
 # 🎉 Features
 
-- 💪 Up to 60+ high-quality Components.
+- 💪 Up to 70+ high-quality Components.
 - 💅 Code2Design, automatically generate Figma UI Kit according to different themes, keep same between design and code
 - 🚀 Powerful Design2Code support, convert figma draft to code in a few seconds
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components

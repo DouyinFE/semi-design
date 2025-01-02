@@ -23,9 +23,11 @@ brief: 国际化组件，为 Semi 组件提供多语言支持
 | v2.15.0     | 意大利语: it、法语：fr、德语：de   |
 | v2.21.0     | 罗马尼亚语: ro   |
 | v2.29.0     | 瑞典语: sv_SE、波兰语: pl_PL 、荷兰语: nl_NL |
-## 已支持组件
 
-> DatePicker、TimePicker、Modal、Pagination、Select、Table、Cascader、Calendar、TreeSelect、List、Typography、Transfer、Nav、Upload、Form、Navigation、Image
+## 已支持组件  
+目前有以下组件存在内置默认文本，均已实现国际化多语言适配  
+Calendar、Cascader、Chat、DatePicker、Form、Image、List、List、Modal、Navigation、Nav、Pagination、Popconfirm、Select、Table、TimePicker、Transfer、Tree、TreeSelect、Typography、Upload
+
 
 ## 使用
 
