@@ -44,24 +44,6 @@ const baseStr = `{
 }`;
 
 export const DefaultJsonViewer = () => {
-    const hoverHandler = (value, target) => {
-        const el = document.createElement('div');
-        el.style.backgroundColor = '#f5f5f5';
-        el.style.width = '100px';
-        el.style.height = '100px';
-        el.style.border = '1px solid #0080ff';
-        if (value.startsWith('"http')) {
-            const img = document.createElement('img');
-            const regex = /["']/g;
-            const src = value.replace(regex, '');
-            img.src = src;
-            el.appendChild(img);
-        } else {
-            el.innerHTML = 'This is a self -defined rendering of the user';
-        }
-        return el;
-    };
-
     const onChangeHandler = value => {
         console.log(value, 'value');
     };
@@ -76,21 +58,10 @@ export const DefaultJsonViewer = () => {
                 value={baseStr}
                 width={700}
                 height={400}
-                showSearch={false}
-                options={{ lineHeight: lineHeight, readOnly: true, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
-                renderTooltip={hoverHandler}
+                options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
                 onChange={onChangeHandler}
                 ref={jsonviewerRef}
             />
-            <Button onClick={() => setAutoWrap(!autoWrap)}>
-                {autoWrap ? 'Disable' : 'Enable'} Auto Wrap
-            </Button>
-            <Button onClick={() => setLineHeight(lineHeight + 5)}>
-                Increase Line Height
-            </Button>
-            <Button onClick={() => console.log(jsonviewerRef.current.jsonViewer.current.getValue())}>
-                Get Value
-            </Button>
         </>
     );
 };
