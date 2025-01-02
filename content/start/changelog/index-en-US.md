@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.72.1 (2025-01-02)
+- 【Fix】
+    - Fixed the problem of Typography’s JS omitting calculation error when display is none [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
+
 #### 🎉 2.72.0 (2024-12-20)
 - 【Fix】
   - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
