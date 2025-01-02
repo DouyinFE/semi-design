@@ -76,7 +76,8 @@ export const DefaultJsonViewer = () => {
                 value={baseStr}
                 width={700}
                 height={400}
-                options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
+                showSearch={false}
+                options={{ lineHeight: lineHeight, readOnly: true, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
                 renderTooltip={hoverHandler}
                 onChange={onChangeHandler}
                 ref={jsonviewerRef}
