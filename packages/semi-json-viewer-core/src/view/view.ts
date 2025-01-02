@@ -78,7 +78,7 @@ export class View {
 
         this._searchWidget = new SearchWidget(this, this._jsonModel);
         this._foldWidget = new FoldWidget(this, this._foldingModel);
-        this._editWidget = new EditWidget(this, this._jsonModel, this._selectionModel, this._foldingModel);
+        this._editWidget = new EditWidget(this, this._jsonModel, this._selectionModel);
         this._completeWidget = new CompleteWidget(this, this._jsonModel, this._selectionModel);
         this._hoverWidget = new HoverWidget(this);
         this._errorWidget = new ErrorWidget(this);
@@ -190,8 +190,7 @@ export class View {
     }
 
     public scrollToLine(lineNumber: number): void {
-        const visibleLineNumber = this._foldingModel.getVisibleLineNumber(lineNumber);
-        const scrollTop = (visibleLineNumber - 1) * this._lineHeight;
+        const scrollTop = (lineNumber - 1) * this._lineHeight;
         this._contentDom.scrollTop = scrollTop;
         this.onScroll(scrollTop);
     }
@@ -388,15 +387,16 @@ export class View {
     }
 
     private renderVisibleLines(startVisibleLine: number, endVisibleLine: number) {
+
         this._tokenizationJsonModelPart.forceTokenize(endVisibleLine + 1);
-        let actualLineNumber = this._foldingModel.getActualLineNumber(startVisibleLine + 1);
+        let actualLineNumber = startVisibleLine + 1;
         let visibleLineNumber = startVisibleLine;
         while (visibleLineNumber <= endVisibleLine && actualLineNumber <= this._jsonModel.getLineCount()) {
             if (!this._foldingModel.isLineCollapsed(actualLineNumber)) {
                 this.renderLine(actualLineNumber, visibleLineNumber);
                 visibleLineNumber++;
             }
-            actualLineNumber = this._foldingModel.getNextVisibleLine(actualLineNumber);
+            actualLineNumber++;
         }
     }
 

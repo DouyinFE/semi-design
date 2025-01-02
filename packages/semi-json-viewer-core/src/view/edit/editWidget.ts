@@ -3,7 +3,6 @@ import { View } from '../view';
 import { JSONModel } from '../../model/jsonModel';
 import { applyEdits, Edit } from 'jsonc-parser';
 import { getJsonWorkerManager, JsonWorkerManager } from '../../worker/jsonWorkerManager';
-import { FoldingModel } from '../../model/foldingModel';
 import { Emitter, getEmitter } from '../../common/emitter';
 import { GlobalEvents, IModelContentChangeEvent } from '../../common/emitterEvents';
 import { Range } from '../../common/range';
@@ -16,7 +15,6 @@ export class EditWidget {
     private _view: View;
     private _selectionModel: SelectionModel;
     private _jsonModel: JSONModel;
-    private _foldingModel: FoldingModel;
     private _isComposition: boolean = false;
     private _autoClosingPairs: Record<string, string> = {
         '{': '}',
@@ -29,13 +27,11 @@ export class EditWidget {
         view: View,
         jsonModel: JSONModel,
         selectionModel: SelectionModel,
-        foldingModel: FoldingModel,
         private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager()
     ) {
         this._view = view;
         this._jsonModel = jsonModel;
         this._selectionModel = selectionModel;
-        this._foldingModel = foldingModel;
 
         this.attachEventListeners();
     }
