@@ -25,11 +25,14 @@ export class FoldingModel {
         //     this.updateFoldingRanges();
         // });
         this.updateFoldingRanges();
+        this.emitter.on('contentChanged', e => {
+            this._hiddenRangeModel.notifyChangeModelContent(e);
+        });
+
         this.emitter.on('problemsChanged', e => {
             this._jsonWorkerManager.foldRange().then(ranges => {
                 const newRegions = FoldingRegions.fromFoldRanges(ranges);
                 this.update(newRegions);
-                // this._hiddenRangeModel.notifyChangeModelContent(e);
                 this._hiddenRangeModel.updateHiddenRanges();
             });
         });
@@ -43,7 +46,7 @@ export class FoldingModel {
     }
 
     public update(newRegions: FoldingRegions, blockedLineNumers: number[] = []): void {
-        const foldedOrManualRanges = this._currentFoldedOrManualRanges(blockedLineNumers);
+        const foldedOrManualRanges = this._currentFoldedOrManualRanges(blockedLineNumers, newRegions);
         const newRanges = FoldingRegions.sanitizeAndMerge(
             newRegions,
             foldedOrManualRanges,
@@ -52,18 +55,39 @@ export class FoldingModel {
         this._regions = FoldingRegions.fromFoldRanges(newRanges);
     }
 
-    private _currentFoldedOrManualRanges(blockedLineNumers: number[] = []): FoldRange[] {
+    private _currentFoldedOrManualRanges(blockedLineNumers: number[] = [], newRegions?: FoldingRegions): FoldRange[] {
+        const isBlocked = (startLineNumber: number, endLineNumber: number) => {
+            if (newRegions) {
+                const index = newRegions.findRange(startLineNumber);
+                if (index === -1) return true;
+                
+                const region = newRegions.toRegion(index);
+                if (!region || region.endLineNumber !== endLineNumber) return true;
+            }
+            
+            for (const blockedLineNumber of blockedLineNumers) {
+                if (startLineNumber < blockedLineNumber && blockedLineNumber <= endLineNumber) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         const foldedRanges: FoldRange[] = [];
         for (let i = 0; i < this._regions.length; i++) {
-            // 只关注已折叠的区域
             if (this._regions.isCollapsed(i)) {
-                foldedRanges.push({
-                    startLineNumber: this._regions.getStartLineNumber(i),
-                    endLineNumber: this._regions.getEndLineNumber(i),
-                    isCollapsed: true,
-                    source: FoldSource.provider,
-                    type: this._regions.getType(i),
-                });
+                const startLineNumber = this._regions.getStartLineNumber(i);
+                const endLineNumber = this._regions.getEndLineNumber(i);
+                
+                if (!isBlocked(startLineNumber, endLineNumber)) {
+                    foldedRanges.push({
+                        startLineNumber,
+                        endLineNumber,
+                        isCollapsed: true,
+                        source: FoldSource.provider,
+                        type: this._regions.getType(i),
+                    });
+                }
             }
         }
         return foldedRanges;

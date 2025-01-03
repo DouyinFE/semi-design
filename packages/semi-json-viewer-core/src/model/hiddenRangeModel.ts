@@ -1,5 +1,6 @@
 /** based on https://github.com/microsoft/vscode with modifications for custom requirements */
-import { IModelContentChangeEvent } from '../common/emitterEvents';
+import { Emitter, getEmitter } from '../common/emitter';
+import { GlobalEvents, IModelContentChangeEvent } from '../common/emitterEvents';
 import { IRange } from '../common/range';
 import { countEOL } from '../common/strings';
 import { findFirstIdxMonotonousOrArrLen } from '../common/utils';
@@ -9,6 +10,7 @@ export class HiddenRangeModel {
     private _hiddenRanges: IRange[] = [];
     private _hasLineChanged: boolean = false;
     private _foldingModel: FoldingModel;
+    private emitter: Emitter<GlobalEvents> = getEmitter();
     constructor(foldingModel: FoldingModel) {
         this._foldingModel = foldingModel;
         if (this._foldingModel.regions.length) {
@@ -62,6 +64,7 @@ export class HiddenRangeModel {
     private applyHiddenRanges(newHiddenAreas: IRange[]): void {
         this._hasLineChanged = false;
         this._hiddenRanges = newHiddenAreas;
+        this.emitter.emit('forceRender', undefined);
     }
 
     get hiddenRanges(): IRange[] {

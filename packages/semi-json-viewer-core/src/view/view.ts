@@ -164,6 +164,11 @@ export class View {
             }
             this.layout();
         });
+        this.emitter.on('forceRender', () => {
+            this.resetScalingManagerConfigAndCell(0);
+            this.layout();
+            this._errorWidget.renderErrorLine();
+        });
     }
 
     public getLineElement(lineNumber: number): HTMLElement | null {
