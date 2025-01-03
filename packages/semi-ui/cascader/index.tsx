@@ -430,10 +430,15 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     }
 
     static getDerivedStateFromProps(props: CascaderProps, prevState: CascaderState) {
-        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue, checkRelation } = props;
+        const { multiple, value, defaultValue, onChangeWithObject, leafOnly, autoMergeValue, checkRelation, searchPlaceholder, placeholder } = props;
         const { prevProps } = prevState;
         let keyEntities = prevState.keyEntities || {};
         const newState: Partial<CascaderState> = {};
+
+        const newPlaceholder = searchPlaceholder || placeholder;
+        if (newPlaceholder !== prevState.inputPlaceHolder) {
+            newState.inputPlaceHolder = newPlaceholder;
+        }
         const needUpdate = (name: string) => {
             const firstInProps = isEmpty(prevProps) && name in props;
             const nameHasChange = prevProps && !isEqual(prevProps[name], props[name]);
@@ -600,7 +605,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
 
     renderTagInput() {
         const { size, disabled, placeholder, maxTagCount, showRestTagsPopover, restTagsPopoverProps, checkRelation } = this.props;
-        const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys } = this.state;
+        const { inputValue, checkedKeys, keyEntities, resolvedCheckedKeys, inputPlaceHolder } = this.state;
         const tagInputcls = cls(`${prefixcls}-tagInput-wrapper`);
         const realKeys = this.mergeType === strings.NONE_MERGE_TYPE  || checkRelation === strings.UN_RELATED ?
             checkedKeys : resolvedCheckedKeys;
@@ -619,7 +624,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
                 onInputChange={this.handleInputChange}
                 // TODO Modify logic, not modify type
                 onRemove={this.onRemoveInTagInput}
-                placeholder={placeholder}
+                placeholder={inputPlaceHolder}
                 expandRestTagsOnClick={false}
             />
         );
