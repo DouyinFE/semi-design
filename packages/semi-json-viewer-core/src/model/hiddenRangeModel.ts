@@ -89,7 +89,6 @@ export class HiddenRangeModel {
 
     notifyChangeModelContent(e: IModelContentChangeEvent | IModelContentChangeEvent[]): void {
         if (this._hiddenRanges.length && !this._hasLineChanged) {
-            console.log('notifyChangeModelContent', e);
             if (Array.isArray(e)) {
                 this._hasLineChanged = e.some(change => {
                     return (
@@ -103,7 +102,6 @@ export class HiddenRangeModel {
                     e.range.endLineNumber !== e.range.startLineNumber ||
                     countEOL(e.newText)[0] !== 0 ||
                     countEOL(e.oldText)[0] !== 0;
-                console.log('notifyChangeModelContent', this._hasLineChanged);
             }
         }
     }

@@ -379,7 +379,6 @@ export class EditWidget {
 
     private _copyHandler() {
         const op = this.buildBaseOperation('replace');
-        console.log(op);
         navigator.clipboard.writeText(op.oldText);
     }
 }
