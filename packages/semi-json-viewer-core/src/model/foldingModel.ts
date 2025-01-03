@@ -108,6 +108,32 @@ export class FoldingModel {
         if (!this._regions || !this._hiddenRangeModel) return this._jsonModel.getLineCount();
         return this._jsonModel.getLineCount() - this._hiddenRangeModel.getHiddenLineCount();
     }
+    
+    public getActualLineNumber(visibleLineNumber: number): number {
+        if (!this._regions || !this._hiddenRangeModel) return visibleLineNumber;
+        
+        let actualLine = visibleLineNumber;
+        const hiddenRanges = this._hiddenRangeModel.hiddenRanges;
+        for (const range of hiddenRanges) {
+            if (range.startLineNumber <= actualLine) {
+                actualLine += (range.endLineNumber - range.startLineNumber + 1);
+            } else {
+                break;
+            }
+        }
+        return actualLine;
+    }
+
+    public getNextVisibleLine(actualLineNumber: number): number {
+        if (!this._regions || !this._hiddenRangeModel) return actualLineNumber + 1;
+        let nextLine = actualLineNumber + 1;
+        const hiddenRanges = this._hiddenRangeModel.hiddenRanges;
+        const containingRange = this._hiddenRangeModel.findRange(nextLine, hiddenRanges);
+        if (containingRange) {
+            return containingRange.endLineNumber + 1;
+        }
+        return nextLine;
+    }
 
     getRegionAtLine(lineNumber: number): FoldingRegion | null {
         if (this._regions) {

@@ -142,12 +142,11 @@ export class View {
         this._jsonViewerDom.addEventListener('scroll', e => {
             this.onScroll(this._jsonViewerDom.scrollTop);
         });
-        
+
         this._jsonViewerDom.addEventListener('click', e => {
             e.preventDefault();
             this._selectionModel.toLastPosition();
         });
-        
 
         this._contentDom.addEventListener('click', e => {
             e.preventDefault();
@@ -159,15 +158,8 @@ export class View {
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
-            if (
-                this._jsonModel.lastChangeBufferPos.lineNumber >=
-                this.visibleLineCount + this.startLineNumber
-            ) {
-                this.scrollToLine(
-                    this._jsonModel.lastChangeBufferPos.lineNumber -
-                        this.visibleLineCount +
-                        1
-                );
+            if (this._jsonModel.lastChangeBufferPos.lineNumber >= this.visibleLineCount + this.startLineNumber) {
+                this.scrollToLine(this._jsonModel.lastChangeBufferPos.lineNumber - this.visibleLineCount + 1);
                 return;
             }
             this.layout();
@@ -387,16 +379,15 @@ export class View {
     }
 
     private renderVisibleLines(startVisibleLine: number, endVisibleLine: number) {
-
         this._tokenizationJsonModelPart.forceTokenize(endVisibleLine + 1);
-        let actualLineNumber = startVisibleLine + 1;
+        let actualLineNumber = this._foldingModel.getActualLineNumber(startVisibleLine + 1);
         let visibleLineNumber = startVisibleLine;
         while (visibleLineNumber <= endVisibleLine && actualLineNumber <= this._jsonModel.getLineCount()) {
             if (!this._foldingModel.isLineCollapsed(actualLineNumber)) {
                 this.renderLine(actualLineNumber, visibleLineNumber);
                 visibleLineNumber++;
             }
-            actualLineNumber++;
+            actualLineNumber = this._foldingModel.getNextVisibleLine(actualLineNumber);
         }
     }
 
@@ -408,7 +399,6 @@ export class View {
         const lineNumberElement = this.renderLineNumber(actualLineNumber, visibleLineNumber);
         const lineElement = this.renderLineContent(actualLineNumber, visibleLineNumber, tokens, line);
     }
-    
 
     private renderLineNumber(actualLineNumber: number, visibleLineNumber: number) {
         const lineNumberElement = this.createLineNumberElement(actualLineNumber, visibleLineNumber);
