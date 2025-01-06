@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 68
+order: 67
 category: Show
 title: Highlight 
 icon: doc-highlight

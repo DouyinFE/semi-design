@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 42
+order: 41
 category: Input
 title: Select
 subTitle: Select

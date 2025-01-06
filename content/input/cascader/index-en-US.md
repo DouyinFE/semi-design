@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 32
+order: 31
 category: Input
 title:  Cascader
 subTitle: Cascade

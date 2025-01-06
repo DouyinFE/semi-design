@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 52
+order: 51
 category: Navigation
 title:  Breadcrumb
 subTitle: Breadcrumb

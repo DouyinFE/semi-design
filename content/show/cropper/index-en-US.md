@@ -1,32 +1,29 @@
 ---
-localeCode: zh-CN
-order: 25
+localeCode: en-US
+order: 69
 category: Plus
-title:  Cropper 图片裁切
-icon: doc-configprovider
+title:  Cropper
+icon: doc-cropper
 dir: column
-brief: 通过设定裁切框的宽高比例，自由裁切图片
+brief: Freely crop pictures
 showNew: true
 ---
 
-## 使用场景
+## When to use
 
-Cropper 用于裁切图片，支持自定义裁切框样式，可通过拖动调整裁切框位置，被裁切图片位置；可缩放，旋转被裁切图片。
+Cropper is used to crop pictures. It supports custom cropping box styles. The positions of the cropping box, cropped image can be adjusted by dragging. It can zoom and rotate the cropped pictures.
 
+## Demos
 
-## 代码演示
-
-### 如何引入
-
-Cropper 从 v2.73.0 开始支持
+Cropper is supported starting from version v2.73.0.
 
 ```jsx
 import { Cropper } from '@douyinfe/semi-ui';
 ```
 
-### 基本用法
+### Basic usage
 
-通过 `sr` 设置被裁切的图片; 可通过 `shape` 设置裁切框形状，默认为方形。
+Use `sr` to set the cropped image; use `shape` to set the shape of the cropping box, which defaults to square.
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
@@ -64,7 +61,7 @@ function Demo() {
             style={containerStyle}
             shape={shape}
         />
-        <Button onClick={onButtonClick}>裁切</Button>
+        <Button onClick={onButtonClick}>Get Cropped Image</Button>
         <div id='previewContainer'/>
     </>;
 }
@@ -72,13 +69,13 @@ function Demo() {
 render(<Demo />)
 ```
 
-### 自定义裁切框比例
+### Customize crop box ratio
 
-可通过 `defaultAspectRatio` 初始的裁切框比例（默认为 1）。可通过 `aspectRatio` 设置固定的裁切框比例。
+The initial crop box ratio can be passed through `defaultAspectRatio` (default is 1). A fixed crop box ratio can be set via `aspectRatio`.
 
-设置 `defaultAspectRatio`仅对初始的裁切框比例生效， 拖动时，裁切框比例会随着拖动而变化。
+Setting `defaultAspectRatio` only takes effect on the initial crop box ratio. When dragging, the crop box ratio will change with dragging.
 
-设置 `aspectRatio` 时，裁切框比例固定，拖动时将裁切框将以此比例变化。
+When setting `aspectRatio`, the crop box ratio is fixed, and the crop box will change according to this ratio when dragging.
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
@@ -107,7 +104,7 @@ function Demo() {
             src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/image.png'}
             style={containerStyle}
         />
-        <Button onClick={onButtonClick}>裁切</Button>
+        <Button onClick={onButtonClick}>Get Cropped Image</Button>
         <div id='previewContainer-aspect' />
     </>;
 }
@@ -115,9 +112,9 @@ function Demo() {
 render(<Demo />)
 ```
 
-### 受控旋转/缩放图片
+### Controlled rotation/zooming of images
 
-通过 `rotate` 和 `zoom` 控制图片旋转和缩放, 可通过 `onZoomChange` 拿到最新的 `zoom` 值。
+Control image rotation and zoom through `rotate` and `zoom`, and get the latest `zoom` value through `onZoomChange`
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, Slider } from '@douyinfe/semi-ui';
@@ -189,11 +186,9 @@ function Demo() {
             />
            </div>
            <br />
-           <Button onClick={onButtonClick}>裁切</Button>
+           <Button onClick={onButtonClick}>Get Cropped Image</Button>
            <br />
-           <div 
-            // style={{ background: 'pink' }} 
-           >
+           <div >
             <div id='previewContainer-control'
             />
           </div>
@@ -204,9 +199,9 @@ function Demo() {
 render(<Demo />)
 ```
 
-### 裁切框设置
+### Crop box settings
 
-可通过 `cropperBoxStyle`, `cropperBoxClassName` 自定义裁切框样式。可通过 `showResizeBox` 设置是否展示裁切框边角的调整块。
+The crop box style can be customized through `cropperBoxStyle`, `cropperBoxClassName`. You can use `showResizeBox` to set whether to display the adjustment blocks at the corners of the crop box.
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, Switch } from '@douyinfe/semi-ui';
@@ -235,7 +230,7 @@ function Demo() {
     }, []);
 
     return <>
-        <strong>showResizeBox = false，并修改边框颜色</strong>
+        <strong>showResizeBox = false，and change the outline color of cropper box</strong>
         <Cropper
             ref={ref} 
             src={'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/other/image.png'}
@@ -243,7 +238,7 @@ function Demo() {
             cropperBoxStyle={{ outlineColor: 'var(--semi-color-bg-0)'}}
             showResizeBox={false}
         />
-        <Button onClick={onButtonClick}>裁切</Button>
+        <Button onClick={onButtonClick}>Get Cropped Image</Button>
         <div id='previewContainer-cropperBox'/>
     </>;
 }
@@ -253,34 +248,34 @@ render(<Demo />)
 
 ### API
 
-| 属性 | 说明 | 类型 | 默认值 |
+| PROPERTIES | INSTRUCTIONS | TYPE | DEFAULT |
 |-----|------|-----|------|
-| aspectRatio | 裁切框比例 | number | - |
-| className | 类名 | string | - |
-| cropperBoxClassName | 裁切框类名 | string | - |
-| cropperBoxStyle | 裁切框样式 | CSSProperties | - |
-| defaultAspectRatio | 初始裁切框比例 | number | 1 |
-| imgProps | 透传给 img 标签的属性 | object | - |
-| fill | 裁切结果中非图片部分的填充色 | string | 'rgba(0, 0, 0, 0)'  |
-| maxZoom | 最大缩放倍数 | number | 3 |
-| minZoom | 最小缩放倍数 | number | 0.1 |
-| onZoomChange | 缩放回调 | (zoom: number) => void | - |
-| rotate | 旋转角度 | number | - |
-| shape | 裁切框形状 | 'rect' \| 'round' \| 'roundRect' | 'rect' |
-| src | 图片地址 | string | - |
-| showResizeBox | 是否展示调整块 | boolean | true |
-| style | 样式  | CSSProperties | - |
-| zoom | 缩放比例 | number | - |
-| zoomStep | 缩放步长 | number | 0.1 |
+| aspectRatio | Crop box width to height ratio | number | - |
+| className | className | string | - |
+| cropperBoxClassName | The class name passed to the crop box | string | - |
+| cropperBoxStyle | The style passed to the crop box | CSSProperties | - |
+| defaultAspectRatio | Initial crop box ratio | number | 1 |
+| imgProps | Attributes passed through to the img tag | object | - |
+| fill | The fill color of the non-picture parts in the cropped result | string | 'rgba(0, 0, 0, 0)'  |
+| maxZoom | Maximum zoom factor | number | 3 |
+| minZoom | Minimum zoom factor | number | 0.1 |
+| onZoomChange | Callback during zoom transformation | (zoom: number) => void | - |
+| rotate | rotation angle | number | - |
+| shape | Crop box shape | 'rect' \| 'round' \| 'roundRect' | 'rect' |
+| src | The address of the cropped image | string | - |
+| showResizeBox | Whether to display the adjustment block of the cropping box | boolean | true |
+| style | Style  | CSSProperties | - |
+| zoom | Zoom value | number | - |
+| zoomStep | Zoom step size | number | 0.1 |
 
 ### Methods
 
-绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+Methods bound to component instances can be called through ref to achieve certain special interactions
 
 | Name    | Description  |
 |---------|--------------|
-| getCropperCanvas  | 获取裁剪图片的 canvas |
+| getCropperCanvas  | Get the canvas of the cropped image |
 
-## 设计变量
+## Design Token
 
 <DesignToken/>

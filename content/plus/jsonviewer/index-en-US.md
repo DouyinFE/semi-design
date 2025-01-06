@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 28
+order: 27
 category: Plus
 title: JsonViewer
 icon: doc-jsonviewer

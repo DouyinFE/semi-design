@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 26
+order: 25
 category: Plus
 title:  Markdown Render
 icon: doc-markdown

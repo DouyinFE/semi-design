@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 29
+order: 28
 category: Plus
 title:  HotKeys
 icon: doc-configprovider

@@ -1,9 +1,9 @@
 ---
 localeCode: en-US
-order: 27
+order: 26
 category: Plus
 title:  DragMove
-icon: doc-configprovider
+icon: doc-dragmove
 dir: column
 brief: Set elements to change their position by dragging
 showNew: true

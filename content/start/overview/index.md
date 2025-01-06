@@ -25,7 +25,8 @@ CodeHighlight 代码高亮,
 Markdown 渲染器,
 Lottie 动画,
 Chat 聊天,
-HotKeys 快捷键
+HotKeys 快捷键,
+DragMove 拖拽移动
 ```
 
 ## 输入类
@@ -80,6 +81,7 @@ Dropdown 下拉框,
 Empty 空状态,
 Highlight 高亮文本,
 Image 图片,
+Cropper 图片裁切,
 List 列表,
 Modal 模态对话框,
 OverflowList 折叠列表,

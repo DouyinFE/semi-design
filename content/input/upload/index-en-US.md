@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 49
+order: 48
 category: Input
 title: Upload
 icon: doc-upload
