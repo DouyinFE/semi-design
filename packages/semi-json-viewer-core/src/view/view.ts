@@ -376,8 +376,10 @@ export class View {
         this.renderVisibleLines(visibleRange.start!, visibleRange.stop!);
         this.updateVisibleRange(visibleRange.start! + 1, visibleRange.stop! + 1);
 
-        this._selectionModel.toViewPosition();
-        this._completeWidget.show();
+        if (!this._options?.readOnly) {
+            this._selectionModel.toViewPosition();
+            this._completeWidget.show();
+        }
         const totalSize = this._scalingCellSizeAndPositionManager.getTotalSize();
         this._scrollDom.style.height = `${totalSize}px`;
         this._lineScrollDom.style.height = `${totalSize}px`;
