@@ -68,8 +68,8 @@ $module: #{$prefix}-json-viewer;
         font-variation-settings: normal;
         letter-spacing: 0px;
         color: #237893;
-        word-wrap: break-word;
-        white-space: pre-wrap;
+        word-break: break-all !important;
+        white-space: pre-wrap !important;
     }
 
     &-line-number {
