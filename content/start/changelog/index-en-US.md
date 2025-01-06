@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.72.2 (2025-01-06)
+- 【Fix】
+    - Fix the problem that Cascader's placeHolder and searchPlaceholder cannot be updated dynamically
+
 #### 🎉 2.72.1 (2025-01-02)
 - 【Fix】
     - Fixed the problem of Typography’s JS omitting calculation error when display is none [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
