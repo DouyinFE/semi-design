@@ -53,10 +53,16 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
     }
 
     replace(replaceText: string) {
+        if (this.getProps().options.readOnly) {
+            return;
+        }
         this.jsonViewer?.getSearchWidget().replace(replaceText);
     }
 
     replaceAll(replaceText: string) {
+        if (this.getProps().options.readOnly) {
+            return;
+        }
         this.jsonViewer?.getSearchWidget().replaceAll(replaceText);
     }
 

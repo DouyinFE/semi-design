@@ -225,6 +225,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
 
     renderReplaceBar() {
+        const { readOnly } = this.props.options;
         return (
             <div className={`${prefixCls}-replace-bar`}>
                 <Input
@@ -236,6 +237,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     ref={this.replaceInputRef}
                 />
                 <Button
+                    disabled={readOnly}
                     onClick={() => {
                         const value = this.replaceInputRef.current?.value;
                         this.foundation.replace(value);
@@ -244,6 +246,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     替换
                 </Button>
                 <Button
+                    disabled={readOnly}
                     onClick={() => {
                         const value = this.replaceInputRef.current?.value;
                         this.foundation.replaceAll(value);
