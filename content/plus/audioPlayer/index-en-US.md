@@ -1,27 +1,26 @@
 ---
-localeCode: zh-CN
+localeCode: en-US
 order: 90
 category: Plus
-title: AudioPlayer 音频播放器
+title: AudioPlayer
 icon: doc-audioplayer
 width: 60%
-brief: 用于播放音频
+brief: Used to play audio
 showNew: true
 ---
 
-## 代码演示
+## Demos
 
-### 如何引入
+### How to import
 
 ```jsx import
 import { AudioPlayer } from '@douyinfe/semi-ui';
 ```
 
+### Basic Usage
 
-### 基本用法
-
-基本使用，通过`audioUrl`传入音频地址  
-audioUrl 可以传入字符串，字符串数组，对象，对象数组， 具体参数参考 [AudioPlayer](#AudioPlayer)
+Basic usage by passing audio URL through `audioUrl`.  
+audioUrl supports string, string array, object, and object array. See [AudioPlayer](#AudioPlayer) for detailed parameters.
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -35,18 +34,18 @@ function Demo() {
     ];
     const audioUrlObj = {
         src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
-        title: '音频标题',
+        title: 'Audio Title',
         cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
     };
     const audioUrlArrObj = [
         {
             src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
-            title: '音频标题1',
+            title: 'Audio Title 1',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
         {
             src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3',
-            title: '音频标题2',
+            title: 'Audio Title 2',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
     ];
@@ -82,14 +81,11 @@ function Demo() {
 }
 
 render(Demo);
-
 ```
 
+### Hide Toolbar
 
-### 隐藏工具栏
-
-showToolbar 设置为false，则隐藏工具栏
-
+Set showToolbar to false to hide the toolbar
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -98,7 +94,7 @@ import { AudioPlayer } from '@douyinfe/semi-ui';
 function Demo() {
     const audioUrlObj = {
         src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
-        title: '音频标题'
+        title: 'Audio Title'
     };
   
     return (
@@ -113,13 +109,11 @@ function Demo() {
 }
 
 render(Demo);
-
 ```
 
-### 主题
+### Theme
 
-通过 `theme` 设置音频播放器主题，支持 `light` 和 `dark`，默认 `dark`
-
+Set the audio player theme through `theme`, supports `light` and `dark`, default is `dark`
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -129,12 +123,12 @@ function Demo() {
     const audioUrlArrObj = [
         {
             src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio1.mp3',
-            title: '音频标题1',
+            title: 'Audio Title 1',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
         {
             src: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/components/audio2.mp3',
-            title: '音频标题2',
+            title: 'Audio Title 2',
             cover: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
         },
     ];
@@ -150,29 +144,28 @@ function Demo() {
 }
 
 render(Demo);
-
 ```
 
-## API 参考
+## API Reference
 
 ### AudioPlayer
 
-| 属性                | 说明                                             | 类型                              | 默认值    |
-|-------------------|------------------------------------------------|---------------------------------|--------------|
-| audioUrl             | 音频地址                                    | string ｜ string[] ｜ AudioInfo ｜ AudioInfo[]                                 | -  |
-| autoPlay            | 自动播放                                     | boolean                                  | false  |
-| theme             | 主题,可选值：`dark` 和 `light`                  | string        |                         "dark"  |
-| showToolbar       | 是否显示工具栏                           | boolean                                  | true      |
-| skipDuration       | 跳转时间                                     | number                                  | 10   |
-| className         | 类名                           | string                                  | -   |
-| style             | 内联样式                           | object                                  | -   |
+| Property | Description | Type | Default |
+|----------|-------------|------|---------|
+| audioUrl | Audio address | string ｜ string[] ｜ AudioInfo ｜ AudioInfo[] | - |
+| autoPlay | Auto play | boolean | false |
+| theme | Theme, optional values: `dark` and `light` | string | "dark" |
+| showToolbar | Whether to display the toolbar | boolean | true |
+| skipDuration | Skip time | number | 10 |
+| className | Class name | string | - |
+| style | Inline style | object | - |
 
 ### AudioInfo
 
-| 属性                | 说明                                          | 类型                              | 默认值    |
-|-------------------|------------------------------------------------|---------------------------------|-----------|
-| src               | 音频地址                                    | string                          | -  |
-| title             | 音频标题                                    | string                          | -  |
-| cover             | 封面图片                                    | string                          | -  |
+| Property | Description | Type | Default |
+|----------|-------------|------|---------|
+| src | Audio address | string | - |
+| title | Audio title | string | - |
+| cover | Cover image | string | - |
 
 
