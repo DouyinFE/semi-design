@@ -4,6 +4,14 @@
 $module: #{$prefix}-button;
 
 .#{$module} {
+    @keyframes #{$prefix}-animation-rotate {
+        from {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
     &.#{$module}-with-icon {
         display: inline-flex;
         align-items: center;
