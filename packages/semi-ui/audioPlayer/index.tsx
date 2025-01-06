@@ -91,6 +91,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     this.audioRef.current.addEventListener('loadedmetadata', () => {
                         this.setState({
                             totalTime: this.audioRef.current?.duration || 0,
+                            isPlaying: this.props.autoPlay,
                             volume: this.audioRef.current?.volume * 100 || 100,
                             currentRate: { label: '1.0x', value: this.audioRef.current?.playbackRate || 1 },
                         });
