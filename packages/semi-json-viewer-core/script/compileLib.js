@@ -45,6 +45,9 @@ const compile = async ()=>{
     if (!fs.existsSync(saveDir)) {
         fs.mkdirSync(saveDir);
     }
+    if (!fs.existsSync(workerSaveDir)) {
+        fs.mkdirSync(workerSaveDir);
+    }
     fs.writeFileSync(path.join(workerSaveDir, "worker.js"), workerRaw, 'utf8');
     fs.writeFileSync(path.join(saveDir, "index.js"), finalRaw, 'utf8');
 };
