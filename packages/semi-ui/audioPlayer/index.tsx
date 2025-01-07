@@ -85,7 +85,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
     get adapter(): AudioPlayerAdapter<AudioPlayerProps, AudioPlayerState> {
         return {
             ...super.adapter,
-            initAudio: () => {
+            init: () => {
                 if (this.audioRef.current) {
                     this.audioRef.current.addEventListener('loadedmetadata', () => {
                         this.foundation.initAudioState();
@@ -98,7 +98,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     });
                 }
             },
-            destroyAudio: () => {
+            destroy: () => {
                 if (this.audioRef.current) {
                     this.audioRef.current.removeEventListener('loadedmetadata', () => {
                         this.foundation.initAudioState();
@@ -207,11 +207,11 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
     }
 
     componentDidMount() {
-        this.foundation.initAudio();
+        this.foundation.init();
     }
 
     componentWillUnmount() {
-        this.foundation.destroyAudio();
+        this.foundation.destroy();
     }
 
     handleStatusClick = () => {

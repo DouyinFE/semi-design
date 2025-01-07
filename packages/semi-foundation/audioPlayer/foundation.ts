@@ -3,7 +3,7 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
 export interface AudioPlayerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
-    initAudio: () => void;
+    init: () => void;
     resetAudioState: () => void;
     handleStatusClick: () => void;
     handleTimeUpdate: () => void;
@@ -14,7 +14,7 @@ export interface AudioPlayerAdapter<P = Record<string, any>, S = Record<string, 
     handleSeek: (direction: number) => void;
     handleRefresh: () => void;
     handleVolumeChange: (value: number) => void;
-    destroyAudio: () => void
+    destroy: () => void
 }
 
 class AudioPlayerFoundation extends BaseFoundation<AudioPlayerAdapter> {
@@ -51,12 +51,12 @@ class AudioPlayerFoundation extends BaseFoundation<AudioPlayerAdapter> {
         });
     }
 
-    initAudio() {
-        this._adapter.initAudio();
+    init() {
+        this._adapter.init();
     }
 
-    destroyAudio() {
-        this._adapter.destroyAudio();
+    destroy() {
+        this._adapter.destroy();
     }
 
     resetAudioState() {
