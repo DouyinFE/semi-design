@@ -50,6 +50,7 @@ $module: #{$prefix}-audio-player;
     &-info-title {
         font-size: $font-size-audio-player-text;
         color: $color-audio-player-font-color;
+        font-weight: 600;
         display: flex;
         align-items: center;
     }
@@ -160,6 +161,10 @@ $module: #{$prefix}-audio-player;
     background: $color-audio-player-slider-bg;
     border-radius: $border-radius-audio-player-slider;
     position: relative;
+    
+    &-light {
+        background: $color-audio-player-slider-bg-light;
+    }
 
     &-wrapper {
         position: relative;

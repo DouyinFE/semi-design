@@ -24,7 +24,7 @@ type AudioUrlArray = (AudioInfo | string)[];
 
 type AudioUrl = AudioSrc | AudioInfo | AudioUrlArray
 
-type AudioPlayerTheme = 'dark' | 'light'
+export type AudioPlayerTheme = 'dark' | 'light'
 
 export interface AudioPlayerProps extends BaseProps {
     audioUrl: AudioUrl;
@@ -280,11 +280,14 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
         const transparentStyle = {
             background: 'transparent',
         };
+        const playStyle = {
+            marginLeft: '1px',
+        };
         return <div className={cls(`${prefixCls}-control`)}>
             {isAudioUrlArray && <Tooltip content='Previous' autoAdjustOverflow showArrow={false}>
                 <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' className={iconClass} />} onClick={() => this.handleTrackChange('prev')} />
             </Tooltip>}
-            <Button style={circleStyle} size='large' disabled={error} onClick={this.handleStatusClick} icon={this.state.isPlaying ? <IconPause size='large' /> : <IconPlay size='large' />} className={cls(`${cssClasses.PREFIX}-control-button-play`, { [`${cssClasses.PREFIX}-control-button-play-disabled`]: error })} />
+            <Button style={circleStyle} size='large' disabled={error} onClick={this.handleStatusClick} icon={this.state.isPlaying ? <IconPause size='large' /> : <IconPlay style={playStyle} size='large' />} className={cls(`${cssClasses.PREFIX}-control-button-play`, { [`${cssClasses.PREFIX}-control-button-play-disabled`]: error })} />
             {isAudioUrlArray && <Tooltip content='Next' autoAdjustOverflow showArrow={false}>
                 <Button style={{ ...circleStyle, ...transparentStyle }} size='large' icon={<IconRestart size='large' rotate={180} className={iconClass} />} onClick={() => this.handleTrackChange('next')} />
             </Tooltip>}
@@ -293,6 +296,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
 
     renderInfo = () => {
         const { audioTitle, audioCover } = this.getAudioInfo(this.props.audioUrl);
+        const { theme } = this.props;
         const { currentTime, totalTime, error } = this.state;
         return <div className={cls(`${prefixCls}-info-container`)}>
             {audioCover && <Image src={audioCover} width={50} height={50} />}
@@ -301,7 +305,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                 {!error && <div className={cls(`${prefixCls}-info-time`)}>
                     <span style={{ width: '38px' }}>{formatTime(currentTime)}</span>
                     <div className={cls(`${prefixCls}-slider-container`)}>
-                        <AudioSlider value={currentTime} max={totalTime} onChange={this.handleTimeChange} />
+                        <AudioSlider value={currentTime} max={totalTime} theme={theme} onChange={this.handleTimeChange} />
                     </div>
                     <span style={{ width: '38px' }}>{formatTime(totalTime)}</span>
                 </div>}
@@ -311,17 +315,17 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
 
     renderToolbar = () => {
         const { volume, error } = this.state;
-        const { skipDuration = 10 } = this.props;
+        const { skipDuration = 10, theme = 'dark' } = this.props;
         const iconClass = cls(`${prefixCls}-control-button-icon`);
         const transparentStyle = {
             background: 'transparent',
         };
         const isVolumeSilent = volume === 0;
         return !error ? (<div className={cls(`${prefixCls}-control`)}>
-            <Popover content={
+            <Popover autoAdjustOverflow content={
                 <div className={cls(`${prefixCls}-control-volume`)}>
                     <div className={cls(`${prefixCls}-control-volume-title`)}>{volume}%</div>
-                    <AudioSlider value={volume} max={100} vertical height={120} showTooltip={false} onChange={this.handleVolumeChange} />
+                    <AudioSlider value={volume} max={100} vertical height={120} theme={theme} showTooltip={false} onChange={this.handleVolumeChange} />
                 </div>
             }>
                 <Button style={transparentStyle} icon={!isVolumeSilent ? <IconVolume2 className={iconClass} /> : <IconVolumnSilent className={iconClass} />} onClick={this.handleVolumeSilent} />

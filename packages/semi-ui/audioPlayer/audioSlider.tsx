@@ -5,6 +5,7 @@ import { cssClasses } from '@douyinfe/semi-foundation/audioPlayer/constants';
 import Tooltip from '../tooltip';
 import { formatTime } from './utils';
 import { noop } from 'lodash';
+import { AudioPlayerTheme } from './index';
 
 interface AudioSliderProps {
     value: number;
@@ -15,7 +16,8 @@ interface AudioSliderProps {
     width?: number;
     height?: number;
     showTooltip?: boolean;
-    disabled?: boolean
+    disabled?: boolean;
+    theme?: AudioPlayerTheme
 }
 
 interface AudioSliderState {
@@ -34,6 +36,7 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
         height: 4,
         showTooltip: true,
         disabled: false,
+        theme: 'dark'
     };
 
     private sliderRef: React.RefObject<HTMLDivElement>;
@@ -101,7 +104,7 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
     }
 
     render() {
-        const { vertical, width, height, showTooltip, max, value: currentValue } = this.props;
+        const { vertical, width, height, showTooltip, max, value: currentValue, theme } = this.props;
         const { movingInfo, isHovering } = this.state;
         const sliderContent = (
             <div
@@ -117,7 +120,7 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
             >
                 <div
                     ref={this.sliderRef}
-                    className={cls(`${prefixCls}-slider`, {
+                    className={cls(`${prefixCls}-slider`, `${prefixCls}-slider-${theme}`, {
                         [`${prefixCls}-slider-vertical`]: vertical,
                         [`${prefixCls}-slider-horizontal`]: !vertical,
                     })}
