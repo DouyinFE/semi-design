@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useState } from "react"
 import JsonViewer from "../index"
 
 
@@ -53,7 +53,25 @@ const baseStr = `{
     ]
  }`;
 
-export const DefaultJsonViewer = () => {
+ export const DefaultJsonViewer = () => {
+   const onChangeHandler = value => {
+       console.log(value, 'value');
+   };
 
-    return <JsonViewer value={baseStr} width={700} height={400} />
-}
+   const [autoWrap, setAutoWrap] = useState(true);
+   const [lineHeight, setLineHeight] = useState(20);
+   const jsonviewerRef = useRef(null);
+
+   return (
+       <>
+           <JsonViewer
+               value={baseStr}
+               width={700}
+               height={400}
+               options={{ lineHeight: lineHeight, autoWrap: autoWrap, formatOptions: { tabSize: 4 } }}
+               onChange={onChangeHandler}
+               ref={jsonviewerRef}
+           />
+       </>
+   );
+};

@@ -21,7 +21,12 @@ self.onmessage = (e: MessageEvent) => {
     switch (method) {
         case 'updateModel':
             jsonWorker.updateModel(params.op);
-            result = jsonWorker.getModel()?.getValue();
+            break;
+        case 'undo':
+            jsonWorker.undo();
+            break;
+        case 'redo':
+            jsonWorker.redo();
             break;
         case 'format':
             result = jsonWorker.format(params.options as FormattingOptions);

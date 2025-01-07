@@ -6,7 +6,8 @@ export interface GlobalEvents {
     contentChanged: IModelContentChangeEvent | IModelContentChangeEvent[];
     problemsChanged: IProblemsChangedEvent;
     hoverNode: IHoverNodeEvent;
-    renderHoverNode: IRenderHoverNodeEvent
+    renderHoverNode: IRenderHoverNodeEvent;
+    forceRender: undefined
 }
 
 interface IRange {

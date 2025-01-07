@@ -67,6 +67,7 @@ const order = [
     'empty',
     'highlight',
     'image',
+    'cropper',
     'list',
     'modal',
     'overflowlist',

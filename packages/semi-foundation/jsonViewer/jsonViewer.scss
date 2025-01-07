@@ -68,8 +68,8 @@ $module: #{$prefix}-json-viewer;
         font-variation-settings: normal;
         letter-spacing: 0px;
         color: #237893;
-        word-wrap: break-word;
-        white-space: pre-wrap;
+        word-break: break-all !important;
+        white-space: pre-wrap !important;
     }
 
     &-line-number {
@@ -82,6 +82,7 @@ $module: #{$prefix}-json-viewer;
         color: $color-json-viewer-line-number;
         text-align: center;
         width: 50px;
+        user-select: none;
     }
 
     &-content-container {
@@ -196,5 +197,9 @@ $module: #{$prefix}-json-viewer;
         cursor: pointer;
     }
 
-
+    &-error {
+        text-decoration: underline wavy var(--semi-color-danger);
+        text-decoration-thickness: 1px;
+        text-underline-position: under;
+    }
 }

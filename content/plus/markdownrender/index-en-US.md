@@ -22,6 +22,7 @@ Usually used in the following scenarios:
 - Front-end rendering when the server dynamically generates rich text content
 - A light interactive website that focuses on content display
 
+**Note: Safari versions prior to 16.3 do not support regular lookaround assertions, which will cause upstream dependencies on mdxjs to [report errors](https://github.com/syntax-tree/mdast-util-gfm-autolink-literal/issues/10). You can pass remarkGfm as false to disable gfm syntax parsing (which will cause markdown features such as tables to fail to parse), and use null-loader or alias or other methods to ignore the remark-gfm package when compiling the project. **
 
 ## Demos
 

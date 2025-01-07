@@ -158,6 +158,7 @@ render(FormatJsonComponent);
 | width             | 宽度                                     | number                                  | -  |
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
+| showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
 | options           | 格式化配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 
@@ -167,6 +168,7 @@ render(FormatJsonComponent);
 |-------------------|------------------------------------------------|---------------------------------|-----------|
 | lineHeight        | 行高                                    | number                          | 20  |
 | autoWrap        | 是否自动换行                             | boolean                            | true  |
+| readOnly        | 是否只读                             | boolean                            | false  |
 | formatOptions     | 格式化配置                               | FormattingOptions                |  -  |
 
 ### FormattingOptions

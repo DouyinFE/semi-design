@@ -16,6 +16,24 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.72.0 (2024-12-20)
+- 【Fix】
+  - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fix The problem that the code prompt box cannot be hidden when clicked [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the rendering problem caused by multiple carriage returns [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the abnormal display of the scroll bar [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
+
+#### 🎉 2.72.0-beta.0 (2024-12-16)
+- 【Feat】
+    - Table onChange add extra.changeType API to idetify the type of changing  [#1238](https://github.com/DouyinFE/semi-design/issues/1238)
+- 【Fix】
+    - fix render state value in Carousel children always get the init one
+
+#### 🎉 2.71.3 (2024-12-17)
+- 【Fix】
+    - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
+    - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
+    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time.[#2624](https://github.com/DouyinFE/semi-design/pull/2624)
 
 #### 🎉 2.71.2 (2024-12-13)
 - 【Fix】

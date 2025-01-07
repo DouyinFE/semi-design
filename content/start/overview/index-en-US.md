@@ -24,7 +24,8 @@ CodeHighlight,
 Markdown,
 Lottie,
 Chat,
-HotKeys
+HotKeys,
+DragMove
 ```
 
 
@@ -79,6 +80,7 @@ Descriptions,
 Dropdown,
 Empty,
 Image,
+Cropper,
 List,
 Modal,
 OverflowList,

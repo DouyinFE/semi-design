@@ -251,7 +251,7 @@ export function parseJson(jsonModel: JSONModel) {
         skipUntil: Json.SyntaxKind[] = []
     ): T | undefined {
         let start = scanner.getTokenOffset();
-        let end = scanner.getPosition() + scanner.getTokenLength();
+        let end = scanner.getTokenOffset() + scanner.getTokenLength();
         if (start === end && start > 0) {
             start--;
             while (start > 0 && /\s/.test(text.charAt(start))) {

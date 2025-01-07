@@ -55,6 +55,10 @@ export interface BaseColumnProps<RecordType> {
     ellipsis?: BaseEllipsis
 }
 
+export interface OnChangeExtra {
+    changeType?: 'sorter' | 'filter' | 'pagination'
+}
+
 export interface TableAdapter<RecordType> extends DefaultAdapter {
     resetScrollY: () => void;
     setSelectedRowKeys: (selectedRowKeys: BaseRowKeyType[]) => void;
@@ -80,7 +84,7 @@ export interface TableAdapter<RecordType> extends DefaultAdapter {
     getAllDisabledRowKeys: () => BaseRowKeyType[];
     getAllDisabledRowKeysSet: () => Set<BaseRowKeyType>;
     notifyFilterDropdownVisibleChange: (visible: boolean, dataIndex: string) => void;
-    notifyChange: (changeInfo: { pagination: BasePagination; filters: BaseChangeInfoFilter<RecordType>[]; sorter: BaseChangeInfoSorter<RecordType>; extra: any }) => void;
+    notifyChange: (changeInfo: { pagination: BasePagination; filters: BaseChangeInfoFilter<RecordType>[]; sorter: BaseChangeInfoSorter<RecordType>; extra: OnChangeExtra }) => void;
     notifyExpand: (expanded?: boolean, record?: BaseIncludeGroupRecord<RecordType>, mouseEvent?: any) => void;
     notifyExpandedRowsChange: (expandedRows: BaseIncludeGroupRecord<RecordType>[]) => void;
     notifySelect: (record?: BaseIncludeGroupRecord<RecordType>, selected?: boolean, selectedRows?: BaseIncludeGroupRecord<RecordType>[], nativeEvent?: any) => void;
@@ -400,7 +404,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             this._adapter.setDataSource(dataSource);
         }
 
-        this._notifyChange(pagination);
+        this._notifyChange(pagination, undefined, undefined, { changeType: 'pagination' });
     };
 
     /**
@@ -579,7 +583,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         return srcArr;
     }
 
-    _notifyChange(pagination: BasePagination, filters?: BaseChangeInfoFilter<RecordType>[], sorter?: BaseChangeInfoSorter<RecordType>, extra?: RecordType) {
+    _notifyChange(pagination: BasePagination, filters?: BaseChangeInfoFilter<RecordType>[], sorter?: BaseChangeInfoSorter<RecordType>, extra?: OnChangeExtra) {
         pagination = pagination == null ? this._getPagination() : pagination;
         filters = filters == null ? this._getAllFilters() : filters;
         sorter = sorter == null ? this._getAllSorters()[0] as BaseChangeInfoSorter<RecordType> : sorter;
@@ -1067,7 +1071,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
             this.handleClickFilterOrSorter(queries);
         }
 
-        this._notifyChange(null, filters);
+        this._notifyChange(null, filters, undefined, { changeType: 'filter' });
     }
 
     /**
@@ -1120,7 +1124,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         }
 
         // notify sort event
-        this._notifyChange(null, null, curQuery, null);
+        this._notifyChange(null, null, curQuery, { changeType: 'sorter' });
     }
 
     /**
