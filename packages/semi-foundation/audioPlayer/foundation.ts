@@ -13,7 +13,8 @@ export interface AudioPlayerAdapter<P = Record<string, any>, S = Record<string, 
     handleSpeedChange: (value: { label: string; value: number }) => void;
     handleSeek: (direction: number) => void;
     handleRefresh: () => void;
-    handleVolumeChange: (value: number) => void
+    handleVolumeChange: (value: number) => void;
+    destroyAudio: () => void
 }
 
 class AudioPlayerFoundation extends BaseFoundation<AudioPlayerAdapter> {
@@ -21,8 +22,41 @@ class AudioPlayerFoundation extends BaseFoundation<AudioPlayerAdapter> {
         super({ ...AudioPlayerFoundation, ...adapter });
     }
 
+    initAudioState() {
+        const audioRef = this.getAudioRef();
+        const props = this.getProps();
+        
+        this.setState({
+            totalTime: audioRef.current?.duration || 0,
+            isPlaying: props.autoPlay,
+            volume: audioRef.current?.volume * 100 || 100,
+            currentRate: { label: '1.0x', value: audioRef.current?.playbackRate || 1 },
+        });
+    }
+
+    endHandler() {
+        const props = this.getProps();
+        if (Array.isArray(props.audioUrl)) {
+            this.handleTrackChange('next');
+        } else {
+            this.setState({
+                isPlaying: false,
+            });
+        }
+    }
+
+    errorHandler() {
+        this.setState({
+            error: true,
+        });
+    }
+
     initAudio() {
         this._adapter.initAudio();
+    }
+
+    destroyAudio() {
+        this._adapter.destroyAudio();
     }
 
     resetAudioState() {

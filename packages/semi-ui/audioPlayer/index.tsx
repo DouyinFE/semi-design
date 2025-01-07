@@ -15,15 +15,14 @@ import { AudioPlayerAdapter } from '@douyinfe/semi-foundation/audioPlayer/founda
 import { formatTime } from './utils';
 
 type AudioSrc = string
-type AudioSrcArray = string[]
 type AudioInfo = {
     title?: string;
     cover?: string;
     src: string
 }
-type AudioInfoArray = AudioInfo[]
+type AudioUrlArray = (AudioInfo | string)[];
 
-type AudioUrl = AudioSrc | AudioSrcArray | AudioInfo | AudioInfoArray
+type AudioUrl = AudioSrc | AudioInfo | AudioUrlArray
 
 type AudioPlayerTheme = 'dark' | 'light'
 
@@ -89,27 +88,26 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
             initAudio: () => {
                 if (this.audioRef.current) {
                     this.audioRef.current.addEventListener('loadedmetadata', () => {
-                        this.setState({
-                            totalTime: this.audioRef.current?.duration || 0,
-                            isPlaying: this.props.autoPlay,
-                            volume: this.audioRef.current?.volume * 100 || 100,
-                            currentRate: { label: '1.0x', value: this.audioRef.current?.playbackRate || 1 },
-                        });
+                        this.foundation.initAudioState();
                     });
                     this.audioRef.current.addEventListener('error', () => {
-                        this.setState({
-                            error: true,
-                        });
+                        this.foundation.errorHandler();
                     });
                     this.audioRef.current.addEventListener('ended', () => {
-                        console.log('ended');
-                        if (Array.isArray(this.props.audioUrl)) {
-                            this.handleTrackChange('next');
-                        } else {
-                            this.setState({
-                                isPlaying: false,
-                            });
-                        }
+                        this.foundation.endHandler();
+                    });
+                }
+            },
+            destroyAudio: () => {
+                if (this.audioRef.current) {
+                    this.audioRef.current.removeEventListener('loadedmetadata', () => {
+                        this.foundation.initAudioState();
+                    });
+                    this.audioRef.current.removeEventListener('error', () => {
+                        this.foundation.errorHandler();
+                    });
+                    this.audioRef.current.removeEventListener('ended', () => {
+                        this.foundation.endHandler();
                     });
                 }
             },
@@ -210,6 +208,10 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
 
     componentDidMount() {
         this.foundation.initAudio();
+    }
+
+    componentWillUnmount() {
+        this.foundation.destroyAudio();
     }
 
     handleStatusClick = () => {
@@ -349,9 +351,9 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     <span>{this.state.currentRate.label}</span>
                 </div>
             </Dropdown>
-            <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
+            <Button onClick={() => this.handleRefresh()} style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} />} />
         </div>) : (<div className={cls(`${prefixCls}-control`)}>
-            <Button style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} onClick={() => this.handleRefresh()} />} />
+            <Button onClick={() => this.handleRefresh()} style={transparentStyle} icon={<IconRefresh style={{ transform: 'rotateY(180deg)' }} className={iconClass} />} />
         </div>);
     }
 

@@ -28,7 +28,6 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
     static defaultProps = {
         value: 0,
         onChange: noop,
-        onAfterChange: noop,
         max: 100,
         vertical: false,
         width: '100%',
@@ -95,8 +94,10 @@ export default class AudioSlider extends React.Component<AudioSliderProps, Audio
     }
 
     handleMouseLeave = () => {
-        this.setState({ isHovering: false });
-        this.setState({ isDragging: false });
+        this.setState({ 
+            isHovering: false,
+            isDragging: false 
+        });
     }
 
     render() {
