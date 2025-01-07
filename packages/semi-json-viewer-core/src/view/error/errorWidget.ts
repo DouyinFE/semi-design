@@ -6,6 +6,7 @@ import { GlobalEvents } from '../../common/emitterEvents';
 export class ErrorWidget {
     private _view: View;
     private emitter: Emitter<GlobalEvents> = getEmitter();
+    private _problems: Diagnostic[] = [];
     constructor(view: View) {
         this._view = view;
         this._attachEventListeners();
@@ -13,12 +14,14 @@ export class ErrorWidget {
 
     private _attachEventListeners() {
         this.emitter.on('problemsChanged', (result: any) => {
-            this.renderErrorLine(result.problems);
+            this._problems = result.problems;
+            this.renderErrorLine();
         });
     }
 
-    private renderErrorLine(problems: Diagnostic[]) {
-        problems.forEach((problem: Diagnostic) => {
+    public renderErrorLine() {
+        if (this._problems.length === 0) return;
+        this._problems.forEach((problem: Diagnostic) => {
             const { start, end } = problem.range;
             const errMessage = problem.message;
             this.findDomByPos(start, end, errMessage);

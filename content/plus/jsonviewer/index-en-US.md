@@ -161,6 +161,7 @@ render(FormatJsonComponent);
 | width | Width of wrapper DOM | number | - |
 | className | className of wrapper DOM | string | - |
 | style | InlineStyle of wrapper DOM | object | - |
+| showSearch | Whether to show search icon | boolean | true |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
 
@@ -170,6 +171,7 @@ render(FormatJsonComponent);
 | ------------- | --------------------------------------- | ----------------- | ------- |
 | lineHeight    | Height of each line of content, unit:px | number            | 20      |
 | autoWrap      | Whether to wrap lines automatically.    | boolean           | true    |
+| readOnly      | Whether to be read-only.    | boolean           | false    |
 | formatOptions | Content format setting                  | FormattingOptions | -       |
 
 ### FormattingOptions
