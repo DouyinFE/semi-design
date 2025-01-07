@@ -443,4 +443,3 @@ export { default as IconWindowAdaptionStroked } from './IconWindowAdaptionStroke
 export { default as IconWrench } from './IconWrench';
 export { default as IconXiguaLogo } from './IconXiguaLogo';
 export { default as IconYoutube } from './IconYoutube';
-export { default as IconMiniPlayer } from './IconMiniPlayer';

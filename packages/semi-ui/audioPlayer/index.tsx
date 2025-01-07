@@ -8,7 +8,7 @@ import Dropdown from '../dropdown';
 import Image from '../image';
 import Tooltip from '../tooltip';
 import Popover from '../popover';
-import { IconAlertCircle, IconBackward, IconFastForward, IconMiniPlayer, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2, IconVolumnSilent } from '@douyinfe/semi-icons';
+import { IconAlertCircle, IconBackward, IconFastForward, IconPause, IconPlay, IconRefresh, IconRestart, IconVolume2, IconVolumnSilent } from '@douyinfe/semi-icons';
 import AudioSlider from './audioSlider';
 import AudioPlayerFoundation from '@douyinfe/semi-foundation/audioPlayer/foundation';
 import { AudioPlayerAdapter } from '@douyinfe/semi-foundation/audioPlayer/foundation';
