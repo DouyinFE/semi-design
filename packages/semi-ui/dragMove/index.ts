@@ -130,20 +130,6 @@ export default class DragMove extends BaseComponent<DragMoveProps, null> {
                     ref.current = node;
                 }
             },
-            onMouseDown: (e: MouseEvent) => {
-                this.foundation.onMouseDown(e);
-                const { onMouseDown } = children.props;
-                if (typeof onMouseDown === 'function') {
-                    onMouseDown(e);
-                }
-            },
-            onTouchStart: (e: TouchEvent) => {
-                this.foundation.onTouchStart(e);
-                const { onMouseMove } = children.props;
-                if (typeof onMouseMove === 'function') {
-                    onMouseMove(e);
-                }
-            },
         });
         return newChildren;
     }

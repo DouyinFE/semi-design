@@ -56,6 +56,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     private editorRef: React.RefObject<HTMLDivElement>;
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
+    private isComposing: boolean = false;
 
     foundation: JsonViewerFoundation;
 
@@ -191,6 +192,16 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     className={`${prefixCls}-search-bar-input`}
                     onChange={(_value, e) => {
                         e.preventDefault();
+                        if (!this.isComposing) {
+                            this.searchHandler();
+                        }
+                        this.searchInputRef.current?.focus();
+                    }}
+                    onCompositionStart={() => {
+                        this.isComposing = true;
+                    }}
+                    onCompositionEnd={() => {
+                        this.isComposing = false;
                         this.searchHandler();
                         this.searchInputRef.current?.focus();
                     }}
