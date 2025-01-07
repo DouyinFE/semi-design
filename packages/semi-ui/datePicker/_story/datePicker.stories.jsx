@@ -68,7 +68,8 @@ export {
     DynamicDisabledDate,
     FeatEtcGMT,
     FixDisabledDate,
-    FeatInsetInputShowClear
+    FeatInsetInputShowClear,
+    ChromeCrash
 } from './v2';
 
 

@@ -1361,7 +1361,14 @@ export default class DatePickerFoundation extends BaseFoundation<DatePickerAdapt
 
     handlePanelVisibleChange(visible: boolean) {
         if (visible) {
-            this._adapter.setInsetInputFocus();
+            // this is a hack for macOS + Chrome
+            // for internal use only
+            setTimeout(() => {
+                this._adapter.setInsetInputFocus();
+                // 100 is a magic number
+                // <10 is not ok
+                // >= 10 is ok
+            }, 100);
             /**
              * After the panel is closed, the trigger input is disabled
              * 面板关闭后，trigger input 禁用
