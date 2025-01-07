@@ -346,6 +346,7 @@ function DropdownEvents() {
 | children | 触发弹出层的 Trigger 元素 | ReactNode |  |  |
 | clickToHide | 在弹出层内点击时是否自动关闭弹出层 | boolean |  | |
 | contentClassName | 下拉菜单根元素类名 | string |  |  |
+| disableFocusListener | trigger为`hover`时，不响应键盘聚焦弹出浮层事件，详见[issue#977](https://github.com/DouyinFE/semi-design/issues/977) | boolean | false | **2.17.0** |
 | getPopupContainer | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。 | function():HTMLElement | () => document.body |  |
 | keepDOM | 关闭时是否保留内部组件 DOM 不销毁 | boolean | false | **2.31.0** |
 | margin | 弹出层计算溢出时的增加的冗余值，详见[issue#549](https://github.com/DouyinFE/semi-design/issues/549)，作用同 Tooltip margin | number\|object |  | **2.25.0** |
