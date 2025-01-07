@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 26
 category: Plus
 title:  DragMove 拖拽移动
-icon: doc-configprovider
+icon: doc-dragmove
 dir: column
 brief: 可通过拖拽改变位置
 showNew: true

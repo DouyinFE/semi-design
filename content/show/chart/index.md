@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 79
+order: 80
 category: 展示类
 title:  Data Visualization 数据可视化
 icon: doc-vchart
