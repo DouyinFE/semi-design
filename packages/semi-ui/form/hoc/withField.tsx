@@ -200,6 +200,12 @@ function withField<
             setStatus('default');
         };
 
+
+        const unmounted = useRef(false);
+        useEffect(() => () => {
+            unmounted.current = true;
+        }, []);
+
         // Execute the validation rules specified by rules
         const _validateInternal = (val: any, callOpts: CallOpts) => {
             let latestRules = rulesRef.current || [];
@@ -221,6 +227,9 @@ function withField<
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
                             return;
                         }
+                        if (unmounted.current) {
+                            return;
+                        }
                         // validation passed
                         setStatus('success');
                         updateError(undefined, callOpts);
@@ -228,6 +237,9 @@ function withField<
                     })
                     .catch(err => {
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
+                            return;
+                        }
+                        if (unmounted.current) {
                             return;
                         }
                         let { errors, fields } = err;
