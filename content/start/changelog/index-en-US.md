@@ -16,9 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 #### 🎉 2.73.0-beta.0 (2025-01-07)
-- 【Feat】
+- 【New Component】
     - Added audio player component [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2650](https://github.com/DouyinFE/semi-design/pull/2650)
     - Added Cropper component [#2642](https://github.com/DouyinFE/semi-design/pull/2642)
+- 【Feat】
     - Added read-only mode to JsonViewer [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
     - JsonViewer supports hidden search icon [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
     - JsonViewer adds Json format error information prompt function [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
