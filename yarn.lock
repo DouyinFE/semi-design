@@ -1664,7 +1664,7 @@
   dependencies:
     classnames "^2.2.6"
 
-"@douyinfe/semi-icons@2.72.3":
+"@douyinfe/semi-icons@2.72.3", "@douyinfe/semi-icons@^2.0.0":
   version "2.72.3"
   resolved "https://registry.yarnpkg.com/@douyinfe/semi-icons/-/semi-icons-2.72.3.tgz#eb20c7485f8acec7da4cd20b6472cb80f25bbb1d"
   integrity sha512-ZsbHin7dJXX4JWpKykqJhH4hlNi9uTHKUi2ylpyMpIl08ROetojkDKj6TcTd9mRMILGpQHCH7hd5uYGo1xb3ew==
@@ -12073,6 +12073,11 @@ eslint-plugin-react@^7.20.6, eslint-plugin-react@^7.24.0:
     semver "^6.3.1"
     string.prototype.matchall "^4.0.11"
     string.prototype.repeat "^1.0.0"
+
+eslint-plugin-semi-design@^2.33.0:
+  version "2.72.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-semi-design/-/eslint-plugin-semi-design-2.72.3.tgz#c5b66438ce14ac9e82f177e8b58fe14baeed3cc9"
+  integrity sha512-Emh7y3aPeXEIiPlwc3o6LrPnyMOCpxelbzUBSOUhvVfGpZz7+Jb9f/Q0uY3y0rC1h7lcnuylhv5fVjTshrUXEg==
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
