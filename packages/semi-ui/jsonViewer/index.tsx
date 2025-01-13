@@ -52,6 +52,10 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         width: 400,
         height: 400,
         value: '',
+        options: {
+            readOnly: false,
+            autoWrap: true
+        }
     };
 
     private editorRef: React.RefObject<HTMLDivElement>;
