@@ -15,6 +15,11 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.73.0 (2025-01-13)
+- 【Fix】
+    - Fix the problem that JsonViewer is not configured with default parameters [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fix JsonViewer the judgment condition for whether to re-init. [@rashagu](https://github.com/rashagu)
+
 #### 🎉 2.73.0-beta.0 (2025-01-07)
 - 【New Component】
     - Added audio player component [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2650](https://github.com/DouyinFE/semi-design/pull/2650)
