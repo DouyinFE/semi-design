@@ -8,7 +8,7 @@ export interface AudioPlayerAdapter<P = Record<string, any>, S = Record<string, 
     handleStatusClick: () => void;
     handleTimeUpdate: () => void;
     handleTrackChange: (direction: 'next' | 'prev') => void;
-    getAudioRef: () => React.RefObject<HTMLAudioElement>;
+    getAudioRef: () => HTMLAudioElement;
     handleTimeChange: (value: number) => void;
     handleSpeedChange: (value: { label: string; value: number }) => void;
     handleSeek: (direction: number) => void;
@@ -23,14 +23,14 @@ class AudioPlayerFoundation extends BaseFoundation<AudioPlayerAdapter> {
     }
 
     initAudioState() {
-        const audioRef = this.getAudioRef();
+        const audioElement = this.getAudioRef();
         const props = this.getProps();
-        
+
         this.setState({
-            totalTime: audioRef.current?.duration || 0,
+            totalTime: audioElement?.duration || 0,
             isPlaying: props.autoPlay,
-            volume: audioRef.current?.volume * 100 || 100,
-            currentRate: { label: '1.0x', value: audioRef.current?.playbackRate || 1 },
+            volume: audioElement?.volume * 100 || 100,
+            currentRate: { label: '1.0x', value: audioElement?.playbackRate || 1 },
         });
     }
 
