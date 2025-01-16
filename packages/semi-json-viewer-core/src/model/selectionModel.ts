@@ -85,7 +85,6 @@ export class SelectionModel {
 
     public toViewPosition() {
         const selection = window.getSelection();
-
         if (!selection) return;
         const range = new Range();
 
@@ -96,28 +95,38 @@ export class SelectionModel {
             selection.addRange(range);
             return;
         }
+
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
-
         const lineElement = this._view.getLineElement(row);
+        
         if (!lineElement) return;
+        
         if (col === 0) {
             range.setStart(lineElement, 0);
             range.setEnd(lineElement, 0);
         } else {
-            let offset = col;
-            for (let i = 0; i < lineElement.childNodes.length; i++) {
-                const childNode = lineElement.childNodes[i];
-                if (childNode.textContent && offset <= childNode.textContent.length) {
-                    range.setStart(childNode.childNodes[0], offset);
-                    range.setEnd(childNode.childNodes[0], offset);
+            const walker = document.createTreeWalker(
+                lineElement,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+
+            let node: Text | null = walker.nextNode() as Text;
+            let currentOffset = 0;
+            
+            while (node) {
+                const nodeLength = node.length;
+                if (currentOffset + nodeLength >= col) {
+                    range.setStart(node, col - currentOffset);
+                    range.setEnd(node, col - currentOffset);
                     break;
                 }
-                offset -= (childNode as Text).textContent?.length || 0;
+                currentOffset += nodeLength;
+                node = walker.nextNode() as Text;
             }
         }
 
-        if (!selection) return;
         selection.removeAllRanges();
         selection.addRange(range);
     }
@@ -144,25 +153,42 @@ export class SelectionModel {
         let row = 1;
         let col = 0;
         if (!node) return { row, col };
+        
         let lineElement: HTMLElement | null;
         if (node instanceof HTMLElement) {
             lineElement = node.closest('.semi-json-viewer-view-line');
         } else {
             lineElement = getLineElement(node);
             if (!lineElement) return { row, col };
-            let totalOffset = 0;
-            for (let i = 0; i < lineElement.childNodes.length; i++) {
-                const childNode = lineElement.childNodes[i];
 
-                if (childNode === node.parentElement) {
+            const walker = document.createTreeWalker(
+                lineElement,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+
+            let currentNode: Text | null = walker.nextNode() as Text;
+            let totalOffset = 0;
+            
+            while (currentNode) {
+                if (currentNode === node) {
                     totalOffset += isStart ? selection.anchorOffset : selection.focusOffset;
                     break;
                 }
-                totalOffset += childNode.textContent?.length || 0;
+                if (currentNode.parentNode === node.parentNode) {
+                    if (currentNode === node) {
+                        totalOffset += isStart ? selection.anchorOffset : selection.focusOffset;
+                        break;
+                    }
+                }
+                
+                totalOffset += currentNode.length;
+                currentNode = walker.nextNode() as Text;
             }
-
+            
             col = totalOffset;
         }
+
         row = (lineElement as any).lineNumber || 1;
         return { row, col: col + 1 };
     }
@@ -185,3 +211,4 @@ export class SelectionModel {
         };
     }
 }
+
