@@ -150,6 +150,78 @@ function FormatJsonComponent() {
 render(FormatJsonComponent);
 ```
 
+### Custom Render Rules
+
+By configuring the `options.customRenderRule` parameter, you can customize how JSON content is rendered (Note: only works in read-only mode).
+
+`customRenderRule` is an array of rules, where each rule contains two properties:
+- `match`: Matching condition, can be one of three types:
+  - String: Exact match
+  - Regular expression: Match by regex
+  - Function: Custom matching logic, with signature `(value: string, key?: string) => boolean`
+    - `value`: Value to match (key or value from JSON key-value pairs, as strings since internal processing only filters quotes)
+    - `key`: When matching a value in a key-value pair, the corresponding key name is passed
+- `render`: Custom render function, with signature `(content: string) => React.ReactNode`
+  - `content`: Matched content. For string values, includes double quotes (e.g., `"name"`, `"Semi"`)
+
+```jsx live=true dir="column" noInline=true
+import React, { useRef } from 'react';
+import { JsonViewer, Button, Rating, Popover, Tag, Image } from '@douyinfe/semi-ui';
+const data = `{
+  "name": "Semi",
+  "version": "2.7.4",
+  "rating": 5,
+  "tags": ["design", "react", "ui"],
+  "image": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+}`;
+function CustomRenderJsonComponent() {
+    const jsonviewerRef = useRef();
+    const customRenderRule = [
+        {
+            match: 'Semi',
+            render: (content) => {
+                return <Popover showArrow content={'I am a custom render'} trigger='hover'><span>{content}</span></Popover>;
+            }
+        },
+        {
+            match: (value)=> value == 5,
+            render: (content) => {
+                return <Rating defaultValue={content} size={10} disabled/>;
+            }
+        },
+        {
+            match: (value, key)=> key === 'tags',
+            render: (content) => {
+                return <Tag size='small' shape='circle'>{content}</Tag>;
+            }
+        },
+        {
+            match: new RegExp('^http'),
+            render: (content) => {
+                // content is original string with quotes, need to remove quotes for valid URL
+                return <Popover showArrow content={<Image width={100} height={100} src={content.replace(/^"|"$/g, '')} />} trigger='hover'><span>{content}</span></Popover>;
+            }
+        }
+    ];
+    return (
+        <div>
+            <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <JsonViewer
+                    ref={jsonviewerRef}
+                    height={200}
+                    width={600}
+                    value={data}
+                    showSearch={false}
+                    options={{ formatOptions: { tabSize: 4, insertSpaces: true, eol: '\n' }, customRenderRule, readOnly: true, autoWrap: true }}
+                />
+            </div>
+        </div>
+    );
+}
+
+render(CustomRenderJsonComponent);
+```
+
 ## API Reference
 
 ### JsonViewer
@@ -167,12 +239,13 @@ render(FormatJsonComponent);
 
 ### JsonViewerOptions
 
-| Attribute     | Description                             | Type              | Default |
-| ------------- | --------------------------------------- | ----------------- | ------- |
-| lineHeight    | Height of each line of content, unit:px | number            | 20      |
-| autoWrap      | Whether to wrap lines automatically.    | boolean           | true    |
-| readOnly      | Whether to be read-only.    | boolean           | false    |
-| formatOptions | Content format setting                  | FormattingOptions | -       |
+| Attribute     | Description                             | Type              | Default | Version |
+| ------------- | --------------------------------------- | ----------------- | ------- | ------- |
+| lineHeight    | Height of each line of content, unit:px | number            | 20      | -       |
+| autoWrap      | Whether to wrap lines automatically.    | boolean           | true    | -       |
+| readOnly      | Whether to be read-only.    | boolean           | false    | -       |
+| customRenderRule | Custom render rules | CustomRenderRule[] | -       | 2.74.0  |
+| formatOptions | Content format setting                  | FormattingOptions | -       | -       |
 
 ### FormattingOptions
 
@@ -181,6 +254,13 @@ render(FormatJsonComponent);
 | tabSize      | Indent size. Unit: px                 | number  | 4       |
 | insertSpaces | Whether to use spaces for indentation | boolean | true    |
 | eol          | Line break character                  | string  | '\n'    |
+
+### CustomRenderRule
+
+| Attribute | Description | Type | Default |
+| --- | --- | --- | --- |
+| match | Matching rule | string \| RegExp \| (value: string, key?: string) => boolean | - |
+| render | Render function | (content: string) => React.ReactNode | - |
 
 ## Methods
 
