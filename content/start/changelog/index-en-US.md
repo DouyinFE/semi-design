@@ -66,7 +66,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
     - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
-    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time.[#2624](https://github.com/DouyinFE/semi-design/pull/2624)
 
 #### 🎉 2.71.2 (2024-12-13)
 - 【Fix】
