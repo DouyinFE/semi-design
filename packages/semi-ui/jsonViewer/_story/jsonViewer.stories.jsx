@@ -81,7 +81,7 @@ export const DefaultJsonViewer = () => {
         console.log(value, 'value');
     };
 
-    const [autoWrap, setAutoWrap] = useState(false);
+    const [autoWrap, setAutoWrap] = useState(true);
     const [lineHeight, setLineHeight] = useState(20);
     const jsonviewerRef = useRef(null);
 
