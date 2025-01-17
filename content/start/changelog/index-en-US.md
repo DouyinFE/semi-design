@@ -37,8 +37,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fix the JsonViewer Undo&Redo text model out of sync problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
     - After setting the handler in DragMove, the child elements of DragMove can still be dragged [#2661](https://github.com/DouyinFE/semi-design/issues/2661) [#2662](https://github.com/DouyinFE/semi-design/pull/2662)
     - Fixed the display problem of Loading when there is no Spin component in the project of Button [#2664](https://github.com/DouyinFE/semi-design/pull/2664)
-    - Fixed the placeHolder and searchPlaceholder of Cascader that cannot be dynamically updated [#2663](https://github.com/DouyinFE/semi-design/pull/2663)
-    - Fixed the problem that the display of the display is none when the display is none When using Typography, JS omission calculation error problem [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
 - 【Chore】
     - JsonViewer refactors the underlying data structure of the folding model [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
     - Add JsonViewer E2E test [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
