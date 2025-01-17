@@ -339,7 +339,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
 
     handleClick(e: any) {
         const { clickToHide } = this.getProps();
-        const { isOpen } = this.getStates();
+        const { isOpen, showInput } = this.getStates();
         const isDisabled = this._isDisabled();
 
         if (isDisabled) {
@@ -350,7 +350,13 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         } else if (isOpen && clickToHide) {
             this.close({ event: e });
         } else if (isOpen && !clickToHide) {
-            this.focusInput();
+            // this.focusInput();
+            if (showInput) {
+                this.focusInput();
+            } else {
+                this.toggle2SearchInput(true);
+            }
+            
         }
     }
 
@@ -1118,6 +1124,7 @@ export default class SelectFoundation extends BaseFoundation<SelectAdapter> {
         if (filter && !isMultiple ) {
             if (showInput || autoFocus) {
                 this.toggle2SearchInput(false);
+                this.clearInput();
             }
         }
     }
