@@ -20,6 +20,7 @@ import {
     IconWholeWord,
 } from '@douyinfe/semi-icons';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import { createPortal } from 'react-dom';
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
@@ -37,7 +38,8 @@ export interface JsonViewerProps extends BaseProps {
 
 export interface JsonViewerState {
     searchOptions: SearchOptions;
-    showSearchBar: boolean
+    showSearchBar: boolean;
+    customRenderMap: Map<HTMLElement, React.ReactNode>
 }
 
 interface SearchOptions {
@@ -73,6 +75,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                 regex: false,
             },
             showSearchBar: false,
+            customRenderMap: new Map(),
         };
     }
 
@@ -98,6 +101,9 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
             notifyHover: (value, el) => {
                 const res = this.props.renderTooltip?.(value, el);
                 return res;
+            },
+            notifyCustomRender: (customRenderMap) => {
+                this.setState({ customRenderMap });
             },
             setSearchOptions: (key: string) => {
                 this.setState(
@@ -311,6 +317,10 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         </DragMove>
                     )}
                 </div>
+                {Array.from(this.state.customRenderMap.entries()).map(([key, value]) => {
+                    // key.innerHTML = '';
+                    return createPortal(value, key);
+                })}
             </>
         );
     }
