@@ -1,38 +1,79 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen } from '@testing-library/react';
 import { Form, ArrayField } from '@douyinfe/semi-ui';
 
-describe('ArrayField Indexed Insert', () => {
-    it('should add items at different indexes correctly', () => {
+const initialData = ['初始任务1', '初始任务2'];
+
+describe('ArrayField Insert', () => {
+    afterEach(cleanup);
+
+    function getArrayFieldDemo(props = {}) {
+        const {
+            initialValues = { tasks: initialData },
+            arrayFieldProps = {},
+            onAdd
+        } = props;
+
         const Demo = () => {
-            const [formState, setFormState] = React.useState({
-                tasks: [{ name: '初始任务' }]
-            });
-
-            const handleValueChange = (values) => {
-                setFormState(values);
-            };
-
             return (
-                <Form 
-                    initValues={formState} 
-                    onValueChange={handleValueChange}
-                >
-                    <ArrayField field="tasks">
+                <Form initValues={initialValues}>
+                    <ArrayField field="tasks" {...arrayFieldProps}>
                         {({ add, arrayFields }) => (
                             <>
-                                <button onClick={() => add()}>默认添加到末尾</button>
-                                <button onClick={() => add(0)}>添加到第一个位置后</button>
-                                <button onClick={() => add(1)}>添加到第二个位置后</button>
-                                <button onClick={() => add(arrayFields.length - 1)}>添加到倒数第二个位置</button>
+                                <button
+                                    data-testid="add-default"
+                                    onClick={() => {
+                                        add();
+                                        onAdd && onAdd();
+                                    }}
+                                >
+                                    默认添加
+                                </button>
+                                <button
+                                    data-testid="add-first"
+                                    onClick={() => {
+                                        add(0);
+                                        onAdd && onAdd();
+                                    }}
+                                >
+                                    添加到第一个位置
+                                </button>
+                                <button
+                                    data-testid="add-last"
+                                    onClick={() => {
+                                        add(arrayFields.length);
+                                        onAdd && onAdd();
+                                    }}
+                                >
+                                    添加到末尾
+                                </button>
+                                <button
+                                    data-testid="add-middle"
+                                    onClick={() => {
+                                        add(1);
+                                        onAdd && onAdd();
+                                    }}
+                                >
+                                    添加到中间位置
+                                </button>
+                                <button
+                                    data-testid="add-outofrange"
+                                    onClick={() => {
+                                        add(100);
+                                        onAdd && onAdd();
+                                    }}
+                                >
+                                    添加到超出范围的索引
+                                </button>
                                 {arrayFields.map(({ field, key }, index) => (
-                                    <div 
-                                        key={key} 
+                                    <div
+                                        key={key}
                                         data-testid={`task-${index}`}
                                     >
-                                        Task {index}
+                                        Task {index}: {field}
                                     </div>
                                 ))}
+                                <div data-testid="tasks-length">{arrayFields.length}</div>
                             </>
                         )}
                     </ArrayField>
@@ -40,26 +81,80 @@ describe('ArrayField Indexed Insert', () => {
             );
         };
 
-        const { getAllByTestId, getByText } = render(<Demo />);
+        return render(<Demo />);
+    }
 
-        // 默认添加到末尾
-        fireEvent.click(getByText('默认添加到末尾'));
+    it('should add items at different positions', () => {
+        const { getAllByTestId } = getArrayFieldDemo();
+
+        // 添加到第一个位置
+        fireEvent.click(getAllByTestId('add-first')[0]);
         let tasks = getAllByTestId(/task-/);
-        expect(tasks.length).toBe(2);
+        let tasksLength = getAllByTestId('tasks-length')[0];
 
-        // 添加到第一个位置后
-        fireEvent.click(getByText('添加到第一个位置后'));
-        tasks = getAllByTestId(/task-/);
         expect(tasks.length).toBe(3);
+        expect(tasksLength.textContent).toBe('3');
 
-        // 添加到第二个位置后
-        fireEvent.click(getByText('添加到第二个位置后'));
+        // 添加到末尾位置
+        const addLastButton = screen.getByText('添加到末尾');
+        fireEvent.click(addLastButton);
+
         tasks = getAllByTestId(/task-/);
+        tasksLength = getAllByTestId('tasks-length')[0];
+
         expect(tasks.length).toBe(4);
+        expect(tasksLength.textContent).toBe('4');
+    });
 
-        // 添加到倒数第二个位置
-        fireEvent.click(getByText('添加到倒数第二个位置'));
-        tasks = getAllByTestId(/task-/);
-        expect(tasks.length).toBe(5);
+    it('should add items to non-empty array', () => {
+        const { getAllByTestId } = getArrayFieldDemo();
+
+        fireEvent.click(getAllByTestId('add-default')[0]);
+        const tasks = getAllByTestId(/task-/);
+        const tasksLength = getAllByTestId('tasks-length')[0];
+
+        expect(tasks.length).toBe(3);
+        expect(tasksLength.textContent).toBe('3');
+    });
+
+    it('should add items to empty array', () => {
+        const { getAllByTestId } = getArrayFieldDemo({
+            initialValues: { tasks: [] }
+        });
+
+        fireEvent.click(getAllByTestId('add-default')[0]);
+        const tasks = getAllByTestId(/task-/);
+        const tasksLength = getAllByTestId('tasks-length')[0];
+
+        expect(tasks.length).toBe(1);
+        expect(tasksLength.textContent).toBe('1');
+    });
+
+    it('should add items to middle position', () => {
+        const { getAllByTestId } = getArrayFieldDemo();
+
+        // 添加到中间位置
+        const addMiddleButton = screen.getByText('添加到中间位置');
+        fireEvent.click(addMiddleButton);
+
+        const tasks = getAllByTestId(/task-/);
+        const tasksLength = getAllByTestId('tasks-length')[0];
+
+        expect(tasks.length).toBe(3);
+        expect(tasksLength.textContent).toBe('3');
+    });
+
+    it('should handle out of range index', () => {
+        const { getAllByTestId } = getArrayFieldDemo();
+
+        // 添加到超出范围的索引
+        const addOutOfRangeButton = screen.getByText('添加到超出范围的索引');
+        fireEvent.click(addOutOfRangeButton);
+
+        const tasks = getAllByTestId(/task-/);
+        const tasksLength = getAllByTestId('tasks-length')[0];
+
+        expect(tasks.length).toBe(3);
+        expect(tasksLength.textContent).toBe('3');
     });
 });
