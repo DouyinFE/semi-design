@@ -946,7 +946,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             <List
                 ref={this.virtualizeListRef}
                 height={height || numbers.LIST_HEIGHT}
-                itemCount={visibleOptions.length}
+                itemCount={content.length}
                 itemSize={itemSize}
                 width={width || '100%'}
                 style={{ direction }}
