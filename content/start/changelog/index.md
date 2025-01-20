@@ -13,6 +13,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.74.0-beta.0 (2025-01-20)
+- 【Feat】
+  - Chat 组件支持 markdownRenderProps API，用于设置对话渲染的 MarkdownRender 组件  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640) [#2679](https://github.com/DouyinFE/semi-design/pull/2679)
+- 【Fix】
+  - 修复JsonViewer输入小写z无效的问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2680](https://github.com/DouyinFE/semi-design/pull/2680)
+
 #### 🎉 2.73.0 (2025-01-13)
 - 【Fix】
     - 修复 JsonViewer 未配置默认参数问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2670](https://github.com/DouyinFE/semi-design/pull/2670)
