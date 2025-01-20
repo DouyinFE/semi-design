@@ -1620,8 +1620,9 @@ render(DefaultChat);
 | inputBoxStyle | 输入框样式 | CSSProperties | - |
 | inputBoxCls | 输入框类名 | string | - |
 | sendHotKey | 发送输入内容的键盘快捷键，支持 `enter` \| `shift+enter`。前者在单独按下 enter 将发送输入框中的消息， shift 和 enter 按键同时按下时，仅换行，不发送。后者相反 | string | `enter` |
+| markdownRenderProps | 该参数将透传给对话框渲染所用的 MarkdownRender 组件，详见 [MarkdownRenderProps](/zh-CN/plus/markdownrender#API)| MarkdownRenderProps |-|
 | mode | 对话模式，支持 `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
-| roleConfig | 角色信息配置，具体见[RoleConfig](#RoleConfig) | RoleConfig | - |
+| roleConfig | 角色信息配置，具体见 [RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderDivider | 自定义渲染分割线, 自 v2.67.0 支持 | (message?: Message) => ReactNode | - |
 | renderHintBox | 自定义渲染提示信息 | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | 对话列表变化时触发 | (chats: Message[]) => void | - |
