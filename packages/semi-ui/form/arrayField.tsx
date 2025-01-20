@@ -136,7 +136,6 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         const { field } = this.props;
         const updater = this.context;
         const newKey = getUuidv4();
-        
         if (index === undefined || (index && typeof index !== 'number')) {
             keys.push(newKey);
         } else {
