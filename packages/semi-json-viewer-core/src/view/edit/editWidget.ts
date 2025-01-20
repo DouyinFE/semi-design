@@ -341,7 +341,7 @@ export class EditWidget {
                 if (e.metaKey && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
-                } else {
+                } else if (e.metaKey && e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.redo();
                 }
