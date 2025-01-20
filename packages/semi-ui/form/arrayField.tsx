@@ -131,12 +131,13 @@ class ArrayFieldComponent extends Component<ArrayFieldProps, ArrayFieldState> {
         }
     }
 
-    add = (index?: number) => {
+    add(index?: number) {
         const { keys } = this.state;
         const { field } = this.props;
         const updater = this.context;
         const newKey = getUuidv4();
-        if (index === undefined) {
+        
+        if (index === undefined || (index && typeof index !== 'number')) {
             keys.push(newKey);
         } else {
             keys.splice(index, 0, newKey);
