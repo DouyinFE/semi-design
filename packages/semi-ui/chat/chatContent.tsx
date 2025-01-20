@@ -16,7 +16,7 @@ const ChatContent = React.memo((props: ChatContentProps) => {
     const { chats, onMessageBadFeedback, onMessageCopy, mode,
         onChatsChange, onMessageDelete, onMessageGoodFeedback,
         onMessageReset, roleConfig, chatBoxRenderConfig, align,
-        customMarkDownComponents, renderDivider,
+        customMarkDownComponents, renderDivider, markdownRenderProps
     } = props;
 
     const [toast, contextHolder] = Toast.useToast();
@@ -49,6 +49,7 @@ const ChatContent = React.memo((props: ChatContentProps) => {
                         lastChat={lastMessage}
                         customMarkDownComponents={customMarkDownComponents}
                         chatBoxRenderConfig={chatBoxRenderConfig}
+                        markdownRenderProps={markdownRenderProps}
                     />;
             })}
             <div className={`${PREFIX}-toast`}>{contextHolder as any}</div>
