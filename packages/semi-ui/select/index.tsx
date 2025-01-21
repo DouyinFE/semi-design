@@ -182,14 +182,14 @@ export type SelectProps = {
     showRestTagsPopover?: boolean;
     restTagsPopoverProps?: PopoverProps
 } & Pick<
-TooltipProps,
-| 'spacing'
-| 'getPopupContainer'
-| 'motion'
-| 'autoAdjustOverflow'
-| 'mouseLeaveDelay'
-| 'mouseEnterDelay'
-| 'stopPropagation'
+    TooltipProps,
+    | 'spacing'
+    | 'getPopupContainer'
+    | 'motion'
+    | 'autoAdjustOverflow'
+    | 'mouseLeaveDelay'
+    | 'mouseEnterDelay'
+    | 'stopPropagation'
 > & React.RefAttributes<any>;
 
 export interface SelectState {
@@ -316,7 +316,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
     };
 
     static __SemiComponentName__ = "Select";
-    
+
     static defaultProps: Partial<SelectProps> = getDefaultPropsFromGlobalConfig(Select.__SemiComponentName__, {
         stopPropagation: true,
         motion: true,
@@ -751,7 +751,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
              * When searchPosition is trigger, the keyboard events are bound to the outer trigger div, so there is no need to listen in input.
              * When searchPosition is dropdown, the popup and the outer trigger div are not parent- child relationships,
              * and bubbles cannot occur, so onKeydown needs to be listened in input.
-             *  */ 
+             *  */
             onKeyDown: (e) => this.foundation._handleKeyDown(e)
         };
 
@@ -924,15 +924,47 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         const { direction } = this.context;
         const { height, width, itemSize } = virtualize;
 
+        const content: any[] = [];
+
+        visibleOptions.forEach((option) => {
+            if (option._parentGroup && !content.some(item =>
+                item.type === OptionGroup &&
+                item.props.label === option._parentGroup.label
+            )) {
+                content.push(
+                    <OptionGroup
+                        key={`group-${option._parentGroup.label}`}
+                        {...option._parentGroup}
+                    />
+                );
+            }
+
+            content.push(option);
+        });
+
         return (
             <List
                 ref={this.virtualizeListRef}
                 height={height || numbers.LIST_HEIGHT}
-                itemCount={visibleOptions.length}
+                itemCount={content.length}
                 itemSize={itemSize}
-                itemData={{ visibleOptions, renderOption: this.renderOption }}
                 width={width || '100%'}
                 style={{ direction }}
+                itemData={{
+                    visibleOptions: content,
+                    renderOption: (option, index, style) => {
+                        if (option.type === OptionGroup) {
+                            return React.cloneElement(option, { style });
+                        }
+                        return this.renderOption(option, index, style);
+                    }
+                }}
+                itemKey={(index, data) => {
+                    const option = data.visibleOptions[index];
+                    return option.type === OptionGroup
+                        ? `group-${option.props.label}`
+                        : option.value;
+                }}
             >
                 {VirtualRow}
             </List>

@@ -2796,7 +2796,13 @@ const FilterDefaultOpen = () => {
         filter
         defaultOpen
       >
-        <Select.OptGroup label="Asia">
+        <Select.OptGroup label="Asia" virtualize={
+          {
+            height: 270,
+            width: '100%',
+            itemSize: 36,
+          }
+        }>
           <Select.Option value="a-1">China</Select.Option>
           <Select.Option value="a-2">Korea</Select.Option>
         </Select.OptGroup>
@@ -3710,3 +3716,70 @@ export const fix2465 = () => {
         </div>
     );
 }
+
+export const FilterVirtualizedOptGroupSelect = () => {
+  const [value, setValue] = useState('a-1');
+  
+  const asiaOptions = Array.from({ length: 50 }, (_, index) => ({
+    value: `a-${index + 1}`,
+    label: `Asia Country ${index + 1}`
+  }));
+
+  const europeOptions = Array.from({ length: 50 }, (_, index) => ({
+    value: `b-${index + 1}`,
+    label: `Europe Country ${index + 1}`
+  }));
+
+  const africaOptions = Array.from({ length: 50 }, (_, index) => ({
+    value: `c-${index + 1}`,
+    label: `Africa Country ${index + 1}`
+  }));
+
+  return (
+    <Select
+      placeholder="Select a country"
+      style={{ width: 300 }}
+      filter
+      defaultOpen
+      value={value}
+      onChange={val => setValue(val)}
+      virtualize={{
+        height: 300,
+        width: '100%',
+        itemSize: 36,
+      }}
+    >
+      <Select.OptGroup label="Asia" virtualize>
+        {asiaOptions.map(option => (
+          <Select.Option key={option.value} value={option.value}>
+            {option.label}
+          </Select.Option>
+        ))}
+      </Select.OptGroup>
+      <Select.OptGroup label="Europe" virtualize>
+        {europeOptions.map(option => (
+          <Select.Option key={option.value} value={option.value}>
+            {option.label}
+          </Select.Option>
+        ))}
+      </Select.OptGroup>
+      <Select.OptGroup label="Africa" virtualize> 
+        {africaOptions.map(option => (
+          <Select.Option key={option.value} value={option.value}>
+            {option.label}
+          </Select.Option>
+        ))}
+      </Select.OptGroup>
+    </Select>
+  );
+};
+
+FilterVirtualizedOptGroupSelect.story = {
+  name: '分组选择器虚拟化（1000个选项）',
+  parameters: {
+    info: {
+      title: '分组选择器虚拟化',
+      description: '测试OptGroup是否支持虚拟化'
+    }
+  }
+};
