@@ -14,7 +14,8 @@ export interface JsonViewerOptions {
     autoWrap?: boolean;
     readOnly?: boolean;
     formatOptions?: FormattingOptions;
-    completionOptions?: CompletionOptions
+    completionOptions?: CompletionOptions;
+    customRenderRule?: CustomRenderRule[]
 }
 
 export interface CompletionOptions {
@@ -25,6 +26,11 @@ export interface FormattingOptions {
     tabSize?: number;
     insertSpaces?: boolean;
     eol?: string
+}
+
+export interface CustomRenderRule {
+    match: string | RegExp | ((value: string, pathChain: string) => boolean);
+    render: (value: string) => HTMLElement
 }
 
 export class JsonViewer {

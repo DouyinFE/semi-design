@@ -1,9 +1,17 @@
 import { JSONModel } from '../model/jsonModel';
 import { elt, setStyles } from '../common/dom';
-import { Token } from '../tokens/tokenize';
+import { createPortal } from 'react-dom';
+import {
+    Token,
+    TOKEN_PROPERTY_NAME,
+    TOKEN_VALUE_BOOLEAN,
+    TOKEN_VALUE_NULL,
+    TOKEN_VALUE_NUMBER,
+    TOKEN_VALUE_STRING,
+} from '../tokens/tokenize';
 import { Emitter, getEmitter } from '../common/emitter';
 import { SelectionModel } from '../model/selectionModel';
-import { JsonViewerOptions } from '../json-viewer/jsonViewer';
+import { CustomRenderRule, JsonViewerOptions } from '../json-viewer/jsonViewer';
 import { getJsonWorkerManager, JsonWorkerManager } from '../worker/jsonWorkerManager';
 import { FoldingModel } from '../model/foldingModel';
 import { SearchWidget } from './search/searchWidget';
@@ -16,6 +24,8 @@ import { CompleteWidget } from './complete/completeWidget';
 import { HoverWidget } from './hover/hoverWidget';
 import { GlobalEvents } from '../common/emitterEvents';
 import { ErrorWidget } from './error/errorWidget';
+import { ViewDOMBuilder } from './viewDOMBuilder';
+import { getNodePath, getPathChain, JsonDocument, parseJson } from '../service/parse';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -29,6 +39,9 @@ export class View {
     private _options: JsonViewerOptions | undefined;
     public _lineHeight: number;
 
+    private _root: JsonDocument | null = null;
+    private _customRenderMap: Map<HTMLElement, any> = new Map();
+
     private _container: HTMLElement;
     private _jsonViewerDom: HTMLElement;
     private _lineNumberDom: HTMLElement;
@@ -38,6 +51,7 @@ export class View {
 
     public startLineNumber: number = 1;
     public visibleLineCount: number = 0;
+    private _domBuilder: ViewDOMBuilder;
 
     private _verticalOffsetAdjustment: number = 0;
 
@@ -50,7 +64,7 @@ export class View {
     private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager();
     private _tokenizationJsonModelPart: TokenizationJsonModelPart;
     private _scalingCellSizeAndPositionManager: ScalingCellSizeAndPositionManager;
-
+    private _customRenderRule: CustomRenderRule[];
     private _measuredHeights: { [index: number]: number } = {};
 
     private emitter: Emitter<GlobalEvents> = getEmitter();
@@ -63,12 +77,15 @@ export class View {
 
         this._lineHeight = options?.lineHeight || 20;
         this._options = options;
+        this._customRenderRule = options?.customRenderRule || null;
 
-        this._jsonViewerDom = this.createRenderContainer();
-        this._lineNumberDom = this.createLineNumberContainer();
-        this._contentDom = this.createContentContainer();
-        this._scrollDom = this.createScrollElement();
-        this._lineScrollDom = this.createLineScrollContainerElement();
+        this._domBuilder = new ViewDOMBuilder(this._lineHeight, model.getLineCount(), options);
+
+        this._jsonViewerDom = this._domBuilder.createRenderContainer();
+        this._lineNumberDom = this._domBuilder.createLineNumberContainer();
+        this._contentDom = this._domBuilder.createContentContainer();
+        this._scrollDom = this._domBuilder.createScrollElement();
+        this._lineScrollDom = this._domBuilder.createLineScrollContainer();
 
         this._contentDom.appendChild(this._scrollDom);
         this._lineNumberDom.appendChild(this._lineScrollDom);
@@ -139,10 +156,15 @@ export class View {
     }
 
     private _attachEventListeners() {
+        if (this._options?.readOnly && this._options.customRenderRule) {
+            const { root } = parseJson(this._jsonModel);
+            this._root = root;
+        }
+
         this._jsonViewerDom.addEventListener('scroll', e => {
             this.onScroll(this._jsonViewerDom.scrollTop);
         });
-
+        if (this._options?.readOnly) return;
         this._jsonViewerDom.addEventListener('click', e => {
             e.preventDefault();
             this._selectionModel.toLastPosition();
@@ -192,62 +214,6 @@ export class View {
         this.onScroll(scrollTop);
     }
 
-    private createRenderContainer(): HTMLElement {
-        const renderContainer = elt('div', 'json-viewer-container');
-        setStyles(renderContainer, {
-            position: 'relative',
-            height: '100%',
-            width: '100%',
-            overflow: 'auto',
-        });
-        return renderContainer;
-    }
-
-    private createLineNumberContainer(): HTMLElement {
-        const lineNumberClass = 'semi-json-viewer-line-number-container';
-        const lineNumberContainer = elt('div', lineNumberClass);
-        setStyles(lineNumberContainer, {
-            position: 'absolute',
-            left: '0',
-            top: '0',
-            width: '50px',
-        });
-        return lineNumberContainer;
-    }
-
-    private createLineScrollContainerElement(): HTMLElement {
-        const lineScrollContainer = elt('div', 'line-scroll-container');
-        setStyles(lineScrollContainer, {
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            height: `${this._lineHeight * this._jsonModel.getLineCount()}px`,
-            width: '100%',
-            overflow: 'hidden',
-        });
-        return lineScrollContainer;
-    }
-
-    private createContentContainer(): HTMLElement {
-        const contentClass = 'semi-json-viewer-content-container';
-        const contentContainer = elt('div', contentClass);
-        setStyles(contentContainer, {
-            position: 'absolute',
-            left: '50px',
-            top: '0',
-            right: '0',
-            overflowX: 'auto',
-            overflowY: 'scroll',
-            outline: 'none',
-        });
-        if (!this._options?.readOnly) {
-            contentContainer.contentEditable = 'true';
-            contentContainer.style.caretColor = 'black';
-            contentContainer.spellcheck = false;
-        }
-        return contentContainer;
-    }
-
     private createLineNumberElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
         const lineNumberClass = 'semi-json-viewer-line-number';
         const lineNumberElement = elt('div', lineNumberClass);
@@ -273,42 +239,23 @@ export class View {
         return lineNumberElement;
     }
 
-    private createScrollElement(): HTMLElement {
-        const scrollEl = elt('div', 'lines-content');
-
-        setStyles(scrollEl, {
-            position: 'relative',
-            overflow: 'hidden',
-            top: '0',
-            left: '0',
-            tabSize: (this._options?.formatOptions?.tabSize || 4).toString(),
-            height: `${this._lineHeight * this._jsonModel.getLineCount()}px`,
-        });
-        if (this._options?.autoWrap) {
-            scrollEl.style.width = '100%';
-        }
-        return scrollEl;
-    }
-
-    private createLineContentElement(
-        lineContent: string,
-        actualLineNumber: number,
-        visibleLineNumber: number
-    ): HTMLElement {
-        const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
+    private createLineContentElement(actualLineNumber: number, visibleLineNumber: number): HTMLElement {
         const lineElementClass = 'semi-json-viewer-view-line';
         const lineElement = elt('div', lineElementClass);
         lineElement.setAttribute('data-line-element', 'true');
+        
+        const rowDatum = this._scalingCellSizeAndPositionManager.getSizeAndPositionOfCell(visibleLineNumber);
         setStyles(lineElement, {
             lineHeight: `${this._lineHeight}px`,
             width: '100%',
             position: 'absolute',
             top: `${rowDatum.offset + this._verticalOffsetAdjustment}px`,
         });
+        
         if (!this._options?.autoWrap) {
             lineElement.style.height = `${this._lineHeight}px`;
         }
-        lineElement.innerHTML = lineContent;
+        
         lineElement.dataset.lineNumber = actualLineNumber.toString();
         // @ts-ignore
         lineElement.lineNumber = actualLineNumber;
@@ -324,7 +271,8 @@ export class View {
 
     private _measureAndUpdateItemHeight(item: HTMLElement, index: number) {
         const height = item.offsetHeight;
-        const width = item.textContent?.length * 10;
+        const width = item.children[0].getBoundingClientRect().width * 2;
+        
         if (!this._options?.autoWrap && width > this._scrollDom.offsetWidth) {
             this._scrollDom.style.width = `${width}px`;
         }
@@ -355,6 +303,7 @@ export class View {
 
     public layout() {
         this.clearContainers();
+        this._customRenderMap.clear();
 
         const visibleLineCount = this._foldingModel.getVisibleLineCount();
         this._scalingCellSizeAndPositionManager.configure({
@@ -383,6 +332,14 @@ export class View {
         const totalSize = this._scalingCellSizeAndPositionManager.getTotalSize();
         this._scrollDom.style.height = `${totalSize}px`;
         this._lineScrollDom.style.height = `${totalSize}px`;
+        if (this._options?.readOnly && this._customRenderMap.size > 0) {
+            this._customRenderMap.forEach((value, key) => {
+                key.innerHTML = '';
+            });
+            this.emitter.emit('customRender', {
+                customRenderMap: this._customRenderMap
+            });
+        }
     }
 
     private renderVisibleLines(startVisibleLine: number, endVisibleLine: number) {
@@ -414,85 +371,143 @@ export class View {
     }
 
     private renderLineContent(actualLineNumber: number, visibleLineNumber: number, tokens: Token[], line: string) {
-        const lineContent = this.renderTokensWithHighlight(tokens, line, actualLineNumber);
-        const lineElement = this.createLineContentElement(lineContent, actualLineNumber, visibleLineNumber);
+        const lineElement = this.createLineContentElement(actualLineNumber, visibleLineNumber);
+        const contentContainer = this.renderTokensWithHighlight(tokens, line, actualLineNumber);
+        lineElement.appendChild(contentContainer);
         this._scrollDom.appendChild(lineElement);
-
+    
         this._measureAndUpdateItemHeight(lineElement, visibleLineNumber);
         return lineElement;
     }
+    
 
-    private renderTokensWithHighlight(tokens: Token[], text: string, lineNumber: number): string {
-        let html = '';
+    private renderTokensWithHighlight(tokens: Token[], text: string, lineNumber: number): HTMLElement {
+        const container = document.createElement('span');
         let currentOffset = 0;
-
+    
         const searchResults = this._searchWidget.binarySearchByLine(lineNumber);
         for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i];
             const start = token.startIndex;
             const end = i + 1 < tokens.length ? tokens[i + 1].startIndex : text.length;
             let content = text.substring(start, end);
-
+    
             if (searchResults && searchResults.length > 0) {
-                html += this.highlightContent(content, currentOffset, searchResults, token.scopes);
+                const highlightedSpan = this.createHighlightedContent(content, currentOffset, searchResults, token.scopes);
+                container.appendChild(highlightedSpan);
             } else {
-                content = this.escapeHtml(content);
-                html += `<span class="${token.scopes}">${content}</span>`;
+                if (this._options?.readOnly && this._tryApplyCustomRender(token.scopes, content)) {
+                    const offset = this._jsonModel.getOffsetAt(lineNumber, (start + end) / 2);
+                    const node = this._root?.getNodeFromOffset(offset);
+                    const path = getNodePath(node);
+                    const pathChain = getPathChain(path);
+                    const customElement = this._renderCustomToken(content, this._customRenderRule, token, pathChain);
+                    if (customElement instanceof HTMLElement) {
+                        container.appendChild(customElement);
+                        continue;
+                    } else if (customElement !== null) {
+                        const span = document.createElement('span');
+                        span.className = token.scopes;
+                        span.textContent = content;
+                        container.appendChild(span);
+                        this._customRenderMap.set(span, customElement);
+                        continue;
+                    }
+                }
+    
+                const span = document.createElement('span');
+                span.className = token.scopes;
+                span.textContent = content;
+                container.appendChild(span);
             }
-
+    
             currentOffset += content.length;
         }
-
-        return html;
+    
+        return container;
     }
 
-    private highlightContent(content: string, offset: number, searchResults: FindMatch[], tokenClass: string): string {
-        let result = '';
+    private createHighlightedContent(content: string, offset: number, searchResults: FindMatch[], tokenClass: string): HTMLElement {
+        const container = document.createElement('span');
         let lastIndex = 0;
-
+    
         for (const match of searchResults) {
             const startIndex = Math.max(0, match.range.startColumn - 1 - offset);
             const endIndex = Math.min(content.length, match.range.endColumn - 1 - offset);
-
+    
             if (startIndex >= content.length || endIndex <= 0) continue;
-
+    
             if (startIndex > lastIndex) {
-                result += `<span class="${tokenClass}">${this.escapeHtml(
-                    content.substring(lastIndex, startIndex)
-                )}</span>`;
+                const normalSpan = document.createElement('span');
+                normalSpan.className = tokenClass;
+                normalSpan.textContent = content.substring(lastIndex, startIndex);
+                container.appendChild(normalSpan);
             }
-
-            const highlightedText = this.escapeHtml(content.substring(startIndex, endIndex));
+    
+            const highlightSpan = document.createElement('span');
+            highlightSpan.textContent = content.substring(startIndex, endIndex);
+            
             const currentMatch = this._searchWidget.searchResults?.[this._searchWidget._currentResultIndex];
-            const searchResultClass = 'semi-json-viewer-search-result';
-            const currentSearchResultClass = 'semi-json-viewer-current-search-result';
-            if (
+            const isCurrentMatch = 
                 match.range.startLineNumber === currentMatch?.range.startLineNumber &&
                 match.range.endLineNumber === currentMatch?.range.endLineNumber &&
                 match.range.startColumn === currentMatch?.range.startColumn &&
-                match.range.endColumn === currentMatch?.range.endColumn
-            ) {
-                result += `<span class="${tokenClass} ${searchResultClass} ${currentSearchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
-            } else {
-                result += `<span class="${tokenClass} ${searchResultClass}" data-start-column="${match.range.startColumn}" data-end-column="${match.range.endColumn}">${highlightedText}</span>`;
-            }
-
+                match.range.endColumn === currentMatch?.range.endColumn;
+    
+            highlightSpan.className = `${tokenClass} semi-json-viewer-search-result${
+                isCurrentMatch ? ' semi-json-viewer-current-search-result' : ''
+            }`;
+            highlightSpan.dataset.startColumn = match.range.startColumn.toString();
+            highlightSpan.dataset.endColumn = match.range.endColumn.toString();
+            
+            container.appendChild(highlightSpan);
             lastIndex = endIndex;
         }
-
+    
         if (lastIndex < content.length) {
-            result += `<span class="${tokenClass}">${this.escapeHtml(content.substring(lastIndex))}</span>`;
+            const remainingSpan = document.createElement('span');
+            remainingSpan.className = tokenClass;
+            remainingSpan.textContent = content.substring(lastIndex);
+            container.appendChild(remainingSpan);
         }
-
-        return result;
+    
+        return container;
     }
 
-    private escapeHtml(text: string): string {
-        return text
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/ /g, '&nbsp;')
-            .replace(/\t/g, '&#9;');
+    private _tryApplyCustomRender(tokenClass: string, content: string): boolean {
+        if (!this._customRenderRule || this._customRenderRule.length <= 0) return false;
+        if (
+            tokenClass === TOKEN_VALUE_BOOLEAN ||
+            tokenClass === TOKEN_VALUE_NULL ||
+            tokenClass === TOKEN_VALUE_STRING ||
+            tokenClass === TOKEN_VALUE_NUMBER ||
+            tokenClass === TOKEN_PROPERTY_NAME
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    private isMatch(content: string, pathChain: string, rule: CustomRenderRule) {
+        const match = rule.match;
+        if (typeof match === 'function') {
+            return match(content, pathChain);
+        } else if (typeof match === 'string') {
+            return match === content;
+        } else if (match instanceof RegExp) {
+            return match.test(content);
+        }
+        return false;
+    }
+
+    private _renderCustomToken(content: string, rule: CustomRenderRule[], token: Token, pathChain: string): HTMLElement | null {
+        const realContent = content.replace(/^"|"$/g, '');
+        for (const item of rule) {
+            if (this.isMatch(realContent, pathChain, item)) {
+                const element = item.render(content);
+                return element;
+            }
+        }
+        return null;
     }
 }
