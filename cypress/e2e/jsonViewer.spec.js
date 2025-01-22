@@ -97,9 +97,9 @@ describe('jsonViewer', () => {
 
         // cut
         // typeTextAtPosition(2, 1, `{meta+x}`);
-        // cy.get('.lines-content').children().eq(1).children().children().should('have.length', 0);
+        // cy.get('.lines-content').children().eq(1).children().should('have.length', 0);
         // cy.get('.lines-content').type('{meta+z}');
-        // cy.get('.lines-content').children().eq(1).children().children().should('have.length', 6);
+        // cy.get('.lines-content').children().eq(1).children().should('have.length', 6);
 
         //complete
         typeTextAtPosition(14, 4, '{enter}');

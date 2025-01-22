@@ -4,6 +4,7 @@ import { Upload } from '../index';
 import type { FileItem, UploadProps } from '../upload';
 import { Message } from '@douyinfe/semi-foundation/chat/foundation';
 import type { TooltipProps } from '../tooltip';
+import { MarkdownRenderProps } from '../markdownRender';
 
 export { Message };
 export interface CommonChatsProps {
@@ -19,7 +20,8 @@ export interface CommonChatsProps {
     onMessageCopy?: (message?: Message) => void;
     chatBoxRenderConfig?: ChatBoxRenderConfig;
     customMarkDownComponents?: MDXProps['components'];
-    renderDivider?: (message?: Message) => ReactNode
+    renderDivider?: (message?: Message) => ReactNode;
+    markdownRenderProps?: MarkdownRenderProps
 }
 
 export interface ChatProps extends CommonChatsProps {

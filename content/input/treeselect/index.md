@@ -1391,7 +1391,7 @@ function Demo() {
 | arrowIcon | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon                                                            |  ReactNode |       | 
 | autoAdjustOverflow| 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                    | boolean | true| 
 | autoExpandParent | 是否自动展开父节点                                                                                                                  | boolean | false | 
-| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将包括该节点以及该子孙节点。（在leafOnly为false的情况下生效）。v2.61.0 后提供     | boolean | true |
+| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点。（在leafOnly为false的情况下生效）。v2.61.0 后提供     | boolean | true |
 | borderless        | 无边框模式，v2.33.0后提供                                                                                                          | boolean | false |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。v2.5.0后提供                                                                  | string | 'related' |
 | className | 选择框的 `className` 属性                                                                                                                 | string | - | - |

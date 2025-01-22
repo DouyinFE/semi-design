@@ -21,6 +21,7 @@ import {
 } from '@douyinfe/semi-icons';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { createPortal } from 'react-dom';
+import {isEqual} from "lodash";
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
@@ -53,6 +54,10 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         width: 400,
         height: 400,
         value: '',
+        options: {
+            readOnly: false,
+            autoWrap: true
+        }
     };
 
     private editorRef: React.RefObject<HTMLDivElement>;
@@ -84,7 +89,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
-        if (prevProps.options !== this.props.options) {
+        if (!isEqual(prevProps.options, this.props.options) || this.props.value !== prevProps.value) {
             this.foundation.jsonViewer.dispose();
             this.foundation.init();
         }

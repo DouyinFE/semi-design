@@ -24,7 +24,7 @@ Typography 版式
 CodeHighlight 代码高亮,
 Markdown 渲染器,
 Lottie 动画,
-Chat 聊天,
+Chat 对话,
 HotKeys 快捷键,
 DragMove 拖拽移动,
 JsonViewer Json编辑器,
