@@ -29,7 +29,7 @@ export interface FormattingOptions {
 }
 
 export interface CustomRenderRule {
-    match: string | RegExp | ((content: string, key?: string) => boolean);
+    match: string | RegExp | ((value: string, pathChain: string) => boolean);
     render: (value: string) => HTMLElement
 }
 

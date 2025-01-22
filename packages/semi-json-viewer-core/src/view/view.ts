@@ -25,6 +25,7 @@ import { HoverWidget } from './hover/hoverWidget';
 import { GlobalEvents } from '../common/emitterEvents';
 import { ErrorWidget } from './error/errorWidget';
 import { ViewDOMBuilder } from './viewDOMBuilder';
+import { getNodePath, getPathChain, JsonDocument, parseJson } from '../service/parse';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -38,7 +39,7 @@ export class View {
     private _options: JsonViewerOptions | undefined;
     public _lineHeight: number;
 
-    private _prevKey: string | null = null;
+    private _root: JsonDocument | null = null;
     private _customRenderMap: Map<HTMLElement, any> = new Map();
 
     private _container: HTMLElement;
@@ -155,6 +156,11 @@ export class View {
     }
 
     private _attachEventListeners() {
+        if (this._options?.readOnly && this._options.customRenderRule) {
+            const { root } = parseJson(this._jsonModel);
+            this._root = root;
+        }
+
         this._jsonViewerDom.addEventListener('scroll', e => {
             this.onScroll(this._jsonViewerDom.scrollTop);
         });
@@ -391,7 +397,11 @@ export class View {
                 container.appendChild(highlightedSpan);
             } else {
                 if (this._options?.readOnly && this._tryApplyCustomRender(token.scopes, content)) {
-                    const customElement = this._renderCustomToken(content, this._customRenderRule, token.scopes);
+                    const offset = this._jsonModel.getOffsetAt(lineNumber, (start + end) / 2);
+                    const node = this._root?.getNodeFromOffset(offset);
+                    const path = getNodePath(node);
+                    const pathChain = getPathChain(path);
+                    const customElement = this._renderCustomToken(content, this._customRenderRule, token, pathChain);
                     if (customElement instanceof HTMLElement) {
                         container.appendChild(customElement);
                         continue;
@@ -466,9 +476,6 @@ export class View {
 
     private _tryApplyCustomRender(tokenClass: string, content: string): boolean {
         if (!this._customRenderRule || this._customRenderRule.length <= 0) return false;
-        if (tokenClass === TOKEN_PROPERTY_NAME) {
-            this._prevKey = content.replace(/^"|"$/g, '');
-        }
         if (
             tokenClass === TOKEN_VALUE_BOOLEAN ||
             tokenClass === TOKEN_VALUE_NULL ||
@@ -481,10 +488,10 @@ export class View {
         return false;
     }
 
-    private isMatch(content: string, rule: CustomRenderRule, tokenClass: string) {
+    private isMatch(content: string, pathChain: string, rule: CustomRenderRule) {
         const match = rule.match;
         if (typeof match === 'function') {
-            return match(content, tokenClass !== TOKEN_PROPERTY_NAME ? this._prevKey : undefined);
+            return match(content, pathChain);
         } else if (typeof match === 'string') {
             return match === content;
         } else if (match instanceof RegExp) {
@@ -493,10 +500,10 @@ export class View {
         return false;
     }
 
-    private _renderCustomToken(content: string, rule: CustomRenderRule[], tokenClass: string): HTMLElement | null {
+    private _renderCustomToken(content: string, rule: CustomRenderRule[], token: Token, pathChain: string): HTMLElement | null {
         const realContent = content.replace(/^"|"$/g, '');
         for (const item of rule) {
-            if (this.isMatch(realContent, item, tokenClass)) {
+            if (this.isMatch(realContent, pathChain, item)) {
                 const element = item.render(content);
                 return element;
             }

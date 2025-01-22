@@ -154,9 +154,9 @@ render(FormatJsonComponent);
 - `match`: 匹配条件，可以是以下三种类型之一：
   - 字符串：精确匹配
   - 正则表达式：按正则匹配
-  - 函数：自定义匹配逻辑，函数签名为 `(value: string, key?: string) => boolean`
+  - 函数：自定义匹配逻辑，函数签名为 `(value: string, path: string) => boolean`
     - `value`: 待匹配的值（为Json字符串的键值对的键或者值，由于内部处理注入时仅过滤引号，因此类型全部为string）
-    - `key`: 当匹配的是键值对中的值时，会传入对应的键名
+    - `path`: 当前匹配到的路径，格式为 `root.key1.key2.key3[0].key4`
 - `render`: 自定义渲染函数，函数签名为 `(content: string) => React.ReactNode`
   - `content`: 匹配到的内容。如果是字符串类型的值，将包含双引号（如 `"name"`，`"Semi"`）
 
@@ -186,7 +186,7 @@ function CustomRenderJsonComponent() {
             }
         },
         {
-            match: (value, key)=> key === 'tags',
+            match: (value, path)=> path === 'root.tags',
             render: (content) => {
                 return <Tag size='small' shape='circle'>{content}</Tag>;
             }
@@ -247,7 +247,7 @@ render(CustomRenderJsonComponent);
 ### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| match             | 匹配规则                                   | string \| RegExp \| (value: string, key?: string) => boolean | -  |
+| match             | 匹配规则                                   | string \| RegExp \| (value: string, path: string) => boolean | -  |
 | render            | 渲染函数                                   | (content: string) => React.ReactNode | -  |
 
 ### FormattingOptions

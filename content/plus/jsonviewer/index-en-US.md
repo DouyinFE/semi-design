@@ -158,9 +158,9 @@ By configuring the `options.customRenderRule` parameter, you can customize how J
 - `match`: Matching condition, can be one of three types:
   - String: Exact match
   - Regular expression: Match by regex
-  - Function: Custom matching logic, with signature `(value: string, key?: string) => boolean`
+  - Function: Custom matching logic, with signature `(value: string, pathChain: string) => boolean`
     - `value`: Value to match (key or value from JSON key-value pairs, as strings since internal processing only filters quotes)
-    - `key`: When matching a value in a key-value pair, the corresponding key name is passed
+    - `path`: Current matching path, format is `root.key1.key2.key3[0].key4`
 - `render`: Custom render function, with signature `(content: string) => React.ReactNode`
   - `content`: Matched content. For string values, includes double quotes (e.g., `"name"`, `"Semi"`)
 
@@ -190,7 +190,7 @@ function CustomRenderJsonComponent() {
             }
         },
         {
-            match: (value, key)=> key === 'tags',
+            match: (value, path)=> path === 'root.tags',
             render: (content) => {
                 return <Tag size='small' shape='circle'>{content}</Tag>;
             }
@@ -259,7 +259,7 @@ render(CustomRenderJsonComponent);
 
 | Attribute | Description | Type | Default |
 | --- | --- | --- | --- |
-| match | Matching rule | string \| RegExp \| (value: string, key?: string) => boolean | - |
+| match | Matching rule | string \| RegExp \| (value: string, path: string) => boolean | - |
 | render | Render function | (content: string) => React.ReactNode | - |
 
 ## Methods

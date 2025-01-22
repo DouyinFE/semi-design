@@ -76,6 +76,7 @@ const customStr = `{
 }`;
 
 
+
 export const DefaultJsonViewer = () => {
     const onChangeHandler = value => {
         console.log(value, 'value');
@@ -106,8 +107,8 @@ export const CustomRender = () => {
 
 	const customRender = [
 		{
-			match: (val, key) => {
-				if(key && key !== 'url') {
+			match: (val, pathChain) => {
+				if(pathChain !== 'root.url') {
 					return false;
 				}
 				return typeof val === 'string' && val.startsWith('http');
@@ -117,7 +118,7 @@ export const CustomRender = () => {
 			},
 		},
 		{
-			match: (val,key) => key === 'image' && typeof val === 'string' && val.startsWith('http'),
+			match: (val, pathChain) => pathChain === 'root.image' && typeof val === 'string' && val.startsWith('http'),
 			render: (val) => {
 				return <Popover showArrow content={<Image width={100} height={100} src={val.replace(/^"|"$/g, '')} />} trigger='hover'><span>{val}</span></Popover>;
 			}
