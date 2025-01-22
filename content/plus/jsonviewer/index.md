@@ -186,7 +186,7 @@ function CustomRenderJsonComponent() {
             }
         },
         {
-            match: (value, path)=> path === 'root.tags',
+            match: (value, path)=> path === 'root.tags[0]' || path === 'root.tags[1]' || path === 'root.tags[2]',
             render: (content) => {
                 return <Tag size='small' shape='circle'>{content}</Tag>;
             }
