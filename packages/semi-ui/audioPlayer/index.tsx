@@ -344,7 +344,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     onClick={() => this.handleSeek(1)}
                 />
             </Tooltip>
-            <Dropdown render={<Dropdown.Menu className={cls(`${prefixCls}-control-speed-menu`)}>
+            <Dropdown className={cls(`${prefixCls}-control-speed-menu`)} render={<Dropdown.Menu>
                 {this.rateOptions.map((option) => (
                     <Dropdown.Item className={cls(`${prefixCls}-control-speed-menu-item`)} key={option.value} onClick={() => this.handleSpeedChange(option)} active={option.value === this.state.currentRate.value}>
                         {option.label}
