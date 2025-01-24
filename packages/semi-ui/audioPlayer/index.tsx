@@ -122,7 +122,7 @@ class AudioPlayer extends BaseComponent<AudioPlayerProps, AudioPlayerState> {
                     isPlaying: !this.state.isPlaying,
                 });
             },
-            getAudioRef: () => this.audioRef,
+            getAudioRef: () => this.audioRef.current,
             resetAudioState: () => {
                 this.setState({
                     isPlaying: true,
