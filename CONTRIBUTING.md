@@ -28,7 +28,7 @@ git checkout -b <TOPIC_BRANCH_NAME>
 >安装环境前确保本地有 `lerna` 和 `yarn` 的依赖，如果没有则运行：
 ```bash
 corepack enable
-npm install --global lerna
+npm install --global lerna@6
 ```
  - 完成项目依赖安装
 ```bash
