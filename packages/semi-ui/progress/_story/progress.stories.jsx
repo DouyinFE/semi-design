@@ -57,6 +57,16 @@ CircleProgressSmall.story = {
   name: 'circle progress small',
 };
 
+export const DashboardProgress = () => (
+  <React.Fragment>
+    <Progress percent={20} type="dashboard" aria-label="disk usage"/>
+  </React.Fragment>
+);
+
+DashboardProgress.story = {
+  name: 'dashboard progress',
+};
+
 export const ProgressShowInfo = () => (
   <div style={{ width: 200 }}>
     {/* <Progress percent={10} style= {{ height: 10 }}/> */}
