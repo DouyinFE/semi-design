@@ -53,6 +53,9 @@ export function flattenTreeData(treeNodeList: any[], expandedKeys: Set<string>, 
     const filterSearch = Boolean(filteredShownKeys);
     const realKeyName = get(keyMaps, 'key', 'key');
     const realChildrenName = get(keyMaps, 'children', 'children');
+    if (isUndefined(treeNodeList)) {
+        return [];
+    }
     function flatten(list: any[], parent: any = null) {
         return list.map((treeNode, index) => {
             const pos = getPosition(parent ? parent.pos : '0', index);
