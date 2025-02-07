@@ -16,6 +16,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.74.0 (2025-02-07)
+- 【Fix】
+    - Fix the issue where the List component's dataSource is empty and it is covered by the Spin component. [@LonelySnowman](https://github.com/LonelySnowman)
+    - Fix the TypeError when closing the panel of the TreeSelect component when search is enabled and treeData is undefined
+    - fixed the issue that the Steps icon and title of type basic were not centered with the line  [#2688 ](https://github.com/DouyinFE/semi-design/issues/2688)
+    - Fixed the problem that after the single-select and searchable Select loses focus when the panel is open, it cannot be focused again by clicking the trigger.
+    - Fixed the white edge issue of the AudioPlayer speed pop-up box style [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - The internal ref usage of the AudioPlay component is modified to be compatible with other frameworks [@rashagu](https://github.com/rashagu)
+
 #### 🎉 2.74.0-beta.0 (2025-01-20)
 - 【Feat】
   - The Chat component supports the markdownRenderProps API, which is used to set the MarkdownRender component for message rendering.  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640)
