@@ -15,6 +15,13 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.74.0-beta.0 (2025-01-20)
+- 【Feat】
+  - The Chat component supports the markdownRenderProps API, which is used to set the MarkdownRender component for message rendering.  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640)
+- 【Fix】
+  - fixed the issue that the lowercase z input in JsonViewer is invalid [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+
 #### 🎉 2.73.0 (2025-01-13)
 - 【Fix】
     - Fix the problem that JsonViewer is not configured with default parameters [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
