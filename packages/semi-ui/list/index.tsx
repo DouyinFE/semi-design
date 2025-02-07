@@ -153,9 +153,7 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
                 );
             });
         } else if (!children) {
-            childrenList = <Spin spinning={loading} size="large">
-                {this.renderEmpty()}
-            </Spin>;
+            childrenList = this.renderEmpty();
         }
         return (
             <div className={wrapperCls} style={style} {...this.getDataAttr(rest)}>
