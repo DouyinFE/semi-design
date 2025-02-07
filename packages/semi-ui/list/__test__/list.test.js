@@ -261,4 +261,15 @@ describe('List', () => {
         ).toEqual('尾部');
         list.unmount();
     });
+
+
+    it('List show empty div when loading and dataSource is empty', () => {
+        const list = renderList({
+            dataSource: [],
+            loading: true
+        });
+        expect(list.exists(`.${BASE_CLASS_PREFIX}-list-empty`)).toEqual(true);
+        expect(list.exists(`.${BASE_CLASS_PREFIX}-spin-large`)).toEqual(true);
+        list.unmount();
+    });
 });
