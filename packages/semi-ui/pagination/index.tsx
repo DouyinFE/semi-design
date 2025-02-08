@@ -300,7 +300,7 @@ export default class Pagination extends BaseComponent<PaginationProps, Paginatio
                     disabled={disabled}
                     onChange={newPageSize => this.foundation.changePageSize(newPageSize)}
                     value={pageSize}
-                    key={pageSize}
+                    key={pageSize + pageSizeToken}
                     position={popoverPosition || 'bottomRight'}
                     clickToHide
                     zIndex={popoverZIndex}
