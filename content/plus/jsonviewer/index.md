@@ -31,7 +31,8 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 
 ### 基本用法
 
-JsonViewer 的基本用法。传入 height 和 width 参数，设置组件的高度和宽度和初始值。通过 value 传入 Json 字符串
+JsonViewer 的基本用法。传入 height 和 width 参数，设置组件的高度和宽度和初始值。通过 value 传入 Json 字符串  
+注意：JsonViewer 为非受控组件，若传入 value 属性为受控属性即React State，不建议在 onChange 中修改 value 属性即setState操作。若需要获取组件的值，可以通过 ref 获取，具体可参考 [Methods](#Methods)。
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
