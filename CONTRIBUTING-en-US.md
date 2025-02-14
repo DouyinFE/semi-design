@@ -27,7 +27,7 @@ corepack enable
 ```
 
 ```bash
-npm install --global lerna
+npm install --global lerna@6
 ```
  - Install the dependencies
 ```bash
