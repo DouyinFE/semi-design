@@ -68,6 +68,14 @@ English | [简体中文](./README-zh_CN.md)
 npm install @douyinfe/semi-ui
 ```
 
+```sh
+yarn add @douyinfe/semi-ui
+```
+
+```sh
+pnpm add @douyinfe/semi-ui
+```
+
 # 👍 Component Usage
 
 Here is a quick example to get you started, it's all you need:
