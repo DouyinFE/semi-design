@@ -4,7 +4,7 @@ import { Icon, Input, Button, Form, Popover, Tag, Typography, CheckboxGroup, Tag
 import TreeSelect from '../index';
 import { flattenDeep, without } from 'lodash';
 import CustomTrigger from './CustomTrigger';
-import { IconCreditCard, IconChevronDown, IconClose } from '@douyinfe/semi-icons';
+import { IconCreditCard, IconChevronDown, IconClose, IconPlus, IconMinus } from '@douyinfe/semi-icons';
 import copy from 'fast-copy';
 
 const TreeNode = TreeSelect.TreeNode;
@@ -2960,4 +2960,38 @@ export const filterAndKeyMaps = () => {
       placeholder="单选可搜索的"
     />
   )
+}
+
+export const CustomExpandIcon = () => {
+  const expandIconFunc = useCallback((props) => {
+    const { expanded, onClick, className } = props;
+    if (expanded) {
+      return <IconMinus size="small" className={className} onClick={onClick}/>
+    } else {
+      return <IconPlus size="small" className={className} onClick={onClick}/>
+    }
+  });
+
+  return (
+    <>
+      <p>expandIcon 是 ReactNode</p>
+      <TreeSelect
+        style={{ width: 300}}
+        expandIcon={<IconChevronDown size="small" className='testCls'/>}
+        multiple
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData2}
+      />
+      <br />
+      <br />
+      <p>expandIcon 是函数</p>
+      <TreeSelect
+        style={{ width: 300}}
+        multiple
+        expandIcon={expandIconFunc}
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData2}
+      />
+    </>
+  );
 }

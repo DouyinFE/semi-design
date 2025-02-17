@@ -36,7 +36,8 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
         selectedKey: PropTypes.string,
         motionKey: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
         isEnd: PropTypes.arrayOf(PropTypes.bool),
-        showLine: PropTypes.bool
+        showLine: PropTypes.bool,
+        expandIcon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     };
 
     static defaultProps = {
@@ -203,11 +204,30 @@ export default class TreeNode extends PureComponent<TreeNodeProps, TreeNodeState
 
     renderArrow() {
         const showIcon = !this.isLeaf();
-        const { loading, expanded, showLine } = this.props;
+        const { loading, expanded, showLine, expandIcon } = this.props;
         if (loading) {
             return <Spin wrapperClassName={`${prefixcls}-spin-icon`} />;
         }
         if (showIcon) {
+            if (expandIcon) {
+                if (typeof expandIcon === 'function') {
+                    return expandIcon({
+                        onClick: this.onExpand,
+                        className: `${prefixcls}-expand-icon`,
+                        expanded
+                    });
+                } else if (React.isValidElement(expandIcon)) {
+                    const className = cls(`${prefixcls}-expand-icon`, {
+                        [expandIcon?.props?.className]: expandIcon?.props?.className
+                    });
+                    return React.cloneElement(expandIcon, {
+                        onClick: this.onExpand,
+                        className,
+                    } as any);
+                } else {
+                    return expandIcon;
+                }
+            }
             return (
                 <IconTreeTriangleDown
                     role='button'

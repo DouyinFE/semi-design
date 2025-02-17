@@ -1241,6 +1241,92 @@ class Demo extends React.Component {
 }
 ```
 
+### 自定义展开 Icon
+
+可以通过 `expandIcon` 自定义展开 Icon。 支持传入 ReactNode 或者函数。`expandIcon` 自 2.75.0 开始支持。
+
+```ts
+expandIcon: ReactNode | ((props: {
+    onClick: (e: MouseEvent) => void;
+    className: string;
+    expanded: boolean;
+}))
+```
+
+示例如下：
+
+```jsx live=true 
+() => {
+    const treeData = [
+        {
+            label: '亚洲',
+            key: 'yazhou',
+            children: [
+                {
+                    label: '中国',
+                    key: 'zhongguo',
+                    children: [
+                        {
+                            label: '北京',
+                            key: 'beijing',
+                        },
+                        {
+                            label: '上海',
+                            key: 'shanghai',
+                        },
+                    ],
+                },
+                {
+                    label: '日本',
+                    key: 'riben',
+                },
+            ],
+        },
+        {
+            label: '北美洲',
+            key: 'beimeizhou',
+        },
+    ];
+    const expandIconFunc = useCallback((props) => {
+        const { expanded, onClick, className } = props;
+        if (expanded) {
+        return <IconMinus size="small" className={className} onClick={onClick}/>
+        } else {
+        return <IconPlus size="small" className={className} onClick={onClick}/>
+        }
+    });
+    const style = {
+        width: 260,
+        height: 200,
+        border: '1px solid var(--semi-color-border)'
+    };
+
+  return (
+    <>
+      <p>expandIcon 是  ReactNode</p>
+      <Tree
+        style={{ width: 300}}
+        expandIcon={<IconChevronDown size="small" className='testCls'/>}
+        multiple
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData}
+        style={style}
+      />
+      <br />
+      <p>expandIcon 是函数 </p>
+      <Tree
+        style={{ width: 300}}
+        multiple
+        expandIcon={expandIconFunc}
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData}
+        style={style}
+      />
+    </>
+  );
+}
+```
+
 ### 连接线
 
 通过 `showLine` 设置节点之间的连接线，默认为 false，从 2.50.0 开始支持
@@ -2301,6 +2387,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | expandAction             | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开  | boolean \| string   | false | 0.35.0       |
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`/`treeDataSimpleJson`)发生改变，默认展开情况也是会受到这个 api 影响的 | boolean | false | 1.30.0 |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级 | string[] | - | - |
+| expandIcon | 自定义展开图标 | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | 自定义节点中 key、label、value 的字段 | object |  - | 2.47.0 |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值,  data 参数自 v2.28.0 开始提供 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean) | false | - |
 | hideDraggingNode | 是否隐藏正在拖拽的节点的 dragImg | boolean | false | 1.8.0 | 
