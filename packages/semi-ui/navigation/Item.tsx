@@ -20,7 +20,6 @@ import Dropdown from '../dropdown';
 
 const clsPrefix = `${cssClasses.PREFIX}-item`;
 interface NavItemProps extends ItemProps, BaseProps {
-    children?: React.ReactNode;
     disabled?: boolean;
     forwardRef?: (ele: HTMLLIElement) => void;
     icon?: React.ReactNode;
@@ -57,7 +56,6 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
-        children: PropTypes.node,
         icon: PropTypes.oneOfType([PropTypes.node]),
         className: PropTypes.string,
         toggleIcon: PropTypes.string,
