@@ -19,6 +19,7 @@ module.exports = ({ isESM }) => {
         ],
         plugins: [
             'lodash',
+            ...(isESM ? [] : ['./scripts/babel-plugin-lottie.js'])
         ]
     };
 };
