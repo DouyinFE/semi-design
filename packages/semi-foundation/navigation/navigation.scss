@@ -483,6 +483,21 @@ $module: #{$prefix}-navigation;
                 }
             }
         }
+
+        // 兼容 renderWrapper 的场景，详见 issue: https://github.com/DouyinFE/semi-design/issues/2690
+        &-list  .#{$module}-sub-wrap {
+            & > .#{$module}-sub-title {
+                &:hover {
+                    &:not(.#{$module}-sub-title-selected) {
+                        @include item-hover;
+                    }
+
+                    &.#{$module}-sub-title-selected {
+                        @include item-hover-selected;
+                    }
+                }
+            }
+        }
     }
 
     .#{$module}-item:last-of-type {

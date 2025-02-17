@@ -392,3 +392,36 @@ export const DisabledSubDemo = () => <DisabledSub></DisabledSub>
 DisabledSubDemo.story = {
   name: 'DisabledSubDemo'
 }
+
+
+export const renderWrapperDemo = () => {
+  return (
+    <Nav
+            renderWrapper={({ itemElement, isSubNav, isInSubNav, props }) => {
+                const routerMap = {
+                    Home: "/",
+                    About: "/about",
+                    Dashboard: "/dashboard",
+                    "Nothing Here": "/nothing-here"
+                };
+                return (
+                    <a
+                        style={{ textDecoration: "none" }}
+                        to={routerMap[props.itemKey]}
+                    >
+                      {itemElement}
+                    </a>
+                );
+            }}
+            items={[
+                { itemKey: "Home", text: "Home" },
+                { itemKey: "About", text: "About" },
+                {
+                    text: "Sub",
+                    itemKey: "Sub",
+                    items: ["Dashboard", "Nothing Here"]
+                }
+            ]}
+    ></Nav>
+  )
+}
