@@ -62,7 +62,12 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
     foundation: ResizeHandlerFoundation;
     onMouseDown = (e: MouseEvent) => {
         const { notifyResizeStart } = this.context;
-        notifyResizeStart(this.handlerIndex, e);
+        notifyResizeStart(this.handlerIndex, e, 'mouse');
+    }
+
+    onTouchStart = (e: TouchEvent) => {
+        const { notifyResizeStart } = this.context;
+        notifyResizeStart(this.handlerIndex, e.targetTouches[0], 'touch');
     }
     
     get adapter(): ResizeHandlerAdapter<ResizeHandlerProps, ResizeHandlerState> {
@@ -70,9 +75,11 @@ class ResizeHandler extends BaseComponent<ResizeHandlerProps, ResizeHandlerState
             ...super.adapter,
             registerEvents: () => {
                 this.handlerRef.current.addEventListener('mousedown', this.onMouseDown);
+                this.handlerRef.current.addEventListener('touchstart', this.onTouchStart);
             },
             unregisterEvents: () => {
                 this.handlerRef.current.removeEventListener('mousedown', this.onMouseDown);
+                this.handlerRef.current.removeEventListener('touchstart', this.onTouchStart);
             },
         };
     }

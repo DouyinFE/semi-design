@@ -62,9 +62,11 @@ class ResizableHandler extends BaseComponent<ResizableHandlerProps, ResizableHan
             ...super.adapter,
             registerEvent: () => {
                 this.resizeHandlerRef.current.addEventListener('mousedown', this.foundation.onMouseDown);
+                this.resizeHandlerRef.current.addEventListener('touchstart', this.foundation.onTouchStart);
             },
             unregisterEvent: () => {
                 this.resizeHandlerRef.current.removeEventListener('mousedown', this.foundation.onMouseDown);
+                this.resizeHandlerRef.current.removeEventListener('touchstart', this.foundation.onTouchStart);
             },
         };
     }
