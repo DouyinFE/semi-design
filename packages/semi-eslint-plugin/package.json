@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-semi-design",
-    "version": "2.38.3-alpha.2-patch-table",
+    "version": "2.38.3-alpha.2-patch-table-datepicker-aria",
     "description": "semi ui eslint plugin",
     "keywords": [
         "semi",

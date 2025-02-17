@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-animation",
-    "version": "2.38.3-alpha.2-patch-table",
+    "version": "2.38.3-alpha.2-patch-table-datepicker-aria",
     "description": "animation base library for semi-ui",
     "keywords": [
         "animation",
