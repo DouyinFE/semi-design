@@ -18,6 +18,7 @@ import type {
     OnChangeProps,
     customRequestArgs,
     CustomError,
+    RenderPictureCloseProps,
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
@@ -105,6 +106,7 @@ export interface UploadProps {
     renderPicInfo?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderThumbnail?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
     renderPicPreviewIcon?: (renderFileItemProps: RenderFileItemProps) => ReactNode;
+    renderPicClose?: (renderPicCloseProps: RenderPictureCloseProps) => ReactNode;
     renderFileOperation?: (fileItem: RenderFileItemProps) => ReactNode;
     showClear?: boolean;
     showPicInfo?: boolean; // Show pic info in picture wall
@@ -183,6 +185,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         renderFileItem: PropTypes.func,
         renderPicPreviewIcon: PropTypes.func,
         renderFileOperation: PropTypes.func,
+        renderPicClose: PropTypes.func,
         renderPicInfo: PropTypes.func,
         renderThumbnail: PropTypes.func,
         showClear: PropTypes.bool,
@@ -412,6 +415,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             itemStyle,
             showPicInfo,
             renderPicInfo,
+            renderPicClose,
             renderPicPreviewIcon,
             renderFileOperation,
             renderFileItem,
@@ -442,6 +446,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             showPicInfo,
             renderPicInfo,
             renderPicPreviewIcon,
+            renderPicClose,
             renderFileOperation,
             renderThumbnail,
             onReplace,
