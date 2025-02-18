@@ -18,6 +18,7 @@ import type {
     OnChangeProps,
     customRequestArgs,
     CustomError,
+    RenderPictureCloseProps,
 } from './interface';
 import { Locale } from '../locale/interface';
 import '@douyinfe/semi-foundation/upload/upload.scss';
