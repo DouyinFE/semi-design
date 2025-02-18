@@ -14,6 +14,12 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.75.0-beta.0 (2025-02-18)
+- 【Feat】
+  - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704) [#2709](https://github.com/DouyinFE/semi-design/pull/2709)
+- 【Fix】
+  - 修复 PinCode 组件 format='number' 情况下，iOS端输入被打断问题（输入一个数字后，自动从数字/字符键盘切换到字母键盘） [@SaltyfishEd](https://github.com/SaltyfishEd) [#2702](https://github.com/DouyinFE/semi-design/pull/2702)
+
 #### 🎉 2.74.0 (2025-02-07)
 - 【Fix】
     - 修复 List 组件 dataSource 为空时被 Spin 组件遮挡问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2693](https://github.com/DouyinFE/semi-design/pull/2693)

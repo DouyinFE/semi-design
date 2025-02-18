@@ -16,6 +16,12 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.75.0-beta.0 (2025-02-18)
+- 【Feat】
+  - Tree/TreeSelect supports expandIcon API for customizing the expand icon  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704)
+- 【Fix】
+  - fix iOS input interruption in PinCode component with format='number' (switches from number/character to letter keyboard after input a digit) [@SaltyfishEd](https://github.com/SaltyfishEd)
+
 #### 🎉 2.74.0 (2025-02-07)
 - 【Fix】
     - Fix the issue where the List component's dataSource is empty and it is covered by the Spin component. [@LonelySnowman](https://github.com/LonelySnowman)
