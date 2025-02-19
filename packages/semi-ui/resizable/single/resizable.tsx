@@ -185,17 +185,29 @@ class Resizable extends BaseComponent<ResizableProps, ResizableState> {
         return {
             ...super.adapter,
             getResizable: this.getResizable,
-            registerEvent: () => {
+            registerEvent: (type = 'mouse') => {
                 let window = this.foundation.window;
-                window?.addEventListener('mouseup', this.foundation.onMouseUp);
-                window?.addEventListener('mousemove', this.foundation.onMouseMove);
-                window?.addEventListener('mouseleave', this.foundation.onMouseUp);
+                if (type === 'mouse') {
+                    window?.addEventListener('mouseup', this.foundation.onMouseUp);
+                    window?.addEventListener('mousemove', this.foundation.onMouseMove);
+                    window?.addEventListener('mouseleave', this.foundation.onMouseUp);
+                } else {
+                    window?.addEventListener('touchmove', this.foundation.onTouchMove, { passive: false });
+                    window?.addEventListener('touchend', this.foundation.onMouseUp);
+                    window?.addEventListener('touchcancel', this.foundation.onMouseUp);
+                }
             },
-            unregisterEvent: () => {
+            unregisterEvent: (type = 'mouse') => {
                 let window = this.foundation.window;
-                window?.removeEventListener('mouseup', this.foundation.onMouseUp);
-                window?.removeEventListener('mousemove', this.foundation.onMouseMove);
-                window?.removeEventListener('mouseleave', this.foundation.onMouseUp);
+                if (type === 'mouse') {
+                    window?.removeEventListener('mouseup', this.foundation.onMouseUp);
+                    window?.removeEventListener('mousemove', this.foundation.onMouseMove);
+                    window?.removeEventListener('mouseleave', this.foundation.onMouseUp);
+                } else {
+                    window?.removeEventListener('touchmove', this.foundation.onTouchMove, { passive: false } as any);
+                    window?.removeEventListener('touchend', this.foundation.onMouseUp);
+                    window?.removeEventListener('touchcancel', this.foundation.onMouseUp);
+                }
             },
         };
     }

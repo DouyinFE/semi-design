@@ -1,5 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize } from "../types";
+import { DEFAULT_SIZE, Size, NumberSize, Direction, NewSize, ResizeEventType } from "../types";
 import { getStringSize, getNumberSize, has, calculateNewMax, findNextSnap, snap, clamp } from "../utils";
 export interface ResizableHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     registerEvent: () => void;
@@ -16,8 +16,13 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
     }
 
     onMouseDown = (e: MouseEvent) => {
-        this.getProp('onResizeStart')(e, this.getProp('direction'));
+        this.getProp('onResizeStart')(e, this.getProp('direction'), 'mouse');
     };
+
+    onTouchStart = (e: TouchEvent) => {
+        const touch = e.targetTouches[0];
+        this.getProp('onResizeStart')(touch, this.getProp('direction'), 'touch');
+    }
 
     destroy(): void {
         this._adapter.unregisterEvent();
@@ -26,8 +31,8 @@ export class ResizableHandlerFoundation<P = Record<string, any>, S = Record<stri
 
 export interface ResizableAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getResizable: () => HTMLDivElement | null;
-    registerEvent: () => void;
-    unregisterEvent: () => void
+    registerEvent: (type: ResizeEventType) => void;
+    unregisterEvent: (type: ResizeEventType) => void
 }
 
 export class ResizableFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizableAdapter<P, S>, P, S> {
@@ -53,6 +58,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
     flexDirection?: 'row' | 'column';
+    type?: ResizeEventType;
 
     lockAspectRatio = 1;
     resizable: HTMLElement | null = null;
@@ -202,11 +208,11 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
     registerEvents() {
-        this._adapter.registerEvent();
+        this._adapter.registerEvent(this.type);
     }
 
     unregisterEvents() {
-        this._adapter.unregisterEvent();
+        this._adapter.unregisterEvent(this.type);
     }
 
     getCssPropertySize(newSize: number | string, property: 'width' | 'height'): number | string {
@@ -380,7 +386,8 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onResizeStart = (e: MouseEvent, direction: Direction) => {
+    onResizeStart = (e: MouseEvent, direction: Direction, type: ResizeEventType) => {
+        this.type = type;
         this.resizable = this._adapter.getResizable();
         if (!this.resizable || !this.window) {
             return;
@@ -456,6 +463,16 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
 
 
     onMouseMove = (event: MouseEvent) => {
+        this.changePosition(event);
+    }
+
+    onTouchMove = (event: TouchEvent) => {
+        event.preventDefault();
+        const touch = event.targetTouches[0];
+        this.changePosition(touch);
+    }
+
+    changePosition = (event: Touch | MouseEvent) => {
         const states = this.getStates();
         const props = this.getProps();
 
@@ -583,7 +600,7 @@ export class ResizableFoundation<P = Record<string, any>, S = Record<string, any
     }
 
 
-    onMouseUp = (event: MouseEvent) => {
+    onMouseUp = (event: MouseEvent | TouchEvent) => {
         const { isResizing, direction, original } = this.getStates();
 
         if (!isResizing || !this.resizable) {

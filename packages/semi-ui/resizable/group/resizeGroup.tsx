@@ -5,7 +5,7 @@ import { ResizeGroupFoundation, ResizeGroupAdapter } from '@douyinfe/semi-founda
 import { cssClasses } from '@douyinfe/semi-foundation/resizable/constants';
 import BaseComponent from '../../_base/baseComponent';
 import { ResizeContext, ResizeContextProps } from './resizeContext';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
+import { ResizeCallback, ResizeEventType, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 import "@douyinfe/semi-foundation/resizable/resizable.scss";
 
 const prefixCls = cssClasses.PREFIX;
@@ -145,19 +145,31 @@ class ResizeGroup extends BaseComponent<ResizeGroupProps, ResizeGroupState> {
         return this.groupRef.current.ownerDocument.defaultView as Window ?? null;
     }
 
-    registerEvent = () => {
+    registerEvent = (type: ResizeEventType = 'mouse') => {
         if (this.window) {
-            this.window.addEventListener('mousemove', this.foundation.onResizing);
-            this.window.addEventListener('mouseup', this.foundation.onResizeEnd);
-            this.window.addEventListener('mouseleave', this.foundation.onResizeEnd);
+            if (type === 'mouse') {
+                this.window.addEventListener('mousemove', this.foundation.onMouseMove);
+                this.window.addEventListener('mouseup', this.foundation.onResizeEnd);
+                this.window.addEventListener('mouseleave', this.foundation.onResizeEnd);
+            } else {
+                this.window.addEventListener('touchmove', this.foundation.onTouchMove, { passive: false });
+                this.window.addEventListener('touchend', this.foundation.onResizeEnd);
+                this.window.addEventListener('touchcancel', this.foundation.onResizeEnd);
+            } 
         }
     }
 
-    unregisterEvent = () => {
+    unregisterEvent = (type: ResizeEventType = 'mouse') => {
         if (this.window) {
-            this.window.removeEventListener('mousemove', this.foundation.onResizing);
-            this.window.removeEventListener('mouseup', this.foundation.onResizeEnd);
-            this.window.removeEventListener('mouseleave', this.foundation.onResizeEnd);
+            if (type === 'mouse') {
+                this.window.removeEventListener('mousemove', this.foundation.onMouseMove);
+                this.window.removeEventListener('mouseup', this.foundation.onResizeEnd);
+                this.window.removeEventListener('mouseleave', this.foundation.onResizeEnd);
+            } else {
+                this.window.removeEventListener('touchmove', this.foundation.onTouchMove, { passive: false } as any);
+                this.window.removeEventListener('touchend', this.foundation.onResizeEnd);
+                this.window.removeEventListener('touchcancel', this.foundation.onResizeEnd);
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 import { getItemDirection, getPixelSize } from "../utils";
 import BaseFoundation, { DefaultAdapter } from '../../base/foundation';
-import { ResizeStartCallback, ResizeCallback } from "../types";
+import { ResizeStartCallback, ResizeCallback, ResizeEventType } from "../types";
 import { adjustNewSize, judgeConstraint, getOffset } from "../utils";
 import { debounce } from "lodash";
 export interface ResizeHandlerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
@@ -49,8 +49,8 @@ export interface ResizeGroupAdapter<P = Record<string, any>, S = Record<string, 
     getItemChange: (index: number) => ResizeCallback;
     getItemEnd: (index: number) => ResizeCallback;
     getItemDefaultSize: (index: number) => string | number;
-    registerEvents: () => void;
-    unregisterEvents: () => void
+    registerEvents: (type: ResizeEventType) => void;
+    unregisterEvents: (type: ResizeEventType) => void
 }
 
 export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, any>> extends BaseFoundation<ResizeGroupAdapter<P, S>, P, S> {
@@ -72,6 +72,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
     itemMinusMap: Map<number, number>; // 这个是为了给handler留出空间，方便维护每一个item的size为cal(percent% - minus)
     totalMinus: number;
     itemPercentMap: Map<number, number>; // 内部维护一个百分比数组，消除浮点计算误差
+    type?: ResizeEventType;
 
 
     init(): void {
@@ -86,14 +87,15 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
 
     
     registerEvents = () => {
-        this._adapter.registerEvents();
+        this._adapter.registerEvents(this.type);
     }
 
     unregisterEvents = () => {
-        this._adapter.unregisterEvents();
+        this._adapter.unregisterEvents(this.type);
     }
 
-    onResizeStart = (handlerIndex: number, e: MouseEvent) => { // handler ref
+    onResizeStart = (handlerIndex: number, e: MouseEvent | Touch, type: ResizeEventType) => { // handler ref
+        this.type = type;
         let { clientX, clientY } = e;
         let lastItem = this._adapter.getItem(handlerIndex), nextItem = this._adapter.getItem(handlerIndex + 1);
         let lastOffset: number, nextOffset: number;
@@ -135,15 +137,25 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         }
     }
 
+    onMouseMove = (e: MouseEvent) => {
+        this.onResizing(e);
+    }
 
-    onResizing = (e: MouseEvent) => {
+    onTouchMove = (e: TouchEvent) => {
+        // prevent page move in mobile
+        e.preventDefault();
+        this.onResizing(e);
+    }
+
+
+    onResizing = (e: MouseEvent | TouchEvent) => {
         const state = this.getStates();
         if (!state.isResizing) {
             return;
         }
         const { curHandler, originalPosition } = state;
         let { x: initX, y: initY, lastItemSize, nextItemSize, lastOffset, nextOffset } = originalPosition;
-        let { clientX, clientY } = e;
+        let { clientX, clientY } = this.type === 'mouse' ? e : (e as any).targetTouches[0];
 
         const props = this.getProps();
         const { direction } = props;
@@ -193,7 +205,7 @@ export class ResizeGroupFoundation<P = Record<string, any>, S = Record<string, a
         }
     }
 
-    onResizeEnd = (e: MouseEvent) => {
+    onResizeEnd = (e: MouseEvent | TouchEvent) => {
         const { curHandler } = this.getStates();
         let lastItem = this._adapter.getItem(curHandler), nextItem = this._adapter.getItem(curHandler + 1);
         let lastFunc = this._adapter.getItemEnd(curHandler),

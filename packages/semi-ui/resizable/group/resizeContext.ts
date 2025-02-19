@@ -1,5 +1,5 @@
 import React, { createContext, RefObject } from 'react';
-import { ResizeCallback, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
+import { ResizeCallback, ResizeEventType, ResizeStartCallback } from '@douyinfe/semi-foundation/resizable/types';
 
 export interface ResizeContextProps {
     direction: 'horizontal' | 'vertical';
@@ -10,7 +10,7 @@ export interface ResizeContextProps {
         onResizeEnd: ResizeCallback
     ) => number;
     registerHandler: (ref: RefObject<HTMLDivElement>) => number;
-    notifyResizeStart: (handlerIndex: number, e: MouseEvent) => void;
+    notifyResizeStart: (handlerIndex: number, e: MouseEvent | Touch, type: ResizeEventType) => void;
     getGroupSize: () => number
 }
 
