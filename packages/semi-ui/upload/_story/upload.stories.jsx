@@ -1374,3 +1374,31 @@ export const fix2448 = () => {
         </>
     );
 };
+
+export const CustomPicCloseIcon = () => {
+    let action = 'https://api.semi.design/upload';
+    const defaultFileList = [
+        {
+            uid: '1',
+            name: 'dy.png',
+            status: 'success',
+            size: '130KB',
+            preview: true,
+            url:
+                'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/dy.png',
+        },
+    ];
+    const renderPicClose = ({ className, remove }) => (
+        <div className={className} onClick={remove}>delete</div>
+    )
+    return (
+        <>
+            <Upload 
+                renderPicClose={renderPicClose}
+                action={action} listType="picture" accept="image/*" multiple defaultFileList={defaultFileList}
+            >
+                <IconPlus size="extra-large" />
+            </Upload>
+        </>
+    );
+};
