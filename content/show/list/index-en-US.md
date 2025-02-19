@@ -755,165 +755,136 @@ render(VirtualizedScroll);
 ```
 
 ### Drag Sort
+You can integrate [dnd-kit](https://github.com/clauderic/dnd-kit/tree/master) to implement drag and drop sort.
 
-You can integrate [react-dnd](https://github.com/react-dnd/react-dnd) to implement drag and drop sort.
-
-```jsx live=true dir="column" noInline=true hideInDSM
-import React from 'react';
+```jsx live=true dir="column" hideInDSM
+import React, { useState } from 'react';
 import { List, Avatar } from '@douyinfe/semi-ui';
-import { DndProvider, DragSource, DropTarget } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import ReactDOM from 'react-dom';
+import { DndContext, PointerSensor, MouseSensor, useSensors, useSensor } from '@dnd-kit/core';
+import { SortableContext, arrayMove, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { CSS as cssDndKit } from '@dnd-kit/utilities';
+import classNames from 'classnames';
 
-class DraggableItem extends React.Component {
-    render() {
-        const { component, draggingItem, index, connectDragSource, connectDropTarget } = this.props;
-        const opacity = draggingItem && draggingItem.index === index ? 0.3 : 1;
-        const style = {
+() => {
+    const data = [
+        {
+            id: 1,  // 添加唯一id
+            title: 'Semi Design Title 1',
+            color: 'red',
+        },
+        {
+            id: 2,
+            title: 'Semi Design Title 2',
+            color: 'grey',
+        },
+        {
+            id: 3,
+            title: 'Semi Design Title 3',
+            color: 'light-green',
+        },
+        {
+            id: 4,
+            title: 'Semi Design Title 4',
+            color: 'light-blue',
+        },
+        {
+            id: 5,
+            title: 'Semi Design Title 5',
+            color: 'pink',
+        },
+    ];
+    const [listItems, setListItems] = useState(data);
+
+    const sensors = useSensors(
+        useSensor(MouseSensor, {
+            activationConstraint: { distance: 1 },
+        })
+    );
+
+    const handleDragEnd = event => {
+        const { active, over } = event;
+        if (active.id !== over.id) {
+            setListItems((items) => {
+                const oldIndex = items.findIndex(item => item.id === active.id);
+                const newIndex = items.findIndex(item => item.id === over.id);
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    };
+
+    const ListItem = (props) => {
+        const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({
+            id: props['id'],
+        });
+
+        const styles = {
+            ...props.style,
+            transform: cssDndKit.Transform.toString(transform),
+            transition,
             border: '1px solid var(--semi-color-border)',
             marginBottom: 12,
-            backgroundColor: 'var(--semi-color-bg-2)',
-            cursor: 'move',
+            cursor: 'grabbing',
+            ...(isDragging ? { zIndex: 999, position: 'relative', backgroundColor: 'var(--semi-color-bg-0)' } : {}),
+
         };
 
-        return connectDragSource(
-            connectDropTarget(
-                <div ref={node => (this.node = node)} style={{ ...style, opacity }}>
-                    {component}
-                </div>
-            )
-        );
-    }
-}
-
-const cardSource = {
-    beginDrag(props) {
-        return {
-            id: props.id,
-            index: props.index,
-        };
-    },
-};
-
-const cardTarget = {
-    hover(props, monitor, component) {
-        const dragIndex = monitor.getItem().index;
-        const hoverIndex = props.index;
-
-        if (dragIndex === hoverIndex) {
-            return;
-        }
-        const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
-        const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        const clientOffset = monitor.getClientOffset();
-        const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-            return;
-        }
-
-        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-            return;
-        }
-
-        monitor.getItem().index = hoverIndex;
-        props.moveItem(dragIndex, hoverIndex);
-    },
-};
-
-function collectDragSource(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        draggingItem: monitor.getItem(),
-    };
-}
-
-function collectDropTarget(connect) {
-    return {
-        connectDropTarget: connect.dropTarget(),
-    };
-}
-
-DraggableItem = DragSource('item', cardSource, collectDragSource)(DraggableItem);
-DraggableItem = DropTarget('item', cardTarget, collectDropTarget)(DraggableItem);
-
-class DraggableList extends React.Component {
-    constructor() {
-        const listItems = [
+        
+        const itemCls = classNames(
             {
-                title: 'Semi Design Title 1',
-                color: 'red',
-            },
-            {
-                title: 'Semi Design Title 2',
-                color: 'grey',
-            },
-            {
-                title: 'Semi Design Title 3',
-                color: 'light-green',
-            },
-            {
-                title: 'Semi Design Title 4',
-                color: 'light-blue',
-            },
-            {
-                title: 'Semi Design Title 5',
-                color: 'pink',
-            },
-        ];
-        super();
-        this.state = {
-            data: listItems,
-        };
-        this.moveItem = this.moveItem.bind(this);
-        this.renderDraggable = this.renderDraggable.bind(this);
-    }
-
-    moveItem(dragIndex, hoverIndex) {
-        const { data } = this.state;
-        let temp = data[dragIndex];
-        data[dragIndex] = data[hoverIndex];
-        data[hoverIndex] = temp;
-        this.setState(
-            {
-                ...this.state,
-                data
+                ['isDragging']: isDragging,
+                ['isOver']: isOver,
             }
         );
-    }
 
-    renderDraggable(item, id) {
-        const content = (
-            <List.Item
+        return (
+            <div
+                ref={setNodeRef} 
+                style={styles} 
+                className={itemCls}
+                {...listeners} 
+                {...attributes}
+            >
+                <List.Item {...props} ></List.Item>
+            </div>
+        );
+    };
+
+    const RenderDraggable = (item, id) => {
+        return (
+            <ListItem
+                id={id}
+                {...item}
                 header={<Avatar color={item.color}>SE</Avatar>}
                 main={
                     <div>
                         <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
                         <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                            Create a consistent, good-looking, easy-to-use, and efficient user experience with a
-                            user-centric, content-first, and human-friendly design system
+                            Semi Design
+                            设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+                            Web 应用。
                         </p>
                     </div>
                 }
             />
         );
-        return (
-            <DraggableItem key={item.title} index={id} id={item.title} component={content} moveItem={this.moveItem} />
-        );
-    }
+    };
 
-    render() {
-        const { data } = this.state;
-        return (
-            <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
-                <DndProvider backend={HTML5Backend}>
-                    <List dataSource={data} renderItem={this.renderDraggable} />
-                </DndProvider>
-            </div>
-        );
-    }
-}
-
-render(DraggableList);
+    return (
+        <div style={{ padding: 12, border: '1px solid var(--semi-color-border)', margin: 12 }}>
+            <DndContext
+                autoScroll={true}
+                sensors={sensors}
+                modifiers={[restrictToVerticalAxis]}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext items={listItems.map(data => data.id)} strategy={verticalListSortingStrategy}>
+                    <List dataSource={listItems} renderItem={RenderDraggable} />
+                </SortableContext>
+            </DndContext>
+        </div>
+    );
+};
 ```
 
 ### With Pagination
