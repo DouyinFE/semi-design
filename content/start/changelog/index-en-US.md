@@ -15,6 +15,15 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+#### 🎉 2.75.0-beta.1 (2025-02-19)
+- 【Docs】
+    - List component drag demo updated to use dnd-kit
+- 【Feat】
+    - add renderPicClose to custom close icon under listType picture
+    - Tree/TreeSelect supports expandIcon API for customizing the expand icon  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704)
+- 【Fix】
+    - Fixed the problem that Pagination's page capacity switcher cannot switch languages ​​correctly in multi-language scenarios  [#2696 ](https://github.com/DouyinFE/semi-design/issues/2696)
+    - fix iOS input interruption in PinCode component with format='number' (switches from number/character to letter keyboard after input a digit) [@SaltyfishEd](https://github.com/SaltyfishEd)
 
 #### 🎉 2.75.0-beta.0 (2025-02-18)
 - 【Feat】
