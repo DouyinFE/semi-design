@@ -10,6 +10,7 @@ import List from '..';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import VList from 'react-virtualized/dist/commonjs/List';
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
+import DndKitDrag from './DndKitDrag';
 
 const Item = List.Item;
 
@@ -918,3 +919,5 @@ export const Virtualized = () => <VirtualizedScroll />;
 Virtualized.story = {
   name: 'virtualized',
 };
+
+export const DndKitDragDemo = () => <DndKitDrag />;
