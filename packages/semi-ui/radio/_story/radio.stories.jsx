@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from '../../button';
 import Space from '../../space';
 
-import { Radio, RadioGroup, Form, Tooltip } from '../../index';
-import { Row, Col } from '../../grid';
+import { Col, Row } from '../../grid';
+import { Form, Radio, RadioGroup, Tooltip } from '../../index';
 import './radio.scss';
 
 export default {
@@ -289,15 +289,25 @@ export const RadioGroupWithOptions = () => {
     { label: 'Orange', value: 'Orange', disabled: false },
   ];
 
+  const optionsWithAddonStyle = [
+    { label: 'Apple', value: 'Apple', addonStyle: { color: 'red' } },
+    { label: 'Pear', value: 'Pear' },
+    { label: 'Orange', value: 'Orange', disabled: true },
+  ];
+
   function onChange(event) {
     console.log(event);
   }
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <RadioGroup name="apple" options={plainOptions} onChange={onChange} />
       <RadioGroup name="apple" options={options} onChange={onChange} />
       <RadioGroup name="apple" disabled options={optionsWithDisabled} onChange={onChange} />
+      <span>自定义样式</span>
+      <RadioGroup name="apple" options={optionsWithAddonStyle} onChange={onChange} />
+      <span>PureCard 自定义样式</span>
+      <RadioGroup type='pureCard' name="apple" options={optionsWithAddonStyle} onChange={onChange} />
     </div>
   );
 };

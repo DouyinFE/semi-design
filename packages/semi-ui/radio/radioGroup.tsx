@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { noop } from 'lodash';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { radioGroupClasses as css, strings } from '@douyinfe/semi-foundation/radio/constants';
 import RadioGroupFoundation, { RadioGroupAdapter } from '@douyinfe/semi-foundation/radio/radioGroupFoundation';
 import { RadioChangeEvent } from '@douyinfe/semi-foundation/radio/radioInnerFoundation';
 
-import BaseComponent from '../_base/baseComponent';
 import { ArrayElement } from '../_base/base';
-import Radio, { RadioType } from './radio';
+import BaseComponent from '../_base/baseComponent';
 import Context, { RadioGroupButtonSize, RadioMode } from './context';
+import Radio, { RadioType } from './radio';
 
 export interface OptionItem {
     label?: React.ReactNode;
@@ -18,7 +18,11 @@ export interface OptionItem {
     disabled?: boolean;
     extra?: React.ReactNode;
     style?: React.CSSProperties;
-    className?: string
+    className?: string;
+    addonId?: string;
+    addonStyle?: React.CSSProperties;
+    addonClassName?: string;
+    extraId?: string
 }
 export type Options = string[] | Array<OptionItem>;
 
@@ -191,6 +195,10 @@ class RadioGroup extends BaseComponent<RadioGroupProps, RadioGroupState> {
                             extra={option.extra}
                             className={option.className}
                             style={option.style}
+                            addonId={option.addonId}
+                            addonStyle={option.addonStyle}
+                            addonClassName={option.addonClassName}
+                            extraId={option.extraId}
                         >
                             {option.label}
                         </Radio>
