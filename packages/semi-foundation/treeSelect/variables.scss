@@ -85,6 +85,7 @@ $color-treeSelect_inputTrigger-border-default: none; // 带搜索的树选择器
 $color-treeSelect_inputTrigger-bg-default: transparent; // 带搜索的树选择器触发器背景颜色
 $color-treeSelect_insertLabel-text-default: var(--semi-color-text-2); // 带搜索的树前缀标签文本颜色
 $font-treeSelect_insertLabel-fontWeight: 600; // 带搜索的树前缀标签文本字重
+$color-treeSelect_prefix_text-default: var(--semi-color-text-2); // 带搜索的树选择器前后缀文本颜色
 
 $width-treeSelect_arrow: 32px; // 树选择器展开箭头宽度
 $width-treeSelect_option:  230px; // 树选择器菜单项宽度
