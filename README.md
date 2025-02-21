@@ -6,14 +6,13 @@
         A modern, comprehensive, flexible design system and UI library. Connect DesignOps & DevOps. Quickly build beautiful React apps.
     </p>
 </article>
-    
+
 <div align="center">
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/SemiDesignUI?style=social)](https://twitter.com/SemiDesignUI)
 
-[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url] 
+[![LICENSE][license-badge]][license-url] [![NPM][npm-badge]][npm-url] [![CONTRIBUTORS][contributors-badge]][contributors-url]  ![Design Token][Design Token] [![FIGMA][figma-badge]][figma-url]
 [![CODECOV][codecov-badge]][codecov-url] [![Chromatic][chromatic-badge]][chromatic-url] [![Cypress][cypress-badge]][cypress-url]
-
 
 [npm-badge]: https://img.shields.io/npm/v/@douyinfe/semi-ui.svg
 [contributors-badge]: https://img.shields.io/github/contributors/DouyinFE/semi-design
@@ -32,12 +31,10 @@
 [cypress-badge]: https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/k83u7j&style=flat&logo=cypress
 [cypress-url]: https://dashboard.cypress.io/projects/k83u7j/runs
 
-
 [build-js-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/umd/semi-ui.min.js?label=semi.min.js&compression=gzip
 [build-js-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/umd/semi-ui.min.js
 [build-css-badge]: https://img.badgesize.io/https:/unpkg.com/@douyinfe/semi-ui/dist/css/semi.min.css?label=semi.min.css&compression=gzip
 [build-css-url]: https://unpkg.com/browse/@douyinfe/semi-ui/dist/css/semi.min.css
-
 
 </div>
 
@@ -51,15 +48,15 @@ English | [简体中文](./README-zh_CN.md)
 
 # 🎉 Features
 
-- 💪 Up to 70+ high-quality Components. Stable update since 2019
-- 🚀 Official Design to Code (D2C) support, convert figma draft to real code in a few seconds
-- 💅 Code to Design (C2D), automatically generate Figma UI Kit according to different themes, keep same between design and code
+- 💪 Up to 70+ high-quality Components. Stable updates since 2019
+- 🚀 Official Design to Code (D2C) support, convert Figma draft to real code in a few seconds
+- 💅 Code to Design (C2D), automatically generate Figma UI Kit according to different themes, keep consistency  between design and code
 - 💕 Complete A11y support, follows W3C standards to provide keyboard interaction, focus management and ARIA for all components
 - 💅 Design system management Semi DSM, up to 3000+ Design Tokens, make Semi Design to Any Design quickly.
-- 🌍 Internationalization Support for Dozens of Languages, timezone, RTL support
-- ⚙️ Strict quality assurance, covering unit testing, E2E testing, visual testing.
+- 🌍 Internationalization Support for Dozens of Languages, timezone, and RTL support
+- ⚙️ Strict quality assurance, covering unit testing, E2E testing, and visual testing.
 - 👏 Written in Typescript, friendly Static Type Support. Based on Foundation/Adapter architecture, easy to read and contribute
-- 🥳 SSR (Server Side Rendering) Compatible. 
+- 🥳 SSR (Server Side Rendering) Compatible.
 - 📦 Easily compatible with web components, providing a complete adaptation solution, more suitable for building SDKs, browser plugins and other scenarios that require DOM isolation.
 
 # 🔥 Install
@@ -95,7 +92,7 @@ root.render(<App />);
 
 Install [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81). Translate Figma to real code in seconds. Support multiple output formats: JSX + SCSS / Emotion/Tailwind, or JSON Schema DSL
 
-- Support figma devmode, selecting a layer, directly get corresponding code on the right
+- Support Figma devmode, selecting a layer, directly get corresponding code on the right
   
 ![design2code](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/devmode.gif)
 
@@ -103,42 +100,41 @@ Install [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662
   
 ![codesandboxdemo](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/1080p-fps5.gif)
 
-
 # 🎨 DSM Usage
 
-Define your own design system base on Semi UI with DSM in one click, Provide more than 3000 tokens for you to configure every detail. Sync between Figma and Code at all times.
+Define your own design system based on Semi UI with DSM in one click, Provide more than 3000 tokens for you to configure every detail. Sync between Figma and Code always.
 
 ![dsmintro](https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/github/dsmintro.png)
 
-
 # 📰 News about Semi UI
-* [Follow on Twitter](https://twitter.com/SemiDesignUI)
-* [Follow on Medium](https://medium.com/@semi-design)
-* [Follow on Dev.to](https://dev.to/semidesign)
 
+- [Follow on Twitter](https://twitter.com/SemiDesignUI)
+- [Follow on Medium](https://medium.com/@semi-design)
+- [Follow on Dev.to](https://dev.to/semidesign)
 
 # 📌 Documentation
-* [Semi DSM](https://semi.design/dsm)
-* [Design to Code](https://semi.design/code/en-US)
-* [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
-* [Quick Start](https://semi.design/en-US/start/getting-started)
-* [Components Overview](https://semi.design/en-US/start/overview)
-* [Customizing Themes](https://semi.design/en-US/start/customize-theme)
-* [Design Tokens](https://semi.design/en-US/basic/tokens)
-* [Dark Mode](https://semi.design/en-US/start/dark-mode)
-* [Semi Icons](https://semi.design/en-US/basic/icon)
-* [Global Config](https://semi.design/en-US/other/configprovider)
-* [Internationalization](https://semi.design/en-US/other/locale)
-* [FAQ](https://semi.design/en-US/start/faq)
-* [CHANGELOG](https://semi.design/en-US/start/changelog)
+
+- [Semi DSM](https://semi.design/dsm)
+- [Design to Code](https://semi.design/code/en-US)
+- [Semi Figma Plugin](https://www.figma.com/community/plugin/1166339852662786534/Semi-Design-%E8%AE%BE%E8%AE%A1%E8%BD%AC%E4%BB%A3%E7%A0%81)
+- [Quick Start](https://semi.design/en-US/start/getting-started)
+- [Components Overview](https://semi.design/en-US/start/overview)
+- [Customizing Themes](https://semi.design/en-US/start/customize-theme)
+- [Design Tokens](https://semi.design/en-US/basic/tokens)
+- [Dark Mode](https://semi.design/en-US/start/dark-mode)
+- [Semi Icons](https://semi.design/en-US/basic/icon)
+- [Global Config](https://semi.design/en-US/other/configprovider)
+- [Internationalization](https://semi.design/en-US/other/locale)
+- [FAQ](https://semi.design/en-US/start/faq)
+- [CHANGELOG](https://semi.design/en-US/start/changelog)
 
 # 📝 Blogs
+
 - [The Evolution of Semi D2C Design to Code](https://juejin.cn/post/7267418854124699702)
 - [How to design component library architecture to adapt to different mvvm frameworks](https://bytedance.feishu.cn/wiki/wikcnOVYexosCS1Rmvb5qCsWT1f)
 - [How we test semi ui](https://medium.com/front-end-weekly/how-we-test-semi-design-component-libraries-64b854f63b65)
 - [In-depth explanation of Semi theme](https://mp.weixin.qq.com/s/noHoWRuA25PgqFNcurhIUA)
 - [Accessibility in Semi Design](https://mp.weixin.qq.com/s/O3js-SZDNPEOjGxh-aAkbw)
-
 
 # 👌 Platform Support
 
@@ -162,7 +158,6 @@ Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testi
 
 Thanks to [Cypress](https://www.cypress.io/) for providing E2E testing.
 
-
 <div>
   <a href="https://www.visactor.com#gh-light-mode-only" target="_blank">
     <img alt="VisActor Logo" height="30" src="https://lf-dp.bytetos.com/obj/dp-open-internet-cn/visactor-site/bytedance/client/img/visactor/navigator-logo.svg"/>
@@ -174,15 +169,15 @@ Thanks to [Cypress](https://www.cypress.io/) for providing E2E testing.
 
 Thanks to [VisActor](https://www.visactor.com/) for providing the data visualization solution.
 
-
 ## 👐 Contributing
+
 Thanks to all the people who already contributed!
 
 <a href="https://github.com/DouyinFE/semi-design/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=DouyinFE/semi-design" />
 </a>
 
-Read the contributing guide to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Semi UI.
+Read the contributing guide to learn about our development process, how to propose bug fixes and improvements, and how to build and test your changes to Semi UI.
 
 See [CONTRIBUTING](CONTRIBUTING-en-US.md) documentation.
 
