@@ -246,6 +246,9 @@ $module: #{$prefix}-cascader;
 
         &-text {
             margin: 0 $spacing-cascader_text-marginX;
+            font-weight: $font-weight-bold;
+            @include font-size-regular;
+            color: $color-cascader_prefix_suffix_text-default;
         }
 
         &-icon {

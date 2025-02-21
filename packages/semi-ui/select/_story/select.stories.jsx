@@ -402,6 +402,16 @@ export const WithPrefixSuffixInsetLabelShowClearShowArrow = () => (
       prefix={<IconSearch />}
       suffix={<IconGift></IconGift>}
     ></Select>
+    <Select
+      style={{
+        width: '250px',
+      }}
+      motion={false}
+      filter
+      optionList={options}
+      prefix={"Prefix"}
+      suffix={"Suffix"}
+    ></Select>
     <h4>insetLabel</h4>
     <Select
       style={{
