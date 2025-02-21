@@ -205,9 +205,9 @@ export default class NavItem extends BaseComponent<NavItemProps, NavItemState> {
         // children 并不是我们推荐的用法，可能会导致一些像 bug的表现，但是有些用户已经用了，所以此处仅作删除 ts 定义而非删除实际代码的操作
         // refer https://github.com/DouyinFE/semi-design/issues/2710
         // @ts-ignore
-        if (!isNullOrUndefined(this.props?.children)) {
-            // @ts-ignore
-            itemChildren = this.props?.children;
+        const children = this.props?.children;
+        if (!isNullOrUndefined(children)) {
+            itemChildren = children;
         } else {
             let placeholderIcons = null;
             if (mode === strings.MODE_VERTICAL && !limitIndent && !isCollapsed) {
