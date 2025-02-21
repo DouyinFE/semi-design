@@ -214,8 +214,12 @@ class Form<Values extends Record<string, any> = any> extends BaseComponent<BaseF
                     `form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field-error-message`
                 );
             },
-            getFieldDOM: (field: string) =>
-                document.querySelector(`.${cssClasses.PREFIX}-field[x-field-id="${field}"]`),
+            getFieldDOM: (field: string) => {
+                const { formId } = this.state;
+                const { id } = this.props;
+                const xId = id ? id : formId;
+                return document.querySelector(`form[x-form-id="${xId}"] .${cssClasses.PREFIX}-field[x-field-id="${field}"]`);
+            },
             getFieldErrorDOM: (field: string) => {
                 const { formId } = this.state;
                 const { id } = this.props;
