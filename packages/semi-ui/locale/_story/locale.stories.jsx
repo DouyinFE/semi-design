@@ -301,6 +301,191 @@ export const LocaleRo = () => (
         <I18nComponent />
     </LocaleProvider>
 );
+
+const treeData = [
+    {
+        label: 'Asia',
+        value: 'asia',
+        key: '1',
+        children: [
+            {
+                label: 'China',
+                value: 'china',
+                key: '1-0',
+                children: [
+                    { label: 'Beijing', value: 'beijing', key: '1-0-0' },
+                    { label: 'Shanghai', value: 'shanghai', key: '1-0-1' },
+                ],
+            },
+            {
+                label: 'Japan',
+                value: 'japan',
+                key: '1-1',
+                children: [{ label: 'Osaka', value: 'osaka', key: '1-1-0' }],
+            },
+        ],
+    },
+];
+
+const I18nComponent2 = () => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const columns = useMemo(() => [
+        {
+            title: 'Name',
+            width: 250,
+            dataIndex: 'name',
+        },
+        {
+            title: 'Age',
+            width: 150,
+            dataIndex: 'age',
+        },
+        {
+            title: 'Address',
+            dataIndex: 'address',
+        },
+    ]);
+    const dataSource = useMemo(() => {
+        const data = [];
+        for (let i = 0; i < 46; i++) {
+            data.push({
+                key: '' + i,
+                name: `Bytedance ${i}`,
+                age: 32,
+                address: `Beijing, Haidian. Zhichun Road ${i}`,
+            });
+        }
+        return data;
+    });
+    const transferData = useMemo(() => {
+        return Array.from({ length: 100 }, (v, i) => {
+            return {
+                label: `选项名称 ${i}`,
+                value: i,
+                disabled: false,
+                key: i,
+            };
+        });
+    });
+    const srcList = useMemo(
+        () => [
+            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
+            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg',
+            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg',
+            'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg',
+        ],
+        []
+    );
+    const style = { margin: 10 };
+    return (
+        <>
+            <h5>Pagination</h5>
+            <Pagination total={100} showTotal showSizeChanger style={style} />
+            <h5>Modal</h5>
+
+            <div style={style}>
+                <Button onClick={() => setModalVisible(true)}>Show Modal</Button>
+                <Modal
+                    title="Modal"
+                    visible={modalVisible}
+                    onOk={() => setModalVisible(false)}
+                    onCancel={() => setModalVisible(false)}
+                >
+                    <p>This is the content of a basic modal.</p>
+                    <p>More content...</p>
+                </Modal>
+            </div>
+            <h5>Select & Cascader</h5>
+            <div style={style}>
+                <Select filter style={{ width: '180px' }}>
+                    <Select.Option value="abc">abc</Select.Option>
+                    <Select.Option value="vigo" disabled>
+                        vigo
+                    </Select.Option>
+                    <Select.Option value="hotsoon">hotsoon</Select.Option>
+                </Select>
+                <Cascader
+                    style={{ width: 300, margin: 10 }}
+                    treeData={treeData}
+                    filterTreeNode
+                    insetLabel="Cascader"
+                />
+            </div>
+            <h5>DatePicker</h5>
+            <DatePicker style={{ ...style, width: 250 }} />
+            <DatePicker style={{ ...style, width: 300 }} type="dateTime" />
+            <DatePicker style={{ ...style, width: 300 }} type="dateRange" />
+            <DatePicker style={{ ...style, width: 450 }} type="dateTimeRange" />
+            <h5>TimePicker</h5>
+            <TimePicker style={style} />
+            <TimePicker use12Hours style={style} />
+            <br />
+            <br />
+            <h5>TreeSelect</h5>
+            <TreeSelect
+                style={{ ...style, width: 300 }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={treeData}
+                filterTreeNode
+            />
+            <h5>Table</h5>
+            <Table columns={columns} dataSource={dataSource} scroll={{ y: 320 }} />
+            <h5>Table - Empty</h5>
+            <Table columns={columns} dataSource={[]} scroll={{ y: 320 }} />
+            <h5>List - Empty</h5>
+            <List header={<div>List</div>} dataSource={[]} />
+            <h5>Calendar</h5>
+            <Calendar mode="month" displayValue={new Date('2024-02-01')} />
+            <h5>Typography - Copyable</h5>
+            <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
+            <h5>Typography - Collapsible</h5>
+            <Typography.Paragraph
+                ellipsis={{ rows: 3, expandable: true, collapsible: true }}
+                style={{ width: 300 }}
+            >
+                支持展开和折叠：Semi Design 是由抖音前端团队与 UED
+                团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
+                Web 应用。
+            </Typography.Paragraph>
+            <h5>Transfer</h5>
+            <Transfer style={{ width: 568, height: 416 }} dataSource={transferData} />
+            <h5>Image</h5>
+            <ImagePreview showTooltip>
+                {srcList.map((src, index) => {
+                    return (
+                        <Image
+                            key={index}
+                            src={src}
+                            width={200}
+                            alt={`lamp${index + 1}`}
+                            style={{ marginRight: 5 }}
+                        />
+                    );
+                })}
+            </ImagePreview>
+            <h5>Form</h5>
+            <Form layout="horizontal" onValueChange={values => console.log(values)}>
+                <Form.Input field="UserName" label={{ text: '角色', optional: true }} style={{ width: 200 }} />
+            </Form>
+            <h5>Navigation</h5>
+            <Nav
+                bodyStyle={{ height: 320 }}
+                items={[
+                    { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
+                    { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
+                ]}
+                header={{
+                    logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
+                    text: 'Semi 数据后台',
+                }}
+                footer={{
+                    collapseButton: true,
+                }}
+            />
+        </>
+    );
+};
+
 class I18nDemo extends React.Component {
     constructor(props) {
         super(props);
@@ -340,188 +525,6 @@ class I18nDemo extends React.Component {
 
     render() {
         const { locale, localeCode } = this.state;
-        const treeData = [
-            {
-                label: 'Asia',
-                value: 'asia',
-                key: '1',
-                children: [
-                    {
-                        label: 'China',
-                        value: 'china',
-                        key: '1-0',
-                        children: [
-                            { label: 'Beijing', value: 'beijing', key: '1-0-0' },
-                            { label: 'Shanghai', value: 'shanghai', key: '1-0-1' },
-                        ],
-                    },
-                    {
-                        label: 'Japan',
-                        value: 'japan',
-                        key: '1-1',
-                        children: [{ label: 'Osaka', value: 'osaka', key: '1-1-0' }],
-                    },
-                ],
-            },
-        ];
-        const I18nComponent = () => {
-            const [modalVisible, setModalVisible] = useState(false);
-            const columns = useMemo(() => [
-                {
-                    title: 'Name',
-                    width: 250,
-                    dataIndex: 'name',
-                },
-                {
-                    title: 'Age',
-                    width: 150,
-                    dataIndex: 'age',
-                },
-                {
-                    title: 'Address',
-                    dataIndex: 'address',
-                },
-            ]);
-            const dataSource = useMemo(() => {
-                const data = [];
-                for (let i = 0; i < 46; i++) {
-                    data.push({
-                        key: '' + i,
-                        name: `Bytedance ${i}`,
-                        age: 32,
-                        address: `Beijing, Haidian. Zhichun Road ${i}`,
-                    });
-                }
-                return data;
-            });
-            const transferData = useMemo(() => {
-                return Array.from({ length: 100 }, (v, i) => {
-                    return {
-                        label: `选项名称 ${i}`,
-                        value: i,
-                        disabled: false,
-                        key: i,
-                    };
-                });
-            });
-            const srcList = useMemo(
-                () => [
-                    'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg',
-                    'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/sky.jpg',
-                    'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/greenleaf.jpg',
-                    'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/colorful.jpg',
-                ],
-                []
-            );
-            const style = { margin: 10 };
-            return (
-                <>
-                    <h5>Pagination</h5>
-                    <Pagination total={100} showTotal showSizeChanger style={style} />
-                    <h5>Modal</h5>
-
-                    <div style={style}>
-                        <Button onClick={() => setModalVisible(true)}>Show Modal</Button>
-                        <Modal
-                            title="Modal"
-                            visible={modalVisible}
-                            onOk={() => setModalVisible(false)}
-                            onCancel={() => setModalVisible(false)}
-                        >
-                            <p>This is the content of a basic modal.</p>
-                            <p>More content...</p>
-                        </Modal>
-                    </div>
-                    <h5>Select & Cascader</h5>
-                    <div style={style}>
-                        <Select filter style={{ width: '180px' }}>
-                            <Select.Option value="abc">abc</Select.Option>
-                            <Select.Option value="vigo" disabled>
-                                vigo
-                            </Select.Option>
-                            <Select.Option value="hotsoon">hotsoon</Select.Option>
-                        </Select>
-                        <Cascader
-                            style={{ width: 300, margin: 10 }}
-                            treeData={treeData}
-                            filterTreeNode
-                            insetLabel="Cascader"
-                        />
-                    </div>
-                    <h5>DatePicker</h5>
-                    <DatePicker style={{ ...style, width: 250 }} />
-                    <DatePicker style={{ ...style, width: 300 }} type="dateTime" />
-                    <DatePicker style={{ ...style, width: 300 }} type="dateRange" />
-                    <DatePicker style={{ ...style, width: 450 }} type="dateTimeRange" />
-                    <h5>TimePicker</h5>
-                    <TimePicker style={style} />
-                    <TimePicker use12Hours style={style} />
-                    <br />
-                    <br />
-                    <h5>TreeSelect</h5>
-                    <TreeSelect
-                        style={{ ...style, width: 300 }}
-                        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        treeData={treeData}
-                        filterTreeNode
-                    />
-                    <h5>Table</h5>
-                    <Table columns={columns} dataSource={dataSource} scroll={{ y: 320 }} />
-                    <h5>Table - Empty</h5>
-                    <Table columns={columns} dataSource={[]} scroll={{ y: 320 }} />
-                    <h5>List - Empty</h5>
-                    <List header={<div>List</div>} dataSource={[]} />
-                    <h5>Calendar</h5>
-                    <Calendar mode="month" displayValue={new Date('2024-02-01')} />
-                    <h5>Typography - Copyable</h5>
-                    <Typography.Paragraph copyable>Click to copy text.</Typography.Paragraph>
-                    <h5>Typography - Collapsible</h5>
-                    <Typography.Paragraph
-                        ellipsis={{ rows: 3, expandable: true, collapsible: true }}
-                        style={{ width: 300 }}
-                    >
-                        支持展开和折叠：Semi Design 是由抖音前端团队与 UED
-                        团队共同设计开发并维护的设计系统。设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
-                        Web 应用。
-                    </Typography.Paragraph>
-                    <h5>Transfer</h5>
-                    <Transfer style={{ width: 568, height: 416 }} dataSource={transferData} />
-                    <h5>Image</h5>
-                    <ImagePreview showTooltip>
-                        {srcList.map((src, index) => {
-                            return (
-                                <Image
-                                    key={index}
-                                    src={src}
-                                    width={200}
-                                    alt={`lamp${index + 1}`}
-                                    style={{ marginRight: 5 }}
-                                />
-                            );
-                        })}
-                    </ImagePreview>
-                    <h5>Form</h5>
-                    <Form layout="horizontal" onValueChange={values => console.log(values)}>
-                        <Form.Input field="UserName" label={{ text: '角色', optional: true }} style={{ width: 200 }} />
-                    </Form>
-                    <h5>Navigation</h5>
-                    <Nav
-                        bodyStyle={{ height: 320 }}
-                        items={[
-                            { itemKey: 'user', text: '用户管理', icon: <IconUser /> },
-                            { itemKey: 'union', text: '活动管理', icon: <IconStar /> },
-                        ]}
-                        header={{
-                            logo: <IconSemiLogo style={{ height: '36px', fontSize: 36 }} />,
-                            text: 'Semi 数据后台',
-                        }}
-                        footer={{
-                            collapseButton: true,
-                        }}
-                    />
-                </>
-            );
-        };
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
@@ -553,7 +556,7 @@ class I18nDemo extends React.Component {
                 </div>
                 <LocaleProvider locale={locale}>
                     <ConfigProvider direction={localeCode === 'ar' ? 'rtl' : 'ltr'} locale={locale}>
-                        <I18nComponent />
+                        <I18nComponent2 />
                     </ConfigProvider>
                 </LocaleProvider>
             </>

@@ -148,7 +148,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
 
     renderPic(locale: Locale['Upload']): ReactNode {
         const { fallbackPreview } = this.state;
-        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
+        const { url, percent, status, disabled, style, onPreviewClick, showPicInfo, renderPicInfo, renderPicClose, renderPicPreviewIcon, renderThumbnail, name, index, picHeight, picWidth } = this.props;
         const showProgress = status === strings.FILE_STATUS_UPLOADING && percent !== 100;
         const showRetry = status === strings.FILE_STATUS_UPLOAD_FAIL && this.props.showRetry;
         const showReplace = status === strings.FILE_STATUS_SUCCESS && this.props.showReplace;
@@ -180,14 +180,20 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
                 {typeof renderPicPreviewIcon === 'function' ? renderPicPreviewIcon(this.props) : null}
             </div>
         );
+
         const close = (
-            <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-close`} onClick={e => this.onRemove(e)}>
-                <IconClear className={`${prefixCls}-picture-file-card-icon-close`} />
-            </div>
+            <>
+                {typeof renderPicClose === 'function' ?
+                    <>{renderPicClose({ className: `${prefixCls}-picture-file-card-close`, remove: e => this.onRemove(e) })}</>
+                    : <div role="button" tabIndex={0} className={`${prefixCls}-picture-file-card-close`} onClick={e => this.onRemove(e)}>
+                        <IconClear className={`${prefixCls}-picture-file-card-icon-close`} />
+                    </div>
+                }
+            </>
         );
 
         const picInfo = typeof renderPicInfo === 'function' ? renderPicInfo(this.props) : (
-            <div className={`${prefixCls }-picture-file-card-pic-info`}>{index + 1}</div>
+            <div className={`${prefixCls}-picture-file-card-pic-info`}>{index + 1}</div>
         );
 
         let imgStyle: { height?: number | string; width?: number | string } = {};
@@ -202,8 +208,7 @@ class FileCard extends BaseComponent<FileCardProps, FileCardState> {
             itemStyle.width = picWidth;
             imgStyle.width = picWidth;
         }
-        
-        const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} style={imgStyle}/> : <IconFile size="large" />;
+        const defaultThumbTail = !fallbackPreview ? <img src={url} alt={name} onError={error => this.foundation.handleImageError(error)} style={imgStyle} /> : <IconFile size="large" />;
 
         const thumbnail = customThumbnail ? renderThumbnail(this.props) : defaultThumbTail;
 

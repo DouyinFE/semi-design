@@ -186,7 +186,22 @@ export class JSONModel {
         const command = this._undoStack.pop()!;
         command.undo();
         this._redoStack.push(command);
-        this.emitter?.emit('contentChanged', command.operation);
+        if (!isInWorkerThread()) {
+            this.emitter?.emit('contentChanged', command.operation);
+        }
+        if (this._jsonWorkerManager) {
+            this._jsonWorkerManager
+                .undo()
+                .then(res => {
+                    return this._jsonWorkerManager?.validate();
+                })
+                .then(result => {
+                    this.emitter?.emit('problemsChanged', {
+                        problems: result.problems,
+                        root: result.root,
+                    });
+                });
+        }
     }
 
     redo() {
@@ -195,9 +210,23 @@ export class JSONModel {
         const command = this._redoStack.pop()!;
         command.execute();
         this._undoStack.push(command);
-        this.emitter?.emit('contentChanged', command.operation);
+        if (!isInWorkerThread()) {
+            this.emitter?.emit('contentChanged', command.operation);
+        }
+        if (this._jsonWorkerManager) {
+            this._jsonWorkerManager
+                .redo()
+                .then(res => {
+                    return this._jsonWorkerManager?.validate();
+                })
+                .then(result => {
+                    this.emitter?.emit('problemsChanged', {
+                        problems: result.problems,
+                        root: result.root,
+                    });
+                });
+        }
     }
-
 
     /**
      * 获取值

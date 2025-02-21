@@ -1213,6 +1213,89 @@ class Demo extends React.Component {
 }
 ```
 
+### Custom expansion icon
+
+The expansion Icon can be customized through `expandIcon`. Supports passing in ReactNode or functions. `expandIcon` is supported since 2.75.0.
+
+```ts
+expandIcon: ReactNode | ((props: {
+    onClick: (e: MouseEvent) => void;
+    className: string;
+    expanded: boolean;
+}))
+```
+
+Examples are as follows:
+
+```jsx live=true 
+() => {
+   const treeData = [
+            {
+                label: 'Asia',
+                key: 'Asia',
+                children: [
+                    {
+                        label: 'China',
+                        key: 'China',
+                        children: [
+                            {
+                                label: 'Beijing',
+                                key: 'Beijing',
+                            },
+                            {
+                                label: 'Shanghai',
+                                key: 'Shanghai',
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                label: 'North America',
+                value: 'North America',
+            }
+        ];
+    const expandIconFunc = useCallback((props) => {
+        const { expanded, onClick, className } = props;
+        if (expanded) {
+        return <IconMinus size="small" className={className} onClick={onClick}/>
+        } else {
+        return <IconPlus size="small" className={className} onClick={onClick}/>
+        }
+    });
+    const style = {
+        width: 260,
+        height: 200,
+        border: '1px solid var(--semi-color-border)'
+    };
+
+  return (
+    <>
+      <p>ReactNode type</p>
+      <Tree
+        style={{ width: 300}}
+        expandIcon={<IconChevronDown size="small" className='testCls'/>}
+        multiple
+        defaultExpandedKeys={['Asia']}
+        treeData={treeData}
+        style={style}
+      />
+      <br />
+      <p>Function type</p>
+      <Tree
+        style={{ width: 300}}
+        multiple
+        expandIcon={expandIconFunc}
+        defaultExpandedKeys={['Asia']}
+        treeData={treeData}
+        style={style}
+      />
+    </>
+  );
+}
+```
+
+
 ### Tree with line
 
 Set the line between nodes through `showLine`, the default is false, supported starting from 2.50.0
@@ -2271,7 +2354,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | ------------------- | --------------------- | ------------------------------------------------- | ------- | ------ |
 | autoExpandParent | Toggle whether to expand parent node automatically | boolean | false | 0.34.0 |
 | autoExpandWhenDragEnter | Toggle whether allow autoExpand when drag enter node | boolean | true | 1.8.0 | 
-| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, value will include that node and its children. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
+| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, the value will not include the descendants of the node. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
 | blockNode           | Toggle whether to display node as row     | boolean                     | true    | - |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className           | Class name| string                      | -       | - |
@@ -2286,6 +2369,7 @@ import { IconFixedStroked, IconSectionStroked, IconAbsoluteStroked, IconInnerSec
 | expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | 0.35.0       |
 | expandAll | Set whether to expand all nodes by default. If the subsequent data (`treeData`/`treeDataSimpleJson`) changes, the default expansion will also be affected by this api | boolean | false | 1.30.0 |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | - |
+| expandIcon | Custom expand icon | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
 | filterTreeNode      | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean \| ((inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean)  | false   | - |
 | hideDraggingNode | Toggle whether to hide dragImg of dragging node | boolean | false | 1.8.0 | 

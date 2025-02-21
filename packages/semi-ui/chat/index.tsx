@@ -65,6 +65,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
         uploadProps: PropTypes.object,
         uploadTipProps: PropTypes.object,
         mode: PropTypes.string,
+        markdownRenderProps: PropTypes.object,
     };
 
     static defaultProps = getDefaultPropsFromGlobalConfig(Chat.__SemiComponentName__, {
@@ -289,7 +290,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
-            sendHotKey, renderDivider
+            sendHotKey, renderDivider, markdownRenderProps
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -347,6 +348,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                                 onMessageCopy={onMessageCopy}
                                 chatBoxRenderConfig={chatBoxRenderConfig}
                                 renderDivider={renderDivider}
+                                markdownRenderProps={markdownRenderProps}
                             />
                             {/* hint area */}
                             {!!hints?.length && <Hint

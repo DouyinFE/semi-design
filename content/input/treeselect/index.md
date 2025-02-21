@@ -1391,7 +1391,7 @@ function Demo() {
 | arrowIcon | 自定义右侧下拉箭头Icon，当showClear开关打开且当前有选中值时，hover会优先显示clear icon                                                            |  ReactNode |       | 
 | autoAdjustOverflow| 浮层被遮挡时是否自动调整方向（暂时仅支持竖直方向，且插入的父级为 body）                                                                    | boolean | true| 
 | autoExpandParent | 是否自动展开父节点                                                                                                                  | boolean | false | 
-| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将包括该节点以及该子孙节点。（在leafOnly为false的情况下生效）。v2.61.0 后提供     | boolean | true |
+| autoMergeValue | 设置自动合并 value。具体而言是，开启后，当某个父节点被选中时，value 将不包括该节点的子孙节点。（在leafOnly为false的情况下生效）。v2.61.0 后提供     | boolean | true |
 | borderless        | 无边框模式，v2.33.0后提供                                                                                                          | boolean | false |
 | checkRelation | 多选时，节点之间选中状态的关系，可选：'related'、'unRelated'。v2.5.0后提供                                                                  | string | 'related' |
 | className | 选择框的 `className` 属性                                                                                                                 | string | - | - |
@@ -1412,6 +1412,7 @@ function Demo() {
 | expandAction | 展开逻辑，可选 false, 'click', 'doubleClick'。默认值为 false，即仅当点击展开按钮时才会展开                                                        | boolean \| string | false |
 | expandAll | 设置是否默认展开所有节点，若后续数据(`treeData`)发生改变，默认的展开情况也是会受到这个 api 影响的                                                         | boolean | false |
 | expandedKeys | （受控）展开的节点，默认展开节点显示其直接子级                                                                                                   | string[] | - |
+| expandIcon | 自定义展开图标，使用[示例](/zh-CN/navigation/tree#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%95%E5%BC%80%20Icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | 自定义节点中 key、label、value 的字段。v2.47.0后提供                                                                                                | object |  - |
 | filterTreeNode | 是否根据输入项进行筛选，默认用 `treeNodeFilterProp` 的值作为要筛选的 `TreeNodeData` 的属性值, data 参数自 v2.28.0 开始提供                         | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false |
 | getPopupContainer  | 指定父级 DOM，弹层将会渲染至该 DOM 中，自定义需要设置 `position: relative` 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。                                                                                       | function():HTMLElement | - |

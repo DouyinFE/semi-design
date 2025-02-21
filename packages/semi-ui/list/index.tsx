@@ -152,7 +152,7 @@ class List<T = any> extends BaseComponent<ListProps<T>> {
                     })
                 );
             });
-        } else if (!children && !loading) {
+        } else if (!children) {
             childrenList = this.renderEmpty();
         }
         return (

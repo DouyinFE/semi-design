@@ -20,6 +20,7 @@ import {
     IconWholeWord,
 } from '@douyinfe/semi-icons';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
+import {isEqual} from "lodash";
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
@@ -27,6 +28,7 @@ export interface JsonViewerProps extends BaseProps {
     value: string;
     width: number;
     height: number;
+    showSearch?: boolean;
     className?: string;
     style?: React.CSSProperties;
     onChange?: (value: string) => void;
@@ -50,11 +52,16 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
         width: 400,
         height: 400,
         value: '',
+        options: {
+            readOnly: false,
+            autoWrap: true
+        }
     };
 
     private editorRef: React.RefObject<HTMLDivElement>;
     private searchInputRef: React.RefObject<HTMLInputElement>;
     private replaceInputRef: React.RefObject<HTMLInputElement>;
+    private isComposing: boolean = false;
 
     foundation: JsonViewerFoundation;
 
@@ -79,7 +86,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
 
     componentDidUpdate(prevProps: JsonViewerProps): void {
-        if (prevProps.options !== this.props.options) {
+        if (!isEqual(prevProps.options, this.props.options) || this.props.value !== prevProps.value) {
             this.foundation.jsonViewer.dispose();
             this.foundation.init();
         }
@@ -190,6 +197,16 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     className={`${prefixCls}-search-bar-input`}
                     onChange={(_value, e) => {
                         e.preventDefault();
+                        if (!this.isComposing) {
+                            this.searchHandler();
+                        }
+                        this.searchInputRef.current?.focus();
+                    }}
+                    onCompositionStart={() => {
+                        this.isComposing = true;
+                    }}
+                    onCompositionEnd={() => {
+                        this.isComposing = false;
                         this.searchHandler();
                         this.searchInputRef.current?.focus();
                     }}
@@ -224,6 +241,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
     }
 
     renderReplaceBar() {
+        const { readOnly } = this.props.options;
         return (
             <div className={`${prefixCls}-replace-bar`}>
                 <Input
@@ -235,6 +253,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     ref={this.replaceInputRef}
                 />
                 <Button
+                    disabled={readOnly}
                     onClick={() => {
                         const value = this.replaceInputRef.current?.value;
                         this.foundation.replace(value);
@@ -243,6 +262,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                     替换
                 </Button>
                 <Button
+                    disabled={readOnly}
                     onClick={() => {
                         const value = this.replaceInputRef.current?.value;
                         this.foundation.replaceAll(value);
@@ -256,7 +276,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     render() {
         let isDragging = false;
-        const { width, className, style, ...rest } = this.props;
+        const { width, className, style, showSearch = true, ...rest } = this.props;
         return (
             <>
                 <div style={{ ...this.getStyle(), position: 'relative', ...style }} className={className} {...this.getDataAttr(rest)}>
@@ -265,34 +285,36 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                         ref={this.editorRef}
                         className={classNames(prefixCls, `${prefixCls}-background`)}
                     ></div>
-                    <DragMove
-                        onMouseDown={() => {
-                            isDragging = false;
-                        }}
-                        onMouseMove={() => {
-                            isDragging = true;
-                        }}
-                    >
-                        <div style={{ position: 'absolute', top: 20, left: width - 52 }}>
-                            {!this.state.showSearchBar ? (
-                                <Button
-                                    className={`${prefixCls}-search-bar-trigger`}
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        if (isDragging) {
-                                            e.stopPropagation();
+                    {showSearch && (
+                        <DragMove
+                            onMouseDown={() => {
+                                isDragging = false;
+                            }}
+                            onMouseMove={() => {
+                                isDragging = true;
+                            }}
+                        >
+                            <div style={{ position: 'absolute', top: 20, left: width - 52 }}>
+                                {!this.state.showSearchBar ? (
+                                    <Button
+                                        className={`${prefixCls}-search-bar-trigger`}
+                                        onClick={e => {
                                             e.preventDefault();
-                                            return;
-                                        }
-                                        this.foundation.showSearchBar();
-                                    }}
-                                    icon={<IconSearch />}
-                                />
-                            ) : (
-                                this.renderSearchBox()
-                            )}
-                        </div>
-                    </DragMove>
+                                            if (isDragging) {
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                return;
+                                            }
+                                            this.foundation.showSearchBar();
+                                        }}
+                                        icon={<IconSearch />}
+                                    />
+                                ) : (
+                                    this.renderSearchBox()
+                                )}
+                            </div>
+                        </DragMove>
+                    )}
                 </div>
             </>
         );

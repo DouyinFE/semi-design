@@ -1617,8 +1617,9 @@ render(DefaultChat);
 | inputBoxStyle | Input box style | CSSProperties | - |
 | inputBoxCls | Input box className | string | - |
 | sendHotKey | Keyboard shortcut for sending content, supports `enter` \| `shift+enter`. The former will send the message in the input box when you press enter alone. When the shift and enter keys are pressed at the same time, it will only wrap the line and not send it. The latter is the opposite | string | `enter` |
+| markdownRenderProps | This parameter will be passed to the MarkdownRender component used for dialog rendering. For details, see [MarkdownRenderProps](/en-US/plus/markdownrender#API)| MarkdownRenderProps |-|
 | mode | Conversation mode, support `bubble` \| `noBubble` \| `userBubble`  | string | `bubble` |
-| roleConfig | Role information configuration, see[RoleConfig](#RoleConfig) | RoleConfig | - |
+| roleConfig | Role information configuration, see [RoleConfig](#RoleConfig) | RoleConfig | - |
 | renderDivider | Custom render divider, supported since v2.67.0 | (message?: Message) => ReactNode | - |
 | renderHintBox | Custom rendering prompt information | (props: {content: string; index: number,onHintClick: () => void}) => React.ReactNode| - |
 | onChatsChange | Triggered when the conversation list changes | (chats: Message[]) => void | - |
@@ -1637,8 +1638,8 @@ render(DefaultChat);
 | showClearContext | Whether to display the clear context button| boolean | false |
 | showStopGenerate | Whether to display the stop generation button| boolean | false |
 | topSlot | top slot for chat | React.ReactNode | - |
-| uploadProps | Upload component properties, refer to details [Upload](/zh-CN/input/upload#API%20%E5%8F%82%E8%80%83) | UploadProps | - |
-| uploadTipProps | Upload component prompt attribute, refer to details [Tooltip](/zh-CN/show/tooltip#API%20%E5%8F%82%E8%80%83) | TooltipProps | - |
+| uploadProps | Upload component properties, refer to details [Upload](/en-US/input/upload#API%20%E5%8F%82%E8%80%83) | UploadProps | - |
+| uploadTipProps | Upload component prompt attribute, refer to details [Tooltip](/en-US/show/tooltip#API%20%E5%8F%82%E8%80%83) | TooltipProps | - |
 
 
 #### RoleConfig

@@ -16,6 +16,55 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.74.0 (2025-02-07)
+- 【Fix】
+    - Fix the issue where the List component's dataSource is empty and it is covered by the Spin component. [@LonelySnowman](https://github.com/LonelySnowman)
+    - Fix the TypeError when closing the panel of the TreeSelect component when search is enabled and treeData is undefined
+    - fixed the issue that the Steps icon and title of type basic were not centered with the line  [#2688 ](https://github.com/DouyinFE/semi-design/issues/2688)
+    - Fixed the problem that after the single-select and searchable Select loses focus when the panel is open, it cannot be focused again by clicking the trigger.
+    - Fixed the white edge issue of the AudioPlayer speed pop-up box style [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - The internal ref usage of the AudioPlay component is modified to be compatible with other frameworks [@rashagu](https://github.com/rashagu)
+
+#### 🎉 2.74.0-beta.0 (2025-01-20)
+- 【Feat】
+  - The Chat component supports the markdownRenderProps API, which is used to set the MarkdownRender component for message rendering.  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640)
+- 【Fix】
+  - fixed the issue that the lowercase z input in JsonViewer is invalid [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+
+#### 🎉 2.73.0 (2025-01-13)
+- 【Fix】
+    - Fix the problem that JsonViewer is not configured with default parameters [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fix JsonViewer the judgment condition for whether to re-init. [@rashagu](https://github.com/rashagu)
+
+#### 🎉 2.73.0-beta.0 (2025-01-07)
+- 【New Component】
+    - Added audio player component [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2650](https://github.com/DouyinFE/semi-design/pull/2650)
+    - Added Cropper component [#2642](https://github.com/DouyinFE/semi-design/pull/2642)
+- 【Feat】
+    - Added read-only mode to JsonViewer [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer supports hidden search icon [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer adds Json format error information prompt function [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - JsonViewer Core package hot update problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+- 【Fix】
+    - Fix the cursor problem when clicking on the non-content area of ​​JsonViewer [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix JsonViewer cursor problem after automatic indentation [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix the missing content problem after JsonViewer folding [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix the Chinese input method input problem in the JsonViewer search box [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2651](https://github.com/DouyinFE/semi-design/pull/2651)
+    - Fix the JsonViewer Undo&Redo text model out of sync problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - After setting the handler in DragMove, the child elements of DragMove can still be dragged [#2661](https://github.com/DouyinFE/semi-design/issues/2661) [#2662](https://github.com/DouyinFE/semi-design/pull/2662)
+    - Fixed the display problem of Loading when there is no Spin component in the project of Button [#2664](https://github.com/DouyinFE/semi-design/pull/2664)
+- 【Chore】
+    - JsonViewer refactors the underlying data structure of the folding model [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Add JsonViewer E2E test [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
+
+#### 🎉 2.72.2 (2025-01-06)
+- 【Fix】
+    - Fix the problem that Cascader's placeHolder and searchPlaceholder cannot be updated dynamically
+
+#### 🎉 2.72.1 (2025-01-02)
+- 【Fix】
+    - Fixed the problem of Typography’s JS omitting calculation error when display is none [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
+
 #### 🎉 2.72.0 (2024-12-20)
 - 【Fix】
   - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
@@ -33,7 +82,6 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 - 【Fix】
     - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
     - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
-    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time.[#2624](https://github.com/DouyinFE/semi-design/pull/2624)
 
 #### 🎉 2.71.2 (2024-12-13)
 - 【Fix】

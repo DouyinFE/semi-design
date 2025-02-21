@@ -233,7 +233,7 @@ $basicType: #{$module}-basic;
             color: $color-steps_main-text-default;
             vertical-align: top;
             padding-right: $spacing-steps_basic_item_title-paddingRight;
-            padding-bottom: $spacing-steps_basic_item_title-paddingBottom;
+            margin-bottom: $spacing-steps_basic_item_title-paddingBottom;
             transition: color $transition_duration-steps_item_title-text $transition_function-steps_item_title-text $transition_delay-steps_item_title-text; //step文字color的transition变化
        
         }

@@ -156,6 +156,20 @@ const simpleInitMessage = [
     },
 ];
 
+const infoWithJSX = [
+    {
+        role: 'system',
+        id: '1',
+        createAt: 1715676751919,
+        content: `因为用的是 mdx 模式，因此对于部分符号需要转义 \\{\\} \\<\\> ...
+#### 下面是一个渲染在 Markdown 中的按钮
+<MyButton onClick={()=>alert("点击了 MyButton")}>MyButton 点我</MyButton>
+
+直接在 Markdown 中书写 JSX 即可
+`
+    },
+]
+
 export {
     initMessage,
     roleInfo,
@@ -164,5 +178,6 @@ export {
     infoWithAttachment,
     simpleInitMessage,
     semiCode, 
-    infoWithDivider
+    infoWithDivider,
+    infoWithJSX
 };

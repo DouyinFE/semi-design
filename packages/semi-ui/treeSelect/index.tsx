@@ -141,6 +141,11 @@ export interface TreeSelectProps extends Omit<BasicTreeSelectProps, OverrideComm
     searchPosition?: string;
     stopPropagation?: boolean | string;
     restTagsPopoverProps?: PopoverProps;
+    expandIcon?: React.ReactNode | ((props: {
+        onClick: (e: MouseEvent) => void;
+        className: string;
+        expanded: boolean
+    }) => React.ReactNode);
     searchRender?: boolean | ((inputProps: InputProps) => React.ReactNode);
     onSelect?: (selectedKey: string, selected: boolean, selectedNode: TreeNodeData) => void;
     renderSelectedItem?: RenderSelectedItem;
@@ -1410,10 +1415,18 @@ class TreeSelect extends BaseComponent<TreeSelectProps, TreeSelectState> {
             return null;
         }
         const props: any = pick(treeNode, ['key', 'label', 'disabled', 'isLeaf', 'icon', 'isEnd']);
-        const { keyMaps } = this.props;
+        const { keyMaps, expandIcon } = this.props;
         const children = data[get(keyMaps, 'children', 'children')];
         !isUndefined(children) && (props.children = children);
-        return <TreeNode {...treeNodeProps} {...data} {...props} data={data} style={style} showLine={showLine}/>;
+        return <TreeNode 
+            {...treeNodeProps} 
+            {...data} 
+            {...props} 
+            data={data} 
+            style={style} 
+            showLine={showLine}
+            expandIcon={expandIcon}
+        />;
     };
 
     itemKey = (index: number, data: Record<string, any>) => {

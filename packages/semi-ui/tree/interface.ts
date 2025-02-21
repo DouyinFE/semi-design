@@ -85,7 +85,8 @@ export interface TreeProps extends BasicTreeProps {
     renderDraggingNode?: (nodeInstance: HTMLElement, node: TreeNodeData) => HTMLElement;
     renderFullLabel?: (renderFullLabelProps: RenderFullLabelProps) => ReactNode;
     renderLabel?: (label?: ReactNode, treeNode?: TreeNodeData, searchWord?: string) => ReactNode;
-    autoMergeValue?: boolean
+    autoMergeValue?: boolean;
+    expandIcon?: ReactNode
 }
 export interface OptionProps {
     index: number;
@@ -112,7 +113,12 @@ export interface TreeState extends BasicTreeInnerData {
 export interface TreeNodeProps extends BasicTreeNodeProps {
     children?: TreeNodeData[];
     icon?: ReactNode;
-    isEnd?: boolean[]
+    isEnd?: boolean[];
+    expandIcon?: ReactNode | ((props: {
+        onClick: (e: MouseEvent) => void;
+        className: string;
+        expanded: boolean
+    }) => ReactNode)
 }
 export interface TreeNodeState {
     [x: string]: any

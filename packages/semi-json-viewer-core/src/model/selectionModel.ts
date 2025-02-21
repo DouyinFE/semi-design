@@ -99,10 +99,6 @@ export class SelectionModel {
         const row = this._jsonModel.lastChangeBufferPos.lineNumber;
         const col = this._jsonModel.lastChangeBufferPos.column - 1;
 
-        if (row < this._view.startLineNumber || row > this._view.startLineNumber + this._view.visibleLineCount) {
-            selection.removeAllRanges();
-            return;
-        }
         const lineElement = this._view.getLineElement(row);
         if (!lineElement) return;
         if (col === 0) {
@@ -126,7 +122,25 @@ export class SelectionModel {
         selection.addRange(range);
     }
 
-    convertRangeToModelPosition(node: Node, selection: Selection, isStart: boolean) {
+    public toLastPosition() {
+        this.isCollapsed = true;
+        this.isSelectedAll = false;
+        const lineCount = this._jsonModel.getLineCount();
+        const lineLength = this._jsonModel.getLineLength(lineCount);
+        this._row = lineCount;
+        this._col = lineLength + 1;
+        this.startRow = lineCount;
+        this.startCol = lineLength + 1;
+        this.endRow = lineCount;
+        this.endCol = lineLength + 1;
+        this._jsonModel.lastChangeBufferPos = {
+            lineNumber: lineCount,
+            column: lineLength + 1,
+        };
+        this.toViewPosition();
+    }
+
+    public convertRangeToModelPosition(node: Node, selection: Selection, isStart: boolean) {
         let row = 1;
         let col = 0;
         if (!node) return { row, col };

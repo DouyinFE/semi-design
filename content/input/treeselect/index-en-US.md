@@ -1408,7 +1408,7 @@ function Demo() {
 | arrowIcon|Customize the right drop-down arrow Icon, when the showClear switch is turned on and there is currently a selected value, hover will give priority to the clear icon| ReactNode | | - |
 |autoAdjustOverflow|Whether the pop-up layer automatically adjusts the direction when it is obscured (only vertical direction is supported for the time being, and the inserted parent is body)|boolean | true| - |
 | autoExpandParent | Toggle whether to expand parent nodes automatically | boolean | false | - |
-| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, value will include that node and its children. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
+| autoMergeValue | Sets the automerge value. Specifically, when enabled, when a parent node is selected, the value will not include the descendants of the node. (Works if leafOnly is false)| boolean | true | 2.61.0 | 
 | borderless        | borderless mode  >=2.33.0                                                                                                                                                                     | boolean                         |           |
 | checkRelation | In multiple, the relationship between the checked states of the nodes, optional: 'related'、'unRelated' | string | 'related' | 2.5.0 |
 | className                | Class name                                                                          | string                                                            | -           | -       |
@@ -1429,6 +1429,7 @@ function Demo() {
 | expandAction             | Expand logic, one of false, 'click', 'doubleClick'. Default is set to false, which means item will not be expanded on clicking except on expand icon    | boolean \| string   | false | - |
 | expandAll | Set whether to expand all nodes by default. If the data (`treeData`) changes, the default expansion will still be affected by this api | boolean | false |- |
 | expandedKeys        | （Controlled）Keys of expanded nodes. Direct child nodes will be displayed.  | string[]                    | -       | - |
+| expandIcon | Custom expand icon, [example](/en-US/navigation/tree#Custom%20expansion%20icon) | ReactNode \| (props: expandProps)=>ReactNode | - | 2.75.0 |
 | keyMaps | Customize the key, label, and value fields in the node | object |  - | 2.47.0 |
 | filterTreeNode           | Toggle whether searchable or pass in a function to customize search behavior, data parameter provided since v2.28.0 | boolean\| <ApiType detail='(inputValue: string, treeNodeString: string, data?: TreeNodeData) => boolean'>Function</ApiType> | false       | -       |
 | getPopupContainer        | Container to render pop-up, you need to set 'position: relative`  This will change the DOM tree position, but not the view's rendering position.                                                    | function():HTMLElement                                            | -           | -       |

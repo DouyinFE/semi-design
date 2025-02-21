@@ -3,7 +3,6 @@ import { View } from '../view';
 import { JSONModel } from '../../model/jsonModel';
 import { applyEdits, Edit } from 'jsonc-parser';
 import { getJsonWorkerManager, JsonWorkerManager } from '../../worker/jsonWorkerManager';
-import { FoldingModel } from '../../model/foldingModel';
 import { Emitter, getEmitter } from '../../common/emitter';
 import { GlobalEvents, IModelContentChangeEvent } from '../../common/emitterEvents';
 import { Range } from '../../common/range';
@@ -16,7 +15,6 @@ export class EditWidget {
     private _view: View;
     private _selectionModel: SelectionModel;
     private _jsonModel: JSONModel;
-    private _foldingModel: FoldingModel;
     private _isComposition: boolean = false;
     private _autoClosingPairs: Record<string, string> = {
         '{': '}',
@@ -29,13 +27,11 @@ export class EditWidget {
         view: View,
         jsonModel: JSONModel,
         selectionModel: SelectionModel,
-        foldingModel: FoldingModel,
         private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager()
     ) {
         this._view = view;
         this._jsonModel = jsonModel;
         this._selectionModel = selectionModel;
-        this._foldingModel = foldingModel;
 
         this.attachEventListeners();
     }
@@ -160,7 +156,7 @@ export class EditWidget {
                         op.newText = '\n' + this.normalizeIndentation(enterAction.appendText + enterAction.indentation) || '';
                         op.keepPosition = {
                             lineNumber: startLineNumber + 1,
-                            column: enterAction.appendText.length + enterAction.indentation.length + 1,
+                            column: op.newText.length,
                         };
                     } else {
                         const normalIndent = this.normalizeIndentation(enterAction.indentation);
@@ -177,7 +173,7 @@ export class EditWidget {
                     op.newText = '\n' + this.normalizeIndentation(indentation) || '';
                     op.keepPosition = {
                         lineNumber: startLineNumber + 1,
-                        column: indentation.length + 1,
+                        column: op.newText.length,
                     };
                 }
                 break;
@@ -345,9 +341,15 @@ export class EditWidget {
                 if (e.metaKey && !e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.undo();
-                } else {
+                } else if (e.metaKey && e.shiftKey) {
                     e.preventDefault();
                     this._jsonModel.redo();
+                }
+                break;
+            case 'c':
+                if (e.metaKey) {
+                    e.preventDefault();
+                    this._copyHandler();
                 }
                 break;
         }
@@ -373,5 +375,10 @@ export class EditWidget {
         }
         navigator.clipboard.writeText(op.oldText);
         this._jsonModel.applyOperation(op);
+    }
+
+    private _copyHandler() {
+        const op = this.buildBaseOperation('replace');
+        navigator.clipboard.writeText(op.oldText);
     }
 }

@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch, Collapsible, AvatarGroup, Divider } from '@douyinfe/semi-ui';
 import { IconUpload, IconForward, IconMoreStroked, IconArrowRight, IconChevronUp } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
-import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode, infoWithDivider } from './constant';
+import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode, infoWithDivider, infoWithJSX } from './constant';
 
 export default {
     title: 'Chat',
@@ -899,4 +899,31 @@ export const CustomRenderDivider = () => {
             />
         </div>
     );
+}
+
+export const MarkdownRenderProps = () => {
+    const [message, setMessage] = useState(infoWithJSX);
+    const components = {};
+    components['MyButton'] = ({ children,onClick }) => {
+        return <Button type={"primary"} onClick={onClick} style={{marginBottom:"12px"}}> {children} </Button>
+    }
+    const markdownRenderProps = {
+        format: 'mdx',
+        components: {...MarkdownRender.defaultComponents,...components}
+    }
+
+    return (
+        <div
+            style={{ height: 600}}
+        >
+            <Chat 
+                placeholder={'不处理输入信息，仅用于展示附件'}
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                uploadProps={uploadProps}
+                markdownRenderProps={markdownRenderProps}
+            />
+        </div>
+    )
 }

@@ -40,10 +40,15 @@ const compile = async ()=>{
     const finalRaw = mainRaw.replaceAll("%WORKER_RAW%", encodeURIComponent(workerRaw));
 
     const saveDir = path.join(__dirname, "..", "lib");
+    const workerSaveDir = path.join(__dirname, "..", "workerLib");
 
     if (!fs.existsSync(saveDir)) {
         fs.mkdirSync(saveDir);
     }
+    if (!fs.existsSync(workerSaveDir)) {
+        fs.mkdirSync(workerSaveDir);
+    }
+    fs.writeFileSync(path.join(workerSaveDir, "worker.js"), workerRaw, 'utf8');
     fs.writeFileSync(path.join(saveDir, "index.js"), finalRaw, 'utf8');
 };
 

@@ -13,6 +13,56 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.74.0 (2025-02-07)
+- 【Fix】
+    - 修复 List 组件 dataSource 为空时被 Spin 组件遮挡问题 [@LonelySnowman](https://github.com/LonelySnowman) [#2693](https://github.com/DouyinFE/semi-design/pull/2693)
+    - 修复 TreeSelect 在开启搜索并且 treeData 为 undefined 时，关闭面板时候的 TypeError [#2694](https://github.com/DouyinFE/semi-design/pull/2694)
+    - 修复类型为 basic 的 Steps icon 和 title 未与 line 居中对齐问题  [#2688](https://github.com/DouyinFE/semi-design/issues/2688) [#2689](https://github.com/DouyinFE/semi-design/pull/2689)
+    - 修复单选，可搜索的 Select 在面板打开状态下失去焦点后，无法再次通过点击 trigger 聚焦问题 [#2668](https://github.com/DouyinFE/semi-design/pull/2668)
+    - 修复 AudioPlayer倍速弹出层样式白边问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2685](https://github.com/DouyinFE/semi-design/pull/2685)
+    - AudioPlay 组件内部 ref 使用修改，兼容其他框架[@rashagu](https://github.com/rashagu) [#2673](https://github.com/DouyinFE/semi-design/pull/2673)
+
+#### 🎉 2.74.0-beta.0 (2025-01-20)
+- 【Feat】
+  - Chat 组件支持 markdownRenderProps API，用于设置对话渲染的 MarkdownRender 组件  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640) [#2679](https://github.com/DouyinFE/semi-design/pull/2679)
+- 【Fix】
+  - 修复JsonViewer输入小写z无效的问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2680](https://github.com/DouyinFE/semi-design/pull/2680)
+
+#### 🎉 2.73.0 (2025-01-13)
+- 【Fix】
+    - 修复 JsonViewer 未配置默认参数问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2670](https://github.com/DouyinFE/semi-design/pull/2670)
+    - 修复 JsonViewer 是否重新init的判断条件 [@rashagu](https://github.com/rashagu) [#2667](https://github.com/DouyinFE/semi-design/pull/2667)
+
+#### 🎉 2.73.0-beta.0 (2025-01-07)
+- 【New Component】
+    - 新增 AudioPlayer 音频播放器组件 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2650](https://github.com/DouyinFE/semi-design/pull/2650)
+    - 新增 Cropper 图片裁切组件 [#2642](https://github.com/DouyinFE/semi-design/pull/2642)
+- 【Feat】
+    - JsonViewer 新增只读模式 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer 支持隐藏搜索Icon [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer 新增Json格式错误信息提示功能 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - JsonViewer Core 包热更新问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+- 【Fix】
+    - 修复 JsonViewer 点击非内容区域下光标问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - 修复 JsonViewer 自动缩进后光标问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - 修复 JsonViewer 折叠后复制内容缺失问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - 修复 JsonViewer 搜索框中文输入法输入问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2651](https://github.com/DouyinFE/semi-design/pull/2651)
+    - 修复 JsonViewer Undo&Redo 文本模型不同步问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - 修复 DragMove 中设置 handler 后，DragMove 的子元素仍然可以被拖动问题  [#2661 ](https://github.com/DouyinFE/semi-design/issues/2661) [#2662](https://github.com/DouyinFE/semi-design/pull/2662)
+    - 修复 Button 在项目内不存在 Spin 组件时 Loading 的显示问题 [#2664](https://github.com/DouyinFE/semi-design/pull/2664)
+- 【Chore】
+    - JsonViewer 重构折叠模型底层数据结构 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - 新增 JsonViewer E2E 测试  [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
+
+#### 🎉 2.72.2 (2025-01-06)
+- 【Fix】
+    - 修复 Cascader 的 placeHolder，searchPlaceholder 无法动态更新问题 [#2663](https://github.com/DouyinFE/semi-design/pull/2663)
+
+#### 🎉 2.72.1 (2025-01-02)
+- 【Fix】
+    - 修复在 display 为 none 时，Typography 的JS 省略计算错误问题 [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
+
 #### 🎉 2.72.0 (2024-12-20)
 - 【Fix】
   - 修复 JsonViewer使用中文输入法错误的问题 [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
@@ -30,7 +80,6 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Fix】
   - 修复 Tree 组件 treeDataSimpleJson 模式下，onChange 回调结果错误问题  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508) [#2601](https://github.com/DouyinFE/semi-design/pull/2601)
   - 修复竖向 Navigation 在收起状态下 disabled subNavItem 展示不符合预期问题 [#2637](https://github.com/DouyinFE/semi-design/pull/2637)
-  - 设置图片预览的 img 节点的 max-width 为none，避免同时使用 tailwind 时放大显示错误问题[#2624](https://github.com/DouyinFE/semi-design/pull/2624)_
 
 
 #### 🎉 2.71.2 (2024-12-13)
