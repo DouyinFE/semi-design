@@ -31,16 +31,10 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
     - List 组件拖拽 Demo 更新为用 dnd-kit 实现 [#2717](https://github.com/DouyinFE/semi-design/pull/2717)
 - 【Feat】
     - Upload 在图片墙场景下添加 renderPicClose 用于自定义关闭图标 [#2714](https://github.com/DouyinFE/semi-design/pull/2714)
-    - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704) [#2709](https://github.com/DouyinFE/semi-design/pull/2709)
+    - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704](https://github.com/DouyinFE/semi-design/issues/2704) 
 - 【Fix】
     - 修复 Pagination 的页容量切换器在多语言场景无法切换语言问题  [#2696 ](https://github.com/DouyinFE/semi-design/issues/2696) [#2698](https://github.com/DouyinFE/semi-design/pull/2698)
     - 修复 PinCode 组件 format='number' 情况下，iOS端输入被打断问题（输入一个数字后，自动从数字/字符键盘切换到字母键盘） [@SaltyfishEd](https://github.com/SaltyfishEd) [#2702](https://github.com/DouyinFE/semi-design/pull/2702)
-
-#### 🎉 2.75.0-beta.0 (2025-02-18)
-- 【Feat】
-  - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704) [#2709](https://github.com/DouyinFE/semi-design/pull/2709)
-- 【Fix】
-  - 修复 PinCode 组件 format='number' 情况下，iOS端输入被打断问题（输入一个数字后，自动从数字/字符键盘切换到字母键盘） [@SaltyfishEd](https://github.com/SaltyfishEd) [#2702](https://github.com/DouyinFE/semi-design/pull/2702)
 
 #### 🎉 2.74.0 (2025-02-07)
 - 【Fix】
