@@ -36,6 +36,7 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 ### Basic Usage
 
 Basic usage of JsonViewer. Pass in the `height` and `width` parameters to set the height, width and initial value of the component. Pass in the JSON string through the `value`.
+Note: JsonViewer is an uncontrolled component. If the value prop is passed as a controlled property (i.e., React State), it is not recommended to modify the value prop (setState) in onChange. If you need to get the component's value, you can get it through ref, please refer to [Methods](#Methods) for details.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
