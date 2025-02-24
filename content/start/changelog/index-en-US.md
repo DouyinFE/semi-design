@@ -15,6 +15,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 -   **Patch version**: Only include bug fix, the release time is not limited
 
 ---
+
+#### 🎉 2.75.0 (2025-02-21)
+- 【Design Token】
+    - Select adds $color-select_prefix_suffix_text-default, Cascader adds $color-cascader_prefix_suffix_text-default, and TreeSelect adds $color-treeSelect_prefix_text-default to control the prefix and suffix colors. In addition, keep the font-size and font-weight settings of the prefix and suffix consistent with the settings of insetLabal (**Note: There are changes in styles before and after modification**)  [#2721](https://github.com/DouyinFE/semi-design/issues/2721)
+- 【Fix】
+    - Fixed the bug where the accessibility rendering of aria attributes in Chrome v133 caused Chrome to crash after clicking the month selector of the DatePicker [#2723](https://github.com/DouyinFE/semi-design/pull/2723)
+    - Fixed the issue that Resizable could not be used on touchscreens [#2697](https://github.com/DouyinFE/semi-design/issues/2697) [#2712](https://github.com/DouyinFE/semi-design/pull/2712)
+    - Removed the use of the outdated React syntax ReactDOM.render() in Typography and replaced it with other methods to clear the container used for testing the appropriate ellipsis length  [#2699](https://github.com/DouyinFE/semi-design/issues/2699)
+    - Fixed the problem that when using formApi.scrollToField in Form, if there are multiple Forms on the page and the fields have the same name, only the DOM of the first field with the same name can be scrolled to [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+    - Fixed the problem that when only extraText is configured in Form.InputGroup and extraPosition is not configured, extraText cannot be displayed correctly [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+- 【Chore】
+    - Fix the problem of the TypeScript type definition error of Form formApi.scrollToError.[#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+
+
 #### 🎉 2.75.0-beta.1 (2025-02-19)
 - 【Docs】
     - List component drag demo updated to use dnd-kit
