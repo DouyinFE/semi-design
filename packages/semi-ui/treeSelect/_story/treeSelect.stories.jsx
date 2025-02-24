@@ -567,7 +567,7 @@ export const PrefixSuffixInsetLabel = () => (
       dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
       treeData={treeData2}
       filterTreeNode
-      prefix={<span>1234</span>}
+      prefix={'1234'}
       treeNodeFilterProp="value"
       placeholder="Please select"
     />
