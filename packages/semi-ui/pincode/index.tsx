@@ -103,13 +103,14 @@ class PinCode extends BaseComponent<PinCodeProps, PinCodeState> {
             ref={dom => this.inputDOMList[index] = dom}
             key={`input-${index}`}
             autoFocus={this.props.autoFocus && index === 0}
+            inputMode={this.props.format === "number" ? "numeric" : "text"}
             value={this.state.valueList[index]}
             size={this.props.size}
             disabled={this.props.disabled}
-            onBlur={()=>this.foundation.handleCurrentActiveIndexChange(index, "blur")}
-            onFocus={()=>this.foundation.handleCurrentActiveIndexChange(index, "focus")}
-            onPaste={e=>this.foundation.handlePaste(e.nativeEvent, index)}
-            onKeyDown={e=>{
+            onBlur={() => this.foundation.handleCurrentActiveIndexChange(index, "blur")}
+            onFocus={() => this.foundation.handleCurrentActiveIndexChange(index, "focus")}
+            onPaste={e => this.foundation.handlePaste(e.nativeEvent, index)}
+            onKeyDown={e => {
                 this.foundation.handleKeyDownOnSingleInput(e.nativeEvent, index);
             }}
             onChange={v => {

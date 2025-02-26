@@ -62,3 +62,8 @@ export interface RenderFileItemProps extends FileItem {
     disabled: boolean;
     onPreviewClick: () => void
 }
+
+export interface RenderPictureCloseProps {
+    className: string;
+    remove: (e: MouseEvent) => void
+}

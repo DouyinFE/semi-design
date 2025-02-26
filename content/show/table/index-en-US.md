@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 75
+order: 76
 category: Show
 title: Table
 subTitle: Table
@@ -5291,7 +5291,7 @@ render(App);
 | virtualized | Virtualization settings                                                                                                   | Virtualized | false | **0.33.0** |
 | virtualized.itemSize | Row height                                                                                                                | number\|(index: number) => number | 56 | **0.33.0** |
 | virtualized.onScroll | Virtualization scroll callback method                                                                                     | ( scrollDirection?: 'forward' \| 'backward', scrollOffset?: number, scrollUpdateWasRequested?: boolean ) => void |  | **0.33.0** |
-| onChange | Trigger when paging, sorting, filtering changes                                                                           | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: any }) => void |  |
+| onChange | Trigger when paging, sorting, filtering changes. extra.changeType is supported in v2.72                                                                           | ({ pagination: TablePaginationProps, <br/>filters: Array<\*>, sorter: object, extra: { changeType: 'sorter' \| 'filter' \| 'pagination' } }) => void |  |
 | onExpand | Trigger when clicking on the row expansion icon                                                                           | (expanded: boolean, record: RecordType, DOMEvent: MouseEvent) => void |  | The third parameter DOMEvent requires version **>=0.28.0** |
 | onExpandedRowsChange | Triggers when unfolding row changes                                                                                       | (rows: RecordType[]) => void |  |
 | onGroupedRow | Similar to onRow, but this parameter is used to define the row attribute of the grouping header alone                     | (record: RecordType, index: number) => object |  | **0.29.0** |

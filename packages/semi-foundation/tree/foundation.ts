@@ -23,6 +23,7 @@ import {
 } from './treeUtil';
 
 import type { KeyMapProps } from './treeUtil';
+import { strings } from './constants';
 export type { KeyMapProps };
 
 export interface BasicTreeNodeProps {
@@ -415,7 +416,7 @@ export default class TreeFoundation extends BaseFoundation<TreeAdapter, BasicTre
 
     notifyJsonChange(key: string[] | string, e: any) {
         const data = this.getProp('treeDataSimpleJson');
-        const selectedPath = normalizedArr(key).map(i => i.replace('-', '.'));
+        const selectedPath = normalizedArr(key).map(i => i.replaceAll(strings.JSON_KEY_SPLIT, '.'));
         const value = pick(data, selectedPath);
         this._adapter.notifyChange(value as BasicValue);
     }

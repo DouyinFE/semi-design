@@ -46,9 +46,21 @@ export default class DragMoveFoundation<P = Record<string, any>, S = Record<stri
         this.element = element;
         this.element.style.position = 'absolute';
         this.handler.style.cursor = 'move';
+        this._registerStartEvent();
+    }
+
+    _registerStartEvent = () => {
+        this.handler.addEventListener('mousedown', this.onMouseDown);
+        this.handler.addEventListener('touchstart', this.onTouchStart);
+    }
+
+    _unRegisterStartEvent = () => {
+        this.handler.removeEventListener('mousedown', this.onMouseDown);
+        this.handler.removeEventListener('touchstart', this.onTouchStart);
     }
 
     destroy() {
+        this._unRegisterStartEvent();
         this._unRegisterEvent();
     }
 

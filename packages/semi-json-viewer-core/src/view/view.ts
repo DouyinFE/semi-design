@@ -15,6 +15,7 @@ import { ScalingCellSizeAndPositionManager } from './virtualized/ScalingCellSize
 import { CompleteWidget } from './complete/completeWidget';
 import { HoverWidget } from './hover/hoverWidget';
 import { GlobalEvents } from '../common/emitterEvents';
+import { ErrorWidget } from './error/errorWidget';
 //TODO 实现ViewModel抽离代码
 
 /**
@@ -45,6 +46,7 @@ export class View {
     private _foldWidget: FoldWidget;
     private _completeWidget: CompleteWidget;
     private _hoverWidget: HoverWidget;
+    private _errorWidget: ErrorWidget;
     private _jsonWorkerManager: JsonWorkerManager = getJsonWorkerManager();
     private _tokenizationJsonModelPart: TokenizationJsonModelPart;
     private _scalingCellSizeAndPositionManager: ScalingCellSizeAndPositionManager;
@@ -76,9 +78,10 @@ export class View {
 
         this._searchWidget = new SearchWidget(this, this._jsonModel);
         this._foldWidget = new FoldWidget(this, this._foldingModel);
-        this._editWidget = new EditWidget(this, this._jsonModel, this._selectionModel, this._foldingModel);
+        this._editWidget = new EditWidget(this, this._jsonModel, this._selectionModel);
         this._completeWidget = new CompleteWidget(this, this._jsonModel, this._selectionModel);
         this._hoverWidget = new HoverWidget(this);
+        this._errorWidget = new ErrorWidget(this);
 
         this._tokenizationJsonModelPart = new TokenizationJsonModelPart(this._jsonModel);
 
@@ -140,28 +143,36 @@ export class View {
             this.onScroll(this._jsonViewerDom.scrollTop);
         });
 
+        this._jsonViewerDom.addEventListener('click', e => {
+            e.preventDefault();
+            this._selectionModel.toLastPosition();
+        });
+
         this._contentDom.addEventListener('click', e => {
             e.preventDefault();
+            e.stopPropagation();
+            this._completeWidget.hide();
             this._selectionModel.isSelectedAll = false;
             this._selectionModel.updateFromSelection();
         });
 
         this.emitter.on('contentChanged', () => {
             this.resetScalingManagerConfigAndCell(0);
+            if (this._jsonModel.lastChangeBufferPos.lineNumber >= this.visibleLineCount + this.startLineNumber) {
+                this.scrollToLine(this._jsonModel.lastChangeBufferPos.lineNumber - this.visibleLineCount + 1);
+                return;
+            }
             this.layout();
+        });
+        this.emitter.on('forceRender', () => {
+            this.resetScalingManagerConfigAndCell(0);
+            this.layout();
+            this._errorWidget.renderErrorLine();
         });
     }
 
     public getLineElement(lineNumber: number): HTMLElement | null {
-        const visibleLineNumber = this._foldingModel.getVisibleLineNumber(lineNumber);
-        if (
-            visibleLineNumber > this.visibleLineCount + this.startLineNumber ||
-            visibleLineNumber < this.startLineNumber
-        )
-            return null;
-        return this._scrollDom.children[
-            visibleLineNumber - this._foldingModel.getVisibleLineNumber(this.startLineNumber)
-        ] as HTMLElement;
+        return this.scrollDom.querySelector(`[data-line-number="${lineNumber}"]`);
     }
 
     public updateVisibleRange(start: number, end: number) {
@@ -172,11 +183,11 @@ export class View {
     public onScroll(scrollTop: number) {
         this._jsonViewerDom.scrollTop = scrollTop;
         this.layout();
+        this._errorWidget.renderErrorLine();
     }
 
     public scrollToLine(lineNumber: number): void {
-        const visibleLineNumber = this._foldingModel.getVisibleLineNumber(lineNumber);
-        const scrollTop = (visibleLineNumber - 1) * this._lineHeight;
+        const scrollTop = (lineNumber - 1) * this._lineHeight;
         this._contentDom.scrollTop = scrollTop;
         this.onScroll(scrollTop);
     }
@@ -229,9 +240,11 @@ export class View {
             overflowY: 'scroll',
             outline: 'none',
         });
-        contentContainer.contentEditable = 'true';
-        contentContainer.style.caretColor = 'black';
-        contentContainer.spellcheck = false;
+        if (!this._options?.readOnly) {
+            contentContainer.contentEditable = 'true';
+            contentContainer.style.caretColor = 'black';
+            contentContainer.spellcheck = false;
+        }
         return contentContainer;
     }
 
@@ -265,7 +278,7 @@ export class View {
 
         setStyles(scrollEl, {
             position: 'relative',
-            overflow: 'scroll',
+            overflow: 'hidden',
             top: '0',
             left: '0',
             tabSize: (this._options?.formatOptions?.tabSize || 4).toString(),
@@ -363,8 +376,10 @@ export class View {
         this.renderVisibleLines(visibleRange.start!, visibleRange.stop!);
         this.updateVisibleRange(visibleRange.start! + 1, visibleRange.stop! + 1);
 
-        this._selectionModel.toViewPosition();
-        this._completeWidget.show();
+        if (!this._options?.readOnly) {
+            this._selectionModel.toViewPosition();
+            this._completeWidget.show();
+        }
         const totalSize = this._scalingCellSizeAndPositionManager.getTotalSize();
         this._scrollDom.style.height = `${totalSize}px`;
         this._lineScrollDom.style.height = `${totalSize}px`;
@@ -384,22 +399,13 @@ export class View {
     }
 
     private renderLine(actualLineNumber: number, visibleLineNumber: number) {
-        // const cache = this._domCache.get(actualLineNumber);
-        // if (cache) {
-        // 	return;
-        // }
         const line = this._jsonModel.getLineContent(actualLineNumber);
 
         const tokens = this._tokenizationJsonModelPart.getLineTokens(actualLineNumber);
 
         const lineNumberElement = this.renderLineNumber(actualLineNumber, visibleLineNumber);
         const lineElement = this.renderLineContent(actualLineNumber, visibleLineNumber, tokens, line);
-        // this._domCache.set(actualLineNumber, {
-        // 	lineElement,
-        // 	lineNumberElement
-        // });
     }
-    
 
     private renderLineNumber(actualLineNumber: number, visibleLineNumber: number) {
         const lineNumberElement = this.createLineNumberElement(actualLineNumber, visibleLineNumber);
@@ -412,7 +418,6 @@ export class View {
         const lineElement = this.createLineContentElement(lineContent, actualLineNumber, visibleLineNumber);
         this._scrollDom.appendChild(lineElement);
 
-        // this._options?.autoWrap &&
         this._measureAndUpdateItemHeight(lineElement, visibleLineNumber);
         return lineElement;
     }

@@ -219,6 +219,7 @@ function withField<
                     )
                     .then(res => {
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
+                            console.warn(`[Semi Form]: When FieldComponent (${field}) has an unfinished validation process, you repeatedly trigger a new validation, the old validation will be abandoned, and will neither resolve nor reject. Usually this is an unreasonable practice. Please check your code.`);
                             return;
                         }
                         // validation passed
@@ -228,6 +229,7 @@ function withField<
                     })
                     .catch(err => {
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
+                            console.warn(`[Semi Form]: When FieldComponent (${field}) has an unfinished validation process, you repeatedly trigger a new validation, the old validation will be abandoned, and will neither resolve nor reject. Usually this is an unreasonable practice. Please check your code.`);
                             return;
                         }
                         let { errors, fields } = err;
@@ -275,6 +277,7 @@ function withField<
                     maybePromisedErrors.then((result: any) => {
                         // If the async validate is outdated (a newer validate occurs), the result should be discarded
                         if (isUnmounted.current || validatePromise.current !== rootPromise) {
+                            console.warn(`[Semi Form]: When Field: (${field}) has an unfinished validation process, you repeatedly trigger a new validation, the old validation will be abandoned, and will neither resolve nor reject. Usually this is an unreasonable practice. Please check your code.`);
                             return;
                         }
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { difference, isEqual } from 'lodash';
-import { IconEdit, IconMapPin, IconMore } from '@douyinfe/semi-icons';
+import { IconEdit, IconMapPin, IconMore, IconChevronDown, IconPlus, IconMinus } from '@douyinfe/semi-icons';
 import Tree from '../index';
 import AutoSizer from '../autoSizer';
 import { Button, ButtonGroup, Input, Popover, Toast, Space, Select, Switch, Typography, Tag } from '../../index';
@@ -276,8 +276,13 @@ const treeDataWithNode = [
 
 const treeJson = {
   Node1: {
-    Child1: '0-0-1',
-    Child2: '0-0-2',
+    Child1: {
+      child11: '0-0-1',
+      child12: '0-0-2'
+    },
+    Child2: {
+      child21: '0-1-1',
+    },
   },
   Node2: '0-1',
 };
@@ -2926,7 +2931,7 @@ export const KeyMaps = () => {
   }, []);
 
   const normalExpanded = useCallback((expandedKeys, { expanded, node }) => {
-    console.log('onExpanded', expandedKeys, expanded, cloneDeep(node));
+    console.log('onExpanded', expandedKeys, expanded, copy(node));
 
   }, []);
 
@@ -3138,4 +3143,38 @@ export const AutoMerge = () => {
       />
     </>
   )
+}
+
+export const CustomExpandIcon = () => {
+  const expandIconFunc = useCallback((props) => {
+    const { expanded, onClick, className } = props;
+    if (expanded) {
+      return <IconMinus size="small" className={className} onClick={onClick}/>
+    } else {
+      return <IconPlus size="small" className={className} onClick={onClick}/>
+    }
+  });
+
+  return (
+    <>
+      <p>expandIcon 是 ReactNode</p>
+      <Tree
+        style={{ width: 300}}
+        expandIcon={<IconChevronDown size="small" className='testCls'/>}
+        multiple
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData1}
+      />
+      <br />
+      <br />
+      <p>expandIcon 是函数</p>
+      <Tree
+        style={{ width: 300}}
+        multiple
+        expandIcon={expandIconFunc}
+        defaultExpandedKeys={['yazhou']}
+        treeData={treeData1}
+      />
+    </>
+  );
 }

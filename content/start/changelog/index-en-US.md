@@ -121,6 +121,108 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.75.0 (2025-02-21)
+- 【Design Token】
+    - Select adds $color-select_prefix_suffix_text-default, Cascader adds $color-cascader_prefix_suffix_text-default, and TreeSelect adds $color-treeSelect_prefix_text-default to control the prefix and suffix colors. In addition, keep the font-size and font-weight settings of the prefix and suffix consistent with the settings of insetLabal (**Note: There are changes in styles before and after modification**)  [#2721](https://github.com/DouyinFE/semi-design/issues/2721)
+- 【Fix】
+    - Fixed the bug where the accessibility rendering of aria attributes in Chrome v133 caused Chrome to crash after clicking the month selector of the DatePicker [#2723](https://github.com/DouyinFE/semi-design/pull/2723)
+    - Fixed the issue that Resizable could not be used on touchscreens [#2697](https://github.com/DouyinFE/semi-design/issues/2697) [#2712](https://github.com/DouyinFE/semi-design/pull/2712)
+    - Removed the use of the outdated React syntax ReactDOM.render() in Typography and replaced it with other methods to clear the container used for testing the appropriate ellipsis length  [#2699](https://github.com/DouyinFE/semi-design/issues/2699)
+    - Fixed the problem that when using formApi.scrollToField in Form, if there are multiple Forms on the page and the fields have the same name, only the DOM of the first field with the same name can be scrolled to [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+    - Fixed the problem that when only extraText is configured in Form.InputGroup and extraPosition is not configured, extraText cannot be displayed correctly [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+- 【Chore】
+    - Fix the problem of the TypeScript type definition error of Form formApi.scrollToError.[#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+
+
+#### 🎉 2.75.0-beta.1 (2025-02-19)
+- 【Docs】
+    - List component drag demo updated to use dnd-kit
+- 【Feat】
+    - add renderPicClose to custom close icon under listType picture
+    - Tree/TreeSelect supports expandIcon API for customizing the expand icon  [#2704](https://github.com/DouyinFE/semi-design/issues/2704)
+- 【Fix】
+    - Fixed the problem that Pagination's page capacity switcher cannot switch languages ​​correctly in multi-language scenarios  [#2696](https://github.com/DouyinFE/semi-design/issues/2696)
+    - fix iOS input interruption in PinCode component with format='number' (switches from number/character to letter keyboard after input a digit) [@SaltyfishEd](https://github.com/SaltyfishEd)
+
+
+#### 🎉 2.74.0 (2025-02-07)
+- 【Fix】
+    - Fix the issue where the List component's dataSource is empty and it is covered by the Spin component. [@LonelySnowman](https://github.com/LonelySnowman)
+    - Fix the TypeError when closing the panel of the TreeSelect component when search is enabled and treeData is undefined
+    - fixed the issue that the Steps icon and title of type basic were not centered with the line  [#2688 ](https://github.com/DouyinFE/semi-design/issues/2688)
+    - Fixed the problem that after the single-select and searchable Select loses focus when the panel is open, it cannot be focused again by clicking the trigger.
+    - Fixed the white edge issue of the AudioPlayer speed pop-up box style [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - The internal ref usage of the AudioPlay component is modified to be compatible with other frameworks [@rashagu](https://github.com/rashagu)
+
+#### 🎉 2.74.0-beta.0 (2025-01-20)
+- 【Feat】
+  - The Chat component supports the markdownRenderProps API, which is used to set the MarkdownRender component for message rendering.  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640)
+- 【Fix】
+  - fixed the issue that the lowercase z input in JsonViewer is invalid [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+
+#### 🎉 2.73.0 (2025-01-13)
+- 【Fix】
+    - Fix the problem that JsonViewer is not configured with default parameters [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - Fix JsonViewer the judgment condition for whether to re-init. [@rashagu](https://github.com/rashagu)
+
+#### 🎉 2.73.0-beta.0 (2025-01-07)
+- 【New Component】
+    - Added audio player component [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2650](https://github.com/DouyinFE/semi-design/pull/2650)
+    - Added Cropper component [#2642](https://github.com/DouyinFE/semi-design/pull/2642)
+- 【Feat】
+    - Added read-only mode to JsonViewer [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer supports hidden search icon [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - JsonViewer adds Json format error information prompt function [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - JsonViewer Core package hot update problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+- 【Fix】
+    - Fix the cursor problem when clicking on the non-content area of ​​JsonViewer [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix JsonViewer cursor problem after automatic indentation [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix the missing content problem after JsonViewer folding [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Fix the Chinese input method input problem in the JsonViewer search box [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2651](https://github.com/DouyinFE/semi-design/pull/2651)
+    - Fix the JsonViewer Undo&Redo text model out of sync problem [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2638](https://github.com/DouyinFE/semi-design/pull/2638)
+    - After setting the handler in DragMove, the child elements of DragMove can still be dragged [#2661](https://github.com/DouyinFE/semi-design/issues/2661) [#2662](https://github.com/DouyinFE/semi-design/pull/2662)
+    - Fixed the display problem of Loading when there is no Spin component in the project of Button [#2664](https://github.com/DouyinFE/semi-design/pull/2664)
+- 【Chore】
+    - JsonViewer refactors the underlying data structure of the folding model [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2658](https://github.com/DouyinFE/semi-design/pull/2658)
+    - Add JsonViewer E2E test [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2626](https://github.com/DouyinFE/semi-design/pull/2626)
+
+#### 🎉 2.72.2 (2025-01-06)
+- 【Fix】
+    - Fix the problem that Cascader's placeHolder and searchPlaceholder cannot be updated dynamically
+
+#### 🎉 2.72.1 (2025-01-02)
+- 【Fix】
+    - Fixed the problem of Typography’s JS omitting calculation error when display is none [#2656](https://github.com/DouyinFE/semi-design/pull/2656)
+
+#### 🎉 2.72.0 (2024-12-20)
+- 【Fix】
+  - Fix the problem of JsonViewer using Chinese input method incorrectly [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fix The problem that the code prompt box cannot be hidden when clicked [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the rendering problem caused by multiple carriage returns [#2616](https://github.com/DouyinFE/semi-design/pull/2616)
+  - Fixed the abnormal display of the scroll bar [#2623](https://github.com/DouyinFE/semi-design/pull/2623)
+
+#### 🎉 2.72.0-beta.0 (2024-12-16)
+- 【Feat】
+    - Table onChange add extra.changeType API to idetify the type of changing  [#1238](https://github.com/DouyinFE/semi-design/issues/1238)
+- 【Fix】
+    - fix render state value in Carousel children always get the init one
+
+#### 🎉 2.71.3 (2024-12-17)
+- 【Fix】
+    - Fixed the problem of incorrect onChange callback result in Tree component treeDataSimpleJson mode  [#2508 ](https://github.com/DouyinFE/semi-design/issues/2508)
+    - fixed the issue that the display of disabled subNavItem in vertical Navigation does not meet expectations when it is collapsed
+
+#### 🎉 2.71.2 (2024-12-13)
+- 【Fix】
+    - Remove redundant calculations to determine whether the properties have changed when the Collapsible component is updated. [#2631](https://github.com/DouyinFE/semi-design/pull/2631)
+    - Fixed the issue where in react18, regardless of whether animation is on or not, when the mouse is quickly moved over the tooltip trigger, the DOM would become transparent but not disappear, causing the page element to be unclickable [#2605](https://github.com/DouyinFE/semi-design/pull/2605)
+    - Fixed the problem that the dynamic mode change of the Chat component did not take effect [#2625](https://github.com/DouyinFE/semi-design/pull/2625)
+    - Set the max-width of the img node of the image preview to none to avoid enlargement display errors when using tailwind at the same time. [#2624](https://github.com/DouyinFE/semi-design/pull/2624)
+
+#### 🎉 2.71.1 (2024-12-11)
+- 【Feat】
+    - Button icon mode add $height-button_iconOnly_small $width-button_iconOnly_small $height-button_iconOnly_default $width-button_iconOnly_default $height-button_iconOnly_large $width-button_iconOnly_large token [#2618](https://github.com/DouyinFE/semi-design/pull/2618)
+
 #### 🎉 2.71.0 (2024-12-06)
 - 【Fix】
     - For invisible Tooltips, position calculation is not performed when resizing [#2606](https://github.com/DouyinFE/semi-design/pull/2606)

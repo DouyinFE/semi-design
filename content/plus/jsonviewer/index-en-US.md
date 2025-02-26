@@ -36,6 +36,7 @@ import { JsonViewer } from '@douyinfe/semi-ui';
 ### Basic Usage
 
 Basic usage of JsonViewer. Pass in the `height` and `width` parameters to set the height, width and initial value of the component. Pass in the JSON string through the `value`.
+Note: JsonViewer is an uncontrolled component. If the value prop is passed as a controlled property (i.e., React State), it is not recommended to modify the value prop (setState) in onChange. If you need to get the component's value, you can get it through ref, please refer to [Methods](#Methods) for details.
 
 ```jsx live=true dir="column" noInline=true
 import React from 'react';
@@ -161,6 +162,7 @@ render(FormatJsonComponent);
 | width | Width of wrapper DOM | number | - |
 | className | className of wrapper DOM | string | - |
 | style | InlineStyle of wrapper DOM | object | - |
+| showSearch | Whether to show search icon | boolean | true |
 | options | Formatting configuration | JsonViewerOptions | - |
 | onChange | Callback for content change | (value: string) => void | - |
 
@@ -170,6 +172,7 @@ render(FormatJsonComponent);
 | ------------- | --------------------------------------- | ----------------- | ------- |
 | lineHeight    | Height of each line of content, unit:px | number            | 20      |
 | autoWrap      | Whether to wrap lines automatically.    | boolean           | true    |
+| readOnly      | Whether to be read-only.    | boolean           | false    |
 | formatOptions | Content format setting                  | FormattingOptions | -       |
 
 ### FormattingOptions

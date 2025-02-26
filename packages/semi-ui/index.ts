@@ -125,3 +125,5 @@ export {
 
 export { default as JsonViewer } from './jsonViewer';
 export { default as DragMove } from './dragMove';
+export { default as Cropper } from './cropper';
+export { default as AudioPlayer } from './audioPlayer';

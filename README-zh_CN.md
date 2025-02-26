@@ -45,7 +45,7 @@
 
 # 🎉 特性
 
-- 💪 60+高质量组件
+- 💪 70+高质量组件
 - 💅 Code2Design，根据不同主题自动生成 Figma UI Kit，保持代码与设计同源
 - 🚀 强大的 D2C （Design2Code）支持，Figma 设计稿一键转出真实代码，快速构建应用
 - 💕 完善的无障碍支持，为所有组件提供遵循 W3C 标准的键盘交互、焦点管理和语义化
@@ -148,6 +148,17 @@ Semi UI 支持所有主流浏览器。
 <a href="https://www.cypress.io/"><img src="https://user-images.githubusercontent.com/26477537/147624641-1274a91d-bc4c-463e-af1a-dbf15de54c49.png" width="90" height="30" alt="Cypress" /></a>
 
 感谢 [Cypress](https://www.cypress.io/) 提供 E2E 测试。
+
+<div>
+  <a href="https://github.com/VisActor#gh-light-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="60" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_light.svg"/>
+  </a>
+  <a href="https://github.com/VisActor#gh-dark-mode-only" target="_blank">
+    <img alt="VisActor Logo" height="60" src="https://lf9-dp-fe-cms-tos.byteorg.com/obj/bit-cloud/visactor/logo_500_200_dark.svg"/>
+  </a>
+</div>
+
+感谢 [VisActor](https://www.visactor.com/) 提供数据可视化解决方案。
 
 ## 👐 参与共建
 Semi Design 欢迎社区开发者参与共建，衷心感谢每一位协作者的付出

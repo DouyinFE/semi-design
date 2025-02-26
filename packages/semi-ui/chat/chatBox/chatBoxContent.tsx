@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useMemo } from 'react';
 import cls from 'classnames';
 import { Message, Metadata, RenderContentProps } from '../interface';
-import MarkdownRender from '../../markdownRender';
+import MarkdownRender, { MarkdownRenderProps } from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
 import { FileAttachment, ImageAttachment } from '../attachment';
@@ -16,11 +16,12 @@ interface ChatBoxContentProps {
     children?: string;
     role?: Metadata;
     message?: Message;
-    customRenderFunc?: (props: RenderContentProps) => ReactNode
+    customRenderFunc?: (props: RenderContentProps) => ReactNode;
+    markdownRenderProps?: MarkdownRenderProps;
 }
 
 const ChatBoxContent = (props: ChatBoxContentProps) => {
-    const { message = {}, customRenderFunc, role: roleInfo, customMarkDownComponents, mode } = props;
+    const { message = {}, customRenderFunc, role: roleInfo, customMarkDownComponents, mode, markdownRenderProps } = props;
     const { content, role, status } = message;
 
     const markdownComponents = useMemo(() => ({
@@ -39,7 +40,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
             [`${PREFIX_CHAT_BOX}-content-user`]: (bubble && isUser) || userBubble,
             [`${PREFIX_CHAT_BOX}-content-error`]: status === MESSAGE_STATUS.ERROR && (bubble || userBubble)
         });
-    }, [role, status]);
+    }, [role, status, mode]);
 
     const node = useMemo(() => {
         if (status === MESSAGE_STATUS.LOADING) {
@@ -53,6 +54,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                     format='md'
                     raw={content}
                     components={markdownComponents as any}
+                    {...markdownRenderProps}
                 />;
             } else if (Array.isArray(content)) {
                 realContent = content.map((item, index) => {

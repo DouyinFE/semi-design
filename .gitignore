@@ -19,6 +19,7 @@ dist
 build
 _site
 packages/**/lib
+packages/**/workerLib
 packages/semi-theme-default/css/semi.css
 packages/semi-theme-default/semi.scss
 public

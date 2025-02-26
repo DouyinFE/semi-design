@@ -2398,14 +2398,6 @@ export const SearchInTopSlot = () => {
   );
 }
 
-export const suffix = () => {
-  return (<Cascader
-    suffix={<IconGift />}
-    style={{ width: 300 }}
-    treeData={treeData1}
-    placeholder="请选择所在地区"
-  />);
-}
 
 export const EmptyContent = () => {
   return (
@@ -2469,5 +2461,54 @@ export const UnRelated = () => {
       onChange={onChange}
       onSelect={onSelect}
     />
+  )
+}
+
+export const PlaceHolderChange = () => {
+  const [p, setP] = useState('please select');
+
+  const onButtonClick = useCallback(() => {
+    const random = Math.floor(Math.random() * 100 % 10);
+    setP(`please select ${random}`)
+  }, []);
+  
+  return (
+    <div>
+      <Button onClick={onButtonClick}>Click me change placeholder</Button>
+      <br /><br />
+      <Cascader
+        style={{ width: 300 }}
+        treeData={treeData2}
+        // placeholder={p}
+        searchPlaceholder={p}
+        filterTreeNode
+        motion={false}
+        multiple
+        showClear
+      />
+    </div>
+  )
+} 
+
+export const PrefixSuffix = () => {
+  return (
+    <>
+      <Cascader
+        prefix={<IconGift />}
+        suffix={<IconGift />}
+        style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="请选择所在地区"
+      />
+      <br /><br />
+      <Cascader
+        prefix={"Prefix"}
+        suffix={"Prefix"}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        placeholder="请选择所在地区"
+        filterTreeNode
+      />
+    </>
   )
 }

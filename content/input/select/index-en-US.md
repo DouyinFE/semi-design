@@ -1246,19 +1246,21 @@ import { Select, TagInput } from '@douyinfe/semi-ui';
 
     const triggerRender = ({ value, onSearch, onClear }) => {
         return (
-            <TagInput
-                draggable
-                allowDuplicates={false}
-                value={value.map(item => item.label)}
-                inputValue={inputVal}
-                onInputChange={(word) => {
-                    onSearch(word);
-                    setInputVal(word);
-                }}
-                onChange={handleSort}
-                onClear={() => onClear()}
-                showClear
-            />
+            <div onKeyDown={e=>e.stopPropagation()}>
+                <TagInput
+                    draggable
+                    allowDuplicates={false}
+                    value={value.map(item => item.label)}
+                    inputValue={inputVal}
+                    onInputChange={(word) => {
+                        onSearch(word);
+                        setInputVal(word);
+                    }}
+                    onChange={handleSort}
+                    onClear={() => onClear()}
+                    showClear
+                />
+            </div>
         );
     }; 
   

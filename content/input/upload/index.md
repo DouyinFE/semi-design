@@ -1405,6 +1405,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |promptPosition | 提示文本的位置，当 listType 为 list 时，参照物为 children 元素；当 listType 为 picture 时，参照物为图片列表。可选值 `left`、`right`、`bottom`<br/>（图片墙模式下，v1.3.0 后才支持使用 promptPosition） | string | 'right' |  |
 |renderFileItem | fileCard 的自定义渲染 | (renderProps: RenderFileItemProps) => ReactNode |  |  |
 |renderFileOperation | 自定义列表项操作区 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
+|renderPicClose| 自定义照片墙 close 按钮，只在照片墙模式下有效| ({className: string, remove: (e: MouseEvent) => void})=>ReactNode | | 2.75.0 |
 |renderPicInfo| 自定义照片墙信息，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |renderPicPreviewIcon| 自定义照片墙hover时展示的预览图标，只在照片墙模式下有效 | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| 自定义图片墙缩略图，只在照片墙模式下有效| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |

@@ -67,6 +67,7 @@ const order = [
     'empty',
     'highlight',
     'image',
+    'cropper',
     'list',
     'modal',
     'overflowlist',
@@ -88,6 +89,7 @@ const order = [
     'configprovider',
     'locale',
     'jsonviewer',
+    'audioPlayer',
 ];
 let { exec } = require('child_process');
 let fs = require('fs');
