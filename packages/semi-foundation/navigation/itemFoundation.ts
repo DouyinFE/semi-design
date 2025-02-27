@@ -13,8 +13,7 @@ export interface ItemProps {
     isSubNav?: boolean;
     link?: string;
     linkOptions?: Record<string, any>;
-    disabled?: boolean;
-    children?: any
+    disabled?: boolean
 }
 
 export type ItemKey = string | number;
