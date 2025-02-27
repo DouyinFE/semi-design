@@ -436,10 +436,26 @@ export const ModalMode = () => {
                         description: "这是第二步的说明一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案",
                     },
                     {
+                        cover: (
+                            <img 
+                                alt="example"
+                                height={'100%'} 
+                                width={'100%'}
+                                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo2.jpeg" 
+                            />
+                        ),
                         title: "这里是标题3",
                         description: "这是第二步的说明一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案",
                     },
                     {
+                        cover: (
+                            <img 
+                                alt="example"
+                                height={'100%'} 
+                                width={'100%'}
+                                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo2.jpeg" 
+                            />
+                        ),
                         title: "这里是标题4",
                         description: "这是第二步的说明一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案",
                     }
