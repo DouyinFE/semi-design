@@ -1611,7 +1611,7 @@ render(DefaultChat);
 | chats | Controlled conversation list | Message | - |
 | className | Custom class name | string | - |
 | customMarkDownComponents | custom markdown render, transparently passed to MarkdownRender for conversation content rendering | MDXProps\['components'\]| - |
-| enAbleUpload | Whether to enable uploading, supported since v2.76.0, supports boolean type and object type. When the boolean type is passed in, the upload behavior of dragging, clicking the upload button, and pasting in the input box will be controlled at the same time. When the object is passed in, it can be set separately. When the object type is passed in, the unset items default to true. | boolean \| { pasteUpload: boolean, clickUpload: boolean, dragUpload } | true |
+| enableUpload | Whether to enable uploading, supported since v2.76.0, supports boolean type and object type. When the boolean type is passed in, the upload behavior of dragging, clicking the upload button, and pasting in the input box will be controlled at the same time. When the object is passed in, it can be set separately. When the object type is passed in, the unset items default to true. | boolean \| { pasteUpload: boolean, clickUpload: boolean, dragUpload } | true |
 | hints | prompt information | string | - |
 | hintCls | hint style | string | - |
 | hintStyle | hint style | CSSProperties | - |
