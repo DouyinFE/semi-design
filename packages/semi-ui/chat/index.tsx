@@ -290,7 +290,7 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             customMarkDownComponents, mode, showClearContext,
             placeholder, inputBoxCls, inputBoxStyle,
             hintStyle, hintCls, uploadProps, uploadTipProps,
-            sendHotKey, renderDivider, markdownRenderProps
+            sendHotKey, renderDivider, markdownRenderProps, enableUpload
         } = this.props;
         const { backBottomVisible, chats, wheelScroll, uploadAreaVisible } = this.state;
         let showStopGenerateFlag = false;
@@ -301,15 +301,16 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             disableSend = lastChatOnGoing;
             showStopGenerate && (showStopGenerateFlag = lastChatOnGoing);
         }
+        const { dragUpload, clickUpload, pasteUpload } = this.foundation.getUploadProps(enableUpload);
         return (
             <div
                 className={cls(`${prefixCls}`, className)}
                 style={style}
-                onDragOver={this.foundation.handleDragOver}
-                onDragStart={this.foundation.handleDragStart}
-                onDragEnd={this.foundation.handleDragEnd}
+                onDragOver={dragUpload ? this.foundation.handleDragOver : undefined}
+                onDragStart={dragUpload ? this.foundation.handleDragStart : undefined}
+                onDragEnd={dragUpload ? this.foundation.handleDragEnd : undefined}
             >
-                {uploadAreaVisible && <div
+                {dragUpload && uploadAreaVisible && <div
                     ref={this.dropAreaRef}
                     className={`${prefixCls}-dropArea`}
                     onDragOver={this.foundation.handleContainerDragOver}
@@ -396,6 +397,8 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
                         uploadProps={uploadProps}
                         uploadTipProps={uploadTipProps}
                         sendHotKey={sendHotKey}
+                        clickUpload={clickUpload}
+                        pasteUpload={pasteUpload}
                     />
                     {bottomSlot}
                 </div>

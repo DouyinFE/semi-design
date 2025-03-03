@@ -1614,6 +1614,7 @@ render(DefaultChat);
 | chats | 受控对话列表 | Message | - |
 | className | 自定义类名 | string | - |
 | customMarkDownComponents | 自定义 markdown render， 透传给对话内容渲染的 MarkdownRender | MDXProps\['components'\]| - |
+| enAbleUpload | 是否启用上传, 自 v2.76.0 支持，支持 boolean 类型及对象类型，传入 boolean 类型将同时控制拖拽，点击上传按钮，在输入框中粘贴的上传行为，传入对象可分别设置，传入对象类型时未设置的项默认为 true | boolean \| { pasteUpload: boolean, clickUpload: boolean, dragUpload } | true |
 | hints | 提示信息 | string | - |
 | hintCls | 提示区最外层样式类名 | string | - |
 | hintStyle | 提示区最外层样式 | CSSProperties | - |

@@ -64,7 +64,10 @@ class InputBox extends BaseComponent<InputBoxProps, InputBoxState> {
     }
 
     renderUploadButton = () => {
-        const { uploadProps, uploadRef, uploadTipProps } = this.props;
+        const { uploadProps, uploadRef, uploadTipProps, clickUpload } = this.props;
+        if (!clickUpload) {
+            return null;
+        }
         const { attachment } = this.state;
         const { className, onChange, renderFileItem, children, ...rest } = uploadProps;
         const realUploadProps = {
