@@ -20,7 +20,7 @@ import {
     IconWholeWord,
 } from '@douyinfe/semi-icons';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
-import {isEqual} from "lodash";
+import { isEqual } from "lodash";
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
@@ -150,7 +150,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
 
     renderSearchBox() {
         return (
-            <div className={`${prefixCls}-search-bar-container`}>
+            <div className={`${prefixCls}-search-bar-container`} style={{ position: 'absolute', top: 20, right: 20 }}>
                 {this.renderSearchBar()}
                 {this.renderReplaceBar()}
             </div>
@@ -294,7 +294,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                                 isDragging = true;
                             }}
                         >
-                            <div style={{ position: 'absolute', top: 20, left: width - 52 }}>
+                            <div style={{ position: 'absolute', top: 0, left: width }}>
                                 {!this.state.showSearchBar ? (
                                     <Button
                                         className={`${prefixCls}-search-bar-trigger`}
@@ -308,6 +308,7 @@ class JsonViewerCom extends BaseComponent<JsonViewerProps, JsonViewerState> {
                                             this.foundation.showSearchBar();
                                         }}
                                         icon={<IconSearch />}
+                                        style={{ position: 'absolute', top: 20, right: 20 }}
                                     />
                                 ) : (
                                     this.renderSearchBox()
