@@ -14,9 +14,12 @@ export interface HandleClassName {
     topLeft?: string
 }
 
+export type ResizeEventType = 'mouse' | 'touch'; 
+
 export type HandlerCallback = (
     e: MouseEvent,
-    direction: Direction
+    direction: Direction,
+    type?: ResizeEventType,
 ) => void;
 
 export interface Enable {
@@ -51,12 +54,12 @@ export const DEFAULT_SIZE = {
 
 export type ResizeCallback = (
     size: Size,
-    event: MouseEvent,
+    event: MouseEvent | TouchEvent,
     direction: Direction,
 ) => void;
 
 export type ResizeStartCallback = (
-    e: MouseEvent,
+    e: MouseEvent | Touch,
     dir: Direction,
 ) => void | boolean;
 

@@ -246,6 +246,9 @@ $module: #{$prefix}-cascader;
 
         &-text {
             margin: 0 $spacing-cascader_text-marginX;
+            font-weight: $font-weight-bold;
+            @include font-size-regular;
+            color: $color-cascader_prefix_suffix_text-default;
         }
 
         &-icon {
@@ -312,16 +315,20 @@ $module: #{$prefix}-cascader;
         border-bottom: $width-cascader_search-border solid $color-cascader_search-border-default;
     }
 
-    .#{$module}-option-empty {
+    .#{$module}-option-lists .#{$module}-option-empty {
         @include font-size-regular;
         border-radius: $radius-cascader_option_empty;
-        min-width: $width-cascader_option;
+        // min-width: $width-cascader_option;
         color: $color-cascader_option_empty-text-default;
         margin: 0;
         padding: $spacing-cascader_option_empty-paddingY $spacing-cascader_option_empty-paddingX;
         user-select: none;
         text-align: center;
         cursor: not-allowed;
+
+        &:hover {
+            background-color: transparent;
+        }
     }
 }
 
@@ -378,6 +385,8 @@ $module: #{$prefix}-cascader;
 
     &-empty {
         height: auto;
+        justify-content: center;
+        cursor: not-allowed;
     }
 
     ul,

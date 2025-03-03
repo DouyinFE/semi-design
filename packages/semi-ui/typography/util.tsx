@@ -78,11 +78,8 @@ const getRenderText = (
     ellipsisContainer.style.textOverflow = 'clip';
     ellipsisContainer.style.webkitLineClamp = 'none';
 
-    // Render fake container
-    ReactDOM.render(
-        <></>,
-        ellipsisContainer
-    );
+    // Clear container content
+    ellipsisContainer.innerHTML = '';
 
     // Check if ellipsis in measure div is enough for content
     function inRange() {

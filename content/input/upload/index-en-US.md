@@ -1396,6 +1396,7 @@ import { IconUpload } from '@douyinfe/semi-icons';
 |promptPosition | The position of the prompt text. When the listType is list, the reference object is the children element; when the listType is picture, the reference object is the picture list. Optional values ​​`left`, `right`, `bottom`<br/> (In picture wall mode, promptPosition is only supported after v1.3.0) | string |'right' | |
 |renderFileItem | Custom rendering of fileCard | (renderProps: RenderFileItemProps) => ReactNode | | 1.0.0 |
 |renderFileOperation | Custom list item operation area | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
+|renderPicClose| Customize the photo wall close button, only valid in photo wall mode| ({className: string, remove: (e: MouseEvent) => void})=>ReactNode | | 2.75.0 |
 |renderPicInfo| Custom photo wall information, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |
 |renderPicPreviewIcon| The preview icon displayed when customizing the photo wall hover, only valid in photo wall mode | (renderProps: RenderFileItemProps)=>ReactNode | | 2.5.0 |
 |renderThumbnail| Custom picture wall thumb, only valid in photo wall mode| (renderProps: RenderFileItemProps)=>ReactNode | | 2.2.0 |

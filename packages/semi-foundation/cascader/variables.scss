@@ -43,6 +43,8 @@ $color-cascader_danger-border-focus: var(--semi-color-danger); // 级联选择�
 $color-cascader_danger-bg-active: var(--semi-color-danger-light-active); // 级联选择触发器危险背景颜色 - 按下
 $color-cascader_danger-border-active: var(--semi-color-danger-light-active); // 级联选择触发器危险描边颜色 - 按下
 
+$color-cascader_prefix_suffix_text-default: var(--semi-color-text-2); // 级联选择前后缀文字颜色
+
 $spacing-cascader_selection-paddingLeft: 12px; // 级联选择触发器左侧内边距
 $spacing-cascader_selection-paddingRight: 12px; // 级联选择触发器右侧内边距
 $spacing-cascader_selection_multiple-paddingLeft: $spacing-extra-tight; // 级联选择触发器多选时左侧内边距
