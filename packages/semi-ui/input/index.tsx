@@ -18,7 +18,7 @@ const modeSet = strings.MODE;
 export type { InputGroupProps } from './inputGroup';
 export type { TextAreaProps } from './textarea';
 export type InputSize = 'small' | 'large' | 'default';
-export type InputMode = 'password';
+export type InputMode = 'password' | 'currency';
 // still keep success as ValidateStatus optional value because form will pass success as props.validateStatus in sometime
 // Although we do not consume success in the input to configure special styles, we should allow it as a legal props value, otherwise a warning will be thrown
 export type ValidateStatus = "default" | "error" | "warning" | "success";
@@ -479,7 +479,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${wrapperPrefix}-hidden`]: type === 'hidden',
             [`${wrapperPrefix}-${size}`]: size,
             [`${prefixCls}-borderless`]: borderless,
-            [`${prefixCls}-only_border`]: onlyBorder!==undefined && onlyBorder!==null,
+            [`${prefixCls}-only_border`]: onlyBorder !== undefined && onlyBorder !== null,
         });
         const inputCls = cls(prefixCls, {
             [`${prefixCls}-${size}`]: size,
@@ -516,7 +516,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         }
 
         let wrapperStyle = { ...style };
-        if (onlyBorder!==undefined) {
+        if (onlyBorder !== undefined) {
             wrapperStyle = {
                 borderWidth: onlyBorder,
                 ...style

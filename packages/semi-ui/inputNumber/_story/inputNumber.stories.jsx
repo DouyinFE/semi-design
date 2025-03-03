@@ -796,3 +796,36 @@ export const Fix1772 = () => {
     />
   );
 }
+
+export const Currency = () => {
+  const [value1, setValue1] = useState(123456.78);
+  const [value2, setValue2] = useState(123456.78);
+
+  return (
+    <div>
+      <div>🇺🇸 美元 + 受控</div>
+      <InputNumber mode="currency" localeCode="en-US" currency="USD" value={value1} onChange={v => {console.log('onChange', v); setValue1(v)}}/>
+      <br />
+      <br />
+      <div>🇨🇳 人民币 + 受控</div>
+      <InputNumber mode="currency" currency="CNY" value={value2} onChange={v => {console.log('onChange', v); setValue2(v)}}/>
+      <br />
+      <br />
+      <div>🇯🇵 日元</div>
+      <InputNumber mode="currency" localeCode="ja-JP" currency="JPY" defaultValue={123456.78}  onChange={v => console.log('onChange', v)}/>
+      <br />
+      <br />
+      <div>🇹🇭 泰铢</div>
+      <InputNumber mode="currency" localeCode="th-TH" currency="THB" defaultValue={123456.78} onChange={v => console.log('onChange', v)}/>
+      <br />
+      <br />
+      <div>🇮🇩 印尼盾</div> 
+      <InputNumber mode="currency" localeCode="id-ID" currency="IDR" defaultValue={123456.78} />
+      <br />
+      <br />
+      <div>🇪🇺 欧元</div>
+      <InputNumber mode="currency" localeCode="de-DE" currency="EUR" defaultValue={123456.78} />
+      <br />
+    </div>
+  );
+}

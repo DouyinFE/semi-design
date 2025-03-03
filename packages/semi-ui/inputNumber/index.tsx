@@ -14,11 +14,15 @@ import { IconChevronUp, IconChevronDown } from '@douyinfe/semi-icons';
 import '@douyinfe/semi-foundation/inputNumber/inputNumber.scss';
 import { isNaN, isString, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
     clearIcon?: React.ReactNode;
+    currency?: string;
+    currencyDisplay?: 'code' | 'symbol' | 'name';
     defaultValue?: number | string;
     disabled?: boolean;
     formatter?: (value: number | string) => string;
@@ -28,8 +32,11 @@ export interface InputNumberProps extends InputProps {
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
     keepFocus?: boolean;
+    localeCode?: string;
     max?: number;
     min?: number;
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
     parser?: (value: string) => string;
     precision?: number;
     prefixCls?: string;
@@ -143,6 +150,9 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     document.removeEventListener(eventName, handler);
                     this.adapter.setCache(eventName, null);
                 }
+            },
+            getInputCharacter: (index: number) => {
+                return this.inputNode.value[index];
             },
             recordCursorPosition: () => {
                 // Record position
@@ -505,7 +515,13 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
 
 export default forwardStatics(
     React.forwardRef<HTMLInputElement, InputNumberProps>(function SemiInputNumber(props, ref) {
-        return <InputNumber {...props} forwardedRef={ref} />;
+        return (
+            <LocaleConsumer<Locale['InputNumber']> componentName="InputNumber">
+                {(locale: Locale['InputNumber'], localeCode: string) => (
+                    <InputNumber localeCode={localeCode} {...props} forwardedRef={ref}/>
+                )}
+            </LocaleConsumer>
+        );
     }),
     InputNumber
 );
