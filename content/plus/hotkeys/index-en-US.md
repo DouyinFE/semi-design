@@ -22,7 +22,7 @@ PinCode supported from 2.66.0
 import { HotKeys } from '@douyinfe/semi-ui';
 ```
 
-### Explaination
+### Explanation
 The hotkeys only support combinations of modifier keys like Shift, Control, Meta, and Alt with other keys.
 
 > [Meta](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/metaKey) corresponds to Command on macOS and Win on Windows.
@@ -75,6 +75,78 @@ function Demo() {
 ```
 
 ### Custom content
+Priority order is: `children` > `render` > `content`
+
+Replace the element through `render` or `children`
+
+```jsx live=true
+import React, { useState } from 'react';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const [visible, setVisible] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+    const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.T];
+  
+    const newHotKeys = <Tag>Press Ctrl+T to Open Modal</Tag>;
+    return (
+        <div>
+            <HotKeys hotKeys={hotKeys} onHotKey={showDialog}>{newHotKeys}</HotKeys>
+            <Modal
+                title="Dialog"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                This is the Modal opened by hotkey: {hotKeys.join('+')}.
+            </Modal>
+        </div>
+    );
+}
+```
+
+```jsx live=true
+import React, { useState } from 'react';
+import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
+
+function Demo() {
+  const [visible, setVisible] = useState(false);
+  const showDialog = () => {
+      setVisible(true);
+  };
+  const handleOk = () => {
+      setVisible(false);
+  };
+  const handleCancel = () => {
+      setVisible(false);
+  };
+  const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R]
+  
+  const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>
+  return (
+    <div>
+      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} render={newHotKeys}></HotKeys>
+      <Modal
+          title="Dialog"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+      >
+          This is the Modal opened by hotkey: {hotKeys.join('+')}.
+      </Modal>
+    </div>
+  );
+}
+```
+
 
 Set the characters through `content`
 
@@ -98,42 +170,6 @@ function Demo() {
   return (
     <div>
       <HotKeys hotKeys={hotKeys} onHotKey={showDialog} content={['Ctrl', 'Shift', 'B']}></HotKeys>
-      <Modal
-          title="Dialog"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-      >
-          This is the Modal opened by hotkey: {hotKeys.join('+')}.
-      </Modal>
-    </div>
-  );
-}
-```
-
-Replace the element through `render`
-
-```jsx live=true
-import React, { useState } from 'react';
-import { HotKeys, Modal, Tag } from '@douyinfe/semi-ui';
-
-function Demo() {
-  const [visible, setVisible] = useState(false);
-  const showDialog = () => {
-      setVisible(true);
-  };
-  const handleOk = () => {
-      setVisible(false);
-  };
-  const handleCancel = () => {
-      setVisible(false);
-  };
-  const hotKeys = [HotKeys.Keys.Control, HotKeys.Keys.R]
-  
-  const newHotKeys = <Tag>Press Ctrl+R to Open Modal</Tag>
-  return (
-    <div>
-      <HotKeys hotKeys={hotKeys} onHotKey={showDialog} render={newHotKeys}></HotKeys>
       <Modal
           title="Dialog"
           visible={visible}
@@ -224,6 +260,51 @@ function Demo() {
 }
 ```
 
+### change the shortcut listener options
+using `listenerOptions` to change the shortcut listener options
+```jsx live=true
+import React, { useState, useRef } from 'react';
+import { HotKeys, Input, Modal } from '@douyinfe/semi-ui';
+
+function Demo() {
+    const hotKeys = ["m"];
+    const [visible, setVisible] = useState(false);
+    const [triggered, setTriggered] = useState(false);
+    const showDialog = () => {
+        setVisible(true);
+        setTriggered(true);
+    };
+    const handleOk = () => {
+        setVisible(false);
+    };
+    const handleCancel = () => {
+        setVisible(false);
+    };
+
+    const options = {
+        once: true,
+    }
+    return (
+        <div>
+            <HotKeys hotKeys={hotKeys} onHotKey={showDialog} listenerOptions={options}>
+            </HotKeys>
+            <br/>
+            <span>
+                {triggered? 'triggered' : 'not triggered'}
+            </span>
+            <Modal
+                title="Dialog"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+                This is the Modal opened by hotkey: {hotKeys.join('+')}.
+            </Modal>
+        </div>
+    );
+}
+```
+
 ## API Reference
 
 ### HotKeys
@@ -233,8 +314,10 @@ function Demo() {
 |-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|-----------|
 | className         | class name               | string                          |           |                                     
 | content | Set the characters                                         | string[]                          | -         |
+| children | Replace the element                                         | ReactNode                         | -         |
 | getListenerTarget         | change the DOM element the listener is mounted on            | () => HTMLElement                       |  document.body         |
 | hotKeys  | Define keyboard shortcut，[values](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values)                                          | KeyboardEvent.key[]                          | -         |
+| listenerOptions        |   [reference](https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener#options)                                                           |   AddEventListenerOptions                      |    -       |
 | onClick        | callback that clicking triggers                                                             |   () => void                      |    -       |
 | onHotKey      | callback that hotKeys triggers                                                        | (e: KeyboardEvent) => void                       |   -      |
 | preventDefault  | Whether to prevent the default behavior of the shortcut                                         | boolean                          | false        |
