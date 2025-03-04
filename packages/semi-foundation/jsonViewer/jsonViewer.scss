@@ -111,7 +111,7 @@ $module: #{$prefix}-json-viewer;
         align-items: flex-start;
         gap: 8px;
         &-input {
-            width: 200px;
+            width: 200px !important;
             flex-shrink: 0;
         }
         .#{$prefix}-button-group {
