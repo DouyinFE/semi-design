@@ -268,6 +268,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 (this._decimalPointSymbol === '.' ? 190 : 
                     (this._decimalPointSymbol === ' ' ? 32 : 0));
 
+            // Handling the case of add the decimal point, just move the cursor to the next position
             if (decimalPointIndex > -1 && selectionStart === decimalPointIndex && code === decimalPointSymbolKeyCode) {
                 event.preventDefault();
                 this._adapter.fixCaret(selectionStart + 1, selectionStart + 1);
