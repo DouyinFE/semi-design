@@ -260,7 +260,7 @@ function Demo() {
 
 ### 覆盖特定样式
 
-你可以通过 className、style 为弹出层配置特定样式，例如覆盖默认的 maxWidth （280px）
+你可以通过 className、style 为弹出层配置特定样式，例如覆盖默认的 maxWidth （240px）
 ```jsx live=true
 import React from 'react';
 import { Tooltip, Tag } from '@douyinfe/semi-ui';
@@ -285,7 +285,7 @@ import { Tooltip, Tag } from '@douyinfe/semi-ui';
 
 传入 `getPopupContainer`，弹层将会渲染至该函数返回的 DOM 中。 这会改变浮层 DOM 树位置，但不会改变视图渲染位置。
 
-**需要注意的是：** 返回的容器如果不是 `document.body`，**`position` 需要设为 `"relative"`**（版本 >= 0.18.0）。
+**需要注意的是：** 返回的容器如果不是 `document.body`，**`position` 需要设为 `"relative"`**
 
 ```jsx live=true hideInDSM
 import React from 'react';
@@ -387,7 +387,7 @@ function Demo() {
 | style    | 弹出层的内联样式                                                                                                                                             | object |  |  |
 | spacing | 弹出层与 `children` 元素的距离，单位 px（object类型自 v2.45后支持）                                                                                                                     | number ｜ <ApiType detail='{ x: number; y: number }'>SpacingObject</ApiType>  | 8 |  |
 | showArrow | 是否显示箭头三角形                                                                                                                                            | boolean | true |  |
-| stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false | **0.34.0** |
+| stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false |  |
 | transformFromCenter | 是否从包裹的元素水平或垂直中心处变换，该参数仅影响动效变换的 `transform-origin`，一般无需改动                                                                                             | boolean | true |  |
 | trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom` / `contextMenu` (v2.42后提供)                                                                                                   | string | 'hover' |  |
 | visible | 是否展示弹出层                                                                                                                                              | boolean |  |  |

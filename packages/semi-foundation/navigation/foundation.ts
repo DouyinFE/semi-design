@@ -80,6 +80,11 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                     }
                     if (itemKey) {
                         keysMap[itemKey] = [...parentKeys];
+                        // Children is not a recommended usage and may cause some bug-like performance, but some users have already used it, so here we only delete the ts definition instead of deleting the actual code
+                        // children 并不是我们推荐的用法，可能会导致一些像 bug的表现，但是有些用户已经用了，所以此处仅作删除 ts 定义而非删除实际代码的操作
+                        // refer https://github.com/DouyinFE/semi-design/issues/2710
+                        // @ts-ignore  
+                        const itemChildren = item.props?.children;
 
                         if (Array.isArray(item.items) && item.items.length) {
                             NavigationFoundation.buildItemKeysMap(
@@ -87,11 +92,11 @@ export default class NavigationFoundation<P = Record<string, any>, S = Record<st
                                 keysMap,
                                 [...parentKeys, itemKey],
                                 keyPropName
-                            );
-                        } else if (item.props && item.props.children) {
-                            const children = Array.isArray(item.props.children)
-                                ? item.props.children
-                                : [item.props.children];
+                            );  
+                        } else if (itemChildren) { 
+                            const children = Array.isArray(itemChildren) 
+                                ? itemChildren
+                                : [itemChildren];
                             NavigationFoundation.buildItemKeysMap(
                                 children,
                                 keysMap,

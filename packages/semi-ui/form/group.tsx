@@ -47,6 +47,11 @@ const GroupError = (props: GroupErrorProps) => {
 class FormInputGroup extends Component<InputGroupProps> {
     static contextType = FormUpdaterContext;
     context: FormUpdaterContextType;
+
+    static defaultProps = {
+        extraTextPosition: 'bottom'
+    }
+
     renderLabel(label: LabelProps, formProps: BaseFormProps) {
         if (label) {
             if (isString(label)) {

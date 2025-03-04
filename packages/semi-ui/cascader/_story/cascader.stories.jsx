@@ -2398,14 +2398,6 @@ export const SearchInTopSlot = () => {
   );
 }
 
-export const suffix = () => {
-  return (<Cascader
-    suffix={<IconGift />}
-    style={{ width: 300 }}
-    treeData={treeData1}
-    placeholder="请选择所在地区"
-  />);
-}
 
 export const EmptyContent = () => {
   return (
@@ -2425,7 +2417,13 @@ export const EmptyContent = () => {
       placeholder="输入 v 查看搜索状态下 emptyContent 为 null 效果"
       filterTreeNode
     />
-    <br />
+    <br /><br />
+    <Cascader
+      style={{ width: 400 }}
+      treeData={[]}
+      placeholder="点击 trigger 查看默认 emptyContent 效果"
+      filterTreeNode
+    />
   </>)
 }
 
@@ -2497,3 +2495,26 @@ export const PlaceHolderChange = () => {
     </div>
   )
 } 
+
+export const PrefixSuffix = () => {
+  return (
+    <>
+      <Cascader
+        prefix={<IconGift />}
+        suffix={<IconGift />}
+        style={{ width: 300 }}
+        treeData={treeData1}
+        placeholder="请选择所在地区"
+      />
+      <br /><br />
+      <Cascader
+        prefix={"Prefix"}
+        suffix={"Prefix"}
+        style={{ width: 300 }}
+        treeData={treeData2}
+        placeholder="请选择所在地区"
+        filterTreeNode
+      />
+    </>
+  )
+}

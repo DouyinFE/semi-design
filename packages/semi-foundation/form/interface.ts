@@ -67,7 +67,7 @@ export type FieldPathValue<T, P extends FieldPath<T>> =
 export type ScrollToErrorOptions<K> = {
     field?: K;
     index?: number;
-    scrollConfig?: ScrollIntoViewOptions
+    scrollOpts?: ScrollIntoViewOptions
 }
 
 // use object replace Record<string, any>, fix issue 933

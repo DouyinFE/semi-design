@@ -49,7 +49,7 @@ class SimpleJsonViewer extends React.Component {
     render() {
         return (
             <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={100} width={400} value={data} />
+                <JsonViewer height={100} width={700} value={data} />
             </div>
         );
     }
@@ -74,13 +74,13 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
         return (
             <div>
                 <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 20 }} />
+                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
                 </div>
                 <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 24 }} />
+                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
                 </div>
                 <div style={{ marginBottom: 20 }}>
-                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 26 }} />
+                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
                 </div>
             </div>
         );
@@ -106,7 +106,7 @@ class SimpleJsonViewerWithAutoWrap extends React.Component {
     render() {
         return (
             <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={120} width={800} value={data} options={{ autoWrap: true }} />
+                <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
             </div>
         );
     }
@@ -139,7 +139,7 @@ function FormatJsonComponent() {
                 <JsonViewer
                     ref={jsonviewerRef}
                     height={100}
-                    width={400}
+                    width={700}
                     value={data}
                     options={{ formatOptions: { tabSize: 4, insertSpaces: true, eol: '\n' } }}
                 />
