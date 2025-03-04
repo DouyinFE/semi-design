@@ -78,9 +78,9 @@ export default class InputBoxFoundation <P = Record<string, any>, S = Record<str
 
     onPaste = (e: any) => {
         const items = e.clipboardData?.items;
-        const { manualUpload } = this.getProps();
+        const { manualUpload, pasteUpload } = this.getProps();
         let files = [];
-        if (items) {
+        if (pasteUpload && items) {
             for (const it of items) {
                 const file = it.getAsFile();
                 file && files.push(it.getAsFile());
