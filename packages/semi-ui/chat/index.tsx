@@ -302,13 +302,16 @@ class Chat extends BaseComponent<ChatProps, ChatState> {
             showStopGenerate && (showStopGenerateFlag = lastChatOnGoing);
         }
         const { dragUpload, clickUpload, pasteUpload } = this.foundation.getUploadProps(enableUpload);
+        const dragEventHandlers = dragUpload ? {
+            onDragOver: this.foundation.handleDragOver,
+            onDragStart: this.foundation.handleDragStart,
+            onDragEnd: this.foundation.handleDragEnd,
+        } : {};
         return (
             <div
                 className={cls(`${prefixCls}`, className)}
                 style={style}
-                onDragOver={dragUpload ? this.foundation.handleDragOver : undefined}
-                onDragStart={dragUpload ? this.foundation.handleDragStart : undefined}
-                onDragEnd={dragUpload ? this.foundation.handleDragEnd : undefined}
+                {...dragEventHandlers}
             >
                 {dragUpload && uploadAreaVisible && <div
                     ref={this.dropAreaRef}
