@@ -16,6 +16,20 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.76.0-beta.0 (2025-03-04)
+- 【Feat】
+    - Chat supports enableUpload API to support users to set upload behavior  [#2735](https://github.com/DouyinFE/semi-design/issues/2735)
+    - Allow RadioGroup options passing addonStyles/addonClassName/addonId/extraId option to Radio component [@SaltyfishEd](https://github.com/SaltyfishEd)
+    - JsonViewer adds custom rendering function [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+- 【Fix】
+    - Nav adds a new selector style to provide hover style for renderWrapper scenes
+    - adjust jsonviewer search box popup positioning [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - fix when TimePicker does not fill in the default value, users in different time zones open the template and select different default values
+    - fix the problem that Nav.item does not prompt ts error when passing non-recommended attribute Children
+- 【Style】
+    - Style: Fixed the issue of incorrect spacing between action buttons in the Chat component's dialog box (affected versions 2.71.1-2.75.0)
+    - Modify Cascader's default empty data display style to be consistent with TreeSelect/Select  [#2703](https://github.com/DouyinFE/semi-design/issues/2703)
+
 #### 🎉 2.75.0 (2025-02-21)
 - 【Design Token】
     - Select adds $color-select_prefix_suffix_text-default, Cascader adds $color-cascader_prefix_suffix_text-default, and TreeSelect adds $color-treeSelect_prefix_text-default to control the prefix and suffix colors. In addition, keep the font-size and font-weight settings of the prefix and suffix consistent with the settings of insetLabal (**Note: There are changes in styles before and after modification**)  [#2721](https://github.com/DouyinFE/semi-design/issues/2721)
