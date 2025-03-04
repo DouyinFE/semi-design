@@ -13,9 +13,6 @@
     "[javascriptreact]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
-    "[less]": {
-        "editor.defaultFormatter": "michelemelluso.code-beautifier"
-    },
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
@@ -24,15 +21,8 @@
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "[css]": {
-        "editor.defaultFormatter": "michelemelluso.code-beautifier"
-    },
     "editor.tabSize": 4,
-    "eden-develop-environment.loose": true,
-    "eden-develop-environment.temporaryHideWarnings": true,
     "git.ignoreLimitWarning": true,
-    "edenDevelopEnvironment.loose": true,
-    "edenDevelopEnvironment.temporaryHideWarnings": true,
     "i18n-ally.localesPaths": [
         "src/locale",
         "packages/semi-ui-react/locale",
@@ -43,6 +33,11 @@
     "cSpell.words": [
         "backtop",
         "douyinfe",
-        "Splited"
-    ]
+        "Splited",
+        "bytedance",
+        "cascader",
+        "Cascader",
+        "Commonexclude",
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

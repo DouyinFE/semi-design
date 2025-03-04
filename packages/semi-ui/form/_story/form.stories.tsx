@@ -1,9 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { storiesOf } from '@storybook/react';
 import { Form, useFormState, useFormApi, withField, Input, Button, Upload, withFormApi, withFormState } from '../../index';
-const stories = storiesOf('Form', module);
-import { FormApiContext } from '../context';
-
 
 import type { FormApi, FormFCChild, FormState } from '../interface';
 
@@ -22,36 +18,9 @@ const treeData = [
                         label: '西湖区',
                         value: 'xihu',
                         key: '0-0-0',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                        key: '0-0-2',
-                    },
+                    }
                 ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                key: '0-1',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                        key: '0-1-0',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                        key: '0-1-1',
-                    },
-                ],
-            },
+            }
         ],
     },
 ];
@@ -73,7 +42,7 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
 
         <Form.Input field='test'  ref={ref}  />
         <Input size='default' showClear insetLabel />
-        <FieldB insetLabel placeholder='fe' fieldClassName='fefe' field='custom' />
+        <FieldB insetLabel placeholder='fe' fieldClassName='fieldClass-test' field='custom' />
 
         {/* <Button onClick={() => formApi.setValue('fieldA', 'fe')}>set</Button> */}
         <Form.Select field='test' ref={ref}>
@@ -135,9 +104,6 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
     </>
     )
 };
-
-stories.add('Form', () => <Form>{Fields}</Form>);
-
 interface IProps {
     [x:string]: any;
 }
@@ -154,11 +120,15 @@ interface FData {
     },
     test5: {
         kkk: {
-            jjj: number
+            jnumber: number
         }
     }
     testK: boolean;
-    // [x: string]: any;
+    array: [string, string],
+    nestedArray: Array<{
+        id: number;
+        name: string;
+    }>;
 }
 class Demo extends React.Component<IProps, IState> {
 
@@ -170,27 +140,38 @@ class Demo extends React.Component<IProps, IState> {
     }
 
     getFormApi(formApi) {
-        this.formApi = formApi;
+        (this.formApi as FormApi<FData>) = formApi;
     }
 
     setData() {
         const formApi = this.formApi;
-        // set
-        formApi.setValue('test3', 123);
+        // ✅ 应该合法的, 注意，setValue只对 fieldPath做校验，对 value 不做严格校验
+        formApi.setValue('test3', '123');
         formApi.setValue('test4.event', 123);
         formApi.setValue('test5.kkk', 123);
-        formApi.setValue('test5.kkk.jjj', 123);
+        formApi.setValue('test5.kkk.jnumber', 'abc');
+        formApi.setValue('array[0]', '2025')
+        formApi.setValue('array.0', '2025')
+        formApi.setValue('nestedArray[0].id', 123)
+        formApi.setValue('nestedArray[0].name', 'abc')
+
+
+        // ❌ 无法通过类型校验，应抛出错误的
+        formApi.setValue('test5.kkk.notExist', 123);
         formApi.setValue('keyNotExist', 123);
         formApi.setValue('test4.notExist', 123);
-        formApi.setValue('test5.kkk.notExist', 123);
+        formApi.setValue('test4.notExist', 123);
+        formApi.setValue('nestedArray[0].notExist', 123);
 
-        // get
+
+        // get 应该合法的
         let test3 = formApi.getValue('test3');
         let test4 = formApi.getValue('test4');
         let test4event = formApi.getValue('test4.event');
         let test5kkk = formApi.getValue('test5.kkk');
-        let test5kkkjjj = formApi.getValue('test5.kkk.jjj');
+        let test5kkkjnumber = formApi.getValue('test5.kkk.jnumber');
 
+        // ❌ 无法通过类型校验，应抛出错误的
         let a = formApi.getValue('keyNotExist');
         let b = formApi.getValue('test5.kkk.notExist');
         let c = formApi.getValue('test4.notExist');
@@ -251,10 +232,6 @@ class WithoutGenericsType extends React.Component<IProps, IState> {
 }
 
 
-stories.add('Form render', () => <Form render={({values, formApi, formState}) => <div></div>}></Form>);
-
-
-
 interface CodeProps {
     type?: 'email' | 'phone';
     test?: 'a' | 'b' | 'c';
@@ -280,19 +257,20 @@ const DoubleWrap = withFormState(withFormApi(CodeC));
 const OneWrap = withFormApi(CodeC);
 
 
-stories.add('Form children', () => <Form>
+const FormWithChildren = () => (<Form>
     {({ formState, formApi, values }) => (
         <>
-        <Form.Input field='fe'>
-        </Form.Input>
-        
-        <DoubleWrap type='email' test='c'></DoubleWrap>
-        <OneWrap type='email'></OneWrap>
-        <CodeC type='email'></CodeC>
-        
-        <Form.DatePicker field='role'/>
+            <Form.Input field='fe'>
+            </Form.Input>
+
+            <DoubleWrap type='email' test='c'></DoubleWrap>
+            <OneWrap type='email'></OneWrap>
+            <CodeC type='email'></CodeC>
+
+            <Form.DatePicker field='role' />
         </>
-        )
+    )
     }
 </Form>);
+
 
