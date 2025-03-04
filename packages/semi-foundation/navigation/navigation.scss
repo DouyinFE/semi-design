@@ -489,7 +489,6 @@ $module: #{$prefix}-navigation;
             & > .#{$module}-sub-title {
 
                 &-disabled {
-                    font-weight: $font-navigation_sub_disabled-fontWeight;
                     @include item-disabled;
                 }
 
