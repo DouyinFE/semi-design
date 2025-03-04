@@ -21,6 +21,7 @@ import {
     Image,
     Form,
     Nav,
+    InputNumber
 } from '../../index';
 
 import zh_CN from '@douyinfe/semi-ui/locale/source/zh_CN';
@@ -327,7 +328,7 @@ const treeData = [
     },
 ];
 
-const I18nComponent2 = () => {
+const I18nComponent2 = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const columns = useMemo(() => [
         {
@@ -395,6 +396,8 @@ const I18nComponent2 = () => {
                     <p>More content...</p>
                 </Modal>
             </div>
+            <h5>InputNumber</h5>
+            <InputNumber mode="currency" key={props.localeCode} defaultValue={1234567.89} />
             <h5>Select & Cascader</h5>
             <div style={style}>
                 <Select filter style={{ width: '180px' }}>
@@ -556,7 +559,7 @@ class I18nDemo extends React.Component {
                 </div>
                 <LocaleProvider locale={locale}>
                     <ConfigProvider direction={localeCode === 'ar' ? 'rtl' : 'ltr'} locale={locale}>
-                        <I18nComponent2 />
+                        <I18nComponent2 localeCode={localeCode}/>
                     </ConfigProvider>
                 </LocaleProvider>
             </>

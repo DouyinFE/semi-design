@@ -180,5 +180,7 @@ export interface Locale {
         copy: string;
         copied: string;
         dropAreaText: string
+    };
+    InputNumber: {
     }
 }
