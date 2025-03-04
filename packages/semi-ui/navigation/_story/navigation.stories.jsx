@@ -414,13 +414,19 @@ export const renderWrapperDemo = () => {
                 );
             }}
             items={[
-                { itemKey: "Home", text: "Home" },
+                { itemKey: "Home", text: "Home", disabled: true },
                 { itemKey: "About", text: "About" },
                 {
-                    text: "Sub",
-                    itemKey: "Sub",
+                    text: "Disabled",
+                    itemKey: "Disabled",
+                    disabled: true,
                     items: ["Dashboard", "Nothing Here"]
-                }
+                },
+                {
+                  text: "Sub",
+                  itemKey: "Sub",
+                  items: ["Dashboard", "Nothing Here"]
+              }
             ]}
     ></Nav>
   )
