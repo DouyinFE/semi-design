@@ -10,7 +10,6 @@
         "moduleResolution": "node",
         "noImplicitAny": false,
         "jsx": "react",
-        "suppressImplicitAnyIndexErrors": true,
         "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,

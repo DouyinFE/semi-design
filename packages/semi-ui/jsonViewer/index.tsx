@@ -21,7 +21,7 @@ import {
 } from '@douyinfe/semi-icons';
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
 import { createPortal } from 'react-dom';
-import {isEqual} from "lodash";
+import { isEqual } from "lodash";
 const prefixCls = cssClasses.PREFIX;
 
 export type { JsonViewerOptions };
