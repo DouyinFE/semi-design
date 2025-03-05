@@ -927,3 +927,101 @@ export const MarkdownRenderProps = () => {
         </div>
     )
 }
+
+export const EnableUpload = () => {
+    const [message, setMessage] = useState(simpleInitMessage);
+    const [allowUpload, setAllowUpload] = useState('allowAll');
+
+    const onClear = useCallback((clearMessage) => {
+       console.log('onClear');
+    }, []);
+
+    const onMessageSend = useCallback((content, attachment) => {
+        const newAssistantMessage = {
+            role: 'assistant',
+            id: getUuidv4(),
+            content: "这是一条 mock 回复信息",
+        }
+        setMessage((message) => {
+            return [
+                ...message,
+                newAssistantMessage
+            ]
+        })
+    }, []);
+
+    const onMessageDelete = useCallback((message) => {
+       console.log('message delete', message);
+    }, []);
+
+    const onChatsChange = useCallback((chats) => {
+        console.log('onChatsChange', chats);
+        setMessage(chats);
+    }, []);
+
+    const onMessageGoodFeedback = useCallback((message) => {
+        console.log('message good feedback', message);
+    }, []);
+
+    const onMessageBadFeedback = useCallback((message) => {
+        console.log('message bad feedback', message);
+    }, []);
+
+    const onMessageReset = useCallback((message) => {
+        console.log('message reset', message);
+    }, []);
+
+    const onInputChange = useCallback((props) => {
+        console.log('onInputChange', props);
+    }, []);
+
+    const onUploadChange = useCallback((e) => {
+        setAllowUpload(e.target.value)
+    }, []);
+
+    const getUploadProps = useCallback((allowUpload) => {
+        switch(allowUpload) {
+            case 'allowAll':
+                return true;
+            case 'disallowAll':
+                return false;
+            case 'disablePaste':
+                return { pasteUpload: false }
+            case 'disableDrag':
+                return { dragUpload: false }
+            case 'disableClick':
+                return { clickUpload: false}
+            default:
+                return true;
+        }
+    }, [])
+
+    return (
+        <>
+            <RadioGroup onChange={onUploadChange} value={allowUpload}>
+                <Radio value={'allowAll'} checked={allowUpload} >允许上传</Radio>
+                <Radio value={'disallowAll'} checked={!allowUpload} >不允许上传</Radio>
+                <Radio value={'disablePaste'} checked={!allowUpload} >不允许粘贴上传</Radio>
+                <Radio value={'disableDrag'} checked={!allowUpload} >不允许拖拽上传</Radio>
+                <Radio value={'disableClick'} checked={!allowUpload} >不允许点击上传</Radio>
+            </RadioGroup>
+            <br/><br/>
+            <div style={{ height: 450}}>
+                <Chat
+                    style={commonOuterStyle}
+                    chats={message}
+                    roleConfig={roleInfo}
+                    onClear={onClear}
+                    onMessageSend={onMessageSend}
+                    onMessageDelete={onMessageDelete}
+                    onMessageGoodFeedback={onMessageGoodFeedback}
+                    onMessageBadFeedback={onMessageBadFeedback}
+                    onChatsChange={onChatsChange}
+                    onMessageReset={onMessageReset}
+                    onInputChange={onInputChange}
+                    enableUpload={getUploadProps(allowUpload)}
+                />
+            </div>
+        </>
+    )
+}
