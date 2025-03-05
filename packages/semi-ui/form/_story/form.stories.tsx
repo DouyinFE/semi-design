@@ -129,6 +129,10 @@ interface FData {
         id: number;
         name: string;
     }>;
+    recurNestedArray: Array<{
+        obj: Array<{ time: string; rule: string }>
+        name: string;
+    }>;
 }
 class Demo extends React.Component<IProps, IState> {
 
@@ -154,6 +158,9 @@ class Demo extends React.Component<IProps, IState> {
         formApi.setValue('array.0', '2025')
         formApi.setValue('nestedArray[0].id', 123)
         formApi.setValue('nestedArray[0].name', 'abc')
+        formApi.setValue('recurNestedArray[0].obj', 123);
+        formApi.setValue('recurNestedArray[0].obj[0].time', 123);
+        formApi.setValue('recurNestedArray[1].name', 123);
 
 
         // ❌ 无法通过类型校验，应抛出错误的
@@ -163,13 +170,17 @@ class Demo extends React.Component<IProps, IState> {
         formApi.setValue('test4.notExist', 123);
         formApi.setValue('nestedArray[0].notExist', 123);
 
-
+        formApi.setValue('recurNestedArray[0].name.notExist', 123);
+        formApi.setValue('recurNestedArray[0].name[0].notExist', 123);
+        formApi.setValue('recurNestedArray[1].obj.notExist', 123);
+        
         // get 应该合法的
         let test3 = formApi.getValue('test3');
         let test4 = formApi.getValue('test4');
         let test4event = formApi.getValue('test4.event');
         let test5kkk = formApi.getValue('test5.kkk');
         let test5kkkjnumber = formApi.getValue('test5.kkk.jnumber');
+        let recurNestedArrayObjTime = formApi.getValue('recurNestedArray[0].obj[0].time');
 
         // ❌ 无法通过类型校验，应抛出错误的
         let a = formApi.getValue('keyNotExist');

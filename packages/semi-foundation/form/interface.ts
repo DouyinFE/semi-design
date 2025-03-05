@@ -44,6 +44,13 @@ export type ScrollToErrorOptions<K> = {
     scrollOpts?: ScrollIntoViewOptions
 }
 
+// 支持 array[index] 和 array.index 两种形式
+type ArrayIndexPath<K extends string | number, U> = 
+    | `${K}[${number}]` // 支持 array[index]
+    | `${K}[${number}].${FieldPath<U>}` // 支持 array[index].child
+    | `${K}.${number}`  // 支持 array.index
+    | `${K}.${number}.${FieldPath<U>}`; // 支持 array.index.child
+
 // FieldPath 类型定义，支持对象和数组字段路径
 export type FieldPath<T> = T extends Array<infer U>
     ? | `${number}`                      // 如果是数组，支持数字索引（如 `[0]`）
@@ -60,46 +67,65 @@ export type FieldPath<T> = T extends Array<infer U>
         }[keyof T]
         : never;
 
-// 支持 array[index] 和 array.index 两种形式
-type ArrayIndexPath<K extends string | number, U> = 
-    | `${K}[${number}]`
-    | `${K}[${number}].${FieldPath<U>}`
-    | `${K}.${number}`
-    | `${K}.${number}.${FieldPath<U>}`;
+type ArrayFieldPathValue<T, P extends string> =
+    P extends `${infer K}[${infer I}]${infer Rest}`
+        ? K extends keyof T
+            ? T[K] extends Array<infer U>
+                ? I extends `${number}`
+                    ? Rest extends ''
+                        ? U // 索引路径
+                        : Rest extends `.${infer RestPath}`
+                            ? FieldPathValue<U, RestPath> // 嵌套路径
+                            : never
+                    : never
+                : never
+            : never
+        : never;
 
 // FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值
 export type FieldPathValue<T, P extends string> =
-  P extends `${infer K}[${infer I}]${infer Rest}` // 处理 array[index] 形式
-      ? K extends keyof T
-          ? T[K] extends Array<infer U>
-              ? I extends `${number}`
-                  ? Rest extends ''
-                      ? U
-                      : Rest extends `.${infer RestPath}`
-                          ? FieldPathValue<U, RestPath>
-                          : never
-                  : never
-              : never
-          : never
-      : P extends `${infer K}.${infer Rest}` // 处理 key.rest 或 array.index 形式
-          ? K extends keyof T
-              ? T[K] extends Array<infer U>
-                  ? Rest extends `${number}${infer IndexRest}`
-                      ? IndexRest extends ''
-                          ? U // 简单的数组索引访问 (array.0)
-                          : IndexRest extends `.${infer RestPath}`
-                              ? FieldPathValue<U, RestPath> // 嵌套路径 (array.0.field)
-                              : never
-                      : FieldPathValue<T[K], Rest> // 其他嵌套对象字段
-                  : FieldPathValue<T[K], Rest>
-              : never
-          : P extends keyof T // 简单的顶层键访问
-              ? T[P]
-              : P extends `${number}` // 对于顶层数组路径
-                  ? T extends Array<infer U>
-                      ? U
-                      : never
-                  : never;
+    ArrayFieldPathValue<T, P> // 处理数组路径
+    | (P extends `${infer K}.${infer Rest}`
+        ? K extends keyof T
+            ? FieldPathValue<T[K], Rest>
+            : never
+        : P extends keyof T
+            ? T[P]
+            : never);
+
+// FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值 (Complex version)
+// export type FieldPathValue<T, P extends string> =
+//   P extends `${infer K}[${infer I}]${infer Rest}` // 处理 array[index] 形式
+//       ? K extends keyof T
+//           ? T[K] extends Array<infer U>
+//               ? I extends `${number}`
+//                   ? Rest extends ''
+//                       ? U
+//                       : Rest extends `.${infer RestPath}`
+//                           ? FieldPathValue<U, RestPath>
+//                           : never
+//                   : never
+//               : never
+//           : never
+//       : P extends `${infer K}.${infer Rest}` // 处理 key.rest 或 array.index 形式
+//           ? K extends keyof T
+//               ? T[K] extends Array<infer U>
+//                   ? Rest extends `${number}${infer IndexRest}`
+//                       ? IndexRest extends ''
+//                           ? U // 简单的数组索引访问 (array.0)
+//                           : IndexRest extends `.${infer RestPath}`
+//                               ? FieldPathValue<U, RestPath> // 嵌套路径 (array.0.field)
+//                               : never
+//                       : FieldPathValue<T[K], Rest> // 其他嵌套对象字段
+//                   : FieldPathValue<T[K], Rest>
+//               : never
+//           : P extends keyof T // 简单的顶层键访问
+//               ? T[P]
+//               : P extends `${number}` // 对于顶层数组路径
+//                   ? T extends Array<infer U>
+//                       ? U
+//                       : never
+//                   : never;
 
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<T extends object = any> {
