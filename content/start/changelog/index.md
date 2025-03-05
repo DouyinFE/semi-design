@@ -14,6 +14,21 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 
+#### 🎉 2.76.0-beta.0 (2025-03-04)
+- 【Feat】
+    - Chat 支持 enableUpload API 用于支持用户设置上传行为  [#2735 ](https://github.com/DouyinFE/semi-design/issues/2735) [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
+    - 允许 RadioGroup options 传入 addonStyles/addonClassName/addonId/extraId 选项至 Radio 组件 [@SaltyfishEd](https://github.com/SaltyfishEd) [#2706](https://github.com/DouyinFE/semi-design/pull/2706)
+    - JsonViewe r新增自定义渲染功能 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2676](https://github.com/DouyinFE/semi-design/pull/2676)
+- 【Fix】
+    - Nav 新增选择器样式为 renderWrapper 场景提供 hover 样式 [#2691](https://github.com/DouyinFE/semi-design/pull/2691)
+    - 修复 JsonViewer 搜索框弹出位置 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2738](https://github.com/DouyinFE/semi-design/pull/2738)
+    - 修复 TimePicker 在不填默认值的情况下，不同时区用户打开模版选中的默认值不同问题 [#2727](https://github.com/DouyinFE/semi-design/pull/2727)
+    - 修复 Nav.item 传入非建议属性 children 不提示 ts 报错问题 [#2711](https://github.com/DouyinFE/semi-design/pull/2711)
+- 【Style】
+    - 修复在 Chat 组件的对话框操作按钮间隔错误问题（影响版本 2.71.1-2.75.0） [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
+    - 修改 Cascader 默认的空数据展示样式，和 TreeSelect/Select 保持一致  [#2703](https://github.com/DouyinFE/semi-design/issues/2703) [#2725](https://github.com/DouyinFE/semi-design/pull/2725)
+
+
 #### 🎉 2.75.0 (2025-02-21)
 - 【Design Token】
     - Select 新增 $color-select_prefix_suffix_text-default， Cascader 新增 $color-cascader_prefix_suffix_text-default， TreeSelect 新增 $color-treeSelect_prefix_text-default 用于控制控制前后缀颜色。另外，将前后缀的 font-size 和 font-weight 的设置和 insetLabal的设置保持统一（**注意：修改前后样式有变化**） [#2721](https://github.com/DouyinFE/semi-design/issues/2721)
