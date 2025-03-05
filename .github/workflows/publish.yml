@@ -16,6 +16,7 @@ jobs:
               run: |
                   git config --global user.name 'semi-team'
                   git config --global user.email 'semi-team@bytedance.com'
+                  mkdir ~/.ssh
                   echo $SEMI_TEAM_PRIVATE_KEY > ~/.ssh/ssh-ed25519
                   echo $SEMI_TEAM_PRIVATE_KEY_PUB > ~/.ssh/ssh-ed25519.pub
                   echo "Host\n  github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
@@ -44,7 +45,6 @@ jobs:
               run: |
                   git config --global user.name 'semi-team'
                   git config --global user.email 'semi-team@bytedance.com'
-                  mkdir ~/.ssh
                   node scripts/sitemap_update.js
                   if [ -n "$(git status --porcelain)" ]; then
                     echo "there are changes";
