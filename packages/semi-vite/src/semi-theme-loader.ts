@@ -1,5 +1,6 @@
 import componentVariablePathList from "./componentName";
-
+import * as path from 'path';
+import * as fs from 'fs';
 
 export interface SemiThemeLoaderOptions {
     name?: string;
@@ -7,6 +8,27 @@ export interface SemiThemeLoaderOptions {
     variables?: string;
     prefixCls?: string;
     include?: string
+}
+
+function resolveThemePath(themeName: string, file: string) {
+    try {
+        // 尝试从不同位置解析
+        const possiblePaths = [
+            path.resolve(process.cwd(), 'node_modules', themeName, 'scss', file),
+            path.resolve(process.cwd(), '..', 'node_modules', themeName, 'scss', file),
+            path.resolve(__dirname, '..', 'node_modules', themeName, 'scss', file)
+        ];
+
+        for (const possiblePath of possiblePaths) {
+            if (fs.existsSync(possiblePath)) {
+                return possiblePath;
+            }
+        }
+        return null;
+    } catch (e) {
+        console.warn(`Failed to resolve ${themeName}/scss/${file}`, e);
+        return null;
+    }
 }
 
 export function semiThemeLoader(source: string, options: SemiThemeLoaderOptions) {
@@ -21,20 +43,17 @@ export function semiThemeLoader(source: string, options: SemiThemeLoaderOptions)
 
     let animationStr = `@import "~${theme}/scss/animation.scss";\n`;
 
-    try {
-        require.resolve(`${theme}/scss/animation.scss`);
-    } catch (e) {
-        animationStr = ''; // fallback to empty string
+    const animationPath = resolveThemePath(theme, 'animation.scss');
+    if (animationPath) {
+        animationStr = `@import "~${theme}/scss/animation.scss";\n`;
     }
 
     const shouldInject = source.includes('semi-base');
 
     let componentVariables: string | boolean;
-
-    try {
-        componentVariables = require.resolve(`${theme}/scss/local.scss`);
-    } catch (e) {
-        componentVariables = false;
+    const componentVariablesPath = resolveThemePath(theme, 'local.scss');
+    if (componentVariablesPath) {
+        componentVariables = true;
     }
 
     if (include || variables || componentVariables) {
