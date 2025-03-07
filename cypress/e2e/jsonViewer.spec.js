@@ -138,7 +138,7 @@ describe('jsonViewer', () => {
         cy.get('.semi-icon.semi-icon-default.semi-icon-whole_word').click();
         cy.get('.semi-json-viewer-search-bar').children().eq(0).clear();
         cy.get('.semi-json-viewer-search-result').should('have.length', 0);
-        const str = '\\d+';
+        const str = '+d\\';
         cy.get('.semi-json-viewer-search-bar').children().eq(0).type(str);
         cy.get('.semi-icon.semi-icon-default.semi-icon-reg_exp').click();
         cy.get('.semi-json-viewer-search-result').should('have.length.at.least', 1);
@@ -146,7 +146,6 @@ describe('jsonViewer', () => {
         cy.get('.semi-json-viewer-search-bar').children().eq(0).clear();
 
         //replace
-        cy.scrollTo('right');
         cy.get('.semi-json-viewer-search-bar').children().eq(0).type('a');
         cy.get('.semi-json-viewer-replace-bar').children().eq(0).type('x');
         cy.get('.semi-json-viewer-search-result').then(($el) => {
