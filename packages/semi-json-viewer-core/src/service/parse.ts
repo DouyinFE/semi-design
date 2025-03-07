@@ -27,6 +27,18 @@ export function getNodePath(node: ASTNode): Json.JSONPath {
     return Json.getNodePath(node);
 }
 
+export function getPathChain(path: Json.JSONPath): string {
+    let result = 'root';
+    for (let i = 0; i < path.length; i++) {
+        if (typeof path[i] === 'number') {
+            result += '[' + path[i] + ']';
+        } else {
+            result += '.' + path[i];
+        }
+    }
+    return result;
+}
+
 export function contains(node: ASTNode, offset: number, includeRightBound = false): boolean {
     return (
         (offset >= node.offset && offset < node.offset + node.length) ||
