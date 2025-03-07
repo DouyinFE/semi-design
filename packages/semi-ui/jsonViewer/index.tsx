@@ -26,8 +26,8 @@ const prefixCls = cssClasses.PREFIX;
 export type { JsonViewerOptions };
 export interface JsonViewerProps extends BaseProps {
     value: string;
-    width: number;
-    height: number;
+    width: number | string;
+    height: number | string;
     showSearch?: boolean;
     className?: string;
     style?: React.CSSProperties;
