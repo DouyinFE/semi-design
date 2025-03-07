@@ -1,7 +1,11 @@
 import componentVariablePathList from "./componentName";
 import * as path from 'path';
 import * as fs from 'fs';
+import { fileURLToPath } from "url";
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 export interface SemiThemeLoaderOptions {
     name?: string;
     cssLayer?: boolean;
@@ -26,7 +30,6 @@ function resolveThemePath(themeName: string, file: string) {
         }
         return null;
     } catch (e) {
-        console.warn(`Failed to resolve ${themeName}/scss/${file}`, e);
         return null;
     }
 }
@@ -75,7 +78,6 @@ export function semiThemeLoader(source: string, options: SemiThemeLoaderOptions)
                 source = fileSplit.join('');
             }
         } catch (error) {
-            console.warn(error);
         }
     }
 

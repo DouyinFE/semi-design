@@ -2,11 +2,12 @@
 import * as FS from 'fs';
 import * as Path from 'path';
 import { compileString, Logger } from 'sass';
-import { pathToFileURL } from 'url';
+import { pathToFileURL, fileURLToPath } from 'url';
 import { transformPath, convertMapToString } from './utils';
 import { semiThemeLoader, SemiThemeLoaderOptions } from './semi-theme-loader';
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = Path.dirname(__filename);
 
 export interface SemiVitePluginOptions {
     theme?: string | SemiThemeOptions;
@@ -51,21 +52,67 @@ export default function semiVitePlugin(options: SemiVitePluginOptions = {}) {
                     importers: [
                         {
                             findFileUrl(url) {
-                                if (url.startsWith('~')) {
+                                if (url.startsWith("~")) {
+                                    url = url.substring(1);
+
+                                    // 尝试多种可能的路径
+                                    const possiblePaths = [
+                                        // 从node_modules直接解析
+                                        Path.resolve(process.cwd(), "node_modules", url),
+                                        // 从上级目录解析
+                                        Path.resolve(process.cwd(), "..", "node_modules", url),
+                                        // 从插件目录解析
+                                        Path.resolve(__dirname, "..", "node_modules", url)
+                                    ];
+
+                                    // 尝试pnpm特有的路径结构
+                                    const [packageName, ...rest] = url.split('/');
+                                    const packagePath = packageName.startsWith('@') ?
+                                        packageName + '/' + rest.shift() :
+                                        packageName;
+                                    const remainingPath = rest.join('/');
+
+                                    const pnpmDir = Path.resolve(process.cwd(), "node_modules", ".pnpm");
+                                    if (FS.existsSync(pnpmDir)) {
+                                        try {
+                                            const entries = FS.readdirSync(pnpmDir);
+                                            const formattedPackageName = packagePath.replace(/\//g, "+");
+                                            const matchingEntries = entries.filter(entry => entry.startsWith(formattedPackageName));
+
+                                            for (const entry of matchingEntries) {
+                                                const fullPath = Path.resolve(pnpmDir, entry, "node_modules", packagePath, remainingPath);
+                                                if (FS.existsSync(fullPath)) {
+                                                    possiblePaths.unshift(fullPath); // 优先使用pnpm路径
+                                                    break;
+                                                }
+                                            }
+                                        } catch (e) {
+                                            // 忽略错误
+                                        }
+                                    }
+
+                                    // 检查所有可能的路径
+                                    for (const possiblePath of possiblePaths) {
+                                        if (FS.existsSync(possiblePath)) {
+                                            return pathToFileURL(possiblePath);
+                                        }
+                                    }
+
+                                    // 原始逻辑作为后备
                                     return new URL(
-                                        url.substring(1),
-                                        pathToFileURL(scssFilePath.match(/^(\S*\/node_modules\/)/)?.[0] ?? '')
+                                        url,
+                                        pathToFileURL(scssFilePath.match(/^(\S*\/node_modules\/)/)?.[0] ?? "")
                                     );
                                 }
 
-                                const filePath = Path.resolve(Path.dirname(scssFilePath), url);
-
-                                if (FS.existsSync(filePath)) {
-                                    return pathToFileURL(filePath);
+                                // 处理相对路径
+                                const filePath2 = Path.resolve(Path.dirname(scssFilePath), url);
+                                if (FS.existsSync(filePath2)) {
+                                    return pathToFileURL(filePath2);
                                 }
 
                                 return null;
-                            },
+                            }
                         },
                     ],
                     logger: Logger.silent, // 禁用日志输出
