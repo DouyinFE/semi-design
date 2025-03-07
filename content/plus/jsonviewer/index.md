@@ -155,8 +155,8 @@ render(FormatJsonComponent);
 | 属性                | 说明                                             | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|--------------|
 | value             | 展示内容                                    | string                                  | -  |
-| height            | 高度                                     | number                                  | -  |
-| width             | 宽度                                     | number                                  | -  |
+| height            | 高度                                     | number \| string                                  | -  |
+| width             | 宽度                                     | number \| string                                 | -  |
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
