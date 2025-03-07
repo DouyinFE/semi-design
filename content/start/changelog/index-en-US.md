@@ -16,6 +16,10 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.76.0 (2025-03-07)
+- 【Fix】
+- Fix JsonViewer type error issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2748](https://github.com/DouyinFE/semi-design/pull/2748)
+
 #### 🎉 2.76.0-beta.0 (2025-03-04)
 - 【Feat】
     - Chat supports enableUpload API to support users to set upload behavior  [#2735](https://github.com/DouyinFE/semi-design/issues/2735)

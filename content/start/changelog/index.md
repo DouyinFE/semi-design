@@ -13,6 +13,9 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.76.0 (2025-03-07)
+- 【Fix】
+    - 修复 JsonViewer 类型错误问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2748](https://github.com/DouyinFE/semi-design/pull/2748)
 
 #### 🎉 2.76.0-beta.0 (2025-03-04)
 - 【Feat】
