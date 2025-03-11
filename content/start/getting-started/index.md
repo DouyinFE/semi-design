@@ -45,6 +45,11 @@ const SemiApp = () => {
 
 ## 3、在 NextJs 中使用
 
+<Notice>
+    注意：以下配置适用于 React18及以下版本。Next15默认使用React19，目前Semi尚未实现React19的兼容性适配，如果使用Next15请将React版本降级为18或以下版本。
+</Notice>
+
+- Node 版本要求 >= v22.12.0
 - 如果仅使用默认主题, 在 `transpilePackages` 追加 Semi 相关的 package即可 （Next.js 版本要求 >= v13.1 ）
 ```diff
 // next.config.js
@@ -54,6 +59,7 @@ const nextConfig = {
 
 module.exports = nextConfig;
 ```
+
 
 - 如果需要使用定制主题包或 Next.js版本低于 v13.1，则需要配合 Semi 提供的编译插件 `@douyinfe/semi-next` 插件使用 
   - 首先安装插件 `npm i @douyinfe/semi-next` (如果你使用 yarn 或 pnpm，请自行更换为对等命令)
@@ -83,56 +89,77 @@ module.exports = semi({
 
 ## 4、在 Remix 中使用
 <Notice>
-    注意：以下配置适用于 Remix v1。Remix v2有多种构建模式，Semi 未进行过完整适配性测试，建议优先参考 <a href="https://github.com/DouyinFE/semi-design/issues/2444" target="_blank">Issue 2444</a> 处理
+    注意：以下配置适用于 Remix v2 + Vite构建模式。
 </Notice>
 
-- @remix相关包版本要求 > 1.11.0，并安装 `@remix-run/css-bundle`
-- 配置 `remix.config.js`，参考 [Remix Css Side-Effect Imports](https://remix.run/docs/en/v1/guides/styling#css-side-effect-imports)。打开 `unstable_cssSideEffectImports` 开关，并将 Semi 相关包配置在 `serverDependenciesToBundle` 中。
+- 如果使用默认主题，参考如下vite配置
 ```diff
-// remix.config.js
-module.exports = {
-  future: {
-+    unstable_cssSideEffectImports: true,
+// vite.config.ts
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import path from 'path';
+
+export default defineConfig({
+  resolve: {
+    alias: {
++      "date-fns-tz": path.resolve(
++        __dirname,
++        "node_modules/date-fns-tz/esm/index.js"
++      ),
+    },
   },
-  serverDependenciesToBundle: [
-+    /^@douyinfe\/semi-ui/,
-+    /^@douyinfe\/semi-icons/,
-+    /^@douyinfe\/semi-illustrations/,
+  ssr: {
+    noExternal: [
++      "@douyinfe/semi-ui",
++     "@douyinfe/semi-foundation",
++      "@douyinfe/semi-illustrations",
++      "@douyinfe/semi-icons",
++      "scroll-into-view-if-needed",
+    ],
+  },
+  plugins: [
+    remix({
++      future: {
++        v3_fetcherPersist: true,
++        v3_relativeSplatPath: true,
++        v3_throwAbortReason: true,
++      },
+    }),
+    tsconfigPaths(),
   ],
-};
+});
 ```
-- 在 `root.tsx` 中进行配置，参考[Remix CSS Bundling](https://remix.run/docs/en/v1/guides/styling#css-bundling)。引入 `cssBundleHref`，并配置 `links`
-
-```diff
-// root.tsx
-+ import { cssBundleHref } from "@remix-run/css-bundle";
-
- export const links = () => {
-   return [
-+     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-   ];
- };
-```
-
 - 完成配置，可以正常使用 Semi 相关组件 
 
 **如何在 Remix 中使用主题包**  
-可以直接将 cssBundleHref 这一步替换为引入主题包中已构建好的全量css 产物，代替默认主题css），例如当希望应用抖音创作服务平台的主题包 `@semi-bot/semi-theme-doucreator` 时
+- 首先安装插件 npm i vite-plugin-semi (如果你使用 yarn 或 pnpm，请自行更换为对等命令)
+- 在 vite.config.js 中进行配置
 
 ```diff
-// root.tsx
-+ import ThemeStyle from "@semi-bot/semi-theme-doucreator/semi.min.css";
+/* vite.config.ts */
++ import semi from "vite-plugin-semi-theme";
+export default defineConfig({
 
- export const links = () => {
-   return [
--    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),     
-+    { rel: "stylesheet", href: ThemeStyle },
-   ];
- };
+  plugins: [
++    semi({
++      theme: '@semi-bot/semi-theme-jianying',
++    }),
+  ],
+});
 ```
+- 在 root.tsx中引入主题包
+```diff
+// root.tsx
++ import ThemeStyle from "@semi-bot/semi-theme-jianying/semi.min.css?url";
 
-
-
+export const links: LinksFunction = () => [
+  {
++    rel: "stylesheet",
++    href: ThemeStyle,
+  },
+];
+```
 ## 5、UMD 方式使用组件
 
 [![BUILD-JS][build-js-badge]][build-js-url] [![BUILD-CSS][build-css-badge]][build-css-url]
