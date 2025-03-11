@@ -67,6 +67,7 @@ type ArrayIndexPath<K extends string | number, U> =
 //         }[keyof T]
 //         : never;
 
+// FieldPath 类型定义，支持对象和数组字段路径
 export type FieldPath<T> = T extends Array<infer U>
     ? `${number}` | `${number}.${FieldPath<Exclude<U, undefined>>}`
     : T extends object ? {
@@ -82,7 +83,7 @@ export type FieldPath<T> = T extends Array<infer U>
     }[keyof T]
         : never;
 
-// FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值
+        
 export type FieldPathValue<T, P extends string> =
   ArrayFieldPathValue<T, P> |
   (P extends `${infer K}.${infer Rest}`

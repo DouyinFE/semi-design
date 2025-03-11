@@ -157,7 +157,7 @@ const FCDemo = () => {
     let testO = formApi.getValue('optional.testM.testN.testO');
     let year = testO?.getFullYear();
     let testP = formApi.getValue('optional.testM.testN.testP');
-    // testP = testP + 1;
+    testP = testP + 1;
     let NotExist = formApi.getValue('optional.testM.testN.NotExist');
 
     // ✅ 应该合法的, 注意，setValue只对 fieldPath做校验，对 value 不做严格校验

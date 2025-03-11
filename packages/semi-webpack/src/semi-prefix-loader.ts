@@ -13,6 +13,7 @@ export default function semiPrefixLoader(source: string) {
             const { node } = path;
             const replacerKeys = Object.keys(query.replacers);
             if (replacerKeys.includes((node.id as any).name)) {
+                // @ts-ignore
                 (node.init as any).value = query.replacers[(node.id as any).name];
             }
         }
