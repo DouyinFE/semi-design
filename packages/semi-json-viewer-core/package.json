@@ -52,5 +52,6 @@
         "dist/umd/*.js"
     ],
     "author": "",
-    "license": "MIT"
+    "license": "MIT",
+    "gitHead": "495c8a72c1811f44d980b1bfa562d3b18d354228"
 }
