@@ -14,6 +14,7 @@ function withFormState<
             </FormStateContext.Consumer>
         );
     };
+    // @ts-ignore
     WithStateCom = forwardRef(WithStateCom);
     return WithStateCom as R;
 }

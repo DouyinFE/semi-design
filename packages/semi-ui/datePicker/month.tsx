@@ -15,7 +15,9 @@ const prefixCls = cssClasses.PREFIX;
 export interface MonthProps extends MonthFoundationProps, BaseProps {
     forwardRef: React.Ref<any>;
     locale: Locale['DatePicker'];
-    focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>
+    focusRecordsRef: React.RefObject<{ rangeStart: boolean; rangeEnd: boolean }>;
+    renderDate: (dayNumber: number, fullDate: string) => React.ReactNode;
+    renderFullDate: (dayNumber: number, fullDate: string, dayStatus: any) => React.ReactNode
 }
 
 export type MonthState = MonthFoundationState;
@@ -350,7 +352,7 @@ export default class Month extends BaseComponent<MonthProps, MonthState> {
             [`${cssClasses.DAY}-main`]: true,
         });
 
-        const fullDateArgs = [dayNumber, fullDate, dayStatus];
+        const fullDateArgs: [number, string, any] = [dayNumber, fullDate, dayStatus];
         const customRender = isFunction(renderFullDate);
 
         return (

@@ -19,8 +19,8 @@ export interface MonthFoundationProps {
     disabledDate: (day: Date, options?: { rangeStart: string; rangeEnd: string }) => boolean;
     weeksRowNum: number;
     onWeeksRowNumChange: (weeksRowNum: number) => void;
-    renderDate: () => void;
-    renderFullDate: () => void;
+    renderDate: (dayNumber: number, fullDate: string) => React.ReactNode;
+    renderFullDate: (dayNumber: number, fullDate: string, dayStatus: any) => React.ReactNode;
     hoverDay: string; // Real-time hover date
     startDateOffset: () => void;
     endDateOffset: () => void;
@@ -33,10 +33,6 @@ export interface MonthFoundationProps {
 
 export type MonthDayInfo = {
     dayNumber: number;
-    dayNumberFull?: string;
-    fullDate: string
-} | {
-    dayNumber: string;
     dayNumberFull?: string;
     fullDate: string
 };
