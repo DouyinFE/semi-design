@@ -13,14 +13,14 @@ const buildFieldApi = <T extends object, P extends FieldPath<T>>(formApi: FormAp
     setValue: (value: FieldPathValue<T, P>) => formApi.setValue(field, value)
 });
 
-function useFieldApi<T extends object, P extends FieldPath<T>>(field: P) {
+function useFieldApi<T extends object = Record<string, any>, P extends FieldPath<T> = FieldPath<T>>(field: P) {
     const formApi = useFormApi<T>();
     const fieldApi = buildFieldApi<T, P>(formApi, field);
     return fieldApi;
 }
 
 // 理想状态是下面写法的单个泛型参数，实测无法自动推导，仍会作为联合类型推断出类型组合
-// function useFieldApi<T extends object>(field: FieldPath<T>) {
+// function useFieldApi<T extends object = Record<string, any>>(field: FieldPath<T>) {
 //     const formApi = useFormApi<T>();
 //     const fieldApi = buildFieldApi<T, typeof field>(formApi, field);
 //     return fieldApi;

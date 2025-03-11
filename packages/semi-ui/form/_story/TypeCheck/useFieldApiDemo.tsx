@@ -53,6 +53,16 @@ const OneParamsDemo = () => {
     stringVal.toLocaleUpperCase();
 };
 
+// 
+const WithOutGenericDemo = () => {
+    let fieldApi = useFieldApi('test');
+    let numberVal = fieldApi.getValue(); 
+    numberVal.toFixed(2);
+    let field2Api = useFieldApi('test2');
+    let stringVal = field2Api.getValue();
+    stringVal.toLocaleUpperCase();
+};
+
 export default FCDemo;
 
 /*
