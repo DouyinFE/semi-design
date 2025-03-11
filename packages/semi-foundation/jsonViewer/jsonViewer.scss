@@ -82,7 +82,8 @@ $module: #{$prefix}-json-viewer;
         color: $color-json-viewer-line-number;
         text-align: center;
         width: 50px;
-        user-select: none;
+        word-wrap: normal !important;
+        overflow-wrap: normal !important;
     }
 
     &-content-container {
