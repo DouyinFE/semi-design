@@ -12,9 +12,16 @@ jobs:
         name: 'publish a new version'
         runs-on: ubuntu-latest
         steps:
+            - name: gen token
+              run: |
+                  git config --global user.name 'semi-team'
+                  git config --global user.email 'semi-team@bytedance.com'
+                  mkdir ~/.ssh
+                  echo $SEMI_TEAM_PRIVATE_KEY > ~/.ssh/ssh-ed25519
+                  echo $SEMI_TEAM_PRIVATE_KEY_PUB > ~/.ssh/ssh-ed25519.pub
+                  echo "Host\n  github.com\n  AddKeysToAgent yes\n  UseKeychain yes\n  IdentityFile ~/.ssh/id_ed25519" > ~/.ssh/config
+
             - uses: actions/checkout@v4
-              with:
-                  token: ${{ secrets.PAT }}
 
             - name: Use Node.js 20
               uses: actions/setup-node@v4
@@ -36,8 +43,8 @@ jobs:
 
             - name: publish
               run: |
-                  git config --global user.name 'semi-bot'
-                  git config --global user.email 'semi-bot@users.noreply.github.com'
+                  git config --global user.name 'semi-team'
+                  git config --global user.email 'semi-team@bytedance.com'
                   node scripts/sitemap_update.js
                   if [ -n "$(git status --porcelain)" ]; then
                     echo "there are changes";

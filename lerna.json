@@ -1,5 +1,5 @@
 {
     "useWorkspaces": true,
     "npmClient": "yarn",
-    "version": "2.76.0-alpha.10"
+    "version": "2.76.0"
 }
