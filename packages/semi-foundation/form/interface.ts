@@ -38,56 +38,88 @@ export interface setValuesConfig {
     isOverride: boolean
 }
 
-// FieldPath 类型定义，用于生成对象字段的路径字符串
-export type FieldPath<T> = T extends object ? {
-    // 遍历对象的每个键 K
-    [K in keyof T]: T[K] extends object
-        // 如果键 K 对应的值是对象，则生成嵌套路径（递归调用 FieldPath）
-        ? `${string & K}.${FieldPath<T[K]>}` | `${string & K}`
-        // 否则，仅生成当前键的路径
-        : `${string & K}`;
-}[keyof T]
-    : never;
-
-// FieldPathValue 类型定义，用于从路径字符串中推导出实际的类型
-export type FieldPathValue<T, P extends FieldPath<T>> =
-  // 如果路径字符串 P 包含嵌套路径（使用模板字符串类型进行匹配）
-  P extends `${infer K}.${infer Rest}`
-      ? K extends keyof T
-          // 递归解析嵌套路径，逐层深入对象结构
-          ? Rest extends FieldPath<T[K]>
-              ? FieldPathValue<T[K], Rest>
-              : never
-          : never
-      // 如果路径字符串 P 是顶层键
-      : P extends keyof T
-          ? T[P]
-          : never;
-
 export type ScrollToErrorOptions<K> = {
     field?: K;
     index?: number;
     scrollOpts?: ScrollIntoViewOptions
 }
 
+// 支持 array[index] 和 array.index 两种形式
+type ArrayIndexPath<K extends string | number, U> = 
+    | `${K}[${number}]` // 支持 array[index]
+    | `${K}[${number}].${FieldPath<U>}` // 支持 array[index].child
+    | `${K}.${number}`  // 支持 array.index
+    | `${K}.${number}.${FieldPath<U>}`; // 支持 array.index.child
+
+type ArrayFieldPathValue<T, P extends string> =
+    P extends `${infer K}[${infer I}]${infer Rest}`
+        ? K extends keyof T
+            ? T[K] extends Array<infer U>
+                ? I extends `${number}`
+                    ? Rest extends ''
+                        ? U // 索引路径
+                        : Rest extends `.${infer RestPath}`
+                            ? FieldPathValue<U, RestPath> // 嵌套路径
+                            : never
+                    : never
+                : never
+            : never
+        : never;
+
+/**
+ * FieldPath 这里针对 Date、Set、Map等不做辅助类型提取，采用层级深但更简单的方式做，避免推导中断（提取后实测无法通过 story 中测试用例）
+ */
+
+// FieldPath 类型定义，支持对象和数组字段路径，支持数字索引（如 `[0]`），支持数组嵌套路径（如 `[0].field`）
+export type FieldPath<T> = T extends Array<infer U>
+    ? `${number}` | `${number}.${FieldPath<NonNullable<U>>}` 
+    : T extends object
+        ? {
+            [K in keyof T]: K extends string
+                ? Exclude<T[K], undefined> extends Date
+                    ? `${K}`
+                    : Exclude<T[K], undefined> extends Set<any>
+                        ? `${K}`
+                        : Exclude<T[K], undefined> extends Map<any, any>
+                            ? `${K}`
+                            : Exclude<T[K], undefined> extends RegExp
+                                ? `${K}`
+                                : T[K] extends Array<infer U> | object | undefined
+                                    ? `${K}` | `${K}.${FieldPath<Required<T[K]>>}` |ArrayIndexPath<K, U> // 嵌套处理
+                                    : `${K}`
+                : never;
+        }[keyof T]
+        : never;
+
+// FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值
+export type FieldPathValue<T, P extends string> =
+  ArrayFieldPathValue<T, P> |
+  (P extends `${infer K}.${infer Rest}`
+      ? K extends keyof T
+          ? FieldPathValue<NonNullable<T[K]>, Rest>   // 添加 undefined过滤，避免用户 tsconfig strictNullChecks 为 true 时，无法正确推断
+          : never
+      : P extends keyof T
+          ? T[P]
+          : never);
+
 // use object replace Record<string, any>, fix issue 933
-export interface BaseFormApi<T extends object = any> {
+export interface BaseFormApi<FormValuesType extends object = any> {
     /** get value of field */
-    getValue: <P extends FieldPath<T>>(field?: P) => FieldPathValue<T, P>;
+    getValue: <F extends FieldPath<FormValuesType>>(field?: F) => FieldPathValue<FormValuesType, F>;
     /** set value of field */
-    setValue: <K extends FieldPath<T>>(field: K, newFieldValue: any) => void;
+    setValue: <F extends FieldPath<FormValuesType>>(field: F, newFieldValue: any) => void;
     /** get error of field */
-    getError: <K extends keyof T>(field: K) => any;
+    getError: <F extends FieldPath<FormValuesType>>(field: F) => any;
     /** set error of field */
-    setError: <K extends keyof T>(field: K, fieldError: any) => void;
+    setError: <F extends FieldPath<FormValuesType>>(field: F, fieldError: any) => void;
     /** get touched of field */
-    getTouched: <K extends keyof T>(field: K) => boolean;
+    getTouched: <F extends FieldPath<FormValuesType>>(field: F) => boolean;
     /** set touch of field */
-    setTouched: <K extends keyof T>(field: K, fieldTouch: boolean) => void;
+    setTouched: <F extends FieldPath<FormValuesType>>(field: F, fieldTouch: boolean) => void;
     /** judge field exist */
-    getFieldExist: <K extends keyof T>(field: K) => boolean;
+    getFieldExist: <F extends FieldPath<FormValuesType>>(field: F) => boolean;
     /** get formState of form */
-    getFormState: () => FormState<T extends object ? T : object>;
+    getFormState: () => FormState<FormValuesType extends object ? FormValuesType : object>;
     /** get formProps of form */
     getFormProps: (keys?: Array<string>) => ComponentProps;
     /** submit form manual */
@@ -95,14 +127,14 @@ export interface BaseFormApi<T extends object = any> {
     /** reset form manual */
     reset: (fields?: Array<string>) => void;
     /** trigger validate  manual */
-    validate: <K extends keyof T, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: T[R] }>;
-    getInitValue: <K extends keyof T>(field: K) => any;
+    validate: <K extends keyof FormValuesType, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: [R] }>;
+    getInitValue: <F extends FieldPath<FormValuesType>>(field: F) => any;
     getInitValues: () => any;
-    getValues: () => T;
+    getValues: () => FormValuesType;
     /** set value of multiple fields */
-    setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void;
-    scrollToError: <K extends keyof T>(config?: ScrollToErrorOptions<K>) => void
+    setValues: (fieldsValue: Partial<FormValuesType>, config?: setValuesConfig) => void;
+    scrollToField: <F extends FieldPath<FormValuesType>>(field: F, scrollConfig?: ScrollIntoViewOptions) => void;
+    scrollToError: <F extends FieldPath<FormValuesType>>(config?: ScrollToErrorOptions<F>) => void
 }
 
 export interface CallOpts {
@@ -139,7 +171,6 @@ export interface InternalFieldApi {
     reset: () => void;
     validate: (val: any, opts: CallOpts) => Promise<unknown>
 }
-
 export interface FieldStaff {
     field: string;
     fieldApi: InternalFieldApi;

@@ -14,7 +14,7 @@ type Many<T> = T | ReadonlyArray<T>;
 type PropertyName = string | number | symbol;
 type PropertyPath = Many<PropertyName>;
 
-type ObjectType = Record<string, any>;
+export type ObjectType = Record<string, any>;
 
 const pathToArrayElem = (path: any) => {
     const pathArray = lodashToPath(path);

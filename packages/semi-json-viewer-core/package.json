@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-json-viewer-core",
-    "version": "2.74.0",
+    "version": "2.76.0",
     "description": "",
     "main": "lib/index.js",
     "module": "lib/index.js",
@@ -52,5 +52,6 @@
         "dist/umd/*.js"
     ],
     "author": "",
-    "license": "MIT"
+    "license": "MIT",
+    "gitHead": "495c8a72c1811f44d980b1bfa562d3b18d354228"
 }

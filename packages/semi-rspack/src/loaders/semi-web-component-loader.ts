@@ -30,14 +30,14 @@ function getAllComponents(components: string[]) {
     Object.keys(specialCaseBefore).map(keyComponent => {
         if (originComponents.has(keyComponent)) {
             originComponents.delete(keyComponent);
-            originComponents.add(specialCaseBefore[keyComponent]);
+            originComponents.add(specialCaseBefore[keyComponent as keyof typeof specialCaseBefore]);
         }
     });
 
     function getDependentComponents(components: string[]) {
         components.forEach((component) => {
             if (!resultComponents.has(component)) {
-                const dependents = componentDependentTree[component];
+                const dependents = componentDependentTree[component as keyof typeof componentDependentTree];
                 dependents?.forEach((element: string) => {
                     getDependentComponents([element]);
                 });
@@ -51,7 +51,7 @@ function getAllComponents(components: string[]) {
     Object.keys(specialCaseAfter).map(keyComponent => {
         if (resultComponents.has(keyComponent)) {
             resultComponents.delete(keyComponent);
-            resultComponents.add(specialCaseAfter[keyComponent]);
+            resultComponents.add(specialCaseAfter[keyComponent as keyof typeof specialCaseAfter]);
         }
     });
 
@@ -74,8 +74,8 @@ function getScssImportPaths(components: string[]) {
     const cssPaths = ["Base", ...components].map(componentName => {
         const lowFirstLetter = componentName.slice(0, 1).toLowerCase() + componentName.slice(1);
         let pathName = '';
-        if (specialCase[componentName]) {
-            pathName = specialCase[componentName];
+        if (specialCase[componentName as keyof typeof specialCase]) {
+            pathName = specialCase[componentName as keyof typeof specialCase];
         } else {
             pathName = `${pathsObj.foundationPath}${lowFirstLetter}/${lowFirstLetter}.scss`;
         }

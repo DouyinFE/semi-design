@@ -1,9 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { storiesOf } from '@storybook/react';
 import { Form, useFormState, useFormApi, withField, Input, Button, Upload, withFormApi, withFormState } from '../../index';
-const stories = storiesOf('Form', module);
-import { FormApiContext } from '../context';
-
 
 import type { FormApi, FormFCChild, FormState } from '../interface';
 
@@ -22,36 +18,9 @@ const treeData = [
                         label: '西湖区',
                         value: 'xihu',
                         key: '0-0-0',
-                    },
-                    {
-                        label: '萧山区',
-                        value: 'xiaoshan',
-                        key: '0-0-1',
-                    },
-                    {
-                        label: '临安区',
-                        value: 'linan',
-                        key: '0-0-2',
-                    },
+                    }
                 ],
-            },
-            {
-                label: '宁波市',
-                value: 'ningbo',
-                key: '0-1',
-                children: [
-                    {
-                        label: '海曙区',
-                        value: 'haishu',
-                        key: '0-1-0',
-                    },
-                    {
-                        label: '江北区',
-                        value: 'jiangbei',
-                        key: '0-1-1',
-                    },
-                ],
-            },
+            }
         ],
     },
 ];
@@ -69,40 +38,38 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
     const ref = React.useRef();
     return (
     <>
-        <Form.Rating field='test' className='fe' count={2} ref={ref}  />
+        <Form.Rating field='test' className='fe' count={2}  />
 
-        <Form.Input field='test'  ref={ref}  />
+        <Form.Input field='test' />
         <Input size='default' showClear insetLabel />
-        <FieldB insetLabel placeholder='fe' fieldClassName='fefe' field='custom' />
+        <FieldB insetLabel placeholder='fe' fieldClassName='fieldClass-test' field='custom' />
 
         {/* <Button onClick={() => formApi.setValue('fieldA', 'fe')}>set</Button> */}
-        <Form.Select field='test' ref={ref}>
+        <Form.Select field='test' >
             <Form.Select.Option value="f1"></Form.Select.Option>
             <Form.Select.Option value="f2"></Form.Select.Option>
         </Form.Select>
-        <Form.Input field="UserName" label="用户名" ref={ref} />
-        <Form.TextArea field="textarea" onKeyDown={(v: any) => console.log(v)}  ref={ref}  />
+        <Form.Input field="UserName" label="用户名" />
+        <Form.TextArea field="textarea" onKeyDown={(v: any) => console.log(v)}  />
         <Form.Input field="Password" label="密码" />
-        <Form.InputNumber field="number"  ref={ref} />
+        <Form.InputNumber field="number" />
         <Form.Rating field="rating" />
-        <Form.Switch field="switch" checkedText="on" uncheckedText="off"  ref={ref} />
+        <Form.Switch field="switch" checkedText="on" uncheckedText="off"  />
 
         <Form.Cascader
             placeholder="请选择所在地区"
             field="area"
-            ref={ref} 
             label={{ text: '123', required: true, extra: 123 }}
             treeData={treeData}
         ></Form.Cascader>
-        <Form.TimePicker field="time" minuteStep={2} ref={ref} />
+        <Form.TimePicker field="time" minuteStep={2}/>
         <Form.AutoComplete field="fe" />
 
-        <Form.TreeSelect field="treeSelect" treeData={treeData} ref={ref} />
-        <Form.Slider field="slider" ref={ref}  />
-        <Form.DatePicker field="datepicker" ref={ref} />
+        <Form.TreeSelect field="treeSelect" treeData={treeData}  />
+        <Form.Slider field="slider"   />
+        <Form.DatePicker field="datepicker"  />
         <Form.CheckboxGroup
             field="type"
-            ref={ref} 
             label="申请类型（CheckboxGroup）"
             initValue={['user', 'admin']}
             rules={[{ required: true }]}
@@ -114,7 +81,6 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
         </Form.CheckboxGroup>
         <Form.RadioGroup
             field="radio"
-            ref={ref} 
             label="是否独占资源（Radio）"
             rules={[{ type: 'boolean' }, { required: true, message: '必须选择是否独占 ' }]}
         >
@@ -135,9 +101,6 @@ const Fields: FunctionComponent<FormFCChild> = ({ formState, values, formApi }) 
     </>
     )
 };
-
-stories.add('Form', () => <Form>{Fields}</Form>);
-
 interface IProps {
     [x:string]: any;
 }
@@ -154,63 +117,96 @@ interface FData {
     },
     test5: {
         kkk: {
-            jjj: number
+            jnumber: number
         }
     }
     testK: boolean;
-    // [x: string]: any;
+    array: [string, string],
+    nestedArray: Array<{
+        id: number;
+        name: string;
+    }>;
+    recurNestedArray: Array<{
+        obj: Array<{ time: string; rule: string }>
+        name: string;
+    }>;
+    optional?: {
+        testL: string;
+        testM?: {
+            testN?: {
+                testO?: Date;
+                testP: number;
+                testQ: RegExp;
+                testR: {
+                    R1: string;
+                    R2: number;
+                    R3: Array<{
+                        R31: string;
+                        R32: number;
+                        R33: boolean;
+                    }>;
+                },
+                testS: Set<string>;
+                testT: Map<string, number>;
+            }
+        };
+    };
 }
-class Demo extends React.Component<IProps, IState> {
 
-    formApi: FormApi<FData>
+const FCDemo = () => {
+    const formApi = useFormApi<FData>();
+    let optional = formApi.getValue('optional');
+    let testO = formApi.getValue('optional.testM.testN.testO');
+    let year = testO?.getFullYear();
+    let testP = formApi.getValue('optional.testM.testN.testP');
+    testP = testP + 1;
+    let testSet = formApi.getValue('optional.testM.testN.testS');
+    let testMap = formApi.getValue('optional.testM.testN.testT');
+    testMap.entries();
 
-    constructor(props:any) {
-      super(props);
-      this.state = { visible: false};
-    }
+    let NotExist = formApi.getValue('optional.testM.testN.NotExist');
 
-    getFormApi(formApi) {
-        this.formApi = formApi;
-    }
+    // ✅ 应该合法的, 注意，setValue只对 fieldPath做校验，对 value 不做严格校验
+    formApi.setValue('test3', '123');
+    formApi.setValue('test4.event', 123);
+    formApi.setValue('test5.kkk', 123);
+    formApi.setValue('test5.kkk.jnumber', 'abc');
+    formApi.setValue('array[0]', '2025')
+    formApi.setValue('array.0', '2025')
+    formApi.setValue('nestedArray[0].id', 123)
+    formApi.setValue('nestedArray[0].name', 'abc')
+    formApi.setValue('recurNestedArray[0].obj', 123);
+    formApi.setValue('recurNestedArray[0].obj[0].time', 123);
+    formApi.setValue('recurNestedArray[1].name', 123);
 
-    setData() {
-        const formApi = this.formApi;
-        // set
-        formApi.setValue('test3', 123);
-        formApi.setValue('test4.event', 123);
-        formApi.setValue('test5.kkk', 123);
-        formApi.setValue('test5.kkk.jjj', 123);
-        formApi.setValue('keyNotExist', 123);
-        formApi.setValue('test4.notExist', 123);
-        formApi.setValue('test5.kkk.notExist', 123);
 
-        // get
-        let test3 = formApi.getValue('test3');
-        let test4 = formApi.getValue('test4');
-        let test4event = formApi.getValue('test4.event');
-        let test5kkk = formApi.getValue('test5.kkk');
-        let test5kkkjjj = formApi.getValue('test5.kkk.jjj');
+    // ❌ 无法通过类型校验，应抛出错误的
+    formApi.setValue('test5.kkk.notExist', 123);
+    formApi.setValue('keyNotExist', 123);
+    formApi.setValue('test4.notExist', 123);
+    formApi.setValue('test4.notExist', 123);
+    formApi.setValue('nestedArray[0].notExist', 123);
 
-        let a = formApi.getValue('keyNotExist');
-        let b = formApi.getValue('test5.kkk.notExist');
-        let c = formApi.getValue('test4.notExist');
-    }
+    formApi.setValue('recurNestedArray[0].name.notExist', 123);
+    formApi.setValue('recurNestedArray[0].name[0].notExist', 123);
+    formApi.setValue('recurNestedArray[1].obj.notExist', 123);
+    
+    // get 应该合法的
+    let test3 = formApi.getValue('test3');
+    let test4 = formApi.getValue('test4');
+    let test4event = formApi.getValue('test4.event');
+    let test5kkk = formApi.getValue('test5.kkk');
+    let test5kkkjnumber = formApi.getValue('test5.kkk.jnumber');
+    let recurNestedArrayObjTime = formApi.getValue('recurNestedArray[0].obj[0].time');
+    let testM = formApi.getValue('optional.testM');
+    let testL = formApi.getValue('optional.testL');
 
-    render() {
-      const { visible } = this.state;
-      return (
-        <>
-          <Form<FData>
-            getFormApi={this.getFormApi}
-            onSubmit={values => console.log(values.test2)}
-            onChange={formState => formState.values.test}
-            validateFields={values => ({ test4: 'test4 empty', test2: '' }) }
-        >
-          </Form>
-        </>
-      );
-    }
-  }
+    // ❌ 无法通过类型校验，应抛出错误的
+    let a = formApi.getValue('keyNotExist');
+    let b = formApi.getValue('test5.kkk.notExist');
+    let c = formApi.getValue('test4.notExist');
+    let testNoExist = formApi.getValue('optional.NotExist');
+}
 
 class WithoutGenericsType extends React.Component<IProps, IState> {
 
@@ -251,10 +247,6 @@ class WithoutGenericsType extends React.Component<IProps, IState> {
 }
 
 
-stories.add('Form render', () => <Form render={({values, formApi, formState}) => <div></div>}></Form>);
-
-
-
 interface CodeProps {
     type?: 'email' | 'phone';
     test?: 'a' | 'b' | 'c';
@@ -280,19 +272,20 @@ const DoubleWrap = withFormState(withFormApi(CodeC));
 const OneWrap = withFormApi(CodeC);
 
 
-stories.add('Form children', () => <Form>
+const FormWithChildren = () => (<Form>
     {({ formState, formApi, values }) => (
         <>
-        <Form.Input field='fe'>
-        </Form.Input>
-        
-        <DoubleWrap type='email' test='c'></DoubleWrap>
-        <OneWrap type='email'></OneWrap>
-        <CodeC type='email'></CodeC>
-        
-        <Form.DatePicker field='role'/>
+            <Form.Input field='fe'>
+            </Form.Input>
+
+            <DoubleWrap type='email' test='c'></DoubleWrap>
+            <OneWrap type='email'></OneWrap>
+            <CodeC type='email'></CodeC>
+
+            <Form.DatePicker field='role' />
         </>
-        )
+    )
     }
 </Form>);
+
 

@@ -14,6 +14,7 @@ function withFormApi<
             </FormApiContext.Consumer>
         );
     };
+    // @ts-ignore
     WithApiCom = forwardRef(WithApiCom);
     return WithApiCom as R;
 }
