@@ -30,8 +30,7 @@ export default function interpolate(from: FromTo, to: FromTo, ratio = 0, parser:
     if (Array.isArray(from) && Array.isArray(to)) {
         from.forEach((fromVal, idx) => {
             fromVal = parseFloat(fromVal as string);
-            const toVal = parseFloat(to[idx]);
-
+            const toVal = parseFloat(to[idx] as string);
             result.push((toVal - fromVal) * ratio + fromVal);
         });
     }

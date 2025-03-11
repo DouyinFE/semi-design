@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** reference from https://github.com/microsoft/vscode */
 interface Item<K, V> {
     previous: Item<K, V> | undefined;
