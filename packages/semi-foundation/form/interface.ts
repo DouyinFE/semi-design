@@ -52,20 +52,46 @@ type ArrayIndexPath<K extends string | number, U> =
     | `${K}.${number}.${FieldPath<U>}`; // 支持 array.index.child
 
 // FieldPath 类型定义，支持对象和数组字段路径
+// export type FieldPath<T> = T extends Array<infer U>
+//     ? | `${number}`                      // 如果是数组，支持数字索引（如 `[0]`）
+//     | `${number}.${FieldPath<U>}`      // 支持数组嵌套路径（如 `[0].field`）
+//     : T extends object
+//         ? {
+//             [K in keyof T]: K extends string
+//                 ? T[K] extends Array<infer U> | object
+//                     ? | `${K}` 
+//                     | `${K}.${FieldPath<T[K]>}`
+//                     | ArrayIndexPath<K, U>
+//                     : `${K}`                            // 只允许键路径
+//                 : never;
+//         }[keyof T]
+//         : never;
+
 export type FieldPath<T> = T extends Array<infer U>
-    ? | `${number}`                      // 如果是数组，支持数字索引（如 `[0]`）
-    | `${number}.${FieldPath<U>}`      // 支持数组嵌套路径（如 `[0].field`）
-    : T extends object
-        ? {
-            [K in keyof T]: K extends string
-                ? T[K] extends Array<infer U> | object
-                    ? | `${K}` 
-                    | `${K}.${FieldPath<T[K]>}`
-                    | ArrayIndexPath<K, U>
-                    : `${K}`                            // 只允许键路径
-                : never;
-        }[keyof T]
+    ? `${number}` | `${number}.${FieldPath<Exclude<U, undefined>>}`
+    : T extends object ? {
+        [K in keyof T]: K extends string
+            ? Exclude<T[K], undefined> extends Date
+                ? `${K}`
+                : T[K] extends Array<infer U> | object | undefined
+                    ? `${K}` |
+              `${K}.${FieldPath<T[K]>}` |
+                ArrayIndexPath<K, U>
+                    : `${K}`
+            : never;
+    }[keyof T]
         : never;
+
+// FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值
+export type FieldPathValue<T, P extends string> =
+  ArrayFieldPathValue<T, P> |
+  (P extends `${infer K}.${infer Rest}`
+      ? K extends keyof T
+          ? FieldPathValue<Exclude<T[K], undefined>, Rest>   // 添加 undefined过滤，避免用户 tsconfig strictNullChecks 为 true 时，无法正确推断
+          : never
+      : P extends keyof T
+          ? T[P]
+          : never);
 
 type ArrayFieldPathValue<T, P extends string> =
     P extends `${infer K}[${infer I}]${infer Rest}`
@@ -83,15 +109,15 @@ type ArrayFieldPathValue<T, P extends string> =
         : never;
 
 // FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值
-export type FieldPathValue<T, P extends string> =
-    ArrayFieldPathValue<T, P> // 处理数组路径
-    | (P extends `${infer K}.${infer Rest}`
-        ? K extends keyof T
-            ? FieldPathValue<T[K], Rest>
-            : never
-        : P extends keyof T
-            ? T[P]
-            : never);
+// export type FieldPathValue<T, P extends string> =
+//     ArrayFieldPathValue<T, P> // 处理数组路径
+//     | (P extends `${infer K}.${infer Rest}`
+//         ? K extends keyof T
+//             ? FieldPathValue<Exclude<T[K], undefined>, Rest> // 添加 undefined过滤，避免用户 tsconfig strictNullChecks 为 true 时，无法正确推断
+//             : never
+//         : P extends keyof T
+//             ? T[P]
+//             : never);
 
 // use object replace Record<string, any>, fix issue 933
 export interface BaseFormApi<FormValuesType extends object = any> {
