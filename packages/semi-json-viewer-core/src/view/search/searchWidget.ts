@@ -8,9 +8,6 @@ import { IModelContentChangeEvent } from '../../common/emitterEvents';
  */
 export class SearchWidget {
     private _view: View;
-    private _searchInput: HTMLInputElement;
-    private _replaceInput: HTMLInputElement;
-    private _container: HTMLElement;
     private _jsonModel: JSONModel;
     //TODO: 修改searchResults存储数据结构
     public searchResults: FindMatch[] | null = null;
@@ -18,8 +15,6 @@ export class SearchWidget {
     public matchCase: boolean = false;
     public wordSeparators: string | null = null;
     public isRegex: boolean = false;
-    private _searchDiv: HTMLElement;
-    private _replaceDiv: HTMLElement;
 
     constructor(view: View, jsonModel: JSONModel) {
         this._view = view;
@@ -70,7 +65,6 @@ export class SearchWidget {
             rangeLength: endOffset - startOffset,
         };
         this.searchResults.splice(this._currentResultIndex, 1);
-
         this._jsonModel.applyOperation(op);
     }
 

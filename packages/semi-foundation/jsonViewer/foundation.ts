@@ -1,4 +1,3 @@
-
 import { JsonViewer, JsonViewerOptions, CustomRenderRule } from '@douyinfe/semi-json-viewer-core';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
@@ -37,18 +36,35 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
 
     }
 
-    search(searchText: string) {
-        const state = this.getState('searchOptions');
-        const { caseSensitive, wholeWord, regex } = state;
-        this.jsonViewer?.getSearchWidget().search(searchText, caseSensitive, wholeWord, regex);
+    search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) {
+        let options;
+        if (caseSensitive !== undefined || wholeWord !== undefined || regex !== undefined) {
+            options = {
+                caseSensitive: caseSensitive ?? false,
+                wholeWord: wholeWord ?? false,
+                regex: regex ?? false
+            };
+        } else {
+            options = this.getState('searchOptions');
+        }
+        const { caseSensitive: cs, wholeWord: ww, regex: rx } = options;
+        this.jsonViewer?.getSearchWidget().search(searchText, cs, ww, rx);
     }
 
-    prevSearch() {
-        this.jsonViewer?.getSearchWidget().navigateResults(-1);
+    prevSearch(step?: number) {
+        if (step === undefined) {
+            this.jsonViewer?.getSearchWidget().navigateResults(-1);
+        } else {
+            this.jsonViewer?.getSearchWidget().navigateResults(-step);
+        }
     }
 
-    nextSearch() {
-        this.jsonViewer?.getSearchWidget().navigateResults(1);
+    nextSearch(step?: number) {
+        if (step === undefined) {
+            this.jsonViewer?.getSearchWidget().navigateResults(1);
+        } else {
+            this.jsonViewer?.getSearchWidget().navigateResults(step);
+        }
     }
 
     replace(replaceText: string) {
@@ -71,6 +87,10 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
 
     showSearchBar() {
         this._adapter.showSearchBar();
+    }
+
+    getSearchResults() {
+        return this.jsonViewer?.getSearchWidget().searchResults;
     }
 }
 
