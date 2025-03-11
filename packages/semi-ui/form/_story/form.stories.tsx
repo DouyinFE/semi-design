@@ -162,6 +162,7 @@ const FCDemo = () => {
     testP = testP + 1;
     let testSet = formApi.getValue('optional.testM.testN.testS');
     let testMap = formApi.getValue('optional.testM.testN.testT');
+    testMap.entries();
 
     let NotExist = formApi.getValue('optional.testM.testN.NotExist');
 

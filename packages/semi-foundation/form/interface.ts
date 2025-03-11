@@ -66,11 +66,9 @@ type ArrayFieldPathValue<T, P extends string> =
             : never
         : never;
 
-// 判断是否是特殊类型（如 Date、Set、Map、RegExp 等， 无需继续推导）
-type IsSpecialObject<T> =
-  T extends Date | RegExp | Map<any, any> | Set<any>
-      ? true
-      : false;
+/**
+ * FieldPath 这里针对 Date、Set、Map等不做辅助类型提取，采用层级深但更简单的方式做，避免推导中断（提取后实测无法通过 story 中测试用例）
+ */
 
 // FieldPath 类型定义，支持对象和数组字段路径，支持数字索引（如 `[0]`），支持数组嵌套路径（如 `[0].field`）
 export type FieldPath<T> = T extends Array<infer U>
@@ -78,12 +76,17 @@ export type FieldPath<T> = T extends Array<infer U>
     : T extends object
         ? {
             [K in keyof T]: K extends string
-            // ? Exclude<T[K], undefined> extends Date
-                ? IsSpecialObject<NonNullable<T[K]>> extends true
-                    ? `${K}` // 如果是特殊类型（如 Date、Set 等），只允许顶层键路径
-                    : T[K] extends Array<infer U> | object | undefined
-                        ? `${K}` | `${K}.${FieldPath<Required<T[K]>>}` |ArrayIndexPath<K, U> // 嵌套处理
-                        : `${K}`
+                ? Exclude<T[K], undefined> extends Date
+                    ? `${K}`
+                    : Exclude<T[K], undefined> extends Set<any>
+                        ? `${K}`
+                        : Exclude<T[K], undefined> extends Map<any, any>
+                            ? `${K}`
+                            : Exclude<T[K], undefined> extends RegExp
+                                ? `${K}`
+                                : T[K] extends Array<infer U> | object | undefined
+                                    ? `${K}` | `${K}.${FieldPath<Required<T[K]>>}` |ArrayIndexPath<K, U> // 嵌套处理
+                                    : `${K}`
                 : never;
         }[keyof T]
         : never;
