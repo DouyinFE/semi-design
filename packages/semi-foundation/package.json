@@ -29,7 +29,7 @@
         "*.scss",
         "*.css"
     ],
-    "gitHead": "495c8a72c1811f44d980b1bfa562d3b18d354228",
+    "gitHead": "bed6f4225c2b18d52841880f672e5c7e389ee1db",
     "devDependencies": {
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
