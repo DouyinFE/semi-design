@@ -1,13 +1,13 @@
 {
     "name": "@douyinfe/semi-foundation",
-    "version": "2.76.0-alpha.1",
+    "version": "2.76.0-alpha.2",
     "description": "",
     "scripts": {
         "build:lib": "node ./scripts/compileLib.js",
         "prepublishOnly": "npm run build:lib"
     },
     "dependencies": {
-        "@douyinfe/semi-animation": "2.76.0-alpha.1",
+        "@douyinfe/semi-animation": "2.76.0-alpha.2",
         "@douyinfe/semi-json-viewer-core": "2.76.0-alpha.1",
         "@mdx-js/mdx": "^3.0.1",
         "async-validator": "^3.5.0",
