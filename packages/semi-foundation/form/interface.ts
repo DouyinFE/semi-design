@@ -93,58 +93,24 @@ export type FieldPathValue<T, P extends string> =
             ? T[P]
             : never);
 
-// FieldPathValue 类型定义，支持从路径字符串中推导数组和对象的值 (Complex version)
-// export type FieldPathValue<T, P extends string> =
-//   P extends `${infer K}[${infer I}]${infer Rest}` // 处理 array[index] 形式
-//       ? K extends keyof T
-//           ? T[K] extends Array<infer U>
-//               ? I extends `${number}`
-//                   ? Rest extends ''
-//                       ? U
-//                       : Rest extends `.${infer RestPath}`
-//                           ? FieldPathValue<U, RestPath>
-//                           : never
-//                   : never
-//               : never
-//           : never
-//       : P extends `${infer K}.${infer Rest}` // 处理 key.rest 或 array.index 形式
-//           ? K extends keyof T
-//               ? T[K] extends Array<infer U>
-//                   ? Rest extends `${number}${infer IndexRest}`
-//                       ? IndexRest extends ''
-//                           ? U // 简单的数组索引访问 (array.0)
-//                           : IndexRest extends `.${infer RestPath}`
-//                               ? FieldPathValue<U, RestPath> // 嵌套路径 (array.0.field)
-//                               : never
-//                       : FieldPathValue<T[K], Rest> // 其他嵌套对象字段
-//                   : FieldPathValue<T[K], Rest>
-//               : never
-//           : P extends keyof T // 简单的顶层键访问
-//               ? T[P]
-//               : P extends `${number}` // 对于顶层数组路径
-//                   ? T extends Array<infer U>
-//                       ? U
-//                       : never
-//                   : never;
-
 // use object replace Record<string, any>, fix issue 933
-export interface BaseFormApi<T extends object = any> {
+export interface BaseFormApi<FormValuesType extends object = any> {
     /** get value of field */
-    getValue: <P extends FieldPath<T>>(field?: P) => FieldPathValue<T, P>;
+    getValue: <F extends FieldPath<FormValuesType>>(field?: F) => FieldPathValue<FormValuesType, F>;
     /** set value of field */
-    setValue: <K extends FieldPath<T>>(field: K, newFieldValue: any) => void;
+    setValue: <F extends FieldPath<FormValuesType>>(field: F, newFieldValue: any) => void;
     /** get error of field */
-    getError: <K extends keyof T>(field: K) => any;
+    getError: <F extends FieldPath<FormValuesType>>(field: F) => any;
     /** set error of field */
-    setError: <K extends keyof T>(field: K, fieldError: any) => void;
+    setError: <F extends FieldPath<FormValuesType>>(field: F, fieldError: any) => void;
     /** get touched of field */
-    getTouched: <K extends keyof T>(field: K) => boolean;
+    getTouched: <F extends FieldPath<FormValuesType>>(field: F) => boolean;
     /** set touch of field */
-    setTouched: <K extends keyof T>(field: K, fieldTouch: boolean) => void;
+    setTouched: <F extends FieldPath<FormValuesType>>(field: F, fieldTouch: boolean) => void;
     /** judge field exist */
-    getFieldExist: <K extends keyof T>(field: K) => boolean;
+    getFieldExist: <F extends FieldPath<FormValuesType>>(field: F) => boolean;
     /** get formState of form */
-    getFormState: () => FormState<T extends object ? T : object>;
+    getFormState: () => FormState<FormValuesType extends object ? FormValuesType : object>;
     /** get formProps of form */
     getFormProps: (keys?: Array<string>) => ComponentProps;
     /** submit form manual */
@@ -152,14 +118,14 @@ export interface BaseFormApi<T extends object = any> {
     /** reset form manual */
     reset: (fields?: Array<string>) => void;
     /** trigger validate  manual */
-    validate: <K extends keyof T, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: T[R] }>;
-    getInitValue: <K extends keyof T>(field: K) => any;
+    validate: <K extends keyof FormValuesType, Params extends Array<K>, V extends Params[number]>(fields?: Params) => Promise<{ [R in V]: [R] }>;
+    getInitValue: <F extends FieldPath<FormValuesType>>(field: F) => any;
     getInitValues: () => any;
-    getValues: () => T;
+    getValues: () => FormValuesType;
     /** set value of multiple fields */
-    setValues: (fieldsValue: Partial<T>, config?: setValuesConfig) => void;
-    scrollToField: <K extends keyof T>(field: K, scrollConfig?: ScrollIntoViewOptions) => void;
-    scrollToError: <K extends keyof T>(config?: ScrollToErrorOptions<K>) => void
+    setValues: (fieldsValue: Partial<FormValuesType>, config?: setValuesConfig) => void;
+    scrollToField: <F extends FieldPath<FormValuesType>>(field: F, scrollConfig?: ScrollIntoViewOptions) => void;
+    scrollToError: <F extends FieldPath<FormValuesType>>(config?: ScrollToErrorOptions<F>) => void
 }
 
 export interface CallOpts {
