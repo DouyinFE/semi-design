@@ -18,7 +18,7 @@ const modeSet = strings.MODE;
 export type { InputGroupProps } from './inputGroup';
 export type { TextAreaProps } from './textarea';
 export type InputSize = 'small' | 'large' | 'default';
-export type InputMode = 'password' | 'currency';
+export type InputMode = 'password';
 // still keep success as ValidateStatus optional value because form will pass success as props.validateStatus in sometime
 // Although we do not consume success in the input to configure special styles, we should allow it as a legal props value, otherwise a warning will be thrown
 export type ValidateStatus = "default" | "error" | "warning" | "success";

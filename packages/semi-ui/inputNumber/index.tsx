@@ -24,6 +24,7 @@ export interface InputNumberProps extends InputProps {
     currency?: string;
     currencyDisplay?: 'code' | 'symbol' | 'name';
     defaultValue?: number | string;
+    defaultCurrency?: string;
     disabled?: boolean;
     formatter?: (value: number | string) => string;
     forwardedRef?: React.MutableRefObject<HTMLInputElement> | ((instance: HTMLInputElement) => void);
@@ -326,7 +327,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                         this.foundation.updateStates({ value: valueStr });
                     }
                 } else if (this.foundation.isValidNumber(parsedNum)) {
-                    newValue = this.foundation.doFormat(parsedNum);
+                    newValue = this.foundation.doFormat(parsedNum, true, true);
                     this.foundation.updateStates({ number: parsedNum, value: newValue });
                 } else {
                     // Invalid digital analog blurring effect instead of controlled failure
@@ -335,7 +336,19 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 }
             }
             if (newValue && isString(newValue) && newValue !== String(this.props.value)) {
-                this.foundation.notifyChange(newValue, null);
+                if (this.foundation._isCurrency()) {
+                    // 仅在解析后的数值而不是格式化的字符串变化时 notifyChange
+                    // notifyChange only when the parsed value changes, not the formatted string
+                    const parsedNewValue = this.foundation.doParse(newValue);
+                    const parsedPropValue = typeof this.props.value === 'string' ? 
+                        this.foundation.doParse(this.props.value) : this.props.value;
+                    
+                    if (parsedNewValue !== parsedPropValue) {
+                        this.foundation.notifyChange(newValue, null);
+                    }
+                } else {
+                    this.foundation.notifyChange(newValue, null);
+                }
             }
         }
 
@@ -518,7 +531,7 @@ export default forwardStatics(
         return (
             <LocaleConsumer<Locale['InputNumber']> componentName="InputNumber">
                 {(locale: Locale['InputNumber'], localeCode: string, dateFnsLocale, currency: string) => (
-                    <InputNumber localeCode={localeCode} currency={currency} {...props} forwardedRef={ref}/>
+                    <InputNumber localeCode={localeCode} defaultCurrency={currency} {...props} forwardedRef={ref}/>
                 )}
             </LocaleConsumer>
         );

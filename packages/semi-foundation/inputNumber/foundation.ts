@@ -39,12 +39,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     _interval: any;
     _timerHasRegistered: boolean;
     _timer: any;
-    _decimalPointSymbol: string = undefined;
+    _decimalPointSymbol: string = '.';
     _currencySymbol: string = '';
 
     init() {
-        const { mode } = this.getProps();
-        if (mode === 'currency') {
+        if (this._isCurrency()) {
             this._setCurrencySymbol();
         }
         this._setInitValue();
@@ -58,6 +57,16 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     isControlled() {
         return this._isControlledComponent('value');
+    }
+
+    _isCurrency() {
+        const { currency } = this.getProps();
+        return currency === true || (typeof currency === 'string' && currency.trim() !== '');
+    }
+
+    _getFinalCurrency() {
+        const { currency } = this.getProps();
+        return currency === true ? this.getProp('defaultCurrency') : currency;
     }
 
     _doInput(v = '', event: any = null, updateCb: any = null) {
@@ -89,6 +98,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 this._adapter.setClickUpOrDown(true);
             });
         }
+
+        console.log('notifyVal: ', notifyVal);
 
         this.notifyChange(notifyVal, event);
     }
@@ -130,10 +141,10 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     _setCurrencySymbol() {
-        const { localeCode, currency } = this.getProps();
+        const { localeCode } = this.getProps();
         const parts = new Intl.NumberFormat(localeCode, {
             style: 'currency',
-            currency: currency || this.getCurrencyByLocaleCode(),
+            currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
         }).formatToParts(1234.5);
 
         for (const part of parts) {
@@ -225,7 +236,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             this._adapter.setNumber(num);
         }
 
-        this._adapter.setValue(this.isControlled() && this.getProp('mode') !== 'currency' ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
+        this._adapter.setValue(this.isControlled() && !this._isCurrency() ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
             this._adapter.restoreCursor();
         });
 
@@ -233,77 +244,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     handleInputKeyDown(event: any) {
-        const { mode } = this.getProps();
         const code = event.keyCode;
-
-        let selectionStart = event.target.selectionStart;
-
-        if (mode === 'currency' 
-            && this._adapter.getInputCharacter(selectionStart - 1) === this._decimalPointSymbol 
-            && code === keyCode.BACKSPACE
-            && !this.getState('value').endsWith(this._decimalPointSymbol)
-        ) 
-        {
-            event.preventDefault();
-            this._adapter.fixCaret(selectionStart - 1, selectionStart - 1);
-            return;
-        }
-        
-        if (mode === 'currency' 
-            && this._adapter.getInputCharacter(selectionStart) === this._decimalPointSymbol 
-            && code === keyCode.DELETE
-            && !this.getState('value').endsWith(this._decimalPointSymbol)
-        ) 
-        {
-            event.preventDefault();
-            this._adapter.fixCaret(selectionStart + 1, selectionStart + 1);
-            return;
-        }
-
-        // Handling the case of deleting decimal numbers
-        if (mode === 'currency') {
-            const currentValue = this.getState('value').toString();
-            const decimalPointIndex = currentValue.indexOf(this._decimalPointSymbol);
-            const decimalPointSymbolKeyCode = this._decimalPointSymbol === ',' ? 188 : 
-                (this._decimalPointSymbol === '.' ? 190 : 
-                    (this._decimalPointSymbol === ' ' ? 32 : 0));
-
-            // Handling the case of add the decimal point, just move the cursor to the next position
-            if (decimalPointIndex > -1 && selectionStart === decimalPointIndex && code === decimalPointSymbolKeyCode) {
-                event.preventDefault();
-                this._adapter.fixCaret(selectionStart + 1, selectionStart + 1);
-                return;
-            }
-        
-            // Check if the cursor is after the decimal point
-            if (decimalPointIndex > -1 && selectionStart > decimalPointIndex) {
-
-                if (code === keyCode.BACKSPACE) {
-                    event.preventDefault();
-                    const formattedValue = currentValue.slice(0, selectionStart - 1) + '0' + currentValue.slice(selectionStart);
-                    this._adapter.setValue(formattedValue, () => {
-                        this.handleInputChange(formattedValue, event);
-                        this._adapter.fixCaret(selectionStart - 1, selectionStart - 1);
-                    });
-                } else {
-                    const isNumberKey = (code >= 48 && code <= 57) || (code >= 96 && code <= 105);
-                    if (isNumberKey) {
-                        const inputChar = String.fromCharCode(code >= 96 ? code - 48 : code);
-                        event.preventDefault();
-                        // Replace the number at the current position
-                        const formattedValue = currentValue.slice(0, selectionStart) + inputChar + currentValue.slice(selectionStart + 1);
-                        this._adapter.setValue(formattedValue, () => {
-                            this.handleInputChange(formattedValue, event);
-                            this._adapter.fixCaret(selectionStart + 1, selectionStart + 1);
-                        });
-                    }
-                }
-
-            }
-        }
-
-
-
 
         if (code === keyCode.UP || code === keyCode.DOWN) {
             this._adapter.setClickUpOrDown(true);
@@ -339,7 +280,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 numHasChanged = true;
             }
 
-            const currentFormattedNum = this.doFormat(currentNumber, true);
+            const currentFormattedNum = this.doFormat(currentNumber, true, true);
 
             if (currentFormattedNum !== currentValue) {
                 willSetVal = currentFormattedNum;
@@ -360,6 +301,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                     // this.notifyChange(willSetNum);
                 }
 
+                console.log('notifyVal: Blur', notifyVal);
                 this.notifyChange(notifyVal, e);
             }
         }
@@ -460,18 +402,18 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     _setInitValue() {
-        const { defaultValue, value, mode } = this.getProps();
+        const { defaultValue, value } = this.getProps();
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
 
-        const tmpNumber = this.doParse(toString(propsValue), false, true, true);
+        const tmpNumber = this.doParse(this._isCurrency() ? propsValue : toString(propsValue), false, true, true);
 
         let number = null;
         if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
             number = tmpNumber;
         }
 
-        const formattedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
+        const formattedValue = typeof number === 'number' ? this.doFormat(number, true, true) : '';
 
         this._adapter.setNumber(number);
         this._adapter.setValue(formattedValue);
@@ -515,7 +457,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         // console.log('scale: ', scale, 'curNum: ', curNum);
 
-        return this.doFormat(curNum, true);
+        return this.doFormat(curNum, true, true);
     }
 
     minus(step?: number, event?: any): string {
@@ -547,7 +489,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     formatCurrency(value: number | string) {
-        const { localeCode, currency, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay } = this.getProps();
+        const { localeCode, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay } = this.getProps();
 
         let formattedValue = value;
         if (typeof value === 'string' && Number.isNaN(Number(value))) {
@@ -559,7 +501,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         const formatter = new Intl.NumberFormat(localeCode, {
             style: 'currency',
-            currency: currency || this.getCurrencyByLocaleCode(),
+            currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
             currencyDisplay: currencyDisplay,
             minimumFractionDigits: minimumFractionDigits || precision || undefined,
             maximumFractionDigits: maximumFractionDigits || precision || undefined,
@@ -575,14 +517,15 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @param {boolean} needAdjustPrec
      * @returns {string}
      */
-    doFormat(value: string | number = 0, needAdjustPrec = true): string {
+    doFormat(value: string | number = 0, needAdjustPrec = true, needAdjustCurrency = false): string {
         // if (typeof value === 'string') {
         //     return value;
         // }
-        const { formatter, mode } = this.getProps();
+        const { formatter } = this.getProps();
         let str;
 
-        if (mode === 'currency') {
+        // AdjustCurrency conversion is done only in blur situation, otherwise it is just converted to normal string
+        if (this._isCurrency() && needAdjustCurrency) {
             str = this.formatCurrency(value);
         } else if (needAdjustPrec) {
             str = this._adjustPrec(value);
@@ -611,12 +554,15 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         return current;
     }
 
+    // 将货币模式的货币转化为纯数字
+    // Convert currency in currency mode to pure numbers
+    // eg：￥123456.78 to 123456.78
+    // eg：123456.78 to 123456.78
     parseInternationalCurrency(currencyString: string) {
-        // Remove the currency symbol and other non-numeric characters
         let cleaned = currencyString
             .replace(this._currencySymbol, '')
             .replace(new RegExp(`[^\\d${this._decimalPointSymbol}\\-]`, 'g'), '');
-        
+
         // Convert the localized decimal point to the standard decimal point
         if (this._decimalPointSymbol !== '.') {
             cleaned = cleaned.replace(this._decimalPointSymbol, '.');
@@ -633,9 +579,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @returns {number}
      */
     doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false) {
-        const { mode } = this.getProps();
 
-        if (mode === 'currency' && typeof value === 'string') {
+        if (this._isCurrency() && typeof value === 'string') {
             value = this.parseInternationalCurrency(value);
         }
 
@@ -700,7 +645,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             return value;
         }
         if (typeof value === 'string') {
-            const parser = this.getProp('parser');
+            const { parser } = this.getProps();
+
+            if (this._isCurrency()) {
+                value = this.parseInternationalCurrency(value);
+            }
 
             if (typeof parser === 'function') {
                 value = parser(value);
