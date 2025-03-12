@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'zh-TW',
     dateFnsLocale: zhTW, // locale code to dateFns locale
+    currency: 'TWD',
     Pagination: {
         pageSize: '每頁項目數：${pageSize}',
         total: '總頁數：${total}',
@@ -183,6 +184,7 @@ const local: Locale = {
         copied: '複制成功',
         dropAreaText: '將文件放到這裡',
     },
+    InputNumber: {}
 };
 
 // 中文

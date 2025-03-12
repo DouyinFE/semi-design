@@ -517,8 +517,8 @@ export default forwardStatics(
     React.forwardRef<HTMLInputElement, InputNumberProps>(function SemiInputNumber(props, ref) {
         return (
             <LocaleConsumer<Locale['InputNumber']> componentName="InputNumber">
-                {(locale: Locale['InputNumber'], localeCode: string) => (
-                    <InputNumber localeCode={localeCode} {...props} forwardedRef={ref}/>
+                {(locale: Locale['InputNumber'], localeCode: string, dateFnsLocale, currency: string) => (
+                    <InputNumber localeCode={localeCode} currency={currency} {...props} forwardedRef={ref}/>
                 )}
             </LocaleConsumer>
         );

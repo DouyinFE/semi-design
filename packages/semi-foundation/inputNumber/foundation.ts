@@ -464,7 +464,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
 
-        const tmpNumber = mode === 'currency' ? propsValue : this.doParse(toString(propsValue), false, true, true);
+        const tmpNumber = this.doParse(toString(propsValue), false, true, true);
 
         let number = null;
         if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
@@ -547,7 +547,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     formatCurrency(value: number | string) {
-        const { localeCode, currency, minimumFractionDigits, maximumFractionDigits, currencyDisplay } = this.getProps();
+        const { localeCode, currency, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay } = this.getProps();
 
         let formattedValue = value;
         if (typeof value === 'string' && Number.isNaN(Number(value))) {
@@ -561,8 +561,8 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             style: 'currency',
             currency: currency || this.getCurrencyByLocaleCode(),
             currencyDisplay: currencyDisplay,
-            minimumFractionDigits: minimumFractionDigits || undefined,
-            maximumFractionDigits: maximumFractionDigits || undefined,
+            minimumFractionDigits: minimumFractionDigits || precision || undefined,
+            maximumFractionDigits: maximumFractionDigits || precision || undefined,
         });
 
         const formatted = formatter.format(Number(formattedValue)); 

@@ -9,8 +9,9 @@ import { Locale } from '../interface';
  */
 
 const local: Locale = {
-    code: 'nl_NL',
+    code: 'nl-NL',
     dateFnsLocale: nl, // locale code to dateFns locale
+    currency: 'EUR',
     Pagination: {
         page: 'pagina',
         pageSize: 'Items per pagina: ${pageSize}',
@@ -189,6 +190,7 @@ const local: Locale = {
         copied: 'Gekopieerd',
         dropAreaText: 'Plaats het bestand hier',
     },
+    InputNumber: {}
 };
 
 export default local;

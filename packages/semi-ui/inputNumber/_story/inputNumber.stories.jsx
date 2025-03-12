@@ -811,6 +811,10 @@ export const Currency = () => {
       <InputNumber mode="currency" currency="CNY" value={value2} onChange={v => {console.log('onChange', v); setValue2(v)}}/>
       <br />
       <br />
+      <div>🇨🇳 人民币 + 非受控</div>
+      <InputNumber mode="currency" currency="CNY" defaultValue={'123456.78'} onChange={v => {console.log('onChange', v);}}/>
+      <br />
+      <br />
       <div>🇯🇵 日元</div>
       <InputNumber mode="currency" localeCode="ja-JP" currency="JPY" defaultValue={123456.78}  onChange={v => console.log('onChange', v)}/>
       <br />

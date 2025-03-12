@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
+    currency: 'RUB',
     Pagination: {
         pageSize: 'Позиции на странице: ${pageSize}',
         total: 'Всего страниц: ${total}',
@@ -185,6 +186,7 @@ const local: Locale = {
         copied: 'Скопировано',
         dropAreaText: 'Положите файл здесь',
     },
+    InputNumber: {}
 };
 
 // [i18n-Russia] 俄罗斯语

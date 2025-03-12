@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ms-MY',
     dateFnsLocale: ms,
+    currency: 'MYR',
     Pagination: {
         pageSize: 'Item setiap halaman: ${pageSize}',
         total: 'Jumlah halaman: ${total}',
@@ -182,6 +183,7 @@ const local: Locale = {
         copied: 'Disalin',
         dropAreaText: 'Letakkan fail di sini',
     },
+    InputNumber: {}
 };
 
 // [i18n-Malaysia(MY)]

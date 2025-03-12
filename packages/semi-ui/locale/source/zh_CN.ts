@@ -3,6 +3,7 @@ import { Locale } from '../interface';
 
 const local: Locale = {
     code: 'zh-CN',
+    currency: 'CNY',
     dateFnsLocale: zhCN, // locale code to dateFns locale
     Pagination: {
         pageSize: '每页条数：${pageSize}',
@@ -183,6 +184,7 @@ const local: Locale = {
         copied: '复制成功',
         dropAreaText: '将文件放到这里',
     },
+    InputNumber: {}
 };
 
 // 中文

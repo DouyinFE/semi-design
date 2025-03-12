@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'pt-BR',
     dateFnsLocale: ptBR,
+    currency: 'BRL',
     Pagination: {
         pageSize: 'Itens por página: ${pageSize}',
         total: 'Total de páginas: ${total}',
@@ -190,6 +191,7 @@ const local: Locale = {
         copied: 'Cópia bem sucedida',
         dropAreaText: 'Coloque o arquivo aqui',
     },
+    InputNumber: {}
 };
 
 // 葡萄牙语

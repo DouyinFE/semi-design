@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'th-TH',
     dateFnsLocale: th,
+    currency: 'THB',
     Pagination: {
         pageSize: 'รายการต่อหน้า: ${pageSize}',
         total: 'หน้าทั้งหมด: ${total}',
@@ -186,6 +187,7 @@ const local: Locale = {
         copied: 'คัดลอกสำเร็จ',
         dropAreaText: 'วางไฟล์ที่นี่',
     },
+    InputNumber: {}
 };
 
 // [i18n-Thai]
