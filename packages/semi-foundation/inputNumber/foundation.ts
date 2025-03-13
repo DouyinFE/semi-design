@@ -99,8 +99,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             });
         }
 
-        console.log('notifyVal: ', notifyVal);
-
         this.notifyChange(notifyVal, event);
     }
 
@@ -301,7 +299,6 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                     // this.notifyChange(willSetNum);
                 }
 
-                console.log('notifyVal: Blur', notifyVal);
                 this.notifyChange(notifyVal, e);
             }
         }
