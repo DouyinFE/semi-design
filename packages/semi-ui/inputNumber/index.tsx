@@ -21,7 +21,7 @@ export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
     clearIcon?: React.ReactNode;
-    currency?: string;
+    currency?: string | boolean;
     currencyDisplay?: 'code' | 'symbol' | 'name';
     defaultValue?: number | string;
     defaultCurrency?: string;
