@@ -55,7 +55,7 @@ $color-select_option_disabled-bg: transparent; // 禁用选择器菜单选项背
 $color-select_option-icon-active: var(--semi-color-text-2); // 禁用选择器菜单选项图标颜色 - 选中态
 $color-select_option-border-default: var(--semi-color-border); // 分组选择器菜单项描边颜色
 $color-select-option-bg-selected: transparent; // 选择器菜单选项背景颜色 - 选中态
-$color-select_inset_label-text: var(--semi-color-text-2); // 分组选择器菜单项辅助文本颜色
+// $color-select_inset_label-text: var(--semi-color-text-2); // 分组选择器菜单项辅助文本颜色
 $color-select_create_tips-text: var(--semi-color-text-2); // 分组选择器菜单项提示文本颜色
 $color-select_group-text: var(--semi-color-text-2); // 分组选择器菜单项分组标题文本颜色
 
@@ -127,7 +127,7 @@ $radius-select_option: 0px; // 选择器待选项圆角
 
 // Font
 $font-select-fontWeight: $font-weight-regular; // 选择器文本字重
-$font-select_inset_label-fontWeight: 600; // 选择器内嵌标签文本字重
+// $font-select_inset_label-fontWeight: 600; // 选择器内嵌标签文本字重
 $font-select_keyword-fontWeight: 600; // 选择器搜索结果命关键词中文本字重
 
 // Other

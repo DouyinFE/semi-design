@@ -28,8 +28,8 @@ $module: #{$prefix}-input;
         padding-right: $spacing-input-paddingLeft;
 
         &-inset-label {
-            margin-right: auto;
-            margin-left: $spacing-input_insetLabel-marginRight;
+            // margin-right: auto;
+            // margin-left: $spacing-input_insetLabel-marginRight;
         }
 
         &-clearbtn + &-suffix {

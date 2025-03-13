@@ -75,7 +75,7 @@ $spacing-treeSelect_prefix_text-marginY: 0px; // 树选择器前缀文本垂直�
 $spacing-treeSelect_prefix_text-marginX: $spacing-base-tight; // 树选择器前缀文本水平外边距
 $spacing-treeSelect_prefix_icon-marginY: 0px; // 树选择器前缀图标垂直外边距
 $spacing-treeSelect_prefix_icon-marginX: $spacing-tight; // 树选择器前缀图标水平外边距
-$spacing-treeSelect_insertLabel-marginRight: $spacing-base-tight; // 树选择器前缀标签右侧外边距
+// $spacing-treeSelect_insertLabel-marginRight: $spacing-base-tight; // 树选择器前缀标签右侧外边距
 $spacing-treeSelect_selection_withSuffix-paddingRight: 0px; // 树选择器有后缀时内容右侧内边距
 $spacing-treeSelect_search_wrapper-paddingX: 12px; // 树选择器搜索框容器水平内边距
 $spacing-treeSelect_search_wrapper-paddingY: 8px; // 树选择器搜索框容器垂直内边距
@@ -84,7 +84,7 @@ $color-treeSelect_selection_TriggerSearchItem_disabled-text-default: var(--semi-
 $color-treeSelect_inputTrigger-border-default: none; // 带搜索的树选择器触发器描边颜色
 $color-treeSelect_inputTrigger-bg-default: transparent; // 带搜索的树选择器触发器背景颜色
 $color-treeSelect_insertLabel-text-default: var(--semi-color-text-2); // 带搜索的树前缀标签文本颜色
-$font-treeSelect_insertLabel-fontWeight: 600; // 带搜索的树前缀标签文本字重
+// $font-treeSelect_insertLabel-fontWeight: 600; // 带搜索的树前缀标签文本字重
 $color-treeSelect_prefix_suffix_text-default: var(--semi-color-text-2); // 带搜索的树选择器前后缀文本颜色
 
 $width-treeSelect_arrow: 32px; // 树选择器展开箭头宽度

@@ -40,9 +40,9 @@ $module: #{$prefix}-select;
             }
         }
 
-        &-inset-label {
-            margin-left: $spacing-select_insetLabel-marginRight;
-        }
+        // &-inset-label {
+        //     margin-left: $spacing-select_insetLabel-marginRight;
+        // }
 
         &-create-tips {
             margin-right: 0;

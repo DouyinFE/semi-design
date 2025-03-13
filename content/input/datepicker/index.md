@@ -45,17 +45,6 @@ function Demo() {
 }
 ```
 
-### 带内嵌标签
-
-```jsx live=true
-import React from 'react';
-import { DatePicker } from '@douyinfe/semi-ui';
-
-function Demo() {
-    return <DatePicker insetLabel="结束日期" style={{ width: 240 }} />;
-}
-```
-
 ### 多个日期选择
 
 将 `multiple` 设为 `true`，可以多选日期
@@ -858,7 +847,6 @@ function Demo() {
 | insetInput | 面板中是否嵌入输入框，InsetInputProps 类型 v2.29 支持                                                               | boolean \| <ApiType detail='{ placeholder?: { dateStart?: string; dateEnd?: string; timeStart?: string; timeEnd?: string } }'>InsetInputProps</ApiType>  | false | **2.7.0** |
 | inputReadOnly | 文本框是否 readonly                                                                                       | boolean | false |  |
 | inputStyle | 输入框样式                                                                                                | object |  |  |
-| insetLabel | 前缀标签，优先级低于 `prefix`                                                                                  | string\|ReactNode |  |  |
 | leftSlot   | 渲染左侧额外区域                                                                                             | ReactNode |         |  **2.65.0** |
 | max | multiple 为 true 时，多选的数目,不传或者值为 null\|undefined 的话无限制                                                 | number | - |  |
 | motion | 是否开启面板展开的动画                                                                                          | boolean | true |  |

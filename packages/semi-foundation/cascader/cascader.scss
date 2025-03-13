@@ -259,10 +259,10 @@ $module: #{$prefix}-cascader;
 
     &-inset-label {
         display: inline;
-        margin-right: $spacing-cascader_label-marginRight;
-        font-weight: $font-weight-bold;
-        @include font-size-regular;
-        color: $color-cascader_label-text-default;
+        // margin-right: $spacing-cascader_label-marginRight;
+        // font-weight: $font-weight-bold;
+        // @include font-size-regular;
+        // color: $color-cascader_label-text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }

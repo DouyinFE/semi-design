@@ -339,10 +339,10 @@ $overflowList: #{$prefix}-overflow-list;
     }
 
     &-inset-label {
-        margin-right: $spacing-base-tight;
-        font-weight: $font-select_inset_label-fontWeight;
-        @include font-size-regular;
-        color: $color-select_inset_label-text;
+        // margin-right: $spacing-base-tight;
+        // font-weight: $font-select_inset_label-fontWeight;
+        // @include font-size-regular;
+        // color: $color-select_inset_label-text;
         flex-shrink: 0;
         white-space: nowrap;
     }

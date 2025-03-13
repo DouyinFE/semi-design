@@ -502,10 +502,10 @@ $module: #{$prefix}-input;
     // }
 
     &-inset-label {
-        margin-right: $spacing-input_insetLabel-marginRight;
-        font-weight: $font-input_insetLabel-fontWeight;
-        @include font-size-regular;
-        color: $color-input_prefix-text-default;
+        // margin-right: $spacing-input_insetLabel-marginRight;
+        // font-weight: $font-input_insetLabel-fontWeight;
+        // @include font-size-regular;
+        // color: $color-input_prefix-text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
