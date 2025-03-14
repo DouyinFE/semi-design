@@ -271,7 +271,6 @@ $module: #{$prefix}-tagInput;
             margin: 0 $spacing-tagInput_prefix_suffix-marginX;
             font-weight: $font-tagInput_prefix_suffix-fontWeight;
             white-space: nowrap;
-            font-weight: $font-weight-bold;
             @include font-size-regular;
         }
         &-icon {
