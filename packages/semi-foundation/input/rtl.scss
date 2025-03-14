@@ -27,10 +27,6 @@ $module: #{$prefix}-input;
         padding-left: $spacing-input-paddingRight;
         padding-right: $spacing-input-paddingLeft;
 
-        &-inset-label {
-            // margin-right: auto;
-            // margin-left: $spacing-input_insetLabel-marginRight;
-        }
 
         &-clearbtn + &-suffix {
             & + .#{$module}-suffix-text {
