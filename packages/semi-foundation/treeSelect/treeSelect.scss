@@ -296,11 +296,11 @@ $module: #{$prefix}-tree-select;
     }
 
     &-inset-label {
-        // display: inline;
-        // margin-right: $spacing-treeSelect_insertLabel-marginRight;
-        // font-weight: $font-treeSelect_insertLabel-fontWeight;
-        // @include font-size-regular;
-        // color: $color-treeSelect_insertLabel-text-default;
+        display: inline;
+        margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
+        font-weight: $font-weight-bold;
+        @include font-size-regular;
+        color: $color-treeSelect_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
