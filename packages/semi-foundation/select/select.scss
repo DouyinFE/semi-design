@@ -311,7 +311,7 @@ $overflowList: #{$prefix}-overflow-list;
             margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
             color: $color-select_prefix_suffix_text-default;
             @include font-size-regular;
-            font-weight: $font-weight-bold;
+            font-weight: $font-select_prefix_suffix-fontWeight;
         }
 
         &-icon {
@@ -340,7 +340,7 @@ $overflowList: #{$prefix}-overflow-list;
 
     &-inset-label {
         margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
-        font-weight: $font-weight-bold;
+        font-weight: $font-select_prefix_suffix-fontWeight;
         @include font-size-regular;
         color: $color-select_prefix_suffix_text-default;
         flex-shrink: 0;

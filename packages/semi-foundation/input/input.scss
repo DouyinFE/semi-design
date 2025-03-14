@@ -502,8 +502,8 @@ $module: #{$prefix}-input;
     // }
 
     &-inset-label {
-        margin: 0 $spacing-base-tight;
-        font-weight: $font-weight-bold;
+        margin: 0 $spacing-input_prefix_suffix-marginX;
+        font-weight: $font-input_prefix_suffix-fontWeight;
         color: $color-input_prefix-text-default;
         flex-shrink: 0;
         white-space: nowrap;
@@ -514,9 +514,9 @@ $module: #{$prefix}-input;
         @include all-center;
 
         &-text {
-            margin: 0 $spacing-base-tight;
+            margin: 0 $spacing-input_prefix_suffix-marginX;
             color: $color-input_prefix-text-default;
-            font-weight: $font-weight-bold;
+            font-weight: $font-input_prefix_suffix-fontWeight;
             white-space: nowrap;
         }
 

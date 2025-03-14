@@ -63,6 +63,8 @@ $font-treeSelect_small-lineHeight: $height-treeSelect_small; // 小尺寸树选�
 $height-treeSelect_large: $height-control-large; // 大尺寸树选择器选择器文本行高
 $font-treeSelect_large-lineHeight: $height-treeSelect_large; // 大尺寸树选择器选择器文本行高
 
+$font-treeSelect_prefix_suffix_fontWeight: $font-weight-bold; // 树选择器前缀后缀文本字重
+
 $spacing-treeSelect_selection_tagInput_wrapper-paddingX: $spacing-extra-tight; // 树选择器多选标签容器水平内边距
 $spacing-treeSelect_selection_tagInput_empty-marginLeft: $spacing-extra-tight; // 树选择器多选标签容器为空时左侧外边距
 $spacing-treeSelect_selection_tagInput_notEmpty-marginLeft: - $spacing-extra-tight; // 树选择器多选标签容器不为空时左侧外边距

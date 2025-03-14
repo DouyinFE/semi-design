@@ -246,7 +246,7 @@ $module: #{$prefix}-cascader;
 
         &-text {
             margin: 0 $spacing-cascader_text-marginX;
-            font-weight: $font-weight-bold;
+            font-weight: $font-cascader_prefix_suffix_fontWeight;
             @include font-size-regular;
             color: $color-cascader_prefix_suffix_text-default;
         }
@@ -259,10 +259,10 @@ $module: #{$prefix}-cascader;
 
     &-inset-label {
         display: inline;
-        // margin-right: $spacing-cascader_label-marginRight;
-        // font-weight: $font-weight-bold;
-        // @include font-size-regular;
-        // color: $color-cascader_label-text-default;
+        margin: 0 $spacing-cascader_text-marginX;
+        font-weight: $font-cascader_prefix_suffix_fontWeight;
+        @include font-size-regular;
+        color: $color-cascader_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
