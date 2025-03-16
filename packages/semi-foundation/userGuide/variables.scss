@@ -22,7 +22,6 @@ $font-userGuide_modal_content_description-lineHeight: 20px; // 弹窗式卡片�
 // Spacing
 $spacing-userGuide_popup_content_body-padding: 24px; // 气泡卡片内边距
 $spacing-userGuide_popup_content_title-marginBottom: 8px; // 气泡卡片标题底部外边距
-$spacing-userGuide_popup_content_title-marginBottom: 8px; // 气泡卡片标题底部外边距
 $spacing-userGuide_popup_content_description-marginBottom: 48px; // 气泡卡片详情底部外边距
 $spacing-userGuide_popup_content_button-gap: 12px; // 气泡卡片底部按钮间距
 $spacing-userGuide_modal_content_title-marginBottom: 8px; // 弹窗式卡片标题底部外边距
@@ -34,16 +33,16 @@ $spacing-userGuide_modal_content_button-gap: 12px; // 弹窗式卡片底部按�
 
 // Radius
 $radius-userGuide_popup_content_cover: var(--semi-border-radius-medium) var(--semi-border-radius-medium) 0 0; // 气泡卡片封面圆角
-$radius-userGuide_modal_content_indicator: var(--semi-border-radius-large); // 气泡卡片封面圆角
+$radius-userGuide_modal_content_indicator: var(--semi-border-radius-large); // 气泡卡片指示器圆角
 
 
 // font
 $font-userGuide_popup_content_title-fontSize: $font-size-header-5; // 气泡卡片标题字体大小
 $font-userGuide_popup_content_description-fontSize: $font-size-regular; // 气泡卡片详情字体大小
 $font-userGuide_popup_content_indicator-fontSize: $font-size-regular; // 气泡卡片指示器字体大小
-$font-userGuide_popup_content_title-fontWeight: 600; // 气泡卡片标题字重
+$font-userGuide_popup_content_title-fontWeight: $font-weight-bold; // 气泡卡片标题字重
 $font-userGuide_modal_content_title-fontSize: $font-size-header-5; // 弹窗式卡片标题字体大小
 $font-userGuide_modal_content_description-fontSize: $font-size-regular; // 弹窗式卡详情字体大小
-$font-userGuide_modal_content_title-fontWeight: 600; // 弹窗式卡片标题字重
+$font-userGuide_modal_content_title-fontWeight: $font-weight-bold; // 弹窗式卡片标题字重
 
 

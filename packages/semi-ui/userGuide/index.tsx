@@ -12,6 +12,7 @@ import { noop } from '@douyinfe/semi-foundation/utils/function';
 import '@douyinfe/semi-foundation/userGuide/userGuide.scss';
 import { BaseProps } from '../_base/baseComponent';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
+import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 
 
 const prefixCls = cssClasses.PREFIX;
@@ -98,6 +99,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     };
 
     foundation: UserGuideFoundation;
+    userGuideId: string;
 
     constructor(props: UserGuideProps) {
         super(props);
@@ -106,6 +108,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             current: props.current || numbers.DEFAULT_CURRENT,
             spotlightRect: null,
         };
+        this.userGuideId = '';
     }
 
     get adapter(): UserGuideAdapter<UserGuideProps, UserGuideState> {
@@ -145,6 +148,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.userGuideId = getUuidShort();
     }
 
     componentDidUpdate(prevProps: UserGuideProps, prevStates: UserGuideState) {
@@ -191,16 +195,17 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const isLast = index === steps.length - 1;
         const popupPrefixCls = `${prefixCls}-popup-content`;
         const isPrimaryTheme = theme === 'primary' || step?.theme === 'primary';
+        const { cover, title, description } = step;
 
         return (
             <div className={cls(`${popupPrefixCls}`, {
                 [`${popupPrefixCls}-primary`]: isPrimaryTheme,
             })}
             >
-                {step?.cover && <div className={`${popupPrefixCls}-cover`}>{step.cover}</div>}
+                {cover && <div className={`${popupPrefixCls}-cover`}>{cover}</div>}
                 <div className={`${popupPrefixCls}-body`}>
-                    {step?.title && <div className={`${popupPrefixCls}-title`}>{step.title}</div>}
-                    {step?.description && <div className={`${popupPrefixCls}-description`}>{step.description}</div>}
+                    {title && <div className={`${popupPrefixCls}-title`}>{title}</div>}
+                    {description && <div className={`${popupPrefixCls}-description`}>{description}</div>}
                     <div className={`${popupPrefixCls}-footer`}>
                         <div className={`${popupPrefixCls}-indicator`}>
                             {current + 1}/{steps.length}
@@ -265,10 +270,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         return (
             <Popover
                 key={`userGuide-popup-${index}`}
-                className={cls(`${prefixCls}-popover`, className, {
-                    [`${prefixCls}-popover-${theme}`]: isPrimaryTheme,
-                    [`${prefixCls}-popover-content-${theme}`]: isPrimaryTheme,
-                })}
+                className={cls(`${prefixCls}-popover`, className)}
                 style={{ ...basePopoverStyle, ...primaryStyle, ...style }}
                 content={this.renderPopupContent(step, index)}
                 position={step.position || position}
@@ -310,7 +312,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                     spotlightRect ? (
                         <svg className={`${prefixCls}-spotlight`}>
                             <defs>
-                                <mask id="spotlight">
+                                <mask id={`spotlight-${this.userGuideId}`}>
                                     <rect width="100%" height="100%" fill="white"/>
                                     <rect
                                         className={`${prefixCls}-spotlight-rect`}
@@ -328,7 +330,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                                     width="100%"
                                     height="100%"
                                     fill="var(--semi-color-overlay-bg)"
-                                    mask="url(#spotlight)"
+                                    mask={`url(#spotlight-${this.userGuideId})`}
                                 />
                             }
                         </svg>
@@ -363,6 +365,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
         const isFirst = current === 0;
         const isLast = current === steps.length - 1;
+        const { cover, title, description } = step;
 
         return (
             <Modal
@@ -373,20 +376,24 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                 maskClosable={false}
                 footer={null}
             >
-                {step?.cover && 
+                {cover && 
                     <>
                         <div className={`${cssClasses.PREFIX_MODAL}-cover`}>
-                            {step?.cover}
+                            {cover}
                         </div>
                         <div className={`${cssClasses.PREFIX_MODAL}-indicator`}>
                             {this.renderIndicator()}
                         </div>
                     </>
                 }
-                <div className={`${cssClasses.PREFIX_MODAL}-body`}>
-                    <div className={`${cssClasses.PREFIX_MODAL}-body-title`}>{step?.title}</div>
-                    <div className={`${cssClasses.PREFIX_MODAL}-body-description`}>{step?.description}</div>
-                </div>
+                {
+                    (title || description) && (
+                        <div className={`${cssClasses.PREFIX_MODAL}-body`}>
+                            {title && <div className={`${cssClasses.PREFIX_MODAL}-body-title`}>{title}</div>}
+                            {description && <div className={`${cssClasses.PREFIX_MODAL}-body-description`}>{description}</div>}
+                        </div>
+                    )
+                }
                 <div className={`${cssClasses.PREFIX_MODAL}-footer`}>
                     {showSkipButton && !isLast && (
                         <Button 
