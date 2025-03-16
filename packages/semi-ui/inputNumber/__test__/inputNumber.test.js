@@ -458,7 +458,7 @@ describe(`InputNumber`, () => {
     });
 
     it('Common currency display defaultValue is string', () => {
-        const defaultValue = '123456.78';
+        const defaultValue = 123456.78;
         let inputNumber = mount(<InputNumber currency="CNY" defaultValue={defaultValue} />);
         expect(inputNumber.find('input').instance().value).toBe('¥123,456.78');
 
@@ -466,7 +466,7 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('$123,456.78');
 
         inputNumber = mount(<InputNumber localeCode="de-DE" currency="EUR" defaultValue={defaultValue} />);
-        expect(inputNumber.find('input').instance().value).toBe('12.345.678,00 €');
+        expect(inputNumber.find('input').instance().value).toBe('123.456,78 €');
 
         inputNumber = mount(<InputNumber localeCode="ja-JP" currency="JPY" defaultValue={defaultValue} />);
         expect(inputNumber.find('input').instance().value).toBe('￥123,457');
@@ -478,7 +478,7 @@ describe(`InputNumber`, () => {
         expect(inputNumber.find('input').instance().value).toBe('฿123,456.78');
 
         inputNumber = mount(<InputNumber localeCode="id-ID" currency="IDR" defaultValue={defaultValue} />);
-        expect(inputNumber.find('input').instance().value).toBe('Rp 12.345.678,00');
+        expect(inputNumber.find('input').instance().value).toBe('Rp 123.456,78');
         
     });
 
@@ -525,5 +525,42 @@ describe(`InputNumber`, () => {
         expect(spyChange.callCount).toBe(5);
         expect(inputElem.instance().value).toBe('$123,457.78');
      });
+
+     it('Common currency display with showCurrencySymbol=false', () => {
+        const defaultValue = 123456.78;
+        let inputNumber = mount(<InputNumber currency="CNY" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123,456.78');
+
+        inputNumber = mount(<InputNumber localeCode="en-US" currency="USD" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123,456.78');
+
+        inputNumber = mount(<InputNumber localeCode="de-DE" currency="EUR" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123.456,78');
+
+        inputNumber = mount(<InputNumber localeCode="ja-JP" currency="JPY" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123,457');
+
+        inputNumber = mount(<InputNumber localeCode="vi-VN" currency="VND" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123.457');  
+
+        inputNumber = mount(<InputNumber localeCode="th-TH" currency="THB" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123,456.78');
+
+        inputNumber = mount(<InputNumber localeCode="id-ID" currency="IDR" defaultValue={defaultValue} showCurrencySymbol={false} />);
+        expect(inputNumber.find('input').instance().value).toBe('123.456,78');
+    });
+
+    it('CNY currency with different currencyDisplay options', () => {
+        const defaultValue = 123456.78;
+        
+        let inputNumber = mount(<InputNumber currency="CNY" defaultValue={defaultValue} />);
+        expect(inputNumber.find('input').instance().value).toBe('¥123,456.78');
+        
+        inputNumber = mount(<InputNumber currency="CNY" defaultValue={defaultValue} currencyDisplay="code" />);
+        expect(inputNumber.find('input').instance().value).toBe('CNY 123,456.78');
+        
+        inputNumber = mount(<InputNumber currency="CNY" defaultValue={defaultValue} currencyDisplay="name" />);
+        expect(inputNumber.find('input').instance().value).toBe('123,456.78人民币');
+    });
 
 });

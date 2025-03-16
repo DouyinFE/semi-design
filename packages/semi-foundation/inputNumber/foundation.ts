@@ -39,7 +39,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     _interval: any;
     _timerHasRegistered: boolean;
     _timer: any;
-    _decimalPointSymbol: string = '.';
+    _decimalPointSymbol: string = undefined;
     _currencySymbol: string = '';
 
     init() {
@@ -139,15 +139,17 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     _setCurrencySymbol() {
-        const { localeCode } = this.getProps();
+        const { localeCode, currencyDisplay } = this.getProps();
         const parts = new Intl.NumberFormat(localeCode, {
             style: 'currency',
             currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
+            currencyDisplay
         }).formatToParts(1234.5);
 
         for (const part of parts) {
             if (part.type === 'decimal') {
                 this._decimalPointSymbol = part.value;
+                console.log('this._decimalPointSymbol: ', this._decimalPointSymbol);
             }
             // if (part.type === 'group') {
             //     groupSeparator = part.value;
@@ -486,15 +488,12 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     }
 
     formatCurrency(value: number | string) {
-        const { localeCode, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay } = this.getProps();
+        const { localeCode, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay, showCurrencySymbol } = this.getProps();
 
         let formattedValue = value;
         if (typeof value === 'string' && Number.isNaN(Number(value))) {
             formattedValue = this.parseInternationalCurrency(value);
         }
-
-        // Checks if the string ends with a decimal point
-        const isEndWithDecimalPoint = typeof value === 'string' && value.endsWith(this._decimalPointSymbol);
 
         const formatter = new Intl.NumberFormat(localeCode, {
             style: 'currency',
@@ -505,7 +504,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         });
 
         const formatted = formatter.format(Number(formattedValue)); 
-        return isEndWithDecimalPoint ? formatted + this._decimalPointSymbol : formatted;
+        return showCurrencySymbol ? formatted : formatted.replace(this._currencySymbol, '').trim();
     }
 
     /**
@@ -561,7 +560,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             .replace(new RegExp(`[^\\d${this._decimalPointSymbol}\\-]`, 'g'), '');
 
         // Convert the localized decimal point to the standard decimal point
-        if (this._decimalPointSymbol !== '.') {
+        if (this._decimalPointSymbol && this._decimalPointSymbol !== '.') {
             cleaned = cleaned.replace(this._decimalPointSymbol, '.');
         }
         return parseFloat(cleaned);

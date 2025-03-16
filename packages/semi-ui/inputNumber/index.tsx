@@ -45,6 +45,7 @@ export interface InputNumberProps extends InputProps {
     pressTimeout?: number;
     shiftStep?: number;
     showClear?: boolean;
+    showCurrencySymbol?: boolean;
     size?: ArrayElement<typeof strings.SIZE>;
     step?: number;
     style?: React.CSSProperties;
@@ -90,6 +91,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         pressTimeout: PropTypes.number,
         preventScroll: PropTypes.bool,
         shiftStep: PropTypes.number,
+        showCurrencySymbol: PropTypes.bool,
         step: PropTypes.number,
         style: PropTypes.object,
         suffix: PropTypes.any,
@@ -112,6 +114,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         pressInterval: numbers.DEFAULT_PRESS_TIMEOUT,
         pressTimeout: numbers.DEFAULT_PRESS_TIMEOUT,
         shiftStep: numbers.DEFAULT_SHIFT_STEP,
+        showCurrencySymbol: true,
         size: strings.DEFAULT_SIZE,
         step: numbers.DEFAULT_STEP,
         onBlur: noop,

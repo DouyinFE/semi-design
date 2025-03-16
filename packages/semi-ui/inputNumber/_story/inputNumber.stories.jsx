@@ -812,6 +812,28 @@ export const BasicCurrency = () => {
     </div>
   );
 }
+export const TypicalCurrency = () => {
+  return (
+    <div>
+      <div>🇨🇳 人民币</div>
+      <InputNumber localeCode="zh-CN" currency="CNY" defaultValue={123456.78} />
+      <br />
+      <br />
+      <div>🇪🇺 欧元</div>
+      <InputNumber localeCode="de-DE" currency="EUR" defaultValue={123456.78} />
+      <br />
+      <br />
+      <div>🇯🇵 日元</div>
+      <InputNumber localeCode="ja-JP" currency="JPY" defaultValue={123456.78} />
+      <br />
+      <br />
+      <div>🇻🇳 越南盾</div>
+      <InputNumber localeCode="vi-VN" currency="VND" defaultValue={123456.78} />
+      <br />
+      <br />
+    </div>
+  );  
+}
 
 export const CommonCurrency = () => {
   const [value1, setValue1] = useState(123456.78);
@@ -853,6 +875,84 @@ export const CommonCurrency = () => {
       <br />
       <div>🇻🇳 越南盾</div>
       <InputNumber  localeCode="vi-VN" currency="VND" defaultValue={123456.78} />
+      <br />
+      <br />
+    </div>
+  );
+}
+
+export const ShowCurrencySymbol = () => {
+  const [value1, setValue1] = useState(123456.78);
+  const [value2, setValue2] = useState(123456.78);
+
+  return (
+    <div>
+      <div>🇺🇸 美元 + 受控</div>
+      <InputNumber  localeCode="en-US" currency="USD" value={value1} 
+        onChange={v => {console.log('onChange', v); 
+          setValue1(v)
+        }}
+        showCurrencySymbol={false}
+      />
+      <br />
+      <br />
+      <div>🇨🇳 人民币 + 受控</div>
+      <InputNumber currency="CNY" value={value2} showCurrencySymbol={false} onChange={v => {console.log('onChange', v); setValue2(v)}}/>
+      <br />
+      <br />
+      <div>🇨🇳 人民币 + 非受控</div>
+      <InputNumber currency="CNY" defaultValue={'123456.78'} showCurrencySymbol={false} onChange={v => {console.log('onChange', v);}}/>
+      <br />
+      <br />
+      <div>🇪🇺 欧元</div>
+      <InputNumber  localeCode="de-DE" currency="EUR" defaultValue={123456.78} showCurrencySymbol={false} />
+      <br />
+      <br />
+      <div>🇹🇭 泰铢</div>
+      <InputNumber  localeCode="th-TH" currency="THB" defaultValue={123456.78} showCurrencySymbol={false} onChange={v => console.log('onChange', v)}/>
+      <br />
+      <br />
+      <div>🇮🇩 印尼盾</div> 
+      <InputNumber  localeCode="id-ID" currency="IDR" defaultValue={123456.78} showCurrencySymbol={false} />
+      <br />
+      <br />
+      <div>🇯🇵 日元</div>
+      <InputNumber localeCode="ja-JP" currency="JPY" defaultValue={123456.78}  showCurrencySymbol={false} onChange={v => console.log('onChange', v)}/>
+      <br />
+      <br />
+      <div>🇻🇳 越南盾</div>
+      <InputNumber  localeCode="vi-VN" currency="VND" defaultValue={123456.78} showCurrencySymbol={false} />
+      <br />
+      <br />
+    </div>
+  );
+}
+
+export const CurrencyDisplay = () => {
+  return (
+    <div>
+      <div>🇨🇳 CNY ➕ code</div>
+      <InputNumber 
+        currency="CNY" 
+        currencyDisplay="code"
+        defaultValue={123456.78}
+      />
+      <br />
+      <br />
+      <div>🇨🇳 CNY ➕ symbol</div>
+      <InputNumber 
+        currency="CNY" 
+        currencyDisplay="symbol" 
+        defaultValue={123456.78}
+      />
+      <br />
+      <br />
+      <div>🇨🇳 CNY ➕ name</div>
+      <InputNumber 
+        currency="CNY" 
+        currencyDisplay="name" 
+        defaultValue={123456.78}
+      />
       <br />
       <br />
     </div>
