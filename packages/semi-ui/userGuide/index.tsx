@@ -29,8 +29,6 @@ export interface UserGuideProps extends BaseProps {
     onNext?: (current: number) => void;
     onPrev?: (current: number) => void;
     onSkip?: () => void;
-    // todo: 设计稿中没有显示关闭按钮
-    // onClose?: () => void;
     position?: Position;
     prevButtonProps?: ButtonProps;
     showPrevButton?: boolean;
@@ -52,9 +50,6 @@ export interface StepItem {
     spotlightPadding?: number;
     theme?: 'default' | 'primary';
     position?: Position
-    // todo:
-    // prevButtonProps?: () => void;
-    // nextButtonProps?: () => void
 }
 
 export interface UserGuideState {
@@ -71,7 +66,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         onNext: PropTypes.func,
         onPrev: PropTypes.func,
         onSkip: PropTypes.func,
-        // onClose: PropTypes.func,
         position: PropTypes.oneOf(strings.POSITION_SET),
         showPrevButton: PropTypes.bool,
         showSkipButton: PropTypes.bool,
@@ -88,7 +82,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         onNext: noop,
         onPrev: noop,
         onSkip: noop,
-        // onClose: noop,
         position: 'bottom',
         prevButtonProps: {},
         showPrevButton: true,
@@ -129,9 +122,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             notifySkip: () => {
                 this.props.onSkip();
             },
-            // notifyClose: () => {
-            //     this.props.onClose();
-            // },
             setCurrent: (current: number) => {
                 this.setState({ current });
             }
@@ -152,11 +142,14 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     componentDidUpdate(prevProps: UserGuideProps, prevStates: UserGuideState) {
-        const { steps, mode } = this.props;
+        const { steps, mode, visible } = this.props;
         const { current } = this.state;
 
         if (mode === 'popup' && (prevStates.current !== current) && steps[current]) {
             this.updateSpotlightRect();
+        }
+        if (visible !== prevProps.visible && visible) {
+            this.setState({ current: 0 });
         }
     }
 
@@ -207,14 +200,15 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                     {title && <div className={`${popupPrefixCls}-title`}>{title}</div>}
                     {description && <div className={`${popupPrefixCls}-description`}>{description}</div>}
                     <div className={`${popupPrefixCls}-footer`}>
-                        <div className={`${popupPrefixCls}-indicator`}>
-                            {current + 1}/{steps.length}
-                        </div>
+                        {steps.length > 1 && (
+                            <div className={`${popupPrefixCls}-indicator`}>
+                                {current + 1}/{steps.length}
+                            </div>
+                        )}
                         <div className={`${popupPrefixCls}-buttons`}>
                             {showSkipButton && !isLast && (
                                 <Button 
-                                    // todo: 设计稿用的不是基础的 token
-                                    style={isPrimaryTheme ? { backgroundColor: '#065EE1' } : {}}
+                                    style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
                                     theme={isPrimaryTheme ? 'solid' : 'light'} 
                                     type={isPrimaryTheme ? 'primary' : 'tertiary'} 
                                     onClick={this.foundation.handleSkip}
@@ -224,7 +218,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                             )}
                             {showPrevButton && !isFirst && (
                                 <Button 
-                                    style={isPrimaryTheme ? { backgroundColor: '#065EE1' } : {}}
+                                    style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
                                     theme={isPrimaryTheme ? 'solid' : 'light'} 
                                     type={isPrimaryTheme ? 'primary' : 'tertiary'} 
                                     onClick={this.foundation.handlePrev}

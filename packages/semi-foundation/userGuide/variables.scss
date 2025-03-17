@@ -5,8 +5,7 @@ $color-userGuide_modal_content_indicator-bg: var(--semi-color-primary-light-acti
 $color-userGuide_modal_content_indicator-bg-active: var(--semi-color-primary);  // 弹窗指示器背景颜色 - 选中态
 
 // Width/Height
-$width-userGuide_popover-default: 320px; // 默认气泡卡片宽度
-$width-userGuide_popup_content-default: 224px; // 默认气泡卡片内容宽度
+$width-userGuide_popover-default: 400px; // 默认气泡卡片宽度
 $height-userGuide_popup_content_cover-default: 200px; // 默认气泡卡片封面高度
 $width-userGuide_modal_content_cover-default: 600px; // 默认弹窗式卡片封面宽度
 $height-userGuide_modal_content_cover-default: 300px; // 默认弹窗式卡片封面高度
@@ -24,6 +23,7 @@ $spacing-userGuide_popup_content_body-padding: 24px; // 气泡卡片内边距
 $spacing-userGuide_popup_content_title-marginBottom: 8px; // 气泡卡片标题底部外边距
 $spacing-userGuide_popup_content_description-marginBottom: 48px; // 气泡卡片详情底部外边距
 $spacing-userGuide_popup_content_button-gap: 12px; // 气泡卡片底部按钮间距
+$spacing-userGuide_popup_content_button-marginLeft: 120px; // 气泡卡片按钮组左边距
 $spacing-userGuide_modal_content_title-marginBottom: 8px; // 弹窗式卡片标题底部外边距
 $spacing-userGuide_modal_content_body-padding: 24px 48px; // 弹窗式卡片body内边距
 $spacing-userGuide_modal_content_footer-padding: 24px; // 弹窗式卡片footer内边距

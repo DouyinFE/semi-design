@@ -5,7 +5,6 @@ export interface UserGuideAdapter<P = Record<string, any>, S = Record<string, an
     notifyPrev: (current: number) => void;
     notifyNext: (current: number) => void;
     notifySkip: () => void;
-    // notifyClose: () => void;
     notifyFinish: () => void;
     setCurrent: (current: number) => void
 }
@@ -35,43 +34,32 @@ export default class UserGuideFoundation <P = Record<string, any>, S = Record<st
 
     handlePrev = () => {
         const { current } = this.getStates();
-        if (this.getIsControlledComponent()) {
-            this._notifyChange(current);
-            this._adapter.notifyPrev(current);
-        } else if (current > 0) {
-            this._adapter.setCurrent(current - 1);
-            this._adapter.notifyPrev(current - 1);
-        }
+        const newCurrent = current - 1;
+        if (!this.getIsControlledComponent()) {
+            this._adapter.setCurrent(newCurrent);
+        } 
+        this._notifyChange(newCurrent);
+        this._adapter.notifyPrev(newCurrent);
     };
 
     handleNext = () => {
         const { steps } = this.getProps();
         const { current } = this.getStates();
-        if (this.getIsControlledComponent()) {
-            this._notifyChange(current);
-            current < steps.length - 1 ? this._adapter.notifyNext(current) : this._adapter.notifyFinish();
-        } else if (current < steps.length - 1) {
-            this._adapter.setCurrent(current + 1);
-            this._adapter.notifyNext(current + 1);
-        } else {
-            this._adapter.setCurrent(0);
+        const isLastStep = current === steps.length - 1;
+        const newCurrent = isLastStep ? current : current + 1;
+        if (isLastStep) {
             this._adapter.notifyFinish();
+        } else {
+            this._notifyChange(newCurrent);
+            this._adapter.notifyNext(newCurrent);
+            if (!this.getIsControlledComponent()) {
+                this._adapter.setCurrent(newCurrent);
+            }
         }
     };
 
     handleSkip = () => {
-        const { current } = this.getStates();
-        if (this.getIsControlledComponent()) {
-            this._notifyChange(current);
-        } 
         this._adapter.notifySkip();
     };
 
-    // handleClose = () => {
-    //     const { current } = this.getProps();
-    //     if (this.getIsControlledComponent()) {
-    //         this._notifyChange(current);
-    //     } 
-    //     this._adapter.notifyClose();
-    // };
 } 

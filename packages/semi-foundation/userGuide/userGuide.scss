@@ -20,11 +20,11 @@ $module: #{$prefix}-userGuide;
     }
 
     &-popover {
+        max-width: fit-content;
         width: $width-userGuide_popover-default;
     }
 
     &-popup-content {
-        min-width: $width-userGuide_popup_content-default;
         color: $color-userGuide_popup-text-default;
 
         &-primary {
@@ -66,6 +66,7 @@ $module: #{$prefix}-userGuide;
         &-buttons {
             display: flex;
             gap: $spacing-userGuide_popup_content_button-gap;
+            margin-left: $spacing-userGuide_popup_content_button-marginLeft;
         }
 
         &-indicator {

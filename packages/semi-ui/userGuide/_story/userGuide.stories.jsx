@@ -30,7 +30,6 @@ export const BasicUsage = () => {
                             <img 
                                 alt="example" 
                                 height={200}
-                                width={'100%'}
                                 src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg" 
                             />
                         ),
@@ -543,7 +542,7 @@ export const MixedTheme = () => {
                         target: document.querySelector('#step-1'),
                         theme: 'primary',
                         title: "这里是标题1",
-                        description: "一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案一些描述文案",
+                        description: "一些描述文案",
                         position: "bottom"
                     },
                     {
@@ -565,4 +564,44 @@ export const MixedTheme = () => {
         />
         </div>
     );
+}
+
+export const OneStep = () => {
+    const [visible, setVisible] = useState(false);
+
+    return (
+        <div>
+            <Space spacing='medium'>
+                <Switch id={'step-1'} defaultChecked={true}/>     
+                <Button id={'step-2'} type="secondary">次要</Button>
+                <Button id={'step-3'} type="tertiary">第三</Button>
+                <Button id={'step-4'} type="warning">警告</Button>
+            </Space>
+            <div style={{ marginTop: '20px' }}>
+                <Button onClick={() => setVisible(true)}>显示引导</Button>
+            </div>
+            <UserGuide
+                mode="popup"
+                mask={true}
+                steps={[
+                    {
+                        target: document.querySelector('#step-1'),
+                        theme: 'primary',
+                        title: "这里是标题",
+                        description: "一些描述文案",
+                        position: "bottom"
+                    }
+                ]}
+                visible={visible}
+                onFinish={() => {
+                    setVisible(false);
+                    console.log('引导完成')
+                }}
+                onSkip={() => {
+                    setVisible(false);
+                    console.log('引导跳过')
+                }}
+            />
+        </div>
+    )
 }
