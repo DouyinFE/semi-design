@@ -183,7 +183,6 @@ function Demo () {
 | formatter    | 指定输入框展示值的格式                                         | (value: number\|string) => string | -         |           |
 | hideButtons  | 为 `true` 时隐藏 “上/下” 按钮                                  | boolean                           | false     | **1.0.0** |
 | innerButtons | 为 `true` 时 “上/下” 按钮显示在输入框内部                                  | boolean                           | false     | **1.5.0** |
-| insetLabel   | 前缀标签，优先级低于 `prefix`                                  | string\|ReactNode                 |           |           |
 | keepFocus    | 点击按钮时保持输入框聚焦                                        | boolean                 |     false      |   **1.10.0**        |
 | max          | 限定最大值                                                     | number                            | Infinity  |           |
 | min          | 限定最小值                                                     | number                            | -Infinity |           |

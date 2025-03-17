@@ -209,7 +209,6 @@ function Demo () {
 | formatter    | Specifies the format of the input box to display the value                                      | (value: number\|string) => string | -         |            |
 | hideButtons  | Hide the "up/down" button when passing `true`                                                   | boolean                           | false     | **1.0.0**  |
 | innerButtons  | Show the "up/down" button in input box when passing `true`                                 | boolean                           | false         | **1.5.0** |
-| insetLabel   | Prefix label, lower priority than `prefix`                                                      | string\|ReactNode                 |           |            |
 | keepFocus    | Keep the input box focused when you click the button                                        | boolean                 |     false               | **1.10.0** |
 | max          | Limit maximum value                                                                             | number                            | Infinity  |            |
 | min          | Limit minimum value                                                                             | number                            | -Infinity |            |
