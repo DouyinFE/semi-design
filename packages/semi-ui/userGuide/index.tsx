@@ -33,10 +33,13 @@ export interface UserGuideProps extends BaseProps {
     prevButtonProps?: ButtonProps;
     showPrevButton?: boolean;
     showSkipButton?: boolean;
+    spotlightPadding?: number;
     steps: StepItem[];
     style?: React.CSSProperties;
     theme?: 'default' | 'primary';
-    visible?: boolean
+    visible?: boolean;
+    getPopupContainer?: () => HTMLElement;
+    zIndex?: number
 }
 
 export interface StepItem {
@@ -71,6 +74,8 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         showSkipButton: PropTypes.bool,
         theme: PropTypes.oneOf(strings.THEME),
         visible: PropTypes.bool,
+        getPopupContainer: PropTypes.func,
+        zIndex: PropTypes.number,
     };
 
     static defaultProps: UserGuideProps = {
@@ -89,8 +94,12 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         steps: [],
         theme: 'default',
         visible: false,
+        zIndex: numbers.DEFAULT_Z_INDEX,
     };
 
+    private bodyOverflow: string;
+    private scrollBarWidth: number;
+    private originBodyWidth: string;
     foundation: UserGuideFoundation;
     userGuideId: string;
 
@@ -107,6 +116,22 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     get adapter(): UserGuideAdapter<UserGuideProps, UserGuideState> {
         return {
             ...super.adapter,
+            disabledBodyScroll: () => {
+                const { getPopupContainer } = this.props;
+                this.bodyOverflow = document.body.style.overflow || '';
+                console.log('getPopupContainer', getPopupContainer, this.bodyOverflow);
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
+                }
+            },
+            enabledBodyScroll: () => {
+                const { getPopupContainer } = this.props;
+                if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
+                    document.body.style.overflow = this.bodyOverflow;
+                    document.body.style.width = this.originBodyWidth;
+                }
+            },
             notifyChange: (current: number) => {
                 this.props.onChange(current);
             },
@@ -145,11 +170,17 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { steps, mode, visible } = this.props;
         const { current } = this.state;
 
-        if (mode === 'popup' && (prevStates.current !== current) && steps[current]) {
+        if (mode === 'popup' && (prevStates.current !== current) && steps[current] || (prevProps.visible !== visible)) {
             this.updateSpotlightRect();
         }
-        if (visible !== prevProps.visible && visible) {
-            this.setState({ current: 0 });
+
+        if (visible !== prevProps.visible) {
+            if (visible) {
+                this.setState({ current: 0 });
+                this.foundation.beforeShow();
+            } else {
+                this.foundation.afterHide();
+            }
         }
     }
 
@@ -157,15 +188,16 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         this.foundation.destroy();
     }
 
+
     updateSpotlightRect() {
-        const { steps } = this.props;
+        const { steps, spotlightPadding } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
         if (step.target) {
             const target = typeof step.target === 'function' ? step.target() : step.target;
             const rect = target?.getBoundingClientRect();
-            const padding = step?.spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
+            const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
 
             const newRects = new DOMRect(
                 rect.x - padding,
@@ -224,7 +256,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                                     onClick={this.foundation.handlePrev}
                                     {...prevButtonProps}
                                 >
-                                    上一步
+                                    {prevButtonProps?.children || '上一步'}
                                 </Button>
                             )}
                             <Button 
@@ -234,7 +266,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                                 onClick={this.foundation.handleNext}
                                 {...nextButtonProps}
                             >
-                                {isLast ? (finishText || '完成') : '下一步'}
+                                {isLast ? (finishText || '完成') : (nextButtonProps?.children || '下一步')}
                             </Button>
                         </div>
                     </div>
@@ -244,7 +276,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderStep = (step: StepItem, index: number) => {
-        const { theme, position, visible, className, style } = this.props;
+        const { theme, position, visible, className, style, spotlightPadding } = this.props;
         const { current } = this.state;
 
         const isCurrentStep = current === index;
@@ -256,7 +288,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
         const target = typeof step.target === 'function' ? step.target() : step.target;
         const rect = target.getBoundingClientRect();
-        const padding = step?.spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
+        const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
         const isPrimaryTheme = theme === 'primary' || step?.theme === 'primary';
         const primaryStyle = isPrimaryTheme ? { backgroundColor: 'var(--semi-color-primary)' } : {};
 
@@ -288,7 +320,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     };
 
     renderSpotlight() {
-        const { steps, mask } = this.props;
+        const { steps, mask, zIndex } = this.props;
         const { spotlightRect, current } = this.state;
         const step = steps[current];
 
@@ -304,7 +336,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             <>
                 {
                     spotlightRect ? (
-                        <svg className={`${prefixCls}-spotlight`}>
+                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex }}>
                             <defs>
                                 <mask id={`spotlight-${this.userGuideId}`}>
                                     <rect width="100%" height="100%" fill="white"/>
@@ -353,7 +385,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
     }
 
     renderModal = () => {
-        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps } = this.props;
+        const { visible, steps, showSkipButton, showPrevButton, finishText, nextButtonProps, prevButtonProps, mask } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
@@ -368,6 +400,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                 header={null}
                 visible={visible}
                 maskClosable={false}
+                mask={mask}
                 footer={null}
             >
                 {cover && 

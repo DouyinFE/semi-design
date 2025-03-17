@@ -81,6 +81,7 @@ $module: #{$prefix}-userGuide;
         .#{$prefix}-modal-content {
             padding: 0;
             width: $width-userGuide_modal_content_cover-default;
+            max-width: fit-content;
         }
 
         &-cover {

@@ -28,7 +28,8 @@ const strings = {
 
 const numbers = {
     DEFAULT_CURRENT: 0,
-    DEFAULT_SPOTLIGHT_PADDING: 10,
+    DEFAULT_SPOTLIGHT_PADDING: 5,
+    DEFAULT_Z_INDEX: 1030,
 };
 
 export { cssClasses, strings, numbers }; 

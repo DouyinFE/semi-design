@@ -1,4 +1,5 @@
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
+import { numbers } from './constants';
 
 export interface UserGuideAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S>{
     notifyChange: (current: number) => void;
@@ -6,7 +7,9 @@ export interface UserGuideAdapter<P = Record<string, any>, S = Record<string, an
     notifyNext: (current: number) => void;
     notifySkip: () => void;
     notifyFinish: () => void;
-    setCurrent: (current: number) => void
+    setCurrent: (current: number) => void;
+    disabledBodyScroll: () => void;
+    enabledBodyScroll: () => void
 }
 
 
@@ -19,6 +22,7 @@ export default class UserGuideFoundation <P = Record<string, any>, S = Record<st
     }
 
     destroy() {
+        this._adapter.enabledBodyScroll();
     }
 
     _notifyChange(current: number): void {
@@ -30,6 +34,24 @@ export default class UserGuideFoundation <P = Record<string, any>, S = Record<st
 
     getIsControlledComponent(): boolean {
         return this._isInProps('current');
+    }
+
+    beforeShow() {
+        this._adapter.disabledBodyScroll();
+    }
+
+    afterHide() {
+        this._adapter.enabledBodyScroll();
+    }
+
+    getFinalPaading() {
+        const { spotlightPadding, steps } = this.getProps();
+        const { current } = this.getStates();
+        const stepPadding = steps[current]?.spotlightPadding;
+        const padding = typeof stepPadding === 'number' ? stepPadding : 
+            typeof spotlightPadding === 'number' ? spotlightPadding : 
+                numbers.DEFAULT_SPOTLIGHT_PADDING;
+        return padding;
     }
 
     handlePrev = () => {
