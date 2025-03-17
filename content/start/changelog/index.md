@@ -13,13 +13,17 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.76.1 (2025-03-17)
+- 【Style】
+    - Style: 对输入类型的组件，insetLabel 和 prefix 的样式保持一致。删除 insetLabel 相关不必要的 token, 增加 $font-cascader_prefix_suffix_fontWeight，$spacing-input_prefix_suffix-marginX，$font-input_prefix_suffix-fontWeight，$font-select_prefix_suffix-fontWeight，$spacing-tagInput_prefix_suffix-marginX，$font-tagInput_prefix_suffix-fontWeight， $font-treeSelect_prefix_suffix_fontWeight 用于管理前后缀字重，外边距。[BUG] 统一 prefix/suffix和insetLabel 的 token [#2752](https://github.com/DouyinFE/semi-design/issues/2752)
+
 #### 🎉 2.76.0 (2025-03-07)
 - 【Fix】
     - 修复 JsonViewer 类型错误问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2748](https://github.com/DouyinFE/semi-design/pull/2748)
 
 #### 🎉 2.76.0-beta.0 (2025-03-04)
 - 【Feat】
-    - Chat 支持 enableUpload API 用于支持用户设置上传行为  [#2735 ](https://github.com/DouyinFE/semi-design/issues/2735) [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
+    - Chat 支持 enableUpload API 用于支持用户设置上传行为  [#2735](https://github.com/DouyinFE/semi-design/issues/2735) [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
     - 允许 RadioGroup options 传入 addonStyles/addonClassName/addonId/extraId 选项至 Radio 组件 [@SaltyfishEd](https://github.com/SaltyfishEd) [#2706](https://github.com/DouyinFE/semi-design/pull/2706)
     - JsonViewe r新增自定义渲染功能 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2676](https://github.com/DouyinFE/semi-design/pull/2676)
 - 【Fix】
