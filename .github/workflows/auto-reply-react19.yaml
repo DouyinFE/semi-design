@@ -18,14 +18,15 @@ jobs:
             const hasKeyword = keywords.some(keyword => 
               issue.title.toLowerCase().includes(keyword.toLowerCase())
             );
-            
 
+            const isLabeledReact19 = issue.labels.some(label => label.name === 'react19');
+            
             const mentionedIssueRegex = /#(\d+)/g;
             const mentionedIssues = [...issue.body.matchAll(mentionedIssueRegex)].map(match => match[1]);
             const importantIssues = ['2743']; // 要监听的issue编号
             const hasMentionedImportantIssue = mentionedIssues.some(num => importantIssues.includes(num));
             
-            if (hasKeyword || hasMentionedImportantIssue) {
+            if (hasKeyword || hasMentionedImportantIssue || isLabeledReact19) {
               github.rest.issues.createComment({
                 issue_number: issue.number,
                 owner: context.repo.owner,
