@@ -12,7 +12,7 @@ brief: Use TailwindCSS and Semi more elegantly
 
 <br/>
 
-This page will provide best practices for some issues encountered when using atomic style libraries such as TailwindCSS with Semi.
+This page will provide best practices for some issues encountered when using atomic style libraries such as TailwindCSS (v3, Tailwind V4 is not supported yet) with Semi.
 
 These problems are often encountered when other component libraries are used with Tailwind, but Semi provides official solutions. It is recommended to follow the instructions in this article to configure the project correctly.
 

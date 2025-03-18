@@ -12,7 +12,7 @@ brief: 更优雅地使用 TailwindCSS 与 Semi
 
 <br/>
 
-本页将提供 TailwindCSS 等原子类样式库与 Semi 共同使用时遇到的一些问题的最佳实践。
+本页将提供 TailwindCSS (v3，tailwind V4 暂未支持) 等原子类样式库与 Semi 共同使用时遇到的一些问题的最佳实践。
 
 这些问题在其他组件库与 Tailwind 共同使用时候也会经常遇到，但 Semi 提供了官方解决方案，建议按照本文说明，正确配置项目。
 
