@@ -32,6 +32,4 @@ jobs:
                 repo: context.repo.repo,
                 body: `感谢您反馈 Semi 在 React 19 下使用的异常问题！我们团队预计将在 2025 年 Q3 进行 React 19 的全面适配与优化工作，目前处于问题收集阶段，您的反馈将在 React 19 适配完成后得到处理，详细信息可参考 [issue](https://github.com/DouyinFE/semi-design/issues/2743)。
                  
-Thank you for your feedback on the abnormal issues when using Semi under React 19! Our team plans to fully adapt and optimize React 19 in Q3 2025. We are currently in the stage of collecting issues. Your feedback will be processed after the adaptation of React 19 is completed. For more information, please refer to [issue](https://github.com/DouyinFE/semi-design/issues/2743).`
-              });
-            }
+Thank you for your feedback on the abnormal issues when using Semi under React 19! Our team plans to fully adapt and optimize React 19 in Q3 2025. We are currently in the stage of collecting issues. Your feedback will be processed after the adaptation of React 19 is completed. For more information, please refer to [issue](https://github.com/DouyinFE/semi-design/issues/2743).`});}
