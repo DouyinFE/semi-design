@@ -3,7 +3,7 @@ localeCode: en-US
 order: 80
 category: Show
 title: UserGuide
-icon: doc-tree
+icon: doc-userGuide
 brief: Used to guide new users through pages
 showNew: true
 ---
@@ -396,7 +396,7 @@ Set by the `mode` property.
 
 ```jsx live=true
 import React from 'react';
-import { UserGuide, Button, Space, Tag, Switch, Image } from '@douyinfe/semi-ui';
+import { UserGuide, Button, Space, Tag, Switch, Image, Typography } from '@douyinfe/semi-ui';
 
 () => {
     const [visible, setVisible] = useState(false);
@@ -410,24 +410,35 @@ import { UserGuide, Button, Space, Tag, Switch, Image } from '@douyinfe/semi-ui'
                 mode="modal"
                 mask={true}
                 visible={visible}
-                // todo: 待替换成清晰图片
                 steps={[
                     {
-                        title: "Beginner's Guide",
-                        description: 'Hello ByteDancer!',
-                        cover: <Image width={'600px'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/image.png" />,
+                        title: 'Welcome to Semi DSM!',
+                        description: <div>You can start from the published theme, or choose {<Typography.Text strong>Create Now</Typography.Text>} to create a new theme</div>,
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_welcome.png"
+                        />,
                         position: 'bottom',
                     },
                     {
-                        // title: 'Switch',
-                        // description: 'This is a Semi Switch',
-                        cover: <Image width={'400px'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg"/>,
+                        title: 'High-available color palette',
+                        description: 'After selecting the main color, our color algorithm will generate a high-available color palette for you',
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_console.png"
+                        />,
                         position: 'bottom',
                     },
                     {
-                        // title: 'Button',
-                        // description: 'This is a Semi Button',
-                        cover: <Image width={'100%'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg" />,
+                        title: 'Customize freely',
+                        description: 'Start customizing your design system!',
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_palette.png" 
+                        />,
                         position: 'bottom',
                     },
                 ]}

@@ -190,6 +190,12 @@ const local: Locale = {
         copied: 'Skopiowano',
         dropAreaText: 'Umieść plik tutaj',
     },
+    UserGuide: {
+        skip: 'Pomiń',
+        next: 'Następny',
+        prev: 'Poprzedni',
+        finish: 'Zakończ',
+    },
 };
 
 export default local;

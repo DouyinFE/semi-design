@@ -182,6 +182,12 @@ const local: Locale = {
         copied: 'Copiat',
         dropAreaText: 'Puneți fișierul aici',
     },
+    UserGuide: {
+        skip: 'Omite',
+        next: 'Următorul',
+        prev: 'Anterior',
+        finish: 'Finalizare',
+    },
 };
 
 // [i18n-Romanian] 罗马尼亚语

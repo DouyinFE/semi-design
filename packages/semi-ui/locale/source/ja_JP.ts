@@ -183,6 +183,12 @@ const local: Locale = {
         copied: 'コピーしました',
         dropAreaText: 'ファイルをここに置いてください',
     },
+    UserGuide: {
+        skip: 'スキップ',
+        next: '次へ',
+        prev: '前へ',
+        finish: '完了',
+    },
 };
 
 // [i18n-Japan]

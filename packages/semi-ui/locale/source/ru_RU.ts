@@ -185,6 +185,12 @@ const local: Locale = {
         copied: 'Скопировано',
         dropAreaText: 'Положите файл здесь',
     },
+    UserGuide: {
+        skip: 'Пропустить',
+        next: 'Следующий',
+        prev: 'Предыдущий',
+        finish: 'Завершить',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

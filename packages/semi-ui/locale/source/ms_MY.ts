@@ -182,6 +182,12 @@ const local: Locale = {
         copied: 'Disalin',
         dropAreaText: 'Letakkan fail di sini',
     },
+    UserGuide: {
+        skip: 'Lewati',
+        next: 'Selanjutnya',
+        prev: 'Sebelumnya',
+        finish: 'Selesai',
+    },
 };
 
 // [i18n-Malaysia(MY)]

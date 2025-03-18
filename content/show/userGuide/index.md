@@ -3,7 +3,7 @@ localeCode: zh-CN
 order: 80
 category: 展示类
 title:  UserGuide 用户引导
-icon: doc-tree
+icon: doc-userGuide
 brief: 用于页面对新用户进行功能引导
 showNew: true
 ---
@@ -396,7 +396,7 @@ import { UserGuide, Button, Space, Tag, Switch } from '@douyinfe/semi-ui';
 
 ```jsx live=true
 import React from 'react';
-import { UserGuide, Button, Space, Tag, Switch, Image } from '@douyinfe/semi-ui';
+import { UserGuide, Button, Space, Tag, Switch, Image, Typography } from '@douyinfe/semi-ui';
 
 () => {
     const [visible, setVisible] = useState(false);
@@ -410,24 +410,35 @@ import { UserGuide, Button, Space, Tag, Switch, Image } from '@douyinfe/semi-ui'
                 mode="modal"
                 mask={true}
                 visible={visible}
-                // todo: 待替换成清晰图片
                 steps={[
                     {
-                        title: '新手引导',
-                        description: 'Hello ByteDancer!',
-                        cover: <Image width={'600px'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/image.png" />,
+                        title: '欢迎使用 Semi DSM!',
+                        description: <div>你可以从已发布的主题出发，或者选择{<Typography.Text strong>立即创造</Typography.Text>}来创造一个新的主题</div>,
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_welcome.png"
+                        />,
                         position: 'bottom',
                     },
                     {
-                        // title: 'Switch',
-                        // description: 'This is a Semi Switch',
-                        cover: <Image width={'400px'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg"/>,
+                        title: '高可用的色盘',
+                        description: '选取主色后，我们的颜色算法会为你生成一套高可用的色盘',
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_console.png"
+                        />,
                         position: 'bottom',
                     },
                     {
-                        // title: 'Button',
-                        // description: 'This is a Semi Button',
-                        cover: <Image width={'100%'} height={'100%'} src="https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/card-cover-docs-demo.jpeg" />,
+                        title: '自由定制',
+                        description: '开始定制属于你的设计系统吧！',
+                        cover: <Image 
+                            width={'600px'} 
+                            height={'100%'} 
+                            src="https://lf9-static.bytednsdoc.com/obj/eden-cn/nuhpxphk/dsm/dsm_palette.png" 
+                        />,
                         position: 'bottom',
                     },
                 ]}

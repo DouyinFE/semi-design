@@ -183,6 +183,12 @@ const local: Locale = {
         copied: '复制成功',
         dropAreaText: '将文件放到这里',
     },
+    UserGuide: {
+        skip: '跳过',
+        next: '下一步',
+        prev: '上一步',
+        finish: '完成',
+    },
 };
 
 // 中文

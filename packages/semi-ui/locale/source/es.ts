@@ -187,6 +187,12 @@ const locale: Locale = {
         copied: 'Copiado',
         dropAreaText: 'Coloca el archivo aquí',
     },
+    UserGuide: {
+        skip: 'Omitir',
+        next: 'Siguiente',
+        prev: 'Anterior',
+        finish: 'Finalizar',
+    },
 };
 
 export default locale;

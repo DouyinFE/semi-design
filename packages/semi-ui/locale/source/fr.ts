@@ -182,6 +182,12 @@ const local: Locale = {
         copied: 'Copié',
         dropAreaText: 'Déposez le fichier ici',
     },
+    UserGuide: {
+        skip: 'Passer',
+        next: 'Suivant',
+        prev: 'Précédent',
+        finish: 'Terminer',
+    },
 };
 
 // [i18n-French]

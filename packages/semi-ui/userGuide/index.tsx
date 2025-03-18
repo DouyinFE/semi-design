@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import cls from 'classnames';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import { cssClasses, numbers, strings } from '@douyinfe/semi-foundation/userGuide/constants';
 import UserGuideFoundation, { UserGuideAdapter } from '@douyinfe/semi-foundation/userGuide/foundation';
 import { Position } from '../tooltip/index';
@@ -13,6 +13,8 @@ import '@douyinfe/semi-foundation/userGuide/userGuide.scss';
 import { BaseProps } from '../_base/baseComponent';
 import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined';
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
+import { Locale } from '../locale/interface';
+import LocaleConsumer from '../locale/localeConsumer';
 
 
 const prefixCls = cssClasses.PREFIX;
@@ -188,14 +190,38 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         this.foundation.destroy();
     }
 
+    scrollTargetIntoViewIfNeeded(target: Element) {
+        if (!target) {
+            return ;
+        }
+        
+        const rect = target.getBoundingClientRect();
+        const isInViewport = 
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+        
+        if (!isInViewport) {
+            target.scrollIntoView({
+                behavior: 'auto',
+                block: 'center'
+            });
 
-    updateSpotlightRect() {
+        }
+    }
+
+
+    async updateSpotlightRect() {
         const { steps, spotlightPadding } = this.props;
         const { current } = this.state;
         const step = steps[current];
 
         if (step.target) {
             const target = typeof step.target === 'function' ? step.target() : step.target;
+            // Checks if the target element is within the viewport, and scrolls it into view if not
+            this.scrollTargetIntoViewIfNeeded(target);
+
             const rect = target?.getBoundingClientRect();
             const padding = step?.spotlightPadding || spotlightPadding || numbers.DEFAULT_SPOTLIGHT_PADDING;
 
@@ -223,55 +249,59 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { cover, title, description } = step;
 
         return (
-            <div className={cls(`${popupPrefixCls}`, {
-                [`${popupPrefixCls}-primary`]: isPrimaryTheme,
-            })}
-            >
-                {cover && <div className={`${popupPrefixCls}-cover`}>{cover}</div>}
-                <div className={`${popupPrefixCls}-body`}>
-                    {title && <div className={`${popupPrefixCls}-title`}>{title}</div>}
-                    {description && <div className={`${popupPrefixCls}-description`}>{description}</div>}
-                    <div className={`${popupPrefixCls}-footer`}>
-                        {steps.length > 1 && (
-                            <div className={`${popupPrefixCls}-indicator`}>
-                                {current + 1}/{steps.length}
+            <LocaleConsumer componentName="UserGuide">
+                {(locale: Locale['UserGuide'], localeCode: Locale['code']) => (
+                    <div className={cls(`${popupPrefixCls}`, {
+                        [`${popupPrefixCls}-primary`]: isPrimaryTheme,
+                    })}
+                    >
+                        {cover && <div className={`${popupPrefixCls}-cover`}>{cover}</div>}
+                        <div className={`${popupPrefixCls}-body`}>
+                            {title && <div className={`${popupPrefixCls}-title`}>{title}</div>}
+                            {description && <div className={`${popupPrefixCls}-description`}>{description}</div>}
+                            <div className={`${popupPrefixCls}-footer`}>
+                                {steps.length > 1 && (
+                                    <div className={`${popupPrefixCls}-indicator`}>
+                                        {current + 1}/{steps.length}
+                                    </div>
+                                )}
+                                <div className={`${popupPrefixCls}-buttons`}>
+                                    {showSkipButton && !isLast && (
+                                        <Button 
+                                            style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
+                                            theme={isPrimaryTheme ? 'solid' : 'light'} 
+                                            type={isPrimaryTheme ? 'primary' : 'tertiary'} 
+                                            onClick={this.foundation.handleSkip}
+                                        >
+                                            {locale.skip}
+                                        </Button>
+                                    )}
+                                    {showPrevButton && !isFirst && (
+                                        <Button 
+                                            style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
+                                            theme={isPrimaryTheme ? 'solid' : 'light'} 
+                                            type={isPrimaryTheme ? 'primary' : 'tertiary'} 
+                                            onClick={this.foundation.handlePrev}
+                                            {...prevButtonProps}
+                                        >
+                                            {prevButtonProps?.children || locale.prev}
+                                        </Button>
+                                    )}
+                                    <Button 
+                                        style={isPrimaryTheme ? { backgroundColor: '#FFF' } : {}}
+                                        theme={isPrimaryTheme ? 'borderless' : 'solid'} 
+                                        type={'primary'} 
+                                        onClick={this.foundation.handleNext}
+                                        {...nextButtonProps}
+                                    >
+                                        {isLast ? (finishText || locale.finish) : (nextButtonProps?.children || locale.next)}
+                                    </Button>
+                                </div>
                             </div>
-                        )}
-                        <div className={`${popupPrefixCls}-buttons`}>
-                            {showSkipButton && !isLast && (
-                                <Button 
-                                    style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
-                                    theme={isPrimaryTheme ? 'solid' : 'light'} 
-                                    type={isPrimaryTheme ? 'primary' : 'tertiary'} 
-                                    onClick={this.foundation.handleSkip}
-                                >
-                                    跳过
-                                </Button>
-                            )}
-                            {showPrevButton && !isFirst && (
-                                <Button 
-                                    style={isPrimaryTheme ? { backgroundColor: 'var(--semi-color-fill-2)' } : {}}
-                                    theme={isPrimaryTheme ? 'solid' : 'light'} 
-                                    type={isPrimaryTheme ? 'primary' : 'tertiary'} 
-                                    onClick={this.foundation.handlePrev}
-                                    {...prevButtonProps}
-                                >
-                                    {prevButtonProps?.children || '上一步'}
-                                </Button>
-                            )}
-                            <Button 
-                                style={isPrimaryTheme ? { backgroundColor: '#FFF' } : {}}
-                                theme={isPrimaryTheme ? 'borderless' : 'solid'} 
-                                type={'primary'} 
-                                onClick={this.foundation.handleNext}
-                                {...nextButtonProps}
-                            >
-                                {isLast ? (finishText || '完成') : (nextButtonProps?.children || '下一步')}
-                            </Button>
                         </div>
                     </div>
-                </div>
-            </div>
+                )}
+            </LocaleConsumer>
         );
     }
 
@@ -394,60 +424,65 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { cover, title, description } = step;
 
         return (
-            <Modal
-                className={cssClasses.PREFIX_MODAL}
-                bodyStyle={{ padding: 0 }}
-                header={null}
-                visible={visible}
-                maskClosable={false}
-                mask={mask}
-                footer={null}
-            >
-                {cover && 
-                    <>
-                        <div className={`${cssClasses.PREFIX_MODAL}-cover`}>
-                            {cover}
-                        </div>
-                        <div className={`${cssClasses.PREFIX_MODAL}-indicator`}>
-                            {this.renderIndicator()}
-                        </div>
-                    </>
-                }
-                {
-                    (title || description) && (
-                        <div className={`${cssClasses.PREFIX_MODAL}-body`}>
-                            {title && <div className={`${cssClasses.PREFIX_MODAL}-body-title`}>{title}</div>}
-                            {description && <div className={`${cssClasses.PREFIX_MODAL}-body-description`}>{description}</div>}
-                        </div>
-                    )
-                }
-                <div className={`${cssClasses.PREFIX_MODAL}-footer`}>
-                    {showSkipButton && !isLast && (
-                        <Button 
-                            type='tertiary'
-                            onClick={this.foundation.handleSkip}
-                        >
-                            跳过
-                        </Button>
-                    )}
-                    {showPrevButton && !isFirst && (
-                        <Button 
-                            type='tertiary'
-                            onClick={this.foundation.handlePrev}
-                            {...prevButtonProps}
-                        >
-                            上一步
-                        </Button>
-                    )}
-                    <Button 
-                        theme='solid'
-                        onClick={this.foundation.handleNext}
-                        {...nextButtonProps}
+            <LocaleConsumer componentName="UserGuide">
+                {(locale: Locale['UserGuide'], localeCode: Locale['code']) => (
+                    <Modal
+                        className={cssClasses.PREFIX_MODAL}
+                        bodyStyle={{ padding: 0 }}
+                        header={null}
+                        visible={visible}
+                        maskClosable={false}
+                        mask={mask}
+                        centered
+                        footer={null}
                     >
-                        {isLast ? (finishText || '完成') : '下一步'}
-                    </Button>
-                </div>
-            </Modal>
+                        {cover && 
+                        <>
+                            <div className={`${cssClasses.PREFIX_MODAL}-cover`}>
+                                {cover}
+                            </div>
+                            <div className={`${cssClasses.PREFIX_MODAL}-indicator`}>
+                                {this.renderIndicator()}
+                            </div>
+                        </>
+                        }
+                        {
+                            (title || description) && (
+                                <div className={`${cssClasses.PREFIX_MODAL}-body`}>
+                                    {title && <div className={`${cssClasses.PREFIX_MODAL}-body-title`}>{title}</div>}
+                                    {description && <div className={`${cssClasses.PREFIX_MODAL}-body-description`}>{description}</div>}
+                                </div>
+                            )
+                        }
+                        <div className={`${cssClasses.PREFIX_MODAL}-footer`}>
+                            {showSkipButton && !isLast && (
+                                <Button 
+                                    type='tertiary'
+                                    onClick={this.foundation.handleSkip}
+                                >
+                                    {locale.skip}
+                                </Button>
+                            )}
+                            {showPrevButton && !isFirst && (
+                                <Button 
+                                    type='tertiary'
+                                    onClick={this.foundation.handlePrev}
+                                    {...prevButtonProps}
+                                >
+                                    {prevButtonProps?.children || locale.prev}
+                                </Button>
+                            )}
+                            <Button 
+                                theme='solid'
+                                onClick={this.foundation.handleNext}
+                                {...nextButtonProps}
+                            >
+                                {isLast ? (finishText || locale.finish) : (nextButtonProps?.children || locale.next)}
+                            </Button>
+                        </div>
+                    </Modal>
+                )}
+            </LocaleConsumer>
         );
 
     }
