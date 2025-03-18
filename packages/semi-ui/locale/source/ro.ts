@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ro',
     dateFnsLocale: ro,
+    currency: 'RON',
     Pagination: {
         pageSize: 'Elemente per pagină: ${pageSize}',
         total: 'Total pagini: ${total}',
@@ -188,6 +189,7 @@ const local: Locale = {
         prev: 'Anterior',
         finish: 'Finalizare',
     },
+    InputNumber: {}
 };
 
 // [i18n-Romanian] 罗马尼亚语

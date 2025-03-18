@@ -7,8 +7,9 @@ import { Locale } from '../interface';
  */
 
 const local: Locale = {
-    code: 'sv_SE',
+    code: 'sv-SE',
     dateFnsLocale: sv, 
+    currency: 'SEK',
     Pagination: {
         pageSize: 'Artiklar per sida: ${pageSize}',
         total: 'Totalt antal sidor: ${total}',
@@ -193,6 +194,7 @@ const local: Locale = {
         prev: 'Föregående',
         finish: 'Slutför',
     },
+    InputNumber: {}
 };
 
 export default local;

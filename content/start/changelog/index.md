@@ -13,21 +13,43 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+
+#### 🎉 2.76.0-beta.0 (2025-03-04)
+- 【Feat】
+    - Chat 支持 enableUpload API 用于支持用户设置上传行为  [#2735 ](https://github.com/DouyinFE/semi-design/issues/2735) [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
+    - 允许 RadioGroup options 传入 addonStyles/addonClassName/addonId/extraId 选项至 Radio 组件 [@SaltyfishEd](https://github.com/SaltyfishEd) [#2706](https://github.com/DouyinFE/semi-design/pull/2706)
+    - JsonViewe r新增自定义渲染功能 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2676](https://github.com/DouyinFE/semi-design/pull/2676)
+- 【Fix】
+    - Nav 新增选择器样式为 renderWrapper 场景提供 hover 样式 [#2691](https://github.com/DouyinFE/semi-design/pull/2691)
+    - 修复 JsonViewer 搜索框弹出位置 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2738](https://github.com/DouyinFE/semi-design/pull/2738)
+    - 修复 TimePicker 在不填默认值的情况下，不同时区用户打开模版选中的默认值不同问题 [#2727](https://github.com/DouyinFE/semi-design/pull/2727)
+    - 修复 Nav.item 传入非建议属性 children 不提示 ts 报错问题 [#2711](https://github.com/DouyinFE/semi-design/pull/2711)
+- 【Style】
+    - 修复在 Chat 组件的对话框操作按钮间隔错误问题（影响版本 2.71.1-2.75.0） [#2739](https://github.com/DouyinFE/semi-design/pull/2739)
+    - 修改 Cascader 默认的空数据展示样式，和 TreeSelect/Select 保持一致  [#2703](https://github.com/DouyinFE/semi-design/issues/2703) [#2725](https://github.com/DouyinFE/semi-design/pull/2725)
+
+
+#### 🎉 2.75.0 (2025-02-21)
+- 【Design Token】
+    - Select 新增 $color-select_prefix_suffix_text-default， Cascader 新增 $color-cascader_prefix_suffix_text-default， TreeSelect 新增 $color-treeSelect_prefix_text-default 用于控制控制前后缀颜色。另外，将前后缀的 font-size 和 font-weight 的设置和 insetLabal的设置保持统一（**注意：修改前后样式有变化**） [#2721](https://github.com/DouyinFE/semi-design/issues/2721)
+- 【Fix】
+    - 修复 Chrome v133 版本无障碍渲染 aria 属性 Bug 导致的点击 DatePicker 月份选择器后 Chrome 崩溃问题 [#2723](https://github.com/DouyinFE/semi-design/pull/2723)
+    - 修复 Resizable 无法在触摸屏使用问题 [#2697](https://github.com/DouyinFE/semi-design/issues/2697) [#2712](https://github.com/DouyinFE/semi-design/pull/2712)
+    - 去除 Typography 中过时 React 语法ReactDOM.render() 的使用，改为其他方式清空用于测试合适省略长度的容器  [#2699](https://github.com/DouyinFE/semi-design/issues/2699)
+    - 修复 Form 使用 formApi.scrollToField时，若页面存在多个 Form，且 Field 同名时，仅可滚动到首个同名 Field DOM 的问题 [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+    - 修复 Form.InputGroup 仅配置 extraText，未配置 extraPosition时，extraText未能正确显示的问题 [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+- 【Chore】
+    - 修复 Form formApi.scrollToError TS 类型定义错误的问题 [#2719](https://github.com/DouyinFE/semi-design/pull/2719)
+
 #### 🎉 2.75.0-beta.1 (2025-02-19)
 - 【Docs】
     - List 组件拖拽 Demo 更新为用 dnd-kit 实现 [#2717](https://github.com/DouyinFE/semi-design/pull/2717)
 - 【Feat】
-    - 在图片墙场景下添加 renderPicClose 用于自定义关闭图标 [#2714](https://github.com/DouyinFE/semi-design/pull/2714)
-    - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704) [#2709](https://github.com/DouyinFE/semi-design/pull/2709)
+    - Upload 在图片墙场景下添加 renderPicClose 用于自定义关闭图标 [#2714](https://github.com/DouyinFE/semi-design/pull/2714)
+    - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704](https://github.com/DouyinFE/semi-design/issues/2704) 
 - 【Fix】
     - 修复 Pagination 的页容量切换器在多语言场景无法切换语言问题  [#2696 ](https://github.com/DouyinFE/semi-design/issues/2696) [#2698](https://github.com/DouyinFE/semi-design/pull/2698)
     - 修复 PinCode 组件 format='number' 情况下，iOS端输入被打断问题（输入一个数字后，自动从数字/字符键盘切换到字母键盘） [@SaltyfishEd](https://github.com/SaltyfishEd) [#2702](https://github.com/DouyinFE/semi-design/pull/2702)
-
-#### 🎉 2.75.0-beta.0 (2025-02-18)
-- 【Feat】
-  - Tree/TreeSelect 支持 expandIcon API 用于自定义展开图标  [#2704 ](https://github.com/DouyinFE/semi-design/issues/2704) [#2709](https://github.com/DouyinFE/semi-design/pull/2709)
-- 【Fix】
-  - 修复 PinCode 组件 format='number' 情况下，iOS端输入被打断问题（输入一个数字后，自动从数字/字符键盘切换到字母键盘） [@SaltyfishEd](https://github.com/SaltyfishEd) [#2702](https://github.com/DouyinFE/semi-design/pull/2702)
 
 #### 🎉 2.74.0 (2025-02-07)
 - 【Fix】
@@ -42,7 +64,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 - 【Feat】
   - Chat 组件支持 markdownRenderProps API，用于设置对话渲染的 MarkdownRender 组件  [#2640 ](https://github.com/DouyinFE/semi-design/issues/2640) [#2679](https://github.com/DouyinFE/semi-design/pull/2679)
 - 【Fix】
-  - 修复JsonViewer输入小写z无效的问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2680](https://github.com/DouyinFE/semi-design/pull/2680)
+  - 修复 JsonViewer 输入小写z无效的问题 [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2680](https://github.com/DouyinFE/semi-design/pull/2680)
 
 #### 🎉 2.73.0 (2025-01-13)
 - 【Fix】

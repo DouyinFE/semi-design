@@ -259,7 +259,7 @@ function Demo() {
 
 ### Override Style
 
-Configure specific styles for the pop-up layer through the `className` and `style` API, such as overriding the default maxWidth (280px)
+Configure specific styles for the pop-up layer through the `className` and `style` API, such as overriding the default maxWidth (240px)
 
 ```jsx live=true
 import React from 'react';

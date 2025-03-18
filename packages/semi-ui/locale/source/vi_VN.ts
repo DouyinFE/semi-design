@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'vi-VN',
     dateFnsLocale: vi,
+    currency: 'VND',
     Pagination: {
         pageSize: 'Số mục mỗi trang: ${pageSize}',
         total: 'Tổng số trang: ${total}',
@@ -191,6 +192,7 @@ const local: Locale = {
         prev: 'Trước đó',
         finish: 'Hoàn tất',
     },
+    InputNumber: {}
 };
 
 // [i18n-Vietnam] 越南语

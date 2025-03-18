@@ -7,7 +7,8 @@ export interface GlobalEvents {
     problemsChanged: IProblemsChangedEvent;
     hoverNode: IHoverNodeEvent;
     renderHoverNode: IRenderHoverNodeEvent;
-    forceRender: undefined
+    forceRender: undefined;
+    customRender: ICustomRenderEvent
 }
 
 interface IRange {
@@ -50,3 +51,9 @@ export interface IHoverNodeEvent {
     value: string;
     target: HTMLElement
 }
+
+export interface ICustomRenderEvent {
+    customRenderMap: ICustomRenderMap
+}
+
+export type ICustomRenderMap = Map<HTMLElement, any>;

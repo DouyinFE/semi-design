@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ja-JP',
     dateFnsLocale: ja,
+    currency: 'JPY',
     Pagination: {
         pageSize: '1ページあたりのアイテム数：${pageSize}',
         total: '合計ページ数：${total}',
@@ -189,6 +190,7 @@ const local: Locale = {
         prev: '前へ',
         finish: '完了',
     },
+    InputNumber: {}
 };
 
 // [i18n-Japan]

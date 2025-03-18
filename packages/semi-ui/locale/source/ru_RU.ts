@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
+    currency: 'RUB',
     Pagination: {
         pageSize: 'Позиции на странице: ${pageSize}',
         total: 'Всего страниц: ${total}',
@@ -191,6 +192,7 @@ const local: Locale = {
         prev: 'Предыдущий',
         finish: 'Завершить',
     },
+    InputNumber: {}
 };
 
 // [i18n-Russia] 俄罗斯语

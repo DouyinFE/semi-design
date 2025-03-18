@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
+    currency: 'SAR',
     Pagination: {
         pageSize: 'العناصر في كل صفحة: ${pageSize}',
         total: 'إجمالي الصفحات: ${total}',
@@ -188,6 +189,7 @@ const local: Locale = {
         prev: 'السابق',
         finish: 'إنهاء',
     },
+    InputNumber: {}
 };
 
 // [i18n-Arabic]

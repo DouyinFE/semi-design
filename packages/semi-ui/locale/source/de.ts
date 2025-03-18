@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'de',
     dateFnsLocale: de,
+    currency: 'EUR',
     Pagination: {
         pageSize: 'Elemente pro Seite: ${pageSize}',
         total: 'Seiten gesamt: ${total}',
@@ -188,6 +189,7 @@ const local: Locale = {
         prev: 'Zurück',
         finish: 'Fertig',
     },
+    InputNumber: {}
 };
 
 // [i18n-German]

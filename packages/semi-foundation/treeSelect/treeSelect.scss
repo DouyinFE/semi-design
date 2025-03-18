@@ -337,6 +337,9 @@ $module: #{$prefix}-tree-select;
         @include all-center;
 
         &-text {
+            color: $color-treeSelect_prefix_suffix_text-default;
+            font-weight: $font-weight-bold;
+            @include font-size-regular;
             margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
         }
 

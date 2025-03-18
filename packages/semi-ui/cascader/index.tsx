@@ -236,6 +236,7 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
     constructor(props: CascaderProps) {
         super(props);
         this.state = {
+            emptyContentMinWidth: null,
             disabledKeys: new Set(),
             isOpen: props.defaultOpen,
             /* By changing rePosKey, the dropdown position can be refreshed */
@@ -342,6 +343,13 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
             ...super.adapter,
             ...filterAdapter,
             ...cascaderAdapter,
+            setEmptyContentMinWidth: minWidth => {
+                this.setState({ emptyContentMinWidth: minWidth });
+            },
+            getTriggerWidth: () => {
+                const el = this.triggerRef.current;
+                return el && el.getBoundingClientRect().width;
+            },
             updateStates: states => {
                 this.setState({ ...states } as CascaderState);
             },
@@ -721,8 +729,10 @@ class Cascader extends BaseComponent<CascaderProps, CascaderState> {
         const searchable = Boolean(filterTreeNode) && isSearching;
         const popoverCls = cls(dropdownClassName, `${prefixcls}-popover`);
         const renderData = this.foundation.getRenderData();
+        const isEmpty = !renderData || !renderData.length;
+        const realDropDownStyle = isEmpty ? {...dropdownStyle, minWidth: this.state.emptyContentMinWidth } : dropdownStyle;
         const content = (
-            <div className={popoverCls} role="listbox" style={dropdownStyle} onKeyDown={this.foundation.handleKeyDown}>
+            <div className={popoverCls} role="listbox" style={realDropDownStyle} onKeyDown={this.foundation.handleKeyDown}>
                 {topSlot}
                 <Item
                     activeKeys={activeKeys}

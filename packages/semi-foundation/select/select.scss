@@ -309,6 +309,9 @@ $overflowList: #{$prefix}-overflow-list;
 
         &-text {
             margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
+            color: $color-select_prefix_suffix_text-default;
+            @include font-size-regular;
+            font-weight: $font-weight-bold;
         }
 
         &-icon {

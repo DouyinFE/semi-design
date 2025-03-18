@@ -3,6 +3,7 @@ import { Locale as dateFnsLocale } from 'date-fns';
 export interface Locale {
     code: string;
     dateFnsLocale: dateFnsLocale;
+    currency: string;
     Pagination: {
         pageSize: string;
         total: string;
@@ -186,5 +187,7 @@ export interface Locale {
         next: string;
         prev: string;
         finish: string
+    };
+    InputNumber: {
     }
 }

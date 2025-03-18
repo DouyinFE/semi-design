@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'tr-TR',
     dateFnsLocale: tr,
+    currency: 'TRY',
     Pagination: {
         page: 'Sayfa',
         pageSize: 'Sayfa başı öğe: ${pageSize}',
@@ -189,6 +190,7 @@ const local: Locale = {
         prev: 'Önceki',
         finish: 'Tamamla',
     },
+    InputNumber: {},
 };
 
 // [i18n-Turkish] 

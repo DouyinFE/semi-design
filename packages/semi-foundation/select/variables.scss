@@ -59,6 +59,8 @@ $color-select_inset_label-text: var(--semi-color-text-2); // 分组选择器菜�
 $color-select_create_tips-text: var(--semi-color-text-2); // 分组选择器菜单项提示文本颜色
 $color-select_group-text: var(--semi-color-text-2); // 分组选择器菜单项分组标题文本颜色
 
+$color-select_prefix_suffix_text-default: var(--semi-color-text-2); // 选择器输入框前后缀文本颜色
+
 // Width/Height
 $width-select_icon_right: ($width-icon-medium + $spacing-tight * 2); // 选择器右侧图标大小
 $height-select_large: $height-control-large; // 选择器输入框高度 - 大尺寸
