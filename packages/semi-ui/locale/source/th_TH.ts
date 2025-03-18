@@ -187,6 +187,12 @@ const local: Locale = {
         copied: 'คัดลอกสำเร็จ',
         dropAreaText: 'วางไฟล์ที่นี่',
     },
+    UserGuide: {
+        skip: 'ข้าม',
+        next: 'ถัดไป',
+        prev: 'ก่อนหน้า',
+        finish: 'สำเร็จ',
+    },
     InputNumber: {}
 };
 

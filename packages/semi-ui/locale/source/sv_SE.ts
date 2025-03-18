@@ -188,6 +188,12 @@ const local: Locale = {
         copied: 'Kopierad',
         dropAreaText: 'Placera filen här',   
     }, 
+    UserGuide: {
+        skip: 'Hoppa över',
+        next: 'Nästa',
+        prev: 'Föregående',
+        finish: 'Slutför',
+    },
     InputNumber: {}
 };
 

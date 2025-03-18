@@ -186,6 +186,12 @@ const local: Locale = {
         copied: 'Скопировано',
         dropAreaText: 'Положите файл здесь',
     },
+    UserGuide: {
+        skip: 'Пропустить',
+        next: 'Следующий',
+        prev: 'Предыдущий',
+        finish: 'Завершить',
+    },
     InputNumber: {}
 };
 

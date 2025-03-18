@@ -184,6 +184,12 @@ const local: Locale = {
         copied: 'Kopyalama başarılı',
         dropAreaText: 'Dosyayı buraya yerleştirin',
     },
+    UserGuide: {
+        skip: 'Atla',
+        next: 'Sonraki',
+        prev: 'Önceki',
+        finish: 'Tamamla',
+    },
     InputNumber: {},
 };
 

@@ -183,6 +183,12 @@ const local: Locale = {
         copied: 'Copied',
         dropAreaText: 'Put the file here',
     },
+    UserGuide: {
+        skip: 'Skip',
+        next: 'Next',
+        prev: 'Prev',
+        finish: 'Finish',
+    },
     InputNumber: {}
 };
 

@@ -182,6 +182,12 @@ export interface Locale {
         copied: string;
         dropAreaText: string
     };
+    UserGuide: {
+        skip: string;
+        next: string;
+        prev: string;
+        finish: string
+    };
     InputNumber: {
     }
 }

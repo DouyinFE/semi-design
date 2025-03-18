@@ -184,6 +184,12 @@ const local: Locale = {
         copied: '복사했습니다',
         dropAreaText: '파일을 여기에 놓으세요',
     },
+    UserGuide: {
+        skip: '건너뛰기',
+        next: '다음',
+        prev: '이전',
+        finish: '완료',
+    },
     InputNumber: {}
 };
 

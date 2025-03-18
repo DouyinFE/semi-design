@@ -183,6 +183,12 @@ const local: Locale = {
         copied: 'Copiat',
         dropAreaText: 'Puneți fișierul aici',
     },
+    UserGuide: {
+        skip: 'Omite',
+        next: 'Următorul',
+        prev: 'Anterior',
+        finish: 'Finalizare',
+    },
     InputNumber: {}
 };
 

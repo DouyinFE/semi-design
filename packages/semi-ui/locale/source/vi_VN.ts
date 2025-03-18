@@ -186,6 +186,12 @@ const local: Locale = {
         copied: 'Đã sao chép',
         dropAreaText: 'Đặt tệp vào đây',
     }, 
+    UserGuide: {
+        skip: 'Bỏ qua',
+        next: 'Tiếp theo',
+        prev: 'Trước đó',
+        finish: 'Hoàn tất',
+    },
     InputNumber: {}
 };
 

@@ -190,6 +190,12 @@ const local: Locale = {
         copied: 'Gekopieerd',
         dropAreaText: 'Plaats het bestand hier',
     },
+    UserGuide: {
+        skip: 'Overslaan',
+        next: 'Volgende',
+        prev: 'Vorige',
+        finish: 'Voltooien',
+    },  
     InputNumber: {}
 };
 
