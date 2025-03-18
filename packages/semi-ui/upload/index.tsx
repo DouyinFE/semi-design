@@ -31,6 +31,7 @@ import type {
     FileItemStatus
 } from '@douyinfe/semi-foundation/upload/foundation';
 import type { ValidateStatus } from '../_base/baseComponent';
+import { ShowTooltip } from '../typography';
 
 const prefixCls = cssClasses.PREFIX;
 
@@ -119,7 +120,8 @@ export interface UploadProps {
     uploadTrigger?: 'auto' | 'custom';
     validateMessage?: ReactNode;
     validateStatus?: ValidateStatus;
-    withCredentials?: boolean
+    withCredentials?: boolean;
+    showTooltip?: boolean | ShowTooltip
 }
 
 export interface UploadState {
@@ -200,6 +202,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         validateMessage: PropTypes.node,
         validateStatus: PropTypes.oneOf<UploadProps['validateStatus']>(strings.VALIDATE_STATUS),
         withCredentials: PropTypes.bool,
+        showTooltip: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
     };
 
     static defaultProps: Partial<UploadProps> = {
@@ -232,6 +235,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
         showUploadList: true,
         uploadTrigger: 'auto' as const,
         withCredentials: false,
+        showTooltip: true,
     };
 
     static FileCard = FileCard;
@@ -424,6 +428,7 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
             onPreviewClick,
             picWidth,
             picHeight,
+            showTooltip,
         } = this.props;
         const onRemove = (): void => this.remove(file);
         const onRetry = (): void => {
@@ -455,7 +460,8 @@ class Upload extends BaseComponent<UploadProps, UploadState> {
                     ? (): void => this.foundation.handlePreviewClick(file)
                     : undefined,
             picWidth,
-            picHeight
+            picHeight,
+            showTooltip,
         };
 
         if (status === strings.FILE_STATUS_UPLOAD_FAIL && !validateMessage) {
