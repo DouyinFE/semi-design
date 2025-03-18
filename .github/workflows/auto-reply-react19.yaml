@@ -2,7 +2,7 @@ name: Automatically reply to React19 related issues
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, labeled]
 
 jobs:
   auto-reply:
