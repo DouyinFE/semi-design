@@ -197,7 +197,6 @@ const local: Locale = {
         prev: 'Poprzedni',
         finish: 'Zakończ',
     },
-    },  
     InputNumber: {}
 };
 
