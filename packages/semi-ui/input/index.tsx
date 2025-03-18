@@ -479,7 +479,7 @@ class Input extends BaseComponent<InputProps, InputState> {
             [`${wrapperPrefix}-hidden`]: type === 'hidden',
             [`${wrapperPrefix}-${size}`]: size,
             [`${prefixCls}-borderless`]: borderless,
-            [`${prefixCls}-only_border`]: onlyBorder!==undefined && onlyBorder!==null,
+            [`${prefixCls}-only_border`]: onlyBorder !== undefined && onlyBorder !== null,
         });
         const inputCls = cls(prefixCls, {
             [`${prefixCls}-${size}`]: size,
@@ -516,7 +516,7 @@ class Input extends BaseComponent<InputProps, InputState> {
         }
 
         let wrapperStyle = { ...style };
-        if (onlyBorder!==undefined) {
+        if (onlyBorder !== undefined) {
             wrapperStyle = {
                 borderWidth: onlyBorder,
                 ...style

@@ -14,12 +14,17 @@ import { IconChevronUp, IconChevronDown } from '@douyinfe/semi-icons';
 import '@douyinfe/semi-foundation/inputNumber/inputNumber.scss';
 import { isNaN, isString, noop } from 'lodash';
 import { ArrayElement } from '../_base/base';
+import LocaleConsumer from '../locale/localeConsumer';
+import { Locale } from '../locale/interface';
 
 export interface InputNumberProps extends InputProps {
     autofocus?: boolean;
     className?: string;
     clearIcon?: React.ReactNode;
+    currency?: string | boolean;
+    currencyDisplay?: 'code' | 'symbol' | 'name';
     defaultValue?: number | string;
+    defaultCurrency?: string;
     disabled?: boolean;
     formatter?: (value: number | string) => string;
     forwardedRef?: React.MutableRefObject<HTMLInputElement> | ((instance: HTMLInputElement) => void);
@@ -28,8 +33,11 @@ export interface InputNumberProps extends InputProps {
     insetLabel?: React.ReactNode;
     insetLabelId?: string;
     keepFocus?: boolean;
+    localeCode?: string;
     max?: number;
     min?: number;
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
     parser?: (value: string) => string;
     precision?: number;
     prefixCls?: string;
@@ -37,6 +45,7 @@ export interface InputNumberProps extends InputProps {
     pressTimeout?: number;
     shiftStep?: number;
     showClear?: boolean;
+    showCurrencySymbol?: boolean;
     size?: ArrayElement<typeof strings.SIZE>;
     step?: number;
     style?: React.CSSProperties;
@@ -82,6 +91,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         pressTimeout: PropTypes.number,
         preventScroll: PropTypes.bool,
         shiftStep: PropTypes.number,
+        showCurrencySymbol: PropTypes.bool,
         step: PropTypes.number,
         style: PropTypes.object,
         suffix: PropTypes.any,
@@ -104,6 +114,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
         pressInterval: numbers.DEFAULT_PRESS_TIMEOUT,
         pressTimeout: numbers.DEFAULT_PRESS_TIMEOUT,
         shiftStep: numbers.DEFAULT_SHIFT_STEP,
+        showCurrencySymbol: true,
         size: strings.DEFAULT_SIZE,
         step: numbers.DEFAULT_STEP,
         onBlur: noop,
@@ -143,6 +154,9 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                     document.removeEventListener(eventName, handler);
                     this.adapter.setCache(eventName, null);
                 }
+            },
+            getInputCharacter: (index: number) => {
+                return this.inputNode.value[index];
             },
             recordCursorPosition: () => {
                 // Record position
@@ -316,7 +330,7 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                         this.foundation.updateStates({ value: valueStr });
                     }
                 } else if (this.foundation.isValidNumber(parsedNum)) {
-                    newValue = this.foundation.doFormat(parsedNum);
+                    newValue = this.foundation.doFormat(parsedNum, true, true);
                     this.foundation.updateStates({ number: parsedNum, value: newValue });
                 } else {
                     // Invalid digital analog blurring effect instead of controlled failure
@@ -325,7 +339,19 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
                 }
             }
             if (newValue && isString(newValue) && newValue !== String(this.props.value)) {
-                this.foundation.notifyChange(newValue, null);
+                if (this.foundation._isCurrency()) {
+                    // 仅在解析后的数值而不是格式化的字符串变化时 notifyChange
+                    // notifyChange only when the parsed value changes, not the formatted string
+                    const parsedNewValue = this.foundation.doParse(newValue);
+                    const parsedPropValue = typeof this.props.value === 'string' ? 
+                        this.foundation.doParse(this.props.value) : this.props.value;
+                    
+                    if (parsedNewValue !== parsedPropValue) {
+                        this.foundation.notifyChange(newValue, null);
+                    }
+                } else {
+                    this.foundation.notifyChange(newValue, null);
+                }
             }
         }
 
@@ -505,7 +531,13 @@ class InputNumber extends BaseComponent<InputNumberProps, InputNumberState> {
 
 export default forwardStatics(
     React.forwardRef<HTMLInputElement, InputNumberProps>(function SemiInputNumber(props, ref) {
-        return <InputNumber {...props} forwardedRef={ref} />;
+        return (
+            <LocaleConsumer<Locale['InputNumber']> componentName="InputNumber">
+                {(locale: Locale['InputNumber'], localeCode: string, dateFnsLocale, currency: string) => (
+                    <InputNumber localeCode={localeCode} defaultCurrency={currency} {...props} forwardedRef={ref}/>
+                )}
+            </LocaleConsumer>
+        );
     }),
     InputNumber
 );

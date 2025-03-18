@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'id-ID',
     dateFnsLocale: id,
+    currency: 'IDR',
     Pagination: {
         pageSize: 'Item per halaman: ${pageSize}',
         total: 'Total halaman: ${total}',
@@ -182,6 +183,7 @@ const local: Locale = {
         copied: 'Disalin',
         dropAreaText: 'Letakkan file di sini',
     },
+    InputNumber: {}
 };
 
 // [i18n-Indonesia(ID)]

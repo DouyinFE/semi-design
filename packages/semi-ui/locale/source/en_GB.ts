@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'en-GB',
     dateFnsLocale: enGB,
+    currency: 'GBP',
     Pagination: {
         pageSize: 'Items per page: ${pageSize}',
         total: 'Total pages: ${total}',
@@ -181,7 +182,8 @@ const local: Locale = {
         copy: 'Copy',
         copied: 'Copied',
         dropAreaText: 'Put the file here',
-    }
+    },
+    InputNumber: {}
 };
 
 // [i18n-English(GB)]

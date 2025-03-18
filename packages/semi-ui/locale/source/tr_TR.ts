@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'tr-TR',
     dateFnsLocale: tr,
+    currency: 'TRY',
     Pagination: {
         page: 'Sayfa',
         pageSize: 'Sayfa başı öğe: ${pageSize}',
@@ -183,6 +184,7 @@ const local: Locale = {
         copied: 'Kopyalama başarılı',
         dropAreaText: 'Dosyayı buraya yerleştirin',
     },
+    InputNumber: {},
 };
 
 // [i18n-Turkish] 

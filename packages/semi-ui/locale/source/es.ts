@@ -9,6 +9,7 @@ import { Locale } from '../interface';
 const locale: Locale = {
     code: 'es',
     dateFnsLocale: es,
+    currency: 'EUR',
     Pagination: {
         pageSize: 'Elementos por página: ${pageSize}',
         total: 'Páginas totales: ${total}',
@@ -187,6 +188,7 @@ const locale: Locale = {
         copied: 'Copiado',
         dropAreaText: 'Coloca el archivo aquí',
     },
+    InputNumber: {}
 };
 
 export default locale;
