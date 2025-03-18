@@ -16,6 +16,23 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.77.0-beta.0 (2025-03-18)
+- 【New component】
+    - support new component UserGuide
+- 【Feat】
+    - InputNumber supports currency mode
+- 【Fix】
+    - fix MarkdownRender table duplicate column elements when header containing more than two components or bold texts [@ByteLan](https://github.com/ByteLan)
+    - Correct locale codes for Netherlands, Poland and Sweden (nl_NL -> nl-NL, pl_PL -> pl-PL, sv_SE -> sv-SE)
+
+#### 🎉 2.76.1 (2025-03-17)
+- 【Style】
+    - Style: For input type components, the styles of insetLabel and prefix remain consistent. Removed unnecessary tokens related to insetLabel, Added $font-cascader_prefix_suffix_fontWeight, $spacing-input_prefix_suffix-marginX, $font-input_prefix_suffix-fontWeight, $font-select_prefix_suffix-fontWeight, $spacing-tagInput_prefix_suffix-marginX, $font-tagInput_prefix_suffix-fontWeight, $font-treeSelect_prefix_suffix_fontWeight to manage prefix and suffix weights and margins.[#2752](https://github.com/DouyinFE/semi-design/issues/2752)
+
+#### 🎉 2.76.0 (2025-03-07)
+- 【Fix】
+    - Fix JsonViewer type error issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2748](https://github.com/DouyinFE/semi-design/pull/2748)
+
 #### 🎉 2.76.0-beta.0 (2025-03-04)
 - 【Feat】
     - Chat supports enableUpload API to support users to set upload behavior  [#2735](https://github.com/DouyinFE/semi-design/issues/2735)

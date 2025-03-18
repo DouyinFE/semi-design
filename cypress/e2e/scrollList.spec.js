@@ -7,22 +7,22 @@ describe('scrollList', () => {
     });
 
     // todo: due to the https://github.com/DouyinFE/semi-design/pull/2723, temporarily skip this test case
-    it.skip('infinite scroll', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=scrolllist--single-scroll-list&args=&viewMode=story');
-        cy.wait(500);
-        cy.get('li[aria-selected="true"]').contains(0);
-        cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('right', { duration: 2000 });
-        cy.wait(1000);
-        cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('top', { duration: 2000 });
-        cy.wait(500);
-        cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('bottom', { duration: 2000 });
-    });
+    // it.skip('infinite scroll', () => {
+    //     cy.visit('http://127.0.0.1:6006/iframe.html?id=scrolllist--single-scroll-list&args=&viewMode=story');
+    //     cy.wait(500);
+    //     cy.get('li[aria-selected="true"]').contains(0);
+    //     cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('right', { duration: 2000 });
+    //     cy.wait(1000);
+    //     cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('top', { duration: 2000 });
+    //     cy.wait(500);
+    //     cy.get('.semi-scrolllist-item-wheel .semi-scrolllist-list-outer').scrollTo('bottom', { duration: 2000 });
+    // });
 
     // todo: due to the https://github.com/DouyinFE/semi-design/pull/2723, temporarily skip this test case
-    it.skip('click option', () => {
-        cy.visit('http://127.0.0.1:6006/iframe.html?id=scrolllist--single-scroll-list&args=&viewMode=story');
-        cy.get('li[aria-selected="true"]').contains(0);
-        cy.get('.semi-scrolllist-list-outer').contains(59).click();
-        cy.get('li[aria-selected="true"]').contains(0);
-    });
+    // it.skip('click options', () => {
+    //     // cy.visit('http://127.0.0.1:6006/iframe.html?id=scrolllist--single-scroll-list&args=&viewMode=story');
+    //     // cy.get('li[aria-selected="true"]').contains(0);
+    //     // cy.get('.semi-scrolllist-list-outer').contains(59).click();
+    //     // cy.get('li[aria-selected="true"]').contains(0);
+    // });
 });

@@ -297,10 +297,10 @@ $module: #{$prefix}-tree-select;
 
     &-inset-label {
         display: inline;
-        margin-right: $spacing-treeSelect_insertLabel-marginRight;
-        font-weight: $font-treeSelect_insertLabel-fontWeight;
+        margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
+        font-weight: $font-treeSelect_prefix_suffix_fontWeight;
         @include font-size-regular;
-        color: $color-treeSelect_insertLabel-text-default;
+        color: $color-treeSelect_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }
@@ -338,7 +338,7 @@ $module: #{$prefix}-tree-select;
 
         &-text {
             color: $color-treeSelect_prefix_suffix_text-default;
-            font-weight: $font-weight-bold;
+            font-weight: $font-treeSelect_prefix_suffix_fontWeight;
             @include font-size-regular;
             margin: $spacing-treeSelect_prefix_text-marginY $spacing-treeSelect_prefix_text-marginX;
         }

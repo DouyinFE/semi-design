@@ -375,7 +375,6 @@ import { InputNumber } from '@douyinfe/semi-ui';
 | formatter    | Specifies the format of the input box to display the value                                      | (value: number\|string) => string | -         |            |
 | hideButtons  | Hide the "up/down" button when passing `true`                                                   | boolean                           | false     | **1.0.0**  |
 | innerButtons  | Show the "up/down" button in input box when passing `true`                                 | boolean                           | false         | **1.5.0** |
-| insetLabel   | Prefix label, lower priority than `prefix`                                                      | string\|ReactNode                 |           |            |
 | keepFocus    | Keep the input box focused when you click the button                                        | boolean                 |     false               | **1.10.0** |
 | localeCode | Used to specify the country code in currency mode. Optional values ​​include `zh-CN`, `en-US`, `en-GB`, `ja-JP`, `ko-KR`, `ar`, `vi-VN`, `ru-RU`, `id-ID`, `ms-MY`, `th-TH`, `tr-TR`, `pt-BR`, `zh-TW`, `es`, `de`, `it`, `fr`, `ro`, `sv-SE`, `pl-PL`, `nl-NL`, etc. | string | - | **2.77.0** |
 | max          | Limit maximum value                                                                             | number                            | Infinity  |            |

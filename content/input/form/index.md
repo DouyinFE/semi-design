@@ -558,12 +558,12 @@ class BasicDemo extends React.Component {
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 12 }}>
                     <Form.Label style={{ marginLeft: 10 }}>切换Label位置:</Form.Label>
-                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{ width: 200 }} insetLabel='labelPosition'>
+                    <Select onChange={this.changeLabelPos} value={labelPosition} style={{ width: 200 }} prefix='labelPosition'>
                         <Select.Option value='top'>top</Select.Option>
                         <Select.Option value='left'>left</Select.Option>
                     </Select>
                     <Form.Label style={{ marginLeft: 10 }}>切换Label文本对齐方向:</Form.Label>
-                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{ width: 200 }} insetLabel='labelAlign'>
+                    <Select onChange={this.changeLabelAlign} value={labelAlign} style={{ width: 200 }} prefix='labelAlign'>
                         <Select.Option value='left'>left</Select.Option>
                         <Select.Option value='right'>right</Select.Option>
                     </Select>
@@ -2019,9 +2019,9 @@ const MyComponent = (props) => {
     };
     return (
         <div className='customField'>
-            <Input insetLabel='名称' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
+            <Input prefix='名称' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
             <Select
-                insetLabel='角色'
+                prefix='角色'
                 value={role}
                 onChange={v => handleChange(v, 'role')}
                 style={{ width: 200 }}

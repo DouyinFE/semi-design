@@ -41,17 +41,6 @@ function Demo() {
 }
 ```
 
-### 带内嵌标签
-
-```jsx live=true
-import React from 'react';
-import { TimePicker } from '@douyinfe/semi-ui';
-
-function Demo() {
-    return <TimePicker insetLabel='时刻'/>;
-}
-```
-
 ### 受控组件
 
 当使用 `value` 而不是 `defaultValue` 时，作为受控组件使用。`value` 和 `onChange` 需要配合使用。
@@ -301,7 +290,6 @@ function Demo(props = {}) {
 | hideDisabledOptions   | 隐藏禁止选择的选项                                                                                                       | boolean                                                                           | false                                                             |            |
 | hourStep              | 小时选项间隔                                                                                                             | number                                                                            | 1                                                                 |            |
 | inputReadOnly         | 设置输入框为只读（避免在移动设备上打开虚拟键盘）                                                                         | boolean                                                                           | false                                                             |            |
-| insetLabel            | 前缀标签，优先级低于 `prefix`                                                                                            | string\|ReactNode                                                                 |                                                                   |            |
 | minuteStep            | 分钟选项间隔                                                                                                             | number                                                                            | 1                                                                 |            |
 | motion                | 是否展示弹出层动画                                                                                                       | boolean                                                                           | true                                                              |            |
 | open                  | 面板是否打开的受控属性                                                                                                   | boolean                                                                           |                                                                   |            |

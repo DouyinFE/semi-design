@@ -2012,9 +2012,9 @@ const MyComponent = (props) => {
     };
     return (
         <div className='customField'>
-            <Input insetLabel='Name' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
+            <Input prefix='Name' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
             <Select
-                insetLabel='Role'
+                prefix='Role'
                 value={role}
                 onChange={v => handleChange(v, 'role')}
                 style={{ width: 200 }}

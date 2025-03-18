@@ -48,16 +48,7 @@ function Demo() {
 }
 ```
 
-### With an Embedded Label
 
-```jsx live=true
-import React from 'react';
-import { DatePicker } from '@douyinfe/semi-ui';
-
-function Demo() {
-    return <DatePicker insetLabel="End date" style={{ width: 240 }} />;
-}
-```
 
 ### Multiple Date Selection
 
@@ -907,7 +898,6 @@ function Demo() {
 | inputReadOnly      | Is the text box readonly                                                                                                                                                                                                                      | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
 | insetInput        | Whether the input box is embedded in the panel. InsetInputProps type supported after v2.29                                                                                                                                                    | boolean  \| <ApiType detail='{ placeholder?: { dateStart?: string; dateEnd?: string; timeStart?: string; timeEnd?: string } }'>InsetInputProps</ApiType>                                                                                                                                                                                                | false                                                                                 | **2.7.0**                          |
 | inputStyle         | Input box style                                                                                                                                                                                                                               | object                                                                                                                                                                                                    |                                                                                       |                           |
-| insetLabel         | Prefix label, lower priority than `prefix`                                                                                                                                                                                                    | string\|ReactNode                                                                                                                                                                                         |                                                                                       |                           |
 | max                | When multiple is set to true, the number of selected, non-pass or value is null\|undefined, unlimited.                                                                                                                                        | number                                                                                                                                                                                                    | -                                                                                     |                           |
 | multiple           | Whether you can choose multiple, only type = "date" is supported                                                                                                                                                                              | boolean                                                                                                                                                                                                   | false                                                                                 |                           |
 | needConfirm        | Do you need to "confirm selection", only `type= "dateTime"\| "dateTimeRange"` works.                                                                                                                                                          | boolean                                                                                                                                                                                                   |                                                                                       | **0.18.0**                |

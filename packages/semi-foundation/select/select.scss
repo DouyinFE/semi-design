@@ -311,7 +311,7 @@ $overflowList: #{$prefix}-overflow-list;
             margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
             color: $color-select_prefix_suffix_text-default;
             @include font-size-regular;
-            font-weight: $font-weight-bold;
+            font-weight: $font-select_prefix_suffix-fontWeight;
         }
 
         &-icon {
@@ -339,10 +339,10 @@ $overflowList: #{$prefix}-overflow-list;
     }
 
     &-inset-label {
-        margin-right: $spacing-base-tight;
-        font-weight: $font-select_inset_label-fontWeight;
+        margin: $spacing-select_prefix_suffix_text-marginY $spacing-select_prefix_suffix_text-marginX;
+        font-weight: $font-select_prefix_suffix-fontWeight;
         @include font-size-regular;
-        color: $color-select_inset_label-text;
+        color: $color-select_prefix_suffix_text-default;
         flex-shrink: 0;
         white-space: nowrap;
     }

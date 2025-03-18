@@ -40,12 +40,6 @@ $module: #{$prefix}-tree-select;
                 }
             }
         }
-    
-        &-inset-label {
-            margin-right: 0;
-            margin-left: $spacing-treeSelect_insertLabel-marginRight;
-        }
-    
         &-prefix,
         &-suffix {
             &.#{$module}-with-suffix {

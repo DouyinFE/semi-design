@@ -37,7 +37,7 @@ $spacing-tagInput_large-Y: 3px; // 大尺寸标签输入框标签顶部外边距
 $spacing-tagInput_wrapper_n_paddingX: $spacing-tight; //标签输入框标签容器水平内边距
 $spacing-tagInput_drag_handler-marginRight: 4px; // 拖拽handler icon的右外边距 
 $spacing-tagInput_tag_icon_paddingLeft: 4px; // tag中有handler icon时tag的左内边距
-$spacing-tagInput_insetLabel-marginRight: $spacing-base-tight; // Form容器中标签输入框内嵌Label的右边距
+$spacing-tagInput_prefix_suffix-marginX: $spacing-base-tight; // 标签输入框 prefix/suffix 水平外边距
 
 $height-tagInput-large: $height-control-large; // 大尺寸标签输入框高度
 $height-tagInput-default: $height-control-default; // 默认尺寸标签输入框高度
@@ -56,4 +56,4 @@ $radius-tagInput: var(--semi-border-radius-small); // 标签输入框圆角
 
 $z-tagInput_drag_item_move: 2000 !default; // 标签输入框中正在拖拽元素的z-index
 
-$font-tagInput_insetLabel-fontWeight: 600; // prefix 文字字重
+$font-tagInput_prefix_suffix-fontWeight: $font-weight-bold; // 标签输入框 prefix/suffix 文字字重
