@@ -15,6 +15,7 @@ import isNullOrUndefined from '@douyinfe/semi-foundation/utils/isNullOrUndefined
 import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import { Locale } from '../locale/interface';
 import LocaleConsumer from '../locale/localeConsumer';
+import { getScrollbarWidth } from '../_utils';
 
 
 const prefixCls = cssClasses.PREFIX;
@@ -112,6 +113,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             current: props.current || numbers.DEFAULT_CURRENT,
             spotlightRect: null,
         };
+        this.scrollBarWidth = 0;
         this.userGuideId = '';
     }
 
@@ -121,7 +123,6 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             disabledBodyScroll: () => {
                 const { getPopupContainer } = this.props;
                 this.bodyOverflow = document.body.style.overflow || '';
-                console.log('getPopupContainer', getPopupContainer, this.bodyOverflow);
                 if (!getPopupContainer && this.bodyOverflow !== 'hidden') {
                     document.body.style.overflow = 'hidden';
                     document.body.style.width = `calc(${this.originBodyWidth || '100%'} - ${this.scrollBarWidth}px)`;
@@ -165,6 +166,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
 
     componentDidMount() {
         this.foundation.init();
+        this.scrollBarWidth = getScrollbarWidth();
         this.userGuideId = getUuidShort();
     }
 
@@ -172,17 +174,17 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
         const { steps, mode, visible } = this.props;
         const { current } = this.state;
 
-        if (mode === 'popup' && (prevStates.current !== current) && steps[current] || (prevProps.visible !== visible)) {
-            this.updateSpotlightRect();
-        }
-
         if (visible !== prevProps.visible) {
             if (visible) {
-                this.setState({ current: 0 });
                 this.foundation.beforeShow();
+                this.setState({ current: 0 });
             } else {
                 this.foundation.afterHide();
             }
+        }
+
+        if (mode === 'popup' && (prevStates.current !== current) && steps[current] || (prevProps.visible !== visible)) {
+            this.updateSpotlightRect();
         }
     }
 

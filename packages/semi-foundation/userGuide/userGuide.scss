@@ -77,6 +77,10 @@ $module: #{$prefix}-userGuide;
 
     &-modal {
 
+        .#{$prefix}-modal-small {
+            width: fit-content;
+        }
+
         // Override the modal's original padding
         .#{$prefix}-modal-content {
             padding: 0;
