@@ -180,7 +180,8 @@ export type SelectProps = {
     children?: React.ReactNode;
     preventScroll?: boolean;
     showRestTagsPopover?: boolean;
-    restTagsPopoverProps?: PopoverProps
+    restTagsPopoverProps?: PopoverProps;
+    popoverProps?: PopoverProps
 } & Pick<
 TooltipProps,
 | 'spacing'
@@ -311,6 +312,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
         onListScroll: PropTypes.func,
         arrowIcon: PropTypes.node,
         preventScroll: PropTypes.bool,
+        popoverProps: PropTypes.object,
         // open: PropTypes.bool,
         // tagClosable: PropTypes.bool,
     };
@@ -1506,6 +1508,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
             spacing,
             stopPropagation,
             dropdownMargin,
+            popoverProps
         } = this.props;
         const { isOpen, optionKey } = this.state;
         const selection = this.renderSelection();
@@ -1529,6 +1532,7 @@ class Select extends BaseComponent<SelectProps, SelectState> {
                 disableArrowKeyDown={true}
                 onVisibleChange={status => this.handlePopoverVisibleChange(status)}
                 afterClose={() => this.foundation.handlePopoverClose()}
+                {...popoverProps}
             >
                 {selection}
             </Popover>
