@@ -2,7 +2,8 @@ import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import { CompileOptions, evaluate, compile, EvaluateOptions, evaluateSync, RunOptions } from '@mdx-js/mdx';
 import { MDXProps } from 'mdx/types';
 import remarkGfm from 'remark-gfm';
-import { type PluggableList } from "@mdx-js/mdx/lib/core";
+import type { PluggableList } from 'unified';
+
 export interface MarkdownRenderAdapter <P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getRuntime: () => any
 
