@@ -14,7 +14,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号-次版本号-修订版本�
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
 #### 🎉 2.77.0-beta.0 (2025-03-18)
-- 【New component】
+- 【New Component】
     - 新增新手引导组件 UserGuide [#2733](https://github.com/DouyinFE/semi-design/pull/2733)
 - 【Feat】
     - InputNumber 支持货币模式 [#2742](https://github.com/DouyinFE/semi-design/pull/2742)

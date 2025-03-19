@@ -17,7 +17,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 ---
 
 #### 🎉 2.77.0-beta.0 (2025-03-18)
-- 【New component】
+- 【New Component】
     - support new component UserGuide
 - 【Feat】
     - InputNumber supports currency mode
