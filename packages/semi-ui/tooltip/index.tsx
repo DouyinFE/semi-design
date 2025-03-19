@@ -90,7 +90,7 @@ export interface TooltipProps extends BaseProps {
     disableFocusListener?: boolean;
     afterClose?: () => void;
     keepDOM?: boolean;
-    enableNativeAnchor: boolean
+    enableNativeAnchor?: boolean
 }
 
 interface TooltipState {
