@@ -15,7 +15,6 @@ import TooltipFoundation, {
     PopupContainerDOMRect
 } from '@douyinfe/semi-foundation/tooltip/foundation';
 import { strings, cssClasses, numbers } from '@douyinfe/semi-foundation/tooltip/constants';
-import { getUuidShort } from '@douyinfe/semi-foundation/utils/uuid';
 import '@douyinfe/semi-foundation/tooltip/tooltip.scss';
 
 import BaseComponent, { BaseProps } from '../_base/baseComponent';
@@ -33,6 +32,7 @@ import TriangleArrow from './TriangleArrow';
 import TriangleArrowVertical from './TriangleArrowVertical';
 import ArrowBoundingShape from './ArrowBoundingShape';
 import CSSAnimation from "../_cssAnimation";
+import { getUuidShort } from "@douyinfe/semi-foundation/utils/uuid";
 
 export type Trigger = ArrayElement<typeof strings.TRIGGER_SET>;
 export type { Position };
@@ -89,7 +89,8 @@ export interface TooltipProps extends BaseProps {
     preventScroll?: boolean;
     disableFocusListener?: boolean;
     afterClose?: () => void;
-    keepDOM?: boolean
+    keepDOM?: boolean;
+    enableNativeAnchor: boolean
 }
 
 interface TooltipState {
@@ -118,7 +119,6 @@ const blockDisplays = ['flex', 'block', 'table', 'flow-root', 'grid'];
 const defaultGetContainer = () => document.body;
 export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
     static contextType = ConfigContext;
-
     static propTypes = {
         children: PropTypes.node,
         motion: PropTypes.bool,
@@ -155,6 +155,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         returnFocusOnClose: PropTypes.bool,
         preventScroll: PropTypes.bool,
         keepDOM: PropTypes.bool,
+        enableNativeAnchor: PropTypes.bool,
+
     };
     static __SemiComponentName__ = "Tooltip";
     static defaultProps = getDefaultPropsFromGlobalConfig(Tooltip.__SemiComponentName__, {
@@ -182,7 +184,8 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
         onEscKeyDown: noop,
         disableFocusListener: false,
         disableArrowKeyDown: false,
-        keepDOM: false
+        keepDOM: false,
+        enableNativeAnchor: false
     });
 
     eventManager: Event;
@@ -649,7 +652,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             [`${prefixCls}-rtl`]: direction === 'rtl',
         });
         const icon = this.renderIcon();
-        const portalInnerStyle = omit(containerStyle, motion ? ['transformOrigin'] : undefined);
+        const portalInnerStyle = omit(this.props.enableNativeAnchor ? this.foundation.getNativeAnchorStyle() : containerStyle, motion ? ['transformOrigin'] : undefined) as CSSProperties;
         const transformOrigin = get(containerStyle, 'transformOrigin');
         const userOpacity: CSSProperties['opacity'] | null = get(style, 'opacity', null);
         const opacity = userOpacity ? userOpacity : 1;
@@ -755,7 +758,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
 
     render() {
         const { isInsert, triggerEventSet, visible, id } = this.state;
-        const { wrapWhenSpecial, role, trigger } = this.props;
+        const { wrapWhenSpecial, role, trigger, enableNativeAnchor } = this.props;
         let { children } = this.props;
         const childrenStyle = { ...get(children, 'props.style') as React.CSSProperties };
         const extraStyle: React.CSSProperties = {};
@@ -800,6 +803,7 @@ export default class Tooltip extends BaseComponent<TooltipProps, TooltipState> {
             ...this.mergeEvents((children as React.ReactElement).props, triggerEventSet),
             style: {
                 ...get(children, 'props.style') as React.CSSProperties,
+                anchorName: enableNativeAnchor ? this.foundation.anchorName : undefined,
                 ...extraStyle,
             },
             className: classNames(

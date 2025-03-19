@@ -1712,3 +1712,13 @@ export const ViewportPrioritJudgment = () => {
     </div>
   )
 }
+
+export const NativeAnchor = ()=>{
+    return <div>
+        <Tooltip content={"hi bytedance"} visible={true} trigger={"custom"} position='bottom' enableNativeAnchor={true}>
+            <Button theme="solid" type="tertiary" style={{ marginBottom: 20, marginTop: 200,marginLeft:"500px" }}>
+                悬停显示
+            </Button>
+        </Tooltip>
+    </div>
+}
