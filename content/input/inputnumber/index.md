@@ -325,8 +325,30 @@ import { InputNumber } from '@douyinfe/semi-ui';
             <InputNumber currency="CNY" currencyDisplay="name" defaultValue={defaultValue} />
             <br />
             <br />
-            <div>隐藏货币符号/代码/名称的展示</div>
-            <InputNumber currency="CNY" currencyDisplay="name" defaultValue={defaultValue} showCurrencySymbol={false}/>
+        </div>
+    );
+};
+```
+
+隐藏货币符号、代码或名称的展示，通过前后缀展示货币符号
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';    
+
+() => {
+    const defaultValue = 123456.78;
+    return (
+        <div>
+            <div>🇨🇳 CNY ➕ code</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="CNY" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ symbol</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="￥" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ name</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" suffix="人民币" showCurrencySymbol={false} defaultValue={defaultValue} />
             <br />
             <br />
         </div>

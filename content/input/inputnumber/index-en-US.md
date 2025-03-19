@@ -361,6 +361,32 @@ import { InputNumber } from '@douyinfe/semi-ui';
 };
 ```
 
+Hide the display of currency symbols/codes/names, and display the currency symbol through the prefix/suffix
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';    
+
+() => {
+    const defaultValue = 123456.78;
+    return (
+        <div>
+            <div>🇨🇳 CNY ➕ code</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="CNY" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ symbol</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="￥" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ name</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" suffix="人民币" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+        </div>
+    );
+};
+```
+
 ## API Reference
 
 | Properties   | Instructions                                                                                    | type                              | Default   | Version    |
