@@ -13,7 +13,9 @@ export const BasicUsage = () => {
         <div>
             <Space spacing='medium'>
                 <Switch id={'step-1'} defaultChecked={true}/>     
-                <Button id={'step-2'} type="secondary">次要</Button>
+                <Button id={'step-2'} type="secondary" onClick={() => {
+                    console.log('次要')
+                }}>次要</Button>
                 <Button id={'step-3'} type="tertiary">第三</Button>
                 <Button id={'step-4'} type="warning">警告</Button>
             </Space>

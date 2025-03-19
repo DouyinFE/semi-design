@@ -343,7 +343,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                         top: rect.y - padding,
                         width: rect.width + padding * 2,
                         height: rect.height + padding * 2,
-                        pointerEvents: 'none',
+                        pointerEvents: isCurrentStep ? 'auto' : 'none'
                     }}
                 >
                 </div>
@@ -368,7 +368,7 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
             <>
                 {
                     spotlightRect ? (
-                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex }}>
+                        <svg className={`${prefixCls}-spotlight`} style={{ zIndex, pointerEvents: 'auto' }}>
                             <defs>
                                 <mask id={`spotlight-${this.userGuideId}`}>
                                     <rect width="100%" height="100%" fill="white"/>
