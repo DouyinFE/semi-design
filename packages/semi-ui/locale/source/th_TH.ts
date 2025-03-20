@@ -193,7 +193,12 @@ const local: Locale = {
         prev: 'ก่อนหน้า',
         finish: 'สำเร็จ',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'ค้นหา',
+        replace: 'แทนที่',
+        replaceAll: 'แทนที่ทั้งหมด',
+    },
 };
 
 // [i18n-Thai]

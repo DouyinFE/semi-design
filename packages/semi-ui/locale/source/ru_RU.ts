@@ -192,7 +192,12 @@ const local: Locale = {
         prev: 'Предыдущий',
         finish: 'Завершить',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Поиск',
+        replace: 'Заменить',
+        replaceAll: 'Заменить все',
+    },
 };
 
 // [i18n-Russia] 俄罗斯语

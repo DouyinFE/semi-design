@@ -190,7 +190,12 @@ const local: Locale = {
         prev: '上一步',
         finish: '完成',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: '查找',
+        replace: '替换',
+        replaceAll: '全部替换',
+    },
 };
 
 // 中文

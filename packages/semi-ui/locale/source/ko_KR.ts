@@ -190,7 +190,12 @@ const local: Locale = {
         prev: '이전',
         finish: '완료',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: '검색',
+        replace: '교체',
+        replaceAll: '모두 교체',
+    },
 };
 
 // [i18n-Korea]

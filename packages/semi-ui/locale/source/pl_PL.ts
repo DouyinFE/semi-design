@@ -197,7 +197,12 @@ const local: Locale = {
         prev: 'Poprzedni',
         finish: 'Zakończ',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Szukaj',
+        replace: 'Zastąp',
+        replaceAll: 'Zastąp wszystko',
+    },
 };
 
 export default local;

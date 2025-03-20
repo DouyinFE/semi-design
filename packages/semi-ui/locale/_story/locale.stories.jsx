@@ -21,7 +21,8 @@ import {
     Image,
     Form,
     Nav,
-    InputNumber
+    InputNumber,
+    JsonViewer
 } from '../../index';
 
 import zh_CN from '@douyinfe/semi-ui/locale/source/zh_CN';
@@ -485,6 +486,11 @@ const I18nComponent2 = (props) => {
                     collapseButton: true,
                 }}
             />
+            <h5>JsonViewer</h5>
+            <JsonViewer height={100} width={700} value={`{
+                "name": "Semi",
+                "version": "0.0.0"
+            }`} />
         </>
     );
 };
