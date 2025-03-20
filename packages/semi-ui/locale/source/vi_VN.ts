@@ -192,7 +192,12 @@ const local: Locale = {
         prev: 'Trước đó',
         finish: 'Hoàn tất',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Tìm kiếm',
+        replace: 'Thay thế',
+        replaceAll: 'Thay thế tất cả',
+    },
 };
 
 // [i18n-Vietnam] 越南语

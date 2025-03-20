@@ -189,7 +189,12 @@ const local: Locale = {
         prev: 'Anterior',
         finish: 'Finalizare',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Căutare',
+        replace: 'Înlocuiește',
+        replaceAll: 'Înlocuiește toate',
+    },
 };
 
 // [i18n-Romanian] 罗马尼亚语

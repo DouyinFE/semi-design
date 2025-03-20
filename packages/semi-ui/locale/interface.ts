@@ -189,5 +189,10 @@ export interface Locale {
         finish: string
     };
     InputNumber: {
+    };
+    JsonViewer: {
+        search: string;
+        replace: string;
+        replaceAll: string
     }
 }

@@ -197,7 +197,12 @@ const local: Locale = {
         prev: 'Anterior',
         finish: 'Finalizar',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Pesquisar',
+        replace: 'Substituir',
+        replaceAll: 'Substituir tudo',
+    },
 };
 
 // 葡萄牙语

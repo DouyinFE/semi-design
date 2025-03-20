@@ -189,7 +189,12 @@ const local: Locale = {
         prev: 'Sebelumnya',
         finish: 'Selesai',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Cari',
+        replace: 'Ganti',
+        replaceAll: 'Ganti Semua',
+    },
 };
 
 // [i18n-Malaysia(MY)]

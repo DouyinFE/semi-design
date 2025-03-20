@@ -189,7 +189,12 @@ const local: Locale = {
         prev: 'Prev',
         finish: 'Finish',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Search',
+        replace: 'Replace',
+        replaceAll: 'Replace All',
+    },
 };
 
 // [i18n-English(GB)]
