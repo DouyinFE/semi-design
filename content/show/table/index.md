@@ -17,7 +17,7 @@ brief: 表格用于呈现结构化的数据内容，通常会伴随提供对数�
 
 ```jsx import
 import React from 'react';
-import { Table } from '@douyinfe/semi-ui';
+import { Table, Tag } from '@douyinfe/semi-ui';
 
 function App() {
     const columns = [
@@ -83,8 +83,8 @@ function App() {
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table, Avatar } from '@douyinfe/semi-ui';
-import { IconMore } from '@douyinfe/semi-icons';
+import { Table, Avatar, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear } from '@douyinfe/semi-icons';
 
 function App() {
     const columns = [
@@ -119,7 +119,7 @@ function App() {
                     wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
                 };
                 const tagProps = tagConfig[text];
-                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
             }
         },
         {
@@ -149,7 +149,7 @@ function App() {
         },
     ];
     const data = [
-         {
+        {
             key: '1',
             name: 'Semi Design 设计稿.fig',
             nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png',
@@ -285,8 +285,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table, Avatar } from '@douyinfe/semi-ui';
-import { IconMore } from '@douyinfe/semi-icons';
+import { Table, Avatar, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear } from '@douyinfe/semi-icons';
 
 function App() {
     const [selectedKeys, setSelectedKeys] = useState([]);
@@ -324,7 +324,7 @@ function App() {
                     wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
                 };
                 const tagProps = tagConfig[text];
-                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
             }
         },
         {
@@ -453,8 +453,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
-import { Table, Avatar, Button, Empty, Typography } from '@douyinfe/semi-ui';
-import { IconDelete } from '@douyinfe/semi-icons';
+import { Table, Avatar, Button, Empty, Typography, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import { IllustrationNoResult, IllustrationNoResultDark } from '@douyinfe/semi-illustrations';
 const { Text } = Typography;
 
@@ -491,7 +491,7 @@ const raw = [
     },
     {
         key: '4',
-        name: 'Semi D2C 设计文档可能也有点长所以也会显示Tooltip',
+        name: 'Semi D2C 设计文档可能也有点长所以也会显示 Tooltip',
         nameIconSrc: 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png',
         size: '34KB',
         status: 'success',
@@ -557,7 +557,7 @@ function App() {
                     wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
                 };
                 const tagProps = tagConfig[text];
-                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
             }
         },
         {
@@ -626,7 +626,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
-import { Table, Avatar } from '@douyinfe/semi-ui';
+import { Table, Avatar, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';
 
 const figmaIconUrl = 'https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png';
@@ -671,7 +672,7 @@ const columns = [
                 wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
             };
             const tagProps = tagConfig[text] || {};
-            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
         }
     },
     {
@@ -757,7 +758,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
-import { Table, Avatar } from '@douyinfe/semi-ui';
+import { Table, Avatar, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -805,7 +807,7 @@ const columns = [
                 wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
             };
             const tagProps = tagConfig[text] || {};
-            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
         }
     },
     {
@@ -902,9 +904,9 @@ render(App);
 
 可以通过设置 column 的 `fixed` 属性以及 `scroll.x` 来进行列固定，通过设置 `scroll.y` 来进行表头固定。
 
-如果是固定值，设置为 >=所有固定列宽之和+所有表格列宽之和 的数值。
+如果是固定值，设置为 >=所有固定列宽之和 + 所有表格列宽之和 的数值。
 
-> -   建议指定 `scroll.x` 为大于表格宽度的**固定值**或百分比。 如果是固定值，设置为 `>=所有固定列宽之和+所有表格列宽之和` 的数值。
+> -   建议指定 `scroll.x` 为大于表格宽度的**固定值**或百分比。如果是固定值，设置为 `>=所有固定列宽之和+所有表格列宽之和` 的数值。
 > -   若列头与内容不对齐或出现列重复或者固定列失效的情况，请指定固定列的宽度 `width`，若指定宽度后仍不生效，请尝试建议留一列不设宽度以适应弹性布局，或者检查是否有超长连续字段破坏布局。
 > -   请确保表格内部的所有元素在渲染后不会对单元格的高度造成影响（例如含有未加载完成的图片等），这种情况下请给定子元素一个确定的高度，以此确保左右固定列单元格不会错乱。
 
@@ -1181,7 +1183,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useMemo } from 'react';
-import { Table, Avatar } from '@douyinfe/semi-ui';
+import { Table, Avatar, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -1229,7 +1232,7 @@ const columns = [
                 wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
             };
             const tagProps = tagConfig[text];
-            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+            return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
         }
     },
     {
@@ -1283,7 +1286,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 设计稿${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
-                status:  isSemiDesign ? 'success' : 'wait',
+                status: isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date().valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -1394,7 +1397,7 @@ function App() {
         },
         {
             key: '3',
-            name: '设计文档3',
+            name: '设计文档 3',
             nameIconSrc: docIconUrl,
             size: 1,
             owner: 'Zoey Edwards',
@@ -1403,7 +1406,7 @@ function App() {
         },
         {
             key: '4',
-            name: '设计文档4',
+            name: '设计文档 4',
             nameIconSrc: docIconUrl,
             size: 5,
             owner: 'Zoey Edwards',
@@ -1412,7 +1415,7 @@ function App() {
         },
         {
             key: '5',
-            name: '设计文档5',
+            name: '设计文档 5',
             nameIconSrc: docIconUrl,
             size: undefined,
             owner: 'Zoey Edwards',
@@ -1421,7 +1424,7 @@ function App() {
         },
         {
             key: '6',
-            name: '设计文档6',
+            name: '设计文档 6',
             nameIconSrc: docIconUrl,
             size: 2,
             owner: 'Zoey Edwards',
@@ -1442,7 +1445,8 @@ render(App);
 
 ```jsx live=true noInline=true dir="column"
 import React, { useState, useEffect, useRef } from 'react';
-import { Table, Avatar, Input, Space } from '@douyinfe/semi-ui';
+import { Table, Avatar, Input, Space, Tag } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';
 
 function App() {
@@ -1517,7 +1521,7 @@ function App() {
                     wait: { color: 'cyan', prefixIcon: <IconComment />, text: '待评审' },
                 };
                 const tagProps = tagConfig[text];
-                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>
+                return <Tag shape='circle' {...tagProps} style={{ userSelect: 'text' }}>{tagProps.text}</Tag>;
             }
         },
         {
@@ -1554,7 +1558,7 @@ function App() {
                 name: isSemiDesign ? `Semi Design 设计稿${i}.fig` : `Semi D2C 首页${i}.fig`,
                 owner: isSemiDesign ? '姜鹏志' : '郝宣',
                 size: randomNumber,
-                status:  isSemiDesign ? 'success' : 'wait',
+                status: isSemiDesign ? 'success' : 'wait',
                 updateTime: new Date('2024-01-25').valueOf() + randomNumber * DAY,
                 avatarBg: isSemiDesign ? 'grey' : 'red',
             });
@@ -1641,8 +1645,8 @@ function App() {
                     <Space vertical align='start' style={{ padding: 8 }}>
                         <Input ref={inputRef} value={tempFilteredValue[0]} onChange={handleChange}/>
                         <Space>
-                            <Button onClick={() => confirm({ closeDropdown: true })}>筛选+关闭</Button>
-                            <Button onClick={() => clear({ closeDropdown: true })}>清除+关闭</Button>
+                            <Button onClick={() => confirm({ closeDropdown: true })}>筛选 + 关闭</Button>
+                            <Button onClick={() => clear({ closeDropdown: true })}>清除 + 关闭</Button>
                             <Button onClick={() => close()}>直接关闭</Button>
                         </Space>
                     </Space>
@@ -1871,7 +1875,7 @@ render(App);
 ### 可以展开的表格
 
 <Notice type="primary" title="注意事项">
-    <div>1. 自 0.27.0版本后，展开按钮会默认与第一列文案渲染在同一个单元格内，你可以通过往 Table 传入 hideExpandedColumn=false 将展开按钮单独作为一列渲染；</div>
+    <div>1. 自 0.27.0 版本后，展开按钮会默认与第一列文案渲染在同一个单元格内，你可以通过往 Table 传入 hideExpandedColumn=false 将展开按钮单独作为一列渲染；</div>
     <div>2. 请务必为每行数据提供一个与其他行值不同的 key，或者使用 rowKey 参数指定一个作为主键的属性名。</div>
 </Notice>
 
@@ -1965,22 +1969,22 @@ const data = [
 const expandData = {
     '0': [
         { key: '实际用户数量', value: '1,480,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '3级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '3 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>设计</Tag> },
         { key: '认证状态', value: '未认证' },
     ],
     '1': [
         { key: '实际用户数量', value: '2,480,000' },
-        { key: '7天留存', value: '90%' },
-        { key: '安全等级', value: '1级' },
+        { key: '7 天留存', value: '90%' },
+        { key: '安全等级', value: '1 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>模板</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
     '2': [
         { key: '实际用户数量', value: '2,920,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '2级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '2 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>文档</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
@@ -2111,22 +2115,22 @@ const data = [
 const expandData = {
     '0': [
         { key: '实际用户数量', value: '1,480,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '3级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '3 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>设计</Tag> },
         { key: '认证状态', value: '未认证' },
     ],
     '1': [
         { key: '实际用户数量', value: '2,480,000' },
-        { key: '7天留存', value: '90%' },
-        { key: '安全等级', value: '1级' },
+        { key: '7 天留存', value: '90%' },
+        { key: '安全等级', value: '1 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>模板</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
     '2': [
         { key: '实际用户数量', value: '2,920,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '2级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '2 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>文档</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
@@ -2258,22 +2262,22 @@ const data = [
 const expandData = {
     '0': [
         { key: '实际用户数量', value: '1,480,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '3级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '3 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>设计</Tag> },
         { key: '认证状态', value: '未认证' },
     ],
     '1': [
         { key: '实际用户数量', value: '2,480,000' },
-        { key: '7天留存', value: '90%' },
-        { key: '安全等级', value: '1级' },
+        { key: '7 天留存', value: '90%' },
+        { key: '安全等级', value: '1 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>模板</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
     '2': [
         { key: '实际用户数量', value: '2,920,000' },
-        { key: '7天留存', value: '98%' },
-        { key: '安全等级', value: '2级' },
+        { key: '7 天留存', value: '98%' },
+        { key: '安全等级', value: '2 级' },
         { key: '垂类标签', value: <Tag style={{ margin: 0 }}>文档</Tag> },
         { key: '认证状态', value: '已认证' },
     ],
@@ -3133,6 +3137,264 @@ function App() {
 render(App);
 ```
 
+### 实现表头样式定制
+可以通过 Column.onHeaderCell 返回特定 style 或 className，定制表头的样式  
+如下例子，通过传入 backgroundColor 改变了表头背景色
+
+```jsx live=true noInline=true dir="column"
+import React from "react";
+import { Table, Avatar } from "@douyinfe/semi-ui";
+import { IconMore } from "@douyinfe/semi-icons";
+
+function App() {
+    const onHeaderCell = () => ({
+        style: {
+            backgroundColor: "var(--semi-color-fill-0)",
+        },
+    });
+    const columns = [
+        {
+            title: "标题",
+            dataIndex: "name",
+            width: 280,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: "大小",
+            width: 100,
+            dataIndex: "size",
+        },
+        {
+            title: "所有者",
+            dataIndex: "owner",
+            width: 200,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar
+                            size="small"
+                            color={record.avatarBg}
+                            style={{ marginRight: 4 }}
+                        >
+                            {typeof text === "string" && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: "更新日期",
+            width: 300,
+            dataIndex: "updateTime",
+        },
+        {
+            title: "",
+            dataIndex: "operate",
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+
+    columns.forEach((item) => (item.onHeaderCell = onHeaderCell));
+    const data = [
+        {
+            key: "1",
+            name: "Semi Design 设计稿.fig",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png",
+            size: "2M",
+            owner: "姜鹏志",
+            updateTime: "2020-02-02 05:13",
+            avatarBg: "grey",
+        },
+        {
+            key: "2",
+            name: "Semi Design 分享演示文稿",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png",
+            size: "2M",
+            owner: "郝宣",
+            updateTime: "2020-01-17 05:31",
+            avatarBg: "red",
+        },
+        {
+            key: "3",
+            name: "设计文档",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png",
+            size: "34KB",
+            owner: "Zoey Edwards",
+            updateTime: "2020-01-26 11:01",
+            avatarBg: "light-blue",
+        },
+    ];
+
+    return (
+        <>
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+            />
+        </>
+    );
+}
+
+render(App);
+```
+
+
+
+### 实现单元格 Hover 样式定制
+
+Table 默认为整行配置 Hover 样式，如果你需要修改相关样式可以通过 CSS 覆盖的方式自行实现。  
+如下例子，通过 CSS 覆盖，将可 Hover 的背景色或者由行高亮改为 Cell 单元格高亮  
+```css
+.component-table-demo-cell-hover-custom {
+  .semi-table-tbody {
+    // remove origin style of row hover
+    .semi-table-row:hover {
+      .semi-table-row-cell {
+        background-color: transparent;
+        background-image: none;
+        &.semi-table-cell-fixed-left::before {
+          background-color: transparent;
+        }
+      }
+      // add style of single cell
+      .semi-table-row-cell:hover {
+        background-color: rgba(var(--semi-light-green-1), 1);
+      }
+    }
+  }
+}
+```
+
+
+```jsx live=true noInline=true dir="column"
+import React from "react";
+import { Table, Avatar } from "@douyinfe/semi-ui";
+import { IconMore } from "@douyinfe/semi-icons";
+
+function App() {
+    const columns = [
+        {
+            title: "标题",
+            dataIndex: "name",
+            // fixed: true,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar
+                            size="small"
+                            shape="square"
+                            src={record.nameIconSrc}
+                            style={{ marginRight: 12 }}
+                        ></Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: "大小",
+            width: 100,
+            dataIndex: "size",
+        },
+        {
+            title: "所有者",
+            dataIndex: "owner",
+            width: 200,
+            render: (text, record, index) => {
+                return (
+                    <div>
+                        <Avatar
+                            size="small"
+                            color={record.avatarBg}
+                            style={{ marginRight: 4 }}
+                        >
+                            {typeof text === "string" && text.slice(0, 1)}
+                        </Avatar>
+                        {text}
+                    </div>
+                );
+            },
+        },
+        {
+            title: "更新日期",
+            width: 300,
+            dataIndex: "updateTime",
+        },
+        {
+            title: "",
+            dataIndex: "operate",
+            render: () => {
+                return <IconMore />;
+            },
+        },
+    ];
+    const data = [
+        {
+            key: "1",
+            name: "Semi Design 设计稿.fig",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/figma-icon.png",
+            size: "2M",
+            owner: "姜鹏志",
+            updateTime: "2020-02-02 05:13",
+            avatarBg: "grey",
+        },
+        {
+            key: "2",
+            name: "Semi Design 分享演示文稿",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png",
+            size: "2M",
+            owner: "郝宣",
+            updateTime: "2020-01-17 05:31",
+            avatarBg: "red",
+        },
+        {
+            key: "3",
+            name: "设计文档",
+            nameIconSrc:
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/docs-icon.png",
+            size: "34KB",
+            owner: "Zoey Edwards",
+            updateTime: "2020-01-26 11:01",
+            avatarBg: "light-blue",
+        },
+    ];
+
+    return (
+        <>
+            <Table
+                columns={columns}
+                dataSource={data}
+                className="component-table-demo-cell-hover-custom"
+                pagination={false}
+            />
+        </>
+    );
+}
+
+render(App);
+```
+
 ### 单元格缩略
 
 使用 `ellipsis` 可以让单元格自动实现缩略效果。v2.34.0 支持。
@@ -3249,7 +3511,7 @@ function App() {
 render(App);
 ```
 
-设置 `ellipsis.showTitle` 为 false 可以隐藏默认原生的 HTML title。 配合 `column.render` 可以自定义内容提示。
+设置 `ellipsis.showTitle` 为 false 可以隐藏默认原生的 HTML title。配合 `column.render` 可以自定义内容提示。
 
 ```jsx live=true noInline=true dir="column"
 import React from 'react';
@@ -3386,6 +3648,7 @@ render(App);
 ```jsx live=true noInline=true dir="column"
 import React, { useMemo } from 'react';
 import { Table, Avatar } from '@douyinfe/semi-ui';
+import { IconMore, IconTickCircle, IconComment, IconClear, IconDelete } from '@douyinfe/semi-icons';
 import * as dateFns from 'date-fns';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -3931,12 +4194,12 @@ render(Demo);
 
 虚拟化可用于需要渲染大规模数据的场景，通过配置 `virtualized` 参数来开启这个功能。需要注意的是：
 
--   必须传递 `scroll.y`（number） 与 `style.width`（number）；
+-   必须传递 `scroll.y`（number）与 `style.width`（number）；
 -   需要传递每行的高度 `virtualized.itemSize`（不传时普通行高默认为 `56`，组头行高默认为 `56`），可以为如下类型：
     -   `number`
     -   `(index, { sectionRow?: boolean, expandedRow?: boolean }) => number`
 -   表格分组虚拟化需要版本 >= `0.37.0`
--   Semi Table 底层借助了 `react-window` 的能力来实现虚拟化，因此 `react-window` `VariableSizeList` 所支持的其他参数也可以通过 `virtualized`(object)传入，例如 `overscanCount`
+-   Semi Table 底层借助了 `react-window` 的能力来实现虚拟化，因此 `react-window` `VariableSizeList` 所支持的其他参数也可以通过 `virtualized`(object) 传入，例如 `overscanCount`
 -   如果需要使用 `VariableSizeList` 的 API，可以传入`getVirtualizedListRef` 获取对应 ref，需要版本 >= `1.20`
 
 以下为渲染 1000 条数据的示例。
@@ -4599,11 +4862,11 @@ class App extends React.Component {
             let pagination = checked
                 ? false
                 : {
-                      currentPage: 1,
-                      pageSize: 8,
-                      total: data.length,
-                      onPageChange: page => this.setPage(page),
-                  };
+                    currentPage: 1,
+                    pageSize: 8,
+                    total: data.length,
+                    onPageChange: page => this.setPage(page),
+                };
 
             this.setState({ pagination });
         };
@@ -4836,7 +5099,7 @@ const columns = [
         ],
         onFilter: (value, record) => record.name.includes(value),
         useFullRender: true,
-        // 此处从render的第四个形参中解构出 展开按钮、选择按钮、文本等内容
+        // 此处从 render 的第四个形参中解构出 展开按钮、选择按钮、文本等内容
         render: (text, record, index, { expandIcon, selection, indentText }) => {
             return (
                 <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -5366,6 +5629,8 @@ function App() {
 render(App);
 ```
 
+
+
 ## API 参考
 
 ## Table
@@ -5533,7 +5798,7 @@ import { Table } from '@douyinfe/semi-ui';
 | align | 设置列的对齐方式，在 RTL 时会自动切换 | 'left' \| 'right' \| 'center' | 'left' |
 | className | 列样式名 | string |  |
 | children | 表头合并时用于子列的设置 | Column[] |  |
-| colSpan | 表头列合并,设置为 0 时，不渲染 | number |  |
+| colSpan | 表头列合并，设置为 0 时，不渲染 | number |  |
 | dataIndex | 列数据在数据项中对应的 key，使用排序或筛选时必传，且需要保持不重复 | string |  |
 | defaultFilteredValue | 筛选的默认值，值为已筛选的 value 数组 | any[] |  | **2.5.0** |
 | defaultSortOrder | 排序的默认值，可设置为 'ascend'\|'descend'\|false | boolean\| string | false | **1.31.0** |
@@ -5552,14 +5817,14 @@ import { Table } from '@douyinfe/semi-ui';
 | renderFilterDropdown | 自定义筛选器 dropdown 面板，用法详见[自定义筛选器](#自定义筛选器) | (props?: RenderFilterDropdownProps) => React.ReactNode; | - | **2.52.0** |
 | renderFilterDropdownItem | 自定义每个筛选项渲染方式，用法详见[自定义筛选项渲染](#自定义筛选项渲染) | ({ value: any, text: any, onChange: Function, level: number, ...otherProps }) => ReactNode | - | **1.1.0** |
 | resize | 是否开启 resize 模式，只有 Table resizable 开启后此属性才会生效 | boolean |  | **2.42.0** |
-| showSortTip | 是否展示排序提示, 如果设置了 sortOrder，排序受控，则该参数不会生效 | boolean | false | **2.65.0** |
+| showSortTip | 是否展示排序提示，如果设置了 sortOrder，排序受控，则该参数不会生效 | boolean | false | **2.65.0** |
 | sortChildrenRecord | 是否对子级数据进行本地排序 | boolean |  | **0.29.0** |
 | sortOrder | 排序的受控属性，外界可用此控制列的排序，可设置为 'ascend'\|'descend'\|false | boolean\| string | false |
-| sorter | 排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true。**必须给排序列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
+| sorter | 排序函数，本地排序使用一个函数 (参考 Array.sort 的 compareFunction)，需要服务端排序可设为 true。**必须给排序列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | boolean\|(r1: RecordType, r2: RecordType, sortOrder: 'ascend' \| 'descend') => number | true |
 | sortIcon | 自定义 sort 图标，返回的节点控制了整个排序按钮，包含升序和降序。需根据 sortOrder 控制高亮行为 | (props: { sortOrder }) => ReactNode | | **2.50.0** |
 | shouldCellUpdate | 自定义控制单元格是否渲染。默认 cell 会深对比 props 和 nextProps 是否变化，来决定是否渲染单元格。如果你的 props 中的 record 比较复杂，建议使用 `shouldCellUpdate` 接管单元格的渲染。 | (props: TableCellProps, prevProps: TableCellProps) => boolean | | **2.71.0** |
 | title | 列头显示文字。传入 function 时，title 将使用函数的返回值；传入其他类型，将会和 sorter、filter 进行聚合。需要搭配 useFullRender 获取函数类型中的 filter 等参数 | ReactNode\|({ filter: ReactNode, sorter: ReactNode, selection: ReactNode }) => ReactNode |  | Function 类型需要**0.34.0** |
-| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)， 开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
+| useFullRender | 是否完全自定义渲染，用法详见[完全自定义渲染](#完全自定义渲染)，开启此功能会造成一定的性能损耗 | boolean | false | **0.34.0** |
 | width | 列宽度 | string \| number |  |
 | onCell | 设置单元格属性 | (record: RecordType, rowIndex: number) => object |  |
 | onFilter | 本地模式下，确定筛选的运行函数。**必须给筛选列设置一个独立的 dataIndex，必须为 dataSource 里面的每条数据项设置独立的 key** | (filteredValue: any, record: RecordType) => boolean |  |
@@ -5768,7 +6033,7 @@ function Demo() {
 
     涉及到单个 cell 需要控制样式的，可以通过 column.onHeaderCell、column.onCell 控制。
 
--   **为何 rowSelection onChange 的第一个参数缓存了之前选中的 keys ？**
+-   **为何 rowSelection onChange 的第一个参数缓存了之前选中的 keys？**
 
     这么做为了在分页受控时，在第一页选中数据后，去第二页选择数据，回到第一页后选择的 row keys 丢失的场景。如果不想用缓存的 keys，可以从当前 dataSource 过滤一遍，或者使用 rowSelection onChange 的第二个参数。
 

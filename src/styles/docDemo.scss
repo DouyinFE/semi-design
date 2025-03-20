@@ -1,4 +1,4 @@
-// 此处主要放置 Semi 组件Demo 中一些特殊的定制样式，一般为通过style不太好实现的自定义样式
+// 此处主要放置 Semi 组件 Demo 中一些特殊的定制样式，一般为通过 style 不太好实现的自定义样式
 
 
 
@@ -417,10 +417,6 @@
             background-color: var(--semi-color-fill-0);
         }
 
-        &-selected {
-            // font-weight: 700;
-        }
-
         &-disabled {
             color: var(--semi-color-disabled-text);
             cursor: not-allowed;
@@ -455,6 +451,7 @@
         &:hover {
             background-color: var(--semi-color-fill-0);
         }
+
         &:active {
             background-color: var(--semi-color-fill-1);
         }
@@ -462,7 +459,7 @@
 }
 
 
-body > .component-list-demo-drag-item {
+body>.component-list-demo-drag-item {
     font-size: 14px;
 }
 
@@ -470,8 +467,8 @@ body > .component-list-demo-drag-item {
     background-color: var(--semi-color-fill-0);
 }
 
-.semi-select-option-list > div {
-    will-change: unset!important;
+.semi-select-option-list>div {
+    will-change: unset !important;
 }
 
 .component-chat-demo-custom-render {
@@ -500,20 +497,24 @@ body > .component-list-demo-drag-item {
     }
 }
 
+.component-table-demo-cell-hover-custom {
+    .semi-table-tbody {
 
+        // remove origin style of row hover
+        .semi-table-row:hover {
+            .semi-table-row-cell {
+                background-color: transparent;
+                background-image: none;
 
+                &.semi-table-cell-fixed-left::before {
+                    background-color: transparent;
+                }
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // add style of single cell
+            .semi-table-row-cell:hover {
+                background-color: rgba(var(--semi-light-green-1), 1);
+            }
+        }
+    }
+}
