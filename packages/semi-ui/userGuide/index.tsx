@@ -384,12 +384,42 @@ class UserGuide extends BaseComponent<UserGuideProps, UserGuideState> {
                                 </mask>
                             </defs>
                             {
-                                mask && <rect
-                                    width="100%"
-                                    height="100%"
-                                    fill="var(--semi-color-overlay-bg)"
-                                    mask={`url(#spotlight-${this.userGuideId})`}
-                                />
+                                mask && (
+                                    <>
+                                        <rect
+                                            width="100%"
+                                            height="100%"
+                                            fill="var(--semi-color-overlay-bg)"
+                                            mask={`url(#spotlight-${this.userGuideId})`} />
+                                        <rect
+                                            x={0}
+                                            y={0}
+                                            width="100%"
+                                            height={spotlightRect.y}
+                                            fill="transparent"
+                                            className={`${prefixCls}-spotlight-transparent-rect`} />
+                                        <rect
+                                            x={0}
+                                            y={spotlightRect.y}
+                                            width={spotlightRect.x}
+                                            height={spotlightRect.height}
+                                            fill="transparent"
+                                            className={`${prefixCls}-spotlight-transparent-rect`} />
+                                        <rect
+                                            x={spotlightRect.x + spotlightRect.width}
+                                            y={spotlightRect.y}
+                                            width={`calc(100% - ${spotlightRect.x + spotlightRect.width}px)`}
+                                            height={spotlightRect.height}
+                                            fill="transparent"
+                                            className={`${prefixCls}-spotlight-transparent-rect`} />
+                                        <rect
+                                            y={spotlightRect.y + spotlightRect.height}
+                                            width="100%"
+                                            height={`calc(100% - ${spotlightRect.y + spotlightRect.height}px)`}
+                                            fill="transparent"
+                                            className={`${prefixCls}-spotlight-transparent-rect`} />
+                                    </>
+                                )
                             }
                         </svg>
                     ) : null
