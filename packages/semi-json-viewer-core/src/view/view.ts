@@ -418,6 +418,9 @@ export class View {
                 const span = document.createElement('span');
                 span.className = token.scopes;
                 span.textContent = content;
+                if (!this._options?.autoWrap) {
+                    span.style.whiteSpace = 'pre';
+                }
                 container.appendChild(span);
             }
     
