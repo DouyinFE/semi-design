@@ -796,3 +796,15 @@ export const Fix1772 = () => {
     />
   );
 }
+
+export const TestInputNumber = () => {
+
+  return (
+    <div style={{ width: 280 }}>
+      <InputNumber defaultValue={0.0000005} onChange={(value) => {
+          console.log(value)
+      }}/>
+      <br/><br/>
+  </div>
+  )
+}
