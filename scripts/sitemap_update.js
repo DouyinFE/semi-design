@@ -44,6 +44,12 @@ const main = async ()=>{
         const item = urlMap[url];
         promiseList.push(new Promise(async (resolve, reject)=>{
             try {
+                if (!url.startsWith("https://semi.design")) {
+                    console.log(`SiteMap jump over ${url}  ${count}/${urls.length}`);
+                    count++;
+                    resolve();
+                    return;
+                }
                 const res = await axios.get(url);
                 if (url.startsWith("https://semi.design/zh-CN") || url.startsWith("https://semi.design/en-US")) {
                     const lang = url.startsWith("https://semi.design/zh-CN") ? "zh-CN" : "en-US";
