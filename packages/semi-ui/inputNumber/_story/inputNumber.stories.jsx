@@ -73,7 +73,7 @@ export const _InputNumber = () => {
         <InputNumber defaultValue={10.08} precision={2} onChange={log} />
         <br />
 
-        <label>格式化+小数</label>
+        <label>格式化 + 小数</label>
         <InputNumber
           defaultValue={1000}
           precision={2}
@@ -87,15 +87,15 @@ export const _InputNumber = () => {
         <InputNumber value={controlledValue} onChange={controlledOnChange} />
         <br />
 
-        <label>受控+上下界</label>
+        <label>受控 + 上下界</label>
         <InputNumber min={1} max={10} value={controlledValue2} onChange={controlledOnChange2} />
         <br />
 
-        <label>小数+受控</label>
+        <label>小数 + 受控</label>
         <InputNumber value={decimal} precision={2} onChange={decimalOnChange} />
         <br />
 
-        <label>格式化+受控</label>
+        <label>格式化 + 受控</label>
         <InputNumber
           defaultValue={1000}
           precision={0}
@@ -106,7 +106,7 @@ export const _InputNumber = () => {
         />
         <br />
 
-        <label>格式化+小数+受控</label>
+        <label>格式化 + 小数 + 受控</label>
         <InputNumber
           precision={2}
           formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -340,10 +340,10 @@ export const OnChangeLimit = () => {
 
     return (
       <>
-        <h3>数值没有持续变化说明正常，v1.10.0修复</h3>
+        <h3>数值没有持续变化说明正常，v1.10.0 修复</h3>
         <br />
         <br />
-        <div>点击2后点击输入框，然后点击按钮会触发</div>
+        <div>点击 2 后点击输入框，然后点击按钮会触发</div>
         {disabled ? (
           <div
             onClick={() => {
@@ -379,7 +379,7 @@ export const OnChangeLimit = () => {
 };
 
 OnChangeLimit.story = {
-  name: 'onChange无限触发问题',
+  name: 'onChange 无限触发问题',
 };
 
 export const ClearIconPosition = () => {
@@ -595,7 +595,7 @@ export const FormCustomInput = () => {
           onChange={(...args) => console.log('inputNumber change', ...args)}
           onNumberChange={(...args) => console.log('inputNumber number change', ...args)}
         />
-        <h4>not controlled + formatter（onChange会包括英文字符，onNumberChange不包括）</h4>
+        <h4>not controlled + formatter（onChange 会包括英文字符，onNumberChange 不包括）</h4>
         <InputNumber
           formatter={value => `${value}`.replace(/\D/g, '')}
           onChange={(...args) => console.log('inputNumber change', ...args)}
@@ -603,7 +603,7 @@ export const FormCustomInput = () => {
         />
         <Form onValueChange={v => console.log(v)}>
           <h4>
-            Form + Form.InputNumber + formatter + onChange（onChange包括英文字符，显示没有英文字符）
+            Form + Form.InputNumber + formatter + onChange（onChange 包括英文字符，显示没有英文字符）
           </h4>
           <Form.InputNumber
             field="formOriginalInputNumber"
@@ -613,7 +613,7 @@ export const FormCustomInput = () => {
           />
           <h4>
             Form + withField InputNumber + formatter +
-            onNumberChange（onNumberChange不包括英文字符，显示也不包括英文字符）
+            onNumberChange（onNumberChange 不包括英文字符，显示也不包括英文字符）
           </h4>
           <CustomInput
             field="formCustomInputNumber"
@@ -622,7 +622,7 @@ export const FormCustomInput = () => {
           />
         </Form>
         <h4>
-          type=number （TODO：需要关注内置的按钮+不同浏览器对type=number的支持情况，比如 safari
+          type=number（TODO：需要关注内置的按钮 + 不同浏览器对 type=number 的支持情况，比如 safari
           貌似就不支持）
         </h4>
         <InputNumber
@@ -957,4 +957,15 @@ export const CurrencyDisplay = () => {
       <br />
     </div>
   );
+}
+export const TestInputNumber = () => {
+
+  return (
+    <div style={{ width: 280 }}>
+      <InputNumber defaultValue={0.0000005} onChange={(value) => {
+          console.log(value)
+      }}/>
+      <br/><br/>
+  </div>
+  )
 }

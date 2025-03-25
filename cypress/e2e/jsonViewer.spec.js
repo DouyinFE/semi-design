@@ -146,7 +146,6 @@ describe('jsonViewer', () => {
         cy.get('.semi-json-viewer-search-bar').children().eq(0).clear();
 
         //replace
-        cy.scrollTo('right');
         cy.get('.semi-json-viewer-search-bar').children().eq(0).type('a');
         cy.get('.semi-json-viewer-replace-bar').children().eq(0).type('x');
         cy.get('.semi-json-viewer-search-result').then(($el) => {

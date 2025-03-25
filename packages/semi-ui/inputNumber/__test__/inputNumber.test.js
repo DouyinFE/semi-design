@@ -564,3 +564,4 @@ describe(`InputNumber`, () => {
     });
 
 });
+ 
