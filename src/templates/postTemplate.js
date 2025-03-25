@@ -368,43 +368,43 @@ const components = {
 
             // For convience of adding new feature in different type, we use "if else" group instead of object or map.
 
-            if (children[0] === '[Feature]' || children[0] === '[Feat]') {
+            if (children[0] === '【Feature】' || children[0] === '【Feat】') {
                 children[0] = <div className={'changelog-title'}>🎁【Feature】</div>;
             }
 
-            if (children[0] === '[Chore]') {
+            if (children[0] === '【Chore】') {
                 children[0] = <div className={'changelog-title'}>🗃【Chore】</div>;
             }
 
-            if (children[0] === '[New Component]') {
+            if (children[0] === '【New Component】') {
                 children[0] = <div className={'changelog-title'}>💡【New Component】</div>;
             }
 
-            if (children[0] === '[Fix]') {
+            if (children[0] === '【Fix】') {
                 children[0] = <div className={'changelog-title'}>🔧【Fix】</div>;
             }
 
-            if (children[0] === '[Perf]') {
+            if (children[0] === '【Perf】') {
                 children[0] = <div className={'changelog-title'}>🚀【Performance】</div>;
             }
 
-            if (children[0] === '[Style]') {
+            if (children[0] === '【Style】') {
                 children[0] = <div className={'changelog-title'}>💅【Style】</div>;
             }
 
-            if (children[0] === '[Docs]') {
+            if (children[0] === '【Docs】') {
                 children[0] = <div className={'changelog-title'}>✏️【Documentation】</div>;
             }
 
-            if (children[0] === '[Refactor]') {
+            if (children[0] === '【Refactor】') {
                 children[0] = <div className={'changelog-title'}>🧶【Refactor】</div>;
             }
 
-            if (children[0] === '[Breaking Change]') {
+            if (children[0] === '【Breaking Change】') {
                 children[0] = <div className={'changelog-title'}>💥【Breaking Change】</div>;
             }
 
-            if (children[0] === '[Design Token]') {
+            if (children[0] === '【Design Token】') {
                 children[0] = <div className={'changelog-title'}>✨【Design Token】</div>;
             }
         }
