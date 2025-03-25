@@ -432,3 +432,4 @@ describe(`InputNumber`, () => {
         expect(formApi.getValue('minControlled')).toBe(1);
     });
 });
+ 
