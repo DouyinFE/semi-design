@@ -1168,7 +1168,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
                     { required: true, message: 'required error' },
                     { type: 'string', message: 'type error' },
                     { validator: (rule, value) => value === 'semi', message: 'should be semi' },
-                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                    { validator: (rule, value) => Boolean(value && value.startsWith('se')), message: 'should startsWith se' }
                 ]}
             />
             <Input
@@ -1179,7 +1179,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
                     { required: true, message: 'required error' },
                     { type: 'string', message: 'type error' },
                     { validator: (rule, value) => value === 'semi', message: 'should be semi' },
-                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                    { validator: (rule, value) => Boolean(value && value.startsWith('se')), message: 'should startsWith se' }
                 ]}
             />
             <Button htmlType='submit'>提交</Button>
