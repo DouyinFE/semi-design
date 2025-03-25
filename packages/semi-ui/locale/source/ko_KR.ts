@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ko-KR',
     dateFnsLocale: ko,
+    currency: 'KRW',
     Pagination: {
         pageSize: '페이지당 항목: ${pageSize}',
         total: '총 페이지: ${total}',
@@ -182,6 +183,18 @@ const local: Locale = {
         copy: '복사',
         copied: '복사했습니다',
         dropAreaText: '파일을 여기에 놓으세요',
+    },
+    UserGuide: {
+        skip: '건너뛰기',
+        next: '다음',
+        prev: '이전',
+        finish: '완료',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: '검색',
+        replace: '교체',
+        replaceAll: '모두 교체',
     },
 };
 

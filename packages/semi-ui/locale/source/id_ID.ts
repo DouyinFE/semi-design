@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'id-ID',
     dateFnsLocale: id,
+    currency: 'IDR',
     Pagination: {
         pageSize: 'Item per halaman: ${pageSize}',
         total: 'Total halaman: ${total}',
@@ -181,6 +182,18 @@ const local: Locale = {
         copy: 'Salin',
         copied: 'Disalin',
         dropAreaText: 'Letakkan file di sini',
+    },
+    UserGuide: {
+        skip: 'Lewati',
+        next: 'Selanjutnya',
+        prev: 'Sebelumnya',
+        finish: 'Selesai',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Cari',
+        replace: 'Ganti',
+        replaceAll: 'Ganti Semua',
     },
 };
 

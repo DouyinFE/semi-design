@@ -16,6 +16,22 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.77.0 (2025-03-25)
+- 【Fix】
+    - Fixed the issue of click-through when the UserGuide is in the bubble mode [#2764](https://github.com/DouyinFE/semi-design/pull/2764)
+    - Fixed the problem that the icon in the header of the Navigation is not centered in the collapsed mode.  [#2675](https://github.com/DouyinFE/semi-design/issues/2675)
+    - Fixed the problem that the search box of JsonViewer does not support i18n multilingual adaptation. [#2766](https://github.com/DouyinFE/semi-design/pull/2766)
+    - Fixed the problem of long text folding when the auto-wrap function of JsonViewer is not enabled, and fixed the issue of line number display. [#2756](https://github.com/DouyinFE/semi-design/pull/2756)
+
+#### 🎉 2.77.0-beta.0 (2025-03-18)
+- 【New Component】
+    - support new component UserGuide
+- 【Feat】
+    - InputNumber supports currency mode
+- 【Fix】
+    - fix MarkdownRender table duplicate column elements when header containing more than two components or bold texts [@ByteLan](https://github.com/ByteLan)
+    - Correct locale codes for Netherlands, Poland and Sweden (nl_NL -> nl-NL, pl_PL -> pl-PL, sv_SE -> sv-SE)
+
 #### 🎉 2.76.1 (2025-03-17)
 - 【Style】
     - Style: For input type components, the styles of insetLabel and prefix remain consistent. Removed unnecessary tokens related to insetLabel, Added $font-cascader_prefix_suffix_fontWeight, $spacing-input_prefix_suffix-marginX, $font-input_prefix_suffix-fontWeight, $font-select_prefix_suffix-fontWeight, $spacing-tagInput_prefix_suffix-marginX, $font-tagInput_prefix_suffix-fontWeight, $font-treeSelect_prefix_suffix_fontWeight to manage prefix and suffix weights and margins.[#2752](https://github.com/DouyinFE/semi-design/issues/2752)

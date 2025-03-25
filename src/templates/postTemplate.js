@@ -34,6 +34,7 @@ import { itemsArr } from '../utils/category';
 import FullPalette from 'components/FullPalette';
 import ColorConverter from 'components/ColorConverter';
 import JumpToToken from 'components/JumpToToken';
+import DesignToCodeFeature from 'components/DesignToCodeFeature';
 import copy from 'copy-text-to-clipboard';
 import '@douyinfe/semi-site-doc-style';
 import SemiSiteChangeLogDiff from 'components/SemiSiteChangeLogDiff';
@@ -237,6 +238,7 @@ const components = {
     ColorConverter,
     FullPalette,
     JumpToToken,
+    DesignToCodeFeature,
     ...SemiComponents,
     ...Blocks,
     code,

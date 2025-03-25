@@ -10,8 +10,9 @@ import { Locale } from '../interface';
  */
 
 const local: Locale = {
-    code: 'pl_PL',
+    code: 'pl-PL',
     dateFnsLocale: pl, // locale code to dateFns locale
+    currency: 'PLN',
     Pagination: {
         pageSize: 'Liczba pozycji na stronie: ${pageSize}',
         total: 'Strony ogółem: ${total}',
@@ -189,6 +190,18 @@ const local: Locale = {
         copy: 'Kopiuj',
         copied: 'Skopiowano',
         dropAreaText: 'Umieść plik tutaj',
+    },
+    UserGuide: {
+        skip: 'Pomiń',
+        next: 'Następny',
+        prev: 'Poprzedni',
+        finish: 'Zakończ',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Szukaj',
+        replace: 'Zastąp',
+        replaceAll: 'Zastąp wszystko',
     },
 };
 

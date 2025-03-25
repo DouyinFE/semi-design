@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'vi-VN',
     dateFnsLocale: vi,
+    currency: 'VND',
     Pagination: {
         pageSize: 'Số mục mỗi trang: ${pageSize}',
         total: 'Tổng số trang: ${total}',
@@ -185,6 +186,18 @@ const local: Locale = {
         copied: 'Đã sao chép',
         dropAreaText: 'Đặt tệp vào đây',
     }, 
+    UserGuide: {
+        skip: 'Bỏ qua',
+        next: 'Tiếp theo',
+        prev: 'Trước đó',
+        finish: 'Hoàn tất',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Tìm kiếm',
+        replace: 'Thay thế',
+        replaceAll: 'Thay thế tất cả',
+    },
 };
 
 // [i18n-Vietnam] 越南语

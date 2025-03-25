@@ -39,7 +39,7 @@ Semi 不依赖任何第三方样式库，没有安装 Tailwind 一样可以运�
 如果是 1，则会出现 Tailwind 在添加某些原子类时，如果组件样式已经定义了某个 css 属性，原子类的优先级比 Semi 优先级低，此时原子类失效。
 例如在 1 的前提下，对 Button 组件设置 padding，会出现失效的情况。
 
-如果是2，因为 Tailwind 优先级较高，其对浏览器默认样式覆盖的 Preflight 会同时覆盖掉 Semi 的样式。
+如果是 2，因为 Tailwind 优先级较高，其对浏览器默认样式覆盖的 Preflight 会同时覆盖掉 Semi 的样式。
 例如在 2 的前提下，light 的 Button 的背景色会被覆盖为 transparent，导致样式表现异常。
 
 
@@ -52,7 +52,7 @@ yarn add -D @douyinfe/semi-webpack-plugin
 ```
 ** 2. 在项目中的配置文件中 **
 
-- webpack 用户: 在webpack.config.js 引入Semi webpack 插件并开启 cssLayer
+- webpack 用户：在 webpack.config.js 引入 Semi webpack 插件并开启 cssLayer
 
 ```js
 const SemiPlugin = require('@douyinfe/semi-webpack-plugin').default;
@@ -69,7 +69,7 @@ module.exports = {
 };
 
 ```
-- rspack 用户: 在 rspack.config.js  引入Semi webpack 插件并开启 cssLayer
+- rspack 用户：在 rspack.config.js  引入 Semi webpack 插件并开启 cssLayer
 
 ```js
 const {SemiRspackPlugin} = require('@douyinfe/semi-rspack-plugin');
@@ -127,7 +127,7 @@ CSS Layer 要求浏览器版本高于 Chromium 99 <a target="_blank" href="https
 ```css
 @layer tailwind-base,semi,tailwind-components,tailwind-utils;
 ```
-上述 CSS 的含义为， base （含 Preflight）优先级最低，Semi 次之，用户设置的原子类样式（padding-[xxx] 等）优先级最高，这样即可解决上面遇到的问题。
+上述 CSS 的含义为，base（含 Preflight）优先级最低，Semi 次之，用户设置的原子类样式（padding-[xxx] 等）优先级最高，这样即可解决上面遇到的问题。
 
 
 ### 2.解决在 Tailwind 原子类中使用 Semi Token 的问题 (可选)
@@ -137,7 +137,7 @@ Tailwind 支持用户配置自己的 Token 来实现主题。同时 Semi 也提�
 
 Semi 提供了 Tailwind 的主题配置文件，用于将 Semi 的 Token 映射为原子类 Token，上述需求可以直接给 span 设置 `text-semi-color-text-0` 即可。
 
-在 Tailwind 配置中(即 `tainwind.config.js`)配置以下内容即可:
+在 Tailwind 配置中 (即 `tainwind.config.js`) 配置以下内容即可：
 
 ```js
 module.export = {

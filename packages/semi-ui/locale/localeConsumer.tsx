@@ -7,7 +7,7 @@ import ConfigContext from '../configProvider/context';
 import DefaultLocale from './source/zh_CN';
 import { Locale } from './interface';
 
-type ChildrenRender<T> = (componentLocal: T, localeCode: string, dateFnsLocale: dateFns) => React.ReactNode;
+type ChildrenRender<T> = (componentLocal: T, localeCode: string, dateFnsLocale: dateFns, currency: string) => React.ReactNode;
 export interface LocaleConsumerProps<T> {
     componentName: string;
     children?: ChildrenRender<T>
@@ -40,7 +40,8 @@ export default class LocaleConsumer<T> extends Component<LocaleConsumerProps<T>>
          */
         const defaultFnsLocale = get(DefaultLocale, 'dateFnsLocale');
         const dateFnsLocale = get(locale, 'dateFnsLocale', defaultFnsLocale);
-        return children(locale[componentName], locale.code, dateFnsLocale);
+        const currency = get(locale, 'currency');  
+        return children(locale[componentName], locale.code, dateFnsLocale, currency);
     }
 
     render() {
