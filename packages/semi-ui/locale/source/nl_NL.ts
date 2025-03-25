@@ -196,7 +196,12 @@ const local: Locale = {
         prev: 'Vorige',
         finish: 'Voltooien',
     },  
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Zoeken',
+        replace: 'Vervangen',
+        replaceAll: 'Alle vervangen',
+    },
 };
 
 export default local;

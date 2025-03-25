@@ -190,7 +190,12 @@ const local: Locale = {
         prev: '前へ',
         finish: '完了',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: '検索',
+        replace: '置換',
+        replaceAll: 'すべて置換',
+    },
 };
 
 // [i18n-Japan]

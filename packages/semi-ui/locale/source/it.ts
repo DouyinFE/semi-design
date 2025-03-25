@@ -189,7 +189,12 @@ const local: Locale = {
         prev: 'Indietro',
         finish: 'Fine',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Cerca',
+        replace: 'Sostituisci',
+        replaceAll: 'Sostituisci tutto',
+    },
 };
 
 // [i18n-Italian]

@@ -191,6 +191,11 @@ const local: Locale = {
         finish: 'Tamamla',
     },
     InputNumber: {},
+    JsonViewer: {
+        search: 'Ara',
+        replace: 'Değiştir',
+        replaceAll: 'Tümünü değiştir',
+    },
 };
 
 // [i18n-Turkish] 

@@ -189,7 +189,12 @@ const local: Locale = {
         prev: 'السابق',
         finish: 'إنهاء',
     },
-    InputNumber: {}
+    InputNumber: {},
+    JsonViewer: {
+        search: 'بحث',
+        replace: 'استبدل',
+        replaceAll: 'استبدل الكل',
+    },
 };
 
 // [i18n-Arabic]
