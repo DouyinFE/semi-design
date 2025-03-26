@@ -167,6 +167,7 @@ class Demo extends React.Component<IProps, IState> {
     constructor(props:any) {
       super(props);
       this.state = { visible: false};
+      this.asyncValidateFields = this.asyncValidateFields.bind(this);
     }
 
     getFormApi(formApi) {
@@ -196,6 +197,20 @@ class Demo extends React.Component<IProps, IState> {
         let c = formApi.getValue('test4.notExist');
     }
 
+    asyncValidateFields(values) {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+        return sleep(2000).then(() => {
+            let errors = {} as Record<string, any>;
+            if (values.name !== 'mike') {
+                errors.name = 'you must name mike';
+            }
+            if (values.sex !== 'female') {
+                errors.sex = 'sex not valid';
+            }
+            return errors;
+        });
+    }
+
     render() {
       const { visible } = this.state;
       return (
@@ -204,7 +219,8 @@ class Demo extends React.Component<IProps, IState> {
             getFormApi={this.getFormApi}
             onSubmit={values => console.log(values.test2)}
             onChange={formState => formState.values.test}
-            validateFields={values => ({ test4: 'test4 empty', test2: '' }) }
+            validateFields={this.asyncValidateFields}
+            // validateFields={values => ({ test4: 'test4 empty', test2: '', fieldNotExist: 'xx' }) }
         >
           </Form>
         </>
