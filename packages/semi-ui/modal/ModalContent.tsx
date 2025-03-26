@@ -7,6 +7,7 @@ import ConfigContext, { ContextValue } from '../configProvider/context';
 import Button from '../iconButton';
 import Typography from '../typography';
 import BaseComponent from '../_base/baseComponent';
+import { stopPropagation } from '../_utils';
 // eslint-disable-next-line max-len
 import ModalContentFoundation, {
     ModalContentAdapter,
@@ -21,7 +22,8 @@ let uuid = 0;
 
 
 export interface ModalContentReactProps extends ModalContentProps {
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    stopPropagation?: boolean
 }
 
 export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
@@ -33,6 +35,7 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         maskClassName: PropTypes.string,
         onAnimationEnd: PropTypes.func,
         preventScroll: PropTypes.bool,
+        stopPropagation: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -294,9 +297,15 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                     {footer}
                 </div>
             </div>
-        ); 
+        );
         // return props.visible ? dialogElement : null;
         return dialogElement;
+    };
+
+    handleStopPropagation = (e: React.MouseEvent) => {
+        if (this.props.stopPropagation) {
+            stopPropagation(e);
+        }
     };
 
     render() {
@@ -319,7 +328,12 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
         const dataAttr = this.getDataAttr(rest);
 
         const elem = (
-            <div className={classList} {...dataAttr}>
+            <div
+                className={classList}
+                {...dataAttr}
+                onClick={this.handleStopPropagation}
+                onMouseDown={this.handleStopPropagation}
+            >
                 {this.getMaskElement()}
                 <div
                     role="none"
