@@ -94,6 +94,7 @@ Table 表格,
 Tag 标签,
 Timeline 时间轴,
 Tooltip 工具提示,
+UserGuide 用户引导,
 VChart 图表
 ```
 

@@ -23,7 +23,8 @@ export interface InputNumberAdapter extends DefaultAdapter {
     restoreCursor: (str?: string) => boolean;
     fixCaret: (start: number, end: number) => void;
     setClickUpOrDown: (clicked: boolean) => void;
-    updateStates: (states: BaseInputNumberState, callback?: () => void) => void
+    updateStates: (states: BaseInputNumberState, callback?: () => void) => void;
+    getInputCharacter: (index: number) => string
 }
 
 export interface BaseInputNumberState {
@@ -38,8 +39,13 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
     _interval: any;
     _timerHasRegistered: boolean;
     _timer: any;
+    _decimalPointSymbol: string = undefined;
+    _currencySymbol: string = '';
 
     init() {
+        if (this._isCurrency()) {
+            this._setCurrencySymbol();
+        }
         this._setInitValue();
     }
 
@@ -51,6 +57,16 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     isControlled() {
         return this._isControlledComponent('value');
+    }
+
+    _isCurrency() {
+        const { currency } = this.getProps();
+        return currency === true || (typeof currency === 'string' && currency.trim() !== '');
+    }
+
+    _getFinalCurrency() {
+        const { currency } = this.getProps();
+        return currency === true ? this.getProp('defaultCurrency') : currency;
     }
 
     _doInput(v = '', event: any = null, updateCb: any = null) {
@@ -119,6 +135,28 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             this._timerHasRegistered = false;
             clearTimeout(this._timer);
             this._timer = null;
+        }
+    }
+
+    _setCurrencySymbol() {
+        const { localeCode, currencyDisplay } = this.getProps();
+        const parts = new Intl.NumberFormat(localeCode, {
+            style: 'currency',
+            currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
+            currencyDisplay
+        }).formatToParts(1234.5);
+
+        for (const part of parts) {
+            if (part.type === 'decimal') {
+                this._decimalPointSymbol = part.value;
+                console.log('this._decimalPointSymbol: ', this._decimalPointSymbol);
+            }
+            // if (part.type === 'group') {
+            //     groupSeparator = part.value;
+            // }
+            if (part.type === 'currency') {
+                this._currencySymbol = part.value;
+            }
         }
     }
 
@@ -198,7 +236,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             this._adapter.setNumber(num);
         }
 
-        this._adapter.setValue(this.isControlled() ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
+        this._adapter.setValue(this.isControlled() && !this._isCurrency() ? formattedNum : this.doFormat(valueAfterParser as unknown as number, false), () => {
             this._adapter.restoreCursor();
         });
 
@@ -242,7 +280,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
                 numHasChanged = true;
             }
 
-            const currentFormattedNum = this.doFormat(currentNumber, true);
+            const currentFormattedNum = this.doFormat(currentNumber, true, true);
 
             if (currentFormattedNum !== currentValue) {
                 willSetVal = currentFormattedNum;
@@ -366,14 +404,15 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         const { defaultValue, value } = this.getProps();
 
         const propsValue = this._isControlledComponent('value') ? value : defaultValue;
-        const tmpNumber = this.doParse(toString(propsValue), false, true, true);
+
+        const tmpNumber = this.doParse(this._isCurrency() ? propsValue : toString(propsValue), false, true, true);
 
         let number = null;
         if (typeof tmpNumber === 'number' && !isNaN(tmpNumber)) {
             number = tmpNumber;
         }
 
-        const formattedValue = typeof number === 'number' ? this.doFormat(number, true) : '';
+        const formattedValue = typeof number === 'number' ? this.doFormat(number, true, true) : '';
 
         this._adapter.setNumber(number);
         this._adapter.setValue(formattedValue);
@@ -417,7 +456,7 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
         // console.log('scale: ', scale, 'curNum: ', curNum);
 
-        return this.doFormat(curNum, true);
+        return this.doFormat(curNum, true, true);
     }
 
     minus(step?: number, event?: any): string {
@@ -448,19 +487,43 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         return toString(num);
     }
 
+    formatCurrency(value: number | string) {
+        const { localeCode, minimumFractionDigits, precision, maximumFractionDigits, currencyDisplay, showCurrencySymbol } = this.getProps();
+
+        let formattedValue = value;
+        if (typeof value === 'string' && Number.isNaN(Number(value))) {
+            formattedValue = this.parseInternationalCurrency(value);
+        }
+
+        const formatter = new Intl.NumberFormat(localeCode, {
+            style: 'currency',
+            currency: this._getFinalCurrency() || this.getCurrencyByLocaleCode(),
+            currencyDisplay: currencyDisplay,
+            minimumFractionDigits: minimumFractionDigits || precision || undefined,
+            maximumFractionDigits: maximumFractionDigits || precision || undefined,
+        });
+
+        const formatted = formatter.format(Number(formattedValue)); 
+        return showCurrencySymbol ? formatted : formatted.replace(this._currencySymbol, '').trim();
+    }
+
     /**
      * format number to string
      * @param {string|number} value
      * @param {boolean} needAdjustPrec
      * @returns {string}
      */
-    doFormat(value: string | number = 0, needAdjustPrec = true): string {
+    doFormat(value: string | number = 0, needAdjustPrec = true, needAdjustCurrency = false): string {
         // if (typeof value === 'string') {
         //     return value;
         // }
+        const { formatter } = this.getProps();
         let str;
-        const formatter = this.getProp('formatter');
-        if (needAdjustPrec) {
+
+        // AdjustCurrency conversion is done only in blur situation, otherwise it is just converted to normal string
+        if (this._isCurrency() && needAdjustCurrency) {
+            str = this.formatCurrency(value);
+        } else if (needAdjustPrec) {
             str = this._adjustPrec(value);
         } else {
             str = toString(value);
@@ -487,6 +550,22 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
         return current;
     }
 
+    // 将货币模式的货币转化为纯数字
+    // Convert currency in currency mode to pure numbers
+    // eg：￥123456.78 to 123456.78
+    // eg：123456.78 to 123456.78
+    parseInternationalCurrency(currencyString: string) {
+        let cleaned = currencyString
+            .replace(this._currencySymbol, '')
+            .replace(new RegExp(`[^\\d${this._decimalPointSymbol}\\-]`, 'g'), '');
+
+        // Convert the localized decimal point to the standard decimal point
+        if (this._decimalPointSymbol && this._decimalPointSymbol !== '.') {
+            cleaned = cleaned.replace(this._decimalPointSymbol, '.');
+        }
+        return parseFloat(cleaned);
+    }
+      
     /**
      * parse to number
      * @param {string|number} value
@@ -496,6 +575,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
      * @returns {number}
      */
     doParse(value: string | number, needCheckPrec = true, needAdjustPrec = false, needAdjustMaxMin = false) {
+
+        if (this._isCurrency() && typeof value === 'string') {
+            value = this.parseInternationalCurrency(value);
+        }
+
         if (typeof value === 'number') {
             if (needAdjustMaxMin) {
                 value = this.fetchMinOrMax(value);
@@ -557,7 +641,11 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
             return value;
         }
         if (typeof value === 'string') {
-            const parser = this.getProp('parser');
+            const { parser } = this.getProps();
+
+            if (this._isCurrency()) {
+                value = this.parseInternationalCurrency(value);
+            }
 
             if (typeof parser === 'function') {
                 value = parser(value);
@@ -629,6 +717,84 @@ class InputNumberFoundation extends BaseFoundation<InputNumberAdapter> {
 
     updateStates(states: BaseInputNumberState, callback?: () => void) {
         this._adapter.updateStates(states, callback);
+    }
+
+    /**
+     * Get currency by locale code
+     * @param {string} localeCode
+     * @returns {string}
+     */
+    getCurrencyByLocaleCode() {
+        const { localeCode } = this.getProps();
+
+        // Mapping table of region codes to currency codes
+        const localeToCurrency: Record<string, string> = {
+            // Asia
+            'zh-CN': 'CNY', // China
+            'zh-HK': 'HKD', // Hong Kong
+            'zh-TW': 'TWD', // Taiwan
+            'ja-JP': 'JPY', // Japan
+            'ko-KR': 'KRW', // Korea
+            'th-TH': 'THB', // Thailand
+            'vi-VN': 'VND', // Vietnam
+            'ms-MY': 'MYR', // Malaysia
+            'id-ID': 'IDR', // Indonesia
+            'hi-IN': 'INR', // India
+            'ar-SA': 'SAR', // Saudi Arabia
+        
+            // Europe
+            'en-GB': 'GBP', // United Kingdom
+            'de-DE': 'EUR', // Germany
+            'fr-FR': 'EUR', // France
+            'it-IT': 'EUR', // Italy
+            'es-ES': 'EUR', // Spain
+            'pt-PT': 'EUR', // Portugal
+            'ru-RU': 'RUB', // 俄罗斯
+        
+            // North America
+            'en-US': 'USD', // United States
+            'en-CA': 'CAD', // Canada
+            'es-MX': 'MXN', // Mexico
+        
+            // South America
+            'pt-BR': 'BRL', // Brazil
+            'es-AR': 'ARS', // Argentina
+        
+            // Oceania
+            'en-AU': 'AUD', // Australia
+            'en-NZ': 'NZD', // New Zealand
+        
+            // Africa
+            'en-ZA': 'ZAR', // South Africa
+            'ar-EG': 'EGP', // Egypt
+        };
+    
+        // Try to match the full region code directly
+        if (localeToCurrency[localeCode]) {
+            return localeToCurrency[localeCode];
+        }
+    
+        // If no direct match, try to match the language part (the first two characters)
+        const languageCode = localeCode.split('-')[0];
+        const fallbackMap: Record<string, string> = {
+            'en': 'USD', // English defaults to USD
+            'zh': 'CNY', // Chinese defaults to CNY
+            'es': 'EUR', // Spanish defaults to EUR
+            'fr': 'EUR', // French defaults to EUR
+            'de': 'EUR', // German defaults to EUR
+            'it': 'EUR', // Italian defaults to EUR
+            'ja': 'JPY', // Japanese defaults to JPY
+            'ko': 'KRW', // Korean defaults to KRW
+            'ru': 'RUB', // Russian defaults to RUB
+            'ar': 'SAR', // Arabic defaults to SAR
+        };
+    
+        if (fallbackMap[languageCode]) {
+            return fallbackMap[languageCode];
+        }
+    
+        // If no match, return USD as the default value
+        return 'USD';
     }
 }
 

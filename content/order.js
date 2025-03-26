@@ -78,6 +78,7 @@ const order = [
     'tag',
     'timeline',
     'tooltip',
+    'userGuide',
     'chart',
     'banner',
     'notification',

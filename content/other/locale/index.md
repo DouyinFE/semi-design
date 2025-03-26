@@ -1,6 +1,6 @@
 ---
 localeCode: zh-CN
-order: 89
+order: 90
 category: 其他
 title:  LocaleProvider 多语言
 icon: doc-i18n
@@ -348,7 +348,7 @@ class I18nDemo extends React.Component {
                             style={{ width: 300, margin: 10 }}
                             treeData={treeData}
                             filterTreeNode
-                            insetLabel='Cascader'
+                            prefix='Cascader'
                         />
                     </div>
                     <h5>DatePicker</h5>
@@ -424,7 +424,7 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
+                    <Select onChange={this.onLanguageChange} prefix='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
                         <Select.Option value='zh_CN'>简体中文</Select.Option>
                         <Select.Option value='en_US'>英语（美）</Select.Option>
                         <Select.Option value='en_GB'>英语（英）</Select.Option>

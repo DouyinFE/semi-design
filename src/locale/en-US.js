@@ -105,7 +105,7 @@ const appLocale = {
         "adapter_webComponents": "Easily compatible with web components",
         "adapter_webComponents_description": "Provides a complete adaptation solution. All components can work normally in shadow DOM, which is more suitable for building SDKs, browser plugins and other scenarios that require DOM isolation.",
         "feature_SSR": "SSR support",
-        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js、Gatsby、Remix",
+        "feature_SSR_description": "Semi component library supports SSR scenarios and can be used in frameworks like Next.js, Gatsby, Remix",
         "feature_D2C": "Design to code",
         "feature_D2C_description": "Offical provides powerful design to code capabilities, 3-5s, one-click, generate real code from Figma design draft",
         // page four: Theme
@@ -252,7 +252,21 @@ const appLocale = {
         "video_compression_algorithm": "Video compression algorithm",
         "ulike_assistant": "Ulike Assistant",
         "theme_store": "Theme Store",
-        "semi_dsm": "Managing Themes"
+        "semi_dsm": "Managing Themes",
+
+        // Advanced
+        'd2c.advanced.title': 'Modern Development Delivery Method',
+        'd2c.advanced.feature1.title': 'Support Component Recognition',
+        'd2c.advanced.feature1.description':
+            'Get component code quickly without frequently referring to component documentation. Supports Semi Design component by default. ',
+        'd2c.advanced.feature2.title': 'Easy Code Customization',
+        'd2c.advanced.feature2.description':
+            'Provides DSL intermediate output and 19+ hook functions, supporting user-customized code generation results, such as converting to Vue code.',
+        'd2c.advanced.feature3.title': 'Quick Tool Integration',
+        'd2c.advanced.feature3.description':
+            'Support using D2C capabilities through OPEN API or Node SDK without the Figma plugin, enabling integration into self-built platforms.',
+        'd2c.advanced.view': 'View Now',
+        'd2c.advanced.comingSoon': 'Coming Soon',
     },
 };
 

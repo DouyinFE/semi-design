@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'it',
     dateFnsLocale: it,
+    currency: 'EUR',
     Pagination: {
         pageSize: 'Elementi per pagina: ${pageSize}',
         total: 'Pagine totali: ${total}',
@@ -181,6 +182,18 @@ const local: Locale = {
         copy: 'Copia',
         copied: 'Copiato',
         dropAreaText: 'Metti il file qui',
+    },
+    UserGuide: {
+        skip: 'Salta',
+        next: 'Avanti',
+        prev: 'Indietro',
+        finish: 'Fine',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Cerca',
+        replace: 'Sostituisci',
+        replaceAll: 'Sostituisci tutto',
     },
 };
 

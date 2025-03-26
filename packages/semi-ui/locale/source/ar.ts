@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ar',
     dateFnsLocale: arSA,
+    currency: 'SAR',
     Pagination: {
         pageSize: 'العناصر في كل صفحة: ${pageSize}',
         total: 'إجمالي الصفحات: ${total}',
@@ -181,6 +182,18 @@ const local: Locale = {
         copy: 'نسخ',
         copied: 'نسخ',
         dropAreaText: 'ضع الملف هنا',
+    },
+    UserGuide: {
+        skip: 'تخطي',
+        next: 'التالي',
+        prev: 'السابق',
+        finish: 'إنهاء',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'بحث',
+        replace: 'استبدل',
+        replaceAll: 'استبدل الكل',
     },
 };
 

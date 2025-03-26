@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ro',
     dateFnsLocale: ro,
+    currency: 'RON',
     Pagination: {
         pageSize: 'Elemente per pagină: ${pageSize}',
         total: 'Total pagini: ${total}',
@@ -181,6 +182,18 @@ const local: Locale = {
         copy: 'Copiază',
         copied: 'Copiat',
         dropAreaText: 'Puneți fișierul aici',
+    },
+    UserGuide: {
+        skip: 'Omite',
+        next: 'Următorul',
+        prev: 'Anterior',
+        finish: 'Finalizare',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Căutare',
+        replace: 'Înlocuiește',
+        replaceAll: 'Înlocuiește toate',
     },
 };
 

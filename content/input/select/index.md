@@ -321,72 +321,6 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 );
 ```
 
-### 内嵌标签
-
-通过设置`insetLabel`，你可以给 Select 设置 label，可以传入 string 或者 ReactNode  
-当传入类型为 ReactNode 时，注意要自行处理 label 与文本之间的间隔
-
-```jsx live=true
-import React, { useState } from 'react';
-import { Select } from '@douyinfe/semi-ui';
-
-() => {
-    const list = [
-        { value: 'douyin', label: '抖音' },
-        { value: 'ulikecam', label: '轻颜相机' },
-        { value: 'jianying', label: '剪映' },
-        { value: 'toutiao', label: '今日头条' },
-    ];
-    const colorList = ['red', 'light-blue', 'yellow', 'purple', 'pink', 'green'].map(color => {
-        return {
-            value: `rgba(var(--semi-${color}-4), 1)`,
-            label: (
-                <span
-                    style={{
-                        color: `rgba(var(--semi-${color}-4), 1)`,
-                    }}
-                >
-                    {`--semi-${color}-4`}
-                </span>
-            ),
-        };
-    });
-    const [colorVal, setColotVal] = useState('--semi-light-blue-3');
-    return (
-        <>
-            <Select style={{ width: 300 }} optionList={list} insetLabel="业务线" defaultValue="douyin"></Select>
-            <br />
-            <br />
-            <Select
-                style={{ width: 300 }}
-                optionList={colorList}
-                value={colorVal}
-                insetLabel={
-                    <div
-                        style={{
-                            marginLeft: 12,
-                            display: 'flex',
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'block',
-                                width: 5,
-                                height: 5,
-                                border: 'solid 7px transparent',
-                                borderRadius: '50%',
-                                borderColor: 'rgba(var(--semi-light-blue-3), 1)',
-                            }}
-                        ></div>
-                        <span style={{ marginLeft: 4 }}>色值</span>
-                    </div>
-                }
-            ></Select>
-        </>
-    );
-};
-```
-
 ### 在顶部/底部渲染附加项
 
 我们在弹出层顶部、底部分别预留了插槽，当你需要在弹出层中添加自定义 node 时  
@@ -1501,7 +1435,6 @@ import { Select, Checkbox, Highlight } from '@douyinfe/semi-ui';
 | inputProps | filter 为 true 时, input 输入框的额外配置参数，具体可配置属性请参考 Input 组件（注意：请不要传入 value、ref、onChange、onFocus，否则会覆盖 Select 相关回调，影响组件行为）                   | object |  | 2.2.0 |
 | innerTopSlot | 渲染在弹出层顶部，在 optionList 内部的自定义 slot                                                                                                     | ReactNode |  |
 | innerBottomSlot | 渲染在弹出层底部，在 optionList 内部的自定义 slot                                                                                                     | ReactNode |  |
-| insetLabel | 同上，与 prefix 区别是 fontWeight 更大                                                                                                         | ReactNode |  |
 | loading | 下拉列表是否展示加载动画                                                                                                                          | boolean | false |
 | maxTagCount | 多选模式下，已选项超出 maxTagCount 时，后续选项会被渲染成+N 的形式                                                                                             | number |  |
 | max | 最多可选几项，仅在多选模式下生效                                                                                                                      | number |  |

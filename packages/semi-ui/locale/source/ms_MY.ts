@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ms-MY',
     dateFnsLocale: ms,
+    currency: 'MYR',
     Pagination: {
         pageSize: 'Item setiap halaman: ${pageSize}',
         total: 'Jumlah halaman: ${total}',
@@ -181,6 +182,18 @@ const local: Locale = {
         copy: 'Samin',
         copied: 'Disalin',
         dropAreaText: 'Letakkan fail di sini',
+    },
+    UserGuide: {
+        skip: 'Lewati',
+        next: 'Selanjutnya',
+        prev: 'Sebelumnya',
+        finish: 'Selesai',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Cari',
+        replace: 'Ganti',
+        replaceAll: 'Ganti Semua',
     },
 };
 
