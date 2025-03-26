@@ -74,7 +74,7 @@ const infoWithDivider = [
         createAt: 1715676751919,
         content: "test",
     },
-]
+];
 
 const infoWithAttachment = [
     {
@@ -168,7 +168,23 @@ const infoWithJSX = [
 直接在 Markdown 中书写 JSX 即可
 `
     },
-]
+];
+
+const tableContent = [
+    {
+        role: 'system',
+        id: '1',
+        createAt: 1715676751919,
+        content: `这是一个 Table示例
+| 支持 | Markdown 表格 |  c |  d  |
+| - | :- | -: | :-: |
+| 1 | 2fdasfdsafdsafdsf | 3fdafdsafdsfd | 4 |
+| 21 | 22 | 23 | 24 |
+| 31 | 32 | 33 | 34 |
+| 41 | 42 | 43 | 44 |
+`
+    },
+];
 
 export {
     initMessage,
@@ -179,5 +195,6 @@ export {
     simpleInitMessage,
     semiCode, 
     infoWithDivider,
-    infoWithJSX
+    infoWithJSX,
+    tableContent
 };

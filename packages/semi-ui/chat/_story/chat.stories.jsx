@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import { Form, Button, Avatar, Dropdown, Radio, RadioGroup, Switch, Collapsible, AvatarGroup, Divider } from '@douyinfe/semi-ui';
 import { IconUpload, IconForward, IconMoreStroked, IconArrowRight, IconChevronUp } from '@douyinfe/semi-icons';
 import MarkdownRender from '../../markdownRender';
-import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode, infoWithDivider, infoWithJSX } from './constant';
+import { initMessage, roleInfo, commonOuterStyle, hintsExample, infoWithAttachment, simpleInitMessage, semiCode, infoWithDivider, infoWithJSX, tableContent } from './constant';
 
 export default {
     title: 'Chat',
@@ -146,6 +146,25 @@ export const _Chat = () => {
                 />
             </div>
         </>
+    )
+}
+
+
+export const TableContent = () => {
+    const [message, setMessage] = useState(tableContent);
+
+    return (
+        <div
+            style={{ height: 600, width: 400}}
+        >
+            <Chat 
+                placeholder={'不处理输入信息，仅用于展示'}
+                style={commonOuterStyle}
+                chats={message}
+                roleConfig={roleInfo}
+                uploadProps={uploadProps}
+            />
+        </div>
     )
 }
 
