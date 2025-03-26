@@ -1465,7 +1465,7 @@ You can call `setTempFilteredValue` to store the filter value when the user ente
 The reason for setting `tempFilteredValue` is that in scenarios where temporary filtered values need to be stored, there is no need to declare a state to save this temporary filtered value.
 
 ```typescript
-type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
+type RenderFilterDropdown = (props: RenderFilterDropdownProps) => React.ReactNode;
 interface RenderFilterDropdownProps {
      /** Temporary filter value, the initial value is `filteredValue` or `defaultFilteredValue` */
      tempFilteredValue: any[];
@@ -1850,21 +1850,21 @@ const expandData = {
     '0': [
         { key: 'DAU', value: '1,480,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '3级' },
+        { key: 'Security Level', value: '3 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
         { key: 'Certification', value: 'No Verified' },
     ],
     '1': [
         { key: 'DAU', value: '2,480,000' },
         { key: 'Day7 Retention Ratio', value: '90%' },
-        { key: 'Security Level', value: '1级' },
+        { key: 'Security Level', value: '1 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
     '2': [
         { key: 'DAU', value: '2,920,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '2级' },
+        { key: 'Security Level', value: '2 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
@@ -1996,21 +1996,21 @@ const expandData = {
     '0': [
         { key: 'DAU', value: '1,480,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '3级' },
+        { key: 'Security Level', value: '3 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
         { key: 'Certification', value: 'No Verified' },
     ],
     '1': [
         { key: 'DAU', value: '2,480,000' },
         { key: 'Day7 Retention Ratio', value: '90%' },
-        { key: 'Security Level', value: '1级' },
+        { key: 'Security Level', value: '1 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
     '2': [
         { key: 'DAU', value: '2,920,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '2级' },
+        { key: 'Security Level', value: '2 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
@@ -2143,21 +2143,21 @@ const expandData = {
     '0': [
         { key: 'DAU', value: '1,480,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '3级' },
+        { key: 'Security Level', value: '3 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Designer</Tag> },
         { key: 'Certification', value: 'No Verified' },
     ],
     '1': [
         { key: 'DAU', value: '2,480,000' },
         { key: 'Day7 Retention Ratio', value: '90%' },
-        { key: 'Security Level', value: '1级' },
+        { key: 'Security Level', value: '1 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Template</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
     '2': [
         { key: 'DAU', value: '2,920,000' },
         { key: 'Day7 Retention Ratio', value: '98%' },
-        { key: 'Security Level', value: '2级' },
+        { key: 'Security Level', value: '2 级' },
         { key: 'Vertical label', value: <Tag style={{ margin: 0 }}>Docs</Tag> },
         { key: 'Certification', value: 'Verified' },
     ],
