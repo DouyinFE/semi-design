@@ -1586,7 +1586,7 @@ render(App);
 设置 `tempFilteredValue` 的原因是在需要存储临时筛选值的场景，不需要自己声明一个 state 保存这个临时筛选值。
 
 ```typescript
-type RenderFilterDropdown = (props?: RenderFilterDropdownProps) => React.ReactNode;
+type RenderFilterDropdown = (props: RenderFilterDropdownProps) => React.ReactNode;
 interface RenderFilterDropdownProps {
     /** 临时筛选值，初始值为 `filteredValue` 或 `defaultFilteredValue`  */
     tempFilteredValue: any[];
