@@ -48,6 +48,15 @@ export type { AutoSizerProps } from './autoSizer';
 
 const prefixcls = cssClasses.PREFIX;
 
+const treeDataNodeShape = {
+    key: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    label: PropTypes.any,
+    isLeaf: PropTypes.bool,
+    children: PropTypes.array,
+};
+treeDataNodeShape.children = PropTypes.arrayOf(PropTypes.shape(treeDataNodeShape));
+
 class Tree extends BaseComponent<TreeProps, TreeState> {
     static contextType = ConfigContext;
 
@@ -82,14 +91,7 @@ class Tree extends BaseComponent<TreeProps, TreeState> {
         showFilteredOnly: PropTypes.bool,
         showLine: PropTypes.bool,
         style: PropTypes.object,
-        treeData: PropTypes.arrayOf(
-            PropTypes.shape({
-                key: PropTypes.string,
-                value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-                label: PropTypes.any,
-                isLeaf: PropTypes.bool,
-            })
-        ),
+        treeData: PropTypes.arrayOf(PropTypes.shape(treeDataNodeShape)),
         keyMaps: PropTypes.object,
         treeDataSimpleJson: PropTypes.object,
         treeNodeFilterProp: PropTypes.string,
