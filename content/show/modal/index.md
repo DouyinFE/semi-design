@@ -611,6 +611,35 @@ function Demo(props = {}) {
 }
 ```
 
+### 可拖拽 Modal
+
+通过 modalRender 自定义渲染 Modal 内容，可拖拽 Modal 通过 DragMove 组件实现。
+
+```jsx live=true hideInDSM
+import React, { useState } from 'react';
+import { ConfigProvider, Button, Modal, DragMove } from '@douyinfe/semi-ui';
+
+function Demo(props = {}) {
+    const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button onClick={() => setVisible(true)}>Open Modal</Button>
+            <Modal
+                title="可拖拽Modal"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+                modalRender={(modal) => (
+                    <DragMove>{modal}</DragMove>
+                )}
+            >
+                <p>This is the content of a basic sidesheet.</p>
+                <p>Here is more content...</p>
+            </Modal>
+        </div>
+    );
+}
+```
+
 ## API 参考
 
 ### Modal
@@ -641,6 +670,7 @@ function Demo(props = {}) {
 | maskClosable | 是否允许通过点击遮罩来关闭对话框                                                                                          | boolean | true |
 | maskStyle | 遮罩的样式                                                                                                     | CSSProperties | 无 |
 | modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
+| modalRender | 自定义渲染 Modal | (modal: ReactNode) => ReactNode | - |
 | motion | 动画效果开关                                                                                                    | boolean | true |
 | okButtonProps | 确认按钮的 props                                                                                               | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字                                                                                                   | string | 无 |
@@ -682,6 +712,7 @@ function Demo(props = {}) {
 | maskClosable | 是否允许通过点击遮罩来关闭对话框 | boolean | true |
 | maskStyle | 遮罩的样式 | CSSProperties | 无 |
 | modalContentClass | 可用于设置对话框内容的样式类名 | string | 无 |
+| modalRender | 自定义渲染 Modal | (modal: ReactNode) => ReactNode | - |
 | okButtonProps | 确认按钮的 props | [ButtonProps](/zh-CN/input/button#API参考) | 无 |
 | okText | 确认按钮的文字 | string | 无 |
 | okType | 确认按钮的类型 | string | primary |
@@ -757,12 +788,12 @@ WAI-ARIA: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
 ## FAQ
 
 -  #### 为什么使用 LocaleProvider 后， Modal.confirm 确认、取消按钮的文本没有国际化？
-    Modal 使用 Portal 将浮层节点插入到 DOM 树中。但这个操作仅能改变节点在 DOM 树中的位置，无法改变节点在 React 节点树中的位置，LocalProvider是基于 Context 机制传递的，必须是从属的 React 子结点才可消费到 Local 相关 Context。因此命令式的 Modal 的内置文本无法自动适配国际化。
-    你可以通过 `okText` 和 `cancelText` 这两个属性来根据 Locale 重新设置 i18 的文本。   
-    在1.2版本之后，你也可以通过 Modal.useModal 方法来返回 modal 实体以及 contextHolder 节点。将 contextHolder 插入到你需要获取 context 位置，即可使 Modal 获取到对应的 Context，如 ConfigProvider 或者 LocaleProvider 的配置。
+   Modal 使用 Portal 将浮层节点插入到 DOM 树中。但这个操作仅能改变节点在 DOM 树中的位置，无法改变节点在 React 节点树中的位置，LocalProvider是基于 Context 机制传递的，必须是从属的 React 子结点才可消费到 Local 相关 Context。因此命令式的 Modal 的内置文本无法自动适配国际化。
+   你可以通过 `okText` 和 `cancelText` 这两个属性来根据 Locale 重新设置 i18 的文本。   
+   在1.2版本之后，你也可以通过 Modal.useModal 方法来返回 modal 实体以及 contextHolder 节点。将 contextHolder 插入到你需要获取 context 位置，即可使 Modal 获取到对应的 Context，如 ConfigProvider 或者 LocaleProvider 的配置。
 
 -  #### 为什么 title 和 content 的间距在命令式调用和非命令式调用下不同?
-    命令式调用场景下，标题和内容的相关性更强，所以用更近的距离表达这种强相关性，符合预期。用户如果不想要这种效果，可以自己做样式覆盖。
+   命令式调用场景下，标题和内容的相关性更强，所以用更近的距离表达这种强相关性，符合预期。用户如果不想要这种效果，可以自己做样式覆盖。
 
 <!-- ## 相关物料
 ```material

@@ -48,7 +48,7 @@ $spacing-modal_content_fullscreen-top: 0px; // 模态框内容全屏顶部位置
 // Width/Height
 $width-modal_title: 100%; // 模态框标题宽度
 $width-modal_content: 100%; // 模态框内容宽度
-$height-modal_content: 100%; // 模态框内容高度
+$height-modal_content: max-content; // 模态框内容高度
 $width-modal_content-border: 1px; // 模态框内容描边宽度
 $width-modal_small: 448px; // 模态框宽度 - 小
 $width-modal_medium: 684px; // 模态框宽度 - 中
@@ -73,5 +73,3 @@ $width-modal_footer-border:0; // 模态框 footer 顶部描边宽度
 
 //shadow
 $shadow-modal_content: var(--semi-shadow-elevated);
-
-
