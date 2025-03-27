@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import cls from 'classnames';
 import { cssClasses } from '@douyinfe/semi-foundation/modal/constants';
@@ -19,7 +19,8 @@ let uuid = 0;
 
 
 export interface ModalContentReactProps extends ModalContentProps {
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    modalRender?: (node: ReactNode) => ReactNode
 }
 
 export default class ModalContent extends BaseComponent<ModalContentReactProps, ModalContentState> {
@@ -268,8 +269,22 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 {props.footer}
             </div>
         ) : null;
+
+        const modalContentElement = (<div
+            role="dialog"
+            ref={this.modalDialogRef}
+            aria-modal="true"
+            aria-labelledby={`${cssClasses.DIALOG}-title`}
+            aria-describedby={`${cssClasses.DIALOG}-body`}
+            onAnimationEnd={props.onAnimationEnd}
+            className={cls([`${cssClasses.DIALOG}-content`,
+                props.contentClassName,
+                { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
+            {header}
+            {body}
+            {footer}
+        </div>);
         const dialogElement = (
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
                 key="dialog-element"
                 className={digCls}
@@ -277,23 +292,9 @@ export default class ModalContent extends BaseComponent<ModalContentReactProps, 
                 style={{ ...props.style, ...style }}
                 id={this.dialogId}
             >
-                <div
-                    role="dialog"
-                    ref={this.modalDialogRef}
-                    aria-modal="true"
-                    aria-labelledby={`${cssClasses.DIALOG}-title`}
-                    aria-describedby={`${cssClasses.DIALOG}-body`}
-                    onAnimationEnd={props.onAnimationEnd}
-                    className={cls([`${cssClasses.DIALOG}-content`,
-                        props.contentClassName,
-                        { [`${cssClasses.DIALOG}-content-fullScreen`]: props.isFullScreen }])}>
-                    {header}
-                    {body}
-                    {footer}
-                </div>
+                {props?.modalRender ? props?.modalRender(modalContentElement) : modalContentElement}
             </div>
-        ); 
-        // return props.visible ? dialogElement : null;
+        );
         return dialogElement;
     };
 
