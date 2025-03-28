@@ -36,9 +36,10 @@ interface CropperProps {
     cropperBoxCls?: string;
     /* The fill color of the non-picture parts in the cut result */
     fill?: string;
-    maxZoom: number;
-    minZoom: number;
-    zoomStep: number
+    maxZoom?: number;
+    minZoom?: number;
+    zoomStep?: number;
+    preview?: () => HTMLElement
 }
 
 interface CropperState {
@@ -218,6 +219,14 @@ class Cropper extends BaseComponent<CropperProps, CropperState> {
         const cropperBoxY = cropperBox.centerPoint.y - cropperBox.height / 2;
         const cropperImgX = imgX - cropperBoxX;
         const cropperImgY = imgY - cropperBoxY;
+
+        this.foundation.updatePreview({
+            width: imgData.width,
+            height: imgData.height,
+            translateX: cropperImgX, 
+            translateY: cropperImgY,
+            rotate: rotate,
+        });
 
         return (<ResizeObserver 
             onResize={this.foundation.handleResize} 

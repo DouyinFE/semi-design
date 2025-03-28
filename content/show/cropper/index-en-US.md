@@ -27,6 +27,7 @@ Use `sr` to set the cropped image; use `shape` to set the shape of the cropping 
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import React, { useState, useRef, useCallback } from 'react';
 
 const containerStyle = {
   width: 550,
@@ -36,13 +37,12 @@ const containerStyle = {
 
 function Demo() {
     const ref = useRef(null);
-  const [shape, setShape] = useState('rect');
+    const [shape, setShape] = useState('rect');
+    const [cropperUrl, setCropperUrl] = useState('');
 
     const onButtonClick = useCallback(() => {
-        const value = ref.current.getCropperCanvas();
-        const previewContainer = document.getElementById('previewContainer');
-        previewContainer.innerHTML = '';
-        previewContainer.appendChild(value);
+        const canvas = ref.current.getCropperCanvas();
+        setCropperUrl(canvas.toDataURL());
     }, []);
 
     const onShapeChange = useCallback((e) => {
@@ -62,7 +62,8 @@ function Demo() {
             shape={shape}
         />
         <Button onClick={onButtonClick}>Get Cropped Image</Button>
-        <div id='previewContainer'/>
+         <br/><br/>
+        {cropperUrl && <img src={cropperUrl} style={{height: 400}}/>}
     </>;
 }
 
@@ -79,6 +80,7 @@ When setting `aspectRatio`, the crop box ratio is fixed, and the crop box will c
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import React, { useState, useRef, useCallback } from 'react';
 
 const containerStyle = {
   width: 550,
@@ -88,13 +90,12 @@ const containerStyle = {
 
 function Demo() {
     const ref = useRef(null);
-    const shape = useState('rect');
+    const [cropperUrl, setCropperUrl] = useState('');
 
     const onButtonClick = useCallback(() => {
-        const value = ref.current.getCropperCanvas();
-        const previewContainer = document.getElementById('previewContainer-aspect');
-        previewContainer.innerHTML = '';
-        previewContainer.appendChild(value);
+      const canvas = ref.current.getCropperCanvas();
+      const url = canvas.toDataURL();
+      setCropperUrl(url);
     }, []);
 
     return <>
@@ -105,7 +106,8 @@ function Demo() {
             style={containerStyle}
         />
         <Button onClick={onButtonClick}>Get Cropped Image</Button>
-        <div id='previewContainer-aspect' />
+         <br /><br />
+        {cropperUrl && <img src={cropperUrl} style={{height: 400}}/>}
     </>;
 }
 
@@ -118,6 +120,7 @@ Control image rotation and zoom through `rotate` and `zoom`, and get the latest 
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, Slider } from '@douyinfe/semi-ui';
+import React, { useState, useRef, useCallback } from 'react';
 
 const containerStyle = {
   width: 550,
@@ -137,6 +140,7 @@ function Demo() {
   const [rotate, setRotate] = useState(0);
   const [zoom, setZoom] = useState(1);
   const ref = useRef();
+  const [cropperUrl, setCropperUrl] = useState('');
 
   const onZoomChange = useCallback((value) => {
     setZoom(value);
@@ -147,10 +151,8 @@ function Demo() {
   }, []);
 
   const onButtonClick = useCallback(() => {
-    const value = ref.current.getCropperCanvas();
-    const previewContainer = document.getElementById('previewContainer-control');
-    previewContainer.innerHTML = '';
-    previewContainer.appendChild(value);
+    const canvas = ref.current.getCropperCanvas();
+    setCropperUrl(canvas.toDataURL());
   }, []);
 
   return (
@@ -187,11 +189,8 @@ function Demo() {
            </div>
            <br />
            <Button onClick={onButtonClick}>Get Cropped Image</Button>
-           <br />
-           <div >
-            <div id='previewContainer-control'
-            />
-          </div>
+           <br /><br />
+          {cropperUrl && <img src={cropperUrl} style={{height: 400}}/>}
       </div>
   );
 };
@@ -205,6 +204,7 @@ The crop box style can be customized through `cropperBoxStyle`, `cropperBoxClass
 
 ```jsx live=true dir=column noInline=true
 import { Cropper, Button, Switch } from '@douyinfe/semi-ui';
+import React, { useState, useRef, useCallback } from 'react';
 
 const containerStyle = {
   width: 550,
@@ -221,12 +221,11 @@ const centerStyle = {
 
 function Demo() {
     const ref = useRef(null);
+    const [cropperUrl, setCropperUrl] = useState('');
 
     const onButtonClick = useCallback(() => {
-        const value = ref.current.getCropperCanvas();
-        const previewContainer = document.getElementById('previewContainer-cropperBox');
-        previewContainer.innerHTML = '';
-        previewContainer.appendChild(value);
+        const canvas = ref.current.getCropperCanvas();
+        setCropperUrl(canvas.toDataURL());
     }, []);
 
     return <>
@@ -239,9 +238,109 @@ function Demo() {
             showResizeBox={false}
         />
         <Button onClick={onButtonClick}>Get Cropped Image</Button>
-        <div id='previewContainer-cropperBox'/>
+        <br /><br />
+        {cropperUrl && <img src={cropperUrl} style={{height: 400}}/>}
     </>;
 }
+
+render(<Demo />)
+```
+
+### 实时预览裁切效果
+
+通过 `preview` 指定预览容器，实时预览裁切效果。
+
+```jsx live=true dir=column noInline=true
+import { Cropper, Button, RadioGroup, Radio } from '@douyinfe/semi-ui';
+import React, { useState, useRef, useCallback } from 'react';
+
+const containerStyle = {
+  width: 550,
+  height: 300,
+  margin: 20,
+}
+
+const actionStyle = {
+  marginTop: 20,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 'fit-content'
+}
+
+function Demo() {
+  const [rotate, setRotate] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [cropperData, setCropperUrl ] = useState('');
+  const ref = useRef();
+
+  const onZoomChange = useCallback((value) => {
+    setZoom(value);
+  })
+
+  const onSliderChange = useCallback((value) => {
+    setRotate(value);
+  }, []);
+
+  const onButtonClick = useCallback(() => {
+    const canvas = ref.current.getCropperCanvas();
+    const url = canvas.toDataURL();
+    setCropperUrl(url);
+  }, []);
+
+  const preview = useCallback(() => {
+    const previewContainer = document.getElementById('previewWrapper');
+    return previewContainer;
+  }, []);
+
+  return (
+      <div >
+           <Cropper 
+              ref={ref} 
+              src={"https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"}
+              style={containerStyle}
+              rotate={rotate}
+              zoom={zoom}
+              onZoomChange={onZoomChange}
+              preview={preview}
+           />
+           <div style={actionStyle} >
+            <span>旋转</span>
+            <Slider
+              style={{ width: 500}}
+              value={rotate}
+              step={1}
+              min={-360}
+              max={360}
+              onChange={onSliderChange}
+            />
+           </div>
+           <div style={actionStyle} >
+            <span>缩放</span>
+            <Slider
+              style={{ width: 500}}
+              value={zoom}
+              step={0.1}
+              min={0.1}
+              max={3}
+              onChange={onZoomChange}
+            />
+           </div>
+           <br />
+           <div style={{ display: 'flex', }}>
+              <div style={{ width: '50%', flexGrow: 1}}>
+                <strong>实时预览</strong>
+                <div id='previewWrapper' style={{height: 300, marginTop: 8}}/>
+              </div>
+              <div style={{width: '50%', flexGrow: 1, paddingLeft: 10 }}>
+                <Button onClick={onButtonClick}>裁切</Button>
+                <br /><br />
+                <img src={cropperData} style={{ width: '90%'}} />
+              </div>
+           </div>
+      </div>
+  );
+};
 
 render(<Demo />)
 ```
@@ -260,6 +359,7 @@ render(<Demo />)
 | maxZoom | Maximum zoom factor | number | 3 |
 | minZoom | Minimum zoom factor | number | 0.1 |
 | onZoomChange | Callback during zoom transformation | (zoom: number) => void | - |
+| preview | The container of the preview image | () => HTMLElement | - |
 | rotate | rotation angle | number | - |
 | shape | Crop box shape | 'rect' \| 'round' \| 'roundRect' | 'rect' |
 | src | The address of the cropped image | string | - |
