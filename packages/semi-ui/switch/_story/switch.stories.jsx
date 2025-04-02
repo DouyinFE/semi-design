@@ -159,3 +159,34 @@ export const Loading = () => <LoadingDemo />;
 Loading.story = {
   name: 'loading',
 };
+
+
+export const SwitchType = () => (
+    <div>
+        <div>
+            <Switch defaultChecked={true}></Switch>
+            <Switch defaultChecked={true} type="primary"></Switch>
+            <Switch defaultChecked={true} type="danger"></Switch>
+            <Switch defaultChecked={true} type="tertiary"></Switch>
+            <Switch defaultChecked={true} type="warning"></Switch>
+        </div>
+        <div>
+            <Switch defaultChecked={true} disabled></Switch>
+            <Switch defaultChecked={true} disabled type="primary"></Switch>
+            <Switch defaultChecked={true} disabled type="danger"></Switch>
+            <Switch defaultChecked={true} disabled type="tertiary"></Switch>
+            <Switch defaultChecked={true} disabled type="warning"></Switch>
+        </div>
+        <div>
+            <Switch defaultChecked={true} loading></Switch>
+            <Switch defaultChecked={true} loading type="primary"></Switch>
+            <Switch defaultChecked={true} loading type="danger"></Switch>
+            <Switch defaultChecked={true} loading type="tertiary"></Switch>
+            <Switch defaultChecked={true} loading type="warning"></Switch>
+        </div>
+    </div>
+);
+
+SwitchSize.story = {
+    name: 'switch type',
+};
