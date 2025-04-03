@@ -22,6 +22,9 @@ export default class BackTopFoundation extends BaseFoundation<BackTopAdapter> {
     init() {
         const { target } = this.getProps();
         const targetNode = target();
+        if (!targetNode) {
+            return;
+        }
         targetNode.addEventListener('scroll', this.handleScroll);
         this.handleScroll();
     }
