@@ -1156,3 +1156,35 @@ export const DynamicShowArrow = () => {
       </Tabs>
   );
 };
+
+export const CollapseScrollIntoViewDemo = () => {
+  const [activeKey, setActiveKey] = useState('Tab-9');
+  return (
+    <div>
+      <h4>need to scroll into view</h4>
+      <Tabs
+        style={{ width: 250, margin: '20px' }}
+        type="card"
+        collapsible
+        activeKey={activeKey}
+        onChange={(e) => {
+          setActiveKey(e)
+        }}
+      >
+        {[...Array(10).keys()].map(i => (
+          <TabPane tab={`Tab-${i}`} itemKey={`Tab-${i}`} key={i}>content of tab {i}</TabPane>
+        ))}
+      </Tabs>
+      <h4>No need to scroll into view</h4>
+      <Tabs
+        style={{ width: 250, margin: '20px' }}
+        type="card"
+        collapsible
+      >
+        {[...Array(10).keys()].map(i => (
+          <TabPane tab={`Tab-normal-${i}`} itemKey={`Tab-normal-${i}`} key={i}>content of tab {i}</TabPane>
+        ))}
+      </Tabs>
+    </div>
+  )
+}

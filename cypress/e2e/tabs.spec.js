@@ -107,4 +107,11 @@ describe('tabs', () => {
         cy.get('.semi-button').eq(1).trigger('mouseover');
         cy.get('.semi-dropdown-content .semi-dropdown-item').should('not.exist');
     });
+
+    it('activeTab is within the viewport after collapse Tabs did mount', () => {
+        cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-scroll-into-view-demo&args=&viewMode=story');
+
+        cy.wait(500);
+        cy.get('.semi-tabs-tab').contains('Tab-9').should('exist').and('be.visible');
+    });
 });
