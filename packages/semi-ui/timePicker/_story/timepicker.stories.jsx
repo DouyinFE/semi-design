@@ -408,3 +408,10 @@ export const Fix2375 = () => {
     </div> 
   );
 };
+
+export const CustomHeader = () => {
+  return (
+    <TimePicker panelHeader="Custom Header" />
+  );
+};
+
