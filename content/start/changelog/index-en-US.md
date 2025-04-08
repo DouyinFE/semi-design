@@ -16,6 +16,16 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.78.0 (2025-04-08)
+- 【Fix】
+    - A fallback operation to avoid TypeError when target does not exist in BackTop component
+    - Fixed the issue that markdownRenderProps did not take effect when parsing text in Chat when the content of the message is an array
+    - fix the issue that Collapse Tabs cannot scroll activeTab into the viewport when first loaded
+- 【Style】
+    - Fixed the problem that the header cells with sorting in Table flicker when switching between light and dark
+- 【Design token】
+    - ScrollList adds $color-scrollList_header-bg to control header color
+
 #### 🎉 2.78.0-beta.0 (2025-04-01)
 - 【Feat】
     - Cropper adds preview API to support real-time preview of cropping effects  [#2783](https://github.com/DouyinFE/semi-design/issues/2783)

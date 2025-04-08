@@ -13,6 +13,16 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
 -   修订版本号（patch）：仅会进行 bugfix，发布时间不限
 -   不同版本间的详细关系，可查阅 [FAQ](/zh-CN/start/faq)
 
+#### 🎉 2.78.0 (2025-04-08)
+- 【Fix】
+    - BackTop 组件的 target 不存在时候的兜底操作，避免 TypeError [#2786](https://github.com/DouyinFE/semi-design/pull/2786)
+    - 修复 Chat 组件在解析消息的 content 为数组的文本内容时， markdownRenderProps 未生效问题 [#2794](https://github.com/DouyinFE/semi-design/pull/2794)
+    - 修复 Collapse Tabs 初次加载无法将 activeTab 滚动到视口内问题 [#2787](https://github.com/DouyinFE/semi-design/pull/2787)
+- 【Style】
+    - 修复Table 中具有排序的表头单元格在明暗切换时候的闪动 [#2795](https://github.com/DouyinFE/semi-design/pull/2795)
+- 【Design token】
+    - ScrollList 新增 $color-scrollList_header-bg 用于控制 header 颜色 [#2789](https://github.com/DouyinFE/semi-design/pull/2789)
+
 #### 🎉 2.78.0-beta.0 (2025-04-01)
 - 【Feat】
     - Cropper 增加 preview API 用于支持实时预览裁切效果  [#2783](https://github.com/DouyinFE/semi-design/issues/2783)
