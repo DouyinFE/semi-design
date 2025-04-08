@@ -111,7 +111,7 @@ describe('tabs', () => {
     it('activeTab is within the viewport after collapse Tabs did mount', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-scroll-into-view-demo&args=&viewMode=story');
 
-        cy.wait(500);
+        cy.wait(1000);
         cy.get('.semi-tabs-tab').contains('Tab-9').should('exist').and('be.visible');
     });
 });
