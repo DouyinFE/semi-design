@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useMemo } from 'react';
 import cls from 'classnames';
-import { Message, Metadata, RenderContentProps } from '../interface';
-import MarkdownRender, { MarkdownRenderProps } from '../../markdownRender';
+import { Message, Metadata, RenderContentProps, MarkdownRenderProps } from '../interface';
+import MarkdownRender from '../../markdownRender';
 import { cssClasses, strings } from '@douyinfe/semi-foundation/chat/constants';
 import { MDXProps } from 'mdx/types';
 import { FileAttachment, ImageAttachment } from '../attachment';
@@ -17,7 +17,7 @@ interface ChatBoxContentProps {
     role?: Metadata;
     message?: Message;
     customRenderFunc?: (props: RenderContentProps) => ReactNode;
-    markdownRenderProps?: MarkdownRenderProps;
+    markdownRenderProps?: MarkdownRenderProps
 }
 
 const ChatBoxContent = (props: ChatBoxContentProps) => {
@@ -64,6 +64,7 @@ const ChatBoxContent = (props: ChatBoxContentProps) => {
                             format='md'
                             raw={item.text}
                             components={markdownComponents as any}
+                            {...markdownRenderProps}
                         />;
                     } else if (item.type === 'image_url') {
                         return <ImageAttachment key={`index`} src={item.image_url.url} />;
