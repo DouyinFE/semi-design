@@ -16,6 +16,9 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.78.0-beta.0 (2025-04-01)
+- 【Feat】
+    - Cropper adds preview API to support real-time preview of cropping effects  [#2783](https://github.com/DouyinFE/semi-design/issues/2783)
 #### 🎉 2.77.0 (2025-03-25)
 - 【Fix】
     - Fixed the issue of click-through when the UserGuide is in the bubble mode [#2764](https://github.com/DouyinFE/semi-design/pull/2764)
