@@ -20,7 +20,7 @@ Semi 版本号遵循 **Semver** 规范（主版本号 - 次版本号 - 修订版
     - 修复 Collapse Tabs 初次加载无法将 activeTab 滚动到视口内问题 [#2787](https://github.com/DouyinFE/semi-design/pull/2787)
 - 【Style】
     - 修复Table 中具有排序的表头单元格在明暗切换时候的闪动 [#2795](https://github.com/DouyinFE/semi-design/pull/2795)
-- 【Design token】
+- 【Design Token】
     - ScrollList 新增 $color-scrollList_header-bg 用于控制 header 颜色 [#2789](https://github.com/DouyinFE/semi-design/pull/2789)
 
 #### 🎉 2.78.0-beta.0 (2025-04-01)

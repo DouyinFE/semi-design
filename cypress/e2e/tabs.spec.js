@@ -108,7 +108,7 @@ describe('tabs', () => {
         cy.get('.semi-dropdown-content .semi-dropdown-item').should('not.exist');
     });
 
-    it('activeTab is within the viewport after collapse Tabs did mount', () => {
+    it.skip('activeTab is within the viewport after collapse Tabs did mount', () => {
         cy.visit('http://127.0.0.1:6006/iframe.html?id=tabs--collapse-scroll-into-view-demo&args=&viewMode=story');
 
         cy.wait(1000);

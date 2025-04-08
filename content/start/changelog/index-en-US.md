@@ -23,7 +23,7 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - fix the issue that Collapse Tabs cannot scroll activeTab into the viewport when first loaded
 - 【Style】
     - Fixed the problem that the header cells with sorting in Table flicker when switching between light and dark
-- 【Design token】
+- 【Design Token】
     - ScrollList adds $color-scrollList_header-bg to control header color
 
 #### 🎉 2.78.0-beta.0 (2025-04-01)
