@@ -1081,6 +1081,10 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      */
     handleSort(column: { dataIndex?: string; sortOrder?: BaseSortOrder } = {}, e: any) {
         this.stopPropagation(e);
+        // if click on the resizable handle, do not trigger the sorting，fix #2802
+        if (e.target.className.includes('react-resizable-handle')) {
+            return;
+        }
 
         const { dataIndex } = column;
 
