@@ -1,4 +1,4 @@
-import { isEqual, get, difference, isUndefined, assign, isEmpty, isNumber, includes, isFunction, isObject } from 'lodash';
+import { isEqual, get, difference, isUndefined, assign, isEmpty, isNumber, includes, isFunction, isObject, isString } from 'lodash';
 import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 import {
     findAncestorKeys,
@@ -186,6 +186,7 @@ export interface BasicCascaderProps {
 }
 
 export interface BasicCascaderInnerData {
+    emptyContentMinWidth: number;
     isOpen: boolean;
     rePosKey: number;
     keyEntities: BasicEntities;
@@ -239,7 +240,9 @@ export interface CascaderAdapter extends DefaultAdapter<BasicCascaderProps, Basi
     updateLoadingKeyRefValue: (keys: Set<string>) => void;
     getLoadingKeyRefValue: () => Set<string>;
     updateLoadedKeyRefValue: (keys: Set<string>) => void;
-    getLoadedKeyRefValue: () => Set<string>
+    getLoadedKeyRefValue: () => Set<string>;
+    setEmptyContentMinWidth: (minWidth: number) => void;
+    getTriggerWidth: () => number;
 }
 
 export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, BasicCascaderProps, BasicCascaderInnerData> {
@@ -257,6 +260,19 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         if (isOpen && !this._isDisabled()) {
             this.open();
         }
+    }
+
+    _setEmptyContentMinWidth() {
+        const { style } = this.getProps();
+        let width;
+        if (style && isNumber(style.width)) {
+            width = style.width;
+        } else if (style && isString(style.width) && !style.width.includes('%')) {
+            width = style.width;
+        } else {
+            width = this._adapter.getTriggerWidth();
+        }
+        this._adapter.setEmptyContentMinWidth(width);
     }
 
     handleKeyDown = (e: any) => {
@@ -531,6 +547,7 @@ export default class CascaderFoundation extends BaseFoundation<CascaderAdapter, 
         }
         this._adapter.notifyDropdownVisibleChange(true);
         this._adapter.registerClickOutsideHandler(e => this.close(e));
+        this._setEmptyContentMinWidth();
     }
 
     reCalcActiveKeys() {

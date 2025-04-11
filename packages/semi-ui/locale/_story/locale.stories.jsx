@@ -21,6 +21,8 @@ import {
     Image,
     Form,
     Nav,
+    InputNumber,
+    JsonViewer
 } from '../../index';
 
 import zh_CN from '@douyinfe/semi-ui/locale/source/zh_CN';
@@ -327,7 +329,7 @@ const treeData = [
     },
 ];
 
-const I18nComponent2 = () => {
+const I18nComponent2 = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const columns = useMemo(() => [
         {
@@ -395,6 +397,8 @@ const I18nComponent2 = () => {
                     <p>More content...</p>
                 </Modal>
             </div>
+            <h5>InputNumber</h5>
+            <InputNumber mode="currency" key={props.localeCode} defaultValue={1234567.89} />
             <h5>Select & Cascader</h5>
             <div style={style}>
                 <Select filter style={{ width: '180px' }}>
@@ -482,6 +486,11 @@ const I18nComponent2 = () => {
                     collapseButton: true,
                 }}
             />
+            <h5>JsonViewer</h5>
+            <JsonViewer height={100} width={700} value={`{
+                "name": "Semi",
+                "version": "0.0.0"
+            }`} />
         </>
     );
 };
@@ -556,7 +565,7 @@ class I18nDemo extends React.Component {
                 </div>
                 <LocaleProvider locale={locale}>
                     <ConfigProvider direction={localeCode === 'ar' ? 'rtl' : 'ltr'} locale={locale}>
-                        <I18nComponent2 />
+                        <I18nComponent2 localeCode={localeCode}/>
                     </ConfigProvider>
                 </LocaleProvider>
             </>

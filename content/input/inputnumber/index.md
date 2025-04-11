@@ -171,6 +171,191 @@ function Demo () {
 }
 ```
 
+### 货币展示
+2.77.0 版本开始支持货币展示，国际化模式下通过 currency={true} 开启，组件会自动根据 localeCode 展示对应货币种类。（注意切换语言类型后需要更新组件 key 值）
+```jsx live=true
+import React from 'react';
+import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
+import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
+import en_US from '@douyinfe/semi-ui/lib/es/locale/source/en_US';
+import ko_KR from '@douyinfe/semi-ui/lib/es/locale/source/ko_KR';
+import ja_JP from '@douyinfe/semi-ui/lib/es/locale/source/ja_JP';
+import ar from '@douyinfe/semi-ui/lib/es/locale/source/ar';
+import vi_VN from '@douyinfe/semi-ui/lib/es/locale/source/vi_VN';
+import ru_RU from '@douyinfe/semi-ui/lib/es/locale/source/ru_RU';
+import id_ID from '@douyinfe/semi-ui/lib/es/locale/source/id_ID';
+import ms_MY from '@douyinfe/semi-ui/lib/es/locale/source/ms_MY';
+import th_TH from '@douyinfe/semi-ui/lib/es/locale/source/th_TH';
+import tr_TR from '@douyinfe/semi-ui/lib/es/locale/source/tr_TR';
+import pt_BR from '@douyinfe/semi-ui/lib/es/locale/source/pt_BR';
+import zh_TW from '@douyinfe/semi-ui/lib/es/locale/source/zh_TW';
+import sv_SE from '@douyinfe/semi-ui/lib/es/locale/source/sv_SE';
+import pl_PL from '@douyinfe/semi-ui/lib/es/locale/source/pl_PL';
+import nl_NL from '@douyinfe/semi-ui/lib/es/locale/source/nl_NL';
+import es from '@douyinfe/semi-ui/lib/es/locale/source/es';
+import it from '@douyinfe/semi-ui/lib/es/locale/source/it';
+import de from '@douyinfe/semi-ui/lib/es/locale/source/de';
+import fr from '@douyinfe/semi-ui/lib/es/locale/source/fr';
+import ro from '@douyinfe/semi-ui/lib/es/locale/source/ro';
+import { LocaleProvider, InputNumber, Select } from '@douyinfe/semi-ui';
+
+class I18nDemo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            locale: zh_CN,
+            localeCode: 'zh_CN',
+        };
+        this.onLanguageChange = this.onLanguageChange.bind(this);
+    }
+
+    onLanguageChange(code) {
+        let language = {
+            'zh_CN': zh_CN,
+            'en_GB': en_GB,
+            'en_US': en_US,
+            'ko_KR': ko_KR,
+            'ja_JP': ja_JP,
+            'ar': ar,
+            'vi_VN': vi_VN,
+            'ru_RU': ru_RU,
+            'id_ID': id_ID,
+            'ms_MY': ms_MY,
+            'th_TH': th_TH,
+            'tr_TR': tr_TR,
+            'pt_BR': pt_BR,
+            'zh_TW': zh_TW,
+            'es': es,
+            'sv_SE': sv_SE,
+            'pl_PL': pl_PL,
+            'nl_NL': nl_NL,
+            de,
+            it,
+            fr,
+            ro
+        };
+        this.setState({ locale: language[code], localeCode: code });
+    }
+
+    render() {
+        const { locale, localeCode } = this.state;
+        return (
+            <>
+                <div style={{ paddingBottom: 20 }}>
+                    <Select onChange={this.onLanguageChange} insetLabel='切换语言' style={{ width: 250 }} defaultValue='zh_CN'>
+                        <Select.Option value='zh_CN'>简体中文</Select.Option>
+                        <Select.Option value='en_US'>英语（美）</Select.Option>
+                        <Select.Option value='en_GB'>英语（英）</Select.Option>
+                        <Select.Option value='ja_JP'>日语</Select.Option>
+                        <Select.Option value='ko_KR'>韩语</Select.Option>
+                        <Select.Option value='ar'>阿拉伯语</Select.Option>
+                        <Select.Option value='vi_VN'>越南语</Select.Option>
+                        <Select.Option value='ru_RU'>俄罗斯语</Select.Option>
+                        <Select.Option value='id_ID'>印尼语</Select.Option>
+                        <Select.Option value='ms_MY'>马来语</Select.Option>
+                        <Select.Option value='th_TH'>泰语</Select.Option>
+                        <Select.Option value='tr_TR'>土耳其语</Select.Option>
+                        <Select.Option value='pt_BR'>葡萄牙语（巴西）</Select.Option>
+                        <Select.Option value='zh_TW'>繁体中文</Select.Option>
+                        <Select.Option value='es'>西班牙语</Select.Option>
+                        <Select.Option value='de'>德语</Select.Option>
+                        <Select.Option value='it'>意大利语</Select.Option>
+                        <Select.Option value='fr'>法语</Select.Option>
+                        <Select.Option value='ro'>罗马尼亚语</Select.Option>
+                        <Select.Option value='sv_SE'>瑞典语</Select.Option>
+                        <Select.Option value='pl_PL'>波兰语</Select.Option>
+                        <Select.Option value='nl_NL'>荷兰语</Select.Option>
+                    </Select>
+                </div>
+                <LocaleProvider locale={locale}>
+                    <InputNumber key={localeCode} currency={true} defaultValue={123456.78} />
+                </LocaleProvider>
+            </>
+        );
+    }
+}
+```
+也可以通过手动传 localeCode 和 currency 指定展示的货币种类
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';
+
+() => {
+    const defaultValue = 123456.78;
+    return (
+        <div>
+            <div>🇨🇳 人民币</div>
+            <InputNumber localeCode="zh-CN" currency="CNY" defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇪🇺 欧元</div>
+            <InputNumber localeCode="de-DE" currency="EUR" defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇯🇵 日元</div>
+            <InputNumber localeCode="ja-JP" currency="JPY" defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇻🇳 越南盾</div>
+            <InputNumber localeCode="vi-VN" currency="VND" defaultValue={defaultValue} />
+            <br />
+            <br />
+        </div>
+    );
+};
+```
+支持 symbol、code、name 三种展示方式，通过 currencyDisplay 属性控制，默认以货币符号展示。showCurrencySymbol 设置为 false 隐藏货币符号/代码/名称的展示
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';    
+
+() => {
+    const defaultValue = 123456.78;
+    return (
+        <div>
+            <div>🇨🇳 CNY ➕ code</div>
+            <InputNumber currency="CNY" currencyDisplay="code" defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ symbol</div>
+            <InputNumber currency="CNY" currencyDisplay="symbol" defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ name</div>
+            <InputNumber currency="CNY" currencyDisplay="name" defaultValue={defaultValue} />
+            <br />
+            <br />
+        </div>
+    );
+};
+```
+
+隐藏货币符号、代码或名称的展示，通过前后缀展示货币符号
+```jsx live=true
+import React from 'react';
+import { InputNumber } from '@douyinfe/semi-ui';    
+
+() => {
+    const defaultValue = 123456.78;
+    return (
+        <div>
+            <div>🇨🇳 CNY ➕ code</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="CNY" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ symbol</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" prefix="￥" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+            <div>🇨🇳 CNY ➕ name</div>
+            <InputNumber style={{ width: 200 }} currency="CNY" suffix="人民币" showCurrencySymbol={false} defaultValue={defaultValue} />
+            <br />
+            <br />
+        </div>
+    );
+};
+```
+
 ## API 参考
 
 | 属性         | 说明                                                           | 类型                              | 默认值    | 版本      |
@@ -178,13 +363,15 @@ function Demo () {
 | autofocus    | 自动获取焦点                                                   | boolean                           | false     |           |
 | className | 类名                                                               | string  | -      |
 | clearIcon | 可用于自定义清除按钮, showClear为true时有效 | ReactNode |   | 2.25.0|
+| currency | 货币种类，国际化模式下通过 currency={true} 开启，组件会自动根据 locale 展示对应货币种类, 也可以手动传入 localeCode 和 currency 指定展示的货币种类, currency 的可选值有 `CNY`,`EUR`,`USD`等| boolean\|string | false | **2.77.0** |
+| currencyDisplay | 货币展示方式，可选值：symbol、code、name | string | symbol | **2.77.0** |
 | defaultValue | 默认值                                                         | number                            |           |           |
 | disabled     | 禁用                                                           | boolean                           | false     |           |
 | formatter    | 指定输入框展示值的格式                                         | (value: number\|string) => string | -         |           |
 | hideButtons  | 为 `true` 时隐藏 “上/下” 按钮                                  | boolean                           | false     | **1.0.0** |
 | innerButtons | 为 `true` 时 “上/下” 按钮显示在输入框内部                                  | boolean                           | false     | **1.5.0** |
-| insetLabel   | 前缀标签，优先级低于 `prefix`                                  | string\|ReactNode                 |           |           |
 | keepFocus    | 点击按钮时保持输入框聚焦                                        | boolean                 |     false      |   **1.10.0**        |
+|  localeCode    | 货币模式下用于指定国家地区代码，可选值有 `zh-CN`, `en-US`, `en-GB`, `ja-JP`, `ko-KR`, `ar`, `vi-VN`, `ru-RU`, `id-ID`, `ms-MY`, `th-TH`, `tr-TR`, `pt-BR`, `zh-TW`, `es`, `de`, `it`, `fr`, `ro`, `sv-SE`, `pl-PL`, `nl-NL`等 | string                 |     -      |   **2.77.0**  |
 | max          | 限定最大值                                                     | number                            | Infinity  |           |
 | min          | 限定最小值                                                     | number                            | -Infinity |           |
 | parser       | 指定从 `formatter` 里转换回数字串的方式，和 `formatter` 搭配使用 | (str: string) => string           | -         |           |
@@ -195,6 +382,7 @@ function Demo () {
 | preventScroll | 指示浏览器是否应滚动文档以显示新聚焦的元素，作用于组件内的 focus 方法 | boolean |  |  |
 | shiftStep    | 按住 shift 键每次改变步数，可以为小数，v2.13 默认值由 1 调整为 10                           | number                            | 10         | **1.5.0** |
 | showClear    | 是否显示清除按钮                                               | boolean                           | false     | **0.35.0**   |
+| showCurrencySymbol | 是否显示货币符号/代码/名称，仅货币模式下生效 | boolean | true | **2.77.0** |
 | size         | 输入框大小，可选值："default"\|"small"\|"large"                | string                            | 'default' |           |
 | step         | 每次改变步数，可以为小数                                       | number                            | 1         |           |
 | style     | 样式                                                               | CSSProperties  | -      |

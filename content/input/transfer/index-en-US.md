@@ -30,7 +30,7 @@ import { Transfer } from '@douyinfe/semi-ui';
             label: `Item ${i}`,
             value: i,
             disabled: false,
-            key: i,
+            key: `key-${i}`,
         };
     });
     return (
@@ -233,7 +233,7 @@ import { Transfer } from '@douyinfe/semi-ui';
             label: `Item ${i}`,
             value: i,
             disabled: false,
-            key: i,
+            key: `key-${i}`,
         };
     });
     return (
@@ -261,7 +261,7 @@ import { Transfer } from '@douyinfe/semi-ui';
             label: `Item ${i}`,
             value: i,
             disabled: false,
-            key: i,
+            key: `key-${i}`,
         };
     });
     return (
@@ -391,7 +391,7 @@ import { Transfer, Button } from '@douyinfe/semi-ui';
             label: `Item ${i}`,
             value: i,
             disabled: false,
-            key: i,
+            key: `key-${i}`,
         };
     });
 
@@ -480,7 +480,7 @@ class CustomRenderDemo extends React.Component {
                 label: `Hdl Store ${i}`,
                 value: i,
                 disabled: false,
-                key: i,
+                key: `key-${i}`,
             })),
         };
         this.renderSourcePanel = this.renderSourcePanel.bind(this);
@@ -741,7 +741,7 @@ class CustomRenderDragDemo extends React.Component {
                 label: `Hdl Store ${i}`,
                 value: i,
                 disabled: false,
-                key: i,
+                key: `key-${i}`,
             })),
         };
         this.renderSourcePanel = this.renderSourcePanel.bind(this);

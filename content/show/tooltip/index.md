@@ -390,7 +390,7 @@ function Demo() {
 | stopPropagation | 是否阻止弹层上的点击事件冒泡                                                                                                                                       | boolean | false |  |
 | transformFromCenter | 是否从包裹的元素水平或垂直中心处变换，该参数仅影响动效变换的 `transform-origin`，一般无需改动                                                                                             | boolean | true |  |
 | trigger | 触发展示的时机，可选值：`hover` / `focus` / `click` / `custom` / `contextMenu` (v2.42后提供)                                                                                                   | string | 'hover' |  |
-| visible | 是否展示弹出层                                                                                                                                              | boolean |  |  |
+| visible | 是否展示弹出层, 需配合 trigger='custom' 使用                                                                                                                                            | boolean |  |  |
 | wrapperClassName | 当 children 为 disabled ，或者 children 为多个元素时，外层将会包裹一层 span 元素，该 api 用于设置此 span 的样式类名                                                                    | string |  |  |
 | wrapperId | 弹出层 wrapper 节点的 id，trigger 的 aria 属性指向此 id，若不设置组件会随机生成一个 id                                                                                          | string |  | 2.11.0  |
 | zIndex | 弹层层级                                                                                                                                                 | number | 1060 |  |

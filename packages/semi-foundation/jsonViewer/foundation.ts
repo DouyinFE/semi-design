@@ -1,15 +1,15 @@
+import { JsonViewer, JsonViewerOptions, CustomRenderRule } from '@douyinfe/semi-json-viewer-core';
+import BaseFoundation, { DefaultAdapter } from '../base/foundation';
 
-import { JsonViewer, JsonViewerOptions } from '@douyinfe/semi-json-viewer-core';
-import BaseFoundation, { DefaultAdapter, noopFunction } from '../base/foundation';
-
-export type { JsonViewerOptions };
+export type { JsonViewerOptions, CustomRenderRule };
 export interface JsonViewerAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getEditorRef: () => HTMLElement;
     getSearchRef: () => HTMLInputElement;
     notifyChange: (value: string) => void;
     notifyHover: (value: string, el: HTMLElement) => HTMLElement | undefined;
     setSearchOptions: (key: string) => void;
-    showSearchBar: () => void
+    showSearchBar: () => void;
+    notifyCustomRender: (customRenderMap: Map<HTMLElement, any>) => void
 }
 
 class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
@@ -23,6 +23,9 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
         const props = this.getProps();
         const editorRef = this._adapter.getEditorRef();
         this.jsonViewer = new JsonViewer(editorRef, props.value, props.options);
+        this.jsonViewer.emitter.on('customRender', (e) => {
+            this._adapter.notifyCustomRender(e.customRenderMap);
+        });
         this.jsonViewer.layout();
         this.jsonViewer.emitter.on('contentChanged', (e) => {
             this._adapter.notifyChange(this.jsonViewer?.getModel().getValue());
@@ -30,26 +33,38 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
                 this.search(this._adapter.getSearchRef().value);
             }
         });
-        this.jsonViewer.emitter.on('hoverNode', (e) => {
-            const el = this._adapter.notifyHover(e.value, e.target);
-            if (el) {
-                this.jsonViewer.emitter.emit('renderHoverNode', { el });
-            }
-        });
+
     }
 
-    search(searchText: string) {
-        const state = this.getState('searchOptions');
-        const { caseSensitive, wholeWord, regex } = state;
-        this.jsonViewer?.getSearchWidget().search(searchText, caseSensitive, wholeWord, regex);
+    search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) {
+        let options;
+        if (caseSensitive !== undefined || wholeWord !== undefined || regex !== undefined) {
+            options = {
+                caseSensitive: caseSensitive ?? false,
+                wholeWord: wholeWord ?? false,
+                regex: regex ?? false
+            };
+        } else {
+            options = this.getState('searchOptions');
+        }
+        const { caseSensitive: cs, wholeWord: ww, regex: rx } = options;
+        this.jsonViewer?.getSearchWidget().search(searchText, cs, ww, rx);
     }
 
-    prevSearch() {
-        this.jsonViewer?.getSearchWidget().navigateResults(-1);
+    prevSearch(step?: number) {
+        if (step === undefined) {
+            this.jsonViewer?.getSearchWidget().navigateResults(-1);
+        } else {
+            this.jsonViewer?.getSearchWidget().navigateResults(-step);
+        }
     }
 
-    nextSearch() {
-        this.jsonViewer?.getSearchWidget().navigateResults(1);
+    nextSearch(step?: number) {
+        if (step === undefined) {
+            this.jsonViewer?.getSearchWidget().navigateResults(1);
+        } else {
+            this.jsonViewer?.getSearchWidget().navigateResults(step);
+        }
     }
 
     replace(replaceText: string) {
@@ -72,6 +87,10 @@ class JsonViewerFoundation extends BaseFoundation<JsonViewerAdapter> {
 
     showSearchBar() {
         this._adapter.showSearchBar();
+    }
+
+    getSearchResults() {
+        return this.jsonViewer?.getSearchWidget().searchResults;
     }
 }
 

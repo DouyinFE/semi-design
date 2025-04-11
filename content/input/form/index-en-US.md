@@ -1095,7 +1095,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
                     { required: true, message: 'required error' },
                     { type: 'string', message: 'type error' },
                     { validator: (rule, value) => value === 'semi', message: 'should be semi' },
-                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                    { validator: (rule, value) => Boolean(value && value.startsWith('se')), message: 'should startsWith se' }
                 ]}
             />
             <Input
@@ -1106,7 +1106,7 @@ import { Form, Button } from '@douyinfe/semi-ui';
                     { required: true, message: 'required error' },
                     { type: 'string', message: 'type error' },
                     { validator: (rule, value) => value === 'semi', message: 'should be semi' },
-                    { validator: (rule, value) => value && value.startsWith('se'), message: 'should startsWith se' }
+                    { validator: (rule, value) => Boolean(value && value.startsWith('se')), message: 'should startsWith se' }
                 ]}
             />
             <Button htmlType='submit'>提交</Button>
@@ -2012,9 +2012,9 @@ const MyComponent = (props) => {
     };
     return (
         <div className='customField'>
-            <Input insetLabel='Name' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
+            <Input prefix='Name' value={name} onChange={v => handleChange(v, 'name')} style={{ width: 180, marginRight: 12 }} />
             <Select
-                insetLabel='Role'
+                prefix='Role'
                 value={role}
                 onChange={v => handleChange(v, 'role')}
                 style={{ width: 200 }}

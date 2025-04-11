@@ -164,6 +164,7 @@ $module: #{$prefix}-chat;
             &-btn {
                 &.#{$prefix}-button {
                     height: fit-content;
+                    width: fit-content;
                 }
                 
                 &.#{$prefix}-button.#{$prefix}-button-with-icon-only {

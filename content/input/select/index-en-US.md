@@ -297,40 +297,6 @@ import { IconVigoLogo, IconGift } from '@douyinfe/semi-icons';
 );
 ```
 
-### Select with inset label
-
-By setting`insetLabel`, you can set a label for Select, you can pass in string or ReactNode  
-When the incoming type is ReactNode, you need to handle the padding between the label and the text.
-
-```jsx live=true
-import React from 'react';
-import { Select } from '@douyinfe/semi-ui';
-
-() => {
-    const list = [
-        { value: 'douyin', label: 'Douyin' },
-        { value: 'capcut', label: 'Capcut' },
-        { value: 'xigua', label: 'BuzzVideo' },
-    ];
-    return (
-        <>
-            <Select style={{ width: 320 }} optionList={list} insetLabel="Application" defaultValue="douyin"></Select>
-            <br />
-            <br />
-            <Select
-                style={{ width: 320 }}
-                optionList={list}
-                insetLabel={
-                    <span style={{ marginRight: 0, marginLeft: 12, color: 'var(--semi-color-text-2)' }}>
-                        Application
-                    </span>
-                }
-            ></Select>
-        </>
-    );
-};
-```
-
 ### Additional items
 
 We have reserved two slots at the bottom of the pop-up layer, which you can use when you need to add a custom node to the pop-up layer.  
@@ -1441,7 +1407,6 @@ import { Select, Checkbox } from '@douyinfe/semi-ui';
 | inputProps | When filter is true, the additional configuration parameters of the input, please refer to the Input component for specific configurable properties (note: please do not pass in `value`, `ref`, `onChange`, `onFocus`, otherwise it will override Select related callbacks and affect component behavior)                                                         | object | | 2.2.0|
 | innerTopSlot | Render at the top of the pop-up layer, custom slot inside the optionList                                                                                                                                                                                                                                                                                           | ReactNode |  |
 | innerBottomSlot | Render at the bottom of the pop-up layer, custom slot inside the optionList                                                                                                                                                                                                                                                                                        | ReactNode |  |
-| insetLabel | Same to `prefix`, just an alias                                                                                                                                                                                                                                                                                                                                    | ReactNode |  |
 | loading | Does the drop-down list show the loading animation                                                                                                                                                                                                                                                                                                                 | boolean | false |
 | max | Maximum number of choices, effective only in multi-selection mode                                                                                                                                                                                                                                                                                                  | number |  |
 | maxTagCount | In multi-selection mode, when the option is beyond maxTag Count, the subsequent option is rendered in the form of + N                                                                                                                                                                                                                                              | number |  |

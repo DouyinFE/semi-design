@@ -84,6 +84,7 @@ $font-cascader_select-fontWeight: $font-weight-bold; // 级联选择菜单项字
 $font-cascader-fontWeight: $font-weight-regular; // 级联选择菜单项字重 - 未选中
 $font-cascader_label-fontWeight: 600;
 $font-cascader_selection_n-fontSize: $font-size-small; // 超出 maxTagCount 后，+n 的文字尺寸
+$font-cascader_prefix_suffix_fontWeight: $font-weight-bold; // 级联选择 prefix/suffix 文字字重
 
 $width-cascader-border: 1px; // 级联选择触发器描边宽度
 $width-cascader_option_list-border: 1px; // 级联选择各级菜单分割线宽度
@@ -107,7 +108,6 @@ $height-cascader_selection_wrapper_large: 38px;  //级联选择单选搜索时�
 
 $spacing-cascader_text-marginX: $spacing-base-tight; // 级联选择 prefix/suffix 文字水平内间距
 $spacing-cascader_icon-marginX: $spacing-tight; // 级联选择 prefix/suffix 图标水平内间距
-$spacing-cascader_label-marginRight: $spacing-base-tight; // 级联选择 prefix/suffix 图标水平内间距
 $spacing-cascader_label_checkbox-marginRight: $spacing-tight; // 级联选择 checkbox 的右间距
 $spacing-cascader_selection_n-paddingX: $spacing-tight; // 级联选择 +N 的水平间距
 

@@ -4,6 +4,7 @@ import { Locale } from '../interface';
 const local: Locale = {
     code: 'ru-RU',
     dateFnsLocale: ru,
+    currency: 'RUB',
     Pagination: {
         pageSize: 'Позиции на странице: ${pageSize}',
         total: 'Всего страниц: ${total}',
@@ -184,6 +185,18 @@ const local: Locale = {
         copy: 'Копировать',
         copied: 'Скопировано',
         dropAreaText: 'Положите файл здесь',
+    },
+    UserGuide: {
+        skip: 'Пропустить',
+        next: 'Следующий',
+        prev: 'Предыдущий',
+        finish: 'Завершить',
+    },
+    InputNumber: {},
+    JsonViewer: {
+        search: 'Поиск',
+        replace: 'Заменить',
+        replaceAll: 'Заменить все',
     },
 };
 

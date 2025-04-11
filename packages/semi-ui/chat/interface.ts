@@ -2,9 +2,11 @@ import React, { ReactNode } from 'react';
 import { MDXProps } from 'mdx/types';
 import { Upload } from '../index';
 import type { FileItem, UploadProps } from '../upload';
-import { Message } from '@douyinfe/semi-foundation/chat/foundation';
+import { EnableUploadProps, Message } from '@douyinfe/semi-foundation/chat/foundation';
 import type { TooltipProps } from '../tooltip';
-import { MarkdownRenderProps } from '../markdownRender';
+import { MarkdownRenderProps as OriginMarkdownRenderProps } from '../markdownRender';
+
+export type MarkdownRenderProps = Partial<OriginMarkdownRenderProps>;
 
 export { Message };
 export interface CommonChatsProps {
@@ -48,7 +50,8 @@ export interface ChatProps extends CommonChatsProps {
     uploadProps?: UploadProps;
     uploadTipProps?: TooltipProps;
     showClearContext?: boolean;
-    sendHotKey?: 'enter' | 'shift+enter'
+    sendHotKey?: 'enter' | 'shift+enter';
+    enableUpload?: boolean | EnableUploadProps
 }
 
 export interface RenderInputAreaProps {
@@ -168,7 +171,9 @@ export interface InputBoxProps {
     renderInputArea?: (props: RenderInputAreaProps) => React.ReactNode;
     onSend?: (content: string, attachment: FileItem[]) => void;
     onClearContext?: (e: any) => void;
-    onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void
+    onInputChange?: (props: {inputValue: string; attachment: FileItem[]}) => void;
+    clickUpload?: boolean;
+    pasteUpload?: boolean
 }
 
 export interface InputBoxState {

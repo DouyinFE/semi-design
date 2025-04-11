@@ -97,6 +97,8 @@ export interface FormFCChild<K extends Record<string, any> = any> {
 }
 
 
+type BatchValidateResult<Values> = string | Partial<AllErrors<Values>>
+
 export interface BaseFormProps <Values extends Record<string, any> = any> extends Omit<React.FormHTMLAttributes<HTMLFormElement>, 'children' | 'onChange' | 'onSubmit' | 'onReset'> {
     'aria-label'?: React.AriaAttributes['aria-label'];
     onSubmit?: (values: Values, e?: React.FormEvent<HTMLFormElement>) => void;
@@ -106,7 +108,7 @@ export interface BaseFormProps <Values extends Record<string, any> = any> extend
     onErrorChange?: (errors: Record<keyof Values, FieldError>, changedError?: Partial<Record<keyof Values, FieldError>>) => void;
     onChange?: (formState: FormState<Values>) => void;
     allowEmpty?: boolean;
-    validateFields?: (values: Values) => string | Partial<AllErrors<Values>>;
+    validateFields?: (values: Values) => BatchValidateResult<Values> | Promise<BatchValidateResult<Values>>;
     /** Use this if you want to populate the form with initial values. */
     initValues?: Values;
     id?: string;

@@ -121,6 +121,57 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
     - Fixed the problem that  Form Label lost padding right（effect version v2.23.1） [#1258](https://github.com/DouyinFE/semi-design/pull/1258)
     - The Switch component Design Token is updated, adding `$spacing-switch_knob-left`; `$motion-switch_unchecked-translateX` is corrected to more semantically `$spacing-switch_unchecked-translateX` [#1267](https://github.com/DouyinFE/semi-design/pull/1267)
 
+#### 🎉 2.78.0 (2025-04-08)
+- 【Fix】
+    - A fallback operation to avoid TypeError when target does not exist in BackTop component
+    - Fixed the issue that markdownRenderProps did not take effect when parsing text in Chat when the content of the message is an array
+    - fix the issue that Collapse Tabs cannot scroll activeTab into the viewport when first loaded
+- 【Style】
+    - Fixed the problem that the header cells with sorting in Table flicker when switching between light and dark
+- 【Design Token】
+    - ScrollList adds $color-scrollList_header-bg to control header color
+
+#### 🎉 2.78.0-beta.0 (2025-04-01)
+- 【Feat】
+    - Cropper adds preview API to support real-time preview of cropping effects  [#2783](https://github.com/DouyinFE/semi-design/issues/2783)
+#### 🎉 2.77.0 (2025-03-25)
+- 【Fix】
+    - Fixed the issue of click-through when the UserGuide is in the bubble mode [#2764](https://github.com/DouyinFE/semi-design/pull/2764)
+    - Fixed the problem that the icon in the header of the Navigation is not centered in the collapsed mode.  [#2675](https://github.com/DouyinFE/semi-design/issues/2675)
+    - Fixed the problem that the search box of JsonViewer does not support i18n multilingual adaptation. [#2766](https://github.com/DouyinFE/semi-design/pull/2766)
+    - Fixed the problem of long text folding when the auto-wrap function of JsonViewer is not enabled, and fixed the issue of line number display. [#2756](https://github.com/DouyinFE/semi-design/pull/2756)
+
+#### 🎉 2.77.0-beta.0 (2025-03-18)
+- 【New Component】
+    - support new component UserGuide
+- 【Feat】
+    - InputNumber supports currency mode
+- 【Fix】
+    - fix MarkdownRender table duplicate column elements when header containing more than two components or bold texts [@ByteLan](https://github.com/ByteLan)
+    - Correct locale codes for Netherlands, Poland and Sweden (nl_NL -> nl-NL, pl_PL -> pl-PL, sv_SE -> sv-SE)
+
+#### 🎉 2.76.1 (2025-03-17)
+- 【Style】
+    - Style: For input type components, the styles of insetLabel and prefix remain consistent. Removed unnecessary tokens related to insetLabel, Added $font-cascader_prefix_suffix_fontWeight, $spacing-input_prefix_suffix-marginX, $font-input_prefix_suffix-fontWeight, $font-select_prefix_suffix-fontWeight, $spacing-tagInput_prefix_suffix-marginX, $font-tagInput_prefix_suffix-fontWeight, $font-treeSelect_prefix_suffix_fontWeight to manage prefix and suffix weights and margins.[#2752](https://github.com/DouyinFE/semi-design/issues/2752)
+
+#### 🎉 2.76.0 (2025-03-07)
+- 【Fix】
+    - Fix JsonViewer type error issue [@anjiazhuyouxing](https://github.com/anjiazhuyouxing) [#2748](https://github.com/DouyinFE/semi-design/pull/2748)
+
+#### 🎉 2.76.0-beta.0 (2025-03-04)
+- 【Feat】
+    - Chat supports enableUpload API to support users to set upload behavior  [#2735](https://github.com/DouyinFE/semi-design/issues/2735)
+    - Allow RadioGroup options passing addonStyles/addonClassName/addonId/extraId option to Radio component [@SaltyfishEd](https://github.com/SaltyfishEd)
+    - JsonViewer adds custom rendering function [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+- 【Fix】
+    - Nav adds a new selector style to provide hover style for renderWrapper scenes
+    - adjust jsonviewer search box popup positioning [@anjiazhuyouxing](https://github.com/anjiazhuyouxing)
+    - fix when TimePicker does not fill in the default value, users in different time zones open the template and select different default values
+    - fix the problem that Nav.item does not prompt ts error when passing non-recommended attribute Children
+- 【Style】
+    - Style: Fixed the issue of incorrect spacing between action buttons in the Chat component's dialog box (affected versions 2.71.1-2.75.0)
+    - Modify Cascader's default empty data display style to be consistent with TreeSelect/Select  [#2703](https://github.com/DouyinFE/semi-design/issues/2703)
+
 #### 🎉 2.75.0 (2025-02-21)
 - 【Design Token】
     - Select adds $color-select_prefix_suffix_text-default, Cascader adds $color-cascader_prefix_suffix_text-default, and TreeSelect adds $color-treeSelect_prefix_text-default to control the prefix and suffix colors. In addition, keep the font-size and font-weight settings of the prefix and suffix consistent with the settings of insetLabal (**Note: There are changes in styles before and after modification**)  [#2721](https://github.com/DouyinFE/semi-design/issues/2721)

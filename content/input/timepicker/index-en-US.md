@@ -42,18 +42,6 @@ function Demo() {
 }
 ```
 
-
-### With an Embedded Label
-
-```jsx live=true
-import React from 'react';
-import { TimePicker } from '@douyinfe/semi-ui';
-
-function Demo() {
-    return <TimePicker insetLabel="Time" />;
-}
-```
-
 ### Controlled Component
 
 When using `value` And not. `defaultValue` When used as a controlled component.`value` and `onChange` It needs to be used in conjunction.
@@ -311,7 +299,6 @@ function Demo(props = {}) {
 | hideDisabledOptions | Hide the option of forbidden selection                                                                                                                                                                                                        | boolean | false |
 | hourStep | Hour option interval                                                                                                                                                                                                                          | number | 1 |
 | inputReadOnly | Set the input box to read-only (avoid opening a virtual keyboard on a mobile device)                                                                                                                                                          | boolean | false |
-| insetLabel | Prefix label, lower priority than `prefix`                                                                                                                                                                                                    | string\|ReactNode |  |  |
 | minuteStep | Minute option interval                                                                                                                                                                                                                        | number | 1 |
 | motion | Whether to display the pop-up layer animation                                                                                                                                                                                                 | boolean | true |  |
 | open | Controlled property of whether the panel is open                                                                                                                                                                                              | boolean |  |

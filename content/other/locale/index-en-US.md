@@ -1,6 +1,6 @@
 ---
 localeCode: en-US
-order: 89
+order: 90
 category: Other
 title: LocaleProvider
 subTitle: LocaleProvider
@@ -342,7 +342,7 @@ class I18nDemo extends React.Component {
                             style={{ width: 300, margin: 10 }}
                             treeData={treeData}
                             filterTreeNode
-                            insetLabel='Cascader'
+                            prefix='Cascader'
                         />
                     </div>
                     <h5>DatePicker</h5>
@@ -418,7 +418,7 @@ class I18nDemo extends React.Component {
         return (
             <>
                 <div style={{ borderBottom: '1px solid var(--semi-color-border)', paddingBottom: 20 }}>
-                    <Select onChange={this.onLanguageChange} insetLabel='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
+                    <Select onChange={this.onLanguageChange} prefix='Switch Language' style={{ width: 250 }} defaultValue='en_GB'>
                         <Select.Option value='zh_CN'>Chinese</Select.Option>
                         <Select.Option value='en_GB'>English</Select.Option>
                         <Select.Option value='ja_JP'>Japanese</Select.Option>

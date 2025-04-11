@@ -45,7 +45,7 @@ class SimpleJsonViewer extends React.Component {
     render() {
         return (
             <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={100} width={400} value={data} />
+                <JsonViewer height={100} width={700} value={data} />
             </div>
         );
     }
@@ -70,13 +70,13 @@ class SimpleJsonViewerWithLineHeight extends React.Component {
         return (
             <div>
                 <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={100} width={320} value={data} options={{ lineHeight: 20 }} />
+                    <JsonViewer height={100} width={700} value={data} options={{ lineHeight: 20 }} />
                 </div>
                 <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 24 }} />
+                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 24 }} />
                 </div>
                 <div style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <JsonViewer height={120} width={320} value={data} options={{ lineHeight: 26 }} />
+                    <JsonViewer height={120} width={700} value={data} options={{ lineHeight: 26 }} />
                 </div>
             </div>
         );
@@ -102,7 +102,7 @@ class SimpleJsonViewerWithAutoWrap extends React.Component {
     render() {
         return (
             <div style={{ marginBottom: 16 }}>
-                <JsonViewer height={120} width={800} value={data} options={{ autoWrap: true }} />
+                <JsonViewer height={120} width={700} value={data} options={{ autoWrap: true }} />
             </div>
         );
     }
@@ -135,7 +135,7 @@ function FormatJsonComponent() {
                 <JsonViewer
                     ref={jsonviewerRef}
                     height={100}
-                    width={400}
+                    width={700}
                     value={data}
                     options={{ formatOptions: { tabSize: 4, insertSpaces: true, eol: '\n' } }}
                 />
@@ -147,6 +147,78 @@ function FormatJsonComponent() {
 render(FormatJsonComponent);
 ```
 
+### 自定义渲染规则
+
+通过配置 `options.customRenderRule` 参数，你可以自定义 JSON 内容的渲染方式（注意：仅在只读模式下生效）。
+
+`customRenderRule` 是一个规则数组，每条规则包含两个属性：
+- `match`: 匹配条件，可以是以下三种类型之一：
+  - 字符串：精确匹配
+  - 正则表达式：按正则匹配
+  - 函数：自定义匹配逻辑，函数签名为 `(value: string, path: string) => boolean`
+    - `value`: 待匹配的值（为Json字符串的键值对的键或者值，由于内部处理注入时仅过滤引号，因此类型全部为string）
+    - `path`: 当前匹配到的路径，格式为 `root.key1.key2.key3[0].key4`
+- `render`: 自定义渲染函数，函数签名为 `(content: string) => React.ReactNode`
+  - `content`: 匹配到的内容。如果是字符串类型的值，将包含双引号（如 `"name"`，`"Semi"`）
+
+```jsx live=true dir="column" noInline=true
+import React, { useRef } from 'react';
+import { JsonViewer, Button, Rating, Popover, Tag, Image } from '@douyinfe/semi-ui';
+const data = `{
+  "name": "Semi",
+  "version": "2.7.4",
+  "rating": 5,
+  "tags": ["design", "react", "ui"],
+  "image": "https://lf3-static.bytednsdoc.com/obj/eden-cn/ptlz_zlp/ljhwZthlaukjlkulzlp/root-web-sites/abstract.jpg"
+}`;
+function CustomRenderJsonComponent() {
+    const jsonviewerRef = useRef();
+    const customRenderRule = [
+        {
+            match: 'Semi',
+            render: (content) => {
+                return <Popover showArrow content={'我是用户自定义的渲染'} trigger='hover'><span>{content}</span></Popover>;
+            }
+        },
+        {
+            match: (value)=> value == 5,
+            render: (content) => {
+                return <Rating defaultValue={content} size={10} disabled/>;
+            }
+        },
+        {
+            match: (value, path)=> path === 'root.tags[0]' || path === 'root.tags[1]' || path === 'root.tags[2]',
+            render: (content) => {
+                return <Tag size='small' shape='circle'>{content}</Tag>;
+            }
+        },
+        {
+            match: new RegExp('^http'),
+            render: (content) => {
+                // content 为原始字符串，包含引号,因此需要去除引号才可以作为合法的url
+                return <Popover showArrow content={<Image width={100} height={100} src={content.replace(/^"|"$/g, '')} />} trigger='hover'><span>{content}</span></Popover>;
+            }
+        }
+    ];
+    return (
+        <div>
+            <div style={{ marginBottom: 16, marginTop: 16 }}>
+                <JsonViewer
+                    ref={jsonviewerRef}
+                    height={200}
+                    width={600}
+                    value={data}
+                    showSearch={false}
+                    options={{ formatOptions: { tabSize: 4, insertSpaces: true, eol: '\n' }, customRenderRule, readOnly: true, autoWrap: true }}
+                />
+            </div>
+        </div>
+    );
+}
+
+render(CustomRenderJsonComponent);
+```
+
 
 ## API 参考
 
@@ -155,22 +227,29 @@ render(FormatJsonComponent);
 | 属性                | 说明                                             | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|--------------|
 | value             | 展示内容                                    | string                                  | -  |
-| height            | 高度                                     | number                                  | -  |
-| width             | 宽度                                     | number                                  | -  |
+| height            | 高度                                     | number \| string                                  | -  |
+| width             | 宽度                                     | number \| string                                 | -  |
 | className         | 类名                           | string                                  | -   |
 | style             | 内联样式                           | object                                  | -   |
 | showSearch        | 是否显示搜索Icon                           | boolean                                  | true   |
-| options           | 格式化配置                                | JsonViewerOptions                       | -   |
+| options           | 编辑器配置                                | JsonViewerOptions                       | -   |
 | onChange          | 内容变化回调                           | (value: string) => void                  | -   |
 
 ### JsonViewerOptions
 
+| 属性                | 说明                                          | 类型                              | 默认值    | 版本
+|-------------------|------------------------------------------------|---------------------------------|-----------|---------|
+| lineHeight        | 行高                                    | number                          | 20  | - |
+| autoWrap        | 是否自动换行                             | boolean                            | true  | - |
+| readOnly        | 是否只读                             | boolean                            | false  | - |
+| customRenderRule | 自定义渲染规则                             | CustomRenderRule[]               |  -  | 2.74.0 |
+| formatOptions     | 格式化配置                               | FormattingOptions                |  -  | - |
+
+### CustomRenderRule
 | 属性                | 说明                                          | 类型                              | 默认值    |
 |-------------------|------------------------------------------------|---------------------------------|-----------|
-| lineHeight        | 行高                                    | number                          | 20  |
-| autoWrap        | 是否自动换行                             | boolean                            | true  |
-| readOnly        | 是否只读                             | boolean                            | false  |
-| formatOptions     | 格式化配置                               | FormattingOptions                |  -  |
+| match             | 匹配规则                                   | string \| RegExp \| (value: string, path: string) => boolean | -  |
+| render            | 渲染函数                                   | (content: string) => React.ReactNode | -  |
 
 ### FormattingOptions
 
@@ -182,12 +261,19 @@ render(FormatJsonComponent);
 
 ## Methods
 
-绑定在组件实例上的方法，可以通过 ref 调用实现某些特殊交互
+可以通过 `ref` 调用组件实例上绑定的方法，实现某些特殊交互。
 
 | 名称    | 描述     |
 |---------|--------|
 | getValue()  | 获取当前值 |
-| format() | 格式化 |
+| format() | 格式化当前内容 |
+| search(searchText: string, caseSensitive?: boolean, wholeWord?: boolean, regex?: boolean) | 搜索文本，可选参数控制大小写敏感、全词匹配和正则表达式 |
+| getSearchResults() | 获取当前搜索结果 |
+| prevSearch(step?: number) | 导航到上一个搜索结果，可选步长参数 |
+| nextSearch(step?: number) | 导航到下一个搜索结果，可选步长参数 |
+| replace(replaceText: string) | 替换当前搜索匹配项 |
+| replaceAll(replaceText: string) | 替换所有搜索匹配项 |
+
 
 
 ### Performance 

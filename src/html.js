@@ -167,7 +167,6 @@ export default function HTML(props) {
                     "react library",
                     "Design component",
                     "Design System",
-                    "quick develop",
                     "easy customize",
                     "modern design system",
                     "front-end",
@@ -175,18 +174,17 @@ export default function HTML(props) {
                     "用户界面组件",
                     "反应库",
                     "设计组件",
-                    "设计系统",
-                    "快速发展",
+                    "抖音设计系统",
                     "轻松定制",
                     "现代设计体系",
                     "前端"
                 ].join(", ")}/>
                 <script src="https://lf1-cdn-tos.bytescm.com/goofy/semi_convenience/semi-analyze.js" defer={true} />
                 {
-                    THEME_SWITCHER_URL?<script src={THEME_SWITCHER_URL} defer={true}/>:<script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js" defer={true}/>
+                    THEME_SWITCHER_URL ? <script src={THEME_SWITCHER_URL} defer={true}/> : <script src="https://unpkg.byted-static.com/latest/ies/semi-theme-switcher-opensource/dist/semi-theme-switcher.js" defer={true}/>
                 }
                 {
-                    SEMI_SEARCH_URL?<script src={SEMI_SEARCH_URL} defer={true}/>:<script src={"https://unpkg.byted-static.com/latest/ies/semi-search-opensource/dist/semi-search.js"} defer={true}/>
+                    SEMI_SEARCH_URL ? <script src={SEMI_SEARCH_URL} defer={true}/> : <script src={"https://unpkg.byted-static.com/latest/ies/semi-search-opensource/dist/semi-search.js"} defer={true}/>
                 }
                 {
                     MATERIAL_LIST_URL ? <script src={MATERIAL_LIST_URL} defer={true} /> : null

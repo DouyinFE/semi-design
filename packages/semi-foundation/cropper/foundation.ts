@@ -60,6 +60,12 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     rangeX: [number, number];
     rangeY: [number, number];
     initial: boolean;
+    previewImg: HTMLImageElement;
+    previewContainer: HTMLElement;
+    previewContainerInitSize: {
+        width: number;
+        height: number
+    };
     
     constructor(adapter: CropperAdapter<P, S>) {
         super({ ...adapter });
@@ -74,6 +80,8 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
         this.rangeX = null;
         this.rangeY = null;
         this.initial = false;
+        this.previewImg = null;
+        this.previewContainer = null;
     }
 
     init() {
@@ -88,6 +96,7 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
     destroy() {
         this.unBindMoveEvent();
         this.unBindResizeEvent();
+        this.removePreview();
     }
 
     getImgDataWhenResize = (ratio: number) => {
@@ -228,6 +237,80 @@ export default class CropperFoundation <P = Record<string, any>, S = Record<stri
             cropperBox: newCropperBoxState,
             loaded: true,
         } as any);
+
+        this.renderPreview();
+    }
+
+    renderPreview = () => {
+        const { preview, src } = this.getProps();
+        const previewNode = preview?.();
+        if (!previewNode) {
+            return;
+        }
+        const img = document.createElement('img');
+        this.previewImg = img;
+        this.previewContainer = previewNode;
+        img.src = src;
+        previewNode.appendChild(img);
+        this.previewContainer.style.overflow = 'hidden';
+        // 记录预览容器初始宽高
+        const { width: previewWidth, height: previewHeight } = previewNode.getBoundingClientRect();
+        this.previewContainerInitSize = {
+            width: previewWidth,
+            height: previewHeight,
+        };
+    }
+
+    updatePreview = (props: {
+        width: number;
+        height: number;
+        translateX: number;
+        translateY: number;
+        rotate: number
+    }) => {
+        if (!this.previewImg) {
+            return;
+        }
+        const { cropperBox } = this.getStates();
+        let zoom = 1;
+        const { width: containerWidth, height: containerHeight } = this.previewContainerInitSize;
+        let previewWidth = containerWidth;
+        let previewHeight = containerHeight;
+        if (previewWidth < previewHeight) {
+            zoom = containerWidth / cropperBox.width;
+            let tempHeight = zoom * cropperBox.height;
+            if (tempHeight > containerHeight) {
+                zoom = containerHeight / cropperBox.height;
+                previewWidth = zoom * cropperBox.width;
+            } else {
+                previewHeight = tempHeight;
+            }
+        } else {
+            zoom = containerHeight / cropperBox.height;
+            let tempWidth = zoom * cropperBox.width;
+            if (tempWidth > containerWidth) {
+                zoom = containerWidth / cropperBox.width;
+                previewHeight = zoom * cropperBox.height;
+            } else {
+                previewWidth = tempWidth;
+            }
+        }
+        const { width, height, translateX, translateY, rotate } = props;
+        // Set the image style
+        this.previewImg.style.width = `${width * zoom}px`;
+        this.previewImg.style.height = `${height * zoom}px`;
+        this.previewImg.style.transform = `translate(${translateX * zoom}px, ${translateY * zoom}px) rotate(${rotate}deg)`;
+        this.previewImg.style.transformOrigin = 'center';
+        // set preview container size
+        this.previewContainer.style.width = `${previewWidth}px`;
+        this.previewContainer.style.height = `${previewHeight}px`;
+    }
+
+    removePreview = () => {
+        if (this.previewImg && this.previewContainer) {
+            this.previewContainer.removeChild(this.previewImg);
+            this.previewImg = null;
+        }
     }
 
     handleWheel = (e: any) => {

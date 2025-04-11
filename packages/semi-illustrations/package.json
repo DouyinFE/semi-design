@@ -1,6 +1,6 @@
 {
     "name": "@douyinfe/semi-illustrations",
-    "version": "2.74.0",
+    "version": "2.78.0",
     "description": "semi illustrations",
     "keywords": [
         "semi",
@@ -22,7 +22,7 @@
         "url": "https://github.com/DouyinFE/semi-design"
     },
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+        "react": ">=16.0.0"
     },
     "devDependencies": {
         "case-sensitive-paths-webpack-plugin": "2.4.0",

@@ -145,7 +145,8 @@ class ComboboxFoundation extends BaseFoundation<DefaultAdapter> {
      */
 
     createDateDefault() {
-        return new Date(parseInt(String(Date.now() / DAY), 10) * DAY - 8 * HOUR);
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
     }
 }
 

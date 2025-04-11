@@ -36,6 +36,12 @@ export interface Message {
     [x: string]: any
 }
 
+export interface EnableUploadProps {
+    pasteUpload?: boolean;
+    dragUpload?: boolean;
+    clickUpload?: boolean
+}
+
 export interface ChatAdapter<P = Record<string, any>, S = Record<string, any>> extends DefaultAdapter<P, S> {
     getContainerRef: () => HTMLDivElement;
     setWheelScroll: (flag: boolean) => void;
@@ -311,6 +317,29 @@ export default class ChatFoundation <P = Record<string, any>, S = Record<string,
         setTimeout(() => {
             this._adapter.setUploadAreaVisible(false);
         });
+    }
+
+    getUploadProps = (uploadProps?: boolean | EnableUploadProps) => {
+        if (Object.prototype.toString.call(uploadProps) === '[object Object]') {
+            const { dragUpload = true, clickUpload = true, pasteUpload = true } = uploadProps as EnableUploadProps;
+            return {
+                dragUpload: dragUpload,
+                clickUpload: clickUpload,
+                pasteUpload: pasteUpload
+            };
+        } else if (typeof uploadProps === 'boolean') {
+            return {
+                dragUpload: uploadProps,
+                clickUpload: uploadProps,
+                pasteUpload: uploadProps
+            };
+        } else {
+            return {
+                dragUpload: true,
+                clickUpload: true,
+                pasteUpload: true
+            };
+        }
     }
 }
 
