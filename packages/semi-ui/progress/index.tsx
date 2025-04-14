@@ -28,7 +28,8 @@ export interface ProgressProps {
     strokeLinecap?: 'round' | 'square';
     strokeWidth?: number;
     style?: React.CSSProperties;
-    type?: 'line' | 'circle';
+    type?: 'line' | 'circle' | 'dashboard';
+    gapAngle?: number;
     width?: number
 }
 
@@ -65,6 +66,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         strokeWidth: PropTypes.number,
         style: PropTypes.object,
         type: PropTypes.oneOf(strings.types),
+        gapAngle: PropTypes.number,
         width: PropTypes.number,
     };
 
@@ -83,6 +85,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
         strokeWidth: 4,
         style: {},
         type: strings.DEFAULT_TYPE,
+        gapAngle: 90,
     };
 
     _mounted: boolean = true;
@@ -160,6 +163,8 @@ class Progress extends Component<ProgressProps, ProgressState> {
             percent,
             orbitStroke,
             id,
+            type,
+            gapAngle,
             ...rest
         } = this.props;
         const ariaLabel = this.props['aria-label'];
@@ -189,8 +194,19 @@ class Progress extends Component<ProgressProps, ProgressState> {
         const cx = width / 2;
         const radius = (width - strokeWidth) / 2; // radius
         const circumference = radius * 2 * Math.PI;
-        const strokeDashoffset = (1 - perc / 100) * circumference; // Offset
-        const strokeDasharray = `${circumference} ${circumference}`;
+        let strokeDashoffset = 0; // Offset
+        let dashLength = circumference;
+        let circleStyle: React.CSSProperties = {};
+        if (type === 'dashboard') {
+            const angle = gapAngle > 180 ? 180 : gapAngle;
+            dashLength = circumference - this.angleToArcLength(angle, circumference);
+            circleStyle.transformOrigin = `${cx}px ${cy}px`;
+            circleStyle.transform = angle > 0 ? `rotate(${90 + angle / 2}deg)` : undefined;
+            strokeDashoffset = (1 - perc / 100) * dashLength;
+        } else if (type === 'circle') {
+            strokeDashoffset = (1 - perc / 100) * circumference;
+        }
+        const strokeDasharray = `${dashLength} ${circumference}`;
 
         const text = format(percNumber);
 
@@ -216,6 +232,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
                         stroke={orbitStroke}
+                        style={circleStyle}
                         r={radius}
                         cx={cx}
                         cy={cy}
@@ -229,6 +246,7 @@ class Progress extends Component<ProgressProps, ProgressState> {
                         strokeLinecap={strokeLinecap}
                         fill="transparent"
                         stroke={_stroke}
+                        style={circleStyle}
                         r={radius}
                         cx={cx}
                         cy={cy}
@@ -238,6 +256,10 @@ class Progress extends Component<ProgressProps, ProgressState> {
                 {showInfo && size !== 'small' ? <span className={`${prefixCls}-circle-text`}>{text}</span> : null}
             </div>
         );
+    }
+
+    angleToArcLength(angle: number, circumference) {
+        return angle / 360 * circumference;
     }
 
     calcPercent(percent: number): number {
