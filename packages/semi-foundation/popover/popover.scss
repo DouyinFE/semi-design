@@ -88,5 +88,15 @@ $module-icon: #{$module}-icon-arrow;
     }
 }
 
+.#{$module}-icon-arrow {
+    path:nth-child(1) {
+        fill: $color-popover-arrow-border;
+    }
+  
+    path:nth-child(2) {
+        fill: $color-popover-arrow-bg;
+    }
+}
+
 @import '../tooltip/arrow.scss';
 @import "./rtl.scss";
