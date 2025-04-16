@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Progress, IconButton } from '../../index';
+import { Progress, IconButton, Button } from '../../index';
+import { IconChevronLeft, IconChevronRight } from '@douyinfe/semi-icons';
+
 
 export default {
   title: 'Progress'
@@ -69,3 +71,50 @@ export const ProgressShowInfo = () => (
 ProgressShowInfo.story = {
   name: 'progress showInfo',
 };
+
+export const CustomLineColor = () => {
+  const [percent, setPercent] = useState(10);
+  const strokeArr = [
+      { percent: 20, color: 'red' },
+      { percent: 40, color: 'orange-9' },
+      { percent: 60, color: 'light-green-8' },
+      { percent: 80, color: 'hsla(125, 50%, 46% / 1)' }
+  ];
+  return (
+      <>
+          <div>
+              <Progress
+                  percent={percent}
+                  stroke={strokeArr}
+                  showInfo
+                  type="circle"
+                  width={100}
+                  aria-label="disk usage"
+              />
+              <Progress
+                  percent={percent}
+                  stroke={strokeArr}
+                  showInfo
+                  style={{ margin: '20px 0 10px', width: 200 }}
+                  aria-label="disk usage"
+              />
+          </div>
+          <Button
+              icon={<IconChevronLeft />}
+              theme="light"
+              onClick={() => {
+                  setPercent(percent - 10);
+              }}
+              disabled={percent === 0}
+          />
+          <Button
+              icon={<IconChevronRight />}
+              theme="light"
+              onClick={() => {
+                  setPercent(percent + 10);
+              }}
+              disabled={percent === 100}
+          />
+      </>
+  )
+}
