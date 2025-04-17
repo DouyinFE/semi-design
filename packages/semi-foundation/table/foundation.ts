@@ -59,6 +59,11 @@ export interface OnChangeExtra {
     changeType?: 'sorter' | 'filter' | 'pagination'
 }
 
+interface MouseDownTarget {
+    targetName: string;
+    className: string
+}
+
 export interface TableAdapter<RecordType> extends DefaultAdapter {
     resetScrollY: () => void;
     setSelectedRowKeys: (selectedRowKeys: BaseRowKeyType[]) => void;
@@ -158,6 +163,8 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
         }
     }
 
+    mouseDownTarget: MouseDownTarget;
+
     constructor(adapter: TableAdapter<RecordType>) {
         super({ ...adapter });
 
@@ -166,6 +173,7 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
          */
         const handleColumns: (queries: BaseColumnProps<RecordType>[], cachedColumns: BaseColumnProps<RecordType>[]) => BaseColumnProps<RecordType>[] = this._adapter.getHandleColumns();
         const mergePagination: (pagination: BasePagination) => BasePagination = this._adapter.getMergePagination();
+        this.mouseDownTarget = null ;
 
         this.memoizedWithFnsColumns = memoizeOne(handleColumns, isEqual);
         this.memoizedFilterColumns = memoizeOne(filterColumns);
@@ -1079,11 +1087,20 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
      * @param {*} column
      * @param {*} e
      */
-    handleSort(column: { dataIndex?: string; sortOrder?: BaseSortOrder } = {}, e: any) {
+    handleSort(column: { dataIndex?: string; sortOrder?: BaseSortOrder } = {}, e: any, check = false) {
         this.stopPropagation(e);
-        // if click on the resizable handle, do not trigger the sorting，fix #2802
-        if (e.target.className.includes('react-resizable-handle')) {
-            return;
+        /* if mouse down to the resizable handle, do not trigger the sorting，fix #2802
+            The target of the click event may be different from the target of the mousedown, 
+            e.g: Press the mouse, move to another node and then release it，
+            So according to the event in the mousedown to determine whether to trigger the sorting
+        */ 
+        if (check) {
+            if (this.mouseDownTarget && this.mouseDownTarget?.targetName === 'SPAN' && 
+                this.mouseDownTarget?.className?.includes?.('react-resizable-handle')
+            ) {
+                return;
+            }
+            this.mouseDownTarget = null;
         }
 
         const { dataIndex } = column;
@@ -1129,6 +1146,13 @@ class TableFoundation<RecordType> extends BaseFoundation<TableAdapter<RecordType
 
         // notify sort event
         this._notifyChange(null, null, curQuery, { changeType: 'sorter' });
+    }
+
+    handleMouseDown = (e: any) => {
+        this.mouseDownTarget = {
+            targetName: e.target?.tagName,
+            className: e.target?.className,
+        };
     }
 
     /**
