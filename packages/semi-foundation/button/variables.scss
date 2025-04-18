@@ -165,7 +165,16 @@ $width-button_iconOnly_large: $height-control-large; // 图标按钮 width - 大
 $spacing-button_iconOnly_content-marginLeft: $spacing-tight; // 按钮左侧图标距离文字间距
 $spacing-button_iconOnly_content-marginRight: $spacing-tight; // 按钮右侧图标距离文字间距
 
-$font-button-fontWeight: $font-weight-bold; // 按钮文字字重
+$font-button-fontWeight: $font-weight-bold; // 按钮文字字重 - 默认
+$font-button-fontSize: $font-size-regular; // 按钮文字字号- 默认
+$font-button-lineHeight: 20px; // 按钮文字行高 - 默认
+$font-button_small-fontWeight: $font-weight-bold; // 按钮文字字重 - 小尺寸
+$font-button_small-fontSize: $font-size-regular; // 按钮文字字号- 小尺寸
+$font-button_small-lineHeight: 20px; // 按钮文字行高 - 小尺寸
+$font-button_large-fontWeight: $font-weight-bold; // 默认按钮文字字重 - 大尺寸
+$font-button_large-fontSize: $font-size-regular; // 默认按钮文字字号 - 大尺寸
+$font-button_large-lineHeight: 20px; // 默认按钮文字行高 - 大尺寸
+
 $height-button_large: $height-control-large; // 按钮高度 - 大尺寸
 $height-button_small: $height-control-small; // 按钮高度 - 小尺寸
 $height-button_default: $height-control-default; // 按钮高度 - 默认

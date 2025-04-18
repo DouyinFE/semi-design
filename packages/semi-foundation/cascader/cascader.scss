@@ -39,6 +39,16 @@ $module: #{$prefix}-cascader;
     &-small {
         min-height: $height-cascader_small;
         line-height: $height-cascader_small;
+
+        .#{$module}-selection {
+            padding-left: $spacing-cascader_small_selection-paddingLeft;
+            padding-right: $spacing-cascader_small_selection-paddingRight;
+
+            &-multiple {
+                padding-left: $spacing-cascader_small_selection_multiple-paddingLeft;
+                padding-right: $spacing-cascader_small_selection_multiple-paddingRight;
+            }
+        }
     }
 
     &-large {
@@ -46,6 +56,16 @@ $module: #{$prefix}-cascader;
         line-height: $height-cascader_large;
         .#{$module}-selection {
             @include font-size-header-6;
+        }
+
+        .#{$module}-selection {
+            padding-left: $spacing-cascader_large_selection-paddingLeft;
+            padding-right: $spacing-cascader_large_selection-paddingRight;
+
+            &-multiple {
+                padding-left: $spacing-cascader_large_selection_multiple-paddingLeft;
+                padding-right: $spacing-cascader_large_selection_multiple-paddingRight;
+            }
         }
     }
 
