@@ -70,12 +70,12 @@ describe('Progress', () => {
             type: 'circle',
         };
         const p = getProgress(props);
-        const _stroke = p
+        const style = p
             .find('.semi-progress-circle-ring-inner')
             .at(0)
             .getDOMNode()
-            .getAttribute('stroke');
-        expect(_stroke).toEqual('#8080807f');
+            .getAttribute('style');
+        expect(style).toEqual("stroke: #8080807f;");
     });
 
     it('Gradient Accuracy [strokeGradient false & stroke type is Array]', () => {
@@ -90,12 +90,12 @@ describe('Progress', () => {
             type: 'circle',
         };
         const p = getProgress(props);
-        const _stroke = p
+        const style = p
             .find('.semi-progress-circle-ring-inner')
             .at(0)
             .getDOMNode()
-            .getAttribute('stroke');
-        expect(_stroke).toEqual('#ffffffff');
+            .getAttribute('style');
+        expect(style).toEqual("stroke: #ffffffff;");
     });
 
     it('Gradient Compatibility [strokeGradient true & stroke type is Array]', () => {
@@ -111,12 +111,12 @@ describe('Progress', () => {
             type: 'circle',
         };
         const p = getProgress(props);
-        const _stroke = p
+        const style = p
             .find('.semi-progress-circle-ring-inner')
             .at(0)
             .getDOMNode()
-            .getAttribute('stroke');
-        expect(_stroke).toEqual('#066b9dff');
+            .getAttribute('style');
+        expect(style).toEqual("stroke: #066b9dff;");
     });
 
     it('direction', () => {
