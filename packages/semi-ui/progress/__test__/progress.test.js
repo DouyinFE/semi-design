@@ -75,7 +75,7 @@ describe('Progress', () => {
             .at(0)
             .getDOMNode()
             .getAttribute('style');
-        expect(style).toEqual('stroke: rgba(128, 128, 128, 0.498);');
+        expect(style).toEqual("stroke: #8080807f;");
     });
 
     it('Gradient Accuracy [strokeGradient false & stroke type is Array]', () => {
@@ -95,7 +95,7 @@ describe('Progress', () => {
             .at(0)
             .getDOMNode()
             .getAttribute('style');
-        expect(style).toEqual('stroke: rgb(255, 255, 255);');
+        expect(style).toEqual("stroke: #ffffffff;");
     });
 
     it('Gradient Compatibility [strokeGradient true & stroke type is Array]', () => {
@@ -116,7 +116,7 @@ describe('Progress', () => {
             .at(0)
             .getDOMNode()
             .getAttribute('style');
-        expect(style).toEqual('stroke: rgb(6, 107, 157);');
+        expect(style).toEqual("stroke: #066b9dff;");
     });
 
     it('direction', () => {
