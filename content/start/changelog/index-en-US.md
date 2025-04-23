@@ -16,6 +16,19 @@ Version：Major.Minor.Patch (follow the **Semver** specification)
 
 ---
 
+#### 🎉 2.79.0-beta.0 (2025-04-23)
+- 【Style】
+    - Modify the implementation of background color and progress color in Progress to ensure that the design theme configuration takes effect [#2808](https://github.com/DouyinFE/semi-design/pull/2808)
+    - Fixed the problem that the width of the Chat content area was stretched by the table in the content, and the scrolling area was the entire content. After modification, the scrolling area is inside the table [#2776](https://github.com/DouyinFE/semi-design/issues/2776)
+- 【Design Token】
+    - Chat adds $width-chat_chatBox_avatar to set avatar width [#2775](https://github.com/DouyinFE/semi-design/pull/2775)
+    - Added Cascader padding token settings in large/small sizes, including $spacing-cascader_small_selection-paddingLeft, $spacing-cascader_small_selection-paddingRight, etc. [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+    - Added font setting tokens for Button in small/large sizes, including $font-button_small-fontSize, $font-button_small-lineHeight, $font-button_small-fontWeight, etc. [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+    - Modify the implementation of the background color and border color of the arrow in Popover to ensure that the background color and border color of the arrow in Popover can be modified through the theme configuration in DSM configuration, Added two arrow-related tokens: $color-popover-arrow-border and $color-popover-arrow-bg. [#2806](https://github.com/DouyinFE/semi-design/pull/2806)
+    - Added inputNumber stepper rounded corner token $radius-inputNumber_inner in innerButton mode [#2809](https://github.com/DouyinFE/semi-design/pull/2809)
+- 【Fix】
+    - Fixed the problem that when the hot area for sorting is the entire table header, an unexpected sorting problem will be triggered after the expansion is completed.  [#2802](https://github.com/DouyinFE/semi-design/issues/2802)
+
 #### 🎉 2.78.0 (2025-04-08)
 - 【Fix】
     - A fallback operation to avoid TypeError when target does not exist in BackTop component
