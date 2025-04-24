@@ -15,7 +15,7 @@ const dependentTree = {
     "Card": ["Space", "Skeleton", "Typography"],
     "Carousel": ["Icon"],
     "Cascader": ["Input", "Popover", "Tag", "TagInput", "Spin", "Checkbox", "Icon"],
-    "Chat": ["TextArea", "Button", "Upload", "Toast", "Progress", "Image", "Avatar", "Icon", "MarkdownRender", "Typography", "Tooltip", "Divider", "Popconfirm"],
+    "Chat": ["TextArea", "Button", "Upload", "Toast", "Progress", "Image", "Avatar", "Icon", "MarkdownRender", "Typography", "Tooltip", "Divider", "Popconfirm", "BackTop"],
     "Checkbox": ["Icon"],
     "CodeHighlight": [] as any,
     "CheckboxGroup": ["Icon"],
