@@ -14,7 +14,7 @@ $basicType: #{$module}-basic;
                 &::after {
                     content: "";
                     position: absolute;
-                    top: 50%;
+                    top: calc($height-steps_item_left / 2);
                     left: 100%;
                     display: block;
                     width: $width-steps_title_after;
@@ -69,6 +69,7 @@ $basicType: #{$module}-basic;
 
             .#{$item}-title {
                 max-width: $width-steps_basic_item_title-maxWidth;
+                min-height: $height-steps_item_left;
                 
                 .#{$item}-title-text {
                     @include text-overflow-hidden;
