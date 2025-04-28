@@ -14,7 +14,7 @@ $basicType: #{$module}-basic;
                 &::after {
                     content: "";
                     position: absolute;
-                    top: calc($height-steps_item_left / 2);
+                    top: $height-steps_item_left / 2;
                     left: 100%;
                     display: block;
                     width: $width-steps_title_after;
